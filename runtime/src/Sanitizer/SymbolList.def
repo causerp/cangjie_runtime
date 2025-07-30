@@ -1,0 +1,33 @@
+// Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+// This source file is part of the Cangjie project, licensed under Apache-2.0
+// with Runtime Library Exception.
+//
+// See https://cangjie-lang.cn/pages/LICENSE for license information.
+
+
+// symbol fix macro definition:
+// SANITIZER_SYMBOL_DECL(ret_type, func, argc, ...)
+// ret_type: function symbol return type
+// func: original function name
+// argc: argument count, for properly expand all arguments
+// ...: args, you must define as pairs: arg type, arg name
+
+// SANITIZER_SYMBOL_DECL symbols are located in namespace Sanitizer
+
+#ifndef SANITIZER_SYMBOL_DECL
+#define SANITIZER_SYMBOL_DECL(ret_type, func, argc, ...)
+#endif
+
+#ifdef CANGJIE_ASAN_SUPPORT
+#include "Sanitizer/AddressSanitizer/SymbolList.def"
+#endif
+
+#ifdef CANGJIE_TSAN_SUPPORT
+#include "Sanitizer/ThreadSanitizer/SymbolList.def"
+#endif
+
+#ifdef CANGJIE_HWASAN_SUPPORT
+#include "Sanitizer/HwAddressSanitizer/SymbolList.def"
+#endif
+
+#undef SANITIZER_SYMBOL_DECL

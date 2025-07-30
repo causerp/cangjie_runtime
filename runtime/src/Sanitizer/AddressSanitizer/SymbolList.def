@@ -1,0 +1,16 @@
+// Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+// This source file is part of the Cangjie project, licensed under Apache-2.0
+// with Runtime Library Exception.
+//
+// See https://cangjie-lang.cn/pages/LICENSE for license information.
+
+
+SANITIZER_SYMBOL_DECL(void, __asan_poison_memory_region, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __asan_unpoison_memory_region, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __asan_loadN, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __asan_storeN, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __lsan_register_root_region, 2, const void*, addr, size_t, size);
+SANITIZER_SYMBOL_DECL(void, __lsan_do_leak_check, 0, void, void);
+SANITIZER_SYMBOL_DECL(void, __asan_handle_no_return, 1, const void*, sp);
+SANITIZER_SYMBOL_DECL(void, __sanitizer_start_switch_fiber, 3, void**, fakestacksave, const void*, bottom, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __sanitizer_finish_switch_fiber, 3, void*, fakestack, const void**, bottom_old, uintptr_t*, size_old);

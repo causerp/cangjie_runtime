@@ -1,0 +1,15 @@
+// Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+// This source file is part of the Cangjie project, licensed under Apache-2.0
+// with Runtime Library Exception.
+//
+// See https://cangjie-lang.cn/pages/LICENSE for license information.
+
+
+SANITIZER_SYMBOL_DECL(void, __hwasan_tag_memory, 3, volatile const void*, addr, uint8_t, tag, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(uintptr_t, __hwasan_tag_pointer, 2, volatile const void*, addr, uint8_t, tag);
+SANITIZER_SYMBOL_DECL(uint8_t, __hwasan_generate_tag, 0, void, void);
+SANITIZER_SYMBOL_DECL(void, __hwasan_loadN, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __hwasan_storeN, 2, volatile const void*, addr, uintptr_t, size);
+SANITIZER_SYMBOL_DECL(void, __hwasan_handle_vfork, 1, const void*, sp);
+SANITIZER_SYMBOL_DECL(int, __sanitizer_install_malloc_and_free_hooks, 2, const void*, malloc_hook,
+                                              const void*, free_hook);

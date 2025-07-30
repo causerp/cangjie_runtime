@@ -1,0 +1,118 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+# This source file is part of the Cangjie project, licensed under Apache-2.0
+# with Runtime Library Exception.
+#
+# See https://cangjie-lang.cn/pages/LICENSE for license information.
+
+.idea/*
+**/dist/*
+**/build/*
+cmake-build-debug/*
+output
+output-*
+build
+target
+!tests/LLT/**/output
+!build/build.py
+*.swp
+*.swo
+.json
+**/test_temp/*
+**/__pycache__/
+*.pyc
+*.exe
+
+# Cangjie generated files.
+**/*.cached/*
+**/.*_Cache/*
+*.ast
+*.cjo
+*.o
+*.bc
+*.cbc
+*.bchir
+*.jetjrehome
+*_jetpdb
+*.map
+*.prof
+*.macrocall
+# Various tag programs
+/tags
+/TAGS
+/GPATH
+/GRTAGS
+/GSYMS
+/GTAGS
+.gitusers
+autom4te.cache
+cscope.files
+cscope.out
+autoconf/aclocal.m4
+autoconf/autom4te.cache
+/compile_commands.json
+
+# CLion project configuration
+/.idea
+/cmake-build-debug
+
+# VS2017 and VSCode config files.
+.vscode
+.vs
+# clangd index
+.clangd
+.ccls-cache
+.cache
+
+# emacs
+*~
+\#*\#
+.\#*
+
+# ccls
+.ccls
+
+# gdb
+**/.gdb_history
+
+third_party/rapidjson
+third_party/flatbuffers
+third_party/boundscheck-v1.1.16
+third_party/context-boost-1.72.0
+third_party/panda
+third_party/llvm-project
+third_party/runtime
+third_party/ylong
+third_party/binary
+third_party/pcre2-10.44-h1
+third_party/stdx/
+tests/HLT
+# flatc generated file
+libs/std/ast/NodeFormat_generated.cj
+libs/std/ast/nodeformat_generated.cj
+libs/std/ast/table.cj
+libs/std/ast/flatbuffer_object.cj
+libs/std/ast/decode.cj
+
+libs/encoding/json/native/*.a
+libs/encoding/json/native/json_api.h
+libs/std/regex/native/pcre2
+
+jetpdb
+exec
+exec.map
+
+# tests/LLT
+tests/LLT/cost_time.csv
+
+# vscode
+.VSCodeCounter/
+
+# git mm
+.mm/
+
+# cmake format
+.cmake-format
+cmake_format.py
+
+# just build
+etc/repos-latest.json
