@@ -141,7 +141,7 @@ build.py的install功能提供如下额外选项：
 
 
 
-您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/release-cangjie-merged/std/build.py) 或通过 `--help` 选项了解更多编译选项：
+您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) 或通过 `--help` 选项了解更多编译选项：
 
 ```
 python3 build.py --help
