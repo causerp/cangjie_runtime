@@ -139,7 +139,7 @@ The install functionality of build.py provides the following additional options:
 - --prefix: Specifies the installation directory
 - --host: Specifies which target platform to install for
 
-You can also refer to [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/release-cangjie-merged/std/build.py) or use the `--help` option to learn more about compilation options:
+You can also refer to [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) or use the `--help` option to learn more about compilation options:
 
 ```
 python3 build.py --help
