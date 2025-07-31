@@ -17,6 +17,7 @@ public class Monitor <: Condition {
     private let lock: Mutex
 
     public init() {
+        this.lock = Mutex()
         var isNull = unsafe { monitorInit(this) }
         if (isNull) {
             throw IllegalSynchronizationStateException("Initialization failed.")
