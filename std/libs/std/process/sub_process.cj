@@ -90,9 +90,9 @@ public class SubProcess <: Process {
      * @param timeout
      * @return Int64
      */
-    public func wait(timeout!: ?Duration = None): Int64 {
+    public func wait(timeout!: Duration = Duration.Zero): Int64 {
         // implement func for wait subprocess exec result and return statuscode
-        let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(this.pid), this._handle)
+        let exitCode: Int64 = getWaitExitCode(timeout, Int32(this.pid), this._handle)
         closeStdStream()
         return exitCode
     }
