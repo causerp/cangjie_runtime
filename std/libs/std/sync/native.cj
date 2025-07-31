@@ -26,13 +26,13 @@ func mutexUnlock(mutex: Mutex): Unit
 
 /* Monitor-related intrinsics*/
 @Intrinsic
-func monitorWait(monitor: Monitor, timeout: Int64): Bool
+func monitorWait(monitor: ConditionMonitor, timeout: Int64): Bool
 
 @Intrinsic
-func monitorNotify(monitor: Monitor): Unit
+func monitorNotify(monitor: ConditionMonitor): Unit
 
 @Intrinsic
-func monitorNotifyAll(monitor: Monitor): Unit
+func monitorNotifyAll(monitor: ConditionMonitor): Unit
 
 /* MultiConditionMonitor-related intrinsics*/
 @Intrinsic
@@ -50,4 +50,4 @@ func waitQueueInit(obj: WaitQueue): Bool
 
 /* Monitor-related intrinsics*/
 @Intrinsic
-func monitorInit(obj: Monitor): Bool
+func monitorInit(obj: ConditionMonitor): Bool

@@ -13,19 +13,15 @@ package std.sync
  */
 @Deprecated[message: "Use `public interface Condition` instead."]
 public class Monitor <: ReentrantMutex {
+    private let condition: ConditionMonitor
+
     public init() {
-        var isNull = unsafe { monitorInit(this) }
-        if (isNull) {
-            throw IllegalSynchronizationStateException("Initialization failed.")
-        }
+        this(Mutex())
     }
 
     init(mutex: Mutex) {
         super(mutex)
-        let isNull = unsafe { monitorInit(this) }
-        if (isNull) {
-            throw IllegalSynchronizationStateException("Initialization failed.")
-        }
+        this.condition = ConditionMonitor(mutex)
     }
 
     /**
@@ -36,16 +32,7 @@ public class Monitor <: ReentrantMutex {
      * @throws IllegalArgumentException if `timeout <= Duration.Zero`
      */
     public func wait(timeout!: Duration = Duration.Max): Bool {
-        checkMutexStatus()
-        if (timeout <= Duration.Zero) {
-            throw IllegalArgumentException("Timeout cannot be less than or equal to `Duration.Zero`.")
-        }
-        let timeoutNanos = if (timeout > MAX_TIMEOUT_DURATION) {
-            MAX_TIMEOUT_NS
-        } else {
-            timeout.toNanoseconds()
-        }
-        return unsafe { monitorWait(this, timeoutNanos) }
+        this.condition.wait(timeout: timeout)
     }
 
     /**
@@ -53,8 +40,7 @@ public class Monitor <: ReentrantMutex {
      * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
      */
     public func notify(): Unit {
-        checkMutexStatus()
-        unsafe { monitorNotify(this) }
+        this.condition.notify()
     }
 
     /**
@@ -62,8 +48,7 @@ public class Monitor <: ReentrantMutex {
      * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
      */
     public func notifyAll(): Unit {
-        checkMutexStatus()
-        unsafe { monitorNotifyAll(this) }
+        this.condition.notifyAll()
     }
 }
 
