@@ -26,16 +26,10 @@
 
 ## 相关仓
 
-[cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)
-
-[**cangjie_runtime**](https://gitcode.com/Cangjie/cangjie_runtime)
-
-[cangjie_tools](https://gitcode.com/Cangjie/cangjie_tools)
-
-[cangjie_stdx](https://gitcode.com/Cangjie/cangjie_stdx)
-
-[cangjie_docs](https://gitcode.com/Cangjie/cangjie_docs)
-
-[cangjie_build](https://gitcode.com/Cangjie/cangjie_build)
-
-[cangjie_test](https://gitcode.com/Cangjie/cangjie_test)
+- [cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)
+- [**cangjie_runtime**](https://gitcode.com/Cangjie/cangjie_runtime)
+-  [cangjie_tools](https://gitcode.com/Cangjie/cangjie_tools)
+- [cangjie_stdx](https://gitcode.com/Cangjie/cangjie_stdx)
+- [cangjie_docs](https://gitcode.com/Cangjie/cangjie_docs)
+- [cangjie_build](https://gitcode.com/Cangjie/cangjie_build)
+- [cangjie_test](https://gitcode.com/Cangjie/cangjie_test)
