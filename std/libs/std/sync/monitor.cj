@@ -8,11 +8,14 @@
 
 package std.sync
 
+import std.time.MonoTime
+
 /**
  * Class that encapsulates single reentrant mutex and single condition instance (a.k.a. wait queue) associated with this mutex.
  */
-@Deprecated[message: "Use `public interface Condition` instead."]
-public class Monitor <: ReentrantMutex {
+public class Monitor <: Condition {
+    private let lock: Mutex
+
     public init() {
         var isNull = unsafe { monitorInit(this) }
         if (isNull) {
@@ -21,11 +24,19 @@ public class Monitor <: ReentrantMutex {
     }
 
     init(mutex: Mutex) {
-        super(mutex)
+        this.lock = mutex
         let isNull = unsafe { monitorInit(this) }
         if (isNull) {
             throw IllegalSynchronizationStateException("Initialization failed.")
         }
+    }
+
+    /**
+     * @brief Block until paired `notify` is invoked.
+     * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
+     */
+    public func wait(): Unit {
+        this.wait(timeout: Duration.Max)
     }
 
     /**
@@ -49,6 +60,43 @@ public class Monitor <: ReentrantMutex {
     }
 
     /**
+     * @brief Block until paired `notify` is invoked and the `predicate` return true, or the `predicate` always return ture.
+     * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
+     */
+    public func waitUntil(predicate: () -> Bool): Unit {
+        checkMutexStatus()
+        while (!predicate()) {
+            this.wait()
+        }
+    }
+
+    /**
+     * @brief Block until paired `notify` is invoked and the `predicate` return true, or the `predicate` always return ture, or `timeout` passed.
+     * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
+     */
+    public func waitUntil(predicate: () -> Bool, timeout!: Duration): Bool {
+        if (timeout <= Duration.Zero) {
+            throw IllegalArgumentException("Timeout cannot be less than or equal to `Duration.Zero`.")
+        }
+        checkMutexStatus()
+
+        let startTime = MonoTime.now()
+        var spentTime = Duration.Zero
+        while (!predicate()) {
+            if (spentTime >= timeout) { // timeout
+                return false
+            }
+
+            let success = wait(timeout: timeout - spentTime)
+            if (!success) { // timeout
+                return false
+            }
+            spentTime = MonoTime.now() - startTime
+        }
+        return true
+    }
+
+    /**
      * @brief Wake up a single thread waiting on this mutex (no particular admission policy implied).
      * @throws IllegalSynchronizationStateException if current thread does not hold this mutex
      */
@@ -64,6 +112,16 @@ public class Monitor <: ReentrantMutex {
     public func notifyAll(): Unit {
         checkMutexStatus()
         unsafe { monitorNotifyAll(this) }
+    }
+
+    /**
+     * @throws IllegalSynchronizationStateException if the current thread does not hold the lock.
+     */
+    func checkMutexStatus(): Unit {
+        let status = mutexCheckStatus(this.lock)
+        if (!status) {
+            throw IllegalSynchronizationStateException("Mutex is not locked by current thread.")
+        }
     }
 }
 
