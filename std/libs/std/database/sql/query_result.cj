@@ -46,4 +46,11 @@ public interface QueryResult <: Resource {
 
     @When[backend == "cjnative"]
     func getOrNull<T>(index: Int64): ?T
+
+    @When[backend == "cjnative"]
+    func get<T>(column: String): T
+
+    @When[backend == "cjnative"]
+    func getOrNull<T>(column: String): ?T
+    
 }

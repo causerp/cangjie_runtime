@@ -276,6 +276,8 @@ public interface QueryResult <: Resource {
     func next(): Bool
     func get<T>(index: Int64): T
     func getOrNull<T>(index: Int64): ?T
+    func get<T>(column: String): T
+    func getOrNull<T>(column: String): ?T
 }
 ```
 
@@ -324,6 +326,32 @@ func getOrNull<T>(index: Int64): ?T
 异常：
 
 - [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 索引超出列范围，或者行数据未准备好时，抛出异常。
+
+### func get\<T>(String)
+
+```cangjie
+func get<T>(column: String): T
+```
+
+功能：根据列名从结果集的当前行检索值。
+
+返回值：
+
+- T - `T`类型实例。
+
+### func getOrNull\<T>(String)
+
+```cangjie
+func getOrNull<T>(column: String): ?T
+```
+
+功能：根据列名从结果集的当前行检索值，数据库列允许 SQL NULL。
+
+返回值：
+
+- ?T - `T` 类型的实例，如果为空，返回 None。
+- 异常：[SqlException](database_sql_package_exceptions.md#class-sqlexception) - 列名不存在，或者行数据未准备好时，抛出异常。
+
 
 ### func next()
 
