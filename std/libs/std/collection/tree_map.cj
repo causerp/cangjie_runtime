@@ -151,7 +151,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
             this.root = newNode
         }
         //Insert Node.
-        return inserEntry(this.root, TreeMapEntry<K, V>(key, value))
+        return insertEntry(this.root, TreeMapEntry<K, V>(key, value))
     }
 
     /**
@@ -551,7 +551,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
     }
 
     /* Insert a node. */
-    func inserEntry(node: Node<K, V>, entry: TreeMapEntry<K, V>): Option<V> {
+    func insertEntry(node: Node<K, V>, entry: TreeMapEntry<K, V>): Option<V> {
         //Query the location to be inserted.
         let sr: SearchResult<K, V> = node.searchEntry(entry.key)
         match (sr.replaceNode) {
@@ -576,7 +576,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
                         childNode = node.getChild(sr.index + 1).getOrThrow()
                     }
                 }
-                return inserEntry(childNode, entry)
+                return insertEntry(childNode, entry)
         }
     }
 
