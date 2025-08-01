@@ -41,6 +41,7 @@ public class Timer <: Equatable<Timer> & Hashable {
     let task: () -> ?Duration
     var endTime: MonoTime
     var isEnabled = true
+    var isCancelled = false
 
     init(delay: Duration, task: () -> ?Duration) {
         let realDelay = if (delay > Duration.Zero) {
@@ -195,6 +196,9 @@ public class Timer <: Equatable<Timer> & Hashable {
      * Calling `cancel` more than once is equal to calling only once.
      */
     public func cancel(): Unit {
+        // Force marked cancel status.
+        isCancelled = true
+
         // Thread security does not need to be considered.
         // Because the impact of repeatedly setting disable and increasing the number of cancels by 1 is controllable.
         if (isEnabled) {
@@ -225,6 +229,10 @@ public class Timer <: Equatable<Timer> & Hashable {
     }
 
     func reload(duration: Duration): Unit {
+        if (isCancelled) {
+            return
+        }
+
         endTime = MonoTime.now() + duration
         isEnabled = true
         scheduler.add(this)
@@ -436,7 +444,7 @@ class TimerScheduler {
             return
         }
         let timer = heap.top()
-        if (!timer.isEnabled) {
+        if (timer.isCancelled || !timer.isEnabled) {
             heap.poll()
             cancelCount.fetchSub(1)
             return
@@ -477,7 +485,7 @@ class TimerScheduler {
         heap = TimerHeap()
         while (!source.isEmpty) {
             let timer = source.poll()
-            if (timer.isEnabled) {
+            if (!timer.isCancelled && timer.isEnabled) {
                 heap.add(timer)
             }
         }
