@@ -22,8 +22,8 @@ public class DateTimeFormat {
     public static const RFC822: String = "ww dd MMM yy HH:mm:ss z"
     public static const RFC850: String = "wwww, dd-MMM-yy HH:mm:ss z"
     public static const DateTime: String = "yyyy-MM-dd HH:mm:ss"
-    public static const DateOnly: String = "yyyy-MM-dd"
-    public static const TimeOnly: String = "HH:mm:ss"
+    public static const Date: String = "yyyy-MM-dd"
+    public static const Time: String = "HH:mm:ss"
     let data = ArrayList<FormatType>()
     let rawString: String
 
