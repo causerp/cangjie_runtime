@@ -27,38 +27,38 @@ void CJFile::LoadWinCJFileMeta()
     Uptr begin = GetFileMetaAddr();
     CJFileHeader* header = reinterpret_cast<CJFileHeader*>(begin);
     // Init TablePtrs
-    cJFileMetaEnd = cJFileMetaBegin + header->cJFileSize;
-    cJFileMeta.stackMapTbl.stackMapBasePtr = reinterpret_cast<void*>(header->tables[STACK_MAP_TABLE].tableAddr);
-    cJFileMeta.typeInfoTbl.typeInfoBasePtr = reinterpret_cast<TypeInfo*>(header->tables[TYPE_INFO_TABLE].tableAddr);
-    cJFileMeta.typeInfoTbl.typeInfoTotalSize = header->tables[TYPE_INFO_TABLE].tableSize;
-    cJFileMeta.funcDescTbl.funcDescBasePtr = reinterpret_cast<FuncDescRef>(header->tables[FUNC_DESC_TABLE].tableAddr);
-    cJFileMeta.globalInitFuncTbl.globalInitFuncTotalSize = header->tables[GLOBAL_INIT_FUNC_TABLE].tableSize;
+    cJFileMetaEnd = cJFileMetaBegin + *header->cJFileSize;
+    cJFileMeta.stackMapTbl.stackMapBasePtr = reinterpret_cast<void*>(*header->tables[STACK_MAP_TABLE].tableAddr);
+    cJFileMeta.typeInfoTbl.typeInfoBasePtr = reinterpret_cast<TypeInfo*>(*header->tables[TYPE_INFO_TABLE].tableAddr);
+    cJFileMeta.typeInfoTbl.typeInfoTotalSize = *header->tables[TYPE_INFO_TABLE].tableSize;
+    cJFileMeta.funcDescTbl.funcDescBasePtr = reinterpret_cast<FuncDescRef>(*header->tables[FUNC_DESC_TABLE].tableAddr);
+    cJFileMeta.globalInitFuncTbl.globalInitFuncTotalSize = *header->tables[GLOBAL_INIT_FUNC_TABLE].tableSize;
     cJFileMeta.globalInitFuncTbl.globalInitFuncBasePtr =
-        reinterpret_cast<Uptr*>(header->tables[GLOBAL_INIT_FUNC_TABLE].tableAddr);
-    cJFileMeta.gcTibTbl.gcTibBasePtr = reinterpret_cast<void*>(header->tables[GC_TIB_TABLE].tableAddr);
-    cJFileMeta.extensionDataTbl.extensionDataTotalSize = header->tables[EXTENSION_DATA_TABLE].tableSize;
+        reinterpret_cast<Uptr*>(*header->tables[GLOBAL_INIT_FUNC_TABLE].tableAddr);
+    cJFileMeta.gcTibTbl.gcTibBasePtr = reinterpret_cast<void*>(*header->tables[GC_TIB_TABLE].tableAddr);
+    cJFileMeta.extensionDataTbl.extensionDataTotalSize = *header->tables[EXTENSION_DATA_TABLE].tableSize;
     cJFileMeta.extensionDataTbl.extensionDataBasePtr =
-        reinterpret_cast<ExtensionData*>(header->tables[EXTENSION_DATA_TABLE].tableAddr);
-    cJFileMeta.innerTyExtensionTbl.innerTyExtensionTotalSize = header->tables[INNER_TYPE_EXTENSIONS_TABLE].tableSize;
+        reinterpret_cast<ExtensionData*>(*header->tables[EXTENSION_DATA_TABLE].tableAddr);
+    cJFileMeta.innerTyExtensionTbl.innerTyExtensionTotalSize = *header->tables[INNER_TYPE_EXTENSIONS_TABLE].tableSize;
     cJFileMeta.innerTyExtensionTbl.innerTyExtensionBasePtr =
-        reinterpret_cast<void*>(header->tables[INNER_TYPE_EXTENSIONS_TABLE].tableAddr);
+        reinterpret_cast<void*>(*header->tables[INNER_TYPE_EXTENSIONS_TABLE].tableAddr);
     cJFileMeta.outerTyExtensionTbl.outerTyExtensionTotalSize =
-        header->tables[OUTER_TYPE_EXTENSIONS_TABLE].tableSize;
+        *header->tables[OUTER_TYPE_EXTENSIONS_TABLE].tableSize;
     cJFileMeta.outerTyExtensionTbl.outerTyExtensionBasePtr =
-        reinterpret_cast<void*>(header->tables[OUTER_TYPE_EXTENSIONS_TABLE].tableAddr);
-    cJFileMeta.staticGITbl.staticGITotalSize = header->tables[STATIC_GI_TABLE].tableSize;
+        reinterpret_cast<void*>(*header->tables[OUTER_TYPE_EXTENSIONS_TABLE].tableAddr);
+    cJFileMeta.staticGITbl.staticGITotalSize = *header->tables[STATIC_GI_TABLE].tableSize;
     cJFileMeta.staticGITbl.staticGIBasePtr =
-        reinterpret_cast<void*>(header->tables[STATIC_GI_TABLE].tableAddr);
+        reinterpret_cast<void*>(*header->tables[STATIC_GI_TABLE].tableAddr);
     cJFileMeta.gcFlagsTbl.withSafepoint =
-        reinterpret_cast<CJGCFlagsTable*>(header->tables[GC_FLAGS_TABLE].tableAddr)->withSafepoint;
+        reinterpret_cast<CJGCFlagsTable*>(*header->tables[GC_FLAGS_TABLE].tableAddr)->withSafepoint;
     cJFileMeta.gcFlagsTbl.withBarrier =
-        reinterpret_cast<CJGCFlagsTable*>(header->tables[GC_FLAGS_TABLE].tableAddr)->withBarrier;
+        reinterpret_cast<CJGCFlagsTable*>(*header->tables[GC_FLAGS_TABLE].tableAddr)->withBarrier;
     cJFileMeta.gcFlagsTbl.hasStackPointerMap =
-        reinterpret_cast<CJGCFlagsTable*>(header->tables[GC_FLAGS_TABLE].tableAddr)->hasStackPointerMap;
-    cJFileMeta.gcRootsAddr = header->tables[GC_ROOT_TABLE].tableAddr;
-    cJFileMeta.gcRootSize = header->tables[GC_ROOT_TABLE].tableSize / sizeof(U64);
-    cJFileMeta.packageInfoTbl.packageInfoBasePtr = header->tables[PACKINFO_TABLE].tableAddr;
-    cJFileMeta.packageInfoTbl.packageInfoTotalSize = header->tables[PACKINFO_TABLE].tableSize;
+        reinterpret_cast<CJGCFlagsTable*>(*header->tables[GC_FLAGS_TABLE].tableAddr)->hasStackPointerMap;
+    cJFileMeta.gcRootsAddr = *header->tables[GC_ROOT_TABLE].tableAddr;
+    cJFileMeta.gcRootSize = *header->tables[GC_ROOT_TABLE].tableSize / sizeof(U64);
+    cJFileMeta.packageInfoTbl.packageInfoBasePtr = *header->tables[PACKINFO_TABLE].tableAddr;
+    cJFileMeta.packageInfoTbl.packageInfoTotalSize = *header->tables[PACKINFO_TABLE].tableSize;
     Heap::GetHeap().RegisterStaticRoots(cJFileMeta.gcRootsAddr, cJFileMeta.gcRootSize);
 }
 #elif defined(__APPLE__)
@@ -276,7 +276,7 @@ CString CJFile::GetSDKVersion() const
 #if defined(__APPLE__)
     return CString(reinterpret_cast<char*>(*reinterpret_cast<U64*>(*header->cJSDKVersionPtr)));
 #elif defined(_WIN64)
-    return CString(reinterpret_cast<char*>(*reinterpret_cast<U64*>(header->cJSDKVersionPtr)));
+    return CString(reinterpret_cast<char*>(*reinterpret_cast<U64*>(*header->cJSDKVersionPtr)));
 #else
     return CString(reinterpret_cast<char*>(*reinterpret_cast<Uptr*>(begin + header->cJSDKVersionOffset)));
 #endif

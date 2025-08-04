@@ -402,8 +402,11 @@ def check_compiler(args):
         cxx_compiler = shutil.which("clang++", path=toolchain_path)
     # If clang is not available and we are cross compiling, we check for gcc cross compiler.
     if (c_compiler == None or cxx_compiler == None) and args.target:
-        c_compiler = shutil.which(args.target + "-gcc", path=toolchain_path)
-        cxx_compiler = shutil.which(args.target + "-g++", path=toolchain_path)
+        prefix = ""
+        if args.target == "windows-x86_64":
+            prefix = "x86_64-w64-mingw32"
+        c_compiler = shutil.which(prefix + "-gcc", path=toolchain_path)
+        cxx_compiler = shutil.which(prefix + "-g++", path=toolchain_path)
     # If none of above is available, we search for generic gcc compiler.
 
     if c_compiler == None or cxx_compiler == None:
