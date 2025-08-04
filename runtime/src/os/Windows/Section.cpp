@@ -87,35 +87,6 @@ uintptr_t __CJReflectGV;
 unsigned long __CJReflectGISize;
 uintptr_t __CJReflectGI;
 
-struct SecMap {
-    const char* name;
-    unsigned long* pSize;
-    uintptr_t*     pStart;
-};
-
-static SecMap gSecMap[] = {
-    { ".header",  &__CJMetadataSize,            &__CJMetadataStart       },
-    { ".cjsdkv",  &__CJSDKVersionSize,          &__CJSDKVersion          },
-    { ".cjmthd",  &__CJMethodInfoSize,          &__CJMethodInfo          },
-    { ".cjinitF", &__CJGlobalInitFuncSize,      &__CJGlobalInitFunc      },
-    { ".cjspdct", &__CJStringPoolDictSize,      &__CJStringPoolDict      },
-    { ".cjsp",    &__CJStringPoolSize,          &__CJStringPool          },
-    { ".cjsm",    &__CJStackMapSize,            &__CJStackMap            },
-    { ".cjgctib", &__CJGCTibSize,               &__CJGCTib               },
-    { ".cjgcrts", &__CJGCRootsSize,             &__CJGCRoots             },
-    { ".cjtt",    &__CJTypeTemplateSize,        &__CJTypeTemplate        },
-    { ".cjti",    &__CJTypeInfoSize,            &__CJTypeInfo            },
-    { ".cjfield", &__CJTypeFieldsSize,          &__CJTypeFields          },
-    { ".cjmtbl",  &__CJMTableSize,              &__CJMTable              },
-    { ".cjinty",  &__CJInnerTypeExtensionsSize, &__CJInnerTypeExtensions },
-    { ".cjouty",  &__CJOuterTypeExtensionsSize, &__CJOuterTypeExtensions },
-    { ".cjsgt",   &__CJStaticGITableSize,       &__CJStaticGITable       },
-    { ".cjgcflg", &__CJGCFlagsSize,             &__CJGCFlags             },
-    { ".cjrflp",  &__CJGCReflectPkgInfoSize,    &__CJReflectPkgInfo      },
-    { ".cjrflv",  &__CJReflectGVSize,           &__CJReflectGV           },
-    { ".cjrflg",  &__CJReflectGISize,           &__CJReflectGI           },
-};
-
 __attribute__((constructor(0))) __declspec(dllexport) void InitData()
 {
     HMODULE hModule = NULL;
@@ -128,28 +99,103 @@ __attribute__((constructor(0))) __declspec(dllexport) void InitData()
         return;
     }
 
-    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)hModule;
-    if (pDosHeader->e_magic != IMAGE_DOS_SIGNATURE) {
+    PIMAGE_DOS_HEADER dosHeader = (PIMAGE_DOS_HEADER)hModule;
+    if (dosHeader->e_magic != IMAGE_DOS_SIGNATURE) {
         return;
     }
 
-    PIMAGE_NT_HEADERS pNtHeaders = (PIMAGE_NT_HEADERS)((BYTE*)hModule + pDosHeader->e_lfanew);
-    if (pNtHeaders->Signature != IMAGE_NT_SIGNATURE) {
+    PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)((BYTE*)hModule + dosHeader->e_lfanew);
+    if (ntHeaders->Signature != IMAGE_NT_SIGNATURE) {
         return;
     }
 
-    WORD sectionCount = pNtHeaders->FileHeader.NumberOfSections;
-    PIMAGE_SECTION_HEADER pSectionHeader = IMAGE_FIRST_SECTION(pNtHeaders);
+    PIMAGE_SECTION_HEADER sectionHeader = IMAGE_FIRST_SECTION(ntHeaders);
 
-    for (WORD i = 0; i < sectionCount; i++) {
-        const char* secName = reinterpret_cast<const char*>(pSectionHeader->Name);
-        for (const auto& m : gSecMap) {
-            if (strncmp(secName, m.name, strlen(m.name)) == 0) {
-                *m.pStart = reinterpret_cast<uintptr_t>(hModule) + pSectionHeader->VirtualAddress;
-                *m.pSize  = pSectionHeader->Misc.VirtualSize;
-                break;
-            }
+    for (UINT i = 0; i < ntHeaders->FileHeader.NumberOfSections; i++) {
+        const char* secName = reinterpret_cast<const char*>(sectionHeader->Name);
+
+        if (strncmp(secName, ".header", sizeof(".header") - 1) == 0) {
+            __CJMetadataStart = reinterpret_cast<uintptr_t>(hModule) +
+                                sectionHeader->VirtualAddress;
+            __CJMetadataSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjsdkv", sizeof(".cjsdkv") - 1) == 0) {
+            __CJSDKVersion = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJSDKVersionSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjmthd", sizeof(".cjmthd") - 1) == 0) {
+            __CJMethodInfo = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJMethodInfoSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjinitF", sizeof(".cjinitF") - 1) == 0) {
+            __CJGlobalInitFunc = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJGlobalInitFuncSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjspdct", sizeof(".cjspdct") - 1) == 0) {
+            __CJStringPoolDict = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJStringPoolDictSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjsp", sizeof(".cjsp") - 1) == 0) {
+            __CJStringPool = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJStringPoolSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjsm", sizeof(".cjsm") - 1) == 0) {
+            __CJStackMap = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJStackMapSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjgctib", sizeof(".cjgctib") - 1) == 0) {
+            __CJGCTib = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJGCTibSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjgcrts", sizeof(".cjgcrts") - 1) == 0) {
+            __CJGCRoots = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJGCRootsSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjtt", sizeof(".cjtt") - 1) == 0) {
+            __CJTypeTemplate = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJTypeTemplateSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjti", sizeof(".cjti") - 1) == 0) {
+            __CJTypeInfo = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJTypeInfoSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjfield", sizeof(".cjfield") - 1) == 0) {
+            __CJTypeFields = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJTypeFieldsSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjmtlb", sizeof(".cjmtlb") - 1) == 0) {
+            __CJMTable = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJMTableSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjinty", sizeof(".cjinty") - 1) == 0) {
+            __CJInnerTypeExtensions = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJInnerTypeExtensionsSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjouty", sizeof(".cjouty") - 1) == 0) {
+            __CJOuterTypeExtensions = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJOuterTypeExtensionsSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjsgt", sizeof(".cjsgt") - 1) == 0) {
+            __CJStaticGITable = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJStaticGITableSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjgcflg", sizeof(".cjgcflg") - 1) == 0) {
+            __CJGCFlags = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJGCFlagsSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjrflp", sizeof(".cjrflp") - 1) == 0) {
+            __CJReflectPkgInfo = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJGCReflectPkgInfoSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjrflv", sizeof(".cjrflv") - 1) == 0) {
+            __CJReflectGV = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJReflectGVSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".cjrflg", sizeof(".cjrflg") - 1) == 0) {
+            __CJReflectGI = reinterpret_cast<uintptr_t>(hModule) +
+                             sectionHeader->VirtualAddress;
+            __CJReflectGISize = sectionHeader->Misc.VirtualSize;
         }
+        ++sectionHeader;
     }
 
     std::initializer_list<uintptr_t> addrs{
