@@ -2,7 +2,8 @@
 
 一个简单示例：
 
-<!-- run -->
+<!-- verify -->
+
 ```cangjie
 import std.deriving.*
 
@@ -15,8 +16,14 @@ class User {
 }
 
 main() {
-    println(User("id0", 0)) // -> "User(name: id0, id: 0)"
+    println(User("id0", 0))
 }
+```
+
+运行结果：
+
+```text
+User(name: id0, id: 0)
 ```
 
 当 `@Derive[ToString]` 应用于类或结构体时， Deriving 会收集和使用类或结构体的可变和不可变字段，包括在主构造函数中指定的字段，并自动实现 `ToString` 的方法。当 `@Derive[ToString]` 应用于枚举时， Deriving 将收集枚举的构造函数参数。静态字段和属性将不会被收集和使用，另外， Deriving 收集的字段不允许存在私有字段，否则将抛出编译错误。
@@ -40,11 +47,12 @@ class User {
     @DeriveExclude
     let lazyHashCode = 0 // it will not be printed because it's excluded
 }
+main(){}
 ```
 
 默认情况 Deriving 仅使能字段，对于属性则需要通过 `@DeriveInclude` 来显式使能：
 
-<!-- run -->
+<!-- verify -->
 ```cangjie
 import std.deriving.*
 
@@ -61,15 +69,21 @@ class User {
 }
 
 main() {
-    println(User(0)) // -> "User(id: 0, name: id0)"
+    println(User(0))
 }
+```
+
+运行结果：
+
+```text
+User(id: 0, name: id0)
 ```
 
 请注意，因为属性 `name` 是在 `id` 之后声明的，因此打印的顺序为先 `id` 后 `name` 。
 
 如果需要更改打印的顺序，可以使用 `@DeriveOrder` ：
 
-<!-- run -->
+<!-- verify -->
 ```cangjie
 import std.deriving.*
 
@@ -81,14 +95,20 @@ class User {
     @DeriveInclude
     prop name: String {
         get() {
-            "s_${id}"
+            "id${id}"
         }
     }
 }
 
 main() {
-    println(User(0)) // -> "User(name: s_0, id: 0)"
+    println(User(0))
 }
+```
+
+运行结果：
+
+```text
+User(name: id0, id: 0)
 ```
 
 ## 常见的 Deriving 语法
@@ -109,6 +129,7 @@ struct Order {
     let price = 100
     let quantity = 200
 }
+main(){}
 ```
 
 当 Deriving 多个相交的接口时，例如，`Comparable` 还包括 `Equatable` ，则允许两者同时存在，等同于仅有范围最广的一个：
@@ -141,6 +162,7 @@ struct S {
     @DeriveExclude
     let key: String
 }
+main(){}
 ```
 
 默认情况下不处理属性，需要通过 `@DeriveInclude` 包含属性。
@@ -160,6 +182,7 @@ struct S {
         }
     }
 }
+main(){}
 ```
 
 被 Deriving 的字段和属性都不能是 `private` 的。因此，`private` 的字段或者属性应被除外或者使其为包内可见属性。
@@ -183,7 +206,8 @@ struct S {
 
 在对由多个字段组成的复杂类型的实例进行排序和比较时，测试字段的顺序通常很重要。默认情况下，所有字段都按声明顺序考虑。可以使用 `@DeriveOrder` 宏修改顺序。
 
-<!-- run -->
+<!-- verify -->
+
 ```cangjie
 import std.deriving.*
 import std.sort.*
@@ -211,34 +235,46 @@ main() {
 
 上述示例将打印以下内容，看起来顺序没有很大影响。
 
-```plain
-Floor(level = 1, building = 2)
-Floor(level = 2, building = 1)
-Floor(level = 3, building = 2)
+```text
+Floor(level: 1, building: 2)
+Floor(level: 2, building: 1)
+Floor(level: 3, building: 2)
 ```
 
 但是当我实现 `Comparable` 时，不同的顺序将影响结果。
 
-<!-- compile -->
+<!-- verify -->
 ```cangjie
 import std.deriving.*
+import std.sort.*
 
 @Derive[Comparable, ToString]
-@DeriveOrder[building, level]
+@DeriveOrder[building, level] // 相比上面示例多了这一行代码
 struct Floor {
     Floor(
         let level: Int,
         let building: Int
     ) {}
 }
+main() {
+    let floors = [
+        Floor(1, 2),
+        Floor(3, 2),
+        Floor(2, 1)
+    ]
+    sort(floors)
+    for (f in floors) {
+        println(f)
+    }
+}
 ```
 
 此时，结果将首先按 `building` 排序，然后按 `level` 排序：
 
-```plain
-Floor(building = 1, level = 2)
-Floor(building = 2, level = 1)
-Floor(building = 2, level = 3)
+```text
+Floor(building: 1, level: 2)
+Floor(building: 2, level: 1)
+Floor(building: 2, level: 3)
 ```
 
 ## 泛型
@@ -250,6 +286,7 @@ Floor(building = 2, level = 3)
 class Cell<T> {
     Cell(let value: T) {}
 }
+main(){}
 ```
 
 此时可能希望仅当单元格的值可打印时才能够打印该单元格。为了实现它，编写一个带有约束的扩展：
@@ -265,6 +302,7 @@ extend<T> Cell<T> <: ToString where T <: ToString {
         "Cell(value = ${value})"
     }
 }
+main(){}
 ```
 
 当使用 Deriving 时，它会默认尝试对所有泛型参数应用约束，因此以下内容与上面的扩展相同：
@@ -277,6 +315,7 @@ import std.deriving.*
 class Cell<T> {
     Cell(let value: T) {}
 }
+main(){}
 ```
 
 然而在某些情况下，默认行为并不符合期望。此时，可使用 `@Derive` 内部的 `where` 来覆盖默认约束：
@@ -289,6 +328,7 @@ interface PrintableCellValue <: ToString { /*...*/ }
 
 @Derive[ToString where T <: PrintableCellValue]
 class Cell<T> {}
+main(){}
 ```
 
 请注意，在上面的示例中，自定义约束仅适用于 `ToString` ，因此如果需要对所有接口进行约束，则应单独为每个接口重复此动作。
@@ -302,6 +342,7 @@ interface PrintableCellValue <: ToString { /*...*/ }
 @Derive[ToString where T <: PrintableCellValue]
 @Derive[Hashable where T <: PrintableCellValue & Hashable]
 class Cell<T> {}
+main(){}
 ```
 
 ## 性能说明

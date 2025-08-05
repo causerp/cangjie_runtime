@@ -18,8 +18,9 @@ sync 包提供并发编程相关的能力。
 
 通过 `spawn` 关键字创建一个仓颉线程：
 
-```cangjie
+<!-- run -->
 
+```cangjie
 main () {
     spawn {
         // 在新线程中执行
@@ -28,9 +29,15 @@ main () {
     // 在主线程中执行
     println("Thread: ${Thread.currentThread.id}")
     sleep(Duration.second)
-
     0
 }
+```
+
+可能的运行结果：
+
+```text
+Thread: 1
+Thread: 2
 ```
 
 sync 包主要提供了不同类型的原子操作，可重入互斥锁及其接口，利用共享变量的线程同步机制以及定时器的功能。
@@ -60,6 +67,8 @@ Bool 类型和引用类型的原子操作只提供读写和交换操作，需要
 
 在每个 `for` 循环的线程进入 `synchronized` 代码块前，会自动获取 `mtx` 实例对应的锁，在退出代码块前，会释放 `mtx` 实例对应的锁。
 
+<!-- verify -->
+
 ```cangjie
 import std.sync.Mutex
 
@@ -67,7 +76,7 @@ main () {
     let mtx = Mutex()
     let cnt = Box<Int64>(0)
 
-    for (_ in 0..10) {
+    for (_ in 0..5) {
         spawn {
             synchronized(mtx) {
                 cnt.value ++
@@ -75,10 +84,19 @@ main () {
             }
         }
     }
-
     sleep(Duration.second)
     0
 }
+```
+
+可能的运行结果：
+
+```text
+count: 1
+count: 2
+count: 3
+count: 4
+count: 5
 ```
 
 ## API 列表

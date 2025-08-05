@@ -1303,7 +1303,7 @@ main(): Unit {
 ```text
 11
 Hello World
-buffer after clear:
+buffer after clear: 
 capacity after clear: 11
 ```
 
@@ -1511,7 +1511,7 @@ initial capacity: 11
 reserve 5: 16
 reserve 2: 16
 Error: The additional must be greater than or equal to 0.
-Error:The maximum value for capacity expansion cannot exceed the maximum value of Int64.
+Error: The maximum value for capacity expansion cannot exceed the maximum value of Int64.
 ```
 
 ### func seek(SeekPosition)

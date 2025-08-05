@@ -107,16 +107,16 @@ main(): Unit {
 运行结果：
 
 ```text
-#Unicode disabled:
+#Unicode disabled: 
 IllegalArgumentException: Invalid utf8 byte sequence.
 
-#Unicode enabled:
+#Unicode enabled: 
 found: `①②`
 [0, 6)
 found: `⑤⑥`
 [8, 14)
 
-#Unicode enabled with literals:
+#Unicode enabled with literals: 
 found: `①②`
 [0, 6)
 found: `⑤⑥`

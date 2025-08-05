@@ -11,7 +11,6 @@ let SOCKET_PATH = "/tmp/tmpsock"
 let barrier = Barrier(2)
 
 func runUnixServer() {
-    remove(SOCKET_PATH)
     try (serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)) {
         serverSocket.bind()
         barrier.wait()
@@ -27,18 +26,16 @@ main(): Int64 {
         runUnixServer()
     }
     barrier.wait()
-
     try (socket = UnixSocket(SOCKET_PATH)) {
         socket.connect()
 
-        let buf = Array<Byte>(10, repeat: 0)
+        let buf = Array<Byte>(5, repeat: 0)
         socket.read(buf)
 
         println(String.fromUtf8(buf)) // hello
     }
-
     fut.get()
-
+    remove(SOCKET_PATH)
     return 0
 }
 ```

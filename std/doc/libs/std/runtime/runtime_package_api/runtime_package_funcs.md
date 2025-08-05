@@ -183,6 +183,8 @@ public func SetGCThreshold(value: UInt64): Unit
 示例：
 设置用户期望的 [GC](runtime_package_funcs.md#func-gcbool-deprecated) 的内存阈值为 2MB。
 
+<!-- run -->
+
 ```cangjie
 import std.runtime.*
 main() {
@@ -204,6 +206,8 @@ public func setGCThreshold(value: UInt64): Unit
 
 示例：
 设置用户期望的 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值为 2MB。
+
+<!-- run -->
 
 ```cangjie
 import std.runtime.*

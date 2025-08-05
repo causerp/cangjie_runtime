@@ -43,7 +43,6 @@ main() {
         println("Path.isAbsolute: ${path.isAbsolute()}; Path.isRelative: ${path.isRelative()}")
         println()
     }
-
     return 0
 }
 ```
@@ -54,14 +53,14 @@ main() {
 Path0: /a/b/c
 Path.parent: /a/b
 Path.fileName: c
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: c
 Path.isAbsolute: true; Path.isRelative: false
 
 Path1: /a/b/
 Path.parent: /a
 Path.fileName: b
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: b
 Path.isAbsolute: true; Path.isRelative: false
 
@@ -75,28 +74,28 @@ Path.isAbsolute: true; Path.isRelative: false
 Path3: /a
 Path.parent: /
 Path.fileName: a
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: a
 Path.isAbsolute: true; Path.isRelative: false
 
 Path4: /
 Path.parent: /
-Path.fileName:
-Path.extensionName:
-Path.fileNameWithoutExtension:
+Path.fileName: 
+Path.extensionName: 
+Path.fileNameWithoutExtension: 
 Path.isAbsolute: true; Path.isRelative: false
 
 Path5: ./a/b/c
 Path.parent: ./a/b
 Path.fileName: c
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: c
 Path.isAbsolute: false; Path.isRelative: true
 
 Path6: ./a/b/
 Path.parent: ./a
 Path.fileName: b
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: b
 Path.isAbsolute: false; Path.isRelative: true
 
@@ -108,23 +107,23 @@ Path.fileNameWithoutExtension: c
 Path.isAbsolute: false; Path.isRelative: true
 
 Path8: ./
-Path.parent:
+Path.parent: 
 Path.fileName: .
-Path.extensionName:
-Path.fileNameWithoutExtension:
+Path.extensionName: 
+Path.fileNameWithoutExtension: 
 Path.isAbsolute: false; Path.isRelative: true
 
 Path9: .
-Path.parent:
+Path.parent: 
 Path.fileName: .
-Path.extensionName:
-Path.fileNameWithoutExtension:
+Path.extensionName: 
+Path.fileNameWithoutExtension: 
 Path.isAbsolute: false; Path.isRelative: true
 
 Path10: 123.
-Path.parent:
+Path.parent: 
 Path.fileName: 123.
-Path.extensionName:
+Path.extensionName: 
 Path.fileNameWithoutExtension: 123
 Path.isAbsolute: false; Path.isRelative: true
 ```

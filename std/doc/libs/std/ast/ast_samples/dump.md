@@ -10,7 +10,7 @@
 import std.ast.*
 
 main() {
-    let input = quote(var demo: Int64 = 1) // 假设当前代码所在行数为：3
+    let input = quote(var demo: Int64 = 1) // 假设当前代码所在行数为：4
     let varDecl = parseDecl(input)
     varDecl.dump()
 }
@@ -23,30 +23,30 @@ VarDecl {
   -keyword: Token {
     value: "var"
     kind: VAR
-    pos: 3: 23
+    pos: 4: 23
   }
   -identifier: Token {
     value: "demo"
     kind: IDENTIFIER
-    pos: 3: 27
+    pos: 4: 27
   }
   -declType: PrimitiveType {
     -keyword: Token {
       value: "Int64"
       kind: INT64
-      pos: 3: 33
+      pos: 4: 33
     }
   }
   -assign: Token {
     value: "="
     kind: ASSIGN
-    pos: 3: 39
+    pos: 4: 39
   }
   -expr: LitConstExpr {
     -literal: Token {
       value: "1"
       kind: INTEGER_LITERAL
-      pos: 3: 41
+      pos: 4: 41
     }
   }
 }

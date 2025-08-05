@@ -1559,7 +1559,7 @@ main(): Int64 {
     /* 使用迭代器进行遍历，长度取决于较短的迭代器 */
     while (true) {
         match (iter.next()) {
-            case Some(i) => println("The current element is (${i[0]}, ${i[1]}) ")
+            case Some(i) => println("The current element is (${i[0]}, ${i[1]})")
             case None => break
         }
     }

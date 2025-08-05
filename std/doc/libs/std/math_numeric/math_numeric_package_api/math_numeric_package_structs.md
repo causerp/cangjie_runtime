@@ -4204,9 +4204,9 @@ main(): Unit {
     let A = Decimal(-5)
     let B = Decimal(3)
 
-    println(" -A = ${-A}")
-    println(" A <= B = ${A <= B}")
-    println(" A != B = ${A != B}")
+    println("-A = ${-A}")
+    println("A <= B = ${A <= B}")
+    println("A != B = ${A != B}")
 }
 ```
 

@@ -4,6 +4,8 @@
 
 代码如下：
 
+<!-- compile -->
+
 ```cangjie
 import std.process.*
 import std.io.*

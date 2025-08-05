@@ -199,53 +199,57 @@ public func parseDecl(input: Tokens, astKind!: String = ""): Decl
 
 1. 以下代码展示 `astKind` 设为 `PropMemberDecl` 的案例。在这个参数下，可以使用 `parseDecl` 解析 `prop` 的getter和setter函数，解析结果为 `FuncDecl` 类型（如果不设置`astKind`，则会因为没有 `func` 关键字而无法解析）。
 
-    ```cangjie
-    import std.ast.*
+<!-- verify -->
 
-    main() {
-        let getter = quote( get() { _val } )
-        let setter = quote( set(v) { _val = v })
-        let getterDecl = parseDecl(getter, astKind: "PropMemberDecl")
-        let setterDecl = parseDecl(setter, astKind: "PropMemberDecl")
-        println((getterDecl as FuncDecl).getOrThrow().block.toTokens())
-        println((setterDecl as FuncDecl).getOrThrow().block.toTokens())
-    }
-    ```
+```cangjie
+import std.ast.*
 
-    运行结果：
+main() {
+    let getter = quote( get() { _val } )
+    let setter = quote( set(v) { _val = v })
+    let getterDecl = parseDecl(getter, astKind: "PropMemberDecl")
+    let setterDecl = parseDecl(setter, astKind: "PropMemberDecl")
+    println((getterDecl as FuncDecl).getOrThrow().block.toTokens())
+    println((setterDecl as FuncDecl).getOrThrow().block.toTokens())
+}
+```
 
-    ```text
-    {
-        _val
-    }
+运行结果：
 
-    {
-        _val = v
-    }
-    ```
+```text
+{
+    _val
+}
 
-2. 以下代码展示 `astKind` 设为 `PrimaryCtorDecl` 的案例。在这个参数下，可以使用 `parseDecl` 解析主构造函数节点，解析结果为 `PrimaryCtorDecl` 类型（如果不设置 `astKind`，则会因为没有 `func` 关键字而无法解析）。
+{
+    _val = v
+}
+```
 
-    ```cangjie
-    import std.ast.*
+1. 以下代码展示 `astKind` 设为 `PrimaryCtorDecl` 的案例。在这个参数下，可以使用 `parseDecl` 解析主构造函数节点，解析结果为 `PrimaryCtorDecl` 类型（如果不设置 `astKind`，则会因为没有 `func` 关键字而无法解析）。
 
-    main() {
-        let ctor = quote(
-            Point(var x: Int32, var y: Int32) {}
-        )
-        let ctorDecl = parseDecl(ctor, astKind: "PrimaryCtorDecl")
-        println(ctorDecl is PrimaryCtorDecl)
-        println(ctorDecl.toTokens())
-    }
-    ```
+<!-- verify -->
 
-    运行结果：
+```cangjie
+import std.ast.*
 
-    ```text
-    true
-    Point(var x: Int32, var y: Int32) {
-    }
-    ```
+main() {
+    let ctor = quote(
+        Point(var x: Int32, var y: Int32) {}
+    )
+    let ctorDecl = parseDecl(ctor, astKind: "PrimaryCtorDecl")
+    println(ctorDecl is PrimaryCtorDecl)
+    println(ctorDecl.toTokens())
+}
+```
+
+运行结果：
+
+```text
+true
+Point(var x: Int32, var y: Int32) {
+}
+```
 
 ## func parseDeclFragment(Tokens, Int64)
 

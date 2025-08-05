@@ -16,6 +16,8 @@ void printCString(char *s) { printf("%s\n", s); }
 
 示例：
 
+<!-- special -->
+
 ```cangjie
 foreign func getCString(): CString
 foreign func printCString(s: CString): Unit

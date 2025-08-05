@@ -4180,8 +4180,11 @@ public static func once(delay: Duration, task: ()->Unit): Timer
 
 示例：
 
+<!-- run -->
+
 ```cangjie
 import std.time.MonoTime
+import std.sync.Timer
 
 main() {
     let start = MonoTime.now()
@@ -4194,7 +4197,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Tick at: 1s2ms74us551ns
@@ -4225,9 +4228,11 @@ public static func repeat(delay: Duration, interval: Duration, task: ()->Unit, s
 
 示例:
 
+<!-- run -->
+
 ```cangjie
-import std.sync.{Timer}
-import std.time.{MonoTime}
+import std.sync.Timer
+import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
@@ -4237,19 +4242,17 @@ main() {
 
     sleep(Duration.second * 5)
     timer.cancel()
-
     0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Tick at: 1s2ms72us188ns
 Tick at: 2s4ms185us160ns
 Tick at: 3s6ms275us464ns
 Tick at: 4s8ms18us399ns
-Tick at: 5s9ms621us394ns
 ```
 
 ### static func repeatDuring(Duration, Duration, Duration, ()->Unit, CatchupStyle)
@@ -4278,9 +4281,11 @@ public static func repeatDuring(period: Duration, delay: Duration, interval: Dur
 
 示例：
 
+<!-- run -->
+
 ```cangjie
-import std.sync.{Timer}
-import std.time.{MonoTime}
+import std.sync.Timer
+import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
@@ -4293,7 +4298,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Tick at: 1s2ms372us626ns
@@ -4330,9 +4335,11 @@ public static func repeatTimes(count: Int64, delay: Duration, interval: Duration
 
 示例：
 
+<!-- run -->
+
 ```cangjie
-import std.sync.{Timer}
-import std.time.{MonoTime}
+import std.sync.Timer
+import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
@@ -4345,7 +4352,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Tick at: 1s2ms855us251ns

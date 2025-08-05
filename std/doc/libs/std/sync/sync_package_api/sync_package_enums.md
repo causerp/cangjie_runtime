@@ -22,9 +22,11 @@ public enum CatchupStyle {
 
 该示例创建了一个 `Timer`，该 `Timer` 会执行 3 次任务，从创建开始 1 秒后开始执行，每间隔 1 秒执行下一次任务，追平策略采用 `Delay`。
 
+<!-- run -->
+
 ```cangjie
 import std.sync.{Timer, CatchupStyle}
-import std.time.{MonoTime}
+import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
@@ -35,6 +37,14 @@ main() {
     sleep(Duration.second * 4)
     0
 }
+```
+
+可能的运行结果：
+
+```text
+Tick at: 1s2ms855us251ns
+Tick at: 2s5ms390us18ns
+Tick at: 3s7ms935us552ns
 ```
 
 ### Burst
