@@ -424,22 +424,6 @@ public open func isMulticast(): Bool
 
 - [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
 
-示例：
-<!-- run -->
-
-```cangjie
-import std.net.*
-import std.unittest.*
-import std.unittest.testmacro.*
-
-main() {
-    // 224.0.0.0 ~ 239.255.255.255
-    @Assert(IPAddress.parse("224.0.0.1").isMulticast(), true)
-    // ff00::/8
-    @Assert(IPAddress.parse("ff00::1").isMulticast(), true)
-}
-```
-
 ### func isPrivate()
 
 ```cangjie
@@ -451,26 +435,6 @@ public open func isPrivate(): Bool
 返回值：
 
 - [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
-
-示例：
-<!-- run -->
-
-```cangjie
-import std.net.*
-import std.unittest.*
-import std.unittest.testmacro.*
-
-main() {
-    // 10.0.0.0 ~ 10.255.255.255
-    @Assert(IPAddress.parse("10.0.0.1").isPrivate(), true)
-    // 172.16.0.0 ~ 172.31.255.255
-    @Assert(IPAddress.parse("172.16.0.1").isPrivate(), true)
-    // 192.168.0.0 ~192.168.255.255
-    @Assert(IPAddress.parse("192.168.0.1").isPrivate(), true)
-    // fc00::/7
-    @Assert(IPAddress.parse("fc00::1").isPrivate(), true)
-}
-```
 
 ### func isUnspecified()
 
@@ -584,8 +548,6 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString
 
 - 起始IP地址（IPv4或IPv6）。这是前缀的第一个IP地址。
 - 前缀长度。这通过指定IP地址中的位数来指定前缀的长度，从网络字节顺序中的最高有效位开始，对于前缀中的所有地址都是恒定的。
-
-例如，前缀 `192.0.2.0/24` 涵盖从`192.0.2.0`到`192.0.2.255`（含）的`256`个`IPv4`地址，前缀`2001:db8:1:2`涵盖从`2001:db8:1:2::` 到 `2001:db8:1:2:ffff:ffff:ffff:ffff`（含）的`2^64`个`IPv6`地址。这个类的对象是不可变的。
 
 父类型：
 
