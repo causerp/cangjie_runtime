@@ -5,7 +5,7 @@
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
 
 cmake_minimum_required(VERSION 3.16.3)
-if (OHOS_FLAG MATCHES 1)
+if (OHOS_FLAG MATCHES 1 OR OHOS_FLAG MATCHES 2)
     # Target OHOS is Linux-like system.
     set(CMAKE_SYSTEM_NAME Linux)
     set(CMAKE_C_COMPILER_WORKS 1)
