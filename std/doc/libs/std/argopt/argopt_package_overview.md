@@ -31,7 +31,7 @@ argopt 包提供从命令行参数字符串解析出参数名和参数值的相�
 
 |                 类名              |                功能                 |
 | --------------------------------- | ---------------------------------- |
-| [ArgOpt <sup>(deprecated)</sup>](./argopt_package_api/argopt_package_classes.md#class-argopt-deprecated) | `Argopt` 用于解析命令行参数，并提供了获取解析结果的功能。 |
+| [ArgOpt <sup>(deprecated)</sup>](./argopt_package_api/argopt_package_classes.md#class-argopt-deprecated) | `ArgOpt` 用于解析命令行参数，并提供了获取解析结果的功能。 |
 
 ### 枚举
 

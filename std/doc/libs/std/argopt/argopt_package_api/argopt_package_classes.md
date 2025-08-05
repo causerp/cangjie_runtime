@@ -1,6 +1,6 @@
 # 类
 
-## class Argopt <sup>(deprecated)</sup>
+## class ArgOpt <sup>(deprecated)</sup>
 
 ```cangjie
 public class ArgOpt {
