@@ -53,7 +53,10 @@ set(CMAKE_C_FLAGS
     -fstack-protector-strong \
     -D_WIN32_WINNT=_WIN32_WINNT_VISTA \
     -Wno-inconsistent-dllimport \
-    -Wno-pointer-to-int-cast"
+    -Wno-pointer-to-int-cast \
+    -fuse-ld=lld \
+    -stdlib=libc++ \
+    --rtlib=compiler-rt"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -78,7 +81,10 @@ set(CMAKE_CXX_FLAGS
     -D_WIN32_WINNT=_WIN32_WINNT_VISTA \
     -Wno-inconsistent-dllimport \
     -fno-exceptions \
-    -Wno-pointer-to-int-cast"
+    -Wno-pointer-to-int-cast \
+    -fuse-ld=lld \
+    -stdlib=libc++ \
+    --rtlib=compiler-rt"
 )
 
 if("${BUILDING_STAGE}")

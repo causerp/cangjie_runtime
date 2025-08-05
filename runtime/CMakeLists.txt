@@ -19,9 +19,9 @@ endif()
 if (WINDOWS_FLAG MATCHES 1)
     # Use target x86_64-w64-mingw32 instead of x86_64-windows-gnu
     # to make sure clang can find x86_64-w64-mingw32-ld (linker for cross-compiling)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static -target x86_64-w64-mingw32 -pthread -femulated-tls")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -target x86_64-w64-mingw32 -pthread -femulated-tls")
-    set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -static -target x86_64-w64-mingw32")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static -target x86_64-w64-mingw32 -pthread -femulated-tls -stdlib=libc++ --rtlib=compiler-rt")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static -target x86_64-w64-mingw32 -pthread -femulated-tls -stdlib=libc++ --rtlib=compiler-rt")
+    set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -static -target x86_64-w64-mingw32 -stdlib=libc++ --rtlib=compiler-rt")
     if (NOT CMAKE_AR_PATH)
         set(CMAKE_AR_PATH "llvm-ar.exe")
     endif()
@@ -274,7 +274,7 @@ elseif (DOPRA_FLAG MATCHES 1 AND OHOS_FLAG IN_LIST OHOS_FLAG_LIST AND WINDOWS_FL
         "-lstdc++" ${LINK_LIBS} "-Wl,--end-group -lunwind -lclang_rt.builtins -lhilog_ndk.z -lhitrace_ndk.z")
 elseif (DOPRA_FLAG MATCHES 1 AND OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 1) # Windows
     target_link_libraries(cangjie-runtime PRIVATE "-Wl,--start-group"
-        "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/local_export.map" "-lstdc++" ${LINK_LIBS} "-Wl,--end-group -Wl,--no-insert-timestamp")
+        "-Wl,--export-all-symbols" "-lc++" "-lunwind" ${LINK_LIBS} "-Wl,--end-group -Wl,--no-insert-timestamp")
 elseif (DOPRA_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0) # thread module
     target_link_libraries(cangjie-runtime "-Wl,--start-group -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/${EXPORT_MAP}"
         ${LINK_LIBS} "-Wl,--end-group -nodefaultlibs -Wl,-Bdynamic -lstdc++ -lm -lc -lgcc_s -lpthread -ldl")
@@ -312,17 +312,13 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/RuntimeConfig.h
 
 if (WINDOWS_FLAG MATCHES 1)
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_windows/Cjstart.S)
-    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_windows/cjld.lds
-            ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_windows/cld.lds
-            ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_windows/cjld.shared.lds
-            DESTINATION lib/${TARGET_ARCH})
+    add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Windows/Section.cpp)
 elseif (MACOS_FLAG MATCHES 1)
+    add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Macos/section.cpp)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
         add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/X86_64_macos/Cjstart.S)
-        add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/section.cpp)
     else()
         add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/Aarch64_macos/Cjstart.S)
-        add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/section.cpp)
     endif()
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/Cjstart.S)
@@ -342,7 +338,7 @@ endif()
 install(PROGRAMS $<TARGET_OBJECTS:cjstart>
         RENAME cjstart.o
         DESTINATION lib/${TARGET_ARCH})
-if (MACOS_FLAG MATCHES 1)
+if (MACOS_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1)
     install(PROGRAMS $<TARGET_OBJECTS:section>
         RENAME section.o
         DESTINATION lib/${TARGET_ARCH})

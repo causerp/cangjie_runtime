@@ -10,9 +10,12 @@
 #include <stdlib.h>
 #include "cangjie/Basic/UGTypeKind.h"
 
-#if defined(__linux__) || (defined(_WIN32) && defined(__MINGW64__))
+#if defined(__linux__)
 #define TYPE_INFO_SECTION ".cjmetadata.typeinfo"
 #define TYPE_TEMPLATE_SECTION ".cjmetadata.typetemplate"
+#elif defined(_WIN32) && defined(__MINGW64__)
+#define TYPE_INFO_SECTION ".cjti"
+#define TYPE_TEMPLATE_SECTION ".cjtt"
 #elif defined(__APPLE__)
 #define TYPE_INFO_SECTION "__CJ_METADATA,__cjtypeinfo"
 #define TYPE_TEMPLATE_SECTION "__CJ_METADATA,__cjtemplate"

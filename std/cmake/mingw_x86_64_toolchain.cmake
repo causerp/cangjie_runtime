@@ -29,7 +29,7 @@ set(CXX_OTHER_FLAGS "")
 set(OTHER_FLAGS
     "-fno-omit-frame-pointer -pipe -fno-common -fno-strict-aliasing -m64 -Wa,-mbig-obj -fstack-protector-all -Wl,--stack,16777216"
 )
-set(WARNINGS_SETTINGS "-w -Wdate-time")
+set(WARNINGS_SETTINGS "-w -Wdate-time -Wno-int-conversion")
 
 # The ld in MinGW toolchain is very slow, especially when linking the debug version. lld is preferred for linking cjc.exe.
 # However, the gcc cross compiler doesn't search for the name "lld", but "read-ld", "ld.lld" or "<target>-ld.lld", etc.
