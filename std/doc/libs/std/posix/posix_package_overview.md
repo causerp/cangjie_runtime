@@ -89,7 +89,9 @@ posix 包主要适配 POSIX 系统接口。
 | 常量名 | 功能 | 支持平台 |
 | ------------ | ------------ | ----------- |
 | [AT_EMPTY_PATH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_empty_path-deprecated) | 表示在文件系统中空路径（即没有指定任何文件或目录）时返回的文件描述符，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 | `Linux` `Windows` |
+| [AT_FDCWD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_fdcwd-deprecated) | 表示在文件系统中相对路径操作的特殊文件描述符常量，用于在使用 `*at()` 系列系统调用时指定相对路径的解析起点。主要用于 `fchmodat`、 `fchownat`、`linkat`、`renameat`、`symlinkat`、`unlinkat` 等函数，所属函数参数 `fd`。 | `Linux` `Windows` `macOS` |
 | [AT_REMOVEDIR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_removedir-deprecated) | 如果指定了 `AT_REMOVEDIR` 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 | `Linux` `Windows` `macOS` |
+| [AT_SYMLINK_FOLLOW <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_symlink_follow-deprecated) | 表示一个用于控制符号链接解析行为的标志，指定在操作符号链接时是否跟随链接指向的目标文件。通常与 `AT_FDCWD` 结合使用。若无该标志，大多数系统调用会直接操作符号链接本身（如读取链接路径）。使用该标志后，系统调用会先解析符号链接，然后操作其指向的目标文件。主要用于 `linkat`、`unlinkat` 等函数，所属函数参数 `fd`。 | `Linux` `Windows` `macOS` |
 | [O_CLOEXEC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_cloexec-deprecated) | 在某些多线程程序中，使用此标志是必不可少的。因为在一个线程同时打开文件描述符，而另一个线程执行 `fork(2)` 加 `execve(2)` 场景下使用单独的 `fcntl(2)` `F_SETFD` 操作设置 `FD_CLOEXEC` 标志并不足以避免竞争条件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 | `Linux` `macOS` |
 | [O_DIRECTORY <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_directory-deprecated) | 如果 `pathname` 指定的文件不是目录，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 | `Linux` `macOS` |
 | [O_CREAT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_creat-deprecated) | 如果要打开的文件不存在，则自动创建该文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 | `Linux` `Windows` `macOS` |
@@ -129,6 +131,7 @@ posix 包主要适配 POSIX 系统接口。
 | [SIGPWR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigpwr-deprecated) | 电源故障或重启，系统调用无效，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` |
 | [SIGSEGV <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigsegv-deprecated) | 内存引用无效，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` |
 | [SIGSTOP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstop-deprecated) | 停止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` |
+| [SIGSYS <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigsys-deprecated) | 终止，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` |
 | [SIGTERM <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigterm-deprecated) | 终止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` |
 | [SIGSTKFLT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstkflt-deprecated) | 协处理器堆栈故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` |
 | [SIGCHLD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigchld-deprecated) | 子进程状态更改，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` |

@@ -969,7 +969,7 @@ func isClosed(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果已经关闭返回 true，否则返回 false。
 
-#### func close()
+### func close()
 
 ```cangjie
 func close(): Unit

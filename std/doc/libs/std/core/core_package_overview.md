@@ -169,7 +169,6 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [IllegalStateException](./core_package_api/core_package_exceptions.md#class-illegalstateexception) | 表示状态非法的异常类。 |
 | [IncompatiblePackageException](./core_package_api/core_package_exceptions.md#class-incompatiblepackageexception) | 表示包不兼容的异常类。 |
 | [IndexOutOfBoundsException](./core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) | 表示索引越界的异常类。 |
-| [InternalError](./core_package_api/core_package_exceptions.md#class-internalerror) | 表示内部错误的错误类，该类不可初始化，但是可以被捕获到。 |
 | [NegativeArraySizeException](./core_package_api/core_package_exceptions.md#class-negativearraysizeexception) | 表示数组大小为负数的异常类。 |
 | [NoneValueException](./core_package_api/core_package_exceptions.md#class-nonevalueexception) | 表示 Option\<T> 实例的值为 `None` 的异常类，通常在 `getOrThrow` 函数中被抛出。 |
 | [OutOfMemoryError](./core_package_api/core_package_exceptions.md#class-outofmemoryerror) | 表示内存不足错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。 |

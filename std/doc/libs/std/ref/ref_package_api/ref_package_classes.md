@@ -10,6 +10,10 @@ public class WeakRef<T> <: WeakRefBase where T <: Object {
 
 功能：此类提供弱引用相关的功能，如果一个对象的引用被标记为弱引用，那么即使引用不为空并且该对象的可达性成立， GC 也可以按照指定的回收策略回收它。
 
+父类型：
+
+- [WeakRefBase](ref_package_classes#class-weakrefbase)
+
 ### prop cleanupPolicy
 
 ```cangjie

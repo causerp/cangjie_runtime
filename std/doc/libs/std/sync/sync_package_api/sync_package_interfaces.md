@@ -76,7 +76,7 @@ func wait(timeout!: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [Monitor <sup>(deprecated)<sup>](sync_package_classes.md#class-monitor-deprecated) 被其他线程唤醒，返回 `true`；如果超时，则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated) 被其他线程唤醒，返回 `true`；如果超时，则返回 `false`。
 
 异常：
 
@@ -124,7 +124,7 @@ func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [Monitor <sup>(deprecated)<sup>](sync_package_classes.md#class-monitor-deprecated) 被其他线程唤醒且 `predicate` 结果为 `true`，返回 `true`；如果超时，则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated) 被其他线程唤醒且 `predicate` 结果为 `true`，返回 `true`；如果超时，则返回 `false`。
 
 异常：
 

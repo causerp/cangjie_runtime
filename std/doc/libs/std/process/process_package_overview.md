@@ -57,7 +57,7 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 | [runOutput(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-runoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect-deprecated) | `Linux` `Windows` `macOS` |
 | [terminate(Bool)](./process_package_api/process_package_classes.md#func-terminatebool) | `Linux` `Windows` `macOS` |
 
-#### class CurrentProcss <sup>(deprecated)</sup>
+#### class CurrentProcess <sup>(deprecated)</sup>
 
 > **注意：**
 >

@@ -13,6 +13,10 @@ public enum CleanupPolicy <: Equatable<CleanupPolicy> {
 
 在 [WeakRef](ref_package_classes#class-weakreft-where-t--object) 类中可以指定对象的清理策略。
 
+父类型：
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy)>
+
 ### EAGER
 
 ```cangjie

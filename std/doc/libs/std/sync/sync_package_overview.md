@@ -112,7 +112,7 @@ count: 5
 |  接口名 | 功能  |
 | ------------ | ------------ |
 | [Condition](./sync_package_api/sync_package_interfaces.md#interface-condition) | 提供使线程阻塞并等待来自另一个线程的信号以恢复执行的功能的接口。 |
-| [IReentrantMutex <sup>(deprecated)<sup>](./sync_package_api/sync_package_interfaces.md#interface-ireentrantmutex-deprecated) | 提供可重入互斥锁接口。 |
+| [IReentrantMutex <sup>(deprecated)</sup>](./sync_package_api/sync_package_interfaces.md#interface-ireentrantmutex-deprecated) | 提供可重入互斥锁接口。 |
 | [Lock](./sync_package_api/sync_package_interfaces.md#interface-lock) | 提供实现可重入互斥锁的接口。 |
 | [UniqueLock](./sync_package_api/sync_package_interfaces.md#interface-uniquelock) | 提供实现独占锁的接口。 |
 
@@ -132,14 +132,14 @@ count: 5
 | [AtomicUInt64](./sync_package_api/sync_package_classes.md#class-atomicuint64) | 提供 UInt64 类型的原子操作相关函数。 |
 | [AtomicUInt8](./sync_package_api/sync_package_classes.md#class-atomicuint8) | 提供 UInt8 类型的原子操作相关函数。 |
 | [Barrier](./sync_package_api/sync_package_classes.md#class-barrier) | 提供协调多个线程一起执行到某一个程序点的功能。 |
-| [Monitor <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-monitor-deprecated) | 提供使线程阻塞并等待来自另一个线程的信号以恢复执行的功能。 |
-| [MultiConditionMonitor <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-multiconditionmonitor-deprecated) | 提供对同一个互斥锁绑定多个条件变量的功能。 |
+| [Monitor <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-monitor-deprecated) | 提供使线程阻塞并等待来自另一个线程的信号以恢复执行的功能。 |
+| [MultiConditionMonitor <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-multiconditionmonitor-deprecated) | 提供对同一个互斥锁绑定多个条件变量的功能。 |
 | [Mutex](./sync_package_api/sync_package_classes.md#class-mutex) | 提供可重入锁相关功能。 |
 | [ReadWriteLock](./sync_package_api/sync_package_classes.md#class-readwritelock) | 提供可重入读写锁相关功能。 |
-| [ReentrantMutex <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-reentrantmutex-deprecated) | 提供可重入锁相关功能。 |
-| [ReentrantReadMutex <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-reentrantreadmutex-deprecated) | 提供可重入读写锁中的读锁类型。 |
-| [ReentrantReadWriteMutex <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-reentrantreadwritemutex-deprecated) | 提供可重入读写锁相关功能。 |
-| [ReentrantWriteMutex <sup>(deprecated)<sup>](./sync_package_api/sync_package_classes.md#class-reentrantwritemutex-deprecated) | 提供可重入读写锁中的写锁类型。 |
+| [ReentrantMutex <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-reentrantmutex-deprecated) | 提供可重入锁相关功能。 |
+| [ReentrantReadMutex <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-reentrantreadmutex-deprecated) | 提供可重入读写锁中的读锁类型。 |
+| [ReentrantReadWriteMutex <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-reentrantreadwritemutex-deprecated) | 提供可重入读写锁相关功能。 |
+| [ReentrantWriteMutex <sup>(deprecated)</sup>](./sync_package_api/sync_package_classes.md#class-reentrantwritemutex-deprecated) | 提供可重入读写锁中的写锁类型。 |
 | [Semaphore](./sync_package_api/sync_package_classes.md#class-semaphore) | 提供信号量相关功能。 |
 | [SyncCounter](./sync_package_api/sync_package_classes.md#class-synccounter) | 提供倒数计数器功能。 |
 | [Timer](./sync_package_api/sync_package_classes.md#class-timer) | 提供定时器功能。 |
@@ -149,14 +149,14 @@ count: 5
 |  枚举类型 | 功能  |
 | ------------ | ------------ |
 | [MemoryOrder <sup>(deprecated)</sup>](./sync_package_api/sync_package_enums.md#enum-memoryorder-deprecated) | 内存顺序类型枚举。 |
-| [ReadWriteMutexMode <sup>(deprecated)<sup>](./sync_package_api/sync_package_enums.md#enum-readwritemutexmode-deprecated) | 读写锁公平模式枚举。 |
+| [ReadWriteMutexMode <sup>(deprecated)</sup>](./sync_package_api/sync_package_enums.md#enum-readwritemutexmode-deprecated) | 读写锁公平模式枚举。 |
 | [CatchupStyle](./sync_package_api/sync_package_enums.md#enum-catchupstyle) | 重复性任务定时器需要使用的追平策略枚举。 |
 
 ### 结构体
 
 |  结构体 | 功能  |
 | ------------ | ------------ |
-| [ConditionID <sup>(deprecated)<sup>](./sync_package_api/sync_package_structs.md#struct-conditionid-deprecated) | 用于表示互斥锁的条件变量，详见 [MultiConditionMonitor](./sync_package_api/sync_package_classes.md#class-multiconditionmonitor-deprecated)。 |
+| [ConditionID <sup>(deprecated)</sup>](./sync_package_api/sync_package_structs.md#struct-conditionid-deprecated) | 用于表示互斥锁的条件变量，详见 [MultiConditionMonitor](./sync_package_api/sync_package_classes.md#class-multiconditionmonitor-deprecated)。 |
 
 ### 异常类
 

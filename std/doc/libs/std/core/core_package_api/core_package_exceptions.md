@@ -438,18 +438,6 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
-## class InternalError
-
-```cangjie
-public class InternalError <: Error
-```
-
-功能：表示内部错误的错误类，该类不可初始化，但是可以被捕获到。
-
-父类型：
-
-- [Error](#class-error)
-
 ## class NegativeArraySizeException
 
 ```cangjie

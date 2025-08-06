@@ -14,6 +14,23 @@ public const AT_EMPTY_PATH: Int32 = 0x1000
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+## const AT_FDCWD <sup>(deprecated)</sup>
+
+```cangjie
+public const AT_FDCWD: Int32
+```
+
+功能：表示在文件系统中相对路径操作的特殊文件描述符常量，用于在使用 `*at()` 系列系统调用时指定相对路径的解析起点。主要用于 `fchmodat`、 `fchownat`、`linkat`、`renameat`、`symlinkat`、`unlinkat` 等函数，所属函数参数 `fd`。不同系统下的值分别为：
+
+- macOS: -0x2
+- 其他情况：-0x64
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
 ## const AT_REMOVEDIR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -21,6 +38,23 @@ public const AT_REMOVEDIR: Int32 = 0x200
 ```
 
 功能：如果指定了 [AT_REMOVEDIR](posix_package_constants_vars.md#const-at_removedir-deprecated) 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+## const AT_SYMLINK_FOLLOW <sup>(deprecated)</sup>
+
+```cangjie
+public const AT_SYMLINK_FOLLOW: Int32
+```
+
+功能：表示一个用于控制符号链接解析行为的标志，指定在操作符号链接时是否跟随链接指向的目标文件。通常与 `AT_FDCWD` 结合使用。若无该标志，大多数系统调用会直接操作符号链接本身（如读取链接路径）。使用该标志后，系统调用会先解析符号链接，然后操作其指向的目标文件。主要用于 `linkat`、`unlinkat` 等函数，所属函数参数 `fd`。不同系统下的值分别为：
+
+- macOS: 0x040
+- 其他情况：0x400
 
 > **注意：**
 >
@@ -618,6 +652,23 @@ public const SIGSTOP: Int32
 
 - macOS: 0x11
 - 其他情况：0x13
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+## const SIGSYS <sup>(deprecated)</sup>
+
+```cangjie
+public const SIGSYS: Int32
+```
+
+功能：终止，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+
+- macOS: 0xC
+- 其他情况：0x1F
 
 > **注意：**
 >
