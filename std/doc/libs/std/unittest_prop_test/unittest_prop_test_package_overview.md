@@ -17,7 +17,9 @@ unittest.prop_test 为单元测试框架提供了参数化测试所需的类型�
 
 |              接口名          |           功能           |
 | --------------------------- | ------------------------ |
+| [ArbitraryRange\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryranget) | 接口为不同类型提供可以在一定范围内生成值的方法。 |
 | [Arbitrary\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryt) | 生成 T 类型随机值的接口。 |
+| [Generator](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort) | 生成器生成 T 类型的值。 |
 | [IndexAccess](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-indexaccess) | 通过索引访问元组元素的实用程序接口。 |
 | [RandomSource](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) | 提供 [Arbitrary\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryt) 所需的随机生成基础类型数据的能力。 |
 | [Shrink](./unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt) | 将 T 类型的值缩减到多个“更小”的值。 |

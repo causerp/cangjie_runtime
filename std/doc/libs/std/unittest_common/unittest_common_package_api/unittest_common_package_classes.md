@@ -498,6 +498,23 @@ pp.colored(RED) {
 
 - [PrettyPrinter](#class-prettyprinter) - 打印器。
 
+### func fillLimitedSpace(Int64, () -\> Unit)
+
+```cangjie
+public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): c
+```
+
+功能：指定大小填充代码块。
+
+参数：
+
+- spaceSize: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)  - 所指定的大小。
+- body: () -\> body - 填充的方式。
+
+返回值：
+
+- [PrettyPrinter](#class-prettyprinter) - 打印器。
+
 ### func colored(Color, String)
 
 ```cangjie

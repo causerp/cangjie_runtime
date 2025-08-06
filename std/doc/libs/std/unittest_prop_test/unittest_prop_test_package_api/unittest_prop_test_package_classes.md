@@ -22,7 +22,7 @@ public static func generate<T>(body: () -> T): Generator<T>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func iterable\<T>(RandomSource, Array\<T>)
 
@@ -39,7 +39,7 @@ public static func iterable<T>(random: RandomSource, collection: Array<T>): Gene
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func lookup\<T>(RandomSource) where T <: Arbitrary\<T>
 
@@ -55,7 +55,7 @@ public static func lookup<T>(random: RandomSource): Generator<T> where T <: Arbi
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func mapped\<T, R>(RandomSource,(T) -> R) where T <: Arbitrary\<T>
 
@@ -72,7 +72,7 @@ public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func mapped\<T1, T2, R>(RandomSource, (T1, T2) -> R) where T1 <: Arbitrary\<T1>, T2 <: Arbitrary\<T2>
 
@@ -89,7 +89,7 @@ public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func mapped\<T1, T2, T3, R>(RandomSource, (T1, T2, T3) -> R) where T1 <: Arbitrary\<T1>, T2 <: Arbitrary\<T2>, T3 <: Arbitrary\<T3>
 
@@ -107,7 +107,7 @@ public static func mapped<T1, T2, T3, R>(random: RandomSource, body: (T1, T2, T3
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func mapped\<T1, T2, T3, T4, R>(RandomSource, (T1, T2, T3, T4) -> R) where T1 <: Arbitrary\<T1>, T2 <: Arbitrary\<T2>, T3 <: Arbitrary\<T3>, T4 <: Arbitrary\<T4>
 
@@ -125,7 +125,7 @@ public static func mapped<T1, T2, T3, T4, R>(random: RandomSource, body: (T1, T2
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func pick\<T>(RandomSource, Array\<Generator\<T>>)
 
@@ -138,11 +138,11 @@ public static func pick<T>(random: RandomSource, variants: Array<Generator<T>>):
 参数：
 
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数。
-- variants: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T>> - 生成器数组。
+- variants: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T>> - 生成器数组。
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func single\<T>(T)
 
@@ -158,7 +158,7 @@ public static func single<T>(value: T): Generator<T>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ### static func weighted\<T>(RandomSource, Array\<(UInt64, Generator\<T>)>)
 
@@ -175,14 +175,14 @@ public static func weighted<T>(random: RandomSource, variants: Array<(UInt64, Ge
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
 
 ## class LazySeq\<T>
 
 ```cangjie
 public class LazySeq<T> <: Iterable<T> {
     public init()
-    public init(element: T)
+    public init(element: T) 
 }
 ```
 

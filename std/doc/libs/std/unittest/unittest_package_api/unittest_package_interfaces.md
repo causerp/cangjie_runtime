@@ -17,7 +17,7 @@ public interface BenchInputProvider<T> <: BenchmarkInputMarker  {
 
 - [BenchmarkInputMarker](#interface-benchmarkinputmarker)
 
-### mut func get(Int64)
+### func get(Int64)
 
 ```cangjie
 mut func get(idx: Int64): T
@@ -33,7 +33,7 @@ mut func get(idx: Int64): T
 
 - T - 元素值。
 
-### mut func reset(Int64)
+### func reset(Int64)
 
 ```cangjie
 mut func reset(max: Int64)
@@ -153,27 +153,6 @@ public interface BenchmarkInputMarker
 
 功能：当我们不知道 `T` 时，该接口能够检测 `BenchInputProvider<T>` 。
 
-## interface Generator\<T>
-
-```cangjie
-public interface Generator<T> {
-    func next(): T
-}
-```
-
-功能：生成器生成 T 类型的值。
-
-### func next()
-
-```cangjie
-func next(): T
-```
-
-功能：获取生成出来的 T 类型的值。
-
-返回值：
-
-- T - 生成的 T 类型的值。
 
 ## interface Measurement
 
@@ -184,6 +163,7 @@ public interface Measurement {
     prop textDescription: String
     func setup(): Unit
     func measure(): Float64
+    prop info: MeasurementInfo
 }
 ```
 
@@ -245,6 +225,12 @@ func setup()
 ```
 
 功能：此测量的初始化例程。在每个基准步骤之前调用。
+
+### prop info
+
+功能：具体测量的汇总信息。
+
+类型: [MeasurementInfo](../unittest_package_api/unittest_package_structs.md#struct-measurementinfo)
 
 ## interface Reporter
 

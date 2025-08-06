@@ -1,5 +1,719 @@
 # 接口
 
+## interface ArbitraryRange\<T>
+
+```cangjie
+public interface ArbitraryRange<T> where T <: Arbitrary<T> & Comparable<T> {
+    static func min(): T
+    static func max(): T
+    static func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
+}
+```
+
+功能：接口为不同类型提供可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, T, T)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: T, max: T): c<T>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: T - 可生成范围的最小值。
+- max: T - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): T
+```
+
+功能：返回最大值。
+
+返回值：
+
+- T - 最大值。
+
+### func min()
+
+```cangjie
+func min(): T
+```
+
+功能：返回最小值。
+
+返回值：
+
+- T - 最小值。
+
+### extend Float16 <: ArbitraryRange\<Float16>
+
+```cangjie
+extend Float16 <: ArbitraryRange<Float16> {
+    public static func min(): Float16
+    public static func max(): Float16
+    public static func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
+}
+```
+
+功能：为 Float16 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Float16, Float16)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Float16 - 可生成范围的最小值。
+- max: Float16 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float16> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Float16
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Float16 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Float16
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Float16 - 最小值。
+
+### extend Float32 <: ArbitraryRange\<Float32>
+
+```cangjie
+extend Float32 <: ArbitraryRange<Float32> {
+    public static func min(): Float32 
+    public static func max(): Float32 
+    public static func arbitraryRange(random: RandomSource, min: Float32, max: Float32): Generator<Float32> 
+}
+```
+
+功能：为 Float32 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Float32, Float32)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Float32 - 可生成范围的最小值。
+- max: Float32 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float32> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Float32
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Float32 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Float32
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Float32 - 最小值。
+
+### extend Float64 <: ArbitraryRange\<Float64>
+
+```cangjie
+extend Float64 <: ArbitraryRange<Float64> {
+    public static func min(): Float64 
+    public static func max(): Float64 
+    public static func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64> 
+}
+```
+
+功能：为 Float64 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Float64, Float64)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Float64 - 可生成范围的最小值。
+- max: Float64 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float64> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Float64
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Float64 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Float64
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Float64 - 最小值。
+
+### extend Int16 <: ArbitraryRange\<Int16>
+
+```cangjie
+extend Int16 <: ArbitraryRange<Int16> {
+    public static func min(): Int16 
+    public static func max(): Int16 
+    public static func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16> 
+}
+```
+
+功能：为 Int16 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Int16, Int16)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Int16 - 可生成范围的最小值。
+- max: Int16 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int16> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Int16
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Int16 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Int16
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Int16 - 最小值。
+
+### extend Int32 <: ArbitraryRange\<Int32>
+
+```cangjie
+extend Int32 <: ArbitraryRange<Int32> {
+    public static func min(): Int32 
+    public static func max(): Int32 
+    public static func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32> 
+}
+```
+
+功能：为 UInt32 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Int32, Int32)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Int32 - 可生成范围的最小值。
+- max: Int32 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int32> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Int32
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Int32 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Int32
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Int32 - 最小值。
+
+### extend Int64 <: ArbitraryRange\<Int64>
+
+```cangjie
+extend Int64 <: ArbitraryRange<Int64> {
+    public static func min(): Int64 
+    public static func max(): Int64 
+    public static func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int64> 
+}
+```
+
+功能：为 Int64 类型实现的可以在一定范围内生成值的方法。
+
+### extend Int8 <: ArbitraryRange\<Int8>
+
+```cangjie
+extend Int8 <: ArbitraryRange<Int8> {
+    public static func min(): Int8 
+    public static func max(): Int8 
+    public static func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8> 
+}
+```
+
+功能：为 Int8 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, Int8, Int8)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: Int8 - 可生成范围的最小值。
+- max: Int8 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int8> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): Int8
+```
+
+功能：返回最大值。
+
+返回值：
+
+- Int8 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): Int8
+```
+
+功能：返回最小值。
+
+返回值：
+
+- Int8 - 最小值。
+
+### extend IntNative <: ArbitraryRange\<IntNative>
+
+```cangjie
+extend IntNative <: ArbitraryRange<IntNative> {
+    public static func min(): IntNative 
+    public static func max(): IntNative 
+    public static func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative> 
+}
+```
+
+功能：为 IntNative 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, IntNative, IntNative)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: IntNative - 可生成范围的最小值。
+- max: IntNative - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<IntNative> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): IntNative
+```
+
+功能：返回最大值。
+
+返回值：
+
+- IntNative - 最大值。
+
+### func min()
+
+```cangjie
+func min(): IntNative
+```
+
+功能：返回最小值。
+
+返回值：
+
+- IntNative - 最小值。
+
+### extend UInt16 <: ArbitraryRange\<UInt16>
+
+```cangjie
+extend UInt16 <: ArbitraryRange<UInt16> {
+    public static func min(): UInt16 
+    public static func max(): UInt16 
+    public static func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16> 
+}
+```
+
+功能：为 UInt16 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, UInt16, UInt16)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: UInt16 - 可生成范围的最小值。
+- max: UInt16 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt16> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): UInt16
+```
+
+功能：返回最大值。
+
+返回值：
+
+- UInt16 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): UInt16
+```
+
+功能：返回最小值。
+
+返回值：
+
+- UInt16 - 最小值。
+
+### extend UInt32 <: ArbitraryRange\<UInt32>
+
+```cangjie
+extend UInt32 <: ArbitraryRange<UInt32> {
+    public static func min(): UInt32 
+    public static func max(): UInt32 
+    public static func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32> 
+}
+```
+
+功能：为 UInt32 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, UInt32, UInt32)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: UInt32 - 可生成范围的最小值。
+- max: UInt32 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt32> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): UInt32
+```
+
+功能：返回最大值。
+
+返回值：
+
+- UInt32 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): UInt32
+```
+
+功能：返回最小值。
+
+返回值：
+
+- UInt32 - 最小值。
+
+### extend UInt64 <: ArbitraryRange\<UInt64>
+
+```cangjie
+extend UInt64 <: ArbitraryRange<UInt64> {
+    public static func min(): UInt64 
+    public static func max(): UInt64 
+    public static func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64> 
+}
+```
+
+功能：为 UInt64 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, UInt64, UInt64)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: UInt64 - 可生成范围的最小值。
+- max: UInt64 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt64> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): UInt64
+```
+
+功能：返回最大值。
+
+返回值：
+
+- UInt64 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): UInt64
+```
+
+功能：返回最小值。
+
+返回值：
+
+- UInt64 - 最小值。
+
+### extend UInt8 <: ArbitraryRange\<UInt8>
+
+```cangjie
+extend UInt8 <: ArbitraryRange<UInt8> {
+    public static func min(): UInt8 
+    public static func max(): UInt8 
+    public static func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8> 
+}
+```
+
+功能：为 UInt8 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, UInt8, UInt8)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: UInt8 - 可生成范围的最小值。
+- max: UInt8 - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt8> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): UInt8
+```
+
+功能：返回最大值。
+
+返回值：
+
+- UInt8 - 最大值。
+
+### func min()
+
+```cangjie
+func min(): UInt8
+```
+
+功能：返回最小值。
+
+返回值：
+
+- UInt8 - 最小值。
+
+### extend UIntNative <: ArbitraryRange\<UIntNative>
+
+```cangjie
+extend UIntNative <: ArbitraryRange<UIntNative> {
+    public static func min(): UIntNative 
+    public static func max(): UIntNative 
+    public static func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative> 
+}
+```
+
+功能：为 UIntNative 类型实现的可以在一定范围内生成值的方法。
+
+### func arbitraryRange(RandomSource, UIntNative, UIntNative)
+
+```cangjie
+func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
+```
+
+功能: 返回在范围内生成的值。
+
+参数：
+
+- random:[RandomSource](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数源。
+- min: UIntNative - 可生成范围的最小值。
+- max: UIntNative - 可生成范围的最大值。
+
+返回值：
+
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UIntNative> - 生成器。
+
+### func max()
+
+```cangjie
+func max(): UIntNative
+```
+
+功能：返回最大值。
+
+返回值：
+
+- UIntNative - 最大值。
+
+### func min()
+
+```cangjie
+func min(): UIntNative
+```
+
+功能：返回最小值。
+
+返回值：
+
+- UIntNative - 最小值。
+
 ## interface Arbitrary\<T>
 
 ```cangjie
@@ -24,7 +738,7 @@ static func arbitrary(random: RandomSource): Generator<T>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<T> - 生成 T 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - 生成 T 类型随机值生成器。
 
 ### extend Bool <: Arbitrary\<Bool>
 
@@ -52,7 +766,7 @@ static func arbitrary(random: RandomSource): Generator<Bool>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Bool> - 生成 Bool 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Bool> - 生成 Bool 类型随机值生成器。
 
 ### extend Float16 <: Arbitrary\<Float16>
 
@@ -80,7 +794,7 @@ static func arbitrary(random: RandomSource): Generator<Float16>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Float16> - 生成 Float16 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float16> - 生成 Float16 类型随机值生成器。
 
 ### extend Float32 <: Arbitrary\<Float32>
 
@@ -108,7 +822,7 @@ static func arbitrary(random: RandomSource): Generator<Float32>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Float32> - 生成 Float32 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float32> - 生成 Float32 类型随机值生成器。
 
 ### extend Float64 <: Arbitrary\<Float64>
 
@@ -136,7 +850,7 @@ static func arbitrary(random: RandomSource): Generator<Float64>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Float64> - 生成 Float64 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float64> - 生成 Float64 类型随机值生成器。
 
 ### extend Int16 <: Arbitrary\<Int16>
 
@@ -164,7 +878,7 @@ static func arbitrary(random: RandomSource): Generator<Int16>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Int16> - 生成 Int16 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int16> - 生成 Int16 类型随机值生成器。
 
 ### extend Int32 <: Arbitrary\<Int32>
 
@@ -192,7 +906,7 @@ static func arbitrary(random: RandomSource): Generator<Int32>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Int32> - 生成 Int32 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int32> - 生成 Int32 类型随机值生成器。
 
 ### extend Int64 <: Arbitrary\<Int64>
 
@@ -220,7 +934,7 @@ static func arbitrary(random: RandomSource): Generator<Int64>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Int64> - 生成 Int64 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int64> - 生成 Int64 类型随机值生成器。
 
 ### extend Int8 <: Arbitrary\<Int8>
 
@@ -248,7 +962,7 @@ static func arbitrary(random: RandomSource): Generator<Int8>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Int8> - 生成 Int8 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int8> - 生成 Int8 类型随机值生成器。
 
 ### extend IntNative <: Arbitrary\<IntNative>
 
@@ -276,7 +990,7 @@ static func arbitrary(random: RandomSource): Generator<IntNative>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<IntNative> - 生成 IntNative 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<IntNative> - 生成 IntNative 类型随机值生成器。
 
 ### extend Ordering <: Arbitrary\<Ordering>
 
@@ -304,7 +1018,7 @@ static func arbitrary(random: RandomSource): Generator<Ordering>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Ordering> - 生成 Ordering 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Ordering> - 生成 Ordering 类型随机值生成器。
 
 ### extend Rune <: Arbitrary\<Rune>
 
@@ -332,7 +1046,7 @@ static func arbitrary(random: RandomSource): Generator<Rune>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Rune> - 生成 Rune 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Rune> - 生成 Rune 类型随机值生成器。
 
 ### extend String <: Arbitrary\<String>
 
@@ -360,7 +1074,7 @@ static func arbitrary(random: RandomSource): Generator<String>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<String> - 生成 String 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<String> - 生成 String 类型随机值生成器。
 
 ### extend UInt16 <: Arbitrary\<UInt16>
 
@@ -388,7 +1102,7 @@ static func arbitrary(random: RandomSource): Generator<UInt16>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<UInt16> - 生成 UInt16 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt16> - 生成 UInt16 类型随机值生成器。
 
 ### extend UInt32 <: Arbitrary\<UInt32>
 
@@ -416,7 +1130,7 @@ static func arbitrary(random: RandomSource): Generator<UInt32>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<UInt32> - 生成 UInt32 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt32> - 生成 UInt32 类型随机值生成器。
 
 ### extend UInt64 <: Arbitrary\<UInt64>
 
@@ -444,7 +1158,7 @@ static func arbitrary(random: RandomSource): Generator<UInt64>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<UInt64> - 生成 UInt64 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt64> - 生成 UInt64 类型随机值生成器。
 
 ### extend UInt8 <: Arbitrary\<UInt8>
 
@@ -472,7 +1186,7 @@ static func arbitrary(random: RandomSource): Generator<UInt8>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<UInt8> - 生成 UInt8 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt8> - 生成 UInt8 类型随机值生成器。
 
 ### extend UIntNative <: Arbitrary\<UIntNative>
 
@@ -500,7 +1214,7 @@ static func arbitrary(random: RandomSource): Generator<UIntNative>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<UIntNative> - 生成 UIntNative 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UIntNative> - 生成 UIntNative 类型随机值生成器。
 
 ### extend Unit <: Arbitrary\<Unit>
 
@@ -528,7 +1242,7 @@ static func arbitrary(random: RandomSource): Generator<Unit>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Unit> - 生成 Unit 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Unit> - 生成 Unit 类型随机值生成器。
 
 ### extend\<T> Array\<T> <: Arbitrary\<Array\<T>> where T <: Arbitrary\<T>
 
@@ -556,7 +1270,7 @@ static func arbitrary(random: RandomSource): Generator<Array<T>>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<Array\<T>> - 生成 Array\<T> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Array\<T>> - 生成 Array\<T> 类型随机值生成器。
 
 ### extend\<T> Option\<T> <: Arbitrary\<Option\<T>> where T <: Arbitrary\<T>
 
@@ -584,12 +1298,12 @@ static func arbitrary(random: RandomSource): Generator<option<T>>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<option\<T>> - 生成 option\<T> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<option\<T>> - 生成 option\<T> 类型随机值生成器。
 
 ### extend\<T> ArrayList\<T> <: Arbitrary\<ArrayList\<T>> where T <: Arbitrary\<T>
 
 ```cangjie
-extend<T> ArrayList<T> <: Arbitrary<ArrayList<T>> where T <: Arbitrary<T>
+extend<T> ArrayList<T> <: Arbitrary<ArrayList<T>> where T <: Arbitrary<T> 
 ```
 
 功能：为 [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<T>  实现了 [Arbitrary](#interface-arbitraryt) 接口，且 T 需实现 [Arbitrary](#interface-arbitraryt)\<T> 接口。
@@ -612,7 +1326,7 @@ static func arbitrary(random: RandomSource): Generator<ArrayList<T>>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<ArrayList\<T>> - 生成 ArrayList\<T> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<ArrayList\<T>> - 生成 ArrayList\<T> 类型随机值生成器。
 
 ### extend\<T> HashSet\<T> <: Arbitrary\<HashSet\<T>> where T <: Arbitrary\<T>
 
@@ -640,7 +1354,7 @@ static func arbitrary(random: RandomSource): Generator<HashSet<T>>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<HashSet\<T>> - 生成 HashSet\<T> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<HashSet\<T>> - 生成 HashSet\<T> 类型随机值生成器。
 
 ### extend\<K, V> HashMap\<K, V> <: Arbitrary\<HashMap\<K, V>> where K <: Arbitrary\<K>, V <: Arbitrary\<V>
 
@@ -668,7 +1382,29 @@ static func arbitrary(random: RandomSource): Generator<HashMap<K, V>>
 
 返回值：
 
-- [Generator](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-generatort)\<HashMap\<K, V>> - 生成 HashMap\<K, V> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<HashMap\<K, V>> - 生成 HashMap\<K, V> 类型随机值生成器。
+
+## interface Generator\<T>
+
+```cangjie
+public interface Generator<T> {
+    func next(): T
+}
+```
+
+功能：生成器生成 T 类型的值。
+
+### func next()
+
+```cangjie
+func next(): T
+```
+
+功能：获取生成出来的 T 类型的值。
+
+返回值：
+
+- T - 生成的 T 类型的值。
 
 ## interface IndexAccess
 
