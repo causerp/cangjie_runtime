@@ -2466,6 +2466,8 @@ public class ImportContent <: Node {
 }
 ```
 
+功能：表示包导入节点。
+
 父类型：
 
 - [Node](#class-node)
@@ -6632,6 +6634,10 @@ public func toString(): String
 
 功能：将 [Tokens](ast_package_classes.md#class-tokens) 转化为 [String](../../core/core_package_api/core_package_structs.md#struct-string) 类型。
 
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 转化后的字符串。
+
 ### operator func +(Token)
 
 ```cangjie
@@ -6730,18 +6736,6 @@ public init(tokens: Tokens)
 参数：
 
 - tokens: [Tokens](ast_package_classes.md#class-tokens) - 传入 [Tokens](ast_package_classes.md#class-tokens)。
-
-### func iterator()
-
-```cangjie
-public func iterator(): Iterator<Token>
-```
-
-功能：获取当前迭代器实例。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Token](ast_package_structs.md#struct-token)> - 当前迭代器实例。
 
 ### func next()
 
