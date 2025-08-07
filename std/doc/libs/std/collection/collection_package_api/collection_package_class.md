@@ -672,7 +672,7 @@ public func toArray(): Array<T>
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - T 类型数组。
 
-### operator func []\(Int64)
+### operator func \[](Int64)
 
 ```cangjie
 public operator func [](index: Int64): T
@@ -692,7 +692,7 @@ public operator func [](index: Int64): T
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 index 超出范围时，抛出异常。
 
-### operator func []\(Int64, T)
+### operator func \[](Int64, T)
 
 ```cangjie
 public operator func [](index: Int64, value!: T): Unit
@@ -709,7 +709,7 @@ public operator func [](index: Int64, value!: T): Unit
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 index 超出范围时，抛出异常。
 
-### operator func []\(Range\<Int64>)
+### operator func \[](Range\<Int64>)
 
 ```cangjie
 public operator func [](range: Range<Int64>): ArrayList<T>
@@ -1120,7 +1120,7 @@ public prop size: Int64
 public init()
 ```
 
-功能：构造一个空的 [ArrayStack](#class-arraystackt)，其初始容量为 8 。
+功能：构造一个空的 [ArrayStack](#class-arraystackt)，其初始容量为 8。
 
 ### func init(Int64)
 
@@ -1128,7 +1128,7 @@ public init()
 public init(capacity: Int64)
 ```
 
-功能：构造一个空的 [ArrayStack](#class-arraystackt)，其初始容量为指定的值。当 capacity 小于默认容量 8 时，构造的 [ArrayStack](#class-arraystackt) 初始容量为 8 。
+功能：构造一个空的 [ArrayStack](#class-arraystackt)，其初始容量为指定的值。当 capacity 小于默认容量 8 时，构造的 [ArrayStack](#class-arraystackt) 初始容量为 8。
 
 参数：
 
@@ -1470,23 +1470,6 @@ public func add(all!: Collection<(K, V)>): Unit
 
 使用示例见 [HashMap 的 add/remove/clear 函数](../collection_package_samples/sample_hashmap_add_remove_clear.md)。
 
-### func addIfAbsent(K, V)
-
-```cangjie
-func addIfAbsent(key: K, value: V): ?V
-```
-
-功能：如果 key 不在当前 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中，添加指定键值对 key-value。否则不做修改。
-
-参数：
-
-- key: K - 待添加键值对的键。
-- value: V - 待添加键值对的值。
-
-返回值：
-
-- ?V - 如果调用该函数时当前 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有指定的 key，返回该 key 对应的旧值，否则返回 None。
-
 ### func clear()
 
 ```cangjie
@@ -1669,23 +1652,6 @@ public func removeIf(predicate: (K, V) -> Bool): Unit
 
 - [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - 当 `predicate` 中增删或者修改 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 内键值对时，抛出异常。
 
-### func replace(K, V)
-
-```cangjie
-func replace(key: K, value: V): ?V
-```
-
-功能：如果当前 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有指定 key，将其值修改为 value。否则不做修改。
-
-参数：
-
-- key: K - 待修改键值对的键。
-- value: V - 待修改键值对的新值。
-
-返回值：
-
-- ?V - 如果当前 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有指定 key，返回其旧值。否则返回 None。
-
 ### func reserve(Int64)
 
 ```cangjie
@@ -1728,7 +1694,7 @@ public func values(): Collection<V>
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - 保存所有返回的 value。
 
-### operator func []\(K, V)
+### operator func \[](K, V)
 
 ```cangjie
 public operator func [](key: K, value!: V): Unit
@@ -1741,7 +1707,7 @@ public operator func [](key: K, value!: V): Unit
 - key: K - 传递值进行判断。
 - value!: V - 传递要设置的值。
 
-#### operator func []\(K)
+#### operator func \[](K)
 
 ```cangjie
 public operator func [](key: K): V
@@ -1890,7 +1856,7 @@ public init(size: Int64, initElement: (Int64) -> T)
 public init()
 ```
 
-功能：构造一个空的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) ，初始容量为 16 。
+功能：构造一个空的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)，初始容量为 16。
 
 ### init(Array\<T>)
 
@@ -2409,7 +2375,7 @@ public prop size: Int64
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
-### init
+### init()
 
 ```cangjie
 public init()

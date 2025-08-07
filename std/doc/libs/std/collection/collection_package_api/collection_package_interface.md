@@ -264,7 +264,7 @@ func removeIf(predicate: (T) -> Bool): Unit
 
 - predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传递判断删除的条件。
 
-### operator func []\(Int64, T)
+### operator func \[](Int64, T)
 
 ```cangjie
 operator func [](index: Int64, value!: T): Unit
@@ -429,7 +429,7 @@ func replace(key: K, value: V): ?V
 
 - ?V - 如果当前 [Map](collection_package_interface.md#interface-mapk-v) 中已有指定 key，返回其旧值。否则返回 None。
 
-### operator func []\(K, V)
+### operator func \[](K, V)
 
 ```cangjie
 operator func [](key: K, value!: V): Unit
@@ -785,7 +785,7 @@ func get(index: Int64): ?T
 
 - ?T - 返回指定位置的元素，如果 index 大小小于 0 或者大于等于此列表中的元素数量，返回 None。
 
-### operator func []\(Int64)
+### operator func \[](Int64)
 
 ```cangjie
 operator func [](index: Int64): T
@@ -895,7 +895,7 @@ func values(): Collection<V>
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - 保存所有返回的 value。
 
-### operator func []\(K)
+### operator func \[](K)
 
 ```cangjie
 operator func [](key: K): V

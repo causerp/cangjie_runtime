@@ -3891,7 +3891,7 @@ public func setSocketOptionIntNative(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时抛出异常。
 
-#### func getSocketOptionBool(Int32, Int32)
+### func getSocketOptionBool(Int32, Int32)
 
 ```cangjie
 public func getSocketOptionBool(

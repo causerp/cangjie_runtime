@@ -933,7 +933,7 @@ static func getMax(): T
 
 - T - 最大值。
 
-### static func getMax()
+### static func getMin()
 
 ```cangjie
 static func getMin(): T

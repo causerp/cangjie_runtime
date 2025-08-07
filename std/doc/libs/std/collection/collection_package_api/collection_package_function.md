@@ -237,7 +237,7 @@ public func filter<T>(predicate: (T) -> Bool): (Iterable<T>) -> Iterator<T>
 ## func filterMap\<T, R>((T) -> ?R)
 
 ```cangjie
-public func filterMap<T, R>(transform: (T)-> ?R): (Iterable<T>) ->Iterator<R>
+public func filterMap<T, R>(transform: (T) -> ?R): (Iterable<T>) -> Iterator<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新的迭代器。
@@ -266,7 +266,7 @@ public func first<T>(it: Iterable<T>): Option<T>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回头部元素，若为空则返回 None。
 
-## func flatMap\<T, R>( (T) -> Iterable\<R>)
+## func flatMap\<T, R>((T) -> Iterable\<R>)
 
 ```cangjie
 public func flatMap<T, R>(transform: (T) -> Iterable<R>): (Iterable<T>) -> Iterator<R>

@@ -646,6 +646,10 @@ public func join(path: Path): Path
 - 对于路径 "a/b"，"c"，返回 "a/b/c"。
 - 对于路径 "a"，"b/c"，返回 "a/b/c"。
 
+参数：
+
+- path: [Path](fs_package_structs.md#struct-path) - 另一个 [Path](fs_package_structs.md#struct-path)。
+
 返回值：
 
 - [Path](fs_package_structs.md#struct-path) - 新路径的 [Path](fs_package_structs.md#struct-path) 实例。
@@ -665,6 +669,10 @@ public func join(path: String): Path
 
 - 对于路径 "a/b"，"c"，返回 "a/b/c"。
 - 对于路径 "a"，"b/c"，返回 "a/b/c"。
+
+参数：
+
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 另一个路径的字符串。
 
 返回值：
 

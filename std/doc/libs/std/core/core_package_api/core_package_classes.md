@@ -504,6 +504,14 @@ public abstract class Iterator<T> <: Iterable<T>
 
 - [Iterable](core_package_interfaces.md#interface-iterablee)\<T>
 
+### init()
+
+```cangjie
+public init()
+```
+
+功能：构造一个默认的 [Iterator](core_package_classes.md#class-iteratort)\<T> 对象。
+
 ### func iterator()
 
 ```cangjie

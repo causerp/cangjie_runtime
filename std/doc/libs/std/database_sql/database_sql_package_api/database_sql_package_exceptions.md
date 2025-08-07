@@ -79,3 +79,15 @@ public init(message: String, sqlState: String, errorCode: Int64)
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常信息。
 - sqlState: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 长度为五个字符的字符串，是数据库系统返回的最后执行的 sql 语句状态。
 - errorCode: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 数据库供应商返回的整数错误代码。
+
+### func getClassName()
+
+```cangjie
+protected override open func getClassName(): String
+```
+
+功能：获得类名。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。

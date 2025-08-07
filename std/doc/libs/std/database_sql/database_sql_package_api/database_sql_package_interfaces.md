@@ -305,6 +305,10 @@ func get<T>(index: Int64): T
 
 功能：从结果集的当前行检索指定列的值。
 
+参数：
+
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
+
 返回值：
 
 - T - `T` 类型的实例。
@@ -316,6 +320,10 @@ func getOrNull<T>(index: Int64): ?T
 ```
 
 功能：从结果集的当前行检索指定列的值，数据库列允许 SQL NULL。
+
+参数：
+
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定列。
 
 返回值：
 

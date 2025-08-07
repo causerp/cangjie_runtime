@@ -1466,7 +1466,7 @@ public func put(key: K, value: V): ?V
 
 返回值：
 
-- ?V- 如果赋值之前 key 存在，则返回旧的值 Some(V)；当赋值前 key 不存在时，返回 None。
+- ?V - 如果赋值之前 key 存在，则返回旧的值 Some(V)；当赋值前 key 不存在时，返回 None。
 
 ### func putIfAbsent(K, V) <sup>(deprecated)</sup>
 
