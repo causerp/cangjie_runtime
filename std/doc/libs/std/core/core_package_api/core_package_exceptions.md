@@ -298,6 +298,18 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+### func getClassName()
+
+```cangjie
+protected override func getClassName(): String
+```
+
+功能：获得类名。
+
+返回值：
+
+- [String](../../core0/core_package_api/core_package_structs.md#struct-string) - 类名。
+
 ## class IllegalMemoryException
 
 ```cangjie

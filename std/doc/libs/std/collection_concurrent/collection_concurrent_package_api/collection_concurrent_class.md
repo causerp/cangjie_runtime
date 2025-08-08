@@ -1489,7 +1489,7 @@ public func putIfAbsent(key: K, value: V): ?V
 
 - ?V - 如果赋值之前 key 存在，则返回当前 key 对应的值 Some(V)，且不执行赋值操作；当赋值前 key 不存在时，返回 None。
 
-### func remove((K, (V) -> Bool)) <sup>(deprecated)</sup>
+### func remove(K, (V) -> Bool) <sup>(deprecated)</sup>
 
 ```cangjie
 public func remove(key: K, predicate: (V) -> Bool): ?V
@@ -1504,7 +1504,7 @@ public func remove(key: K, predicate: (V) -> Bool): ?V
 参数：
 
 - key: K - 传入要删除的 key。
-- predicate: (V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传递一个 lambda 表达式进行判断。
+- predicate: (V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传递一个 lambda 表达式进行判断。
 
 返回值：
 

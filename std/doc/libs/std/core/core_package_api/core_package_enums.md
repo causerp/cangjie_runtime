@@ -529,7 +529,7 @@ extend Ordering <: Hashable
 
 - [Hashable](core_package_interfaces.md#interface-hashable)
 
-#### func hashCode
+#### func hashCode()
 
 ```cangjie
 public func hashCode(): Int64

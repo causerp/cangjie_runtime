@@ -2470,7 +2470,7 @@ public func setSocketOption(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时，抛出异常。
 
-### func setSocketOptionBool(Int32, Int32，Bool)
+### func setSocketOptionBool(Int32, Int32, Bool)
 
 ```cangjie
 public func setSocketOptionBool(
@@ -3869,7 +3869,7 @@ public func setSocketOptionBool(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时，抛出异常。
 
-### func setSocketOptionIntNative(Int32, Int32，IntNative)
+### func setSocketOptionIntNative(Int32, Int32, IntNative)
 
 ```cangjie
 public func setSocketOptionIntNative(
@@ -4116,7 +4116,7 @@ public func getSocketOption(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
 
-### func getSocketOptionBool(Int32, Int32）
+### func getSocketOptionBool(Int32, Int32)
 
 ```cangjie
 public func getSocketOptionBool(
@@ -4200,7 +4200,7 @@ public func setSocketOption(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时，抛出异常。
 
-### func setSocketOptionBool(Int32, Int32, Bool）
+### func setSocketOptionBool(Int32, Int32, Bool)
 
 ```cangjie
 public func setSocketOptionBool(
@@ -4553,7 +4553,7 @@ public func setSocketOption(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时，抛出异常。
 
-### func setSocketOptionBool(Int32, Int32, Bool）
+### func setSocketOptionBool(Int32, Int32, Bool)
 
 ```cangjie
 public func setSocketOptionBool(

@@ -66,7 +66,7 @@ public func toString(): String
 
 - [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 文件打开模式名称。
 
-### func operator func ==(OpenMode)
+### operator func ==(OpenMode)
 
 ```cangjie
 public operator func ==(that: OpenMode): Bool
@@ -82,7 +82,7 @@ public operator func ==(that: OpenMode): Bool
 
 - [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
 
-### func operator func !=(OpenMode)
+### operator func !=(OpenMode)
 
 ```cangjie
 public operator func !=(that: OpenMode): Bool

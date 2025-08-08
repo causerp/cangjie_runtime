@@ -522,7 +522,7 @@ protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
 
 - pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 需要终止的进程 `ID`。
 
-- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 命名可选参数，指定是否强制关闭进程，默认为 `false`，若设置为 `false`，对应进程可以在释放资源后结束；若设置为 `true`，对应进程将被直接杀死。`Windows` 平台实现为强制关闭进程。
+- force: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 命名可选参数，指定是否强制关闭进程，默认为 `false`，若设置为 `false`，对应进程可以在释放资源后结束；若设置为 `true`，对应进程将被直接杀死。`Windows` 平台实现为强制关闭进程。
 
 异常：
 

@@ -3634,7 +3634,7 @@ public func tryLock(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果互斥体已被锁定，则返回 `false`；反之，则锁定互斥体并返回 `true`。
 
-### func unlock
+### func unlock()
 
 ```cangjie
 public func unlock(): Unit
@@ -3773,7 +3773,7 @@ public open func tryLock(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果互斥体已被锁定，则返回 `false`；反之，则锁定互斥体并返回 `true`。
 
-### func unlock
+### func unlock()
 
 ```cangjie
 public open func unlock(): Unit
@@ -4029,10 +4029,6 @@ public func release(amount!: Int64 = 1): Unit
 参数：
 
 - amount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 向对象内部计数器中释放的数值，默认值为 1。
-
-返回值：
-
-- [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 如果当前计数器小于要求的数值，则获取失败并返回 `false`；成功获取值时返回 `true`。
 
 异常：
 

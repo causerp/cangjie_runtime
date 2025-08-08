@@ -1707,7 +1707,7 @@ public operator func [](key: K, value!: V): Unit
 - key: K - 传递值进行判断。
 - value!: V - 传递要设置的值。
 
-#### operator func \[](K)
+### operator func \[](K)
 
 ```cangjie
 public operator func [](key: K): V
