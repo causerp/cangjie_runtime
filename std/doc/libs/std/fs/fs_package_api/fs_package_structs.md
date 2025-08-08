@@ -59,7 +59,7 @@ public prop creationTime: DateTime
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### prop lastAccessTime
 
@@ -73,7 +73,7 @@ public prop lastAccessTime: DateTime
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### prop lastModificationTime
 
@@ -87,7 +87,7 @@ public prop lastModificationTime: DateTime
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### prop name
 
@@ -136,7 +136,7 @@ public prop size: Int64
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### init(Path)
 
@@ -191,7 +191,7 @@ public func canExecute(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func canRead()
 
@@ -212,7 +212,7 @@ public func canRead(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func canWrite()
 
@@ -233,7 +233,7 @@ public func canWrite(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func isDirectory()
 
@@ -249,7 +249,7 @@ public func isDirectory(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func isRegular()
 
@@ -265,7 +265,7 @@ public func isRegular(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func isHidden()
 
@@ -296,7 +296,7 @@ public func isReadOnly(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func isSymbolicLink()
 
@@ -312,7 +312,7 @@ public func isSymbolicLink(): Bool
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层调用的系统接口发生错误，则抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
 ### func setExecutable(Bool)
 

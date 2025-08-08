@@ -76,7 +76,7 @@ std 含若干包，提供丰富的基础功能：
 | [net](./net/net_package_overview.md)                        | net 包提供常见的网络通信功能。 |
 | [objectpool](./objectpool/objectpool_package_overview.md)                        | objectpool 包提供了对象缓存和复用的功能。 |
 | [overflow](./overflow/overflow_package_overview.md)                        | overflow 包提供了溢出处理相关能力。 |
-| [posix](./posix/posix_package_overview.md)                        | posix 包主要适配 POSIX 系统接口。 |
+| [posix](./posix/posix_package_overview.md)                        | posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口 |
 | [process](./process/process_package_overview.md)                        | process 包主要提供 Process 进程操作接口，主要包括进程创建，标准流获取，进程等待，进程信息查询等。 |
 | [random](./random/random_package_overview.md)                        | random 包提供生成伪随机数的能力。 |
 | [reflect](./reflect/reflect_package_overview.md)                        | reflect 包提供了反射功能，使得程序在运行时能够获取到各种实例的类型信息，并进行各种读写和调用操作。 |

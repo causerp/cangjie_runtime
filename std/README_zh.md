@@ -38,7 +38,7 @@ std/libs/std
 ├── net 					#网络通信
 ├── objectpool 			    #对象缓存
 ├── overflow 				#溢出处理
-├── posix 					#适配POSIX系统接口
+├── posix 					#适配 POSIX 系统调用，提供跨平台的系统操作接口
 ├── process 				#进程库
 ├── random 					#提供生成伪随机数的能力
 ├── ref 					#提供了弱引用相关的能力
