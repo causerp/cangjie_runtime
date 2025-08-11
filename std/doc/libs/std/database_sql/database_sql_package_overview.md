@@ -20,8 +20,8 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | `BINARY`    | `Array<Byte>`    | `SqlBinary`    | -                                                    |
 | `VARBINARY` | `Array<Byte>`    | `SqlVarBinary` | -                                                    |
 | `BLOB`      | `io.InputStream` | `SqlBlob`      | -                                                    |
-| `NUMERIC`   | `Decimal`        | `sqlDecimal`   | -                                                    |
-| `DECIMAL`   | `Decimal`        | `sqlDecimal`   | -                                                    |
+| `NUMERIC`   | `Decimal`        | `SqlDecimal`   | -                                                    |
+| `DECIMAL`   | `Decimal`        | `SqlDecimal`   | -                                                    |
 | `BOOLEAN`   | `Bool`           | `SqlBool`      | -                                                    |
 | `TINYINT`   | `Int8`           | `SqlByte`      | -                                                    |
 | `SMALLINT`  | `Int16`          | `SqlSmallInt`  | -                                                    |

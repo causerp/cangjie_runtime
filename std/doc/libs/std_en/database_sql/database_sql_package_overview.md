@@ -20,8 +20,8 @@ The following table shows the mapping between SQL data types and Cangjie data ty
 | `BINARY`    | `Array<Byte>`    | `SqlBinary`    | -                                                            |
 | `VARBINARY` | `Array<Byte>`    | `SqlVarBinary` | -                                                            |
 | `BLOB`      | `io.InputStream` | `SqlBlob`      | -                                                            |
-| `NUMERIC`   | `Decimal`        | `sqlDecimal`   | -                                                            |
-| `DECIMAL`   | `Decimal`        | `sqlDecimal`   | -                                                            |
+| `NUMERIC`   | `Decimal`        | `SqlDecimal`   | -                                                            |
+| `DECIMAL`   | `Decimal`        | `SqlDecimal`   | -                                                            |
 | `BOOLEAN`   | `Bool`           | `SqlBool`      | -                                                            |
 | `TINYINT`   | `Int8`           | `SqlByte`      | -                                                            |
 | `SMALLINT`  | `Int16`          | `SqlSmallInt`  | -                                                            |
