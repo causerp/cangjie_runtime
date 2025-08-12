@@ -3724,7 +3724,7 @@ Return value:
 ## class ReentrantMutex <sup>(deprecated)<sup>
 
 ```cangjie
-public open class ReentrantMutex <: IReentrantMutex {
+public open class ReentrantMutex <: Lock {
     public init()
 }
 ```
@@ -3742,7 +3742,7 @@ Reentrant mutex locks protect critical sections by ensuring that at most one thr
 
 Parent type:
 
-- [IReentrantMutex <sup>(deprecated)</sup>](sync_package_interfaces.md#interface-ireentrantmutex-deprecated)
+- [Lock](sync_package_interfaces.md#interface-lock)
 
 ### init()
 

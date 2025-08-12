@@ -4,24 +4,24 @@
 
 ```cangjie
 public interface BigEndianOrder<T> {
-    func writeBigEndian(buffer: Array<Byte>): Int64
-    static func readBigEndian(buffer: Array<Byte>): T
+    func writeBigEndian(buffer: Array<UInt8>): Int64
+    static func readBigEndian(buffer: Array<UInt8>): T
 }
 ```
 
 Function: Big-endian byte sequence conversion interface.
 
-### static func readBigEndian(Array\<Byte>)
+### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-static func readBigEndian(buffer: Array<Byte>): T
+static func readBigEndian(buffer: Array<UInt8>): T
 ```
 
 Function: Reads a value of type T from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
 Return value:
 
@@ -31,17 +31,17 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to read a value of type T.
 
-### func writeBigEndian(Array\<Byte>)
+### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-func writeBigEndian(buffer: Array<Byte>): Int64
+func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a value of type T to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing the data to be written.
 
 Return value:
 
@@ -63,17 +63,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Bool
+public static func readBigEndian(buffer: Array<UInt8>): Bool
 ```
 
 Function: Reads a [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
 Return value:
 
@@ -90,7 +90,7 @@ Example:
 import std.binary.*
 
 main() {
-    let buffer: Array<Byte> = [0x1]
+    let buffer: Array<UInt8> = [0x1]
     let n = Bool.readBigEndian(buffer)
     println(n)
 }
@@ -102,17 +102,17 @@ Output:
 true
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing the data to be written.
 
 Return value:
 
@@ -129,7 +129,7 @@ Example:
 import std.binary.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = true.writeBigEndian(buffer)
     println(n == 1)
     println(buffer[0] == 0x01u8)
@@ -155,17 +155,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Float16
+public static func readBigEndian(buffer: Array<UInt8>): Float16
 ```
 
 Function: Reads a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
 Return value:
 
@@ -183,7 +183,7 @@ import std.binary.*
 
 main() {
     /* IEEE 754 representation of 12.5 is 0x4A40 */
-    let buffer: Array<Byte> = [0x4A, 0x40]
+    let buffer: Array<UInt8> = [0x4A, 0x40]
     let n = Float16.readBigEndian(buffer)
     println(n == 12.5)
 }
@@ -195,17 +195,17 @@ Output:
 true
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing the data to be written.
 
 Return value:
 
@@ -222,7 +222,7 @@ Example:
 import std.binary.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let len = 12.5f16.writeBigEndian(buffer)
     println(len)
 
@@ -250,17 +250,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Float32
+public static func readBigEndian(buffer: Array<UInt8>): Float32
 ```
 
 Function: Reads a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
 Return value:
 
@@ -277,7 +277,7 @@ Example:
 import std.binary.*
 
 main() {
-    let buffer: Array<Byte> = [0x41, 0x48, 0x00, 0x00]
+    let buffer: Array<UInt8> = [0x41, 0x48, 0x00, 0x00]
     let n = Float32.readBigEndian(buffer)
     println(n)
 }
@@ -289,17 +289,17 @@ Output:
 12.500000
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing data to be written.
 
 Return value:
 
@@ -316,7 +316,7 @@ Example:
 import std.binary.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let len = 12.5f32.writeBigEndian(buffer)
     println(len)
 
@@ -344,17 +344,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Float64
+public static func readBigEndian(buffer: Array<UInt8>): Float64
 ```
 
 Function: Reads a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing data to be read.
 
 Return value:
 
@@ -373,23 +373,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    let buffer: Array<UInt8> = [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     let n = Float64.readBigEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing data to be written.
 
 Return value:
 
@@ -408,7 +408,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 12.5f64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
@@ -427,17 +427,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Int16
+public static func readBigEndian(buffer: Array<UInt8>): Int16
 ```
 
 Function: Reads an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing data to be read.
 
 Return value:
 
@@ -456,23 +456,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34]
+    let buffer: Array<UInt8> = [0x12, 0x34]
     let n = Int16.readBigEndian(buffer)
     @Assert(n, 0x1234)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing data to be written.
 
 Return value:
 
@@ -491,7 +491,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234i16.writeBigEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x12, 0x34])
@@ -510,17 +510,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Int32
+public static func readBigEndian(buffer: Array<UInt8>): Int32
 ```
 
 Function: Reads an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer containing data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing data to be read.
 
 Return value:
 
@@ -539,23 +539,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78]
+    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78]
     let n = Int32.readBigEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer for storing data to be written.
 
 Return value:
 
@@ -574,7 +574,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    var buffer: Array<Byte> = Array<Byte>(8, repeat: 0)
+    var buffer: Array<UInt8> = Array<UInt8>(8, repeat: 0)
     let n = 0x12345678i32.
     writeBigEndian(buffer)
     @Assert(n, 4)
@@ -594,17 +594,17 @@ Parent type:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Int64
+public static func readBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Reads an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -623,23 +623,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
+    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
     let n = Int64.readBigEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data to be written.
 
 Return Value:
 
@@ -658,7 +658,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234567890123456i64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56])
@@ -677,17 +677,17 @@ Parent Types:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): Int8
+public static func readBigEndian(buffer: Array<UInt8>): Int8
 ```
 
 Function: Reads an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -706,23 +706,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12]
+    let buffer: Array<UInt8> = [0x12]
     let n = Int8.readBigEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data to be written.
 
 Return Value:
 
@@ -741,7 +741,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12i8.writeBigEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -760,17 +760,17 @@ Parent Types:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): UInt16
+public static func readBigEndian(buffer: Array<UInt8>): UInt16
 ```
 
 Function: Reads an [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -789,23 +789,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34]
+    let buffer: Array<UInt8> = [0x12, 0x34]
     let n = UInt16.readBigEndian(buffer)
     @Assert(n, 0x1234)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data to be written.
 
 Return Value:
 
@@ -824,7 +824,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234u16.writeBigEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x12, 0x34])
@@ -843,17 +843,17 @@ Parent Types:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): UInt32
+public static func readBigEndian(buffer: Array<UInt8>): UInt32
 ```
 
 Function: Reads an [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -872,23 +872,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78]
+    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78]
     let n = UInt32.readBigEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data to be written.
 
 Return Value:
 
@@ -907,7 +907,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12345678u32.writeBigEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78])
@@ -926,17 +926,17 @@ Parent Types:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): UInt64
+public static func readBigEndian(buffer: Array<UInt8>): UInt64
 ```
 
 Function: Reads a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -955,23 +955,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
+    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
     let n = UInt64.readBigEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -990,7 +990,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234567890123456u64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56])
@@ -1009,17 +1009,17 @@ Parent Types:
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
 
-#### static func readBigEndian(Array\<Byte>)
+#### static func readBigEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<Byte>): UInt8
+public static func readBigEndian(buffer: Array<UInt8>): UInt8
 ```
 
 Function: Reads a [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value from a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1038,23 +1038,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12]
+    let buffer: Array<UInt8> = [0x12]
     let n = UInt8.readBigEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeBigEndian(Array\<Byte>)
+#### func writeBigEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
+public func writeBigEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value to a byte array in big-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1073,7 +1073,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12u8.writeBigEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -1084,24 +1084,24 @@ main() {
 
 ```cangjie
 public interface LittleEndianOrder<T> {
-    func writeLittleEndian(buffer: Array<Byte>): Int64
-    static func readLittleEndian(buffer: Array<Byte>): T
+    func writeLittleEndian(buffer: Array<UInt8>): Int64
+    static func readLittleEndian(buffer: Array<UInt8>): T
 }
 ```
 
 Function: Interface for little-endian byte sequence conversion.
 
-### static func readLittleEndian(Array\<Byte>)
+### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-static func readLittleEndian(buffer: Array<Byte>): T
+static func readLittleEndian(buffer: Array<UInt8>): T
 ```
 
 Function: Reads a value of type T from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1111,17 +1111,17 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to read a value of type T.
 
-### func writeLittleEndian(Array\<Byte>)
+### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-func writeLittleEndian(buffer: Array<Byte>): Int64
+func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a value of type T to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1143,17 +1143,17 @@ Parent Types:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Bool
+public static func readLittleEndian(buffer: Array<UInt8>): Bool
 ```
 
 Function: Reads a [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1172,23 +1172,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x1]
+    let buffer: Array<UInt8> = [0x1]
     let n = Bool.readLittleEndian(buffer)
     @Assert(n, true)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1207,7 +1207,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = true.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x1])
@@ -1226,17 +1226,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Float16
+public static func readLittleEndian(buffer: Array<UInt8>): Float16
 ```
 
 Function: Reads a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1255,23 +1255,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x40, 0x4A]
+    let buffer: Array<UInt8> = [0x40, 0x4A]
     let n = Float16.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1290,7 +1290,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 12.5f16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x40, 0x4A])
@@ -1309,17 +1309,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Float32
+public static func readLittleEndian(buffer: Array<UInt8>): Float32
 ```
 
 Function: Reads a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1338,23 +1338,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x00, 0x00, 0x48, 0x41]
+    let buffer: Array<UInt8> = [0x00, 0x00, 0x48, 0x41]
     let n = Float32.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1373,7 +1373,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 12.5f32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x00, 0x00, 0x48, 0x41])
@@ -1392,17 +1392,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Float64
+public static func readLittleEndian(buffer: Array<UInt8>): Float64
 ```
 
 Function: Reads a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1421,23 +1421,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40]
+    let buffer: Array<UInt8> = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40]
     let n = Float64.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the written data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
 Return Value:
 
@@ -1456,7 +1456,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 12.5f64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40])
@@ -1475,17 +1475,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Int16
+public static func readLittleEndian(buffer: Array<UInt8>): Int16
 ```
 
 Function: Reads an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1504,7 +1504,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x40, 0x4A]
+    let buffer: Array<UInt8> = [0x40, 0x4A]
     let n = Int16.readLittleEndian(buffer)
     @Assert(n, 19008)
 }
@@ -1516,23 +1516,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x34, 0x12]
+    let buffer: Array<UInt8> = [0x34, 0x12]
     let n = Int16.readLittleEndian(buffer)
     @Assert(n, 0x1234i16)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer for storing the data to be written.
 
 Return value:
 
@@ -1551,7 +1551,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234i16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x34, 0x12])
@@ -1570,17 +1570,17 @@ Parent type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Int32
+public static func readLittleEndian(buffer: Array<UInt8>): Int32
 ```
 
 Function: Reads an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return value:
 
@@ -1599,23 +1599,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<UInt8> = [0x78, 0x56, 0x34, 0x12]
     let n = Int32.readLittleEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer for storing the data to be written.
 
 Return value:
 
@@ -1634,7 +1634,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12345678i32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x78, 0x56, 0x34, 0x12])
@@ -1653,17 +1653,17 @@ Parent type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Int64
+public static func readLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Reads an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return value:
 
@@ -1682,23 +1682,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<UInt8> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
     let n = Int64.readLittleEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer for storing the data to be written.
 
 Return value:
 
@@ -1717,7 +1717,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234567890123456i64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12])
@@ -1736,17 +1736,17 @@ Parent type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): Int8
+public static func readLittleEndian(buffer: Array<UInt8>): Int8
 ```
 
 Function: Reads an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return value:
 
@@ -1765,23 +1765,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12]
+    let buffer: Array<UInt8> = [0x12]
     let n = Int8.readLittleEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer for storing the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer for storing the data to be written.
 
 Return value:
 
@@ -1800,7 +1800,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12i8.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -1819,17 +1819,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): UInt16
+public static func readLittleEndian(buffer: Array<UInt8>): UInt16
 ```
 
 Function: Reads a [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1848,23 +1848,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x34, 0x12]
+    let buffer: Array<UInt8> = [0x34, 0x12]
     let n = UInt16.readLittleEndian(buffer)
     @Assert(n, 0x1234u16)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data.
 
 Return Value:
 
@@ -1883,7 +1883,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234u16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x34, 0x12])
@@ -1902,17 +1902,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): UInt32
+public static func readLittleEndian(buffer: Array<UInt8>): UInt32
 ```
 
 Function: Reads a [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -1931,23 +1931,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<UInt8> = [0x78, 0x56, 0x34, 0x12]
     let n = UInt32.readLittleEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data.
 
 Return Value:
 
@@ -1966,7 +1966,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12345678u32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x78, 0x56, 0x34, 0x12])
@@ -1985,17 +1985,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): UInt64
+public static func readLittleEndian(buffer: Array<UInt8>): UInt64
 ```
 
 Function: Reads a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -2014,23 +2014,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<UInt8> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
     let n = UInt64.readLittleEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value to a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the data.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the data.
 
 Return Value:
 
@@ -2049,7 +2049,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x1234567890123456u64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12])
@@ -2068,17 +2068,17 @@ Parent Type:
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
 
-#### static func readLittleEndian(Array\<Byte>)
+#### static func readLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<Byte>): UInt8
+public static func readLittleEndian(buffer: Array<UInt8>): UInt8
 ```
 
 Function: Reads a [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value from a byte array in little-endian order.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be read.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
 Return Value:
 
@@ -2097,21 +2097,21 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<Byte> = [0x12]
+    let buffer: Array<UInt8> = [0x12]
     let n = UInt8.readLittleEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeLittleEndian(Array\<Byte>)
+#### func writeLittleEndian(Array\<UInt8>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<Byte>): Int64
+public func writeLittleEndian(buffer: Array<UInt8>): Int64
 ```
 
 Function: Writes a [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value to a byte array in little-endian order.Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer used to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer used to store the data to be written.
 
 Return Value:
 
@@ -2130,7 +2130,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<Byte>(8, repeat: 0)
+    let buffer = Array<UInt8>(8, repeat: 0)
     let n = 0x12u8.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])

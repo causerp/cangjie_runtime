@@ -3720,7 +3720,7 @@ public func isFair(): Bool
 ## class ReentrantMutex <sup>(deprecated)<sup>
 
 ```cangjie
-public open class ReentrantMutex <: IReentrantMutex {
+public open class ReentrantMutex <: Lock {
     public init()
 }
 ```
@@ -3739,7 +3739,7 @@ public open class ReentrantMutex <: IReentrantMutex {
 
 父类型：
 
-- [IReentrantMutex <sup>(deprecated)</sup>](sync_package_interfaces.md#interface-ireentrantmutex-deprecated)
+- [Lock](sync_package_interfaces.md#interface-lock)
 
 ### init()
 
