@@ -18,7 +18,7 @@ public interface ArbitraryRange<T> where T <: Arbitrary<T> & Comparable<T> {
 func arbitraryRange(random: RandomSource, min: T, max: T): c<T>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -72,7 +72,7 @@ extend Float16 <: ArbitraryRange<Float16> {
 func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -126,7 +126,7 @@ extend Float32 <: ArbitraryRange<Float32> {
 func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -180,7 +180,7 @@ extend Float64 <: ArbitraryRange<Float64> {
 func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -234,7 +234,7 @@ extend Int16 <: ArbitraryRange<Int16> {
 func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -288,7 +288,7 @@ extend Int32 <: ArbitraryRange<Int32> {
 func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -354,7 +354,7 @@ extend Int8 <: ArbitraryRange<Int8> {
 func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -408,7 +408,7 @@ extend IntNative <: ArbitraryRange<IntNative> {
 func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -462,7 +462,7 @@ extend UInt16 <: ArbitraryRange<UInt16> {
 func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -516,7 +516,7 @@ extend UInt32 <: ArbitraryRange<UInt32> {
 func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -570,7 +570,7 @@ extend UInt64 <: ArbitraryRange<UInt64> {
 func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -624,7 +624,7 @@ extend UInt8 <: ArbitraryRange<UInt8> {
 func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -678,7 +678,7 @@ extend UIntNative <: ArbitraryRange<UIntNative> {
 func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
 ```
 
-功能: 返回在范围内生成的值。
+功能：返回在范围内生成的值。
 
 参数：
 
@@ -1475,6 +1475,20 @@ public interface RandomSource {
     func suggestFloat64(): Float64
     func suggestBool(): Bool
     func suggestRune(): Rune
+
+    func suggestInt64(l: Int64, r: Int64): Int64
+    func suggestUInt64(l: UInt64, r: UInt64): UInt64
+    func suggestInt32(l: Int32, r: Int32): Int32
+    func suggestUInt32(l: UInt32, r: UInt32): UInt32
+    func suggestInt16(l: Int16, r: Int16): Int16
+    func suggestUInt16(l: UInt16, r: UInt16): UInt16
+    func suggestInt8(l: Int8, r: Int8): Int8
+    func suggestUInt8(l: UInt8, r: UInt8): UInt8
+    func suggestIntNative(l: IntNative, r: IntNative): IntNative
+    func suggestUIntNative(l: UIntNative, r: UIntNative): UIntNative
+    func suggestFloat64(l: Float64, r: Float64): Float64
+    func suggestFloat32(l: Float32, r: Float32): Float32
+    func suggestFloat16(l: Float16, r: Float16): Float16
 }
 ```
 
@@ -2006,6 +2020,228 @@ public func suggestUIntNative(): UIntNative
 返回值：
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 一个 [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) 类型的伪随机数。
+
+### func suggestInt64(l: Int64, r: Int64): Int64
+
+```cangjie
+func suggestInt64(l: Int64, r: Int64): Int64
+```
+
+功能：获取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
+
+参数：
+
+- l: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 可生成范围的最小值。
+- r: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 可生成范围的最大值。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
+
+### func suggestUInt64(l: UInt64, r: UInt64): UInt64
+
+```cangjie
+func suggestUInt64(l: UInt64, r: UInt64): UInt64
+```
+
+功能：获取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)  类型的伪随机数。
+
+参数：
+
+- l: UInt64 - 可生成范围的最小值。
+- r: UInt64 - 可生成范围的最大值。
+
+返回值：
+
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
+
+### func suggestInt32(l: Int32, r: Int32): Int32
+
+```cangjie
+func suggestInt32(l: Int32, r: Int32): Int32
+```
+
+功能：获取一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
+
+参数：
+
+- l: Int32 - 可生成范围的最小值。
+- r: Int32 - 可生成范围的最大值。
+
+返回值：
+
+- [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
+
+### func suggestUInt32(l: UInt32, r: UInt32): UInt32
+
+```cangjie
+func suggestUInt32(l: UInt32, r: UInt32): UInt32
+```
+
+功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
+
+参数：
+
+- l: UInt32 - 可生成范围的最小值。
+- r: UInt32 - 可生成范围的最大值。
+
+返回值：
+
+- [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
+
+### func suggestInt16(l: Int16, r: Int16): Int16
+
+```cangjie
+func suggestInt16(l: Int16, r: Int16): Int16
+```
+
+功能：获取一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
+
+参数：
+
+- l: Int16 - 可生成范围的最小值。
+- r: Int16 - 可生成范围的最大值。
+
+返回值：
+
+- [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
+
+### func suggestUInt16(l: UInt16, r: UInt16): UInt16
+
+```cangjie
+func suggestUInt16(l: UInt16, r: UInt16): UInt16
+```
+
+功能：获取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
+
+参数：
+
+- l: UInt16 - 可生成范围的最小值。
+- r: UInt16 - 可生成范围的最大值。
+
+返回值：
+
+- [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
+
+### func suggestInt8(l: Int8, r: Int8): Int8
+
+```cangjie
+func suggestInt8(l: Int8, r: Int8): Int8
+```
+
+功能：获取一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
+
+参数：
+
+- l: Int8 - 可生成范围的最小值。
+- r: Int8 - 可生成范围的最大值。
+
+返回值：
+
+- [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
+
+### func suggestUInt8(l: UInt8, r: UInt8): UInt8
+
+```cangjie
+func suggestUInt8(l: UInt8, r: UInt8): UInt8
+```
+
+功能：获取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
+
+参数：
+
+- l: UInt8 - 可生成范围的最小值。
+- r: UInt8 - 可生成范围的最大值。
+
+返回值：
+
+- [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
+
+### func suggestIntNative(l: IntNative, r: IntNative): IntNative
+
+```cangjie
+func suggestIntNative(l: IntNative, r: IntNative): IntNative
+```
+
+功能：获取一个 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 类型的伪随机数。
+
+参数：
+
+- l: IntNative - 可生成范围的最小值。
+- l: IntNative - 可生成范围的最大值。
+
+返回值：
+
+- [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 一个 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 类型的伪随机数。
+
+### func suggestUIntNative(l: UIntNative, r: UIntNative): UIntNative
+
+```cangjie
+func suggestUIntNative(l: UIntNative, r: UIntNative): UIntNative
+```
+
+功能：获取一个 [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) 类型的伪随机数。
+
+参数：
+
+- l: UIntNative - 可生成范围的最小值。
+- l: UIntNative - 可生成范围的最大值。
+
+返回值：
+
+- [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 一个 [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) 类型的伪随机数。
+
+### func suggestFloat64(l: Float64, r: Float64): Float64
+
+```cangjie
+func suggestFloat64(l: Float64, r: Float64): Float64
+```
+
+功能：获取一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的伪随机数。
+
+参数：
+
+- l: Float64 - 可生成范围的最小值。
+- l: Float64 - 可生成范围的最大值。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的伪随机数。
+
+### func suggestFloat32(l: Float32, r: Float32): Float32
+
+```cangjie
+func suggestFloat32(l: Float32, r: Float32): Float32
+```
+
+功能：获取一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的伪随机数。
+
+参数：
+
+- l: Float32 - 可生成范围的最小值。
+- l: Float32 - 可生成范围的最大值。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的伪随机数。
+
+### func suggestFloat16(l: Float16, r: Float16): Float16
+
+```cangjie
+func suggestFloat16(l: Float16, r: Float16): Float16
+```
+
+功能：获取一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数。
+
+参数：
+
+- l: Float16 - 可生成范围的最小值。
+- l: Float16 - 可生成范围的最大值。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数。
+
 
 ## interface Shrink\<T>
 
@@ -2539,11 +2775,11 @@ func shrink(): Iterable<HashSet<T>>
 extend<K, V> HashMap<K, V> <: Shrink<HashMap<K, V>>
 ```
 
-功能：为 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<T> 实现了 [Shrink](#interface-shrinkt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<T>> 接口。
+功能：为 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<T> 实现了 [Shrink](#interface-shrinkt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<T>> 接口。
 
 父类型：
 
-- [Shrink](#interface-shrinkt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<T>>
+- [Shrink](#interface-shrinkt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<T>>
 
 #### func shrink()
 

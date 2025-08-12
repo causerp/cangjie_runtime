@@ -70,7 +70,7 @@ public let originalException: Exception
 
 类型：[Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)。
 
-### func getOriginalStackTrace
+### func getOriginalStackTrace()
 
 ```cangjie
 public func getOriginalStackTrace(): String

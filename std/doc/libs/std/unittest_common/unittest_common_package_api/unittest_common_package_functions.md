@@ -6,7 +6,7 @@
 public func registerOptionValidator(name: String, validator: (Any) -> OptionValidity): Unit
 ```
 
-功能: 用于注册自定义选项验证器。大多数情况下，用户应该使用  [@UnittestOption](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#UnittestOption-宏) 宏，而不是直接使用这个函数。
+功能：用于注册自定义选项验证器。大多数情况下，用户应该使用  [@UnittestOption](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#UnittestOption-宏) 宏，而不是直接使用这个函数。
 
 参数：
 
@@ -23,7 +23,7 @@ public func setOptionInfo(
 ): Unit
 ```
 
-功能: 用于设置选项的描述的函数。
+功能：用于设置选项的描述的函数。
 
 参数：
 
@@ -42,7 +42,7 @@ public func setOrUpdateOptionInfo(
 ): Unit
 ```
 
-功能: 用于设置具体类型的选项的描述。
+功能：用于设置具体类型的选项的描述。
 
 参数：
 
@@ -51,15 +51,3 @@ public func setOrUpdateOptionInfo(
 - ty: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的字符串形式。
 - typeDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 
 选项的类型描述。
-
-## func toStringOrPlaceholder\<T>(T)
-
-```cangjie
-public func toStringOrPlaceholder<T>(value: T)
-```
-
-功能：将实现 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 的参数转换为字符串表达。不支持 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 的转换为默认字符串。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 参数的字符串表达。

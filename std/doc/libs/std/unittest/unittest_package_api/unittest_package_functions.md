@@ -1,6 +1,6 @@
 # 函数
 
-## func assertCaughtUnexpectedE(String, String, String, Option\<AssertionCtx>)
+## func assertCaughtUnexpectedE(String, String, String, ?AssertionCtx)
 
 ```cangjie
 public func assertCaughtUnexpectedE(
@@ -20,7 +20,7 @@ public func assertCaughtUnexpectedE(
 - caughtException: [String](../../core/core_package_api/core_package_structs.md#struct-string)  - 实际捕获的异常。
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
 
-## func assertEqual\<T>(String, String, T, T, Option\<AssertionCtx>): Unit where T <: Equatable\<T>
+## func assertEqual\<T>(String, String, T, T, ?AssertionCtx)
 
 ```cangjie
 public func assertEqual<T>(
@@ -70,7 +70,7 @@ public func entryMain(testPackage: TestPackage): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行结果。
 
-## func expectCaughtUnexpectedE(String, String, String, Option\<AssertionCtx>)
+## func expectCaughtUnexpectedE(String, String, String, ?AssertionCtx)
 
 ```cangjie
 public func expectCaughtUnexpectedE(
@@ -90,7 +90,7 @@ public func expectCaughtUnexpectedE(
 - caughtException: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 实际捕获的异常。
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
 
-## func expectEqual\<T>(String, String, T, T, Option\<AssertionCtx>): Unit where T <: Equatable\<T>
+## func expectEqual\<T>(String, String, T, T, ?AssertionCtx)
 
 ```cangjie
 public func expectEqual<T>(
@@ -136,7 +136,7 @@ public func failExpect(message: String): Unit
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 失败信息。
 
-## func invokeCustomAssert\<T>(Array\<String>, String, (AssertionCtx) -> T, Option\<AssertionCtx>)
+## func invokeCustomAssert\<T>(Array\<String>, String, (AssertionCtx) -> T, ?AssertionCtx)
 
 ```cangjie
 public func invokeCustomAssert<T>(
@@ -160,7 +160,7 @@ public func invokeCustomAssert<T>(
 
 - `T` - 由用户定义的断言返回的值。
 
-## func invokeCustomExpect(Array\<String>, String, (AssertionCtx) -> Any, Option\<AssertionCtx>)
+## func invokeCustomExpect(Array\<String>, String, (AssertionCtx) -> Any, ?AssertionCtx)
 
 ```cangjie
 public func invokeCustomExpect(

@@ -23,3 +23,20 @@ public func random<T>(): RandomDataStrategy<T> where T <: Arbitrary<T>
 返回值：
 
 - [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary)\<T> - 使用随机数据生成的 [RandomDataStrategy](../../unittest/unittest_package_api/unittest_package_classes.md#class-randomdatastrategyt) 接口的实例。
+
+## func randomInRange\<T>(Option\<T>, Option\<T>)
+
+```cangjie
+public func randomInRange<T>(min!: Option<T> = None, max!: Option<T> = None): RandomDataStrategyRange<T> where T <: ArbitraryRange<T>
+```
+
+功能：创建一个 [RandomDataStrategyRange\<T>](../unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatastrategyranget)
+
+参数：
+
+- min: T - 最小值。
+- max: T - 最大值。
+
+返回值：
+
+- [RandomDataStrategyRange\<T>](../unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatastrategyranget) - 随机数据策略器。

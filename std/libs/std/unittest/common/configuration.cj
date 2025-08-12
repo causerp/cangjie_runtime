@@ -36,11 +36,11 @@ sealed abstract class ConfigurationKey <: Equatable<ConfigurationKey> & Hashable
 
     protected func equals(that: ConfigurationKey): Bool
 
-    public override operator func ==(that: ConfigurationKey) {
+    public override operator func ==(that: ConfigurationKey): Bool {
         equals(that)
     }
 
-    public override operator func !=(that: ConfigurationKey) {
+    public override operator func !=(that: ConfigurationKey): Bool {
         !equals(that)
     }
 }

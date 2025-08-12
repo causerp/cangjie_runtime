@@ -11,7 +11,7 @@ public struct OptionInfo {
 }
 ```
 
-功能: 打印帮助页面时可以使用的选项的信息。
+功能：打印帮助页面时可以使用的选项的信息。
 
 ### let description
 

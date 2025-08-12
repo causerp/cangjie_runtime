@@ -153,102 +153,6 @@ public static func merge(parent: Configuration, child: Configuration): Configura
 
 - [Configuration](#class-configuration) - 合并完成的配置
 
-### extend Configuration <: BenchmarkConfig
-
-```cangjie
-extend Configuration <: BenchmarkConfig {}
-```
-
-功能：为 [Configuration](#class-configuration) 扩展 [BenchmarkConfig](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig) 接口。
-
-父类型：
-
-- [BenchmarkConfig](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig)
-
-#### func batchSize(Int64)
-
-```cangjie
-public func batchSize(b: Int64)
-```
-
-功能：配置性能测试时一个批次的执行次数。
-
-参数：
-
-- b: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行次数。
-
-#### func batchSize(Range\<Int64>)
-
-```cangjie
-public func batchSize(x: Range<Int64>)
-```
-
-功能：配置性能测试时一个批次的执行次数范围。
-
-参数：
-
-- b: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<Int64> - 执行次数范围。
-
-#### func explicitGC(ExplicitGcType)
-
-```cangjie
-public func explicitGC(x: ExplicitGcType)
-```
-
-功能：配置性能测试时执行 GC 的方式。
-
-参数：
-
-- x: [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype) - GC 执行的方式。
-
-#### func minBatches(Int64)
-
-```cangjie
-public func minBatches(x: Int64)
-```
-
-功能：配置性能测试时最少的批次数。
-
-参数：
-
-- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 最少的批次数。
-
-#### func minDuration(Duration)
-
-```cangjie
-public func minDuration(x: Duration)
-```
-
-功能：配置性能测试时最短的执行时长。
-
-参数：
-
-- x: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 最短的执行时长。
-
-#### func warmup(Int64)
-
-```cangjie
-public func warmup(x: Int64)
-```
-
-功能：配置性能测试时预热的秒数。
-
-参数：
-
-- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 预热的秒数。
-
-#### func warmup(Duration)
-
-```cangjie
-public func warmup(x: Duration)
-```
-
-功能：配置性能测试时预热的时长。
-
-参数：
-
-- x: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 预热的时长。
-
 ## class ConfigurationKey
 
 ```cangjie
@@ -262,23 +166,7 @@ abstract sealed class ConfigurationKey <: Equatable<ConfigurationKey> & Hashable
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ConfigurationKey](#class-configurationkey)>
 - [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
 
-### func equals(ConfigurationKey)
-
-```cangjie
-protected func equals(that: ConfigurationKey): Bool
-```
-
-功能：判断是否相等。
-
-参数：
-
-- that: [ConfigurationKey](#class-configurationkey) - 被对比的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否相等。
-
-### func hashCode
+### func hashCode()
 
 ```cangjie
 public override func hashCode(): Int64
@@ -289,11 +177,21 @@ public override func hashCode(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - hashCode 值。
+  
+### let name
+
+```cangjie
+public let name: String
+```
+
+功能：配置键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### operator func ==(ConfigurationKey)
 
 ```cangjie
-public override operator func ==(that: ConfigurationKey)
+public override operator func ==(that: ConfigurationKey): Bool
 ```
 
 功能：判等。
@@ -306,10 +204,10 @@ public override operator func ==(that: ConfigurationKey)
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否相等。
 
-### public override operator func !=(that: ConfigurationKey)
+### operator func !=(that: ConfigurationKey)
 
 ```cangjie
-public override operator func !=(that: ConfigurationKey)
+public override operator func !=(that: ConfigurationKey): Bool
 ```
 
 功能：判不等。
@@ -321,6 +219,26 @@ public override operator func !=(that: ConfigurationKey)
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否不相等。
+
+### extend ConfigurationKey
+
+```cangjie
+extend ConfigurationKey {
+    static func create<T>(name: String): ConfigurationKey 
+}
+```
+
+#### static func create\<T>(String)
+
+功能：创建 [ConfigurationKey](#class-configurationkey)。
+
+参数：
+
+- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
+
+返回值:
+
+- [ConfigurationKey](#class-configurationkey) - 创建的配置键值。
 
 ## class PrettyPrinter
 
@@ -470,7 +388,7 @@ public func appendRightAligned(text: String, space: UInt64): PrettyPrinter
 
 - [PrettyPrinter](#class-prettyprinter) - 打印器。
 
-### func colored(Color, body: () -> Unit)
+### func colored(Color, () -> Unit)
 
 ```cangjie
 public func colored(color: Color, body: () -> Unit): PrettyPrinter
@@ -532,7 +450,7 @@ public func colored(color: Color, text: String): PrettyPrinter
 
 - [PrettyPrinter](#class-prettyprinter) - 打印器。
 
-### func customOffset(UInt64, body: () -> Unit)
+### func customOffset(UInt64, () -> Unit)
 
 ```cangjie
 public func customOffset(symbols: UInt64, body: () -> Unit): PrettyPrinter
@@ -560,7 +478,7 @@ pp.customOffset(5) {
 
 - [PrettyPrinter](#class-prettyprinter) - 打印器。
 
-### func indent(body: () -> Unit)
+### func indent(() -> Unit)
 
 ```cangjie
 public func indent(body: () -> Unit): PrettyPrinter
@@ -587,7 +505,7 @@ pp.indent {
 
 - [PrettyPrinter](#class-prettyprinter) - 打印器。
 
-### func indent(UInt64, body: () -> Unit)
+### func indent(UInt64, () -> Unit)
 
 ```cangjie
 public func indent(indents: UInt64, body: () -> Unit): PrettyPrinter
@@ -738,10 +656,10 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 打印文本的字符串。
 
-### static func of\<PP>(PP) where PP <: PrettyPrintable
+### static func of\<PP>(PP)
 
 ```cangjie
-public static func of<PP>(pp: PP) where PP <: PrettyPrintable
+public static func of<PP>(pp: PP): PrettyText where PP <: PrettyPrintable
 ```
 
 功能：通过打印从 [PrettyPrintable](./unittest_common_package_interfaces.md#interface-prettyprintable) 创建 [PrettyText](#class-prettytext)。

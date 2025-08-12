@@ -22,6 +22,16 @@ public Function0Wrapper(public let function: () -> R)
 
 - function: () -> R - 被封装的闭包。
 
+### let function
+
+```cangjie
+public let function: () -> R
+```
+
+功能：函数对象自身。
+
+类型：()->R
+
 ### operator func ()()
 
 ```cangjie
@@ -54,6 +64,30 @@ public static func arbitrary(random: RandomSource): Generator<Function0Wrapper<R
 
 功能：获取生成 [Function0Wrapper](#struct-function0wrapperr)\<R> 类型随机值生成器。
 
+## struct KeyRandom
+
+```cangjie
+public struct KeyRandom <: KeyFor<RandomSource> {}
+```
+
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 创建键值。
+
+### prop random
+
+```cangjie
+public static prop random: KeyRandom
+```
+
+功能：配置项的键值。
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：配置项的键值的名称。
+
 ## struct TupleWrapper2\<T0, T1>
 
 ```cangjie
@@ -76,7 +110,17 @@ public TupleWrapper2(public let tuple: (T0, T1))
 
 - tuple: (T0, T1) - 闭包的两个入参。
 
-### func apply\<R>(f: (T0, T1) -> R)
+### let tuple
+
+```cangjie
+public let tuple: (T0, T1)
+```
+
+功能：元组自身。
+
+类型：(T0, T1)
+
+### func apply\<R>((T0, T1) -> R)
 
 ```cangjie
 public func apply<R>(f: (T0, T1) -> R): R
@@ -127,7 +171,7 @@ extend<T0, T1> TupleWrapper2<T0, T1> <: Equatable<TupleWrapper2<T0, T1>>
 #### operator func ==(TupleWrapper2\<T0, T1>)
 
 ```cangjie
-public operator func ==(other: TupleWrapper2<T0, T1>)
+public operator func ==(other: TupleWrapper2<T0, T1>): Bool
 ```
 
 功能：比较两个二元元组。
@@ -143,7 +187,7 @@ public operator func ==(other: TupleWrapper2<T0, T1>)
 #### operator func !=(TupleWrapper2\<T0, T1>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper2<T0, T1>)
+public operator func !=(other: TupleWrapper2<T0, T1>): Bool
 ```
 
 功能：比较两个二元元组。
@@ -204,6 +248,28 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 功能：获取生成 [TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1> 类型随机值生成器。
 
+### extend\<T0, T1> TupleWrapper2\<T0, T1> <: Shrink\<TupleWrapper2\<T0, T1>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>
+
+```cangjie
+extend<T0, T1> TupleWrapper2<T0, T1> <: Shrink<TupleWrapper2<T0, T1>>
+        where T0 <: Shrink<T0>,
+              T1 <: Shrink<T1> {
+    public func shrink(): Iterable<TupleWrapper2<T0, T1>>
+}
+```
+
+### func shrink()
+
+```cangjie
+override func shrink(): Iterable<TupleWrapper2<T0, T1>>
+```
+
+功能：缩减元组。
+
+返回值：
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2<T0, T1> - 数据迭代器。
+
 ## struct TupleWrapper3\<T0, T1, T2>
 
 ```cangjie
@@ -214,19 +280,29 @@ public struct TupleWrapper3<T0, T1, T2> {
 
 功能：将闭包封装为结构体。闭包带两个参数。
 
-### TupleWrapper3((T0, T1,T2))
+### TupleWrapper3((T0, T1, T2))
 
 ```cangjie
-public TupleWrapper3(public let tuple: (T0, T1,T2))
+public TupleWrapper3(public let tuple: (T0, T1, T2))
 ```
 
 功能：TupleWrapper3构造器。
 
 参数：
 
-- tuple: (T0, T1,T2) - 闭包的两个入参。
+- tuple: (T0, T1, T2) - 闭包的三个入参。
 
-### func apply\<R>(f: (T0, T1,T2) -> R)
+### let tuple
+
+```cangjie
+public let tuple: (T0, T1, T2)
+```
+
+功能：元组自身。
+
+类型：(T0, T1, T2)
+
+### func apply\<R>((T0, T1, T2) -> R)
 
 ```cangjie
 public func apply<R>(f: (T0, T1,T2) -> R): R
@@ -277,7 +353,7 @@ extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, 
 #### operator func ==(TupleWrapper3\<T0, T1, T2>)
 
 ```cangjie
-public operator func ==(other: TupleWrapper3<T0, T1, T2>)
+public operator func ==(other: TupleWrapper3<T0, T1, T2>): Bool
 ```
 
 功能：比较两个元组。
@@ -293,7 +369,7 @@ public operator func ==(other: TupleWrapper3<T0, T1, T2>)
 #### operator func !=(TupleWrapper3\<T0, T1, T2>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper3<T0, T1, T2>)
+public operator func !=(other: TupleWrapper3<T0, T1, T2>): Bool
 ```
 
 功能：比较两个元组。
@@ -354,6 +430,29 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper3<T0, 
 
 功能：获取生成 [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2> 类型随机值生成器。
 
+### extend\<T0, T1, T2> TupleWrapper3\<T0, T1, T2> <: Shrink\<TupleWrapper3\<T0, T1, T2>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>
+
+```cangjie
+extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Shrink<TupleWrapper3<T0, T1, T2>>
+        where T0 <: Shrink<T0>,
+              T1 <: Shrink<T1>,
+              T2 <: Shrink<T2> {
+    public func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
+}
+```
+
+### func shrink()
+
+```cangjie
+override func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
+```
+
+功能：缩减元组。
+
+返回值：
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> -  数据迭代器。
+
 ## struct TupleWrapper4\<T0, T1, T2, T3>
 
 ```cangjie
@@ -376,7 +475,17 @@ public TupleWrapper4(public let tuple: (T0, T1, T2, T3))
 
 - tuple: (T0, T1, T2, T3) - 闭包的4个入参。
 
-### func apply\<R>(f: (T0, T1, T2, T3) -> R)
+### let tuple
+
+```cangjie
+public let tuple: (T0, T1, T2, T3)
+```
+
+功能：元组自身。
+
+类型：(T0, T1, T2, T3)
+
+### func apply\<R>((T0, T1, T2, T3) -> R)
 
 ```cangjie
 public func apply<R>(f: (T0, T1, T2, T3) -> R): R
@@ -427,7 +536,7 @@ extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, 
 #### operator func ==(TupleWrapper4\<T0, T1, T2, T3>)
 
 ```cangjie
-public operator func ==(other: TupleWrapper4<T0, T1, T2, T3>)
+public operator func ==(other: TupleWrapper4<T0, T1, T2, T3>): Bool
 ```
 
 功能：比较两个元组。
@@ -443,7 +552,7 @@ public operator func ==(other: TupleWrapper4<T0, T1, T2, T3>)
 #### operator func !=(TupleWrapper4\<T0, T1, T2, T3>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper4<T0, T1, T2, T3>)
+public operator func !=(other: TupleWrapper4<T0, T1, T2, T3>): Bool
 ```
 
 功能：比较两个元组。
@@ -504,6 +613,30 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 功能：获取生成 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3> 类型随机值生成器。
 
+### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3> <: Shrink\<TupleWrapper4\<T0, T1, T2, T3>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>
+
+```cangjie
+extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3> <: Shrink<TupleWrapper4<T0, T1, T2, T3>>
+        where T0 <: Shrink<T0>,
+              T1 <: Shrink<T1>,
+              T2 <: Shrink<T2>,
+              T3 <: Shrink<T3> {
+    public func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
+}
+```
+
+### func shrink()
+
+```cangjie
+override func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
+```
+
+功能：缩减元组。
+
+返回值：
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper4<T0, T1, T2, T3>> -  数据迭代器。
+
 ## struct TupleWrapper5\<T0, T1, T2, T3, T4>
 
 ```cangjie
@@ -526,7 +659,17 @@ public TupleWrapper5(public let tuple: (T0, T1, T2, T3, T4))
 
 - tuple: (T0, T1, T2, T3, T4) - 闭包的5个入参。
 
-### func apply\<R>(f: (T0, T1, T2, T3, T4) -> R)
+### let tuple
+
+```cangjie
+public let tuple: (T0, T1, T2, T3, T4)
+```
+
+功能：元组自身。
+
+类型：(T0, T1, T2, T3, T4)
+
+### func apply\<R>((T0, T1, T2, T3, T4) -> R)
 
 ```cangjie
 public func apply<R>(f: (T0, T1, T2, T3, T4) -> R): R
@@ -577,7 +720,7 @@ extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, 
 #### operator func ==(TupleWrapper5\<T0, T1, T2, T3, T4>)
 
 ```cangjie
-public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>)
+public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool
 ```
 
 功能：比较两个二元元组。
@@ -593,7 +736,7 @@ public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>)
 #### operator func !=(TupleWrapper5\<T0, T1, T2, T3, T4>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper2<T0, T1, T2, T3, T4>)
+public operator func !=(other: TupleWrapper2<T0, T1, T2, T3, T4>): Bool
 ```
 
 功能：比较两个元组。
@@ -653,3 +796,28 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, 
 ```
 
 功能：获取生成 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4> 类型随机值生成器。
+
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Shrink\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>, T4 <: Shrink\<T4>
+
+```cangjie
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Shrink<TupleWrapper5<T0, T1, T2, T3, T4>>
+        where T0 <: Shrink<T0>,
+              T1 <: Shrink<T1>,
+              T2 <: Shrink<T2>,
+              T3 <: Shrink<T3>,
+              T4 <: Shrink<T4> {
+    public func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+}
+```
+
+### func shrink()
+
+```cangjie
+override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+```
+
+功能：缩减元组。
+
+返回值：
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper5<T0, T1, T2, T3, T4>> -  数据迭代器。
