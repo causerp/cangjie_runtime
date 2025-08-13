@@ -1,6 +1,6 @@
 # 函数
 
-## func `open`(String, Int32) <sup>(deprecated)</sup>
+## func \`open`(String, Int32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func `open`(path: String, oflag: Int32): Int32
@@ -29,7 +29,7 @@ public func `open`(path: String, oflag: Int32): Int32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 `path` 包含空字符时，抛出异常。
 
-## func `open`(String, Int32, UInt32) <sup>(deprecated)</sup>
+## func \`open`(String, Int32, UInt32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func `open`(path: String, oflag: Int32, flag: UInt32): Int32

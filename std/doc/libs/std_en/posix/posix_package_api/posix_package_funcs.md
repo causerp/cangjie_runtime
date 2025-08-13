@@ -1,6 +1,6 @@
 # Functions
 
-## func `open`(String, Int32) <sup>(deprecated)</sup>
+## func \`open`(String, Int32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func `open`(path: String, oflag: Int32): Int32
@@ -29,7 +29,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws exception when function parameter `path` contains null characters.
 
-## func `open`(String, Int32, UInt32) <sup>(deprecated)</sup>
+## func \`open`(String, Int32, UInt32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func `open`(path: String, oflag: Int32, flag: UInt32): Int32
