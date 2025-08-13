@@ -44,7 +44,7 @@ func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转换后的 [Tokens](ast_package_classes.md#class-tokens)。
 
-### extend Array <: ToTokens
+### extend<T> Array<T> <: ToTokens
 
 ```cangjie
 extend<T> Array<T> <: ToTokens
@@ -68,7 +68,7 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转换后的 [Tokens](ast_package_classes.md#class-tokens)。
 
-### extend ArrayList <: ToTokens
+### extend<T> ArrayList<T> <: ToTokens
 
 ```cangjie
 extend<T> ArrayList<T> <: ToTokens

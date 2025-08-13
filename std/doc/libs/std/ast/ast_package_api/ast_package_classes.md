@@ -99,6 +99,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [Annotation](ast_package_classes.md#class-annotation) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Argument
 
 ```cangjie
@@ -170,6 +194,30 @@ public init()
 ```
 
 功能：构造一个默认的 [Argument](ast_package_classes.md#class-argument) 对象。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ArrayLiteral
 
@@ -250,6 +298,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ArrayLiteral](ast_package_classes.md#class-arrayliteral) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class AsExpr
 
 ```cangjie
@@ -324,6 +396,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [AsExpr](ast_package_classes.md#class-asexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class AssignExpr
 
@@ -400,6 +496,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [AssignExpr](ast_package_classes.md#class-assignexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class BinaryExpr
 
 ```cangjie
@@ -471,6 +591,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [BinaryExpr](ast_package_classes.md#class-binaryexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Block
 
 ```cangjie
@@ -536,6 +680,30 @@ public init()
 > **说明：**
 >
 > [Block](ast_package_classes.md#class-block) 节点无法脱离表达式或声明节点单独存在，因此不提供其他的构造函数。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Body
 
@@ -609,6 +777,30 @@ public init(decls: ArrayList<Decl>)
 参数：
 
 - decls: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Decl](ast_package_classes.md#class-decl)> - 将要构造 [Body](ast_package_classes.md#class-body) 类型的声明列表。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class CallExpr
 
@@ -699,6 +891,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [CallExpr](ast_package_classes.md#class-callexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ClassDecl
 
 ```cangjie
@@ -788,6 +1004,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ClassDecl](ast_package_classes.md#class-classdecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ConstPattern
 
 ```cangjie
@@ -839,6 +1079,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ConstPattern](ast_package_classes.md#class-constpattern) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Constructor
 
 ```cangjie
@@ -858,6 +1122,16 @@ public class Constructor <: Node {
 父类型：
 
 - [Node](#class-node)
+
+### prop annotations
+
+```cangjie
+public mut prop annotations: ArrayList<Annotation>
+```
+
+功能：获取或设置作用于 [Constructor](ast_package_classes.md#class-constructor) 节点的注解列表。
+
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Annotation](ast_package_classes.md#class-annotation)>
 
 ### prop identifier
 
@@ -914,6 +1188,30 @@ public init()
 ```
 
 功能：构造一个默认的 [Constructor](ast_package_classes.md#class-constructor) 对象。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Decl
 
@@ -1047,6 +1345,30 @@ public func hasAttr(attr: String): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前节点具有该属性时，返回 true；反之，返回 false。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class DoWhileExpr
 
 ```cangjie
@@ -1162,6 +1484,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [DoWhileExpr](ast_package_classes.md#class-dowhileexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class EnumDecl
 
 ```cangjie
@@ -1188,16 +1534,6 @@ public mut prop constructors: ArrayList<Constructor>
 功能：获取或设置 [EnumDecl](ast_package_classes.md#class-enumdecl) 节点内 constructor 的成员。
 
 类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Constructor](ast_package_classes.md#class-constructor)>
-
-### prop annotations
-
-```cangjie
-public mut prop annotations: ArrayList<Annotation>
-```
-
-功能：获取或设置作用于 [EnumDecl](ast_package_classes.md#class-enumdecl) 节点的注解列表。
-
-类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Annotation](ast_package_classes.md#class-annotation)>
 
 ### prop decls
 
@@ -1313,6 +1649,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [EnumDecl](ast_package_classes.md#class-enumdecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class EnumPattern
 
 ```cangjie
@@ -1416,6 +1776,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [EnumPattern](ast_package_classes.md#class-enumpattern) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ExceptTypePattern
 
 ```cangjie
@@ -1491,6 +1875,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ExceptTypePattern](ast_package_classes.md#class-excepttypepattern) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Expr
 
 ```cangjie
@@ -1504,6 +1912,30 @@ public open class Expr <: Node
 父类型：
 
 - [Node](#class-node)
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ExtendDecl
 
@@ -1617,6 +2049,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ExtendDecl](ast_package_classes.md#class-extenddecl) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ForInExpr
 
@@ -1773,6 +2229,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ForInExpr](ast_package_classes.md#class-forinexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class FuncDecl
 
 ```cangjie
@@ -1912,6 +2392,30 @@ public func isConst(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是一个 `Const` 类型的节点返回 true；反之，返回 false。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class FuncParam
 
 ```cangjie
@@ -2030,6 +2534,30 @@ public func isMemberParam(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 布尔类型，如果是主构造函数中的参数，返回 `true`。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class FuncType
 
@@ -2158,6 +2686,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [FuncType](ast_package_classes.md#class-functype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class GenericConstraint
 
 ```cangjie
@@ -2248,6 +2800,30 @@ public init()
 
 功能：构造一个默认的 [GenericConstraint](ast_package_classes.md#class-genericconstraint) 对象。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class GenericParam
 
 ```cangjie
@@ -2326,6 +2902,30 @@ public init(parameters: Tokens)
 参数：
 
 - parameters: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [GenericParam](ast_package_classes.md#class-genericparam) 的类型形参的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class IfExpr
 
@@ -2457,6 +3057,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IfExpr](ast_package_classes.md#class-ifexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ImportContent
 
@@ -2634,6 +3258,30 @@ public func isImportSingle(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [ImportContent](ast_package_classes.md#class-importcontent) 节点是否为单导入。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ImportList
 
 ```cangjie
@@ -2721,6 +3369,30 @@ public func isImportMulti(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [ImportList](ast_package_classes.md#class-importlist) 节点导入了多个顶级定义或声明，返回 true；反之，返回 false。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class IncOrDecExpr
 
 ```cangjie
@@ -2779,6 +3451,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IncOrDecExpr](ast_package_classes.md#class-incordecexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class InterfaceDecl
 
@@ -2869,6 +3565,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [InterfaceDecl](ast_package_classes.md#class-interfacedecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class IsExpr
 
 ```cangjie
@@ -2944,6 +3664,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IsExpr](ast_package_classes.md#class-isexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class JumpExpr
 
 ```cangjie
@@ -2992,6 +3736,30 @@ public init(kind: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [JumpExpr](ast_package_classes.md#class-jumpexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class LambdaExpr
 
@@ -3096,6 +3864,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [LambdaExpr](ast_package_classes.md#class-lambdaexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class LetPatternExpr
 
 ```cangjie
@@ -3185,6 +3977,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [LetPatternExpr](ast_package_classes.md#class-letpatternexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class LitConstExpr
 
 ```cangjie
@@ -3235,6 +4051,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenExpr](ast_package_classes.md#class-parenexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class MacroDecl
 
@@ -3352,6 +4192,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroDecl](ast_package_classes.md#class-macrodecl) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class MacroExpandDecl
 
@@ -3494,6 +4358,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroExpandDecl](ast_package_classes.md#class-macroexpanddecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class MacroExpandExpr
 
 ```cangjie
@@ -3635,6 +4523,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class MacroExpandParam
 
 ```cangjie
@@ -3758,6 +4670,30 @@ public init()
 ```
 
 功能：构造一个默认的 [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) 对象。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class MacroMessage
 
@@ -3980,6 +4916,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MainDecl](ast_package_classes.md#class-maindecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class MatchCase
 
 ```cangjie
@@ -4112,6 +5072,30 @@ public init()
 ```
 
 功能：构造一个默认的 [MatchCase](ast_package_classes.md#class-matchcase) 对象。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class MatchExpr
 
@@ -4248,6 +5232,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MatchExpr](ast_package_classes.md#class-matchexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class MemberAccess
 
 ```cangjie
@@ -4375,6 +5383,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MemberAccess](ast_package_classes.md#class-memberaccess) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Modifier
 
 ```cangjie
@@ -4421,6 +5453,30 @@ public init(keyword: Token)
 参数：
 
 - keyword: [Token](ast_package_structs.md#struct-token) - 将要构造 [Modifier](ast_package_classes.md#class-modifier) 类型的词法单元。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Node
 
@@ -4561,6 +5617,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [OptionalExpr](ast_package_classes.md#class-optionalexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class PackageHeader
 
 ```cangjie
@@ -4678,6 +5758,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PackageHeader](ast_package_classes.md#class-packageheader) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ParenExpr
 
 ```cangjie
@@ -4756,6 +5860,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenExpr](ast_package_classes.md#class-parenexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ParenType
 
@@ -4836,6 +5964,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenType](ast_package_classes.md#class-parentype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class Pattern
 
 ```cangjie
@@ -4847,6 +5999,30 @@ public open class Pattern <: Node
 父类型：
 
 - [Node](#class-node)
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class PrefixType
 
@@ -4908,6 +6084,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrefixType](ast_package_classes.md#class-prefixtype) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class PrimaryCtorDecl
 
@@ -5010,6 +6210,30 @@ public func isConst(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前节点为 `Const` 类型的节点时，返回 true；反之，返回 false。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class PrimitiveType
 
 ```cangjie
@@ -5061,6 +6285,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrimitiveType](ast_package_classes.md#class-primitivetype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class PrimitiveTypeExpr
 
 ```cangjie
@@ -5111,6 +6359,30 @@ public init(kind: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrimitiveTypeExpr](ast_package_classes.md#class-primitivetypeexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Program
 
@@ -5186,6 +6458,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为一个文件节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class PropDecl
 
@@ -5307,6 +6603,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PropDecl](ast_package_classes.md#class-propdecl) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class QualifiedType
 
@@ -5435,6 +6755,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [QualifiedType](ast_package_classes.md#class-qualifiedtype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class QuoteExpr
 
 ```cangjie
@@ -5528,6 +6872,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [QuoteExpr](ast_package_classes.md#class-quoteexpr) 节点。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class QuoteToken
 
 ```cangjie
@@ -5549,6 +6917,30 @@ public mut prop tokens: Tokens
 功能：获取 [QuoteToken](ast_package_classes.md#class-quotetoken) 内的 [Tokens](ast_package_classes.md#class-tokens)。
 
 类型：[Tokens](ast_package_classes.md#class-tokens)
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class RangeExpr
 
@@ -5657,6 +7049,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [RangeExpr](ast_package_classes.md#class-rangeexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class RefExpr
 
 ```cangjie
@@ -5759,6 +7175,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [RefExpr](ast_package_classes.md#class-refexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class RefType
 
@@ -5863,6 +7303,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [RefType](ast_package_classes.md#class-reftype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ReturnExpr
 
 ```cangjie
@@ -5931,6 +7395,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ReturnExpr](ast_package_classes.md#class-returnexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class SpawnExpr
 
@@ -6039,6 +7527,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [SpawnExpr](ast_package_classes.md#class-spawnexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class StructDecl
 
 ```cangjie
@@ -6128,6 +7640,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [StructDecl](ast_package_classes.md#class-structdecl) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class SubscriptExpr
 
 ```cangjie
@@ -6216,6 +7752,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [SubscriptExpr](ast_package_classes.md#class-subscriptexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class SynchronizedExpr
 
@@ -6320,6 +7880,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [SynchronizedExpr](ast_package_classes.md#class-synchronizedexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ThisType
 
 ```cangjie
@@ -6368,6 +7952,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ThisType](ast_package_classes.md#class-thistype) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ThrowExpr
 
@@ -6433,6 +8041,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ThrowExpr](ast_package_classes.md#class-throwexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Tokens
 
@@ -6838,6 +8470,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TrailingClosureExpr](ast_package_classes.md#class-trailingclosureexpr) 节点。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class TryExpr
 
 ```cangjie
@@ -6975,6 +8631,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TryExpr](ast_package_classes.md#class-tryexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class TupleLiteral
 
 ```cangjie
@@ -7053,6 +8733,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TupleLiteral](ast_package_classes.md#class-tupleliteral) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class TuplePattern
 
@@ -7147,6 +8851,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TuplePattern](ast_package_classes.md#class-tuplepattern) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class TupleType
 
 ```cangjie
@@ -7226,6 +8954,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TupleType](ast_package_classes.md#class-tupletype) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class TypeAliasDecl
 
 ```cangjie
@@ -7294,6 +9046,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TypeAliasDecl](ast_package_classes.md#class-typealiasdecl) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class TypeConvExpr
 
@@ -7384,6 +9160,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TypeConvExpr](ast_package_classes.md#class-typeconvexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class TypeNode
 
 ```cangjie
@@ -7419,6 +9219,30 @@ public mut prop colon: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 ":" 操作符时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class TypePattern
 
@@ -7495,6 +9319,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [TypePattern](ast_package_classes.md#class-typepattern) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class UnaryExpr
 
 ```cangjie
@@ -7553,6 +9401,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [UnaryExpr](ast_package_classes.md#class-unaryexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class VArrayExpr
 
@@ -7642,6 +9514,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class VArrayType
 
@@ -7755,6 +9651,30 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayType](ast_package_classes.md#class-varraytype) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class VarDecl
 
@@ -7883,6 +9803,30 @@ public func isConst(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是一个 `Const` 类型的节点返回 true；反之，返回 false。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class VarOrEnumPattern
 
 ```cangjie
@@ -7918,7 +9862,7 @@ public init()
 
 功能：构造一个默认的 [VarOrEnumPattern](ast_package_classes.md#class-varorenumpattern) 对象。
 
-### init(Tokens)
+### init(Token)
 
 ```cangjie
 public init(identifier: Token)
@@ -7933,6 +9877,30 @@ public init(identifier: Token)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VarOrEnumPattern](ast_package_classes.md#class-varorenumpattern) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class VarPattern
 
@@ -7969,7 +9937,7 @@ public init()
 
 功能：构造一个默认的 [VarPattern](ast_package_classes.md#class-varpattern) 对象。
 
-### init(Tokens)
+### init(Token)
 
 ```cangjie
 public init(identifier: Token)
@@ -7984,6 +9952,30 @@ public init(identifier: Token)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VarPattern](ast_package_classes.md#class-varpattern) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class Visitor
 
@@ -8109,6 +10101,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [WhileExpr](ast_package_classes.md#class-whileexpr) 节点时，抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class WildcardExpr
 
 ```cangjie
@@ -8161,6 +10177,30 @@ public init(keyword: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [WildcardExpr](ast_package_classes.md#class-wildcardexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class WildcardPattern
 
@@ -8216,3 +10256,27 @@ public init(keyword: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [WildcardPattern](ast_package_classes.md#class-wildcardpattern) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
