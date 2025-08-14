@@ -94,6 +94,8 @@ def do_build(args):
 
     mode = mode.capitalize()
     macos_flag = 1 if platform.system().lower() == 'darwin' else 0
+    if macos_flag:
+        os.environ["ZERO_AR_DATE"] = "1"
     # Perform different build actions based on the target_args
     if target_args == "native":
         cmake_command = [
