@@ -181,4 +181,4 @@ prop name: String
 
 功能：[Configuration](./unittest_common_package_classes.md#class-configuration) 中使用的键名称的字符串表示形式。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。

@@ -320,7 +320,7 @@ let conf = Configuration()
 conf.set(KeyBaseline.baseline, "baseline")
 ```
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -348,7 +348,7 @@ public struct KeyBaselinePath <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -376,7 +376,7 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -404,7 +404,7 @@ public struct KeyBench <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -432,7 +432,7 @@ public struct KeyCaptureOutput <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -460,7 +460,7 @@ public struct KeyCoverageGuided <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -488,7 +488,7 @@ public struct KeyCoverageGuidedBaselineScore <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -516,7 +516,7 @@ public struct KeyCoverageGuidedInitialSeeds <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -544,7 +544,7 @@ public struct KeyCoverageGuidedMaxCandidates <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -572,7 +572,7 @@ public struct KeyCoverageGuidedNewCoverageBonus <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -600,7 +600,7 @@ public struct KeyCoverageGuidedNewCoverageScore <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -628,7 +628,7 @@ public struct KeyDeathAware <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -656,7 +656,7 @@ public struct KeyDryRun <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -684,7 +684,7 @@ public struct KeyExcludeTags <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -712,7 +712,7 @@ public struct KeyExplicitGC <: KeyFor<ExplicitGcType> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -740,7 +740,7 @@ public struct KeyFilter <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -768,7 +768,7 @@ public struct KeyFromTopLevel <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -796,7 +796,7 @@ public struct KeyGenerationSteps <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -824,7 +824,7 @@ public struct KeyHelp <: KeyFor<Bool> {}
 
 功能：用于在配置信息中指定是否打印帮助信息。
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -852,7 +852,7 @@ public struct KeyIncludeTags <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -880,7 +880,7 @@ public struct KeyInternalTestrunnerInputPath <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -908,7 +908,7 @@ public struct KeyMeasurement <: KeyFor<Measurement> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -936,7 +936,7 @@ public struct KeyMeasurementInfo <: KeyFor<MeasurementInfo> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -964,7 +964,7 @@ public struct KeyMinBatches <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -992,7 +992,7 @@ public struct KeyMinDuration <: KeyFor<Duration> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1020,7 +1020,7 @@ public struct KeyNoCaptureOutput <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1048,7 +1048,7 @@ public struct KeyNoColor <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1076,7 +1076,7 @@ public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1104,7 +1104,7 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1132,7 +1132,7 @@ public struct KeyRandomSeed <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1160,7 +1160,7 @@ public struct KeyReductionSteps <: KeyFor<Int64> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1188,7 +1188,7 @@ public struct KeyReportFormat <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1216,7 +1216,7 @@ public struct KeyReportPath <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1244,7 +1244,7 @@ public struct KeyShowAllOutput <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1272,7 +1272,7 @@ public struct KeyShowTags <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1300,7 +1300,7 @@ public struct KeySkip <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1360,7 +1360,7 @@ public struct KeyTimeout <: KeyFor<Duration> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1388,7 +1388,7 @@ public struct KeyTimeoutEach <: KeyFor<String> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1424,7 +1424,7 @@ let conf = Configuration()
 conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
 ```
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1456,7 +1456,7 @@ public struct KeyVerbose <: KeyFor<Bool> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1484,7 +1484,7 @@ public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
 
-父类型:
+父类型：
 
 - [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
 
@@ -1636,6 +1636,73 @@ func setup()
 ```
 
 功能：此 CPU 计数器的初始化例程。在每个基准步骤之前调用。
+
+## struct RelativeDelta\<T>
+
+```cangjie
+public struct RelativeDelta<T> {
+    public RelativeDelta(let absolute!: T, let relative!: T) {}
+}
+```
+
+功能：对于浮点类型，提供相对的 delta 数据类型来做近似相等的计算。计算公式如下。
+
+$$|x - y| <= absolute + relative * max(abs(x), abs(y))$$
+
+### RelativeDelta(T, T)
+
+```cangjie
+public RelativeDelta(let absolute!: T, let relative!: T)
+```
+
+功能：RelativeDelta 的主构造函数。
+
+参数：
+
+- absolute!: T - 绝对比较部分的 delta 值。
+- relative!: T - 相对比较部分的 delta 值。
+
+## struct TestCaseInfo
+
+```cangjie
+public struct TestCaseInfo {
+    public let groupName: String
+    public let suiteName: String
+    public let caseName: String
+}
+```
+
+功能：当前正在运行的测试用例的信息。通常在动态 API 的超时处理句柄中被使用。
+
+### let caseName
+
+```cangjie
+public let caseName: String
+```
+
+功能：用例名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+
+### let groupName
+
+```cangjie
+public let groupName: String
+```
+
+功能：用例的测试组名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+
+### let suiteName
+
+```cangjie
+public let suiteName: String
+```
+
+功能：用例的测试套名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
 
 ## struct TimeNow
 

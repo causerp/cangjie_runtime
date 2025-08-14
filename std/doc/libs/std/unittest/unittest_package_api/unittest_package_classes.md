@@ -144,12 +144,13 @@ public func run(): BenchReport
 
 - [BenchReport](#class-benchreport) - 运行结果报告。
 
-### static func create(String, Configuration, () -> Unit)
+### static func create(String, Configuration, Measurement, () -> Unit)
 
 ```cangjie
 public static func create(
     name: String,
     configuration!: Configuration = Configuration(),
+    measurement!: Measurement = TimeNow(),
     body!: () -> Unit
 ): Benchmark
 ```
@@ -160,13 +161,14 @@ public static func create(
 
 - name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- body!: () -> Unit - 用例执行体。
+- measurement : [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body : () -> Unit - 用例执行体。
 
 返回值：
 
 - [Benchmark](#class-benchmark) - 性能测试用例对象。
 
-### static func createParameterized\<T>(String, DataStrategy\<T>, Configuration, (T) -> Unit)
+### static func createParameterized\<T>(String, DataStrategy\<T>, Configuration, Measurement, (T) -> Unit)
 
 ```cangjie
 public static func createParameterized<T>(
@@ -184,15 +186,15 @@ public static func createParameterized<T>(
 
 - name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - strategy : [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - 参数数据策略。
-- configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) 测量方法信息
-- body!: () -> Unit - 用例执行体。
+- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) 测量方法信息。
+- body : () -> Unit - 用例执行体。
 
 返回值：
 
 - [Benchmark](#class-benchmark) - 性能测试用例对象。
 
-### static func createParameterized\<T>(String, DataStrategyProcessor\<T>, Configuration, (T) -> Unit)
+### static func createParameterized\<T>(String, DataStrategyProcessor\<T>, Configuration, Measurement, (T) -> Unit)
 
 ```cangjie
 public static func createParameterized<T>(
@@ -210,9 +212,9 @@ public static func createParameterized<T>(
 
 - name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - strategy : [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
-- configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) 测量方法信息
-- body!: () -> Unit - 用例执行体。
+- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- measurement : [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body : () -> Unit - 用例执行体。
 
 返回值：
 

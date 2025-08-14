@@ -287,6 +287,10 @@ mock 框架提供 API 来指定桩操作。触发桩后，打桩声明会执行�
 import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
+class Foo {
+    func bar() { }
+}
+
 @Test
 func tooFewInvocations() {
     let foo = mock<Foo>()

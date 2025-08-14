@@ -235,6 +235,60 @@ let e: ?NoneValueException = @ExpectThrows[NoneValueException](foo())
 let e: ?Exception = @ExpectThrows[NoneValueException | IllegalMemoryException](foo())
 ```
 
+#### 近似相等
+
+一些被比较的参数类型可能不能准确计算，例如浮点数，此时我们可以使用近似计算获得其是否相等的结果。
+
+本包提供了近似计算相关的接口 [NearEqutable](../unittest_package_api/unittest_package_interfaces.md#interface-nearequatablect-d) ，对于需要判断近似相等的类型，可通过扩展该接口，并在 `@Assert` `@Expect` `@PowerAssert` 等宏中使用 delta 参数，使能近似相等功能。
+
+近似相等的计算逻辑如下：
+
+```text
+a <= b with delta <=> a.isNear(b, delta) || a <= b
+a >= b with delta <=> a.isNear(b, delta) || a >= b
+a != b with delta <=> !a.isNear(b, delta)
+a == b with delta <=> a.isNear(b, delta)
+a < b with delta <=> !a.isNear(b, delta) && a < b
+a > b with delta <=> !a.isNear(b, delta) && a > b
+```
+
+对于浮点类型，还提供了相对的 delta 结构 [RelativeDelta](../unittest_package_api/unittest_package_structs.md#struct-relativedeltat):
+
+示例如下：
+
+<!-- run -->
+```cangjie
+// 基础类型
+@Test
+func test1() {
+    @Expect(1.0, 1.001, delta: 0.001) // 解糖为 @Expect(1.0 == 1.001, delta: 0.001)
+    @Expect(1.0 == 1.001, delta: 0.001)
+    @Expect(1.0 != 1.901, delta: RelativeDelta(absoluteDelta: 0.001, relativeDelta: 0.02))
+    @Expect(1.0 < 1.401, delta: 0.001)
+}
+// 自定义类型
+class Point <: NearEquatable<Point, Point> {
+    Point(let x: Int64, let y: Int64) { }
+
+    public func isNear(obj: Point, delta: Point): Bool {
+        if (x < 0 || y < 0) {
+            throw IllegalArgumentException("Coordinates must be non negative. Actual: ($x, $y)")
+        }
+        abs(x - obj.x) < delta.x && abs(y - obj.y) < delta.y
+    }
+}
+
+// 测试用例
+@Test
+func test() {
+    let p1 = Point(1, 5)
+    let p2 = Point(5, 5)
+    let delta = Point(1, 1)
+
+    @Expect(p1 != p2, delta: delta)
+}
+```
+
 ## 测试生命周期
 
 测试用例之间有时可以共享创建或清理代码。测试框架支持4个生命周期步骤，分别通过相应的宏来设置。只能为 `@Test` 测试类指定生命周期步骤，不能为 `@Test` 顶层函数指定生命周期步骤。
@@ -351,7 +405,7 @@ class Foo {
 ### `--include-tags`
 
 若需按 [`@Tag`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#tag-宏) 宏中指定的类别选择测试的子集，则可使用 `--include-tags` 或 `--exclude-tags` 运行选项。例如：
- 
+
 1. `--include-tags=Unittest` 运行所有的带有 `@Tag[Unittest]` 的测试用例。
 2. `--include-tags=Unittest,Smoke` 运行所有的带有 `@Tag[Unittest]`和/或`@Tag[Smoke]` 的测试用例。
 3. `--include-tags=Unittest+Smoke` 运行所有的带有 `@Tag[Unittest]`和`@Tag[Smoke]` 的测试用例。
@@ -364,7 +418,7 @@ class Foo {
 ### `--exclude-tags`
 
 若需按 [`@Tag`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#tag-宏) 宏中指定的类别选择测试的子集，则可使用 `--include-tags` 或 `--exclude-tags` 运行选项。例如：
- 
+
 1. `--exclude-tags=Unittest` 运行所有的**未**带有 `@Tag[Unittest]` 的测试用例。
 2. `--exclude-tags=Unittest,Smoke` 运行所有的**未**带有 `@Tag[Unittest]`和/或`@Tag[Smoke]` 的测试用例。
 3. `--exclude-tags=Unittest+Smoke` 运行所有的**未**同时带有 `@Tag[Unittest]`、`@Tag[Smoke]` 的测试用例。
@@ -372,6 +426,12 @@ class Foo {
 
 > ** 注意 **
 > `exclude-tags` 的优先级高于 `include-tags`，如果用例被排除，则必定不会被执行，例如 `--include-tags=Unittest+Smoke --exclude-tags=Smoke` 则带有 `@Tag[Smoke]` 的用例不会被执行。
+
+### `--show-tags`
+
+若需要在测试报告中显示测试用例中 [`@Tag`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#tag-宏) 的信息，可使用 `--show-tags` 运行选项。
+
+在 `--dry-run` 模式下，并且测试报告为 `xml` 格式时，将始终包含 `Tag` 信息。
 
 ### `--timeout-each=timeout`
 

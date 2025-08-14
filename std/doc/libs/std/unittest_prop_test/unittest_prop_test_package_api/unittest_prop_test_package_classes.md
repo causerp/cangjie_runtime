@@ -213,7 +213,7 @@ public RandomDataProvider(private let configuration: Configuration)
 public override prop isInfinite: Bool
 ```
 
-功能：是否生成无限的数据。
+功能：当该策略为无穷尽时，值为 true, 否则为 false。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)。
 
@@ -238,7 +238,7 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 }
 ```
 
-功能：可被生成为 Range 类型的数据提供器
+功能：可按照给定范围生成的数据提供器
 
 父类型：
 
@@ -255,8 +255,8 @@ RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 参数：
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 参数配置信息。
-- min: T - 最小值。
-- max: T - 最大值。
+- min: T - 最小值（包含）。
+- max: T - 最大值（不包含）。
 
 ### func provide()
 
@@ -307,7 +307,7 @@ public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable
 }
 ```
 
-功能：可被生成为 Range 类型的数据缩减器
+功能：可按照给定范围生成的数据缩减器。
 
 父类型：
 
@@ -323,8 +323,8 @@ RandomDataShrinkerRange(min: T, max: T)
 
 参数：
 
-- min: T - 最小值。
-- max: T - 最大值。
+- min: T - 最小值（包含）。
+- max: T - 最大值（不包含）。
 
 ### func shrink(T)
 
@@ -393,7 +393,7 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 }
 ```
 
-功能：可被生成为 Range 类型的数据策略器。
+功能：可按照给定范围生成的数据策略器。
 
 父类型：
 
@@ -409,8 +409,8 @@ RandomDataStrategyRange(min: T, max: T)
 
 参数：
 
-- min: T - 最小值。
-- max: T - 最大值。
+- min: T - 最小值（包含）。
+- max: T - 最大值（不包含）。
 
 ### func provider(Configuration)
 
@@ -450,7 +450,7 @@ public override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
 public override prop isInfinite: Bool 
 ```
 
-功能：是否无穷尽。
+功能：当该策略为无穷尽时，值为 true, 否则为 false。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)。
 

@@ -34,8 +34,8 @@ public func randomInRange<T>(min!: Option<T> = None, max!: Option<T> = None): Ra
 
 参数：
 
-- min: T - 最小值。
-- max: T - 最大值。
+- min: T - 最小值（包含）。
+- max: T - 最大值（不包含）。
 
 返回值：
 

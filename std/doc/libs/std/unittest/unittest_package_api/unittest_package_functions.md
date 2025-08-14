@@ -42,6 +42,30 @@ public func assertEqual<T>(
 - actual: T - 实际值。
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
 
+## func assertEqual\<T>(String, String, T, T, Bool, ?AssertionCtx)
+
+```cangjie
+public func assertEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool = false,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T>
+```
+
+功能：比较 `expected` 和 `actual` 值是否相等。若不等，直接抛出异常。
+
+参数：
+
+- leftStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 期望的表达式的字符串。
+- rightStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 实际的表达式的字符串。
+- expected: T - 期望的值。
+- actual: T - 实际值。
+- isDelta!: Bool - 是否使用近似相等。默认不使能。
+- optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
+
 ## func defaultConfiguration()
 
 ```cangjie
@@ -112,6 +136,30 @@ public func expectEqual<T>(
 - actual: T  - 实际值。
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
 
+## func expectEqual\<T>(String, String, T, T, Bool, ?AssertionCtx)
+
+```cangjie
+public func expectEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool = false,
+    optParentCtx!: ?AssertionCtx
+): Unit where T <: Equatable<T>
+```
+
+功能：比较 `expected` 和 `actual` 值是否相等。记录比较结果，不抛出异常。
+
+参数：
+
+- leftStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 期望的表达式的字符串。
+- rightStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 实际的表达式的字符串。
+- expected: T - 期望的值。
+- actual: T  - 实际值。
+- isDelta!: Bool - 是否使用近似相等。默认不使能。
+- optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
+
 ## func fail(String)
 
 ```cangjie
@@ -179,3 +227,53 @@ public func invokeCustomExpect(
 - caller: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 调用的自定义断言的名称。
 - expect: ([AssertionCtx](./unittest_package_classes.md#class-assertionctx)) -> [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 捕获带有正确参数的断言调用。
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - 存储嵌套断言失败消息的上下文。
+
+## func isNearExpansion\<CT, D>(CT, CT, D, String)
+
+```cangjie
+public func isNearExpansion<CT, D>(
+    l: CT,
+    r: CT,
+    delta!: D,
+    cmpType!: String
+): Bool where CT <: NearEquatable<CT, D> & Comparable<CT>
+```
+
+功能：判断两个参数是否近似相等。在 [PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-宏) 宏展开时使用。用户不应使用。
+
+参数：
+
+- l: CT - 待判断近似相等的参数。
+- r: CT - 待判断近似相等的参数。
+- delta!: D - 待判断近似相等时使用的 delta。
+- cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 判断的类型。
+
+返回值:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否近似相等。
+
+## func isNearExpansion\<CT, D>(CT, CT, D, String, Bool)
+
+```cangjie
+public func isNearExpansion<CT, D>(
+    l: CT,
+    r: CT,
+    delta!: D,
+    cmpType!: String,
+    overloadHack!: Bool = true
+): Bool where CT <: NearEquatable<CT, D>
+```
+
+功能：判断两个参数是否近似相等。在 [PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-宏) 宏展开时使用。用户不应使用。
+
+参数：
+
+- l: CT - 待判断近似相等的参数。
+- r: CT - 待判断近似相等的参数。
+- delta!: D - 待判断近似相等时使用的 delta。
+- cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 判断的类型。
+- overloadHack!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 为使能函数重载使用新增的参数，默认值为 true 。
+
+返回值:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否近似相等。
