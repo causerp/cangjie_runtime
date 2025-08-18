@@ -27,7 +27,7 @@ mut func get(idx: Int64): T
 
 参数：
 
-- idx : [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
+- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
 
 返回值：
 
@@ -43,7 +43,7 @@ mut func reset(max: Int64)
 
 参数：
 
-- max : [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 最大值。
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 最大值。
 
 ## interface BenchmarkConfig
 
@@ -348,8 +348,8 @@ public func isNear(obj: CT, delta!: D): Bool
 
 参数：
 
-- obj:CT - 被比较的对象。
-- delta!:D - 判断近似相等的 delta。
+- obj: CT - 被比较的对象。
+- delta!: D - 判断近似相等的 delta。
 
 返回值：
 

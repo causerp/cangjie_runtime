@@ -105,3 +105,15 @@ public open class UnittestException <: Exception
 父类型：
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
+
+### func getClassName()
+
+```cangjie
+protected override open func getClassName(): String
+```
+
+功能：获得类名。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名字符串。

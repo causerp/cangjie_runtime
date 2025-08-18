@@ -64,6 +64,10 @@ public static func arbitrary(random: RandomSource): Generator<Function0Wrapper<R
 
 功能：获取生成 [Function0Wrapper](#struct-function0wrapperr)\<R> 类型随机值生成器。
 
+返回值：
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[Function0Wrapper](../unittest_prop_test_package_api/unittest_prop_test_package_structs.md#struct-function0wrapperr)\<R>> - 生成器。
+
 ## struct KeyRandom
 
 ```cangjie
@@ -248,6 +252,10 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 功能：获取生成 [TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1> 类型随机值生成器。
 
+返回值：
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1>> - 生成器。
+
 ### extend\<T0, T1> TupleWrapper2\<T0, T1> <: Shrink\<TupleWrapper2\<T0, T1>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>
 
 ```cangjie
@@ -429,6 +437,10 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper3<T0, 
 ```
 
 功能：获取生成 [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2> 类型随机值生成器。
+
+返回值：
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>> - 生成器。
 
 ### extend\<T0, T1, T2> TupleWrapper3\<T0, T1, T2> <: Shrink\<TupleWrapper3\<T0, T1, T2>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>
 
@@ -613,6 +625,10 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 功能：获取生成 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3> 类型随机值生成器。
 
+返回值：
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>> - 生成器。
+
 ### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3> <: Shrink\<TupleWrapper4\<T0, T1, T2, T3>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>
 
 ```cangjie
@@ -796,6 +812,10 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, 
 ```
 
 功能：获取生成 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4> 类型随机值生成器。
+
+返回值：
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - 生成器。
 
 ### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Shrink\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>, T4 <: Shrink\<T4>
 

@@ -159,10 +159,10 @@ public static func create(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement : [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
-- body : () -> Unit - 用例执行体。
+- measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body: () -> Unit - 用例执行体。
 
 返回值：
 
@@ -184,11 +184,11 @@ public static func createParameterized<T>(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy : [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - 参数数据策略。
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - 参数数据策略。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) 测量方法信息。
-- body : () -> Unit - 用例执行体。
+- body: () -> Unit - 用例执行体。
 
 返回值：
 
@@ -210,11 +210,11 @@ public static func createParameterized<T>(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy : [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement : [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
-- body : () -> Unit - 用例执行体。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- strategy: [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body: () -> Unit - 用例执行体。
 
 返回值：
 
@@ -242,11 +242,11 @@ public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
 
 参数：
 
-- reporter : [Reporter](#class-report)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
+- reporter: [Reporter](#class-report)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
 
 返回值：
 
-- T : 打印结果返回值。一般为 Unit 类型。
+- T: 打印结果返回值。一般为 Unit 类型。
 
 ## class CartesianProductProcessor\<T0,T1>
 
@@ -272,8 +272,8 @@ public CartesianProductProcessor(let left: DataStrategyProcessor<T0>, let right:
 
 参数：
 
-- left : [DataStrategyProcessor](#class-datastrategyprocessort)\<T0> - 数据策略处理器。
-- right : [DataStrategyProcessor](#class-datastrategyprocessort)\<T1> - 数据策略处理器。
+- left: [DataStrategyProcessor](#class-datastrategyprocessort)\<T0> - 数据策略处理器。
+- right: [DataStrategyProcessor](#class-datastrategyprocessort)\<T1> - 数据策略处理器。
 
 ## class ConsoleReporter
 
@@ -465,7 +465,7 @@ protected func lastItem(configuration: Configuration): T
 
 参数：
 
-- configuration : [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 处理策略配置信息。
+- configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 处理策略配置信息。
 
 返回值：
 
@@ -481,7 +481,7 @@ protected func provide(configuration: Configuration): Iterable<T>
 
 参数：
 
-- configuration : [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 处理策略配置信息。
+- configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 处理策略配置信息。
 
 返回值：
 
@@ -497,8 +497,8 @@ protected func shrinkLastItem(configuration: Configuration, engine: LazyCyclicNo
 
 参数：
 
-- configuration:[Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 配置信息。
-- engine : [LazyCyclicNode](./unittest_package_classes.md#class-lazycyclicnode) - 惰性节点。
+- configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 配置信息。
+- engine: [LazyCyclicNode](./unittest_package_classes.md#class-lazycyclicnode) - 惰性节点。
 
 返回值：
 
@@ -1000,8 +1000,8 @@ public SimpleProcessor(let buildDelegate:() -> DataStrategy<T>, let name: String
 
 参数：
 
-- buildDelegate : () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 生成数据策略的闭包。
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 处理器名称。
+- buildDelegate: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 生成数据策略的闭包。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 处理器名称。
 
 ## class TestGroup
 
@@ -1087,7 +1087,7 @@ public static func builder(name: String): TestGroupBuilder
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试组合名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试组合名称。
 
 返回值：
 
@@ -1103,7 +1103,7 @@ public static func builder(group: TestGroup): TestGroupBuilder
 
 参数：
 
-- group : [TestGroup](#class-testgroup) - 测试组合。
+- group: [TestGroup](#class-testgroup) - 测试组合。
 
 返回值：
 
@@ -1127,7 +1127,7 @@ public func add(benchmark: Benchmark): TestGroupBuilder
 
 参数：
 
-- benchmark : [Benchmark](#class-benchmark) - 性能测试用例。
+- benchmark: [Benchmark](#class-benchmark) - 性能测试用例。
 
 返回值：
 
@@ -1143,7 +1143,7 @@ public func add(suite: TestSuite): TestGroupBuilder
 
 参数：
 
-- suite : [TestSuite](#class-testsuite) - 单元测试套。
+- suite: [TestSuite](#class-testsuite) - 单元测试套。
 
 返回值：
 
@@ -1159,7 +1159,7 @@ public func add(test: UnitTestCase): TestGroupBuilder
 
 参数：
 
-- test : [UnitTestCase](#class-unittestcase) - 单元测试用例。
+- test: [UnitTestCase](#class-unittestcase) - 单元测试用例。
 
 返回值：
 
@@ -1187,7 +1187,7 @@ public func configure(configuration: Configuration): TestGroupBuilder
 
 参数：
 
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 配置信息。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 配置信息。
 
 返回值：
 
@@ -1203,7 +1203,7 @@ public func setName(name: String): TestGroupBuilder
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 名称。
 
 返回值：
 
@@ -1297,11 +1297,11 @@ public func reportTo<T>(reporter: Reporter<TestReport, T>): T
 
 参数：
 
-- reporter : [Reporter](#class-report)\<[TestReport](#class-testreport), T> - 单元测试报告打印器。
+- reporter: [Reporter](#class-report)\<[TestReport](#class-testreport), T> - 单元测试报告打印器。
 
 返回值：
 
-- T : 打印返回值，一般为 Unit 。
+- T - 打印返回值，一般为 Unit 。
 
 ## class TestSuite
 
@@ -1343,7 +1343,7 @@ public func runBenchmarks(configuration: Configuration): BenchReport
 
 参数：
 
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 运行配置信息。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 运行配置信息。
 
 返回值：
 
@@ -1371,7 +1371,7 @@ public func runTests(configuration: Configuration): TestReport
 
 参数：
 
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 运行配置信息。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 运行配置信息。
 
 返回值：
 
@@ -1387,7 +1387,7 @@ public static func builder(name: String): TestSuiteBuilder
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试套名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试套名称。
 
 返回值：
 
@@ -1403,7 +1403,7 @@ public static func builder(suite: TestSuite): TestSuiteBuilder
 
 参数：
 
-- suite : [TestSuite](#class-testsuite) - 测试套。
+- suite: [TestSuite](#class-testsuite) - 测试套。
 
 返回值：
 
@@ -1427,11 +1427,11 @@ public func add(benchmark: Benchmark): TestSuiteBuilder
 
 参数：
 
-- benchmark : [Benchmark](#class-benchmark) - 性能测试用例。
+- benchmark: [Benchmark](#class-benchmark) - 性能测试用例。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func add(UnitTestCase)
 
@@ -1443,11 +1443,11 @@ public func add(test: UnitTestCase): TestSuiteBuilder
 
 参数：
 
-- test : [UnitTestCase](#class-unittestcase) - 单元测试用例。
+- test: [UnitTestCase](#class-unittestcase) - 单元测试用例。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func afterAll(() -> Unit)
 
@@ -1459,11 +1459,11 @@ public func afterAll(body: () -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : () -> Unit - 执行体。
+- body: () -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func afterEach(() -> Unit)
 
@@ -1475,11 +1475,11 @@ public func afterEach(body: () -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : () -> Unit - 执行体。
+- body: () -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func afterEach((String) -> Unit)
 
@@ -1491,11 +1491,11 @@ public func afterEach(body: (String) -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : (String) -> Unit - 执行体。
+- body: (String) -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func beforeAll(() -> Unit)
 
@@ -1507,11 +1507,11 @@ public func beforeAll(body: () -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : () -> Unit - 执行体。
+- body: () -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func beforeEach(() -> Unit)
 
@@ -1523,11 +1523,11 @@ public func beforeEach(body: () -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : () -> Unit - 执行体。
+- body: () -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func beforeEach((String) -> Unit)
 
@@ -1539,11 +1539,11 @@ public func beforeEach(body: (String) -> Unit): TestSuiteBuilder
 
 参数：
 
-- body : (String) -> Unit - 执行体。
+- body: (String) -> Unit - 执行体。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func template(TestSuite)
 
@@ -1555,11 +1555,11 @@ public func template(template: TestSuite): TestSuiteBuilder
 
 参数
 
-- template : TestSuite - 将作为模板的测试套件。
+- template: TestSuite - 将作为模板的测试套件。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func build()
 
@@ -1583,11 +1583,11 @@ public func configure(configuration: Configuration): TestSuiteBuilder
 
 参数：
 
-- configuration : [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 测试配置信息。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 测试配置信息。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ### func setName(String)
 
@@ -1599,11 +1599,11 @@ public func setName(name: String): TestSuiteBuilder
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试套名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试套名称。
 
 返回值：
 
-- [TestGroupBuilder](#class-testgroupbuilder) - 测试组合构造器。
+- [TestSuiteBuilder](#class-testsuitebuilder) - 测试组合构造器。
 
 ## class UnitTestCase
 
@@ -1649,7 +1649,7 @@ public static func create(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - body!: () -> Unit - 用例执行体。
 
@@ -1672,8 +1672,8 @@ public static func createParameterized<T>(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy : [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - 参数数据策略。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - 参数数据策略。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - body!: () -> Unit - 用例执行体。
 
@@ -1696,8 +1696,8 @@ public static func createParameterized<T>(
 
 参数：
 
-- name : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy : [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- strategy: [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - body!: () -> Unit - 用例执行体。
 

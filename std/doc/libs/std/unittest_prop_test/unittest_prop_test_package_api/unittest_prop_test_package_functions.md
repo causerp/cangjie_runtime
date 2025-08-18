@@ -10,7 +10,7 @@ public func emptyIterable<T>(): Iterable<T>
 
 返回值：
 
-- [Iterator](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 空迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 空迭代器。
 
 ## func random\<T>() where T <: Arbitrary\<T>
 

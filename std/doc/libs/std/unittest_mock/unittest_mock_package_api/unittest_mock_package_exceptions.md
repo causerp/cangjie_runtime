@@ -49,7 +49,7 @@ public abstract class PrettyException <: Exception & PrettyPrintable {}
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
 - [PrettyPrintable](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable)
 
-### func pprint
+### func pprint(PrettyPrinter)
 
 ```cangjie
 public func pprint(to: PrettyPrinter): PrettyPrinter

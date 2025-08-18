@@ -136,7 +136,7 @@ Return Value:
 ### func shrinker(Configuration)
 
 ```cangjie
-open func shrinker(configuration: Configuration): DataShrinker<T>
+func shrinker(configuration: Configuration): DataShrinker<T>
 ```
 
 Function: Retrieves the component that reduces test data.

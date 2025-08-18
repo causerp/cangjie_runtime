@@ -291,10 +291,10 @@ public static func stubFunction<TRet>(
 
 - [MethodActionSelector](#class-methodactionselectortret)\<TRet> - 针对普通成员方法插入桩代码的操作器对象。
 
-### static func stubSetter\<TObj, TRet>(() -> Unit, () -> TArg,ArgumentMatcher,TObj,String,String,String,Int64)
+### static func stubSetter\<TArg>(() -> Unit, () -> TArg,ArgumentMatcher,Option\<String>,String,String,Int64)
 
 ```cangjie
-public static func stubSetter<TObj, TArg>(
+public static func stubSetter<TArg>(
     stubCall: () -> Unit,
     _: () -> TArg,
     matcher: ArgumentMatcher,
@@ -436,7 +436,7 @@ public func returnsConsecutively(values: Array<TRet>): Continuation<GetterAction
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [Continuation](#class-continuationa)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func returnsConsecutively(ArrayList\<TRet>)
 
@@ -452,7 +452,7 @@ public func returnsConsecutively(values: ArrayList<TRet>): Continuation<GetterAc
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [Continuation](#class-continuationa)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func throws(Exception)
 
@@ -504,7 +504,7 @@ public func returns(): CardinalitySelector<MethodActionSelector<TRet>>
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ## class Matchers
 
@@ -612,7 +612,7 @@ public static func argThatNot<T>(predicate: (T) -> Bool): TypedMatcher<T>
 public static func capture<T>(listener: ValueListener<T>): TypedMatcher<T>
 ```
 
-允许 listener 值监听器对类型为 T 的传入参数值进行处理。当 capture 的类型参数未指定时，将使用值监听器的类型参数值。
+功能：允许 listener 值监听器对类型为 T 的传入参数值进行处理。当 capture 的类型参数未指定时，将使用值监听器的类型参数值。
 
 参数：
 
@@ -732,7 +732,7 @@ func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
 
 返回值：
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> - 定义了桩签名执行原始代码逻辑的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>>> - 定义了桩签名执行原始代码逻辑的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
 
 ### func returns(() -> TRet)
 
@@ -748,7 +748,7 @@ func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector
 
 返回值：
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> - 定义了桩签名返回指定值的行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>>> - 定义了桩签名返回指定值的行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
 
 ### func returns(TRet)
 
@@ -764,7 +764,7 @@ func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
 
 返回值：
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> - 定义了桩签名返回行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>>> - 定义了桩签名返回行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> 对象实例。
 
 ### func returnsConsecutively(Array\<TRet>)
 
@@ -780,7 +780,7 @@ func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelecto
 
 返回值：
 
-- [Continuation](#class-continuationa)\<TRet> - 定义了桩签名按序返回指定值的行为的 [Continuation](#class-continuationa)\<TRet>  对象实例。
+- [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - 定义了桩签名按序返回指定值的行为的 [Continuation](#class-continuationa)\<TRet>  对象实例。
 
 异常：
 
@@ -800,7 +800,7 @@ func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSel
 
 返回值：
 
-- [Continuation](#class-continuationa)\<TRet> - 定义了桩签名按序返回指定值的 [Continuation](#class-continuationa)\<TRet> 对象实例。
+- [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - 定义了桩签名按序返回指定值的 [Continuation](#class-continuationa)\<TRet> 对象实例。
 
 异常：
 
@@ -853,7 +853,7 @@ public class MockFramework {}
 
 功能：提供用例执行所需的框架准备与结束回收阶段的函数。
 
-### static func openSession
+### static func openSession(String, MockSessionKind)
 
 ```cangjie
 public static func openSession(name: String, sessionKind: MockSessionKind): Unit
@@ -869,7 +869,7 @@ public static func openSession(name: String, sessionKind: MockSessionKind): Unit
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 会话的名称。
 - sessionKind: [MockSessionKind](./unittest_mock_package_enums.md#enum-mocksessionkind) - 指定允许的桩类型。
 
-### static func closeSession
+### static func closeSession()
 
 ```cangjie
 public static func closeSession(): Unit
@@ -980,7 +980,7 @@ public func doesNothing(): CardinalitySelector<SetterActionSelector<TArg>>
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func setsOriginal()
 
@@ -992,7 +992,7 @@ public func setsOriginal(): CardinalitySelector<SetterActionSelector<TArg>>
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func setsField(SyntheticField\<TArg>)
 
@@ -1008,7 +1008,7 @@ public func setsField(field: SyntheticField<TArg>): CardinalitySelector<SetterAc
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func throws(Exception)
 
@@ -1024,7 +1024,7 @@ public func throws(exception: Exception): CardinalitySelector<SetterActionSelect
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ### func throws(() -> Exception)
 
@@ -1040,7 +1040,7 @@ public func throws(exceptionFactory: () -> Exception): CardinalitySelector<Sette
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TRet>> - 预期执行次数的操作器。
 
 ## class SyntheticField\<T>
 

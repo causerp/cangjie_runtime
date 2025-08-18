@@ -90,7 +90,7 @@ public func entryMain(testPackage: TestPackage): Int64
 
 - testPackage: [TestPackage](./unittest_package_classes.md#class-testpackage) - 测试包对象。
 
-返回值:
+返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行结果。
 
@@ -206,7 +206,7 @@ public func invokeCustomAssert<T>(
 
 返回值：
 
-- `T` - 由用户定义的断言返回的值。
+- T - 由用户定义的断言返回的值。
 
 ## func invokeCustomExpect(Array\<String>, String, (AssertionCtx) -> Any, ?AssertionCtx)
 
@@ -248,7 +248,7 @@ public func isNearExpansion<CT, D>(
 - delta!: D - 待判断近似相等时使用的 delta。
 - cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 判断的类型。
 
-返回值:
+返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否近似相等。
 
@@ -274,6 +274,6 @@ public func isNearExpansion<CT, D>(
 - cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 判断的类型。
 - overloadHack!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 为使能函数重载使用新增的参数，默认值为 true 。
 
-返回值:
+返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否近似相等。

@@ -27,6 +27,12 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) | 存储 `@Configure` 宏生成的 `unittest` 配置数据的对象。`Configuration` 是一个类似 `HashMap` 的类，但它的键不是键和值类型，而是 `String` 类型，和任何给定类型的值。 |
 | [ConfigurationKey](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configurationkey) | 配置项的键值对象。提供判等及 hashCode 方法。 |
 
+#### 结构体
+
+|              结构体名          |           功能           |
+| --------------------------- | ------------------------ |
+| [KeyTags](../unittest_common//unittest_common_package_api/unittest_common_package_structs.md#struct-keytags) | 用于在 [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 配置键值。 |
+
 ### 从 unittest.prop_test 包中重导出
 
 #### 函数

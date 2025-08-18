@@ -34,7 +34,7 @@ public enum Color <: Equatable<Color> {
             case DEFAULT_COLOR => if (let DEFAULT_COLOR <- that) { true } else { false }
         }
     }
-    public operator func !=(that: Color) { !(this == that) }
+    public operator func !=(that: Color) : Bool { !(this == that) }
 }
 
 /**

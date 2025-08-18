@@ -45,6 +45,7 @@ unittest.common 为单元测试框架提供了打印所需的类型和一些通�
 |              结构体名          |           功能           |
 | --------------------------- | ------------------------ |
 | [OptionInfo](./unittest_common_package_api/unittest_common_package_structs.md#struct-optioninfo) | 打印帮助页面时可以使用的选项的信息。 |
+| [KeyTags](./unittest_common_package_api/unittest_common_package_structs.md#struct-keytags) | 用于在 [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 配置键值。 |
 
 ### 异常类
 

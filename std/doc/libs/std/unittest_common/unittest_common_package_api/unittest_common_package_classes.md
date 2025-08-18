@@ -146,8 +146,8 @@ public static func merge(parent: Configuration, child: Configuration): Configura
 
 参数：
 
-- parent:[Configuration](#class-configuration) - 需要合并的配置
-- child:[Configuration](#class-configuration) - 需要合并的配置
+- parent: [Configuration](#class-configuration) - 需要合并的配置
+- child: [Configuration](#class-configuration) - 需要合并的配置
 
 返回值：
 
@@ -614,7 +614,7 @@ public init(string: String)
 
 参数：
 
-- string : [String](../../core/core_package_api/core_package_structs.md#struct-string) - 希望放入打印文本开头的字符串。
+- string: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 希望放入打印文本开头的字符串。
 
 ### func isEmpty()
 

@@ -441,10 +441,10 @@ class Foo {
     `number ('millis' | 's' | 'm' | 'h')`
 例如： `10s`, `9millis` 等。
 
-- millis : 毫秒
-- s : 秒
-- m : 分钟
-- h : 小时
+- millis: 毫秒
+- s: 秒
+- m: 分钟
+- h: 小时
 
 ### `--parallel`
 
