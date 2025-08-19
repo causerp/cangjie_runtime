@@ -341,7 +341,7 @@ public class PrettyText <: PrettyPrinter & PrettyPrintable & ToString {
      * Utility factory function: create a PrettyText from a PrettyPrintable by printing it.
      * This is static only because generic constructors are not allowed.
      */
-    public static func of<PP>(pp: PP) where PP <: PrettyPrintable {
+    public static func of<PP>(pp: PP): PrettyText where PP <: PrettyPrintable {
         let result = PrettyText()
         pp.pprint(result)
         result
