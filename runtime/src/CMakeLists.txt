@@ -145,6 +145,28 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
         "os/Linux/Loader.cpp"
         "os/Linux/Path.cpp"
     )
+elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
+    set(SRC_LIST
+        "CompilerCalls.cpp"
+        "ExceptionManager.cpp"
+        "StackManager.cpp"
+        "HeapManager.cpp"
+        "LoaderManager.cpp"
+        "SignalManager.cpp"
+        "TypeInfoManager.cpp"
+        "LogManager.cpp"
+        "CangjieRuntime.cpp"
+        "CjScheduler.cpp"
+        "CjTimer.cpp"
+        "CangjieRuntimeApi.cpp"
+        "arch_os/aarch32_linux/N2CStub.S"
+        "arch_os/aarch32_linux/C2NStub.S"
+        "arch_os/aarch32_linux/CalleeSavedStub.S"
+        "arch_os/aarch32_linux/StackGrowStub.S"
+        "arch_os/aarch32_linux/HandleSafepointStub.S"
+        "os/Linux/Loader.cpp"
+        "os/Linux/Path.cpp"
+    )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(SRC_LIST
         "CompilerCalls.cpp"

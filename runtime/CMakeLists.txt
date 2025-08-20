@@ -5,7 +5,7 @@
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
 
 cmake_minimum_required(VERSION 3.16.3)
-if (OHOS_FLAG MATCHES 1 OR OHOS_FLAG MATCHES 2)
+if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
     # Target OHOS is Linux-like system.
     set(CMAKE_SYSTEM_NAME Linux)
     set(CMAKE_C_COMPILER_WORKS 1)
@@ -118,6 +118,14 @@ elseif (OHOS_FLAG MATCHES 2) # for ohos-x86_64
     else ()
         message("build cjthread for ohos")
         execute_process(COMMAND bash build/build_cjthread.sh -p ohos_x86_64_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+    endif ()
+elseif (OHOS_FLAG MATCHES 3) # for ohos-arm
+    if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+        message("build cjthread for ohos on windows")
+        execute_process(COMMAND build\\build_cjthread_windows.bat -p ohos_arm_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+    else ()
+        message("build cjthread for ohos")
+        execute_process(COMMAND bash build/build_cjthread.sh -p ohos_arm_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
     endif ()
 elseif (ANDROID_FLAG MATCHES 1)
     message("build cjthread for ${ANDROID_TARGET_API}")
@@ -403,6 +411,13 @@ elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.shared.lds
             DESTINATION lib/${TARGET_ARCH})
+elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch32_linux/Cjstart.S)
+    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cjld.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/discard_eh_frame.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cld.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cjld.shared.lds
+        DESTINATION lib/${TARGET_ARCH})
 else()
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjld.lds
