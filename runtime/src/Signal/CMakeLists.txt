@@ -24,6 +24,11 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
         "SignalStack.cpp"
         "SignalUtils.cpp"
     )
+elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
+    set(SRC_LIST
+        "SignalStack.cpp"
+        "SignalUtils.cpp"
+    )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(SRC_LIST
         "SignalUtils.cpp"

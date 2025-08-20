@@ -75,7 +75,7 @@ def do_build(args):
 
     if target_args in ('native'):
         target_arch = host_arch
-    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
+    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'ohos-arm', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
                          'ios-aarch64', 'ios-simulator-aarch64'):
         target_arch = target_args.rsplit('-', 1)[1]
     else:
@@ -84,6 +84,8 @@ def do_build(args):
     target_arch = target_arch.lower()
     if target_arch == "arm64":
         target_arch = "aarch64"
+    elif target_arch == "arm":
+        target_arch = "aarch32"
     elif target_arch == "amd64":
         target_arch = "x86_64"
 
@@ -170,13 +172,20 @@ def do_build(args):
         ]
         build_target(cmake_command)
 
-    elif target_args in ["ohos-aarch64", "ohos-x86_64"]:
+    elif target_args in ["ohos-aarch64", "ohos-aarch32", "ohos-x86_64"]:
         if args.target_toolchain == None:
             print("Please configure ohos toolchain, for example '/root/workspace/ohos_dep_files/'")
             sys.exit(1)
-        ohos_flag = "1" if target_args == "ohos-aarch64" else "2"
+        if target_args == "ohos-aarch64":
+            ohos_flag = "1"
+        elif target_args == "ohos-x86_64":
+            ohos_flag = "2"
+        elif target_args == "ohos-aarch32":
+            ohos_flag = "3"
         if target_args == "ohos-aarch64":
             target_arch = "aarch64"
+        elif target_args == "ohos-aarch32":
+            target_arch = "aarch32"
         elif target_args == "ohos-x86_64":
             target_arch = "x86_64"
         ptrauth_flags = [
@@ -272,7 +281,7 @@ def do_build(args):
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
+               ohos-arm, android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
         sys.exit(1)
 
 def build_target(cmake_command):
@@ -321,10 +330,10 @@ if __name__ == "__main__":
     b.set_defaults(func=do_build)
     b.add_argument(
         "--target",
-        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
+        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ohos-arm", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
         metavar="TARGET",
         default="native",
-        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-x86_64"
+        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-aarch32, ohos-x86_64"
     )
     b.add_argument(
         "-t", "--build-type",
