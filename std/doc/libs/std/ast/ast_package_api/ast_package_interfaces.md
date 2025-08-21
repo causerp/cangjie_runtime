@@ -44,13 +44,13 @@ func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转换后的 [Tokens](ast_package_classes.md#class-tokens)。
 
-### extend<T> Array<T> <: ToTokens
+### extend\<T> Array\<T> <: ToTokens
 
 ```cangjie
 extend<T> Array<T> <: ToTokens
 ```
 
-功能：实现 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
+功能：实现 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
 
 父类型：
 
@@ -62,19 +62,19 @@ extend<T> Array<T> <: ToTokens
 public func toTokens(): Tokens
 ```
 
-功能：实现 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换，仅支持数值类型、[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型、[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 类型、[String](../../core/core_package_api/core_package_structs.md#struct-string) 类型。
+功能：实现 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换，仅支持数值类型、[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型、[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 类型、[String](../../core/core_package_api/core_package_structs.md#struct-string) 类型。
 
 返回值：
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转换后的 [Tokens](ast_package_classes.md#class-tokens)。
 
-### extend<T> ArrayList<T> <: ToTokens
+### extend\<T> ArrayList\<T> <: ToTokens
 
 ```cangjie
 extend<T> ArrayList<T> <: ToTokens
 ```
 
-功能：实现 [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
+功能：实现 [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<T> 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
 
 父类型：
 
