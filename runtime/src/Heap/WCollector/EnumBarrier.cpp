@@ -334,13 +334,13 @@ void EnumBarrier::WriteGeneric(const ObjectPtr obj, void* fieldPtr, const Object
 {
     if ((obj != nullptr && !obj->HasRefField()) || (!Heap::IsHeapAddress(obj) && !Heap::IsHeapAddress(src))) {
         CHECK_DETAIL(memcpy_s(fieldPtr, size,
-                              reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + sizeof(TypeInfo*)),
+                              reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + TYPEINFO_PTR_SIZE),
                               size) == EOK,
                      "WriteGeneric memcpy_s failed");
 #if defined(CANGJIE_TSAN_SUPPORT)
         if (Heap::IsHeapAddress(src)) {
             Sanitizer::TsanReadMemoryRange(
-                reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + sizeof(TypeInfo*)), size);
+                reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + TYPEINFO_PTR_SIZE), size);
         }
         if (Heap::IsHeapAddress(obj)) {
             Sanitizer::TsanWriteMemoryRange(fieldPtr, size);
@@ -348,15 +348,15 @@ void EnumBarrier::WriteGeneric(const ObjectPtr obj, void* fieldPtr, const Object
 #endif
     } else if (!Heap::IsHeapAddress(obj) && Heap::IsHeapAddress(src)) {
         MAddress dstAddr = reinterpret_cast<MAddress>(fieldPtr);
-        MAddress srcAddr = reinterpret_cast<MAddress>(src) + sizeof(TypeInfo*);
+        MAddress srcAddr = reinterpret_cast<MAddress>(src) + TYPEINFO_PTR_SIZE;
         ReadStruct(dstAddr, src, srcAddr, size);
     } else if ((Heap::IsHeapAddress(obj) && !Heap::IsHeapAddress(src))) {
         MAddress dstAddr = reinterpret_cast<MAddress>(fieldPtr);
-        MAddress srcAddr = reinterpret_cast<MAddress>(src) + sizeof(TypeInfo*);
+        MAddress srcAddr = reinterpret_cast<MAddress>(src) + TYPEINFO_PTR_SIZE;
         WriteStruct(obj, dstAddr, size, srcAddr, size);
     } else {
         MAddress dstAddr = reinterpret_cast<MAddress>(fieldPtr);
-        MAddress srcAddr = reinterpret_cast<MAddress>(src) + sizeof(TypeInfo*);
+        MAddress srcAddr = reinterpret_cast<MAddress>(src) + TYPEINFO_PTR_SIZE;
         void* tmp = malloc(size);
         ReadStruct((MAddress)tmp, src, srcAddr, size);
         WriteStruct(obj, dstAddr, size, (MAddress)tmp, size);
@@ -367,19 +367,19 @@ void EnumBarrier::WriteGeneric(const ObjectPtr obj, void* fieldPtr, const Object
 void EnumBarrier::ReadGeneric(const ObjectPtr dstObj, ObjectPtr obj, void* fieldPtr, size_t size) const
 {
     if (!Heap::IsHeapAddress(dstObj) && !Heap::IsHeapAddress(obj)) {
-        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dstObj) + sizeof(TypeInfo*)), size,
+        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dstObj) + TYPEINFO_PTR_SIZE), size,
                               fieldPtr, size) == EOK,
                      "ReadGeneric memcpy_s failed");
     } else if (!Heap::IsHeapAddress(dstObj) && Heap::IsHeapAddress(obj)) {
-        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + sizeof(TypeInfo*);
+        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
         MAddress srcAddr = reinterpret_cast<MAddress>(fieldPtr);
         ReadStruct(dstAddr, obj, srcAddr, size);
     } else if ((Heap::IsHeapAddress(dstObj) && !Heap::IsHeapAddress(obj))) {
-        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + sizeof(TypeInfo*);
+        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
         MAddress srcAddr = reinterpret_cast<MAddress>(fieldPtr);
         WriteStruct(dstObj, dstAddr, size, srcAddr, size);
     } else {
-        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + sizeof(TypeInfo*);
+        MAddress dstAddr = reinterpret_cast<MAddress>(dstObj) + TYPEINFO_PTR_SIZE;
         MAddress srcAddr = reinterpret_cast<MAddress>(fieldPtr);
         void* tmp = malloc(size);
         ReadStruct((MAddress)tmp, obj, srcAddr, size);

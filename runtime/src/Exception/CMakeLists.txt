@@ -44,7 +44,7 @@ elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/aarch32_linux/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch_os/arm_linux/RestoreContextForEH.S"
     )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(SRC_LIST

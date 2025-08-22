@@ -408,7 +408,7 @@ void CjHeapDataForIDE::SerializeClass(TypeInfo* ti, CjHeapDataStringId klassId, 
         writer->WriteChar(']');
         return;
     }
-    u4 size = AlignUp<u4>((ti->GetInstanceSize() + sizeof(TypeInfo*)), alignment);
+    u4 size = AlignUp<u4>((ti->GetInstanceSize() + TYPEINFO_PTR_SIZE), alignment);
     // 8 bytes for each field
     writer->WriteNumber(size);
     writer->WriteChar(']');
@@ -626,7 +626,7 @@ void CjHeapDataForIDE::SerializeInstance(BaseObject*& obj, const u1 tag)
     TypeInfo* currentClass = obj->GetTypeInfo();
     if (obj->HasRefField()) {
         GCTib gcTib = currentClass->GetGCTib();
-        MAddress objAddr = reinterpret_cast<MAddress>(obj) + sizeof(TypeInfo*);
+        MAddress objAddr = reinterpret_cast<MAddress>(obj) + TYPEINFO_PTR_SIZE;
         gcTib.ForEachBitmapWord(objAddr, visitor);
     }
     writer->WriteNumber(num);

@@ -22,6 +22,9 @@ extern "C" {
 #endif
 struct CJFuture {
     void* klass;
+#ifdef __arm__
+    uint32_t padding;
+#endif
     long long int data[4]; // 4: occupied by _thread(1)/result(1)/executeFn(2)
     // Reader/writer functions of `completeFlag` (i.e., MCC_FutureIsComplete/FutureSetComplete)
     // are used as callbacks of runtime functions, they will be executed with atomicity.
@@ -36,6 +39,9 @@ struct CJFuture {
 
 struct CJMutex {
     void* klass;
+#ifdef __arm__
+    uint32_t padding;
+#endif
     // atomic int64_t whose size should comfort to `MRT_GetCurrentThreadID`
     std::atomic<int64_t> ownerThreadId;
     // `ownCount` is always accessed when the mutex is held, so it can be non-atomic.
@@ -47,6 +53,9 @@ struct CJMutex {
 
 struct CJMonitor {
     void* klass;
+#ifdef __arm__
+    uint32_t padding;
+#endif
     CJMutex* mutexPtr;
     bool isWaitQueueInit;
     Waitqueue wq;
@@ -54,12 +63,18 @@ struct CJMonitor {
 
 struct CJWaitQueue {
     void* klass;
+#ifdef __arm__
+    uint32_t padding;
+#endif
     bool isWaitQueueInit;
     Waitqueue wq;
 };
 
 struct CJMultiConditionMonitor {
     void* klass;
+#ifdef __arm__
+    uint32_t padding;
+#endif
     CJMutex* mutexPtr;
 };
 

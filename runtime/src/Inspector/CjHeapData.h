@@ -43,6 +43,7 @@ public:
     using CjHeapDataStackTraceSerialNumber = CjHeapDataID;
     static constexpr CjHeapDataStackTraceSerialNumber kCjHeapDataNullStackTrace = 0;
     const static size_t alignment = 8;
+
     enum CjHeapDataTag {
         TAG_STRING_IN_UTF8 = 0x01,
         TAG_CLASS_LOAD = 0x02,

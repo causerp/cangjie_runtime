@@ -412,11 +412,11 @@ elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.shared.lds
             DESTINATION lib/${TARGET_ARCH})
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "arm")
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch32_linux/Cjstart.S)
-    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cjld.lds
-        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/discard_eh_frame.lds
-        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cld.lds
-        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch32_linux/cjld.shared.lds
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/arm_linux/Cjstart.S)
+    install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/arm_linux/cjld.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/arm_linux/discard_eh_frame.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/arm_linux/cld.lds
+        ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/arm_linux/cjld.shared.lds
         DESTINATION lib/${TARGET_ARCH})
 else()
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/Cjstart.S)

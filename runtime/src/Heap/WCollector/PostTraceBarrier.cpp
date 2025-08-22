@@ -39,7 +39,7 @@ BaseObject* PostTraceBarrier::ReadWeakRef(BaseObject* obj, RefField<false>& fiel
     RegionInfo* regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(referent));
     bool isMarked = regionInfo->IsMarkedObject(referent);
     if (!isMarked) { // skip live referents
-        void** referentAddr = reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(obj) + sizeof(TypeInfo*));
+        void** referentAddr = reinterpret_cast<void**>(reinterpret_cast<uintptr_t>(obj) + TYPEINFO_PTR_SIZE);
         DLOG(BARRIER, "update referent@%p: 0x%zx -> %p", referentAddr, *referentAddr, nullptr);
         *referentAddr = nullptr; // set referent field as null
         return nullptr;

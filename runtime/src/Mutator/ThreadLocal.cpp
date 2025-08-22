@@ -48,12 +48,21 @@ extern "C" void MCC_CheckThreadLocalDataOffset()
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(offsetof(ThreadLocalData, safepointState) == sizeof(void*) * 6,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#if defined(__arm__)
+    static_assert(offsetof(ThreadLocalData, tid) == sizeof(void*) * 6 + sizeof(uint64_t),
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+    static_assert(offsetof(ThreadLocalData, foreignCJThread) == sizeof(void*) * 6 + sizeof(uint64_t) * 2,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+    static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 10 + sizeof(uint64_t) * 2,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#else    
     static_assert(offsetof(ThreadLocalData, tid) == sizeof(void*) * 7,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(offsetof(ThreadLocalData, foreignCJThread) == sizeof(void*) * 8,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 11,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#endif
 }
 
 #ifdef __APPLE__

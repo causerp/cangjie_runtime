@@ -25,7 +25,9 @@ void CJFileLoader::RegisterLoadFile(Uptr fileMetaAddr)
         return;
     }
     file->RegisterFile();
+#ifndef __arm__
     AddPackageInfos(file);
+#endif
     RegisterTypeInfoCreatedByFE(file);
     RegisterOuterTypeExtensions(file);
 }
@@ -147,6 +149,9 @@ void CJFileLoader::VisitExtenionData(const std::function<bool(ExtensionData* ed)
 
 void CJFileLoader::ParseEnumCtor(TypeInfo* ti)
 {
+#ifdef __arm__
+    return;
+#endif
     if (ti->IsGenericTypeInfo()) {
         return TypeInfoManager::GetInstance()->ParseEnumInfo(
             ti->GetSourceGeneric(), ti->GetTypeArgNum(), ti->GetTypeArgs(), ti);
@@ -490,9 +495,13 @@ bool CJFileLoader::CheckPackageCompatibility(BaseFile* file)
     if (file == nullptr) {
         return false;
     }
+#ifdef __arm__
+    bool isCompatible = true;
+#else
     CString packageName = file->GetRealPath();
     CString packageVersion = file->GetSDKVersion();
     bool isCompatible = compatibility.CheckPackageCompatibility(packageName, packageVersion);
+#endif
     file->SetFileCompatibility(isCompatible);
     AddLoadedFiles(file);
     return isCompatible;

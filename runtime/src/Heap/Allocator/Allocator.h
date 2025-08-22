@@ -16,8 +16,8 @@ namespace MapleRuntime {
 // Allocator abstract class
 class Allocator {
 public:
-    static constexpr size_t ALLOC_ALIGN = 8;
     static constexpr size_t HEADER_SIZE = 0; // no header for cangjie object
+    static constexpr size_t ALLOC_ALIGN = 8;
 
     static Allocator* NewAllocator();
 

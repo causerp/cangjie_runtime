@@ -1886,6 +1886,13 @@ void SchedulePreemptCheck(void)
     );
 #endif
 
+#if (MRT_HARDWARE_PLATFORM == MRT_ARM) && (VOS_WORDSIZE == 32)
+    asm volatile (
+    "mov %0, sp \n"
+    :"=r"(spAddress)
+    );
+#endif
+
 #if ((MRT_HARDWARE_PLATFORM == MRT_X86) || (MRT_HARDWARE_PLATFORM == MRT_WINDOWS_X86)) && (VOS_WORDSIZE == 64)
     asm volatile (
     "mov %%rsp, %0 \n"

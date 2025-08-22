@@ -61,7 +61,7 @@ void ExceptionManager::StackOverflow(uint32_t adjustedSize __attribute__((unused
     } else {
         eWrapper.SetAdjustedStackSize(COMPENSATE_SIZE);
     }
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) || defined(__arm__)
     eWrapper.SetAdjustedStackSize(adjustedSize);
 #endif
     ThrowImplicitException(SOF);

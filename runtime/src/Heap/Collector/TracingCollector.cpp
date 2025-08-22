@@ -121,7 +121,7 @@ public:
                 }
                 // Skip marking the weakRef itself, but trace its children node
                 if (UNLIKELY(obj->IsWeakRef())) {
-                    RefField<>* referentField = reinterpret_cast<RefField<>*>((uintptr_t)obj + sizeof(TypeInfo*));
+                    RefField<>* referentField = reinterpret_cast<RefField<>*>((uintptr_t)obj + TYPEINFO_PTR_SIZE);
                     BaseObject* referent = collector.GetAndTryTagObj(obj, *referentField);
                     if (referent != nullptr) {
                         DLOG(TRACE, "trace weakref obj %p ref@%p: 0x%zx", obj, &referent, referent);
@@ -452,7 +452,11 @@ bool TracingCollector::MarkSatbBuffer(WorkStack& workStack)
     if (!workStack.empty()) {
         workStack.clear();
     }
+#ifdef __arm__
+    uint64_t maxIterationTime = 120ULL * 1000 * 1000 * 1000; // 2 mins.
+#else
     constexpr size_t maxIterationTime = 120ULL * 1000 * 1000 * 1000; // 2 mins.
+#endif
     constexpr size_t maxIterationLoopNum = 1000;
     auto visitSatbObj = [this, &workStack]() {
         WorkStack remarkStack;

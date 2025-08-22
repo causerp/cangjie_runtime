@@ -31,7 +31,7 @@ TypeTemplate* PackageInfo::GetTypeTemplate(const char* name)
     PackageInfo* self = this;
     while (self != nullptr) {
         Uptr baseAddr = self->GetBaseAddr();
-        baseAddr += self->GetNumOfTypeInfos() * sizeof(TypeInfo*);
+        baseAddr += self->GetNumOfTypeInfos() * TYPEINFO_PTR_SIZE;
         TypeTemplate** base = reinterpret_cast<TypeTemplate**>(baseAddr);
         for (U32 idx = 0; idx < self->GetNumOfTypeTemplates(); ++idx) {
             TypeTemplate* tt = *(base + idx);
@@ -55,7 +55,7 @@ TypeInfo* PackageInfo::GetTypeInfo(U32 index)
 MethodInfo* PackageInfo::GetGlobalMethodInfo(U32 index)
 {
     Uptr baseAddr = GetBaseAddr();
-    baseAddr += GetNumOfTypeInfos() * sizeof(TypeInfo*);
+    baseAddr += GetNumOfTypeInfos() * TYPEINFO_PTR_SIZE;
     baseAddr += GetNumOfTypeTemplates() * sizeof(TypeTemplate*);
     baseAddr += index * sizeof(DataRefOffset64<MethodInfo>);
     return reinterpret_cast<DataRefOffset64<MethodInfo>*>(baseAddr)->GetDataRef();
@@ -64,7 +64,7 @@ MethodInfo* PackageInfo::GetGlobalMethodInfo(U32 index)
 StaticFieldInfo* PackageInfo::GetGlobalFieldInfo(U32 index)
 {
     Uptr baseAddr = GetBaseAddr();
-    baseAddr += GetNumOfTypeInfos() * sizeof(TypeInfo*);
+    baseAddr += GetNumOfTypeInfos() * TYPEINFO_PTR_SIZE;
     baseAddr += GetNumOfTypeTemplates() * sizeof(TypeTemplate*);
     baseAddr += GetNumOfGlobalMethodInfos() * sizeof(DataRefOffset64<MethodInfo>);
     baseAddr += index * sizeof(DataRefOffset64<StaticFieldInfo>);

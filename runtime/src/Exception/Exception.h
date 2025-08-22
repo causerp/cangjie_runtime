@@ -177,6 +177,8 @@ public:
         auto oldRsp = context.rsp;
 #elif defined(__aarch64__)
         auto oldRsp = context.sp;
+#elif defined(__arm__)
+        auto oldRsp = context.sp;
 #endif
 #endif
         for (auto frameItor = ehFrameInfos.begin(); frameItor != ehFrameInfos.end(); ++frameItor) {
@@ -194,6 +196,8 @@ public:
 #if defined(__x86_64__)
         Sanitizer::HandleNoReturn(oldRsp, context.rsp);
 #elif defined(__aarch64__)
+        Sanitizer::HandleNoReturn(oldRsp, context.sp);
+#elif defined(__arm__)
         Sanitizer::HandleNoReturn(oldRsp, context.sp);
 #endif
 #endif

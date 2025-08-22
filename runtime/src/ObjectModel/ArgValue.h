@@ -13,7 +13,10 @@ namespace MapleRuntime {
 constexpr U32 kXregSize = 6;
 constexpr U32 kDregSize = 8;
 #elif defined(__aarch64__)
-constexpr U32 kXregSize = 8;
+constexpr U32 kXregSize = 4;
+constexpr U32 kDregSize = 8;
+#elif defined(__arm__)
+constexpr U32 kXregSize = 4;
 constexpr U32 kDregSize = 8;
 #elif defined(_WIN64)
 constexpr U32 kXregSize = 4;
@@ -127,7 +130,11 @@ public:
     U32 GetStackSize()
     {
         // 8: means the size of each type in stack
+#ifdef __arm__
+        return (stackIdx - kRegArgsSize) * 4;
+#else
         return (stackIdx - kRegArgsSize) * 8;
+#endif
     }
     U32 GetStackIdx()
     {

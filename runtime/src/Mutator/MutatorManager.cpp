@@ -50,6 +50,21 @@ extern "C" void HandleSafepoint(ThreadLocalData* tlData)
     DLOG(SIGNAL, "HandleSafepoint, thread restarted.");
 }
 
+#if defined (__arm__)
+extern "C" void HandleSafepointForArm(ThreadLocalData* tlData)
+{
+    if (tlData->safepointState == 0) {
+        return;
+    }
+    Mutator* mutator = tlData->mutator;
+    // Current mutator enter saferegion
+    mutator->DoEnterSaferegion();
+    // Current mutator block before leaving saferegion
+    mutator->DoLeaveSaferegion();
+    DLOG(SIGNAL, "HandleSafepoint, thread restarted.");
+}
+#endif
+
 void MutatorManager::BindMutator(Mutator& mutator) const
 {
     ThreadLocalData* tlData = ThreadLocal::GetThreadLocalData();

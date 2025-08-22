@@ -6,6 +6,7 @@
 
 
 #include <ctime>
+#include <cstdint>
 #include "basetime.h"
 
 #ifdef __cplusplus
@@ -25,12 +26,22 @@ unsigned long long CurrentNanotimeGet(void)
 }
 
 /* Obtain the current time, expressed in nanoseconds */
-#if (MRT_HARDWARE_PLATFORM == MRT_ARM)
+#if (MRT_HARDWARE_PLATFORM == MRT_ARM && VOS_WORDSIZE == 64)
 unsigned long long CurrentCPUTicks(void)
 {
     unsigned long long ticks = 0;
     asm volatile("mrs %0, cntvct_el0" : "=r"(ticks));
     return ticks;
+}
+#elif (MRT_HARDWARE_PLATFORM == MRT_ARM && VOS_WORDSIZE == 32)
+unsigned long long CurrentCPUTicks(void)
+{
+    uint32_t ticks_low = 0;
+    uint32_t ticks_high = 0;
+    asm volatile(
+        "mrrc p15, 1, %0, %1, c14" : "=r" (ticks_low), "=r" (ticks_high)
+    );
+    return (static_cast<unsigned long long>(ticks_high) << 32) | ticks_low;
 }
 #elif  (MRT_HARDWARE_PLATFORM == MRT_X86 || MRT_HARDWARE_PLATFORM == MRT_WINDOWS_X86)
 unsigned long long CurrentCPUTicks(void)

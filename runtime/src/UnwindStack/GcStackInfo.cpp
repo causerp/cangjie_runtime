@@ -46,7 +46,11 @@ void GCStackInfo::VisitStackRoots(const RootVisitor& func, Mutator& mutator) con
             }
             case FrameType::SAFEPOINT:
             case FrameType::STACKGROW:
+#ifdef __arm__
+                TracingCollector::RecordStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+#else
                 TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+#endif
                 break;
             case FrameType::C2R_STUB:
             case FrameType::C2N_STUB:
@@ -76,7 +80,11 @@ void GCStackInfo::VisitHeapReferencesOnStack(const RootVisitor& rootVisitor, con
                 break;
             case FrameType::SAFEPOINT:
             case FrameType::STACKGROW:
+#ifdef __arm__
+                TracingCollector::RecordStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+#else
                 TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+#endif
                 break;
             default: {
                 break;
@@ -120,7 +128,11 @@ void RecordStackInfo::VisitStackRoots(const RootVisitor &func, Mutator &mutator)
             }
             case FrameType::SAFEPOINT:
             case FrameType::STACKGROW:
+#ifdef __arm__
+                TracingCollector::RecordStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame->mFrame.GetFA()));
+#else
                 TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame->mFrame.GetFA()));
+#endif
                 break;
             case FrameType::C2R_STUB:
             case FrameType::C2N_STUB:

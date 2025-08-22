@@ -210,7 +210,11 @@ void LoaderManager::RegisterLoadFunc()
         return;
     }
     using GenEnvFunc = CJEnvMethods*(*)();
+#ifdef __arm__
+    const char* cjEnvFile = "/system/lib/platformsdk/libcj_environment.z.so";
+#else
     const char* cjEnvFile = "/system/lib64/platformsdk/libcj_environment.z.so";
+#endif
     // "CJEnvMethods* CJEnvironment::CreateEnvMethods()" mangled in c++
     const char* createEnvFuncMangledName = "_ZN4OHOS13CJEnvironment16CreateEnvMethodsEv";
     void* handle = dlopen(cjEnvFile, RTLD_NOW);

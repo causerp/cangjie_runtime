@@ -84,8 +84,8 @@ def do_build(args):
     target_arch = target_arch.lower()
     if target_arch == "arm64":
         target_arch = "aarch64"
-    elif target_arch == "arm":
-        target_arch = "aarch32"
+    elif target_arch == "arm32":
+        target_arch = "arm"
     elif target_arch == "amd64":
         target_arch = "x86_64"
 
@@ -172,7 +172,7 @@ def do_build(args):
         ]
         build_target(cmake_command)
 
-    elif target_args in ["ohos-aarch64", "ohos-aarch32", "ohos-x86_64"]:
+    elif target_args in ["ohos-aarch64", "ohos-arm", "ohos-x86_64"]:
         if args.target_toolchain == None:
             print("Please configure ohos toolchain, for example '/root/workspace/ohos_dep_files/'")
             sys.exit(1)
@@ -180,12 +180,12 @@ def do_build(args):
             ohos_flag = "1"
         elif target_args == "ohos-x86_64":
             ohos_flag = "2"
-        elif target_args == "ohos-aarch32":
+        elif target_args == "ohos-arm":
             ohos_flag = "3"
         if target_args == "ohos-aarch64":
             target_arch = "aarch64"
-        elif target_args == "ohos-aarch32":
-            target_arch = "aarch32"
+        elif target_args == "ohos-arm":
+            target_arch = "arm"
         elif target_args == "ohos-x86_64":
             target_arch = "x86_64"
         ptrauth_flags = [
@@ -333,7 +333,7 @@ if __name__ == "__main__":
         choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ohos-arm", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
         metavar="TARGET",
         default="native",
-        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-aarch32, ohos-x86_64"
+        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-arm, ohos-x86_64"
     )
     b.add_argument(
         "-t", "--build-type",

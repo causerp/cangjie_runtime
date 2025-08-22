@@ -1600,6 +1600,15 @@ void *CJThreadStackGuardGet(void)
     if (cjthread == nullptr) {
         return nullptr;
     }
+#ifdef __arm__
+    struct Schedule *schedule = ScheduleGet();
+    if (schedule == nullptr) {
+        return nullptr;
+    }
+    if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+        return nullptr;
+    }
+#endif
     return cjthread->stack.stackGuard;
 }
 
@@ -2019,6 +2028,13 @@ intptr_t CJThreadStackAdjust(struct CJThread *cjthread, size_t newStackSizeAlign
 #endif
 
 #if (VOS_WORDSIZE == 64) && (MRT_HARDWARE_PLATFORM == MRT_ARM)
+    asm volatile (
+    "mov %0, sp \n"
+    :"=r"(spAddress)
+    );
+#endif
+
+#if (VOS_WORDSIZE == 32) && (MRT_HARDWARE_PLATFORM == MRT_ARM)
     asm volatile (
     "mov %0, sp \n"
     :"=r"(spAddress)
