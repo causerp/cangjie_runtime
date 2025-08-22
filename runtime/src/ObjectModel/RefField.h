@@ -20,6 +20,9 @@
 #endif
 
 namespace MapleRuntime {
+#ifdef __arm__
+#define ARM32_MARKED_FLAG_BITS  2
+#endif
 class BaseObject;
 
 /* there are several similar terms about object address:
@@ -111,7 +114,14 @@ public:
         return Exchange(reinterpret_cast<MAddress>(obj), order);
     }
 
-    MAddress GetAddress() const { return address; }
+    MAddress GetAddress() const
+    {
+#ifdef __arm__
+        return address << ARM32_MARKED_FLAG_BITS;
+#else
+        return address;
+#endif
+    }
 
     bool IsTagged() const { return isTagged == 1; }
     uint16_t GetTagID() const { return tagID; }
@@ -119,9 +129,23 @@ public:
     ~RefField() = default;
     explicit RefField(MAddress val) : fieldVal(val) {}
     RefField(const RefField& ref) : fieldVal(ref.fieldVal) {}
-    explicit RefField(const BaseObject* obj) : fieldVal(0) { address = reinterpret_cast<MAddress>(obj); }
+    explicit RefField(const BaseObject* obj) : fieldVal(0)
+    {
+#ifdef __arm__
+        address = reinterpret_cast<MAddress>(obj) >> ARM32_MARKED_FLAG_BITS;
+#else
+        address = reinterpret_cast<MAddress>(obj);
+#endif
+    }
+#ifdef __arm__
+    RefField(const BaseObject* obj, uint16_t tagged, uint16_t tagid) : isTagged(tagged), tagID(tagid)
+    {
+        address = reinterpret_cast<MAddress>(obj) >> ARM32_MARKED_FLAG_BITS;
+    }
+#else
     RefField(const BaseObject* obj, uint16_t tagged, uint16_t tagid)
         : address(reinterpret_cast<MAddress>(obj)), isTagged(tagged), tagID(tagid), padding(0) {}
+#endif
 
     RefField(RefField&& ref) : fieldVal(ref.fieldVal) {}
     RefField() = delete;
@@ -129,12 +153,23 @@ public:
     RefField& operator=(const RefField&&) = delete;
 
 private:
-#ifdef USE_32BIT_REF
+#ifdef __arm__
     using RefFieldValue = U32;
 #else
     using RefFieldValue = MAddress;
 #endif
 
+
+#ifdef __arm__
+    union {
+        struct {
+            MAddress isTagged : 1;
+            MAddress tagID : 1;
+            MAddress address : 30;
+        };
+        RefFieldValue fieldVal;
+    };
+#else
     union {
         struct {
             MAddress address : 48;
@@ -144,6 +179,7 @@ private:
         };
         RefFieldValue fieldVal;
     };
+#endif
 };
 
 using RefFieldVisitor = std::function<void(RefField<>&)>;

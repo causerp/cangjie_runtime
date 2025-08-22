@@ -3,7 +3,7 @@
 OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm",
 	            "elf32-littlearm")
 OUTPUT_ARCH(arm)
-SEARCH_DIR("=/usr/local/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/usr/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib"); SEARCH_DIR("=/usr/aarch64-linux-gnu/lib");SEARCH_DIR("=/usr/lib32");SEARCH_DIR("=/usr/local/lib32"); SEARCH_DIR("=/lib32");
+SEARCH_DIR("=/usr/local/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/usr/lib/arm-linux-gnueabihf"); SEARCH_DIR("=/usr/local/lib"); SEARCH_DIR("=/lib"); SEARCH_DIR("=/usr/lib"); SEARCH_DIR("=/usr/arm-linux-gnueabihf/lib");SEARCH_DIR("=/usr/lib32");SEARCH_DIR("=/usr/local/lib32"); SEARCH_DIR("=/lib32");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

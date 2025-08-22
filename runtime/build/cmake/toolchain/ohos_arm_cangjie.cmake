@@ -50,7 +50,7 @@ set(CMAKE_C_FLAGS
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=arm-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -fPIC -fgnu89-inline -Wfloat-equal"
+     -Wstring-conversion -Wtautological-overlap-compare -fPIC -fgnu89-inline -Wfloat-equal -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -59,7 +59,7 @@ set(CMAKE_CXX_FLAGS
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=arm-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -fPIC -Wfloat-equal -fno-exceptions"
+     -Wstring-conversion -Wtautological-overlap-compare -fPIC -Wfloat-equal -fno-exceptions -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 set(OHOS_INCLUDE "-I$ENV{OHOS_ROOT}/third_party/openssl/include")

@@ -67,6 +67,9 @@ extern "C" void MRT_SetGrowFlag(bool flag)
 
 extern "C" intptr_t MRT_StackGrow(intptr_t frameBase, uint32_t adjustedSize, void* ip)
 {
+#ifdef __arm__
+    LOG(RTLOG_FAIL, "Unsupported stack grow for arm32");
+#endif
     Mutator* mutator = Mutator::GetMutator();
     if (mutator == nullptr) {
         return false;
@@ -412,6 +415,8 @@ intptr_t Mutator::FixExtendedStack(intptr_t frameBase, uint32_t adjustedSize __a
             // 8 is the slot length of returnaddr.
             uint64_t callerSp = *reinterpret_cast<intptr_t*>(frameBase) - frameSize + 8;
 #elif defined(__aarch64__)
+            uint64_t callerSp = *reinterpret_cast<intptr_t*>(frameBase) - frameSize;
+#elif defined(__arm__)
             uint64_t callerSp = *reinterpret_cast<intptr_t*>(frameBase) - frameSize;
 #endif
             size_t newSize = stackSize + stackSize;

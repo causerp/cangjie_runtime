@@ -57,13 +57,19 @@ public:
 
     void RestoreToCallerContext(CalleeSavedRegisterContext& context, uint32_t adjustedSize = 0) const
     {
+#if defined(__arm__)
+        constexpr uint8_t sizeOfAddr = 4;
+#else
         constexpr uint8_t sizeOfAddr = 8;
+#endif
         constexpr uint8_t sizeOfStackHead = sizeOfAddr * 2; // callee rbp + return addr
 #if defined(__x86_64__)
         context.rsp = context.rbp + sizeOfStackHead;
 #elif defined(__aarch64__)
         context.sp = context.x29 + sizeOfStackHead;
         uint32_t calleeCount = 0;
+#elif defined(__arm__)
+        context.sp = context.r11 + sizeOfStackHead;
 #endif
         Uptr calleeFrameAddress = reinterpret_cast<Uptr>(mFrame.GetFA());
         if (adjustedSize > 0) {
@@ -71,6 +77,8 @@ public:
             context.rbp = *reinterpret_cast<uint64_t*>(calleeFrameAddress);
 #elif defined(__aarch64__)
             context.x29 = *reinterpret_cast<uint64_t*>(calleeFrameAddress);
+#elif defined(__arm__)
+            context.r11 = *reinterpret_cast<uint64_t*>(calleeFrameAddress);
 #endif
             return;
         }
@@ -128,6 +136,8 @@ public:
         constexpr uint8_t alignSize = 2;
         calleeCount = (calleeCount % alignSize != 0) ? calleeCount + 1 : calleeCount;
         context.sp += calleeCount * sizeOfAddr;
+#elif defined(__arm__)
+        context.r11 = *reinterpret_cast<uint64_t*>(calleeFrameAddress);
 #endif
 
 #if defined(_WIN64)
@@ -193,6 +203,9 @@ private:
 #elif defined(__aarch64__)
     static constexpr size_t CALLEE_SAVE_NUMBERS = 20;
     static constexpr int64_t SLOT_SIZE_FACTOR = 8;
+#elif defined(__arm__)
+    static constexpr size_t CALLEE_SAVE_NUMBERS = 17;
+    static constexpr int64_t SLOT_SIZE_FACTOR = -4;
 #elif defined(__linux__) && defined(__aarch64__)
     static constexpr size_t CALLEE_SAVE_NUMBERS = 20;
     static constexpr int64_t SLOT_SIZE_FACTOR = 8;

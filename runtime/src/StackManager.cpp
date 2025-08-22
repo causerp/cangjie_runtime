@@ -40,11 +40,16 @@
 #define LIBCANGJIE_CJTHREAD_TRACE "libcangjie-trace"
 
 namespace MapleRuntime {
-Uptr StackManager::rtStartAddr = ULLONG_MAX;
+#ifdef __arm__
+Uptr STACK_ADDR_MAX = UINT32_MAX;
+#else
+Uptr STACK_ADDR_MAX = ULLONG_MAX;
+#endif
+Uptr StackManager::rtStartAddr = STACK_ADDR_MAX;
 Uptr StackManager::rtEndAddr = 0;
-Uptr StackManager::cjcSoStartAddr = ULLONG_MAX;
+Uptr StackManager::cjcSoStartAddr = STACK_ADDR_MAX;
 Uptr StackManager::cjcSoEndAddr = 0;
-Uptr StackManager::traceSoStartAddr = ULLONG_MAX;
+Uptr StackManager::traceSoStartAddr = STACK_ADDR_MAX;
 Uptr StackManager::traceSoEndAddr = 0;
 
 #if defined (COMPILE_DYNAMIC)
@@ -206,7 +211,7 @@ std::vector<FrameInfo> GetCurrentStack(StackMode mode)
 }
 #endif
 
-#if defined(__linux__) || defined(hongmeng)
+#if defined(__linux__) || defined(hongmeng) || defined(__arm__)
 static void GetSoAddrScope(const CString& str, Uptr& startAddr, Uptr& endAddr)
 {
     int pos1 = str.Find('-');
@@ -280,7 +285,7 @@ static void InitAddressInfoOnDarwin(const char* dylib, Uptr& start, Uptr& end)
         const char* path = info.prp_vip.vip_path;
         Uptr priAddr = info.prp_prinfo.pri_address;
         Uptr priSize = info.prp_prinfo.pri_size;
-        if (EndWith(path, dylib) && start == ULLONG_MAX && end == 0) {
+        if (EndWith(path, dylib) && start == STACK_ADDR_MAX && end == 0) {
             start = priAddr;
             end = priAddr + priSize;
             break;
@@ -384,7 +389,7 @@ void InitAddressScopeForCJthreadTrace()
     }
     
     std::fclose(file);
-    if (StackManager::traceSoStartAddr == ULLONG_MAX && StackManager::traceSoEndAddr == 0) {
+    if (StackManager::traceSoStartAddr == STACK_ADDR_MAX && StackManager::traceSoEndAddr == 0) {
         LOG(RTLOG_FATAL, "can not find Runtime trace so");
     }
 #endif

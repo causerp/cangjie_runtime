@@ -174,7 +174,7 @@ static void UnsetSpinning(int64_t& state) { state &= ~SPINNING; }
 static void IncWaiters(int64_t& state) { state += WAITER_UNIT; }
 
 #if defined(__linux__) || defined(hongmeng) || defined(__APPLE__)
-#if defined(__aarch64__)
+#if defined(__aarch64__) || defined (__arm__)
 #define YIELD_PROCESSOR __asm__ __volatile__("yield")
 #elif defined(__x86_64__)
 #define YIELD_PROCESSOR __asm__ __volatile__("pause")

@@ -60,7 +60,7 @@ public:
     private:
 #if defined(_WIN64)
         static constexpr size_t CONTAINER_CAPACITY = 69;
-#elif defined(__aarch64__)
+#elif defined(__aarch64__) || defined(__arm__)
         static constexpr size_t CONTAINER_CAPACITY = 64;
 #else
         static constexpr size_t CONTAINER_CAPACITY = 65;
@@ -304,7 +304,7 @@ public:
     void ClearWeakRefBuffer()
     {
         for (BaseObject* obj : refObjBuffer) {
-            RefField<>* referentField = reinterpret_cast<RefField<>*>((uintptr_t)obj + sizeof(TypeInfo*));
+            RefField<>* referentField = reinterpret_cast<RefField<>*>((uintptr_t)obj + TYPEINFO_PTR_SIZE);
             Heap::GetBarrier().ReadWeakRef(obj, *referentField);
         }
         refObjBuffer.clear();

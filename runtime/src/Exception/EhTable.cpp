@@ -14,8 +14,16 @@
 namespace MapleRuntime {
 void* EHTable::ReadAbsPtr(const uint8_t* p) const
 {
+#ifdef __arm__
+    // For arm, get offset from p and calculate a new address.
+    // The new address represents GOT, and then read the content of the address.
+    int32_t offset = *reinterpret_cast<const int32_t*>(p);
+    const uint8_t* newAddr = p + offset;
+    return reinterpret_cast<void*>(*reinterpret_cast<const uint32_t*>(newAddr));
+#else
     auto value = *reinterpret_cast<uint64_t*>(const_cast<uint8_t*>(p));
     return reinterpret_cast<void*>(value);
+#endif
 }
 
 void* EHTable::ReadUData4(const uint8_t* p) const
