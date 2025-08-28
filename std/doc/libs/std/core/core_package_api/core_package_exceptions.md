@@ -308,7 +308,7 @@ protected override func getClassName(): String
 
 返回值：
 
-- [String](../../core0/core_package_api/core_package_structs.md#struct-string) - 类名。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。
 
 ## class IllegalMemoryException
 

@@ -57,5 +57,5 @@ unittest.common 为单元测试框架提供了打印所需的类型和一些通�
 
 |  常量&变量名 | 功能  |
 | ------------ | ------------ |
-| [optionsInfo](./unittest_common_package_api/unittest_common_constants_vars.md#let-optionsInfo) | 保存有关单元测试选项的信息的注册表。仅在框架内使用，不建议用户使用。 |
-| [unittestOptionsRegistryClosed](./unittest_common_package_api/unittest_common_constants_vars.md#var-unittestOptionsRegistryClosed) | 用于标记选项是否可以注册的内部标志。仅在框架内使用，不建议用户使用。 |
+| [optionsInfo](./unittest_common_package_api/unittest_common_constants_vars.md#let-optionsinfo) | 保存有关单元测试选项的信息的注册表。仅在框架内使用，不建议用户使用。 |
+| [unittestOptionsRegistryClosed](./unittest_common_package_api/unittest_common_constants_vars.md#var-unittestoptionsregistryclosed) | 用于标记选项是否可以注册的内部标志。仅在框架内使用，不建议用户使用。 |
