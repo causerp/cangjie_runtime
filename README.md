@@ -1,6 +1,6 @@
 # Cangjie Runtime and Cangjie Standard Library
 
-The high performance and development efficiency of the Cangjie language stem from the collaborative design of its underlying runtime and standard library: the ​​Cangjie runtime​​ serves as a lightweight and efficient foundational engine, managing core resources like memory and threads during program execution; while the Cangjie programming language library​​ provides common functions and tools, laying a solid groundwork for developers to build application features.
+In the Cangjie programming language, program execution relies on the capabilities of both the runtime and the standard library. The ​​Cangjie runtime​​ serves as a lightweight and efficient foundational engine, managing core resources like memory and threads during program execution; while the Cangjie programming language library​​ provides common functions and tools, laying a solid groundwork for developers to build application features.
 
 ## Cangjie Runtime
 
@@ -9,6 +9,7 @@ The high performance and development efficiency of the Cangjie language stem fro
 The Cangjie runtime is one of the core components of the Cangjie Native backend (CJNative), designed with high performance and lightweight as its goals, and provides strong support for the high performance of the Cangjie language in all scenarios. As the fundamental engine for running Cangjie programs, the Cangjie runtime provides basic driving functions such as garbage collection (GC), CJThread, and loader.
 
 The Cangjie standard library (std) is built on a lower layer based on compiler frontend, middle-end, backend, and runtime, as shown in the figure.
+
 ![](runtime/figures/cangjie_runtime.png)
 
 **Cangjie Runtime Architecture**
@@ -153,8 +154,6 @@ The Cangjie Standard Library has three key characteristics and goals:
 
 For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html)
 
-The Cangjie standard library (std) is built on a lower layer based on compiler frontend, middle-end, backend, and runtime, as shown in the figure.
-
 ![](std/figures/cangjie_std.png)
 
 ### Directory
@@ -253,7 +252,7 @@ output
 
 #### Usage Instructions
 
-The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build)
+The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./std/doc/libs/summary_cjnative_EN.md)
 
 #### More Build Options
 
@@ -302,3 +301,10 @@ For integration building, please refer to the [Cangjie SDK Integration Build Gui
 [cangjie_build](https://gitcode.com/Cangjie/cangjie_build)
 
 [cangjie_test](https://gitcode.com/Cangjie/cangjie_test)
+
+## Open Source License
+This project is licensed under [Apache-2.0 with Runtime Library Exception](./LICENSE). Please enjoy and participate in open source freely.
+
+## Contribution Guide
+
+Welcome all developers to contribute code, documentation, and more. For specific contribution processes and methods, please refer to the [Contribution Guide](https://gitcode.com/openharmony/docs/blob/master/en/contribute/contribution-guide.md)

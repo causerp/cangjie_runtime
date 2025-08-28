@@ -1,6 +1,6 @@
 # 仓颉运行时与仓颉编程语言标准库
 
-仓颉语言的高性能与开发效率得益于其底层运行时与标准库的协同设计：​​仓颉运行时作为轻量高效的基础引擎，负责程序运行时的内存、线程等核心资源管理；​​标准库提供了常用的功能和工具，为开发者构建应用功能奠定了坚实基础。
+在仓颉编程语言中，程序执行依赖于运行时和标准库的能力。​仓颉运行时作为轻量高效的基础引擎，负责程序运行时的内存、线程等核心资源管理；标准库提供了常用的功能和工具，为开发者构建应用功能奠定了坚实基础。
 
 ## 仓颉运行时
 
@@ -150,9 +150,8 @@ $ git clone https://gitcode.com/Cangjie/cangjie_runtime.git;
 - 功能通用：标准库提供了开发者最常使用的一些库能力，旨在为开发者解决大部分基础问题。
 - 质量标杆：标准库追求在性能、代码风格等方面为其他仓颉库树立范例和标杆。
 
-标准库的详细介绍和使用可以参见[官网标准库文档](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html)
+标准库的详细介绍和使用可以参见[仓颉编程语言标准库 API](./std/doc/libs/summary_cjnative.md)
 
-仓颉标准库std底层基于编译前端&中端&后端以及运行时，如图所示
 ![](std/figures/cangjie_std_zh.png)
 
 ### 目录
@@ -298,3 +297,11 @@ python3 build.py install --help
 [cangjie_build](https://gitcode.com/Cangjie/cangjie_build)
 
 [cangjie_test](https://gitcode.com/Cangjie/cangjie_test)
+
+## 开源协议
+
+本项目基于 [Apache-2.0 with Runtime Library Exception](./LICENSE)，请自由地享受和参与开源。
+
+## 参与贡献
+
+欢迎广大开发者贡献代码、文档等，具体的贡献流程和方式请参见[参与贡献](https://gitcode.com/openharmony/docs/blob/master/zh-cn/contribute/%E5%8F%82%E4%B8%8E%E8%B4%A1%E7%8C%AE.md)
