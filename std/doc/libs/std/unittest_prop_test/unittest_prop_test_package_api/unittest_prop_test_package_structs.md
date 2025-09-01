@@ -76,6 +76,10 @@ public struct KeyRandom <: KeyFor<RandomSource> {}
 
 功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 创建键值。
 
+父类型：
+
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)<[RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource)>
+
 ### prop random
 
 ```cangjie
@@ -266,7 +270,7 @@ extend<T0, T1> TupleWrapper2<T0, T1> <: Shrink<TupleWrapper2<T0, T1>>
 }
 ```
 
-### func shrink()
+#### func shrink()
 
 ```cangjie
 override func shrink(): Iterable<TupleWrapper2<T0, T1>>

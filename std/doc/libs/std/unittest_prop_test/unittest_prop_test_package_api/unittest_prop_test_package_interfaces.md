@@ -15,7 +15,7 @@ public interface ArbitraryRange<T> where T <: Arbitrary<T> & Comparable<T> {
 ### func arbitraryRange(RandomSource, T, T)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: T, max: T): c<T>
+func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
 ```
 
 功能：返回在范围内生成的值。
@@ -1329,7 +1329,7 @@ extend<T> option<T> <: Arbitrary<Option<T>> where T <: Arbitrary<T>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<option<T>>
+static func arbitrary(random: RandomSource): Generator<Option<T>>
 ```
 
 功能：获取生成 option\<T> 类型随机值生成器。
@@ -1340,7 +1340,7 @@ static func arbitrary(random: RandomSource): Generator<option<T>>
 
 返回值：
 
-- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<option\<T>> - 生成 option\<T> 类型随机值生成器。
+- [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Option\<T>> - 生成 option\<T> 类型随机值生成器。
 
 ### extend\<T> ArrayList\<T> <: Arbitrary\<ArrayList\<T>> where T <: Arbitrary\<T>
 

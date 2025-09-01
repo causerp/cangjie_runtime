@@ -584,7 +584,7 @@ public func mixWith(other: LazySeq<T>): LazySeq<T>
 
 返回值：
 
-- [LazySeq](#class-lazyseqt)\<U> - 处理后的序列。
+- [LazySeq](#class-lazyseqt)\<T> - 处理后的序列。
 
 ### func prepend(T)
 

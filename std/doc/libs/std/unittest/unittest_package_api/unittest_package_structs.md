@@ -322,7 +322,7 @@ conf.set(KeyBaseline.baseline, "baseline")
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop baseline
 
@@ -350,7 +350,7 @@ public struct KeyBaselinePath <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop baselinePath
 
@@ -378,7 +378,7 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop batchSize
 
@@ -406,7 +406,7 @@ public struct KeyBench <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop bench
 
@@ -434,7 +434,7 @@ public struct KeyCaptureOutput <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop captureOutput
 
@@ -462,7 +462,7 @@ public struct KeyCoverageGuided <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuided
 
@@ -490,7 +490,7 @@ public struct KeyCoverageGuidedBaselineScore <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuidedBaselineScore
 
@@ -518,7 +518,7 @@ public struct KeyCoverageGuidedInitialSeeds <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuidedInitialSeeds
 
@@ -546,7 +546,7 @@ public struct KeyCoverageGuidedMaxCandidates <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuidedMaxCandidates
 
@@ -574,7 +574,7 @@ public struct KeyCoverageGuidedNewCoverageBonus <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuidedNewCoverageBonus
 
@@ -602,7 +602,7 @@ public struct KeyCoverageGuidedNewCoverageScore <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop coverageGuidedNewCoverageScore
 
@@ -630,7 +630,7 @@ public struct KeyDeathAware <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop deathAware
 
@@ -658,7 +658,7 @@ public struct KeyDryRun <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop dryRun
 
@@ -686,7 +686,7 @@ public struct KeyExcludeTags <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop excludeTags
 
@@ -714,7 +714,7 @@ public struct KeyExplicitGC <: KeyFor<ExplicitGcType> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop explicitGC
 
@@ -742,7 +742,7 @@ public struct KeyFilter <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop filter
 
@@ -770,7 +770,7 @@ public struct KeyFromTopLevel <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop fromTopLevel
 
@@ -798,7 +798,7 @@ public struct KeyGenerationSteps <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop generationSteps
 
@@ -826,7 +826,7 @@ public struct KeyHelp <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop help
 
@@ -854,7 +854,7 @@ public struct KeyIncludeTags <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop includeTags
 
@@ -882,7 +882,7 @@ public struct KeyInternalTestrunnerInputPath <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop internalTestrunnerInputPath
 
@@ -910,7 +910,7 @@ public struct KeyMeasurement <: KeyFor<Measurement> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop measurement
 
@@ -938,7 +938,7 @@ public struct KeyMeasurementInfo <: KeyFor<MeasurementInfo> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop measurementInfo
 
@@ -966,7 +966,7 @@ public struct KeyMinBatches <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop minBatches
 
@@ -994,7 +994,7 @@ public struct KeyMinDuration <: KeyFor<Duration> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop minDuration
 
@@ -1022,7 +1022,7 @@ public struct KeyNoCaptureOutput <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop noCaptureOutput
 
@@ -1050,7 +1050,7 @@ public struct KeyNoColor <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop noColor
 
@@ -1078,7 +1078,7 @@ public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop optimizeMocksForBench
 
@@ -1106,7 +1106,7 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop parallel
 
@@ -1134,7 +1134,7 @@ public struct KeyRandomSeed <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop randomSeed
 
@@ -1162,7 +1162,7 @@ public struct KeyReductionSteps <: KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop reductionSteps
 
@@ -1190,7 +1190,7 @@ public struct KeyReportFormat <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop reportFormat
 
@@ -1218,7 +1218,7 @@ public struct KeyReportPath <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop reportPath
 
@@ -1246,7 +1246,7 @@ public struct KeyShowAllOutput <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop showAllOutput
 
@@ -1274,7 +1274,7 @@ public struct KeyShowTags <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop showTags
 
@@ -1302,7 +1302,7 @@ public struct KeySkip <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop skip
 
@@ -1330,7 +1330,7 @@ public struct KeyTimeout <: KeyFor<Duration> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop timeout
 
@@ -1358,7 +1358,7 @@ public struct KeyTimeoutEach <: KeyFor<String> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop timeoutEach
 
@@ -1394,7 +1394,7 @@ conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop timeoutHandler
 
@@ -1426,7 +1426,7 @@ public struct KeyVerbose <: KeyFor<Bool> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop verbose
 
@@ -1454,7 +1454,7 @@ public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)。
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
 
 ### prop warmup
 
