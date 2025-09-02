@@ -62,11 +62,15 @@
 └─ build                # 编译构建工具、脚本等
 ```
 
+### 约束
+
+支持在 Ubuntu/MacOS(x86_64,aarch64) 环境中对仓颉运行时进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)。
+
 ### 编译构建
 
 #### 构建准备
 
-构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build)
+构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 #### 构建步骤
 
@@ -82,7 +86,7 @@
   - `ohos-aarch64` -- 指 Linux 平台到 ohos-aarch64 平台的交叉编译构建；
   - `ohos-x86_64` -- 指 Linux 平台到 ohos-x86_64 平台的交叉编译构建。
 - `-t, --build-type <value>` 用于指定构建模式。`value` 的取值包括：`release、debug、relwithdebinfo`，区分大小写，默认值为 `release`。
-- `-v, --version <value>` 用于指定仓颉运行时的版本，`value` 默认值为 `0.0.1`
+- `-v, --version <value>` 用于指定仓颉运行时的版本，`value` 默认值为 `0.0.1`。
 - `--prefix <value>` 可用于指定构建产物的安装路径，默认安装到 runtime 目录下的 output/common 目录。当 `build` 和 `install` 同时指定了安装路径，后者生效。
 - `-hwasan` 用于使能 Hardware-Assisted Address Sanitizer (HWASAN)。
 - `--target-toolchain <value>` 用于指定交叉编译的工具链，**交叉编译构建时为必选参数**。工具链配置请参见[构建准备](#构建准备)。
@@ -130,7 +134,7 @@ $ python3 build.py clean
 
 ### 使用说明
 
-运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build)
+运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 ##### 下载源码：
 
@@ -150,7 +154,7 @@ $ git clone https://gitcode.com/Cangjie/cangjie_runtime.git;
 - 功能通用：标准库提供了开发者最常使用的一些库能力，旨在为开发者解决大部分基础问题。
 - 质量标杆：标准库追求在性能、代码风格等方面为其他仓颉库树立范例和标杆。
 
-标准库的详细介绍和使用可以参见[仓颉编程语言标准库 API](./std/doc/libs/summary_cjnative.md)
+标准库的详细介绍和使用可以参见[仓颉编程语言标准库 API](./std/doc/libs/summary_cjnative.md)。
 
 ![](std/figures/cangjie_std_zh.png)
 
@@ -191,17 +195,21 @@ std/libs/std
 └── unittest 				#用于编写仓颉项目单元测试代码
 ```
 
+### 约束
+
+支持在 Ubuntu/MacOS(x86_64, aarch64) 环境中对仓颉编译语言标准库进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)。
+
 ### 编译构建
 
 #### 构建准备
 
-支持在 Ubuntu/MacOS(x86_64, aarch64) 环境中对仓颉标准库进行构建。构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)
+构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)
 
 #### 构建步骤
 
-构建标准库之前需要先源码构建本仓的runtime和[cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)，runtime和cangjie_compiler的构建详细见其项目的构建指导。
+构建标准库之前需要先源码构建本仓的 runtime 和 [cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)，runtime 和 cangjie_compiler 的构建详细见其项目的构建指导。
 
-1. 配置cjc
+1. 配置 cjc
 
    ```
    source <源码构建的cjc路径，如..../output/envsetup.sh>
@@ -221,7 +229,7 @@ std/libs/std
    git clone https://gitcode.com/Cangjie/cangjie_runtime.git
    ```
 
-   进入std目录，对标准库源码进行编译，执行 `build.py` 脚本，脚本支持构建、清理、和安装三个功能
+   进入 std 目录，对标准库源码进行编译，执行 `build.py` 脚本，脚本支持构建、清理、和安装三个功能
 
    ```
    cd std
@@ -237,7 +245,7 @@ std/libs/std
    3. `build.py install` 命令将编译产物安装到 `output` 目录下。
       - `--prefix` 指定安装路径（可选），默认安装在std/output目录
 
-output目录结构如下：
+output 目录结构如下：
 
 ```
 output
@@ -248,27 +256,27 @@ output
 
 #### 使用说明
 
-标准库构建产物需要配合cjc编译器及运行时等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build)
+标准库构建产物需要配合 cjc 编译器及运行时等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 #### 更多构建选项
 
-build.py的build功能提供如下额外选项：
+`build.py` 的 `build` 功能提供如下额外选项：
 
-- --target：指定构建平台，默认为native，支持的target如下所示（交叉编译请参考[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build)）：
-  - native（默认值）
-  - ohos-aarch64 ： 交叉编译ohos(aarch64)
-  - ohos-x86_64 ：交叉编译ohos(x86_64)
-  - windows-x86_64 ： linux交叉编译windows
-- --target-toolchain：指定编译工具所在路径（交叉编译需要指定）
-- --target-sysroot ：指定编译目标系统库所在目录（交叉编译需要指定）
-- --build-args ：cjc构建选项（可选）
-- --jobs(-j): 并发构建任务最大数量
-- --hwasan：构建hwasan版本std（OHOS交叉编译使用）
+- `--target`：指定构建平台，默认为native，支持的target如下所示（交叉编译请参考[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)）：
+  - `native`（默认值）
+  - `ohos-aarch64` ： 交叉编译ohos(aarch64)
+  - `ohos-x86_64` ：交叉编译ohos(x86_64)
+  - `windows-x86_64` ： linux交叉编译windows
+- `--target-toolchain` ：指定编译工具所在路径（交叉编译需要指定）
+- `--target-sysroot` ：指定编译目标系统库所在目录（交叉编译需要指定）
+- `--build-args` ：cjc构建选项（可选）
+- `--jobs(-j)` : 并发构建任务最大数量
+- `--hwasan` ：构建hwasan版本std（OHOS交叉编译使用）
 
-build.py的install功能提供如下额外选项：
+`build.py` 的 `install` 功能提供如下额外选项：
 
-- --prefix：指定安装目录
-- --host：指定为哪个target平台安装
+- `--prefix`：指定安装目录
+- `--host`：指定为哪个target平台安装
 
 您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) 或通过 `--help` 选项了解更多编译选项：
 
@@ -286,7 +294,7 @@ python3 build.py install --help
 
 [cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)
 
-[**cangjie_runtime**](https://gitcode.com/Cangjie/cangjie_runtime)
+[cangjie_runtime](https://gitcode.com/Cangjie/cangjie_runtime)
 
 [cangjie_tools](https://gitcode.com/Cangjie/cangjie_tools)
 

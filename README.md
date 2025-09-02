@@ -64,6 +64,10 @@ The Cangjie standard library (std) is built on a lower layer based on compiler f
 └─ build                # Compile build tools, scripts, etc
 ```
 
+### Constraints
+
+Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md).
+
 ### Compilation & Build
 
 #### Build Preparation
@@ -152,7 +156,7 @@ The Cangjie Standard Library has three key characteristics and goals:
 - Quality Benchmark: The standard library strives to set an example and benchmark for other Cangjie libraries in terms of performance, code style, etc.
 
 
-For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html)
+For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html).
 
 ![](std/figures/cangjie_std.png)
 
@@ -193,11 +197,15 @@ std/libs/std
 └── unittest                # For writing unit test code for Cangjie projects
 ```
 
+### Constraints
+
+Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md).
+
 ### Compilation and Building
 
 #### Build Preparation
 
-The Cangjie standard library can be built in Ubuntu/MacOS (x86_64, aarch64) environments. Before building, you need to set up the compilation environment. For details, please check the [Build dependency tool](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)
+The Cangjie standard library can be built in Ubuntu/MacOS (x86_64, aarch64) environments. Before building, you need to set up the compilation environment. For details, please check the [Build dependency tool](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md).
 
 #### Build Steps
 
@@ -252,27 +260,27 @@ output
 
 #### Usage Instructions
 
-The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./std/doc/libs/summary_cjnative_EN.md)
+The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./std/doc/libs/summary_cjnative_EN.md).
 
 #### More Build Options
 
 The build functionality of build.py provides the following additional options:
 
-- --target: Specifies the build platform, defaults to native build, supported targets are shown below(For cross-compilation, please refer to [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)):
-  - native (default value)
-  - ohos-aarch64: Cross-compile for ohos(ohos-aarch64)
-  - ohos-x86_64: Cross-compile for ohos(ohos-x86_64)
-  - windows-x86_64: Cross-compile Windows from Linux
-- --target-toolchain: Specifies the path to compilation tools (required for cross-compilation)
-- --target-sysroot: Specifies the directory of target system libraries (required for cross-compilation)
-- --build-args: cjc build options (optional)
-- --jobs(-j): maximum number of concurrent build tasks
-- --hwasan：Building the HWASAN version of std (for OHOS cross-compilation)
+- `--target`: Specifies the build platform, defaults to native build, supported targets are shown below(For cross-compilation, please refer to [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)):
+  - `native` (default value)
+  - `ohos-aarch64`: Cross-compile for ohos(ohos-aarch64)
+  - `ohos-x86_64`: Cross-compile for ohos(ohos-x86_64)
+  - `windows-x86_64`: Cross-compile Windows from Linux
+- `--target-toolchain`: Specifies the path to compilation tools (required for cross-compilation)
+- `--target-sysroot`: Specifies the directory of target system libraries (required for cross-compilation)
+- `--build-args`: cjc build options (optional)
+- `--jobs(-j)`: maximum number of concurrent build tasks
+- `--hwasan`：Building the HWASAN version of std (for OHOS cross-compilation)
 
 The install functionality of build.py provides the following additional options:
 
-- --prefix: Specifies the installation directory
-- --host: Specifies which target platform to install for
+- `--prefix`: Specifies the installation directory
+- `--host`: Specifies which target platform to install for
 
 You can also refer to [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) or use the `--help` option to learn more about compilation options:
 
@@ -290,7 +298,7 @@ For integration building, please refer to the [Cangjie SDK Integration Build Gui
 
 [cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)
 
-[**cangjie_runtime**](https://gitcode.com/Cangjie/cangjie_runtime)
+[cangjie_runtime](https://gitcode.com/Cangjie/cangjie_runtime)
 
 [cangjie_tools](https://gitcode.com/Cangjie/cangjie_tools)
 

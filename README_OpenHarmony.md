@@ -35,7 +35,7 @@ OpenHarmony 编译使用 cangjie_runtime 目录下的 `src` 源码。仓颉运�
 
 ## OpenHarmony 如何集成 cangjie_runtime
 
-仓颉运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build)
+仓颉运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 ## cangjie_runtime 相关内容
 
