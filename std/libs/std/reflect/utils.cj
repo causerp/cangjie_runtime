@@ -114,6 +114,7 @@ func checkArgsSizeAndType(parameters: ReadOnlyList<ParameterInfo>, args: Array<A
     }
 }
 
+
 func checkValueType(newValue: Any, typeInfo: TypeInfo): Unit {
     let valueTypeInfo = TypeInfo.of(newValue)
     if (!valueTypeInfo.isSubtypeOf(typeInfo)) {
@@ -122,11 +123,23 @@ func checkValueType(newValue: Any, typeInfo: TypeInfo): Unit {
 }
 
 func findAnnotation<T>(annotations: Collection<Annotation>): Option<T> {
-    for (a in annotations) {
-        match (a) {
-            case annotation: T => return annotation
-            case _ => ()
+    var ret: ?T = None<T>
+    var count: Int64 = 0
+
+    for (annotation in annotations where annotation is T) {
+        count += 1
+        if (count > 1) {
+            return None<T>
         }
+        ret = annotation as T
     }
-    None
+    ret
+}
+
+func findAllAnnotations<T>(annotations: Collection<Annotation>): Array<T> {
+    let ret = ArrayList<T>()
+    for (annotation in annotations where annotation is T) {
+        ret.add((annotation as T).getOrThrow())
+    }
+    ret.toArray()
 }

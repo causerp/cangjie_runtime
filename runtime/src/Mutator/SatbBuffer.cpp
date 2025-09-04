@@ -20,13 +20,7 @@ bool SatbBuffer::ShouldEnqueue(const BaseObject* obj)
     if (UNLIKELY(obj == nullptr)) {
         return false;
     }
-    if (obj->IsInTraceRegion()) {
-        return false;
-    }
-    if (RegionSpace::IsMarkedObject(obj)) {
-        return false;
-    }
-    return !RegionSpace::EnqueueObject(obj);
+    return RegionSpace::ShouldEnqueue(obj);
 }
 
 static ImmortalWrapper<WeakRefBuffer> g_weakRefBuffer;

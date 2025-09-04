@@ -50,6 +50,7 @@ namespace MapleRuntime {
 
 extern "C" ObjRef MCC_NewObject(const TypeInfo* klass, MSize size)
 {
+    DCHECK(size == (AlignUp<size_t>(klass->GetInstanceSize(), 8) + sizeof(TypeInfo*))); // 8-byte alignment
     ObjRef obj = ObjectManager::NewObject(klass, size);
     if (obj == nullptr) {
         ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewObject return nullptr");
@@ -59,6 +60,7 @@ extern "C" ObjRef MCC_NewObject(const TypeInfo* klass, MSize size)
 
 extern "C" ObjRef MCC_NewWeakRefObject(const TypeInfo* klass, MSize size)
 {
+    DCHECK(size == (AlignUp<size_t>(klass->GetInstanceSize(), 8) + sizeof(TypeInfo*))); // 8-byte alignment
     ObjRef obj = ObjectManager::NewWeakRefObject(klass, size);
     if (obj == nullptr) {
         ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewWeakRefObject return nullptr");
@@ -68,6 +70,7 @@ extern "C" ObjRef MCC_NewWeakRefObject(const TypeInfo* klass, MSize size)
 
 extern "C" ObjRef MCC_NewPinnedObject(const TypeInfo* klass, MSize size, bool isFinalizer)
 {
+    DCHECK(size == (AlignUp<size_t>(klass->GetInstanceSize(), 8) + sizeof(TypeInfo*))); // 8-byte alignment
     ObjRef obj = ObjectManager::NewPinnedObject(klass, size, isFinalizer);
     if (obj == nullptr) {
         ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewPinnedObject return nullptr");
@@ -77,6 +80,7 @@ extern "C" ObjRef MCC_NewPinnedObject(const TypeInfo* klass, MSize size, bool is
 
 extern "C" ObjRef MCC_NewFinalizer(const TypeInfo* klass, MSize size)
 {
+    DCHECK(size == (AlignUp<size_t>(klass->GetInstanceSize(), 8) + sizeof(TypeInfo*))); // 8-byte alignment
     ObjRef obj = ObjectManager::NewFinalizer(klass, size);
     if (obj == nullptr) {
         ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewFinalizer return nullptr");

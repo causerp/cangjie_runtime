@@ -57,7 +57,7 @@ extend Configuration {
 }
 
 interface Executor {
-    func execute(caseId: TestCaseResult, configuration: Configuration): Unit
+    func execute(suiteInfo: TestSuiteReportInfo, caseResult: TestCaseResult, configuration: Configuration): Unit
 }
 
 class TestCaseExecutor<T> <: Executor {
@@ -263,7 +263,7 @@ class TestCaseExecutor<T> <: Executor {
         hasMoreParameters = false
     }
 
-    public func execute(tcase: TestCaseResult, configuration: Configuration): Unit {
+    public func execute(_: TestSuiteReportInfo, tcase: TestCaseResult, configuration: Configuration): Unit {
         generationStep = 0
         // assume that we have data in the beginning
         hasMoreParameters = true
@@ -322,6 +322,8 @@ extend Exception {
                         PrettyText(e.toString()), renderException(e, None)
                     )
                 }
+            // error will be reported by a watchdog thread
+            case e: UnittestTimeoutException => None
             // should have been already reported when thrown originally
             case _: BenchmarkStoppedError => None
             case anyOther: Exception => ExceptionThrownCheckResult(

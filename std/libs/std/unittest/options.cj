@@ -318,6 +318,20 @@ public struct KeyTimeoutEach <: KeyFor<String> {
     }
 }
 
+public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {
+    public static prop timeoutHandler: KeyTimeoutHandler {
+        get() {
+            KeyTimeoutHandler()
+        }
+    }
+
+    public prop name: String {
+        get() {
+            "timeoutHandler"
+        }
+    }
+}
+
 public struct KeyCaptureOutput <: KeyFor<Bool> {
     public static prop captureOutput: KeyCaptureOutput {
         get() {
@@ -594,6 +608,20 @@ public struct KeyDryRun <: KeyFor<Bool> {
     public prop name: String {
         get() {
             "dryRun"
+        }
+    }
+}
+
+public struct KeyShowTags <: KeyFor<Bool> {
+    public static prop showTags: KeyShowTags {
+        get() {
+            KeyShowTags()
+        }
+    }
+
+    public prop name: String {
+        get() {
+            "showTags"
         }
     }
 }

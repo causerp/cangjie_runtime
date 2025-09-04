@@ -46,8 +46,8 @@ abstract sealed class Node <: ToTokens {
 }
 
 public class Annotation <: Node {
-    init(at: Token, identifier: Token, lSquare: Token, args: ArrayList<Argument>, rSquare: Token,
-        attrs: Tokens, cond: Option<Expr>) {
+    init(at: Token, identifier: Token, lSquare: Token, args: ArrayList<Argument>, rSquare: Token, attrs: Tokens,
+        cond: Option<Expr>) {
         super()
         at_ = at
         identifier_ = identifier
@@ -138,16 +138,21 @@ public class Annotation <: Node {
         var ret = Tokens()
         ret.append(at_).append(identifier_)
         match (identifier_.value) {
-            case "When" => ret.append(lSquare_).append(cond_.getOrThrow().toTokens()).append(rSquare_).append(Token(NL))
-            case "Attribute" => if (attrs_.size == 0) {
-                ret.append(Token(NL))
-            } else {
-                ret.append(lSquare_)
-                for (i in 0..attrs_.size - 1) {
-                    ret.append(attrs_[i]).append(Token(TokenKind.COMMA))
+            case "When" => ret
+                .append(lSquare_)
+                .append(cond_.getOrThrow().toTokens())
+                .append(rSquare_)
+                .append(Token(NL))
+            case "Attribute" =>
+                if (attrs_.size == 0) {
+                    ret.append(Token(NL))
+                } else {
+                    ret.append(lSquare_)
+                    for (i in 0..attrs_.size - 1) {
+                        ret.append(attrs_[i]).append(Token(TokenKind.COMMA))
+                    }
+                    ret.append(attrs_[attrs_.size - 1]).append(rSquare_).append(Token(NL))
                 }
-                ret.append(attrs_[attrs_.size - 1]).append(rSquare_).append(Token(NL))
-            }
             case _ =>
                 if (!args_.isEmpty()) {
                     ret.append(lSquare_)
@@ -326,14 +331,6 @@ public class GenericConstraint <: Node {
         bitAnds_ = bitAnds
     }
 
-    init(ty: TypeNode, upbound: Token, upperBounds: ArrayList<TypeNode>, bitAnds: Tokens) {
-        super()
-        keyword_ = keyword
-        ty_ = ty
-        upbound_ = upbound
-        upperBounds_ = upperBounds
-        bitAnds_ = bitAnds
-    }
     public init() {}
     private var keyword_: Token = Token()
     private var ty_: TypeNode = RefType()
@@ -487,7 +484,13 @@ public class Body <: Node {
                 ret.append(Token(NL).addPosition(decl.endPos))
             }
         }
-        ret.append(rBrace_).append(Token(TokenKind.NL))
+        var rBracePos = rBrace_.pos
+        // if last pos of ret equal to rbrace.pos, refresh rbrace.pos, for lexer will delete rbrace when see pos equal to node.endPos
+        if (ret[ret.size - 1].pos == rBracePos) {
+            rBracePos = Position(rBracePos.fileID, rBracePos.line, rBracePos.column + 1)
+        }
+        ret.append(((rBrace_)).addPosition(rBracePos))
+        ret.append(Token(NL).addPosition(rBracePos.fileID, rBracePos.line, rBracePos.column + 1))
         return ret
     }
 
@@ -530,10 +533,6 @@ public class Argument <: Node {
         colon_ = colon
         expr_ = expr
         comma_ = comma
-    }
-    init(expr: Expr) {
-        super()
-        expr_ = expr
     }
     public init() {}
     private var inout_: Token = Token()
@@ -1380,7 +1379,8 @@ public class Constructor <: Node {
         annotations_ = annotations
         identifier_ = identifier
     }
-    init(annotations: ArrayList<Annotation>, identifier: Token, lParen: Token, params: ArrayList<TypeNode>, commas: Tokens, rParen: Token) {
+    init(annotations: ArrayList<Annotation>, identifier: Token, lParen: Token, params: ArrayList<TypeNode>,
+        commas: Tokens, rParen: Token) {
         super()
         annotations_ = annotations
         identifier_ = identifier
@@ -1446,8 +1446,7 @@ public class Constructor <: Node {
         if (!params_.isEmpty()) {
             ret.append(lParen_)
             if (commas_.size == 0) {
-                commas_ = Tokens(
-                    Array(params_.size - 1) {
+                commas_ = Tokens(Array(params_.size - 1) {
                     i => Token(TokenKind.COMMA).addPosition(
                         params_[i].endPos.fileID,
                         params_[i].endPos.line,
@@ -1528,7 +1527,7 @@ extend<T> ArrayList<T> <: ToTokens {
             case arguments: ArrayList<Argument> =>
                 for (i in 0..arguments.size) {
                     ret.append(arguments[i].toTokens())
-                    if (ret[ret.size - 1].kind != COMMA && i != arguments.size - 1) {
+                    if (ret.size != 0 && ret[ret.size - 1].kind != COMMA && i != arguments.size - 1) {
                         ret.append(Token(COMMA))
                     }
                 }
@@ -1539,7 +1538,7 @@ extend<T> ArrayList<T> <: ToTokens {
             case funcParams: ArrayList<FuncParam> =>
                 for (i in 0..funcParams.size) {
                     ret.append(funcParams[i].toTokens())
-                    if (ret[ret.size - 1].kind != COMMA && i != funcParams.size - 1) {
+                    if (ret.size != 0 && ret[ret.size - 1].kind != COMMA && i != funcParams.size - 1) {
                         ret.append(Token(COMMA))
                     }
                 }

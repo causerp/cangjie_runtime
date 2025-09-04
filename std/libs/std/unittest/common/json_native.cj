@@ -10,8 +10,8 @@ package std.unittest.common
 import std.collection.*
 import std.convert.Parsable
 
-private let hextable = unsafe { "0123456789abcdef".rawData() }
-private let minIntLit = unsafe { "-9223372036854775808".rawData() }
+private let HEXTABLE = unsafe { "0123456789abcdef".rawData() }
+private let MIN_INT_LIT = unsafe { "-9223372036854775808".rawData() }
 
 func stringEscapeCharNumGet(input: String): Int64 {
     var i = 0
@@ -90,8 +90,8 @@ func replaceEscapeChar(input: String, output: Array<Byte>, from!: Int64 = 0): In
                 output[i + 1] = b'u'
                 output[i + 2] = b'0'
                 output[i + 3] = b'0'
-                output[i + 4] = hextable[Int64(byte >> 4)] // num of high 4 bits
-                output[i + 5] = hextable[Int64(byte & 0xF)] // num of low 4 bits
+                output[i + 4] = HEXTABLE[Int64(byte >> 4)] // num of high 4 bits
+                output[i + 5] = HEXTABLE[Int64(byte & 0xF)] // num of low 4 bits
                 i += 6
         }
     }
@@ -101,8 +101,8 @@ func replaceEscapeChar(input: String, output: Array<Byte>, from!: Int64 = 0): In
 @OverflowWrapping
 func writeBufferAppendInt(buffer: Array<Byte>, int: Int64) {
     if (int == Int64.Min) {
-        minIntLit.copyTo(buffer)
-        return minIntLit.size
+        MIN_INT_LIT.copyTo(buffer)
+        return MIN_INT_LIT.size
     }
     if (int < 0) {
         buffer[0] = b'-'

@@ -23,14 +23,14 @@ class BenchExecutor<T> <: Executor {
     ) {
     }
 
-    public func execute(tcase: TestCaseResult, configuration: Configuration): Unit {
+    public func execute(suiteInfo: TestSuiteReportInfo, tcase: TestCaseResult, configuration: Configuration): Unit {
         let progress = ProgressOutput(configuration)
         let benchRunner = BenchRunner(configuration, progress)
         strategy.nextIteration(configuration)
 
         while (true) {
             let result = strategy.processNextWith(configuration) { v, inputs =>
-                runSingle(v, inputs, tcase.caseId, benchRunner, progress, step)
+                runSingle(v, inputs, suiteInfo, tcase.caseId, tcase.caseInfo, benchRunner, progress, configuration, step)
             }
 
             match (result) {
@@ -48,12 +48,17 @@ class BenchExecutor<T> <: Executor {
     }
 
     func runSingle(
-        value: T, inputs: Array<InputParameter>, caseId: TestCaseId,
-        benchRunner: BenchRunner, progress: ProgressOutput, step: Int64
+        value: T, inputs: Array<InputParameter>, suiteInfo: TestSuiteReportInfo, caseId: TestCaseId, caseInfo: TestCaseReportInfo,
+        benchRunner: BenchRunner, progress: ProgressOutput, configuration: Configuration, step: Int64
     ): RunStepResult {
         let args = formatArgs(inputs)
+        let tags = if (configuration.showTags && let Some(string) <- tagsToString(caseInfo.merge(suiteInfo).tags)) {
+            " ${string}"
+        } else {
+            ""
+        }
         progress.println {
-            "Starting the benchmark `${caseId.suiteId.suiteName}.${caseId.caseName}(${args?.toString() ?? ""})`."
+            "Starting the benchmark `${caseId.suiteId.suiteName}.${caseId.caseName}(${args?.toString() ?? ""})`${tags}."
         }
 
         benchRunner.benchmark = SimpleBenchWrapper<T>(value, doRun)

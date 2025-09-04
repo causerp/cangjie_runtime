@@ -520,6 +520,7 @@ private:
 // Ensured that updated fa is the caller layer of the managed function to be called.
 extern "C" void MRT_PreRunManagedCode(Mutator* mutator, int layers,
                                       ThreadLocalData* threadData);
+extern "C" void MRT_SetStackGrow(bool enableStackScale);
 } // namespace MapleRuntime
 
 #endif // MRT_MUTATOR_H

@@ -37,8 +37,8 @@ struct Identity {
     using type = T;
 };
 
-// For rounding integers.
-// Note: Omit the `n` from T type deduction, deduce only from the `x` argument.
+// Round integers.
+// Type T is deduced from `x` only, not from `n`.
 template<typename T>
 constexpr bool IsPowerOfTwo(T x)
 {
@@ -51,16 +51,16 @@ constexpr bool IsPowerOfTwo(T x)
 }
 
 template<typename T>
-T RoundDown(T x, typename Identity<T>::type n)
+T RoundDown(T x, typename Identity<T>::type y)
 {
-    DCHECK(IsPowerOfTwo(n));
-    return (x & -n);
+    DCHECK(IsPowerOfTwo(y));
+    return (x & -y);
 }
 
 template<typename T>
-constexpr T RoundUp(T x, typename std::remove_reference<T>::type n)
+constexpr T RoundUp(T x, typename std::remove_reference<T>::type y)
 {
-    return RoundDown(x + n - 1, n);
+    return RoundDown(x + y - 1, y);
 }
 
 template<typename T>

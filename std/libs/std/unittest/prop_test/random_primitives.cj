@@ -120,7 +120,7 @@ func generateBool(random: Random): Bool {
     return random.nextBool()
 }
 
-private let int8Table = WeightTable<(Random) -> Int8>(
+private let INT8_TABLE= WeightTable<(Random) -> Int8>(
     (4, { _: Random => 0 }),
     (4, { _: Random => 1 }),
     (4, { _: Random => -1 }),
@@ -128,7 +128,7 @@ private let int8Table = WeightTable<(Random) -> Int8>(
     (4, { _: Random => Int8.Min }),
     (80, { random: Random => random.nextInt8() } )
 )
-private let int16Table = WeightTable<(Random) -> Int16>(
+private let INT16_TABLE = WeightTable<(Random) -> Int16>(
     (4, { _: Random => Int16(0) }),
     (3, { _: Random => Int16(1) }),
     (3, { _: Random => Int16(-1) }),
@@ -137,7 +137,7 @@ private let int16Table = WeightTable<(Random) -> Int16>(
     (24, { random: Random => nextImaginableInteger<Int16>(random, 1000.0) } ),
     (58, { random: Random => random.nextInt16() } )
 )
-private let int32Table = WeightTable<(Random) -> Int32>(
+private let INT32_TABLE = WeightTable<(Random) -> Int32>(
     (3, { _: Random => Int32(0) }),
     (2, { _: Random => Int32(1) }),
     (2, { _: Random => Int32(-1) }),
@@ -147,7 +147,7 @@ private let int32Table = WeightTable<(Random) -> Int32>(
     (16, { random: Random => nextImaginableInteger<Int32>(random, 10000.0) } ),
     (55, { random: Random => random.nextInt32() } )
 )
-private let int64Table = WeightTable<(Random) -> Int64>(
+private let INT64_TABLE = WeightTable<(Random) -> Int64>(
     (3, { _: Random => Int64(0) }),
     (2, { _: Random => Int64(1) }),
     (2, { _: Random => Int64(-1) }),
@@ -158,20 +158,20 @@ private let int64Table = WeightTable<(Random) -> Int64>(
     (11, { random: Random => nextImaginableInteger<Int64>(random, 100000.0) } ),
     (55, { random: Random => random.nextInt64() } )
 )
-private let uint8Table = WeightTable<(Random) -> UInt8>(
+private let UINT8_TABLE = WeightTable<(Random) -> UInt8>(
     (7, { _: Random => UInt8(0) }),
     (6, { _: Random => UInt8(1) }),
     (7, { _: Random => UInt8.Max }),
     (80, { random: Random =>  random.nextUInt8() } )
 )
-private let uint16Table = WeightTable<(Random) -> UInt16>(
+private let UINT16_TABLE = WeightTable<(Random) -> UInt16>(
     (4, { _: Random => UInt16(0) }),
     (2, { _: Random => UInt16(1) }),
     (4, { _: Random => UInt16.Max }),
     (30, { random: Random =>  nextImaginableInteger<UInt16>(random, 1000.0) } ),
     (60, { random: Random =>  random.nextUInt16() } )
 )
-private let uint32Table = WeightTable<(Random) -> UInt32>(
+private let UINT32_TABLE = WeightTable<(Random) -> UInt32>(
     (3, { _: Random => UInt32(0) }),
     (2, { _: Random => UInt32(1) }),
     (3, { _: Random => UInt32.Max }),
@@ -179,7 +179,7 @@ private let uint32Table = WeightTable<(Random) -> UInt32>(
     (16, { random: Random => nextImaginableInteger<UInt32>(random, 10000.0) } ),
     (60, { random: Random => random.nextUInt32() } )
 )
-private let uint64Table = WeightTable<(Random) -> UInt64>(
+private let UINT64_TABLE = WeightTable<(Random) -> UInt64>(
     (3, { _: Random => UInt64(0) }),
     (2, { _: Random => UInt64(1) }),
     (3, { _: Random => UInt64.Max }),
@@ -233,7 +233,7 @@ private func nextDenseFloat16(random: Random): Float16 {
     return res
 }
 
-private let float16Table = WeightTable<(Random) -> Float16>(
+private let FLOAT16_TABLE = WeightTable<(Random) -> Float16>(
     (4, { _: Random => Float16.Min }),
     (4, { _: Random => Float16.Max }),
     (4, { _: Random => Float16.NaN }),
@@ -268,7 +268,7 @@ private func nextDenseFloat32(random: Random): Float32 {
     return res
 }
 
-private let float32Table = WeightTable<(Random) -> Float32>(
+private let FLOAT32_TABLE = WeightTable<(Random) -> Float32>(
     (3, { _: Random => Float32.Min }),
     (3, { _: Random => Float32.Max }),
     (3, { _: Random => Float32.NaN }),
@@ -304,7 +304,7 @@ private func nextDenseFloat64(random: Random): Float64 {
     return res
 }
 
-private let float64Table = WeightTable<(Random) -> Float64>(
+private let FLOAT64_TABLE = WeightTable<(Random) -> Float64>(
     (3, { _: Random => Float64.Min }),
     (3, { _: Random => Float64.Max }),
     (3, { _: Random => Float64.NaN }),
@@ -387,7 +387,7 @@ private func nextFloat64(random: Random, l: Float64, r: Float64): Float64 {
     return max(l, min(l - l * x + r * x, r))
 }
 
-private let float16TableRange = WeightTable<(Random, Float16, Float16) -> Float16>(
+private let FLOAT16_TABLE_RANGE = WeightTable<(Random, Float16, Float16) -> Float16>(
     (4, { _: Random, _: Float16, _: Float16 => Float16.Min }),
     (4, { _: Random, _: Float16, _: Float16 => Float16.Max }),
     (4, { _: Random, _: Float16, _: Float16 => Float16.MinDenormal }),
@@ -400,7 +400,7 @@ private let float16TableRange = WeightTable<(Random, Float16, Float16) -> Float1
     (24, { random: Random, _: Float16, _: Float16 => Float16(nextImaginableFloat64(random)) }),
     (20, nextFloat16)
 )
-private let float32TableRange = WeightTable<(Random, Float32, Float32) -> Float32>(
+private let FLOAT32_TABLE_RANGE = WeightTable<(Random, Float32, Float32) -> Float32>(
     (3, { _: Random, _: Float32, _: Float32 => Float32.Min }),
     (3, { _: Random, _: Float32, _: Float32 => Float32.Max }),
     (3, { _: Random, _: Float32, _: Float32 => Float32.MinDenormal }),
@@ -413,7 +413,7 @@ private let float32TableRange = WeightTable<(Random, Float32, Float32) -> Float3
     (33, { random: Random, _: Float32, _: Float32 => Float32(nextImaginableFloat64(random)) }),
     (20, nextFloat32)
 )
-private let float64TableRange = WeightTable<(Random, Float64, Float64) -> Float64>(
+private let FLOAT64_TABLE_RANGE = WeightTable<(Random, Float64, Float64) -> Float64>(
     (3, { _: Random, _: Float64, _: Float64 => Float64.Min }),
     (3, { _: Random, _: Float64, _: Float64 => Float64.Max }),
     (3, { _: Random, _: Float64, _: Float64 => Float64.MinDenormal }),
@@ -426,7 +426,7 @@ private let float64TableRange = WeightTable<(Random, Float64, Float64) -> Float6
     (33, { random: Random, _: Float64, _: Float64 => nextImaginableFloat64(random) }),
     (20, nextFloat64)
 )
-private let int8TableRange = WeightTable<(Random, Int8, Int8) -> Int8>(
+private let INT8_TABLE_RANGE = WeightTable<(Random, Int8, Int8) -> Int8>(
     (4, { _: Random, _: Int8, _: Int8 => Int8(0) }),
     (4, { _: Random, _: Int8, _: Int8 => Int8(1) }),
     (4, { _: Random, _: Int8, _: Int8 => Int8(-1) }),
@@ -434,7 +434,7 @@ private let int8TableRange = WeightTable<(Random, Int8, Int8) -> Int8>(
     (4, { _: Random, _: Int8, r: Int8 => r }),
     (80, { random: Random, _: Int8, _: Int8 => random.nextInt8() })
 )
-private let int16TableRange = WeightTable<(Random, Int16, Int16) -> Int16>(
+private let INT16_TABLE_RANGE = WeightTable<(Random, Int16, Int16) -> Int16>(
     (4, { _: Random, _: Int16, _: Int16 => Int16(0) }),
     (3, { _: Random, _: Int16, _: Int16 => Int16(1) }),
     (3, { _: Random, _: Int16, _: Int16 => Int16(-1) }),
@@ -443,7 +443,7 @@ private let int16TableRange = WeightTable<(Random, Int16, Int16) -> Int16>(
     (24, { random: Random, _: Int16, _: Int16 => nextImaginableInteger<Int16>(random, 1000.0) }),
     (58, { random: Random, _: Int16, _: Int16 => random.nextInt16() })
 )
-private let int32TableRange = WeightTable<(Random, Int32, Int32) -> Int32>(
+private let INT32_TABLE_RANGE = WeightTable<(Random, Int32, Int32) -> Int32>(
     (3, { _: Random, _: Int32, _: Int32 => Int32(0) }),
     (2, { _: Random, _: Int32, _: Int32 => Int32(1) }),
     (2, { _: Random, _: Int32, _: Int32 => Int32(-1) }),
@@ -453,7 +453,7 @@ private let int32TableRange = WeightTable<(Random, Int32, Int32) -> Int32>(
     (16, { random: Random, _: Int32, _: Int32 => nextImaginableInteger<Int32>(random, 10000.0) }),
     (55, { random: Random, _: Int32, _: Int32 => random.nextInt32() })
 )
-private let int64TableRange = WeightTable<(Random, Int64, Int64) -> Int64>(
+private let INT64_TABLE_RANGE = WeightTable<(Random, Int64, Int64) -> Int64>(
     (3, { _: Random, _: Int64, _: Int64 => Int64(0) }),
     (2, { _: Random, _: Int64, _: Int64 => Int64(1) }),
     (2, { _: Random, _: Int64, _: Int64 => Int64(-1) }),
@@ -464,7 +464,7 @@ private let int64TableRange = WeightTable<(Random, Int64, Int64) -> Int64>(
     (11, { random: Random, _: Int64, _: Int64 => nextImaginableInteger<Int64>(random, 100000.0) }),
     (55, { random: Random, _: Int64, _: Int64 => random.nextInt64() })
 )
-private let intNativeTableRange = WeightTable<(Random, IntNative, IntNative) -> IntNative>(
+private let INT_NATIVE_TABLE_RANGE = WeightTable<(Random, IntNative, IntNative) -> IntNative>(
     (3, { _: Random, _: IntNative, _: IntNative => IntNative(0) }),
     (2, { _: Random, _: IntNative, _: IntNative => IntNative(1) }),
     (2, { _: Random, _: IntNative, _: IntNative => IntNative(-1) }),
@@ -475,20 +475,20 @@ private let intNativeTableRange = WeightTable<(Random, IntNative, IntNative) -> 
     (11, { random: Random, _: IntNative, _: IntNative => nextImaginableInteger<IntNative>(random, 100000.0) }),
     (55, { random: Random, _: IntNative, _: IntNative => random.nextIntNative() })
 )
-private let uint8TableRange = WeightTable<(Random, UInt8, UInt8) -> UInt8>(
+private let UINT8_TABLE_RANGE = WeightTable<(Random, UInt8, UInt8) -> UInt8>(
     (7, { _: Random, l: UInt8, _: UInt8 => l }),
     (6, { _: Random, _: UInt8, _: UInt8 => UInt8(1) }),
     (7, { _: Random, _: UInt8, r: UInt8 => r }),
     (80, { random: Random, _: UInt8, _: UInt8 => random.nextUInt8() })
 )
-private let uint16TableRange = WeightTable<(Random, UInt16, UInt16) -> UInt16>(
+private let UINT16_TABLE_RANGE = WeightTable<(Random, UInt16, UInt16) -> UInt16>(
     (4, { _: Random, l: UInt16, _: UInt16 => l }),
     (2, { _: Random, _: UInt16, _: UInt16 => UInt16(1) }),
     (4, { _: Random, _: UInt16, r: UInt16 => r }),
     (30, { random: Random, _: UInt16, _: UInt16 => nextImaginableInteger<UInt16>(random, 1000.0) }),
     (60, { random: Random, _: UInt16, _: UInt16 => random.nextUInt16() })
 )
-private let uint32TableRange = WeightTable<(Random, UInt32, UInt32) -> UInt32>(
+private let UINT32_TABLE_RANGE = WeightTable<(Random, UInt32, UInt32) -> UInt32>(
     (3, { _: Random, l: UInt32, _: UInt32 => l }),
     (2, { _: Random, _: UInt32, _: UInt32 => UInt32(1) }),
     (3, { _: Random, _: UInt32, r: UInt32 => r }),
@@ -496,7 +496,7 @@ private let uint32TableRange = WeightTable<(Random, UInt32, UInt32) -> UInt32>(
     (16, { random: Random, _: UInt32, _: UInt32 => nextImaginableInteger<UInt32>(random, 10000.0) }),
     (60, { random: Random, _: UInt32, _: UInt32 => random.nextUInt32() })
 )
-private let uint64TableRange = WeightTable<(Random, UInt64, UInt64) -> UInt64>(
+private let UINT64_TABLE_RANGE = WeightTable<(Random, UInt64, UInt64) -> UInt64>(
     (3, { _: Random, l: UInt64, _: UInt64 => l }),
     (2, { _: Random, _: UInt64, _: UInt64 => UInt64(1) }),
     (3, { _: Random, _: UInt64, r: UInt64 => r }),
@@ -505,7 +505,7 @@ private let uint64TableRange = WeightTable<(Random, UInt64, UInt64) -> UInt64>(
     (11, { random: Random, _: UInt64, _: UInt64 => nextImaginableInteger<UInt64>(random, 100000.0) }),
     (60, { random: Random, _: UInt64, _: UInt64 => random.nextUInt64() })
 )
-private let uintNativeTableRange = WeightTable<(Random, UIntNative, UIntNative) -> UIntNative>(
+private let UINT_NATIVE_TABLE_RANGE = WeightTable<(Random, UIntNative, UIntNative) -> UIntNative>(
     (7, { _: Random, l: UIntNative, _: UIntNative => l }),
     (6, { _: Random, _: UIntNative, _: UIntNative => UIntNative(1) }),
     (7, { _: Random, _: UIntNative, r: UIntNative => r }),
@@ -523,16 +523,16 @@ extend Random <: RandomSource {
         this.pickWeighted(fromTable)(this)
     }
     public func suggestInt8(): Int8 {
-        suggestBiasedPrimitive(int8Table)
+        suggestBiasedPrimitive(INT8_TABLE)
     }
     public func suggestInt16(): Int16 {
-        suggestBiasedPrimitive(int16Table)
+        suggestBiasedPrimitive(INT16_TABLE)
     }
     public func suggestInt32(): Int32 {
-        suggestBiasedPrimitive(int32Table)
+        suggestBiasedPrimitive(INT32_TABLE)
     }
     public func suggestInt64(): Int64 {
-        suggestBiasedPrimitive(int64Table)
+        suggestBiasedPrimitive(INT64_TABLE)
     }
 
     @OverflowWrapping
@@ -540,16 +540,16 @@ extend Random <: RandomSource {
         IntNative(suggestInt64())
     }
     public func suggestUInt8(): UInt8 {
-        suggestBiasedPrimitive(uint8Table)
+        suggestBiasedPrimitive(UINT8_TABLE)
     }
     public func suggestUInt16(): UInt16 {
-        suggestBiasedPrimitive(uint16Table)
+        suggestBiasedPrimitive(UINT16_TABLE)
     }
     public func suggestUInt32(): UInt32 {
-        suggestBiasedPrimitive(uint32Table)
+        suggestBiasedPrimitive(UINT32_TABLE)
     }
     public func suggestUInt64(): UInt64 {
-        suggestBiasedPrimitive(uint64Table)
+        suggestBiasedPrimitive(UINT64_TABLE)
     }
 
     @OverflowWrapping
@@ -557,13 +557,13 @@ extend Random <: RandomSource {
         UIntNative(suggestUInt64())
     }
     public func suggestFloat16(): Float16 {
-        suggestBiasedPrimitive(float16Table)
+        suggestBiasedPrimitive(FLOAT16_TABLE)
     }
     public func suggestFloat32(): Float32 {
-        suggestBiasedPrimitive(float32Table)
+        suggestBiasedPrimitive(FLOAT32_TABLE)
     }
     public func suggestFloat64(): Float64 {
-        suggestBiasedPrimitive(float64Table)
+        suggestBiasedPrimitive(FLOAT64_TABLE)
     }
     public func suggestRune(): Rune {
         randomBiasedRune(this)
@@ -582,42 +582,42 @@ extend Random <: RandomSource {
         this.pickWeighted(fromTable)(this, l, r)
     }
     public func suggestInt64(l: Int64, r: Int64): Int64 {
-        remap(l, r, suggestBiasedPrimitive(int64TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(INT64_TABLE_RANGE, l, r))
     }
     public func suggestUInt64(l: UInt64, r: UInt64): UInt64 {
-        remap(l, r, suggestBiasedPrimitive(uint64TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(UINT64_TABLE_RANGE, l, r))
     }
     public func suggestInt32(l: Int32, r: Int32): Int32 {
-        remap(l, r, suggestBiasedPrimitive(int32TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(INT32_TABLE_RANGE, l, r))
     }
     public func suggestUInt32(l: UInt32, r: UInt32): UInt32 {
-        remap(l, r, suggestBiasedPrimitive(uint32TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(UINT32_TABLE_RANGE, l, r))
     }
     public func suggestInt16(l: Int16, r: Int16): Int16 {
-        remap(l, r, suggestBiasedPrimitive(int16TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(INT16_TABLE_RANGE, l, r))
     }
     public func suggestUInt16(l: UInt16, r: UInt16): UInt16 {
-        remap(l, r, suggestBiasedPrimitive(uint16TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(UINT16_TABLE_RANGE, l, r))
     }
     public func suggestInt8(l: Int8, r: Int8): Int8 {
-        remap(l, r, suggestBiasedPrimitive(int8TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(INT8_TABLE_RANGE, l, r))
     }
     public func suggestUInt8(l: UInt8, r: UInt8): UInt8 {
-        remap(l, r, suggestBiasedPrimitive(uint8TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(UINT8_TABLE_RANGE, l, r))
     }
     public func suggestIntNative(l: IntNative, r: IntNative): IntNative {
-        remap(l, r, suggestBiasedPrimitive(intNativeTableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(INT_NATIVE_TABLE_RANGE, l, r))
     }
     public func suggestUIntNative(l: UIntNative, r: UIntNative): UIntNative {
-        remap(l, r, suggestBiasedPrimitive(uintNativeTableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(UINT_NATIVE_TABLE_RANGE, l, r))
     }
     public func suggestFloat64(l: Float64, r: Float64): Float64 {
-        remap(l, r, suggestBiasedPrimitive(float64TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(FLOAT64_TABLE_RANGE, l, r))
     }
     public func suggestFloat32(l: Float32, r: Float32): Float32 {
-        remap(l, r, suggestBiasedPrimitive(float32TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(FLOAT32_TABLE_RANGE, l, r))
     }
     public func suggestFloat16(l: Float16, r: Float16): Float16 {
-        remap(l, r, suggestBiasedPrimitive(float16TableRange, l, r))
+        remap(l, r, suggestBiasedPrimitive(FLOAT16_TABLE_RANGE, l, r))
     }
 }

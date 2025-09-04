@@ -127,8 +127,7 @@ private struct ExecutableTestProject <: Serializable<ExecutableTestProject> {
         if (let Some(path) <- defaultConfiguration().get(KeyInternalTestrunnerInputPath.internalTestrunnerInputPath)) {
             Path(path) |> File.readFrom |> String.fromUtf8 |> ExecutableTestProject.fromJson
         } else {
-            eprintln(
-                "Error: std.testrunner executable is expected to be called only by 'cjpm test' command internally.")
+            eprintln("Error: std.testrunner executable is expected to be called only by 'cjpm test' command internally.")
             throw Exception("${OP_INTERNAL_TESTRUNNER_INPUT_PATH} is expected")
         }
     }

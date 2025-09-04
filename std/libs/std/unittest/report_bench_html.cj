@@ -752,8 +752,8 @@ extend TestGroupResult {
 
     func collectClassObjects(passedFQNames: Iterable<TestCaseId>): ArrayList<JsonObject> {
         let failedCases = HashSet<TestCaseId>()
-        this.visitFailedSteps { step, id => failedCases.add(id) }
-
+        this.visitFailedSteps { step, result => failedCases.add(result.caseId) }
+        
         passedFQNames
             .iterator()
             .concat(failedCases.iterator())
@@ -1104,7 +1104,6 @@ func getTargetTriple(): String {
 
     matched?.matchString(1) ?? return NO_INFO
 }
-
 extend<V> Iterator<V> {
     func into<R>(f: (Iterable<V>) -> R): R {
         f(this)

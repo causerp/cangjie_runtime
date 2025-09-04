@@ -21,7 +21,7 @@ func percentToColor(p: Float64): Color {
     }
 }
 
-let plusMinus = if (isConsoleUtf8) { "±" } else { "+/-" }
+let PLUS_MINUS = if (isConsoleUtf8) { "±" } else { "+/-" }
 
 private enum Baseline {
     | PreviousReport
@@ -382,8 +382,8 @@ private open class BenchCaseRow <: BenchTableGroup {
         let converter = props.conversionTable
         let (boundary, unit) = converter.suitablePair(median)
         table.addCell(converter.toString(median, boundary: boundary, unit: unit), color: benchColor)
-        table.addCell(plusMinus + converter.toString(err, boundary: boundary, unit: unit), color: benchColor)
-        table.addCell(plusMinus + errPercent.format(".1") + "%", color: benchColor)
+        table.addCell(PLUS_MINUS + converter.toString(err, boundary: boundary, unit: unit), color: benchColor)
+        table.addCell(PLUS_MINUS + errPercent.format(".1") + "%", color: benchColor)
         table.addCell(converter.toString(mean, boundary: boundary, unit: unit), color: benchColor)
 
         let key = caseId.toString() + argText + "_${props.measurementName}"

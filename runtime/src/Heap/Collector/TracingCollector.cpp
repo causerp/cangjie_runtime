@@ -4,7 +4,6 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #include "TracingCollector.h"
 
 #include "Common/Runtime.h"
@@ -53,67 +52,6 @@ void StaticRootTable::VisitRoots(const RefFieldVisitor& visitor)
         }
     }
 }
-
-class MarkingWork : public HeapWork {
-public:
-    MarkingWork(TracingCollector& tc, GCThreadPool* pool, TracingCollector::WorkStack&& stack)
-        : workStack(std::move(stack)), collector(tc), threadPool(pool)
-    {}
-
-    // single work task without thread pool
-    MarkingWork(TracingCollector& tc, TracingCollector::WorkStack&& stack)
-        : workStack(std::move(stack)), collector(tc), threadPool(nullptr)
-    {}
-
-    ~MarkingWork() override { threadPool = nullptr; }
-
-    void Execute(size_t workerID __attribute__((unused))) override
-    {
-        size_t nNewlyMarked = 0;
-        const size_t prefetchDistance = MARK_PREFETCH_DISTANCE;
-        PrefetchQueue pq(prefetchDistance);
-        for (;;) {
-            // Prefetch as much as possible.
-            while (!pq.Full() && !workStack.empty()) {
-                BaseObject* obj = workStack.back();
-                pq.Add(obj);
-                workStack.pop_back();
-            }
-
-            // End if pq is empty.  This implies that workStack is also empty.
-            if (pq.Empty()) {
-                break;
-            }
-
-            BaseObject* obj = pq.Remove();
-            bool wasMarked = collector.MarkObject(obj);
-            if (!wasMarked) {
-                ++nNewlyMarked;
-                // If we mark before enqueuing, we should have checked if it has children.
-                if (!obj->HasRefField()) {
-                    continue;
-                }
-
-                collector.TraceObjectRefFields(obj, workStack);
-
-                if (threadPool != nullptr && UNLIKELY(workStack.size() > TracingCollector::MAX_MARKING_WORK_SIZE)) {
-                    // Mark stack overflow, give 1/2 the stack to the thread pool as a new work task.
-                    size_t newSize = workStack.size() >> 1;
-                    TracingCollector::WorkStackBuf* hSplit = workStack.split(newSize);
-                    threadPool->AddWork(new MarkingWork(collector, threadPool, TracingCollector::WorkStack(hSplit)));
-                }
-            }
-        } // for loop
-
-        // newly marked statistics.
-        (void)collector.markedObjectCount.fetch_add(nNewlyMarked, std::memory_order_relaxed);
-    }
-
-private:
-    TracingCollector::WorkStack workStack;
-    TracingCollector& collector;
-    GCThreadPool* threadPool;
-};
 
 class ConcurrentMarkingWork : public HeapWork {
 public:
@@ -181,7 +119,7 @@ public:
                     if (referent != nullptr) {
                         DLOG(TRACE, "trace weakref obj %p ref@%p: 0x%zx", obj, &referent, referent);
                         collector.TraceObjectRefFields(reinterpret_cast<BaseObject*>(referent), workStack);
-                        WeakRefBuffer::Instance().Insert(obj); // record live weakref objects
+                        WeakRefBuffer::Instance().Insert(obj); // record live weakref objects, wiil be processed later
                     } // If referent is set to none, the corresponding weakref does not need to be recorded.
                 } else {
                     collector.TraceObjectRefFields(obj, workStack);
@@ -511,12 +449,14 @@ void TracingCollector::DoResurrection(WorkStack& workStack)
         workStack.pop_back();
 
         // skip if the object already marked.
-        if (IsSurvivedObject(obj)) {
+        RegionInfo* regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+        size_t offset = regionInfo->GetAddressOffset(reinterpret_cast<MAddress>(obj));
+        if (regionInfo->IsSurvivedObject(offset)) {
             continue;
         }
 
         ++resurrectdObjects;
-        ResurrectObject(obj);
+        ResurrectObject(obj, offset, regionInfo);
 
         // try to copy object child refs into work stack.
         if (obj->HasRefField()) {

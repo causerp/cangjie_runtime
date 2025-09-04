@@ -314,8 +314,14 @@ private func runExpect(ctx: AssertionCtx, expect: (AssertionCtx) -> Any): Unit {
  *
  * @throws AssertException if any occured in nested checks
  */
-public func invokeCustomAssert<T>(passedArgs: Array<String>, caller: String, assert: (AssertionCtx) -> T,
-    optParentCtx!: ?AssertionCtx = None): T {
+public func invokeCustomAssert<T>(
+    passedArgs: Array<String>,
+    caller: String,
+    assert: (AssertionCtx) -> T,
+    optParentCtx!: ?AssertionCtx = None
+): T {
+    cancellationPoint()
+
     let ctx: AssertionCtx = AssertionCtx(_passedArgs: passedArgs, _caller: caller)
 
     let result: Option<T> = try {
@@ -355,8 +361,14 @@ public func invokeCustomAssert<T>(passedArgs: Array<String>, caller: String, ass
  * @param expect:       (AssertionCtx) -> Any - capture of invocation of assertion with right arguments
  * @param optParentCtx: ?AssertionCtx         - first argument of @CustomAssertion function
  */
-public func invokeCustomExpect(passedArgs: Array<String>, caller: String, expect: (AssertionCtx) -> Any,
-    optParentCtx!: ?AssertionCtx = None): Unit {
+public func invokeCustomExpect(
+    passedArgs: Array<String>,
+    caller: String,
+    expect: (AssertionCtx) -> Any,
+    optParentCtx!: ?AssertionCtx = None
+): Unit {
+    cancellationPoint()
+
     let ctx: AssertionCtx = AssertionCtx(_passedArgs: passedArgs, _caller: caller)
 
     runExpect(ctx, expect)

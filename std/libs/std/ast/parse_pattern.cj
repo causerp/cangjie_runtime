@@ -14,10 +14,12 @@ public func parsePattern(input: Tokens): Pattern {
     /* Get node info from flatbuffer */
     let node = unsafe {
         try {
-            parse(input, {p: CPointer<UInt8> => return CJ_AST_ParsePattern(match (MACRO_OBJECT.get()) {
-                case Some(ptr) => ptr
-                case None => CPointer<Unit>()
-            }, p, CPointer<Int64>())})
+            parse(input, {
+                p: CPointer<UInt8> => return CJ_AST_ParsePattern(match (MACRO_OBJECT.get()) {
+                    case Some(ptr) => ptr
+                    case None => CPointer<Unit>()
+                }, p, CPointer<Int64>())
+            })
         } catch (e: Exception) {
             throw ParseASTException("\n" + e.message + "parsing pattern error.")
         }
@@ -33,10 +35,13 @@ public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern
             parseFragment(
                 input,
                 startFrom,
-                {p: CPointer<UInt8>, sizeRef: CPointer<Int64> => return CJ_AST_ParsePattern(match (MACRO_OBJECT.get()) {
-                    case Some(ptr) => ptr
-                    case None => CPointer<Unit>()
-                }, p, sizeRef)}
+                {
+                    p: CPointer<UInt8>, sizeRef: CPointer<Int64> => return CJ_AST_ParsePattern(
+                        match (MACRO_OBJECT.get()) {
+                            case Some(ptr) => ptr
+                            case None => CPointer<Unit>()
+                        }, p, sizeRef)
+                }
             )
         } catch (e: Exception) {
             throw ParseASTException("\n" + e.message + "parsing pattern fragment error.")
@@ -64,6 +69,7 @@ func generatePatternAST(patternNode: Option<NodeFormat_Pattern>): Pattern {
         case "var_or_enum_pattern" => createVarOrEnumPattern(pattern, nodeBase.GetBegin())
         case "type_pattern" => createTypePattern(pattern)
         case "except_type_pattern" => createExceptTypePattern(pattern)
+        case "effect_type_pattern" => createCommandTypePattern(pattern)
         case "wildcard_pattern" => createWildcardPattern(pattern, nodeBase.GetBegin())
         case _ => throw ParseASTException("Unsupported parse the pattern node: ${astKind}.\n")
     }
@@ -132,6 +138,24 @@ func createExceptTypePattern(pattern: NodeFormat_Pattern): ExceptTypePattern {
         bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
     }
     return ExceptTypePattern(p, colon, types, bitOr)
+}
+
+func createCommandTypePattern(pattern: NodeFormat_Pattern): CommandTypePattern {
+    var commandTypePattern = match (pattern.GetPatternAsCommandTypePattern()) {
+        case Some(v) => v
+        case None => throw ParseASTException("In createCommandTypePattern function: get commandTypePattern")
+    }
+    var p = generatePatternAST(commandTypePattern.GetPattern())
+    var colon: Token = Token(TokenKind.COLON).addPosition(commandTypePattern.GetColonPos())
+    var types: ArrayList<TypeNode> = ArrayList<TypeNode>()
+    for (tp in commandTypePattern.GetTypes()) {
+        types.add(generateTypeAST(tp))
+    }
+    var bitOr = Tokens()
+    for (pos in commandTypePattern.GetBitOrPosVec()) {
+        bitOr.append(Token(TokenKind.BITOR).addPosition(pos))
+    }
+    return CommandTypePattern(p, colon, types, bitOr)
 }
 
 func createTypePattern(pattern: NodeFormat_Pattern): TypePattern {

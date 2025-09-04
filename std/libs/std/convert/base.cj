@@ -295,36 +295,18 @@ func charToNumber(chs: Rune): UInt64 {
 
 func checkChar(formatBaseNum: UInt64, ch: Rune): Bool {
     return match (formatBaseNum) {
-        /* ASCII: 0 => 48 1 => 49 */
-        case 2 where ch == r'0' || ch == r'1' => true
-        /* ASCII: 0 => 48 8 => 49 */
-        case 8 where ch >= r'0' && ch <= r'7' => true
-        /* SCII: 0 => 48 9 => 57 */
-        case 10 where ch >= r'0' && ch <= r'9' => true
         /* ASCII: 0 => 48 9 => 57 A => 65 F => 70 a => 97 f => 102 */
         case 16 where (ch >= r'0' && ch <= r'9') || (ch >= r'A' && ch <= r'F') || (ch >= r'a' && ch <= r'f') => true
         case _ => false
     }
 }
 
-func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64, typeBase!: TypeBase = UI64, onlyNegative!: Bool = false): Option<UInt64> {
+func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64): Option<UInt64> {
     /*
      * Calculate the result of each character based on the formula
      * and sum it up to obtain the final result.
      */
-    var maxAbsVal: UInt64 = match (typeBase) {
-        case I8 => MAXVAL_I8
-        case UI8 => MAXVAL_UI8
-        case I16 => MAXVAL_I16
-        case UI16 => MAXVAL_UI16
-        case I32 => MAXVAL_I32
-        case UI32 => MAXVAL_UI32
-        case I64 => MAXVAL_I64
-        case _ => MAXVAL_UI64
-    }
-    if (onlyNegative && maxAbsVal != MAXVAL_UI64) {
-        maxAbsVal += 1
-    }
+    var maxAbsVal: UInt64 = MAXVAL_UI64
     var num: UInt64 = 0
     for (ch in chars) {
         /* Whether the character complies with the definition of the hexadecimal type */

@@ -4,7 +4,6 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #ifndef MRT_REGION_MANAGER_H
 #define MRT_REGION_MANAGER_H
 
@@ -105,10 +104,10 @@ public:
         : freeRegionManager(*this), tlRegionList("thread local regions"), recentFullRegionList("recent full regions"),
           fullTraceRegions("full trace regions"), fromRegionList("from regions"),
           ghostFromRegionList("ghost from regions"), unmovableFromRegionList("escaped from regions"),
-          toRegionList("to regions"), garbageRegionList("garbage regions"), rawPointerRegionList("raw pointer regions"),
-          recentPinnedRegionList("recent pinned regions"), oldPinnedRegionList("old pinned regions"),
-          rawPointerPinnedRegionList("raw pointer pinned regions"), oldLargeRegionList("old large regions"),
-          recentLargeRegionList("recent large regions"), largeTraceRegions("large trace regions")
+          garbageRegionList("garbage regions"), recentPinnedRegionList("recent pinned regions"),
+          oldPinnedRegionList("old pinned regions"), rawPointerPinnedRegionList("raw pointer pinned regions"),
+          oldLargeRegionList("old large regions"), recentLargeRegionList("recent large regions"),
+          largeTraceRegions("large trace regions")
     {}
 
     RegionManager(const RegionManager&) = delete;
@@ -134,14 +133,6 @@ public:
     uintptr_t GetInactiveZone() const { return inactiveZone; }
 
     uintptr_t GetRegionHeapStart() const { return regionHeapStart; }
-
-    RegionInfo* GetFirstRegion() const
-    {
-        if (regionHeapStart < inactiveZone) {
-            return RegionInfo::GetRegionInfoAt(regionHeapStart);
-        }
-        return nullptr;
-    }
 
     ~RegionManager() = default;
 
@@ -348,13 +339,12 @@ public:
     size_t GetSurvivedSize() const
     {
         return fromRegionList.GetAllocatedSize() + unmovableFromRegionList.GetAllocatedSize() +
-            toRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
-            oldLargeRegionList.GetAllocatedSize();
+            oldPinnedRegionList.GetAllocatedSize() + oldLargeRegionList.GetAllocatedSize();
     }
 
     size_t GetUsedUnitCount() const
     {
-        return fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() + toRegionList.GetUnitCount() +
+        return fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() +
             recentFullRegionList.GetUnitCount() + oldLargeRegionList.GetUnitCount() +
             recentLargeRegionList.GetUnitCount() + oldPinnedRegionList.GetUnitCount() +
             recentPinnedRegionList.GetUnitCount() + rawPointerPinnedRegionList.GetUnitCount() +
@@ -385,11 +375,11 @@ public:
         Heap::GetHeap().GetAllocator().VisitAllocBuffers(visitor);
         // exclude garbageRegionList for live object set.
         return fromRegionList.GetAllocatedSize() + unmovableFromRegionList.GetAllocatedSize() +
-            toRegionList.GetAllocatedSize() + recentFullRegionList.GetAllocatedSize() +
-            oldLargeRegionList.GetAllocatedSize() + recentLargeRegionList.GetAllocatedSize() +
-            oldPinnedRegionList.GetAllocatedSize() + recentPinnedRegionList.GetAllocatedSize() +
-            rawPointerPinnedRegionList.GetAllocatedSize() + rawPointerRegionList.GetAllocatedSize() +
-            largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize() + threadLocalSize;
+            recentFullRegionList.GetAllocatedSize() + oldLargeRegionList.GetAllocatedSize() +
+            recentLargeRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
+            recentPinnedRegionList.GetAllocatedSize() + rawPointerPinnedRegionList.GetAllocatedSize() +
+            largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize()
+            + tlRegionList.GetAllocatedSize() + threadLocalSize;
     }
 
     inline size_t GetFromSpaceSize() const { return fromRegionList.GetAllocatedSize(); }
@@ -397,18 +387,6 @@ public:
     inline size_t GetPinnedSpaceSize() const
     {
         return oldPinnedRegionList.GetAllocatedSize() + recentPinnedRegionList.GetAllocatedSize();
-    }
-
-    // valid only between forwarding phase and flipping phase.
-    inline size_t GetToSpaceSize() const { return toRegionList.GetAllocatedSize(); }
-
-    RegionInfo* GetNextNeighborRegion(RegionInfo* region) const
-    {
-        MAddress address = region->GetRegionEnd();
-        if (address < inactiveZone.load()) {
-            return RegionInfo::GetRegionInfoAt(address);
-        }
-        return nullptr;
     }
 
     size_t GetLargeObjectThreshold() const { return largeObjectThreshold; }
@@ -449,6 +427,15 @@ public:
     }
 
     bool RouteOrCompactRegionImpl(RegionInfo* region);
+
+    BaseObject* RouteObject(BaseObject* fromObj, RegionInfo* fromRegionInfo)
+    {
+        if (RouteRegion(fromRegionInfo) || fromRegionInfo->IsCompacted()) {
+            BaseObject* toAddr = fromRegionInfo->GetRoute(fromObj);
+            return toAddr;
+        }
+        return nullptr;
+    }
 
     BaseObject* RouteObject(BaseObject* fromObj)
     {
@@ -517,7 +504,6 @@ public:
         ClearLiveInfo(recentFullRegionList);
         ClearLiveInfo(fullTraceRegions);
         ClearLiveInfo(unmovableFromRegionList);
-        ClearLiveInfo(rawPointerRegionList);
         ClearLiveInfo(recentPinnedRegionList);
         ClearLiveInfo(oldPinnedRegionList);
         ClearLiveInfo(rawPointerPinnedRegionList);
@@ -564,15 +550,8 @@ private:
     // regions exempted by ExemptFromRegions, which will not be moved during current GC.
     RegionList unmovableFromRegionList;
 
-    // toRegionList is a list of to-space regions produced by gc threads.
-    // when a region is prepended to this list, the region is probably not full, so the statistics
-    // of this region-list are not reliable and need to be updated.
-    RegionList toRegionList;
-
     // cache for fromRegionList after forwarding.
     RegionList garbageRegionList;
-
-    RegionList rawPointerRegionList;
 
     // regions for pinned (small-sized) objects.
     // region lists for small-sized pinned objects which are not be moved during concurrent gc, but
@@ -605,10 +584,10 @@ private:
 
     // heap space not allocated yet for even once. this value should not be decreased.
     std::atomic<uintptr_t> inactiveZone = { 0 };
-    size_t maxUnitCountPerRegion = MAX_UNIT_COUNT_PER_REGION; // max units count for threadLocal buffer.
+    size_t maxUnitCountPerRegion = MAX_UNIT_COUNT_PER_REGION;   // max units count for threadLocal buffer.
     size_t maxUnitCountPerPinnedRegion = maxUnitCountPerRegion; // max units count for pinned region.
     size_t largeObjectThreshold;
-    double fromSpaceGarbageThreshold = 0.5;                   // 0.5: default garbage ratio.
+    double fromSpaceGarbageThreshold = 0.5; // 0.5: default garbage ratio.
     double exemptedRegionThreshold;
 
     std::mutex freePinnedSlotListMutex;

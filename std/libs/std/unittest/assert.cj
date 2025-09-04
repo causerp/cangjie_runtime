@@ -21,17 +21,46 @@ import std.unittest.common.*
 
  * @throws AssertException If <expected> and <actual> are not equal.
  */
-public func assertEqual<T>(leftStr: String, rightStr: String, expected: T, actual: T,
-    optParentCtx!: ?AssertionCtx = None): Unit where T <: Equatable<T> {
+public func assertEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T> {
+    assertEqual(leftStr, rightStr, expected, actual, isDelta: false, optParentCtx: optParentCtx)
+}
+
+/**
+ * Checks two values for equality and will throw an exception if the check fails.
+ *
+ * @param leftStr string representation of expected.
+ * @param rightStr string representation of actual.
+ * @param expected expected value.
+ * @param actual actual value.
+ * @param isDelta is delta comparison
+ * @param optParentCtx context where fail message is stored
+
+ * @throws AssertException If <expected> and <actual> are not equal.
+ */
+public func assertEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T> {
+    cancellationPoint()
     if (let Some(parentCtx) <- optParentCtx) {
         if (expected != actual) {
-            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Assert)
+            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Assert, isDelta: isDelta)
             parentCtx._errors.add(Leaf(cr))
             throw AssertException("", cr)
         }
     } else {
         if (expected != actual) {
-            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Assert)
+            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Assert, isDelta: isDelta)
             Framework.withCurrentContext{ ctx => ctx.checkFailed(cr) }
             throw AssertException("", cr)
         } else {
@@ -49,16 +78,43 @@ public func assertEqual<T>(leftStr: String, rightStr: String, expected: T, actua
  * @param actual actual value.
  * @param optParentCtx context where fail message is stored
  */
-public func expectEqual<T>(leftStr: String, rightStr: String, expected: T, actual: T,
-    optParentCtx!: ?AssertionCtx = None): Unit where T <: Equatable<T> {
+public func expectEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T> {
+    expectEqual(leftStr, rightStr, expected, actual, isDelta: false, optParentCtx: optParentCtx)
+}
+
+/**
+ * Same as assertEqual but will not throw an exception immediately.
+ *
+ * @param leftStr string representation of expected.
+ * @param rightStr string representation of actual.
+ * @param expected expected value.
+ * @param actual actual value.
+ * @param isDelta is delta comparison
+ * @param optParentCtx context where fail message is stored
+ */
+public func expectEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T> {
+    cancellationPoint()
     if (let Some(parentCtx) <- optParentCtx) {
         if (expected != actual) {
-            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Expect)
+            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Expect, isDelta: isDelta)
             parentCtx._errors.add(Leaf(cr))
         }
     } else {
         if (expected != actual) {
-            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Expect)
+            let cr = buildCheckResult(leftStr, rightStr, expected, actual, Expect, isDelta: isDelta)
             Framework.withCurrentContext{ ctx => ctx.checkFailed(cr) }
         } else {
             Framework.withCurrentContext{ ctx => ctx.checkPassed() }
@@ -67,7 +123,12 @@ public func expectEqual<T>(leftStr: String, rightStr: String, expected: T, actua
 }
 
 func buildCheckResult<T>(
-    leftStr: String, rightStr: String, expected: T, actual: T, checkResultKind: CheckResultKind
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    checkResultKind: CheckResultKind,
+    isDelta!: Bool = false 
 ): AssertExpectCheckResult {
     match (expected) {
         case te: AssertPrintable<T> =>
@@ -75,8 +136,12 @@ func buildCheckResult<T>(
             te.pprintForAssertion(message, actual, leftStr, rightStr, 1)
             DiffCheckResult(checkResultKind, message)
         case _ =>
-            PlainCompareCheckResult(
-                checkResultKind, leftStr, rightStr, toStringOrPlaceholder(expected), toStringOrPlaceholder(actual)
-            )
+            if (isDelta) {
+                PlainDeltaCompareCheckResult(checkResultKind, leftStr)
+            } else {
+                PlainCompareCheckResult(
+                    checkResultKind, leftStr, rightStr, toStringOrPlaceholder(expected), toStringOrPlaceholder(actual)
+                )
+            }
     }
 }

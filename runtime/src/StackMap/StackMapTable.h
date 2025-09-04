@@ -10,6 +10,7 @@
 
 #include "StackMap/StackMapTypeDef.h"
 #include "CangjieRuntime.h"
+#include "Base/LogFile.h"
 namespace MapleRuntime {
 using VarValue = U32;
 using BitLen = U32;
@@ -523,7 +524,7 @@ public:
             }
         }
         if (targetPCOff < leftPCOff || targetPCOff > rightPCOff) {
-            LOG(RTLOG_INFO, "don't find the stack map item!");
+            DLOG(ENUM, "stack map is empty in this frame");
             return IdxSet();
         }
         while (left <= right) {

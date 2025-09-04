@@ -53,13 +53,13 @@ private func generateBuildSuite(funcDecl: FuncDecl): Tokens {
     tb.toTokens()
 }
 
-private let wrongTargetMessage = "@TestBuilder macro must be put on a function without parameters."
+private let WRONG_TARGET_MESSAGE = "@TestBuilder macro must be put on a function without parameters."
 
 // NOTE: sadly cannot verify that function is top level
 private func verifyDeclShape(decl: Decl): FuncDecl {
-    let funcDecl = (decl as FuncDecl) ?? throw MacroException(wrongTargetMessage)
+    let funcDecl = (decl as FuncDecl) ?? throw MacroException(WRONG_TARGET_MESSAGE)
     if (!funcDecl.funcParams.isEmpty()) {
-        throw MacroException(wrongTargetMessage)
+        throw MacroException(WRONG_TARGET_MESSAGE)
     }
     let returnType = try {
         funcDecl.declType

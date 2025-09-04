@@ -13,7 +13,7 @@ import std.collection.*
 
 interface Result <: Serializable<Result> {
     // maybe rename to visitSubResults?
-    func visitChildren(visitor: (Result) -> Unit): Unit {}
+    func visitChildren(_: (Result) -> Unit): Unit {}
 
     func walk(visitor: (Result) -> Unit): Unit {
         visitor(this)
@@ -142,10 +142,10 @@ abstract class ResultContainer<T> <: Result where T <: Result {
         }
     }
 
-    public func visitFailedSteps(visitor: (RunStepResult, TestCaseId) -> Unit) {
+    public func visitFailedSteps(visitor: (RunStepResult, TestCaseResult) -> Unit) {
         forAllStepsWithParent { r, c =>
             if (!r.hasFailures()) { return }
-            visitor(r,c.caseId)
+            visitor(r, c)
         }
     }
 
@@ -244,11 +244,12 @@ class RunStepResult <: Result {
 class TestCaseResult <: ResultContainer<RunStepResult> {
     TestCaseResult(
         let caseId: TestCaseId,
+        let caseInfo: TestCaseReportInfo,
         let renderOptions: RenderOptions
     ) {}
 
-    static func fromSingleStep(id: TestCaseId, step: RunStepResult) {
-        let caseResult = TestCaseResult(id, RenderOptions(None, None))
+    static func fromSingleStep(id: TestCaseId, info: TestCaseReportInfo, step: RunStepResult) {
+        let caseResult = TestCaseResult(id, info, RenderOptions(None, None))
         caseResult.add(step)
         caseResult.finish()
         caseResult
@@ -288,7 +289,25 @@ class TestCaseResult <: ResultContainer<RunStepResult> {
     public func hasFailures(): Bool {
         subResults |> any { s => s.hasFailures() }
     }
+}
 
+/**
+ * Some information about test cases that should reach reporting facilities.
+ */
+struct TestCaseReportInfo {
+    TestCaseReportInfo(let tags!: Array<String>) {}
+
+    static func empty(): TestCaseReportInfo {
+        TestCaseReportInfo(tags: [])
+    }
+
+    prop isEmpty: Bool {
+        get() { this.tags.isEmpty() }
+    }
+
+    func merge(suiteInfo: TestSuiteReportInfo): TestCaseReportInfo {
+        TestCaseReportInfo(tags: suiteInfo.tags.concat(this.tags))
+    }
 }
 
 struct CapturedOutput {
@@ -309,7 +328,8 @@ struct CapturedOutput {
 
 class TestSuiteResult <: ResultContainer<TestCaseResult> {
     TestSuiteResult(
-        let suiteId: TestSuiteId
+        let suiteId: TestSuiteId,
+        let suiteInfo: TestSuiteReportInfo
     ) {}
 
     func merge(other: TestSuiteResult) {
@@ -327,6 +347,17 @@ class TestSuiteResult <: ResultContainer<TestCaseResult> {
             }
         }
         resultById.values()
+    }
+}
+
+/**
+ * Some information about test suites that should reach reporting facilities.
+ */
+struct TestSuiteReportInfo {
+    TestSuiteReportInfo(let tags!: Array<String>) {}
+
+    prop isEmpty: Bool {
+        get() { this.tags.isEmpty() }
     }
 }
 

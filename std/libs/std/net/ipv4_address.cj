@@ -106,7 +106,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
 }
 
 extend<T> Array<T> where T <: LessOrEqual<T> {
-    public operator func <=(rhs: Array<T>): Bool {
+    operator func <=(rhs: Array<T>): Bool {
         var loq = true
         for (i in 0..this.size) {
             if (!(this[i] <= rhs[i])) {

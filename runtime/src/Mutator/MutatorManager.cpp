@@ -96,7 +96,6 @@ void MutatorManager::TransitMutatorToExit()
 {
     Mutator* mutator = Mutator::GetMutator();
     CHECK_DETAIL(mutator != nullptr, "Mutator has not initialized or has been fini: %p", mutator);
-    MRT_ASSERT(!mutator->InSaferegion(), "Mutator to be fini should not be in saferegion");
     // Enter saferegion to avoid blocking gc stw
     mutator->MutatorLock();
     mutator->ResetMutator();

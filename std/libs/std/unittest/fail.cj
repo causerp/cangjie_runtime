@@ -11,6 +11,7 @@ package std.unittest
  * Fails the test case.
  */
 public func failExpect(message: String): Unit {
+    cancellationPoint()
     let checkResult = FailCheckResult(Expect, message)
     Framework.withCurrentContext{ ctx => ctx.checkFailed(checkResult) }
 }
@@ -19,6 +20,7 @@ public func failExpect(message: String): Unit {
  * Immediately fails the test case.
  */
 public func fail(message: String): Nothing {
+    cancellationPoint()
     let checkResult = FailCheckResult(Assert, message)
     Framework.withCurrentContext{ ctx => ctx.checkFailed(checkResult) }
     throw AssertException(message, checkResult)

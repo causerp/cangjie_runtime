@@ -19,8 +19,8 @@ class MacroStorage {
     private static let globalMutableState = ConcurrentHashMap<String, Tokens>()
     private static let globalCounter = AtomicUInt64(0)
 
-    private static let TEST_GENERATED_PREFIX = quote(@Attribute[TEST_GENERATED])
-    private static let ATTR_PREFIX = quote(@Attribute[)
+    private static let testGeneratedPrefix = quote(@Attribute[TEST_GENERATED])
+    private static let attrPrefix = quote(@Attribute[)
 
     private static func store(key: MacroKey, args: Tokens): String {
         let index = globalCounter.fetchAdd(1)
@@ -33,11 +33,11 @@ class MacroStorage {
         let uniqueId = Token(IDENTIFIER, store(key, args))
         let tb = TokensBuilder()
         match {
-            case declTokens.startsWith(ATTR_PREFIX) =>
-                let newCode = Tokens(collectArray(declTokens)[ATTR_PREFIX.size..])
-                tb.append(ATTR_PREFIX).append(uniqueId).append(TokenKind.COMMA).append(newCode).toTokens()
+            case declTokens.startsWith(attrPrefix) =>
+                let newCode = Tokens(collectArray(declTokens)[attrPrefix.size..])
+                tb.append(attrPrefix).append(uniqueId).append(TokenKind.COMMA).append(newCode).toTokens()
             case _ => tb
-                .append(ATTR_PREFIX)
+                .append(attrPrefix)
                 .append(uniqueId)
                 .append(quote(]))
                 .append(TokenKind.NL)
@@ -71,7 +71,7 @@ class MacroStorage {
     }
 
     static func markTestGenerated(tb: TokensBuilder) {
-        tb.append(TEST_GENERATED_PREFIX)
+        tb.append(testGeneratedPrefix)
     }
 
     static func verifyNotYetGenerated(generating: MacroKey, originalTokens: Tokens): Unit {
@@ -85,10 +85,10 @@ class MacroStorage {
     }
 
     static func findAlreadyGenerated(tokens: Tokens): ?MacroKey {
-        if (tokens.startsWith(TEST_GENERATED_PREFIX)) {
+        if (tokens.startsWith(testGeneratedPrefix)) {
             return TEST_MACRO
         }
-        let isTestBuilderGenerated = tokens.startsWith(ATTR_PREFIX) &&
+        let isTestBuilderGenerated = tokens.startsWith(attrPrefix) &&
             tokens.size >= 4 && tokens[3].value.startsWith(TEST_BUILDER_MACRO.attrPrefix)
         if (isTestBuilderGenerated) {
             return TEST_BUILDER_MACRO

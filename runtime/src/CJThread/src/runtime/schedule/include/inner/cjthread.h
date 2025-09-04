@@ -266,14 +266,6 @@ int CJThreadAddBatch(CJThreadHandle *list, unsigned int num);
 void CJThread0Make(struct CJThread *cjthread0);
 
 /**
- * @brief Add the cjthread to the running queue.
- * @par Add the specified cjthread to the running queue under the processor. If the cjthread
- * is not in the context, add the cjthread to the global running queue.
- * @param readyCJThread    [IN] cjthread to be added to the running queue.
- */
-void CJThreadReady(CJThreadHandle readyCJThread);
-
-/**
  * @brief Park the current cjthread, execute the callback function, schedule the next cjthread.
  * @par Park the current cjthread, go to cjthread0, and execute the callback function. If the
  * callback function returns 0, the callback function is successful. Schedule the next cjthread.

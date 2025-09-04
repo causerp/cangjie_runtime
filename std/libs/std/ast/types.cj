@@ -704,8 +704,8 @@ public class PrefixType <: TypeNode {
 }
 
 public class FuncType <: TypeNode {
-    init(typeParameterName: Token, colon: Token, keyword: Token, lParen: Token,
-        types: ArrayList<TypeNode>, commas: Tokens, rParen: Token, arrow: Token, returnType: TypeNode) {
+    init(typeParameterName: Token, colon: Token, keyword: Token, lParen: Token, types: ArrayList<TypeNode>,
+        commas: Tokens, rParen: Token, arrow: Token, returnType: TypeNode) {
         super(typeParameterName, colon)
         this.keyword_ = keyword
         this.lParen_ = lParen
@@ -954,8 +954,15 @@ public class VArrayType <: TypeNode {
     public func toTokens(): Tokens {
         var comma = Token(TokenKind.COMMA).addPosition(elementTy_.endPos.fileID, elementTy_.endPos.line,
             elementTy_.endPos.column + 1)
-        super.toTokens().append(keyword_).append(lAngle_).append(elementTy_).append(comma).append(dollar_).append(size).
-            append(rAngle_)
+        super
+            .toTokens()
+            .append(keyword_)
+            .append(lAngle_)
+            .append(elementTy_)
+            .append(comma)
+            .append(dollar_)
+            .append(size)
+            .append(rAngle_)
     }
 
     public func traverse(v: Visitor): Unit {

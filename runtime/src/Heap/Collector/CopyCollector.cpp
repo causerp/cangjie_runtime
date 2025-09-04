@@ -82,7 +82,7 @@ void CopyCollector::ForwardFromSpace()
 
     // ForwardFromSpace changes from-space size by exempting from regions, so re-read it.
     // todo: to-space is meaningless.
-    stats.smallGarbageSize = space.FromSpaceSize() - space.ToSpaceSize();
+    stats.smallGarbageSize = space.FromSpaceSize();
 }
 
 void CopyCollector::RefineFromSpace()

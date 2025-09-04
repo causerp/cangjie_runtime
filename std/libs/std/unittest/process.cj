@@ -16,38 +16,28 @@ import std.collection.*
 import std.random.Random
 import std.sync.ReentrantMutex
 
-private let tempDir = TempDirectory()
+private let TEMP_DIR = TempDirectory()
 
 struct WrappedProcess {
     WrappedProcess(
         private let process: SubProcess,
         private let stdOutFile: ?Path,
-        private let stdErrFile: ?Path,
-        private let exitCodeFile: ?Path
+        private let stdErrFile: ?Path
     ) {}
 
     private let status = AtomicOptionReference<CapturedProcessResult>()
 
     func wait(): Int64 {
-        if (let Some(status) <- status.load()) {
-            return status.exitCode
+        let exitCode = process.wait()
+        if (status.load().isSome()) {
+            return exitCode
         }
-
-        let realExitCode = process.wait()
 
         let stdOut = readCapturedFrom(stdOutFile)
         let stdErr = readCapturedFrom(stdErrFile)
-        let capturedExitCode = readCapturedExitCode(exitCodeFile)
-
-        // on Windows, realExitCode is likely always -1 because of how it's implemented in std.process
-        // Unlike Unix, on Windows child processes are dying concurrently
-        // and since std.process does take exit code by PID, it's impossible to detect the code
-        // instead it always returns -1
-        // so that's why we are preferring the captured on from file
-        let exitCode = capturedExitCode ?? realExitCode
-
-        let result = CapturedProcessResult(exitCode, stdOut, stdErr)
+        let result = CapturedProcessResult(stdOut, stdErr)
         this.status.compareAndSwap(None, Some(result))
+
         return exitCode
     }
 
@@ -70,7 +60,6 @@ struct WrappedProcess {
 
 private class CapturedProcessResult {
     CapturedProcessResult(
-        let exitCode: Int64,
         let stdOut: Array<Byte>,
         let stdErr: Array<Byte>
     ) {}
@@ -85,18 +74,11 @@ extend Process {
     static func start(ctx: MainExecutionCtx): WrappedProcess {
         let stdout = captureFor(ctx)
         let stderr = captureFor(ctx)
-        let exitCodeFile = exitCodeFile()
-
-        if (let Some(file) <- exitCodeFile) {
-            removeFileSilent(file)
-        }
-
         let cmd = ctx.executeCommand
-        let (command, args) = interceptCommand(cmd.command, cmd.args.toArray(), exitCodeFile)
 
         let process = try {
             launch(
-                command, args, environment: cmd.env,
+                cmd.command, cmd.args.toArray(), environment: cmd.env,
                 stdOut: redirectFor(stdout), stdErr: redirectFor(stderr)
             )
         } catch (cause: Exception) {
@@ -105,36 +87,7 @@ extend Process {
             throw cause
         }
 
-        return WrappedProcess(process, stdout?.info.path, stderr?.info.path, exitCodeFile)
-    }
-
-    @When[os != "Windows"]
-    private static func interceptCommand(
-        command: String, args: Array<String>, exitCodeFile: ?Path): (String, Array<String>) {
-        return (command, args)
-    }
-
-    @When[os == "Windows"]
-    private static func interceptCommand(
-        command: String, args: Array<String>, exitCodeFile: ?Path): (String, Array<String>) {
-        // the code above is very fragile as cmd.exe has a lot of quirks
-        // also note that invoking the command above manually from the terminal
-        // may work in a different way because in this case it will be invoking
-        // cmd.exe from another cmd.exe or pwsh.exe interpreting arguments in a different way
-        let subArgs = ArrayList<String>()
-        subArgs.add("/D") // disable AutoRun registry commands
-        subArgs.add("/V:ON") // enable delayed evaluation for !ERRORLEVEL! to work
-        subArgs.add("/C") // execute command: all remaining arguments are treated as command and its args
-        subArgs.add(command)
-        subArgs.add(all: args)
-        subArgs.add(all: ["&", "set", "R=!ERRORLEVEL!", "&"]) // set, echo, & and others must be separate args
-        if (let Some(path) <- exitCodeFile) {
-            // the path shouldn't be quoted
-            subArgs.add(all: ["echo", "!R!", ">", path.toString(), "&"])
-        }
-        subArgs.add(all: ["exit", "!R!"])
-
-        return ("cmd.exe", subArgs.toArray())
+        return WrappedProcess(process, stdout?.info.path, stderr?.info.path)
     }
 
     // NOTE: we never use ProcessRedirect.Pipe because it can't be used
@@ -142,7 +95,7 @@ extend Process {
     // causing coroutines scheduler stagnation
     private static func captureFor(ctx: MainExecutionCtx): ?File {
         match (ctx.outputReporter.capture) {
-            case true => tempDir.createTempFile(prefix: "test-worker-", suffix: ".stdout")
+            case true => TEMP_DIR.createTempFile(prefix: "test-worker-", suffix: ".stdout")
             case _ => None
         }
     }
@@ -153,48 +106,10 @@ extend Process {
             case None => Inherit
         }
     }
-
-    @When[os != "Windows"]
-    private static func exitCodeFile(): ?Path {
-        return None
-    }
-
-    @When[os == "Windows"]
-    private static func exitCodeFile(): ?Path {
-        try {
-            tempDir.createTempPath(prefix: "test-worker-", suffix: ".exit")
-        } catch (cause: Exception) {
-            throw Exception("Failed to create temp file in ${tempDir.path}: ${cause}")
-        }
-    }
 }
 
 extend SubProcess {
-    func tryWait(): ?Int64 {
-        try {
-            interceptExitCode(wait())
-        } catch (_) {
-            None
-        }
-    }
-
-    @When[os != "Windows"]
-    private static func interceptExitCode(code: Int64): ?Int64 {
-        Some(code)
-    }
-
-    @When[os == "Windows"]
-    private static func interceptExitCode(code: Int64): ?Int64 {
-        // Code -1 appears even if worker process returns zero (87 windows error code).
-        // On Windows, exit code is always -1 if we invoked wait()
-        // after the process actally completed and the corresponding pid
-        // is no longer occupied
-        match (code) {
-            case -1 => None
-            case exitCode => Some(exitCode)
-        }
-    }
-
+    
     func terminateSilent(force!: Bool): Unit {
         if (isAlive()) {
             // on Linux it's always alive until we invoke waitpid()
@@ -231,33 +146,5 @@ private func readCapturedFrom(path: ?Path): Array<Byte> {
                 removeFileSilent(path)
             }
         case _ => Array<Byte>()
-    }
-}
-
-@When[os != "Windows"]
-private func readCapturedExitCode(path: ?Path): ?Int64 {
-    return None
-}
-
-@When[os == "Windows"]
-private func readCapturedExitCode(path: ?Path): ?Int64 {
-    match (path) {
-        case None => throw Exception("No captured exit code file created")
-        case Some(path) =>
-            var lastCause: ?Exception = None
-
-            for (retry in 1..10) {
-                try {
-                    let code = Int64.parse(String.fromUtf8(File.readFrom(path)).trimAscii())
-                    removeFileSilent(path)
-                    return code
-                } catch (cause: Exception) {
-                    lastCause = cause
-                }
-
-                sleep(Duration.second * retry)
-            }
-
-            throw Exception("Faled to read exit code from file ${path}: ${lastCause}")
     }
 }

@@ -231,6 +231,10 @@ class WorkerProcess {
         }
     }
 
+    func commitCasesRegistrationFailure() {
+        progressQueue?.add(TestProgressData(TestCasesRegistrationFailed(), workerId: workerId))
+    }
+ 
     private func waitExecution(): BunchExecutionResult {
         let messages: Array<ExecutionResultPart> = if (let Some(transportChannel) <- transportChannel) {
             transportChannel.receive() |> inspect { part: ExecutionResultPart =>
@@ -327,6 +331,8 @@ class WorkerProcess {
             let execution = startWorker(workerId: workerId, ctx: ctx)
             if (execution.hasTransportChannel()) {
                 execution.waitCasesRegistration()
+            } else {
+                execution.commitCasesRegistrationFailure()
             }
             execution
         }
@@ -403,7 +409,7 @@ class WorkerProcess {
     ): Unit {
         for (result in results) {
             let suiteResult = bunchResults.getOrInsert(result.suiteId) { =>
-                TestSuiteResult(result.suiteId)
+                TestSuiteResult(result.suiteId, result.suiteInfo)
             }
             suiteResult.add(result.stepResult)
         }
@@ -414,9 +420,9 @@ class WorkerProcess {
         let caseResult = match (header) {
             case lHeader: LifecycleExecutionResultHeader =>
                 let id = TestCaseId(lHeader.suiteId, lHeader.step.toString(), isBench: false)
-                TestCaseResult.fromSingleStep(id, crash)
+                TestCaseResult.fromSingleStep(id, TestCaseReportInfo.empty(), crash)
             case caseHeader: TestCaseExecutionResultHeader =>
-                TestCaseResult.fromSingleStep(caseHeader.caseId, crash)
+                TestCaseResult.fromSingleStep(caseHeader.caseId, caseHeader.caseInfo, crash)    
             case _ => throw Exception("Unreachable")
         }
         let result = ExecutionResult(header, ExecutionResultBody(caseResult))
@@ -462,28 +468,33 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
     public func serializeInternal(): DataModel {
         match (this) {
             case thiz: TestCaseExecutionResultHeader =>
-                DataModelStruct().
-                    add(field<Int8>("tag", 0)).
-                    add(field<TestCaseId>("caseId", thiz.caseId)).
-                    add(field<String>("startTime", thiz.startTime.toString()))
+                DataModelStruct()
+                    .add(field<Int8>("tag", 0))
+                    .add(field<TestCaseId>("caseId", thiz.caseId))
+                    .add(field<TestCaseReportInfo>("caseInfo", thiz.caseInfo))
+                    .add(field<TestSuiteReportInfo>("suiteInfo", thiz.suiteInfo))
+                    .add(field<String>("startTime", thiz.startTime.toString()))
             case thiz: LifecycleExecutionResultHeader =>
-                DataModelStruct().
-                    add(field<Int8>("tag", 1)).
-                    add(field<TestSuiteId>("suiteId", thiz.suiteId)).
-                    add(field<LStep>("step", thiz.step)).
-                    add(field<String>("startTime", thiz.startTime.toString()))
+                DataModelStruct()
+                    .add(field<Int8>("tag", 1))
+                    .add(field<TestSuiteId>("suiteId", thiz.suiteId))
+                    .add(field<TestSuiteReportInfo>("suiteInfo", thiz.suiteInfo))
+                    .add(field<LStep>("step", thiz.step))
+                    .add(field<String>("startTime", thiz.startTime.toString()))
             case thiz: ExecutionResultBody =>
-                DataModelStruct().
-                    add(field<Int8>("tag", 2)).
-                    add(field<Result>("stepResult", thiz.stepResult))
+                DataModelStruct()
+                    .add(field<Int8>("tag", 2))
+                    .add(field<Result>("stepResult", thiz.stepResult))
             case thiz: TestCasesRegistrationPart =>
-                DataModelStruct().
-                    add(field<Int8>("tag", 3)).
-                    add(field<UInt64>("tests", thiz.casesCount)).
-                    add(field<Int64>("workerId", thiz.workerId)).
-                    add(field<String>("package", thiz.packageName))
+                DataModelStruct()
+                    .add(field<Int8>("tag", 3))
+                    .add(field<UInt64>("tests", thiz.casesCount))
+                    .add(field<Int64>("workerId", thiz.workerId))
+                    .add(field<String>("package", thiz.packageName))
             case thiz: ExecutionPermitPart =>
                 DataModelStruct().add(field<Int8>("tag", 4))
+            case thiz: TestCasesRegistrationFailed =>
+                DataModelStruct().add(field<Int8>("tag", 5))
             case _ => throw Exception("Unreachable")
         }
     }
@@ -493,10 +504,13 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
         match (Int8.deserialize(dms.get("tag"))) {
             case 0 => TestCaseExecutionResultHeader(
                 TestCaseId.deserialize(dms.get("caseId")),
+                TestCaseReportInfo.deserialize(dms.get("caseInfo")),
+                TestSuiteReportInfo.deserialize(dms.get("suiteInfo")),
                 DateTime.parse(String.deserialize(dms.get("startTime")))
             )
             case 1 => LifecycleExecutionResultHeader(
                 TestSuiteId.deserialize(dms.get("suiteId")),
+                TestSuiteReportInfo.deserialize(dms.get("suiteInfo")),
                 LStep.deserialize(dms.get("step")),
                 DateTime.parse(String.deserialize(dms.get("startTime")))
             )
@@ -509,6 +523,7 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
                 packageName: String.deserialize(dms.get("package"))
             )
             case 4 => ExecutionPermitPart()
+            case 5 => TestCasesRegistrationFailed()
             case tag => throw Exception("Unknown result part tag: ${tag}")
         }
     }
@@ -519,18 +534,31 @@ abstract class ExecutionResultPart <: Serializable<ExecutionResultPart> {
  */
 abstract class ExecutionResultHeader <: ExecutionResultPart {
     public prop suiteId: TestSuiteId
+    public prop suiteInfo: TestSuiteReportInfo
     public prop startTime: DateTime
 }
 
 class TestCaseExecutionResultHeader <: ExecutionResultHeader {
-    TestCaseExecutionResultHeader(let caseId: TestCaseId, private let startTime_: DateTime) {}
+    TestCaseExecutionResultHeader(
+        let caseId: TestCaseId,
+        let caseInfo: TestCaseReportInfo,
+        private let suiteInfo_: TestSuiteReportInfo,
+        private let startTime_: DateTime
+    ) {}
     public override prop suiteId: TestSuiteId { get() { caseId.suiteId } }
+    public override prop suiteInfo: TestSuiteReportInfo { get() { suiteInfo_ } }
     public override prop startTime: DateTime { get() { startTime_ } }
 }
 
 class LifecycleExecutionResultHeader <: ExecutionResultHeader {
-    LifecycleExecutionResultHeader(private let suiteId_: TestSuiteId, let step: LStep, private let startTime_: DateTime) {}
+    LifecycleExecutionResultHeader(
+        private let suiteId_: TestSuiteId,
+        private let suiteInfo_: TestSuiteReportInfo,
+        let step: LStep,
+        private let startTime_: DateTime
+    ) {}
     public override prop suiteId: TestSuiteId { get() { suiteId_ } }
+    public override prop suiteInfo: TestSuiteReportInfo { get() { suiteInfo_ } }
     public override prop startTime: DateTime { get() { startTime_ } }
 }
 
@@ -543,6 +571,10 @@ class ExecutionResultBody <: ExecutionResultPart {
  */
 class TestCasesRegistrationPart <: ExecutionResultPart {
     TestCasesRegistrationPart(let casesCount: UInt64, let workerId!: Int64, let packageName!: String) {}
+}
+
+class TestCasesRegistrationFailed <: ExecutionResultPart {
+    TestCasesRegistrationFailed() {}
 }
 
 /**
@@ -562,6 +594,10 @@ private struct ExecutionResult {
 
     prop suiteId: TestSuiteId {
         get() { header.suiteId }
+    }
+
+    prop suiteInfo: TestSuiteReportInfo {
+        get() { header.suiteInfo }
     }
 
     prop startTime: DateTime {
@@ -602,6 +638,7 @@ private struct ExecutionResult {
                     results.add(result)
                     currentHeader = None
                 case (_, _: TestCasesRegistrationPart) => () // Repetitive registration could happen if worker crashes, just skip it.
+                case (_, _: TestCasesRegistrationFailed) => () // Repetitive process crash could happen if we have --parallel <N>
                 case _ => throw Exception("Required due to bug in compiler")
             }
         }

@@ -33,27 +33,28 @@ static constexpr int64_t INVALID_THREAD_ID = -1LL;
 
 void ReleaseNativeResource(BaseObject* obj)
 {
+    TypeInfo* typeInfo = obj->GetTypeInfo();
     // Future is a template, so only the first 24 characters are compared
-    if (obj->GetTypeInfo()->IsFutureClass()) {
+    if (typeInfo->IsFutureClass()) {
         int waitQueue = reinterpret_cast<CJFuture*>(obj)->isWaitQueueInit;
         if (waitQueue == 1) {
             pthread_mutex_destroy(&reinterpret_cast<CJFuture*>(obj)->wq.mutex);
         }
         return;
     }
-    if (obj->GetTypeInfo()->IsMonitorClass()) {
+    if (typeInfo->IsMonitorClass()) {
         if (reinterpret_cast<CJMonitor*>(obj)->isWaitQueueInit) {
             pthread_mutex_destroy(&reinterpret_cast<CJMonitor*>(obj)->wq.mutex);
         }
         return;
     }
-    if (obj->GetTypeInfo()->IsMutexClass()) {
+    if (typeInfo->IsMutexClass()) {
         if (reinterpret_cast<CJMutex*>(obj)->isSemaInit) {
             pthread_mutex_destroy(&reinterpret_cast<CJMutex*>(obj)->sema.queue.mutex);
         }
         return;
     }
-    if (obj->GetTypeInfo()->IsWaitQueueClass()) {
+    if (typeInfo->IsWaitQueueClass()) {
         if (reinterpret_cast<CJWaitQueue*>(obj)->isWaitQueueInit) {
             pthread_mutex_destroy(&reinterpret_cast<CJWaitQueue*>(obj)->wq.mutex);
         }
@@ -671,6 +672,21 @@ int64_t MRT_GetCJThreadId(void* handle)
 void* MRT_GetCurrentCJThread()
 {
     return CJThreadGetHandle();
+}
+
+void MRT_ThreadResumeAndWait(void* handle)
+{
+    CJThreadResumeAndWait(handle);
+}
+
+void MRT_ThreadReady(void* handle)
+{
+    CJThreadReady(handle);
+}
+
+void MRT_ThreadWait()
+{
+    CJThreadWait();
 }
 
 #ifdef __APPLE__

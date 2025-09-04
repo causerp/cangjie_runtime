@@ -361,6 +361,14 @@ public class Benchmark {
     }
 }
 
+public struct TestCaseInfo {
+    TestCaseInfo(
+        public let groupName: String,
+        public let suiteName: String,
+        public let caseName: String        
+    ) {}
+}
+
 sealed abstract class Report {
     private let details: Details
 

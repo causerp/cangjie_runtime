@@ -1207,15 +1207,15 @@ int ScheduleStopOutside(ScheduleHandle scheduleHandle)
         return ERRNO_SCHD_INVALID;
     }
 
-    // This parameter is added to solve the memory leakage problem when the dlclose exits in
-    // the macro expansion scenario.
-    if (schedule->scheduleType == SCHEDULE_DEFAULT && g_scheduleManager.initFlag) {
-        FreeSchdfdManager(g_scheduleManager.schdfdManager);
-    }
-
+    ScheduleType scheduleType = schedule->scheduleType;
     oldSchedule = ScheduleGet();
     ScheduleSet(schedule);
     ScheduleExitMode(schedule, false);
+    // This parameter is added to solve the memory leakage problem when the dlclose exits in
+    // the macro expansion scenario.
+    if (scheduleType == SCHEDULE_DEFAULT && g_scheduleManager.initFlag) {
+        FreeSchdfdManager(g_scheduleManager.schdfdManager);
+    }
     ScheduleSet(oldSchedule);
     return 0;
 }

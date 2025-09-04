@@ -131,6 +131,7 @@ public:
     static size_t ParseTimeFromEnv(const CString& env);
     static int ParseNumFromEnv(const CString& env);
     static size_t ParsePosNumFromEnv(const CString& env);
+    static double ParseValidFromEnv(const CString& env);
     static double ParsePosDecFromEnv(const CString& env);
     static bool ParseFlagFromEnv(const CString& s);
 

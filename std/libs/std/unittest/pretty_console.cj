@@ -55,10 +55,10 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
     private static let ESC_C_GRAY_MODE = "${ESC}[90m"
 
     // Cursor
-    private static func ESC_LINES_UP(lines: Int64) { "${ESC}[${lines}F" } // `lines` up and move to the column start
-    private static func ESC_LINES_DOWN(lines: Int64) { "${ESC}[${lines}E" } // `lines` down and move to the column start
-    private static func ESC_CURSOR_HORIZONTAL_POS(column: Int64) { "${ESC}[${column}G" } // Sets cursor column
-    private static func ESC_CURSOR_RIGHT(shift: Int64) { "${ESC}[${shift}C" } // Sets cursor column
+    private static func escLinesUp(lines: Int64) { "${ESC}[${lines}F" } // `lines` up and move to the column start
+    private static func escLinesDown(lines: Int64) { "${ESC}[${lines}E" } // `lines` down and move to the column start
+    private static func escCursorHorizontalPos(column: Int64) { "${ESC}[${column}G" } // Sets cursor column
+    private static func escCursorRight(shift: Int64) { "${ESC}[${shift}C" } // Sets cursor column
     private static let ESC_CURSOR_SAVE = "${ESC}7" // Saves cursor position & attributes
     private static let ESC_CURSOR_RESTORE = "${ESC}8" // Restores previously saved cursor position & attributes
     private static let ESC_CURSOR_HIDE = "${ESC}[?25l"
@@ -66,11 +66,11 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
 
     // Scrollable margins
     // sets scrollable margins. Start value begins from 1.
-    private static func ESC_SET_SCROLLABLE_MARGINS(start: Int64, endInclusive: Int64) { "${ESC}[${start};${endInclusive}r" }
+    private static func escSetScrollableMargins(start: Int64, endInclusive: Int64) { "${ESC}[${start};${endInclusive}r" }
     // sets scrollable margins from the first line to `endInclusive`
-    private static func ESC_SET_SCROLLABLE_MARGINS_END(endInclusive!: Int64) { "${ESC}[1;${endInclusive}r" }
+    private static func escSetScrollableMarginsEnd(endInclusive!: Int64) { "${ESC}[1;${endInclusive}r" }
     // sets scrollable margins from the `start` to the last line of the terminal bounds
-    private static func ESC_SET_SCROLLABLE_MARGINS_START(start!: Int64) { "${ESC}[${start};r" }
+    private static func escSetScrollableMarginsStart(start!: Int64) { "${ESC}[${start};r" }
     // resets scrollable margins to the whole terminal bounds
     private static let ESC_RESET_SCROLLABLE_MARGINS = "${ESC}[;r"
 
@@ -131,7 +131,7 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
      */
     func up(lines: Int64) {
         if (!areOtherAnsiEnabled || lines <= 0) { return }
-        put(ESC_LINES_UP(lines))
+        put(escLinesUp(lines))
     }
 
     /**
@@ -139,7 +139,7 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
      */
     func down(lines: Int64) {
         if (!areOtherAnsiEnabled || lines <= 0) { return }
-        put(ESC_LINES_DOWN(lines))
+        put(escLinesDown(lines))
     }
 
     func toBottom() {
@@ -148,7 +148,7 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
 
     func setColumn(column!: Int64 = 1) {
         if (!areOtherAnsiEnabled) { return }
-        put(ESC_CURSOR_HORIZONTAL_POS(column))
+        put(escCursorHorizontalPos(column))
     }
 
     func saveCursorPos() {
@@ -180,9 +180,9 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
 
         match ((start, end)) {
             case (None, None) => put(ESC_RESET_SCROLLABLE_MARGINS)
-            case (Some(s), None) => put(ESC_SET_SCROLLABLE_MARGINS_START(start: s))
-            case (None, Some(e)) => put(ESC_SET_SCROLLABLE_MARGINS_END(endInclusive: e))
-            case (Some(s), Some(e)) => put(ESC_SET_SCROLLABLE_MARGINS(s, e))
+            case (Some(s), None) => put(escSetScrollableMarginsStart(start: s))
+            case (None, Some(e)) => put(escSetScrollableMarginsEnd(endInclusive: e))
+            case (Some(s), Some(e)) => put(escSetScrollableMargins(s, e))
         }
         flush()
     }
@@ -245,7 +245,7 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
         body()
         if (areOtherAnsiEnabled && areColorsEnabled) {
             put(ESC_CURSOR_RESTORE)
-            put(ESC_CURSOR_RIGHT(spaceSize))
+            put(escCursorRight(spaceSize))
         }
         return this
     }

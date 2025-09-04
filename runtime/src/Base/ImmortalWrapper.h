@@ -12,20 +12,20 @@
 #include <utility>
 
 namespace MapleRuntime {
-// utility class to avoid un-ordered static global destruction
+// Utility to prevent unordered destruction of static globals
 template<class T>
 class ImmortalWrapper {
 public:
-    using pointer = typename std::add_pointer<T>::type;
-    using lref = typename std::add_lvalue_reference<T>::type;
+    using pointer = T*;
+    using lref = T&;
 
     template<class... Args>
     ImmortalWrapper(Args&&... args)
     {
         new (buffer) T(std::forward<Args>(args)...);
     }
-    ImmortalWrapper(const ImmortalWrapper&) = delete;
     ImmortalWrapper& operator=(const ImmortalWrapper&) = delete;
+    ImmortalWrapper(const ImmortalWrapper&) = delete;
     ~ImmortalWrapper() = default;
     inline pointer operator->() { return reinterpret_cast<pointer>(buffer); }
 

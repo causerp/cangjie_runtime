@@ -29,29 +29,29 @@ bool WCollector::IsUnmovableFromObject(BaseObject* obj) const
 
 bool WCollector::MarkObject(BaseObject* obj) const
 {
-    bool marked = RegionSpace::MarkObject(obj);
+    RegionInfo* region = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+    size_t objectSize = obj->GetSize();
+    bool marked = region->MarkObject(obj, objectSize);
     if (!marked) {
-        reinterpret_cast<RegionSpace&>(theAllocator).CountLiveObject(obj);
-        RegionInfo* region = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+        region->AddLiveByteCount(objectSize);
         (void)region;
-        DLOG(TRACE, "mark obj %p<%p>(%zu) in region %p(%u)@%#zx, live %u", obj, obj->GetTypeInfo(), obj->GetSize(),
+        DLOG(TRACE, "mark obj %p<%p>(%zu) in region %p(%u)@%#zx, live %u", obj, obj->GetTypeInfo(), objectSize,
              region, region->GetRegionType(), region->GetRegionStart(), region->GetLiveByteCount());
     }
     return marked;
 }
 
-bool WCollector::ResurrectObject(BaseObject* obj)
+bool WCollector::ResurrectObject(BaseObject* obj, size_t offset, RegionInfo* region)
 {
-    bool resurrected = RegionSpace::ResurrentObject(obj);
-    if (!resurrected) {
-        reinterpret_cast<RegionSpace&>(theAllocator).CountLiveObject(obj);
-        RegionInfo* region = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
-        (void)region;
-        DLOG(TRACE, "resurrect region %p@%#zx obj %p<%p>(%zu), live bytes %u", region, region->GetRegionStart(), obj,
-             obj->GetTypeInfo(), obj->GetSize(), region->GetLiveByteCount());
-    }
-    return resurrected;
+    bool resurrected = region->ResurrentObject(obj, offset);
+        if (!resurrected) {
+            region->AddLiveByteCount(obj->GetSize());
+            DLOG(TRACE, "resurrect region %p@%#zx obj %p<%p>(%zu), live bytes %u", region, region->GetRegionStart(),
+                 obj, obj->GetTypeInfo(), obj->GetSize(), region->GetLiveByteCount());
+        }
+        return resurrected;
 }
+
 
 // this api updates current pointer as well as old pointer, caller should take care of this.
 template<bool forward>
@@ -219,7 +219,6 @@ void WCollector::TraceRefField(BaseObject* obj, RefField<>& field, WorkStack& wo
         return;
     }
     CHECK(latest->IsValidObject());
-
     RefField<> newField = GetAndTryTagRefField(latest);
     if (oldField.GetFieldValue() == newField.GetFieldValue()) {
         DLOG(TRACE, "trace obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(), latest->GetSize());
@@ -242,6 +241,7 @@ void WCollector::TraceObjectRefFields(BaseObject* obj, WorkStack& workStack)
 
 BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
 {
+    // get and try tag the referent field for weakref objs
     RefField<> oldField(field);
     BaseObject* latest = nullptr;
     if (IsCurrentPointer(oldField)) {
@@ -261,9 +261,9 @@ BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
     CHECK(latest->IsValidObject());
     RefField<> newField = GetAndTryTagRefField(latest);
     if (oldField.GetFieldValue() == newField.GetFieldValue()) {
-        DLOG(TRACE, "trace obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(), latest->GetSize());
+        DLOG(TRACE, "trace weakref obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(), latest->GetSize());
     } else if (field.CompareExchange(oldField.GetFieldValue(), newField.GetFieldValue())) {
-        DLOG(TRACE, "trace obj %p ref@%p: %#zx => %#zx->%p<%p>(%zu)", obj, &field, oldField.GetFieldValue(),
+        DLOG(TRACE, "trace weakref obj %p ref@%p: %#zx => %#zx->%p<%p>(%zu)", obj, &field, oldField.GetFieldValue(),
             newField.GetFieldValue(), latest, latest->GetTypeInfo(), latest->GetSize());
     }
     return latest;
@@ -423,8 +423,7 @@ BaseObject* WCollector::TryForwardObject(BaseObject* obj)
 
     if (fwdTable.RouteRegion(region)) {
         if (region->TryLockReadFromRegion()) {
-            // maintain from-region to help forwarding its objects
-            BaseObject* toVersion = ForwardObjectImpl(obj);
+            BaseObject* toVersion = ForwardObjectImpl(obj, region);
             region->UnlockReadFromRegion();
             return toVersion;
         } else {
@@ -436,16 +435,15 @@ BaseObject* WCollector::TryForwardObject(BaseObject* obj)
     return nullptr;
 }
 
-BaseObject* WCollector::ForwardObjectImpl(BaseObject* obj)
+BaseObject* WCollector::ForwardObjectImpl(BaseObject* obj, RegionInfo* ghostFromRegion)
 {
     CHECK(GetGCPhase() == GCPhase::GC_PHASE_PREFORWARD || GetGCPhase() == GCPhase::GC_PHASE_FORWARD);
-    MRT_ASSERT(IsGhostFromObject(obj), "expect from-objecct");
     do {
         StateWord oldWord = obj->GetStateWord();
 
         // 1. object has already been forwarded
         if (obj->IsForwarded()) {
-            auto toObj = GetForwardPointer(obj);
+            auto toObj = GetForwardPointer(obj, ghostFromRegion);
             DLOG(FORWARD, "skip forwarded obj %p -> %p<%p>(%zu)", obj, toObj, toObj->GetTypeInfo(), toObj->GetSize());
             return toObj;
         }

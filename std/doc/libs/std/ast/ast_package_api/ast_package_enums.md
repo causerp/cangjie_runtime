@@ -260,6 +260,10 @@ public enum TokenKind <: ToString {
     ANNOTATION|               /*  e.g. "@When"       */
     AT_EXCL|                  /*  e.g. "@!"          */
     ILLEGAL|
+    HANDLE|                   /*  "handle"           */
+    PERFORM|                  /*  "perform"          */
+    RESUME|                   /*  "resume"           */
+    THROWING|                 /*  "throwing"         */
     ...
 }
 ```
@@ -742,6 +746,14 @@ GT
 
 功能：构造一个表示 `>` 的枚举实例。
 
+### HANDLE
+
+```cangjie
+HANDLE
+```
+
+功能：构造一个表示 `handle` 的枚举实例。
+
 ### HASH
 
 ```cangjie
@@ -1134,6 +1146,14 @@ PACKAGE
 
 功能：构造一个表示 `package` 的枚举实例。
 
+### PERFORM
+
+```cangjie
+PERFORM
+```
+
+功能：构造一个表示 `perform` 的枚举实例。
+
 ### PIPELINE
 
 ```cangjie
@@ -1213,6 +1233,14 @@ REDEF
 ```
 
 功能：构造一个表示 `redef` 的枚举实例。
+
+### RESUME
+
+```cangjie
+RESUME
+```
+
+功能：构造一个表示 `resume` 的枚举实例。
 
 ### RETURN
 
@@ -1397,6 +1425,14 @@ THROW
 ```
 
 功能：构造一个表示 `throw` 的枚举实例。
+
+### THROWING
+
+```cangjie
+THROWING
+```
+
+功能：构造一个表示 `throwing` 的枚举实例。
 
 ### TRY
 

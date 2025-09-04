@@ -175,14 +175,14 @@ class Framework {
         }
     }
 
-    static func onLifecycleStart(suiteId: TestSuiteId, step: LStep): Unit {
-        let header = LifecycleExecutionResultHeader(suiteId, step, DateTime.now())
+    static func onLifecycleStart(suiteId: TestSuiteId, suiteInfo: TestSuiteReportInfo, step: LStep): Unit {
+        let header = LifecycleExecutionResultHeader(suiteId, suiteInfo, step, DateTime.now())
         instance.progressQueue?.add(TestProgressData(header))
         instance.transport?.channel?.send(header)
     }
 
-    static func onTestCaseStarted(caseId: TestCaseId): Unit {
-        let header = TestCaseExecutionResultHeader(caseId, DateTime.now())
+    static func onTestCaseStarted(caseId: TestCaseId, caseInfo: TestCaseReportInfo, suiteInfo: TestSuiteReportInfo): Unit {
+        let header = TestCaseExecutionResultHeader(caseId, caseInfo, suiteInfo, DateTime.now())
         instance.progressQueue?.add(TestProgressData(header))
         instance.transport?.channel?.send(header)
     }

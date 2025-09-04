@@ -4,9 +4,7 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #include "BaseObject.h"
-
 #include "Heap/Allocator/RegionInfo.h"
 #include "Heap/Collector/FinalizerProcessor.h"
 #include "ObjectModel/MArray.h"
@@ -17,7 +15,6 @@
 namespace MapleRuntime {
 TypeInfo* BaseObject::GetTypeInfo() const
 {
-    StateWord stateWord = GetStateWord();
     return stateWord.GetTypeInfo();
 }
 
@@ -88,8 +85,9 @@ static void ForEachElementInArray(ObjectPtr obj, const RefFieldVisitor& visitor)
 
 void BaseObject::ForEachRefField(const RefFieldVisitor& visitor)
 {
-    if (HasRefField()) {
-        if (UNLIKELY(IsRawArray())) {
+    TypeInfo* typeInfo = GetTypeInfo();
+    if (typeInfo->HasRefField()) {
+        if (UNLIKELY(typeInfo->IsRawArray())) {
             ForEachElementInArray(this, visitor);
         } else {
             ForEachRefFieldInNonArrayObject(this, visitor);
@@ -99,8 +97,9 @@ void BaseObject::ForEachRefField(const RefFieldVisitor& visitor)
 
 void BaseObject::ForEachRefInStruct(const RefFieldVisitor& visitor, MAddress aggStart, MAddress aggEnd)
 {
-    if (HasRefField()) {
-        if (UNLIKELY(IsRawArray())) {
+    TypeInfo* typeInfo = GetTypeInfo();
+    if (typeInfo->HasRefField()) {
+        if (UNLIKELY(typeInfo->IsRawArray())) {
             ForEachAggRefFieldInArray(visitor, aggStart, aggEnd);
         } else {
             ForEachAggRefFieldInNonArray(visitor, aggStart, aggEnd);

@@ -55,7 +55,7 @@ if(DEFINED ENV{CANGJIE_HOME})
     set(CANGJIE_INC_DIR $ENV{CANGJIE_HOME}/include)
     if(NOT EXISTS "${CANGJIE_INC_DIR}/cangjie")
         # using local cangjie source
-        set(CANGJIE_INC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../../include)
+        set(CANGJIE_INC_DIR ~/dev/cangjie/cangjie/include)
         if(NOT EXISTS "${CANGJIE_INC_DIR}/cangjie")
             message(FATAL_ERROR "NOT FOUND CANGJIE HEADERS")
         endif()
@@ -65,6 +65,10 @@ else()
 endif()
 
 target_compile_options(${libname} PRIVATE ${CMAKE_C_COVERAGE_FLAGS})
+if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
+    target_compile_options(${libname} PUBLIC "-fno-exceptions")
+    target_compile_definitions(${libname} PRIVATE CANGJIE_ENABLE_GCOV)
+endif()
 target_include_directories(${libname} PRIVATE ${CANGJIE_INC_DIR} ${CMAKE_BINARY_DIR}/include)
 
 # install for dynamic and static lib
