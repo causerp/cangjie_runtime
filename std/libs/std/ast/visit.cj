@@ -191,4 +191,11 @@ public abstract class Visitor {
     protected open func visit(_: Modifier): Unit {}
 
     protected open func visit(_: Body): Unit {}
+
+    protected open func visit(_: PerformExpr): Unit {}
+    
+    protected open func visit(_: ResumeExpr): Unit {}
+
+    protected open func visit(_: CommandTypePattern): Unit {}
 }
+

@@ -171,6 +171,7 @@ void ExceptionManager::DumpException()
 
 void ExceptionManager::ThrowImplicitException(ImplicitExceptionType type)
 {
+    MRT_SetStackGrow(false);
     ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
     eWrapper.SetExceptionMessage(nullptr, 0);
     ExceptionRaiser func = Runtime::Current().GetExceptionManager().GetExceptionRaiser();
@@ -205,6 +206,7 @@ static void InstallExceptionAbortHandler()
 void ExceptionManager::ThrowException(const ExceptionRef& exception)
 {
     ScopedEntryHiTrace hiTrace("CJRT_THROW_EXCEPTION");
+    MRT_SetStackGrow(true);
     ExceptionWrapper& mExceptionWrapper = Mutator::GetMutator()->GetExceptionWrapper();
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
     DLOG(EXCEPTION, "start throw exception");

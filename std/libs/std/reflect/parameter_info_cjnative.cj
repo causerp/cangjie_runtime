@@ -93,8 +93,16 @@ public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {
     /**
      * Searches the parameter's annotation by incoming name.
      */
-    public func findAnnotation<T>(): Option<T> where T <: Annotation {
+    public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
+   }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
+    }
+
+    public func getAllAnnotations(): Array<Annotation> {
+        annotations.toArray()
     }
 
     public operator func ==(that: ParameterInfo): Bool {

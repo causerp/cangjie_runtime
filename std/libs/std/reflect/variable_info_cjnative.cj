@@ -13,8 +13,7 @@ package std.reflect
  */
 public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString {
     let _info: CPointer<Unit>
-    // variable of struct cannot setValue
-    let _isStruct: Bool
+    let _isStruct: Bool // reserve for abi compatible
     var _mutable: Option<Bool> = None
     var _name: Option<String> = None
     var _typeInfo: Option<TypeInfo> = None
@@ -97,14 +96,13 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
     }
 
     /**
-     * Returns true if instance variable is 'mut' and typeInfo is not struct
+     * Returns true if instance variable is 'mut'
      */
     public func isMutable(): Bool {
         match (_mutable) {
             case Some(res) => res
             case None =>
-                let mutable = ModifierInfo.isMutable(getInstanceFieldModifier(_info)) && !(typeInfo is StructTypeInfo) &&
-                    !(getFieldDeclaringClassType(_declaringTypeInfo) is StructTypeInfo)
+                let mutable = ModifierInfo.isMutable(getInstanceFieldModifier(_info))
                 _mutable = mutable
                 mutable
         }
@@ -128,14 +126,10 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      *
      * @throw IllegalSetException, if the instance variable is immutable.
      * @throw IllegalTypeException, if the input newValue type is different from the instance variable type.
-     * @throw UnsupportedException, if this variable is struct
      * @throw IllegalTypeException, if the input instance type is different from the instance which this InstanceVariableInfo belong to.
      */
     public func setValue(instance: Any, newValue: Any): Unit {
         if (!this.isMutable()) {
-            throw IllegalSetException("Attempt to modify immutable variable '${name}'.")
-        }
-        if (_isStruct) {
             throw IllegalSetException("Attempt to modify immutable variable '${name}'.")
         }
         checkDeclaringClassType(instance)
@@ -155,8 +149,16 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
     /**
      * Searches the instance variable's annotation by incoming name.
      */
-    public func findAnnotation<T>(): Option<T> where T <: Annotation {
+    public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
+    }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
+    }
+
+    public func getAllAnnotations(): Array<Annotation> {
+        annotations.toArray()
     }
 
     public operator func ==(that: InstanceVariableInfo): Bool {
@@ -189,8 +191,7 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
  */
 public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString {
     let _info: CPointer<Unit>
-    // variable of struct cannot setValue
-    let _isStruct: Bool
+    let _isStruct: Bool // reserve for abi compatible
     var _mutable: Option<Bool> = None
     var _name: Option<String> = None
     var _typeInfo: Option<TypeInfo> = None
@@ -273,14 +274,13 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
     }
 
     /**
-     * Returns true if static variable is 'mut' and typeInfo is not struct
+     * Returns true if static variable is 'mut'
      */
     public func isMutable(): Bool {
         match (_mutable) {
             case Some(res) => res
             case None =>
-                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info)) && !(typeInfo is StructTypeInfo) &&
-                    !(getFieldDeclaringClassType(_declaringTypeInfo) is StructTypeInfo)
+                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info))
                 _mutable = mutable
                 mutable
         }
@@ -299,15 +299,11 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      * @param newValue new value to set.
      *
      * @throw IllegalSetException, if the static variable is immutable.
-     * @throw UnsupportedException, if this variable is struct
      * @throw IllegalTypeException, if the input newValue type is different from the static variable type.
      */
     public func setValue(newValue: Any): Unit {
         if (!isMutable()) {
             throw IllegalSetException("Attempt to modify immutable variable '${name}'.")
-        }
-        if (_isStruct) {
-            throw UnsupportedException("Attempt to modify immutable variable '${name}'.")
         }
         checkValueType(newValue, typeInfo)
         setStaticFieldValue(_info, newValue)
@@ -316,8 +312,16 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
     /**
      * Searches the static variable's annotation by incoming name.
      */
-    public func findAnnotation<T>(): Option<T> where T <: Annotation {
+    public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
+   }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
+    }
+
+    public func getAllAnnotations(): Array<Annotation> {
+        annotations.toArray()
     }
 
     public operator func ==(that: StaticVariableInfo): Bool {
@@ -369,7 +373,7 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
                 case None =>
                     let pointer = getStaticFieldName(_info)
                     if (pointer.isNull()) {
-                        throw IllegalStateException("getFieldName Null Pointer!")
+                        throw IllegalStateException("GetFieldName Null Pointer!")
                     }
                     let variableName = CString(pointer).toString()
                     _name = variableName
@@ -408,12 +412,12 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
         }
     }
 
-    // Whether it is a variable modified by var and typeInfo is not struct. Calling setValue on a variable modified by let will throw an exception.
+    // Whether it is a variable modified by var. Calling setValue on a variable modified by let will throw an exception.
     public func isMutable(): Bool {
         match (_mutable) {
             case Some(res) => res
             case None =>
-                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info)) && !(typeInfo is StructTypeInfo)
+                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info))
                 _mutable = mutable
                 mutable
         }
@@ -443,8 +447,16 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
     /**
      * Searches the global variable's annotation by incoming name.
      */
-    public func findAnnotation<T>(): Option<T> where T <: Annotation {
+    public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
+   }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
+    }
+
+    public func getAllAnnotations(): Array<Annotation> {
+        annotations.toArray()
     }
 
     public operator func ==(that: GlobalVariableInfo): Bool {

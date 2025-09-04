@@ -43,6 +43,18 @@ extend<T> Array<T> {
     }
 }
 
+extend<T> Array<T> where T <: Hashable & Equatable<T> {
+    func removeDuplicatesStable(): Array<T> {
+        let set = HashSet<T>()
+        let result = ArrayList<T>()
+        for (x in this where !set.contains(x)) {
+            set.add(x)
+            result.add(x)
+        }
+        result.toArray()
+    }
+}
+
 extend<T> Array<T> where T <: Equatable<T> {
     func containsFrom(index: Int64, subseq: Array<T>): Bool {
         if (this.size < index + subseq.size) { false } else {

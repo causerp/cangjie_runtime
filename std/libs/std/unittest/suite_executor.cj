@@ -16,6 +16,7 @@ import std.env.exit
 
 class TestSuiteExecutor {
     private let suiteConfiguration: Configuration
+    private let suiteInfo: TestSuiteReportInfo
 
     TestSuiteExecutor(
         private let externalConfiguration: Configuration,
@@ -24,10 +25,11 @@ class TestSuiteExecutor {
         private let filterService: FilterService
     ) {
         this.suiteConfiguration = Configuration.merge(externalConfiguration, testSuite.wholeConfiguration)
+        this.suiteInfo = TestSuiteReportInfo(tags: this.suiteConfiguration.tags)
     }
 
     func execute(): TestSuiteResult {
-        let result = TestSuiteResult(suiteId)
+        let result = TestSuiteResult(suiteId, suiteInfo)
 
         let testCases = testSuite.allCasesToBeExecuted(filterService, suiteId)
 
@@ -41,7 +43,7 @@ class TestSuiteExecutor {
 
         MockFramework.openSession("initializer of class ${testSuite.name}", Stateless)
 
-        let beforeAllResult = runNonTestBodyStep(suiteId, BeforeAll) {
+        let beforeAllResult = runNonTestBodyStep(suiteId, suiteInfo, BeforeAll) {
             testSuite.runBeforeAll()
         }
         result.add(beforeAllResult)
@@ -52,7 +54,7 @@ class TestSuiteExecutor {
             }
         }
 
-        let afterAllResult = runNonTestBodyStep(suiteId, AfterAll) {
+        let afterAllResult = runNonTestBodyStep(suiteId, suiteInfo, AfterAll) {
             testSuite.runAfterAll()
             // collect hanging failures in this step so that they are not lost
             Framework.withCurrentContext { ctx =>
@@ -87,6 +89,7 @@ class TestSuiteExecutor {
 
     private func tryRun(testOrBench: CaseOrBench): TestCaseResult {
         let caseId = TestCaseId(suiteId, testOrBench.name, isBench: testOrBench.isBench)
+        let caseInfo = TestCaseReportInfo(tags: testOrBench.caseConfiguration.tags)
         let caseConfiguration = Configuration.merge(suiteConfiguration, testOrBench.caseConfiguration)
         let caseKey = CaseFilterKey(caseId, tags: caseConfiguration.tags, isTopLevel: caseConfiguration.fromTopLevel)
         let shouldSkip = suiteConfiguration.skip || caseConfiguration.skip ||
@@ -101,20 +104,24 @@ class TestSuiteExecutor {
             var testBody = runSingleCase(caseConfiguration, testOrBench.executor)
             if (let Some(duration) <- caseConfiguration.timeout) {
                 // test body decorator if any time constraints are specified
-                testBody = runConsideringTimeout(duration, testBody)
+                testBody = runConsideringTimeout(caseConfiguration, duration, testBody)
             }
             testBody
         }
 
-        runTestCaseStep(caseId, caseConfiguration, caseRunner)
+        runTestCaseStep(caseId, caseInfo, suiteInfo, caseConfiguration, caseRunner)
     }
 
-    private static func runNonTestBodyStep(suiteId: TestSuiteId, stepKind: LStep, stepBody: () -> Unit): TestCaseResult {
-        Framework.onLifecycleStart(suiteId, stepKind)
+    private static func runNonTestBodyStep(
+        suiteId: TestSuiteId, suiteInfo: TestSuiteReportInfo,
+        stepKind: LStep, stepBody: () -> Unit
+    ): TestCaseResult {
+        Framework.onLifecycleStart(suiteId, suiteInfo, stepKind)
 
         let id = TestCaseId(suiteId, stepKind.toString(), isBench: false)
+        let info = TestCaseReportInfo.empty()
         let step = runLifecycleStep(stepKind, stepBody)
-        let result = TestCaseResult.fromSingleStep(id, step)
+        let result = TestCaseResult.fromSingleStep(id, info, step)
         result.finish()
 
         Framework.onFinished(result)
@@ -127,12 +134,14 @@ class TestSuiteExecutor {
 
     private static func runTestCaseStep(
         caseId: TestCaseId,
+        caseInfo: TestCaseReportInfo,
+        suiteInfo: TestSuiteReportInfo,
         configuration: Configuration,
         caseRunner: (TestCaseResult) -> Unit
     ): TestCaseResult {
-        Framework.onTestCaseStarted(caseId)
+        Framework.onTestCaseStarted(caseId, caseInfo, suiteInfo)
 
-        let testCaseResult = TestCaseResult(caseId, RenderOptions.fromConfiguration(configuration))
+        let testCaseResult = TestCaseResult(caseId, caseInfo, RenderOptions.fromConfiguration(configuration))
         caseRunner(testCaseResult)
         testCaseResult.finish()
         Framework.onFinished(testCaseResult)
@@ -156,7 +165,7 @@ class TestSuiteExecutor {
             result.add(beforeEachResult)
 
             if (!beforeEachResult.hasFailures()) {
-                executor.execute(result, caseConfiguration)
+                executor.execute(suiteInfo, result, caseConfiguration)
             }
 
             let afterEachResult = runLifecycleStep(AfterEach) {
@@ -170,24 +179,52 @@ class TestSuiteExecutor {
     }
 
     private static func runConsideringTimeout(
+        caseConfiguration: Configuration,
         duration: Duration,
         testBody: (TestCaseResult) -> Unit
     ): (TestCaseResult) -> Unit {
         return { testCaseResult =>
             let finishedBeforeTimeoutSignalQueue = LinkedBlockingQueue<Unit>(1)
+            let testingThread = spawn {
+                testBody(testCaseResult)
+            }
             let killerThread = spawn {
                 if (let None <- finishedBeforeTimeoutSignalQueue.remove(duration)) {
-                    exitOnTimeout(testCaseResult)
+                    onTimeout(caseConfiguration, testCaseResult, testingThread)
                 }
             }
-            testBody(testCaseResult)
+            testingThread.get()
             finishedBeforeTimeoutSignalQueue.add(())
             killerThread.get()
         }
     }
 
+    private static func onTimeout(
+        caseConfiguration: Configuration, 
+        testCaseResult: TestCaseResult, 
+        testingThread: Future<Unit>
+    ) {
+        if (TestProcessKind.fromDefaultConfiguration().isWorker) {
+            exitOnTimeout(testCaseResult)
+        } else {
+            // Executed via dynamic test API.
+            let suiteId = testCaseResult.caseId.suiteId
+            let info = TestCaseInfo(suiteId.groupName, suiteId.suiteName, testCaseResult.caseId.caseName)
+            caseConfiguration.timeoutHandler(info)
+            testingThread.cancel()
+            Framework.withCurrentContext { ctx: RunContext =>
+                // It is to complicated to distinquish between cancelled execution and ended by itself.
+                let msg = "Execution time exceeded specified timeout."
+                ctx.checkFailed(TimeoutCheckResult(PrettyText(msg)))
+            }
+        }
+    }
+
     private static func exitOnTimeout(testCaseResult: TestCaseResult) {
-        Framework.withCurrentContext { ctx => ctx.storeCheckResult(TimeoutCheckResult()) }
+        Framework.withCurrentContext { ctx: RunContext => 
+            let msg = "Test case ended with timeout."
+            ctx.storeCheckResult(TimeoutCheckResult(PrettyText(msg)))
+        }
         if (let Some(currentResult) <- Framework.abortCurrentStep()) {
             testCaseResult.add(currentResult)
         } else if (let Some(prev) <- testCaseResult.subResults.pop()) {

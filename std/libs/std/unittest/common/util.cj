@@ -20,6 +20,9 @@ private func isNonPrintable(char: Rune): Bool {
     if (0x00 <= cp && cp <= 0x1F || 0x7f <= cp && cp <= 0x9f) {
         return true
     }
+
+    // TODO: also escape other characters from category r'C' when/if we have API for that
+    // currently, regex /\p{C}/ doesn't work properly
     return false
 }
 

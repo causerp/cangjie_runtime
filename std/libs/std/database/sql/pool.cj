@@ -26,6 +26,7 @@ class Entry<T> {
     var creationTime: Duration
     var lastAccessed: Duration = Duration.Zero
     var poolResetCount: Int32 = 0
+    var isValid: Bool = true
 
     init(pool: Pool<T>, value: T) {
         this.pool = pool

@@ -264,18 +264,27 @@ private class XmlReport {
                 .attribute("time", timeFormat(details.duration))
                 .attribute("timestamp", details.startTimestamp)
 
-            suiteResult.visitPassedTests { tcr =>
-                if (tcr.details.totalCount == 0) { return }
-                buildTestEntry(tcr.subResults[0], tcr.caseId, testSuiteXml)
+            if (!suiteResult.suiteInfo.isEmpty && !suiteResult.suiteId.isFromTopLevelFunc) {
+                testSuiteXml.element("properties") { propertiesXml =>
+                    tagsProperty(propertiesXml, suiteResult.suiteInfo.tags)
+                }
             }
 
-            suiteResult.visitFailedSteps { subResult, caseId =>
-                buildTestEntry(subResult, caseId, testSuiteXml)
+            suiteResult.visitPassedTests { tcr => 
+                if (tcr.details.totalCount == 0) { return }
+                buildTestEntry(tcr.subResults[0], tcr.caseId, tcr.caseInfo, testSuiteXml)
+            }
+
+            suiteResult.visitFailedSteps { subResult, tcr => 
+                buildTestEntry(subResult, tcr.caseId, tcr.caseInfo, testSuiteXml)
             }
         }
     }
 
-    private func buildTestEntry(result: RunStepResult, caseId: TestCaseId, elementBuilder: XmlElementBuilder) {
+    private func buildTestEntry(
+        result: RunStepResult, caseId: TestCaseId,
+        caseInfo: TestCaseReportInfo, elementBuilder: XmlElementBuilder
+    ) {
         let message = match (result.kind) {
             case CaseStep(descr) where result.hasFailures() => descr.intoErrorMessage()?.toString()
             case Lifecycle(x) => lifecycleStageFailedText(x).toString()
@@ -307,6 +316,19 @@ private class XmlReport {
                 case NORUN => ()
                 case PASS => ()
             }
+
+            if (!caseInfo.isEmpty) {
+                testCaseXml.element("properties") { propertiesXml =>
+                    tagsProperty(propertiesXml, caseInfo.tags)
+                }
+            }
+        }
+    }
+
+    private func tagsProperty(propertiesXml: XmlElementBuilder, tags: Array<String>) {
+        propertiesXml.element("property") { propertyXml =>
+            let tagsValue = String.join(tags, delimiter: ",")
+            propertyXml.attribute("name", "tags").attribute("value", tagsValue)
         }
     }
 
@@ -328,7 +350,6 @@ private class XmlReport {
         text.toString()
     }
 }
-
 
 extend TestGroupResult {
     func reportXml(dir: Path): Unit {

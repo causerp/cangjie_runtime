@@ -108,7 +108,7 @@ struct UTFState {
     )
 }
 
-let alnumChars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toArray()
+let ALNUM_CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toArray()
 
 func randomAlnumRune(random: RandomSource): Rune {
     let candidate = random.nextUInt8()
@@ -116,15 +116,15 @@ func randomAlnumRune(random: RandomSource): Rune {
         case b'0' <= candidate && candidate <= b'9'
             || b'a' <= candidate && candidate <= b'z'
             || b'A' <= candidate && candidate <= b'Z' => Rune(candidate)
-        case _ => Rune(alnumChars[Int64(candidate) % alnumChars.size])
+        case _ => Rune(ALNUM_CHARS[Int64(candidate) % ALNUM_CHARS.size])
     }
 }
 
-private const asciiPrintableMin: Byte = 0x20
-private const asciiPrintableMax: Byte = 0x7E
+private const ASCII_PRINTABLE_MIN: Byte = 0x20
+private const ASCII_PRINTABLE_MAX: Byte = 0x7E
 
 func randomAsciiRune(random: RandomSource): Rune {
-    Rune(nextInRange(random, asciiPrintableMin, asciiPrintableMax))
+    Rune(nextInRange(random, ASCII_PRINTABLE_MIN, ASCII_PRINTABLE_MAX))
 }
 
 func randomUtf8Rune(random: RandomSource): Rune {
@@ -152,7 +152,7 @@ func randomBiasedRune(random: RandomSource): Rune {
 
 func randomSuggestedRune(random: RandomSource): Rune {
     let byte = random.suggestUInt8()
-    if (asciiPrintableMin <= byte && byte <= asciiPrintableMax) {
+    if (ASCII_PRINTABLE_MIN <= byte && byte <= ASCII_PRINTABLE_MAX) {
         return Rune(byte)
     }
     // utf-8 is too complex to do anything smart
@@ -163,8 +163,8 @@ func shrinkToAscii(charValue: Rune): Rune {
     if (charValue.isAscii()) {
         return charValue
     }
-    let min = UInt32(asciiPrintableMin)
-    let max = UInt32(asciiPrintableMax)
+    let min = UInt32(ASCII_PRINTABLE_MIN)
+    let max = UInt32(ASCII_PRINTABLE_MAX)
     let cp = UInt32(charValue) % (max - min + 1) + min
     Rune(cp)
 }
@@ -173,6 +173,6 @@ func shrinkToAlnum(charValue: Rune): Rune {
     if (charValue.isAsciiLetter() || charValue.isAsciiNumber()) {
         return charValue
     }
-    let alnumByte = alnumChars[charValue.hashCode() % alnumChars.size]
+    let alnumByte = ALNUM_CHARS[charValue.hashCode() % ALNUM_CHARS.size]
     Rune(alnumByte)
 }

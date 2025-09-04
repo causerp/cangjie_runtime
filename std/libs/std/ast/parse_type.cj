@@ -14,10 +14,12 @@ public func parseType(input: Tokens): TypeNode {
     /* Get node info from flatbuffer */
     let node = unsafe {
         try {
-            parse(input, {p: CPointer<UInt8> => return CJ_AST_ParseType(match (MACRO_OBJECT.get()) {
-                case Some(ptr) => ptr
-                case None => CPointer<Unit>()
-            }, p, CPointer<Int64>())})
+            parse(input, {
+                p: CPointer<UInt8> => return CJ_AST_ParseType(match (MACRO_OBJECT.get()) {
+                    case Some(ptr) => ptr
+                    case None => CPointer<Unit>()
+                }, p, CPointer<Int64>())
+            })
         } catch (e: Exception) {
             throw ParseASTException("parsing type error.")
         }
@@ -33,10 +35,13 @@ public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, 
             parseFragment(
                 input,
                 startFrom,
-                {p: CPointer<UInt8>, sizeRef: CPointer<Int64> => return CJ_AST_ParseType(match (MACRO_OBJECT.get()) {
-                    case Some(ptr) => ptr
-                    case None => CPointer<Unit>()
-                }, p, sizeRef)}
+                {
+                    p: CPointer<UInt8>, sizeRef: CPointer<Int64> => return CJ_AST_ParseType(
+                        match (MACRO_OBJECT.get()) {
+                            case Some(ptr) => ptr
+                            case None => CPointer<Unit>()
+                        }, p, sizeRef)
+                }
             )
         } catch (e: Exception) {
             throw ParseASTException("parsing type fragment error.")
@@ -105,11 +110,12 @@ func createRefType(tyNode: Option<NodeFormat_RefType>, nodeBase: NodeFormat_Node
         case None => throw ParseASTException()
     }
     var typeName: Token = match (refType.GetBase()) {
-        case Some(v) => if (!v.GetTypeParameterName().isEmpty()) {
-            Token(TokenKind.IDENTIFIER, v.GetTypeParameterName()).addPosition(nodeBase.GetBegin())
-        } else {
-            Token(TokenKind.IDENTIFIER, v.GetTypeParameterName())
-        }
+        case Some(v) =>
+            if (!v.GetTypeParameterName().isEmpty()) {
+                Token(TokenKind.IDENTIFIER, v.GetTypeParameterName()).addPosition(nodeBase.GetBegin())
+            } else {
+                Token(TokenKind.IDENTIFIER, v.GetTypeParameterName())
+            }
         case None => throw ParseASTException()
     }
     let colon: Token = match (refType.GetBase()) {

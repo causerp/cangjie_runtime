@@ -9,23 +9,25 @@
 package std.database.sql
 
 import std.collection.{Map, ArrayList}
-import std.collection.concurrent.LinkedBlockingQueue
+import std.collection.concurrent.{BlockingQueue, LinkedBlockingQueue}
 import std.time.DateTime
-import std.sync.{Timer, CatchupStyle, AtomicBool, Mutex}
+import std.sync.{Timer, CatchupStyle, AtomicBool, ReentrantMutex}
 
 class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
-    let mux = Mutex()
-    let idleEntry: LinkedBlockingQueue<Entry<T>>
+
+    let mux = ReentrantMutex()
+    let entryQueue: LinkedBlockingQueue<Entry<T>>
+    let idleEntry: BlockingQueue<Entry<T>>
     var options: Options<T>
     var ticker: Timer
     var entryCount: Int32
     var isclosed = AtomicBool(false)
 
-    init(options: Options<T>) {
+    public init(options: Options<T>) {
         this.options = options
-
-        idleEntry = LinkedBlockingQueue<Entry<T>>(Int64(options.maxSize))
-        entryCount = options.maxIdleSize
+        entryQueue = LinkedBlockingQueue<Entry<T>>(Int64(options.maxSize))
+        idleEntry = BlockingQueue<Entry<T>>(Int64(options.maxSize))
+        entryCount = 0
         ticker = Timer.once(Duration.hour) {=> ()}
         backgroundCheckIdleLife()
     }
@@ -34,7 +36,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
      * Maximum number of connections in the connection pool. If the value is less than or equal to 0, the value is Int32.Max.
      * If the configured value is smaller than the current value, the setting takes effect only after idle connections are reclaimed.
      */
-    mut prop maxSize: Int32 {
+    public mut prop maxSize: Int32 {
         get() {
             options.maxSize
         }
@@ -50,7 +52,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
      * Maximum number of idle connections. If the number of idle connections exceeds this value, the excess connections are disconnected.
      * If the value is less than or equal to 0, Int32.Max is used.
      */
-    mut prop maxIdleSize: Int32 {
+    public mut prop maxIdleSize: Int32 {
         get() {
             options.maxIdleSize
         }
@@ -65,10 +67,35 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
 
     func backgroundCheckIdleLife() {
         ticker.cancel()
-        ticker = Timer.repeat(Duration.second, options.keepaliveTime, checkIdleLife, style: Delay)
+        ticker = Timer.repeat(Duration.second, options.keepaliveTime, checkLife, style: Delay)
     }
 
-    func checkIdleLife(): Unit {
+    func checkLife(): Unit {
+        checkMaxLifeTime()
+        checkIdleTimeout()
+    }
+
+    func checkMaxLifeTime() {
+        let count: Int64
+        synchronized(mux) {
+            count = entryQueue.size
+        }
+        for (_ in 0..count) {
+            let item = entryQueue.tryRemove()
+            match (item) {
+                case Some(v) => 
+                     if (v.isValid && DateTime.now().toUnixTimeStamp() - v.creationTime > options.maxLifeTime) {
+                        v.isValid = false
+                        this.discard(v)
+                     }
+                case _ =>
+                    eprintln("can not try get idle entry")
+                    break
+            }
+        }
+    }
+
+    func checkIdleTimeout() {
         let idleCount: Int64
         synchronized(mux) {
             idleCount = idleEntry.size
@@ -76,9 +103,12 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         let list = ArrayList<Entry<T>>()
 
         for (_ in 0..idleCount) {
-            let item = idleEntry.tryRemove()
+            let item = idleEntry.tryDequeue()
             match (item) {
-                case Some(v) => appendLegalIdleEntry(v, idleCount, list)
+                case Some(v) =>
+                    if (v.isValid) {
+                        appendLegalIdleEntry(v, idleCount, list)
+                    }
                 case _ =>
                     eprintln("can not try get idle entry")
                     break
@@ -90,11 +120,23 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     }
 
     func getIdleEntry(timeout: Duration): Entry<T> {
-        var item = idleEntry.remove(timeout)
+        var item = idleEntry.dequeue(timeout)
 
         match (item) {
-            case Some(v) => return v
-            case None => throw SqlException("Acquired entries exceed maxSize(${maxSize}).")
+            case Some(v) =>
+            if (v.isValid) {
+                return v
+            } else {
+                mux.lock()
+                if (entryCount < options.maxSize) {
+                    entryCount++
+                    mux.unlock()
+                    return createEntry()
+                }
+                mux.unlock()
+                throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+            }
+            case None => throw SqlException("Acquired entries exceed maxSize(${maxSize})")
         }
     }
 
@@ -103,42 +145,46 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         if (idleEntry.size == 0 && entryCount < options.maxSize) {
             entryCount++
             mux.unlock()
-            var value = options.constructor()
-            match (value) {
-                case Some(v) =>
-                    let entry = Entry<T>(this, v)
-                    return entry
-                case None => throw SqlException("Constructor entry failed.")
-            }
+            return createEntry()
         }
         mux.unlock()
         return getIdleEntry(timeout)
     }
 
+    func createEntry(): Entry<T> {
+        var value = options.constructor()
+        match (value) {
+            case Some(v) =>
+                let entry = Entry<T>(this, v)
+                entryQueue.add(entry)
+                return entry
+            case None => throw Exception("constructor entry failed")
+        }
+    }
+
     public func release(entry: Entry<T>): Option<Unit> {
         match (entry.pool as ResourcePool<T>) {
-            case Some(p) =>
-                if (p != this) {
-                    throw SqlException("The entry is owned by another pool.")
-                }
-            case None => throw SqlException("The entry is not owned by any pool.")
+            case Some(p) => if (p != this) {
+                throw SqlException("the entry is owned by another pool")
+            }
+            case None => throw SqlException("the entry is not owned by any pool")
         }
 
         if (DateTime.now().toUnixTimeStamp() - entry.creationTime > options.maxLifeTime) {
+            entry.isValid = false
             this.discard(entry)
         } else {
-            idleEntry.add(entry)
+            idleEntry.enqueue(entry)
         }
         return
     }
 
     public func discard(entry: Entry<T>): Option<Unit> {
         match (entry.pool as ResourcePool<T>) {
-            case Some(p) =>
-                if (p != this) {
-                    throw SqlException("The entry is owned by another pool.")
-                }
-            case None => throw SqlException("The entry is not owned by any pool.")
+            case Some(p) => if (p != this) {
+                throw SqlException("the entry is owned by another pool")
+            }
+            case None => throw SqlException("the entry is not owned by any pool")
         }
         synchronized(mux) {
             if (entryCount > 0) {
@@ -149,18 +195,22 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         return
     }
 
-    public func isClosed(): Bool {
+    public func isClosed() {
         return isclosed.load()
     }
 
-    public func close(): Unit {
-        if (!isclosed.compareAndSwap(false, true)) { // compareAndSwap return true if the value equal first parameter.
+    public func close() {
+        if (!isclosed.compareAndSwap(false, true)) {    // compareAndSwap return true if the value equal first parameter.
             return
         }
         for (_ in 0..idleEntry.size) {
-            var item = idleEntry.tryRemove()
+            var item = idleEntry.tryDequeue()
             match (item) {
-                case Some(v) => this.discard(v)
+                case Some(v) =>
+                    if (v.isValid) {
+                        v.isValid = false
+                       this.discard(v)
+                    }
                 case None =>
                     eprintln("can not try get idle entry")
                     break
@@ -178,15 +228,14 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
 
     func appendLegalIdleEntry(v: Entry<T>, idleCount: Int64, list: ArrayList<Entry<T>>): Unit {
         var idle = v.idleDuration()
-        var discardCount = 0i32
-        if ((idle > options.idleTimeout && Int32(idleCount) - discardCount > options.maxIdleSize) || (DateTime.now().
+        if ((idle > options.idleTimeout || Int32(idleCount) > options.maxIdleSize) || (DateTime.now().
             toUnixTimeStamp() - v.creationTime > options.maxLifeTime)) {
             try {
+                v.isValid = false
                 this.discard(v)
             } catch (e: Exception) {
                 eprintln("exception ${e.message}")
             }
-            discardCount++
         } else {
             list.add(v)
         }

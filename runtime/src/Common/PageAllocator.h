@@ -37,35 +37,34 @@ enum AllocationTag : uint32_t {
     MAX_ALLOCATION_TAG
 };
 
-// constants and utility function
+// utility and constants function
 class AllocatorUtils {
 public:
     AllocatorUtils() = delete;
-    AllocatorUtils(const AllocatorUtils&) = delete;
     AllocatorUtils(AllocatorUtils&&) = delete;
-    AllocatorUtils& operator=(const AllocatorUtils&) = delete;
+    AllocatorUtils(const AllocatorUtils&) = delete;
     AllocatorUtils& operator=(AllocatorUtils&&) = delete;
+    AllocatorUtils& operator=(const AllocatorUtils&) = delete;
     ~AllocatorUtils() = delete;
     static const size_t ALLOC_PAGE_SIZE;
     static constexpr uint32_t LOG_ALLOC_ALIGNMENT = 3;
     static constexpr uint32_t ALLOC_ALIGNMENT = 1 << LOG_ALLOC_ALIGNMENT;
 };
 
-// Allocator manages page allocation and deallocation
+// PageAllocator handles page allocation and deallocation
 class PageAllocator {
-    // slots in a page are managed as a linked list
+    // Each page slot is managed as a linked list
     struct Slot {
         Slot* next = nullptr;
     };
 
-    // pages are linked to each other as double-linked list.
-    // the free slot list and other infomation are also in
-    // the page header
+    // Pages are linked in a doubly-linked list.
+    // Free slots and other metadata are stored in the page header
     class Page {
         friend class PageAllocator;
 
     public:
-        // get a slot from the free slot list
+        // Retrieve a slot from the free slot list
         inline void* Allocate()
         {
             void* result = nullptr;
@@ -77,7 +76,7 @@ class PageAllocator {
             return result;
         }
 
-        // return a slot to the free slot list
+        // Return a slot to the free list
         inline void Deallocate(void* slot)
         {
             Slot* cur = reinterpret_cast<Slot*>(slot);
@@ -91,11 +90,11 @@ class PageAllocator {
         inline bool Empty() const { return free == total; }
 
     private:
+        Slot* header = nullptr;
         Page* prev = nullptr;
         Page* next = nullptr;
-        Slot* header = nullptr;
-        uint16_t free = 0;
         uint16_t total = 0;
+        uint16_t free = 0;
     };
 
 public:
@@ -134,7 +133,6 @@ public:
             result = nonFull->Allocate();
 
             if (!(nonFull->Available())) {
-                // move from nonFull to full
                 Page* cur = nonFull;
                 RemoveFromList(nonFull, *cur);
             }
@@ -153,9 +151,9 @@ public:
 
         std::lock_guard<std::mutex> guard(allocLock);
         if (!(cur->Available())) {
-            // move from full to nonFull
             AddToList(nonFull, *cur);
         }
+
         cur->Deallocate(slot);
         if (cur->Empty()) {
             RemoveFromList(nonFull, *cur);
@@ -189,17 +187,18 @@ private:
 
         char* start = reinterpret_cast<char*>(&page);
         char* end = start + AllocatorUtils::ALLOC_PAGE_SIZE - 1;
-        char* slot = start + offset;
-        page.header = reinterpret_cast<Slot*>(slot);
+        char* block = start + offset;
+        page.header = reinterpret_cast<Slot*>(block);
         Slot* prevSlot = page.header;
+
         while (true) {
-            slot += slotAlignment;
-            char* slotEnd = slot + slotAlignment - 1;
+            block += slotAlignment;
+            char* slotEnd = block + slotAlignment - 1;
             if (slotEnd > end) {
                 break;
             }
 
-            Slot* cur = reinterpret_cast<Slot*>(slot);
+            Slot* cur = reinterpret_cast<Slot*>(block);
             prevSlot->next = cur;
             prevSlot = cur;
         }
@@ -219,37 +218,36 @@ private:
         list = &page;
     }
 
-    inline void RemoveFromList(Page*& list, Page& page) const
+    inline void RemoveFromList(Page*& head, Page& page) const
     {
         Page* prev = page.prev;
         Page* next = page.next;
-        if (&page == list) {
-            list = next;
+
+        if (&page == head) {
+            head = next;
             if (next != nullptr) {
                 next->prev = nullptr;
             }
         } else {
-            prev->next = next;
-            if (next != nullptr) {
-                next->prev = prev;
-            }
+            if (prev != nullptr) prev->next = next;
+            if (next != nullptr) next->prev = prev;
         }
-        page.next = nullptr;
+
         page.prev = nullptr;
+        page.next = nullptr;
     }
 
     inline void DestroyList(Page*& list)
     {
-        Page* cur = nullptr;
         while (list != nullptr) {
-            cur = list;
+            Page* cur = list;
             list = list->next;
             DestroyPage(*cur);
         }
     }
-
-    Page* nonFull;
+    
     std::mutex allocLock;
+    Page* nonFull;
     uint32_t totalPages;
     uint16_t slotSize;
     uint16_t slotAlignment;
@@ -299,22 +297,22 @@ private:
     PageAllocator allocator[MAX_ALLOCATORS];
 };
 
-// Allocator used to take control of memory allocation for std containers.
-// It uses AggregateAllocator to dispatch the memory operation to appropriate PageAllocator.
+// Custom allocator for std containers.
+// Delegates memory operations to the appropriate PageAllocator via AggregateAllocator.
 template<class T, AllocationTag cat>
 class StdContainerAllocator {
 public:
-    using size_type = size_t;
-    using difference_type = ptrdiff_t;
+    using value_type = T;
     using pointer = T*;
     using const_pointer = const T*;
     using reference = T&;
     using const_reference = const T&;
-    using value_type = T;
+    using size_type = size_t;
+    using difference_type = ptrdiff_t;
 
-    using propagate_on_container_copy_assignment = std::false_type;
-    using propagate_on_container_move_assignment = std::true_type;
     using propagate_on_container_swap = std::true_type;
+    using propagate_on_container_move_assignment = std::true_type;
+    using propagate_on_container_copy_assignment = std::false_type;
 
     template<class Up>
     struct rebind {
@@ -324,12 +322,12 @@ public:
     StdContainerAllocator() = default;
     ~StdContainerAllocator() = default;
 
-    template<class U>
-    StdContainerAllocator(const StdContainerAllocator<U, cat>&) {}
-
     StdContainerAllocator(const StdContainerAllocator<T, cat>&) {}
 
     StdContainerAllocator(StdContainerAllocator<T, cat>&&) {}
+
+    template<class U>
+    StdContainerAllocator(const StdContainerAllocator<U, cat>&) {}
 
     StdContainerAllocator<T, cat>& operator=(const StdContainerAllocator<T, cat>&) { return *this; }
 

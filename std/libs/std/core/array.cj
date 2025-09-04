@@ -161,7 +161,7 @@ public struct Array<T> {
         let (start_, end_): (Int64, Int64) = normalize(range)
         if (!isLegal(start_, end_)) {
             throw IndexOutOfBoundsException(
-                "The length of the array is ${this.len}, but the actual range is ${rangeToString(range)}.")
+                "The length of the array is ${this.len}, and the range is out of bounds.")
         }
         let rangeSize = end_ - start_
         if (rangeSize != value.size) {
@@ -215,7 +215,7 @@ public struct Array<T> {
         let (start_, end_): (Int64, Int64) = normalize(range)
         if (!isLegal(start_, end_)) {
             throw IndexOutOfBoundsException(
-                "The length of the array is ${this.len}, but the actual range is ${rangeToString(range)}.")
+                "The length of the array is ${this.len}, and the range is out of bounds.")
         }
         return Array<T>(this.rawptr, this.start + start_, end_ - start_)
     }
@@ -250,6 +250,7 @@ public struct Array<T> {
         return (start, end)
     }
 
+    // keep for compatibility - do not remove
     private const func rangeToString(range: Range<Int64>): String {
         let start = if (range.hasStart) {
             range.start
@@ -290,7 +291,7 @@ public struct Array<T> {
         let step = range.step
         if ((step > 0 && !isLegal(start_, end_)) || (step < 0 && !isLegal(end_ + 1, start_ + 1))) {
             throw IndexOutOfBoundsException(
-                "The length of the array is ${this.len}, but the actual range is ${rangeToString(range)}.")
+                "The length of the array is ${this.len}, and the range is out of bounds.")
         }
 
         let arr: Array<T> = this

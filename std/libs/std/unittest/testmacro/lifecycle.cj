@@ -35,7 +35,7 @@ struct LifecycleStage <: Hashable & Equatable<LifecycleStage> {
     }
 }
 
-let lifecycleStages: Array<LifecycleStage> = [
+let LIFECYCLE_STAGES: Array<LifecycleStage> = [
     LifecycleStage("beforeAll", BEFORE_ALL_MACRO, allowsStringParameter: false),
     LifecycleStage("beforeEach", BEFORE_EACH_MACRO, allowsStringParameter: true),
     LifecycleStage("afterEach", AFTER_EACH_MACRO, allowsStringParameter: true),
@@ -43,7 +43,7 @@ let lifecycleStages: Array<LifecycleStage> = [
 ]
 
 let _ = { =>
-    for (ls in lifecycleStages) {
+    for (ls in LIFECYCLE_STAGES) {
         VERIFIERS[ls.macroKey] = LifecycleStages.lifecycleVerifier(ls)
     }
 }()
@@ -59,13 +59,13 @@ class LifecycleStages {
 
     static func registerLifecycleStages(bodyDecls: ArrayList<Decl>, tb: TokensBuilder): Unit {
         let funcsByStage = HashMap<LifecycleStage, ArrayList<FuncDecl>>()
-        for (ls in lifecycleStages) {
+        for (ls in LIFECYCLE_STAGES) {
             funcsByStage[ls] = ArrayList<FuncDecl>()
         }
 
         for (decl in bodyDecls) {
             let funcDecl = decl as FuncDecl ?? continue
-            for (ls in lifecycleStages) {
+            for (ls in LIFECYCLE_STAGES) {
                 // funcs annotated as several stages are allowed
                 if (funcDecl.has(ls.macroKey)) {
                     funcsByStage[ls].add(funcDecl)
@@ -160,7 +160,7 @@ extend FuncDecl {
         }
 
         var result: ?LifecycleStage = None
-        for (ls in lifecycleStages) {
+        for (ls in LIFECYCLE_STAGES) {
             if (this.has(ls.macroKey)) {
                 return None
             }

@@ -42,6 +42,16 @@ class ErrorWrapperException <: Exception {
     }
 }
 
+public class UnittestTimeoutException <: Exception {
+    init() {
+        super()
+    }
+
+    protected open override func getClassName(): String {
+        return "UnittestTimeoutException"
+    }
+}
+
 public class UnittestCliOptionsFormatException <: UnittestException {
     init(optionName: String, actual!: String, expected!: String) {
         super(

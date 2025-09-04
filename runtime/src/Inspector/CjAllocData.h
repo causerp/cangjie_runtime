@@ -23,6 +23,7 @@ struct TraceNodeField {
     int32_t id = 0; // Unique ID
     int32_t functionInfoIndex;
     int32_t selfSize;
+    I8 type = 0;
     std::vector<TraceNodeField*> children;
 };
 
@@ -50,7 +51,7 @@ public:
     void SerializeEachFrame(TraceNodeField* node);
     void InitAllocParam();
     void InitRoot();
-    void RecordAllocNodes(const TypeInfo* klass, MSize size);
+    void RecordAllocNodes(const TypeInfo* ti, MSize size);
     int32_t SetNodeID() { return ++traceNodeID;};
     friend class AllocStackInfo;
 private:
@@ -69,8 +70,8 @@ private:
 class AllocStackInfo : public GCStackInfo {
 public:
     int32_t ProcessTraceInfo(FrameInfo &frame);
-    void ProcessTraceNode(TraceNodeField* head, MSize allocSize);
-    void ProcessStackTrace(MSize size);
+    void ProcessTraceNode(TraceNodeField* head, const TypeInfo* ti, MSize allocSize);
+    void ProcessStackTrace(const TypeInfo* ti, MSize size);
 private:
     std::stack<FrameInfo* > frames;
 };

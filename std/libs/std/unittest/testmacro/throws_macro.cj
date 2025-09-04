@@ -98,8 +98,8 @@ func typeNodeToString(ty: TypeNode): String {
 
 private func obtainMacroSpecificTokens(isExpect: Bool, insideCustom: Bool) {
     let (prefix, callArgs) = if (insideCustom) {
-        (quote($macroCtxVarname.), { errmesg: String, tokens: String =>
-            quote($errmesg, $tokens, e.toString(), optParentCtx: $macroCtxVarname)
+        (quote($MACRO_CTX_VAR_NAME.), { errmesg: String, tokens: String =>
+            quote($errmesg, $tokens, e.toString(), optParentCtx: $MACRO_CTX_VAR_NAME)
         })
     } else {
         (quote(), { errmesg: String, tokens: String =>
@@ -155,6 +155,11 @@ private func handleExpectedErrorTypes(iter: Iterable<TypeNode>) {
             }
         ))
     }
+    tb.append(quote(
+        if (e is UnittestTimeoutException) {
+            throw e
+        }
+    ))
 
     return (sb.toString(), tb.toTokens())
 }
@@ -182,6 +187,9 @@ private func expandAssertThrowsMacro(
     let expectedExceptions = catchPatterns[0]
     let etp = (expectedExceptions as ExceptTypePattern).getOrThrow()
 
+    // TODO: when type inference will be able to infer smallest common supertype
+    // of `try { None } catch (e: A | B) { e }` to `Option<C>` where A < C and B < C
+    // return type of 'try' block should be updated to `None`
     var returnTypeTokens = if (etp.types.size == 1) {
         etp.types[0].toTokens()
     } else {
@@ -194,9 +202,12 @@ private func expandAssertThrowsMacro(
     let noExceptionErrmesg = "${macroName}: Expected '${exceptionsStringTokens}' was not caught."
     let unexpectedErrmesg = "${macroName}(${exceptionsStringTokens})"
 
+    // assertEqual inserts a cancellation point
     return quote(
         try {
             try {
+                assertEqual("true", "true", true, true)
+
                 $body
 
                 $failFunctionTokens($noExceptionErrmesg)
@@ -208,7 +219,7 @@ private func expandAssertThrowsMacro(
         } catch (e: Exception) {
             // skip internal unittest exceptions ahead
             // (they're transmit information about a failed check)
-            if (e is AssertException || e is AssertIntermediateException) {
+            if (e is AssertException || e is AssertIntermediateException || e is UnittestTimeoutException) {
                 throw e
             }
 

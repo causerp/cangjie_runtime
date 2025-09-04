@@ -10,8 +10,8 @@ macro package std.unittest.testmacro
 import std.ast.*
 import std.collection.*
 
-private let ctxClassname: Token = Token(IDENTIFIER, "AssertionCtx")
-let macroCtxVarname: Token = Token(IDENTIFIER, "__ctx_access_variable_name")
+private let CTX_CLASS_NAME: Token = Token(IDENTIFIER, "AssertionCtx")
+let MACRO_CTX_VAR_NAME: Token = Token(IDENTIFIER, "__ctx_access_variable_name")
 
 /**
  *
@@ -37,18 +37,39 @@ public macro Assert(input: Tokens): Tokens {
 
 // Should @PowerAssert be befriend with custom assertions in similar way?
 private func assertionCallExpr(input: Tokens, isExpect: Bool, insideCustom: Bool): Tokens {
-    let (macroname, name) = if (isExpect) { ("@Expect", "expectEqual") } else { ("@Assert", "assertEqual") }
-    let optParentCtx = if (insideCustom) { quote(optParentCtx: $macroCtxVarname) } else { quote() }
+    let (macroName, name) = if (isExpect) { ("@Expect", "expectEqual") } else { ("@Assert", "assertEqual") }
+    let optParentCtx = if (insideCustom) { quote(optParentCtx: $MACRO_CTX_VAR_NAME) } else { quote() }
     let callId = Token(IDENTIFIER, name)
+    func expressionToToken(expression: Expr): Token { expression.toTokens().toString().asCodeInStringLiteral() }
+
+    func throwException() {
+        throw MacroException("Invalid syntax for ${macroName}: use ${macroName}(a, b), ${macroName}(b), " +
+            "${macroName}(a 'compare_operator' b), ${macroName}(a 'compare_operator' b, delta: d) or ${macroName}(a, b, delta: d)")
+    }
+
     match (parseCommaSeparatedExpressions(input)) {
         case args where args.size == 1 =>
-            let left = args[0].toTokens().toString().asCodeInStringLiteral()
-            return quote($callId($left,"true",$input,true, $optParentCtx))
+            let left = expressionToToken(args[0])
+            return quote($callId($left,"true",$input,true,isDelta:false,$optParentCtx))  
         case args where args.size == 2 =>
-            let left = args[0].toTokens().toString().asCodeInStringLiteral()
-            let right = args[1].toTokens().toString().asCodeInStringLiteral()
-            return quote($callId($left,$right,$input, $optParentCtx))
-        case _ => throw MacroException("Invalid syntax for ${macroname}: use either ${macroname}(a, b) or ${macroname}(b)")
+            if (DeltaMacroExpander.areTwoArgsSuitable(args, input)) {
+                let (deltaExpansion, _) = DeltaMacroExpander.expandCompareExpr(args, macroName) 
+                let inputTokens = Tokens([Token(TokenKind.STRING_LITERAL, input.toString())]).toString()
+                quote($callId($inputTokens,"true",$deltaExpansion,true,isDelta:true,$optParentCtx))
+            } else {
+                let left = expressionToToken(args[0])
+                let right = expressionToToken(args[1])
+                quote($callId($left,$right,$input,isDelta:false,$optParentCtx))
+            }
+        case args where args.size == 3 =>
+            if (DeltaMacroExpander.areThreeArgsSuitable(args, input)) {
+                let (deltaExpansion, _) = DeltaMacroExpander.expandTwoArgsIntoEq(args) 
+                let inputTokens = Tokens([Token(TokenKind.STRING_LITERAL, input.toString())]).toString()
+                quote($callId($inputTokens,"true",$deltaExpansion,true,isDelta:true,$optParentCtx))
+            } else {
+                throwException()
+            }
+        case _ => throwException()
     }
 }
 
@@ -83,13 +104,13 @@ func emitCustomAssertionBuilder(decl: Decl): Tokens {
 }
 
 private func customAssertionCallExpr(assertion: Tokens, body: Tokens, isExpect: Bool, insideCustom: Bool): Tokens {
-    let optParentCtx = if (insideCustom) { quote(optParentCtx: $macroCtxVarname) } else { quote() }
-    let (macroname, name) = if (isExpect) { ("@Expect", "invokeCustomExpect") } else { ("@Assert", "invokeCustomAssert") }
+    let optParentCtx = if (insideCustom) { quote(optParentCtx: $MACRO_CTX_VAR_NAME) } else { quote() }
+    let (macroName, name) = if (isExpect) { ("@Expect", "invokeCustomExpect") } else { ("@Assert", "invokeCustomAssert") }
 
     let _ = try {
         RefType(assertion)
     } catch (e: ASTException) {
-        throw MacroException("${macroname} macro only accepts 'RefType' as an argument")
+        throw MacroException("${macroName} macro only accepts 'RefType' as an argument")
     }
 
     let callId = Token(IDENTIFIER, name)
@@ -100,7 +121,7 @@ private func customAssertionCallExpr(assertion: Tokens, body: Tokens, isExpect: 
         $callId(
             $args,
             $(assertion.toString()),
-            { __context: $ctxClassname => return $assertion(__context, $body)},
+            { __context: $CTX_CLASS_NAME => return $assertion(__context, $body)},
             $optParentCtx
         )
     )
@@ -110,12 +131,12 @@ private func verifyCustomAssertionDecl(decl: Decl): FuncDecl {
     let funcDecl = (decl as FuncDecl) ??
         throw MacroException("@CustomAssertion macro must be put onto the top-level functions")
 
-    let argmesg: String = "@CustomAssertion function ${funcDecl.identifier.value} should have ${ctxClassname.value} class as it's first argument"
+    let argmesg: String = "@CustomAssertion function ${funcDecl.identifier.value} should have ${CTX_CLASS_NAME.value} class as it's first argument"
     if (funcDecl.funcParams.size == 0) {
         throw MacroException(argmesg)
     }
     let firstArgType = (funcDecl.funcParams[0].paramType as RefType)?.identifier.value
-    if (firstArgType != ctxClassname.value) {
+    if (firstArgType != CTX_CLASS_NAME.value) {
         throw MacroException(argmesg)
     }
 
@@ -127,7 +148,7 @@ private func buildAssertionFunction(funcDecl: FuncDecl) {
     let varname = ctx.identifier
     let args = funcDecl.funcParams |> skip(1) |> map {it: FuncParam => it.identifier.value } |> collectArray
     funcDecl.block.nodes.add(all: [
-        VarDecl(quote(let $macroCtxVarname = $varname)),
+        VarDecl(quote(let $MACRO_CTX_VAR_NAME = $varname)),
         parseExpr(quote($varname.setArgsAliases($args)))
     ], at: 0)
     quote(

@@ -21,6 +21,18 @@ extend Configuration {
             get(KeyTimeout.timeout)
         }
     }
+
+    prop timeoutHandler: (TestCaseInfo) -> Unit {
+        get() {
+            get(KeyTimeoutHandler.timeoutHandler) ?? { _: TestCaseInfo => () }
+        }
+    }
+}
+
+func cancellationPoint() {
+    if (Thread.currentThread.hasPendingCancellation) {
+        throw UnittestTimeoutException()
+    }
 }
 
 func fillTimeoutKey(configuration: Configuration): Unit {

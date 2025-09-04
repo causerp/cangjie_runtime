@@ -37,6 +37,8 @@ public:
     // size in bytes
     size_t GetSize() const;
 
+    size_t GetSize(TypeInfo* kls) const;
+
     bool CompareExchangeRefField(RefField<>& field, const RefField<> oldRef, const RefField<> newRef);
 
     template<bool isVolatile = false>
@@ -59,8 +61,7 @@ public:
     StateWord GetStateWord() const { return stateWord.GetStateWord(); }
     ObjectState GetObjectState() const { return stateWord.GetObjectState(); }
 
-    bool IsForwarding() const { return GetStateWord().IsLockedWord(); }
-    bool IsForwarded() const { return GetStateWord().IsForwardedState(); }
+    bool IsForwarded() const { return GetObjectState().IsForwardedState(); }
 
     void SetClassInfo(TypeInfo* klassRef) { stateWord.SetTypeInfo(klassRef); }
     void SetStateCode(ObjectState::ObjectStateCode state) { stateWord.SetStateCode(state); }

@@ -13,28 +13,87 @@ import std.unittest.common.shieldEscapeSeq
 import std.unicode.*
 
 public macro PowerAssert(input: Tokens): Tokens {
-    let (parsedExpr, isImplicitEquality) = match (parseCommaSeparatedExpressions(input)) {
-        case args where args.size == 1 =>
-            (args[0], false)
-        case args where args.size == 2 =>
-            let left = args[0].toTokens()
-            let right = args[1].toTokens()
-            /* Wrap operands to respect op precedence. */
-            (quote(($left) == ($right)) |> parseExpr, true)
-        case _ => throw MacroException(
-            "Invalid syntax for @PowerAssert: use either @PowerAssert(a, b) or @PowerAssert(b)")
+    let macroName = "@PowerAssert"
+    let args = parseCommaSeparatedExpressions(input)
+    let macroExpanders = [
+        (oneArgIsSuitable, oneArgExpandMacro),
+        (DeltaMacroExpander.areTwoArgsSuitable, twoArgsDeltaExpandMacro),
+        (areTwoArgsSuitable, twoArgsExpandMacro),
+        (DeltaMacroExpander.areThreeArgsSuitable, threeArgsDeltaExpandMacro)
+        ].map { tuple =>
+            let (isSuitable, expand) = tuple
+            MacroExpander(isSuitable, expand) 
+        }
+
+    for (expander in macroExpanders) {
+        if (expander.isSuitable(args, input)) {
+            return expander.expand(args, input, macroName)
+        }
     }
 
-    let (exprView, wrappedExpr) = PowerAssertWrapper.wrapNode(parsedExpr, isImplicitEquality: isImplicitEquality)
-    /*
-     We use a self-invoked lambda because Cangjie doesn't support blocks, and it's a short way to create a new lexical scope,
-     self-invoked lambdas are also optimised by the compiler not to have call actually,
-     due to this, for example, capturing mutable variables is allowed by the Cangjie compiler front-end.
-     */
-    return quote(
+    throw MacroException("Invalid syntax for ${macroName}: use ${macroName}(a, b), ${macroName}(b), " + 
+        "${macroName}(a 'compare_operator' b), ${macroName}(a 'compare_operator' b, delta: d) or ${macroName}(a, b, delta: d).")
+}
+
+private struct MacroExpander {
+    MacroExpander(
+        let isSuitable: (Array<Expr>, Tokens) -> Bool,
+        let expand: (Array<Expr>, Tokens, String) -> Tokens
+    ) {}
+}
+
+private func oneArgIsSuitable(args: Array<Expr>, input: Tokens) { args.size == 1 }
+
+private func oneArgExpandMacro(args: Array<Expr>, input: Tokens, macroName: String) {
+    let parsedExpr = args[0]
+    let result = PowerAssertWrapper.wrapNode(parsedExpr, isImplicitEquality: false)
+
+    return commonPowerAssertDiagramBuilderInvocation(result)
+}
+
+private func twoArgsDeltaExpandMacro(args: Array<Expr>, input: Tokens, macroName: String) {
+    let (deltaExpansion, opLiteral) = DeltaMacroExpander.expandCompareExpr(args, macroName)
+    let result = PowerAssertWrapper.wrapNode(
+        deltaExpansion |> parseExpr, isImplicitEquality: false, isDelta: true, deltaOpLiteral: opLiteral
+    )
+
+    return commonPowerAssertDiagramBuilderInvocation(result)
+}
+
+private func areTwoArgsSuitable(args: Array<Expr>, input: Tokens) { args.size == 2 }
+
+private func twoArgsExpandMacro(args: Array<Expr>, input: Tokens, macroName: String) {
+    let left = args[0].toTokens()
+    let right = args[1].toTokens()
+    /* Wrap operands to respect op precedence. */
+    let parsedExpr = quote(($left) == ($right)) |> parseExpr
+    let result = PowerAssertWrapper.wrapNode(parsedExpr, isImplicitEquality: true)
+
+    return commonPowerAssertDiagramBuilderInvocation(result)
+}
+
+private func threeArgsDeltaExpandMacro(args: Array<Expr>, input: Tokens, macroName: String) {
+    let (deltaExpansion, opLiteral) = DeltaMacroExpander.expandTwoArgsIntoEq(args)
+    let result = PowerAssertWrapper.wrapNode(
+        deltaExpansion |> parseExpr, isImplicitEquality: false, isDelta: true, deltaOpLiteral: opLiteral
+    )
+
+    return commonPowerAssertDiagramBuilderInvocation(result)
+}
+
+/*
+We use a self-invoked lambda because Cangjie doesn't support blocks, and it's a short way to create a new lexical scope,
+self-invoked lambdas are also optimised by the compiler not to have call actually,
+due to this, for example, capturing mutable variables is allowed by the Cangjie compiler front-end.
+*/
+// TODO: look at how we can isolate `pa__` not to pollute a lexical scope with it
+private func commonPowerAssertDiagramBuilderInvocation(result: VisitorResult): Tokens {
+    // assertEqual inserts a cancelation point
+    quote(
         { $(PowerAssertWrapper.variableName): PowerAssertDiagramBuilder =>
-            $(PowerAssertWrapper.variableName).$(PowerAssertWrapper.writeTestResult)($wrappedExpr)
-        }(PowerAssertDiagramBuilder($(exprView.asCodeInStringLiteral())))
+            assertEqual("true", "true", true, true)
+            $(PowerAssertWrapper.variableName).$(PowerAssertWrapper.writeTestResult)($(result.wrapped))
+        }(PowerAssertDiagramBuilder($(result.exprView.asCodeInStringLiteral())))
     )
 }
 
@@ -231,13 +290,17 @@ private abstract class PowerAssertWrapper <: Visitor {
 
     /**
      * Node visit params that passed implicitly during traversal due to the lack of accepting visitor.
+     * TODO: Remove after appearing of accepting visitor.
      * Note: May cause sync errors in in case of `Visitor` becomes concurrent.
      * Should not be used directly.
      */
-    private var visitorParams: ?VisitorParams = None
+    protected var visitorParams: ?VisitorParams = None
+
+    protected let deltaParams: DeltaParams = DeltaParams()
 
     /**
      * Node visit result that returns implicitly during traversal due to the lack of returning visitor.
+     * TODO: Remove after appearing of returning visitor.
      * Note: May cause sync errors in in case of `Visitor` becomes concurrent.
      * Should not be used directly.
      */
@@ -251,10 +314,9 @@ private abstract class PowerAssertWrapper <: Visitor {
         result
     }
 
-    static func wrapNode(node: Node, isImplicitEquality!: Bool): (String, Tokens) {
-        let wrapper = PowerAssertWrapperImpl(hasImplicitTopLevelEquality: isImplicitEquality)
-        let result = wrapper.traverse(node, params: VisitorParams(isTopLevel: true))
-        (result.exprView, result.wrapped)
+    static func wrapNode(node: Node, isImplicitEquality!: Bool, isDelta!: Bool = false, deltaOpLiteral!: String = ""): VisitorResult {
+        let wrapper = PowerAssertWrapperImpl(isDelta: isDelta, deltaOpLiteral: deltaOpLiteral, hasImplicitTopLevelEquality: isImplicitEquality)
+        wrapper.traverse(node, params: VisitorParams(isTopLevel: true))
     }
 }
 
@@ -281,6 +343,50 @@ private class SeqWrapper {
 
     func wrap(token: Token, padBefore!: Bool = true, padAfter!: Bool = true): Unit {
         wrap(token.toTokens(), padBefore: padBefore, padAfter: padAfter)
+    }
+
+    private func ifTrueThenEmptyElse(condition!: Bool, value!: String) {
+        if (condition) { "" } else { value }
+    }
+
+    func wrapDelta(node: Node, wrapItself!: Bool, isViewIgnored!: Bool = false): Unit {
+        let result = wrapper(node, VisitorParams(wrapItself: wrapItself, position: pos))
+        let view = ifTrueThenEmptyElse(condition: isViewIgnored, value: result.exprView)
+        pos += resultBuilder.append(
+            VisitorResult(wrapped: result.wrapped, exprView: view)
+        )
+    }
+
+    func wrapDelta(token: Token, isViewIgnored!: Bool = false): Unit {
+        let view = ifTrueThenEmptyElse(condition: isViewIgnored, value: token.value)
+        pos += resultBuilder.append(token.toTokens(), view: view, padBefore: false, padAfter: false)
+    }
+
+    private func wrapDeltaDelimiter(token: Token, isViewIgnored!: Bool, delimiterIndex!: Int, deltaOpLiteral!: String): Unit {
+        let actualView = match(delimiterIndex) {
+            case 0 => " ${deltaOpLiteral}"
+            case 1 => " with"
+            case _ => ""
+        }
+        
+        pos += resultBuilder.append(token.toTokens(), view: actualView, padBefore: false, padAfter: true)
+    }
+
+    func wrapDeltaArgs<T>(nodes: ArrayList<T>, opLiteral!: String) where T <: Node {
+        let delimiter = Token(COMMA)
+        var isViewIgnored = false
+
+        for ((i, node) in nodes |> enumerate) {
+            if (i == nodes.size - 1) {
+                isViewIgnored = true
+            } 
+            wrapDelta(node, wrapItself: true, isViewIgnored: isViewIgnored)
+
+            if (i != nodes.size - 1) { 
+                isViewIgnored = i >= nodes.size - 2
+                wrapDeltaDelimiter(delimiter, isViewIgnored: isViewIgnored, delimiterIndex: i, deltaOpLiteral: opLiteral)
+            }
+        }
     }
 
     func wrap<T>(
@@ -326,7 +432,10 @@ private class SeqWrapper {
 }
 
 private class PowerAssertWrapperImpl <: PowerAssertWrapper {
-    PowerAssertWrapperImpl(let hasImplicitTopLevelEquality!: Bool) {}
+    PowerAssertWrapperImpl(isDelta!: Bool = false, deltaOpLiteral!: String, let hasImplicitTopLevelEquality!: Bool) {
+        deltaParams.isDelta = isDelta
+        deltaParams.opLiteral = deltaOpLiteral
+    }
 
     protected override func wrap(expr: IsExpr, wrapper: SeqWrapper) {
         wrapper.wrap(expr.expr)
@@ -375,10 +484,20 @@ private class PowerAssertWrapperImpl <: PowerAssertWrapper {
     }
 
     protected override func wrap(expr: CallExpr, wrapper: SeqWrapper) {
-        wrapper.wrap(expr.callFunc, wrapItself: false)
-        wrapper.wrap(expr.lParen, padBefore: false, padAfter: false)
-        wrapper.wrap(expr.arguments)
-        wrapper.wrap(expr.rParen, padBefore: false, padAfter: false)
+        let params = visitorParams.getOrThrow()
+        
+        if (params.isTopLevel && deltaParams.isDelta &&
+                expr.callFunc.toTokens().toString() == DeltaMacroExpander.expandedFuncName) {
+            wrapper.wrapDelta(expr.callFunc, wrapItself: false, isViewIgnored: true)
+            wrapper.wrapDelta(expr.lParen, isViewIgnored: true)
+            wrapper.wrapDeltaArgs(expr.arguments, opLiteral: deltaParams.opLiteral)
+            wrapper.wrapDelta(expr.rParen, isViewIgnored: true)
+        } else {
+            wrapper.wrap(expr.callFunc, wrapItself: false)
+            wrapper.wrap(expr.lParen, padBefore: false, padAfter: false)
+            wrapper.wrap(expr.arguments)
+            wrapper.wrap(expr.rParen, padBefore: false, padAfter: false)
+        }
     }
 
     protected override func wrap(expr: RefExpr, wrapper: SeqWrapper) {
@@ -832,8 +951,13 @@ private func shouldWrapItself(node: Node, fallback: Bool): Bool {
         case _: Pattern => false
         case _: ReturnExpr => false
         case _: TypeNode => false
+        case _: PrimitiveTypeExpr => false
         case _ => fallback
     }
+}
+
+private class DeltaParams {
+    DeltaParams(var isDelta!: Bool = false, var opLiteral!: String = "") {}
 }
 
 private class VisitorParams {

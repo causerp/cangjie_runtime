@@ -473,6 +473,18 @@ double CString::ParsePosDecFromEnv(const CString& env)
     return temp;
 }
 
+double CString::ParseValidFromEnv(const CString& env)
+{
+    double temp = -1;
+    CString noBlankStr = env.RemoveBlankSpace();
+    if (IsPosDecimal(noBlankStr)) {
+        temp = std::atof(noBlankStr.Str());
+    } else {
+        return -1;
+    }
+    return temp;
+}
+
 // If `s` is "1" or "true" or "TRUE", return true.
 // Otherwise return false.
 bool CString::ParseFlagFromEnv(const CString& s) { return s == "1" || s == "true" || s == "TRUE"; }

@@ -55,6 +55,10 @@ struct TestSuiteId <: Serializable<TestSuiteId> & Hashable & Equatable<TestSuite
             testSuite.name
         )
     }
+
+    prop isFromTopLevelFunc: Bool {
+        get() { this.suiteName.startsWith("TestCase_") }
+    }
 }
 
 struct TestCaseId <: Serializable<TestCaseId> & Hashable & Equatable<TestCaseId> & ToString {

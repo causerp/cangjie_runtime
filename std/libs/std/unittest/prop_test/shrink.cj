@@ -588,7 +588,7 @@ extend<K, V> HashMap<K, V> <: Shrink<HashMap<K, V>> {
     }
 }
 
-let commonWordsBySize = [
+let COMMON_WORDS_BY_SIZE = [
     "",
     "a",
     "of",
@@ -624,8 +624,8 @@ extend String <: Shrink<String> {
         }
         var result = LazySeq<String>()
         result = result.append("")
-        if (charArr.size < commonWordsBySize.size && this != commonWordsBySize[charArr.size]) {
-            result = result.append(commonWordsBySize[charArr.size])
+        if (charArr.size < COMMON_WORDS_BY_SIZE.size && this != COMMON_WORDS_BY_SIZE[charArr.size]) {
+            result = result.append(COMMON_WORDS_BY_SIZE[charArr.size])
         }
         if (charArr.size > 1) {
             result = result.append(String(charArr[0..1]))

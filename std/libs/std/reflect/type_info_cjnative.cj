@@ -11,7 +11,7 @@ package std.reflect
 import std.collection.*
 import std.sync.*
 
-// Every operation that can create TypeInfo should take this lock
+const UUID_OFFSET: Int64 = 24
 let TYPE_INFO_CREATE_LOCK = Mutex()
 
 class TypeTemplate {
@@ -72,7 +72,7 @@ class TypeTemplateParser {
                 return TypeInfo.getOrCreate(info)
             }
         }
-        throw InfoNotFoundException("Cannot find ${name.toString()}")
+        throw InfoNotFoundException("Cannot find ${name.toString()}.")
     }
 
     func parseGenericString(name: Array<Byte>, begin: Int64, end: Int64): Int64 {
@@ -145,7 +145,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     /**
      * Creates the class type info for incoming instance with 'Object' type.
      */
-    @Deprecated[message: "Use 'ClassTypeInfo.get(Object)' instead."]
+    @Deprecated[message: "Use 'ClassTypeInfo.of(Object)' instead."]
     public static func of(a: Object): ClassTypeInfo {
         (getOrCreate(getObjClass(a)) as ClassTypeInfo) ?? throw InfoNotFoundException("TypeInfo not found!")
     }
@@ -156,17 +156,21 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      */
     public static func get(qualifiedName: String): TypeInfo {
         synchronized(TYPE_INFO_CREATE_LOCK) {
-            match (CACHE.get(qualifiedName)) {
-                case Some(ti) => ti
-                case None =>
-                    let name = normalize(qualifiedName)
-                    if (!name.contains("<")) {
-                        let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(name)
-                        let newQualifiedName = realName.replace("std.core.", "")
-                        createTypeInfo(typeInfoPointer, newQualifiedName)
-                    } else {
-                        TypeTemplateParser().parse(name.replace("std.core.", ""))
-                    }
+            if (let Some(ti) <- CACHE.get(qualifiedName)) {
+                return ti
+            }
+
+            let name = normalize(qualifiedName)
+            return if (!name.contains("<")) {
+                let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(name)
+                let newQualifiedName = realName.replace("std.core.", "")
+                if (isGeneric(typeInfoPointer)) {
+                    createGenericTypeInfo(typeInfoPointer, newQualifiedName)
+                } else {
+                    createConcreteTypeInfo(typeInfoPointer, newQualifiedName)
+                }
+            } else {
+                TypeTemplateParser().parse(name.replace("std.core.", ""))
             }
         }
     }
@@ -193,7 +197,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             let typeInfoPointer = getTypeByQualifiedName(cstring.getChars())
             LibC.free(cstring)
             if (typeInfoPointer.isNull()) {
-                throw InfoNotFoundException("TypeInfo '${qualifiedName.replace("std.core.", "")}' not found")
+                throw InfoNotFoundException("TypeInfo '${qualifiedName.replace("std.core.", "")}' not found.")
             }
             (qualifiedName, typeInfoPointer)
         }
@@ -249,45 +253,55 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         if (typeInfoPointer.isNull()) {
             throw InfoNotFoundException("TypeInfo not found!")
         }
+
+        let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
         synchronized(TYPE_INFO_CREATE_LOCK) {
-            var qualifiedName = getQualifiedName(typeInfoPointer)
-            qualifiedName = qualifiedName.replace("std.core.", "")
-            match (CACHE.get(qualifiedName)) {
-                case Some(ti) => ti
-                case None => createTypeInfo(typeInfoPointer, qualifiedName)
+            if (isGenericTypeInfo) {
+                let qualifiedName = getQualifiedName(typeInfoPointer)
+                return CACHE.get(qualifiedName) ?? createGenericTypeInfo(typeInfoPointer, qualifiedName)
+            }
+
+            let uuid = unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
+            return if (let Some(ti) <- CACHE.get(uuid)) {
+                ti
+            } else {
+                let qualifiedName = getQualifiedName(typeInfoPointer)
+                CACHE.get(qualifiedName) ?? createConcreteTypeInfo(typeInfoPointer, qualifiedName, uuid: uuid)
             }
         }
     }
 
-    // judge the real type by mangled name, after ug, mangeledName = qualifiedName
-    static func createTypeInfo(typeInfoPointer: CPointer<Unit>, qualifiedName: String) {
-        let isPrimitive = isPrimitive(typeInfoPointer)
-        if (isPrimitive) {
-            let typeInfo = PrimitiveTypeInfo(typeInfoPointer, qualifiedName)
-            CACHE.add(qualifiedName, typeInfo)
-            return typeInfo
+    static func createGenericTypeInfo(typeInfoPointer: CPointer<Unit>, qualifiedName: String): TypeInfo {
+        if (qualifiedName.isEmpty()) {
+            throw ReflectException("Unexpected empty qualifiedName.")
+        }
+        let typeInfo = GenericTypeInfo(typeInfoPointer)
+        CACHE.add(qualifiedName, typeInfo)
+        typeInfo
+    }
+
+    static func createConcreteTypeInfo(typeInfoPointer: CPointer<Unit>, qualifiedName: String, uuid!: ?String = None): TypeInfo {
+        if (qualifiedName.isEmpty()) {
+            throw ReflectException("Unexpected empty qualifiedName.")
         }
 
-        let mangledName = getQualifiedName(typeInfoPointer)
-        if (mangledName.isEmpty()) {
-            throw ReflectException("Unexpected empty mangledName")
-        }
 
-        // match first character in mangled name
-        let typeInfo = if (isInterface(typeInfoPointer)) {
+        let typeInfo = if(isPrimitive(typeInfoPointer)) {
+            PrimitiveTypeInfo(typeInfoPointer, qualifiedName)
+        } else if (isInterface(typeInfoPointer)) {
             InterfaceTypeInfo(typeInfoPointer)
         } else if (isClass(typeInfoPointer)) {
             ClassTypeInfo(typeInfoPointer)
         } else if (isStruct(typeInfoPointer)) {
             StructTypeInfo(typeInfoPointer)
-        } else if (isGeneric(typeInfoPointer)) {
-            GenericTypeInfo(typeInfoPointer)
         } else {
-            throw ReflectException("Type \"${mangledName}\" is not supported")
+            throw ReflectException("Type \"${qualifiedName}\" is not supported.")
         }
 
-        typeInfo._qualifiedName = mangledName
-        CACHE.add(mangledName, typeInfo)
+        let uuidStr = uuid ?? unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
+        typeInfo._qualifiedName = qualifiedName
+        CACHE.add(qualifiedName, typeInfo)
+        CACHE.add(uuidStr, typeInfo)
         typeInfo
     }
 
@@ -525,8 +539,16 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     /**
      * Searches the type info's annotation by incoming name.
      */
-    public func findAnnotation<T>(): Option<T> {
-        findAnnotation(annotations)
+    public func findAnnotation<T>(): ?T where T <: Annotation {
+        findAnnotation<T>(annotations)
+   }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
+    }
+
+    public func getAllAnnotations(): Array<Annotation> {
+        annotations.toArray()
     }
 
     public operator func ==(that: TypeInfo): Bool {

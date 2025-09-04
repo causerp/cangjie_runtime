@@ -16,37 +16,40 @@ import std.unittest.common.*
 
 private const GROUP_WORD = "group"
 private const TEST_WORD = "test"
+
 private const PROGRESS_INDICATOR_FINISHED_FILL = "|"
 private const PROGRESS_INDICATOR_REMAIN_FILL = "-"
 private const DEFAULT_PROGRESS_INDICATOR_WIDTH = 20
 private const MIN_PROGRESS_INDICATOR_WIDTH = 10
 private const MAX_PROGRESS_INDICATOR_WIDTH = 50
+
 private const PERCENT_VALUE_WIDTH = 3
 private const MARK_WIDTH = 4
-private const STATIC_SIZED_AREA_WIDTH = 1 /* " " */ + PERCENT_VALUE_WIDTH + 5 /* "% [] " */ + MARK_WIDTH + 1 /* " " */ + 10 /* (hh:mm:ss) */ // = 24
+private const STATIC_SIZED_AREA_WIDTH = 1 /* " " */ + PERCENT_VALUE_WIDTH + 5 /* "% [] " */ + MARK_WIDTH + 1 /* " " */ + 10 /* (hh:mm:ss) */   // = 24
 
 private const DEFAULT_NAMED_AREA_WIDTH = 36 // "📦 group <name> "
 private const MIN_NAMED_AREA_WIDTH = 20
+
 private const DEFAULT_HEIGHT = 12
 private const DEFAULT_WIDTH = STATIC_SIZED_AREA_WIDTH + DEFAULT_PROGRESS_INDICATOR_WIDTH + DEFAULT_NAMED_AREA_WIDTH // = 80
 
 private const MIN_WIDTH = STATIC_SIZED_AREA_WIDTH + MIN_PROGRESS_INDICATOR_WIDTH + MIN_NAMED_AREA_WIDTH // = 54
 private const MIN_HEIGHT = 4 // 1 line for group, 1 line for possible error test case, 1 line for test case, 1 line for summary
 
-private func NAMED_AREA_WIDTH(total: Int64): Int64 {
-    total - STATIC_SIZED_AREA_WIDTH - PROGRESS_INDICATOR_WIDTH(total) // 64% of free area
+private func namedAreaWidth(total: Int64): Int64 {
+    total - STATIC_SIZED_AREA_WIDTH - progressIndicatorWidth(total) // 64% of free area
 }
 
-private func PROGRESS_INDICATOR_WIDTH(total: Int64): Int64 {
+private func progressIndicatorWidth(total: Int64): Int64 {
     let v = (total - STATIC_SIZED_AREA_WIDTH) * 36 / 100 // 36% of free area
     max(min(v, MAX_PROGRESS_INDICATOR_WIDTH), MIN_PROGRESS_INDICATOR_WIDTH)
 }
 
-private func GROUP_NAME_WIDTH(total: Int64): Int64 {
-    NAMED_AREA_WIDTH(total) - GROUP_WORD.size - 4 /* "📦 " and " "  between */
+private func groupNameWidth(total: Int64): Int64 {
+    namedAreaWidth(total) - GROUP_WORD.size - 4 /* "📦 " and " "  between */
 }
 
-private func TEST_CASE_NAME_WIDTH(total: Int64): Int64 {
+private func testCaseNameWidth(total: Int64): Int64 {
     total - TEST_WORD.size - 4 /* "🧪 " and " " between */ - 10 /* (hh:mm:ss) */ - MARK_WIDTH - 2 /* spaces between mark */
 }
 
@@ -99,7 +102,7 @@ class TestProgressReporter <: UTProgressReporter {
         let visiblePackagesSize = min(packages.size, packagesHeightLimit)
 
         for (pack in packages[..visiblePackagesSize]) {
-            let packagename = "${GROUP_WORD} ${pack.trimmed(GROUP_NAME_WIDTH(width)).padEnd(GROUP_NAME_WIDTH(width))}"
+            let packagename = "${GROUP_WORD} ${pack.trimmed(groupNameWidth(width)).padEnd(groupNameWidth(width))}"
             let percent = percentString(pack.finishPercent)
 
             let markSymbol = match {
@@ -107,18 +110,14 @@ class TestProgressReporter <: UTProgressReporter {
                 case pack.finishedCases < pack.totalCases => ""
                 case _ => "✓" // 1 grapheme, 1 rune but probably many bytes
             }
-            let mark = markSymbol.padEnd(MARK_WIDTH + if (markSymbol.size > 1) {
-                markSymbol.size - 1
-            } else {
-                0
-            }) // Adjust padding knowing the mark size is 1 grapheme it could takes many bytes
+            let mark = markSymbol.padEnd(MARK_WIDTH + if (markSymbol.size > 1) { markSymbol.size - 1 } else { 0 }) // Adjust padding knowing the mark size is 1 grapheme it could takes many bytes
 
             let duration = pack.duration.toStringFormatted()
             let statusColor = if (pack.isFailed) { Color.RED} else { Color.GREEN }
 
             text.append("📦").space().append(packagename).space()
             text.append(percent).space()
-            pack.progress.pprint(text, width: PROGRESS_INDICATOR_WIDTH(width))
+            pack.progress.pprint(text, width: progressIndicatorWidth(width))
             text.space()
             text.colored(statusColor, mark).space()
             text.append("(").append(duration).append(")").appendLine()
@@ -133,7 +132,7 @@ class TestProgressReporter <: UTProgressReporter {
         let visibleCasesSize = min(cases.size, testCasesHeightLimit)
 
         for (tcase in cases[..visibleCasesSize]) {
-            let casename = "${TEST_WORD} ${tcase.trimmed(TEST_CASE_NAME_WIDTH(width)).padEnd(Int64(TEST_CASE_NAME_WIDTH(width)))}"
+            let casename = "${TEST_WORD} ${tcase.trimmed(testCaseNameWidth(width)).padEnd(Int64(testCaseNameWidth(width)))}"
             let duration = tcase.duration.toStringFormatted()
 
             text.append("🧪").space().append(casename).space()
@@ -147,7 +146,7 @@ class TestProgressReporter <: UTProgressReporter {
         let text = PrettyText()
         if (let Some(failedCase) <- booker.lastFailedStep) {
             let statusCode = failedCase.check.statusCode().toString()
-            let caseNameSpace = NAMED_AREA_WIDTH(width) + PROGRESS_INDICATOR_WIDTH(width) - statusCode.size - 1 - 3 /* "   FAILED " */
+            let caseNameSpace = namedAreaWidth(width) + progressIndicatorWidth(width) - statusCode.size - 1 - 3 /* "   FAILED " */
             text.append("   ") // alignment of level groups and cases name
             text.colored(Color.RED, statusCode).space()
             text.append(failedCase.trimmed(caseNameSpace).padEnd(caseNameSpace))
@@ -163,33 +162,30 @@ class TestProgressReporter <: UTProgressReporter {
         let percent = percentString(summary.finishPercent)
 
         let statusInfo = PrettyText()
-        statusInfo
-            .append("passed:")
-            .space()
-            .colored(if (summary.passedCases > 0) {
-                Color.GREEN
-            } else {
-                Color.DEFAULT_COLOR
-            }, summary.passedCases.toString())
-        statusInfo.append(",").space()
-        statusInfo
-            .append("failed:")
-            .space()
-            .colored(if (summary.failedCases > 0) {
-                Color.RED
-            } else {
-                Color.DEFAULT_COLOR
-            }, summary.failedCases.toString())
+        match (summary.crashedWorkers) {
+            case 0 =>
+                statusInfo.append("passed:").space().colored(
+                    if (summary.passedCases > 0) { Color.GREEN } else { Color.DEFAULT_COLOR },
+                    summary.passedCases.toString()
+                )
+                statusInfo.append(",").space()
+                statusInfo.append("failed:").space().colored(
+                    if (summary.failedCases > 0) { Color.RED } else { Color.DEFAULT_COLOR },
+                    summary.failedCases.toString()
+                )
+            case _ =>
+                statusInfo.append("error:").space().colored(Color.RED, "failed to register test(s)")
+        }
 
         markWidth = max(markWidth, summary.totalCases.toString().size * 2 + 1 /* reserve totalCases space for both totalCases and finishedCases + 1 for "/" */ )
-        let emptiness = "".padEnd(NAMED_AREA_WIDTH(width) - statusInfo.toString().size - markWidth + MARK_WIDTH)
+        let emptiness = "".padEnd(namedAreaWidth(width) - statusInfo.toString().size - markWidth + MARK_WIDTH)
         let finishedCounter = "${summary.finishedCases}/${summary.totalCases}".padStart(markWidth)
         let duration = summary.duration.toStringFormatted()
 
         text.append(statusInfo).append(emptiness).space()
             .append(percent).space()
 
-        summary.progress.pprint(text, width: PROGRESS_INDICATOR_WIDTH(width))
+        summary.progress.pprint(text, width: progressIndicatorWidth(width))
         text.space()
 
         text.append(finishedCounter).space()
@@ -257,6 +253,7 @@ private class TestProgressCollector {
     private var _finishedCasesCount = 0u64
     private var _passedCasesCount = 0u64
     private var _failedCasesCount = 0u64
+    private var _crashedWorkers = 0u64
     private var _lastFailedStep: ?FailedTestCaseProgressData = None
 
     private let summaryProgress = Progress(totalPieces: 0)
@@ -294,6 +291,12 @@ private class TestProgressCollector {
     prop failedCasesCount: UInt64 {
         get() {
             _failedCasesCount
+        }
+    }
+
+    prop crashedWorkersCount: UInt64 {
+        get() {
+            _crashedWorkers
         }
     }
 
@@ -349,6 +352,7 @@ private class TestProgressCollector {
                 failedCases: _failedCasesCount,
                 finishedCases: _finishedCasesCount,
                 totalCases: _totalCasesCount,
+                crashedWorkers: _crashedWorkers,
                 startTime: startTime,
                 progress: summaryProgress
             )
@@ -370,12 +374,16 @@ private class TestProgressCollector {
 
             match (element.data) {
                 case body: ExecutionResultBody => updateBody(body, element.workerId)
-                case r: TestCasesRegistrationPart => registerWorkerIfRequired(r.casesCount, id: r.workerId,
-                    pack: r.packageName)
+                case r: TestCasesRegistrationPart => registerWorkerIfRequired(r.casesCount, id: r.workerId, pack: r.packageName)
                 case header: ExecutionResultHeader => updateHeader(header, element.workerId)
+                case registrationFailure: TestCasesRegistrationFailed => addWorkerCrash()
                 case _ => ()
             }
         }
+    }
+
+    private func addWorkerCrash(): Unit {
+        _crashedWorkers += 1
     }
 
     private func registerWorkerIfRequired(cases: UInt64, id!: Int64, pack!: String) {
@@ -442,8 +450,7 @@ private class TestProgressCollector {
             }
 
             _failedCasesCount++
-            _lastFailedStep = FailedTestCaseProgressData(body.toCaseName(), suiteId: body.stepResult.caseId.suiteId,
-                check: body.firstFailedStep)
+            _lastFailedStep = FailedTestCaseProgressData(body.toCaseName(), suiteId: body.stepResult.caseId.suiteId, check: body.firstFailedStep)
             failedPackages.add(pack)
             packagesProgress[pack].update(positive: false)
             summaryProgress.update(positive: false)
@@ -455,10 +462,7 @@ private class TestProgressCollector {
     }
 
     private func updateHeader(header: ExecutionResultHeader, workerId: Int64) {
-        if (executing
-            .add(workerId, TestCaseProgressData(header.toCaseName(), suiteId: header.suiteId,
-                startTime: header.startTime))
-            .isNone()) {
+        if (executing.add(workerId, TestCaseProgressData(header.toCaseName(), suiteId: header.suiteId, startTime: header.startTime)).isNone()) {
             match (casesOrder.indexOf(None)) {
                 case Some(i) => casesOrder[i] = workerId
                 case None => ()
@@ -471,7 +475,7 @@ private class TestProgressCollector {
                 header.startTime
             }
 
-            if (packagesOrder |> all {it: String => it != packageName}) {
+            if (packagesOrder |> all { it: String => it != packageName }) {
                 packagesOrder.add(packageName)
             }
         }
@@ -577,6 +581,7 @@ private struct SummaryProgressData {
         let failedCases!: UInt64,
         let finishedCases!: UInt64,
         let totalCases!: UInt64,
+        let crashedWorkers!: UInt64,
         let startTime!: MonoTime,
         let progress!: Progress
     ) {}
@@ -730,6 +735,7 @@ private class Progress <: PrettyPrintable {
      */
     private let pieces = ArrayList<Bool>()
 
+
     /**
      * Cached index of bar (single pipe) that should be rendered as the next.
      */
@@ -761,6 +767,7 @@ private class Progress <: PrettyPrintable {
 
     private let POSITIVE_COLOR = Color.GREEN
     private let NEGATIVE_COLOR = Color.RED
+    private let GRAY_COLOR = Color.GRAY
 
     func update(positive!: Bool = true): Unit {
         if (pieces.size >= totalPieces) { return }
@@ -769,14 +776,14 @@ private class Progress <: PrettyPrintable {
     }
 
     /**
-     * Increase total pieces amount.
-     */
+    * Increase total pieces amount.
+    */
     func expand(extendBy: UInt64) {
         pieces.reserve(Int64(extendBy))
         totalPieces += Int64(extendBy)
     }
 
-    public func pprint(to: PrettyPrinter, width!: Int64): PrettyPrinter {
+    public func pprint(to: PrettyPrinter, crashedWorkers!: UInt64 = 0, width!: Int64, mainBar!: Bool = false): PrettyPrinter {
         if (prevWidth != width) {
             text = PrettyText()
             barIdx = 0
@@ -784,8 +791,9 @@ private class Progress <: PrettyPrintable {
             prevWidth = width
             prevPieceStatus = true
             prevPieceWidth = 0
-            text.append("[")
         }
+        let statusColor  = if (crashedWorkers > 0) { NEGATIVE_COLOR } else { GRAY_COLOR }
+        to.colored(statusColor) { to.append("[") }
 
         for (i in drawnPieces..pieces.size) {
             let pieceWidth = progressWidth(i, fullWidth: width)
@@ -796,7 +804,10 @@ private class Progress <: PrettyPrintable {
                 case prevPieceWidth == 0 => pieces[i] && prevPieceStatus
                 case _ => pieces[i]
             }
-            let pieceColor = if (pieceStatus) { POSITIVE_COLOR } else { NEGATIVE_COLOR }
+            let pieceColor = match (mainBar) {
+                case true => if (pieceStatus && crashedWorkers == 0) { POSITIVE_COLOR } else { NEGATIVE_COLOR }
+                case _ => if (pieceStatus) { POSITIVE_COLOR } else { NEGATIVE_COLOR }
+            }
             text.colored(pieceColor, progress)
             barIdx += pieceWidth
             prevPieceStatus = pieceStatus
@@ -806,8 +817,8 @@ private class Progress <: PrettyPrintable {
 
         let remained = PROGRESS_INDICATOR_REMAIN_FILL * (width - barIdx)
         to.append(text)
-        to.colored(Color.GRAY, remained)
-        to.append("]")
+        to.colored(statusColor, remained)
+        to.colored(statusColor) { to.append("]") }
 
         return to
     }

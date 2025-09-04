@@ -28,6 +28,33 @@ extend PrettyPrinter {
     func appendName(name: String): PrettyPrinter {
         this.colored(YELLOW, name)
     }
+
+    func appendSuiteInfo(id: TestSuiteId, info: TestSuiteReportInfo, config: Configuration): PrettyPrinter {
+        // Tags will be printed in the test case.
+        if (!id.isFromTopLevelFunc) { // TODO do it in a better way with new reporting
+            this.appendTags(info.tags, config)
+        }
+        this
+    }
+
+    func appendCaseInfo(info: TestCaseReportInfo, config: Configuration): PrettyPrinter {
+        this.appendTags(info.tags, config)
+    }
+
+    private func appendTags(tags: Array<String>, config: Configuration): PrettyPrinter {
+        if (config.noRun || config.showTags) {
+            if (let Some(string) <- tagsToString(tags)) {
+                this.append(" ").append(string)
+            }
+        }
+        this
+    }
+}
+
+func tagsToString(tags: Array<String>): ?String {
+    if (tags.isEmpty()) { None } else {
+        "(tags: ${String.join(tags.removeDuplicatesStable(), delimiter: ", ")})"
+    }
 }
 
 extend Configuration {
@@ -49,6 +76,10 @@ extend Configuration {
 
     prop noRun: Bool {
         get() { get(KeyDryRun.dryRun) ?? false }
+    }
+
+    prop showTags: Bool {
+        get() { get(KeyShowTags.showTags) ?? false }
     }
 
     prop verbose: Bool {
@@ -188,12 +219,18 @@ class PackageTextReport {
 
     private func printTestSuite(suiteResult: TestSuiteResult): Unit {
         if (suiteResult.details.totalCount == 0) {
-            pp.append("TCS: ").appendName(suiteResult.suiteId.suiteName).append(", ")
-            pp.colored(RED, "No test functions found").newLine()
+            pp.append("TCS: ")
+                .appendName(suiteResult.suiteId.suiteName)
+                .appendSuiteInfo(suiteResult.suiteId, suiteResult.suiteInfo, config)
+                .append(", ")
+                .colored(RED, "No test functions found").newLine()
             return
         }
-        pp.append("TCS: ").appendName(suiteResult.suiteId.suiteName)
-            .timeElapsed(suiteResult.details, config).appendLine(", RESULT:")
+        pp.append("TCS: ")
+            .appendName(suiteResult.suiteId.suiteName)
+            .appendSuiteInfo(suiteResult.suiteId, suiteResult.suiteInfo, config)
+            .timeElapsed(suiteResult.details, config)
+            .appendLine(", RESULT:")
 
         if (let Some(benchTable) <- BenchTable.build(suiteResult, baselineReport)) {
             let builtTable = benchTable.doBuild()
@@ -201,17 +238,16 @@ class PackageTextReport {
                 pp.appendLine(baselineId)
             }
             pp.append(builtTable)
-        } else {
-            printPositives(suiteResult)
         }
+        printPositives(suiteResult)
         printNegatives(suiteResult)
     }
 
     private func printNegatives(suiteResult: TestSuiteResult) {
         suiteResult.visitAll<TestCaseResult> { tcr =>
             if (!tcr.hasFailures()) { return }
-            tcr.visitFailedSteps{ step, caseId =>
-                printEntry(failEntry(step, caseId))
+            tcr.visitFailedSteps{ step, result => 
+                printEntry(failEntry(step, result.caseId, tcr.caseInfo))
             }
             if (!detailed) { return }
 
@@ -234,12 +270,12 @@ class PackageTextReport {
             // print Before all/After all only if there is any output
             if (step.kind.isClassLifecycle() && tc.output.isEmpty()) { return }
 
-            printEntry(TextReportEntry(tc.subResults[0], tc.caseId.caseName))
+            printEntry(TextReportEntry(tc.subResults[0], tc.caseId.caseName, tc.caseInfo))
             outputReporter.report(pp, PrettyText(), tc.output, success: true)
         }
     }
 
-    private func failEntry(rp: RunStepResult, caseId: TestCaseId): TextReportEntry {
+    private func failEntry(rp: RunStepResult, caseId: TestCaseId, caseInfo: TestCaseReportInfo): TextReportEntry {
         var caseName = caseId.caseName
         let message = match (rp.kind) {
             case Lifecycle(BeforeEach) =>
@@ -253,7 +289,7 @@ class PackageTextReport {
                 PrettyText()
             case _ => PrettyText()
         }
-        TextReportEntry(rp, caseName, bodyMessage: message)
+        TextReportEntry(rp, caseName, caseInfo, bodyMessage: message) 
     }
 
     private func printEntry(
@@ -264,9 +300,11 @@ class PackageTextReport {
             case TIMEOUT | FAIL | ERROR => (RED, false)
         }
 
+        if (this.config.bench && success && entry.caseInfo.isEmpty) { return }
+
         pp.append("[").colored(statusColor) { pp.appendCentered(entry.statusCode.toStringTense(), 8) }.append("] ")
 
-        pp.append(entry.preamble)
+        pp.append(entry.preamble).appendCaseInfo(entry.caseInfo, config)
         if (entry.statusCode != SKIP && entry.statusCode != NORUN) {
             pp.append(" (${entry.duration.toNanoseconds()} ns)")
         }
@@ -281,7 +319,7 @@ class PackageTextReport {
         }
 
         for (cr in entry.checkResults) {
-            if (!(cr is AssertExpectCheckResult) && isFirst) {
+            if (!(cr is AssertExpectCheckResult) && !(cr is TimeoutCheckResult) && isFirst) {
                 pp.append("REASON: ")
             }
             cr.pprintWithFailedPrefix(pp)
@@ -310,6 +348,7 @@ class TextReportEntry {
     TextReportEntry(
         source: RunStepResult,
         caseName: String,
+        let caseInfo: TestCaseReportInfo,
         let bodyMessage!: ?PrettyText = None
     ) {
         checkResults = source.checkResults
@@ -499,32 +538,39 @@ func lifecycleStageFailedText(ls: LStep, newLine!: Bool = false): PrettyText {
     text
 }
 
-private func listFailures<T>(pp: PrettyPrinter, results: ResultContainer<T>): Unit where T <: Result {
-    results.visitAll<TestCaseResult>{ tcr =>
-        let caseId = tcr.caseId
-        if (!tcr.hasFailures() ) { return }
-        let steps = if (tcr.details.failedSteps > 1) {
-            " (failed ${tcr.details.failedSteps}/${tcr.details.executedSteps} steps)"
-        } else if (tcr.details.executedSteps > 1) {
-            let failure = tcr.subResults.iterator().filter{ r => r.hasFailures() }.last().getOrThrow()
-            match (failure.kind) {
-                case CaseStep(arg) where arg.stepIndex + 1 >= tcr.details.executedSteps =>
-                    " (failed after ${arg.stepIndex+1} steps)"
-                case CaseStep(_) =>
-                    " (failed 1/${tcr.details.executedSteps} steps)"
-                case _ => ""
-
-            }
-        } else {
-            ""
+private func listFailures<T>(pp: PrettyPrinter, results: ResultContainer<T>, config: Configuration): Unit where T <: Result {
+    results.visitAll<TestSuiteResult> { tsr =>
+        tsr.visitAll<TestCaseResult>{ tcr =>
+            printFailure(pp, tsr, tcr, config)
         }
-
-        pp.append("TCS: ")
-            .appendName(caseId.suiteId.suiteName)
-            .append(", CASE: ${caseId.caseName}")
-            .append(steps)
-            .newLine()
     }
+}
+
+private func printFailure(pp: PrettyPrinter, tsr: TestSuiteResult, tcr: TestCaseResult, config: Configuration): Unit {
+    let caseId = tcr.caseId
+    if (!tcr.hasFailures() ) { return }
+    let steps = if (tcr.details.failedSteps > 1) {
+        " (failed ${tcr.details.failedSteps}/${tcr.details.executedSteps} steps)"
+    } else if (tcr.details.executedSteps > 1) {
+        let failure = tcr.subResults.iterator().filter{ r => r.hasFailures() }.last().getOrThrow()
+        match (failure.kind) {
+            case CaseStep(arg) where arg.stepIndex + 1 >= tcr.details.executedSteps =>
+                " (failed after ${arg.stepIndex+1} steps)"
+            case CaseStep(_) =>
+                " (failed 1/${tcr.details.executedSteps} steps)"
+            case _ => ""
+        }
+    } else {
+        ""
+    }
+
+    pp.append("TCS: ")
+        .appendName(caseId.suiteId.suiteName)
+        .appendSuiteInfo(caseId.suiteId, tsr.suiteInfo, config)
+        .append(", CASE: ${caseId.caseName}")
+        .appendCaseInfo(tcr.caseInfo, config)
+        .append(steps)
+        .newLine()
 }
 
 func printSummary<T>(pp: PrettyPrinter, result: ResultContainer<T>, config: Configuration, printFailures!: Bool): Unit where T <: Result {
@@ -545,7 +591,7 @@ func printSummary<T>(pp: PrettyPrinter, result: ResultContainer<T>, config: Conf
             pp.append(", listed below:")
             pp.newLine()
             pp.indent(2) {
-                listFailures(pp, result)
+                listFailures(pp, result, config)
             }
         } else {
             pp.newLine()
@@ -577,7 +623,7 @@ extend CheckResult <: PrettyPrintable {
             case cr: MockFrameworkCheckResult =>
                 pp.append(cr.mockFrameworkMessage).newLine()
             case cr: CrashedCheckResult => pp.append("Crashed with exit code ${cr.exitCode}.").newLine()
-            case cr: TimeoutCheckResult => pp.append("Test case ended with timeout.").newLine()
+            case cr: TimeoutCheckResult => pp.append(cr.msg).newLine()
             case cr: NoParametersProvidedResult => pp.append("Test case body was never executed. Provided strategy has zero elements.").newLine()
             case cr: UnattachedCheckResult =>
                 pp.append("Found assert that was not attached to a specific test case:")
@@ -596,6 +642,9 @@ extend CheckResult <: PrettyPrintable {
                 pp.appendLine(")`")
                 pp.appendLine("   left: ${resultValue.leftValue}")
                 pp.appendLine("  right: ${resultValue.rightValue}")
+            case resultValue: PlainDeltaCompareCheckResult =>
+                pp.append("`(").colored(YELLOW, resultValue.expr)
+                pp.appendLine(")`")
             case resultValue: PowerAssertCheckResult =>
                 pp.append("`(")
                 resultValue.diagram.pprintExpression(resultValue.expr, pp)

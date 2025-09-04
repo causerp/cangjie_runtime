@@ -13,14 +13,13 @@
 #include <cstddef>
 #include <unistd.h>
 
-// Macro definitions for attribute
-#define ATTR_NO_INLINE __attribute__((noinline))
-
-#define ATTR_PACKED(x) __attribute__((__aligned__(x), __packed__))
+#define ATTR_WARN_UNUSED __attribute__((warn_unused_result))
 
 #define ATTR_UNUSED __attribute__((__unused__))
 
-#define ATTR_WARN_UNUSED __attribute__((warn_unused_result))
+#define ATTR_PACKED(x) __attribute__((__aligned__(x), __packed__))
+
+#define ATTR_NO_INLINE __attribute__((noinline))
 
 #ifndef MRT_EXPORT
 #define MRT_EXPORT __attribute__((visibility("default")))
@@ -62,12 +61,12 @@
 
 #define DISABLE_CLASS_IMPLICIT_DESTRUCTION(ClassName) ~ClassName() = delete
 
-#define DISABLE_CLASS_COPY_AND_ASSIGN(ClassName) \
+#define DISABLE_CLASS_IMPLICIT_CONSTRUCTORS(ClassName) \
+    DISABLE_CLASS_DEFAULT_CONSTRUCTOR(ClassName); \
     DISABLE_CLASS_COPY_CONSTRUCTOR(ClassName); \
     DISABLE_CLASS_ASSIGN_OPERATOR(ClassName)
 
-#define DISABLE_CLASS_IMPLICIT_CONSTRUCTORS(ClassName) \
-    DISABLE_CLASS_DEFAULT_CONSTRUCTOR(ClassName); \
+#define DISABLE_CLASS_COPY_AND_ASSIGN(ClassName) \
     DISABLE_CLASS_COPY_CONSTRUCTOR(ClassName); \
     DISABLE_CLASS_ASSIGN_OPERATOR(ClassName)
 

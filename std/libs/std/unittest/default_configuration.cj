@@ -259,6 +259,7 @@ let _ = { =>
     registerUnittestOption<String>(KeyTimeoutEach.timeoutEach,
         typeDescription: ("String",
             "Execution time limit for each test case ('millis' | 's' | 'm' | 'h'), e.g. '10s', '9millis'"))
+    registerUnittestOption<(TestCaseInfo) -> Unit>(KeyTimeoutHandler.timeoutHandler)
     registerUnittestOption<Array<String>>(KeyTags.tags)
     registerUnittestOption<String>(KeyFilter.filter,
         typeDescription: ("String", "Running a filtered by name subset of tests, e.g. '--filter=*.*Test,*.*case*'"))
@@ -275,6 +276,7 @@ let _ = { =>
     registerUnittestOption<Bool>(KeyVerbose.verbose, typeDescription: ("Bool", "Print tests execution status"))
     registerUnittestOption<Bool>(KeySkip.skip)
     registerUnittestOption<Bool>(KeyDryRun.dryRun, typeDescription: ("Bool", "Print tests without execution"))
+    registerUnittestOption<Bool>(KeyShowTags.showTags, typeDescription: ("Bool", "Print tags in text report"))
     registerUnittestOption<Bool>(KeyFromTopLevel.fromTopLevel)
     registerUnittestOption<Int64>(KeyGenerationSteps.generationSteps)
     registerUnittestOption<Int64>(KeyReductionSteps.reductionSteps)

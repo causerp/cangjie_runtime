@@ -40,7 +40,8 @@ abstract class CheckResult <: Serializable<CheckResult> {
             DiffCheckResult.tryToDeserialize(dms) ?? CustomCheckResult.tryToDeserialize(dms) ??
             ExceptionThrownCheckResult.tryToDeserialize(dms) ?? MockFrameworkCheckResult.tryToDeserialize(dms) ??
             NoParametersProvidedResult.tryToDeserialize(dms) ?? CrashedCheckResult.tryToDeserialize(dms) ??
-            TimeoutCheckResult.tryToDeserialize(dms) ?? throw Exception("Can not deserialize Invalid check result")
+            TimeoutCheckResult.tryToDeserialize(dms) ?? PlainDeltaCompareCheckResult.tryToDeserialize(dms) ??
+            throw Exception("Can not deserialize Invalid check result")
     }
 }
 
@@ -88,6 +89,25 @@ class PlainCompareCheckResult <: AssertExpectCheckResult {
             String.deserialize(dms.tryGet("rightExpr") ?? return None),
             String.deserialize(dms.tryGet("leftValue") ?? return None),
             String.deserialize(dms.tryGet("rightValue") ?? return None)
+        )
+    }
+}
+
+class PlainDeltaCompareCheckResult <: AssertExpectCheckResult {
+    PlainDeltaCompareCheckResult(kind: CheckResultKind, let expr: String) {
+        super(kind)
+    }
+
+    public func serializeInternal(): DataModel {
+        DataModelStruct().
+            add(field<CheckResultKind>("kind", kind)).
+            add(field<String>("expr", expr))
+    }
+
+    public static func tryToDeserialize(dms: DataModelStruct): ?PlainDeltaCompareCheckResult {
+        return PlainDeltaCompareCheckResult(
+            CheckResultKind.deserialize(dms.tryGet("kind") ?? return None),
+            String.deserialize(dms.tryGet("expr") ?? return None)
         )
     }
 }
@@ -289,14 +309,13 @@ class CrashedCheckResult <: CheckResult {
 }
 
 class TimeoutCheckResult <: CheckResult {
-    TimeoutCheckResult() {}
+    TimeoutCheckResult(let msg: PrettyText) {}
 
     public func serializeInternal(): DataModel {
-        DataModelStruct().add(field<Int64>("timeout", 0))
+        DataModelStruct().add(field<PrettyText>("timeout", this.msg))
     }
 
     static func tryToDeserialize(dms: DataModelStruct): ?TimeoutCheckResult {
-        dms.tryGet("timeout") ?? return None
-        TimeoutCheckResult()
+        TimeoutCheckResult(PrettyText.deserialize(dms.tryGet("timeout") ?? return None))
     }
 }

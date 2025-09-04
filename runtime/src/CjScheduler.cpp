@@ -134,11 +134,11 @@ static double InitGarbageRatio(double defaultParam)
     if (env == nullptr) {
         return defaultParam;
     }
-    double size = CString::ParsePosDecFromEnv(env);
-    // 10: The minimum garbage ratio, measured in percent, the value is 10%.
-    double minSize = 0.10;
+    // 10: The minimum garbage ratio, measured in percent, the value is 0%.
+    double minSize = 0.0;
     // 100: The maximum garbage ratio, measured in percent, the value is 100%.
     double maxSize = 1;
+    double size = CString::ParseValidFromEnv(env);
     if (size - minSize >= 0 && maxSize - size >= 0) {
         return size;
     } else {

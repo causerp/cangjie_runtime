@@ -48,9 +48,11 @@ public func diagReport(level: DiagReportLevel, tokens: Tokens, message: String, 
     let tokensBytes: Array<UInt8> = tokens.toBytes()
     var ret: UInt8 = 0;
     unsafe {
-        try (pTokensBytes = unsafePointerCastFromUint8Array(tokensBytes).asResource(), pLevel = LibC.malloc<Int32>().
-            asResource(), pMessage = LibC.mallocCString(message).asResource(), pHint = LibC.mallocCString(hint).
-            asResource()) {
+        try (pTokensBytes = unsafePointerCastFromUint8Array(tokensBytes).asResource(), pLevel = LibC
+            .malloc<Int32>()
+            .asResource(), pMessage = LibC.mallocCString(message).asResource(), pHint = LibC
+            .mallocCString(hint)
+            .asResource()) {
             pLevel.value.write(level.level())
             ret = CJ_AST_DiagReport(macroObjPtr, pLevel.value, pTokensBytes.value, pMessage.value, pHint.value)
         }

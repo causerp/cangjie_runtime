@@ -4,7 +4,6 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #ifndef MRT_REGION_INFO_H
 #define MRT_REGION_INFO_H
 
@@ -14,9 +13,9 @@
 #include <thread>
 #include <vector>
 #ifdef _WIN64
-#include <memoryapi.h>
 #include <errhandlingapi.h>
 #include <handleapi.h>
+#include <memoryapi.h>
 #else
 #include <sys/mman.h>
 #endif
@@ -65,6 +64,14 @@ private:
 // Region memory is composed of several Units, described by UnitInfo.
 // sizeof(RegionInfo) must be equal to sizeof(UnitInfo). We rely on this fact to calculate region-related address.
 
+
+/*
+    the layout of unitInfo(UI) and unit(U):
+    ...|UI(n+2)|UI(n+1)|UI(n)|.........|.........|U(n)|U(n+1)|U(n+2)|...
+                       ↑               ↑         ↑
+                  RegionInfo  heapStartAddress  Region
+    the offset of unit index and unitInfo index is 1
+*/
 // region info is stored in the metadata of its primary unit (i.e. the first unit).
 class RegionInfo {
 public:
@@ -301,14 +308,31 @@ public:
             }
             return true;
         }
-        U32 size = obj->GetSize();
+        U32 objSize = obj->GetSize();
         size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
-        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, size, GetRegionSize());
-        DCHECK(IsMarkedObject(obj));
+        size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
+        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize);
+        CHECK(IsMarkedObject(offset));
         return marked;
     }
 
-    bool ResurrentObject(const BaseObject* obj)
+    bool MarkObject(const BaseObject* obj, size_t objSize)
+    {
+        if (IsLargeRegion()) {
+            if (metadata.isMarked != 1) {
+                SetMarkedRegionFlag(1);
+                return false;
+            }
+            return true;
+        }
+        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
+        size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
+        bool marked = GetOrAllocMarkBitmap()->MarkBits(offset, objSize, regionSize);
+        CHECK(IsMarkedObject(offset));
+        return marked;
+    }
+
+    bool ResurrentObject(const BaseObject* obj, size_t offset)
     {
         if (IsLargeRegion()) {
             if (metadata.isResurrected != 1) {
@@ -317,14 +341,14 @@ public:
             }
             return true;
         }
-        U32 size = obj->GetSize();
-        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
-        bool marked = GetOrAllocResurrectBitmap()->MarkBits(offset, size, GetRegionSize());
-        CHECK(IsResurrectedObject(obj));
+        U32 objSize = obj->GetSize();
+        size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
+        bool marked = GetOrAllocResurrectBitmap()->MarkBits(offset, objSize, regionSize);
+        CHECK(IsResurrectedObject(offset));
         return marked;
     }
 
-    bool EnqueueObject(const BaseObject* obj)
+    bool EnqueueObject(const BaseObject* obj, size_t offset)
     {
         if (IsLargeRegion()) {
             if (metadata.isEnqueued != 1) {
@@ -333,10 +357,11 @@ public:
             }
             return true;
         }
-        U32 size = obj->GetSize();
-        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
-        bool marked = GetOrAllocEnqueueBitmap()->MarkBits(offset, size, GetRegionSize());
-        CHECK(IsEnqueuedObject(obj));
+        U32 objSize = obj->GetSize();
+        size_t regionSize = offset + GetRegionEnd() - reinterpret_cast<MAddress>(obj);
+        CHECK(regionSize > 0);
+        bool marked = GetOrAllocEnqueueBitmap()->MarkBits(offset, objSize, regionSize);
+        CHECK(IsEnqueuedObject(offset));
         return marked;
     }
 
@@ -353,6 +378,18 @@ public:
         return resurrectBitmap->IsMarked(offset);
     }
 
+    bool IsResurrectedObject(size_t offset)
+    {
+        if (IsLargeRegion()) {
+            return (metadata.isResurrected == 1);
+        }
+        RegionBitmap* resurrectBitmap = GetResurrectBitmap();
+        if (resurrectBitmap == nullptr) {
+            return false;
+        }
+        return resurrectBitmap->IsMarked(offset);
+    }
+
     bool IsMarkedObject(const BaseObject* obj)
     {
         if (IsLargeRegion()) {
@@ -366,16 +403,42 @@ public:
         return markBitmap->IsMarked(offset);
     }
 
-    bool IsEnqueuedObject(const BaseObject* obj)
+    bool IsMarkedObject(size_t offset)
     {
         if (IsLargeRegion()) {
-            return (metadata.isEnqueued == 1);
+            return (metadata.isMarked == 1);
         }
+        RegionBitmap* markBitmap = GetMarkBitmap();
+        if (markBitmap == nullptr) {
+            return false;
+        }
+        return markBitmap->IsMarked(offset);
+    }
+
+    bool IsSurvivedObject(size_t offset)
+    {
+        if (IsLargeRegion()) {
+            return metadata.isMarked == 1 || metadata.isResurrected == 1;
+        }
+
+        RegionBitmap* markBitmap = GetMarkBitmap();
+        if (markBitmap && markBitmap->IsMarked(offset)) {
+            return true;
+        }
+
+        RegionBitmap* resurrectBitmap = GetResurrectBitmap();
+        if (resurrectBitmap && resurrectBitmap->IsMarked(offset)) {
+            return true;
+        }
+        return false;
+    }
+
+    bool IsEnqueuedObject(size_t offset)
+    {
         RegionBitmap* enqueBitmap = GetEnqueueBitmap();
         if (enqueBitmap == nullptr) {
             return false;
         }
-        size_t offset = GetAddressOffset(reinterpret_cast<MAddress>(obj));
         return enqueBitmap->IsMarked(offset);
     }
 
@@ -426,10 +489,9 @@ public:
         GARBAGE_REGION,
     };
 
-    static void Initialize(size_t nUnit, uintptr_t regionInfoAddr, uintptr_t heapAddress)
+    static void Initialize(size_t nUnit, uintptr_t heapAddress)
     {
         UnitInfo::totalUnitCount = nUnit;
-        UnitInfo::unitInfoStart = regionInfoAddr;
         UnitInfo::heapStartAddress = heapAddress;
     }
 
@@ -506,9 +568,9 @@ public:
         DLOG(REGION, "release physical memory for units [%zu+%zu, %zu) @[%p+%zu, 0x%zx)", idx, cnt, idx + cnt,
              unitAddress, size, RegionInfo::GetUnitAddress(idx + cnt));
 #if defined(_WIN64)
-        CHECK_E(UNLIKELY(!VirtualFree(unitAddress, size, MEM_DECOMMIT)),
-                "VirtualFree failed in ReturnPage, errno: %s", GetLastError());
-        
+        CHECK_E(UNLIKELY(!VirtualFree(unitAddress, size, MEM_DECOMMIT)), "VirtualFree failed in ReturnPage, errno: %s",
+                GetLastError());
+
 #elif defined(__APPLE__)
         MemorySet(reinterpret_cast<uintptr_t>(unitAddress), size, 0, size);
         (void)madvise(unitAddress, size, MADV_DONTNEED);
@@ -530,16 +592,18 @@ public:
 
     size_t GetRegionSize() const
     {
-        DCHECK(metadata.regionEnd > GetRegionStart());
-        return metadata.regionEnd - GetRegionStart();
+        MAddress regionStart = GetRegionStart();
+        DCHECK(metadata.regionEnd > regionStart);
+        return metadata.regionEnd - regionStart;
     }
 
     size_t GetUnitCount() const { return GetRegionSize() / UNIT_SIZE; }
 
     size_t GetGhostRegionSize() const
     {
+        MAddress regionStart = GetRegionStart();
         DCHECK(metadata.regionEnd0 > GetRegionStart());
-        return metadata.regionEnd0 - GetRegionStart();
+        return metadata.regionEnd0 - regionStart;
     }
 
     size_t GetGhostRegionUnitCount() const { return GetGhostRegionSize() / UNIT_SIZE; }
@@ -565,8 +629,9 @@ public:
     {
         size_t nUnit = GetUnitCount();
         UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
+        UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
         for (size_t i = 0; i < nUnit; ++i) {
-            unit[i].ToFreeRegion();
+            array[i].ToFreeRegion();
         }
     }
 
@@ -600,18 +665,19 @@ public:
         metadata.nextRegionIdx0 = metadata.nextRegionIdx;
 
         // prepare all units of this region.
-        UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
         size_t nUnit = GetUnitCount();
+        UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
+        UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
         for (size_t i = 1; i < nUnit; i++) {
-            UnitMetadata& mdata = unit[i].GetMetadata();
+            UnitMetadata& mdata = array[i].GetMetadata();
             CHECK(static_cast<UnitRole>(mdata.unitRole) == UnitRole::SUBORDINATE_UNIT);
             CHECK(mdata.ownerRegion == this);
             CHECK(mdata.inGhostFromRegion == 0);
 
-            unit[i].SetUnitRole0(UnitRole::SUBORDINATE_UNIT);
+            array[i].SetUnitRole0(UnitRole::SUBORDINATE_UNIT);
             mdata.ownerRegion0 = this;
             if (GetLiveByteCount() > 0) {
-                unit[i].SetInGhostRegion(1);
+                array[i].SetInGhostRegion(1);
             }
         }
     }
@@ -619,22 +685,26 @@ public:
     void ClearGhostRegionBit()
     {
         if (IsGhostFromRegion()) {
-            UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
             size_t nUnit = GetUnitCount();
+            UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
+            UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
             for (size_t i = 0; i < nUnit; i++) {
-                unit[i].SetInGhostRegion(0);
+                array[i].SetInGhostRegion(0);
             }
         }
     }
+
     // dispel all units of this region.
     // inGhostFromRegion is the unique guard condition.
+
     void DispelGhostFromRegion()
     {
         metadata.routeState = NORMAL;
-        UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
         size_t nUnit = GetGhostRegionUnitCount();
+        UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
+        UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
         for (size_t i = 0; i < nUnit; i++) {
-            unit[i].SetInGhostRegion(0);
+            array[i].SetInGhostRegion(0);
         }
     }
 
@@ -722,7 +792,14 @@ public:
 
     size_t GetUnitIdx() const { return RegionInfo::UnitInfo::GetUnitIdx(reinterpret_cast<const UnitInfo*>(this)); }
 
-    MAddress GetRegionStart() const { return RegionInfo::GetUnitAddress(GetUnitIdx()); }
+    MAddress GetRegionStart() const
+    {
+        uintptr_t ptr = reinterpret_cast<uintptr_t>(this);
+        CHECK(ptr < UnitInfo::heapStartAddress);
+        size_t idx = (UnitInfo::heapStartAddress - ptr) / sizeof(UnitInfo) - 1;
+        CHECK(idx < UnitInfo::totalUnitCount);
+        return idx * UNIT_SIZE + UnitInfo::heapStartAddress;
+    }
 
     MAddress GetRegionEnd() const { return metadata.regionEnd; }
 
@@ -975,7 +1052,6 @@ private:
         // propgated from RegionManager
         static uintptr_t heapStartAddress; // the address of the first region space to allocate objects
         static size_t totalUnitCount;
-        static uintptr_t unitInfoStart; // the address of the first UnitInfo
 
         constexpr static uint32_t INVALID_IDX = std::numeric_limits<uint32_t>::max();
         static size_t GetUnitIdxAt(uintptr_t allocAddr)
@@ -999,14 +1075,14 @@ private:
         static UnitInfo* GetUnitInfo(size_t idx)
         {
             CHECK(idx < totalUnitCount);
-            return reinterpret_cast<UnitInfo*>(unitInfoStart + idx * sizeof(UnitInfo));
+            return reinterpret_cast<UnitInfo*>(heapStartAddress - (idx + 1) * sizeof(UnitInfo));
         }
 
         static size_t GetUnitIdx(const UnitInfo* unit)
         {
             uintptr_t ptr = reinterpret_cast<uintptr_t>(unit);
-            if (unitInfoStart <= ptr && ptr < heapStartAddress) {
-                return (ptr - unitInfoStart) / sizeof(UnitInfo);
+            if (ptr < heapStartAddress) {
+                return (heapStartAddress - ptr) / sizeof(UnitInfo) - 1;
             }
 
             LOG(RTLOG_FATAL, "UnitInfo::GetUnitIdx() Should not execute here, abort.");
@@ -1072,6 +1148,25 @@ private:
 
         UnitRole GetUnitRole() const { return static_cast<UnitRole>(metadata.unitRole); }
 
+        class UnitInfoArray {
+        private:
+            UnitInfo* unitArray;
+            size_t size;
+        public:
+            UnitInfoArray(UnitInfo* unit, size_t size): size(size)
+            {
+                uintptr_t lastUnitAddress = reinterpret_cast<uintptr_t>(unit) -
+                                            (size - 1) * sizeof(RegionInfo::UnitInfo);
+                unitArray = reinterpret_cast<RegionInfo::UnitInfo*>(lastUnitAddress);
+            }
+
+            UnitInfo& operator[](size_t index)
+            {
+                CHECK(index >= 0 && index < size);
+                return unitArray[size-index-1];
+            }
+        };
+
     private:
         UnitMetadata metadata;
     };
@@ -1098,9 +1193,11 @@ private:
         InitRegionInfo(nUnit, uClass);
 
         // initialize region's subordinate units.
+
         UnitInfo* unit = reinterpret_cast<UnitInfo*>(this);
+        UnitInfo::UnitInfoArray array = UnitInfo::UnitInfoArray(unit, nUnit);
         for (size_t i = 1; i < nUnit; i++) {
-            unit[i].InitSubordinateUnit(this);
+            array[i].InitSubordinateUnit(this);
         }
     }
 

@@ -167,11 +167,14 @@ public:
 
     virtual bool MarkObject(BaseObject* obj) const
     {
-        bool marked = RegionSpace::MarkObject(obj);
+        RegionInfo* regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+        
+        bool marked = regionInfo->MarkObject(obj);
         if (!marked) {
-            reinterpret_cast<RegionSpace&>(theAllocator).CountLiveObject(obj);
-            if (!fixReferences && RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj))->IsFromRegion()) {
-                DLOG(TRACE, "marking tag w-obj %p<cls %p>+%zu", obj, obj->GetTypeInfo(), obj->GetSize());
+            size_t objSize = obj->GetSize();
+            regionInfo->AddLiveByteCount(objSize);
+            if (!fixReferences && regionInfo->IsFromRegion()) {
+                DLOG(TRACE, "marking tag w-obj %p<cls %p>+%zu", obj, obj->GetTypeInfo(), objSize);
             }
         }
         return marked;
@@ -182,13 +185,14 @@ public:
     virtual BaseObject* GetAndTryTagObj(BaseObject* obj, RefField<>& field) { std::abort(); }
     inline bool IsResurrectedObject(const BaseObject* obj) const { return RegionSpace::IsResurrectedObject(obj); }
 
-    virtual bool ResurrectObject(BaseObject* obj)
+    virtual bool ResurrectObject(BaseObject* obj, size_t offset, RegionInfo* regionInfo)
     {
-        bool resurrected = RegionSpace::ResurrentObject(obj);
+        bool resurrected = regionInfo->ResurrentObject(obj, offset);
         if (!resurrected) {
-            reinterpret_cast<RegionSpace&>(theAllocator).CountLiveObject(obj);
-            if (!fixReferences && RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj))->IsFromRegion()) {
-                VLOG(REPORT, "resurrection tag w-obj %p<cls %p>+%zu", obj, obj->GetTypeInfo(), obj->GetSize());
+            size_t objSize = obj->GetSize();
+            regionInfo->AddLiveByteCount(objSize);
+            if (!fixReferences && regionInfo->IsFromRegion()) {
+                VLOG(REPORT, "resurrection tag w-obj %p<cls %p>+%zu", obj, obj->GetTypeInfo(), objSize);
             }
         }
         return resurrected;

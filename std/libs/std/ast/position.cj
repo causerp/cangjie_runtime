@@ -80,8 +80,9 @@ func getMacroPosition(macroObjPtr: CPointer<Unit>) {
     var fileID: UInt32 = 0
     var line: Int32 = 0
     var column: Int32 = 0
-    try (fileIDPtr = LibC.malloc<UInt32>().asResource(), linePtr = LibC.malloc<Int32>().asResource(), columnPtr = LibC.
-        malloc<Int32>().asResource()) {
+    try (fileIDPtr = LibC.malloc<UInt32>().asResource(), linePtr = LibC.malloc<Int32>().asResource(), columnPtr = LibC
+        .malloc<Int32>()
+        .asResource()) {
         unsafe {
             CJ_GetMacroPosition(macroObjPtr, fileIDPtr.value, linePtr.value, columnPtr.value)
             fileID = fileIDPtr.value.read(0)

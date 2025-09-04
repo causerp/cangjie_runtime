@@ -108,18 +108,6 @@ func dumpNodes<N>(name: String, contents: ArrayList<N>, indent: UInt16): String 
 }
 
 /**
- * For a flatbuffer object, return true if it has no value(None).
- */
-func isNone<E>(e: Option<E>): Bool {
-    var flag: Bool = true
-    match (e) {
-        case Some(_) => flag = false
-        case _ => ()
-    }
-    return flag
-}
-
-/**
  * Return true if two tokens are considered equal somehow(exclude NL, END and position info).
  */
 public func compareTokens(tokens1: Tokens, tokens2: Tokens): Bool {
@@ -169,9 +157,6 @@ func checkKindValue(k: TokenKind, v: String): Bool {
 
 func getImportSpecTokens(imports: ArrayList<ImportList>): Tokens {
     var r: Tokens = Tokens()
-    if (imports.size == 0) {
-        return r
-    }
     for (i in 0..imports.size) {
         r.append(imports[i].toTokens())
     }

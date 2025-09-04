@@ -358,6 +358,7 @@ let RADIX_UNIT_TABLE: MeasurementUnitTable = [
     TimeUnit.Seconds.conversionRow()
 ]
 
+
 func printDuration(dur: Duration): String {
     let duration = Float64(dur.toNanoseconds())
     TimeNow().conversionTable.toString(duration)
@@ -583,6 +584,7 @@ foreign func InitPerf(counter: IntNative): IntNative
 
 @When[os == "Linux"]
 foreign func ReadPerf(): UInt64
+
 
 @When[os == "Linux"]
 public struct Perf <: Measurement {

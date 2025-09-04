@@ -15,7 +15,7 @@ import std.ast.*
 public macro Fail(message: Tokens): Tokens {
     match (message.size == 0) {
         case true => throw MacroException("@Fail: Fail message should be specified.")
-        case false where insideParentContext("CustomAssertion") => quote($macroCtxVarname.fail($message))
+        case false where insideParentContext("CustomAssertion") => quote($MACRO_CTX_VAR_NAME.fail($message))
         case _ => quote(fail($message))
     }
 }
@@ -26,7 +26,7 @@ public macro Fail(message: Tokens): Tokens {
 public macro FailExpect(message: Tokens): Tokens {
     match (message.size == 0) {
         case true => throw MacroException("@FailExpect: Fail message should be specified.")
-        case false where insideParentContext("CustomAssertion") => quote($macroCtxVarname.failExpect($message))
+        case false where insideParentContext("CustomAssertion") => quote($MACRO_CTX_VAR_NAME.failExpect($message))
         case _ => quote(failExpect($message))
     }
 }

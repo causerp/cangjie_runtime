@@ -54,8 +54,8 @@ public interface FunctionExt {
 extend Decl <: DeclExt {
     public func unwrap(): Decl {
         match (this) {
-            case makro: MacroExpandDecl => try { makro.macroInputDecl } catch (_) { this }
-            case makro: MacroExpandParam => try { makro.macroInputDecl } catch (_) { this }
+            case makro: MacroExpandDecl => try { makro.macroInputDecl.unwrap() } catch (_) { this }
+            case makro: MacroExpandParam => try { makro.macroInputDecl.unwrap() } catch (_) { this }
             case makro: MacroExpandExpr => this // there is no accessor for the underlying decl
             case _ => this
         }
@@ -75,7 +75,11 @@ extend Body <: BodyExt {
 extend FuncParam <: FuncParamExt {
     public func unwrapParam(): FuncParam {
         match (this) {
-            case makro: MacroExpandParam => (makro.macroInputDecl as FuncParam) ?? this
+            case makro: MacroExpandParam => try {
+                (makro.macroInputDecl as FuncParam)?.unwrapParam() ?? this 
+            } catch (_) {
+                this
+            }
             case _ => this
         }
     }

@@ -22,16 +22,12 @@
 #endif
 
 namespace MapleRuntime {
-// this deque is single-use, meaning we can use it, then after a while,
-// we can discard its whole content
-// under this assumption, clearing this data structure is really fast
-// (each clear takes O(1) time)
-// also, this assumes that the underlying memory does not need to be freed
-// because we can reuse it after each clear
-//
-// it can be used like a queue or a stack
+// A single-use deque:
+// - Clear in O(1) by resetting indices (no memory free)
+// - Memory is reused between clears
+// - Can work as either a queue (FIFO) or a stack (LIFO)
 template<class ValType>
-class SingleUseDeque {
+class SingleDeque {
 public:
     static constexpr size_t VAL_SIZE = sizeof(ValType);
     void Init(size_t mapSize)
@@ -100,16 +96,15 @@ private:
     MAddress endAddr = 0;
 };
 
-// this deque lives on the stack, hence local
-// this is better than the above deque because it avoids visiting ram
-// and it also avoids using unfreeable memory
-// however, its capacity is limited
+// A stack-allocated deque:
+// - Faster: avoids RAM access and unfreeable memory
+// - Limited capacity due to stack allocation
 template<class ValType>
 class LocalDeque {
 public:
-    static_assert(sizeof(ValType) == sizeof(void*), "invalid val type");
     static constexpr int LOCAL_LENGTH = ALLOC_UTIL_PAGE_SIZE / sizeof(ValType);
-    explicit LocalDeque(SingleUseDeque<ValType>& singleUseDeque) : sud(&singleUseDeque) {}
+    static_assert(sizeof(ValType) == sizeof(void*), "invalid val type");
+    explicit LocalDeque(SingleDeque<ValType>& SingleDeque) : sud(&SingleDeque) {}
     ~LocalDeque() = default;
     bool Empty() const { return (top < front) || (front == LOCAL_LENGTH && sud->Empty()); }
     void Push(ValType v)
@@ -174,7 +169,7 @@ public:
 private:
     int front = 0;
     int top = -1;
-    SingleUseDeque<ValType>* sud;
+    SingleDeque<ValType>* sud;
     ValType array[LOCAL_LENGTH] = { 0 };
 };
 
