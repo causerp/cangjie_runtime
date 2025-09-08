@@ -30,9 +30,9 @@ unittest.prop_test provides the types and methods required for parameterized tes
 | Class Name | Description |
 | --------------------------- | ------------------------ |
 | [Generators](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-generators) | Contains helper functions to assist developers in writing their own generators. |
-| [RandomDataProvider\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdataprovidert) | Implementation of the DataProvider interface using random data generation. |
-| [RandomDataShrinker\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdatashrinkert) | Implementation of the DataShrinker interface using random data generation. |
-| [RandomDataStrategy\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdatastrategyt) | Implementation of the DataStrategy interface using random data generation. |
+| [RandomDataProvider\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdataprovidert) | Implementation of the DataProvider interface using random data generation. |
+| [RandomDataShrinker\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatashrinkert) | Implementation of the DataShrinker interface using random data generation. |
+| [RandomDataStrategy\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatastrategyt) | Implementation of the DataStrategy interface using random data generation. |
 | [LazySeq\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-lazyseqt) | Lazily computed sequence of values of type T. Used to compute and memoize values during iteration. |
 | [ShrinkHelpers](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-shrinkhelpers) | Provides methods for implementing shrink iterators on tuples. |
 

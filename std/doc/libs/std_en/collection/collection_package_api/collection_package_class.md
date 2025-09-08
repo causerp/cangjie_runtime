@@ -755,7 +755,8 @@ Parent Types:
 public operator func ==(that: ArrayList<T>): Bool
 ```
 
-Function: Determines whether the current instance```markdown
+Function: Determines whether the current instance
+
 ## class ArrayQueue\<T>
 
 ```cangjie

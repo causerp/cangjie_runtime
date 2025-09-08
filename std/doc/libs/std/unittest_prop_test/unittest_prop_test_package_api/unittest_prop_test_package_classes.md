@@ -382,7 +382,7 @@ public override func provider(configuration: Configuration): RandomDataProvider<
 
 返回值：
 
-- [RandomDataProvider](unittest_package_classes.md#class-randomdataprovidert)\<T> - 随机数提供者。
+- [RandomDataProvider](#class-randomdataprovidert)\<T> - 随机数提供者。
 
 ### func shrinker(Configuration)
 
@@ -398,7 +398,7 @@ public override func shrinker(_: Configuration): RandomDataShrinker<T>
 
 返回值：
 
-- [RandomDataShrinker](unittest_package_classes.md#class-randomdatashrinkert)\<T> - 随机数据的缩减器。
+- [RandomDataShrinker](#class-randomdatashrinkert)\<T> - 随机数据的缩减器。
 
 ## class RandomDataStrategyRange\<T>
 
@@ -440,7 +440,7 @@ override func provider(configuration: Configuration): RandomDataProviderRange<T>
 
 参数：
 
-- configuration: [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 参数配置信息。
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 参数配置信息。
 
 返回值：
 
@@ -460,7 +460,7 @@ public override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
 
 返回值：
 
-- [RandomDataShrinkerRange](unittest_package_classes.md#class-randomdatashrinkerranget)\<T> - 随机数据的缩减器。
+- [RandomDataShrinkerRange](#class-randomdatashrinkerranget)\<T> - 随机数据的缩减器。
 
 ### prop isInfinite
 

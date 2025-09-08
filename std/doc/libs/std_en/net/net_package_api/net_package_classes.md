@@ -1,4 +1,4 @@
-# Classes
+# Class
 
 ## class IPAddress
 
@@ -6,7 +6,7 @@
 sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & BigEndianOrder<IPAddress>
 ```
 
-Functionality: This class represents an Internet Protocol (IP) address. An Internet Protocol address (IP address) is a numerical label such as *192.0.2.1* or *2001:0db8:0000:0000:0000:ff00:0042:8329* assigned to devices connected to a computer network that uses the Internet Protocol for communication. IP addresses serve two main functions: network interface identification and location addressing.
+Functionality: This class represents an Internet Protocol (IP) address. An Internet Protocol address (IP address) is a numerical label, such as *192.0.2.1* or *2001:0db8:0000:0000:0000:ff00:0042:8329*, assigned to devices connected to a computer network that uses the Internet Protocol for communication. IP addresses serve two main functions: network interface identification and location addressing.
 
 Parent Types:
 
@@ -45,11 +45,11 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public static func parse(s: String): IPAddress
 ```
 
-Functionality: Converts an IP protocol Socket string to an [IPAddress](net_package_classes.md#class-ipaddress) object.
+Functionality: Converts an IP protocol socket string to an [IPAddress](net_package_classes.md#class-ipaddress) object.
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP protocol Socket string.
+- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP protocol socket string.
 
 Return Value:
 
@@ -89,7 +89,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to read an [IPAddress](net_package_classes.md#class-ipaddress) value.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the buffer is too small to read an [IPAddress](net_package_classes.md#class-ipaddress) value.
 
 Return Value:
 
@@ -266,7 +266,7 @@ import std.unittest.testmacro.*
 
 main() {
     let prefix: IPPrefix = IPAddress.parse("192.168.1.2").getPrefix(24)
-    @Assert(prefix.toString(), "192.168.1.2/24)
+    @Assert(prefix.toString(), "192.168.1.2/24")
 }
 ```
 
@@ -472,11 +472,11 @@ Functionality: Writes this [IPAddress](net_package_classes.md#class-ipaddress) o
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer to store the data to be written.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing the data to be written.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to write an [IPv4Address](net_package_classes.md#class-ipv4address) or [IPv6Address](net_package_classes.md#class-ipv6address) value.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the buffer is too small to write an [IPv4Address](net_package_classes.md#class-ipv4address) or [IPv6Address](net_package_classes.md#class-ipv6address) value.
 
 Return Value:
 
@@ -492,8 +492,7 @@ import std.unittest.testmacro.*
 
 main() {
     let buffer = Array<Byte>(128, repeat: 0)
-    let expectV4: Array<Byte> = [0xC0, 0xA8, 0x1, 0x2]
-## class IPPrefix
+    let expectV4: Array<Byte> = [0xC0, 0xA8, 0x1, 0x2## class IPPrefix
 
 ```cangjie
 sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString
@@ -605,11 +604,11 @@ main() {
 public open func broadcast(): IPAddress
 ```
 
-Function: Returns the broadcast address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Returns the broadcast address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
-- [IPAddress](net_package_classes.md#class-ipaddress) - The broadcast address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- [IPAddress](net_package_classes.md#class-ipaddress) - The broadcast address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 ### func contains(IPAddress)
 
@@ -617,7 +616,7 @@ Return Value:
 public func contains(rhs: IPAddress): Bool
 ```
 
-Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) address contains the specified [IPAddress](net_package_classes.md#class-ipaddress).
+Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) contains the specified [IPAddress](net_package_classes.md#class-ipaddress).
 
 Parameters:
 
@@ -633,11 +632,11 @@ Return Value:
 public func contains(rhs: IPPrefix): Bool
 ```
 
-Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) address contains the specified [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) contains the specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Parameters:
 
-- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
@@ -649,11 +648,11 @@ Return Value:
 public open func hostmask(): IPAddress
 ```
 
-Function: Returns the hostmask address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Returns the hostmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
-- [IPAddress](net_package_classes.md#class-ipaddress) - The hostmask address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- [IPAddress](net_package_classes.md#class-ipaddress) - The hostmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 ### func masked()
 
@@ -661,11 +660,11 @@ Return Value:
 public open func masked(): IPPrefix
 ```
 
-Function: Returns the masked [IPPrefix](net_package_classes.md#class-ipprefix) address based on the prefix length. For example, `192.168.12.34/16` returns `192.168.0.0/16`, and `fc00::1:2:3:4/16` returns `fc00::/16`.
+Function: Returns the masked [IPPrefix](net_package_classes.md#class-ipprefix) based on the prefix length. For example, `192.168.12.34/16` returns `192.168.0.0/16`, and `fc00::1:2:3:4/16` returns `fc00::/16`.
 
 Return Value:
 
-- [IPPrefix](net_package_classes.md#class-ipprefix) - The masked [IPPrefix](net_package_classes.md#class-ipprefix) address based on the prefix length.
+- [IPPrefix](net_package_classes.md#class-ipprefix) - The masked [IPPrefix](net_package_classes.md#class-ipprefix) based on the prefix length.
 
 ### func netmask()
 
@@ -673,11 +672,11 @@ Return Value:
 public open func netmask(): IPAddress
 ```
 
-Function: Returns the netmask address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Returns the netmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
-- [IPAddress](net_package_classes.md#class-ipaddress) - The netmask address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- [IPAddress](net_package_classes.md#class-ipaddress) - The netmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 ### func network()
 
@@ -685,11 +684,11 @@ Return Value:
 public open func network(): IPAddress
 ```
 
-Function: Returns the network address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Returns the network address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
-- [IPAddress](net_package_classes.md#class-ipaddress) - The network address for this [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- [IPAddress](net_package_classes.md#class-ipaddress) - The network address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
 ### func overlaps(IPPrefix)
 
@@ -697,11 +696,11 @@ Return Value:
 public func overlaps(rhs: IPPrefix): Bool
 ```
 
-Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) address overlaps with the specified [IPPrefix](net_package_classes.md#class-ipprefix) address.
+Function: Checks whether this [IPPrefix](net_package_classes.md#class-ipprefix) overlaps with the specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Parameters:
 
-- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix) address.
+- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
 Return Value:
 
@@ -830,7 +829,7 @@ Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int6
 public init(address: Array<Byte>, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) address from a big-endian [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a big-endian [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
@@ -847,7 +846,7 @@ Exceptions:
 public init(address: String, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) address from a string representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a string representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
@@ -864,7 +863,7 @@ Exceptions:
 public init(address: IPAddress, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) address from an [IPAddress](net_package_classes.md#class-ipaddress) object and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from an [IPAddress](net_package_classes.md#class-ipaddress) object and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
@@ -936,7 +935,8 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let v4:## class IPv4Address
+    let v4: ?IPSocketAddress = IPSocketAddress.tryParse("192.168.1.2:8080")
+    let v6: ?## class IPv4Address
 
 ```cangjie
 public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & LessOrEqual<IPv4Address> {
@@ -1064,7 +1064,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a broadcast address, otherwise false.
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a broadcast address; otherwise, returns `false`.
 
 ### func isGlobalUnicast()
 
@@ -1076,7 +1076,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a global unicast address, otherwise false.
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a global unicast address; otherwise, returns `false`.
 
 ### func isLinkLocal()
 
@@ -1088,7 +1088,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a link-local address, otherwise false.
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a link-local address; otherwise, returns `false`.
 
 ### func isLoopback()
 
@@ -1100,7 +1100,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a loopback address, otherwise false.
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a loopback address; otherwise, returns `false`.
 
 ### func isMulticast()
 
@@ -1112,214 +1112,39 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a multicast address, otherwise false.
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a multicast address; otherwise, returns `false`.
 
-### func isPrivate()
-
-```cangjie
-public func isPrivate(): Bool
-```
-
-Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a private address.
-
-Return Value:
-
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a private address, otherwise false.
-
-### func isUnspecified()
+## class IPv4Address
 
 ```cangjie
-public func isUnspecified(): Bool
-```
-
-Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is an "unspecified" IP address.
-
-Return Value:
-
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an "unspecified" IP address, otherwise false.
-
-### func toBits()
-
-```cangjie
-public func toBits(): UInt32
-```
-
-Function: Converts this [IPv4Address](net_package_classes.md#class-ipv4address) address to a native-endian [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) value.
-
-Return Value:
-
-- [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - Native-endian [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) value.
-
-### func toIPv6Compatible()
-
-```cangjie
-public func toIPv6Compatible(): IPv6Address
-```
-
-Function: Converts this [IPv4Address](net_package_classes.md#class-ipv4address) address to an IPv4-compatible [IPv6Address](net_package_classes.md#class-ipv4address) address. `a.b.c.d` becomes `::a.b.c.d`.
-
-Return Value:
-
-- [IPv6Address](net_package_classes.md#class-ipv4address) - [IPv6Address](net_package_classes.md#class-ipv4address) object.
-
-### func toIPv6Mapped()
-
-```cangjie
-public func toIPv6Mapped(): IPv6Address
-```
-
-Function: Converts this [IPv4Address](net_package_classes.md#class-ipv4address) address to an IPv4-mapped [IPv6Address](net_package_classes.md#class-ipv4address) address. `a.b.c.d` becomes `::ffff:a.b.c.d`.
-
-Return Value:
-
-- [IPv6Address](net极package_classes.md#class-ipv4address) - [IPv6Address](net_package_classes.md#class-ipv4address) object.
-
-### func writeBigEndian(Array\<Byte>)
-
-```cangjie
-public func writeBigEndian(buffer: Array<Byte>): Int64
-```
-
-Function: Writes this [IPv4Address](net_package_classes.md#class-ipv4address) object to a byte array in big-endian order.
-
-Parameters:
-
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer to store the data to be written.
-
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to write the [IPv4Address](net_package_classes.md#class-ipv4address) value.
-
-Return Value:
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
-
-### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-Function: Returns the textual representation of this [IPv4Address](net_package_classes.md#class-ipv4address) as a string.
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - Textual representation of this [IPv4Address](net_package_classes.md#class-ipv4address), e.g., `a.b.c.d`.
-
-### operator func <=(IPv4Address)
-
-```cangjie
-public operator func <=(rhs: IPv4Address): Bool
-```
-
-Function: Determines whether this [IPv4Address](net_package_classes.md#class-ip极v4address) object is less than or equal to the compared [IPv4Address](net_package_classes.md#class-ipv4address) object.
-
-Parameters:
-
-- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - [IPv4Address](net_package_classes.md#class-ipv4address) object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this [IPv4Address](net_package_classes.md#class-ipv4address) object is less than or equal to the compared object; otherwise, returns `false`.
-
-### operator func ==(IPv4Address)
-
-```cangjie
-public operator func ==(rhs: IPv4Address): Bool
-```
-
-Function: Determines whether two [IPv4Address](net_package_classes.md#class-ipv4address) objects are equal.
-
-Parameters:
-
-- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - [IPv4Address](net_package_classes.md#class-ipv4address) object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [IPv4Address](net_package_classes.md#class-ipv4address) objects are equal; otherwise, returns `false`.
-
-### operator func !=(IPv4Address)
-
-```cangjie
-public operator func !=(rhs: IPv4Address): Bool
-```
-
-Function: Determines whether two [IPv4Address](net_package_classes.md#class-ipv4address) objects are not equal.
-
-Parameters:
-
-- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - [IPv4Address](net_package_classes.md#class-ipv4address) object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [IPv4Address](net_package_classes.md#class-ipv4address) objects are not equal; otherwise, returns `false`.
-
-## class IPv6Address
-
-```cangjie
-public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & LessOrEqual<IPv6Address> {
-    public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
-    public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
-    public init(octets: Array<Byte>, scopeId!: ?UInt32 = None)
-    public init(a: UInt16, b: UInt16, c: UInt16, d: UInt16, e: UInt16, f: UInt16, g: UInt16, h: UInt16, scopeId!: ?UInt32 = None)
+public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & LessOrEqual<IPv4Address> {
+    public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
+    public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
+    public static let unspecified = IPv4Address(0, 0, 0, 0)
+    public init(bits: UInt32)
+    public init(a: Byte, b: Byte, c: Byte, d: Byte)
 }
 ```
 
-Function: This class represents an Internet Protocol version 6 (IPv6) address. Defined by [RFC4291](https://datatracker.ietf.org/doc/html/rfc4291), [RFC5952](https://datatracker.ietf.org/doc/html/rfc5952), and [RFC4007](https://datatracker.ietf.org/doc/html/rfc4007).
+Function: This class represents an Internet Protocol version 4 (IPv4) address, as defined by [RFC 790](https://datatracker.ietf.org/doc/html/rfc790), [RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918), and [RFC 2365](https://datatracker.ietf.org/doc/html/rfc2365).
 
 Parent Types:
 
 - [IPAddress](#class-ipaddress)
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[IPv6Address](#class-ipv6address)>
-- [LessOrEqual](../../core/core_package_api/core_package_interfaces.md#interface-lessorequalt)\<[IPv6Address](#class-ipv6address)>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[IPv4Address](#class-ipv4address)>
+- [LessOrEqual](../../core/core_package_api/core_package_interfaces.md#interface-lessorequalt)\<[IPv4Address](#class-ipv4address)>
 
-### static let localhost
-
-```cangjie
-public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 极0, 0, 1)
-```
-
-Function: Returns the `localhost` address of [IPv6Address](net_package_classes.md#class-ipv6address): `::1`.
-
-Type: [IPv6Address](net_package_classes.md#class-ipv6address)
-
-### static let unspecified
+### static let broadcast
 
 ```cangjie
-public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
+public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
 ```
 
-Function: Returns an unspecified [IPv6Address](net_package_classes.md#class-ipv6address) address: `::`, which corresponds to the constant `INADDR_ANY` in other languages.
+Function: Returns the broadcast address of [IPv4Address](net_package_classes.md#class-ipv4address): `255.255.255.255`.
 
-Type: [IPv6Address](net_package_classes.md#class-ipv6address)
+Type: [IPv4Address](net_package_classes.md#class-ipv4address)
 
-### prop scopeId
-
-```cangjie
-public prop scopeId: ?UInt32
-```
-
-Function: Gets the default scope ID.
-
-Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>
-
-### init(Array\<Byte>, ?UInt32)
-
-```cangjie
-public init(octets: Array<Byte>, scopeId!: ?UInt32 = None)
-```
-
-Function: Constructs an [IPv6Address](net_package_classes.md#class-ipv6address) address from a big-endian [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
-
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the octets length is less than 16.
-
-Parameters:
-
-- octets: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Big-endian byte array.
-- scopeId!: ?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Scope ID```markdown
 ## class RawSocket
 
 ```cangjie
@@ -1330,12 +1155,12 @@ public class RawSocket {
 
 Functionality: [RawSocket](net_package_classes.md#class-rawsocket) provides basic socket functionality.
 
-Allows access to sockets with specific combinations of communication domain, type, and protocol. Since the Socket package already supports common network protocols like TCP and UDP, this type is suitable for other network programming requirements.
+It allows access to sockets with specific combinations of communication domain, type, and protocol. The Socket package already supports common network protocols such as TCP and UDP, hence this type is suitable for other network programming requirements.
 
 > **Note:**
 >
 > - Currently verified functionalities of [RawSocket](net_package_classes.md#class-rawsocket) include TCP, UDP, UDS, and ICMP protocol sockets. Other types may encounter unexpected issues.
-> - Due to the open nature of the interface, using `connect` followed by `listen` may cause unexpected issues in some scenarios. Developers are advised to follow normal calling logic to avoid problems.
+> - Additionally, due to the open nature of the interface, using a combination of `connect` followed by `listen` may lead to unexpected problems in certain scenarios. Developers are advised to follow normal calling logic to avoid issues.
 
 ### prop localAddr <sup>(deprecated)</sup>
 
@@ -1343,17 +1168,17 @@ Allows access to sockets with specific combinations of communication domain, typ
 public prop localAddr: RawAddress
 ```
 
-Functionality: Gets the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Functionality: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 > **Note:**
 >
-> This will be deprecated in future versions. Use [localAddress](#prop-localaddress) instead.
+> This property will be deprecated in future versions. Use [localAddress](#prop-localaddress) instead.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the local address cannot be obtained.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the local address cannot be retrieved.
 
 ### prop localAddress
 
@@ -1361,13 +1186,13 @@ Exceptions:
 public prop localAddress: RawAddress
 ```
 
-Functionality: Gets the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Functionality: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the local address cannot be obtained.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the local address cannot be retrieved.
 
 ### prop readTimeout
 
@@ -1381,8 +1206,8 @@ Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-dur
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the read timeout is set to a negative value.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the read timeout duration is set to a negative value.
 
 ### prop remoteAddr <sup>(deprecated)</sup>
 
@@ -1390,17 +1215,17 @@ Exceptions:
 public prop remoteAddr: RawAddress
 ```
 
-Functionality: Gets the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Functionality: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 > **Note:**
 >
-> This will be deprecated in future versions. Use [remoteAddress](#prop-remoteaddress) instead.
+> This property will be deprecated in future versions. Use [remoteAddress](#prop-remoteaddress) instead.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the peer address cannot be obtained.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the peer address cannot be retrieved.
 
 ### prop remoteAddress
 
@@ -1408,13 +1233,13 @@ Exceptions:
 public prop remoteAddress: RawAddress
 ```
 
-Functionality: Gets the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Functionality: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the peer address cannot be obtained.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the peer address cannot be retrieved.
 
 ### prop writeTimeout
 
@@ -1428,8 +1253,8 @@ Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-dur
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the write timeout is set to a negative value.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the write timeout duration is set to a negative value.
 
 ### init(SocketDomain, SocketType, ProtocolType)
 
@@ -1455,11 +1280,11 @@ Exceptions:
 public func accept(timeout!: ?Duration = None): RawSocket
 ```
 
-Functionality: Accepts the first connection request on the pending connection queue of the current [RawSocket](net_package_classes.md#class-rawsocket) instance and returns a new [RawSocket](net_package_classes.md#class-rawsocket) for communication.
+Functionality: Accepts the first connection request in the pending connection queue of the current listening [RawSocket](net_package_classes.md#class-rawsocket) instance and returns a new [RawSocket](net_package_classes.md#class-rawsocket) for communication.
 
 Parameters:
 
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum time to wait for a connection request. Default `None` means wait indefinitely.
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum time to wait for a connection request. The default value `None` means wait indefinitely.
 
 Return Value:
 
@@ -1467,8 +1292,8 @@ Return Value:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the acceptance fails.
-- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the wait times out.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the acceptance fails.
+- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the waiting time exceeds the timeout.
 
 ### func bind(RawAddress)
 
@@ -1484,7 +1309,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the binding fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the binding fails.
 
 ### func close()
 
@@ -1505,12 +1330,12 @@ Functionality: Sends a connection request to the target address.
 Parameters:
 
 - addr: [RawAddress](net_package_structs.md#struct-rawaddress) - The target address for the connection request.
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum time to wait for the connection to be accepted. Default `None` means wait indefinitely.
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum time to wait for the connection to be accepted. The default value `None` means wait indefinitely.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or the connection fails.
-- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the wait times out.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or the connection fails.
+- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the waiting time exceeds the timeout.
 
 ### func getSocketOption(Int32, Int32, CPointer\<Byte>, CPointer\<Int32>)
 
@@ -1518,7 +1343,7 @@ Exceptions:
 public unsafe func getSocketOption(level: Int32, option: Int32, value: CPointer<Byte>, len: CPointer<Int32>): Unit
 ```
 
-Functionality: Gets the value of a socket option.
+Functionality: Retrieves the value of a socket option.
 
 Parameters:
 
@@ -1529,7 +1354,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or getting the socket option fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or retrieving the socket option fails.
 
 ### func listen(Int32)
 
@@ -1537,7 +1362,7 @@ Exceptions:
 public func listen(backlog: Int32): Unit
 ```
 
-Functionality: Listens for connections on the address bound to the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Functionality: Listens on the address bound to the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Parameters:
 
@@ -1545,7 +1370,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or listening fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or listening fails.
 
 ### func receive(Array\<Byte>, Int32)
 
@@ -1566,7 +1391,7 @@ Return Value:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or data reception fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or data reception fails.
 - [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the read timeout is exceeded.
 
 ### func receiveFrom(Array\<Byte>, Int32)
@@ -1575,7 +1400,7 @@ Exceptions:
 public func receiveFrom(buffer: Array<Byte>, flags: Int32): (RawAddress, Int64)
 ```
 
-Functionality: Receives data from other [RawSocket](net_package_classes.md#class-rawsocket) instances.
+Functionality: Receives data from another [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Parameters:
 
@@ -1584,11 +1409,11 @@ Parameters:
 
 Return Value:
 
-- ([RawAddress](net_package_structs.md#struct-rawaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The source address and data length.
+- ([RawAddress](net_package_structs.md#struct-rawaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The source address of the data and its length.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or data reception fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or data reception fails.
 - [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the read timeout is exceeded.
 
 ### func send(Array\<Byte>, Int32)
@@ -1606,7 +1431,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or data sending fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or data transmission fails.
 - [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the write timeout is exceeded.
 
 ### func sendTo(RawAddress, Array\<Byte>, Int32)
@@ -1625,7 +1450,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed, data sending fails, or `sendTo` is called after `connect` on macOS.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed, data transmission fails, or `sendTo` is called after `connect` on macOS.
 - [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the write timeout is exceeded.
 
 ### func setSocketOption(Int32, Int32, CPointer\<Byte>, Int32)
@@ -1645,7 +1470,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is closed or setting the socket option fails.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the current [RawSocket](net_package_classes.md#class-rawsocket) instance is already closed or setting the socket option fails.
 
 ## class SocketAddress
 
@@ -1707,12 +1532,9 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [SocketAddress](net_package_classes.md#class-socketaddress) objects are equal; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [SocketAddress](net_package_classes.md#class-socketaddress)
 
-### operator func !=(SocketAddress)
-
-```cangjie
-public operator func !=(rhs: SocketAddress): Bool## class TcpServerSocket
+## class TcpServerSocket
 
 ```cangjie
 public class TcpServerSocket <: ServerSocket {
@@ -1723,9 +1545,9 @@ public class TcpServerSocket <: ServerSocket {
 
 Function: A server-side socket for listening to TCP connections.
 
-After creation, socket properties can be configured through properties and `setSocketOptionXX` interfaces.  
-To start listening, call `bind()` to bind the socket to a local port. The `accept()` interface will accept TCP connections, blocking until a connection is received. If connections are already in the queue, it returns immediately.  
-The socket must be explicitly closed via `close()`.
+After socket creation, properties can be configured through attributes and the `setSocketOptionXX` interface. 
+To start listening, call `bind()` to bind the socket to a local port. The `accept()` interface will accept TCP connections, blocking until a connection is established. If there are already connections in the queue, it may return immediately.
+The socket must be explicitly closed via `close`.
 
 Parent Types:
 
@@ -1737,16 +1559,16 @@ Parent Types:
 public mut prop backlogSize: Int64
 ```
 
-Function: Sets and retrieves the `backlog` size.
+Function: Sets and reads the `backlog` size.
 
-Can only be called before invoking `bind()`, otherwise throws an exception.  
+Can only be called before invoking `bind`, otherwise an exception will be thrown.
 Whether the variable takes effect depends on system behavior.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when called after `bind()`.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when called after `bind`.
 
 ### prop bindToDevice
 
@@ -1754,7 +1576,7 @@ Exceptions:
 public mut prop bindToDevice: ?String
 ```
 
-Function: Sets and retrieves the bound network interface.
+Function: Sets and reads the bound network interface.
 
 Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1764,13 +1586,13 @@ Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-strin
 public override prop localAddress: SocketAddress
 ```
 
-Function: Retrieves the local address to which the `Socket` is or will be bound.
+Function: Reads the local address to which the `Socket` will be or has been bound.
 
 Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed.
 
 ### prop receiveBufferSize
 
@@ -1778,7 +1600,7 @@ Exceptions:
 public mut prop receiveBufferSize: Int64
 ```
 
-Function: Sets and retrieves the `SO_RCVBUF` property.
+Function: Sets and reads the `SO_RCVBUF` attribute.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -1793,9 +1615,9 @@ Exceptions:
 public mut prop reuseAddress: Bool
 ```
 
-Function: Sets and retrieves the `SO_REUSEADDR` property, default is `true`.
+Function: Sets and reads the `SO_REUSEADDR` attribute, default is `true`.
 
-The behavior after the property takes effect depends on the system. Refer to system-specific documentation for `SO_REUSEADDR/SOCK_REUSEADDR` before use.
+The behavior after the attribute takes effect depends on the system. Before use, refer to the system documentation for `SO_REUSEADDR/SOCK_REUSEADDR`.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -1805,17 +1627,17 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 public mut prop reusePort: Bool
 ```
 
-Function: Sets and retrieves the `SO_REUSEPORT` property.
+Function: Sets and reads the `SO_REUSEPORT` attribute.
 
-Can only be modified before binding. On Windows, `SO_REUSEADDR` is used instead; this property is unsupported and throws an exception.  
-The default and post-configuration behavior depends on the system. Refer to system-specific documentation for `SO_REUSEPORT` before use.  
-Enabling both `SO_REUSEADDR` and `SO_REUSEPORT` may cause unpredictable system errors. Configure with caution.
+Can only be modified before binding. On Windows, `SO_REUSEADDR` can be used instead; this attribute is not supported, and an exception will be thrown.
+The default and post-configuration behavior depends on the system. Before use, refer to the system documentation for `SO_REUSEPORT`.
+Enabling both `SO_REUSEADDR` and `SO_REUSEPORT` may cause unpredictable system errors. Users should configure values carefully.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown on Windows as this property is unsupported.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown on Windows as this type is not supported.
 
 ### prop sendBufferSize
 
@@ -1823,7 +1645,7 @@ Exceptions:
 public mut prop sendBufferSize: Int64
 ```
 
-Function: Sets and retrieves the `SO_SNDBUF` property.
+Function: Sets and reads the `SO_SNDBUF` attribute.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -1862,7 +1684,7 @@ Parameters:
 public override func accept(): TcpSocket
 ```
 
-Function: Listens for or accepts client connections. Blocks until a connection is received.
+Function: Listens for or accepts client connections. Blocks until a connection is established.
 
 Return Value:
 
@@ -1900,7 +1722,7 @@ Exceptions:
 public override func bind(): Unit
 ```
 
-Function: If binding to the local port fails, the socket must be `close()`d. Retries are not supported.
+Function: If binding to a local port fails, the socket must be `close`d. Retrying is not supported.
 
 Exceptions:
 
@@ -1925,14 +1747,14 @@ public func getSocketOption(
 ): Unit
 ```
 
-Function: Retrieves the specified socket option.
+Function: Gets the specified socket option.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
-- value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - The option value.
-- valueLength: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)> - The length of the option value.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
+- value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - Option value.
+- valueLength: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)> - Option value length.
 
 Exceptions:
 
@@ -1947,20 +1769,20 @@ public func getSocketOptionBool(
 ): Bool
 ```
 
-Function: Retrieves the specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
+Function: Gets the specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` fails or the option size exceeds the [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) threshold.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` fails or the option size exceeds the threshold of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
 ### func getSocketOptionIntNative(Int32, Int32)
 
@@ -1971,12 +1793,12 @@ public func getSocketOptionIntNative(
 ): IntNative
 ```
 
-Function: Retrieves the specified socket option.
+Function: Gets the specified socket option.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
 Return Value:
 
@@ -1984,7 +1806,7 @@ Return Value:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` fails or the option size exceeds the [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) threshold.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` fails or the option size exceeds the threshold of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
 ### func isClosed()
 
@@ -2013,10 +1835,10 @@ Function: Sets the specified socket option.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
-- value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - The option value.
-- valueLength: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The length of the option value.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
+- value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - Option value.
+- valueLength: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Option value length.
 
 Exceptions:
 
@@ -2036,9 +1858,9 @@ Function: Sets the specified socket option.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
-- value: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The option value.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
+- value: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Option value.
 
 Exceptions:
 
@@ -2058,9 +1880,9 @@ Function: Sets the specified socket option.
 
 Parameters:
 
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
-- value: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The option value.
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
+- value: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Option value.
 
 Exceptions:
 
@@ -2090,7 +1912,7 @@ public class TcpSocket <: StreamingSocket & Equatable<TcpSocket> & Hashable {
 
 Function: A client for requesting TCP connections.
 
-After instantiation, use the `connect` function to establish a connection and explicitly call `close` when finished.  
+After the instance is created, the `connect` function can be used to establish a connection, and `close` must be explicitly called when finished.
 This type inherits from [StreamingSocket](net_package_interfaces.md#interface-streamingsocket). Refer to the [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) section for more information.
 
 Parent Types:
@@ -2105,7 +1927,7 @@ Parent Types:
 public mut prop bindToDevice: ?String
 ```
 
-Function: Sets and retrieves the bound network interface.
+Function: Sets and reads the bound network interface.
 
 Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2115,22 +1937,23 @@ Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-strin
 public mut prop keepAlive: ?SocketKeepAliveConfig
 ```
 
-Function: Sets and retrieves the keep-alive property. `None` means keep-alive is disabled.
+Function: Sets and reads the keep-alive attribute. `None` means keep-alive is disabled.
 
 If not set by the user, the system default configuration will be used. Setting this configuration may be delayed or ignored by the system, depending on system capabilities.
 
-Type: ?[SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig)### prop linger
+Type: ?[SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig)
+```### prop linger
 
 ```cangjie
 public mut prop linger: ?Duration
 ```
 
-Function: Sets and reads the `SO_LINGER` attribute. The default value depends on the system, and `None` indicates this option is disabled.
+Function: Sets and reads the `SO_LINGER` attribute. The default value is system-dependent, and `None` indicates this option is disabled.
 
 > **Note:**
 >
-> - If `SO_LINGER` is set to `Some(v)`, when the socket is closed, if there are pending byte streams, we will wait for `v` duration before closing the connection. If the timeout is exceeded and the byte stream has not been sent, the connection will be terminated abnormally (closed via an RST packet).
-> - If `SO_LINGER` is set to `None`, when the socket is closed, the connection will be closed immediately. If there are pending characters to send, the connection will be closed using FIN-ACK. If there are remaining characters to send, the connection will be closed using RST.
+> - If `SO_LINGER` is set to `Some(v)`, when the socket closes, if there are pending byte streams, we will wait for `v` duration before closing the connection. If the timeout is exceeded and the byte stream has not been sent, the connection will be abnormally terminated (closed via RST packet).
+> - If `SO_LINGER` is set to `None`, when the socket closes, the connection will be immediately closed. If there are pending characters to send, the connection will be closed using FIN-ACK. If there are remaining characters to send, the connection will be closed using RST.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -2150,7 +1973,7 @@ Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed or no local address is available (local address is not configured and the socket is not connected).
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed or no local address is available (local address is not configured and the socket is not connected).
 
 ### prop noDelay
 
@@ -2158,7 +1981,7 @@ Exceptions:
 public mut prop noDelay: Bool
 ```
 
-Function: Sets and reads the `TCP_NODELAY` attribute, which defaults to `true`.
+Function: Sets and reads the `TCP_NODELAY` attribute, defaulting to `true`.
 
 This option disables the Nagle algorithm, forwarding all written bytes without delay. When set to `false`, the Nagle algorithm introduces a delay before sending packets.
 
@@ -2170,7 +1993,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 public mut prop quickAcknowledge: Bool
 ```
 
-Function: Sets and reads the `TCP_QUICKACK` attribute, which defaults to `false`.
+Function: Sets and reads the `TCP_QUICKACK` attribute, defaulting to `false`.
 
 This option is similar to `noDelay` but only affects TCP ACK and the first response. Not supported on Windows and macOS systems.
 
@@ -2182,9 +2005,9 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 public override mut prop readTimeout: ?Duration
 ```
 
-Function: Sets and reads the timeout duration for read operations.
+Function: Sets and reads the read operation timeout duration.
 
-If the set duration is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set duration is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -2205,7 +2028,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed.
 
 ### prop remoteAddress
 
@@ -2219,7 +2042,7 @@ Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed.
 
 ### prop sendBufferSize
 
@@ -2234,7 +2057,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed.
 
 ### prop writeTimeout
 
@@ -2242,9 +2065,9 @@ Exceptions:
 public override mut prop writeTimeout: ?Duration
 ```
 
-Function: Sets and reads the timeout duration for write operations.
+Function: Sets and reads the write operation timeout duration.
 
-If the set duration is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set duration is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -2276,7 +2099,7 @@ public init(address: SocketAddress, localAddress!: ?SocketAddress)
 
 Function: Creates an unconnected socket and binds it to the specified local address. If the local address is `None`, a random address will be selected for binding.
 
-When `localAddress` is not `None`, this interface defaults to setting `SO_REUSEADDR` to `true`; otherwise, it may result in an "address already in use" error. To change this configuration, call `setSocketOptionBool([SocketOptions](net_package_structs.md#struct-socketoptions).SOL_SOCKET, [SocketOptions](net_package_structs.md#struct-socketoptions).SO_REUSEADDR, false)`. Additionally, both the local and remote addresses must be IPv4.
+This interface defaults `SO_REUSEADDR` to `true` when `localAddress` is not `None`, otherwise it may cause an "address already in use" error. To change this configuration, call `setSocketOptionBool([SocketOptions](net_package_structs.md#struct-socketoptions).SOL_SOCKET, [SocketOptions](net_package_structs.md#struct-socketoptions).SO_REUSEADDR, false)`. Additionally, both local and remote addresses must be IPv4.
 
 Parameters:
 
@@ -2318,7 +2141,7 @@ Function: Closes the socket. All operations except `close/isClosed` are no longe
 public func connect(timeout!: ?Duration = None): Unit
 ```
 
-Function: Connects to the remote socket. The local address is automatically bound, so no additional binding operation is required.
+Function: Connects to the remote socket. Automatically binds the local address, so no additional binding operation is required.
 
 Parameters:
 
@@ -2327,7 +2150,7 @@ Parameters:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the remote address is invalid or the connection timeout is less than 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the connection cannot be established due to system reasons (e.g., the socket is closed, no access permissions, system error, etc.). Retrying may succeed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the connection cannot be established due to system reasons (e.g., socket is closed, no access permissions, system error, etc.). Retrying may succeed.
 - [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the connection times out.
 
 ### func getSocketOption(Int32, Int32, CPointer\<Unit>, CPointer\<UIntNative>)
@@ -2363,14 +2186,14 @@ public func getSocketOptionBool(
 ): Bool
 ```
 
-Function: Reads the specified socket option. Cast from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
+Function: Reads the specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
 
 Parameters:
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Returns:
+Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The read option value.
 
@@ -2394,7 +2217,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Returns:
+Return value:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The option value.
 
@@ -2410,7 +2233,7 @@ public override func hashCode(): Int64
 
 Function: Gets the hash value of the current [TcpSocket](net_package_classes.md#class-tcpsocket) instance.
 
-Returns:
+Return value:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the [TcpSocket](net_package_classes.md#class-tcpsocket) instance.
 
@@ -2420,9 +2243,9 @@ Returns:
 public func isClosed(): Bool
 ```
 
-Function: Checks whether the socket has been explicitly closed by calling `close`.
+Function: Determines whether the socket has been explicitly closed by calling `close`.
 
-Returns:
+Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed by calling `close`; otherwise, returns `false`.
 
@@ -2444,7 +2267,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the read data.
 
-Returns:
+Return value:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The length of the read data.
 
@@ -2528,7 +2351,7 @@ public override func toString(): String
 
 Function: Returns the status information of the current [TcpSocket](net_package_classes.md#class-tcpsocket).
 
-Returns:
+Return value:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string containing the status information of the current [TcpSocket](net_package_classes.md#class-tcpsocket).
 
@@ -2546,7 +2369,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `## class UdpSocket
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `buffer` size## class UdpSocket
 
 ```cangjie
 public class UdpSocket <: DatagramSocket {
@@ -2557,7 +2380,7 @@ public class UdpSocket <: DatagramSocket {
 
 Function: Provides UDP datagram communication.
 
-After creating an instance of `UdpSocket`, the `bind()` method must be called to bind the socket, allowing it to receive datagrams without establishing a remote connection. `UdpSocket` can also establish connections via the `connect()/disconnect()` interfaces. The UDP protocol requires that transmitted datagrams do not exceed 64KB in size.
+After creating an instance of `UdpSocket`, the `bind()` method must be called to bind the socket, allowing it to receive datagrams without establishing a connection to a remote endpoint. `UdpSocket` can also establish connections via the `connect()/disconnect()` interfaces. The UDP protocol requires that transmitted datagrams do not exceed 64KB in size.  
 `UdpSocket` must be explicitly closed using `close()`. For more information, refer to [DatagramSocket](net_package_interfaces.md#interface-datagramsocket).
 
 Parent Type:
@@ -2576,7 +2399,7 @@ Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed or no local address is available (local address is not configured and the socket is not connected).
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is already closed or no local address is available (local address is unconfigured and the socket is not connected).
 
 ### prop receiveBufferSize
 
@@ -2601,7 +2424,7 @@ public override mut prop receiveTimeout: ?Duration
 
 Function: Sets and reads the timeout for `receive/receiveFrom` operations.
 
-If the set time is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set timeout is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -2631,7 +2454,7 @@ public mut prop reuseAddress: Bool
 
 Function: Sets and reads the `SO_REUSEADDR` property.
 
-The default behavior and post-configuration effects depend on the system. Before use, refer to the system-specific documentation for `SO_REUSEADDR/SOCK_REUSEADDR`.
+The default behavior and post-configuration effects depend on the system. Before use, consult the system-specific documentation for `SO_REUSEADDR/SOCK_REUSEADDR`.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -2643,14 +2466,14 @@ public mut prop reusePort: Bool
 
 Function: Sets and reads the `SO_REUSEPORT` property.
 
-On Windows, `SO_REUSEADDR` can be used, but there is no `SO_REUSEPORT` property, so an exception will be thrown.
-The default behavior and post-configuration effects depend on the system. Before use, refer to the system-specific documentation for `SO_REUSEPORT`.
+On Windows, `SO_REUSEADDR` can be used, but `SO_REUSEPORT` is not supported, so an exception will be thrown.  
+The default behavior and post-configuration effects depend on the system. Before use, consult the system-specific documentation for `SO_REUSEPORT`.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown on Windows as this property is not supported.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown on Windows as this property is unsupported.
 
 ### prop sendBufferSize
 
@@ -2675,7 +2498,7 @@ public override mut prop sendTimeout: ?Duration
 
 Function: Sets and reads the timeout for `send/sendTo` operations.
 
-If the set time is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set timeout is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -2744,7 +2567,7 @@ Parameters:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the remote address is invalid.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the port is not bound, the connection cannot be established due to system reasons, or the remote address is a zero address on Windows.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the port is unbound, the connection cannot be established due to system reasons, or the remote address is a zero address on Windows.
 
 ### func disconnect()
 
@@ -2752,7 +2575,7 @@ Exceptions:
 public func disconnect(): Unit
 ```
 
-Function: Stops the connection. Cancels receiving datagrams only from the specific peer. Can be called before `connect` and can be called multiple times.
+Function: Stops the connection. Cancels receiving datagrams only from the specified peer. Can be called before `connect` and can be called multiple times.
 
 ### func getSocketOption(Int32, Int32, CPointer\<Unit>, CPointer\<UIntNative>)
 
@@ -2765,7 +2588,7 @@ public func getSocketOption(
 ): Unit
 ```
 
-Function: Gets the specified socket option.
+Function: Retrieves the specified socket option.
 
 Parameters:
 
@@ -2787,7 +2610,7 @@ public func getSocketOptionBool(
 ): Bool
 ```
 
-Function: Gets the specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
+Function: Retrieves the specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
 
 Parameters:
 
@@ -2811,7 +2634,7 @@ public func getSocketOptionIntNative(
 ): IntNative
 ```
 
-Function: Gets the specified socket option.
+Function: Retrieves the specified socket option.
 
 Parameters:
 
@@ -2848,7 +2671,7 @@ Function: Receives datagrams from the address connected via `connect`.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The address to store the received datagrams.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store received datagrams.
 
 Return Value:
 
@@ -2864,7 +2687,7 @@ Function: Receives datagrams.
 
 Parameters:
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer address to store the received datagrams.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store received datagrams.
 
 Return Value:
 
@@ -2897,7 +2720,7 @@ Exceptions:
 public override func sendTo(recipient: SocketAddress, payload: Array<Byte>): Unit
 ```
 
-Function: Sends datagrams. May block if there is insufficient buffer space.
+Function: Sends datagrams. May block if insufficient buffer space is available.
 
 Parameters:
 
@@ -2997,8 +2820,8 @@ public class UnixDatagramSocket <: DatagramSocket {
 
 Function: Provides host communication capabilities based on datagrams.
 
-After creating a [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) instance, the `bind()` interface should be explicitly called for binding. `Unix` datagram sockets do not require connection or multiple handshakes with the remote end. However, users can also establish and terminate connections with the remote end using the `connect/disconnect` interfaces.  
-Unlike UDP, UDS has no packet size limitation; restrictions come from the operating system and interface implementation.  
+After a [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) instance is created, the `bind()` interface should be explicitly called for binding. `Unix` datagram sockets do not require connection or multiple handshakes with remote endpoints. However, users can also establish and terminate connections with remote endpoints using the `connect/disconnect` interface.  
+Unlike UDP, UDS has no packet size limitation, with restrictions coming from the operating system and interface implementation.  
 Socket resources need to be explicitly released using the `close` interface. Refer to [DatagramSocket](net_package_interfaces.md#interface-datagramsocket) for more information.
 
 > **Note:**
@@ -3046,7 +2869,7 @@ public override mut prop receiveTimeout: ?Duration
 
 Function: Sets and reads the timeout for `receive/receiveFrom` operations.
 
-If the set time is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -3060,7 +2883,7 @@ Exceptions:
 public override prop remoteAddress: ?SocketAddress
 ```
 
-Function: Reads the remote address to which the `Socket` is connected. Returns `None` if the `Socket` is not connected.
+Function: Reads the remote address to which the `Socket` is connected. Returns `None` when the `Socket` is not connected.
 
 Type: ?[SocketAddress](net_package_classes.md#class-socketaddress)
 
@@ -3091,7 +2914,7 @@ public override mut prop sendTimeout: ?Duration
 
 Function: Sets and reads the timeout for `send/sendTo` operations.
 
-If the set time is too small, it will be adjusted to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -3107,7 +2930,7 @@ public init(bindAt!: SocketAddress)
 
 Function: Creates an unconnected [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) instance.
 
-This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)(), and can be deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
+This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() and deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
 
 Parameters:
 
@@ -3125,7 +2948,7 @@ public init(bindAt!: String)
 
 Function: Creates an unconnected [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) instance.
 
-This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)(), and can be deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
+This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() and deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
 
 Parameters:
 
@@ -3144,7 +2967,7 @@ public func bind(): Unit
 
 Function: Binds a `Unix datagram` socket and creates a listening queue.
 
-This interface automatically creates a socket file at the local address. If the file already exists, the binding will fail. This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring), and can be deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface. After failure, the socket must be `close`d; multiple retries are not supported.
+This interface automatically creates a socket file at the local address. If the file already exists, the binding will fail. This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface. If the operation fails, the socket must be `close`d, and retries are not supported.
 
 Exceptions:
 
@@ -3200,7 +3023,7 @@ Exceptions:
 public func disconnect(): Unit
 ```
 
-Function: Stops the connection. Cancels the reception of packets only from the specific peer. Can be called before `connect` and can be called multiple times.
+Function: Stops the connection. Cancels receiving packets only from the specified peer. Can be called before `connect` and can be called multiple times.
 
 Exceptions:
 
@@ -3224,7 +3047,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 - value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - The option value.
-- valueLength: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<UIntNative> - The length of the option value.
+- valueLength: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<UIntNative> - The option value length.
 
 Exceptions:
 
@@ -3296,7 +3119,7 @@ Parameters:
 
 Return Value:
 
-- ([SocketAddress](net_package_classes.md#class-socketaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The sender's address of the received packet and the actual size of the received packet, which may be 0 or larger than the size of the `buffer` parameter.
+- ([SocketAddress](net_package_classes.md#class-socketaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The sender address of the received packet and the actual size of the received packet, which may be 0 or larger than the size of the `buffer` parameter.
 
 Exceptions:
 
@@ -3313,11 +3136,11 @@ Function: Sends packets to the address connected via `connect`.
 
 Parameters:
 
-- payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The content of the packet to send.
+- payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The packet content to send.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the size of `payload` exceeds system limits or the system fails to send.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `payload` size exceeds system limits or the system fails to send.
 
 ### func sendTo(SocketAddress, Array\<Byte>)
 
@@ -3325,16 +3148,16 @@ Exceptions:
 public override func sendTo(recipient: SocketAddress, payload: Array<Byte>): Unit
 ```
 
-Function: Sends packets. May block if there is insufficient buffer space.
+Function: Sends packets. May block when there is insufficient buffer space.
 
 Parameters:
 
-- recipient: [SocketAddress](net_package_classes.md#class-socketaddress) - The recipient's address.
-- payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The content of the packet to send.
+- recipient: [SocketAddress](net_package_classes.md#class-socketaddress) - The recipient address.
+- payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The packet content to send.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the size of `payload` exceeds system limits, the system fails to send (e.g., when `connect` is called and an abnormal ICMP packet is received), or when `sendTo` is called after `connect` on macOS.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `payload` size exceeds system limits, the system fails to send (e.g., when `connect` is called and an abnormal ICMP packet is received), or when `sendTo` is called after `connect` on macOS.
 
 ### func setSocketOption(Int32, Int32, CPointer\<Unit>, UIntNative)
 
@@ -3354,7 +3177,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 - value: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)> - The option value.
-- valueLength: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The length of the option value.
+- valueLength: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The option value length.
 
 Exceptions:
 
@@ -3418,7 +3241,11 @@ Function: Gets the specified socket option. Converted from [IntNative](../../cor
 Parameters:
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)## class UnixServerSocket
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
+
+Return Value:
+
+-## class UnixServerSocket
 
 ```cangjie
 public class UnixServerSocket <: ServerSocket {
@@ -3427,9 +3254,9 @@ public class UnixServerSocket <: ServerSocket {
 }
 ```
 
-Function: Provides duplex stream-based host communication server-side functionality.
+Function: Provides duplex stream-based host communication server-side.
 
-[UnixServerSocket](net_package_classes.md#class-unixserversocket) listens for connections. After creation, properties can be configured through attributes and the `setSocketOptionXX` interface. The `bind()` interface must be called to bind a local address and start listening for connections. Connections can be accepted using the `accept()` interface.
+[UnixServerSocket](net_package_classes.md#class-unixserversocket) listens for connections. After creation, property values can be configured through properties and `setSocketOptionXX` interfaces. Requires calling the `bind()` interface to bind a local address and start listening for connections. Connections can be accepted via the `accept()` interface.
 
 > **Note:**
 >
@@ -3451,7 +3278,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when called after `bind`.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when called after `bind`.
 
 ### prop localAddress
 
@@ -3465,7 +3292,7 @@ Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` has been closed.
 
 ### prop receiveBufferSize
 
@@ -3479,8 +3306,8 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when `size` is less than or equal to 0.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` is closed.
 
 ### prop sendBufferSize
 
@@ -3494,8 +3321,8 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when `size` is less than or equal to 0.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` is closed.
 
 ### init(SocketAddress)
 
@@ -3517,7 +3344,7 @@ public init(bindAt!: String)
 
 Function: Creates an unconnected [UnixServerSocket](net_package_classes.md#class-unixserversocket) instance.
 
-This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted using the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
+This file type can be checked for existence via [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted via the [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() interface.
 
 Parameters:
 
@@ -3525,7 +3352,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the file address is invalid.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the file address is invalid.
 
 ### func accept()
 
@@ -3557,8 +3384,8 @@ Return Value:
 
 Exceptions:
 
-- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Thrown when the connection times out.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the timeout duration is less than 0.
+- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - Throws an exception when the connection times out.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the timeout duration is less than 0.
 
 ### func bind()
 
@@ -3568,11 +3395,11 @@ public override func bind(): Unit
 
 Function: Binds a `Unix domain` socket and creates a listening queue.
 
-This interface automatically creates a socket file at the local address. If the file already exists, binding will fail. This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted using [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)(). After failure, the socket must be `closed`. Multiple retries are not supported.
+This interface automatically creates a socket file at the local address. If the file already exists, binding will fail. This file type can be checked for existence via [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted via [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)(). After failure, the socket must be `closed`. Multiple retries are not supported.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when binding fails due to system reasons.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when binding fails due to system reasons.
 
 ### func close()
 
@@ -3604,7 +3431,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` returns failure.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `getsockopt` returns failure.
 
 ### func getSocketOptionBool(Int32, Int32)
 
@@ -3624,11 +3451,11 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified socket option value. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the specified socket option value. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` returns failure or the option size exceeds the threshold of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `getsockopt` returns failure or the option size exceeds the [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) threshold.
 
 ### func getSocketOptionIntNative(Int32, Int32)
 
@@ -3639,7 +3466,7 @@ public func getSocketOptionIntNative(
 ): IntNative
 ```
 
-Function: Gets the specified socket option of integer type.
+Function: Gets the specified integer-type socket option.
 
 Parameters:
 
@@ -3652,7 +3479,7 @@ Return Value:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `getsockopt` returns failure or the option size exceeds the threshold of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `getsockopt` returns failure or the option size exceeds the [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) threshold.
 
 ### func isClosed()
 
@@ -3660,11 +3487,11 @@ Exceptions:
 public override func isClosed(): Bool
 ```
 
-Function: Determines whether the socket has been explicitly closed by calling `close`.
+Function: Determines whether the socket has been explicitly closed via `close`.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed by calling `close`; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed via `close`; otherwise, returns `false`.
 
 ### func setSocketOption(Int32, Int32, CPointer\<Unit>, UIntNative)
 
@@ -3677,7 +3504,7 @@ public func setSocketOption(
 ): Unit
 ```
 
-Function: Sets the specified socket option of integer type.
+Function: Sets the specified integer-type socket option.
 
 Parameters:
 
@@ -3688,7 +3515,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `setsockopt` returns failure.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `setsockopt` returns failure.
 
 ### func setSocketOptionBool(Int32, Int32, Bool)
 
@@ -3710,7 +3537,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `setsockopt` returns failure.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `setsockopt` returns failure.
 
 ### func setSocketOptionIntNative(Int32, Int32, IntNative)
 
@@ -3732,7 +3559,7 @@ Parameters:
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when `setsockopt` returns failure.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when `setsockopt` returns failure.
 
 ### func toString()
 
@@ -3755,7 +3582,7 @@ public class UnixSocket <: StreamingSocket {
 }
 ```
 
-Function: Provides duplex stream-based host communication client-side functionality.
+Function: Provides duplex stream-based host communication client-side.
 
 After creating a [UnixSocket](net_package_classes.md#class-unixsocket) instance, the `connect()` interface should be called to establish a connection, and `close()` should be explicitly called to release resources when finished. Refer to [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) for more information.
 
@@ -3779,7 +3606,7 @@ Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed or no local address is available (local address not configured and socket not connected).
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` has been closed or no local address is available (local address not configured and socket not connected).
 
 ### prop readTimeout
 
@@ -3789,13 +3616,13 @@ public override mut prop readTimeout: ?Duration
 
 Function: Sets and reads the read operation timeout duration.
 
-If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to `None`. The default value is `None`.
+If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to `None`. Default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the timeout duration is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the timeout duration is less than 0.
 
 ### prop receiveBufferSize
 
@@ -3809,8 +3636,8 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when `size` is less than or equal to 0.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` is closed.
 
 ### prop remoteAddress
 
@@ -3818,13 +3645,13 @@ Exceptions:
 public override prop remoteAddress: SocketAddress
 ```
 
-Function: Reads the remote address to which the `Socket` has or will be connected.
+Function: Reads the remote address to which the `Socket` has or will connect.
 
 Type: [SocketAddress](net_package_classes.md#class-socketaddress)
 
 Exceptions:
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` has been closed.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` has been closed.
 
 ### prop sendBufferSize
 
@@ -3838,8 +3665,8 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `size` is less than or equal to 0.
-- [SocketException](net_package_exceptions.md#class-socketexception) - Thrown when the `Socket` is closed.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when `size` is less than or equal to 0.
+- [SocketException](net_package_exceptions.md#class-socketexception) - Throws an exception when the `Socket` is closed.
 
 ### prop writeTimeout
 
@@ -3849,13 +3676,13 @@ public override mut prop writeTimeout: ?Duration
 
 Function: Sets and reads the write operation timeout duration.
 
-If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). The default value is `None`.
+If the set time is too small, it will be set to the minimum clock cycle value; if too large, it will be set to the maximum timeout duration (2<sup>63</sup>-1 nanoseconds). Default value is `None`.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the timeout duration is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the timeout duration is less than 0.
 
 ### init(SocketAddress, ?SocketAddress)
 
@@ -3878,12 +3705,11 @@ public init(path: String, localPath!: ?String = None)
 
 Function: Creates an unconnected [UnixSocket](net_package_classes.md#class-unixsocket) instance.
 
-This file type can be checked for existence using [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted using [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)().
+This file type can be checked for existence via [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) and deleted via [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)().
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file address to connect.
-- localPath!: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - The local socket address path to bind; default is `None## class UnixSocketAddress
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file address## class UnixSocketAddress
 
 ```cangjie
 public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
@@ -3892,7 +3718,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
 }
 ```
 
-Functionality: This class implements Unix Domain Socket addresses. A UnixSocketAddress encapsulates the filesystem path to which a Unix Domain Socket is bound or connected, with a maximum path length of 108 bytes.
+Functionality: This class implements Unix Domain Socket addresses. A UnixSocketAddress encapsulates the filesystem path to which a Unix Domain Socket is bound or connected, with the path length not exceeding 108 bytes.
 
 If the path is an empty string, it represents an `unnamed` address. If the path starts with `\0`, it represents an `abstract` address. The path must not contain `\0` in the middle.
 
@@ -3927,7 +3753,7 @@ Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int6
 public init(path: Array<Byte>)
 ```
 
-Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path represented as [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
+Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path represented as an [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
 
 Parameters:
 
@@ -3943,7 +3769,7 @@ Exceptions:
 public init(path: String)
 ```
 
-Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path represented as a string.
+Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path string.
 
 Parameters:
 
@@ -3959,7 +3785,7 @@ Exceptions:
 public func getAddressBytes(): Array<Byte>
 ```
 
-Functionality: Returns the raw IP address of this [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, with layout consistent with `sockaddr_un` format.
+Functionality: Returns the raw IP address of this [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, with content layout matching the `sockaddr_un` format.
 
 Return Value:
 
@@ -3997,11 +3823,11 @@ Return Value:
 public func toString(): String
 ```
 
-Functionality: Returns a string representation of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress).
+Functionality: Returns the string representation of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress).
 
 Return Value:
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress), e.g. `/tmp/socket1`.
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - Text representation string of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress), e.g. `/tmp/socket1`.
 
 Example:
 <!-- run -->
@@ -4062,7 +3888,7 @@ main() {
 public operator func ==(rhs: UnixSocketAddress): Bool
 ```
 
-Functionality: Compares two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects for equality.
+Functionality: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are equal.
 
 Parameters:
 
@@ -4078,7 +3904,7 @@ Return Value:
 public operator func !=(rhs: UnixSocketAddress): Bool
 ```
 
-Functionality: Compares two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects for inequality.
+Functionality: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are not equal.
 
 Parameters:
 

@@ -490,7 +490,8 @@ Output:
 
 ```text
 Some(1)
-``````markdown
+```
+
 ## class Iterator\<T>
 
 ```cangjie
