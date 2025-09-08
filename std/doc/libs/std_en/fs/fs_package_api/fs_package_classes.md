@@ -1,4 +1,4 @@
-# Class
+# Classes
 
 ## class Directory
 
@@ -10,7 +10,7 @@ Functionality: Represents a directory in the file system, providing capabilities
 
 > **Note:**
 >
-> An illegal path refers to any of the following scenarios:
+> An illegal path refers to any of the following cases:
 >
 > - Path contains illegal characters such as spaces, tabs, line breaks, etc.
 > - Path contains invalid characters such as special characters or control characters.
@@ -27,17 +27,17 @@ public static func create(path: Path, recursive!: Bool = false): Unit
 
 Functionality: Creates a directory.
 
-Specifies whether to create recursively. If recursive creation is required, it will create non-existent directories level by level in the path.
+Specifies whether to create recursively. If recursive creation is required, non-existent directories in the path will be created level by level.
 
 Parameters:
 
 - path: [Path](fs_package_structs.md#struct-path) - The directory path to be created.
-- recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to create directories recursively. true for recursive creation, false for non-recursive creation. Default is false.
+- recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to create directories recursively. true for recursive creation, false for non-recursive creation (default: false).
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the directory already exists, intermediate directories don't exist during non-recursive creation, insufficient permissions, or other reasons prevent directory creation.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the directory is empty, current directory, root directory, or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the directory already exists, intermediate directories do not exist during non-recursive creation, insufficient permissions, or other reasons prevent directory creation.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the directory is empty, the current directory, the root directory, or contains null characters.
 
 ### static func create(String, Bool)
 
@@ -47,17 +47,17 @@ public static func create(path: String, recursive!: Bool = false): Unit
 
 Functionality: Creates a directory.
 
-Specifies whether to create recursively. If recursive creation is required, it will create non-existent directories level by level in the path.
+Specifies whether to create recursively. If recursive creation is required, non-existent directories in the path will be created level by level.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The directory path to be created.
-- recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to create directories recursively. true for recursive creation, false for non-recursive creation. Default is false.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The directory path string to be created.
+- recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to create directories recursively. true for recursive creation, false for non-recursive creation (default: false).
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the directory already exists, intermediate directories don't exist during non-recursive creation, insufficient permissions, or other reasons prevent directory creation.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the directory is empty, current directory, root directory, or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the directory already exists, intermediate directories do not exist during non-recursive creation, insufficient permissions, or other reasons prevent directory creation.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the directory is empty, the current directory, the root directory, or contains null characters.
 
 ### static func createTemp(Path)
 
@@ -69,16 +69,16 @@ Functionality: Creates a temporary directory under the specified directory.
 
 Parameters:
 
-- directoryPath: [Path](fs_package_structs.md#struct-path) - Directory path in [Path](fs_package_structs.md#struct-path) format.
+- directoryPath: [Path](fs_package_structs.md#struct-path) - The directory path in [Path](fs_package_structs.md#struct-path) format.
 
 Return Value:
 
-- [Path](./fs_package_structs.md#struct-path) - Path corresponding to the temporary directory.
+- [Path](./fs_package_structs.md#struct-path) - The path corresponding to the temporary directory.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the directory doesn't exist or creation fails for other reasons.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the directory is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the directory does not exist or creation fails for other reasons.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the directory is empty or contains null characters.
 
 ### static func createTemp(String)
 
@@ -90,16 +90,16 @@ Functionality: Creates a temporary directory under the specified directory.
 
 Parameters:
 
-- directoryPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Directory path in string format.
+- directoryPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The directory path string.
 
 Return Value:
 
-- [Path](./fs_package_structs.md#struct-path) - Path corresponding to the temporary directory.
+- [Path](./fs_package_structs.md#struct-path) - The path corresponding to the temporary directory.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the directory doesn't exist or creation fails for other reasons.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the directory is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the directory does not exist or creation fails for other reasons.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the directory is empty or contains null characters.
 
 ### static func isEmpty(Path)
 
@@ -111,7 +111,7 @@ Functionality: Checks if the specified directory is empty.
 
 Parameters:
 
-- path: [Path](./fs_package_structs.md#struct-path) - Path corresponding to the directory to be checked for emptiness.
+- path: [Path](./fs_package_structs.md#struct-path) - The path corresponding to the directory to be checked.
 
 Return Value:
 
@@ -119,8 +119,8 @@ Return Value:
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or system interface errors occur during checking.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or an error occurs in the underlying interface during checking.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ### static func isEmpty(String)
 
@@ -132,7 +132,7 @@ Functionality: Checks if the specified directory is empty.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Path corresponding to the directory to be checked for emptiness.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string corresponding to the directory to be checked.
 
 Return Value:
 
@@ -140,8 +140,8 @@ Return Value:
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or system interface errors occur during checking.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or an error occurs in the underlying interface during checking.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ### static func readFrom(Path)
 
@@ -149,22 +149,22 @@ Exceptions:
 public static func readFrom(path: Path): Array<FileInfo>
 ```
 
-Functionality: Retrieves the list of child items in the current directory.
+Functionality: Retrieves the list of sub-items in the current directory.
 
-The order of child items in the array depends on the system's file sorting.
+The order of sub-items in the array depends on the system's file sorting.
 
 Parameters:
 
-- path: [Path](./fs_package_structs.md#struct-path) - Path corresponding to the directory whose children are to be read.
+- path: [Path](./fs_package_structs.md#struct-path) - The path corresponding to the directory whose sub-items are to be read.
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](fs_package_structs.md#struct-fileinfo)> - List of child items in the current directory.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](fs_package_structs.md#struct-fileinfo)> - The list of sub-items in the current directory.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or fails to retrieve member information.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or fails to retrieve member information.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ### static func readFrom(String)
 
@@ -172,22 +172,22 @@ Exceptions:
 public static func readFrom(path: String): Array<FileInfo>
 ```
 
-Functionality: Retrieves the list of child items in the current directory.
+Functionality: Retrieves the list of sub-items in the current directory.
 
-The order of child items in the array depends on the system's file sorting.
+The order of sub-items in the array depends on the system's file sorting.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Path corresponding to the directory whose children are to be read.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string corresponding to the directory whose sub-items are to be read.
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](./fs_package_structs.md#struct-fileinfo)> - List of child items in the current directory.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](./fs_package_structs.md#struct-fileinfo)> - The list of sub-items in the current directory.
 
 Exceptions:
 
-- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or fails to retrieve member information.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or fails to retrieve member information.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ### static func walk(Path, (FileInfo)->Bool)
 
@@ -195,19 +195,19 @@ Exceptions:
 public static func walk(path: Path, f: (FileInfo)->Bool): Unit
 ```
 
-Functionality: Traverses child items (non-recursively, excluding subdirectory items) under the directory corresponding to path, executing a callback function for each child item.
+Functionality: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
 
-The walk function exits when traversal completes or the callback function f returns false. Traversal order depends on system file sorting.
+The `walk` function exits when traversal completes or the callback function `f` returns false. The traversal order depends on the system's file sorting.
 
 Parameters:
 
-- path: [Path](./fs_package_structs.md#struct-path) - Path corresponding to the directory to be traversed.
-- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Callback function executed for each child item. Input parameter is the child item's metadata. Return value indicates whether to continue traversal.
+- path: [Path](./fs_package_structs.md#struct-path) - The path corresponding to the directory to be traversed.
+- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The callback function executed for each sub-item. The input parameter is the metadata of the sub-item, and the return value indicates whether to continue traversal.
 
 Exceptions:
 
-- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or fails to retrieve member information.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or fails to retrieve member information.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ### static func walk(String, (FileInfo)->Bool)
 
@@ -215,19 +215,19 @@ Exceptions:
 public static func walk(path: String, f: (FileInfo)->Bool): Unit
 ```
 
-Functionality: Traverses child items (non-recursively, excluding subdirectory items) under the directory corresponding to path, executing a callback function for each child item.
+Functionality: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
 
-The walk function exits when traversal completes or the callback function f returns false. Traversal order depends on system file sorting.
+The `walk` function exits when traversal completes or the callback function `f` returns false. The traversal order depends on the system's file sorting.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Path corresponding to the directory to be traversed.
-- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Callback function executed for each child item. Input parameter is the child item's metadata. Return value indicates whether to continue traversal.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string corresponding to the directory to be traversed.
+- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The callback function executed for each sub-item. The input parameter is the metadata of the sub-item, and the return value indicates whether to continue traversal.
 
 Exceptions:
 
-- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception when the specified path doesn't exist, is not a directory, or fails to retrieve member information.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the specified path is empty or contains null characters.
+- [FSException](./fs_package_exceptions.md#class-fsexception) - Throws an exception if the specified path does not exist, is not a directory, or fails to retrieve member information.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the specified path is empty or contains null characters.
 
 ## class File
 
@@ -238,11 +238,11 @@ public class File <: Resource & IOStream & Seekable {
 }
 ```
 
-Functionality: Provides functions for file operations including opening, creating, closing, moving, copying, deleting, stream-based read/write operations, attribute querying, and other functions.
+Functionality: Provides functions for file operations, including opening, creating, closing, moving, copying, deleting, stream-based read/write operations, attribute querying, and other functions.
 
 > **Note:**
 >
-> An illegal path refers to any of the following scenarios:
+> An illegal path refers to any of the following cases:
 >
 > - Path contains illegal characters such as spaces, tabs, line breaks, etc.
 > - Path contains invalid characters such as special characters or control characters.
@@ -253,7 +253,7 @@ When inputting paths, avoid using illegal characters to ensure path validity for
 
 > **Warning:**
 >
-> Created [File](fs_package_classes.md#class-file) objects will open the corresponding file by default. When finished, promptly call the [close](fs_package_classes.md#func-close) function to close the file to prevent resource leaks.
+> The created [File](fs_package_classes.md#class-file) object will open the corresponding file by default. Call the [close](fs_package_classes.md#func-close) function promptly after use to avoid resource leaks.
 
 Parent Types:
 
@@ -287,7 +287,7 @@ Type: [FileInfo](fs_package_structs.md#struct-fileinfo)
 public prop length: Int64
 ```
 
-Functionality: Retrieves the number of data bytes from the file header to the file tail.
+Functionality: Retrieves the byte count of data from the file header to the file tail.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -297,17 +297,19 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init(path: Path, mode: OpenMode)
 ```
 
-Functionality: Creates a [File](fs_package_classes.md#class-file) object.The file path and opening mode (read/write permissions) must be specified. Both relative and absolute paths are supported.
+Functionality: Creates a [File](fs_package_classes.md#class-file) object.
+
+Specifies the file path and opening mode (read/write permissions). The path supports both relative and absolute paths.
 
 Parameters:
 
-- path: [Path](fs_package_structs.md#struct-path) - File path.
-- mode: [OpenMode](fs_package_enums.md#enum-openmode) - File opening mode.
+- path: [Path](fs_package_structs.md#struct-path) - The file path.
+- mode: [OpenMode](fs_package_enums.md#enum-openmode) - The file opening mode.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if attempting to open a non-existent file in read-only mode, parent directory doesn't exist, or other reasons prevent file opening.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the file does not exist when opened in read-only mode, the parent directory does not exist, or other reasons prevent file opening.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the path is empty or contains null characters.
 
 ### init(String, OpenMode)
 
@@ -315,19 +317,19 @@ Exceptions:
 public init(path: String, mode: OpenMode)
 ```
 
-Function: Creates a [File](fs_package_classes.md#class-file) object.
+Functionality: Creates a [File](fs_package_classes.md#class-file) object.
 
-The file path and opening mode (read/write permissions) must be specified. Both relative and absolute paths are supported.
+Specifies the file path and opening mode (read/write permissions). The path supports both relative and absolute paths.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path string.
-- mode: [OpenMode](fs_package_enums.md#enum-openmode) - File opening mode.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path string.
+- mode: [OpenMode](fs_package_enums.md#enum-openmode) - The file opening mode.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if attempting to open a non-existent file in read-only mode, parent directory doesn't exist, or other reasons prevent file opening.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if path is an empty string or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the file does not exist when opened in read-only mode, the parent directory does not exist, or other reasons prevent file opening.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the path is an empty string or contains null characters.
 
 ### static func appendTo(Path, Array\<Byte>)
 
@@ -335,17 +337,17 @@ Exceptions:
 public static func appendTo(path: Path, buffer: Array<Byte>): Unit
 ```
 
-Function: Opens the specified file and appends the buffer contents. Creates the file if it doesn't exist.
+Functionality: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
 
 Parameters:
 
-- path: [Path](fs_package_structs.md#struct-path) - File path.
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Bytes to be written.
+- path: [Path](fs_package_structs.md#struct-path) - The file path.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The bytes to be written.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file opening or writing fails.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if file opening or writing fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the file path is empty or contains null characters.
 
 ### static func appendTo(String, Array\<Byte>)
 
@@ -353,17 +355,17 @@ Exceptions:
 public static func appendTo(path: String, buffer: Array<Byte>): Unit
 ```
 
-Function: Opens the specified file and appends the buffer contents. Creates the file if it doesn't exist.
+Functionality: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path string.
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Bytes to be written.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path string.
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The bytes to be written.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file opening or writing fails.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if file opening or writing fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the file path is an empty string or contains null characters.
 
 ### static func create(Path)
 
@@ -371,20 +373,20 @@ Exceptions:
 public static func create(path: Path): File
 ```
 
-Function: Creates a file at the specified path and returns a write-only [File](#class-file) instance.
+Functionality: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
 
 Parameters:
 
-- path: [Path](fs_package_structs.md#struct-path) - File path.
+- path: [Path](fs_package_structs.md#struct-path) - The file path.
 
-Returns:
+Return Value:
 
-- [File](fs_package_classes.md#class-file) - [File](fs_package_classes.md#class-file) instance.
+- [File](fs_package_classes.md#class-file) - The [File](fs_package_classes.md#class-file) instance.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if parent directory doesn't exist or file already exists.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the parent directory of the path does not exist or the file already exists.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the file path is empty or contains null characters.
 
 ### static func create(String)
 
@@ -392,20 +394,20 @@ Exceptions:
 public static func create(path: String): File
 ```
 
-Function: Creates a file at the specified path and returns a write-only [File](#class-file) instance.
+Functionality: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path string.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path string.
 
-Returns:
+Return Value:
 
-- [File](fs_package_classes.md#class-file) - [File](fs_package_classes.md#class-file) instance.
+- [File](fs_package_classes.md#class-file) - The [File](fs_package_classes.md#class-file) instance.
 
 Exceptions:
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if parent directory doesn't exist or file already exists.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is an empty string or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Throws an exception if the parent directory of the path does not exist or the file already exists.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the file path is an empty string or contains null characters.
 
 ### static func createTemp(Path)
 
@@ -413,266 +415,16 @@ Exceptions:
 public static func createTemp(directoryPath: Path): File
 ```
 
-Function: Creates a temporary file in the specified directory.
+Functionality: Creates a temporary file under the specified directory.
 
-The created file follows the naming pattern tmpFileXXXXXX. Unused temporary files should be manually deleted.
-
-Parameters:
-
-- directoryPath: [Path](fs_package_structs.md#struct-path) - Directory path.
-
-Returns:
-
-- [File](fs_package_classes.md#class-file) - Temporary file [File](fs_package_classes.md#class-file) instance.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file creation fails or path doesn't exist.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is empty or contains null characters.
-
-### static func createTemp(String)
-
-```cangjie
-public static func createTemp(directoryPath: String): File
-```
-
-Function: Creates a temporary file in the specified directory.
-
-The created file follows the naming pattern tmpFileXXXXXX. Unused temporary files should be manually deleted.
-
-Parameters:
-
-- directoryPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Directory path string.
-
-Returns:
-
-- [File](fs_package_classes.md#class-file) - Temporary file [File](fs_package_classes.md#class-file) instance.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file creation fails or path doesn't exist.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is an empty string or contains null characters.
-
-### static func readFrom(Path)
-
-```cangjie
-public static func readFrom(path: Path): Array<Byte>
-```
-
-Function: Reads the entire content of the specified file and returns it as a byte array.
-
-Parameters:
-
-- path: [Path](fs_package_structs.md#struct-path) - File path.
-
-Returns:
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - File content as a byte array.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file path is empty, file is unreadable, or reading fails.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path contains null characters.
-
-### static func readFrom(String)
-
-```cangjie
-public static func readFrom(path: String): Array<Byte>
-```
-
-Function: Reads the entire content of the specified file and returns it as a byte array.
-
-Parameters:
-
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path string.
-
-Returns:
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - File content as a byte array.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if reading fails, closing fails, path is empty, or file is unreadable.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path contains null characters.
-
-### static func writeTo(Path, Array\<Byte>)
-
-```cangjie
-public static func writeTo(path: Path, buffer: Array<Byte>): Unit
-```
-
-Function: Opens the specified file and overwrites its content with the buffer. Truncates existing files to zero bytes. Creates the file if it doesn't exist.
-
-Parameters:
-
-- path: [Path](fs_package_structs.md#struct-path) - File path.
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Bytes to be written.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file opening or writing fails.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is empty or contains null characters.
-
-### static func writeTo(String, Array\<Byte>)
-
-```cangjie
-public static func writeTo(path: String, buffer: Array<Byte>): Unit
-```
-
-Function: Opens the specified file and overwrites its content with the buffer. Truncates existing files to zero bytes. Creates the file if it doesn't exist.
-
-Parameters:
-
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path string.
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Bytes to be written.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if file opening or writing fails.
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if file path is an empty string or contains null characters.
-
-### func canRead()
-
-```cangjie
-public func canRead(): Bool
-```
-
-Function: Determines whether the current [File](fs_package_classes.md#class-file) object is readable.
-
-The return value is determined by the openMode used to create the file object. Returns false after the file object is closed.
-
-Returns:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if readable, false if unreadable or file object is closed.
-
-### func canWrite()
-
-```cangjie
-public func canWrite(): Bool
-```
-
-Function: Determines whether the current [File](fs_package_classes.md#class-file) object is writable.
-
-The return value is determined by the openMode used to create the file object. Returns false after the file object is closed.
-
-Returns:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if writable, false if unwritable or file object is closed.
-
-### func close()
-
-```cangjie
-public func close(): Unit
-```
-
-Function: Closes the current [File](fs_package_classes.md#class-file) object.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if closing fails.
-
-### func flush()
-
-```cangjie
-public func flush(): Unit
-```
-
-Function: Flushes buffer data to the stream. This function has no actual effect since [File](fs_package_classes.md#class-file) doesn't use buffers.
-
-### func isClosed()
-
-```cangjie
-public func isClosed(): Bool
-```
-
-Function: Determines whether the current [File](fs_package_classes.md#class-file) object is closed.
-
-Returns:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if closed, false if open.
-
-### func read(Array\<Byte>)
-
-```cangjie
-public func read(buffer: Array<Byte>): Int64
-```
-Function: Reads data from a file into a buffer.
-
-Parameters:
-
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the read data.
-
-Return Value:
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the number of bytes read if successful; returns 0 if the file has been completely read.
-
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the buffer is empty.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the read operation fails, the file is closed, or the file is not readable.
-
-### func seek(SeekPosition)
-
-```cangjie
-public func seek(sp: SeekPosition): Int64
-```
-
-Function: Moves the cursor to the specified position.
-
-The specified position cannot be before the file header. The position can exceed the end of the file, but the maximum offset from the specified position to the file header must not exceed the maximum value allowed by the current file system. This maximum value is close to the maximum file size allowed by the current file system, typically the maximum file size minus 4096 bytes.
-
-Parameters:
-
-- sp: [SeekPosition](../../io/io_package_api/io_package_enums.md#enum-seekposition) - The target position after the cursor jump.
-
-Return Value:
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset (in bytes) from the file header to the new cursor position.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the specified position does not meet the above conditions or if the file cannot be seeked.
-
-### func setLength(Int64)
-
-```cangjie
-public func setLength(length: Int64): Unit
-```
-
-Function: Truncates the current file to the specified length. If the length is greater than the current file length, the file is padded with zeros until the target length is reached. This method does not change the file cursor position.
-
-Parameters:
-
-- length: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target truncation length.
-
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the specified length is negative.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the file truncation operation fails.
-
-### func write(Array\<Byte>)
-
-```cangjie
-public func write(buffer: Array<Byte>): Unit
-```
-
-Function: Writes data from the buffer to the file.
-
-Parameters:
-
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer containing the data to be written. If the buffer is empty, the method returns immediately.
-
-Exceptions:
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the write operation fails, only partial data is written, the file is closed, or the file is not writable.
-
+The file name follows the pattern `tmpFileXXXX```markdown
 ## class HardLink
 
 ```cangjie
 public class HardLink
 ```
 
-Function: Provides interfaces for handling file system hard links.
+Function: Provides interfaces for handling filesystem hard links.
 
 ### static func create(Path, Path)
 
@@ -684,13 +436,13 @@ Function: Creates a new hard link to an existing path. If the new path already e
 
 Parameters:
 
-- link: [Path](fs_package_structs.md#struct-path) - The name of the new path.
-- to!: [Path](fs_package_structs.md#struct-path) - The name of the existing path.
+- link: [Path](fs_package_structs.md#struct-path) - Name of the new path.
+- to!: [Path](fs_package_structs.md#struct-path) - Name of the existing path.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the hard link creation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when hard link creation fails.
 
 ### static func create(String, String)
 
@@ -702,13 +454,13 @@ Function: Creates a new hard link to an existing path. If the new path already e
 
 Parameters:
 
-- link: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the new path.
-- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the existing path.
+- link: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the new path.
+- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the existing path.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the hard link creation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when hard link creation fails.
 
 ## class SymbolicLink
 
@@ -716,7 +468,7 @@ Exceptions:
 public class SymbolicLink
 ```
 
-Function: Provides interfaces for handling file system symbolic links.
+Function: Provides interfaces for handling filesystem symbolic links.
 
 ### static func create(Path, Path)
 
@@ -728,17 +480,17 @@ Function: Creates a new symbolic link to an existing path.
 
 > **Note:**
 >
-> On Windows, creating a symbolic link to a non-existent target will create a file symbolic link. If the target path is later created as a directory, the symbolic link will not work.
+> On Windows, when creating a symbolic link to a non-existent target, a file symbolic link will be created. If the target path is later created as a directory, the symbolic link will not function.
 
 Parameters:
 
 - link: [Path](fs_package_structs.md#struct-path) - The symbolic link to be created.
-- to!: [Path](fs_package_structs.md#struct-path) - The target path of the symbolic link.
+- to!: [Path](fs_package_structs.md#struct-path) - The target path of the symbolic link to be created.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the symbolic link creation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when symbolic link creation fails.
 
 ### static func create(String, String)
 
@@ -750,17 +502,17 @@ Function: Creates a new symbolic link to an existing path.
 
 > **Note:**
 >
-> On Windows, creating a symbolic link to a non-existent target will create a file symbolic link. If the target path is later created as a directory, the symbolic link will not work.
+> On Windows, when creating a symbolic link to a non-existent target, a file symbolic link will be created. If the target path is later created as a directory, the symbolic link will not function.
 
 Parameters:
 
 - link: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The symbolic link to be created.
-- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The target path of the symbolic link.
+- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The target path of the symbolic link to be created.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the symbolic link creation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when symbolic link creation fails.
 
 ### static func readFrom(Path, Bool)
 
@@ -772,17 +524,17 @@ Function: Retrieves the target of the specified symbolic link. When 'recursive' 
 
 Parameters:
 
-- path: [Path](fs_package_structs.md#struct-path) - The address of the symbolic link.
+- path: [Path](fs_package_structs.md#struct-path) - Address of the symbolic link.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively read the target address. Default is 'false'.
 
 Return Value:
 
-- [Path](fs_package_structs.md#struct-path) - The target address of the symbolic link.
+- [Path](fs_package_structs.md#struct-path) - Target address of the symbolic link.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the symbolic link read operation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when reading the symbolic link fails.
 
 ### static func readFrom(String, Bool)
 
@@ -794,14 +546,15 @@ Function: Retrieves the target of the specified symbolic link. When 'recursive' 
 
 Parameters:
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The address of the symbolic link.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Address of the symbolic link.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively read the target address. Default is 'false'.
 
 Return Value:
 
-- [Path](fs_package_structs.md#struct-path) - The target address of the symbolic link.
+- [Path](fs_package_structs.md#struct-path) - Target address of the symbolic link.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the path is empty or contains null characters.
-- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown if the symbolic link read operation fails.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the path parameter is empty or contains null characters.
+- [FSException](fs_package_exceptions.md#class-fsexception) - Thrown when reading the symbolic link fails.
+```

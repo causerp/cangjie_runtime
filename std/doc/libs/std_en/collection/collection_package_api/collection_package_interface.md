@@ -13,12 +13,12 @@ public interface Deque<T> <: Collection<T> {
 }
 ```
 
-Functionality: Deque (double-ended queue) is a data structure that combines features of both queues and stacks, allowing insertion and removal of elements from both ends. The main functionalities of the Deque interface include:
+Functionality: Deque (double-ended queue) is a data structure that combines features of both queues and stacks, allowing insertion and deletion of elements from both ends. The main functionalities of the Deque interface include:
 
 - Insertion operations: Elements can be inserted at either the front or rear of the deque. Use `addFirst` to insert at the head, and `addLast` to insert at the tail.
 - Access operations: Elements at either end can be accessed without removal. Use `first` to access the head element and `last` to access the tail element.
 - Removal operations: Elements can be removed from either end. Use `removeFirst` to remove and return the head element, and `removeLast` to remove and return the tail element.
-- Other operations supported by collection types, such as element count, emptiness check, and iterator operations.
+- Other collection-type supported operations such as element count, emptiness check, and iterator operations.
 
 Parent type:
 
@@ -121,11 +121,11 @@ Functionality: Determines whether the collection contains the specified element.
 
 Parameter:
 
-- element: T - The element whose presence in the collection is to be tested.
+- element: T - The element to check for presence in the collection.
 
 Return value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is found, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is present, otherwise false.
 
 ### func contains(Collection\<T>)
 
@@ -137,11 +137,11 @@ Functionality: Determines whether the collection contains all elements of the sp
 
 Parameter:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection to be checked for containment.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection whose elements are to be checked for presence.
 
 Return value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements are found, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements are present, otherwise false.
 
 ## interface List\<T>
 
@@ -176,7 +176,7 @@ Functionality: Appends the specified element to the end of this list.
 
 Parameter:
 
-- element: T - The element to be appended, of type T.
+- element: T - The element to be inserted, of type T.
 
 ### func add(Collection\<T>)
 
@@ -188,7 +188,7 @@ Functionality: Appends all elements from the specified collection to the end of 
 
 Parameter:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection containing elements to be appended.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be inserted.
 
 ### func add(T, Int64)
 
@@ -201,7 +201,7 @@ Functionality: Inserts the specified element at the specified position in this l
 Parameters:
 
 - element: T - The element of type T to be inserted.
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index at which the element is to be inserted.
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target index for insertion.
 
 ### func add(Collection\<T>, Int64)
 
@@ -209,12 +209,12 @@ Parameters:
 func add(all!: Collection<T>, at!: Int64): Unit
 ```
 
-Functionality: Inserts all elements from the specified collection into this list starting at the specified position.
+Functionality: Inserts all elements from the specified collection into this list starting from the specified position.
 
 Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements of type T to be inserted.
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index at which the collection is to be inserted.
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target index for insertion.
 
 ### func clear()
 
@@ -258,24 +258,24 @@ Parameter:
 func removeIf(predicate: (T) -> Bool): Unit
 ```
 
-Functionality: Removes all elements from this list that satisfy the given predicate.
+Functionality: Removes all elements from this list that satisfy the given lambda expression or function.
 
 Parameter:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition that determines which elements to remove.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition predicate for removal.
 
-### operator func []\(Int64, T)
+### operator func \[](Int64, T)
 
 ```cangjie
 operator func [](index: Int64, value!: T): Unit
 ```
 
-Functionality: Operator overload - set. Replaces the element at the specified position in this list with the specified element using the subscript operator.
+Functionality: Operator overload - set, replaces the element at the specified position in this list with the specified element using the subscript operator.
 
 Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to be set.
-- value!: T - The value of type T to be set.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value to set.
+- value!: T - The value of type T to set.
 
 ## interface Map\<K, V>
 
@@ -294,9 +294,11 @@ public interface Map<K, V> <: ReadOnlyMap<K, V> {
 }
 ```
 
-Functionality: The [Map](collection_package_interface.md#interface-mapk-v) interface provides a way to map keys to values. It allows lookup of values using keys, making it suitable for storing and manipulating key-value pairs.
+Functionality: The [Map](collection_package_interface.md#interface-mapk-v) interface provides a way to map keys to values. It allows lookup of values using keys, enabling storage and manipulation of key-value pairs.
 
-A [Map](collection_package_interface.md#interface-mapk-v) cannot contain duplicate keys; each key can map to at most one value.Parent Type:
+A [Map](collection_package_interface.md#interface-mapk-v) cannot contain duplicate keys; each key maps to at most one value.
+
+Parent type:
 
 - [ReadOnlyMap](collection_package_interface.md#interface-orderedmapk-v)\<K, V>
 
@@ -306,16 +308,16 @@ A [Map](collection_package_interface.md#interface-mapk-v) cannot contain duplica
 func add(key: K, value: V): ?V
 ```
 
-Function: Inserts the specified key-value pair into this [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the [Map](collection_package_interface.md#interface-mapk-v), the mapped value will be replaced with the new value.
+Functionality: Places the specified key-value pair into this [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with the new value.
 
 Parameters:
 
-- key: K - The key to be inserted.
-- value: V - The value to be assigned.
+- key: K - The key to place.
+- value: V - The value to assign.
 
-Return Value:
+Return value:
 
-- ?V - Returns the previous value associated with the key if it existed, otherwise returns None.
+- ?V - Returns the old value if the key previously existed, otherwise returns None.
 
 ### func add(Collection\<(K, V)>)
 
@@ -323,11 +325,11 @@ Return Value:
 func add(all!: Collection<(K, V)>): Unit
 ```
 
-Function: Inserts new key-value pairs into the [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the [Map](collection_package_interface.md#interface-mapk-v), the mapped values will be replaced with the new values.
+Functionality: Places new key-value pairs into the [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with new values.
 
-Parameters:
+Parameter:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The collection of key-value pairs to be inserted into the [Map](collection_package_interface.md#interface-mapk-v).
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The collection of key-value pairs to be placed into the map.
 
 ### func addIfAbsent(K, V)
 
@@ -335,16 +337,16 @@ Parameters:
 func addIfAbsent(key: K, value: V): ?V
 ```
 
-Function: Adds the specified key-value pair if the key is not already present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, no modification is made.
+Functionality: Adds the specified key-value pair if the key is not already present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
 
 Parameters:
 
 - key: K - The key of the key-value pair to be added.
 - value: V - The value of the key-value pair to be added.
 
-Return Value:
+Return value:
 
-- ?V - If the specified key already exists in the current [Map](collection_package_interface.md#interface-mapk-v), returns its associated value. Otherwise returns None.
+- ?V - Returns the old value if the key was already present in the map, otherwise returns None.
 
 ### func clear()
 
@@ -352,7 +354,7 @@ Return Value:
 func clear(): Unit
 ```
 
-Function: Removes all key-value pairs.
+Functionality: Clears all key-value pairs.
 
 ### func entryView(K)
 
@@ -360,13 +362,13 @@ Function: Removes all key-value pairs.
 func entryView(k: K): MapEntryView<K, V>
 ```
 
-Function: Retrieves the view corresponding to key k.
+Functionality: Gets the view corresponding to the specified key k.
 
-Parameters:
+Parameter:
 
-- k: K - The key whose view is to be retrieved.
+- k: K - The key whose view is to be obtained.
 
-Return Value:
+Return value:
 
 - [MapEntryView](#interface-mapentryviewk-v)\<K, V> - The view corresponding to key k.
 
@@ -376,15 +378,15 @@ Return Value:
 func remove(key: K): Option<V>
 ```
 
-Function: Removes the mapping for the specified key from this [Map](collection_package_interface.md#interface-mapk-v) if present.
+Functionality: Removes the mapping for the specified key from this [Map](collection_package_interface.md#interface-mapk-v) if present.
 
-Parameters:
+Parameter:
 
-- key: K - The key to be removed.
+- key: K - The key whose mapping is to be removed.
 
-Return Value:
+Return value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The value associated with the removed key, wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The value associated with the removed key, wrapped in Option.
 
 ### func remove(Collection\<K>)
 
@@ -392,11 +394,11 @@ Return Value:
 func remove(all!: Collection<K>): Unit
 ```
 
-Function: Removes mappings for all keys in the specified collection from this map if present.
+Functionality: Removes mappings for all keys in the specified collection from this map if present.
 
-Parameters:
+Parameter:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to be removed.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys whose mappings are to be removed.
 
 ### func removeIf((K, V) -> Bool)
 
@@ -404,11 +406,11 @@ Parameters:
 func removeIf(predicate: (K, V) -> Bool): Unit
 ```
 
-Function: Removes key-value pairs that satisfy the given predicate.
+Functionality: Removes all key-value pairs that satisfy the given lambda expression.
 
-Parameters:
+Parameter:
 
-- predicate: (K, V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression for condition evaluation.
+- predicate: (K, V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition predicate for removal.
 
 ### func replace(K, V)
 
@@ -416,31 +418,29 @@ Parameters:
 func replace(key: K, value: V): ?V
 ```
 
-Function: Replaces the value for the specified key if it exists in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, no modification is made.
+Functionality: Replaces the value for the specified key with the new value if the key is present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
 
 Parameters:
 
-- key: K - The key whose value is to be replaced.
-- value: V - The new value to be associated with the key.
+- key: K - The key of the key-value pair to be modified.
+- value: V - The new value for the key-value pair.
 
-Return Value:
+Return value:
 
-- ?V - Returns the previous value associated with the key if it existed, otherwise returns None.
+- ?V - Returns the old value if the key was present in the map, otherwise returns None.
 
-### operator func []\(K, V)
+### operator func \[](K, V)
 
 ```cangjie
 operator func [](key: K, value!: V): Unit
 ```
 
-Function: Operator overload for collection operations. If the key exists, the new value overwrites the old value; if the key doesn't exist, the key-value pair is added.
+Functionality: Operator overload collection. If the key exists, the new value overwrites the old value. If the key doesn't exist, adds this key-value pair.
 
 Parameters:
 
 - key: K - The key to be set.
-- value!: V - The value to be assigned.
-
-## interface MapEntryView\<K, V>
+- value!: V - The value to be set.## interface MapEntryView\<K, V>
 
 ```cangjie
 public interface MapEntryView<K, V> {
@@ -449,7 +449,7 @@ public interface MapEntryView<K, V> {
 }
 ```
 
-Function: Provides a view of a specific key in the map.
+Function: Provides a view of the key-value mapping in a map.
 
 ### prop key
 
@@ -457,7 +457,7 @@ Function: Provides a view of a specific key in the map.
 public prop key: K
 ```
 
-Function: Returns the key in the view. If the view's key doesn't exist in the original map, returns an empty view of that key.
+Function: Returns the key in the view. If the view's key does not exist in the original map, returns an empty view of that key.
 
 Type: K
 
@@ -467,9 +467,9 @@ Type: K
 public mut prop value: ?V
 ```
 
-Function: Reads or modifies the value in the original map corresponding to this view.
-When setting a non-null value, if the view's value doesn't exist, a new element is added to the original map.
-When set to `None`, the current Entry is deleted, but the view remains usable after deletion.
+Function: Reads or modifies the value corresponding to the view in the original map.  
+When setting a non-null value, if the view's value does not exist, a new element will be added to the original map corresponding to this view.  
+When set to `None`, the current Entry will be deleted. After deletion, the view can still be used.
 
 Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)(V)
 
@@ -487,11 +487,11 @@ public interface OrderedMap<K, V> <: Map<K, V> {
 }
 ```
 
-Function: The [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface provides a way to map keys to values. It allows lookup of values using keys, making it suitable for storing and manipulating key-value pairs.
+Function: The [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface provides a way to map keys to values. It allows us to use keys to look up values, making it suitable for storing and manipulating key-value pairs.
 
-Instances of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface maintain their elements in a specific order.
+In instances of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface, the internal elements are ordered.
 
-Parent Type:
+Parent Types:
 
 - [Map](collection_package_interface.md#interface-mapk-v)\<K, V>
 
@@ -501,7 +501,7 @@ Parent Type:
 public prop first: ?(K, V)
 ```
 
-Function: Retrieves the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
+Function: Gets the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
 Type: ?(K, V)
 
@@ -511,7 +511,7 @@ Type: ?(K, V)
 public prop last: ?(K, V)
 ```
 
-Function: Retrieves the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
+Function: Gets the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
 Type: ?(K, V)
 
@@ -521,11 +521,11 @@ Type: ?(K, V)
 public func removeFirst(): ?(K, V)
 ```
 
-Function: Removes the first element from the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
+Function: Removes the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
 Return Value:
 
-- ?(K, V) - If the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont), otherwise returns `None`.
+- ?(K, V) - If the current [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
 ### func removeLast()
 
@@ -533,11 +533,11 @@ Return Value:
 public func removeLast(): ?(K, V)
 ```
 
-Function: Removes the last element from the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
+Function: Removes the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
 Return Value:
 
-- ?(K, V) - If the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont), otherwise returns `None`.
+- ?(K, V) - If the current [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
 ### func backward(K, Bool)
 
@@ -545,12 +545,12 @@ Return Value:
 public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
-Function: Returns an iterator that traverses from the first node with key less than or equal to mark (in descending order) to [first](./collection_package_interface.md#prop-first). If the node's key equals mark, the `inclusive!` parameter determines whether to include that node.
+Function: Gets an iterator that traverses from the first node with a key less than or equal to `mark` in descending order to [first](./collection_package_interface.md#prop-first). If the node's key equals `mark`, the inclusion of that node is determined by `inclusive!`.
 
 Parameters:
 
-- mark: K - The key marking the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When mark is the first element's key, specifies whether to include mark as the starting point.
+- mark: K - The key used to determine the starting point.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the first element in the iterator, specifies whether to include `mark` as the starting point.
 
 Return Value:
 
@@ -562,12 +562,12 @@ Return Value:
 public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
-Function: Returns an iterator that traverses from the first node with key greater than or equal to mark (in ascending order) to [last](./collection_package_interface.md#prop-last). If the node's key equals mark, the `inclusive!` parameter determines whether to include that node.
+Function: Gets an iterator that traverses from the first node with a key greater than or equal to `mark` in ascending order to [last](./collection_package_interface.md#prop-last). If the node's key equals `mark`, the inclusion of that node is determined by `inclusive!`.
 
 Parameters:
 
-- mark: K - The key marking the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When mark is the first element's key, specifies whether to include mark as the starting point.
+- mark: K - The key used to determine the starting point.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the first element in the iterator, specifies whether to include `mark` as the starting point.
 
 Return Value:
 
@@ -587,11 +587,11 @@ public interface OrderedSet<T> <: Set<T> {
 }
 ```
 
-Function: The [OrderedSet](collection_package_interface.md#interface-orderedsett) interface provides operations for a collection of elements, allowing read-write manipulation of internal elements.
+Function: The [OrderedSet](collection_package_interface.md#interface-orderedsett) interface provides a set of operations for collections, allowing us to manipulate internal elements in a read-write manner.
 
-Instances of the [OrderedSet](collection_package_interface.md#interface-orderedsett) interface maintain their elements in a specific order.
+In instances of the [OrderedSet](collection_package_interface.md#interface-orderedsett) interface, the internal elements are ordered.
 
-Parent Type:
+Parent Types:
 
 - [Set](collection_package_interface.md#interface-sett)\<T>
 
@@ -601,7 +601,7 @@ Parent Type:
 public prop first: ?T
 ```
 
-Function: Gets the first element of [OrderedSet](collection_package_interface.md#interface-orderedsett).
+Function: Gets the first element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
 Type: ?T
 
@@ -611,7 +611,7 @@ Type: ?T
 public prop last: ?T
 ```
 
-Function: Gets the last element of [OrderedSet](collection_package_interface.md#interface-orderedsett).
+Function: Gets the last element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
 Type: ?T
 
@@ -621,7 +621,7 @@ Type: ?T
 public func removeFirst(): ?T
 ```
 
-Function: Removes the first element of [OrderedSet](collection_package_interface.md#interface-orderedsett).
+Function: Removes the first element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
 Return Value:
 
@@ -633,7 +633,7 @@ Return Value:
 public func removeLast(): ?T
 ```
 
-Function: Removes the last element of [OrderedSet](collection_package_interface.md#interface-orderedsett).
+Function: Removes the last element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
 Return Value:
 
@@ -645,12 +645,12 @@ Return Value:
 public func backward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
-Function: Gets an iterator that traverses from the first element less than or equal to `mark` in descending order to [first](./collection_package_interface.md#prop-first). If the element of the node equals `mark`, the inclusion of the corresponding node is determined by `inclusive!`.
+Function: Gets an iterator that traverses from the first node with an element less than or equal to `mark` in descending order to [first](./collection_package_interface.md#prop-first). If the node's element equals `mark`, the inclusion of that node is determined by `inclusive!`.
 
 Parameters:
 
 - mark: T - The element used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element of the iterator, specifies whether to include `mark` as the starting point.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element in the iterator, specifies whether to include `mark` as the starting point.
 
 Return Value:
 
@@ -662,12 +662,12 @@ Return Value:
 public func forward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
-Function: Gets an iterator that traverses from the first element greater than or equal to `mark` in ascending order to [last](./collection_package_interface.md#prop-last). If the element of the node equals `mark`, the inclusion of the corresponding node is determined by `inclusive!`.
+Function: Gets an iterator that traverses from the first node with an element greater than or equal to `mark` in ascending order to [last](./collection_package_interface.md#prop-last). If the node's element equals `mark`, the inclusion of that node is determined by `inclusive!`.
 
 Parameters:
 
 - mark: T - The element used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element of the iterator, specifies whether to include `mark` as the starting point.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element in the iterator, specifies whether to include `mark` as the starting point.
 
 Return Value:
 
@@ -683,14 +683,14 @@ public interface Queue<T> <: Collection<T> {
 }
 ```
 
-Function: A queue data structure that follows the First In First Out (FIFO) principle. The main functionalities of Queue include:
+Function: A queue data structure that follows the First-In-First-Out (FIFO) principle. The main functionalities of Queue include:
 
-- Adding elements: Inserts the specified element at the tail of the queue.
+- Adding elements: Appends the specified element to the tail of the queue.
 - Access operations: Accesses the front element of the queue without removing it.
 - Removal operations: Removes the front element of the queue.
 - Other operations supported by collection types, such as element count, emptiness check, and iterator operations.
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
@@ -702,7 +702,7 @@ func add(element: T): Unit
 
 Function: Inserts the specified element at the tail of the queue.
 
-Parameter:
+Parameters:
 
 - element: T - The element to be added to the queue.
 
@@ -716,7 +716,7 @@ Function: Accesses the front element of the queue without removing it.
 
 Return Value:
 
-- ?T - The value of the front element encapsulated in Option; returns `None` if the queue is empty.
+- ?T - The value of the front element encapsulated in Option. If the queue is empty, returns `None`.
 
 ### func remove()
 
@@ -728,7 +728,7 @@ Function: Removes the front element of the queue and returns its value.
 
 Return Value:
 
-- ?T - The value of the removed element encapsulated in Option; returns `None` if the queue is empty.
+- ?T - The value of the removed element encapsulated in Option. If the queue is empty, returns `None`.
 
 ## interface ReadOnlyList\<T>
 
@@ -743,7 +743,7 @@ public interface ReadOnlyList<T> <: Collection<T> {
 
 Function: Defines a read-only list.
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
@@ -775,15 +775,15 @@ func get(index: Int64): ?T
 
 Function: Returns the element at the specified position in this list.
 
-Parameter:
+Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to return.
 
 Return Value:
 
-- ?T - The element at the specified position; returns None if the index is less than 0 or greater than or equal to the number of elements in this list.
+- ?T - The element at the specified position. If the index is less than 0 or greater than or equal to the number of elements in this list, returns None.
 
-### operator func []\(Int64)
+### operator func \[](Int64)
 
 ```cangjie
 operator func [](index: Int64): T
@@ -791,13 +791,13 @@ operator func [](index: Int64): T
 
 Function: Operator overload - get.
 
-Parameter:
+Parameters:
 
-- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index for the get interface.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index for the get operation.
 
 Return Value:
 
-- T - The value of the element at the index position.
+- T - The value of the element at the specified index.
 
 ## interface ReadOnlyMap\<K, V>
 
@@ -815,9 +815,9 @@ public interface ReadOnlyMap<K, V> <: Collection<(K, V)> {
 
 Function: The [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) interface provides a way to map keys to values. It allows us to use keys to look up values, making it suitable for storing key-value pairs.
 
-[ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) cannot contain duplicate keys; each key can map to at most one value.
+A [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) cannot contain duplicate keys; each key can map to at most one value.
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)>
 
@@ -827,15 +827,15 @@ Parent Type:
 func get(key: K): ?V
 ```
 
-Function: Gets the value mapped to the key in [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v).
+Function: Gets the value mapped to the key in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v).
 
-Parameter:
+Parameters:
 
-- key: K - The key used to retrieve the value.
+- key: K - The key used to look up the value.
 
 Return Value:
 
-- ?V - The value corresponding to the key in [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v).
+- ?V - The value corresponding to the key in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v).
 
 ### func contains(K)
 
@@ -845,7 +845,7 @@ func contains(key: K): Bool
 
 Function: Determines whether a mapping for the specified key exists.
 
-Parameter:
+Parameters:
 
 - key: K - The key to check.
 
@@ -861,7 +861,7 @@ func contains(all!: Collection<K>): Bool
 
 Function: Determines whether mappings for all keys in the specified collection exist.
 
-Parameter:
+Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to check.
 
@@ -875,7 +875,7 @@ Return Value:
 func keys(): EquatableCollection<K>
 ```
 
-Function: Returns all keys in [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in an [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> container.
+Function: Returns all keys in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in an [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> container.
 
 Return Value:
 
@@ -887,19 +887,19 @@ Return Value:
 func values(): Collection<V>
 ```
 
-Function: Returns all values in [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in a [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> container.
+Function: Returns all values in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in a [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> container.
 
 Return Value:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - Contains all returned values.
 
-### operator func []\(K)
+### operator func \[](K)
 
 ```cangjie
 operator func [](key: K): V
 ```
 
-Function: Operator overload for collections. If the key exists, returns the corresponding value; if not, throws an exception.
+Function: Operator overload for collection access. If the key exists, returns the corresponding value; otherwise, throws an exception.
 
 Parameters:
 
@@ -907,8 +907,7 @@ Parameters:
 
 Return Value:
 
-- V - The value associated with the key.
-
+- V - The value corresponding to the key.```markdown
 ## interface ReadOnlySet\<T>
 
 ```cangjie
@@ -919,9 +918,9 @@ public interface ReadOnlySet<T> <: Collection<T> {
 }
 ```
 
-Function: The [ReadOnlySet](collection_package_interface.md#interface-readonlysett) interface provides a set of collection operations, allowing read-only manipulation of internal elements.
+Description: The [ReadOnlySet](collection_package_interface.md#interface-readonlysett) interface provides a set of collection operations, allowing read-only manipulation of internal elements.
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
@@ -931,11 +930,11 @@ Parent Type:
 func contains(element: T): Bool
 ```
 
-Function: Returns true if the collection contains the specified element.
+Description: Returns true if this set contains the specified element.
 
 Parameters:
 
-- element: T - The element to check.
+- element: T - The element to be checked.
 
 Return Value:
 
@@ -947,15 +946,15 @@ Return Value:
 func contains(all!: Collection<T>): Bool
 ```
 
-Function: Checks whether this collection contains another collection.
+Description: Checks whether this set contains another collection.
 
 Parameters:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The other collection.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - Another collection.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this collection contains the specified collection; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this set contains the specified collection; otherwise, returns false.
 
 ### func subsetOf(ReadOnlySet\<T>)
 
@@ -963,15 +962,15 @@ Return Value:
 func subsetOf(other: ReadOnlySet<T>): Bool
 ```
 
-Function: Checks whether this collection is a subset of another collection.
+Description: Checks whether this set is a subset of another set.
 
 Parameters:
 
-- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The other collection.
+- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - Another set.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this collection is a subset of the specified collection; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this set is a subset of the specified set; otherwise, returns false.
 
 ## interface Set\<T>
 
@@ -987,11 +986,11 @@ public interface Set<T> <: ReadOnlySet<T> {
 }
 ```
 
-Function: The [Set](collection_package_interface.md#interface-sett) interface provides a set of collection operations, allowing read-write manipulation of internal elements.
+Description: The [Set](collection_package_interface.md#interface-sett) interface provides a set of collection operations, allowing read-write manipulation of internal elements.
 
-The [Set](collection_package_interface.md#interface-sett) interface does not specify internal implementation. In instances of the [Set](collection_package_interface.md#interface-sett) interface, internal elements are typically unordered, cannot be accessed by index, and insertion order is not guaranteed.
+The [Set](collection_package_interface.md#interface-sett) interface does not specify internal implementation. In instances of the [Set](collection_package_interface.md#interface-sett) interface, internal elements are typically unordered, cannot be accessed by index, and do not guarantee insertion order.
 
-Parent Type:
+Parent Types:
 
 - [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T>
 
@@ -1001,11 +1000,11 @@ Parent Type:
 func add(element: T): Bool
 ```
 
-Function: Adds an element. If the element already exists, it will not be added.
+Description: Adds an element. If the element already exists, it will not be added.
 
 Parameters:
 
-- element: T - The element to add.
+- element: T - The element to be added.
 
 Return Value:
 
@@ -1017,7 +1016,7 @@ Return Value:
 func add(all!: Collection<T>): Unit
 ```
 
-Function: Adds all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [Set](collection_package_interface.md#interface-sett). Existing elements will not be added.
+Description: Adds all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [Set](collection_package_interface.md#interface-sett). Existing elements will not be added.
 
 Parameters:
 
@@ -1029,11 +1028,11 @@ Parameters:
 func remove(element: T): Bool
 ```
 
-Function: Removes the specified element from this collection (if it exists).
+Description: Removes the specified element from this set (if present).
 
 Parameters:
 
-- element: T - The element to remove.
+- element: T - The element to be removed.
 
 Return Value:
 
@@ -1045,7 +1044,7 @@ Return Value:
 func remove(all!: Collection<T>): Unit
 ```
 
-Function: Removes all elements from this [Set](collection_package_interface.md#interface-sett) that are also contained in the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
+Description: Removes all elements from this [Set](collection_package_interface.md#interface-sett) that are also contained in the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
 
 Parameters:
 
@@ -1057,7 +1056,7 @@ Parameters:
 func removeIf(predicate: (T) -> Bool): Unit
 ```
 
-Function: Takes a lambda expression and removes elements that satisfy the `true` condition.
+Description: Takes a lambda expression and removes elements that satisfy the `true` condition.
 
 Parameters:
 
@@ -1069,7 +1068,7 @@ Parameters:
 func clear(): Unit
 ```
 
-Function: Removes elements that satisfy the predicate condition.
+Description: Clears all key-value pairs.
 
 ### func retain(Set\<T>)
 
@@ -1077,7 +1076,7 @@ Function: Removes elements that satisfy the predicate condition.
 func retain(all!: Set<T>): Unit
 ```
 
-Function: Retains only the elements in this [Set](collection_package_interface.md#interface-sett) that are also present in the input [Set](collection_package_interface.md#interface-sett).
+Description: Retains only the elements in this [Set](collection_package_interface.md#interface-sett) that are also present in the input [Set](collection_package_interface.md#interface-sett).
 
 Parameters:
 
@@ -1093,11 +1092,11 @@ public interface Stack<T> <: Collection<T> {
 }
 ```
 
-Function: A Stack is a data structure that follows the Last In First Out (LIFO) principle. Insertions and deletions are performed at one end (called the top), while the other end (called the bottom) remains inactive.
+Description: A Stack is a data structure that follows the Last In First Out (LIFO) principle. Insertion and deletion operations are performed at one end (called the top), while the other end (called the bottom) remains inactive.
 
 Basic stack operations include push (add), pop (remove), and peek (view the top element).
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
@@ -1107,11 +1106,11 @@ Parent Type:
 func add(element: T): Unit
 ```
 
-Function: Adds an element to the stack.
+Description: Adds an element to the stack.
 
 Parameters:
 
-- element: T - The element to be placed on top of the stack.
+- element: T - The element to be placed at the top of the stack.
 
 ### func peek()
 
@@ -1119,7 +1118,7 @@ Parameters:
 func peek(): ?T
 ```
 
-Function: Views the top element of the stack without removing it.
+Description: Views the top element without removing it.
 
 Return Value:
 
@@ -1131,8 +1130,9 @@ Return Value:
 func remove(): ?T
 ```
 
-Function: Removes and returns the top element of the stack.
+Description: Removes and returns the top element of the stack.
 
 Return Value:
 
 - ?T - The removed top element. Returns `None` if the stack is empty.
+```

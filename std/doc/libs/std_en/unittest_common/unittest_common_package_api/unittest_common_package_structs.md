@@ -1,4 +1,36 @@
-# Structure
+# Structs
+
+## struct KeyTags
+
+```cangjie
+public struct KeyTags <: KeyFor<Array<String>> {}
+```
+
+Function: Used for configuration keys in [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration).
+
+Parent Type:
+
+- [KeyFor](../unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+
+### prop tags
+
+```cangjie
+public static prop tags: KeyTags
+```
+
+Function: The key value of the configuration item.
+
+Type: [KeyTags](#struct-keytags)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+Function: The name of the configuration item's key value.
+
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct OptionInfo
 
@@ -19,9 +51,9 @@ Function: Information about options that can be used when printing help pages.
 public let description: ?String
 ```
 
-Function: Description of the option.
+Function: Option description information.
 
-Type: ?[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)
+Type: ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
 
 ### let name
 
@@ -29,9 +61,9 @@ Type: ?[String](../../../std_en/core/core_package_api/core_package_structs.md#st
 public let name: String
 ```
 
-Function: Name of the option.
+Function: Option name.
 
-Type: [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)
+Type: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
 
 ### let types
 
@@ -39,9 +71,9 @@ Type: [String](../../../std_en/core/core_package_api/core_package_structs.md#str
 public let types!: HashMap<String, ?String> = HashMap()
 ```
 
-Function: Maps option type names to their value meanings.
+Function: Maps from option type names to their meanings.
 
-Type: HashMap<[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string), ?[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)>
+Type: HashMap<[String](../../../std/core/core_package_api/core_package_structs.md#struct-string), ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)>
 
 ### let userDefined
 
@@ -51,4 +83,4 @@ public let userDefined: Bool
 
 Function: Whether the option has been defined.
 
-Type: [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool)
+Type: [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool)

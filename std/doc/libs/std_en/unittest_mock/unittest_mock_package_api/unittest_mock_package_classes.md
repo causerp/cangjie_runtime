@@ -6,9 +6,9 @@
 public sealed abstract class ActionSelector {}
 ```
 
-Functionality: This abstract class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to member functions and enables method chaining.
+Functionality: This abstract class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to member functions and enabling method chaining.
 
-When the `@On` macro call expression takes as input the invocation expression of a member function of a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
+When the `@On` macro call expression is passed with a call expression of a member function from a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
 
 ### func fails()
 
@@ -16,7 +16,7 @@ When the `@On` macro call expression takes as input the invocation expression of
 func fails(): Unit
 ```
 
-Functionality: Defines that invoking the stub signature will cause the test to fail, throwing an [AssertionException](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when execution reaches the stub signature.
+Functionality: Defines that calling the stub signature will cause the test to fail, throwing an [AssertionException](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when the stub signature is executed.
 
 ## class AnyMatcher
 
@@ -24,16 +24,16 @@ Functionality: Defines that invoking the stub signature will cause the test to f
 public class AnyMatcher <: ArgumentMatcher {}
 ```
 
-Functionality: A wildcard argument matcher that allows any arguments in the stub signature.
+Functionality: A wildcard argument matcher that allows any parameters in stub signatures.
 
-Parent Type:
+Parent Types:
 
 - [ArgumentMatcher](#class-argumentmatcher)
 
 ### func matchesAny(Any)
 
 ```cangjie
-public func matchesAny(_: Any)
+public func matchesAny(_: Any): Bool
 ```
 
 Functionality: Matches any value of any type.
@@ -72,7 +72,7 @@ Return Value:
 public abstract class ArgumentMatcher {}
 ```
 
-Functionality: An abstract class for argument matchers. This class and its subclasses can serve as parameter types for stub signatures.
+Functionality: An abstract class for argument matchers. This class and its subclasses can be used as parameter types for stub signatures.
 
 ### func withDescription(String)
 
@@ -80,7 +80,7 @@ Functionality: An abstract class for argument matchers. This class and its subcl
 public func withDescription(description: String): ArgumentMatcher
 ```
 
-Functionality: Configures the description information for the argument matcher when it throws an exception.
+Functionality: Configures the description information for the argument matcher when an exception is thrown.
 
 Parameters:
 
@@ -128,10 +128,13 @@ Return Value:
 public class CardinalitySelector<A> where A <: ActionSelector {}
 ```
 
-Functionality: This class provides APIs to define the execution count of the most recent behavior of a stub signature. For example: `@On(foo.bar()).returns("Predefined value").atLeastOnce()`. For convenience, the most recent behavior of a stub signature will be referred to as "stub behavior" in subsequent text. The verification capabilities provided by this interface's APIs are as follows:
+Functionality: This class provides APIs to define the execution count of the most recent behavior of stub signatures.
+For example: `@On(foo.bar()).returns("Predefined value").atLeastOnce()`.
+For convenience, the most recent behavior of a stub signature is referred to as "stub behavior" in the following text.
+The verification capabilities provided by the APIs in this interface are as follows:
 
-- If the invocation count of the stub signature exceeds the specified number, an [ExpectationFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) will be thrown immediately.
-- If the invocation count of the stub signature is insufficient, the framework will throw an [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) after the test case execution completes.
+- If the call count of the stub signature exceeds the specified number, an [ExpectationFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) will be thrown immediately.
+- If the call count of the stub signature is insufficient, the framework will throw an [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) after the test case execution is completed.
 
 ### func anyTimes()
 
@@ -139,7 +142,7 @@ Functionality: This class provides APIs to define the execution count of the mos
 func anyTimes(): Unit
 ```
 
-Functionality: Defines that the "stub behavior" can be executed any number of times. This function performs no validation on the invocation count of the stub signature.
+Functionality: Defines that the "stub behavior" can be executed any number of times. This function does not perform any validation on the call count of the stub signature.
 
 ### func atLeastOnce()
 
@@ -147,11 +150,11 @@ Functionality: Defines that the "stub behavior" can be executed any number of ti
 func atLeastOnce(): Unit
 ```
 
-Functionality: Defines that the "stub behavior" must be executed at least once. Throws an exception if verified fewer than once.
+Functionality: Defines that the "stub behavior" must be executed at least once. Throws an exception if verified less than once.
 
 Exceptions:
 
-- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is verified to have executed fewer than once.
+- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is executed less than once.
 
 ### func atLeastTimes(Int64)
 
@@ -159,7 +162,7 @@ Exceptions:
 func atLeastTimes(minTimesExpected: Int64): Unit
 ```
 
-Functionality: Defines that the "stub behavior" must be executed at least the specified number of times. Throws an exception if the actual execution count is lower than the specified minimum.
+Functionality: Defines that the "stub behavior" must be executed at least the specified number of times. Throws an exception if the actual execution count is less than the specified minimum.
 
 Parameters:
 
@@ -167,32 +170,32 @@ Parameters:
 
 Exceptions:
 
-- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is verified to have executed fewer than the specified number of times.
+- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is executed fewer times than specified.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when a negative number is passed as the `minTimesExpected` parameter.
 
 ### func once()
 
 ```cangjie
-func once(): Continuation<R>
+func once(): Continuation<A>
 ```
 
-Functionality: Defines that the "stub behavior" must be executed exactly once. This function throws an exception if the stub signature is executed more than once.
+Functionality: Defines that the "stub behavior" should be executed exactly once. Throws an exception if the stub signature is executed more than once.
 
 Return Value:
 
-- [Continuation](#class-continuationa)\<R> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
+- [Continuation](#class-continuationa)\<A> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
 
 Exceptions:
 
-- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown immediately if the "stub behavior" is verified to have executed more than once.
+- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown immediately if the "stub behavior" is executed more than once.
 
 ### func times(Int64)
 
 ```cangjie
-func times(expectedTimes: Int64): Continuation<R>
+func times(expectedTimes: Int64): Continuation<A>
 ```
 
-Functionality: Defines that the "stub behavior" must be executed the specified number of times. Throws an exception if the execution count does not match.
+Functionality: Defines that the "stub behavior" should be executed the specified number of times. Throws an exception if the execution count does not match the specified number.
 
 Parameters:
 
@@ -200,11 +203,11 @@ Parameters:
 
 Return Value:
 
-- [Continuation](#class-continuationa)\<R> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
+- [Continuation](#class-continuationa)\<A> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
 
 Exceptions:
 
-- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is verified to have executed a number of times different from the specified count.
+- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is not executed the specified number of times.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when a negative number is passed as the `expectedTimes` parameter.
 
 ### func times(Int64, Int64)
@@ -222,7 +225,7 @@ Parameters:
 
 Exceptions:
 
-- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is verified to have executed a number of times outside the specified range.
+- [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) - Thrown when the "stub behavior" is not executed within the specified range.
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when negative numbers are passed as the `min` or `max` parameters.
 
 ## class ConfigureMock
@@ -233,95 +236,90 @@ public class ConfigureMock {}
 
 Functionality: Configures a `mock object`.
 
-### static func stubGetter\<TObj, TRet>(() -> TRet,TObj,String,String,String,Int64)
+### static func stubGetter\<TRet>(() -> TRet,Option\<String>,String,String,Int64)
 
 ```cangjie
-public static func stubGetter<TObj, TRet>(
+public static func stubGetter<TRet>(
     stubCall: () -> TRet,
-    objectReference: TObj,
-    objectName: String,
+    prefixRefName: Option<String>,
     fieldOrPropertyName: String,
     callDescription: String,
     lineNumber: Int64
 ): GetterActionSelector<TRet>
 ```
 
-Functionality: Creates an operator object for inserting stub code for a property's Getter method.
+Functionality: Creates an operator object for inserting stub code for property Getter methods.
 
 Parameters:
 
-- stubCall: () -> TRet - The invocation expression corresponding to the stub signature.
-- objectReference: TObj - A reference to the object being stubbed.
-- objectName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the object being stubbed.
-- fieldOrPropertyName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the field or property being stubbed.
-- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the invocation expression corresponding to the stub signature.
-- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding invocation expression.
+- stubCall: () -> TRet - The call expression corresponding to the stub signature.
+- prefixRefName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The object reference token for simulating class/interface members. For simulating statically declared type reference tokens, it is None for top-level declarations.
+- fieldOrPropertyName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the field or property to be stubbed.
+- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
+- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
 Return Value:
 
-- [GetterActionSelector](#class-getteractionselectortret)\<TRet> - An operator object for inserting stub code for a property's Getter method.
+- [GetterActionSelector](#class-getteractionselectortret)\<TRet> - The operator object for inserting stub code for property Getter methods.
 
-### static func stubMethod\<TObj, TRet>(() -> TRet,Array\<ArgumentMatcher>,TObj,String,String,String,Int64)
+### static func stubFunction\<TRet>(() -> TRet, Array<ArgumentMatcher>, Option<String>, String, String, Int64)
 
 ```cangjie
-public static func stubMethod<TObj, TRet>(
+public static func stubFunction<TRet>(
     stubCall: () -> TRet,
     matchers: Array<ArgumentMatcher>,
-    objectReference: TObj,
-    objectName: String,
+    prefixRefName: Option<String>,
     methodName: String,
     callDescription: String,
     lineNumber: Int64
 ): MethodActionSelector<TRet>
 ```
 
-Functionality: Creates an operator object for inserting stub code for a regular member method.
+Functionality: Creates an operator object for inserting stub code for ordinary member methods.
 
 Parameters:
 
-- stubCall: () -> TRet - The invocation expression corresponding to the stub signature.
+- stubCall: () -> Unit - The call expression corresponding to the stub signature.
+- _: () -> TArg - Used to capture the type of a property or field.
 - matchers: Array\<[ArgumentMatcher](#class-argumentmatcher)> - The argument matchers for the corresponding input parameters.
-- objectReference: TObj - A reference to the object being stubbed.
-- objectName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the object being stubbed.
-- methodName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the method being stubbed.
-- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the invocation expression corresponding to the stub signature.
-- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding invocation expression.
+- prefixRefName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The object reference token for simulating class/interface members. For simulating statically declared type reference tokens, it is None for top-level declarations.
+- methodName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the method.
+- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
+- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
 Return Value:
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - An operator object for inserting stub code for a regular member method.
+- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - The operator object for inserting stub code for ordinary member methods.
 
-### static func stubSetter\<TObj, TRet>(() -> Unit, () -> TArg,ArgumentMatcher,TObj,String,String,String,Int64)
+### static func stubSetter\<TArg>(() -> Unit, () -> TArg,ArgumentMatcher,Option\<String>,String,String,Int64)
 
 ```cangjie
-public static func stubSetter<TObj, TArg>(
-stubCall: () -> Unit,
-_: () -> TArg,
-matcher: ArgumentMatcher,
-objectReference: TObj,
-objectName: String,
-fieldOrPropertyName: String,
-callDescription: String,
-lineNumber: Int64
+public static func stubSetter<TArg>(
+    stubCall: () -> Unit,
+    _: () -> TArg,
+    matcher: ArgumentMatcher,
+    prefixRefName: Option<String>,
+    fieldOrPropertyName: String,
+    callDescription: String,
+    lineNumber: Int64
 ): SetterActionSelector<TArg>
 ```
 
-Function: Creates an operator object for inserting stub code into property setter methods.
+Functionality: Creates an operator object for inserting stub code for property Setter methods.
 
 Parameters:
 
-- stubCall: () -> Unit - The invocation expression corresponding to the stub signature.
-- _: () -> TArg - Used to capture the type of the property or field.
-- matcher: [ArgumentMatcher](#class-argumentmatcher) - The argument matcher for input parameters.
-- objectReference: TObj - Reference to the object being stubbed.
-- objectName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the object being stubbed.
-- fieldOrPropertyName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the property or field being stubbed.
-- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the invocation expression corresponding to the stub signature.
-- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Line number of the corresponding invocation expression.
+- stubCall: () -> Unit - The call expression corresponding to the stub signature.
+- _: () -> TArg - Used to capture the type of a property or field.
+- matcher: [ArgumentMatcher](#class-argumentmatcher) - The argument matcher for the input parameter.
+- prefixRefName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The object reference token for simulating class/interface members. For simulating statically declared type reference tokens, it is None for top-level declarations.
+- fieldOrPropertyName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the property or field to be stubbed.
+- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
+- lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
 Return Value:
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - Operator object for inserting stub code into regular member methods.
+- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - The operator object for inserting stub code for ordinary member methods.
 
 ## class Continuation\<A>
 
@@ -329,11 +327,11 @@ Return Value:
 public class Continuation<A> where A <: ActionSelector {}
 ```
 
-Function: This class provides an API for continuing to define stub signature behaviors.
-The capabilities of methods provided by this class are as follows:
+Functionality: This class provides APIs to continue defining the behavior of stub signatures.
+The capabilities provided by the methods in this class are as follows:
 
-- Allows additional operations to be executed by the stub signature when previous operations are satisfied. A `Continuation` instance is meaningful only when followed by a behavior definition.
-- Throws a [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) when previous operations are not satisfied. The exact location where this exception is thrown is not guaranteed.
+- Allows the stub signature to perform additional operations when the previous operation is satisfied. A `Continuation` instance is meaningful only when followed by a behavior definition.
+- Throws a [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) when the previous operation is not satisfied. The exact location where this exception is thrown is not guaranteed.
 
 ### func then()
 
@@ -341,15 +339,15 @@ The capabilities of methods provided by this class are as follows:
 func then(): A
 ```
 
-Function: Returns a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector) when previous operations in the chain are completed.
+Functionality: Returns a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector) when the previous operation in the chain is completed.
 
 Return Value:
 
-- A - Instance of a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector).
+- A - An instance of a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector).
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when previous operations are not satisfied.
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the previous operation is not satisfied.
 
 ## class GetterActionSelector\<TRet>
 
@@ -357,10 +355,10 @@ Exceptions:
 public class GetterActionSelector<TRet> <: ActionSelector {}
 ```
 
-Function: This class provides methods for specifying an [Operation API](../unittest_mock_samples/mock_framework_basics.md#operation-api) for property `Getter` functions and allows chained calls.
-The input parameter is the `@On` macro invocation expression of a member function call expression for a `mock object` or `spy object`, which returns an instance of [ActionSelector](#class-actionselector). That is, the APIs in this class or its subclasses can insert stub code for member functions.
+Functionality: This class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to property `Getter` functions and enabling method chaining.
+When the `@On` macro call expression is passed with a call expression of a member function from a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
 
-Parent Type:
+Parent Types:
 
 - [ActionSelector](#class-actionselector)
 
@@ -370,15 +368,15 @@ Parent Type:
 public func getsField(field: SyntheticField<TRet>): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Function: Reads a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#setting-properties-and-fields-and-top-level-variables).
+Functionality: Reads a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#setting-properties-fields-and-top-level-variables).
 
 Parameters:
 
-- field: [SyntheticField](#class-syntheticfieldt)\<TRet> - Synthetic field for handling mutable properties.
+- field: [SyntheticField](#class-syntheticfieldt)\<TRet> - The synthetic field for handling mutable properties.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
 ### func getsOriginal()
 
@@ -386,11 +384,11 @@ Return Value:
 public func getsOriginal(): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Function: Reads the original property or obtains the field value from the original instance.
+Functionality: Reads the original property or field value from the original instance.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
 ### func returns(TRet)
 
@@ -398,7 +396,7 @@ Return Value:
 public func returns(value: TRet): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Function: Specifies a return value.
+Functionality: Specifies the return value.
 
 Parameters:
 
@@ -406,7 +404,7 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
 ### func returns(() -> TRet)
 
@@ -414,7 +412,7 @@ Return Value:
 public func returns(valueFactory: () -> TRet): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Function: Specifies a return value.
+Functionality: Specifies the return value.
 
 Parameters:
 
@@ -422,15 +420,15 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
 ### func returnsConsecutively(Array\<TRet>)
 
 ```cangjie
-public func returnsConsecutively(values: Array<TRet>)
+public func returnsConsecutively(values: Array<TRet>): Continuation<GetterActionSelector<TRet>>
 ```
 
-Function: Specifies multiple return values.
+Functionality: Specifies multiple return values.
 
 Parameters:
 
@@ -438,15 +436,15 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
+- [Continuation](#class-continuationa)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
 ### func returnsConsecutively(ArrayList\<TRet>)
 
 ```cangjie
-public func returnsConsecutively(values: ArrayList<TRet>)
+public func returnsConsecutively(values: ArrayList<TRet>): Continuation<GetterActionSelector<TRet>>
 ```
 
-Function: Specifies multiple return values.
+Functionality: Specifies multiple return values.
 
 Parameters:
 
@@ -454,96 +452,42 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
-
-### func throws(Exception)
-
-```cangjie
-public func throws(exception: Exception): CardinalitySelector<GetterActionSelector<TRet>>
-```
-
-Function: Specifies an exception to be thrown.
-
-Parameters:
-
-- exception: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The specified exception to be thrown.
-
-Return Value:
-
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
-
-### func throws(() -> Exception)
-
-```cangjie
-public func throws(exceptionFactory: () -> Exception): CardinalitySelector<GetterActionSelector<TRet>>
-```
-
-Function: Specifies an exception to be thrown.
-
-Parameters:
-
-- exceptionFactory: () -> [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The specified exception generator.
-
-Return Value:
-
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
-
-### extend MethodActionSelector\<Unit>
-
-```cangjie
-extend MethodActionSelector<Unit> {}
-```
-
-Function: Extends [MethodActionSelector](#class-methodactionselectortret).
-
-#### func returns()
-
-```cangjie
-public func returns(): CardinalitySelector<MethodActionSelector<TRet>>
-```
-
-Function: Specifies that the stub function does nothing.
-
-Return Value:
-
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - Operator for expected execution count.
-
-## class Matchers
+- [Continuation](#class-continuationa)\## class Matchers
 
 ```cangjie
 public class Matchers {}
 ```
 
-Function: This class provides static functions for generating [matchers](../unittest_mock_samples/mock_framework_basics.md#argument-matchers). Matcher objects can only be generated through the static functions here. Matchers can be used in [stub chains](../unittest_mock_samples/mock_framework_basics.md#stub-chain).
+Functionality: This class provides static functions for generating [matchers](../unittest_mock_samples/mock_framework_basics.md#argument-matchers). Matcher objects can only be created through the static functions provided here. Matchers can be used in [stub chains](../unittest_mock_samples/mock_framework_basics.md#stub-chains).
 
-For example: `@On(foo.bar(ofType<Int64>())).returns(1)`
+Example: `@On(foo.bar(ofType<Int64>())).returns(1)`
 
-Argument matchers can be used in the input parameters of the `@On` macro invocation expression to describe which parameters are expected to be passed into the [stub signature](../unittest_mock_samples/mock_framework_basics.md#stub-signature). The two most common uses of argument matchers are:
+Argument matchers can be used in the parameter expressions of `@On` macro calls to describe which arguments are expected to be passed into [stub signatures](../unittest_mock_samples/mock_framework_basics.md#stub-signatures). Argument matchers have two most common use cases:
 
-- Specifying different behaviors for different parameters. For example:
+- Specifying different behaviors for different arguments. For example:
 
     ```cangjie
-    // Returns a value when the input parameter of bar is 5
+    // When bar's input parameter is 5, return a certain value
     @On(foo.bar(eq(5))).returns(...)
-    // Throws an exception when the input parameter of bar is 6
+    // When bar's input parameter is 6, throw an exception
     @On(foo.bar(eq(6))).throws(...)
     ```
 
-- Ensuring that only certain parameters are passed into certain stub signatures.
+- Ensuring only certain arguments are passed to specific stub signatures.
 
     ```cangjie
     let foo = mock<Foo>()
-    // The input parameter of bar must be positive; otherwise, an UnhandledCallException will be thrown
+    // bar's input parameter must be positive, otherwise UnhandledCallException will be thrown
     @On(foo.bar(argThat<Int64> { arg => arg > 0 })).returns(...)
     ```
 
     > **Note:**
     >
-    > The above example applies only to `mock object`. The behavior of `spy object` is different.
+    > The above example only applies to `mock object`. `spy object` behaves differently.
 
     ```cangjie
     let foo = spy(Foo())
-    // Calls the member function of the Foo() object when the input parameter of bar is not positive
+    // When bar's input parameter is not positive, the member function of the Foo() object will be called.
     @On(foo.bar(argThat<Int64> { arg => arg <= 0 })).fails()
     ```
 
@@ -553,11 +497,11 @@ Argument matchers can be used in the input parameters of the `@On` macro invocat
 public static func any(): AnyMatcher
 ```
 
-Function: Allows any value as a parameter.
+Functionality: Allows any value as an argument.
 
-Return Value:
+Return value:
 
-- [AnyMatcher](#class-anymatcher) - Argument matcher that allows any value.
+- [AnyMatcher](#class-anymatcher) - An argument matcher that permits any value.
 
 ### static func argThat\<T>(ValueListener\<T>, (T) -> Bool)
 
@@ -565,16 +509,16 @@ Return Value:
 public static func argThat<T>(listener: ValueListener<T>, predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Function: Filters input parameter values through the provided predicate closure function, allowing the listener to process input parameter values that meet the conditions.
+Functionality: Filters input argument values through the provided predicate closure function, allowing the listener to process the argument values that meet the conditions.
 
 Parameters:
 
-- listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - Value listener.
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Filter used to define matching conditions for parameter values.
+- listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - A value listener.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter that defines the matching conditions for argument values.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - Typed matcher with a value listener and filter.
+- [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher with a value listener and filter.
 
 ### static func argThat\<T>((T) -> Bool)
 
@@ -582,15 +526,15 @@ Return Value:
 public static func argThat<T>(predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Function: Filters input values based on the provided predicate closure.
+Functionality: Filters input values based on the provided predicate closure.
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Filter.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - Instance of the parameter filtering typed matcher.
+- [TypedMatcher](#class-typedmatchert)\<T> - An instance of a parameter-filtering typed matcher.
 
 ### static func argThatNot\<T>((T) -> Bool)
 
@@ -598,15 +542,15 @@ Return Value:
 public static func argThatNot<T>(predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Function: Filters input values based on the provided predicate closure.
+Functionality: Filters input values based on the provided predicate closure.
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The filter predicate.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - An instance of the parameter-filtering typed matcher.
+- [TypedMatcher](#class-typedmatchert)\<T> - An instance of a parameter-filtering typed matcher.
 
 ### static func capture\<T>(ValueListener\<T>)
 
@@ -614,17 +558,17 @@ Return Value:
 public static func capture<T>(listener: ValueListener<T>): TypedMatcher<T>
 ```
 
-Allows a ValueListener to process incoming parameter values of type T. When the type parameter of capture is unspecified, the type parameter value of the ValueListener will be used.
+Functionality: Allows the listener to process input argument values of type T. When the type parameter of capture is not specified, the type parameter value of the value listener will be used.
 
 Parameters:
 
-- listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - The value listener.
+- listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - A value listener.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher with the value listener.
+- [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher with a value listener.
 
-Note: Value listeners are not allowed within the parameter scope of @Called.
+Note: Value listeners are not allowed to be used within the parameter scope of @Called.
 
 ### static func default\<T>(T)
 
@@ -632,15 +576,15 @@ Note: Value listeners are not allowed within the parameter scope of @Called.
 public static func default<T>(target: T): TypedMatcher<T>
 ```
 
-Function: Matches values based on structural (higher priority) or referential equality. If the input parameter is neither [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<T> nor a reference type, a runtime exception will be thrown (no compile-time check).
+Functionality: Matches values based on structure (higher priority) or reference equality. If the input argument is neither [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<T> nor a reference type, an exception will be thrown at runtime (no compile-time check).
 
 Parameters:
 
-- target: T - The matching object that must satisfy structural or referential equality.
+- target: T - The matching object that must be matched via structure or reference equality.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - The default typed matcher.
+- [TypedMatcher](#class-typedmatchert)\<T> - A default typed matcher.
 
 Exceptions:
 
@@ -652,15 +596,15 @@ Exceptions:
 public static func eq<T>(target: T): TypedMatcher<T> where T <: Equatable<T>
 ```
 
-Function: Filters input values based on structural equality with the provided value.
+Functionality: Filters input values based on structural equality with the provided value.
 
 Parameters:
 
 - target: T - The matching object.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - A parameter matcher that only allows values structurally equal to the given value.
+- [TypedMatcher](#class-typedmatchert)\<T> - An argument matcher that only permits values structurally equal to the given value.
 
 ### static func ofType\<T>()
 
@@ -668,11 +612,11 @@ Return Value:
 public static func ofType<T>(): TypedMatcher<T>
 ```
 
-Function: Filters input values based on type.
+Functionality: Filters input values based on type.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher that only allows values of the specified type.
+- [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher that only permits values of a specific type.
 
 ### static func same\<T>(T) where T <: Object
 
@@ -680,15 +624,15 @@ Return Value:
 public static func same<T>(target: T): TypedMatcher<T> where T <: Object
 ```
 
-Function: Filters input values based on referential equality with the provided object.
+Functionality: Filters input values based on reference equality with the provided object.
 
 Parameters:
 
 - target: T - The matching object.
 
-Return Value:
+Return value:
 
-- [TypedMatcher](#class-typedmatchert)\<T> - A parameter matcher that only allows values referentially equal to the given object.
+- [TypedMatcher](#class-typedmatchert)\<T> - An argument matcher that only permits arguments reference-equal to the given object.
 
 ### extend Matchers
 
@@ -696,7 +640,7 @@ Return Value:
 extend Matchers {}
 ```
 
-Function: Extends [Matchers](#class-matchers).
+Functionality: Extends [Matchers](#class-matchers).
 
 #### static func none()
 
@@ -704,9 +648,9 @@ Function: Extends [Matchers](#class-matchers).
 public static func none(): NoneMatcher
 ```
 
-Function: Filters input values that are `None`.
+Functionality: Filters input values that are `None`.
 
-Return Value:
+Return value:
 
 - [NoneMatcher](#class-nonematcher) - A matcher for `None` values.
 
@@ -716,93 +660,91 @@ Return Value:
 public class MethodActionSelector<TRet> <: ActionSelector {}
 ```
 
-Function: This class provides an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) for member functions and allows chained calls.  
-The input is a `@On` macro call expression for a member function invocation of a `mock object` or `spy object`, which returns an instance of [ActionSelector](#class-actionselector)\<R> (where `R` represents the return type of the configured member function).  
-In other words, APIs in this class can insert stub code for member functions.
+Functionality: This class provides an [action API](../unittest_mock_samples/mock_framework_basics.md#action-api) for specifying member functions and allows chained calls. The `@On` macro call expression with a member function call expression of a `mock object` or `spy object` as input returns an instance of [ActionSelector](#class-actionselector)\<TRet> (where `TRet` represents the return type of the member function being configured). That is, the APIs in this class can insert stub code for member functions.
 
-Parent Type:
+Parent type:
 
 - [ActionSelector](#class-actionselector)
 
 ### func callsOriginal()
 
 ```cangjie
-func callsOriginal(): CardinalitySelector<R>
+func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature executes the original code logic.
+Functionality: Defines the behavior where the stub signature executes the original code logic.
 
-Return Value:
+Return value:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the stub signature's original code execution behavior.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the behavior of executing original code logic for stub signatures.
 
-### func returns(() -> R)
+### func returns(() -> TRet)
 
 ```cangjie
-func returns(valueFactory: () -> R): CardinalitySelector<R>
+func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature returns a value generated by the provided closure.
+Functionality: Defines the behavior where the stub signature returns a specified value generated by the provided closure.
 
 Parameters:
 
-- valueFactory: () ->R - A closure function (generator) that produces the expected return value.
+- valueFactory: () -> TRet - A closure function (generator) that produces the expected return value.
 
-Return Value:
+Return value:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the stub signature's return behavior.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the behavior of returning a specified value for stub signatures.
 
-### func returns(R)
+### func returns(TRet)
 
 ```cangjie
-func returns(value: R): CardinalitySelector<R>
+func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the [stub signature](../unittest_mock_samples/mock_framework_basics.md#stub-signature) returns the specified value.
+Functionality: Defines the behavior where the [stub signature](../unittest_mock_samples/mock_framework_basics.md#stub-signature) returns a specified value.
 
 Parameters:
 
-- value: R - The expected return value of the stub signature.
+- value: TRet - The expected return value of the stub signature.
 
-Return Value:
+Return value:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the stub signature's return behavior.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the return behavior of the stub signature.
 
-### func returnsConsecutively(Array\<R>)
+### func returnsConsecutively(Array\<TRet>)
 
 ```cangjie
-func returnsConsecutively(values: Array<R>): Continuation<R>
+func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature returns values sequentially from the provided list. The stub signature will be called multiple times, equal to the number of values in the array.
+Functionality: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called multiple times, equal to the number of values in the array.
 
 Parameters:
 
-- values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<R> - A list of return values for the stub signature.
+- values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<TRet> - A list of return values for the stub signature.
 
-Return Value:
+Return value:
 
-- [Continuation](#class-continuationa)\<R> - An instance of [Continuation](#class-continuationa)\<R> that defines the sequential return behavior of the stub signature.
+- [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [Continuation](#class-continuationa)\<TRet> that defines the behavior of returning specified values sequentially for stub signatures.
 
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the parameter list is empty.
 
-### func returnsConsecutively(ArrayList\<R>)
+### func returnsConsecutively(ArrayList\<TRet>)
 
 ```cangjie
-func returnsConsecutively(values: ArrayList<R>): Continuation<R>
+func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature returns values sequentially from the provided list. The stub signature will be called consecutively multiple times, equal to the number of values in the array list.
+Functionality: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called consecutively multiple times, equal to the number of values in the array list.
 
 Parameters:
 
-- values: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<R> - A list of return values for the stub signature.
+- values: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<TRet> - A list of return values for the stub signature.
 
-Return Value:
+Return value:
 
-- [Continuation](#class-continuationa)\<R> - An instance of [Continuation](#class-continuationa)\<R> that defines the sequential return behavior of the stub signature.
+- [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [Continuation](#class-continuationa)\<TRet> that defines the behavior of returning specified values sequentially for stub signatures.
 
 Exceptions:
 
@@ -811,41 +753,41 @@ Exceptions:
 ### func throws(() -> Exception)
 
 ```cangjie
-func throws(exceptionFactory: () -> Exception): CardinalitySelector<R>
+func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature throws an exception generated by the provided closure.
+Functionality: Defines the behavior where the stub signature throws an exception, with the exception generated by the provided closure function.
 
-> **Note:**
+> **Explanation:**
 >
 > throws vs fails
 >
-> `throws` implies that the behavior after the stub signature throws an exception is the test's objective. For example, whether the system can recover correctly when certain services are unavailable.  
-> `fails` implies that invoking the stub signature will cause the test to fail. That is, if the system behaves correctly, this stub signature should never be called.
+> throws means the behavior after the stub signature throws an exception is the purpose of the test. For example, whether the system can recover correctly when certain services are unavailable.
+> fails means calling the stub signature will cause the test to fail. That is, if the system behaves correctly, this stub signature should never be called.
 
 Parameters:
 
-- exceptionFactory: () ->[Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - A closure function (generator) that constructs the exception object to be thrown by the stub signature.
+- exceptionFactory: () ->[Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - A closure function (generator) that constructs the exception object expected to be thrown by the stub signature.
 
-Return Value:
+Return value:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the stub signature's exception-throwing behavior.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
 ### func throws(Exception)
 
 ```cangjie
-func throws(exception: Exception): CardinalitySelector<R>
+func throws(exception: Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Function: Defines the behavior where the stub signature throws the specified exception.
+Functionality: Defines the behavior where the stub signature throws an exception.
 
 Parameters:
 
-- exception: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The exception object to be thrown by the stub signature.
+- exception: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The exception object expected to be thrown by the stub signature.
 
-Return Value:
+Return value:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the stub signature's exception-throwing behavior.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
 ## class MockFramework
 
@@ -853,34 +795,34 @@ Return Value:
 public class MockFramework {}
 ```
 
-Function: Provides functions for framework preparation and cleanup during test execution.
+Functionality: Provides functions for framework preparation and cleanup during test case execution.
 
-### static func openSession
+### static func openSession(String, MockSessionKind)
 
 ```cangjie
 public static func openSession(name: String, sessionKind: MockSessionKind): Unit
 ```
 
-Function: Opens a new session. Sessions form a stack-like structure.  
-Sessions are closed in the reverse order of their creation.  
-`Mock objects` created during a given session are only accessible within that session or any of its inner sessions.  
-Each session maintains its own call log, so any verification of expectations for calls made within the most recently opened session can only be performed when the session ends.
+Functionality: Opens a new session. Sessions form a stack-like structure.
+Sessions are closed in the reverse order of their creation.
+`mock object`s created during a given session can only be accessed within that session or any of its inner sessions.
+Each session maintains its own call log, so any verification of calls made within the most recently opened session can only be performed when the session ends.
 
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the session.
 - sessionKind: [MockSessionKind](./unittest_mock_package_enums.md#enum-mocksessionkind) - Specifies the allowed stub types.
 
-### static func closeSession
+### static func closeSession()
 
 ```cangjie
 public static func closeSession(): Unit
 ```
 
-Function: Opens a new session. Sessions form a stack-like structure.  
-Sessions are closed in the reverse order of their creation.  
-`Mock objects` created during a given session are only accessible within that session or any of its inner sessions.  
-Each session maintains its own call log, so any verification of expectations for calls made within the most recently opened session can only be performed when the session ends.
+Functionality: Opens a new session. Sessions form a stack-like structure.
+Sessions are closed in the reverse order of their creation.
+`mock object`s created during a given session can only be accessed within that session or any of its inner sessions.
+Each session maintains its own call log, so any verification of calls made within the most recently opened session can only be performed when the session ends.
 
 Exceptions:
 
@@ -893,27 +835,27 @@ Exceptions:
 public class NoneMatcher <: ArgumentMatcher {}
 ```
 
-Function: A matcher for parameter values that are `None`.
+Functionality: A matcher for argument values that are `None`.
 
-Parent Type:
+Parent type:
 
 - [ArgumentMatcher](#class-argumentmatcher)
 
-### func matchesAny
+### func matchesAny(Any)
 
 ```cangjie
 public override func matchesAny(arg: Any): Bool
 ```
 
-Function: Matches any input value, returns `true` when the value is None.
+Functionality: Matches any input value, returning `true` if the value is None.
 
 Parameters:
 
-- arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input parameter value to be matched.
+- arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The argument value to be matched.
 
-Return Value:
+Return value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` when the input is None, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the input is None, otherwise returns `false`.
 
 ### extend NoneMatcher
 
@@ -921,7 +863,7 @@ Return Value:
 extend NoneMatcher {}
 ```
 
-Function: Extends [NoneMatcher](#class-nonematcher).
+Functionality: Extends [NoneMatcher](#class-nonematcher).
 
 #### func value\<T>()
 
@@ -929,19 +871,17 @@ Function: Extends [NoneMatcher](#class-nonematcher).
 public func value<T>(): Option<T>
 ```
 
-Function: The return value of the argument matcher required by the framework.
+Functionality: The return value of the argument matcher that the framework needs to call.
 
-Return Value:
+Return value:
 
-- Option\<T> - A value matching the type of the actual input parameter.
-
-## class OrderedVerifier
+- Option\<T> - A value matching the type of the actual argument.## class OrderedVerifier
 
 ```cangjie
 public class OrderedVerifier {}
 ```
 
-Function: This type is used to collect "verification statements" and can dynamically pass verification behaviors in the `ordered` function.
+Purpose: This type is used to collect "verification statements" that can be dynamically passed into verification behaviors within the `ordered` function.
 
 ### func checkThat(VerifyStatement)
 
@@ -949,7 +889,7 @@ Function: This type is used to collect "verification statements" and can dynamic
 public func checkThat(statement: VerifyStatement): OrderedVerifier
 ```
 
-Function: Adds a "verification statement".
+Purpose: Adds a "verification statement".
 
 Parameters:
 
@@ -965,7 +905,8 @@ Return Value:
 public class SetterActionSelector<TRet> <: ActionSelector {}
 ```
 
-Function: This class provides a method to specify an [Operation API](../unittest_mock_samples/mock_framework_basics.md#operation-api) for property `Setter` functions and allows for chained calls. The input is the `@On` macro invocation expression of a member function call expression of a `mock object` or `spy object`, which returns an instance of [ActionSelector](#class-actionselector). That is, the APIs in this class or its subclasses can insert stub code for member functions.
+Purpose: This class provides methods to specify an [Action API](../unittest_mock_samples/mock_framework_basics.md#操作-api) for property `Setter` functions and allows for method chaining.  
+When passed an `@On` macro invocation expression of a member function call expression from a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
 
 Parent Type:
 
@@ -977,11 +918,11 @@ Parent Type:
 public func doesNothing(): CardinalitySelector<SetterActionSelector<TArg>>
 ```
 
-Function: Specifies that the property or field performs no action.
+Purpose: Specifies that the property or field should perform no action.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - An operator for the expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
 ### func setsOriginal()
 
@@ -989,35 +930,35 @@ Return Value:
 public func setsOriginal(): CardinalitySelector<SetterActionSelector<TArg>>
 ```
 
-Function: Sets the original property or retrieves the field value from the original instance.
+Purpose: Sets the original property or retrieves the field value from the original instance.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - An operator for the expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
-### func setsField(SyntheticField\<TRet>)
+### func setsField(SyntheticField\<TArg>)
 
 ```cangjie
 public func setsField(field: SyntheticField<TArg>): CardinalitySelector<SetterActionSelector<TArg>>
 ```
 
-Function: Sets a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#setting-properties-fields-and-top-level-variables).
+Purpose: Sets a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#设置属性和字段和顶层变量).
 
 Parameters:
 
-- field: [SyntheticField](#class-syntheticfieldt)\<TRet> - A synthetic field for handling mutable properties.
+- field: [SyntheticField](#class-syntheticfieldt)\<TArg> - The synthetic field for handling mutable properties.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - An operator for the expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
 ### func throws(Exception)
 
 ```cangjie
-public func throws(exception: Exception): CardinalitySelector<GetterActionSelector<TRet>>
+public func throws(exception: Exception): CardinalitySelector<SetterActionSelector<TArg>>
 ```
 
-Function: Specifies throwing an exception.
+Purpose: Specifies an exception to be thrown.
 
 Parameters:
 
@@ -1025,15 +966,15 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - An operator for the expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
 ### func throws(() -> Exception)
 
 ```cangjie
-public func throws(exceptionFactory: () -> Exception): CardinalitySelector<GetterActionSelector<TRet>>
+public func throws(exceptionFactory: () -> Exception): CardinalitySelector<SetterActionSelector<TArg>>
 ```
 
-Function: Specifies throwing an exception.
+Purpose: Specifies an exception to be thrown.
 
 Parameters:
 
@@ -1041,7 +982,7 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - An operator for the expected execution count.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
 ## class SyntheticField\<T>
 
@@ -1049,7 +990,7 @@ Return Value:
 public class SyntheticField<T> {}
 ```
 
-Function: Synthetic field. Used for handling mutable properties and fields.
+Purpose: Synthetic field. Used for handling mutable properties and fields.
 
 ### static func create(T)
 
@@ -1057,7 +998,7 @@ Function: Synthetic field. Used for handling mutable properties and fields.
 public static func create(initialValue!: T): SyntheticField<T>
 ```
 
-Function: Creates a synthetic field.
+Purpose: Creates a synthetic field.
 
 Parameters:
 
@@ -1073,7 +1014,7 @@ Return Value:
 public abstract class TypedMatcher<T> <: ArgumentMatcher {}
 ```
 
-Function: Argument type matcher.
+Purpose: Argument type matcher.
 
 Parent Type:
 
@@ -1085,15 +1026,15 @@ Parent Type:
 public func matches(arg: T): Bool
 ```
 
-Function: Checks whether the input parameter type matches the expected type.
+Purpose: Checks whether the input argument type matches the expected type.
 
 Parameters:
 
-- arg: T - The input parameter to be checked.
+- arg: T - The input argument to be checked.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise `false`.
 
 ### func matchesAny(Any)
 
@@ -1101,15 +1042,15 @@ Return Value:
 public func matchesAny(arg: Any): Bool
 ```
 
-Function: Checks whether the input parameter type matches the expected type.
+Purpose: Checks whether the input argument type matches the expected type.
 
 Parameters:
 
-- arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input parameter to be checked.
+- arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input argument to be checked.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise `false`.
 
 ### extend\<T> TypedMatcher\<T>
 
@@ -1117,7 +1058,7 @@ Return Value:
 extend<T> TypedMatcher<T> {}
 ```
 
-Function: Extends [TypedMatcher](#class-typedmatchert).
+Purpose: Extends [TypedMatcher](#class-typedmatchert).
 
 #### func value\<T>()
 
@@ -1125,11 +1066,11 @@ Function: Extends [TypedMatcher](#class-typedmatchert).
 public func value<T>(): T
 ```
 
-Function: The return value of the argument matcher required by the framework.
+Purpose: The return value of the argument matcher required by the framework.
 
 Return Value:
 
-- T - A value matching the type of the actual input parameter.
+- T - A value matching the type of the actual input argument.
 
 ## class UnorderedVerifier
 
@@ -1137,7 +1078,7 @@ Return Value:
 public class UnorderedVerifier{}
 ```
 
-Function: This type is used to collect "verification statements" and can dynamically pass verification behaviors in the `unordered` function.
+Purpose: This type is used to collect "verification statements" that can be dynamically passed into verification behaviors within the `unordered` function.
 
 ### func checkThat(VerifyStatement)
 
@@ -1145,7 +1086,7 @@ Function: This type is used to collect "verification statements" and can dynamic
 public func checkThat(statement: VerifyStatement):UnorderedVerifier
 ```
 
-Function: Adds a "verification statement".
+Purpose: Adds a "verification statement".
 
 Parameters:
 
@@ -1161,35 +1102,37 @@ Return Value:
 public class Verify {}
 ```
 
-Function: [Verify](unittest_mock_package_classes.md#class-verify) provides a series of static methods to support defining required verification actions, such as `that`, `ordered`, and `unorder`.
+Purpose: [Verify](unittest_mock_package_classes.md#class-verify) provides a series of static methods to support defining verification actions, such as `that`, `ordered`, and `unordered`.
 
-A verification action can include multiple [verification statements](../unittest_mock_samples/mock_framework_verification.md#verification-statements-and-called-macro) generated by `@Called` to describe the actions to be verified. Typically, the verification scope is the function body of the test case, but [Verify](unittest_mock_package_classes.md#class-verify) provides the `clearInvocationLog` function to clear previous execution records, thereby narrowing the verification scope. Behavior verification refers to verifying whether the "stub signature" operations are executed as defined. If the actual execution does not match the definition, an exception will be thrown.
+A verification action can include multiple [verification statements](../unittest_mock_samples/mock_framework_verification.md#验证语句和-called-宏) generated by `@Called` to describe the actions to be verified.  
+Typically, the verification scope is the function body of the test case, but [Verify](unittest_mock_package_classes.md#class-verify) provides the `clearInvocationLog` function to clear previous execution records, narrowing the verification scope.  
+Behavior verification refers to verifying whether the "stub signature" operations are executed as defined. When the actual execution does not match the definition, an exception is thrown.
 
-The specific supported verification behaviors are as follows:
+The specific supported verification behaviors include:
 
 - Whether the specified "stub signature" has been executed.
 - Whether the specified "stub signature" has been executed the specified number of times.
-- Whether the parameters passed during the execution of the specified "stub signature" meet the requirements.
-- Whether the call order of the specified multiple "stub signatures" meets the requirements.
+- Whether the arguments passed during the execution of the specified "stub signature" meet the requirements.
+- Whether the execution order of the specified multiple "stub signatures" meets the requirements.
 
-Behavior verification is mainly completed through the following two steps:
+Behavior verification is primarily completed in the following two steps:
 
 - Define a verification action by calling static methods of [Verify](unittest_mock_package_classes.md#class-verify).
-- Define the execution actions of the "stub signatures" to be verified using the `@Called` macro invocation expression. For simplicity, this will be referred to as "verification statements" in the following text.
+- Define the execution actions of the "stub signatures" to be verified using the `@Called` macro invocation expression. For simplicity, these are referred to as "verification statements" in the following text.
 
 For example:
 
 ```cangjie
 let foo = mock<Foo>()
-// Define the "stub behavior" of the "stub signature"
+// Define "stub behavior" for the "stub signature"
 @On(foo.bar().returns(1))
 // Actual execution of the "stub signature" in the test case
 foo.bar()
-// Verify the execution of the "stub signature": foo.bar() has been executed at least once
+// Verify the execution of the "stub signature": foo.bar() was executed at least once
 Verify.that(@Called(foo.bar()))
 ```
 
-It is worth noting that [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> provides some APIs that support verifying certain behaviors. Therefore, users can freely choose different methods for behavior verification.
+Notably, [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> provides some APIs that support verifying certain behaviors. Therefore, users can freely choose different methods for behavior verification.
 
 ### static func clearInvocationLog()
 
@@ -1197,7 +1140,7 @@ It is worth noting that [CardinalitySelector](unittest_mock_package_classes.md#c
 public static func clearInvocationLog(): Unit
 ```
 
-Function: Clears the preceding execution records to narrow the verification scope.
+Purpose: Clears previous execution records to narrow the verification scope.
 
 ### static func noInteractions(Array\<Object>)
 
@@ -1205,7 +1148,7 @@ Function: Clears the preceding execution records to narrow the verification scop
 public static func noInteractions(mocks: Array<Object>): Unit
 ```
 
-Function: Verifies that no execution actions have occurred on the objects within the verification scope.
+Purpose: Verification passes if the objects have no execution actions within the verification scope.
 
 Parameters:
 
@@ -1221,10 +1164,9 @@ Exceptions:
 public static func ordered( collectStatements: (OrderedVerifier) -> Unit): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, while also validating the execution order. By default, the execution count for a "verification statement" is once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
-"Verification statements" are dynamically added via the closure in the parameter.
-The verification mode is `exhaustive` (full match, where all execution cases within the verification scope should be specified in the verification action).
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, while also checking the execution order. By default, the execution count of "verification statements" is once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).  
+The verification mode is `exhaustive` (full match, all execution cases within the verification scope should be specified in the verification action).
 
 Parameters:
 
@@ -1240,11 +1182,11 @@ Exceptions:
 public static func ordered(statements: Array<VerifyStatement>): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, while also validating the execution order. By default, the execution count for a "verification statement" is once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
-The verification mode is `exhaustive` (full match, where all execution cases within the verification scope should be specified in the verification action).
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, while also checking the execution order. By default, the execution count of "verification statements" is once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).  
+The verification mode is `exhaustive` (full match, all execution cases within the verification scope should be specified in the verification action).
 
-Example:
+For example:
 
 ```cangjie
 for (i in 0..4) {
@@ -1258,7 +1200,7 @@ Verify.ordered(
     @Called(foo.bar(1)),
 )
 
-// Will throw an exception because there are 4 executions of foo.bar() within the verification scope, but only 2 executions are verified here.
+// Will throw an exception because there are 4 executions of foo.bar() in the verification scope, but only 2 executions are verified here.
 Verify.ordered(
     @Called(foo.bar(0)),
     @Called(foo.bar(_)),
@@ -1279,7 +1221,7 @@ Exceptions:
 public static func that(statement: VerifyStatement): Unit
 ```
 
-Function: Verifies whether the single "verification statement" passed in has been executed correctly.
+Purpose: Verifies whether the single passed "verification statement" has been correctly executed.
 
 Parameters:
 
@@ -1295,13 +1237,12 @@ Exceptions:
 public static func unordered(collectStatements: (UnorderedVerifier) -> Unit): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, without validating the execution order. By default, the execution count for a "verification statement" is at least once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
-The verification mode is `exhaustive` (full match, where all execution cases within the verification scope should be specified in the verification action).
-"Verification statements" are dynamically added via the closure in the parameter. Example:
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, without checking the execution order. By default, the execution count of "verification statements" is at least once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).  
+The verification mode is `exhaustive` (full match, all execution cases within the verification scope should be specified in the verification action).  
+"Verification statements" are dynamically added through the closure in the parameters. For example:
 
 ```cangjie
-
 let totalTimes = getTimes()
 for (i in 0..totalTimes) {
     foo.bar(i % 2)
@@ -1328,11 +1269,11 @@ Exceptions:
 public static func unordered(statements: Array<VerifyStatement>): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, without validating the execution order. By default, the execution count for a "verification statement" is at least once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
-The verification mode is `exhaustive` (full match, where all execution cases within the verification scope should be specified in the verification action).
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, without checking the execution order. By default, the execution count of "verification statements" is at least once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).  
+The verification mode is `exhaustive` (full match, all execution cases within the verification scope should be specified in the verification action).
 
-Example:
+For example:
 
 ```cangjie
 let foo = mock<Foo>()
@@ -1340,27 +1281,27 @@ for (i in 0..4) {
     foo.bar(i % 2)
 }
 
-// Verifies that bar() has been executed at least once with parameters 0 or 1
+// Verifies that bar() was executed at least once with arguments 0 or 1
 Verify.unordered(
     @Called(foo.bar(0)),
     @Called(foo.bar(1))
 )
 
-// This verification will throw an exception because `foo.bar(_)` includes `foo.bar(1)`
+// This verification action will throw an exception because `foo.bar(_)` includes `foo.bar(1)`
 Verify.unordered(
     @Called(foo.bar(_)).times(2),
     @Called(foo.bar(1)).times(2)
 )
 // Can be verified as follows:
-// Verifies that the call expression with parameter 1 was executed twice
+// Verifies that the call expression with argument 1 was executed twice
 Verify.that(@Called(foo.bar(1)).times(2))
-// Verifies that the call expression with any parameter was executed twice
+// Verifies that the call expression with any argument was executed twice
 Verify.that(@Called(foo.bar(_)).times(2)) // called four times in total
 ```
 
 Parameters:
 
-- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - The "verification statements" to be verified. Variadic parameter syntax allows omitting `[]`.
+- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - Multiple "verification statements" to be verified. The variadic parameter syntax supports omitting `[]`.
 
 Exceptions:
 
@@ -1372,9 +1313,9 @@ Exceptions:
 public static func unordered(exhaustive: Exhaustiveness, collectStatements: (UnorderedVerifier) -> Unit): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, without validating the execution order. By default, the execution count for a "verification statement" is at least once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
-"Verification statements" are dynamically added via the closure in the parameter.
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, without checking the execution order. By default, the execution count of "verification statements" is at least once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).  
+"Verification statements" are dynamically added through the closure in the parameters.
 
 Parameters:
 
@@ -1391,28 +1332,21 @@ Exceptions:
 public static func unordered(exhaustive: Exhaustiveness, statements: Array<VerifyStatement>): Unit
 ```
 
-Function: This function supports verifying whether "verification statements" have been executed or if their execution count meets the defined criteria, without validating the execution order. By default, the execution count for a "verification statement" is at least once.
-The "verification statements" in the input list must be mutually exclusive (i.e., if a single call behavior matches multiple "verification statements," an exception will be thrown).
+Purpose: This function supports verifying whether "verification statements" have been executed or whether the execution count meets the definition, without checking the execution order. By default, the execution count of "verification statements" is at least once.  
+The "verification statements" in the input list must be non-overlapping (i.e., when a single call action can match multiple "verification statements," an exception will be thrown).
 
 Parameters:
 
-- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - The "verification statements" to be verified. Variadic parameter syntax allows omitting `[]`.
-- exhaustive: [Exhaustiveness](unittest_mock_package_enums.md#enum-exhaustiveness) - The verification mode.
-
-Exceptions:
-
-- [VerificationFailedException](./unittest_mock_package_exceptions.md#class-verificationfailedexception) - Throws an exception if verification fails.
-
-## class VerifyStatement
+- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - Multiple "verification statements" to be verified. The variadic parameter syntax## class VerifyStatement
 
 ```cangjie
 public class VerifyStatement {}
 ```
 
-Function: This type represents a single verification statement (i.e., the "verification statement" mentioned above) for a "stub signature" within the verification scope. It provides member functions to specify the execution count of the "stub signature."
-Objects of this type can only be created via the `@Called` macro call expression.
+Functionality: This type represents a single verification statement (referred to as "verification statement" above) for a "stub signature" within the verification scope. It provides member functions to specify the execution count of the "stub signature".
+Objects of this type can only be created through the `@Called` macro call expression.
 Consecutively calling multiple member functions on an object is meaningless and will throw an exception. That is, the execution count can only be specified once.
-If no member function is called to specify the execution count, the default execution count verification value will be based on the type of verification action where the statement resides. For example, "verification statements" in [Verify](unittest_mock_package_classes.md#class-verify).ordered() default to verifying execution once.
+When no member function is called to specify the execution count, the default verification value for execution count will be based on the type of verification action where the statement resides. For example, a "verification statement" in [Verify](unittest_mock_package_classes.md#class-verify).ordered() defaults to verifying one execution.
 
 ### func atLeastOnce()
 
@@ -1420,15 +1354,15 @@ If no member function is called to specify the execution count, the default exec
 public func atLeastOnce(): VerifyStatement
 ```
 
-Function: Specifies that this "verification statement" verifies that the "stub signature" has been executed at least once within the verification scope.
+Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed at least once within the verification scope.
 
-Return Value:
+Return value:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Throws an exception if the object has already been assigned an execution count or has been passed into a "verification action."
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the object has already been assigned an execution count or has been passed into a "verification action".
 
 ### func atLeastTimes(Int64)
 
@@ -1436,20 +1370,20 @@ Exceptions:
 public func atLeastTimes(minTimesExpected: Int64): VerifyStatement
 ```
 
-Function: Specifies that this "verification statement" verifies that the "stub signature" has been executed at least the specified number of times within the verification scope.
+Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed at least the specified number of times within the verification scope.
 
 Parameters:
 
-- minTimesExpected: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected execution count for verification.
+- minTimesExpected: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected number of executions to verify.
 
-Return Value:
+Return value:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Throws an exception if the object has already been assigned an execution count or has been passed into a "verification action."
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the number passed as the `minTimesExpected` parameter is negative.
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the object has already been assigned an execution count or has been passed into a "verification action".
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the number passed as the `minTimesExpected` parameter is negative.
 
 ### func once()
 
@@ -1457,15 +1391,15 @@ Exceptions:
 public func once(): VerifyStatement
 ```
 
-Function: Specifies that this "verification statement" verifies that the "stub signature" has been executed exactly once within the verification scope.
+Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed exactly once within the verification scope.
 
-Return Value:
+Return value:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Throws an exception if the object has already been assigned an execution count or has been passed into a "verification action."
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the object has already been assigned an execution count or has been passed into a "verification action".
 
 ### func times(Int64)
 
@@ -1473,20 +1407,20 @@ Exceptions:
 public func times(expectedTimes: Int64): VerifyStatement
 ```
 
-Function: Specifies that this "verification statement" verifies that the "stub signature" has been executed the specified number of times within the verification scope.
+Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed the specified number of times within the verification scope.
 
 Parameters:
 
-- expectedTimes: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The expected execution count for verification.
+- expectedTimes: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The expected number of executions to verify.
 
-Return Value:
+Return value:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Throws an exception if the object has already been assigned an execution count or has been passed into a "verification action."
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the number passed as the `expectedTimes` parameter is negative.
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the object has already been assigned an execution count or has been passed into a "verification action".
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the number passed as the `expectedTimes` parameter is negative.
 
 ### func times(Int64, Int64)
 
@@ -1494,18 +1428,58 @@ Exceptions:
 public func times(min!: Int64, max!: Int64): VerifyStatement
 ```
 
-Function: Specifies that this "verification statement" validates that the execution count of the "stub signature" within the verification scope falls within the specified range.
+Functionality: Specifies that this "verification statement" verifies the execution count of the "stub signature" falls within the specified range within the verification scope.
 
 Parameters:
 
-- min!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected execution count for verification.
-- max!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum expected execution count for verification.
+- min!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected number of executions to verify.
+- max!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum expected number of executions to verify.
 
-Return Value:
+Return value:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
 Exceptions:
 
-- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Throws an exception when the object has already been assigned an execution count or has been passed into a "verification action".
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the passed `min` or `max` parameters are negative.
+- [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) - Thrown when the object has already been assigned an execution count or has been passed into a "verification action".
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the passed `min` or `max` parameter is negative.
+
+### static func fromStub\<R>(() -> R, Array\<ArgumentMatcher>, Option\<String>, String, String, Int64)
+
+```cangjie
+public static func fromStub<R>(
+    stubCall: () -> R,
+    matchers: Array<ArgumentMatcher>,
+    objName: Option<String>,
+    declarationName: String,
+    callDescription: String,
+    _: Int64
+): VerifyStatement
+```
+
+Functionality: Constructs a [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement). For internal framework use, not recommended for direct user invocation.
+
+Parameters:
+
+- stubCall: () -> R - The call expression corresponding to the stub signature.
+- matchers: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[ArgumentMatcher](#class-argumentmatcher)> - Parameter matchers for input arguments.
+- objName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The name of the stubbed object.
+- declarationName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the declaration.
+- callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
+- _: Int64 - Line number.
+
+Return value:
+
+- [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
+
+### func never()
+
+```cangjie
+public func never(): VerifyStatement
+```
+
+Functionality: Indicates that this statement will never be executed.
+
+Return value:
+
+- [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.

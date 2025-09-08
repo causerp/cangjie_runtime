@@ -2,38 +2,38 @@
 
 ## Functionality Overview
 
-The process package primarily provides Process operation interfaces, including process creation, standard stream acquisition, process waiting, and process information querying.
+The process package primarily provides Process operation interfaces, including process creation, standard stream acquisition, process waiting, process information querying, etc.
 
-This package offers cross-platform unified control capabilities, currently supporting Linux, macOS, and Windows platforms.
+This package offers cross-platform unified operation capabilities, currently supporting Linux, macOS, and Windows platforms.
 
 ## API List
 
 ### Functions
 
-| Function Name | Functionality |
+| Function Name | Description |
 | ------------ | ------------ |
-| [execute](./process_package_api/process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) | Creates and runs a child process based on input parameters, waits for its completion, and returns the child process exit status. |
-| [executeWithOutput](./process_package_api/process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) | Creates and runs a child process based on input parameters, waits for its completion, and returns the child process exit status, standard output, and standard error. |
+| [execute](./process_package_api/process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) | Creates and runs a child process based on input parameters, waits for the child process to complete, and returns the child process exit status. |
+| [executeWithOutput](./process_package_api/process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) | Creates and runs a child process based on input parameters, waits for the child process to complete, and returns the child process exit status, standard output, and standard error. |
 | [findProcess](./process_package_api/process_package_funcs.md#func-findprocessint64) | Binds a process instance based on the input process ID. |
-| [launch](./process_package_api/process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) | Creates and runs a child process based on input parameters and returns a child process instance. |
+| [launch](./process_package_api/process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) | Creates and runs a child process based on input parameters, and returns a child process instance. |
 
 ### Classes
 
-| Class Name | Functionality |
+| Class Name | Description |
 | ------------ | ------------ |
-| [CurrentProcess <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#class-currentprocess-deprecated) | This class represents the current process, inherits from the `Process` class, and provides functionality for current process operations. |
-| [Process](./process_package_api/process_package_classes.md#class-process) | This class represents a process and provides process operation functionality. |
-| [SubProcess](./process_package_api/process_package_classes.md#class-subprocess) | This class represents a child process, inherits from the `Process` class, and provides functionality for child process operations. |
+| [CurrentProcess <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#class-currentprocess-deprecated) | This class represents the current process, inherits from the `Process` class, and provides functionality related to current process operations. |
+| [Process](./process_package_api/process_package_classes.md#class-process) | This class represents a process and provides process operation-related functionality. |
+| [SubProcess](./process_package_api/process_package_classes.md#class-subprocess) | This class represents a child process, inherits from the `Process` class, and provides child process operation-related functionality. |
 
 ### Enums
 
-| Enum Name | Functionality |
+| Enum Name | Description |
 | --------------------------- | ------------------------ |
-| [ProcessRedirect](./process_package_api/process_package_enums.md#enum-processredirect) | Used to set the redirection mode of child process standard streams during process creation. |
+| [ProcessRedirect](./process_package_api/process_package_enums.md#enum-processredirect) | Used to set the redirection mode of child process standard streams when creating a process. |
 
 ### Exception Classes
 
-| Exception Class Name | Functionality |
+| Exception Class Name | Description |
 | --------------------------- | ------------------------ |
 | [ProcessException](./process_package_api/process_package_exceptions.md#class-processexception) | The exception class for the `process` package. |
 
@@ -57,7 +57,7 @@ This package offers cross-platform unified control capabilities, currently suppo
 | [runOutput(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-runoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect-deprecated) | `Linux` `Windows` `macOS` |
 | [terminate(Bool)](./process_package_api/process_package_classes.md#func-terminatebool) | `Linux` `Windows` `macOS` |
 
-#### class CurrentProcss <sup>(deprecated)</sup>
+#### class CurrentProcess <sup>(deprecated)</sup>
 
 > **Note:**
 >

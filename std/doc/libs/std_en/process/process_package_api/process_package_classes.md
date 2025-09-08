@@ -1,4 +1,4 @@
-# Class
+# Classes
 
 ## class CurrentProcess <sup>(deprecated)</sup>
 
@@ -6,13 +6,13 @@
 public class CurrentProcess <: Process
 ```
 
-Functionality: This class represents the current process, inheriting from the [Process](process_package_classes.md#class-process) class, and provides functionalities related to current process operations.
+Functionality: This class represents the current process, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to the current process.
 
-The specific functionalities provided are as follows:
+Features include:
 
-- Provides mechanisms to obtain the standard streams (`stdIn`, `stdOut`, `stdErr`) of the current process.
-- Provides a mechanism to register callback functions upon current process exit.
-- Provides a mechanism for current process exit, allowing setting of exit status codes.
+- Provides mechanisms to obtain standard streams (`stdIn`, `stdOut`, `stdErr`) of the current process.
+- Provides a mechanism to register callback functions upon process exit.
+- Provides a process exit mechanism allowing setting of exit status codes.
 
 > **Note:**
 >
@@ -28,11 +28,11 @@ Parent Type:
 public prop arguments: Array<String>
 ```
 
-Functionality: Returns the argument list of the current process. For example, if the current process command line is `a.out ab cd ef`, where `a.out` is the program name, the returned list will contain three elements: ab, cd, ef.
+Functionality: Returns the argument list of the current process. For example, if the command line is `a.out ab cd ef` where `a.out` is the program name, the returned list contains three elements: ab, cd, ef.
 
 > **Note:**
 >
-> - When using the C language to call the Cangjie dynamic library, the command line arguments set via `int SetCJCommandLineArgs(int argc, const char* argv[])` will have the first argument discarded when retrieved using the `arguments` property of the current process.
+> - When using C language to call the Cangjie dynamic library, command line arguments set via `int SetCJCommandLineArgs(int argc, const char* argv[])` will discard the first argument when retrieved using `arguments`.
 
 Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
@@ -42,7 +42,7 @@ Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)
 public prop homeDirectory: Path
 ```
 
-Functionality: Gets the path of the `home` directory.
+Functionality: Gets the path to the home directory.
 
 Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 
@@ -82,7 +82,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop tempDirectory: Path
 ```
 
-Functionality: Gets the path of the temporary directory. Retrieves environment variables `TMPDIR`, `TMP`, `TEMP`, and `TEMPDIR`. If none of these variables exist in the environment, it defaults to returning the `/tmp` directory.
+Functionality: Gets the path to the temporary directory. Retrieves environment variables `TMPDIR`, `TMP`, `TEMP`, and `TEMPDIR`. If none exist, defaults to `/tmp`.
 
 Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 
@@ -92,7 +92,7 @@ Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 public func atExit(callback: () -> Unit): Unit
 ```
 
-Functionality: Registers a callback function to be executed upon current process exit.
+Functionality: Registers a callback function to be executed upon process exit.
 
 > **Note:**
 >
@@ -100,7 +100,7 @@ Functionality: Registers a callback function to be executed upon current process
 
 Parameters:
 
-- callback: () ->[Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The callback function to be registered.
+- callback: () ->[Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The callback function to register.
 
 ### func exit(Int64)
 
@@ -108,11 +108,11 @@ Parameters:
 public func exit(code: Int64): Nothing
 ```
 
-Functionality: Process exit function. Execution of this function directly terminates the current process, with the exit status code set via the `code` parameter.
+Functionality: Terminates the current process immediately with the specified exit status code.
 
 Parameters:
 
-- code: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The exit status code of the current process.
+- code: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The exit status code for the current process.
 
 ### func getEnv(String)
 
@@ -120,19 +120,19 @@ Parameters:
 public func getEnv(k: String): Option<String>
 ```
 
-Functionality: Gets the value of the environment variable with the specified name.
+Functionality: Gets the value of the specified environment variable.
 
 Parameters:
 
 - k: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the environment variable.
 
-Return Value:
+Returns:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The value of the environment variable corresponding to the specified name.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The value corresponding to the specified name.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the function parameter `k` contains a null character.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameter `k` contains a null character.
 
 ### func removeEnv(String)
 
@@ -140,13 +140,15 @@ Exceptions:
 public func removeEnv(k: String): Unit
 ```
 
-Functionality: Removes an environment variable by its specified name.
+Functionality: Removes the specified environment variable by name.
 
 Parameters:
 
 - k: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the environment variable.
 
-Exceptions:- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the function parameter `k` contains null characters.
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameter `k` contains a null character.
 
 ### func setEnv(String, String)
 
@@ -154,11 +156,11 @@ Exceptions:- [IllegalArgumentException](../../core/core_package_api/core_package
 public func setEnv(k: String, v: String): Unit
 ```
 
-Function: Used to set a pair of environment variables. If an environment variable with the same name already exists, its original value will be overwritten.
+Functionality: Sets an environment variable pair. If an existing variable with the same name exists, its value will be overwritten.
 
 > **Note:**
 >
-> On Windows, if the parameter `v` is an empty string, the variable `k` will be removed from the environment.
+> On Windows, if parameter `v` is an empty string, variable `k` will be removed from the environment.
 
 Parameters:
 
@@ -167,7 +169,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception when the function parameters `k` or `v` contain null characters.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameters `k` or `v` contain null characters.
 
 ## class Process
 
@@ -175,17 +177,17 @@ Exceptions:
 public open class Process
 ```
 
-Function: This class represents a process and provides process-related operations.
+Functionality: This class represents a process, providing process-related operations.
 
 > **Note:**
 >
-> The specific functionalities provided are as follows:
+> Features include:
 >
-> - Provides the ability to obtain the current process instance.
-> - Provides the ability to bind a process instance based on the process `id`.
-> - Provides the ability to create child processes based on input information.
-> - Provides the ability to retrieve process information.
-> - Provides the ability to terminate a process, with the option to force termination.
+> - Provides functionality to get the current process instance.
+> - Provides functionality to bind a process instance by process `id`.
+> - Provides functionality to create child processes based on input parameters.
+> - Provides functionality to get process information.
+> - Provides functionality to terminate processes, allowing specification of forced termination.
 
 ### static prop current <sup>(deprecated)</sup>
 
@@ -193,11 +195,11 @@ Function: This class represents a process and provides process-related operation
 public static prop current: CurrentProcess
 ```
 
-Function: Gets the current process instance.
+Functionality: Gets the current process instance.
 
-> **Warning:**
+> **Note:**
 >
-> This will be deprecated in future versions. Use the global functions in the [env](../../env/env_package_overview.md#functions) package as a replacement.
+> Will be deprecated in future versions. Use global functions from the [env](../../env/env_package_overview.md#functions) package instead.
 
 Type: [CurrentProcess](process_package_classes.md#class-currentprocess-deprecated)
 
@@ -207,17 +209,17 @@ Type: [CurrentProcess](process_package_classes.md#class-currentprocess-deprecate
 public open prop arguments: Array<String>
 ```
 
-Function: Gets the process arguments. On the `Windows` platform, this property cannot be obtained under non-privileged `API` scenarios.
+Functionality: Gets process arguments. On Windows, this property cannot be retrieved without privileged API access.
 
-> **Warning:**
+> **Note:**
 >
-> This will be deprecated in future versions.
+> Will be deprecated in future versions.
 
 Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Throws an exception when the process does not exist, the corresponding process is a zombie process, or when process arguments cannot be obtained under unsupported scenarios on the `Windows` platform.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist, is a zombie process, or cannot be accessed without privileged API on Windows.
 
 ### prop command
 
@@ -225,13 +227,13 @@ Exceptions:
 public prop command: String
 ```
 
-Function: Gets the process command.
+Functionality: Gets the process command.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Throws an exception when the process does not exist, the corresponding process is a zombie process, or the process command cannot be obtained.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist or is a zombie process.
 
 ### prop commandLine <sup>(deprecated)</sup>
 
@@ -239,17 +241,17 @@ Exceptions:
 public prop commandLine: Array<String>
 ```
 
-Function: Gets the command line of the current process. On the Windows platform, only the command line of the current process can be obtained. In other scenarios, this property cannot be obtained under non-privileged API conditions.
+Functionality: Gets the command line of the current process. On Windows, only the current process command line can be retrieved; other scenarios require privileged API access.
 
-> **Warning:**
+> **Note:**
 >
-> This will be deprecated in future versions. Use [getcommandline()](../../env/env_package_api/env_package_funcs.md#func-getcommandline) as a replacement.
+> Will be deprecated in future versions. Use [getcommandline()](../../env/env_package_api/env_package_funcs.md#func-getcommandline) instead.
 
 Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Throws an exception when the process does not exist, the corresponding process is a zombie process, or the command line cannot be obtained under other unsupported scenarios.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist, is a zombie process, or cannot be accessed without privileged API.
 
 ### prop environment <sup>(deprecated)</sup>
 
@@ -257,17 +259,17 @@ Exceptions:
 public prop environment: Map<String, String>
 ```
 
-Function: Gets the environment variables of the current process. On the Windows platform, only the environment variables of the current process can be obtained. In other scenarios, this property cannot be obtained under non-privileged API conditions.
+Functionality: Gets the environment variables of the current process. On Windows, only the current process environment variables can be retrieved; other scenarios require privileged API access.
 
-> **Warning:**
+> **Note:**
 >
-> This will be deprecated in future versions. Use [getVariables()](../../env/env_package_api/env_package_funcs.md#func-getvariables) as a replacement.
+> Will be deprecated in future versions. Use [getVariables()](../../env/env_package_api/env_package_funcs.md#func-getvariables) instead.
 
 Type: [Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Throws an exception when the process does not exist, the corresponding process is a zombie process, or the environment variables cannot be obtained under other unsupported scenarios.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist, is a zombie process, or cannot be accessed without privileged API.
 
 ### prop name
 
@@ -275,13 +277,13 @@ Exceptions:
 public prop name: String
 ```
 
-Function: Gets the process name.
+Functionality: Gets the process name.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Throws an exception when the process does not exist, the corresponding process is a zombie process, or the process name cannot be obtained.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist or is a zombie process.
 
 ### prop pid
 
@@ -289,7 +291,7 @@ Exceptions:
 public prop pid: Int64
 ```
 
-Function: Gets the process `id`.
+Functionality: Gets the process ID.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -299,7 +301,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop startTime: DateTime
 ```
 
-Function: Gets the process start time. Returns [DateTime.UnixEpoch](../../time/time_package_api/time_package_structs.md#static-prop-unixepoch) on failure.
+Functionality: Gets the process start time. Returns [DateTime.UnixEpoch](../../time/time_package_api/time_package_structs.md#static-prop-unixepoch) on failure.
 
 Type: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
 
@@ -309,7 +311,7 @@ Type: [DateTime](../../time/time_package_api/time_package_structs.md#struct-date
 public prop systemTime: Duration
 ```
 
-Function: Gets the process system time. Returns -1ms on failure.
+Functionality: Gets the process system time. Returns -1ms on failure.
 
 Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -319,7 +321,7 @@ Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-dura
 public prop userTime: Duration
 ```
 
-Function: Gets the process user time. Returns -1ms on failure.
+Functionality: Gets the process user time. Returns -1ms on failure.
 
 Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -329,17 +331,17 @@ Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-dura
 public prop workingDirectory: Path
 ```
 
-Function: Gets the process working directory. For the `Windows` platform, this property only takes effect for the current process. In other scenarios, this property cannot be obtained without privileged `API`.
+Functionality: Gets the working directory of the process. On Windows, this only applies to the current process; other scenarios require privileged API access.
 
 > **Note:**
 >
-> This will be deprecated in future versions. Use [getHomeDirectory()](../../env/env_package_api/env_package_funcs.md#func-gethomedirectory) instead.
+> Will be deprecated in future versions. Use [getHomeDirectory()](../../env/env_package_api/env_package_funcs.md#func-gethomedirectory) instead.
 
 Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when the process does not exist, the corresponding process is a zombie process, or the working directory cannot be obtained in unsupported scenarios on the `Windows` platform.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist, is a zombie process, or cannot be accessed without privileged API on Windows.
 
 ### func isAlive()
 
@@ -347,11 +349,11 @@ Exceptions:
 public func isAlive(): Bool
 ```
 
-Function: Checks whether the process is alive.
+Functionality: Checks if the process is alive.
 
-Return Value:
+Returns:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the process is alive, otherwise `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` if alive, otherwise `false`.
 
 ### static func of(Int64) <sup>(deprecated)</sup>
 
@@ -359,24 +361,24 @@ Return Value:
 public static func of(pid: Int64): Process
 ```
 
-Function: Binds a process instance based on the input process `id`.
+Functionality: Binds a process instance by process ID.
 
 > **Note:**
 >
-> This will be deprecated in future versions. Use [findProcess](./process_package_funcs.md#func-findprocessint64) instead.
+> Will be deprecated in future versions. Use [findProcess](./process_package_funcs.md#func-findprocessint64) instead.
 
 Parameters:
 
-- pid: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The process `id`.
+- pid: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The process ID.
 
-Return Value:
+Returns:
 
-- [Process](process_package_classes.md#class-process) - Returns the process instance corresponding to the process `id`.
+- [Process](process_package_classes.md#class-process) - The process instance corresponding to the process ID.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the input process `id` exceeds the maximum value of [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) or is less than `0`.
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when memory allocation fails or the process corresponding to `pid` does not exist.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the process ID exceeds [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) maximum or is negative.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if memory allocation fails or the process does not exist.
 
 ### static func run(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect, ?Duration) <sup>(deprecated)</sup>
 
@@ -391,32 +393,32 @@ public static func run(command: String,
                       timeout!: ?Duration = None): Int64
 ```
 
-Function: Creates and runs a child process based on the input parameters, waits for the child process to complete, and returns the child process exit status.
+Functionality: Creates and runs a child process based on input parameters, waits for completion, and returns the exit status.
 
 > **Note:**
 >
-> - This will be deprecated in future versions. Use [execute](./process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) instead.
-> - On the `Windows` platform, deleting the child process executable immediately after execution may fail with an `Access is denied` exception. If this occurs, retry the deletion after a short delay. For implementation details, refer to the example.
+> - Will be deprecated in future versions. Use [execute](./process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) instead.
+> - On Windows, deleting the child process executable immediately after completion may fail with `Access is denied`. Retry after a short delay if needed.
 
 Parameters:
 
-- command: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Specifies the child process command. `command` must not contain null characters.
-- arguments: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - Specifies the child process arguments. `arguments` must not contain null characters in the array strings.
-- workingDirectory!: ?[Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - Named optional parameter. Specifies the child process working directory. Defaults to inheriting the current process working directory. The path must be an existing directory and must not be empty or contain null characters.
-- environment!: ?[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - Named optional parameter. Specifies the child process environment variables. Defaults to inheriting the current process environment variables. `key` must not contain null characters or `'='`, and `value` must not contain null characters.
-- stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard input redirection. Defaults to inheriting the current process standard input.
-- stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard output redirection. Defaults to inheriting the current process standard output.
-- stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard error redirection. Defaults to inheriting the current process standard error.
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Named optional parameter. Specifies the timeout for waiting for the child process. Defaults to no timeout. A `timeout` of `0` or negative value means no timeout.
+- command: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The child process command (cannot contain null characters).
+- arguments: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - Child process arguments (cannot contain null characters).
+- workingDirectory!: ?[Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - Optional named parameter for the working directory (default: inherits current process).
+- environment!: ?[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - Optional named parameter for environment variables (default: inherits current process).
+- stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Optional named parameter for stdin redirection (default: inherits current process).
+- stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Optional named parameter for stdout redirection (default: inherits current process).
+- stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Optional named parameter for stderr redirection (default: inherits current process).
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Optional named parameter for timeout (default: no timeout).
 
-Return Value:
+Returns:
 
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the child process exit status. If the child process exits normally, returns the exit code. If the child process is killed by a signal, returns the signal number that caused the termination.
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Exit status (exit code if normal termination, signal number if killed).
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `command` contains null characters, `arguments` contains null characters in array strings, `workingDirectory` is not an existing directory or is empty or contains null characters, `environment` `key` contains null characters or `'='`, `value` contains null characters, or `stdIn`, `stdOut`, `stdErr` are in file mode and the input file is closed or deleted.
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when memory allocation fails, the `command` does not exist, or the wait times out.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown for invalid parameters.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if memory allocation fails, command does not exist, or timeout occurs.
 
 ### static func runOutput(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>
 
@@ -430,28 +432,19 @@ public static func runOutput(command: String,
                             stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-Function: Creates and runs a child process based on the input parameters, waits for the child process to complete, and returns the child process exit status, standard output, and standard error. This function is not suitable for scenarios with large output streams or error streams. For such cases, use the standard stream properties provided in [SubProcess](process_package_classes.md#class-subprocess) combined with the `wait` function for custom handling.
+Functionality: Creates and runs a child process, waits for completion, and returns exit status, stdout, and stderr. Not suitable for large outputs—use [SubProcess](process_package_classes.md#class-subprocess) with `wait` instead.
 
 > **Note:**
 >
-> This will be deprecated in future versions. Use [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) instead.
+> Will be deprecated in future versions. Use [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) instead.
 
-Parameters:
+Parameters: (Same as `run` function)
 
-- command: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Specifies the child process command. `command` must not contain null characters.
-- arguments: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - Specifies the child process arguments. `arguments` must not contain null characters in the array strings.
-- workingDirectory!: ?[Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - Named optional parameter. Specifies the child process working directory. Defaults to inheriting the current process working directory. The path must be an existing directory and must not be empty or contain null characters.
-- environment!: ?[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - Named optional parameter. Specifies the child process environment variables. Defaults to inheriting the current process environment variables. `key` must not contain null characters or `'='`, and `value` must not contain null characters.
-- stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard input redirection. Defaults to inheriting the current process standard input.
-- stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard output redirection. Defaults to inheriting the current process standard output.
-- stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter. Specifies the child process standard error redirection. Defaults to inheriting the current process standard error.Return Value:
+Returns:
 
-- ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - The execution result of the child process, including the child process exit status (if the child process exits normally, returns the exit code; if the child process is killed by a signal, returns the signal number that caused termination), the standard output result, and the error result of the process.
+- ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - Tuple containing exit status, stdout, and stderr.
 
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the input parameter `command` contains null characters, or strings in the `arguments` array contain null characters, or `workingDirectory` is not an existing directory or is an empty path or contains null characters, or the `key` string in the `environment` table contains null characters or `'='`, or the `value` string contains null characters, or when `stdIn`, `stdOut`, `stdErr` are in file mode and the input file has been closed or deleted.
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when memory allocation fails, or the command corresponding to `command` does not exist, or the child process does not exist, or there is an exception in reading standard streams.
+Exceptions: (Same as `run` function)
 
 ### static func start(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>
 
@@ -465,30 +458,19 @@ public static func start(command: String,
                         stdErr!: ProcessRedirect = Inherit): SubProcess
 ```
 
-Function: Creates and runs a child process based on input parameters and returns a child process instance. After calling this function to create a child process, you must call the `wait` or `waitOutput` function; otherwise, the resources of the zombie process formed after the child process ends will not be reclaimed.
+Functionality: Creates and runs a child process, returning a child process instance. Call `wait` or `waitOutput` to avoid zombie processes.
 
 > **Note:**
 >
-> This function will be deprecated in future versions. Use [launch](./process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) instead.
+> Will be deprecated in future versions. Use [launch](./process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) instead.
 
-Parameters:
+Parameters: (Same as `run` function)
 
-- command: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Specifies the child process command. `command` must not contain null characters.
-- arguments: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - Specifies the child process arguments. Strings in the `arguments` array must not contain null characters.
-- workingDirectory!: ?[Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - Named optional parameter specifying the working directory of the child process. Defaults to inheriting the current process's working directory. The path must be an existing directory and must not be an empty path or contain null characters.
-- environment!: ?[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - Named optional parameter specifying the child process environment variables. Defaults to inheriting the current process's environment variables. The `key` string must not contain null characters or `'='`, and the `value` string must not contain null characters.
-- stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the child process's standard input redirection. Defaults to inheriting the current process's standard input.
-- stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the child process's standard output redirection. Defaults to inheriting the current process's standard output.
-- stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the child process's standard error redirection. Defaults to inheriting the current process's standard error.
+Returns:
 
-Return Value:
+- [SubProcess](process_package_classes.md#class-subprocess) - The child process instance.
 
-- [SubProcess](process_package_classes.md#class-subprocess) - Returns a child process instance.
-
-Exceptions:
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the input parameter `command` contains null characters, or strings in the `arguments` array contain null characters, or `workingDirectory` is not an existing directory or is an empty path or contains null characters, or the `key` string in the `environment` table contains null characters or `'='`, or the `value` string contains null characters, or when `stdIn`, `stdOut`, `stdErr` are in file mode and the input file has been closed or deleted.
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when memory allocation fails or the command corresponding to `command` does not exist.
+Exceptions: (Same as `run` function)
 
 ### func terminate(Bool)
 
@@ -496,51 +478,27 @@ Exceptions:
 public func terminate(force!: Bool = false): Unit
 ```
 
-Function: Terminates the process. The child process execution result includes the child process exit status (if the child process exits normally, returns the exit code; if the child process is killed by a signal, returns the signal number that caused termination), the standard output result, and the error result of the process.
+Functionality: Terminates the process.
 
 Parameters:
 
-- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Named optional parameter specifying whether to force-terminate the process. Defaults to `false`. If set to `false`, the process can end after releasing resources; if set to `true`, the process will be killed directly. On `Windows` platforms, this is implemented as force-terminating the process.
-
-Exceptions:
-
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist or termination is not allowed.
-
-### func terminateAliveProcess(Int32, Bool)
-
-```cangjie
-protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
-```
-
-Function: Terminates the specified process. The child process execution result includes the child process exit status (if the child process exits normally, returns the exit code; if the child process is killed by a signal, returns the signal number that caused termination), the standard output result, and the error result of the process.
-
-Parameters:
-
-- pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The process `ID` to be terminated.
-
-- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Named optional parameter specifying whether to force-terminate the process. Defaults to `false`. If set to `false`, the process can end after releasing resources; if set to `true`, the process will be killed directly. On `Windows` platforms, this is implemented as force-terminating the process.
-
-Exceptions:
-
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the process does not exist or termination is not allowed.
-
-## class SubProcess
+- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md## class SubProcess
 
 ```cangjie
 public class SubProcess <: Process
 ```
 
-Function: This class represents a child process, inheriting from the [Process](process_package_classes.md#class-process) class, and provides functionality related to child process operations.
+Functionality: This class represents a subprocess, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to subprocess management.
 
-> **Description:**
+> **Note:**
 >
-> The following functionalities are provided:
+> The specific functionalities provided are as follows:
 >
-> - Provides mechanisms to obtain the standard streams (`stdIn`, `stdOut`, `stdErr`) of the child process.
-> - Provides mechanisms to wait for the child process to return an exit status code, allowing setting a timeout for the wait.
-> - Provides mechanisms to wait for the child process to return output results (including normal and abnormal execution results), allowing setting a timeout for the wait.
+> - Mechanism to obtain subprocess standard streams (`stdIn`, `stdOut`, `stdErr`).
+> - Mechanism to wait for subprocess execution and return exit status code, with configurable timeout duration.
+> - Mechanism to wait for subprocess execution and return output results (including normal and error outputs), with configurable timeout duration.
 
-Parent Types:
+Parent Type:
 
 - [Process](../process_package_overview.md#class-process)
 
@@ -550,9 +508,9 @@ Parent Types:
 public prop stdErr: InputStream
 ```
 
-Function: Gets the input stream connected to the child process's standard error stream.
+Functionality: Gets the input stream connected to the subprocess's standard error stream.
 
-> **Note:**
+> **Warning:**
 >
 > This property will be deprecated in future versions. Use [stdErrPipe](./process_package_classes.md#prop-stderrpipe) instead.
 
@@ -564,7 +522,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdErrPipe: InputStream
 ```
 
-Function: Gets the input stream connected to the child process's standard error stream.
+Functionality: Gets the input stream connected to the subprocess's standard error stream.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -574,9 +532,9 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdIn: OutputStream
 ```
 
-Function: Gets the output stream connected to the child process's standard input stream.
+Functionality: Gets the output stream connected to the subprocess's standard input stream.
 
-> **Note:**
+> **Warning:**
 >
 > This property will be deprecated in future versions. Use [stdInPipe](./process_package_classes.md#prop-stdinpipe) instead.
 
@@ -588,7 +546,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop stdInPipe: OutputStream
 ```
 
-Function: Gets the output stream connected to the child process's standard input stream.
+Functionality: Gets the output stream connected to the subprocess's standard input stream.
 
 Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -598,11 +556,11 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop stdOut: InputStream
 ```
 
-Function: Obtains an input stream connected to the standard output stream of the child process.
+Functionality: Gets the input stream connected to the subprocess's standard output stream.
 
-> **Note:**
+> **Warning:**
 >
-> This will be deprecated in future versions. Use [stdOutPipe](./process_package_classes.md#prop-stdoutpipe) instead.
+> This property will be deprecated in future versions. Use [stdOutPipe](./process_package_classes.md#prop-stdoutpipe) instead.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -612,7 +570,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdOutPipe: InputStream
 ```
 
-Function: Obtains an input stream connected to the standard output stream of the child process.
+Functionality: Gets the input stream connected to the subprocess's standard output stream.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -622,26 +580,26 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public func wait(timeout!: ?Duration = None): Int64
 ```
 
-Function: Blocks the current process to wait for the child process to complete execution and returns the child process exit status code, with an optional timeout parameter. For scenarios requiring standard stream operations (Pipe mode), users should prioritize handling standard streams to avoid deadlocks caused by full child process stream buffers when calling this function.
+Functionality: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code, with configurable timeout duration. For scenarios requiring standard stream operations (Pipe mode), users should prioritize handling standard streams to avoid deadlocks when the subprocess's stream buffer becomes full before calling this function.
 
-> **Description:**
+> **Note:**
 >
 > Timeout handling mechanism:
 >
-> - When no parameter is passed, `timeout` is `None`, or the value is less than or equal to [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero, blocks until the child process completes execution.
-> - When `timeout` is greater than [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero, blocks until the child process completes execution or throws a timeout exception upon expiration.
+> - When no parameter is passed, `timeout` is `None`, or the value is less than or equal to [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero, it blocks until the subprocess completes.
+> - When `timeout` is greater than [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero, it blocks until the subprocess completes or throws a timeout exception if the wait times out.
 
 Parameters:
 
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Named optional parameter specifying the timeout duration for waiting on the child process. Defaults to `None`.
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Named optional parameter specifying the timeout duration for waiting on the subprocess. Defaults to `None`.
 
 Return Value:
 
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the child process exit status. If the child process exits normally, returns the exit code; if terminated by a signal, returns the signal number that caused termination.
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the subprocess exit status. If the subprocess exits normally, returns the exit code; if terminated by a signal, returns the signal number that caused termination.
 
 Exceptions:
 
-- [TimeoutException](../../core/core_package_api/core_package_exceptions.md#class-timeoutexception) - Thrown when the wait times out before the child process exits.
+- [TimeoutException](../../core/core_package_api/core_package_exceptions.md#class-timeoutexception) - Thrown when the wait times out before the subprocess exits.
 
 ### func waitOutput()
 
@@ -649,12 +607,12 @@ Exceptions:
 public func waitOutput(): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-Function: Blocks the current process to wait for the child process to complete execution and returns the child process exit status code along with the results (including standard output and error stream outputs). Not suitable for scenarios with large output volumes in standard/error streams. It is recommended to handle streams manually using the standard stream properties provided in [SubProcess](process_package_classes.md#class-subprocess) combined with the wait function.
+Functionality: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code along with output results (including standard output and error streams). This function is not suitable for scenarios with large output volumes in standard/error streams. It's recommended to use the standard stream properties provided in [SubProcess](process_package_classes.md#class-subprocess) combined with the wait function for custom handling.
 
 Return Value:
 
-- ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - Returns the child process execution result, including the exit status (exit code if normal termination, signal number if terminated by signal), standard output results, and error results.
+- ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - Subprocess execution results, including exit status (exit code if normal termination, signal number if terminated by signal), standard output results, and error output results.
 
 Exceptions:
 
-- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when the child process does not exist or standard stream reading fails.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown when the subprocess does not exist or standard stream reading fails.

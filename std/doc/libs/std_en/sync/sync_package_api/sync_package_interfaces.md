@@ -13,9 +13,9 @@ public interface Condition {
 }
 ```
 
-Functionality: Provides an interface for thread blocking and waiting for signals from other threads to resume execution.
+Function: Provides an interface for thread blocking and waiting for signals from other threads to resume execution.
 
-This mechanism utilizes shared variables for thread synchronization. When some threads are suspended while waiting for certain conditions on shared variables to be met, other threads modify the shared variables to satisfy those conditions and then perform wake-up operations. This allows suspended threads to be awakened and continue execution.
+This is a thread synchronization mechanism using shared variables. When some threads are suspended waiting for certain conditions on shared variables to be met, other threads modify the shared variables to satisfy the conditions and then perform wake-up operations. This allows suspended threads to continue execution after being awakened.
 
 ### func notify()
 
@@ -23,7 +23,7 @@ This mechanism utilizes shared variables for thread synchronization. When some t
 func notify(): Unit
 ```
 
-Functionality: Wakes up one thread waiting on the associated mutex.
+Function: Wakes up one thread waiting on the associated mutex.
 
 Exceptions:
 
@@ -35,7 +35,7 @@ Exceptions:
 func notifyAll(): Unit
 ```
 
-Functionality: Wakes up all threads waiting on the associated mutex.
+Function: Wakes up all threads waiting on the associated mutex.
 
 Exceptions:
 
@@ -47,11 +47,11 @@ Exceptions:
 func wait(): Unit
 ```
 
-Functionality: Suspends the current thread until the corresponding `notify` function is called.
+Function: Suspends the current thread until the corresponding `notify` function is called.
 
 > **Note:**
 >
-> The thread releases the associated mutex lock when entering the wait state and reacquires it upon being awakened.
+> The thread releases the associated mutex lock when entering wait state, and reacquires it upon being awakened.
 
 Exceptions:
 
@@ -63,19 +63,19 @@ Exceptions:
 func wait(timeout!: Duration): Bool
 ```
 
-Functionality: Suspends the current thread until the corresponding `notify` function is called or the suspension time exceeds `timeout`.
+Function: Suspends the current thread until the corresponding `notify` function is called or the suspension time exceeds `timeout`.
 
 > **Note:**
 >
-> The thread releases the associated mutex lock when entering the wait state and reacquires it upon being awakened.
+> The thread releases the associated mutex lock when entering wait state, and reacquires it upon being awakened.
 
 Parameters:
 
-- timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension duration, with a default value of [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
+- timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension time, default value is [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Monitor <sup>(deprecated)<sup>](sync_package_classes.md#class-monitor-deprecated) is awakened by another thread; returns `false` if timeout occurs.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if awakened by another thread's [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated); returns `false` if timeout occurs.
 
 Exceptions:
 
@@ -88,16 +88,16 @@ Exceptions:
 func waitUntil(predicate: ()->Bool): Unit
 ```
 
-Functionality: Suspends the current thread until the corresponding `notify` function is called and the `predicate` evaluates to `true`.
+Function: Suspends the current thread until the corresponding `notify` function is called and `predicate` evaluates to `true`.
 
 > **Note:**
 >
-> - The thread releases the associated mutex lock when entering the wait state and reacquires it upon being awakened.
-> - This method first checks if the `predicate` evaluates to `true`; if so, it returns immediately; otherwise, it suspends the current thread.
+> - The thread releases the associated mutex lock when entering wait state, and reacquires it upon being awakened.
+> - This method first checks if `predicate` evaluates to `true`; if so, it returns immediately, otherwise suspends the current thread.
 
 Parameters:
 
-- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to wait for.
+- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Condition to wait for becoming true.
 
 Exceptions:
 
@@ -109,21 +109,21 @@ Exceptions:
 func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
 ```
 
-Functionality: Suspends the current thread until the corresponding `notify` function is called and the `predicate` evaluates to `true`, or the suspension time exceeds `timeout`.
+Function: Suspends the current thread until the corresponding `notify` function is called and `predicate` evaluates to `true`, or the suspension time exceeds `timeout`.
 
 > **Note:**
 >
-> - The thread releases the associated mutex lock when entering the wait state and reacquires it upon being awakened.
-> - This method first checks if the `predicate` evaluates to `true`; if so, it returns `true` immediately; otherwise, it suspends the current thread.
+> - The thread releases the associated mutex lock when entering wait state, and reacquires it upon being awakened.
+> - This method first checks if `predicate` evaluates to `true`; if so, it returns `true` immediately, otherwise suspends the current thread.
 
 Parameters:
 
-- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to wait for.
-- timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension duration, with a default value of [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
+- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Condition to wait for becoming true.
+- timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension time, default value is [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Monitor <sup>(deprecated)<sup>](sync_package_classes.md#class-monitor-deprecated) is awakened by another thread and the `predicate` evaluates to `true`; returns `false` if timeout occurs.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if awakened by another thread's [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated) and `predicate` evaluates to `true`; returns `false` if timeout occurs.
 
 Exceptions:
 
@@ -140,12 +140,12 @@ public interface IReentrantMutex {
 }
 ```
 
-Functionality: Provides an interface for implementing reentrant mutex locks.
+Function: Provides an interface for implementing reentrant mutex locks.
 
-> **Note:**
+> **Warning:**
 >
-> - This will be deprecated in future versions; use [Lock](#interface-lock) instead.
-> - Implementers must ensure the underlying mutex supports nested locking; otherwise, deadlocks may occur during nested usage.
+> - Will be deprecated in future versions, use [Lock](#interface-lock) instead.
+> - Implementers must ensure the underlying mutex supports nested locking, otherwise deadlocks may occur during nested usage.
 
 ### func lock()
 
@@ -153,9 +153,9 @@ Functionality: Provides an interface for implementing reentrant mutex locks.
 func lock(): Unit
 ```
 
-Functionality: Locks the mutex.
+Function: Locks the mutex.
 
-If the mutex is already locked, the current thread is blocked.
+If the mutex is already locked, blocks the current thread.
 
 ### func tryLock()
 
@@ -163,11 +163,11 @@ If the mutex is already locked, the current thread is blocked.
 func tryLock(): Bool
 ```
 
-Functionality: Attempts to lock the mutex.
+Function: Attempts to lock the mutex.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the mutex is already locked; otherwise, locks the mutex and returns `true`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns false if the mutex is already locked; otherwise locks the mutex and returns true.
 
 ### func unlock()
 
@@ -175,9 +175,9 @@ Return Value:
 func unlock(): Unit
 ```
 
-Functionality: Unlocks the mutex.
+Function: Unlocks the mutex.
 
-If the mutex has been locked N times recursively, this function must be called N times to fully unlock it. Once fully unlocked, if other threads are blocked on this lock, one of them is awakened.
+If the mutex has been locked N times recursively, this function needs to be called N times to fully unlock it. Once fully unlocked, if other threads are blocked on this lock, one of them will be awakened.
 
 Exceptions:
 
@@ -193,11 +193,11 @@ public interface Lock {
 }
 ```
 
-Functionality: Provides an interface for implementing reentrant mutex locks.
+Function: Provides an interface for implementing reentrant mutex locks.
 
-> **Note:**
+> **Warning:**
 >
-> Implementers must ensure the underlying mutex supports nested locking; otherwise, deadlocks may occur during nested usage.
+> Implementers must ensure the underlying mutex supports nested locking, otherwise deadlocks may occur during nested usage.
 
 ### func lock()
 
@@ -205,9 +205,9 @@ Functionality: Provides an interface for implementing reentrant mutex locks.
 func lock(): Unit
 ```
 
-Functionality: Locks the mutex.
+Function: Locks the mutex.
 
-If the mutex is already locked, the current thread is blocked.
+If the mutex is already locked, blocks the current thread.
 
 ### func tryLock()
 
@@ -215,11 +215,11 @@ If the mutex is already locked, the current thread is blocked.
 func tryLock(): Bool
 ```
 
-Functionality: Attempts to lock the mutex.
+Function: Attempts to lock the mutex.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the mutex is already locked; otherwise, locks the mutex and returns `true`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns false if the mutex is already locked; otherwise locks the mutex and returns true.
 
 ### func unlock()
 
@@ -227,9 +227,9 @@ Return Value:
 func unlock(): Unit
 ```
 
-Functionality: Unlocks the mutex.
+Function: Unlocks the mutex.
 
-If the mutex has been locked N times recursively, this function must be called N times to fully unlock it. Once fully unlocked, if other threads are blocked on this lock, one of them is awakened.
+If the mutex has been locked N times recursively, this function needs to be called N times to fully unlock it. Once fully unlocked, if other threads are blocked on this lock, one of them will be awakened.
 
 Exceptions:
 
@@ -243,7 +243,7 @@ public interface UniqueLock <: Lock {
 }
 ```
 
-Functionality: Provides an interface for implementing exclusive locks.
+Function: Provides an interface for implementing exclusive locks.
 
 Parent Type:
 
@@ -255,9 +255,9 @@ Parent Type:
 func condition(): Condition
 ```
 
-Functionality: Creates a [Condition](#interface-condition) associated with this [Lock](#interface-lock).
+Function: Creates a [Condition](#interface-condition) associated with this [Lock](#interface-lock).
 
-Can be used to implement concurrency primitives with "single Lock, multiple wait queues".
+Can be used to implement "single Lock with multiple wait queues" concurrency primitives.
 
 Return Value:
 

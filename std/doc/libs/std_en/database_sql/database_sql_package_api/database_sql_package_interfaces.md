@@ -1,4 +1,4 @@
-# Interface
+# Interfaces
 
 ## interface ColumnInfo
 
@@ -13,7 +13,7 @@ public interface ColumnInfo {
 }
 ```
 
-Function: Column information for the result returned by executing Select/Query statements.
+Function: Column information for the result set returned by executing Select/Query statements.
 
 ### prop displaySize
 
@@ -60,7 +60,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 prop nullable: Bool
 ```
 
-Function: Indicates whether column values can be database `Null`.
+Function: Indicates whether the column value allows database `Null` values.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -70,7 +70,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 prop scale: Int64
 ```
 
-Function: Gets the scale length of column values. Returns 0 if no decimal part exists.
+Function: Gets the decimal length of column values. Returns 0 if no decimal part exists.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -97,7 +97,7 @@ public interface Connection <: Resource {
 
 Function: Database connection interface.
 
-Classes, interfaces, or structs inheriting this interface must also comply with the parameter and return value definitions of its functions.
+Classes, interfaces, or structs inheriting this interface must comply with the parameter and return value definitions of its functions.
 
 Parent type:
 
@@ -127,7 +127,7 @@ Return value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws exception when already in a transaction state and parallel transactions are not supported.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws when already in a transaction state and parallel transactions are not supported.
 
 ### func getMetaData()
 
@@ -147,11 +147,11 @@ Return value:
 func prepareStatement(sql: String): Statement
 ```
 
-Function: Returns a pre-executed [Statement](database_sql_package_interfaces.md#interface-statement) object instance based on the provided SQL statement.
+Function: Returns a pre-executed [Statement](database_sql_package_interfaces.md#interface-statement) object instance using the provided SQL statement.
 
 Parameters:
 
-- sql: [String](../../core/core_package_api/core_package_structs.md#struct-string) - SQL statement to pre-execute, where parameters only support `?` symbol placeholders.
+- sql: [String](../../core/core_package_api/core_package_structs.md#struct-string) - SQL statement to pre-execute, where parameters only support `?` placeholder symbols.
 
 Return value:
 
@@ -159,7 +159,7 @@ Return value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws exception when the SQL statement contains unrecognized characters.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws when the SQL statement contains unrecognized characters.
 
 ## interface Datasource
 
@@ -172,7 +172,7 @@ public interface Datasource <: Resource {
 
 Function: Data source interface.
 
-Classes, interfaces, or structs inheriting this interface must also comply with the parameter and return value definitions of its functions.
+Classes, interfaces, or structs inheriting this interface must comply with the parameter and return value definitions of its functions.
 
 Parent type:
 
@@ -216,7 +216,7 @@ public interface Driver {
 
 Function: Database driver interface.
 
-Classes, interfaces, or structs inheriting this interface must also comply with the parameter and return value definitions of its functions.
+Classes, interfaces, or structs inheriting this interface must comply with the parameter and return value definitions of its functions.
 
 ### prop name
 
@@ -234,9 +234,9 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 prop preferredPooling: Bool
 ```
 
-Function: Indicates whether the driver is affinity with connection pooling.
+Function: Indicates whether the driver is connection pool-friendly.
 
-When this property is `false`, it's not recommended to use connection pooling for management. For example, for certain database drivers (like SQLite), the benefits of connection pooling are not significant, hence not recommended.
+When this property is `false`, connection pooling is not recommended. For example, some database drivers (like SQLite) show insignificant benefits from connection pooling.
 
 Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -261,7 +261,7 @@ Function: Opens a data source using `connectionString` and options.
 Parameters:
 
 - connectionString: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Database connection string.
-- opts: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string))> - Array of key-value tuples, options for opening the data source.
+- opts: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string))> - Array of key-value tuples for data source opening options.
 
 Return value:
 
@@ -279,9 +279,9 @@ public interface QueryResult <: Resource {
 }
 ```
 
-Function: Interface for results produced by executing Select statements.
+Function: Result interface for executing Select statements.
 
-Classes, interfaces, or structs inheriting this interface must also comply with the parameter and return value definitions of its functions.
+Classes, interfaces, or structs inheriting this interface must comply with the parameter and return value definitions of its functions.
 
 Parent type:
 
@@ -290,7 +290,7 @@ Parent type:
 ### prop columnInfos
 
 ```cangjie
-prop columnInfos: Array<ColumnInfo>
+prop columnInfos: Array<ColumnInfo
 ```
 
 Function: Returns column information of the result set, such as column names, column types, column lengths, whether database Null values are allowed, etc.
@@ -305,9 +305,13 @@ func get<T>(index: Int64): T
 
 Function: Retrieves the value of the specified column from the current row of the result set.
 
-Return Value:
+Parameters:
 
-- T - An instance of type `T`.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
+
+Return value:
+
+- T - Instance of type `T`.
 
 ### func getOrNull\<T>(Int64)
 
@@ -317,13 +321,17 @@ func getOrNull<T>(index: Int64): ?T
 
 Function: Retrieves the value of the specified column from the current row of the result set, allowing SQL NULL for database columns.
 
-Return Value:
+Parameters:
 
-- ?T - An instance of type `T`, or None if the value is NULL.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
+
+Return value:
+
+- ?T - Instance of type `T`, returns None if null.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws an exception if the index is out of column range or row data is not ready.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws when index exceeds column range or row data is not ready.
 
 ### func next()
 
@@ -331,11 +339,11 @@ Exceptions:
 func next(): Bool
 ```
 
-Function: Moves to the next row. Must call `next()` once to move to the first row, call again to move to the second row, and so on. When `true` is returned, the driver populates the current row of the result set with data. When `false` is returned, it indicates the end, and the current row content of the result set remains unchanged.
+Function: Moves to the next row. Must call `next()` once to move to the first row, second call moves to the second row, and so on. When returning `true`, the driver fills the current row of the result set with data; when returning `false`, it ends without modifying the current row's content.
 
-Return Value:
+Return value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the next row contains data, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if next row has data, otherwise `false`.
 
 ### func next(Array\<SqlDbType>) <sup>(deprecated)</sup>
 
@@ -343,19 +351,19 @@ Return Value:
 func next(values: Array<SqlDbType>): Bool
 ```
 
-Function: Moves to the next row. Must call `next` once to move to the first row, call again to move to the second row, and so on. When `true` is returned, the driver populates the `values` array with row data. When `false` is returned, it indicates the end, and the `values` content remains unchanged.
+Function: Moves to the next row. Must call `next` once to move to the first row, second call moves to the second row, and so on. When returning `true`, the driver fills `values` with row data; when returning `false`, it ends without modifying `values` content.
 
 > **Note:**
 >
-> This method will be deprecated in future versions. Use [next()](database_sql_package_interfaces.md#func-next) instead.
+> Will be deprecated in future versions. Use [next()](database_sql_package_interfaces.md#func-next) instead.
 
 Parameters:
 
-- values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)> - A list of SQL data type values.
+- values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)> - List of SQL data type values.
 
-Return Value:
+Return value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the next row contains data, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if next row has data, otherwise `false`.
 
 ## interface SqlDbType <sup>(deprecated)</sup>
 
@@ -365,20 +373,20 @@ public interface SqlDbType {
 }
 ```
 
-Function: The parent interface for all SQL data types.
+Function: Parent class of all SQL data types.
 
 > **Note:**
 >
-> This interface will be deprecated in future versions.
+> Will be deprecated in future versions.
 
 To extend user-defined types, inherit from [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated) or [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated).
 
-> **Description:**
+> **Explanation:**
 >
-> All implementations of the [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated) interface must have a public `value` property. Each SQL data type implementation class must meet the following conditions:
+> All implementation types of [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated) interface must have a public `value` property. Each SQL data type implementation class must satisfy:
 >
-> - A constructor with a single parameter of type `T` (where `T` is a type supported by the Cangjie language).
-> - A `public` `value` property whose type matches the parameter type used above, holding the corresponding Cangjie type value.
+> - A constructor with single parameter of type `T` (`T` being a type supported by Cangjie language).
+> - A `public` `value` property whose type must match the parameter type used above, with its value being the corresponding Cangjie type value.
 > - If the data type allows `null` values, inherit [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated). For `null` values, the `value` field should be [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
 
 ### prop name
@@ -389,21 +397,20 @@ prop name: String
 
 Function: Gets the type name.
 
-Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
-
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)```markdown
 ## interface SqlNullableDbType <sup>(deprecated)</sup>
 
 ```cangjie
 public interface SqlNullableDbType <: SqlDbType
 ```
 
-Function: The parent interface for SQL data types that allow `null` values.
+Function: Parent class for SQL data types that allow `null` values.
 
 > **Note:**
 >
-> This interface will be deprecated in future versions.
+> This will be deprecated in future versions.
 
-For `null` values, the `value` property is set to [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).None.
+If the value is `null`, the `value` property will be [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).None.
 
 Parent Type:
 
@@ -424,9 +431,9 @@ public interface Statement <: Resource {
 }
 ```
 
-Function: The interface for SQL statement pre-execution.
+Function: Pre-execution interface for SQL statements.
 
-[Statement](database_sql_package_interfaces.md#interface-statement) is bound to a [Connection](database_sql_package_interfaces.md#interface-connection). Classes, interfaces, or structs inheriting this interface must adhere to the function parameter and return value definitions specified herein.
+[Statement](database_sql_package_interfaces.md#interface-statement) is bound to a [Connection](database_sql_package_interfaces.md#interface-connection). Classes, interfaces, and structs inheriting this interface must comply with its function parameter and return value definitions.
 
 Parent Type:
 
@@ -438,7 +445,7 @@ Parent Type:
 prop parameterColumnInfos: Array<ColumnInfo>
 ```
 
-Function: Column information for placeholder parameters in the pre-executed SQL statement, such as column name, column type, column length, and whether database `Null` values are allowed.
+Function: Column information for placeholder parameters in pre-executed SQL statements, such as column name, column type, column length, and whether database `Null` values are allowed.
 
 Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[ColumnInfo](database_sql_package_interfaces.md#interface-columninfo)>
 
@@ -448,7 +455,7 @@ Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)
 func query(): QueryResult
 ```
 
-Function: Executes the SQL statement and retrieves the query result.
+Function: Executes the SQL statement and returns the query result.
 
 Return Value:
 
@@ -456,7 +463,7 @@ Return Value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws an exception if an error occurs during execution, such as network interruption, server timeout, or incorrect parameter count.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when exceptions occur during execution, such as network interruption, server timeout, or incorrect parameter count.
 
 ### func query(Array\<SqlDbType>) <sup>(deprecated)</sup>
 
@@ -464,11 +471,11 @@ Exceptions:
 func query(params: Array<SqlDbType>): QueryResult
 ```
 
-Function: Executes the SQL statement and retrieves the query result.
+Function: Executes the SQL statement and returns the query result.
 
 > **Note:**
 >
-> This method will be deprecated in future versions. Use query() instead.
+> This will be deprecated in future versions. Use query() instead.
 
 Parameters:
 
@@ -480,7 +487,7 @@ Return Value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws an exception if an error occurs during execution, such as network interruption, server timeout, or incorrect parameter count.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when exceptions occur during execution, such as network interruption, server timeout, or incorrect parameter count.
 
 ### func set\<T>(Int64, T)
 
@@ -488,7 +495,7 @@ Exceptions:
 func set<T>(index: Int64, value: T): Unit
 ```
 
-Function: Sets an SQL parameter, converting a Cangjie data type to a database data type.
+Function: Sets SQL parameters by converting Cangjie data types to database data types.
 
 Parameters:
 
@@ -501,7 +508,7 @@ Parameters:
 func setNull(index: Int64): Unit
 ```
 
-Function: Sets the specified statement parameter to SQL NULL.
+Function: Sets the statement parameter at the specified position to SQL NULL.
 
 Parameters:
 
@@ -513,7 +520,7 @@ Parameters:
 func setOption(key: String, value: String): Unit
 ```
 
-Function: Sets options for the pre-executed SQL statement.
+Function: Sets options for pre-executed SQL statements.
 
 Parameters:
 
@@ -526,11 +533,11 @@ Parameters:
 func update(params: Array<SqlDbType>): UpdateResult
 ```
 
-Function: Executes the SQL statement and retrieves the update result.
+Function: Executes the SQL statement and returns the update result.
 
 > **Note:**
 >
-> This method will be deprecated in future versions. Use update() instead.
+> This will be deprecated in future versions. Use update() instead.
 
 Parameters:
 
@@ -542,7 +549,7 @@ Return Value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws an exception if an error occurs during execution, such as network interruption, server timeout, or incorrect parameter count.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when exceptions occur during execution, such as network interruption, server timeout, or incorrect parameter count.
 
 ### func update()
 
@@ -550,7 +557,7 @@ Exceptions:
 func update(): UpdateResult
 ```
 
-Function: Executes the SQL statement and retrieves the update result.
+Function: Executes the SQL statement and returns the update result.
 
 Return Value:
 
@@ -558,7 +565,7 @@ Return Value:
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Throws an exception if an error occurs during execution, such as network interruption, server timeout, or incorrect parameter count.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when exceptions occur during execution, such as network interruption, server timeout, or incorrect parameter count.
 
 ## interface Transaction
 
@@ -576,9 +583,9 @@ public interface Transaction {
 }
 ```
 
-Function: Defines the core behavior of database transactions.
+Function: Defines core behaviors for database transactions.
 
-Classes, interfaces, or structs inheriting this interface must adhere to the function parameter and return value definitions specified herein.
+Classes, interfaces, and structs inheriting this interface must comply with its function parameter and return value definitions.
 
 ### prop accessMode
 
@@ -596,7 +603,9 @@ Type: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionacce
 mut prop deferrableMode: TransactionDeferrableMode
 ```
 
-Function: Gets the database transaction deferrable mode.Type: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode)
+Function: Gets the database transaction deferrable mode.
+
+Type: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode)
 
 ### prop isoLevel
 
@@ -614,11 +623,11 @@ Type: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolev
 func begin(): Unit
 ```
 
-Function: Begins a database transaction.
+Function: Starts a database transaction.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ### func commit()
 
@@ -630,7 +639,7 @@ Function: Commits the database transaction.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ### func release(String)
 
@@ -638,15 +647,15 @@ Exceptions:
 func release(savePointName: String): Unit
 ```
 
-Function: Destroys a savepoint previously defined in the current transaction. This allows the system to reclaim some resources before the transaction ends.
+Function: Destroys a previously defined savepoint in the current transaction, allowing the system to reclaim some resources before the transaction ends.
 
 Parameters:
 
-- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the savepoint.
+- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The savepoint name.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ### func rollback()
 
@@ -658,7 +667,7 @@ Function: Rolls back the transaction from a pending state.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ### func rollback(String)
 
@@ -666,15 +675,15 @@ Exceptions:
 func rollback(savePointName: String): Unit
 ```
 
-Function: Rolls back the transaction to the specified savepoint name.
+Function: Rolls back the transaction to the specified savepoint.
 
 Parameters:
 
-- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the savepoint.
+- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The savepoint name.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ### func save(String)
 
@@ -682,15 +691,15 @@ Exceptions:
 func save(savePointName: String): Unit
 ```
 
-Function: Creates a savepoint with the specified name in the transaction, which can be used to roll back the transaction after this savepoint.
+Function: Creates a named savepoint in the transaction, which can be used to roll back transactions after this savepoint.
 
 Parameters:
 
-- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the savepoint.
+- savePointName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The savepoint name.
 
 Exceptions:
 
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when a server-side error occurs during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - Thrown when server-side errors occur during transaction commit, or when the transaction has already been committed/rolled back or the connection is disconnected.
 
 ## interface UpdateResult
 
@@ -701,9 +710,9 @@ public interface UpdateResult {
 }
 ```
 
-Function: Result interface generated by executing Insert, Update, and Delete statements.
+Function: Interface for results generated by executing Insert, Update, or Delete statements.
 
-Classes, interfaces, or structs that inherit this interface must also comply with the parameter and return value definitions of the functions in this interface.
+Classes, interfaces, and structs inheriting this interface must comply with its function parameter and return value definitions.
 
 ### prop lastInsertId
 
@@ -711,7 +720,7 @@ Classes, interfaces, or structs that inherit this interface must also comply wit
 prop lastInsertId: Int64
 ```
 
-Function: The last automatically generated row ID from executing an Insert statement. Returns 0 if not supported.
+Function: The last automatically generated row ID from an Insert statement. Returns 0 if unsupported.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -724,3 +733,4 @@ prop rowCount: Int64
 Function: The number of rows affected by executing Insert, Update, or Delete statements.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+```

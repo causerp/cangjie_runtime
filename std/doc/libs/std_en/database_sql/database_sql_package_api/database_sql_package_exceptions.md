@@ -79,3 +79,15 @@ Parameters:
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The error message.
 - sqlState: [String](../../core/core_package_api/core_package_structs.md#struct-string) - A five-character string representing the state of the last executed SQL statement returned by the database system.
 - errorCode: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The integer error code returned by the database vendor.
+
+### func getClassName()
+
+```cangjie
+protected override open func getClassName(): String
+```
+
+Function: Gets the class name.
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The class name.

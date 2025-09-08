@@ -9,7 +9,7 @@ public class AssertException <: Exception {
 }
 ```
 
-Function: The exception thrown when checks by [@Expect](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-macro) / [@Assert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-macro) fail.
+Function: The exception thrown when checks fail in [@Expect](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-macro) / [@Assert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-macro).
 
 Parent Type:
 
@@ -44,7 +44,7 @@ public class AssertIntermediateException <: Exception {
 }
 ```
 
-Function: The exception thrown when checks by [@PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-macro) fail.
+Function: The exception thrown when checks fail in [@PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-macro).
 
 Parent Type:
 
@@ -70,7 +70,7 @@ Function: Original type information.
 
 Type: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception).
 
-### func getOriginalStackTrace
+### func getOriginalStackTrace()
 
 ```cangjie
 public func getOriginalStackTrace(): String
@@ -105,3 +105,15 @@ Function: Framework common exception.
 Parent Type:
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
+
+### func getClassName()
+
+```cangjie
+protected override open func getClassName(): String
+```
+
+Function: Gets the class name.
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name string.

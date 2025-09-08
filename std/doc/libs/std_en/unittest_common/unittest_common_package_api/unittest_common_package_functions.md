@@ -47,18 +47,6 @@ Function: Used to set the description for an option of a specific type.
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The option name.
-- description: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - The option description. If the value is not None, it overwrites the previous value.
+- description: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - The option description. If the value is not None, it will overwrite the previous value.
 - ty: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the type.
 - typeDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The type description of the option.
-
-## func toStringOrPlaceholder\<T>(T)
-
-```cangjie
-public func toStringOrPlaceholder<T>(value: T)
-```
-
-Function: Converts a parameter implementing [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) to its string representation. Parameters not supporting [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) are converted to a default string.
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the parameter.

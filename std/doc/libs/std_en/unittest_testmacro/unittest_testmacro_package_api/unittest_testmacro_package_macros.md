@@ -2,31 +2,33 @@
 
 ## `@AfterAll` Macro
 
-Function: Declares a function in a test class as a [Test Lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once after all test cases.
+Function: Declares a function in a test class as a [test lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once after all test cases.
 
 ## `@AfterEach` Macro
 
-Function: Declares a function in a test class as a [Test Lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs after each test case.
+Function: Declares a function in a test class as a [test lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once after each test case.
 
 ## `@Assert` Macro
 
-Function: `@Assert` declares an Assert assertion, used within test functions. The test case stops if the assertion fails.
+Function: `@Assert` declares an Assert assertion, used inside test functions. If the assertion fails, the test case stops.
 
 1. `@Assert(leftExpr, rightExpr)`: Compares whether `leftExpr` and `rightExpr` have the same value.
 2. `@Assert(condition: Bool)`: Checks whether `condition` is `true`, i.e., `@Assert(condition: Bool)` is equivalent to `@Assert(condition: Bool, true)`.
-3. `@Assert[customAssertion](arguments...)`: Calls the `customAssertion` function with the specified arguments `arguments`. For details, see [`@CustomAssertion`](#customassertion-macro).
+3. `@Assert[customAssertion](arguments...)`: Calls the `customAssertion` function with the specified `arguments`. For details, see [`@CustomAssertion`](#customassertion-macro).
+4. `@Assert(leftExpr, rightExpr, delta: deltaExpr)`: Enables approximate equality functionality using the `delta` parameter.
+5. `@Assert(leftExpr <comparison_operator> rightExpr, delta: deltaExpr)`: Enables approximate equality functionality using the `delta` parameter.
 
 ## `@AssertThrows` Macro
 
-Function: Declares an [Expected Exception Assertion](../../unittest/unittest_samples/unittest_basics.md#expected-exception-assertion), used within test functions. The test case stops if the assertion fails.
+Function: Declares an [expected exception assertion](../../unittest/unittest_samples/unittest_basics.md#expected-exception-assertion), used inside test functions. If the assertion fails, the test case stops.
 
 ## `@BeforeAll` Macro
 
-Function: Declares a function in a test class as a [Test Lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once before all test cases.
+Function: Declares a function in a test class as a [test lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once before all test cases.
 
 ## `@BeforeEach` Macro
 
-Function: Declares a function in a test class as a [Test Lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs before each test case.
+Function: Declares a function in a test class as a [test lifecycle](../../unittest/unittest_samples/unittest_basics.md#test-lifecycle) function. The function decorated with this macro runs once before each test case.
 
 ## `@Bench` Macro
 
@@ -36,8 +38,8 @@ Such functions are executed in batches, and the execution time is measured for t
 Currently supported parameters include:
 
 - Median
-- Absolute value of the 99% confidence interval for the median, used as an error estimate
-- Relative value of the 99% confidence interval for the median
+- Absolute value of the median's 99% confidence interval used as an error estimate
+- Relative value of the median's 99% confidence interval
 - Mean
 
 An example of parameterized DSL combined with `@Bench` is shown below. For specific syntax and rules, see the [`@TestCase` Macro](#testcase-macro) section:
@@ -75,7 +77,7 @@ class ArrayBenchmarks{
 }
 ```
 
-The output is as follows, with an additional `Args` column listing test data under different parameters. Each parameter value is output as a performance test case, and all combinations are listed when multiple parameters are involved:
+The output is as follows, with an additional `Args` column listing test data under different parameters. Each parameter value is output as a performance test case, and full combinatorial scenarios are listed for multiple parameters:
 
 ```text
 --------------------------------------------------------------------------------------------------
@@ -105,9 +107,8 @@ TP: default, time elapsed: 68610430659 ns, Result:
 
 Function: The `@Configure` macro provides configuration parameters for test classes or test functions. It can be placed on test classes or test functions.
 
-The syntax rule is `@Configure[parameter1: <value1>,parameter2: <value2>]`
-where `parameter1` is a Cangjie identifier, and `value` is any valid Cangjie expression. Both are case-sensitive.
-`value` can be a constant or any Cangjie expression valid within the scope of the declaration marked with `@Configure`.
+The syntax rule is `@Configure[parameter1: <value1>,parameter2: <value2>]`, where `parameter1` is a Cangjie identifier, and `value` is any valid Cangjie expression. Both are case-sensitive.
+`value` can be a constant or any valid Cangjie expression within the scope of the declaration marked with `@Configure`.
 If multiple parameters have different types, they can have the same name. If multiple parameters with the same name and type are specified, the latest one is used.
 
 Currently supported configuration parameters include:
@@ -118,25 +119,25 @@ Currently supported configuration parameters include:
 
 The following parameters are generally used for Benchmark test functions decorated with `@Bench`:
 
-- `explicitGC`: Type is [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype): Specifies how to call [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) during Benchmark function testing. The default value is [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype).Light.
-- `baseline`: Type is [String](../../core/core_package_api/core_package_structs.md#struct-string): The value is the name of a Benchmark function, serving as the baseline for comparing Benchmark function execution results. This result value will be added as an additional column in the output, containing the comparison results.
+- `explicitGC`: Type is [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype): How to call [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) during Benchmark function testing. The default value is [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype).Light.
+- `baseline`: Type is [String](../../core/core_package_api/core_package_structs.md#struct-string): The parameter value is the name of the Benchmark function, used as a baseline for comparing Benchmark function execution results. This result value will be added as an additional column to the output, containing the comparison results.
 - `batchSize`: Type is [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) or [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>: Configures the batch size for Benchmark functions. The default value is calculated by the framework during warmup.
 - `minBatches`: Type is [Int64](../../core/core_package_api/core_package_intrinsics.md#int64): Configures how many batches will be executed during Benchmark function testing. The default value is `10`.
-- `minDuration`: Type is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration): Configures the time for repeatedly executing Benchmark functions to obtain better results. The default value is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second * 5.
-- `warmup`: Type is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) or [Int64](../../core/core_package_api/core_package_intrinsics.md#int64): Configures the time or number of times to repeatedly execute Benchmark functions before collecting results. The default value is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second. When the value is 0, there is no warmup, and the number of executions is calculated as the user-input `batchSize` multiplied by `minBatches`. If `batchSize` is not specified, an exception will be thrown.
+- `minDuration`: Type is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration): Configures the time for repeated execution of Benchmark functions to obtain better results. The default value is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second * 5.
+- `warmup`: Type is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) or [Int64](../../core/core_package_api/core_package_intrinsics.md#int64): Configures the time or number of times to repeat the Benchmark function before collecting results. The default value is [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second. When the value is 0, it means no warmup, and the number of executions is calculated as the user-input `batchSize` multiplied by `minBatches`. If `batchSize` is not specified, an exception will be thrown.
 
 Users can specify other configuration parameters in the `@Configure` macro, which may be used in the future.
 If a test class uses the `@Configure` macro to specify configurations, all test functions in this class will inherit these configuration parameters.
-If test functions in this class are also marked with the `@Configure` macro, the configuration parameters will be merged from the class and function levels, with function-level macros taking precedence.
+If a test function in this class is also marked with the `@Configure` macro, the configuration parameters will be merged from the class and function, with function-level macros taking precedence.
 
 ## `@CustomAssertion` Macro
 
-Function: `@CustomAssertions` designates a function as a user-defined assertion.
+Function: `@CustomAssertions` specifies a function as a user-defined assertion.
 
-Functions decorated with this macro must meet two requirements:
+The function decorated with this macro must meet two requirements:
 
-1. Top-level function
-2. The first parameter is of type [`AssertionCtx`](../../unittest/unittest_package_api/unittest_package_classes.md#class-assertionctx).
+1. It must be a top-level function.
+2. Its first parameter must be of type [`AssertionCtx`](../../unittest/unittest_package_api/unittest_package_classes.md#class-assertionctx).
 
 Example:
 
@@ -150,9 +151,9 @@ public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
 }
 ```
 
-The output of `@CustomAssertion` is structured as a tree to improve readability for [Nested Assertions](#nested-assertions).
+The output of `@CustomAssertion` is a tree structure to improve readability for [nested assertions](#nested-assertions).
 
-Example:
+For example:
 
 ```cangjie
 @Test
@@ -169,7 +170,7 @@ Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
 
 ### Return Value
 
-When a function decorated with `@CustomAssertion` has a return value, it will be returned by the `@Assert` macro.
+If the function decorated with `@CustomAssertion` has a return value, it will be returned by the `@Assert` macro.
 
 Example:
 
@@ -187,9 +188,9 @@ func testfunc() {
 
 ### Nested Assertions
 
-Within `@CustomAssertion` definitions, [`@Assert`](#assert-macro)/[`@Expect`](#expect-macro) (including custom assertions), [`@AssertThrows`](#assertthrows-macro)/[`@ExpectThrows`](#expectthrows-macro), [`@Fail`](#fail-macro)/[`@FailExpect`](#failexpect-macro) macros can be called to form nested assertions.
+In the definition of `@CustomAssertion`, [`@Assert`](#assert-macro)/[`@Expect`](#expect-macro) (including custom assertions), [`@AssertThrows`](#assertthrows-macro)/[`@ExpectThrows`](#expectthrows-macro), [`@Fail`](#fail-macro)/[`@FailExpect`](#failexpect-macro) macros can be called to form nested assertions.
 
-Example:
+For example:
 
 ```cangjie
 @CustomAssertion
@@ -212,14 +213,14 @@ Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
     └── Assert Failed: `('it' was expected to be Some(_) but got None)`
 ```
 
-If a user-defined assertion throws an [`AssertException`](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when called by the [`@Expect`](#expect-macro) macro, it will be caught and not propagated.
-Similarly, if a user-defined assertion fails without raising an exception when called by the [`@Assert`](#assert-macro) macro, an exception will be created and thrown.
+If a user-defined assertion throws [`AssertException`](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when called by [`@Expect`](#expect-macro), it will be caught and not propagated outward.
+Similarly, if a user-defined assertion fails without raising an exception when called by [`@Assert`](#assert-macro), an exception will be created and thrown.
 
 ### Specifying Generic Types
 
-When specifying generic type parameters, standard syntax can be used.
+When specifying generic type parameters, the same syntax as regular generics can be used.
 
-Example:
+For example:
 
 ```cangjie
 @CustomAssertion
@@ -235,31 +236,33 @@ func customTest() {
 
 ## `@Expect` Macro
 
-Function: `@Expect` declares an Expect assertion, used within test functions. The test case continues execution if the assertion fails.
+Function: `@Expect` declares an Expect assertion, used inside test functions. If the assertion fails, the test case continues execution.
 
 1. `@Expect(leftExpr, rightExpr)`: Compares whether `leftExpr` and `rightExpr` are the same.
 2. `@Expect(condition: Bool)`: Checks whether `condition` is `true`, i.e., `@Expect(condition: Bool)` is equivalent to `@Expect(condition: Bool, true)`.
-3. `@Expect[customAssertion](arguments...)`: Calls the `customAssertion` function with the specified arguments `arguments`. For details, see [`@CustomAssertion`](#customassertion-macro).
+3. `@Expect[customAssertion](arguments...)`: Calls the `customAssertion` function with the specified `arguments`. For details, see [`@CustomAssertion`](#customassertion-macro).
+4. `@Expect(leftExpr, rightExpr, delta: deltaExpr)`: Enables approximate equality functionality using the `delta` parameter.
+5. `@Expect(leftExpr <comparison_operator> rightExpr, delta: deltaExpr)`: Enables approximate equality functionality using the `delta` parameter.
 
 ## `@ExpectThrows` Macro
 
-Function: Declares an [Expected Exception Assertion](../../unittest/unittest_samples/unittest_basics.md#expected-exception-assertion), used within test functions. The test case continues execution if the assertion fails.
+Function: Declares an [expected exception assertion](../../unittest/unittest_samples/unittest_basics.md#expected-exception-assertion), used inside test functions. If the assertion fails, the test case continues execution.
 
 ## `@Fail` Macro
 
-Function: Declares an [Expected Failure Assertion](../../unittest/unittest_samples/unittest_basics.md#failure-assertion), used within test functions. The test case stops if the assertion fails.
+Function: Declares an [expected failure assertion](../../unittest/unittest_samples/unittest_basics.md#failure-assertion), used inside test functions. If the assertion fails, the test case stops.
 
 ## `@FailExpect` Macro
 
-Function: Declares an [Expected Failure Assertion](../../unittest/unittest_samples/unittest_basics.md#failure-assertion), used within test functions. The test case continues execution if the assertion fails.
+Function: Declares an [expected failure assertion](../../unittest/unittest_samples/unittest_basics.md#failure-assertion), used inside test functions. If the assertion fails, the test case continues execution.
 
 ## `@Measure` Macro
 
-Function: Used to specify a [Measurement](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-measurement) instance for performance testing. Can only be applied within the scope of a class or top-level function marked with the `@Test` macro.
+Function: Used to specify a [Measurement](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-measurement) instance for performance testing. It can only be applied within the scope of a class or top-level function marked with `@Test`.
 For each `Measurement`, different measurements are performed. Therefore, specifying more `Measurement` instances will take more time for performance testing.
 The default value is [TimeNow](../../unittest/unittest_package_api/unittest_package_structs.md#struct-timenow)(), which internally uses [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime).now() for measurement.
 
-Example:
+For example:
 
 ```cangjie
 @Test
@@ -274,7 +277,7 @@ class BenchClass {
 }
 ```
 
-The test report output is as follows:
+The output test report is as follows:
 
 ```text
 | Case      | Measurement  |   Median |         Err |   Err% |     Mean |
@@ -296,149 +299,38 @@ Case,Args,Median,Err,Err%,Mean,Unit,Measurement
 
 Function: The `@Parallel` macro can decorate a test class. Test cases in a class decorated with `@Parallel` can be executed in parallel. This configuration only takes effect in `--parallel` mode.
 
-1. All related test cases should be independent and not rely on any mutable shared state values.
-2. `beforeAll()` and `afterAll()` should be reentrant so they can be run multiple times in different processes.3. Test cases intended for parallelization should inherently have longer execution times. Otherwise, the overhead introduced by multiple `beforeAll()` and `afterAll()` calls may outweigh the benefits of parallelization.
-4. Concurrent usage with `@Bench` is prohibited. Since performance test cases are sensitive to underlying resources, whether test cases execute in parallel will impact performance test results, thus simultaneous use with `@Bench` is forbidden.
+1. All related test cases should be independent and not depend on any mutable shared state values.
+2. `beforeAll()` and `afterAll()` should be reentrant so they can be run multiple times in different processes.
+3. The test cases to be parallelized should themselves be time-consuming. Otherwise, the overhead of multiple `beforeAll()` and `afterAll()` calls introduced by parallelization may exceed the benefits of parallelization.
+4. Concurrent use## `@Test` Macro
 
-## `@PowerAssert` Macro
+Functionality: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
 
-1. `@PowerAssert(leftExpr, rightExpr)` compares whether the values of `leftExpr` and `rightExpr` are identical.
-2. `@PowerAssert(condition: Bool)` checks whether `condition` evaluates to `true`, meaning `@PowerAssert(condition: Bool)` is equivalent to `@PowerAssert(condition: Bool, true)`.
+If applied to a top-level function, it creates a new class containing a single test case for framework use, while the function remains callable as a normal function.
 
-Compared to `@Assert`, the `@PowerAssert` macro displays detailed charts of evaluable sub-expression values within expressions, including exceptions during execution steps.
+Classes marked with `@Test` must satisfy the following conditions:
 
-Its printed detailed information appears as follows:
+1. They must have a parameterless constructor.
+2. They cannot inherit from other classes.
 
-```text
-Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
-                |          |        |_||  |   |_|    |   |_|| |   |_||
-                |          |       "123"  |  "123"   |  "123" |    1 |
-                |          |__________||  |   |______|      | |______|
-                |            "test123" |  |       3         |    33  |
-                |______________________|  |_________________|        |
-                            0             |        1                 |
-                                          |__________________________|
-                                                        34
---------------------------------------------------------------------------------------------------
-```
-
-Note that the returned [Tokens](../../ast/ast_package_api/ast_package_classes.md#class-tokens) represent the initial expression but are wrapped within internal wrappers that enable printing intermediate values and exceptions.
-
-## `@Skip` Macro
-
-Function: The `@Skip` modifier applies to functions already decorated with `@TestCase` / `@Bench`, causing the test case to be skipped.
-
-Syntax rule: `@Skip[expr]`.
-
-1. Currently, `expr` only supports `true`. When the expression is `true`, the test is skipped; all other values are treated as `false`.
-2. By default, `expr` is `true`, meaning `@Skip[true]` == `@Skip`.
-
-## `@Strategy` Macro
-
-Function: Using `@Strategy` on a function creates a new [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy). It provides a convenient API for composing, mapping, and reusing strategies.
-
-Functions marked with `@Strategy` must meet the following conditions:
-
-1. Must explicitly specify a return type.
-2. Parameters must correspond to the DSL specified in macro arguments.
-3. Can be used both inside and outside classes marked with `@Test`.
-
-> Implementation note: The macro expansion results in a variable with the function name and type [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessor). This variable can be used anywhere a [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) is applicable.
-
-## `@Tag` Macro
-
-The `@Tag` macro can be applied to `@Test` classes and `@Test`, `@TestCase`, or `@Bench` functions to provide metadata for test entities. Subsequent filtering of test entities with these tags can be performed using [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#--include-tags) and [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#--exclude-tags) runtime options.
-
-### Supported Syntax
-
-1. A single `@Tag` on a test function.
-
-    ```cangjie
-    @Tag[Unittest]
-    func test() {}
-    ```
-
-2. A single `@Tag` containing multiple tag names separated by commas.
-
-    ```cangjie
-    @Tag[Unittest, TestAuthor]
-    func test() {}
-    ```
-
-3. Multiple `@Tag` instances on a test function.
-
-    ```cangjie
-    @Tag[Smoke]
-    @Tag[Backend, JiraTask3271]
-    func test() {}
-    ```
-
-### Rules and Constraints
-
-- Tags should be valid Cangjie language identifiers.
-- The tag list within `@Tag` must not be empty.
-- If `@Tag` is placed at the top of a `@Test` class, it propagates its tags to all `@TestCase` functions within.
-
-Example:
-
-```cangjie
-@Test
-@Tag[Unittest]
-public class UnittestClass {
-    @TestCase[x in [1, 2, 3, 4, 5]]
-    @Tag[JiraTask3271]
-    func caseA(x: Int64) {}
-
-    @TestCase
-    func caseB() {}
-}
-```
-
-Equivalent to:
-
-```cangjie
-@Test
-@Tag[Unittest]
-public class UnittestClass {
-    @TestCase[x in [1, 2, 3, 4, 5]]
-    @Tag[Unittest]
-    @Tag[JiraTask3271]
-    func caseA(x: Int64) {}
-
-    @TestCase
-    @Tag[Unittest]
-    func caseB() {}
-}
-```
-
-## `@Test` Macro
-
-Function: The `@Test` macro applies to top-level functions or top-level classes, converting them into unit test classes.
-
-For top-level functions, the macro creates a class with a single test case for framework use while retaining the function's normal callability.
-
-Classes marked with `@Test` must meet the following conditions:
-
-1. Must have a parameterless constructor.
-2. Cannot inherit from other classes.
-
-> Implementation note: The `@Test` macro introduces a new base class `unittest.TestCases` for any marked class. All public and protected members of `unittest.TestCases` (see API overview below) become available in classes or functions marked with `@Test`, including two fields:
-    1. `ctx`: Contains the `TestContext` instance for this test.
-    2. `name`: Contains the class name.
-Users of the unit test framework should not modify these fields, as it may lead to unexpected errors.
+> Implementation Note: The `@Test` macro introduces a new base class `unittest.TestCases` for any class it marks.  
+All public and protected members of `unittest.TestCases` (see API overview below) become available in classes or functions marked with `@Test`, including two fields:
+    1. `ctx`: A `TestContext` instance containing this test.
+    2. `name`: The name of the class.  
+Users of the unit testing framework should not modify these fields, as it may lead to unexpected errors.
 
 ## `@TestBuilder` Macro
 
-Function: Declares a [dynamic test](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests) suite.
+Functionality: Declares a [dynamic test suite](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests).
 
 ## `@TestCase` Macro
 
-Function: The `@TestCase` macro marks functions within unit test classes as test cases.
+Functionality: The `@TestCase` macro marks functions within a unit test class as test cases for unit testing.
 
-Functions marked with `@TestCase` must meet the following conditions:
+Functions marked with `@TestCase` must satisfy the following conditions:
 
 1. The class must be marked with `@Test`.
-2. The function return type must be [Unit](../../core/core_package_api/core_package_intrinsics.md#unit).
+2. The function's return type must be [Unit](../../core/core_package_api/core_package_intrinsics.md#unit).
 
 ```cangjie
 @Test
@@ -448,16 +340,16 @@ class Tests {
 }
 ```
 
-Test cases may have parameters, in which case developers must specify parameter values using parameterized test DSL:
+Test cases may have parameters. In such cases, developers must specify the values of these parameters using the parameterized test DSL:
 
 ```cangjie
 @Test[x in source1, y in source2, z in source3]
 func test(x: Int64, y: String, z: Float64): Unit {}
 ```
 
-This DSL is applicable to `@Test`, `@Strategy`, `@Bench`, and `@TestCase` macros, with `@Test` only available on top-level functions. If both `@Bench` and `@TestCase` are present in a test function, only `@Bench` may contain DSL.
-In DSL syntax, identifiers before `in` (e.g., `x`, `y`, `z` in the example) must directly correspond to function parameters. Parameter sources (e.g., `source1`, `source2`, `source3`) are any valid Cangjie expressions (the expression type must implement either [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> or [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessor)\<T> interfaces, detailed below).
-The element type of parameter sources (provided as generic parameter `T` to [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>) must strictly match the corresponding function parameter type.
+This DSL can be used with the `@Test`, `@Strategy`, `@Bench`, and `@TestCase` macros, where `@Test` is only available for top-level functions. If a test function has both `@Bench` and `@TestCase`, only `@Bench` can include the DSL.  
+In the DSL syntax, the identifiers before `in` (e.g., `x`, `y`, and `z` in the example above) must directly correspond to the function's parameters. The parameter sources (`source1`, `source2`, and `source3` in the example) can be any valid Cangjie expression (the expression type must implement either the [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> or [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)\<T> interface, detailed below).  
+The element type of the parameter source (provided as the generic parameter `T` to [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>) must exactly match the type of the corresponding function parameter.
 
 Supported parameter source types include:
 
@@ -467,11 +359,11 @@ Supported parameter source types include:
 - Values read from JSON files: `x in json("filename.json")`.
 - Values read from CSV files: `x in csv("filename.csv")`.
 - Functions marked with `@Strategy`: `x in nameOfStrategyAnnotatedFunction`.
-- Results composed using [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessor).
+- Results combined using [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort).
 
-> Advanced users can introduce custom parameter source types by defining their own types that implement the [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> interface.
+> Advanced users can introduce their own parameter source types by defining custom types that implement the [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> interface.
 
-Random generation using `random()` natively supports these types:
+The `random()` function supports the following types by default:
 
 - [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
@@ -481,31 +373,35 @@ Random generation using `random()` natively supports these types:
 - Array types of all supported types
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) types of all supported types
 
-> To add `random()` support for other types, extend the [Arbitrary](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitrary) interface.
-> When parameters have multiple values, `beforeEach`/`afterEach` executes only once across all values rather than repeating per value. For per-value setup/teardown, include it in the test body. For performance tests, `@Strategy` should handle setup code excluded from benchmarks. No special API exists for this scenario since such code typically depends on specific parameter values.
+> To add support for other types with `random()`, extend the [Arbitrary](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryt) interface.  
+> When multiple parameter values are provided, `beforeEach`/`afterEach` will not execute repeatedly for each value but only once. If initialization and cleanup are needed per value, include them in the test body. For performance testing, `@Strategy` should be used for setup code excluded from benchmarks. No special API is provided for this case, as such code typically depends on specific parameter values.
+
+## `@TestTemplate` Macro
+
+Functionality: The `@TestTemplate` macro marks an abstract class as a [test template](../../unittest/unittest_samples/unittest_test_templates.md).
 
 ## `@Timeout` Macro
 
-Function: `@Timeout` specifies that a test should terminate after a designated duration. It helps test complex algorithms that may run excessively long or enter infinite loops.
+Functionality: The `@Timeout` macro specifies that a test should terminate after a given duration. It is useful for testing complex algorithms that may run for extended periods or enter infinite loops.
 
-Syntax rule: `@Timeout[expr]`
+Syntax: `@Timeout[expr]`
 
-`expr` should be of type std.time.[Duration](../../core/core_package_api/core_package_structs.md#struct-duration).
-When applied to test classes, it provides timeout duration for each corresponding test case.
+Here, `expr` must be of type `std.time.[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)`.  
+When applied to a test class, it sets the timeout for each corresponding test case.
 
 ## `@Types` Macro
 
-Function: The `@Types` macro supplies type parameters to test classes or functions. It can be placed on test classes or test functions.
+Functionality: The `@Types` macro provides type parameters for test classes or test functions. It can be placed on test classes or test functions.
 
-Syntax rule: `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`
-where `Id1`, `Id2`... are valid type parameter identifiers, and `Type1`, `Type2`, `Type3`... are valid Cangjie types.
+Syntax: `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`  
+Here, `Id1`, `Id2`, etc., are valid type parameter identifiers, and `Type1`, `Type2`, etc., are valid Cangjie types.
 
-The `@Types` macro has these restrictions:
+Restrictions for `@Types`:
 
-- Must be used with `@Test`, `@TestCase`, or `@Bench` macros.
-- Only one `@Types` macro can modify a declaration.
-- The declaration must be a generic class/function with type parameters matching those listed in `@Types`.
-- Types in the list must not depend on each other, e.g., `@Types[A in <Int64, String>, B in <List<A>>]` will fail compilation. However, types provided to test classes can be used when supplying types to test functions within. Example:
+- Must be used with `@Test`, `@TestCase`, or `@Bench`.
+- Only one `@Types` macro can be applied per declaration.
+- The declaration must be a generic class or function with the same type parameters listed in the `@Types` macro.
+- Types in the list must not depend on each other. For example, `@Types[A in <Int64, String>, B in <List<A>>]` will fail to compile. However, types provided for the test class can be used for test functions within the class. Example:
 
 ```cangjie
 @Test
@@ -517,12 +413,12 @@ class TestClass<T> {
 }
 ```
 
-This mechanism works with other test framework features like `@Configure`.
+This mechanism can be combined with other testing framework features, such as `@Configure`.
 
 ## `@UnittestOption` Macro
 
-This macro registers custom configuration options. Only registered options can be used with the unit test framework. Macro parameters are **type**, **option name**, optional **validator callback**, and optional **description**.
-Strict validation of all unit test options ensures correctness for both console input and source code, preventing typos and incorrect value types.
+This macro registers custom configuration options. Only registered options can be used with the unit testing framework. The macro's parameters are the **type**, **option name**, optional **validator callback**, and optional **description**.  
+Strict checks on all unit test configuration options ensure correctness for both console input and source code, preventing typos and incorrect value types.
 
 Examples:
 
@@ -534,18 +430,18 @@ Examples:
 @UnittestOption[Int](public myOpt)
 ```
 
-Specific rules:
+Rules:
 
 - `@UnittestOption` cannot be reused for the same option.
 - `@UnittestOption` must be at the top level.
-- For multi-type options, validator callback parameters should be `Any`; for single-type options, use the specific type.
-- Validator callbacks return `Bool` or `?String`.
-- `true` indicates valid options; `false` indicates invalid values.
-- `Some<String>` contains invalidity reason descriptions; `None<String>` indicates valid values.
+- If an option accepts multiple types, the validator callback parameter should be `Any`. If only one type is valid, the parameter should be that specific type.
+- The validator callback returns `Bool` or `?String`.
+    - `true` indicates the option is valid; `false` indicates it is invalid.
+    - `Some<String>` contains a description of why the option is invalid; `None<String>` indicates validity.
 
-Example usage with `Configuration`:
+Example with `Configuration`:
 
-Option key names are constructed by capitalizing the first letter and prefixing with `Key`. For example, option `zxc` becomes `KeyZxc.zxc`.
+Option key names are constructed by capitalizing the first letter and prefixing with `Key`. For example, an option named `zxc` will have the key `KeyZxc.zxc`.
 
 ```cangjie
 @UnittestOption[String](opt)
@@ -560,7 +456,7 @@ func test_that_derived_type_overwrite_parent_type_value_in_configuration() {
 }
 ```
 
-The [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) class correctly handles inheritance:
+The [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) class handles inheritance correctly. Example:
 
 ```cangjie
 open class Base {

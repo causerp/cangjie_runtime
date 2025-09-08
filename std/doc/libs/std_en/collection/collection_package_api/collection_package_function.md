@@ -6,11 +6,11 @@
 public func all<T>(predicate: (T) -> Bool): (Iterable<T>) -> Bool
 ```
 
-Function: Determines whether all elements in the iterator satisfy the given condition.
+Function: Determines whether all elements of the iterator satisfy the condition.
 
 Parameters:
 
-- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
 Return Value:
 
@@ -22,11 +22,11 @@ Return Value:
 public func any<T>(predicate: (T) -> Bool): (Iterable<T>) -> Bool
 ```
 
-Function: Determines whether any element in the iterator satisfies the given condition.
+Function: Determines whether any element of the iterator satisfies the condition.
 
 Parameters:
 
-- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
 Return Value:
 
@@ -38,15 +38,15 @@ Return Value:
 public func at<T>(n: Int64): (Iterable<T>) -> Option<T>
 ```
 
-Function: Retrieves the element at the specified position in the iterator.
+Function: Gets the element at the specified position in the iterator.
 
 Parameters:
 
-- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified position index.
+- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The given index.
 
 Return Value:
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns a function to get the element at the specified position. Returns None if the iterator is empty.
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns a function that retrieves the element at the specified position. Returns None if the iterator is empty.
 
 ## func collectArrayList\<T>(Iterable\<T>)
 
@@ -54,7 +54,7 @@ Return Value:
 public func collectArrayList<T>(it: Iterable<T>): ArrayList<T>
 ```
 
-Function: Converts an iterator to an [ArrayList](collection_package_class.md#class-arraylistt) type.
+Function: Converts an iterator to [ArrayList](collection_package_class.md#class-arraylistt) type.
 
 Parameters:
 
@@ -70,7 +70,7 @@ Return Value:
 public func collectArray<T>(it: Iterable<T>): Array<T>
 ```
 
-Function: Converts an iterator to an [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) type.
+Function: Converts an iterator to [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) type.
 
 Parameters:
 
@@ -86,7 +86,7 @@ Return Value:
 public func collectHashMap<K, V>(it: Iterable<(K, V)>): HashMap<K, V> where K <: Hashable & Equatable<K>
 ```
 
-Function: Converts an iterator to a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) type.
+Function: Converts an iterator to [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) type.
 
 Parameters:
 
@@ -102,7 +102,7 @@ Return Value:
 public func collectHashSet<T>(it: Iterable<T>): HashSet<T> where T <: Hashable & Equatable<T>
 ```
 
-Function: Converts an iterator to a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) type.
+Function: Converts an iterator to [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) type.
 
 Parameters:
 
@@ -118,7 +118,7 @@ Return Value:
 public func collectString<T>(delimiter!: String = ""): (Iterable<T>) -> String where T <: ToString
 ```
 
-Function: Converts an iterator (whose elements implement the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface) to a [String](../../core/core_package_api/core_package_structs.md#struct-string) type.
+Function: Converts an iterator whose elements implement the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface to [String](../../core/core_package_api/core_package_structs.md#struct-string) type.
 
 Parameters:
 
@@ -224,11 +224,11 @@ Return Value:
 public func filter<T>(predicate: (T) -> Bool): (Iterable<T>) -> Iterator<T>
 ```
 
-Function: Filters elements that satisfy the given condition.
+Function: Filters elements that satisfy the condition.
 
 Parameters:
 
-- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
 Return Value:
 
@@ -237,18 +237,18 @@ Return Value:
 ## func filterMap\<T, R>((T) -> ?R)
 
 ```cangjie
-public func filterMap<T, R>(transform: (T)-> ?R): (Iterable<T>) ->Iterator<R>
+public func filterMap<T, R>(transform: (T) -> ?R): (Iterable<T>) -> Iterator<R>
 ```
 
-Function: Performs both filtering and mapping operations simultaneously, returning a new iterator.
+Function: Performs both filtering and mapping operations, returning a new iterator.
 
 Parameters:
 
-- transform: (T) -> ?R - The specified mapping function. A return value of Some corresponds to predicate=true in filter, while None indicates false.
+- transform: (T) -> ?R - The given mapping function. A return value of Some corresponds to predicate being true in filter, otherwise false.
 
 Return Value:
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a combined filtering and mapping function.
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a function that performs both filtering and mapping.
 
 ## func first\<T>(Iterable\<T>)
 
@@ -256,7 +256,7 @@ Return Value:
 public func first<T>(it: Iterable<T>): Option<T>
 ```
 
-Function: Retrieves the first element.
+Function: Gets the first element.
 
 Parameters:
 
@@ -266,7 +266,7 @@ Return Value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the first element, or None if empty.
 
-## func flatMap\<T, R>( (T) -> Iterable\<R>)
+## func flatMap\<T, R>((T) -> Iterable\<R>)
 
 ```cangjie
 public func flatMap<T, R>(transform: (T) -> Iterable<R>): (Iterable<T>) -> Iterator<R>
@@ -276,7 +276,7 @@ Function: Creates a mapping with [flatten](collection_package_function.md#func-f
 
 Parameters:
 
-- transform: (T) -> [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - The specified mapping function.
+- transform: (T) -> [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - The given mapping function.
 
 Return Value:
 
@@ -296,18 +296,20 @@ Parameters:
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns the iterator flattened by one level.## func fold\<T, R>(R, (R, T) -> R)
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns the iterator flattened by one level.
+
+## func fold\<T, R>(R, (R, T) -> R)
 
 ```cangjie
 public func fold<T, R>(initial: R, operation: (R, T) -> R): (Iterable<T>) -> R
 ```
 
-Function: Performs a left-associative fold operation using the specified initial value.
+Function: Computes from left to right using the specified initial value.
 
 Parameters:
 
-- initial: R - The initial value of type R.
-- operation: (R, T) -> R - The computation function to apply.
+- initial: R - The given initial value of type R.
+- operation: (R, T) -> R - The given computation function.
 
 Return Value:
 
@@ -319,11 +321,11 @@ Return Value:
 public func forEach<T>(action: (T) -> Unit): (Iterable<T>) -> Unit
 ```
 
-Function: Iterates through all elements and applies the specified action.
+Function: Iterates through all elements, performing the specified operation.
 
 Parameters:
 
-- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The action function to apply.
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
 Return Value:
 
@@ -335,15 +337,15 @@ Return Value:
 public func inspect<T>(action: (T)->Unit): (Iterable<T>) ->Iterator<T>
 ```
 
-Function: Performs an additional operation on the current element each time the iterator's next() is called (without consuming the iterator's elements).
+Function: Performs an additional operation on the current element each time next() is called on the iterator (does not consume elements from the iterator).
 
 Parameters:
 
-- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The action function to apply.
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
 Return Value:
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that performs additional operations on each iterator element.
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that can perform additional operations on each element of the iterator.
 
 ## func isEmpty\<T>(Iterable\<T>)
 
@@ -351,7 +353,7 @@ Return Value:
 public func isEmpty<T>(it: Iterable<T>): Bool
 ```
 
-Function: Checks whether the iterator is empty.
+Function: Determines whether the iterator is empty.
 
 Parameters:
 
@@ -367,7 +369,7 @@ Return Value:
 public func last<T>(it: Iterable<T>): Option<T>
 ```
 
-Function: Retrieves the last element.
+Function: Gets the last element.
 
 Parameters:
 
@@ -387,7 +389,7 @@ Function: Creates a mapping.
 
 Parameters:
 
-- transform: (T) -> R - The mapping function to apply.
+- transform: (T) ->R - The given mapping function.
 
 Return Value:
 
@@ -407,15 +409,13 @@ Parameters:
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the maximum element, or None if empty.
-
-## func min\<T>(Iterable\<T>) where T <: Comparable\<T>
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the maximum element, or None if empty.## func min\<T>(Iterable\<T>) where T <: Comparable\<T>
 
 ```cangjie
 public func min<T>(it: Iterable<T>): Option<T> where T <: Comparable<T>
 ```
 
-Function: Finds the minimum element.
+Function: Filters the minimum element.
 
 Parameters:
 
@@ -431,15 +431,15 @@ Return Value:
 public func none<T>(predicate: (T) -> Bool): (Iterable<T>) -> Bool
 ```
 
-Function: Checks whether no elements in the iterator satisfy the condition.
+Function: Determines whether all elements in the iterator fail to satisfy the condition.
 
 Parameters:
 
-- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to check.
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
 Return Value:
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a function that checks whether no elements satisfy the condition.
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a function that checks if all elements fail the condition.
 
 ## func reduce\<T>((T, T) -> T)
 
@@ -447,11 +447,11 @@ Return Value:
 public func reduce<T>(operation: (T, T) -> T): (Iterable<T>) -> Option<T>
 ```
 
-Function: Performs a left-associative reduction using the first element as the initial value.
+Function: Computes from left to right using the first element as the initial value.
 
 Parameters:
 
-- operation: (T, T) -> T - The operation function to apply.
+- operation: (T, T) -> T - The given operation function.
 
 Return Value:
 
@@ -463,9 +463,9 @@ Return Value:
 public func skip<T>(count: Int64): (Iterable<T>) -> Iterator<T>
 ```
 
-Function: Skips a specified number of elements from the iterator.
+Function: Skips a specific number of elements from the iterator.
 
-Throws an exception when count < 0. When count = 0, returns the original iterator unchanged. When count > 0 and count < iterator size, skips count elements and returns a new iterator with remaining elements. When count ≥ iterator size, skips all elements and returns an empty iterator.
+Throws an exception when count < 0. When count == 0, it effectively skips no elements and returns the original iterator. When count > 0 and count < the iterator's size, it skips count elements and returns a new iterator with the remaining elements. When count >= the iterator's size, it skips all elements and returns an empty iterator.
 
 Parameters:
 
@@ -485,9 +485,9 @@ Exceptions:
 public func step<T>(count: Int64): (Iterable<T>) -> Iterator<T>
 ```
 
-Function: Skips a specified number of elements each time next() is called on the iterator.
+Function: Skips a specific number of elements each time next() is called on the iterator.
 
-Throws an exception when count ≤ 0. When count > 0, each next() call skips count elements until the iterator is empty.
+Throws an exception when count <= 0. When count > 0, each call to next() skips count elements until the iterator is empty.
 
 Parameters:
 
@@ -495,11 +495,11 @@ Parameters:
 
 Return Value:
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that modifies the iterator to skip specified elements per next() call.
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that modifies the iterator to skip count elements per next() call.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count ≤ 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
 
 ## func take\<T>(Int64)
 
@@ -507,9 +507,9 @@ Exceptions:
 public func take<T>(count: Int64): (Iterable<T>) -> Iterator<T>
 ```
 
-Function: Takes a specified number of elements from the iterator.
+Function: Takes a specific number of elements from the iterator.
 
-Throws an exception when count < 0. When count = 0, takes no elements and returns an empty iterator. When count > 0 and count < iterator size, takes the first count elements and returns a new iterator. When count ≥ iterator size, takes all elements and returns the original iterator.
+Throws an exception when count < 0. When count == 0, takes no elements and returns an empty iterator. When count > 0 and count < the iterator's size, takes the first count elements and returns a new iterator. When count >= the iterator's size, takes all elements and returns the original iterator.
 
 Parameters:
 

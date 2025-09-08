@@ -6,7 +6,7 @@
 public interface Any
 ```
 
-Description: [Any](core_package_interfaces.md#interface-any) is the parent type of all types. All `interface` types implicitly inherit it, and all non-`interface` types implicitly implement it.
+Function: [Any](core_package_interfaces.md#interface-any) is the parent type of all types. All `interface` types implicitly inherit from it, and all non-`interface` types implicitly implement it.
 
 ### extend Byte
 
@@ -14,7 +14,7 @@ Description: [Any](core_package_interfaces.md#interface-any) is the parent type 
 extend Byte
 ```
 
-Description: Provides a series of extension methods for the [Byte](core_package_types.md#type-byte) type, primarily for character judgment and conversion operations within the ASCII character set range.
+Function: Implements a series of extension methods for the [Byte](core_package_types.md#type-byte) type, primarily for character judgment and conversion operations within the ASCII character set range.
 
 #### func isAscii()
 
@@ -22,7 +22,7 @@ Description: Provides a series of extension methods for the [Byte](core_package_
 public func isAscii(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII range.
 
 Return value:
 
@@ -34,7 +34,7 @@ Return value:
 public func isAsciiControl(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII control character range. The valid range is the union of [00, 1F] and {7F}.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII control character range. The valid range is the union of [00, 1F] and {7F}.
 
 Return value:
 
@@ -46,7 +46,7 @@ Return value:
 public func isAsciiGraphic(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII graphic character range. The valid range is [21, 7E].
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII graphic character range. The valid range is [21, 7E].
 
 Return value:
 
@@ -58,7 +58,7 @@ Return value:
 public func isAsciiHex(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII hexadecimal digit range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII hexadecimal digit range.
 
 Return value:
 
@@ -70,7 +70,7 @@ Return value:
 public func isAsciiLetter(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII Latin letter range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII Latin letter range.
 
 Return value:
 
@@ -82,7 +82,7 @@ Return value:
 public func isAsciiLowerCase(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII lowercase Latin letter range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII lowercase Latin letter range.
 
 Return value:
 
@@ -94,7 +94,7 @@ Return value:
 public func isAsciiNumber(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit range.
 
 Return value:
 
@@ -106,7 +106,7 @@ Return value:
 public func isAsciiNumberOrLetter(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit and Latin letter range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit and Latin letter range.
 
 Return value:
 
@@ -118,7 +118,7 @@ Return value:
 public func isAsciiOct(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII octal digit range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII octal digit range.
 
 Return value:
 
@@ -130,11 +130,11 @@ Return value:
 public func isAsciiPunctuation(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation character range. The valid range is the union of [21, 2F], [3A, 40], [5B, 60], and [7B, 7E].
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation range. The valid range is the union of [21, 2F], [3A, 40], [5B, 60], and [7B, 7E].
 
 Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation character range, otherwise returns false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation range, otherwise returns false.
 
 #### func isAsciiUpperCase()
 
@@ -142,7 +142,7 @@ Return value:
 public func isAsciiUpperCase(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII uppercase Latin letter range.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII uppercase Latin letter range.
 
 Return value:
 
@@ -154,7 +154,7 @@ Return value:
 public func isAsciiWhiteSpace(): Bool
 ```
 
-Description: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII whitespace character range. The valid range is the union of [09, 0D] and {20}.
+Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII whitespace character range. The valid range is the union of [09, 0D] and {20}.
 
 Return value:
 
@@ -166,7 +166,7 @@ Return value:
 public func toAsciiLowerCase(): Byte
 ```
 
-Description: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII lowercase character [Byte](core_package_types.md#type-byte). If conversion is not possible, the original value is preserved.
+Function: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII lowercase character [Byte](core_package_types.md#type-byte). If conversion is not possible, the original value is retained.
 
 Return value:
 
@@ -178,7 +178,7 @@ Return value:
 public func toAsciiUpperCase(): Byte
 ```
 
-Description: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII uppercase character [Byte](core_package_types.md#type-byte). If conversion is not possible, the original value is preserved.
+Function: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII uppercase character [Byte](core_package_types.md#type-byte). If conversion is not possible, the original value is retained.
 
 Return value:
 
@@ -190,15 +190,15 @@ Return value:
 sealed interface CType
 ```
 
-Description: Represents an interface that supports interoperability with the C language.
+Function: Represents an interface that supports interoperability with the C language.
 
-The [CType](core_package_interfaces.md#interface-ctype) interface is a built-in empty interface that serves as the concrete implementation of the [CType](core_package_interfaces.md#interface-ctype) constraint. All C-interoperable types implicitly implement this interface, allowing them to be used as subtypes of the [CType](core_package_interfaces.md#interface-ctype) type.
+The [CType](core_package_interfaces.md#interface-ctype) interface is a built-in empty interface in the language. It is the concrete implementation of the [CType](core_package_interfaces.md#interface-ctype) constraint. All C-interoperable types implicitly implement this interface, so all C-interoperable types can be used as subtypes of the [CType](core_package_interfaces.md#interface-ctype) type.
 
 > **Note:**
 >
-> - The [CType](core_package_interfaces.md#interface-ctype) interface is an interface type in Cangjie and does not itself satisfy the [CType](core_package_interfaces.md#interface-ctype) constraint.
+> - The [CType](core_package_interfaces.md#interface-ctype) interface is an interface type in Cangjie, but it does not itself satisfy the [CType](core_package_interfaces.md#interface-ctype) constraint.
 > - The [CType](core_package_interfaces.md#interface-ctype) interface cannot be inherited or extended by users.
-> - The [CType](core_package_interfaces.md#interface-ctype) interface does not bypass subtype usage restrictions.
+> - The [CType](core_package_interfaces.md#interface-ctype) interface does not break subtype usage restrictions.
 
 Example:
 
@@ -230,7 +230,7 @@ public interface Collection<T> <: Iterable<T> {
 }
 ```
 
-Description: This interface represents collections. Container types should typically implement this interface.
+Function: This interface represents collections. Container types should generally implement this interface.
 
 Parent types:
 
@@ -242,7 +242,7 @@ Parent types:
 prop size: Int64
 ```
 
-Description: Gets the size of the current collection, i.e., the number of elements it contains.
+Function: Gets the size of the current collection, i.e., the number of elements in the collection.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
@@ -252,11 +252,11 @@ Type: [Int64](core_package_intrinsics.md#int64)
 func isEmpty(): Bool
 ```
 
-Description: Determines whether the current collection is empty.
+Function: Determines whether the current collection is empty.
 
 Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if the collection is empty, otherwise returns false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if empty, otherwise returns false.
 
 ### func toArray()
 
@@ -264,11 +264,11 @@ Return value:
 func toArray(): Array<T>
 ```
 
-Description: Converts the current collection to an array type.
+Function: Converts the current collection to an array type.
 
 Return value:
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - The resulting array after conversion.
+- [Array](core_package_structs.md#struct-arrayt)\<T> - The converted array.
 
 ## interface Comparable\<T>
 
@@ -283,9 +283,9 @@ public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEq
 }
 ```
 
-Description: This interface represents comparison operations and is a combination of the equality, inequality, less-than, greater-than, less-than-or-equal, and greater-than-or-equal interfaces.
+Function: This interface represents comparison operations and is a combination of equality, inequality, less than, greater than, less than or equal to, and greater than or equal to interfaces.
 
-This interface provides default implementations for the operators ==, !=, <, <=, >, and >=. The default implementations determine their return values based on the result of the compare function. For example: if a.compare(b) returns EQ, then a == b returns true; otherwise, it returns false.
+This interface provides default implementations for the operator overloads ==, !=, <, <=, >, >=. The default implementations determine their return values based on the return value of the compare function. For example: if a.compare(b) returns EQ, then a == b returns true; otherwise, it returns false.
 
 Parent types:
 
@@ -301,15 +301,15 @@ Parent types:
 func compare(that: T): Ordering
 ```
 
-Function: Determines the size relationship between the current instance of type `T` and the parameter instance of type `T`.
+Function: Determines the size relationship between the current instance of type `T` and another instance of type `T` pointed to by the parameter.
 
 Parameters:
 
-- that: T - Another instance to be compared with the current instance.
+- that: T - Another instance to compare with the current instance.
 
-Return Value:
+Return value:
 
-- [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, or [Ordering](core_package_enums.md#enum-ordering).LT if less.
+- [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater than, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less than.
 
 ### operator func <(T)
 
@@ -317,15 +317,15 @@ Return Value:
 operator func <(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is less than the parameter instance of type `T`. This function is a default implementation of this interface.
+Function: Determines whether the current instance of type `T` is less than another instance of type `T` pointed to by the parameter. This function is a default implementation of this interface.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if less, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if less than, otherwise returns false.
 
 ### operator func <=(T)
 
@@ -333,15 +333,15 @@ Return Value:
 operator func <=(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is less than or equal to the parameter instance of type `T`. This function is a default implementation of this interface.
+Function: Determines whether the current instance of type `T` is less than or equal to another instance of type `T` pointed to by the parameter. This function is a default implementation of this interface.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if less than or equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if less than or equal to, otherwise returns false.
 
 ### operator func ==(T)
 
@@ -353,11 +353,11 @@ Function: Determines whether two instances are equal. This function is a default
 
 Parameters:
 
-- rhs: T - Another instance to be compared.
+- rhs: T - Another instance to compare.
 
-Return Value:
+Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise returns false.
 
 ### operator func >(T)
 
@@ -365,15 +365,15 @@ Return Value:
 operator func >(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is greater than the parameter instance of type `T`. This function is a default implementation of this interface.
+Function: Determines whether the current instance of type `T` is greater than another instance of type `T` pointed to by the parameter. This function is a default implementation of this interface.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if greater, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than, otherwise returns false.
 
 ### operator func >=(T)
 
@@ -381,15 +381,15 @@ Return Value:
 operator func >=(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is greater than or equal to the parameter instance of type `T`. This function is a default implementation of this interface.
+Function: Determines whether the current instance of type `T` is greater than or equal to another instance of type `T` pointed to by the parameter. This function is a default implementation of this interface.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Return value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than or equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than or equal to, otherwise returns false.
 
 ## interface Countable\<T>
 
@@ -400,9 +400,9 @@ public interface Countable<T> {
 }
 ```
 
-Function: This interface represents a countable type.
+Function: This interface indicates that a type is countable.
 
-Each instance of a countable type corresponds to a position ([Int64](core_package_intrinsics.md#int64) value), and other instances of this type can be obtained by counting forward.
+Each instance of a countable type corresponds to a position information ([Int64](core_package_intrinsics.md#int64) value), and other instances of this type can be obtained by counting forward.
 
 ### func next(Int64)
 
@@ -410,15 +410,15 @@ Each instance of a countable type corresponds to a position ([Int64](core_packag
 func next(right: Int64): T
 ```
 
-Function: Obtains the instance of type `T` at the position `right` units to the right of the current instance.
+Function: Gets the instance of type `T` at the position obtained by moving `right` positions to the right from the current instance.
 
 Parameters:
 
-- right: [Int64](core_package_intrinsics.md#int64) - The number of units to count to the right.
+- right: [Int64](core_package_intrinsics.md#int64) - The number of positions to count to the right.
 
-Return Value:
+Return value:
 
-- T - The instance of type `T` at the position `right` units to the right.
+- T - The instance of type `T` at the position obtained by moving `right` positions to the right.
 
 ### func position()
 
@@ -426,9 +426,9 @@ Return Value:
 func position(): Int64
 ```
 
-Function: Obtains the position information of the current countable instance, converting the current instance to an [Int64](core_package_intrinsics.md#int64) value.
+Function: Gets the position information of the current countable instance, i.e., converts the current instance to an [Int64](core_package_intrinsics.md#int64) type.
 
-Return Value:
+Return value:
 
 - [Int64](core_package_intrinsics.md#int64) - The converted [Int64](core_package_intrinsics.md#int64) value.
 
@@ -438,7 +438,7 @@ Return Value:
 extend Float64
 ```
 
-Function: Extends the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type as the left operand and the [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) type as the right operand for multiplication.
+Function: Extends the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type as the left operand and the [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) type as the right operand for multiplication operations.
 
 #### operator func *(Duration)
 
@@ -446,13 +446,13 @@ Function: Extends the [Float64](../../core/core_package_api/core_package_intrins
 public operator func *(r: Duration): Duration
 ```
 
-Function: Implements multiplication between [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) and [Duration](../../core/core_package_api/core_package_structs.md#struct-duration), i.e., [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).
+Function: Implements multiplication between [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) and [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) types, i.e., the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) operation.
 
 Parameters:
 
-- r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - An instance of [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).
+- r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - A [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Return value:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The product of the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) instance and `r`.
 
@@ -466,7 +466,7 @@ Exceptions:
 extend Int64
 ```
 
-Function: Extends the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type as the left operand and the [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) type as the right operand for multiplication.
+Function: Extends the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type as the left operand and the [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) type as the right operand for multiplication operations.
 
 #### operator func *(Duration)
 
@@ -474,23 +474,17 @@ Function: Extends the [Int64](../../core/core_package_api/core_package_intrinsic
 public operator func *(r: Duration): Duration
 ```
 
-Function: Implements multiplication between [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) and [Duration](../../core/core_package_api/core_package_structs.md#struct-duration), i.e., [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).
+Function: Implements multiplication between [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) and [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) types, i.e., the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) operation.
 
-For example, 2 * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second returns a [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) instance representing a 2-second time interval.
+For example, 2 * [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).second returns a [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) instance representing a time interval of 2 seconds.
 
 Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The right operand of the multiplication.
 
-Return Value:
+Return value:
 
-- [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The product of the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) instance and `r`.
-
-Exceptions:
-
-- [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - Thrown when the multiplication result exceeds the representable range of [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).
-
-## interface Equal\<T>
+- [Duration](../../core/core_package_api/core_package_structs.md#struct-duration## interface Equal\<T>
 
 ```cangjie
 public interface Equal<T> {
@@ -498,7 +492,7 @@ public interface Equal<T> {
 }
 ```
 
-Function: This interface supports equality comparison operations.
+Function: This interface is used to support equality comparison operations.
 
 ### operator func ==(T)
 
@@ -510,11 +504,11 @@ Function: Determines whether two instances are equal.
 
 Parameters:
 
-- rhs: T - Another instance to be compared.
+- rhs: T - The other instance to be compared.
 
 Return Value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise returns false.
 
 ## interface Equatable\<T>
 
@@ -524,11 +518,11 @@ public interface Equatable<T> <: Equal<T> & NotEqual<T> {
 }
 ```
 
-Function: This interface combines the equality and inequality comparison interfaces.
+Function: This interface is a combination of both equality and inequality comparison interfaces.
 
-This interface provides a default implementation for the != operator, which determines its return value based on the == operator. For example, if a == b returns true, then a != b returns false, and vice versa.
+This interface provides a default implementation for the != operator overload, where the default implementation determines its return value based on the == operation's result. For example: if a == b returns true, then a != b returns false, otherwise returns true.
 
-This interface has been implemented for several Cangjie types, including: [Unit](core_package_intrinsics.md#unit), [Bool](core_package_intrinsics.md#bool), [Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64), [Int32](core_package_intrinsics.md#int32), [Int16](core_package_intrinsics.md#int16), [Int8](core_package_intrinsics.md#int8), [UIntNative](core_package_intrinsics.md#uintnative), [UInt64](core_package_intrinsics.md#uint64), [UInt32](core_package_intrinsics.md#uint32), [UInt16](core_package_intrinsics.md#uint16), [UInt8](core_package_intrinsics.md#uint8), [Float64](core_package_intrinsics.md#float64), [Float32](core_package_intrinsics.md#float32), [Float16](core_package_intrinsics.md#float16), [String](core_package_structs.md#struct-string), [Array](core_package_structs.md#struct-arrayt), [Box](core_package_classes.md#class-boxt), [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt), [HashSet](../../collection/collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+This interface has been implemented for some Cangjie types, including: [Unit](core_package_intrinsics.md#unit), [Bool](core_package_intrinsics.md#bool), [Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64), [Int32](core_package_intrinsics.md#int32), [Int16](core_package_intrinsics.md#int16), [Int8](core_package_intrinsics.md#int8), [UIntNative](core_package_intrinsics.md#uintnative), [UInt64](core_package_intrinsics.md#uint64), [UInt32](core_package_intrinsics.md#uint32), [UInt16](core_package_intrinsics.md#uint16), [UInt8](core_package_intrinsics.md#uint8), [Float64](core_package_intrinsics.md#float64), [Float32](core_package_intrinsics.md#float32), [Float16](core_package_intrinsics.md#float16), [String](core_package_structs.md#struct-string), [Array](core_package_structs.md#struct-arrayt), [Box](core_package_classes.md#class-boxt), [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt), [HashSet](../../collection/collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
 Parent Types:
 
@@ -545,11 +539,11 @@ Function: Determines whether two instances are not equal. This function is a def
 
 Parameters:
 
-- rhs: T - Another instance to be compared.
+- rhs: T - The other instance to be compared.
 
 Return Value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if not equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
 
 ## interface GreaterOrEqual\<T>
 
@@ -559,7 +553,7 @@ public interface GreaterOrEqual<T> {
 }
 ```
 
-Function: This interface represents the greater-than-or-equal operation.
+Function: This interface represents greater-than-or-equal-to comparison.
 
 ### operator func >=(T)
 
@@ -567,15 +561,15 @@ Function: This interface represents the greater-than-or-equal operation.
 operator func >=(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is greater than or equal to the parameter instance of type `T`.
+Function: Determines whether the current instance of type T is greater than or equal to the instance of type T pointed to by the parameter.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - The other instance to be compared with the current instance.
 
 Return Value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than or equal, otherwise false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than or equal, otherwise returns false.
 
 ## interface Greater\<T>
 
@@ -585,7 +579,7 @@ public interface Greater<T> {
 }
 ```
 
-Function: This interface represents the greater-than operation.
+Function: This interface represents greater-than comparison.
 
 ### operator func >(T)
 
@@ -593,15 +587,15 @@ Function: This interface represents the greater-than operation.
 operator func >(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is greater than the parameter instance of type `T`.
+Function: Determines whether the current instance of type T is greater than the instance of type T pointed to by the parameter.
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - The other instance to be compared with the current instance.
 
 Return Value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if greater than, otherwise returns false.
+- [Bool](core_package_intrinsics.md#bool) - Returns true if greater, otherwise returns false.
 
 ## interface Hashable
 
@@ -611,9 +605,9 @@ public interface Hashable {
 }
 ```
 
-Function: This interface is used for calculating hash values.
+Function: This interface is used to compute hash values.
 
-It has been implemented for some Cangjie types, including: [Bool](core_package_intrinsics.md#bool), [Rune](core_package_intrinsics.md#rune), [IntNative](core_package_intrinsics.md#intnative), [Int64](core_package_intrinsics.md#int64), [Int32](core_package_intrinsics.md#int32), [Int16](core_package_intrinsics.md#int16), [Int8](core_package_intrinsics.md#int8), [UIntNative](core_package_intrinsics.md#uintnative), [UInt64](core_package_intrinsics.md#uint64), [UInt32](core_package_intrinsics.md#uint32), [UInt16](core_package_intrinsics.md#uint16), [UInt8](core_package_intrinsics.md#uint8), [Float64](core_package_intrinsics.md#float64), [Float32](core_package_intrinsics.md#float32), [Float16](core_package_intrinsics.md#float16), [String](core_package_structs.md#struct-string), [Box](core_package_classes.md#class-boxt).
+This interface has been implemented for some Cangjie types, including: [Bool](core_package_intrinsics.md#bool), [Rune](core_package_intrinsics.md#rune), [IntNative](core_package_intrinsics.md#intnative), [Int64](core_package_intrinsics.md#int64), [Int32](core_package_intrinsics.md#int32), [Int16](core_package_intrinsics.md#int16), [Int8](core_package_intrinsics.md#int8), [UIntNative](core_package_intrinsics.md#uintnative), [UInt64](core_package_intrinsics.md#uint64), [UInt32](core_package_intrinsics.md#uint32), [UInt16](core_package_intrinsics.md#uint16), [UInt8](core_package_intrinsics.md#uint8), [Float64](core_package_intrinsics.md#float64), [Float32](core_package_intrinsics.md#float32), [Float16](core_package_intrinsics.md#float16), [String](core_package_structs.md#struct-string), [Box](core_package_classes.md#class-boxt).
 
 ### func hashCode()
 
@@ -650,7 +644,7 @@ public interface Hasher {
 }
 ```
 
-Function: This interface is used for handling hash combination operations.
+Function: This interface is used for handling combined hash operations.
 
 A series of write functions can be used to input instances of different data types and compute their combined hash values.
 
@@ -680,7 +674,7 @@ Function: Resets the hash value to 0.
 mut func write(value: Bool): Unit
 ```
 
-Function: Inputs the [Bool](core_package_intrinsics.md#bool) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Bool](core_package_intrinsics.md#bool) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -692,7 +686,7 @@ Parameters:
 mut func write(value: Float16): Unit
 ```
 
-Function: Inputs the [Float16](core_package_intrinsics.md#float16) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Float16](core_package_intrinsics.md#float16) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -704,7 +698,7 @@ Parameters:
 mut func write(value: Float32): Unit
 ```
 
-Function: Inputs the [Float32](core_package_intrinsics.md#float32) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Float32](core_package_intrinsics.md#float32) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -716,7 +710,7 @@ Parameters:
 mut func write(value: Float64): Unit
 ```
 
-Function: Inputs the [Float64](core_package_intrinsics.md#float64) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Float64](core_package_intrinsics.md#float64) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -728,7 +722,7 @@ Parameters:
 mut func write(value: Int16): Unit
 ```
 
-Function: Inputs the [Int16](core_package_intrinsics.md#int16) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Int16](core_package_intrinsics.md#int16) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -740,7 +734,7 @@ Parameters:
 mut func write(value: Int32): Unit
 ```
 
-Function: Inputs the [Int32](core_package_intrinsics.md#int32) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Int32](core_package_intrinsics.md#int32) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -752,7 +746,7 @@ Parameters:
 mut func write(value: Int64): Unit
 ```
 
-Function: Inputs the [Int64](core_package_intrinsics.md#int64) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Int64](core_package_intrinsics.md#int64) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -764,7 +758,7 @@ Parameters:
 mut func write(value: Int8): Unit
 ```
 
-Function: Inputs the [Int8](core_package_intrinsics.md#int8) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Int8](core_package_intrinsics.md#int8) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -776,7 +770,7 @@ Parameters:
 mut func write(value: Rune): Unit
 ```
 
-Function: Inputs the [Rune](core_package_intrinsics.md#rune) value to be hashed and performs the hash combination operation.
+Function: Inputs the [Rune](core_package_intrinsics.md#rune) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -788,7 +782,7 @@ Parameters:
 mut func write(value: String): Unit
 ```
 
-Function: Inputs the [String](core_package_structs.md#struct-string) value to be hashed and performs the hash combination operation.
+Function: Inputs the [String](core_package_structs.md#struct-string) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -800,7 +794,7 @@ Parameters:
 mut func write(value: UInt16): Unit
 ```
 
-Function: Inputs the [UInt16](core_package_intrinsics.md#uint16) value to be hashed and performs the hash combination operation.
+Function: Inputs the [UInt16](core_package_intrinsics.md#uint16) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -812,7 +806,7 @@ Parameters:
 mut func write(value: UInt32): Unit
 ```
 
-Function: Inputs the [UInt32](core_package_intrinsics.md#uint32) value to be hashed and performs the hash combination operation.
+Function: Inputs the [UInt32](core_package_intrinsics.md#uint32) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -824,7 +818,7 @@ Parameters:
 mut func write(value: UInt64): Unit
 ```
 
-Function: Inputs the [UInt64](core_package_intrinsics.md#uint64) value to be hashed and performs the hash combination operation.
+Function: Inputs the [UInt64](core_package_intrinsics.md#uint64) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -836,7 +830,7 @@ Parameters:
 mut func write(value: UInt8): Unit
 ```
 
-Function: Inputs the [UInt8](core_package_intrinsics.md#uint8) value to be hashed and performs the hash combination operation.
+Function: Inputs the [UInt8](core_package_intrinsics.md#uint8) value to be hashed and performs combined hash operations.
 
 Parameters:
 
@@ -850,9 +844,9 @@ public interface Iterable<E> {
 }
 ```
 
-Function: This interface represents iterability. Types implementing this interface (typically container types) can be iterated over in `for-in` statements or obtain corresponding iterator instances to perform iteration by calling the `next` function.
+Function: This interface represents iterability. Types implementing this interface (typically container types) can be iterated over in `for-in` statements or obtain corresponding iterator type instances to implement iteration by calling the `next` function.
 
-This package has implemented this interface for basic container types such as [Array](core_package_structs.md#struct-arrayt), [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v). Users can implement this interface for other types to enable iteration functionality.
+This package has implemented this interface for basic container types such as [Array](core_package_structs.md#struct-arrayt), [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v). Users can implement this interface for other types to support iteration functionality.
 
 ### func iterator()
 
@@ -860,7 +854,7 @@ This package has implemented this interface for basic container types such as [A
 func iterator(): Iterator<E>
 ```
 
-Function: Obtains the iterator.
+Function: Obtains an iterator.
 
 Return Value:
 
@@ -882,17 +876,15 @@ Function: This interface represents less-than-or-equal-to comparison.
 operator func <=(rhs: T): Bool
 ```
 
-Function: Determines whether the current instance of type `T` is less than or equal to another instance of type `T` pointed to by the parameter.
+Function: Determines whether the current instance of type T is less than or equal to the instance of type T pointed to by the parameter.
 
 Parameters:
 
-- rhs: T - Another instance to compare with the current instance.
+- rhs: T - The other instance to be compared with the current instance.
 
 Return Value:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns true if less than or equal to, otherwise returns false.
-
-## interface Less\<T>
+- [Bool](core_package_intrinsics.md#bool) - Returns true if less than or equal, otherwise returns false.## interface Less\<T>
 
 ```cangjie
 public interface Less<T> {
@@ -912,7 +904,7 @@ Function: Determines whether the current instance of type `T` is less than the i
 
 Parameters:
 
-- rhs: T - Another instance to be compared with the current instance.
+- rhs: T - Another instance to compare with the current instance.
 
 Return Value:
 
@@ -938,7 +930,7 @@ Function: Determines whether two instances are not equal.
 
 Parameters:
 
-- rhs: T - Another instance to be compared.
+- rhs: T - Another instance to compare.
 
 Return Value:
 
@@ -955,7 +947,7 @@ public interface Resource {
 
 Function: This interface is used for resource management, typically for closing and releasing resources such as memory and handles.
 
-Types implementing this interface can achieve automatic resource release in `try-with-resource` syntax contexts.
+Types implementing this interface can achieve automatic resource release within `try-with-resource` syntax contexts.
 
 ### func isClosed()
 
@@ -969,7 +961,7 @@ Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if already closed, otherwise returns false.
 
-#### func close()
+### func close()
 
 ```cangjie
 func close(): Unit
@@ -986,11 +978,11 @@ public interface ThreadContext {
 }
 ```
 
-Function: Cangjie thread context interface.
+Function: The Cangjie thread context interface.
 
 When users create a `thread`, in addition to the default `spawn` expression parameters, they can also pass instances of different [ThreadContext](core_package_interfaces.md#interface-threadcontext) types to select different thread contexts, thereby controlling concurrent behavior to some extent.
 
-Currently, users are not allowed to implement the [ThreadContext](core_package_interfaces.md#interface-threadcontext) interface themselves. The Cangjie language provides `MainThreadContext` based on usage scenarios. For specific definitions, refer to the terminal framework library.
+Currently, users are not allowed to implement the [ThreadContext](core_package_interfaces.md#interface-threadcontext) interface themselves. The Cangjie language provides `MainThreadContext` based on usage scenarios. For specific definitions, please refer to the terminal framework library.
 
 ### func end()
 
@@ -998,7 +990,7 @@ Currently, users are not allowed to implement the [ThreadContext](core_package_i
 func end(): Unit
 ```
 
-Function: Ends the method, used to send a termination request to the current context.
+Function: The end method, used to send a termination request to the current context.
 
 ### func hasEnded()
 
@@ -1006,7 +998,7 @@ Function: Ends the method, used to send a termination request to the current con
 func hasEnded(): Bool
 ```
 
-Function: Checks whether the current context has ended.
+Function: The check method, used to determine whether the current context has ended.
 
 Return Value:
 
@@ -1020,7 +1012,7 @@ public interface ToString {
 }
 ```
 
-Function: This interface is used to provide a string representation of a specific type.
+Function: This interface is used to provide a string representation of concrete types.
 
 ### func toString()
 

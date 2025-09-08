@@ -33,7 +33,7 @@ Function: Creates a [ContentFormatException](io_package_exceptions.md#class-cont
 
 Parameters:
 
-- message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Exception prompt message.
+- message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Exception message.
 
 ## class IOException
 
@@ -68,16 +68,16 @@ Function: Creates an [IOException](io_package_exceptions.md#class-ioexception) i
 
 Parameters:
 
-- message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Exception prompt message.
+- message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Exception message.
 
 ### func getClassName()
 
 ```cangjie
-protected open func getClassName(): String
+protected override open func getClassName(): String
 ```
 
 Function: Gets the class name.
 
 Return Value:
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The class name.
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name.

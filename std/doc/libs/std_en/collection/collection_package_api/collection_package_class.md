@@ -9,9 +9,9 @@ public class ArrayDeque<T> <: Deque<T> {
 }
 ```
 
-Functionality: ArrayDeque is an implementation class of a double-ended queue (deque) that supports insertion and removal operations at both ends. It is implemented using a resizable array, with its capacity automatically growing during element insertion (default expansion rate is 50%). The implementation employs a circular queue approach, providing O(1) time complexity for insertion, removal, and access operations when no expansion occurs.
+Functionality: ArrayDeque is an implementation class of a double-ended queue (deque) that allows insertion and deletion operations at both ends. ArrayDeque is implemented based on a resizable array, whose capacity continuously grows during element insertion, with a default expansion rate of 50% each time. The implementation of ArrayDeque uses a circular queue approach, ensuring that insertion, deletion, and lookup operations have a time complexity of O(1) when no expansion occurs.
 
-Parent Type:
+Parent Types:
 
 - [Deque](./collection_package_interface.md#interface-dequet)\<T>
 
@@ -21,7 +21,7 @@ Parent Type:
 public prop capacity: Int64
 ```
 
-Functionality: Gets the current capacity of this deque.
+Functionality: Gets the capacity of this deque.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -31,7 +31,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop first: ?T
 ```
 
-Functionality: Retrieves the head element of the deque. Returns None if the deque is empty.
+Functionality: Gets the first element of the deque. Returns None if the deque is empty.
 
 Type: ?T
 
@@ -41,7 +41,7 @@ Type: ?T
 public prop last: ?T
 ```
 
-Functionality: Retrieves the tail element of the deque. Returns None if the deque is empty.
+Functionality: Gets the last element of the deque. Returns None if the deque is empty.
 
 Type: ?T
 
@@ -61,7 +61,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init()
 ```
 
-Functionality: Constructs an empty deque with default capacity of 8.
+Functionality: Constructs an empty deque with a default capacity of 8.
 
 ### init(Int64)
 
@@ -69,7 +69,7 @@ Functionality: Constructs an empty deque with default capacity of 8.
 public init(capacity: Int64)
 ```
 
-Functionality: Constructs a deque with specified capacity. When capacity is less than the default value (8), the initial capacity will be set to 8.
+Functionality: Constructs a deque with the specified capacity. If the capacity is less than the default capacity of 8, the initial capacity of the [ArrayDeque](#class-arraydequet) will be 8.
 
 Parameters:
 
@@ -77,7 +77,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the parameter value is negative.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the parameter value is less than 0.
 
 ### func addFirst(T)
 
@@ -85,11 +85,11 @@ Exceptions:
 public func addFirst(element: T): Unit
 ```
 
-Functionality: Inserts an element at the head of this deque.
+Functionality: Inserts an element at the front of this deque.
 
 Parameters:
 
-- element: T - The element to be inserted.
+- element: T - The element to be inserted into this deque.
 
 ### func addLast(T)
 
@@ -97,11 +97,11 @@ Parameters:
 public func addLast(element: T): Unit
 ```
 
-Functionality: Inserts an element at the tail of this deque.
+Functionality: Inserts an element at the end of this deque.
 
 Parameters:
 
-- element: T - The element to be inserted.
+- element: T - The element to be inserted into this deque.
 
 ### func clear()
 
@@ -109,7 +109,7 @@ Parameters:
 public func clear(): Unit
 ```
 
-Functionality: Removes all elements from this deque.
+Functionality: Clears all elements from this deque.
 
 ### func iterator()
 
@@ -117,7 +117,7 @@ Functionality: Removes all elements from this deque.
 public func iterator(): Iterator<T>
 ```
 
-Functionality: Returns an iterator over the elements in this deque in proper sequence (front to back).
+Functionality: Gets an iterator over the elements in this deque in front-to-back order.
 
 Return Value:
 
@@ -141,11 +141,11 @@ Return Value:
 public func removeFirst(): ?T
 ```
 
-Functionality: Removes and returns the head element of this deque. Returns `None` if the deque is empty.
+Functionality: Removes and returns the first element of this deque. Returns `None` if the deque is empty.
 
 Return Value:
 
-- ?T - The removed head element.
+- ?T - The removed first element.
 
 ### func removeLast()
 
@@ -153,9 +153,9 @@ Return Value:
 public func removeLast(): ?T
 ```
 
-Function: Removes and returns the last element of the deque. Returns `None` if the deque is empty.
+Functionality: Removes and returns the last element of this deque. Returns `None` if the deque is empty.
 
-Return value:
+Return Value:
 
 - ?T - The removed last element.
 
@@ -165,19 +165,13 @@ Return value:
 public func reserve(additional: Int64): Unit
 ```
 
-Function: Increases the capacity of this deque.
+Functionality: Increases the capacity of this deque.
 
-Expands the deque's capacity by the specified `additional` size. No expansion occurs if:
-- `additional` is less than or equal to zero
-- The remaining capacity of the deque is greater than or equal to `additional`
-
-When expansion is needed, the new capacity will be the maximum between:
-1. The original capacity multiplied by 1.5 (rounded down)
-2. The sum of `additional` and the currently used capacity
+Expands the deque by the specified additional size. No expansion occurs if additional is less than or equal to zero, or if the remaining capacity of this deque is greater than or equal to additional. If the remaining capacity is less than additional, the expansion size will be the maximum of (original capacity multiplied by 1.5 and rounded down) and (additional + used capacity).
 
 Parameters:
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The additional capacity to reserve.
+- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand by.
 
 ### func toArray()
 
@@ -185,9 +179,9 @@ Parameters:
 public func toArray(): Array<T>
 ```
 
-Function: Returns an array containing all elements of this deque in front-to-back order.
+Functionality: Returns an array containing all elements of this deque in front-to-back order.
 
-Return value:
+Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
 
@@ -197,9 +191,9 @@ Return value:
 extend<T> ArrayDeque<T> <: ToString where T <: ToString
 ```
 
-Function: Extends [ArrayDeque](./collection_package_class.md#class-arraydequet)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, enabling string conversion operations.
+Functionality: Extends [ArrayDeque](./collection_package_class.md#class-arraydequet)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, supporting string conversion operations.
 
-Parent type:
+Parent Types:
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
@@ -209,11 +203,11 @@ Parent type:
 public func toString(): String
 ```
 
-Function: Gets the string representation of the current [ArrayDeque](./collection_package_class.md#class-arraydequet)\<T> instance.
+Functionality: Gets the string representation of the current [ArrayDeque](./collection_package_class.md#class-arraydequet)\<T> instance.
 
-The string contains each element's string representation in front-to-back order, formatted as: "[elem1, elem2, elem3]".
+The string contains the string representation of each element in the deque in front-to-back order, formatted as: "[elem1, elem2, elem3]".
 
-Return value:
+Return Value:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The resulting string.
 
@@ -228,17 +222,17 @@ public class ArrayList<T> <: List<T> {
 }
 ```
 
-Function: Provides functionality for variable-length arrays.
+Functionality: Provides functionality for variable-length arrays.
 
-[ArrayList](collection_package_class.md#class-arraylistt) is a linear dynamic array that differs from [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) by automatically resizing as needed and not requiring size specification during creation.
+[ArrayList](collection_package_class.md#class-arraylistt) is a linear dynamic array. Unlike [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt), it can automatically resize as needed and does not require a specified size at creation.
 
 > **Note:**
 >
 > - When adding elements to a dynamic array, if the array is full, it will reallocate a larger memory space and copy existing elements to the new space.
 >
-> - Advantages of dynamic arrays include memory efficiency and automatic resizing, making them ideal for scenarios requiring frequent element additions/removals. However, the reallocation process may cause performance overhead, which should be considered when using dynamic arrays.
+> - The advantage of dynamic arrays is memory efficiency and automatic resizing, making them ideal for scenarios requiring frequent element addition or removal. However, the downside is potential performance degradation during reallocation, which should be considered when using dynamic arrays.
 
-Parent type:
+Parent Types:
 
 - [List](./collection_package_interface.md#interface-listt)\<T>
 
@@ -248,7 +242,7 @@ Parent type:
 public prop size: Int64
 ```
 
-Function: Returns the number of elements in this [ArrayList](collection_package_class.md#class-arraylistt).
+Functionality: Returns the number of elements in this [ArrayList](collection_package_class.md#class-arraylistt).
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -258,7 +252,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop capacity: Int64
 ```
 
-Function: Returns the capacity of this [ArrayList](collection_package_class.md#class-arraylistt).
+Functionality: Returns the capacity of this [ArrayList](collection_package_class.md#class-arraylistt).
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -268,7 +262,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop first: ?T
 ```
 
-Function: Returns the first element of this [ArrayList](collection_package_class.md#class-arraylistt), or `None` if empty.
+Functionality: Returns the first element of this [ArrayList](collection_package_class.md#class-arraylistt), or None if empty.
 
 Type: ?T
 
@@ -278,7 +272,7 @@ Type: ?T
 public prop last: ?T
 ```
 
-Function: Returns the last element of this [ArrayList](collection_package_class.md#class-arraylistt), or `None` if empty.
+Functionality: Returns the last element of this [ArrayList](collection_package_class.md#class-arraylistt), or None if empty.
 
 Type: ?T
 
@@ -288,7 +282,7 @@ Type: ?T
 public init()
 ```
 
-Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) with default initial capacity of `16`.
+Functionality: Constructs an empty [ArrayList](collection_package_class.md#class-arraylistt) with a default capacity of 16.
 
 ### init(Collection\<T>)
 
@@ -296,7 +290,7 @@ Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt
 public init(elements: Collection<T>)
 ```
 
-Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) containing all elements from the specified collection, maintaining their iteration order.
+Functionality: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) containing all elements from the specified collection, in the order returned by the collection's iterator.
 
 Parameters:
 
@@ -308,15 +302,15 @@ Parameters:
 public init(capacity: Int64)
 ```
 
-Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) with the specified initial capacity.
+Functionality: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) with the specified initial capacity.
 
 Parameters:
 
-- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified initial capacity size.
+- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified initial capacity.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if the parameter value is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the parameter value is less than 0.
 
 ### init(Int64, (Int64) -> T)
 
@@ -324,16 +318,16 @@ Exceptions:
 public init(size: Int64, initElement: (Int64) -> T)
 ```
 
-Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) with the specified number of initial elements and initialization function. This constructor sets the capacity of [ArrayList](collection_package_class.md#class-arraylistt) based on the size parameter.
+Functionality: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) with the specified initial size and initialization function. The constructor sets the capacity of the [ArrayList](collection_package_class.md#class-arraylistt) based on the size parameter.
 
 Parameters:
 
-- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements for the initialization function.
+- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of initial elements.
 - initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - The initialization function.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if size is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if size is less than 0.
 
 ### static func of(Array\<T>)
 
@@ -341,7 +335,7 @@ Exceptions:
 public static func of(elements: Array<T>): ArrayList<T>
 ```
 
-Function: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) containing all elements from the specified array.
+Functionality: Constructs an [ArrayList](collection_package_class.md#class-arraylistt) containing all elements from the specified array.
 
 Parameters:
 
@@ -349,7 +343,7 @@ Parameters:
 
 Return Value:
 
-- [ArrayList](#class-arraylistt)\<T> - An ArrayList with elements of type T.
+- [ArrayList](#class-arraylistt)\<T> - An ArrayList of type T.
 
 ### func add(T)
 
@@ -357,15 +351,15 @@ Return Value:
 public func add(element: T): Unit
 ```
 
-Function: Appends the specified element to the end of this [ArrayList](collection_package_class.md#class-arraylistt).
+Functionality: Appends the specified element to the end of this [ArrayList](collection_package_class.md#class-arraylistt).
 
 Parameters:
 
-- element: T - The element to be inserted, of type T.
+- element: T - The element to insert, of type T.
 
 Example:
 
-See usage example at [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md).
+See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.
 
 ### func add(Collection\<T>)
 
@@ -373,13 +367,13 @@ See usage example at [ArrayList's add function](../collection_package_samples/sa
 public func add(all!: Collection<T>): Unit
 ```
 
-Function: Appends all elements from the specified collection to the end of this [ArrayList](collection_package_class.md#class-arraylistt).
+Functionality: Appends all elements from the specified collection to the end of this [ArrayList](collection_package_class.md#class-arraylistt).
 
-The function traverses the input collection in iterator order and inserts all elements to the tail of this [ArrayList](collection_package_class.md#class-arraylistt).
+The function traverses the input collection in iterator order and inserts all elements to the end of this [ArrayList](collection_package_class.md#class-arraylistt).
 
 Parameters:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be inserted.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to insert.
 
 ### func add(T, Int64)
 
@@ -387,20 +381,20 @@ Parameters:
 public func add(element: T, at!: Int64): Unit
 ```
 
-Function: Inserts the specified element at the specified position in this [ArrayList](collection_package_class.md#class-arraylistt).
+Functionality: Inserts the specified element at the specified position in this [ArrayList](collection_package_class.md#class-arraylistt).
 
 Parameters:
 
-- element: T - The element of type T to be inserted.
+- element: T - The element of type T to insert.
 - at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target index for insertion.
 
 Exceptions:
 
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Throws an exception when 'at' is out of bounds.
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown if the index is out of range.
 
 Example:
 
-See usage example at [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md).
+See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.
 
 ### func add(Collection\<T>, Int64)
 
@@ -408,24 +402,22 @@ See usage example at [ArrayList's add function](../collection_package_samples/sa
 public func add(all!: Collection<T>, at!: Int64): Unit
 ```
 
-Function: Inserts all elements from the specified collection into this [ArrayList](collection_package_class.md#class-arraylistt) starting from the specified position.
+Functionality: Inserts all elements from the specified collection into this [ArrayList](collection_package_class.md#class-arraylistt), starting at the specified position.
 
-The function traverses the input collection in iterator order and inserts all elements at the specified position, shifting existing elements at and after that position backward.
+The function traverses the input collection in iterator order and inserts all elements at the specified position, shifting existing elements to the right.
 
 Parameters:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements of type T to be inserted.
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target index for collection insertion.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to insert.
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The target index for insertion.
 
 Exceptions:
 
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Throws an exception when 'at' is out of bounds.
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown if the index is out of range.
 
 Example:
 
-See usage example at [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md).
-
-### func clear()
+See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.### func clear()
 
 ```cangjie
 public func clear(): Unit
@@ -467,7 +459,7 @@ Return Value:
 
 Example:
 
-See usage examples in [ArrayList's get/set functions](../collection_package_samples/sample_arraylist_get_set.md).
+See usage example at [ArrayList's get/set functions](../collection_package_samples/sample_arraylist_get_set.md).
 
 ### func getRawArray()
 
@@ -481,7 +473,7 @@ Function: Returns the raw data of the [ArrayList](collection_package_class.md#cl
 >
 > This is an unsafe interface and must be used within an unsafe context.
 >
-> The raw data refers to the underlying array implementation of [ArrayList](collection_package_class.md#class-arraylistt). Its size is greater than or equal to the number of elements in the [ArrayList](collection_package_class.md#class-arraylistt). Accessing elements at indices greater than or equal to the size of the [ArrayList](collection_package_class.md#class-arraylistt) may contain uninitialized elements, leading to undefined behavior.
+> Raw data refers to the underlying array implementation of [ArrayList](collection_package_class.md#class-arraylistt), whose size is greater than or equal to the number of elements in the [ArrayList](collection_package_class.md#class-arraylistt). Positions with indices greater than or equal to the size of the [ArrayList](collection_package_class.md#class-arraylistt) may contain uninitialized elements, and accessing them may result in undefined behavior.
 
 Return Value:
 
@@ -521,7 +513,7 @@ Function: Removes the element at the specified position in this [ArrayList](coll
 
 Parameters:
 
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to be removed.
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to remove.
 
 Return Value:
 
@@ -529,11 +521,11 @@ Return Value:
 
 Exceptions:
 
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when 'at' is out of range.
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `at` is out of bounds.
 
 Example:
 
-See usage examples in [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md).
+See usage example at [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md).
 
 ### func remove(Range\<Int64>)
 
@@ -541,20 +533,20 @@ See usage examples in [ArrayList's remove/clear/slice functions](../collection_p
 public func remove(range: Range<Int64>): Unit
 ```
 
-Function: Removes all elements in the specified [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) from this [ArrayList](collection_package_class.md#class-arraylistt).
+Function: Removes all elements in this [ArrayList](collection_package_class.md#class-arraylistt) that are included in the specified [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet).
 
 > **Note:**
 >
-> If the parameter 'range' is constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor with 'hasEnd' set to false, the 'end' value does not take effect, regardless of the 'isClosed' value passed during construction. The array slice will include elements up to the last element of the original array.
+> If the parameter `range` is a [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) instance constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor, when `hasEnd` is false, the `end` value does not take effect and is not affected by the `isClosed` value passed during construction. The array slice will include all elements up to the last element of the original array.
 
 Parameters:
 
-- range: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range of elements to be removed.
+- range: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range of elements to remove.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of 'range' is not equal to 1.
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when the 'start' or 'end' of 'range' is less than 0, or when 'end' exceeds the length of the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt).
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of `range` is not equal to 1.
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when the `start` or `end` of `range` is less than 0, or when `end` is greater than the length of the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt).
 
 ### func removeIf((T) -> Bool)
 
@@ -566,11 +558,11 @@ Function: Removes all elements from this [ArrayList](collection_package_class.md
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition that determines whether an element should be removed.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to determine which elements to remove.
 
 Exceptions:
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when elements are added, removed, or modified within the 'predicate' function while iterating over the [ArrayList](collection_package_class.md#class-arraylistt).
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when elements are added, removed, or modified within the `predicate` while iterating over the [ArrayList](collection_package_class.md#class-arraylistt).
 
 ### func reserve(Int64)
 
@@ -580,15 +572,15 @@ public func reserve(additional: Int64): Unit
 
 Function: Increases the capacity of this [ArrayList](collection_package_class.md#class-arraylistt) instance.
 
-Expands the [ArrayList](collection_package_class.md#class-arraylistt) by the 'additional' size. No expansion occurs if 'additional' is less than or equal to zero. If the remaining capacity of the [ArrayList](collection_package_class.md#class-arraylistt) is greater than or equal to 'additional', no expansion occurs. If the remaining capacity is less than 'additional', the expansion size is the maximum of (1.5 times the original capacity, rounded down) and ('additional' + used capacity).
+Expands the [ArrayList](collection_package_class.md#class-arraylistt) by `additional` size. No expansion occurs if `additional` is less than or equal to zero. If the remaining capacity of the [ArrayList](collection_package_class.md#class-arraylistt) is greater than or equal to `additional`, no expansion occurs. If the remaining capacity is less than `additional`, the expansion size is the maximum of (the original capacity multiplied by 1.5 and rounded down) and (`additional` + used capacity).
 
 Parameters:
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand by.
+- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The additional size to expand.
 
 Exceptions:
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown when 'additional' + used capacity exceeds Int64.Max.
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown when `additional` + used capacity exceeds `Int64.Max`.
 
 ### func reverse()
 
@@ -604,18 +596,18 @@ Function: Reverses the order of elements in this [ArrayList](collection_package_
 public func slice(range: Range<Int64>): ArrayList<T>
 ```
 
-Function: Returns an [ArrayList](collection_package_class.md#class-arraylistt)\<T> corresponding to the specified range index.
+Function: Returns an [ArrayList](collection_package_class.md#class-arraylistt)\<T> corresponding to the indices specified by the `range` parameter.
 
 > **Note:**
 >
-> If the parameter `range` is a [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) instance constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor, the following behaviors apply:
+> If the parameter `range` is a [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) instance constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor, the following behavior applies:
 >
-> 1. The `start` value is exactly the value passed to the constructor, unaffected by the `hasStart` parameter during construction.
-> 2. When `hasEnd` is false, the `end` value is ineffective and unaffected by the `isClosed` parameter during construction. The array slice will include elements up to the last element of the original array.
+> 1. The value of `start` is exactly the value passed to the constructor, unaffected by the `hasStart` value passed during construction.
+> 2. When `hasEnd` is false, the `end` value does not take effect and is not affected by the `isClosed` value passed during construction. The array slice will include all elements up to the last element of the original array.
 
 Parameters:
 
-- `range`: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range specifying the slice.
+- range: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range to slice.
 
 Return Value:
 
@@ -623,12 +615,12 @@ Return Value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `range.[step](collection_package_function.md#func-steptint64)` is not equal to 1.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of `range` is not equal to 1.
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `range` is invalid.
 
 Example:
 
-See [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md) for usage examples.
+See usage example at [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md).
 
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -636,9 +628,9 @@ See [ArrayList's remove/clear/slice functions](../collection_package_samples/sam
 public func sortBy(comparator!: (T, T) -> Ordering): Unit
 ```
 
-Function: Performs an unstable sort on the array elements.
+Function: Performs an unstable sort on the elements in the array.
 
-The custom sorting is based on the return value of type [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) from the comparator function. If the comparator returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will appear after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will appear before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is stable, `t1` will appear before `t2`; if the sort is unstable, the order of `t1` and `t2` is indeterminate.
+Using the provided comparison function, the array can be custom-sorted based on the returned [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) type result. For `comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)`, if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will appear after `t2` after sorting; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will appear before `t2`; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is stable, `t1` will appear before `t2`; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is unstable, the order of `t1` and `t2` is undefined.
 
 > **Note:**
 >
@@ -646,7 +638,7 @@ The custom sorting is based on the return value of type [Ordering](../../core/co
 
 Parameters:
 
-- `comparator!`: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
+- comparator!: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
 
 ### func sortBy(Bool, (T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -654,9 +646,9 @@ Parameters:
 public func sortBy(stable!: Bool, comparator!: (T, T) -> Ordering): Unit
 ```
 
-Function: Performs a sort on the array elements.
+Function: Performs a sort on the elements in the array.
 
-The custom sorting is based on the return value of type [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) from the comparator function. If the comparator returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will appear after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will appear before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is stable, `t1` will appear before `t2`; if the sort is unstable, the order of `t1` and `t2` is indeterminate.
+Using the provided comparison function, the array can be custom-sorted based on the returned [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) type result. For `comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)`, if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will appear after `t2` after sorting; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will appear before `t2`; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is stable, `t1` will appear before `t2`; if the return value is [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ and the sort is unstable, the order of `t1` and `t2` is undefined.
 
 > **Note:**
 >
@@ -664,8 +656,8 @@ The custom sorting is based on the return value of type [Ordering](../../core/co
 
 Parameters:
 
-- `stable!`: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use stable sorting.
-- `comparator!`: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
+- comparator!: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
 
 ### func toArray()
 
@@ -679,7 +671,7 @@ Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
 
-### operator func []\(Int64)
+### operator func \[](Int64)
 
 ```cangjie
 public operator func [](index: Int64): T
@@ -689,34 +681,34 @@ Function: Operator overload - get.
 
 Parameters:
 
-- `index`: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index for the get operation.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index for the get operation.
 
 Return Value:
 
-- `T` - The value of the element at the specified index.
+- T - The value of the element at the specified index.
 
 Exceptions:
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `index` is out of bounds.
 
-### operator func []\(Int64, T)
+### operator func \[](Int64, T)
 
 ```cangjie
 public operator func [](index: Int64, value!: T): Unit
 ```
 
-Function: Operator overload - replaces the element at the specified position in this list with the specified element.
+Function: Operator overload - replaces the element at the specified position in this list with the specified element using the subscript operator.
 
 Parameters:
 
-- `index`: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index to set.
-- `value!`: `T` - The value of type T to set.
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index to set.
+- value!: T - The value of type T to set.
 
 Exceptions:
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `index` is out of bounds.
 
-### operator func []\(Range\<Int64>)
+### operator func \[](Range\<Int64>)
 
 ```cangjie
 public operator func [](range: Range<Int64>): ArrayList<T>
@@ -726,15 +718,15 @@ Function: Operator overload - slice.
 
 > **Note:**
 >
-> - If the parameter `range` is a [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) instance constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor, the following behaviors apply:
->     - The `start` value is exactly the value passed to the constructor, unaffected by the `hasStart` parameter during construction.
->     - When `hasEnd` is false, the `end` value is ineffective and unaffected by the `isClosed` parameter during construction. The array slice will include elements up to the last element of the original array.
+> - If the parameter `range` is a [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) instance constructed using the [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) constructor, the following behavior applies:
+>     - The value of `start` is exactly the value passed to the constructor, unaffected by the `hasStart` value passed during construction.
+>     - When `hasEnd` is false, the `end` value does not take effect and is not affected by the `isClosed` value passed during construction. The array slice will include all elements up to the last element of the original array.
 >
-> - The returned [ArrayList](collection_package_class.md#class-arraylistt) from the slice operation is a completely new object with no reference relationship to the original [ArrayList](collection_package_class.md#class-arraylistt).
+> - The [ArrayList](collection_package_class.md#class-arraylistt) returned by the slice operation is a completely new object with no reference relationship to the original [ArrayList](collection_package_class.md#class-arraylistt).
 
 Parameters:
 
-- `range`: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range specifying the slice.
+- range: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The range to slice.
 
 Return Value:
 
@@ -742,7 +734,7 @@ Return Value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `range.[step](collection_package_function.md#func-steptint64)` is not equal to 1.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of `range` is not equal to 1.
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `range` is invalid.
 
 ### extend\<T> ArrayList\<T> <: Equatable\<ArrayList\<T>> where T <: Equatable\<T>
@@ -751,9 +743,11 @@ Exceptions:
 extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T>
 ```
 
-Function: Extends the [ArrayList](./collection_package_class.md#class-arraylistt)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](./collection_package_class.md#class-arraylistt)\<T>> interface, supporting equality operations.
+Function: Extends the [ArrayList](./collection_package_class.md#class-arraylistt)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](./collection_package_class.md#class-arraylistt)\<T>> interface, supporting equality comparison.
 
-Parent Types:- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](#class-arraylistt)\<T>>
+Parent Types:
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](#class-arraylistt)\<T>>
 
 #### operator func ==(ArrayList\<T>)
 
@@ -761,148 +755,7 @@ Parent Types:- [Equatable](../../core/core_package_api/core_package_interfaces.m
 public operator func ==(that: ArrayList<T>): Bool
 ```
 
-Function: Determines whether the current instance is equal to the specified [ArrayList](./collection_package_class.md#class-arraylistt) instance.
-
-Two arrays are considered equal if their corresponding elements are pairwise equal.
-
-Parameters:
-
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - The object to compare with.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
-
-#### operator func !=(ArrayList\<T>)
-
-```cangjie
-public operator func !=(that: ArrayList<T>): Bool
-```
-
-Function: Determines whether the current instance is not equal to the specified [ArrayList](./collection_package_class.md#class-arraylistt) instance.
-
-Parameters:
-
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - The object to compare with.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise false.
-
-#### func contains(T)
-
-```cangjie
-public func contains(element: T): Bool
-```
-
-Function: Determines whether the current array contains the specified element `element`.
-
-Parameters:
-
-- element: T - The element to search for.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the array contains the specified element, otherwise false.
-
-### extend\<T> ArrayList\<T> <: SortExtension where T <: Comparable\<T> <sup>(deprecated)</sup>
-
-```cangjie
-extend<T> ArrayList<T> where T <: Comparable<T>
-```
-
-Function: Extends [ArrayList](./collection_package_class.md#class-arraylistt)\<T> with the [SortExtension](../../sort/sort_package_api/sort_package_interfaces.md#interface-sortextension-deprecated) interface to support array sorting.
-
-> **Note:**
->
-> This will be deprecated in future versions.
-
-Parent Types:
-
-- [SortExtension](../../sort/sort_package_api/sort_package_interfaces.md#interface-sortextension-deprecated)
-
-#### func sort() <sup>(deprecated)</sup>
-
-```cangjie
-public func sort(): Unit
-```
-
-Function: Sorts the elements in the current array in ascending order using an unstable sort.
-
-> **Note:**
->
-> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
-
-#### func sort(Bool) <sup>(deprecated)</sup>
-
-```cangjie
-public func sort(stable!: Bool): Unit
-```
-
-Function: Sorts the elements in the current array in ascending order.
-
-Parameters:
-
-- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
-
-> **Note:**
->
-> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
-
-#### func sortDescending() <sup>(deprecated)</sup>
-
-```cangjie
-public func sortDescending(): Unit
-```
-
-Function: Sorts the elements in the current array in descending order using an unstable sort.
-
-> **Note:**
->
-> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
-
-#### func sortDescending(Bool) <sup>(deprecated)</sup>
-
-```cangjie
-public func sortDescending(stable!: Bool): Unit
-```
-
-Function: Sorts the elements in the current array in descending order.
-
-Parameters:
-
-- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
-
-> **Note:**
->
-> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
-
-### extend\<T> ArrayList\<T> <: ToString where T <: ToString
-
-```cangjie
-extend<T> ArrayList<T> <: ToString where T <: ToString
-```
-
-Function: Extends [ArrayList](./collection_package_class.md#class-arraylistt)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface to support string conversion.
-
-Parent Types:
-
-- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-
-#### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-Function: Converts the current array to a string.
-
-The resulting string contains the string representation of each element in the array, formatted as: "[elem1, elem2, elem3]".
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
-
+Function: Determines whether the current instance```markdown
 ## class ArrayQueue\<T>
 
 ```cangjie
@@ -914,7 +767,7 @@ public class ArrayQueue<T> <: Queue<T> {
 
 Function: A circular queue data structure implemented based on arrays.
 
-Parent Type:
+Parent Types:
 
 - [Queue](./collection_package_interface.md#interface-queuet)\<T>
 
@@ -952,15 +805,15 @@ Function: Constructs an empty queue with default capacity of 8.
 public init(capacity: Int64)
 ```
 
-Function: Constructs a queue with specified capacity. When capacity is less than the default capacity of 8, the initial capacity of the constructed [ArrayQueue](#class-arrayqueuet) will be 8.
+Function: Constructs a queue with specified capacity. When capacity is less than the default capacity of 8, the initial capacity of [ArrayQueue](#class-arrayqueuet) will be 8.
 
 Parameters:
 
-- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified initial capacity.
+- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified initial capacity.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws exception if the parameter value is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws exception if parameter is less than 0.
 
 ### func add(T)
 
@@ -988,11 +841,11 @@ Function: Clears all elements in this queue.
 public func iterator(): Iterator<T>
 ```
 
-Function: Gets an iterator for elements in this queue, with front-to-back order.
+Function: Gets an iterator for elements in this queue, in front-to-back order.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Element iterator.
 
 ### func isEmpty()
 
@@ -1004,7 +857,7 @@ Function: Determines whether this queue is empty.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if empty, otherwise returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if empty, otherwise `false`.
 
 ### func peek()
 
@@ -1012,11 +865,11 @@ Return Value:
 public func peek():?T
 ```
 
-Function: Views the head element of this queue. This operation does not remove the element.
+Function: Views the head element of this queue without removing it.
 
 Return Value:
 
-- ?T - The head element of the queue, returns `None` if the queue is empty.
+- ?T - The head element of the queue, returns `None` if queue is empty.
 
 ### func remove()
 
@@ -1024,7 +877,7 @@ Return Value:
 public func remove(): ?T
 ```
 
-Function: Removes and returns the head element of this queue, returns `None` if the queue is empty.
+Function: Removes and returns the head element of this queue, returns `None` if queue is empty.
 
 Return Value:
 
@@ -1038,12 +891,12 @@ public func reserve(additional: Int64): Unit
 
 Function: Increases the capacity of this queue.
 
-Expands the queue capacity by the additional size. No expansion occurs when:
-1. additional is less than or equal to zero
-2. The remaining capacity of this queue is greater than or equal to additional
+Expands the queue by additional size. No expansion occurs when:
+1. additional ≤ 0
+2. Remaining capacity ≥ additional
 
-When the remaining capacity is less than additional, the new capacity will be the maximum value between:
-1. Original capacity multiplied by 1.5 (rounded down)
+When remaining capacity < additional, expansion occurs to the maximum value between:
+1. Original capacity × 1.5 (rounded down)
 2. additional + used capacity
 
 Parameters:
@@ -1056,9 +909,11 @@ Parameters:
 public func toArray(): Array<T>
 ```
 
-Function: Returns an array containing all elements in this queue, with front-to-back order.
+Function: Returns an array containing all elements in this queue in front-to-back order.
 
-Return Value:- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
+Return Value:
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Array of type T.
 
 ### extend\<T> ArrayQueue\<T> <: ToString where T <: ToString
 
@@ -1066,9 +921,9 @@ Return Value:- [Array](../../core/core_package_api/core_package_structs.md#struc
 extend<T> ArrayQueue<T> <: ToString where T <: ToString
 ```
 
-Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [ArrayQueue](./collection_package_class.md#class-arrayqueuet)\<T>, supporting string conversion operations.
+Function: Extends [ArrayQueue](./collection_package_class.md#class-arrayqueuet)\<T> with [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, supporting string conversion.
 
-Parent Type:
+Parent Types:
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
@@ -1078,9 +933,9 @@ Parent Type:
 public func toString(): String
 ```
 
-Function: Obtains the string representation of the current [ArrayQueue](./collection_package_class.md#class-arrayqueuet)\<T> instance.
+Function: Gets string representation of current [ArrayQueue](./collection_package_class.md#class-arrayqueuet)\<T> instance.
 
-The string contains the string representation of each element in the deque in front-to-back order, formatted as: "[elem1, elem2, elem3]".
+The string contains string representations of each element in the deque in front-to-back order, formatted as: "[elem1, elem2, elem3]".
 
 Return Value:
 
@@ -1095,11 +950,11 @@ public class ArrayStack<T> <: Stack<T> {
 }
 ```
 
-Function: [ArrayStack](#class-arraystackt) is a stack [Stack](./collection_package_interface.md#interface-stackt) data structure implemented based on an array [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt). ArrayStack uses an array to store stack elements and a pointer to track the position of the top element.
+Function: [ArrayStack](#class-arraystackt) is a stack [Stack](./collection_package_interface.md#interface-stackt) data structure implemented based on array [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt). It uses an array to store stack elements with a pointer indicating the top position.
 
-[ArrayStack](#class-arraystackt) supports Last In First Out (LIFO) operations, allowing insertion and deletion only at the head. Additionally, [ArrayStack](#class-arraystackt) dynamically expands its capacity as needed.
+[ArrayStack](#class-arraystackt) only supports Last-In-First-Out (LIFO) operations at the head, and automatically expands as needed.
 
-Parent Type:
+Parent Types:
 
 - [Stack](./collection_package_interface.md#interface-stackt)\<T>
 
@@ -1129,7 +984,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init()
 ```
 
-Function: Constructs an empty [ArrayStack](#class-arraystackt) with an initial capacity of 8.
+Function: Constructs an empty [ArrayStack](#class-arraystackt) with default capacity of 8.
 
 ### func init(Int64)
 
@@ -1137,15 +992,15 @@ Function: Constructs an empty [ArrayStack](#class-arraystackt) with an initial c
 public init(capacity: Int64)
 ```
 
-Function: Constructs an empty [ArrayStack](#class-arraystackt) with the specified initial capacity. If the provided capacity is less than the default capacity of 8, the constructed [ArrayStack](#class-arraystackt) will have an initial capacity of 8.
+Function: Constructs an empty [ArrayStack](#class-arraystackt) with specified capacity. When capacity < 8, initial capacity defaults to 8.
 
 Parameters:
 
-- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The initial capacity size.
+- capacity: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Initial capacity size.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the input parameter is negative.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws when input is negative.
 
 ### func add(T)
 
@@ -1153,11 +1008,11 @@ Exceptions:
 public func add(element: T): Unit
 ```
 
-Function: Adds an element to the top of the stack.
+Function: Adds an element at the top of the stack.
 
 Parameters:
 
-- element: T - The element to be added.
+- element: T - The element to add.
 
 ### func clear()
 
@@ -1165,7 +1020,7 @@ Parameters:
 public func clear(): Unit
 ```
 
-Function: Clears the current [ArrayStack](#class-arraystackt).
+Function: Clears current [ArrayStack](#class-arraystackt).
 
 ### func isEmpty()
 
@@ -1173,7 +1028,7 @@ Function: Clears the current [ArrayStack](#class-arraystackt).
 public func isEmpty(): Bool
 ```
 
-Function: Checks whether this [ArrayStack](#class-arraystackt) is empty.
+Function: Determines whether this [ArrayStack](#class-arraystackt) is empty.
 
 Return Value:
 
@@ -1185,11 +1040,11 @@ Return Value:
 public func iterator(): Iterator<T>
 ```
 
-Function: Returns an iterator for the elements in this [ArrayStack](#class-arraystackt), following the order of stack popping.
+Function: Returns an iterator for elements in this [ArrayStack](#class-arraystackt) in pop order.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the stack elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Iterator for stack elements.
 
 ### func peek()
 
@@ -1197,11 +1052,11 @@ Return Value:
 public func peek(): ?T
 ```
 
-Function: Retrieves the top element of the stack without removing it. Returns `None` if the stack is empty.
+Function: Gets the top element without popping it. Returns `None` if stack is empty.
 
 Return Value:
 
-- ?T - The top element of the stack.
+- ?T - The top element.
 
 ### func remove()
 
@@ -1209,11 +1064,11 @@ Return Value:
 public func remove(): ?T
 ```
 
-Function: Pop operation, removes and returns the top element of the stack. Returns `None` when the stack is empty.
+Function: Pops and returns the top element. Returns `None` if stack is empty.
 
 Return Value:
 
-- ?T - The removed top element of the stack.
+- ?T - The removed top element.
 
 ### func reserve(Int64)
 
@@ -1221,11 +1076,15 @@ Return Value:
 public func reserve(additional: Int64): Unit
 ```
 
-Function: Expands the capacity of the current [ArrayStack](#class-arraystackt) by the specified amount. No expansion occurs if `additional` is less than or equal to zero. If the remaining space is already greater than or equal to `additional`, no expansion is performed. Otherwise, the [ArrayStack](#class-arraystackt) will expand to a size of `size + additional`.
+Function: Expands current [ArrayStack](#class-arraystackt) capacity. No expansion occurs when:
+1. additional ≤ 0
+2. Remaining space ≥ additional
+
+Otherwise expands to size + additional.
 
 Parameters:
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The amount of capacity to expand.
+- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand.
 
 ### func toArray()
 
@@ -1233,11 +1092,11 @@ Parameters:
 public func toArray(): Array<T>
 ```
 
-Function: Returns an array containing the elements of the stack in the order they would be popped.
+Function: Returns an array containing stack elements in pop order.
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Array of type T.
 
 ### extend\<T> ArrayStack\<T> <: ToString where T <: ToString
 
@@ -1245,9 +1104,9 @@ Return Value:
 extend<T> ArrayStack<T> <: ToString where T <: ToString
 ```
 
-Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for ArrayStack, enabling string conversion.
+Function: Extends ArrayStack with [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for string conversion.
 
-Parent Type:
+Parent Types:
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
@@ -1257,13 +1116,13 @@ Parent Type:
 public func toString(): String
 ```
 
-Function: Retrieves the string representation of the current [ArrayStack](./collection_package_class.md#class-arraystackt)\<T> instance.
+Function: Gets string representation of current [ArrayStack](./collection_package_class.md#class-arraystackt)\<T> instance.
 
-The string includes the string representation of each element in the stack, ordered from back to front, formatted as: "[elem1, elem2, elem3]".
+The string contains string representations of each element in back-to-front order, formatted as: "[elem1, elem2, elem3]".
 
 Return Value:
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current stack.
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of current stack.
 
 ## class HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>
 
@@ -1273,9 +1132,9 @@ public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equ
 }
 ```
 
-Function: This class primarily implements the iterator functionality for [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Function: This class mainly implements iterator functionality for [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
-Parent Type:
+Parent Types:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)>
 
@@ -1285,11 +1144,11 @@ Parent Type:
 public init(map: HashMap<K, V>)
 ```
 
-Function: Creates an instance of [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V>.
+Function: Creates [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> instance.
 
 Parameters:
 
-- [map](collection_package_function.md#func-mapt-rt---r): [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - The input [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>.
+- [map](collection_package_function.md#func-mapt-rt---r): [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Input [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>.
 
 ### func next()
 
@@ -1301,11 +1160,11 @@ Function: Returns the next element in the iterator.
 
 Return Value:
 
-- ?(K, V) - The next element in the iterator, encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).
+- ?(K, V) - The next element, wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).
 
 Exceptions:
 
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - Thrown when the function detects unsynchronized concurrent modifications.
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - Throws when detecting unsynchronized concurrent modifications.
 
 ### func remove()
 
@@ -1313,7 +1172,7 @@ Exceptions:
 public func remove(): Option<(K, V)>
 ```
 
-Function: Removes the element returned by the `next` function of this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) iterator. This function can only be called once per call to `next`.
+Function: Removes the element last returned by next(). Can only be called once per next() call.
 
 Return Value:
 
@@ -1321,9 +1180,8 @@ Return Value:
 
 Exceptions:
 
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - Thrown when the function detects unsynchronized concurrent modifications.
-
-## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - Throws when detecting unsynchronized concurrent modifications.
+```## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
 
 ```cangjie
 public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
@@ -1335,13 +1193,13 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
 }
 ```
 
-Function: A hash table implementation of the [Map](collection_package_interface.md#interface-mapk-v) interface.
+Functionality: A hash table implementation of the [Map](collection_package_interface.md#interface-mapk-v) interface.
 
-A hash table is a commonly used data structure that enables fast lookup, insertion, and deletion of data. The basic principle of a hash table is to map data to an array, known as the hash table. Each data element has a corresponding hash value, which determines its position in the hash table.
+A hash table is a commonly used data structure that enables fast lookup, insertion, and deletion of data. The basic principle of a hash table is to map data to an array, which is called the hash table. Each data element has a corresponding hash value that determines its position in the hash table.
 
-Hash tables are characterized by fast lookup, insertion, and deletion operations, typically with O(1) time complexity. Since the underlying array size is dynamic, hash tables do not guarantee immutable element order.
+Hash tables are characterized by fast lookup, insertion, and deletion operations, typically with O(1) time complexity. Since the underlying array size is dynamic, hash tables do not guarantee immutable element ordering.
 
-Parent Type:
+Parent Types:
 
 - [Map](collection_package_interface.md#interface-mapk-v)\<K, V>
 
@@ -1351,7 +1209,7 @@ Parent Type:
 public prop capacity: Int64
 ```
 
-Function: Returns the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Functionality: Returns the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 Return Value:
 
@@ -1363,7 +1221,7 @@ Return Value:
 public prop size: Int64
 ```
 
-Function: Returns the number of key-value pairs.
+Functionality: Returns the number of key-value pairs.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -1373,7 +1231,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init()
 ```
 
-Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) with a default initial capacity of 16 and a default load factor of empty.
+Functionality: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) with a default initial capacity of 16 and an empty default load factor.
 
 ### init(Array\<(K, V)>)
 
@@ -1381,9 +1239,9 @@ Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-wh
 public init(elements: Array<(K, V)>)
 ```
 
-Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) using the provided array of key-value pairs.
+Functionality: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) from the given array of key-value pairs.
 
-This constructor sets the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) based on the size of the input array. Since duplicate keys are not allowed internally in [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), if duplicate keys exist in the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt), the later key-value pairs will overwrite the earlier ones according to the iterator order.
+This constructor sets the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) based on the size of the input array. Since [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) internally does not allow duplicate keys, if the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) contains duplicate keys, the later key-value pairs will overwrite the earlier ones according to the iterator order.
 
 Parameters:
 
@@ -1395,9 +1253,9 @@ Parameters:
 public init(elements: Collection<(K, V)>)
 ```
 
-Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) using the provided collection of key-value pairs.
+Functionality: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) from the given collection of key-value pairs.
 
-This constructor sets the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) based on the size of the input collection elements. Since duplicate keys are not allowed internally in [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), if duplicate keys exist in the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt), the later key-value pairs will overwrite the earlier ones according to the iterator order.
+This constructor sets the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) based on the size of the input collection. Since [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) internally does not allow duplicate keys, if the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt) contains duplicate keys, the later key-value pairs will overwrite the earlier ones according to the iterator order.
 
 Parameters:
 
@@ -1409,7 +1267,7 @@ Parameters:
 public init(capacity: Int64)
 ```
 
-Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) with the specified initial capacity.
+Functionality: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) with the specified initial capacity.
 
 Parameters:
 
@@ -1417,7 +1275,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if capacity is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if capacity is less than 0.
 
 ### init(Int64, (Int64) -> (K, V))
 
@@ -1425,18 +1283,18 @@ Exceptions:
 public init(size: Int64, initElement: (Int64) -> (K, V))
 ```
 
-Function: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) using the specified size and initialization function.
+Functionality: Constructs a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) using the specified size and a function rule.
 
-The capacity of the constructed [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is influenced by the size parameter. Since duplicate keys are not allowed internally in [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), if the initElement function generates duplicate keys, the later key-value pairs will overwrite the earlier ones.
+The capacity of the constructed [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is influenced by the size parameter. Since [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) internally does not allow duplicate keys, if the initElement function generates duplicate keys, the later key-value pairs will overwrite the earlier ones.
 
 Parameters:
 
-- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to initialize the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> (K, V) - The function rule used to initialize the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The function rule used to initialize this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> (K, V) - The function rule used to initialize this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Throws an exception if size is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if size is less than 0.
 
 ### func add(K, V)
 
@@ -1444,7 +1302,7 @@ Exceptions:
 public func add(key: K, value: V): Option<V>
 ```
 
-Function: Inserts a key-value pair into the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Functionality: Inserts a key-value pair into the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 For keys already present in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), the value will be replaced with the new value, and the old value will be returned.
 
@@ -1455,11 +1313,11 @@ Parameters:
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - If the key existed before assignment, the old value is encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - If the key existed before assignment, the old value is wrapped in an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
 
 Example:
 
-See usage example in [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md).
+See [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md) for usage examples.
 
 ### func add(Collection\<(K, V)>)
 
@@ -1467,7 +1325,7 @@ See usage example in [HashMap's get/add/contains functions](../collection_packag
 public func add(all!: Collection<(K, V)>): Unit
 ```
 
-Function: Inserts a new collection of key-value pairs into the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) according to the iterator order of elements.
+Functionality: Inserts a new collection of key-value pairs into the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) according to the iterator order of elements.
 
 For keys already present in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), the values will be replaced with the new values.
 
@@ -1477,24 +1335,7 @@ Parameters:
 
 Example:
 
-See usage example in [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md).
-
-### func addIfAbsent(K, V)
-
-```cangjie
-func addIfAbsent(key: K, value: V): ?V
-```
-
-Function: Adds the specified key-value pair if the key is not already present in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek). Otherwise, no modification is made.
-
-Parameters:
-
-- key: K - The key of the key-value pair to add.
-- value: V - The value of the key-value pair to add.
-
-Return Value:
-
-- ?V - If the specified key already exists in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) when this function is called, returns the old value associated with the key; otherwise, returns None.
+See [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md) for usage examples.
 
 ### func clear()
 
@@ -1502,11 +1343,11 @@ Return Value:
 public func clear(): Unit
 ```
 
-Function: Clears all key-value pairs.
+Functionality: Clears all key-value pairs.
 
 Example:
 
-See usage example in [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md).
+See [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md) for usage examples.
 
 ### func clone()
 
@@ -1514,11 +1355,11 @@ See usage example in [HashMap's add/remove/clear functions](../collection_packag
 public func clone(): HashMap<K, V>
 ```
 
-Function: Clones a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Functionality: Clones the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 Return Value:
 
-- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Returns a cloned [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Returns a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 ### func contains(K)
 
@@ -1526,7 +1367,7 @@ Return Value:
 public func contains(key: K): Bool
 ```
 
-Function: Determines whether a mapping for the specified key exists.
+Functionality: Checks whether a mapping exists for the specified key.
 
 Parameters:
 
@@ -1538,7 +1379,7 @@ Return Value:
 
 Example:
 
-For usage examples, see [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md).
+See [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md) for usage examples.
 
 ### func contains(Collection\<K>)
 
@@ -1546,7 +1387,7 @@ For usage examples, see [HashMap's get/add/contains functions](../collection_pac
 public func contains(all!: Collection<K>): Bool
 ```
 
-Function: Determines whether mappings for all keys in the specified collection exist.
+Functionality: Checks whether mappings exist for all keys in the specified collection.
 
 Parameters:
 
@@ -1554,7 +1395,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all keys are present; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all keys are contained; otherwise, returns false.
 
 ### func entryView(K)
 
@@ -1562,11 +1403,11 @@ Return Value:
 public func entryView(key: K): MapEntryView<K, V>
 ```
 
-Function: Returns an empty reference view if the specified key does not exist. If the key exists, returns a reference view of the corresponding element.
+Functionality: Returns an empty reference view if the key does not exist. If the key exists, returns a reference view of the corresponding element.
 
 Parameters:
 
-- key: K - The key to add or check.
+- key: K - The key of the key-value pair to add.
 
 Return Value:
 
@@ -1578,19 +1419,19 @@ Return Value:
 public func get(key: K): ?V
 ```
 
-Function: Returns the value mapped to the specified key. If the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) does not contain a mapping for the key, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
+Functionality: Returns the value to which the specified key is mapped, or [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None if the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) contains no mapping for the key.
 
 Parameters:
 
-- key: K - The key to look up.
+- key: K - The input key.
 
 Return Value:
 
-- ?V - The value associated with the key, wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).
+- ?V - The value associated with the key, wrapped in an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).
 
 Example:
 
-For usage examples, see [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md).
+See [HashMap's get/add/contains functions](../collection_package_samples/sample_hashmap_get_add_contains.md) for usage examples.
 
 ### func isEmpty()
 
@@ -1598,7 +1439,7 @@ For usage examples, see [HashMap's get/add/contains functions](../collection_pac
 public func isEmpty(): Bool
 ```
 
-Function: Determines whether the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is empty. Returns true if empty; otherwise, returns false.
+Functionality: Checks whether the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is empty. Returns true if it is; otherwise, returns false.
 
 Return Value:
 
@@ -1610,11 +1451,11 @@ Return Value:
 public func iterator(): HashMapIterator<K, V>
 ```
 
-Function: Returns an iterator for the HashMap.
+Functionality: Returns an iterator for the HashMap.
 
 Return Value:
 
-- [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> - An iterator for the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> - Returns an iterator for the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 ### func keys()
 
@@ -1622,7 +1463,7 @@ Return Value:
 public func keys(): EquatableCollection<K>
 ```
 
-Function: Returns all keys in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), stored in a Keys container.
+Functionality: Returns all keys in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), storing them in a Keys container.
 
 Return Value:
 
@@ -1634,7 +1475,7 @@ Return Value:
 public func remove(all!: Collection<K>): Unit
 ```
 
-Function: Removes mappings for all keys in the specified collection from this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) (if they exist).
+Functionality: Removes the mappings for the specified keys in the collection from this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) (if they exist).
 
 Parameters:
 
@@ -1646,7 +1487,7 @@ Parameters:
 public func remove(key: K): Option<V>
 ```
 
-Function: Removes the mapping for the specified key from this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) (if it exists).
+Functionality: Removes the mapping for the specified key from this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) (if it exists).
 
 Parameters:
 
@@ -1654,9 +1495,11 @@ Parameters:
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The value associated with the removed key, wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont). Returns None if the key does not exist in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The value associated with the key removed from the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), wrapped in an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont). If the key does not exist in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), returns None.
 
-Example:For usage examples, see [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md).
+Example:
+
+See [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md) for usage examples.
 
 ### func removeIf((K, V) -> Bool)
 
@@ -1664,34 +1507,17 @@ Example:For usage examples, see [HashMap's add/remove/clear functions](../collec
 public func removeIf(predicate: (K, V) -> Bool): Unit
 ```
 
-Function: Takes a lambda expression and removes key-value pairs that meet the specified condition.
+Functionality: Takes a lambda expression and removes key-value pairs that satisfy the condition.
 
-This function traverses the entire [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), so all key-value pairs satisfying `predicate(K, V) == true` will be removed.
+This function traverses the entire [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), so all key-value pairs where `predicate(K, V) == true` will be removed.
 
 Parameters:
 
-- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression used for evaluation.
+- predicate: (K, V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression used for evaluation.
 
 Exceptions:
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when key-value pairs are added, removed, or modified within the `predicate` in [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
-
-### func replace(K, V)
-
-```cangjie
-func replace(key: K, value: V): ?V
-```
-
-Function: If the specified key exists in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), updates its value to the given value. Otherwise, no modification is made.
-
-Parameters:
-
-- key: K - The key of the key-value pair to be modified.
-- value: V - The new value for the key-value pair.
-
-Return Value:
-
-- ?V - If the specified key exists in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), returns its old value. Otherwise, returns None.
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown if `predicate` adds, removes, or modifies key-value pairs within the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 ### func reserve(Int64)
 
@@ -1699,9 +1525,9 @@ Return Value:
 public func reserve(additional: Int64): Unit
 ```
 
-Function: Expands the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Functionality: Expands the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
-Expands the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) by the specified additional size. No expansion occurs if additional is less than or equal to zero. If the remaining capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is greater than or equal to additional, no expansion occurs. If the remaining capacity is less than additional, the expansion size is determined by the maximum of (1.5 times the original capacity rounded down) and (additional + used capacity).
+Expands the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) by the additional size. No expansion occurs if additional is less than or equal to zero. No expansion occurs if the remaining capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) is greater than or equal to additional. If the remaining capacity is less than additional, the expansion size is the maximum of (1.5 times the original capacity, rounded down) and (additional + used capacity).
 
 Parameters:
 
@@ -1709,7 +1535,7 @@ Parameters:
 
 Exceptions:
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown when additional + used capacity exceeds Int64.Max.
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown if additional + used capacity exceeds Int64.Max.
 
 ### func toArray()
 
@@ -1717,7 +1543,7 @@ Exceptions:
 public func toArray(): Array<(K, V)>
 ```
 
-Function: Constructs and returns an array containing all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+Functionality: Constructs and returns an array containing all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
 Return Value:
 
@@ -1729,116 +1555,44 @@ Return Value:
 public func values(): Collection<V>
 ```
 
-Function: Returns all values in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), stored in a Values container.
+Functionality: Returns all values in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), storing them in a Values container.
 
 Return Value:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - A container holding all returned values.
 
-### operator func []\(K, V)
+### operator func \[](K, V)
 
 ```cangjie
 public operator func [](key: K, value!: V): Unit
 ```
 
-Function: Operator overload for the add method. If the key exists, the new value overwrites the old value. If the key does not exist, the key-value pair is added.
+Functionality: Operator overload for the add method. If the key exists, the new value overwrites the old value. If the key does not exist, the key-value pair is added.
 
 Parameters:
 
-- key: K - The key for evaluation.
-- value!: V - The value to be set.
+- key: K - The key to evaluate.
+- value!: V - The value to set.
 
-#### operator func []\(K)
+### operator func \[](K)
 
 ```cangjie
 public operator func [](key: K): V
 ```
 
-Function: Operator overload for the get method. If the key exists, returns the corresponding value.
+Functionality: Operator overload for the get method. If the key exists, returns the corresponding value.
 
 Parameters:
 
-- key: K - The key for evaluation.
+- key: K - The key to evaluate.
 
 Return Value:
 
-- V - The value corresponding to the key.
+- V - The value associated with the key.
 
 Exceptions:
 
-- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - Thrown if the key does not exist in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
-
-### extend\<K, V> HashMap\<K, V> <: Equatable\<HashMap\<K, V>> where V <: Equatable\<V>
-
-```cangjie
-extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
-```
-
-Function: Extends the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>> interface for the [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> type, supporting equality operations.
-
-Parent Type:
-
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>>
-
-#### operator func ==(HashMap\<K, V>)
-
-```cangjie
-public operator func ==(right: HashMap<K, V>): Bool
-```
-
-Function: Determines whether the current instance is equal to the specified [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance.
-
-Two [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instances are considered equal if they contain identical key-value pairs.
-
-Parameters:
-
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - The object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
-
-#### operator func !=(HashMap\<K, V>)
-
-```cangjie
-public operator func !=(right: HashMap<K, V>): Bool
-```
-
-Function: Determines whether the current instance is not equal to the specified [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance.Parameters:
-
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - The object to be compared.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
-
-### extend\<K, V> HashMap\<K, V> <: ToString where V <: ToString, K <: ToString
-
-```cangjie
-extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
-```
-
-Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>, enabling string conversion operations.
-
-Parent Type:
-
-- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-
-#### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-Function: Converts the current [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance to a string.
-
-The string includes the string representation of each key-value pair in the [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>, formatted as: "[(k1, v1), (k2, v2), (k3, v3)]".
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
-
-## class HashSet\<T> where T <: Hashable & Equatable\<T>
+- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class## class HashSet\<T> where T <: Hashable & Equatable\<T>
 
 ```cangjie
 public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
@@ -1852,13 +1606,13 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 
 Function: An implementation of the [Set](collection_package_interface.md#interface-sett) interface based on [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
-Elements in [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) are unordered and do not allow duplicates. When adding elements to [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet), the hash value of the element determines its position in the hash table.
+Elements in [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) are unordered and do not allow duplicates. When adding elements to [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet), their positions in the hash table are determined by their hash values.
 
 > **Note:**
 >
 > [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is implemented based on [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek), so its capacity, memory layout, and time performance are identical to [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
-Parent Type:
+Parent Types:
 
 - [Set](collection_package_interface.md#interface-sett)\<T>
 
@@ -1878,16 +1632,16 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init(size: Int64, initElement: (Int64) -> T)
 ```
 
-Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the specified element count `size` and initialization function. The capacity of the constructed [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is influenced by `size`.
+Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the given size and initialization function. The capacity of the constructed [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is influenced by the size parameter.
 
 Parameters:
 
 - size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements in the initialization function.
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> T - The initialization function rule.
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - The initialization function rule.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `size` is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if size is less than 0.
 
 ### init()
 
@@ -1903,7 +1657,7 @@ Function: Constructs an empty [HashSet](collection_package_class.md#class-hashse
 public init(elements: Array<T>)
 ```
 
-Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the specified array. The constructor sets the capacity of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) based on the size of the input array `elements`.
+Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the given array. The constructor sets the capacity of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) based on the size of the input array.
 
 Parameters:
 
@@ -1915,7 +1669,7 @@ Parameters:
 public init(elements: Collection<T>)
 ```
 
-Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the specified collection. The constructor sets the capacity of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) based on the size of the input collection `elements`.
+Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) using the given collection. The constructor sets the capacity of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) based on the size of the input collection.
 
 Parameters:
 
@@ -1927,7 +1681,7 @@ Parameters:
 public init(capacity: Int64)
 ```
 
-Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) with the specified capacity.
+Function: Constructs a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) with the given capacity.
 
 Parameters:
 
@@ -1935,7 +1689,7 @@ Parameters:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `capacity` is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if capacity is less than 0.
 
 ### func add(T)
 
@@ -1951,7 +1705,11 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the addition is successful; otherwise, returns false.For usage examples, refer to [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md).
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the addition is successful; otherwise, returns false.
+
+Example:
+
+See [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md) for usage examples.
 
 ### func add(Collection\<T>)
 
@@ -1959,7 +1717,7 @@ Return Value:
 public func add(all!: Collection<T>): Unit
 ```
 
-Function: Adds all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet). If an element already exists, it will not be added.
+Function: Adds all elements from the given [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet). Existing elements are not added.
 
 Parameters:
 
@@ -1975,7 +1733,7 @@ Function: Returns the internal array capacity of this [HashSet](collection_packa
 
 > **Note:**
 >
-> The capacity may not equal the size of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+> The capacity size may not equal the size of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
 Return Value:
 
@@ -1999,7 +1757,7 @@ Function: Clones the [HashSet](collection_package_class.md#class-hashsett-where-
 
 Return Value:
 
-- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns the cloned [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - The cloned [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
 ### func contains(T)
 
@@ -2007,7 +1765,7 @@ Return Value:
 public func contains(element: T): Bool
 ```
 
-Function: Determines whether the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains the specified element.
+Function: Checks if the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains the specified element.
 
 Parameters:
 
@@ -2023,7 +1781,7 @@ Return Value:
 public func contains(all!: Collection<T>): Bool
 ```
 
-Function: Determines whether the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains all elements from the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
+Function: Checks if the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains all elements from the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
 
 Parameters:
 
@@ -2039,7 +1797,7 @@ Return Value:
 public func isEmpty(): Bool
 ```
 
-Function: Determines whether the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is empty.
+Function: Checks if the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is empty.
 
 Return Value:
 
@@ -2055,11 +1813,11 @@ Function: Returns an iterator for this [HashSet](collection_package_class.md#cla
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns the iterator for this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
 Example:
 
-For usage examples, refer to [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md).
+See [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md) for usage examples.
 
 ### func remove(T)
 
@@ -2075,11 +1833,11 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if removal is successful; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the removal is successful; otherwise, returns false.
 
 Example:
 
-For usage examples, refer to [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md).
+See [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md) for usage examples.
 
 ### func remove(Collection\<T>)
 
@@ -2099,15 +1857,15 @@ Parameters:
 public func removeIf(predicate: (T) -> Bool): Unit
 ```
 
-Function: Passes a lambda expression, and removes the corresponding element if the condition evaluates to `true`.
+Function: Takes a lambda expression and removes elements that satisfy the `true` condition.
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition predicate that determines whether to remove the element.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition for determining whether to remove an element.
 
 Exceptions:
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when elements are added, removed, or modified within the `predicate` while operating on the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when elements are added, removed, or modified within the `predicate` lambda.
 
 ### func reserve(Int64)
 
@@ -2115,21 +1873,15 @@ Exceptions:
 public func reserve(additional: Int64): Unit
 ```
 
-Function: Expands the capacity of [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) by the specified additional size. No expansion occurs if:
-1. `additional` is less than or equal to zero
-2. The remaining capacity of [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is greater than or equal to `additional`
-
-When expansion is required, the new capacity will be the maximum between:
-1. The floor value of 1.5 times the original capacity
-2. The sum of `additional` and currently used capacity
+Function: Expands the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) by the specified additional size. No expansion occurs if additional is less than or equal to zero. If the remaining capacity of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) is greater than or equal to additional, no expansion occurs. If the remaining capacity is less than additional, the expansion size is the maximum of (original capacity * 1.5 rounded down) and (additional + used capacity).
 
 Parameters:
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The additional capacity to reserve.
+- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand by.
 
 Exceptions:
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown when the sum of `additional` and currently used capacity exceeds Int64.Max.
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown if additional + used capacity exceeds Int64.Max.
 
 ### func retain(Set\<T>)
 
@@ -2137,7 +1889,7 @@ Exceptions:
 public func retain(all!: Set<T>): Unit
 ```
 
-Function: Retains only the elements in this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) that are contained in the specified [Set](collection_package_interface.md#interface-sett).
+Function: Retains only the elements in this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) that are also contained in the specified [Set](collection_package_interface.md#interface-sett).
 
 Parameters:
 
@@ -2149,15 +1901,15 @@ Parameters:
 public func subsetOf(other: ReadOnlySet<T>): Bool
 ```
 
-Function: Determines whether this set is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett).
+Function: Checks if this set is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett).
 
 Parameters:
 
-- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The set to compare against.
+- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The set to check against.
 
-Returns:
+Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this [Set](collection_package_interface.md#interface-sett) is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett); otherwise, `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [Set](collection_package_interface.md#interface-sett) is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett); otherwise, returns false.
 
 ### func toArray()
 
@@ -2165,9 +1917,9 @@ Returns:
 public func toArray(): Array<T>
 ```
 
-Function: Returns an array containing all elements in this container.
+Function: Returns an array containing all elements in the container.
 
-Returns:
+Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
 
@@ -2177,15 +1929,15 @@ Returns:
 public operator func &(other: ReadOnlySet<T>): HashSet<T>
 ```
 
-Function: Returns a new set containing the intersection of elements from both sets.
+Function: Returns a new set containing the intersection of two sets.
 
 Parameters:
 
 - other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The input set.
 
-Returns:
+Return Value:
 
-- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A new set of type T.
+- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A set of type T.
 
 ### operator func |(ReadOnlySet\<T>)
 
@@ -2193,15 +1945,15 @@ Returns:
 public operator func |(other: ReadOnlySet<T>): HashSet<T>
 ```
 
-Function: Returns a new set containing the union of elements from both sets.
+Function: Returns a new set containing the union of two sets.
 
 Parameters:
 
 - other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The input set.
 
-Returns:
+Return Value:
 
-- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A new set of type T.
+- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A set of type T.
 
 ### operator func -(ReadOnlySet\<T>)
 
@@ -2209,15 +1961,15 @@ Returns:
 public operator func -(other: ReadOnlySet<T>): HashSet<T>
 ```
 
-Function: Returns a new set containing the difference of elements between sets.
+Function: Returns a new set containing the difference of two sets.
 
 Parameters:
 
 - other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The input set.
 
-Returns:
+Return Value:
 
-- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A new set of type T.
+- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - A set of type T.
 
 ### extend\<T> HashSet\<T> <: Equatable\<HashSet\<T>>
 
@@ -2225,9 +1977,9 @@ Returns:
 extend<T> HashSet<T> <: Equatable<HashSet<T>>
 ```
 
-Function: Extends the [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> type to implement the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>> interface, enabling equality comparison operations.
+Function: Extends the [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>> interface, supporting equality operations.
 
-Parent Type:
+Parent Types:
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>>
 
@@ -2237,17 +1989,17 @@ Parent Type:
 public operator func ==(that: HashSet<T>): Bool
 ```
 
-Function: Determines whether the current instance is equal to the specified [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance.
+Function: Checks if the current instance is equal to the specified [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance.
 
-Two [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instances are considered equal if they contain exactly the same elements.
+Two [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instances are equal if they contain identical elements.
 
 Parameters:
 
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - The instance to compare.
+- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - The instance to compare with.
 
-Returns:
+Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal; otherwise, returns false.
 
 #### operator func !=(HashSet\<T>)
 
@@ -2255,53 +2007,30 @@ Returns:
 public operator func !=(that: HashSet<T>): Bool
 ```
 
-Function: Determines whether the current instance is not equal to the [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance pointed to by the parameter.
+Function: Checks if the current instance is not equal to the specified [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance.
 
 Parameters:
 
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - The object to be compared.
+- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - The instance to compare with.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal; otherwise, returns false.
 
 ### extend\<T> HashSet\<T> <: ToString where T <: ToString
 
 ```cangjie
-extend<T> HashSet<T> <: ToString where T <: ToString
-```
-
-Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>, supporting string conversion operations.
-
-Parent Type:
-
-- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-
-#### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-Function: Converts the current [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance to a string.
-
-The string includes the string representation of each element in the [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>, formatted as: "[elem1, elem2, elem3]".
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
-
-## class LinkedListNode\<T>
+extend<T> HashSet<T> <: ToString where T## class LinkedListNode\<T>
 
 ```cangjie
 public class LinkedListNode<T>
 ```
 
-Function: [LinkedListNode](collection_package_class.md#class-linkedlistnodet) is a node in [LinkedList](collection_package_class.md#class-linkedlistt).
+Function: [LinkedListNode](collection_package_class.md#class-linkedlistnodet) is a node on [LinkedList](collection_package_class.md#class-linkedlistt).
 
-Through [LinkedListNode](collection_package_class.md#class-linkedlistnodet), bidirectional traversal operations can be performed on [LinkedList](collection_package_class.md#class-linkedlistt), and the value of the element can be accessed and modified.
+Through [LinkedListNode](collection_package_class.md#class-linkedlistnodet), you can perform forward and backward traversal operations on [LinkedList](collection_package_class.md#class-linkedlistt), as well as access and modify element values.
 
-[LinkedListNode](collection_package_class.md#class-linkedlistnodet) can only be obtained via the 'nodeAt', 'firstNode', or 'lastNode' methods of the corresponding [LinkedList](collection_package_class.md#class-linkedlistt). When the corresponding node is removed from [LinkedList](collection_package_class.md#class-linkedlistt), it results in a dangling node. Any operation on a dangling node will throw an '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)'.
+[LinkedListNode](collection_package_class.md#class-linkedlistnodet) can only be obtained via the corresponding [LinkedList](collection_package_class.md#class-linkedlistt)'s 'nodeAt', 'firstNode', or 'lastNode' methods. When [LinkedList](collection_package_class.md#class-linkedlistt) removes the corresponding node, it results in a dangling node. Any operation on a dangling node will throw an '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)' exception.
 
 ### prop next
 
@@ -2309,7 +2038,7 @@ Through [LinkedListNode](collection_package_class.md#class-linkedlistnodet), bid
 public prop next: Option<LinkedListNode<T>>
 ```
 
-Function: Gets the next node of the current node. Returns None if there is no next node.
+Function: Gets the next node of the current node, returns None if there isn't one.
 
 Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
 
@@ -2323,7 +2052,7 @@ Exceptions:
 public prop prev: Option<LinkedListNode<T>>
 ```
 
-Function: Gets the previous node of the current node. Returns None if there is no previous node.
+Function: Gets the previous node of the current node, returns None if there isn't one.
 
 Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
 
@@ -2337,7 +2066,7 @@ Exceptions:
 public mut prop value: T
 ```
 
-Function: Gets or modifies the value of the element.
+Function: Gets or modifies the element's value.
 
 Type: T
 
@@ -2358,11 +2087,11 @@ public class LinkedList<T> <: Collection<T> {
 
 Function: Implements a doubly linked list data structure.
 
-A doubly linked list is a common data structure composed of a series of nodes, where each node contains two pointers: one pointing to the previous node and another pointing to the next node. This structure allows bidirectional traversal from any node, either starting from the head node and moving forward or starting from the tail node and moving backward.
+A doubly linked list is a common data structure consisting of a series of nodes, where each node contains two pointers: one pointing to the previous node and another pointing to the next node. This structure allows bidirectional traversal from any node, either starting from the head node moving forward or from the tail node moving backward.
 
-[LinkedList](collection_package_class.md#class-linkedlistt) does not support concurrent operations, and modifications to elements in the collection do not invalidate iterators. Iterators are only invalidated when elements are added or removed.
+[LinkedList](collection_package_class.md#class-linkedlistt) does not support concurrent operations, and modifications to elements in the collection will not invalidate iterators. Only adding or removing elements will invalidate iterators.
 
-Parent Type:
+Parent Types:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
@@ -2372,7 +2101,7 @@ Parent Type:
 public prop first: ?T
 ```
 
-Function: The value of the first element in the linked list. Returns None if the list is empty.
+Function: The value of the first element in the linked list, returns None if the list is empty.
 
 Type: ?T
 
@@ -2392,7 +2121,7 @@ Type: ?[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>
 public prop last: ?T
 ```
 
-Function: The value of the last element in the linked list. Returns None if the list is empty.
+Function: The value of the last element in the linked list, returns None if the list is empty.
 
 Type: ?T
 
@@ -2416,7 +2145,7 @@ Function: The number of elements in the linked list.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
-### init
+### init()
 
 ```cangjie
 public init()
@@ -2430,11 +2159,11 @@ Function: Constructs an empty linked list.
 public init(elements: Array<T>)
 ```
 
-Function: Constructs a [LinkedList](collection_package_class.md#class-linkedlistt) instance containing elements from the specified array in traversal order.
+Function: Constructs a [LinkedList](collection_package_class.md#class-linkedlistt) instance containing the specified array elements in traversal order.
 
 Parameters:
 
-- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The array of elements to be placed into this linked list.
+- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The array of elements to be added to this linked list.
 
 ### init(Collection\<T>)
 
@@ -2442,11 +2171,11 @@ Parameters:
 public init(elements: Collection<T>)
 ```
 
-Function: Constructs a linked list containing elements from the specified collection in the order returned by the collection's iterator.
+Function: Constructs a linked list containing the specified collection elements in the order returned by the collection's iterator.
 
 Parameters:
 
-- elements: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be placed into this linked list.
+- elements: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be added to this linked list.
 
 ### init(Int64, (Int64)-> T)
 
@@ -2454,7 +2183,7 @@ Parameters:
 public init(size: Int64, initElement: (Int64)-> T)
 ```
 
-Function: Creates a linked list with `size` elements, where the nth element satisfies the condition ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64))-> T.
+Function: Creates a linked list with 'size' elements, where the nth element satisfies the condition ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64))-> T.
 
 Parameters:
 
@@ -2471,7 +2200,7 @@ Exceptions:
 public func addLast(element: T): LinkedListNode<T>
 ```
 
-Function: Adds an element at the tail position of the linked list and returns the node of this element.
+Function: Adds an element at the end of the linked list and returns the node of that element.
 
 Parameters:
 
@@ -2479,7 +2208,7 @@ Parameters:
 
 Return Value:
 
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to this element.
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
 
 ### func backward(LinkedListNode\<T>)
 
@@ -2487,11 +2216,11 @@ Return Value:
 public func backward(mark: LinkedListNode<T>): Iterator<T>
 ```
 
-Function: Obtains an iterator for all elements starting from the `mark` node to the head node of the corresponding linked list.
+Function: Gets an iterator for all elements starting from the 'mark' node to the head node of the corresponding linked list.
 
 Parameters:
 
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting element node.
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
 
 Return Value:
 
@@ -2515,11 +2244,11 @@ Function: Removes all elements from the linked list.
 public func forward(mark: LinkedListNode<T>): Iterator<T>
 ```
 
-Function: Obtains an iterator for all elements starting from the `mark` node to the tail node of the corresponding linked list.
+Function: Gets an iterator for all elements starting from the 'mark' node to the tail node of the corresponding linked list.
 
 Parameters:
 
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting element node.
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
 
 Return Value:
 
@@ -2535,7 +2264,7 @@ Exceptions:
 public func addAfter(node: LinkedListNode<T>, element: T): LinkedListNode<T>
 ```
 
-Function: Inserts an element after the specified node in the linked list and returns the node of this element.
+Function: Inserts an element after the specified node in the linked list and returns the node of that element.
 
 Parameters:
 
@@ -2556,7 +2285,7 @@ Exceptions:
 public func addBefore(node: LinkedListNode<T>, element: T): LinkedListNode<T>
 ```
 
-Function: Inserts an element before a specified node in the linked list and returns the node of the inserted element.
+Function: Inserts an element before the specified node in the linked list and returns the node of that element.
 
 Parameters:
 
@@ -2581,7 +2310,7 @@ Function: Returns whether this linked list is empty.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this linked list contains no elements.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this linked list contains no elements.
 
 ### func iterator()
 
@@ -2589,11 +2318,11 @@ Return Value:
 public func iterator(): Iterator<T>
 ```
 
-Function: Returns an iterator over the elements in this collection, in order from the first node to the last node of the linked list.
+Function: Returns an iterator for the elements in the current collection, in order from the first node to the last node of the linked list.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator over the elements in this collection.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for elements in the current collection.
 
 ### func nodeAt(Int64)
 
@@ -2601,7 +2330,7 @@ Return Value:
 public func nodeAt(index: Int64): Option<LinkedListNode<T>>
 ```
 
-Function: Retrieves the node of the element at the specified `index` (0-based).
+Function: Gets the node of the element at the specified 'index' in the linked list, with numbering starting from 0.
 
 The time complexity of this function is O(n).
 
@@ -2611,7 +2340,7 @@ Parameters:
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>> - The node at the specified index, or `None` if no such node exists.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>> - The node at the specified index, returns None if it doesn't exist.
 
 ### func removeFirst()
 
@@ -2619,11 +2348,11 @@ Return Value:
 public func removeFirst() : ?T
 ```
 
-Function: Removes the first element from the linked list and returns its value.
+Function: Removes the first element of the linked list and returns its value.
 
 Return Value:
 
-- ?T - The value of the removed element, or `None` if the list is empty.
+- ?T - The value of the removed element, returns None if the list is empty.
 
 ### func removeLast()
 
@@ -2631,11 +2360,11 @@ Return Value:
 public func removeLast() : ?T
 ```
 
-Function: Removes the last element from the linked list and returns its value.
+Function: Removes the last element of the linked list and returns its value.
 
 Return Value:
 
-- ?T - The value of the removed element, or `None` if the list is empty.
+- ?T - The value of the removed element, returns None if the list is empty.
 
 ### func addFirst(T)
 
@@ -2643,7 +2372,7 @@ Return Value:
 public func addFirst(element: T): LinkedListNode<T>
 ```
 
-Function: Inserts an element at the head of the linked list and returns its node.
+Function: Inserts an element at the head of the linked list and returns the node of that element.
 
 Parameters:
 
@@ -2651,7 +2380,7 @@ Parameters:
 
 Return Value:
 
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the inserted element.
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
 
 ### func remove(LinkedListNode\<T>)
 
@@ -2683,11 +2412,11 @@ Function: Removes all elements from this linked list that satisfy the given lamb
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` for elements to be removed.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true for elements to be removed.
 
 Exceptions:
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown if nodes are added, removed, or modified within the `predicate` function in [LinkedList](./collection_package_class.md#class-linkedlistt).
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when `predicate` adds, removes, or modifies nodes within [LinkedList](./collection_package_class.md#class-linkedlistt).
 
 ### func reverse()
 
@@ -2703,15 +2432,15 @@ Function: Reverses the order of elements in this linked list.
 public func splitOff(node: LinkedListNode<T>): LinkedList<T>
 ```
 
-Function: Splits the linked list into two lists starting from the specified node. If successful, the specified node `node` will no longer be in the current list but will be the first node in the new list.
+Function: Splits the linked list into two lists starting from the specified 'node'. If successful, 'node' is no longer in the current list but becomes the first node in the new list.
 
 Parameters:
 
-- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The position at which to split.
+- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The split position.
 
 Return Value:
 
-- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - The newly created linked list after splitting the original list.
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - The newly created linked list after splitting.
 
 Exceptions:
 
@@ -2723,7 +2452,7 @@ Exceptions:
 public func toArray(): Array<T>
 ```
 
-Function: Returns an array containing all elements in this linked list, maintaining the same order as the linked list.
+Function: Returns an array containing all elements of this linked list in the same order.
 
 Return Value:
 
@@ -2735,7 +2464,7 @@ Return Value:
 extend<T> LinkedList<T> <: Equatable<LinkedList<T>> where T <: Equatable<T>
 ```
 
-Function: Extends the [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[LinkedList](./collection_package_class.md#class-linkedlistt)\<T>> interface, enabling equality comparison operations.
+Function: Extends [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[LinkedList](./collection_package_class.md#class-linkedlistt)\<T>> interface, supporting equality comparison.
 
 Parent Types:
 
@@ -2747,9 +2476,9 @@ Parent Types:
 public operator func ==(right: LinkedList<T>): Bool
 ```
 
-Function: Determines whether the current instance is equal to the parameter-specified [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instance.
+Function: Determines whether the current instance is equal to the [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instance pointed to by the parameter.
 
-Two [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instances are considered equal if they contain identical elements.
+Two [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instances are equal if they contain exactly the same elements.
 
 Parameters:
 
@@ -2765,7 +2494,7 @@ Return Value:
 public operator func !=(right: LinkedList<T>): Bool
 ```
 
-Function: Determines whether the current instance is not equal to the parameter-specified [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instance.
+Function: Determines whether the current instance is not equal to the [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instance pointed to by the parameter.
 
 Parameters:
 
@@ -2781,7 +2510,7 @@ Return Value:
 extend<T> LinkedList<T> <: ToString where T <: ToString
 ```
 
-Function: Extends [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, enabling string conversion operations.
+Function: Extends [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, supporting string conversion.
 
 Parent Types:
 
@@ -2795,13 +2524,11 @@ public func toString(): String
 
 Function: Converts the current [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> instance to a string.
 
-The resulting string contains the string representation of each element in the [LinkedList](./collection_package_class.md#class-linkedlistt)\<T>, formatted as: "[elem1, elem2, elem3]".
+The string contains the string representation of each element in [LinkedList](./collection_package_class.md#class-linkedlistt)\<T>, formatted as: "[elem1, elem2, elem3]".
 
 Return Value:
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
-
-## class TreeMap\<K, V> where K <: Comparable\<K>
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.## class TreeMap\<K, V> where K <: Comparable\<K>
 
 ```cangjie
 public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
@@ -2812,7 +2539,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
 }
 ```
 
-Function: An implementation of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface based on a balanced binary search tree.
+Functionality: An implementation of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface based on a balanced binary search tree.
 
 The primary purpose of this class is to provide an ordered key-value storage structure that supports fast insertion, deletion, and lookup operations.
 
@@ -2828,11 +2555,11 @@ Parent Types:
 public prop first: ?(K, V)
 ```
 
-Function: Gets the first element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Retrieves the first element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 Return Value:
 
-- ?(K, V) - If the first element exists, returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+- ?(K, V) - If the first element exists, returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
 
 ### prop last
 
@@ -2840,11 +2567,11 @@ Return Value:
 public prop last: ?(K, V)
 ```
 
-Function: Gets the last element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Retrieves the last element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 Return Value:
 
-- ?(K, V) - If the last element exists, returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+- ?(K, V) - If the last element exists, returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
 
 ### prop size
 
@@ -2852,7 +2579,7 @@ Return Value:
 public prop size: Int64
 ```
 
-Function: Returns the number of key-value pairs.
+Functionality: Returns the number of key-value pairs.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -2862,7 +2589,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init()
 ```
 
-Function: Constructs an empty [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Constructs an empty [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 ### init(Array\<(K,V)>)
 
@@ -2870,13 +2597,13 @@ Function: Constructs an empty [TreeMap](collection_package_class.md#class-treema
 public init(elements: Array<(K,V)>)
 ```
 
-Function: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) from an array of key-value pairs.
+Functionality: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) from an array of key-value pairs.
 
 Elements are inserted into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) in the order they appear in `elements`. Since duplicate keys are not allowed in [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), if duplicate keys exist in `elements`, the latter key-value pair will overwrite the former.
 
 Parameters:
 
-- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<(K, V)> - The key-value pair array used to initialize this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<(K, V)> - The array of key-value pairs used to initialize this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 ### init(Collection\<(K, V)>)
 
@@ -2884,13 +2611,13 @@ Parameters:
 public init(elements: Collection<(K, V)>)
 ```
 
-Function: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) from a collection of key-value pairs.
+Functionality: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) from a collection of key-value pairs.
 
-Elements are inserted into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) in the order of the collection's iterator. Since duplicate keys are not allowed in [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), if duplicate keys exist in `elements`, the latter key-value pair (in iterator order) will overwrite the former.
+Elements are inserted into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) in the order returned by the collection's iterator. Since duplicate keys are not allowed in [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), if duplicate keys exist in `elements`, the latter key-value pair (in iterator order) will overwrite the former.
 
 Parameters:
 
-- elements: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The key-value pair collection used to initialize this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+- elements: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The collection of key-value pairs used to initialize this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 ### init(Int64, (Int64) -> (K, V))
 
@@ -2898,12 +2625,12 @@ Parameters:
 public init(size: Int64, initElement: (Int64) -> (K, V))
 ```
 
-Function: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) using a size parameter and an initialization function.
+Functionality: Constructs a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) using a size parameter and an initialization function.
 
 Parameters:
 
 - size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to initialize.
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> (K, V) - The function rule for initializing this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> (K, V) - The initialization function rule for this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 Exceptions:
 
@@ -2915,16 +2642,16 @@ Exceptions:
 public func add(key: K, value: V): Option<V>
 ```
 
-Function: Inserts a new key-value pair into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek). For existing keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), the value will be replaced with the new value.
+Functionality: Inserts a new key-value pair into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek). For existing keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), the key's value will be replaced with the new value.
 
 Parameters:
 
 - key: K - The key to insert.
 - value: V - The value to assign.
 
-Returns:
+Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - If the key previously existed, the old value is wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) and returned; otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - If the key existed before assignment, returns the old value wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
 
 ### func add(Collection\<(K, V)>)
 
@@ -2932,7 +2659,7 @@ Returns:
 public func add(all!: Collection<(K, V)>): Unit
 ```
 
-Function: Inserts a collection of key-value pairs into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek). For existing keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), the values will be replaced with the new values.
+Functionality: Inserts a collection of new key-value pairs into the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek). For existing keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), the keys' values will be replaced with the new values.
 
 Parameters:
 
@@ -2944,16 +2671,16 @@ Parameters:
 public func backward(mark: K, inclusive!: Bool = true): Iterator<(K, V)>
 ```
 
-Function: Gets an iterator that traverses from the first node with a key less than or equal to `mark` in descending order to [first](./collection_package_class.md#prop-first-3). If the node's key equals `mark`, inclusion of that node is determined by `inclusive!`.
+Functionality: Retrieves an iterator that traverses from the first node with a key less than or equal to `mark` in descending order to [first](./collection_package_class.md#prop-first-3). If the node's key equals `mark`, the inclusion of this node is determined by `inclusive!`.
 
 Parameters:
 
 - mark: K - The key used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the first element in the iterator, specifies whether to include `mark` as the starting point (default: `true`).
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the iterator's first element, specifies whether to include `mark` as the starting point (default: `true`).
 
-Returns:
+Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator for the corresponding elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator for corresponding elements.
 
 ### func clear()
 
@@ -2961,7 +2688,7 @@ Returns:
 public func clear(): Unit
 ```
 
-Function: Clears all key-value pairs.
+Functionality: Clears all key-value pairs.
 
 ### func clone()
 
@@ -2969,9 +2696,9 @@ Function: Clears all key-value pairs.
 public func clone(): TreeMap<K, V>
 ```
 
-Function: Clones the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Clones the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
-Returns:
+Return Value:
 
 - [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) instance.
 
@@ -2981,13 +2708,13 @@ Returns:
 public func contains(key: K): Bool
 ```
 
-Function: Checks whether a mapping exists for the specified key.
+Functionality: Checks whether a mapping exists for the specified key.
 
 Parameters:
 
 - key: K - The key to check.
 
-Returns:
+Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the key exists; otherwise, returns `false`.
 
@@ -2997,13 +2724,15 @@ Returns:
 public func contains(all!: Collection<K>): Bool
 ```
 
-Function: Checks whether mappings exist for all keys in the specified collection.
+Functionality: Checks whether mappings exist for all keys in the specified collection.
 
 Parameters:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to check.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys.
 
-Returns:- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it exists; otherwise, returns false.
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if all keys exist; otherwise, returns `false`.
 
 ### func entryView(K)
 
@@ -3011,11 +2740,11 @@ Returns:- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 
 public func entryView(k: K): MapEntryView<K, V>
 ```
 
-Function: Returns an empty reference view if the specified key is not contained. If the specified key is contained, returns a reference view of the corresponding element.
+Functionality: Returns an empty reference view if the key does not exist. If the key exists, returns a reference view of the corresponding element.
 
 Parameters:
 
-- k: K - The key of the key-value pair to be added.
+- k: K - The key of the key-value pair to add.
 
 Return Value:
 
@@ -3027,16 +2756,16 @@ Return Value:
 public func forward(mark: K, inclusive!: Bool = true): Iterator<(K, V)>
 ```
 
-Function: Obtains an iterator that traverses from the first node with a key greater than or equal to `mark` in ascending order until reaching [last](./collection_package_class.md#prop-last-3). If the node's key equals `mark`, the inclusion of that node is determined by `inclusive!`.
+Functionality: Retrieves an iterator that traverses from the first node with a key greater than or equal to `mark` in ascending order to [last](./collection_package_class.md#prop-last-3). If the node's key equals `mark`, the inclusion of this node is determined by `inclusive!`.
 
 Parameters:
 
 - mark: K - The key used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the iterator's first element, specifies whether to include `mark` as the starting point. Defaults to `true`.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the iterator's first element, specifies whether to include `mark` as the starting point (default: `true`).
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - An iterator for the corresponding elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator for corresponding elements.
 
 ### func get(K)
 
@@ -3044,7 +2773,7 @@ Return Value:
 public func get(key: K): ?V
 ```
 
-Function: Returns the value mapped to the specified key.
+Functionality: Returns the value mapped to the specified key.
 
 Parameters:
 
@@ -3052,7 +2781,7 @@ Parameters:
 
 Return Value:
 
-- ?V - If such a value exists, returns the value encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
+- ?V - If such a value exists, returns the value wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None.
 
 ### func isEmpty()
 
@@ -3060,11 +2789,11 @@ Return Value:
 public func isEmpty(): Bool
 ```
 
-Function: Determines whether the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) is empty.
+Functionality: Checks whether the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) is empty.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if empty; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if empty; otherwise, returns `false`.
 
 ### func iterator()
 
@@ -3072,11 +2801,11 @@ Return Value:
 public func iterator(): Iterator<(K, V)>
 ```
 
-Function: Returns an iterator for the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), iterating in ascending order of Key values.
+Functionality: Returns an iterator for the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), iterating in ascending order of key values.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - An iterator for the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator for the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 ### func keys()
 
@@ -3084,7 +2813,7 @@ Return Value:
 public func keys(): EquatableCollection<K>
 ```
 
-Function: Returns all keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), storing them in a container.
+Functionality: Returns all keys in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), stored in a container.
 
 Return Value:
 
@@ -3096,11 +2825,11 @@ Return Value:
 public func removeFirst(): ?(K, V)
 ```
 
-Function: Removes the first element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Removes the first element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 Return Value:
 
-- ?(K, V) - If the first element exists, removes it and returns the element encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+- ?(K, V) - If the first element exists, removes it and returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
 
 ### func removeLast()
 
@@ -3108,11 +2837,11 @@ Return Value:
 public func removeLast(): ?(K, V)
 ```
 
-Function: Removes the last element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Functionality: Removes the last element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 Return Value:
 
-- ?(K, V) - If the last element exists, removes it and returns the element encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+- ?(K, V) - If the last element exists, removes it and returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
 
 ### func remove(K)
 
@@ -3120,15 +2849,15 @@ Return Value:
 public func remove(key: K): Option<V>
 ```
 
-Function: Removes the mapping for the specified key from this map (if present).
+Functionality: Removes the mapping for the specified key from this map (if it exists).
 
 Parameters:
 
-- key: K - The key to be removed.
+- key: K - The key to remove.
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The removed value is encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont). If the specified key does not exist in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), returns None.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - Returns the removed value wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont). If the key does not exist in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), returns None.
 
 ### func remove(Collection\<K>)
 
@@ -3136,11 +2865,11 @@ Return Value:
 public func remove(all!: Collection<K>): Unit
 ```
 
-Function: Removes the mappings for the specified collection from this map (if present).
+Functionality: Removes mappings for all keys in the specified collection from this map (if they exist).
 
 Parameters:
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to be removed.
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to remove.
 
 ### func removeIf((K, V) -> Bool)
 
@@ -3148,13 +2877,15 @@ Parameters:
 public func removeIf(predicate: (K, V) -> Bool): Unit
 ```
 
-Function: Takes a lambda expression and removes the corresponding key-value pair if the condition is met.
+Functionality: Takes a lambda expression and removes corresponding key-value pairs if the condition is met.
 
 Parameters:
 
-- predicate: (K, V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression used for evaluation.Exceptions:
+- predicate: (K, V) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression used for evaluation.
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Throws an exception when keys or values are added, deleted, or modified within the `predicate` of a [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+Exceptions:
+
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when `predicate` adds, removes, or modifies key-value pairs within the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
 ### func values()
 
@@ -3162,7 +2893,7 @@ Parameters:
 public func values(): Collection<V>
 ```
 
-Function: Returns the values contained in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), storing all values in a container.
+Functionality: Returns all values in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek), stored in a container.
 
 Return Value:
 
@@ -3174,12 +2905,12 @@ Return Value:
 public operator func [](key: K, value!: V): Unit
 ```
 
-Function: Overloads the collection operator. If the key exists, the new value overwrites the old value; if the key does not exist, adds this key-value pair.
+Functionality: Operator overload for collections. If the key exists, the new value overwrites the old value; if the key does not exist, the key-value pair is added.
 
 Parameters:
 
 - key: K - The key to evaluate.
-- value!: V - The value to be set.
+- value!: V - The value to set.
 
 ### operator func \[](K)
 
@@ -3187,7 +2918,7 @@ Parameters:
 public operator func [](key: K): V
 ```
 
-Function: Overloads the collection operator. If the key exists, returns the value corresponding to the key.
+Functionality: Operator overload for collections. If the key exists, returns the corresponding value.
 
 Parameters:
 
@@ -3199,7 +2930,7 @@ Return Value:
 
 Exceptions:
 
-- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - Throws an exception if the key does not exist in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - Thrown if the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) does not contain the specified key.
 
 ### extend\<K, V> TreeMap\<K, V> <: Equatable\<TreeMap\<K, V>> where V <: Equatable\<V>
 
@@ -3207,73 +2938,13 @@ Exceptions:
 extend<K, V> TreeMap<K, V> <: Equatable<TreeMap<K, V>> where V <: Equatable<V>
 ```
 
-Function: Extends the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>> interface for the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> type, supporting equality comparison.
+Functionality: Extends the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>> interface, supporting equality comparison operations.
 
-Parent Type:
+Parent Types:
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>>
 
-#### operator func ==(TreeMap\<K, V>)
-
-```cangjie
-public operator func ==(right: TreeMap<K, V>): Bool
-```
-
-Function: Determines whether the current instance is equal to the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance referenced by the parameter.
-
-Two [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instances are considered equal if they contain identical key-value pairs.
-
-Parameters:
-
-- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - The object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
-
-#### operator func !=(TreeMap\<K, V>)
-
-```cangjie
-public operator func !=(right: TreeMap<K, V>): Bool
-```
-
-Function: Determines whether the current instance is not equal to the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance referenced by the parameter.
-
-Parameters:
-
-- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - The object to compare.
-
-Return Value:
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise false.
-
-### extend\<K, V> TreeMap\<K, V> <: ToString where V <: ToString, K <: ToString & Comparable\<K>
-
-```cangjie
-extend<K, V> TreeMap<K, V> <: ToString where V <: ToString, K <: ToString & Comparable<K>
-```
-
-Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>, supporting string conversion.
-
-Parent Type:
-
-- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-
-#### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-Function: Converts the current [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance to a string.
-
-The string includes the string representation of each key-value pair in the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>, formatted as: "[(k1, v1), (k2, v2), (k3, v3)]".
-
-Return Value:
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The resulting string.
-
-## class TreeSet\<T> where T <: Comparable\<T>
+#### operator func ==(TreeMap\<## class TreeSet\<T> where T <: Comparable\<T>
 
 ```cangjie
 public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
@@ -3285,11 +2956,11 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
 
 Function: An implementation of the [Set](collection_package_interface.md#interface-sett) interface based on [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
-The primary purpose of this class is to provide an ordered storage structure for elements, enabling fast insertion, deletion, and lookup operations.
+The primary purpose of this class is to provide an ordered element storage structure that enables fast insertion, deletion, and lookup of elements.
 
 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) can be used in any scenario requiring ordered element storage, such as databases, caches, lookup tables, etc.
 
-Parent Type:
+Parent Types:
 
 - [OrderedSet](collection_package_interface.md#interface-orderedsett)\<T>
 
@@ -3299,7 +2970,9 @@ Parent Type:
 public prop first: ?T
 ```
 
-Function: Retrieves the first element of the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).Type: ?T - If the first element exists, wraps it in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) and returns; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
+Function: Gets the first element of the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+
+Type: ?T - If the first element exists, returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
 
 ### prop last
 
@@ -3307,9 +2980,9 @@ Function: Retrieves the first element of the [TreeSet](collection_package_class.
 public prop last: ?T
 ```
 
-Function: Gets the last element of [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+Function: Gets the last element of the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
-Type: ?T - If the last element exists, wraps it in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) and returns; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
+Type: ?T - If the last element exists, returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
 
 ### prop size
 
@@ -3337,7 +3010,7 @@ public init(elements: Collection<T>)
 
 Function: Constructs a [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) from a given collection of elements.
 
-Elements are inserted into the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) in the order of the elements' iterator. Since duplicate elements are not allowed in [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet), if there are multiple identical elements in the input collection, only one will be retained.
+Elements are inserted into the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) in the order of the elements' iterator. Since duplicate elements are not allowed in a [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet), if there are multiple identical elements in the input collection, only one will be retained.
 
 Parameters:
 
@@ -3349,12 +3022,12 @@ Parameters:
 public init(size: Int64, initElement: (Int64) -> T)
 ```
 
-Function: Constructs a [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) using a specified size and initialization function.
+Function: Constructs a [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) using a specified size and an initialization function.
 
 Parameters:
 
 - size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements.
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> T - The initialization function rule for this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) -> T - The function rule to initialize this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
 Exceptions:
 
@@ -3368,15 +3041,15 @@ public static func of(elements: Array<T>): TreeSet<T>
 
 Function: Constructs a [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) containing all elements from the specified array.
 
-Elements are inserted into the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) in their original order. Since duplicate elements are not allowed, only one instance of each duplicate element will be retained.
+Elements are inserted into the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) in the order they appear in the array. Since duplicate elements are not allowed, only one instance of each element will be retained.
 
 Parameters:
 
 - elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The input array.
 
-Returns:
+Return Value:
 
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) containing elements of type T.
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) of type T.
 
 ### func add(T)
 
@@ -3390,7 +3063,7 @@ Parameters:
 
 - element: T - The specified element.
 
-Returns:
+Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the addition is successful; otherwise, returns false.
 
@@ -3400,7 +3073,7 @@ Returns:
 public func add(all!: Collection<T>): Unit
 ```
 
-Function: Adds all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet). Existing elements will not be added.
+Function: Adds all elements from the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) to this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet). Existing elements are not added.
 
 Parameters:
 
@@ -3412,16 +3085,16 @@ Parameters:
 public func backward(mark: T, inclusive!: Bool = true): Iterator<T>
 ```
 
-Function: Gets an iterator that traverses from the first node with a key less than or equal to `mark` in descending order up to [first](./collection_package_class.md#prop-first-4). If the node's key equals `mark`, the inclusion of this node is determined by `inclusive!`.
+Function: Gets an iterator that traverses from the first element less than or equal to `mark` in descending order to [first](./collection_package_class.md#prop-first-4). If the element equals `mark`, the inclusion of that element is determined by `inclusive!`.
 
 Parameters:
 
 - mark: T - The element used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element of the iterator, specifies whether to include `mark` as the starting point. Default is `true`.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Specifies whether to include `mark` as the starting point when it is the first element of the iterator. Defaults to `true`.
 
-Returns:
+Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for the corresponding elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the corresponding elements.
 
 ### func clear()
 
@@ -3439,7 +3112,7 @@ public func clone(): TreeSet<T>
 
 Function: Clones the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
-Returns:
+Return Value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) instance.
 
@@ -3449,7 +3122,7 @@ Returns:
 public func contains(element: T): Bool
 ```
 
-Function: Determines whether a specified element is contained.
+Function: Checks whether the specified element is contained.
 
 Parameters:
 
@@ -3457,7 +3130,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the specified element is contained; otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is contained; otherwise, returns false.
 
 ### func contains(Collection\<T>)
 
@@ -3465,7 +3138,7 @@ Return Value:
 public func contains(all!: Collection<T>): Bool
 ```
 
-Function: Determines whether the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements of the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
+Function: Checks whether this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements from the specified [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont).
 
 Parameters:
 
@@ -3473,7 +3146,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements of the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont); otherwise, returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements from the collection; otherwise, returns false.
 
 ### func forward(T, Bool)
 
@@ -3481,16 +3154,16 @@ Return Value:
 public func forward(mark: T, inclusive!: Bool = true): Iterator<T>
 ```
 
-Function: Obtains an iterator that traverses from the first element greater than or equal to `mark` in ascending order until [last](./collection_package_class.md#prop-last-3). If the element of the node equals `mark`, the inclusion of the corresponding node is determined by `inclusive!`.
+Function: Gets an iterator that traverses from the first element greater than or equal to `mark` in ascending order to [last](./collection_package_class.md#prop-last-3). If the element equals `mark`, the inclusion of that element is determined by `inclusive!`.
 
 Parameters:
 
 - mark: T - The element used to determine the starting point.
-- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element of the iterator, specifies whether to include `mark` as the starting point. Defaults to `true`.
+- inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Specifies whether to include `mark` as the starting point when it is the first element of the iterator. Defaults to `true`.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for the corresponding elements.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the corresponding elements.
 
 ### func isEmpty()
 
@@ -3498,7 +3171,7 @@ Return Value:
 public func isEmpty(): Bool
 ```
 
-Function: Determines whether the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) is empty.
+Function: Checks whether the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) is empty.
 
 Return Value:
 
@@ -3514,7 +3187,7 @@ Function: Returns an iterator for the [TreeSet](collection_package_class.md#clas
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
 ### func removeFirst()
 
@@ -3526,7 +3199,7 @@ Function: Removes the first element of the [TreeSet](collection_package_class.md
 
 Return Value:
 
-- ?T - If the first element exists, it is removed and returned wrapped in an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
+- ?T - If the first element exists, removes it and returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
 
 ### func removeLast()
 
@@ -3538,7 +3211,7 @@ Function: Removes the last element of the [TreeSet](collection_package_class.md#
 
 Return Value:
 
-- ?T - If the last element exists, it is removed and returned wrapped in an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
+- ?T - If the last element exists, removes it and returns it wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None.
 
 ### func remove(T)
 
@@ -3574,15 +3247,15 @@ Parameters:
 public func removeIf(predicate: (T) -> Bool): Unit
 ```
 
-Function: Takes a lambda expression and removes the corresponding element if the condition evaluates to `true`.
+Function: Takes a lambda expression and removes elements that satisfy the `true` condition.
 
 Parameters:
 
-- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to determine whether to remove the element.
+- predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to determine whether to remove an element.
 
 Exceptions:
 
-- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown when elements are added, deleted, or modified within the `predicate` in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+- [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - Thrown if elements are added, removed, or modified within `predicate`.
 
 ### func retain(Set\<T>)
 
@@ -3590,11 +3263,11 @@ Exceptions:
 public func retain(all!: Set<T>): Unit
 ```
 
-Function: Retains only the elements in this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) that are contained in the specified [Set](collection_package_interface.md#interface-sett), removing all other elements.
+Function: Retains only the elements in this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) that are contained in the specified [Set](collection_package_interface.md#interface-sett). Other elements will be removed.
 
 Parameters:
 
-- all!: [Set](collection_package_interface.md#interface-sett)\<T> - The [Set](collection_package_interface.md#interface-sett) whose elements are to be retained.
+- all!: [Set](collection_package_interface.md#interface-sett)\<T> - The [Set](collection_package_interface.md#interface-sett) of elements to retain.
 
 ### func subsetOf(ReadOnlySet\<T>)
 
@@ -3606,11 +3279,11 @@ Function: Checks whether this set is a subset of another [ReadOnlySet](collectio
 
 Parameters:
 
-- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The input set against which this function will determine if the current set is a subset.
+- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - The input set to compare against.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett); otherwise returns false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) is a subset of the specified [ReadOnlySet](collection_package_interface.md#interface-readonlysett); otherwise, returns false.
 
 ### func toArray()
 
@@ -3630,7 +3303,7 @@ Return Value:
 public operator func &(other: ReadOnlySet<T>): TreeSet<T>
 ```
 
-Function: Returns a new set containing the intersection of elements from both sets.
+Function: Returns a new set containing the intersection of two sets.
 
 Parameters:
 
@@ -3646,7 +3319,7 @@ Return Value:
 public operator func |(other: ReadOnlySet<T>): TreeSet<T>
 ```
 
-Function: Returns a new set containing the union of elements from both sets.
+Function: Returns a new set containing the union of two sets.
 
 Parameters:
 
@@ -3662,7 +3335,7 @@ Return Value:
 public operator func -(other: ReadOnlySet<T>): TreeSet<T>
 ```
 
-Function: Returns a new set containing the difference of elements between two sets.
+Function: Returns a new set containing the difference of two sets.
 
 Parameters:
 
@@ -3670,17 +3343,15 @@ Parameters:
 
 Return Value:
 
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A set of type T.
-
-### extend\<T> TreeSet\<T> <: Equatable\<TreeSet\<T>>
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A set of type T.### extend\<T> TreeSet\<T> <: Equatable\<TreeSet\<T>>
 
 ```cangjie
 extend<T> TreeSet<T> <: Equatable<TreeSet<T>>
 ```
 
-Function: Extends the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>> interface, supporting equality operations.
+Function: Extends the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> type with the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>> interface, enabling equality comparison operations.
 
-Parent Type:
+Parent Types:
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>>
 
@@ -3690,13 +3361,13 @@ Parent Type:
 public operator func ==(that: TreeSet<T>): Bool
 ```
 
-Function: Determines whether the current instance is equal to the parameter-specified [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> instance.
+Function: Determines whether the current instance is equal to the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> instance pointed to by the parameter.
 
 Two [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> instances are considered equal if they contain exactly the same elements.
 
 Parameters:
 
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - The object to compare.
+- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - The object to be compared.
 
 Return Value:
 
@@ -3708,11 +3379,11 @@ Return Value:
 public operator func !=(that: TreeSet<T>): Bool
 ```
 
-Function: Determines whether the current instance is not equal to the parameter-specified [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> instance.
+Function: Determines whether the current instance is not equal to the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> instance pointed to by the parameter.
 
 Parameters:
 
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - The object to compare.
+- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - The object to be compared.
 
 Return Value:
 
@@ -3724,9 +3395,9 @@ Return Value:
 extend<T> TreeSet<T> <: ToString where T <: ToString
 ```
 
-Function: Extends the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, supporting string conversion operations.
+Function: Extends the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, enabling string conversion operations.
 
-Parent Type:
+Parent Types:
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 

@@ -1,6 +1,6 @@
 # Functions
 
-## func assertCaughtUnexpectedE(String, String, String, Option\<AssertionCtx>)
+## func assertCaughtUnexpectedE(String, String, String, ?AssertionCtx)
 
 ```cangjie
 public func assertCaughtUnexpectedE(
@@ -20,7 +20,7 @@ Parameters:
 - caughtException: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Actually caught exception.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
-## func assertEqual\<T>(String, String, T, T, Option\<AssertionCtx>): Unit where T <: Equatable\<T>
+## func assertEqual\<T>(String, String, T, T, ?AssertionCtx)
 
 ```cangjie
 public func assertEqual<T>(
@@ -42,6 +42,30 @@ Parameters:
 - actual: T - Actual value.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
+## func assertEqual\<T>(String, String, T, T, Bool, ?AssertionCtx)
+
+```cangjie
+public func assertEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool = false,
+    optParentCtx!: ?AssertionCtx = None
+): Unit where T <: Equatable<T>
+```
+
+Function: Compares whether `expected` and `actual` values are equal. Throws an exception immediately if unequal.
+
+Parameters:
+
+- leftStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the expected expression.
+- rightStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the actual expression.
+- expected: T - Expected value.
+- actual: T - Actual value.
+- isDelta!: Bool - Whether to use approximate equality. Disabled by default.
+- optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
+
 ## func defaultConfiguration()
 
 ```cangjie
@@ -50,7 +74,7 @@ public func defaultConfiguration(): Configuration
 
 Function: Generates default configuration information.
 
-Return Value:
+Return value:
 
 - [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 
@@ -66,11 +90,11 @@ Parameters:
 
 - testPackage: [TestPackage](./unittest_package_classes.md#class-testpackage) - Test package object.
 
-Return Value:
+Return value:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Execution result.
 
-## func expectCaughtUnexpectedE(String, String, String, Option\<AssertionCtx>)
+## func expectCaughtUnexpectedE(String, String, String, ?AssertionCtx)
 
 ```cangjie
 public func expectCaughtUnexpectedE(
@@ -81,7 +105,7 @@ public func expectCaughtUnexpectedE(
 ): Unit
 ```
 
-Function: Records information without throwing an exception when the caught exception does not match expectations.
+Function: Records information when the caught exception does not match expectations, without throwing an exception.
 
 Parameters:
 
@@ -90,7 +114,7 @@ Parameters:
 - caughtException: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Actually caught exception.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
-## func expectEqual\<T>(String, String, T, T, Option\<AssertionCtx>): Unit where T <: Equatable\<T>
+## func expectEqual\<T>(String, String, T, T, ?AssertionCtx)
 
 ```cangjie
 public func expectEqual<T>(
@@ -110,6 +134,30 @@ Parameters:
 - rightStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the actual expression.
 - expected: T - Expected value.
 - actual: T - Actual value.
+- optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
+
+## func expectEqual\<T>(String, String, T, T, Bool, ?AssertionCtx)
+
+```cangjie
+public func expectEqual<T>(
+    leftStr: String,
+    rightStr: String,
+    expected: T,
+    actual: T,
+    isDelta!: Bool = false,
+    optParentCtx!: ?AssertionCtx
+): Unit where T <: Equatable<T>
+```
+
+Function: Compares whether `expected` and `actual` values are equal. Records comparison results without throwing an exception.
+
+Parameters:
+
+- leftStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the expected expression.
+- rightStr: [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the actual expression.
+- expected: T - Expected value.
+- actual: T - Actual value.
+- isDelta!: Bool - Whether to use approximate equality. Disabled by default.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
 ## func fail(String)
@@ -136,7 +184,7 @@ Parameters:
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Failure message.
 
-## func invokeCustomAssert\<T>(Array\<String>, String, (AssertionCtx) -> T, Option\<AssertionCtx>)
+## func invokeCustomAssert\<T>(Array\<String>, String, (AssertionCtx) -> T, ?AssertionCtx)
 
 ```cangjie
 public func invokeCustomAssert<T>(
@@ -147,7 +195,7 @@ public func invokeCustomAssert<T>(
 ): T
 ```
 
-Function: Executes user-defined assertion functions specified by [`@Assert\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-macro) within [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-macro), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-macro), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-macro) macros.
+Function: Executes user-defined assertion functions specified by [`@Assert\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
 
 Parameters:
 
@@ -156,11 +204,11 @@ Parameters:
 - assert: ([AssertionCtx](./unittest_package_classes.md#class-assertionctx)) -> T - Captures assertion calls with correct parameters.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
-Return Value:
+Return value:
 
-- `T` - Value returned by the user-defined assertion.
+- T - Value returned by the user-defined assertion.
 
-## func invokeCustomExpect(Array\<String>, String, (AssertionCtx) -> Any, Option\<AssertionCtx>)
+## func invokeCustomExpect(Array\<String>, String, (AssertionCtx) -> Any, ?AssertionCtx)
 
 ```cangjie
 public func invokeCustomExpect(
@@ -171,7 +219,7 @@ public func invokeCustomExpect(
 ): Unit
 ```
 
-Function: Executes user-defined assertion functions specified by [`@Expect\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-macro) within [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-macro), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-macro), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-macro) macros.
+Function: Executes user-defined assertion functions specified by [`@Expect\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
 
 Parameters:
 
@@ -179,3 +227,53 @@ Parameters:
 - caller: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the invoked custom assertion.
 - expect: ([AssertionCtx](./unittest_package_classes.md#class-assertionctx)) -> [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Captures assertion calls with correct parameters.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
+
+## func isNearExpansion\<CT, D>(CT, CT, D, String)
+
+```cangjie
+public func isNearExpansion<CT, D>(
+    l: CT,
+    r: CT,
+    delta!: D,
+    cmpType!: String
+): Bool where CT <: NearEquatable<CT, D> & Comparable<CT>
+```
+
+Function: Determines whether two parameters are approximately equal. Used during [PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-宏) macro expansion. Not intended for user use.
+
+Parameters:
+
+- l: CT - Parameter to be compared for approximate equality.
+- r: CT - Parameter to be compared for approximate equality.
+- delta!: D - Delta value used for approximate equality comparison.
+- cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Comparison type.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether approximately equal.
+
+## func isNearExpansion\<CT, D>(CT, CT, D, String, Bool)
+
+```cangjie
+public func isNearExpansion<CT, D>(
+    l: CT,
+    r: CT,
+    delta!: D,
+    cmpType!: String,
+    overloadHack!: Bool = true
+): Bool where CT <: NearEquatable<CT, D>
+```
+
+Function: Determines whether two parameters are approximately equal. Used during [PowerAssert](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-宏) macro expansion. Not intended for user use.
+
+Parameters:
+
+- l: CT - Parameter to be compared for approximate equality.
+- r: CT - Parameter to be compared for approximate equality.
+- delta!: D - Delta value used for approximate equality comparison.
+- cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Comparison type.
+- overloadHack!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Additional parameter added to enable function overloading, default value is true.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether approximately equal.

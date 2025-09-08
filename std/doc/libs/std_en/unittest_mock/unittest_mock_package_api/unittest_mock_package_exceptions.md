@@ -18,7 +18,7 @@ Parent Types:
 public class MockFrameworkException <: PrettyException {}
 ```
 
-Function: Framework exception information, thrown when API usage does not meet framework requirements.
+Function: Framework exception information, thrown when API usage doesn't meet framework requirements.
 
 Parent Types:
 
@@ -30,7 +30,7 @@ Parent Types:
 public class MockFrameworkInternalError <: PrettyException {}
 ```
 
-Function: Framework exception information, users should not expect this exception to be thrown.
+Function: Framework exception information that users should not expect to be thrown.
 
 Parent Types:
 
@@ -42,14 +42,14 @@ Parent Types:
 public abstract class PrettyException <: Exception & PrettyPrintable {}
 ```
 
-Function: An exception type that supports [PrettyPrintable](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable), capable of printing exception information in a well-formatted manner.
+Function: An exception type supporting [PrettyPrintable](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable), capable of printing exception information in a well-formatted manner.
 
 Parent Types:
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
 - [PrettyPrintable](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable)
 
-### func pprint
+### func pprint(PrettyPrinter)
 
 ```cangjie
 public func pprint(to: PrettyPrinter): PrettyPrinter

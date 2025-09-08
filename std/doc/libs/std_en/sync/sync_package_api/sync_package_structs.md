@@ -1,4 +1,4 @@
-# Structure
+# Struct
 
 ## struct ConditionID <sup>(deprecated)<sup>
 
@@ -6,7 +6,7 @@
 public struct ConditionID
 ```
 
-Function: Used to represent a condition variable for mutex locks. For details, see [MultiConditionMonitor <sup>(deprecated)<sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated).
+Function: Used to represent a condition variable for mutex locks. See [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated) for details.
 
 > **Note:**
 >

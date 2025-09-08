@@ -8,7 +8,11 @@ public class WeakRef<T> <: WeakRefBase where T <: Object {
 }
 ```
 
-Functionality: This class provides weak reference capabilities. If an object's reference is marked as a weak reference, the GC can reclaim it according to the specified cleanup policy even when the reference is non-null and the object remains reachable.
+Functionality: This class provides weak reference related capabilities. If an object's reference is marked as a weak reference, the GC can reclaim it according to the specified cleanup policy even when the reference is non-null and the object's reachability holds.
+
+Parent Type:
+
+- [WeakRefBase](ref_package_classes#class-weakrefbase)
 
 ### prop cleanupPolicy
 
@@ -16,7 +20,7 @@ Functionality: This class provides weak reference capabilities. If an object's r
 public prop cleanupPolicy: CleanupPolicy
 ```
 
-Functionality: Gets the cleanup policy for this weak reference.
+Functionality: Gets the cleanup policy of this weak reference.
 
 Type: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy)
 
@@ -40,7 +44,7 @@ Functionality: Creates a weak reference for the `value` object with the specifie
 
 Parameters:
 
-- value: T - The object to be weakly referenced.
+- value: T - The object referenced by the weak reference.
 - cleanupPolicy: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - The cleanup policy for the `value` object.
 
 ### func clear()

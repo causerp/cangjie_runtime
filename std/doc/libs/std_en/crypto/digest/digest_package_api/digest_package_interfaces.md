@@ -14,7 +14,7 @@ public interface Digest {
 }
 ```
 
-Function: Digest algorithm interface. Classes, interfaces, or structs that inherit this interface must comply with the parameter and return value definitions specified in this interface.
+Function: Digest algorithm interface. Classes, interfaces, or structs that inherit this interface must comply with the parameter and return value definitions of its functions.
 
 ### prop algorithm
 
@@ -64,7 +64,7 @@ Return value:
 func finish(to!: Array<Byte>): Unit
 ```
 
-Function: Gets the generated message digest value. Note that after calling finish(), no further digest calculations can be performed. To recalculate, the context must be reset using reset().
+Function: Gets the generated digest value. Note that after calling finish(), no further digest calculations can be performed. To recalculate, the context must be reset using reset().
 
 Parameters:
 
@@ -85,3 +85,7 @@ func write(buffer: Array<Byte>): Unit
 ```
 
 Function: Updates the digest object with the given buffer.
+
+Parameters:
+
+- buffer: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Given array.

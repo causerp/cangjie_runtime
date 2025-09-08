@@ -9,7 +9,7 @@ public open class ArithmeticException <: Exception {
 }
 ```
 
-Function: Arithmetic exception class, used when arithmetic exceptions occur.
+Purpose: Arithmetic exception class, used when arithmetic exceptions occur.
 
 Parent Types:
 
@@ -21,7 +21,7 @@ Parent Types:
 public init()
 ```
 
-Function: Constructs a default [ArithmeticException](core_package_exceptions.md#class-arithmeticexception) instance with empty default exception message.
+Purpose: Constructs a default [ArithmeticException](core_package_exceptions.md#class-arithmeticexception) instance with empty exception message.
 
 ### init(String)
 
@@ -29,11 +29,11 @@ Function: Constructs a default [ArithmeticException](core_package_exceptions.md#
 public init(message: String)
 ```
 
-Function: Constructs an [ArithmeticException](core_package_exceptions.md#class-arithmeticexception) instance with the specified exception message.
+Purpose: Constructs an [ArithmeticException](core_package_exceptions.md#class-arithmeticexception) instance with specified exception message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception prompt message.
+- message: [String](core_package_structs.md#struct-string) - Exception message.
 
 ### func getClassName()
 
@@ -41,7 +41,7 @@ Parameters:
 protected open override func getClassName(): String
 ```
 
-Function: Gets the class name.
+Purpose: Gets the class name.
 
 Return Value:
 
@@ -53,7 +53,7 @@ Return Value:
 public open class Error <: ToString
 ```
 
-Function: [Error](core_package_exceptions.md#class-error) is the base class for all error classes. This class cannot be inherited or instantiated, but can be caught.
+Purpose: [Error](core_package_exceptions.md#class-error) is the base class for all error classes. This class cannot be inherited or initialized, but can be caught.
 
 Parent Types:
 
@@ -65,7 +65,7 @@ Parent Types:
 public open prop message: String
 ```
 
-Function: Gets the error message.
+Purpose: Gets the error message.
 
 Type: [String](core_package_structs.md#struct-string)
 
@@ -75,7 +75,7 @@ Type: [String](core_package_structs.md#struct-string)
 protected open func getClassName(): String
 ```
 
-Function: Gets the class name.
+Purpose: Gets the class name.
 
 Return Value:
 
@@ -87,11 +87,11 @@ Return Value:
 public func getStackTrace(): Array<StackTraceElement>
 ```
 
-Function: Gets the stack trace information, where each stack trace element is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
+Purpose: Gets stack trace information, where each stack trace element is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
 
 Return Value:
 
-- [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace information array.
+- [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace array.
 
 ### func getStackTraceMessage()
 
@@ -99,7 +99,7 @@ Return Value:
 public open func getStackTraceMessage(): String
 ```
 
-Function: Gets the stack trace message.
+Purpose: Gets stack trace information.
 
 Return Value:
 
@@ -111,7 +111,7 @@ Return Value:
 public open func printStackTrace(): Unit
 ```
 
-Function: Prints the stack trace to the console.
+Purpose: Prints stack trace to console.
 
 ### func toString()
 
@@ -119,7 +119,7 @@ Function: Prints the stack trace to the console.
 public open func toString(): String
 ```
 
-Function: Gets the string representation of the current [Error](core_package_exceptions.md#class-error) instance, including the class name and error message.
+Purpose: Gets the string representation of current [Error](core_package_exceptions.md#class-error) instance, including class name and error message.
 
 Return Value:
 
@@ -134,9 +134,9 @@ public open class Exception <: ToString {
 }
 ```
 
-Function: [Exception](core_package_exceptions.md#class-exception) is the parent class for all exception classes.
+Purpose: [Exception](core_package_exceptions.md#class-exception) is the parent class for all exception classes.
 
-Supports constructing an exception class, setting/getting exception messages, converting to string, getting/printing stack traces, and setting exception names (for string representation).
+Supports constructing exception classes, setting/getting exception messages, converting to string, getting/printing stack traces, and setting exception names (for string representation).
 
 Parent Types:
 
@@ -148,7 +148,7 @@ Parent Types:
 public open prop message: String
 ```
 
-Function: Gets the exception message.
+Purpose: Gets the exception message.
 
 Type: [String](core_package_structs.md#struct-string)
 
@@ -158,7 +158,7 @@ Type: [String](core_package_structs.md#struct-string)
 public init()
 ```
 
-Function: Constructs a default [Exception](core_package_exceptions.md#class-exception) instance with empty default exception message.
+Purpose: Constructs a default [Exception](core_package_exceptions.md#class-exception) instance with empty exception message.
 
 ### init(String)
 
@@ -166,11 +166,11 @@ Function: Constructs a default [Exception](core_package_exceptions.md#class-exce
 public init(message: String)
 ```
 
-Function: Constructs an [Exception](core_package_exceptions.md#class-exception) instance with the specified exception message.
+Purpose: Constructs an [Exception](core_package_exceptions.md#class-exception) instance with specified exception message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception prompt message.
+- message: [String](core_package_structs.md#struct-string) - Exception message.
 
 ### func getClassName()
 
@@ -178,7 +178,7 @@ Parameters:
 protected open func getClassName(): String
 ```
 
-Function: Gets the class name.
+Purpose: Gets the class name.
 
 Return Value:
 
@@ -190,11 +190,11 @@ Return Value:
 public func getStackTrace(): Array<StackTraceElement>
 ```
 
-Function: Gets the stack trace information, where each stack trace element is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
+Purpose: Gets stack trace information, where each stack trace element is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
 
 Return Value:
 
-- [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace information array.
+- [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace array.
 
 ### func printStackTrace()
 
@@ -202,7 +202,7 @@ Return Value:
 public func printStackTrace(): Unit
 ```
 
-Function: Prints the stack trace to the console.
+Purpose: Prints stack trace to console.
 
 ### func toString()
 
@@ -210,7 +210,7 @@ Function: Prints the stack trace to the console.
 public open func toString(): String
 ```
 
-Function: Gets the string representation of the current [Exception](core_package_exceptions.md#class-exception) instance, including the class name and exception message.
+Purpose: Gets the string representation of current [Exception](core_package_exceptions.md#class-exception) instance, including class name and exception message.
 
 Return Value:
 
@@ -225,7 +225,7 @@ public open class IllegalArgumentException <: Exception {
 }
 ```
 
-Function: Represents an exception class for illegal arguments.
+Purpose: Represents illegal argument exception class.
 
 Parent Types:
 
@@ -237,7 +237,7 @@ Parent Types:
 public init()
 ```
 
-Function: Constructs a default [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) instance with empty default exception message.
+Purpose: Constructs a default [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) instance with empty exception message.
 
 ### init(String)
 
@@ -245,11 +245,11 @@ Function: Constructs a default [IllegalArgumentException](core_package_exception
 public init(message: String)
 ```
 
-Function: Constructs an [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) instance with the specified exception message.
+Purpose: Constructs an [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) instance with specified exception message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception prompt message.
+- message: [String](core_package_structs.md#struct-string) - Exception message.
 
 ### func getClassName()
 
@@ -257,7 +257,7 @@ Parameters:
 protected override open func getClassName(): String
 ```
 
-Function: Gets the class name.
+Purpose: Gets the class name.
 
 Return Value:
 
@@ -272,7 +272,7 @@ public open class IllegalFormatException <: IllegalArgumentException {
 }
 ```
 
-Function: Represents an exception class for invalid or non-standard variable formats.
+Purpose: Represents exception class for invalid or non-standard variable formats.
 
 Parent Types:
 
@@ -284,7 +284,7 @@ Parent Types:
 public init()
 ```
 
-Function: Constructs a default [IllegalFormatException](core_package_exceptions.md#class-illegalformatexception) instance with empty default exception message.
+Purpose: Constructs a default [IllegalFormatException](core_package_exceptions.md#class-illegalformatexception) instance with empty exception message.
 
 ### init(String)
 
@@ -292,11 +292,25 @@ Function: Constructs a default [IllegalFormatException](core_package_exceptions.
 public init(message: String)
 ```
 
-Function: Constructs an [IllegalFormatException](core_package_exceptions.md#class-illegalformatexception) instance with the specified exception message.
+Purpose: Constructs an [IllegalFormatException](core_package_exceptions.md#class-illegalformatexception) instance with specified exception message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception prompt message.## class IllegalMemoryException
+- message: [String](core_package_structs.md#struct-string) - Exception message.
+
+### func getClassName()
+
+```cangjie
+protected override func getClassName(): String
+```
+
+Purpose: Gets the class name.
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name.
+
+## class IllegalMemoryException
 
 ```cangjie
 public class IllegalMemoryException <: Exception {
@@ -305,7 +319,7 @@ public class IllegalMemoryException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class for memory operation errors.
+Purpose: Represents exception class for memory operation errors.
 
 Parent Types:
 
@@ -317,7 +331,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) instance with empty error message.
+Purpose: Constructs a default [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) instance with empty exception message.
 
 ### init(String)
 
@@ -325,7 +339,7 @@ Purpose: Constructs a default [IllegalMemoryException](core_package_exceptions.m
 public init(message: String)
 ```
 
-Purpose: Constructs an [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) instance with specified error message.
+Purpose: Constructs an [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) instance with specified exception message.
 
 Parameters:
 
@@ -340,7 +354,7 @@ public class IllegalStateException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class for illegal states.
+Purpose: Represents illegal state exception class.
 
 Parent Types:
 
@@ -352,7 +366,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [IllegalStateException](core_package_exceptions.md#class-illegalstateexception) instance with empty error message.
+Purpose: Constructs a default [IllegalStateException](core_package_exceptions.md#class-illegalstateexception) instance with empty exception message.
 
 ### init(String)
 
@@ -360,7 +374,7 @@ Purpose: Constructs a default [IllegalStateException](core_package_exceptions.md
 public init(message: String)
 ```
 
-Purpose: Constructs an [IllegalStateException](core_package_exceptions.md#class-illegalstateexception) instance with specified error message.
+Purpose: Constructs an [IllegalStateException](core_package_exceptions.md#class-illegalstateexception) instance with specified exception message.
 
 Parameters:
 
@@ -375,7 +389,7 @@ public class IncompatiblePackageException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class for incompatible packages.
+Purpose: Represents incompatible package exception class.
 
 Parent Types:
 
@@ -387,7 +401,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [IncompatiblePackageException](core_package_exceptions.md#class-incompatiblepackageexception) instance with empty error message.
+Purpose: Constructs a default [IncompatiblePackageException](core_package_exceptions.md#class-incompatiblepackageexception) instance with empty exception message.
 
 ### init(String)
 
@@ -395,12 +409,11 @@ Purpose: Constructs a default [IncompatiblePackageException](core_package_except
 public init(message: String)
 ```
 
-Purpose: Constructs an [IncompatiblePackageException](core_package_exceptions.md#class-incompatiblepackageexception) instance with specified error message.
+Purpose: Constructs an [IncompatiblePackageException](core_package_exceptions.md#class-incompatiblepackageexception) instance with specified exception message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
-
+- message: [String](core_package_structs.md#struct-string) - Exception message.```markdown
 ## class IndexOutOfBoundsException
 
 ```cangjie
@@ -410,9 +423,9 @@ public class IndexOutOfBoundsException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class for index out-of-bounds errors.
+Function: Represents an exception class for index out-of-bounds errors.
 
-Parent Types:
+Parent Type:
 
 - [Exception](#class-exception)
 
@@ -422,7 +435,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) instance with empty error message.
+Function: Constructs a default [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) instance with an empty error message.
 
 ### init(String)
 
@@ -430,23 +443,11 @@ Purpose: Constructs a default [IndexOutOfBoundsException](core_package_exception
 public init(message: String)
 ```
 
-Purpose: Constructs an [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) instance with specified error message.
+Function: Constructs an [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
-
-## class InternalError
-
-```cangjie
-public class InternalError <: Error
-```
-
-Purpose: Represents an internal error class that cannot be instantiated but can be caught.
-
-Parent Types:
-
-- [Error](#class-error)
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class NegativeArraySizeException
 
@@ -457,9 +458,9 @@ public class NegativeArraySizeException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class for negative array sizes.
+Function: Represents an exception class for negative array size errors.
 
-Parent Types:
+Parent Type:
 
 - [Exception](#class-exception)
 
@@ -469,7 +470,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) instance with empty error message.
+Function: Constructs a default [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) instance with an empty error message.
 
 ### init(String)
 
@@ -477,11 +478,11 @@ Purpose: Constructs a default [NegativeArraySizeException](core_package_exceptio
 public init(message: String)
 ```
 
-Purpose: Constructs a [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) instance with specified error message.
+Function: Constructs a [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class NoneValueException
 
@@ -492,9 +493,9 @@ public class NoneValueException <: Exception {
 }
 ```
 
-Purpose: Represents an exception class when an [Option](core_package_enums.md#enum-optiont)\<T> instance has `None` value, typically thrown by `getOrThrow` function.
+Function: Represents an exception class for [Option](core_package_enums.md#enum-optiont)\<T> instances with `None` value, typically thrown by the `getOrThrow` function.
 
-Parent Types:
+Parent Type:
 
 - [Exception](#class-exception)
 
@@ -504,7 +505,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [NoneValueException](core_package_exceptions.md#class-nonevalueexception) instance with empty error message.
+Function: Constructs a default [NoneValueException](core_package_exceptions.md#class-nonevalueexception) instance with an empty error message.
 
 ### init(String)
 
@@ -512,11 +513,11 @@ Purpose: Constructs a default [NoneValueException](core_package_exceptions.md#cl
 public init(message: String)
 ```
 
-Purpose: Constructs a [NoneValueException](core_package_exceptions.md#class-nonevalueexception) instance with specified error message.
+Function: Constructs a [NoneValueException](core_package_exceptions.md#class-nonevalueexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class OutOfMemoryError
 
@@ -524,9 +525,9 @@ Parameters:
 public class OutOfMemoryError <: Error
 ```
 
-Purpose: Represents an out-of-memory error class that cannot be inherited or instantiated but can be caught.
+Function: Represents an error class for out-of-memory conditions. This class cannot be inherited or instantiated but can be caught.
 
-Parent Types:
+Parent Type:
 
 - [Error](#class-error)
 
@@ -539,9 +540,9 @@ public class OverflowException <: ArithmeticException {
 }
 ```
 
-Purpose: Represents an exception class for arithmetic overflow.
+Function: Represents an exception class for arithmetic overflow errors.
 
-Parent Types:
+Parent Type:
 
 - [ArithmeticException](#class-arithmeticexception)
 
@@ -551,7 +552,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [OverflowException](core_package_exceptions.md#class-overflowexception) instance with empty error message.
+Function: Constructs a default [OverflowException](core_package_exceptions.md#class-overflowexception) instance with an empty error message.
 
 ### init(String)
 
@@ -559,11 +560,11 @@ Purpose: Constructs a default [OverflowException](core_package_exceptions.md#cla
 public init(message: String)
 ```
 
-Purpose: Constructs an [OverflowException](core_package_exceptions.md#class-overflowexception) instance with specified error message.
+Function: Constructs an [OverflowException](core_package_exceptions.md#class-overflowexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class SpawnException
 
@@ -574,9 +575,9 @@ public class SpawnException <: Exception {
 }
 ```
 
-Purpose: Thread exception class indicating errors during thread processing.
+Function: Thread exception class indicating errors during thread processing.
 
-Parent Types:
+Parent Type:
 
 - [Exception](#class-exception)
 
@@ -586,7 +587,7 @@ Parent Types:
 public init()
 ```
 
-Purpose: Constructs a default [SpawnException](core_package_exceptions.md#class-spawnexception) instance with empty error message.
+Function: Constructs a default [SpawnException](core_package_exceptions.md#class-spawnexception) instance with an empty error message.
 
 ### init(String)
 
@@ -594,13 +595,11 @@ Purpose: Constructs a default [SpawnException](core_package_exceptions.md#class-
 public init(message: String)
 ```
 
-Purpose: Constructs a [SpawnException](core_package_exceptions.md#class-spawnexception) instance with specified error message.
+Function: Constructs a [SpawnException](core_package_exceptions.md#class-spawnexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.Parameters:
-
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class StackOverflowError
 
@@ -608,7 +607,7 @@ Parameters:
 public class StackOverflowError <: Error
 ```
 
-Function: Represents a stack overflow error class. This class cannot be inherited or instantiated, but can be caught.
+Function: Represents an error class for stack overflow conditions. This class cannot be inherited or instantiated but can be caught.
 
 Parent Type:
 
@@ -631,7 +630,7 @@ public class TimeoutException <: Exception {
 }
 ```
 
-Function: Thrown when a blocking operation times out.
+Function: Exception thrown when a blocking operation times out.
 
 Parent Type:
 
@@ -643,7 +642,7 @@ Parent Type:
 public init()
 ```
 
-Function: Constructs a default [TimeoutException](core_package_exceptions.md#class-timeoutexception) instance with an empty exception message.
+Function: Constructs a default [TimeoutException](core_package_exceptions.md#class-timeoutexception) instance with an empty error message.
 
 ### init(String)
 
@@ -651,11 +650,11 @@ Function: Constructs a default [TimeoutException](core_package_exceptions.md#cla
 public init(message: String)
 ```
 
-Function: Constructs a [TimeoutException](core_package_exceptions.md#class-timeoutexception) instance with the specified exception message.
+Function: Constructs a [TimeoutException](core_package_exceptions.md#class-timeoutexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
 
 ## class UnsupportedException
 
@@ -678,7 +677,7 @@ Parent Type:
 public init()
 ```
 
-Function: Constructs a default [UnsupportedException](core_package_exceptions.md#class-unsupportedexception) instance with an empty exception message.
+Function: Constructs a default [UnsupportedException](core_package_exceptions.md#class-unsupportedexception) instance with an empty error message.
 
 ### init(String)
 
@@ -686,8 +685,9 @@ Function: Constructs a default [UnsupportedException](core_package_exceptions.md
 public init(message: String)
 ```
 
-Function: Constructs an [UnsupportedException](core_package_exceptions.md#class-unsupportedexception) instance with the specified exception message.
+Function: Constructs an [UnsupportedException](core_package_exceptions.md#class-unsupportedexception) instance with the specified error message.
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.
+- message: [String](core_package_structs.md#struct-string) - The exception message.
+```
