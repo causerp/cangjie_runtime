@@ -241,12 +241,11 @@ public override func provide(): Iterable<T>
 
 ```cangjie
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
-    RandomDataProviderRange(configuration: Configuration, min: T, max: T) 
-    override func provide(): Iterable<T>
+    public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 }
 ```
 
-功能：可按照给定范围生成的数据提供器
+功能：可按照给定范围生成的数据提供器。
 
 父类型：
 
@@ -258,7 +257,7 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ```
 
-功能: 构造器。
+功能：构造器。
 
 参数：
 
@@ -309,10 +308,7 @@ public override func shrink(value: T): Iterable<T>
 ## class RandomDataShrinkerRange\<T>
 
 ```cangjie
-public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable<T> {
-    RandomDataShrinkerRange(min: T, max: T)
-    override func shrink(value: T): Iterable<T>
-}
+public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable<T> {}
 ```
 
 功能：可按照给定范围生成的数据缩减器。
@@ -321,23 +317,10 @@ public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable
 
 - [DataShrinker\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert)
 
-### RandomDataShrinkerRange(T, T)
-
-```cangjie
-RandomDataShrinkerRange(min: T, max: T)
-```
-
-功能: 构造器。
-
-参数：
-
-- min: T - 最小值（包含）。
-- max: T - 最大值（不包含）。
-
 ### func shrink(T)
 
 ```cangjie
-override func shrink(value: T): Iterable<T>
+public override func shrink(value: T): Iterable<T>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -403,12 +386,7 @@ public override func shrinker(_: Configuration): RandomDataShrinker<T>
 ## class RandomDataStrategyRange\<T>
 
 ```cangjie
-public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryRange<T> {
-    RandomDataStrategyRange(min: T, max: T)
-    override func provider(configuration: Configuration): RandomDataProviderRange\<T>
-    override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
-    override prop isInfinite: Bool
-}
+public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryRange<T> {}
 ```
 
 功能：可按照给定范围生成的数据策略器。
@@ -417,23 +395,10 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 
 - [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
 
-### RandomDataStrategyRange(T, T)
-
-```cangjie
-RandomDataStrategyRange(min: T, max: T)
-```
-
-功能: 构造器
-
-参数：
-
-- min: T - 最小值（包含）。
-- max: T - 最大值（不包含）。
-
 ### func provider(Configuration)
 
 ```cangjie
-override func provider(configuration: Configuration): RandomDataProviderRange<T>
+public override func provider(configuration: Configuration): RandomDataProviderRange<T>
 ```
 
 功能：获取随机数据的提供者。
