@@ -246,7 +246,7 @@ public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
 
 返回值：
 
-- T: 打印结果返回值。一般为 Unit 类型。
+- T - 打印结果返回值。一般为 Unit 类型。
 
 ## class CartesianProductProcessor\<T0,T1>
 
