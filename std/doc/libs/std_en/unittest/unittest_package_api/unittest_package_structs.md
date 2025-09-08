@@ -840,7 +840,8 @@ Function: The key value for the configuration item.
 public prop name: String
 ```
 
-Function: The name of the configuration item's key value.```markdown
+Function: The name of the configuration item's key value.
+
 ## struct KeyIncludeTags
 
 ```cangjie

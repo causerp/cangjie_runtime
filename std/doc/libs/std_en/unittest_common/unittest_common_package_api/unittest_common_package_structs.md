@@ -53,7 +53,7 @@ public let description: ?String
 
 Function: Option description information.
 
-Type: ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+Type: ?[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)
 
 ### let name
 
@@ -63,7 +63,7 @@ public let name: String
 
 Function: Option name.
 
-Type: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+Type: [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)
 
 ### let types
 
@@ -73,7 +73,7 @@ public let types!: HashMap<String, ?String> = HashMap()
 
 Function: Maps from option type names to their meanings.
 
-Type: HashMap<[String](../../../std/core/core_package_api/core_package_structs.md#struct-string), ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)>
+Type: HashMap<[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string), ?[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)>
 
 ### let userDefined
 
@@ -83,4 +83,4 @@ public let userDefined: Bool
 
 Function: Whether the option has been defined.
 
-Type: [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool)
+Type: [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool)

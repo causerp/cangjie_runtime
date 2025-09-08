@@ -30,9 +30,9 @@ unittest.prop_test 为单元测试框架提供了参数化测试所需的类型�
 |              类名          |           功能           |
 | --------------------------- | ------------------------ |
 | [Generators](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-generators) | 包含辅助函数的类，可帮助开发人员编写自己的生成器。 |
-| [RandomDataProvider\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdataprovidert) | 使用随机数据生成的 DataProvider 接口的实现。 |
-| [RandomDataShrinker\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdatashrinkert) | 使用随机数据生成的 DataShrinker 接口的实现。 |
-| [RandomDataStrategy\<T>](./unittest_package_api/unittest_package_classes.md#class-randomdatastrategyt) | 使用随机数据生成的 DataStrategy 接口的实现。 |
+| [RandomDataProvider\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdataprovidert) | 使用随机数据生成的 DataProvider 接口的实现。 |
+| [RandomDataShrinker\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatashrinkert) | 使用随机数据生成的 DataShrinker 接口的实现。 |
+| [RandomDataStrategy\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatastrategyt) | 使用随机数据生成的 DataStrategy 接口的实现。 |
 | [LazySeq\<T>](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-lazyseqt) | 延迟计算的 T 类型值序列。用于在迭代时计算和记忆值。 |
 | [ShrinkHelpers](./unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-shrinkhelpers) | 提供对元组实现缩减迭代器的方法。 |
 

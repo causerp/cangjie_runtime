@@ -417,7 +417,6 @@ public static func createTemp(directoryPath: Path): File
 
 Functionality: Creates a temporary file under the specified directory.
 
-The file name follows the pattern `tmpFileXXXX```markdown
 ## class HardLink
 
 ```cangjie

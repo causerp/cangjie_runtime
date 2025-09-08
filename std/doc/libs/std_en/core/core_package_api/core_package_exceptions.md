@@ -413,7 +413,8 @@ Purpose: Constructs an [IncompatiblePackageException](core_package_exceptions.md
 
 Parameters:
 
-- message: [String](core_package_structs.md#struct-string) - Exception message.```markdown
+- message: [String](core_package_structs.md#struct-string) - Exception message.
+
 ## class IndexOutOfBoundsException
 
 ```cangjie

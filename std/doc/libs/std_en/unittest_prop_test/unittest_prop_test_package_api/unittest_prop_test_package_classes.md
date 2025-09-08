@@ -382,7 +382,7 @@ Parameters:
 
 Return Value:
 
-- [RandomDataProvider](unittest_package_classes.md#class-randomdataprovidert)\<T> - Random data provider.
+- [RandomDataProvider](#class-randomdataprovidert)\<T> - Random data provider.
 
 ### func shrinker(Configuration)
 
@@ -398,7 +398,7 @@ Parameters:
 
 Return Value:
 
-- [RandomDataShrinker](unittest_package_classes.md#class-randomdatashrinkert)\<T> - Random data shrinker.## class RandomDataStrategyRange\<T>
+- [RandomDataShrinker](#class-randomdatashrinkert)\<T> - Random data shrinker.## class RandomDataStrategyRange\<T>
 
 ```cangjie
 public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryRange<T> {
@@ -438,7 +438,7 @@ Function: Gets a random data provider.
 
 Parameters:
 
-- configuration: [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
+- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
 
 Return Value:
 
@@ -458,7 +458,7 @@ Parameters:
 
 Return Value:
 
-- [RandomDataShrinkerRange](unittest_package_classes.md#class-randomdatashrinkerranget)\<T> - Random data shrinker.
+- [RandomDataShrinkerRange](#class-randomdatashrinkerranget)\<T> - Random data shrinker.
 
 ### prop isInfinite
 

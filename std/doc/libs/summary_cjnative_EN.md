@@ -258,6 +258,7 @@
     - [std.unittest.testmacro](std_en/unittest_testmacro/unittest_testmacro_package_overview.md)
         - [Macros](std_en/unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md)
     - [std.unittest.common](std_en/unittest_common/unittest_common_package_overview.md)
+        - [Variables & Constants](std_en/unittest_common/unittest_common_package_api/unittest_common_constants_vars.md)
         - [Functions](std_en/unittest_common/unittest_common_package_api/unittest_common_package_functions.md)
         - [Interfaces](std_en/unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md)
         - [Classes](std_en/unittest_common/unittest_common_package_api/unittest_common_package_classes.md)

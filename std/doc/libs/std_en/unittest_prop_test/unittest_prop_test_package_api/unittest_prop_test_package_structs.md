@@ -8,7 +8,7 @@ public struct Function0Wrapper<R> {
 }
 ```
 
-Function: Encapsulates a closure into a struct.
+Function: Wraps a closure into a struct.
 
 ### Function0Wrapper(() -> R)
 
@@ -20,7 +20,7 @@ Function: Constructor for Function0Wrapper.
 
 Parameters:
 
-- function: () -> R - The encapsulated closure.
+- function: () -> R - The closure to be wrapped.
 
 ### let function
 
@@ -30,7 +30,7 @@ public let function: () -> R
 
 Function: The function object itself.
 
-Type: () -> R
+Type: ()->R
 
 ### operator func ()()
 
@@ -50,7 +50,7 @@ Return value:
 extend<R> Function0Wrapper<R> <: Arbitrary<Function0Wrapper<R>> where R <: Arbitrary<R>
 ```
 
-Function: Extends [Function0Wrapper](#struct-function0wrapperr) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
+Function: Extends [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation for [Function0Wrapper](#struct-function0wrapperr).
 
 Parent type:
 
@@ -86,7 +86,7 @@ Parent type:
 public static prop random: KeyRandom
 ```
 
-Function: Key for configuration item.
+Function: Key for configuration items.
 
 ### prop name
 
@@ -104,7 +104,7 @@ public struct TupleWrapper2<T0, T1> {
 }
 ```
 
-Function: Encapsulates a closure into a struct. The closure takes two parameters.
+Function: Wraps a closure into a struct. The closure takes two parameters.
 
 ### TupleWrapper2((T0, T1))
 
@@ -150,7 +150,7 @@ Return value:
 extend<T0, T1> TupleWrapper2<T0, T1> <: ToString
 ```
 
-Function: Extends [TupleWrapper2](#struct-tuplewrapper2t0-t1) with [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) implementation.
+Function: Extends [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) implementation for [TupleWrapper2](#struct-tuplewrapper2t0-t1).
 
 Parent type:
 
@@ -170,7 +170,7 @@ Function: String representation of [TupleWrapper2](#struct-tuplewrapper2t0-t1).
 extend<T0, T1> TupleWrapper2<T0, T1> <: Equatable<TupleWrapper2<T0, T1>>
 ```
 
-Function: Extends [TupleWrapper2](#struct-tuplewrapper2t0-t1) with [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) implementation.
+Function: Extends [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) implementation for [TupleWrapper2](#struct-tuplewrapper2t0-t1).
 
 Parent type:
 
@@ -214,7 +214,7 @@ Return value:
 extend<T0, T1> TupleWrapper2<T0, T1> <: IndexAccess
 ```
 
-Function: Extends [TupleWrapper2](#struct-tuplewrapper2t0-t1) with [IndexAccess](./unittest_prop_test_package_interfaces.md#interface-indexaccess) implementation.
+Function: Extends [IndexAccess](./unittest_prop_test_package_interfaces.md#interface-indexaccess) implementation for [TupleWrapper2](#struct-tuplewrapper2t0-t1).
 
 Parent type:
 
@@ -242,7 +242,7 @@ Return value:
 extend<T0, T1> TupleWrapper2<T0, T1> <: Arbitrary<TupleWrapper2<T0, T1>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>
 ```
 
-Function: Extends [TupleWrapper2](#struct-tuplewrapper2t0-t1) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
+Function: Extends [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation for [TupleWrapper2](#struct-tuplewrapper2t0-t1).
 
 Parent type:
 
@@ -290,7 +290,7 @@ public struct TupleWrapper3<T0, T1, T2> {
 }
 ```
 
-Function: Encapsulates a closure into a struct. The closure takes two parameters.
+Function: Wraps a closure into a struct. The closure takes two parameters.
 
 ### TupleWrapper3((T0, T1, T2))
 
@@ -336,7 +336,7 @@ Return value:
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: ToString
 ```
 
-Function: Extends [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) with [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) implementation.
+Function: Extends [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) implementation for [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2).
 
 Parent type:
 
@@ -356,7 +356,7 @@ Function: String representation of [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, T2>>
 ```
 
-Function: Extends [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) with [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) implementation.
+Function: Extends [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) implementation for [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2).
 
 Parent type:
 
@@ -400,7 +400,7 @@ Return value:
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: IndexAccess
 ```
 
-Function: Extends [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) with [IndexAccess](./unittest_prop_test_package_interfaces.md#interface-indexaccess) implementation.
+Function: Extends [IndexAccess](./unittest_prop_test_package_interfaces.md#interface-indexaccess) implementation for [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2).
 
 Parent type:
 
@@ -428,7 +428,7 @@ Return value:
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Arbitrary<TupleWrapper3<T0, T1, T2>>  where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>
 ```
 
-Function: Extends [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
+Function: Extends [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation for [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2).
 
 Parent type:
 
@@ -467,8 +467,7 @@ Function: Shrinks the tuple.
 
 Return value:
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> - Data iterator.```markdown
-## struct TupleWrapper4\<T0, T1, T2, T3>
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> - Data iterator.## struct TupleWrapper4\<T0, T1, T2, T3>
 
 ```cangjie
 public struct TupleWrapper4<T0, T1, T2, T3> {
@@ -567,7 +566,7 @@ Return Value:
 #### operator func !=(TupleWrapper4\<T0, T1, T2, T3>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper4<T0, T1, T2, T3>): Bool
+public operator func !=(other: TupleWrapper4<T0, T1，T2, T3>): Bool
 ```
 
 Function: Compares two tuples.
@@ -681,7 +680,7 @@ Parameters:
 ### let tuple
 
 ```cangjie
-public let tuple: (T0, T1, T2, T3, T4)
+public let tuple: (T0，T1, T2, T3, T4)
 ```
 
 Function: The tuple itself.
@@ -724,4 +723,123 @@ public func toString()
 
 Function: String representation of [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4).
 
-### extend\<T0, T1, T极速赛车开奖结果历史记录 极速赛车开奖直播 极速赛车开奖号码查询 极速赛车开奖结果查询 极速赛车开奖结果记录 极速赛车开奖号码记录 极速赛车开奖直播现场 极速赛车开奖结果直播 极速赛车开奖结果查询历史 极速赛车开奖结果查询官网
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Equatable\<TupleWrapper5\<T0, T1, T2, T3, T4>>
+
+```cangjie
+extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, T2>>
+```
+
+Function: Extends [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) with [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) implementation.
+
+Parent Type:
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>>
+
+#### operator func ==(TupleWrapper5\<T0, T1, T2, T3, T4>)
+
+```cangjie
+public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool
+```
+
+Function: Compares two binary tuples.
+
+Parameters:
+
+- other: [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3> - The tuple to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
+
+#### operator func !=(TupleWrapper5\<T0, T1, T2, T3, T4>)
+
+```cangjie
+public operator func !=(other: TupleWrapper2<T0, T1, T2, T3, T4>): Bool
+```
+
+Function: Compares two tuples.
+
+Parameters:
+
+- other: [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4> - The tuple to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.
+
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: IndexAccess
+
+```cangjie
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: IndexAccess
+```
+
+Function: Extends [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) with [IndexAccess](./unittest_prop_test_package_interfaces.md#interface-indexaccess) implementation.
+
+Parent Type:
+
+- [IndexAccess](unittest_prop_test_package_interfaces.md#interface-indexaccess)
+
+#### func getElementAsAny(Int64)
+
+```cangjie
+public func getElementAsAny(index: Int64): ?Any
+```
+
+Function: Retrieves the value inside the tuple by index.
+
+Parameters:
+
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
+
+Return Value:
+
+- ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The retrieved value inside the tuple. Returns `None` if the index is invalid.
+
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Arbitrary\<TupleWrapper2\<T0, T1, T2, T3, T4>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>,T4 <: Arbitrary\<T4>
+
+```cangjie
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper2<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
+```
+
+Function: Extends [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
+
+Parent Type:
+
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1, T2, T3, T4>>
+
+#### static func arbitrary(RandomSource)
+
+```cangjie
+public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, T1, T2, T3, T4>>
+```
+
+Function: Gets a generator for random values of type [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>.
+
+Return Value:
+
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - The generator.
+
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Shrink\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>, T4 <: Shrink\<T4>
+
+```cangjie
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Shrink<TupleWrapper5<T0, T1, T2, T3, T4>>
+        where T0 <: Shrink<T0>,
+              T1 <: Shrink<T1>,
+              T2 <: Shrink<T2>,
+              T3 <: Shrink<T3>,
+              T4 <: Shrink<T4> {
+    public func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+}
+```
+
+### func shrink()
+
+```cangjie
+override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+```
+
+Function: Shrinks the tuple.
+
+Return Value:
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee

@@ -397,7 +397,8 @@ prop name: String
 
 Function: Gets the type name.
 
-Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)```markdown
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
+
 ## interface SqlNullableDbType <sup>(deprecated)</sup>
 
 ```cangjie

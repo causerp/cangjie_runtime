@@ -1592,7 +1592,71 @@ Example:
 <!-- verify -->
 ```cangjie
 import std.io.ByteBuffer
-``````text
+
+main(): Unit {
+    let buffer = ByteBuffer("Hello World".toArray())
+    println("initial length: " + buffer.length.toString())
+
+    /* Set the length to 5 and read all the content in the buffer */
+    buffer.setLength(5)
+    println("set length to 5: " + String.fromUtf8(buffer.bytes()))
+
+    /* An exception is thrown when trying to set the size of the expanded buffer to exceed the maximum value of Int64 */
+    try {
+        buffer.setLength(Int64.Max + 1)
+    } catch (e: OverflowException) {
+        println("Error: " + e.message)
+    }
+
+    /* Attempt to set length to -1, throw an exception */
+    try {
+        buffer.setLength(-1)
+    } catch (e: IllegalArgumentException) {
+        println("Error: " + e.message)
+    }
+}
+```
+
+Execution Result:
+
+```text
+initial length: 11
+set length to 5: Hello
+Error: add
+Error: The length must be greater than or equal to 0.
+```
+
+### func write(Array\<Byte>)
+
+```cangjie
+public func write(buffer: Array<Byte>): Unit
+```
+
+Function: Write the data in `buffer` to the output stream.
+
+Parameters:
+
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for writing data.
+
+Example:
+
+<!-- verify -->
+```cangjie
+import std.io.ByteBuffer
+
+main(): Unit {
+    let buffer = ByteBuffer()
+    let dataToWrite = "Hello World".toArray()
+
+    /* Write data */
+    buffer.write(dataToWrite)
+    println(String.fromUtf8(buffer.bytes()))
+}
+```
+
+Execution Result:
+
+```text
 Hello World
 ```
 
@@ -1630,8 +1694,6 @@ main(): Unit {
 Execution Result:
 
 ```text
-Hello World
-``````text
 Hello World
 ```
 

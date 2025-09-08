@@ -234,7 +234,7 @@ Function: Creates a [ConfigurationKey](#class-configurationkey).
 
 Parameters:
 
-- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The name of the configuration key.
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the configuration key.
 
 Return Value:
 

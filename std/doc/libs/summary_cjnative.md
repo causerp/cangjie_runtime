@@ -258,6 +258,7 @@
     - [std.unittest.testmacro](std/unittest_testmacro/unittest_testmacro_package_overview.md)
         - [宏](std/unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md)
     - [std.unittest.common](std/unittest_common/unittest_common_package_overview.md)
+        - [变量&常量](std/unittest_common/unittest_common_package_api/unittest_common_constants_vars.md)
         - [函数](std/unittest_common/unittest_common_package_api/unittest_common_package_functions.md)
         - [接口](std/unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md)
         - [类](std/unittest_common/unittest_common_package_api/unittest_common_package_classes.md)
