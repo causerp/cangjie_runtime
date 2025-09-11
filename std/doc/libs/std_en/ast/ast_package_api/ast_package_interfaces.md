@@ -290,7 +290,7 @@ Return Value:
 extend Rune <: ToTokens
 ```
 
-Function: Implements conversion from [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) type to [Tokens](ast_package_classes.md#class-tokens) type.
+Function: Implements conversion from [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
 Parent Type:
 
@@ -302,7 +302,7 @@ Parent Type:
 public func toTokens(): Tokens
 ```
 
-Function: Implements conversion from [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) type to [Tokens](ast_package_classes.md#class-tokens) type.
+Function: Implements conversion from [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
 Return Value:
 

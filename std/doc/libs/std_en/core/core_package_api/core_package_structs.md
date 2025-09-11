@@ -467,7 +467,7 @@ Parameters:
 
 Return Value:
 
-- ([Array](./core_package_structs.md#struct-arrayt)\<T>, [Array](./core_package_structs.md#struct-arrayt)\<T>) - The two slices obtained by splitting the original array.
+- ([Array](core_package_structs.md#struct-arrayt)\<T>, [Array](core_package_structs.md#struct-arrayt)\<T>) - The two slices obtained by splitting the original array.
 
 Exceptions:
 
@@ -510,7 +510,7 @@ Execution Result:
 [1, 3, 2, 4]
 ```
 
-### operator func [](Int64)
+### operator func \[](Int64)
 
 ```cangjie
 public operator func [](index: Int64): T
@@ -534,7 +534,7 @@ Exceptions:
 
 - [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) - Thrown if index is less than 0 or greater than or equal to the array length.
 
-### operator func [](Int64, T)
+### operator func \[](Int64, T)
 
 ```cangjie
 public operator func [](index: Int64, value!: T): Unit
@@ -551,7 +551,7 @@ Exceptions:
 
 - [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) - Thrown if index is less than 0 or greater than or equal to the array length.
 
-### operator func [](Range\<Int64>)
+### operator func \[](Range\<Int64>)
 
 ```cangjie
 public operator func [](range: Range<Int64>): Array<T>
@@ -905,14 +905,7 @@ Parameters:
 
 Return Value:
 
-- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last occurrence position of `elements` starting from `fromIndex`. Returns None if the array does not contain this subarray.Parameters:
-
-- `elements`: [Array](core_package_structs.md#struct-arrayt)\<T> - The target array to locate.
-- `fromIndex`: [Int64](core_package_intrinsics.md#int64) - The starting position for the search.
-
-Return Value:
-
-- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last occurrence position of the subarray `elements` in the array when searching backward from `fromIndex`. Returns None if the subarray does not exist in the array.
+- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last occurrence position of `elements` starting from `fromIndex`. Returns None if the array does not contain this subarray.
 
 #### func lastIndexOf(T)
 
