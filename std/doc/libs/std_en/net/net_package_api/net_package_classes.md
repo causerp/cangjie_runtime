@@ -27,7 +27,7 @@ Exceptions:
 
 - [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) - Thrown if not a valid string.
 
-Type: ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop size
 
@@ -49,7 +49,7 @@ Functionality: Converts an IP protocol socket string to an [IPAddress](net_packa
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP protocol socket string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP protocol socket string.
 
 Return Value:
 
@@ -125,7 +125,7 @@ Functionality: Resolves a domain name to obtain a list of [IPAddress](net_packag
 Parameters:
 
 - family: [AddressFamily](net_package_structs.md#struct-addressfamily) - Address family.
-- domain: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - Domain name.
+- domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Domain name.
 
 Return Value:
 
@@ -154,7 +154,7 @@ Functionality: Resolves a domain name to obtain a list of [IPAddress](net_packag
 
 Parameters:
 
-- domain: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - Domain name.
+- domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Domain name.
 
 Return Value:
 
@@ -183,7 +183,7 @@ Functionality: Converts an IP address string to an [IPAddress](net_package_class
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP address string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP address string.
 
 Return Value:
 
@@ -215,7 +215,7 @@ Functionality: Returns the raw IP address of this [IPAddress](net_package_classe
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
 
 Example:
 <!-- run -->
@@ -246,7 +246,7 @@ Functionality: Creates a network prefix object from this [IPAddress](net_package
 
 Parameters:
 
-- prefixLen: [UInt8](../../../std/core/core_package_api/core_package_intrinsics.md#uint8) - Network prefix length.
+- prefixLen: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Network prefix length.
 
 Exceptions:
 
@@ -292,7 +292,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a global unicast address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a global unicast address, otherwise false.
 
 Example:
 <!-- run -->
@@ -318,7 +318,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv4 address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv4 address, otherwise false.
 
 Example:
 <!-- run -->
@@ -343,7 +343,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv6 address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv6 address, otherwise false.
 
 Example:
 <!-- run -->
@@ -368,7 +368,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a link-local address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a link-local address, otherwise false.
 
 Example:
 <!-- run -->
@@ -396,7 +396,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a loopback address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a loopback address, otherwise false.
 
 Example:
 <!-- run -->
@@ -422,7 +422,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a multicast address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a multicast address, otherwise false.
 
 ### func isPrivate()
 
@@ -434,7 +434,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a private address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a private address, otherwise false.
 
 ### func isUnspecified()
 
@@ -446,7 +446,7 @@ Functionality: Determines whether this [IPAddress](net_package_classes.md#class-
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an "unspecified" IP address, otherwise false.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an "unspecified" IP address, otherwise false.
 
 Example:
 <!-- run -->
@@ -541,7 +541,7 @@ Function: Converts an IP protocol Socket string into an [IPPrefix](net_package_c
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
 Exceptions:
 
@@ -577,7 +577,7 @@ Function: Converts an IP protocol Socket string into an [IPPrefix](net_package_c
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
 Return Value:
 
@@ -624,7 +624,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPAddress](net_package_classes.md#class-ipaddress) is contained, otherwise `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPAddress](net_package_classes.md#class-ipaddress) is contained, otherwise `false`.
 
 ### func contains(IPPrefix)
 
@@ -640,7 +640,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPPrefix](net_package_classes.md#class-ipprefix) is contained, otherwise `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPPrefix](net_package_classes.md#class-ipprefix) is contained, otherwise `false`.
 
 ### func hostmask()
 
@@ -704,7 +704,7 @@ Parameters:
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if there is an overlap, otherwise `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if there is an overlap, otherwise `false`.
 
 ### func toString()
 
@@ -811,7 +811,7 @@ public prop port: UInt16
 
 Function: Gets the port of the current [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) object.
 
-Type: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16)
+Type: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
 ### prop size
 
@@ -821,7 +821,7 @@ public prop size: Int64
 
 Function: Gets the raw byte length of the current [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) object.
 
-Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init(Array\<Byte>, UInt16)
 
@@ -829,12 +829,12 @@ Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int6
 public init(address: Array<Byte>, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a big-endian [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a big-endian [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representing the IP address and a host-order [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
 - address: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The big-endian IP address.
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
 
 Exceptions:
 
@@ -846,12 +846,12 @@ Exceptions:
 public init(address: String, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a string representing the IP address and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from a string representing the IP address and a host-order [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
-- address: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The IP address string.
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
+- address: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP address string.
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
 
 Exceptions:
 
@@ -863,12 +863,12 @@ Exceptions:
 public init(address: IPAddress, port: UInt16)
 ```
 
-Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from an [IPAddress](net_package_classes.md#class-ipaddress) object and a host-order [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) port.
+Function: Constructs an [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) from an [IPAddress](net_package_classes.md#class-ipaddress) object and a host-order [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) port.
 
 Parameters:
 
 - address: [IPAddress](net_package_classes.md#class-ipaddress) - The [IPAddress](net_package_classes.md#class-ipaddress) object.
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The host-order port.
 
 ### static func parse(String)
 
@@ -880,7 +880,7 @@ Function: Converts an IP protocol Socket string into an [IPSocketAddress](net_pa
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
 Return Value:
 
@@ -920,7 +920,7 @@ Function: Converts an IP protocol Socket string into an [IPSocketAddress](net_pa
 
 Parameters:
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
 Return Value:
 
@@ -993,11 +993,11 @@ Type: [IPv4Address](net_package_classes.md#class-ipv4address)
 public init(bits: UInt32)
 ```
 
-Function: Constructs an [IPv4Address](net_package_classes.md#class-ipv4address) address from a native-endian [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) value.
+Function: Constructs an [IPv4Address](net_package_classes.md#class-ipv4address) address from a native-endian [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
 Parameters:
 
-- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - Native-endian [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) value.
+- bits: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Native-endian [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
 ### init(Byte, Byte, Byte, Byte)
 
@@ -1009,10 +1009,10 @@ Function: Constructs an [IPv4Address](net_package_classes.md#class-ipv4address) 
 
 Parameters:
 
-- a: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
-- b: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
-- c: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
-- d: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
+- a: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
+- b: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
+- c: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
+- d: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit byte.
 
 ### static func readBigEndian(Array\<Byte>)
 
@@ -1044,7 +1044,7 @@ Function: Creates a network prefix object from this [IPv4Address](net_package_cl
 
 Parameters:
 
-- prefixLen: [UInt8](../../../std/core/core_package_api/core_package_intrinsics.md#uint8) - Network prefix length, must be >= 0 and <= 32.
+- prefixLen: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Network prefix length, must be >= 0 and <= 32.
 
 Exceptions:
 
@@ -1064,7 +1064,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a broadcast address; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a broadcast address; otherwise, returns `false`.
 
 ### func isGlobalUnicast()
 
@@ -1076,7 +1076,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a global unicast address; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a global unicast address; otherwise, returns `false`.
 
 ### func isLinkLocal()
 
@@ -1088,7 +1088,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a link-local address; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a link-local address; otherwise, returns `false`.
 
 ### func isLoopback()
 
@@ -1100,7 +1100,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a loopback address; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a loopback address; otherwise, returns `false`.
 
 ### func isMulticast()
 
@@ -1112,7 +1112,7 @@ Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv
 
 Return Value:
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a multicast address; otherwise, returns `false`.
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a multicast address; otherwise, returns `false`.
 
 ## class IPv4Address
 
@@ -1494,7 +1494,7 @@ public prop size: Int64
 
 Functionality: The raw byte length of the current [SocketAddress](net_package_classes.md#class-socketaddress) object.
 
-Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop family
 
@@ -1516,7 +1516,7 @@ Functionality: Returns the raw IP address of this [SocketAddress](net_package_cl
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - An [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - An [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
 
 ### operator func ==(SocketAddress)
 
@@ -3745,7 +3745,7 @@ public prop size: Int64
 
 Functionality: Gets the raw byte length of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object.
 
-Type: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init(Array\<Byte>)
 
@@ -3773,7 +3773,7 @@ Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-uni
 
 Parameters:
 
-- path: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - Filesystem path string.
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Filesystem path string.
 
 Exceptions:
 
@@ -3789,7 +3789,7 @@ Functionality: Returns the raw IP address of this [UnixSocketAddress](net_packag
 
 Return Value:
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - Raw IP address represented as [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)>.
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Raw IP address represented as [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
 
 Example:
 <!-- run -->

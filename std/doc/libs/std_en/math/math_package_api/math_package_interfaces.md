@@ -810,7 +810,7 @@ Function: Extends half-precision floating-point numbers to support mathematical 
 
 Parent Type:
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../../std/core/core_package_api/core_package_intrinsics.md#float16)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
 #### static func GetPI()
 
@@ -846,7 +846,7 @@ Function: Extends single-precision floating-point numbers to support mathematica
 
 Parent Type:
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../../std/core/core_package_api/core_package_intrinsics.md#float32)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
 #### static func GetPI()
 
@@ -882,7 +882,7 @@ Function: Extends double-precision floating-point numbers to support mathematica
 
 Parent Type:
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../../std/core/core_package_api/core_package_intrinsics.md#float64)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
 #### static func GetPI()
 
