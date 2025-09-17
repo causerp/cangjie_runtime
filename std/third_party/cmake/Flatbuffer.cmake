@@ -22,13 +22,13 @@ if(EXISTS ${FLATBUFFERS_SRC}/CMakeLists.txt)
     endif()
 else()
     # for Jenkins
-    set(REPOSITORY_PATH https://gitee.com/openharmony/third_party_flatbuffers.git)
+    set(REPOSITORY_PATH https://gitcode.com/openharmony/third_party_flatbuffers.git)
     message(STATUS "Set flatbuffers REPOSITORY_PATH: ${REPOSITORY_PATH}")
     set(FLATBUFFERS_DOWNLOAD_ARGS
         GIT_REPOSITORY ${REPOSITORY_PATH}
         DOWNLOAD_DIR ${FLATBUFFERS_SRC}
         PATCH_COMMAND COMMAND git apply ../flatbufferPatch.diff
-        GIT_TAG OpenHarmony-v6.0-Beta1
+        GIT_TAG OpenHarmony-v6.0-Release
         GIT_PROGRESS ON
         GIT_CONFIG ${GIT_ARGS}
         GIT_SHALLOW ON)
