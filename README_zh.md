@@ -64,13 +64,13 @@
 
 ### 约束
 
-支持在 Ubuntu/MacOS(x86_64,aarch64) 环境中对仓颉运行时进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)。
+支持在 Ubuntu/MacOS(x86_64,aarch64) 环境中对仓颉运行时进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md)。
 
 ### 编译构建
 
 #### 构建准备
 
-构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)。
 
 #### 构建步骤
 
@@ -134,7 +134,7 @@ $ python3 build.py clean
 
 ### 使用说明
 
-运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+运行时独立构建产物需要配合cjc编译器及标准库等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)。
 
 ##### 下载源码：
 
@@ -197,13 +197,13 @@ std/libs/std
 
 ### 约束
 
-支持在 Ubuntu/MacOS(x86_64, aarch64) 环境中对仓颉编译语言标准库进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)。
+支持在 Ubuntu/MacOS(x86_64, aarch64) 环境中对仓颉编译语言标准库进行构建。更详细的环境及工具依赖请参阅[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md)。
 
 ### 编译构建
 
 #### 构建准备
 
-构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)
+构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md)
 
 #### 构建步骤
 
@@ -256,13 +256,13 @@ output
 
 #### 使用说明
 
-标准库构建产物需要配合 cjc 编译器及运行时等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+标准库构建产物需要配合 cjc 编译器及运行时等使用，具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)。
 
 #### 更多构建选项
 
 `build.py` 的 `build` 功能提供如下额外选项：
 
-- `--target`：指定构建平台，默认为native，支持的target如下所示（交叉编译请参考[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)）：
+- `--target`：指定构建平台，默认为native，支持的target如下所示（交叉编译请参考[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)）：
   - `native`（默认值）
   - `ohos-aarch64` ： 交叉编译ohos(aarch64)
   - `ohos-x86_64` ：交叉编译ohos(x86_64)
@@ -278,7 +278,7 @@ output
 - `--prefix`：指定安装目录
 - `--host`：指定为哪个target平台安装
 
-您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) 或通过 `--help` 选项了解更多编译选项：
+您也可以参阅 [build.py](./std/build.py) 或通过 `--help` 选项了解更多编译选项：
 
 ```
 python3 build.py --help
