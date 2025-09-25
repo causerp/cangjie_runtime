@@ -21,7 +21,7 @@ public interface BigEndianOrder<T> {
      */
     func writeBigEndian(buffer: Array<UInt8>): Int64
     /**
-     * @brief raead the value of type T in big-endian order from the buffer byte array
+     * @brief read the value of type T in big-endian order from the buffer byte array
      * @param buffer, the source byte array
      * @return the value of type T
      * @exception throws IndexOutOfBoundsException when the target length is insufficient
@@ -41,7 +41,7 @@ public interface LittleEndianOrder<T> {
      */
     func writeLittleEndian(buffer: Array<UInt8>): Int64
     /**
-     * @brief raead the value of type T in little-endian order from the buffer byte array
+     * @brief read the value of type T in little-endian order from the buffer byte array
      * @param buffer, the source byte array
      * @return the value of type T
      * @exception throws IndexOutOfBoundsException when the target length is insufficient
