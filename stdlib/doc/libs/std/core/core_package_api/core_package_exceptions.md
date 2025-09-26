@@ -23,6 +23,26 @@ public init()
 
 功能：构造一个默认的 [ArithmeticException](core_package_exceptions.md#class-arithmeticexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建ArithmeticException
+    let exception = ArithmeticException()
+    
+    println("成功创建了ArithmeticException实例")
+    println("ArithmeticException的init()构造函数用于创建一个默认的算术异常实例")
+}
+```
+
+运行结果：
+
+```text
+成功创建了ArithmeticException实例
+ArithmeticException的init()构造函数用于创建一个默认的算术异常实例
+```
+
 ### init(String)
 
 ```cangjie
@@ -35,6 +55,28 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建ArithmeticException
+    let exception = ArithmeticException("除零错误")
+    
+    println("成功创建了ArithmeticException实例")
+    println("异常信息: 除零错误")
+    println("ArithmeticException的init(String)构造函数用于根据异常信息创建算术异常实例")
+}
+```
+
+运行结果：
+
+```text
+成功创建了ArithmeticException实例
+异常信息: 除零错误
+ArithmeticException的init(String)构造函数用于根据异常信息创建算术异常实例
+```
+
 ### func getClassName()
 
 ```cangjie
@@ -46,6 +88,42 @@ protected open override func getClassName(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 类名字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+// 创建一个继承自ArithmeticException的类来访问受保护的getClassName方法
+public class MyArithmeticException <: ArithmeticException {
+    public init() {
+        super()
+    }
+    
+    public init(message: String) {
+        super(message)
+    }
+    
+    // 公共方法来调用受保护的getClassName方法
+    public func getClassNamePublic(): String {
+        return getClassName()
+    }
+}
+
+main() {
+    let exception = MyArithmeticException("测试异常")
+    let className = exception.getClassNamePublic()
+    println("类名: ${className}")
+    
+    println("ArithmeticException的getClassName()方法用于获取类名")
+}
+```
+
+运行结果：
+
+```text
+类名: ArithmeticException
+ArithmeticException的getClassName()方法用于获取类名
+```
 
 ## class Error
 
@@ -69,6 +147,20 @@ public open prop message: String
 
 类型：[String](core_package_structs.md#struct-string)
 
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设抛出 Error
+main() {
+    try {
+        // 假设出现内存错误或栈溢出错误
+    } catch (e: Error) {
+        println(e.message)
+    }
+}
+```
+
 ### func getClassName()
 
 ```cangjie
@@ -80,6 +172,26 @@ protected open func getClassName(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设内部抛出 Error
+main() {
+    try {
+        // 假设出现栈溢出错误
+    } catch (e: StackOverflowError) {
+        println(e.message)
+    }
+}
+
+extend Error {
+    public func printlnClassName(): Unit {
+        println(getClassName())
+    }
+}
+```
 
 ### func getStackTrace()
 
@@ -93,6 +205,20 @@ public func getStackTrace(): Array<StackTraceElement>
 
 - [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - 堆栈信息数组。
 
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设内部抛出 Error
+main() {
+    try {
+        // 假设出现内存错误，栈溢出错误，或者内部错误
+    } catch (e: Error) {
+        println(e.getStackTrace()[0].methodName)
+    }
+}
+```
+
 ### func getStackTraceMessage()
 
 ```cangjie
@@ -105,6 +231,20 @@ public open func getStackTraceMessage(): String
 
 - [String](core_package_structs.md#struct-string) - 堆栈信息。
 
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设内部抛出 Error
+main() {
+    try {
+        // 假设出现内存错误，栈溢出错误，或者内部错误
+    } catch (e: Error) {
+        println(e.getStackTraceMessage())
+    }
+}
+```
+
 ### func printStackTrace()
 
 ```cangjie
@@ -112,6 +252,20 @@ public open func printStackTrace(): Unit
 ```
 
 功能：向控制台打印堆栈信息。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设内部抛出 Error
+main() {
+    try {
+        // 假设出现内存错误，栈溢出错误，或者内部错误
+    } catch (e: Error) {
+        println(e.printStackTrace())
+    }
+}
+```
 
 ### func toString()
 
@@ -124,6 +278,20 @@ public open func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 错误信息字符串。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设内部抛出 Error
+main() {
+    try {
+        // 假设出现内存错误，栈溢出错误，或者内部错误
+    } catch (e: Error) {
+        println(e)
+    }
+}
+```
 
 ## class Exception
 
@@ -152,6 +320,29 @@ public open prop message: String
 
 类型：[String](core_package_structs.md#struct-string)
 
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Exception实例并访问message属性
+    let exception = Exception("这是一个异常信息")
+    println("异常信息: " + exception.message)
+    
+    // 使用默认构造函数创建Exception实例
+    let defaultException = Exception()
+    println("默认异常信息: '" + defaultException.message + "'")
+}
+```
+
+运行结果：
+
+```text
+异常信息: 这是一个异常信息
+默认异常信息: ''
+```
+
 ### init()
 
 ```cangjie
@@ -159,6 +350,25 @@ public init()
 ```
 
 功能：构造一个默认的 [Exception](core_package_exceptions.md#class-exception) 实例，默认异常信息为空。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建Exception实例
+    let exception = Exception()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: Exception
+```
 
 ### init(String)
 
@@ -172,6 +382,25 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建Exception实例
+    let exception = Exception("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: Exception: 自定义异常信息
+```
+
 ### func getClassName()
 
 ```cangjie
@@ -183,6 +412,38 @@ protected open func getClassName(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- verify -->
+```cangjie
+// 创建Exception的子类来演示getClassName()方法
+class MyException <: Exception {
+    public init() {
+        super()
+    }
+    
+    public init(message: String) {
+        super(message)
+    }
+    
+    // 调用protected方法getClassName()
+    public func getExceptionClassName(): String {
+        return this.getClassName()
+    }
+}
+
+main() {
+    let exception = MyException("测试异常")
+    println("异常类名: " + exception.getExceptionClassName())
+}
+```
+
+运行结果：
+
+```text
+异常类名: Exception
+```
 
 ### func getStackTrace()
 
@@ -196,6 +457,36 @@ public func getStackTrace(): Array<StackTraceElement>
 
 - [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - 堆栈信息数组。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        // 创建一个异常并抛出
+        throw Exception("测试异常")
+    } catch (e: Exception) {
+        // 获取堆栈信息
+        let stackTrace = e.getStackTrace()
+        println("堆栈跟踪元素数量: " + stackTrace.size.toString())
+        // 打印第一个堆栈元素（如果存在）
+        if (stackTrace.size > 0) {
+            let element = stackTrace[0]
+            println("第一个堆栈元素的类名: " + element.declaringClass)
+            println("第一个堆栈元素的方法名: " + element.methodName)
+        }
+    }
+}
+```
+
+运行结果：
+
+```text
+堆栈跟踪元素数量: 1
+第一个堆栈元素的类名: default
+第一个堆栈元素的方法名: main()
+```
+
 ### func printStackTrace()
 
 ```cangjie
@@ -203,6 +494,31 @@ public func printStackTrace(): Unit
 ```
 
 功能：向控制台打印堆栈信息。
+
+示例：
+
+<!-- run -->
+```cangjie
+main() {
+    try {
+        // 创建一个异常并抛出
+        throw Exception("测试异常")
+    } catch (e: Exception) {
+        // 打印堆栈信息到控制台
+        println("打印异常堆栈信息:")
+        e.printStackTrace()
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+打印异常堆栈信息:
+An exception has occurred:
+Exception: 测试异常
+	 at default.main()(/path/path/temp_printStackTrace_example.cj:4)
+```
 
 ### func toString()
 
@@ -215,6 +531,27 @@ public open func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 异常字符串。
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Exception实例
+    let exception1 = Exception()
+    let exception2 = Exception("自定义异常信息")
+    
+    // 使用toString()方法获取异常的字符串表示
+    println("默认异常的字符串表示: " + exception1.toString())
+    println("带消息异常的字符串表示: " + exception2.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常的字符串表示: Exception
+带消息异常的字符串表示: Exception: 自定义异常信息
+```
 
 ## class IllegalArgumentException
 
@@ -239,6 +576,25 @@ public init()
 
 功能：构造一个默认的 [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IllegalArgumentException实例
+    let exception = IllegalArgumentException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IllegalArgumentException
+```
+
 ### init(String)
 
 ```cangjie
@@ -251,6 +607,25 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IllegalArgumentException实例
+    let exception = IllegalArgumentException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IllegalArgumentException: 自定义异常信息
+```
+
 ### func getClassName()
 
 ```cangjie
@@ -262,6 +637,38 @@ protected override open func getClassName(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- verify -->
+```cangjie
+// 创建IllegalArgumentException的子类来演示getClassName()方法
+class MyException <: IllegalArgumentException {
+    public init() {
+        super()
+    }
+    
+    public init(message: String) {
+        super(message)
+    }
+    
+    // 调用protected方法getClassName()
+    public func getExceptionClassName(): String {
+        return this.getClassName()
+    }
+}
+
+main() {
+    let exception = MyException("测试异常")
+    println("异常类名: " + exception.getExceptionClassName())
+}
+```
+
+运行结果：
+
+```text
+异常类名: IllegalArgumentException
+```
 
 ## class IllegalFormatException
 
@@ -286,6 +693,25 @@ public init()
 
 功能：构造一个默认的 [IllegalFormatException](core_package_exceptions.md#class-illegalformatexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IllegalFormatException实例
+    let exception = IllegalFormatException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IllegalFormatException
+```
+
 ### init(String)
 
 ```cangjie
@@ -298,6 +724,25 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IllegalFormatException实例
+    let exception = IllegalFormatException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IllegalFormatException: 自定义异常信息
+```
+
 ### func getClassName()
 
 ```cangjie
@@ -309,6 +754,38 @@ protected override func getClassName(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- verify -->
+```cangjie
+// 创建IllegalFormatException的子类来演示getClassName()方法
+class MyException <: IllegalFormatException {
+    public init() {
+        super()
+    }
+    
+    public init(message: String) {
+        super(message)
+    }
+    
+    // 调用protected方法getClassName()
+    public func getExceptionClassName(): String {
+        return this.getClassName()
+    }
+}
+
+main() {
+    let exception = MyException("测试异常")
+    println("异常类名: " + exception.getExceptionClassName())
+}
+```
+
+运行结果：
+
+```text
+异常类名: IllegalFormatException
+```
 
 ## class IllegalMemoryException
 
@@ -333,6 +810,25 @@ public init()
 
 功能：构造一个默认的 [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IllegalMemoryException实例
+    let exception = IllegalMemoryException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IllegalMemoryException
+```
+
 ### init(String)
 
 ```cangjie
@@ -344,6 +840,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IllegalMemoryException实例
+    let exception = IllegalMemoryException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IllegalMemoryException: 自定义异常信息
+```
 
 ## class IllegalStateException
 
@@ -368,6 +883,25 @@ public init()
 
 功能：构造一个默认的 [IllegalStateException](core_package_exceptions.md#class-illegalstateexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IllegalStateException实例
+    let exception = IllegalStateException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IllegalStateException
+```
+
 ### init(String)
 
 ```cangjie
@@ -379,6 +913,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IllegalStateException实例
+    let exception = IllegalStateException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IllegalStateException: 自定义异常信息
+```
 
 ## class IncompatiblePackageException
 
@@ -403,6 +956,25 @@ public init()
 
 功能：构造一个默认的 [IncompatiblePackageException](core_package_exceptions.md#class-incompatiblepackageexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IncompatiblePackageException实例
+    let exception = IncompatiblePackageException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IncompatiblePackageException
+```
+
 ### init(String)
 
 ```cangjie
@@ -414,6 +986,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IncompatiblePackageException实例
+    let exception = IncompatiblePackageException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IncompatiblePackageException: 自定义异常信息
+```
 
 ## class IndexOutOfBoundsException
 
@@ -438,6 +1029,25 @@ public init()
 
 功能：构造一个默认的 [IndexOutOfBoundsException](core_package_exceptions.md#class-indexoutofboundsexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建IndexOutOfBoundsException实例
+    let exception = IndexOutOfBoundsException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: IndexOutOfBoundsException
+```
+
 ### init(String)
 
 ```cangjie
@@ -449,6 +1059,26 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建IndexOutOfBoundsException实例
+    let exception = IndexOutOfBoundsException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: IndexOutOfBoundsException: 自定义异常信息
+```
+
 
 ## class NegativeArraySizeException
 
@@ -473,6 +1103,25 @@ public init()
 
 功能：构造一个默认的 [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建NegativeArraySizeException实例
+    let exception = NegativeArraySizeException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: NegativeArraySizeException
+```
+
 ### init(String)
 
 ```cangjie
@@ -484,6 +1133,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建NegativeArraySizeException实例
+    let exception = NegativeArraySizeException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: NegativeArraySizeException: 自定义异常信息
+```
 
 ## class NoneValueException
 
@@ -508,6 +1176,25 @@ public init()
 
 功能：构造一个默认的 [NoneValueException](core_package_exceptions.md#class-nonevalueexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建NoneValueException实例
+    let exception = NoneValueException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: NoneValueException
+```
+
 ### init(String)
 
 ```cangjie
@@ -520,6 +1207,25 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建NoneValueException实例
+    let exception = NoneValueException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: NoneValueException: 自定义异常信息
+```
+
 ## class OutOfMemoryError
 
 ```cangjie
@@ -531,6 +1237,38 @@ public class OutOfMemoryError <: Error
 父类型：
 
 - [Error](#class-error)
+
+### func getClassName()
+
+```cangjie
+protected override func getClassName(): String
+```
+
+功能：获得类名。
+
+返回值：
+
+- [String](core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设抛出 OutOfMemoryError
+main() {
+    try {
+        // 假设出现内存错误
+    } catch (e: OutOfMemoryError) {
+        println(e.message)
+    }
+}
+
+extend Error {
+    public func printlnClassName(): Unit {
+        println(getClassName())
+    }
+}
+```
 
 ## class OverflowException
 
@@ -555,6 +1293,25 @@ public init()
 
 功能：构造一个默认的 [OverflowException](core_package_exceptions.md#class-overflowexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建OverflowException实例
+    let exception = OverflowException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: OverflowException
+```
+
 ### init(String)
 
 ```cangjie
@@ -566,6 +1323,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建OverflowException实例
+    let exception = OverflowException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: OverflowException: 自定义异常信息
+```
 
 ## class SpawnException
 
@@ -590,6 +1366,25 @@ public init()
 
 功能：构造一个默认的 [SpawnException](core_package_exceptions.md#class-spawnexception) 实例，默认错误信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建SpawnException实例
+    let exception = SpawnException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: SpawnException
+```
+
 ### init(String)
 
 ```cangjie
@@ -601,6 +1396,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建SpawnException实例
+    let exception = SpawnException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: SpawnException: 自定义异常信息
+```
 
 ## class StackOverflowError
 
@@ -621,6 +1435,52 @@ public override func printStackTrace(): Unit
 ```
 
 功能：向控制台打印堆栈信息。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设抛出 StackOverflowError
+main() {
+    try {
+        // 假设出现栈溢出错误
+    } catch (e: StackOverflowError) {
+        println(e.printStackTrace())
+    }
+}
+```
+
+### func getClassName()
+
+```cangjie
+protected override func getClassName(): String
+```
+
+功能：获得类名。
+
+返回值：
+
+- [String](core_package_structs.md#struct-string) - 类名。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设抛出 StackOverflowError
+main() {
+    try {
+        // 假设出现栈溢出错误
+    } catch (e: StackOverflowError) {
+        println(e.message)
+    }
+}
+
+extend Error {
+    public func printlnClassName(): Unit {
+        println(getClassName())
+    }
+}
+```
 
 ## class TimeoutException
 
@@ -645,6 +1505,25 @@ public init()
 
 功能：构造一个默认的 [TimeoutException](core_package_exceptions.md#class-timeoutexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建TimeoutException实例
+    let exception = TimeoutException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: TimeoutException
+```
+
 ### init(String)
 
 ```cangjie
@@ -656,6 +1535,25 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建TimeoutException实例
+    let exception = TimeoutException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: TimeoutException: 自定义异常信息
+```
 
 ## class UnsupportedException
 
@@ -680,6 +1578,25 @@ public init()
 
 功能：构造一个默认的 [UnsupportedException](core_package_exceptions.md#class-unsupportedexception) 实例，默认异常信息为空。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用默认构造函数创建UnsupportedException实例
+    let exception = UnsupportedException()
+    println("默认异常信息: '" + exception.message + "'")
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+默认异常信息: ''
+异常类名: UnsupportedException
+```
+
 ### init(String)
 
 ```cangjie
@@ -691,3 +1608,22 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用带消息的构造函数创建UnsupportedException实例
+    let exception = UnsupportedException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: UnsupportedException: 自定义异常信息
+```

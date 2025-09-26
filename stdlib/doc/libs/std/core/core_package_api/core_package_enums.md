@@ -208,6 +208,39 @@ public func filter(predicate: (T) -> Bool): Option<T>
 
 - Option\<T> - 如果 [Option](core_package_enums.md#enum-optiont) 值是 [Some](#somet)(v)，并且 v 满足 `predicate(v) = true` 时，返回 [Some](#somet)(v)， 否则返回 [None](#none)。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(5)
+    
+    // 使用filter过滤大于3的值
+    var filtered1 = someValue.filter({x => x > 3})
+    println("过滤大于3的值: ${filtered1}")
+    
+    // 使用filter过滤小于3的值
+    var filtered2 = someValue.filter({x => x < 3})
+    println("过滤小于3的值: ${filtered2}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 对None值使用filter
+    var filtered3 = noneValue.filter({x => x > 3})
+    println("对None值过滤: ${filtered3}")
+}
+```
+
+运行结果：
+
+```text
+过滤大于3的值: Some(5)
+过滤小于3的值: None
+对None值过滤: None
+```
+
 ### func flatMap\<R>((T) -> Option\<R>)
 
 ```cangjie
@@ -223,6 +256,51 @@ public func flatMap<R>(transform: (T) -> Option<R>): Option<R>
 返回值：
 
 - [Option](core_package_enums.md#enum-optiont)\<R> - 如果当前实例值是 [Some](#somet)，执行 transform 函数并返回，否则返回 [None](#none)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+// 定义一个函数，将Int64转换为Option<String>
+func intToStringOption(x: Int64): Option<String> {
+    if (x > 0) {
+        return Some("Positive: ${x}")
+    } else {
+        return None
+    }
+}
+
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(5)
+    
+    // 使用flatMap将Int64转换为String
+    var flatMapped1 = someValue.flatMap(intToStringOption)
+    println("对Some值使用flatMap: ${flatMapped1}")
+    
+    // 创建一个负数的Some值
+    var someNegativeValue: Option<Int64> = Some(-3)
+    
+    // 使用flatMap处理负数
+    var flatMapped2 = someNegativeValue.flatMap(intToStringOption)
+    println("对负数Some值使用flatMap: ${flatMapped2}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 对None值使用flatMap
+    var flatMapped3 = noneValue.flatMap(intToStringOption)
+    println("对None值使用flatMap: ${flatMapped3}")
+}
+```
+
+运行结果：
+
+```text
+对Some值使用flatMap: Some(Positive: 5)
+对负数Some值使用flatMap: None
+对None值使用flatMap: None
+```
 
 ### func getOrDefault(() -> T)
 
@@ -281,6 +359,38 @@ public func getOrThrow(exception: ()->Exception): T
 
 - [Exception](core_package_exceptions.md#class-exception) - 如果当前实例是 [None](#none)，抛出异常函数返回的异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 对Some值使用getOrThrow，应该返回值
+    var value1 = someValue.getOrThrow({=> Exception("Value is None")})
+    println("从Some值获取的值: ${value1}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 对None值使用getOrThrow，应该抛出异常
+    try {
+        noneValue.getOrThrow({=> Exception("Value is None")})
+        println("这行不会被执行")
+    } catch (e: Exception) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+运行结果：
+
+```text
+从Some值获取的值: 42
+捕获到异常: Value is None
+```
+
 ### func getOrThrow()
 
 ```cangjie
@@ -297,6 +407,38 @@ public func getOrThrow(): T
 
 - [NoneValueException](core_package_exceptions.md#class-nonevalueexception) - 如果当前实例是 [None](#none)，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 对Some值使用getOrThrow，应该返回值
+    var value1 = someValue.getOrThrow()
+    println("从Some值获取的值: ${value1}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 对None值使用getOrThrow，应该抛出NoneValueException
+    try {
+        noneValue.getOrThrow()
+        println("这行不会被执行")
+    } catch (e: NoneValueException) {
+        println("捕获到NoneValueException异常")
+    }
+}
+```
+
+运行结果：
+
+```text
+从Some值获取的值: 42
+捕获到NoneValueException异常
+```
+
 ### func isNone()
 
 ```cangjie
@@ -309,6 +451,32 @@ public func isNone(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果当前实例值是 [None](#none)，则返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 检查是否为None
+    println("Some(42) is None: ${someValue.isNone()}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 检查是否为None
+    println("None is None: ${noneValue.isNone()}")
+}
+```
+
+运行结果：
+
+```text
+Some(42) is None: false
+None is None: true
+```
+
 ### func isSome()
 
 ```cangjie
@@ -320,6 +488,32 @@ public func isSome(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果当前实例值是 [Some](#somet)，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 检查是否为Some
+    println("Some(42) is Some: ${someValue.isSome()}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 检查是否为Some
+    println("None is Some: ${noneValue.isSome()}")
+}
+```
+
+运行结果：
+
+```text
+Some(42) is Some: true
+None is Some: false
+```
 
 ### func map\<R>((T)->R)
 
@@ -336,6 +530,34 @@ public func map<R>(transform: (T)-> R): Option<R>
 返回值：
 
 - [Option](core_package_enums.md#enum-optiont)\<R> - 如果当前实例值是 [Some](#somet)，执行 transform 函数，并且返回 [Option](#enum-optiont)\<R> 类型的结果，否则返回 [None](#none)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 使用map将Int64转换为String
+    var mapped1 = someValue.map({x => "Number: ${x}"})
+    println("对Some值使用map: ${mapped1}")
+    
+    // 创建一个None值
+    var noneValue: Option<Int64> = None
+    
+    // 对None值使用map
+    var mapped2 = noneValue.map({x => "Number: ${x}"})
+    println("对None值使用map: ${mapped2}")
+}
+```
+
+运行结果：
+
+```text
+对Some值使用map: Some(Number: 42)
+对None值使用map: None
+```
 
 ### extend\<T> Option\<T> <: Equatable\<Option\<T>> where T <: Equatable\<T>
 
@@ -365,6 +587,50 @@ public operator func !=(that: Option<T>): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果不相等，则返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建相同的Some值
+    var someValue1: Option<Int64> = Some(42)
+    var someValue2: Option<Int64> = Some(42)
+    
+    // 比较两个相同的Some值
+    println("Some(42) != Some(42): ${someValue1 != someValue2}")
+    
+    // 创建不同的Some值
+    var someValue3: Option<Int64> = Some(42)
+    var someValue4: Option<Int64> = Some(24)
+    
+    // 比较两个不同的Some值
+    println("Some(42) != Some(24): ${someValue3 != someValue4}")
+    
+    // 创建一个Some值和一个None值
+    var someValue5: Option<Int64> = Some(42)
+    var noneValue1: Option<Int64> = None
+    
+    // 比较Some值和None值
+    println("Some(42) != None: ${someValue5 != noneValue1}")
+    
+    // 创建两个None值
+    var noneValue2: Option<Int64> = None
+    var noneValue3: Option<Int64> = None
+    
+    // 比较两个None值
+    println("None != None: ${noneValue2 != noneValue3}")
+}
+```
+
+运行结果：
+
+```text
+Some(42) != Some(42): false
+Some(42) != Some(24): true
+Some(42) != None: true
+None != None: false
+```
+
 #### operator func ==(Option\<T>)
 
 ```cangjie
@@ -382,6 +648,50 @@ public operator func ==(that: Option<T>): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建相同的Some值
+    var someValue1: Option<Int64> = Some(42)
+    var someValue2: Option<Int64> = Some(42)
+    
+    // 比较两个相同的Some值
+    println("Some(42) == Some(42): ${someValue1 == someValue2}")
+    
+    // 创建不同的Some值
+    var someValue3: Option<Int64> = Some(42)
+    var someValue4: Option<Int64> = Some(24)
+    
+    // 比较两个不同的Some值
+    println("Some(42) == Some(24): ${someValue3 == someValue4}")
+    
+    // 创建一个Some值和一个None值
+    var someValue5: Option<Int64> = Some(42)
+    var noneValue1: Option<Int64> = None
+    
+    // 比较Some值和None值
+    println("Some(42) == None: ${someValue5 == noneValue1}")
+    
+    // 创建两个None值
+    var noneValue2: Option<Int64> = None
+    var noneValue3: Option<Int64> = None
+    
+    // 比较两个None值
+    println("None == None: ${noneValue2 == noneValue3}")
+}
+```
+
+运行结果：
+
+```text
+Some(42) == Some(42): true
+Some(42) == Some(24): false
+Some(42) == None: false
+None == None: true
+```
 
 ### extend\<T> Option\<T> <: Hashable where T <: Hashable
 
@@ -409,6 +719,48 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 获取Some值的哈希码
+    var someHashCode = someValue.hashCode()
+    println("Some(42)的哈希码: ${someHashCode}")
+    
+    // 创建None值
+    var noneValue: Option<Int64> = None
+    
+    // 获取None值的哈希码
+    var noneHashCode = noneValue.hashCode()
+    println("None的哈希码: ${noneHashCode}")
+    
+    // 比较两个相同的Some值的哈希码
+    var someValue1: Option<Int64> = Some(42)
+    var someValue2: Option<Int64> = Some(42)
+    
+    println("Some(42)和Some(42)的哈希码是否相等: ${someValue1.hashCode() == someValue2.hashCode()}")
+    
+    // 比较两个不同的Some值的哈希码
+    var someValue3: Option<Int64> = Some(42)
+    var someValue4: Option<Int64> = Some(24)
+    
+    println("Some(42)和Some(24)的哈希码是否相等: ${someValue3.hashCode() == someValue4.hashCode()}")
+}
+```
+
+运行结果：
+
+```text
+Some(42)的哈希码: 42
+None的哈希码: 0
+Some(42)和Some(42)的哈希码是否相等: true
+Some(42)和Some(24)的哈希码是否相等: false
+```
+
 ### extend\<T> Option\<T> <: ToString where T <: ToString
 
 ```cangjie
@@ -433,6 +785,42 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Some值
+    var someValue: Option<Int64> = Some(42)
+    
+    // 将Some值转换为字符串
+    var someStr = someValue
+    println("Some(42)转换为字符串: ${someStr}")
+    
+    // 创建None值
+    var noneValue: Option<Int64> = None
+    
+    // 将None值转换为字符串
+    var noneStr = noneValue
+    println("None转换为字符串: ${noneStr}")
+    
+    // 创建字符串类型的Some值
+    var someStringValue: Option<String> = Some("Hello")
+    
+    // 将字符串类型的Some值转换为字符串
+    var someStringStr = someStringValue
+    println("Some(\"Hello\")转换为字符串: ${someStringStr}")
+}
+```
+
+运行结果：
+
+```text
+Some(42)转换为字符串: Some(42)
+None转换为字符串: None
+Some("Hello")转换为字符串: Some(Hello)
+```
+
 ### extend\<T> Option\<Option\<T>>
 
 ```cangjie
@@ -452,6 +840,49 @@ public func flatten(): Option<T>
 返回值：
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开后的结果。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Option<Option<Int64>>类型的Some(Some(42))值
+    var nestedSome: Option<Option<Int64>> = Some(Some(42))
+    
+    // 展开嵌套的Option
+    var flattened1 = nestedSome.flatten()
+    println("Some(Some(42))展开后: ${flattened1}")
+    
+    // 创建Option<Option<Int64>>类型的Some(None)值
+    var someNone: Option<Option<Int64>> = Some(None)
+    
+    // 展开嵌套的Option
+    var flattened2 = someNone.flatten()
+    println("Some(None)展开后: ${flattened2}")
+    
+    // 创建Option<Option<Int64>>类型的None值
+    var noneValue: Option<Option<Int64>> = None
+    
+    // 展开嵌套的Option
+    var flattened3 = noneValue.flatten()
+    println("None展开后: ${flattened3}")
+    
+    // 演示链式调用
+    var chainedValue: Option<Option<Option<String>>> = Some(Some(Some("Hello")))
+    var flattenedChained = chainedValue.flatten().flatten()
+    println("链式展开Some(Some(Some(\"Hello\"))): ${flattenedChained}")
+}
+```
+
+运行结果：
+
+```text
+Some(Some(42))展开后: Some(42)
+Some(None)展开后: None
+None展开后: None
+链式展开Some(Some(Some("Hello"))): Some(Hello)
+```
+
 
 ## enum Ordering
 
@@ -519,6 +950,43 @@ public func compare(that: Ordering): Ordering
 
 - [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 GT；如果等于，返回 EQ；如果小于，返回 LT。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Ordering实例
+    var gt: Ordering = GT
+    var eq: Ordering = EQ
+    var lt: Ordering = LT
+    
+    // 测试GT与EQ的比较
+    var result1 = gt.compare(eq)
+    println("GT.compare(EQ): ${result1.toString()}")
+    
+    // 测试EQ与LT的比较
+    var result2 = eq.compare(lt)
+    println("EQ.compare(LT): ${result2.toString()}")
+    
+    // 测试LT与GT的比较
+    var result3 = lt.compare(gt)
+    println("LT.compare(GT): ${result3.toString()}")
+    
+    // 测试相等的情况
+    var result4 = gt.compare(gt)
+    println("GT.compare(GT): ${result4.toString()}")
+}
+```
+
+运行结果：
+
+```text
+GT.compare(EQ): Ordering.GT
+EQ.compare(LT): Ordering.GT
+LT.compare(GT): Ordering.LT
+GT.compare(GT): Ordering.EQ
+```
+
 ### extend Ordering <: Hashable
 
 ```cangjie
@@ -542,6 +1010,35 @@ public func hashCode(): Int64
 返回值：
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Ordering实例
+    var gt: Ordering = GT
+    var eq: Ordering = EQ
+    var lt: Ordering = LT
+    
+    // 获取哈希值
+    var gtHash = gt.hashCode()
+    var eqHash = eq.hashCode()
+    var ltHash = lt.hashCode()
+    
+    println("GT的哈希值: ${gtHash}")
+    println("EQ的哈希值: ${eqHash}")
+    println("LT的哈希值: ${ltHash}")
+}
+```
+
+运行结果：
+
+```text
+GT的哈希值: 3
+EQ的哈希值: 2
+LT的哈希值: 1
+```
 
 ### extend Ordering <: ToString
 
@@ -573,6 +1070,35 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Ordering实例
+    var gt: Ordering = GT
+    var eq: Ordering = EQ
+    var lt: Ordering = LT
+    
+    // 转换为字符串
+    var gtStr = gt.toString()
+    var eqStr = eq.toString()
+    var ltStr = lt.toString()
+    
+    println("GT转换为字符串: ${gtStr}")
+    println("EQ转换为字符串: ${eqStr}")
+    println("LT转换为字符串: ${ltStr}")
+}
+```
+
+运行结果：
+
+```text
+GT转换为字符串: Ordering.GT
+EQ转换为字符串: Ordering.EQ
+LT转换为字符串: Ordering.LT
+```
+
 ## enum ThreadState
 
 ```cangjie
@@ -582,6 +1108,7 @@ public enum ThreadState <: ToString {
     | Pending
     | Terminated 
     | ...
+}
 ```
 
 功能：表示线程的状态。

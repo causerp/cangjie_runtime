@@ -23,6 +23,36 @@ public prop fileHandle: IntNative
 
 类型：[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_filedescriptor_file.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_filedescriptor_file.txt")
+    
+    // 获取文件描述符
+    let fileDescriptor = file.fileDescriptor
+
+    // 获取文件句柄信息
+    println("File fileHandle: ${fileDescriptor.fileHandle}")
+    
+    // 删除文件
+    removeIfExists("./test_filedescriptor_file.txt", recursive: true)
+}
+```
+
+可能的运行结果：
+
+```text
+File fileHandle: 3
+```
+
 ## struct FileInfo
 
 ```cangjie
@@ -61,6 +91,36 @@ public prop creationTime: DateTime
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_info_file.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_info_file.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 创建时间
+    println("File creationTime: ${fileInfo.creationTime}")
+    
+    // 删除文件
+    removeIfExists("./test_info_file.txt", recursive: true)
+}
+```
+
+可能的运行结果：
+
+```text
+File creationTime: 2025-09-29T08:44:09Z
+```
+
 ### prop lastAccessTime
 
 ```cangjie
@@ -74,6 +134,37 @@ public prop lastAccessTime: DateTime
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_info_file.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_info_file.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 获取最后访问时间
+    let lastAccessTime = fileInfo.lastAccessTime
+    println("File lastAccessTime: ${lastAccessTime}")
+    
+    // 删除文件
+    removeIfExists("./test_info_file.txt", recursive: true)
+}
+```
+
+可能的运行结果：
+
+```text
+File lastAccessTime: 2025-09-29T09:25:43Z
+```
 
 ### prop lastModificationTime
 
@@ -89,6 +180,37 @@ public prop lastModificationTime: DateTime
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_info_file.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_info_file.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 获取最后访问时间
+    let lastModificationTime = fileInfo.lastModificationTime
+    println("File lastModificationTime: ${lastModificationTime}")
+    
+    // 删除文件
+    removeIfExists("./test_info_file.txt", recursive: true)
+}
+```
+
+可能的运行结果：
+
+```text
+File lastModificationTime: 2025-09-29T09:25:43Z
+```
+
 ### prop name
 
 ```cangjie
@@ -101,6 +223,37 @@ public prop name: String
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_info_file.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_info_file.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 获取文件名
+    let name = fileInfo.name
+    println("File name: ${name}")
+    
+    // 删除文件
+    removeIfExists("./test_info_file.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File name: test_info_file.txt
+```
+
 ### prop parentDirectory
 
 ```cangjie
@@ -111,6 +264,37 @@ public prop parentDirectory: Option<FileInfo>
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[FileInfo](fs_package_structs.md#struct-fileinfo)>
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_parentdirectory", recursive: true)
+
+    // 先创建一个目录
+    Directory.create("./test_parentdirectory")
+
+    // 目录内再创建一个文件
+    let file = File.create("./test_parentdirectory/test_info_file.txt")
+    
+    // 获取该文件的父级目录信息
+    let parentDirectory = file.info.parentDirectory
+    println("Parent directory info name: ${parentDirectory?.name}")
+    
+    // 删除文件
+    removeIfExists("./test_parentdirectory", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Parent directory info name: Some(test_parentdirectory)
+```
+
 ### prop path
 
 ```cangjie
@@ -120,6 +304,35 @@ public prop path: Path
 功能：获得当前文件路径，以 [Path](fs_package_structs.md#struct-path) 形式返回。
 
 类型：[Path](fs_package_structs.md#struct-path)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_init_path.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_info_file.txt")
+
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    println("File path: ${fileInfo.path}")  // 输出文件路径
+    
+    // 删除文件
+    removeIfExists("./test_init_path.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File path: /home/renyi/code/test_md/gitsave/./test_info_file.txt
+```
 
 ### prop size
 
@@ -138,6 +351,38 @@ public prop size: Int64
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_size.txt", recursive: true)
+
+    // 创建一个文件并写入一些数据
+    var data: Array<Byte> = [83, 105, 122, 101]  // "Size"
+    File.writeTo("./test_size.txt", data)
+    
+    // 创建 FileInfo 实例
+    let fileInfo = FileInfo("./test_size.txt")
+    
+    // 获取文件大小
+    let size = fileInfo.size
+    println("File size: ${size} bytes")
+    
+    // 删除文件
+    removeIfExists("./test_size.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File size: 4 bytes
+```
+
 ### init(Path)
 
 ```cangjie
@@ -155,6 +400,37 @@ public init(path: Path)
 - [FSException](fs_package_exceptions.md#class-fsexception) - 当路径非法时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空，或包含字符串结束符则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_init_path.txt", recursive: true)
+
+    // 创建一个文件
+    File.create("./test_init_path.txt")
+    
+    // 使用 Path 创建 FileInfo 实例
+    let path = Path("./test_init_path.txt")
+    let fileInfo = FileInfo(path)
+    
+    // 验证创建成功
+    println("File name: ${fileInfo.name}")
+    
+    // 删除文件
+    removeIfExists("./test_init_path.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File name: test_init_path.txt
+```
+
 ### init(String)
 
 ```cangjie
@@ -171,6 +447,36 @@ public init(path: String)
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 当路径非法时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空，或包含字符串结束符则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_init_string.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_init_string.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 验证创建成功
+    println("File name: ${fileInfo.name}")
+    
+    // 删除文件
+    removeIfExists("./test_init_string.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File name: test_init_string.txt
+```
 
 ### func canExecute()
 
@@ -193,6 +499,37 @@ public func canExecute(): Bool
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_can_execute.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_can_execute.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否可执行
+    let canExecute = fileInfo.canExecute()
+    println("File can execute: ${canExecute}")
+    
+    // 删除文件
+    removeIfExists("./test_can_execute.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File can execute: false
+```
+
 ### func canRead()
 
 ```cangjie
@@ -213,6 +550,37 @@ public func canRead(): Bool
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_can_read.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_can_read.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否可读
+    let canRead = fileInfo.canRead()
+    println("File can read: ${canRead}")
+    
+    // 删除文件
+    removeIfExists("./test_can_read.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File can read: true
+```
 
 ### func canWrite()
 
@@ -235,6 +603,37 @@ public func canWrite(): Bool
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_can_write.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_can_write.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否可写
+    let canWrite = fileInfo.canWrite()
+    println("File can write: ${canWrite}")
+    
+    // 删除文件
+    removeIfExists("./test_can_write.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File can write: true
+```
+
 ### func isDirectory()
 
 ```cangjie
@@ -250,6 +649,37 @@ public func isDirectory(): Bool
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_is_directory", recursive: true)
+
+    // 创建一个目录
+    Directory.create("./test_is_directory")
+    
+    // 创建 FileInfo 实例
+    let fileInfo = FileInfo("./test_is_directory")
+    
+    // 检查是否为目录
+    let isDirectory = fileInfo.isDirectory()
+    println("Is directory: ${isDirectory}")
+    
+    // 删除目录
+    removeIfExists("./test_is_directory", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Is directory: true
+```
 
 ### func isRegular()
 
@@ -267,6 +697,37 @@ public func isRegular(): Bool
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_is_regular.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_is_regular.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否为普通文件
+    let isRegular = fileInfo.isRegular()
+    println("Is regular file: ${isRegular}")
+    
+    // 删除文件
+    removeIfExists("./test_is_regular.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Is regular file: true
+```
+
 ### func isHidden()
 
 ```cangjie
@@ -278,6 +739,37 @@ public func isHidden(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示隐藏；false 表示未隐藏。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_is_hidden.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_is_hidden.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否为隐藏文件
+    let isHidden = fileInfo.isHidden()
+    println("Is hidden file: ${isHidden}")
+    
+    // 删除文件
+    removeIfExists("./test_is_hidden.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Is hidden file: false
+```
 
 ### func isReadOnly()
 
@@ -298,6 +790,37 @@ public func isReadOnly(): Bool
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_isreadonly.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_isreadonly.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查文件是否只读
+    let isReadOnly = fileInfo.isReadOnly()
+    println("File is read-only: ${isReadOnly}")
+    
+    // 删除文件
+    removeIfExists("./test_isreadonly.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File is read-only: false
+```
+
 ### func isSymbolicLink()
 
 ```cangjie
@@ -313,6 +836,50 @@ public func isSymbolicLink(): Bool
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_symlink_source.txt", recursive: true)
+
+    // 创建一个source文件
+    let file = File.create("./test_symlink_source.txt")
+    
+    // 同时创建符号链接
+    SymbolicLink.create("./test_symlink_target.txt", to: "./test_symlink_source.txt")
+
+    // 获取source文件信息
+    let fileInfo = file.info
+
+    // 获取symbolicLink信息
+    let symbolicLinkInfo = FileInfo("./test_symlink_target.txt")
+    
+    // 检查文件是否是软链接
+    let isSymbolicLink01 = fileInfo.isSymbolicLink()
+    println("File is symbolic link: ${isSymbolicLink01}")
+
+    // 检查符号链接文件是否是软链接
+    let isSymbolicLink02 = symbolicLinkInfo.isSymbolicLink()
+    println("File is symbolic link: ${isSymbolicLink02}")
+    
+    // 删除文件
+    removeIfExists("./test_symlink_target.txt", recursive: true)
+    // 删除文件
+    removeIfExists("./test_symlink_source.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File is symbolic link: false
+File is symbolic link: true
+```
 
 ### func setExecutable(Bool)
 
@@ -333,6 +900,37 @@ public func setExecutable(executable: Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_setexecutable.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_setexecutable.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 设置文件可执行权限
+    let result = fileInfo.setExecutable(true)
+    println("Set executable permission result: ${result}")
+    
+    // 删除文件
+    removeIfExists("./test_setexecutable.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Set executable permission result: true
+```
 
 ### func setReadable(Bool)
 
@@ -355,6 +953,37 @@ public func setReadable(readable: Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_setreadable.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_setreadable.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 设置文件可读权限
+    let result = fileInfo.setReadable(true)
+    println("Set readable permission result: ${result}")
+    
+    // 删除文件
+    removeIfExists("./test_setreadable.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Set readable permission result: true
+```
+
 ### func setWritable(Bool)
 
 ```cangjie
@@ -376,6 +1005,37 @@ public func setWritable(writable: Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_setwritable.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_setwritable.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 设置文件可写权限
+    let result = fileInfo.setWritable(true)
+    println("Set writable permission result: ${result}")
+    
+    // 删除文件
+    removeIfExists("./test_setwritable.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Set writable permission result: true
+```
+
 ### operator func ==(FileInfo)
 
 ```cangjie
@@ -391,6 +1051,42 @@ public operator func ==(that: FileInfo): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，是同一文件；false，不是同一文件。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_equal1.txt", recursive: true)
+    removeIfExists("./test_equal2.txt", recursive: true)
+
+    // 创建两个文件并写入相同的数据
+    var data: Array<Byte> = [69, 113, 117, 97]  // "Equa"
+    File.writeTo("./test_equal1.txt", data)
+    File.writeTo("./test_equal2.txt", data)
+    
+    // 创建两个 FileInfo 实例
+    let fileInfo1 = FileInfo("./test_equal1.txt")
+    let fileInfo2 = FileInfo("./test_equal2.txt")
+    
+    // 比较两个 FileInfo 实例是否相等
+    let isEqual = fileInfo1 == fileInfo2
+    println("File infos are equal: ${isEqual}")
+    
+    // 删除文件
+    removeIfExists("./test_equal1.txt", recursive: true)
+    removeIfExists("./test_equal2.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+File infos are equal: false
+```
 
 ## struct Path
 
@@ -435,6 +1131,25 @@ Windows 系统中路径列表分隔符为 ";"，非 Windows 系统中为 ":"。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 获取路径列表分隔符
+    let listSeparator = Path.ListSeparator
+    println("Path list separator: ${listSeparator}")
+}
+```
+
+运行结果：
+
+```text
+Path list separator: :
+```
+
 ### static const Separator
 
 ```cangjie
@@ -446,6 +1161,25 @@ public static const Separator: String = PATH_SEPARATOR
 Windows 系统中分隔符为 "\\"，非 Windows 系统中为 "/"。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 获取路径分隔符
+    let separator = Path.Separator
+    println("Path separator: ${separator}")
+}
+```
+
+运行结果：
+
+```text
+Path separator: /
+```
 
 ### prop extensionName
 
@@ -468,6 +1202,28 @@ public prop extensionName: String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("./test_file.txt")
+    
+    // 获取文件扩展名
+    let extensionName = path.extensionName
+    println("File extension name: ${extensionName}")
+}
+```
+
+运行结果：
+
+```text
+File extension name: txt
+```
 
 ### prop fileName
 
@@ -504,6 +1260,28 @@ public prop fileName: String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("./test_file.txt")
+    
+    // 获取文件名
+    let fileName = path.fileName
+    println("File name: ${fileName}")
+}
+```
+
+运行结果：
+
+```text
+File name: test_file.txt
+```
+
 ### prop fileNameWithoutExtension
 
 ```cangjie
@@ -525,6 +1303,28 @@ public prop fileNameWithoutExtension: String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("./test_file.txt")
+    
+    // 获取不带扩展名的文件名
+    let fileNameWithoutExtension = path.fileNameWithoutExtension
+    println("File name without extension: ${fileNameWithoutExtension}")
+}
+```
+
+运行结果：
+
+```text
+File name without extension: test_file
+```
 
 ### prop parent
 
@@ -567,6 +1367,28 @@ public prop parent: Path
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("/home/user/test_file.txt")
+    
+    // 获取父路径
+    let parent = path.parent
+    println("Parent path: ${parent}")
+}
+```
+
+运行结果：
+
+```text
+Parent path: /home/user
+```
+
 ### init(String)
 
 ```cangjie
@@ -579,6 +1401,27 @@ public init(rawPath: String)
 
 - rawPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 路径的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 使用字符串创建 Path 实例
+    let path = Path("/home/user/test_file.txt")
+    
+    // 输出路径
+    println("Path: ${path}")
+}
+```
+
+运行结果：
+
+```text
+Path: /home/user/test_file.txt
+```
+
 ### func hashCode()
 
 ```cangjie
@@ -590,6 +1433,28 @@ public func hashCode(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - [Path](fs_package_structs.md#struct-path) 的哈希值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("/home/user/test_file.txt")
+    
+    // 获取路径的哈希值
+    let hashCode = path.hashCode()
+    println("Path hash code: ${hashCode}")
+}
+```
+
+运行结果：
+
+```text
+Path hash code: 1680923330550157156
+```
 
 ### func isAbsolute()
 
@@ -607,6 +1472,35 @@ public func isAbsolute(): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个绝对路径实例
+    let absolutePath = Path("/home/user/test_file.txt")
+    
+    // 创建一个相对路径实例
+    let relativePath = Path("./test_file.txt")
+    
+    // 检查路径是否为绝对路径
+    let isAbsolute1 = absolutePath.isAbsolute()
+    let isAbsolute2 = relativePath.isAbsolute()
+    
+    println("Path '${absolutePath}' is absolute: ${isAbsolute1}")
+    println("Path '${relativePath}' is absolute: ${isAbsolute2}")
+}
+```
+
+运行结果：
+
+```text
+Path '/home/user/test_file.txt' is absolute: true
+Path './test_file.txt' is absolute: false
+```
+
 ### func isEmpty()
 
 ```cangjie
@@ -618,6 +1512,35 @@ public func isEmpty(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果当前实例为空路径，返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个空路径实例
+    let emptyPath = Path("")
+    
+    // 创建一个非空路径实例
+    let nonEmptyPath = Path("/home/user/test_file.txt")
+    
+    // 检查路径是否为空
+    let isEmpty1 = emptyPath.isEmpty()
+    let isEmpty2 = nonEmptyPath.isEmpty()
+    
+    println("Path '${emptyPath}' is empty: ${isEmpty1}")
+    println("Path '${nonEmptyPath}' is empty: ${isEmpty2}")
+}
+```
+
+运行结果：
+
+```text
+Path '' is empty: true
+Path '/home/user/test_file.txt' is empty: false
+```
 
 ### func isRelative()
 
@@ -634,6 +1557,35 @@ public func isRelative(): Bool
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径为空或包含字符串结束符则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个相对路径实例
+    let relativePath = Path("./test_file.txt")
+    
+    // 创建一个绝对路径实例
+    let absolutePath = Path("/home/user/test_file.txt")
+    
+    // 检查路径是否为相对路径
+    let isRelative1 = relativePath.isRelative()
+    let isRelative2 = absolutePath.isRelative()
+    
+    println("Path '${relativePath}' is relative: ${isRelative1}")
+    println("Path '${absolutePath}' is relative: ${isRelative2}")
+}
+```
+
+运行结果：
+
+```text
+Path './test_file.txt' is relative: true
+Path '/home/user/test_file.txt' is relative: false
+```
 
 ### func join(Path)
 
@@ -659,6 +1611,36 @@ public func join(path: Path): Path
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果参数 path 是绝对路径则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当前路径为空或当前路径、入参路径非法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个基础路径实例
+    let basePath = Path("/home/user")
+    
+    // 创建要拼接的路径实例
+    let subPath = Path("documents")
+    
+    // 使用join(Path)函数拼接路径
+    let joinedPath = basePath.join(subPath)
+    
+    println("Base path: ${basePath}")
+    println("Sub path: ${subPath}")
+    println("Joined path: ${joinedPath}")
+}
+```
+
+运行结果：
+
+```text
+Base path: /home/user
+Sub path: documents
+Joined path: /home/user/documents
+```
+
 ### func join(String)
 
 ```cangjie
@@ -682,6 +1664,31 @@ public func join(path: String): Path
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果参数 path 是绝对路径则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当前路径为空或当前路径、入参路径非法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个基础路径实例
+    let basePath = Path("/home/user")
+    
+    // 使用join(String)函数拼接路径字符串
+    let joinedPath = basePath.join("documents/file.txt")
+    
+    println("Base path: ${basePath}")
+    println("Joined path: ${joinedPath}")
+}
+```
+
+运行结果：
+
+```text
+Base path: /home/user
+Joined path: /home/user/documents/file.txt
+```
 
 ### func normalize()
 
@@ -707,6 +1714,43 @@ public func normalize(): Path
 
 - [Path](./fs_package_structs.md#struct-path) - 规范化后的 [Path](./fs_package_structs.md#struct-path) 实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个需要规范化的路径实例
+    let path1 = Path("/home/user/../user/documents/./file.txt")
+    let path2 = Path("/home//user///documents////file.txt")
+    let path3 = Path("/home/user/documents/")
+    
+    // 使用normalize()函数规范化路径
+    let normalizedPath1 = path1.normalize()
+    let normalizedPath2 = path2.normalize()
+    let normalizedPath3 = path3.normalize()
+    
+    println("Original path 1: ${path1}")
+    println("Normalized path 1: ${normalizedPath1}")
+    println("Original path 2: ${path2}")
+    println("Normalized path 2: ${normalizedPath2}")
+    println("Original path 3: ${path3}")
+    println("Normalized path 3: ${normalizedPath3}")
+}
+```
+
+运行结果：
+
+```text
+Original path 1: /home/user/../user/documents/./file.txt
+Normalized path 1: /home/user/documents/file.txt
+Original path 2: /home//user///documents////file.txt
+Normalized path 2: /home/user/documents/file.txt
+Original path 3: /home/user/documents/
+Normalized path 3: /home/user/documents
+```
+
 ### func toString()
 
 ```cangjie
@@ -718,6 +1762,31 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - [Path](fs_package_structs.md#struct-path) 的路径字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建一个路径实例
+    let path = Path("/home/user/documents/file.txt")
+    
+    // 使用toString()函数获取路径字符串
+    let pathString = path.toString()
+    
+    println("Path: ${path}")
+    println("Path string: ${pathString}")
+}
+```
+
+运行结果：
+
+```text
+Path: /home/user/documents/file.txt
+Path string: /home/user/documents/file.txt
+```
 
 ### operator func ==(Path)
 
@@ -736,3 +1805,47 @@ public operator func ==(that: Path): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，是同一路径；false，不是同一路径。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建两个相同的路径实例
+    let path1 = Path("/home/user/documents/file.txt")
+    let path2 = Path("/home/user/documents/file.txt")
+    
+    // 创建一个不同的路径实例
+    let path3 = Path("/home/user/documents/another_file.txt")
+    
+    // 创建一个需要规范化的路径实例
+    let path4 = Path("/home/user/../user/documents/file.txt")
+    
+    // 使用==操作符比较路径
+    let isEqual1 = path1 == path2
+    let isEqual2 = path1 == path3
+    let isEqual3 = path1 == path4
+    
+    println("Path1: ${path1}")
+    println("Path2: ${path2}")
+    println("Path3: ${path3}")
+    println("Path4: ${path4}")
+    println("Path1 == Path2: ${isEqual1}")
+    println("Path1 == Path3: ${isEqual2}")
+    println("Path1 == Path4 (normalized): ${isEqual3}")
+}
+```
+
+运行结果：
+
+```text
+Path1: /home/user/documents/file.txt
+Path2: /home/user/documents/file.txt
+Path3: /home/user/documents/another_file.txt
+Path4: /home/user/../user/documents/file.txt
+Path1 == Path2: true
+Path1 == Path3: false
+Path1 == Path4 (normalized): true
+```

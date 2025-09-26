@@ -50,6 +50,25 @@ public init(longArgList: Array<String>)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串数组中的长参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+``cangjie
+import std.argopt.*
+
+public main() {
+    let longArgs = ["--name=", "--age="]
+    let argOpt = ArgOpt(longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+运行结果：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### init(Array\<String>, String, Array\<String>)
 
 ```cangjie
@@ -68,6 +87,27 @@ public init(args: Array<String>, shortArgFormat: String, longArgList: Array<Stri
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当短参名字符串不符合规范，或字符串数组中的长参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John", "extraArg"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+运行结果：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### init(String)
 
 ```cangjie
@@ -83,6 +123,25 @@ public init(shortArgFormat: String)
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当短参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let shortFormat = "a:b:"
+    let argOpt = ArgOpt(shortFormat)
+    println("ArgOpt instance created successfully")
+}
+```
+
+运行结果：
+
+```text
+ArgOpt instance created successfully
+```
 
 ### init(String, Array\<String>)
 
@@ -101,6 +160,26 @@ public init(shortArgFormat: String, longArgList: Array<String>)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当短参名字符串不符合规范，或字符串数组中的长参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let shortFormat = "a:"
+    let longArgs = ["--name=", "--age="]
+    let argOpt = ArgOpt(shortFormat, longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+运行结果：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### func getArg(String)
 
 ```cangjie
@@ -117,6 +196,28 @@ public func getArg(arg: String): Option<String>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 参数解析值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let value = argOpt.getArg("a")
+    println("Value of argument 'a': ${value}")
+}
+```
+
+运行结果：
+
+```text
+Value of argument 'a': Some(123)
+```
+
 ### func getArgumentsMap()
 
 ```cangjie
@@ -129,6 +230,28 @@ public func getArgumentsMap(): HashMap<String, String>
 
 - [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - 已解析的参数名为键，参数值为值的哈希表。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let map = argOpt.getArgumentsMap()
+    println("Arguments map retrieved successfully")
+}
+```
+
+运行结果：
+
+```text
+Arguments map retrieved successfully
+```
+
 ### func getUnparseArgs()
 
 ```cangjie
@@ -140,3 +263,25 @@ public func getUnparseArgs(): Array<String>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 存放没有被解析的字符串的数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John", "extraArg1", "extraArg2"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let unparsed = argOpt.getUnparseArgs()
+    println("Unparsed args retrieved successfully")
+}
+```
+
+运行结果：
+
+```text
+Unparsed args retrieved successfully
+```

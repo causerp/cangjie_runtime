@@ -296,7 +296,7 @@ public interface Map<K, V> <: ReadOnlyMap<K, V> {
 
 父类型：
 
-- [ReadOnlyMap](collection_package_interface.md#interface-orderedmapk-v)\<K, V>
+- [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v)\<K, V>
 
 ### func add(K, V)
 

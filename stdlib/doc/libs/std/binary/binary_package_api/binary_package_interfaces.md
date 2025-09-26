@@ -84,7 +84,6 @@ public static func readBigEndian(buffer: Array<UInt8>): Bool
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 buffer 太小，不足以读出 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 值时，抛出异常。
 
 示例：
-
 <!-- verify -->
 ```cangjie
 import std.binary.*

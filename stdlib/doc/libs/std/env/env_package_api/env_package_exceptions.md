@@ -25,3 +25,24 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.env.*
+
+main() {
+    // 使用带消息的构造函数创建EnvException实例
+    let exception = EnvException("自定义异常信息")
+    println("异常信息: " + exception.message)
+    println("异常类名: " + exception.toString())
+}
+```
+
+运行结果：
+
+```text
+异常信息: 自定义异常信息
+异常类名: EnvException: 自定义异常信息
+```

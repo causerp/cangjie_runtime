@@ -4222,7 +4222,7 @@ public static func repeat(delay: Duration, interval: Duration, task: ()->Unit, s
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `interval` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero) 时，抛出异常。
 
-示例:
+示例：
 
 <!-- run -->
 

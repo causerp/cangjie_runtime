@@ -11,28 +11,6 @@ public class Random {
 
 功能：提供生成伪随机数的相关功能。
 
-示例:
-<!-- verify -->
-```cangjie
-import std.random.*
-
-main() {
-    /* 创建 Random 对象并设置种子来获取随机对象 */
-    let m: Random = Random(3)
-    let b: Bool = m.nextBool()
-    let c: Int8 = m.nextInt8()
-    print("b=${b is Bool},") /* 对象也可以是 Bool 类型 */
-    println("c=${c is Int8}")
-    return 0
-}
-```
-
-运行结果：
-
-```text
-b=true,c=true
-```
-
 ### prop seed
 
 ```cangjie
@@ -51,6 +29,28 @@ public init()
 
 功能：默认无参构造函数创建新的 [Random](random_package_classes.md#class-random) 对象。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    // 使用默认构造函数创建Random对象
+    let random = Random()
+    
+    // 生成一些随机数验证对象创建成功
+    let value = random.nextInt32()
+    println("生成的随机数: ${value}")
+}
+```
+
+可能的运行结果：
+
+```text
+生成的随机数: 1234567890
+```
+
 ### init(UInt64)
 
 ```cangjie
@@ -62,6 +62,44 @@ public init(seed: UInt64)
 参数：
 
 - seed: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 随机数种子，如果设置相同随机种子，生成的伪随机数列表相同。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    // 使用相同种子创建两个Random对象
+    let seed: UInt64 = 12345
+    let random1 = Random(seed)
+    let random2 = Random(seed)
+    
+    // 验证相同种子产生相同的随机数序列
+    let value1_1 = random1.nextInt32()
+    let value2_1 = random2.nextInt32()
+    println("random1的第一个随机数: ${value1_1}")
+    println("random2的第一个随机数: ${value2_1}")
+    println("两个随机数是否相同: ${value1_1 == value2_1}")
+    
+    let value1_2 = random1.nextInt32()
+    let value2_2 = random2.nextInt32()
+    println("random1的第二个随机数: ${value1_2}")
+    println("random2的第二个随机数: ${value2_2}")
+    println("两个随机数是否相同: ${value1_2 == value2_2}")
+}
+```
+
+可能的运行结果：
+
+```text
+random1的第一个随机数: 1861434509
+random2的第一个随机数: 1861434509
+两个随机数是否相同: true
+random1的第二个随机数: 1778302432
+random2的第二个随机数: 1778302432
+两个随机数是否相同: true
+```
 
 ### func next(UInt64) <sup>(deprecated)</sup>
 
@@ -87,6 +125,47 @@ public func next(bits: UInt64): UInt64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0 ，或大于 64，超过所能截取的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 长度，则抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 生成指定位长的随机数
+    let randomValue = random.next(10)
+    println("生成的10位随机数: ${randomValue}")
+    
+    // 测试边界情况
+    let randomValue32 = random.next(32)
+    println("生成的32位随机数: ${randomValue32}")
+    
+    // 测试异常情况
+    try {
+        let invalidValue = random.next(0)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+    
+    try {
+        let invalidValue = random.next(65)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+生成的10位随机数: 960
+生成的32位随机数: 2742077129
+捕获到异常: Bits cannot be 0.
+捕获到异常: Bits must be less than or equal to 64.
+```
+
 ### func nextBits(UInt64)
 
 ```cangjie
@@ -106,6 +185,47 @@ public func nextBits(bits: UInt64): UInt64
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，超过所能截取的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 长度，则抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 生成指定位长的随机数
+    let randomValue = random.nextBits(10)
+    println("生成的10位随机数: ${randomValue}")
+    
+    // 测试边界情况
+    let randomValue32 = random.nextBits(32)
+    println("生成的32位随机数: ${randomValue32}")
+    
+    // 测试异常情况
+    try {
+        let invalidValue = random.nextBits(0)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+    
+    try {
+        let invalidValue = random.nextBits(65)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+生成的10位随机数: 512
+生成的32位随机数: 3284567890
+捕获到异常: Bits cannot be 0.
+捕获到异常: Bits must be less than or equal to 64.
+```
 
 ### func nextBool()
 
@@ -1037,6 +1157,50 @@ public func nextBytes(bytes: Array<Byte>): Unit
 
 - bytes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 被替换的数组。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 先创建一个字节数组
+    let bytes = random.nextBytes(5)
+    
+    println("调用nextBytes前:")
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+    
+    // 使用nextBytes重新填充数组
+    random.nextBytes(bytes)
+    
+    println("调用nextBytes后:")
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+调用nextBytes前:
+bytes[0] = 200
+bytes[1] = 46
+bytes[2] = 141
+bytes[3] = 211
+bytes[4] = 109
+调用nextBytes后:
+bytes[0] = 164
+bytes[1] = 187
+bytes[2] = 173
+bytes[3] = 16
+bytes[4] = 229
+```
+
 ### func nextBytes(Int32)
 
 ```cangjie
@@ -1056,3 +1220,42 @@ public func nextBytes(length: Int32): Array<Byte>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `length` 小于等于 0 时，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 生成长度为5的随机字节数组
+    let bytes = random.nextBytes(5)
+    println("生成的数组长度: ${bytes.size}")
+    
+    // 打印生成的随机字节
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+    
+    // 测试异常情况
+    try {
+        let emptyBytes = random.nextBytes(-1)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+生成的数组长度: 5
+bytes[0] = 22
+bytes[1] = 242
+bytes[2] = 63
+bytes[3] = 116
+bytes[4] = 89
+捕获到异常: Length must be positive.
+```

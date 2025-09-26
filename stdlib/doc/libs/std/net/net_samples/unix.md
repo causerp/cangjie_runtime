@@ -22,6 +22,7 @@ func runUnixServer() {
 }
 
 main(): Int64 {
+    removeIfExists(SOCKET_PATH)
     let fut = spawn {
         runUnixServer()
     }
@@ -35,7 +36,7 @@ main(): Int64 {
         println(String.fromUtf8(buf)) // hello
     }
     fut.get()
-    remove(SOCKET_PATH)
+    removeIfExists(SOCKET_PATH)
     return 0
 }
 ```
