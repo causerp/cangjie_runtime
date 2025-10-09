@@ -26,6 +26,11 @@ class XmlBuilder <: ToString {
         this
     }
 
+    func element(childBuilder: (XmlElementBuilder) -> Unit): This {
+        childBuilder(element_)
+        this
+    }
+
     public func element(name: ToString, childBuilder: (XmlElementBuilder) -> Unit): This {
         element_.name(name)
         childBuilder(element_)
@@ -40,7 +45,7 @@ ${element_}
     }
 }
 
-open class XmlElementBuilder <: ToString {
+class XmlElementBuilder <: ToString {
     private var name_: ToString = ""
     private var attributes_ = ArrayList<(ToString, ToString)>()
     private var children = ArrayList<XmlElementBuilder>()
@@ -65,6 +70,16 @@ open class XmlElementBuilder <: ToString {
 
     public open func attribute(key: ToString, value: ToString): This {
         attributes.add((key, value.toString().toXmlEscapedString()))
+        this
+    }
+
+    func attributesFromDetails(details: Details): This {
+        this.attribute("tests", details.totalCount)
+        this.attribute("failures", details.failedCount)
+        this.attribute("errors", details.errorCount)
+        this.attribute("skipped", details.skippedCount)
+        this.attribute("time", timeFormat(details.duration))
+        this.attribute("timestamp", details.startTimestamp)
         this
     }
 
@@ -195,6 +210,7 @@ interface ReportFormat {
 
 enum UTestReportFormat <: ReportFormat {
     | XML(Path)
+    | XMLPerPackage(Path)
 
     public static redef func default(path: Path): ReportFormat {
         XML(path)
@@ -207,6 +223,7 @@ enum UTestReportFormat <: ReportFormat {
     public static redef func fromString(format: String, path: Path): ReportFormat {
         match (format.toAsciiUpper()) {
             case "XML" => XML(path)
+            case "XML-PER-PACKAGE" => XMLPerPackage(path)
             case _ => throw UnittestCliOptionsFormatException("Unsupported test report format: ${format}")
         }
     }
@@ -214,6 +231,7 @@ enum UTestReportFormat <: ReportFormat {
     public func report(result: TestGroupResult): Unit {
         match (this) {
             case XML(path) => result.reportXml(path.join("tests"))
+            case XMLPerPackage(path) => result.reportXMLPerPackage(path.join("tests"))
         }
     }
 }
@@ -241,28 +259,27 @@ extend TestSuiteId {
     }
 }
 
-private class XmlReport {
+private class SuiteXmlReport {
     var currentCaseId: TestCaseId
     var fakeId: TestCaseId
-    XmlReport(let suiteResult: TestSuiteResult) {
+
+    SuiteXmlReport(let suiteResult: TestSuiteResult) {
         // NOTE: questionable entry name
         fakeId = TestCaseId(suiteResult.suiteId, "lifecycle", isBench: false)
         currentCaseId = fakeId
     }
 
-    func buildTestSuite(): ToString {
+    func buildTestSuite() {
         let builder = XmlBuilder().encoding("UTF-8")
+        builder.element { elementXml => buildTestSuite(elementXml) }
+    }
 
+    func buildTestSuite(builder: XmlElementBuilder): ToString {
         builder.element("testsuite") { testSuiteXml =>
             let details = suiteResult.details
             testSuiteXml
                 .attribute("name", suiteResult.suiteId.asClassName())
-                .attribute("tests", details.totalCount)
-                .attribute("failures", details.failedCount)
-                .attribute("errors", details.errorCount)
-                .attribute("skipped", details.skippedCount)
-                .attribute("time", timeFormat(details.duration))
-                .attribute("timestamp", details.startTimestamp)
+                .attributesFromDetails(details)
 
             if (!suiteResult.suiteInfo.isEmpty && !suiteResult.suiteId.isFromTopLevelFunc) {
                 testSuiteXml.element("properties") { propertiesXml =>
@@ -270,12 +287,12 @@ private class XmlReport {
                 }
             }
 
-            suiteResult.visitPassedTests { tcr => 
+            suiteResult.visitPassedTests { tcr =>
                 if (tcr.details.totalCount == 0) { return }
                 buildTestEntry(tcr.subResults[0], tcr.caseId, tcr.caseInfo, testSuiteXml)
             }
 
-            suiteResult.visitFailedSteps { subResult, tcr => 
+            suiteResult.visitFailedSteps { subResult, tcr =>
                 buildTestEntry(subResult, tcr.caseId, tcr.caseInfo, testSuiteXml)
             }
         }
@@ -356,12 +373,27 @@ extend TestGroupResult {
         Directory.ensureExists(dir)
         this.visitAll<TestSuiteResult> { suiteResult =>
             let fileName = suiteResult.suiteId.reportFileName(isBench: false, extension: "xml")
-            let xmlBytes = XmlReport(suiteResult).buildTestSuite().toString().toArray()
+            let xmlBytes = SuiteXmlReport(suiteResult).buildTestSuite().toString().toArray()
             File.writeTo(
                 dir.join(fileName),
                 xmlBytes
             )
         }
+    }
+
+    func reportXMLPerPackage(dir: Path): Unit {
+        Directory.ensureExists(dir)
+        let fileName = "test-${this.groupName.toSafeFileName()}.xml"
+        let builder = XmlBuilder().encoding("UTF-8")
+        builder.element("testsuites") { groupXml =>
+            groupXml
+                .attribute("name", this.groupName)
+                .attributesFromDetails(this.details)
+            this.visitAll<TestSuiteResult> { suiteResult =>
+                SuiteXmlReport(suiteResult).buildTestSuite(groupXml)
+            }
+        }
+        File.writeTo(dir.join(fileName), builder.toString().toArray())
     }
 }
 
