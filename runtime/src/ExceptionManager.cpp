@@ -93,6 +93,15 @@ void ExceptionManager::RegisterUncaughtExceptionHandler(const CJUncaughtExceptio
 }
 #endif
 
+#ifdef __APPLE__
+void ExceptionManager::DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj)
+{
+    PRINT_INFO("%s\n", sunmary);
+    PRINT_INFO("%s\n%s\n%s\n", errorObj.name, errorObj.message, errorObj.stack);
+    abort();
+}
+#endif
+
 void ExceptionManager::DumpException()
 {
     ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
@@ -108,7 +117,7 @@ void ExceptionManager::DumpException()
     // Otherwise, dump the exception information.
     std::lock_guard<std::mutex> lock(gUncaughtExceptionHandlerMtx);
     if (Runtime::Current().GetExceptionManager().GetUncaughtExceptionHandler().uncaughtTask) {
-#if defined(__OHOS__) && (__OHOS__ == 1)
+#if defined(__OHOS__) && (__OHOS__ == 1) || (__APPLE__)
         const char* summary = "Uncaught exception was found.";
         CString exceptionStack;
         const int strLen = 10;
