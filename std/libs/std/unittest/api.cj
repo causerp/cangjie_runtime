@@ -399,6 +399,8 @@ public class TestReport <: Report {
         match (reporter) {
             case printer: TextReporterBase<T> => return printer.printReport(this)
             case xmlReporter: XmlReporter => UTestReportFormat.XML(xmlReporter.directory).report(groupResult)
+            case xmlPerPackageReporter: XmlPerPackageReporter => 
+                UTestReportFormat.XMLPerPackage(xmlPerPackageReporter.directory).report(groupResult)
             case _ => throw Exception("Unkown reporter")
         }
     }
