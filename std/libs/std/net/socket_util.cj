@@ -21,9 +21,9 @@ const OS_MACOS = "macOS"
 const OS_OTHERS = "others"
 const MAX_TIMEOUT_NS: Int64 = 0x7FFF_FFFF_FFFF_FFFF
 let MAX_TIMEOUT_DURATION: Duration = Duration.nanosecond * MAX_TIMEOUT_NS
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const OS = OS_OTHERS
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const OS = OS_MACOS
 @When[os == "Windows"]
 const OS = OS_WINDOWS

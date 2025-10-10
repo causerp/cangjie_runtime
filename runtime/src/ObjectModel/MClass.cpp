@@ -552,7 +552,7 @@ void* ReflectInfo::GetAnnotations(TypeInfo* arrayTi)
 
 U32 TypeInfo::GetModifier()
 {
-    if (!ReflectIsEnable()) {
+    if ((IsGenericTypeInfo() && !GetSourceGeneric()->ReflectIsEnable()) || !ReflectIsEnable()) {
         return MODIFIER_INVALID;
     }
     return GetReflectInfo()->GetModifier();
@@ -571,7 +571,7 @@ U32 TypeInfo::GetNumOfInstanceFieldInfos()
 
 InstanceFieldInfo* TypeInfo::GetInstanceFieldInfo(U32 index)
 {
-    if ((IsGenericTypeInfo() && !GetSourceGeneric()->ReflectIsEnable()) || !ReflectIsEnable()) {
+    if (IsGenericTypeInfo()) {
         return GetSourceGeneric()->GetReflectInfo()->GetInstanceFieldInfo(index);
     }
     return GetReflectInfo()->GetInstanceFieldInfo(index);

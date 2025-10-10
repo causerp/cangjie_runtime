@@ -82,8 +82,23 @@ void SchmonPreemptRunning(struct Processor *processor)
     }
 }
 
+// Check processor whether has ready cjthread.
+bool FastSchmonProcessorPreemptCheck(struct Processor *processor)
+{
+    if (atomic_load_explicit(&processor->state, std::memory_order_relaxed) == PROCESSOR_IDLE) {
+        return false;
+    }
+    if (processor->cjthreadNext.load() != nullptr) {
+        return true;
+    }
+    if (QueueLength(&processor->runq) != 0) {
+        return true;
+    }
+    return false;
+}
+
 /* Check whether a processor requires preemption. */
-void SchmonProcessorPreemptCheck(struct Processor *processor, unsigned long long now)
+void SchmonProcessorPreemptCheck(struct Processor *processor, unsigned long long now,  struct Schedule *schedule)
 {
     unsigned long schedcnt;
     int state;
@@ -94,7 +109,9 @@ void SchmonProcessorPreemptCheck(struct Processor *processor, unsigned long long
 
     schedcnt = processor->schedCnt;
     if (processor->obRecord.lastSchedCnt == schedcnt) {
-        if (processor->obRecord.lastTime + PREEMPT_TIME < now) {
+        int pTime = schedule->schdCJThread.cjthreadNum.load() != 0 || FastSchmonProcessorPreemptCheck(processor) ?
+            PREEMPT_TIME : (PREEMPT_TIME * 100); // 100: When there is few cjthreads waiting, then change preempt time.
+        if (processor->obRecord.lastTime + pTime < now) {
             // If the thread is executed on the same cjthread for more than 10 ms, preemption is performed.
             state = atomic_load(&processor->state);
             if (state == PROCESSOR_SYSCALL && ScheduleGet()->scheduleType == SCHEDULE_DEFAULT) {
@@ -159,7 +176,7 @@ void SchmonCheckAllprocessors(unsigned long long now)
         for (i = 0; i < schedule->schdProcessor.processorNum; i++) {
             processor = &schedule->schdProcessor.processorGroup[i];
             // Preemption check
-            SchmonProcessorPreemptCheck(processor, now);
+            SchmonProcessorPreemptCheck(processor, now, schedule);
 
             if (timerCheckFunc != nullptr) {
                 timerCheckFunc(processor, now);
@@ -236,7 +253,7 @@ void SchmonCJThreadPoolClean(unsigned long long now)
     SchmonRemovelistClear(&removeList);
     // After the resource pool is cleared, the actual physical memory need to be released.
     // Only the Linux platform is supported.
-#if defined(MRT_LINUX) && !defined (OHOS)
+#if defined(MRT_LINUX) && !defined (OHOS) && !defined (__ANDROID__)
     (void)malloc_trim(0);
 #endif
 }

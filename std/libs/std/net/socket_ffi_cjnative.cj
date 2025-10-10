@@ -37,9 +37,9 @@ let CJ_MRT_DOMAIN_SOCK_INIT: Int32 = unsafe {
  */
 const SOCK_STREAM: Int32 = 1
 const SOCK_DGRAM: Int32 = 2
-@When[os == "Windows" || os == "macOS"]
+@When[os == "Windows" || os == "macOS" || os == "iOS"]
 const SOCK_RDM: Int32 = 4
-@When[os == "Windows" || os == "macOS"]
+@When[os == "Windows" || os == "macOS" || os == "iOS"]
 const SOCK_SEQPACKET: Int32 = 5
 
 /* Error code in runtime */

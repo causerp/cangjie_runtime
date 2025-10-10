@@ -43,4 +43,31 @@ void PrintStackInfo::PrintStackTrace() const
     }
 #endif
 }
+
+#if defined(__IOS__) || defined(MRT_IOS)
+CString PrintStackInfo::GetStackTraceString()
+{
+    UnwindContext uwContext;
+    // Top unwind context can only be runtime or Cangjie context.
+    CheckTopUnwindContextAndInit(uwContext);
+    while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
+        AnalyseAndSetFrameType(uwContext);
+        stack.emplace_back(uwContext.frameInfo);
+
+        UnwindContext caller;
+        lastFrameType = uwContext.frameInfo.GetFrameType();
+        if (uwContext.UnwindToCallerContext(caller) == false) {
+            break;
+        }
+        uwContext = caller;
+    }
+
+    CString res;
+    size_t frameSize = stack.size();
+    for (size_t i = 0; i < frameSize; ++i) {
+        res.Append(stack[i].GetFrameInfo(i));
+    }
+    return res;
+}
+#endif
 } // namespace MapleRuntime

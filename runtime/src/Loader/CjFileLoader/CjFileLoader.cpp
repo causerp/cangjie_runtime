@@ -19,7 +19,7 @@ void CJFileLoader::Fini()
 
 void CJFileLoader::RegisterLoadFile(Uptr fileMetaAddr)
 {
-    ScopedEntryHiTrace hiTrace("CJRT_RegisterLoadFile");
+    ScopedEntryTrace trace("CJRT_RegisterLoadFile");
     BaseFile* file = GetBaseFileByMetaAddr(fileMetaAddr);
     if (file == nullptr) {
         return;
@@ -235,7 +235,7 @@ void CJFileLoader::RegisterOuterTypeExtensions(BaseFile* baseFile)
 
 void CJFileLoader::GenerateMTableForStaticGI()
 {
-    ScopedEntryHiTrace hiTrace("CJRT_GenerateMTableForStaticGI");
+    ScopedEntryTrace trace("CJRT_GenerateMTableForStaticGI");
     for (auto ti : staticGIs) {
         U32 tiUUID = ti->GetUUID();
         TypeTemplate* tt = ti->GetSourceGeneric();
@@ -438,7 +438,7 @@ Uptr CJFileLoader::FindSymbol(const CString libName, const CString symName) cons
 
 bool CJFileLoader::DoInitImage(BaseFile* baseFile) const
 {
-    ScopedEntryHiTrace hiTrace((CString("CJRT_INIT_LIBRARY_") + baseFile->GetBaseName()).Str());
+    ScopedEntryTrace trace((CString("CJRT_INIT_LIBRARY_") + baseFile->GetBaseName()).Str());
     std::vector<Uptr> funcs;
     baseFile->GetGlobalInitFunc(funcs);
     for (Uptr func : funcs) {
@@ -506,9 +506,15 @@ void CJFileLoader::TryThrowException(Uptr fileMetaAddr)
     }
     CString packageName = file->GetRealPath();
     CString packageVersion = file->GetSDKVersion();
-    compatibility.ThrowException(packageName, packageVersion);
+    CString msg = "executable cangjie file ";
+    msg.Append(packageName);
+    msg.Append(CString::FormatString(" version %s is not compatible with deployed cangjie runtime version %s",
+        packageVersion.Str(), compatibility.GetRuntimeSDKVersion()));
 #ifndef DISABLE_VERSION_CHECK
+    ExceptionManager::IncompatiblePackageExpection(msg);
     RemoveLoadedFiles(file);
+#else
+    LOG(RTLOG_WARNING, "%s", msg.Str());
 #endif
 }
 

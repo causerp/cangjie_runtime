@@ -12,6 +12,19 @@ if (OHOS_FLAG MATCHES 1 OR OHOS_FLAG MATCHES 2)
     set(CMAKE_CXX_COMPILER_WORKS 1)
 endif()
 
+if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
+    set(ANDROID_OS "linux")
+    set(ANDROID_TARGET_API "android31")
+    set(CMAKE_SYSTEM_NAME Linux)
+    set(CMAKE_C_COMPILER_WORKS 1)
+    set(CMAKE_CXX_COMPILER_WORKS 1)
+    if (ANDROID_FLAG MATCHES 1)
+        set(ANDROID_ARCH "aarch64")
+    else ()
+        set(ANDROID_ARCH "x86_64")
+    endif()
+endif()
+
 if (WINDOWS_FLAG MATCHES 1)
     set(CMAKE_SYSTEM_NAME Windows)
 endif()
@@ -68,6 +81,9 @@ if (RUNTIME_BACKWARD_PTRAUTH_CFI MATCHES 1)
     set(OTHER_DEFINITIONS "${OTHER_DEFINITIONS} -DRUNTIME_BACKWARD_PTRAUTH_CFI=1")
     add_compile_definitions(ENABLE_BACKWARD_PTRAUTH_CFI)
 endif ()
+if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
+    set(OTHER_DEFINITIONS "-DCMAKE_C_COMPILER_FORCED=ON -DCMAKE_CXX_COMPILER_FORCED=ON")
+endif ()
 
 if (BUILD_DEMANGLE)
     message("-- BUILD_DEMANGLE: " ${BUILD_DEMANGLE})
@@ -80,10 +96,10 @@ if (WINDOWS_FLAG MATCHES 1)
     if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
         message("build cjthread for windows on windows")
         # build\build_cjthread_windows.bat -p windows_x86_64 Debug STATIC
-        execute_process(COMMAND build\\build_cjthread_windows.bat -p windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+        execute_process(COMMAND build\\build_cjthread_windows.bat -p windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} "${OTHER_DEFINITIONS}" "${CMAKE_INSTALL_PREFIX}" ${TARGET_ARCH})
     elseif (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
         message("build cjthread for windows on linux")
-        execute_process(COMMAND bash build/build_cjthread.sh -p cross_windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+        execute_process(COMMAND bash build/build_cjthread.sh -p cross_windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} "${OTHER_DEFINITIONS}" "${CMAKE_INSTALL_PREFIX}" ${TARGET_ARCH})
     else ()
         message("Only the Windows and Linux platforms are supported.")
     endif ()
@@ -103,6 +119,18 @@ elseif (OHOS_FLAG MATCHES 2) # for ohos-x86_64
         message("build cjthread for ohos")
         execute_process(COMMAND bash build/build_cjthread.sh -p ohos_x86_64_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
     endif ()
+elseif (ANDROID_FLAG MATCHES 1)
+    message("build cjthread for ${ANDROID_TARGET_API}")
+    set(ENV{ANDROID_ROOT} "${ANDROID_ROOT}")
+    set(ENV{ANDROID_ARCH} "${ANDROID_ARCH}")
+    set(ENV{ANDROID_TARGET_API} "${ANDROID_TARGET_API}")
+    execute_process(COMMAND sh build/build_cjthread.sh -p android_aarch64_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+elseif (ANDROID_FLAG MATCHES 2)
+    message("build cjthread for ${ANDROID_TARGET_API}")
+    set(ENV{ANDROID_ROOT} "${ANDROID_ROOT}")
+    set(ENV{ANDROID_ARCH} "${ANDROID_ARCH}")
+    set(ENV{ANDROID_TARGET_API} "${ANDROID_TARGET_API}")
+    execute_process(COMMAND sh build/build_cjthread.sh -p android_x86_64_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 elseif (MACOS_FLAG MATCHES 1)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
         message("build cjthread for macos x86_64")
@@ -111,6 +139,12 @@ elseif (MACOS_FLAG MATCHES 1)
         message("build cjthread for macos aarch64")
         execute_process(COMMAND bash build/build_cjthread.sh -p macos_aarch64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
     endif()
+elseif (IOS_FLAG MATCHES 1)
+    message("build cjthread for ios")
+    execute_process(COMMAND sh build/build_cjthread.sh -p ios_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+elseif (IOS_SIMULATOR_FLAG MATCHES 1)
+    message("build cjthread for ios simulator")
+    execute_process(COMMAND sh build/build_cjthread.sh -p ios_simulator_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 else ()
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
         message("build cjthread for aarch64")
@@ -133,7 +167,7 @@ if (DOPRA_FLAG MATCHES 1)
     add_definitions(-DMRT_USE_CJTHREAD)
     add_definitions(-DMRT_USE_CJTHREAD_RENAME)
 endif ()
-if (MACOS_FLAG MATCHES 1)
+if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
     add_definitions(-D_XOPEN_SOURCE=600)
     add_definitions(-D_DARWIN_C_SOURCE)
     # add_definitions(-D__USE_GNU)
@@ -147,11 +181,11 @@ if (DUMPADDRESS_FLAG MATCHES 1)
     add_definitions(-DMRT_DUMP_ADDRESS)
 endif ()
 
-if(CJ_SDK_VERSION)
+if (CJ_SDK_VERSION)
     add_definitions(-DCJ_SDK_VERSION="${CJ_SDK_VERSION}")
 endif()
 
-if(VERSION_CHECK_FLAG MATCHES 0)
+if (DISABLE_VERSION_CHECK MATCHES 1)
     add_definitions(-DDISABLE_VERSION_CHECK)
 endif()
 
@@ -162,29 +196,56 @@ endif ()
 
 link_directories(${DOPRA_LIBS})
 link_directories(${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
-if (MACOS_FLAG MATCHES 1)
+if (ANDROID_FLAG MATCHES 1)
+    FILE(GLOB_RECURSE CLANG_LIB_FILES ${ANDROID_ROOT}/libclang_rt.builtins-aarch64-android.a)
+    list(GET CLANG_LIB_FILES 0 FIRST_FILE)
+    get_filename_component(CLANG_LIB_PARENT_DIR ${FIRST_FILE} DIRECTORY)
+    link_directories(${CLANG_LIB_PARENT_DIR})
+    set(CMAKE_SYSTEM_PROCESSOR "aarch64")
+elseif (ANDROID_FLAG MATCHES 2)
+    FILE(GLOB_RECURSE CLANG_LIB_FILES ${ANDROID_ROOT}/libclang_rt.builtins-x86_64-android.a)
+    list(GET CLANG_LIB_FILES 0 FIRST_FILE)
+    get_filename_component(CLANG_LIB_PARENT_DIR ${FIRST_FILE} DIRECTORY)
+    link_directories(${CLANG_LIB_PARENT_DIR})
+    set(CMAKE_SYSTEM_PROCESSOR "x86_64")
+elseif (MACOS_FLAG MATCHES 1)
     execute_process(COMMAND xcrun --show-sdk-path OUTPUT_VARIABLE output OUTPUT_STRIP_TRAILING_WHITESPACE)
     # set(output "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
     link_directories(${output}/usr/lib)
     link_directories(/usr/local/lib)
     set(CMAKE_OSX_DEPLOYMENT_TARGET 12.0.0)
+elseif (IOS_SIMULATOR_FLAG MATCHES 1)
+    set(IOS_PLATFORM "SIMULATOR")
+    set(IOS_PLATFORM_LOCATION "iPhoneSimulator.platform")
+    set(CMAKE_IOS_DEVELOPER_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer")
+    set(CMAKE_IOS_SDK_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator17.5.sdk")
+    set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator17.5.sdk")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "")
+elseif (IOS_FLAG MATCHES 1)
+    set(IOS ON)
+    set(IOS_PLATFORM OS)
+    set(IOS_PLATFORM_LOCATION "iPhoneOS.platform")
+    set(CMAKE_IOS_DEVELOPER_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/${IOS_PLATFORM_LOCATION}/Developer")
+    set(CMAKE_IOS_SDK_ROOT "${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneOS17.5.sdk")
+    set(CMAKE_OSX_SYSROOT "${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneOS17.5.sdk")
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "")
 endif()
 
 link_directories(${OHOS_LIB})
 include_directories(${BOUNDSCHECK_INCLUDE})
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/src)
 add_subdirectory(third_party/third_party_bounds_checking_function)
-if (OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0)
+if (ANDROID_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0 AND IOS_FLAG MATCHES 0 AND IOS_SIMULATOR_FLAG MATCHES 0)
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/CjNativeRuntimeStartAndEnd.s)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/CjNativeRuntimeStartAndEnd.S)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/CjNativeRuntimeStartAndEnd.s)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/CjNativeRuntimeStartAndEnd.S)
 endif()
 endif()
 
-if (MACOS_FLAG MATCHES 1)
+if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
     set(COMMON_LINK_FLAGS "-rdynamic")
 else()
     set(COMMON_LINK_FLAGS "-Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -Wl,--gc-sections -rdynamic ${LINK_SCRIPTS}")
@@ -221,6 +282,7 @@ if (COV MATCHES 1)
         target_compile_options(threadmodel PUBLIC "SHELL:${CMAKE_COV_FLAGS}")
     endif ()
 else ()
+    target_compile_definitions(cangjie-runtime PUBLIC COMPILE_DYNAMIC)
     if (WINDOWS_FLAG MATCHES 1)
         set_target_properties(cangjie-runtime PROPERTIES LINK_FLAGS " -Wl,--gc-sections")
     elseif (WINDOWS_FLAG MATCHES 0)
@@ -240,7 +302,7 @@ elseif (WINDOWS_FLAG MATCHES 0)
 endif()
 
 if (DOPRA_FLAG MATCHES 1)
-    if (MACOS_FLAG MATCHES 1)
+    if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
         list(APPEND LINK_LIBS "cjthreadmodel" "cangjie-thread")
     else()
         list(APPEND LINK_LIBS "cjthreadmodel" "-Wl,--whole-archive" "cangjie-thread" "-Wl,--no-whole-archive")
@@ -257,12 +319,23 @@ if (HWASAN_FLAG MATCHES 1)
     list(APPEND LINK_LIBS "-shared-libsan -fsanitize=hwaddress -fno-emulated-tls -fno-lto -fno-sanitize=cfi -mllvm -hwasan-globals=0 -fno-whole-program-vtables")
 endif()
 
+if (ANDROID_FLAG MATCHES 1)
+    list(APPEND LINK_LIBS "clang_rt.builtins-aarch64-android")
+endif()
+if (ANDROID_FLAG MATCHES 2)
+    list(APPEND LINK_LIBS "clang_rt.builtins-x86_64-android")
+endif()
+
 if (DOPRA_FLAG MATCHES 1 AND OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0) # linux
     if (COV MATCHES 1) # linux - cov
         target_link_libraries(cangjie-runtime "-Wl,--start-group -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/local_export.map"
             "-lstdc++ -lpthread -ldl" ${LINK_LIBS} "cjNativeStartAndEnd" "-Wl,--end-group")
     else ()
-        if (MACOS_FLAG MATCHES 1) # macos
+        if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2) # android
+            target_link_libraries(cangjie-runtime
+                "-Wl,--start-group -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/local_export.map"
+                ${LINK_LIBS} "-Wl,--end-group -nodefaultlibs -Wl,-Bdynamic -lc++ -lunwind -lm -lc -ldl -landroid -llog")
+        elseif (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1) # macos,ios
             target_link_libraries(cangjie-runtime ${LINK_LIBS} "-Wl,-no_compact_unwind -nodefaultlibs -lc++ -lm -lc -lpthread -ldl")
         else() # normal
             target_link_libraries(cangjie-runtime "-Wl,--start-group -Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/src/${EXPORT_MAP}"
@@ -287,7 +360,7 @@ endif ()
 # setting for cjthread trace
 if (DOPRA_FLAG MATCHES 1 AND RUNTIME_TRACE_FLAG MATCHES 1)
     file(WRITE ${CMAKE_BINARY_DIR}/null.c "")
-    if (MACOS_FLAG MATCHES 1)
+    if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
         link_libraries("-Wl" "cjthread-trace" "-Wl" "boundscheck")
     elseif(WINDOWS_FLAG MATCHES 1)
         link_libraries("-Wl,--whole-archive" "cjthread-trace" "-Wl,--no-whole-archive" "boundscheck")
@@ -320,6 +393,9 @@ elseif (MACOS_FLAG MATCHES 1)
     else()
         add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/Aarch64_macos/Cjstart.S)
     endif()
+elseif (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/ios/Cjstart.S)
+    add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Macos/Section.cpp)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.lds
@@ -338,7 +414,7 @@ endif()
 install(PROGRAMS $<TARGET_OBJECTS:cjstart>
         RENAME cjstart.o
         DESTINATION lib/${TARGET_ARCH})
-if (MACOS_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1)
+if (MACOS_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
     install(PROGRAMS $<TARGET_OBJECTS:section>
         RENAME section.o
         DESTINATION lib/${TARGET_ARCH})
@@ -359,6 +435,13 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
             set(STRIP_PROGRAM $ENV{OHOS_ROOT}/prebuilts/clang/ohos/${CMAKE_HOST_SYSTEM_NAME}-${CMAKE_HOST_SYSTEM_PROCESSOR}/llvm/bin/llvm-strip)
         endif()
     endif()
+    if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
+        if (CMAKE_HOST_SYSTEM_NAME MATCHES "Darwin")
+            set(STRIP_PROGRAM $ENV{ANDROID_ROOT}/llvm/prebuilt/darwin-x86_64/bin/llvm-strip)
+        else()
+            set(STRIP_PROGRAM $ENV{ANDROID_ROOT}/llvm/prebuilt/linux-x86_64/bin/llvm-strip)
+        endif()
+    endif()
     if (WINDOWS_FLAG MATCHES 1)
         install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} -p ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}/libcangjie-runtime.dll)"
             COMPONENT cangjie-runtime)
@@ -370,7 +453,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
         install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} -p ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}/libcangjie-trace.dll)"
             COMPONENT cangjie-trace)
         endif()
-    elseif (MACOS_FLAG MATCHES 1)
+    elseif (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
         install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} -x ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}/libcangjie-runtime.dylib)"
                 COMPONENT cangjie-runtime)
         if (ASAN_SUPPORT_FLAG MATCHES 0)
@@ -402,34 +485,127 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
 endif () # CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$"
 
 
-if (WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0)
+if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1 OR MACOS_FLAG MATCHES 1 OR
+    (ANDROID_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0))
     add_library(cangjie-runtime-static STATIC)
-    target_sources(cangjie-runtime-static PRIVATE
-        $<TARGET_OBJECTS:runtime>
-        $<TARGET_OBJECTS:Base>
-        $<TARGET_OBJECTS:CjFile>
-        $<TARGET_OBJECTS:Concurrency>
-        $<TARGET_OBJECTS:Common>
-        $<TARGET_OBJECTS:Exception>
-        $<TARGET_OBJECTS:Heap>
-        $<TARGET_OBJECTS:Allocator>
-        $<TARGET_OBJECTS:Barrier>
-        $<TARGET_OBJECTS:Collector>
-        $<TARGET_OBJECTS:Loader>
-        $<TARGET_OBJECTS:Inspector>
-        $<TARGET_OBJECTS:Mutator>
-        $<TARGET_OBJECTS:ObjectModel>
-        $<TARGET_OBJECTS:Signal>
-        $<TARGET_OBJECTS:BinaryFile>
-        $<TARGET_OBJECTS:CjFileLoader>
-        $<TARGET_OBJECTS:UnwindStack>
-        $<TARGET_OBJECTS:Sync>
-        $<TARGET_OBJECTS:WCollector>
-        $<TARGET_OBJECTS:cjthreadmodel>
-        $<TARGET_OBJECTS:CjSemanticVersion>
-        $<TARGET_OBJECTS:CpuProfiler>
-        ${SANITIZER_LIB_STATIC}
-    )
+    if (WINDOWS_FLAG MATCHES 1)
+        target_sources(cangjie-runtime-static PRIVATE
+            $<TARGET_OBJECTS:runtime>
+            $<TARGET_OBJECTS:Base>
+            $<TARGET_OBJECTS:CjFile>
+            $<TARGET_OBJECTS:Concurrency>
+            $<TARGET_OBJECTS:Common>
+            $<TARGET_OBJECTS:Exception>
+            $<TARGET_OBJECTS:Heap>
+            $<TARGET_OBJECTS:Allocator>
+            $<TARGET_OBJECTS:Barrier>
+            $<TARGET_OBJECTS:Collector>
+            $<TARGET_OBJECTS:Loader>
+            $<TARGET_OBJECTS:Inspector>
+            $<TARGET_OBJECTS:Mutator>
+            $<TARGET_OBJECTS:ObjectModel>
+            $<TARGET_OBJECTS:BinaryFile>
+            $<TARGET_OBJECTS:CjFileLoader>
+            $<TARGET_OBJECTS:UnwindStack>
+            $<TARGET_OBJECTS:Sync>
+            $<TARGET_OBJECTS:WCollector>
+            $<TARGET_OBJECTS:cjthreadmodel>
+            $<TARGET_OBJECTS:CjSemanticVersion>
+            $<TARGET_OBJECTS:CpuProfiler>
+            ${SANITIZER_LIB_STATIC}
+        )
+    else()
+        target_sources(cangjie-runtime-static PRIVATE
+            $<TARGET_OBJECTS:runtime>
+            $<TARGET_OBJECTS:Base>
+            $<TARGET_OBJECTS:CjFile>
+            $<TARGET_OBJECTS:Concurrency>
+            $<TARGET_OBJECTS:Common>
+            $<TARGET_OBJECTS:Exception>
+            $<TARGET_OBJECTS:Heap>
+            $<TARGET_OBJECTS:Allocator>
+            $<TARGET_OBJECTS:Barrier>
+            $<TARGET_OBJECTS:Collector>
+            $<TARGET_OBJECTS:Loader>
+            $<TARGET_OBJECTS:Inspector>
+            $<TARGET_OBJECTS:Mutator>
+            $<TARGET_OBJECTS:ObjectModel>
+            $<TARGET_OBJECTS:Signal>
+            $<TARGET_OBJECTS:BinaryFile>
+            $<TARGET_OBJECTS:CjFileLoader>
+            $<TARGET_OBJECTS:UnwindStack>
+            $<TARGET_OBJECTS:Sync>
+            $<TARGET_OBJECTS:WCollector>
+            $<TARGET_OBJECTS:cjthreadmodel>
+            $<TARGET_OBJECTS:CjSemanticVersion>
+            $<TARGET_OBJECTS:CpuProfiler>
+            ${SANITIZER_LIB_STATIC}
+        )
+    endif()
+    if (IOS_FLAG MATCHES 1)
+        add_custom_command(TARGET cangjie-runtime-static POST_BUILD
+            COMMAND sh build/build_cjthread.sh -p ios_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            VERBATIM
+        )
+    elseif (IOS_SIMULATOR_FLAG MATCHES 1)
+        add_custom_command(TARGET cangjie-runtime-static POST_BUILD
+            COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p ios_simulator_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+            VERBATIM
+        )
+    elseif (MACOS_FLAG MATCHES 1)
+        if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
+            add_custom_command(TARGET cangjie-runtime-static POST_BUILD
+                COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p macos_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                VERBATIM
+            )
+        else()
+            add_custom_command(TARGET cangjie-runtime-static POST_BUILD
+                COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p macos_aarch64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+                VERBATIM
+            )
+        endif()
+    endif()
+    if (IOS_FLAG MATCHES 1)
+        set(RENAME_PLATFORM "ios_cangjie")
+    elseif (IOS_SIMULATOR_FLAG MATCHES 1)
+        set(RENAME_PLATFORM "ios_simulator_cangjie")
+    elseif (MACOS_FLAG MATCHES 1)
+        set(RENAME_PLATFORM "macos_cangjie")
+    else()
+        set(RENAME_PLATFORM "empty")
+    endif()
+    if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR MACOS_FLAG MATCHES 1)
+        add_custom_command(TARGET cangjie-runtime-static PRE_BUILD
+            COMMAND sh ${CMAKE_SOURCE_DIR}/build/apple_rename_section.sh 
+                "${RENAME_PLATFORM}"
+                "${CMAKE_C_COMPILER}"
+                "$<TARGET_OBJECTS:runtime>"
+                "$<TARGET_OBJECTS:Base>"
+                "$<TARGET_OBJECTS:CjFile>"
+                "$<TARGET_OBJECTS:Concurrency>"
+                "$<TARGET_OBJECTS:Common>"
+                "$<TARGET_OBJECTS:Exception>"
+                "$<TARGET_OBJECTS:Heap>"
+                "$<TARGET_OBJECTS:Allocator>"
+                "$<TARGET_OBJECTS:Barrier>"
+                "$<TARGET_OBJECTS:Collector>"
+                "$<TARGET_OBJECTS:Loader>"
+                "$<TARGET_OBJECTS:Inspector>"
+                "$<TARGET_OBJECTS:Mutator>"
+                "$<TARGET_OBJECTS:ObjectModel>"
+                "$<TARGET_OBJECTS:Signal>"
+                "$<TARGET_OBJECTS:BinaryFile>"
+                "$<TARGET_OBJECTS:CjFileLoader>"
+                "$<TARGET_OBJECTS:UnwindStack>"
+                "$<TARGET_OBJECTS:Sync>"
+                "$<TARGET_OBJECTS:WCollector>"
+                "$<TARGET_OBJECTS:cjthreadmodel>"
+                "$<TARGET_OBJECTS:CjSemanticVersion>"
+                "$<TARGET_OBJECTS:CpuProfiler>"
+                "${SANITIZER_LIB_STATIC}"
+            VERBATIM
+        )
+    endif()
 install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH})
 set_target_properties(cangjie-runtime-static PROPERTIES OUTPUT_NAME "cangjie-runtime")
 
@@ -439,8 +615,10 @@ set(STRIP_PROGRAM strip)
 install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} --rename-section .text=.text_runtime \
             ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-runtime.a)"
         COMPONENT cangjie-runtime)
-install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-runtime.a)"
+if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
+    install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib/libcangjie-runtime.a)"
         COMPONENT cangjie-runtime)
+endif()
 endif()
 
 endif() # BUILD_RUNTIME

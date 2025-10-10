@@ -24,6 +24,11 @@ func getRealHeapSize(): Int64
 @Intrinsic
 func dumpCjHeapData(fd: Int32): Bool
 
+@When[backend == "cjnative"]
+@Frozen
+@Intrinsic
+public func blackBox<T>(input: T): T
+ 
 class MemoryInfoException <: Exception {
     init(message: String) {
         super(message)

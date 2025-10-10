@@ -78,48 +78,42 @@ public:
         size_t length = 0;
     };
 
-    // No need for LL/SC to avoid the ABA problem, since all Nodes are unique.
-    template <typename T>
-    class LockedFreeList {
+    // there is no need to use LL/SC to avoid ABA problem, becasue Nodes are all unique.
+    template<typename T>
+    class LockFreeList {
         friend class SatbBuffer;
 
     public:
-        LockedFreeList() : head(nullptr) {}
-        ~LockedFreeList() = default;
+        LockFreeList() : head(nullptr) {}
+        ~LockFreeList() = default;
 
-        void Reset() { head.store(nullptr, std::memory_order_relaxed); }
+        void Reset() { head = nullptr; }
 
-        void Push(T* n) {
+        void Push(T* n)
+        {
             T* old = head.load(std::memory_order_relaxed);
             do {
                 n->next = old;
-            } while (!head.compare_exchange_weak(
-                old, n,
-                std::memory_order_release,
-                std::memory_order_relaxed));
+            } while (!head.compare_exchange_weak(old, n, std::memory_order_release, std::memory_order_relaxed));
         }
 
-        T* Pop() {
-            T* old = head.load(std::memory_order_acquire);
+        T* Pop()
+        {
+            T* old = head.load(std::memory_order_relaxed);
             do {
                 if (old == nullptr) {
                     return nullptr;
                 }
-            } while (!head.compare_exchange_weak(
-                old, old->next,
-                std::memory_order_acquire,
-                std::memory_order_relaxed));
+            } while (!head.compare_exchange_weak(old, old->next, std::memory_order_release, std::memory_order_relaxed));
             old->next = nullptr;
             return old;
         }
 
-        T* PopAll() {
-            T* old = head.load(std::memory_order_acquire);
-            while (!head.compare_exchange_weak(
-                old, nullptr,
-                std::memory_order_acquire,
-                std::memory_order_relaxed)) {
-            }
+        T* PopAll()
+        {
+            T* old = head.load(std::memory_order_relaxed);
+            while (!head.compare_exchange_weak(old, nullptr, std::memory_order_release, std::memory_order_relaxed)) {
+            };
             return old;
         }
 
@@ -178,12 +172,15 @@ public:
         if (node == nullptr) {
             node = freeNodes.Pop();
         } else if (node->IsFull()) {
+            // means current node is full
             retiredNodes.Push(node);
             node = freeNodes.Pop();
         } else {
+            // not null & have slots
             return;
         }
         if (node == nullptr) {
+            // there is no free nodes in the freeNodes list
             Page* page = GetPages(MapleRuntime::MRT_PAGE_SIZE);
             Node* list = ConstructFreeNodeList(page, MapleRuntime::MRT_PAGE_SIZE);
             if (list == nullptr) {
@@ -280,21 +277,19 @@ private:
     {
         MAddress start = reinterpret_cast<MAddress>(page) + RoundUp(sizeof(Page), CACHE_LINE_ALIGN);
         MAddress end = reinterpret_cast<MAddress>(page) + bytes;
-
         Node* cur = nullptr;
         Node* head = nullptr;
-
         while (start <= (end - NODE_SIZE)) {
             Node* node = new (reinterpret_cast<void*>(start)) Node();
             if (cur == nullptr) {
-                head = cur = node;
+                cur = node;
+                head = node;
             } else {
                 cur->next = node;
                 cur = node;
             }
             start += NODE_SIZE;
         }
-
         return head;
     }
 

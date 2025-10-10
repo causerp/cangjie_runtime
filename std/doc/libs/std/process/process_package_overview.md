@@ -4,8 +4,6 @@
 
 process 包主要提供 Process 进程操作接口，主要包括进程创建，标准流获取，进程等待，进程信息查询等。
 
-本包提供多平台统一操控能力，目前支持 Linux 平台，macOS 平台，Windows 平台。
-
 ## API 列表
 
 ### 函数
@@ -43,14 +41,14 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 
 | 成员 |  支持平台 |
 | ------------ | ------------ |
-| [current <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-prop-current-deprecated) | `Linux` `Windows` `macOS` |
-| [pid](./process_package_api/process_package_classes.md#prop-pid) | `Linux` `Windows` `macOS` |
+| [current <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-prop-current-deprecated) | `Linux` `Windows` `macOS` `iOS` |
+| [pid](./process_package_api/process_package_classes.md#prop-pid) | `Linux` `Windows` `macOS` `iOS`|
 | [name](./process_package_api/process_package_classes.md#prop-name) | `Linux` `Windows` `macOS` |
 | [command](./process_package_api/process_package_classes.md#prop-command) | `Linux` `Windows` `macOS` |
-| [arguments <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-arguments-deprecated) | `Linux` `macOS` |
+| [arguments <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-arguments-deprecated) | `Linux` `macOS` `iOS` |
 | [commandLine <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-commandLine-deprecated) | `Linux` `macOS` |
 | [environment <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-environment-deprecated) | `Linux` |
-| [workingDirectory <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-workingDirectory-deprecated) | `Linux` `macOS` |
+| [workingDirectory <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-workingDirectory-deprecated) | `Linux` `macOS` `iOS` |
 | [of(Int64) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-ofint64-deprecated) | `Linux` `Windows` `macOS` |
 | [start(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-startstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect-deprecated) | `Linux` `Windows` `macOS` |
 | [run(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect, Duration) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-runstring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration-deprecated) | `Linux` `Windows` `macOS` |
@@ -65,17 +63,17 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 
 | 成员 |  支持平台 |
 | ------------ | ------------ |
-| [arguments](./process_package_api/process_package_classes.md#prop-arguments) | `Linux` `Windows` `macOS` |
-| [homeDirectory](./process_package_api/process_package_classes.md#prop-homeDirectory) | `Linux` `Windows` `macOS` |
-| [tempDirectory](./process_package_api/process_package_classes.md#prop-tempDirectory) | `Linux` `Windows` `macOS` |
-| [stdIn](./process_package_api/process_package_classes.md#prop-stdIn) | `Linux` `Windows` `macOS` |
-| [stdOut](./process_package_api/process_package_classes.md#prop-stdOut) | `Linux` `Windows` `macOS` |
-| [stdErr](./process_package_api/process_package_classes.md#prop-stdErr) | `Linux` `Windows` `macOS` |
-| [atExit(() -> Unit)](./process_package_api/process_package_classes.md#func-atexit---unit) | `Linux` `Windows` `macOS` |
-| [exit(Int64)](./process_package_api/process_package_classes.md#func-exitint64) | `Linux` `Windows` `macOS` |
-| [getEnv(String)](./process_package_api/process_package_classes.md#func-getenvstring) | `Linux` `Windows` `macOS` |
-| [removeEnv(String)](./process_package_api/process_package_classes.md#func-removeenvstring) | `Linux` `Windows` `macOS` |
-| [setEnv(String, String)](./process_package_api/process_package_classes.md#func-setenvstring-string) | `Linux` `Windows` `macOS` |
+| [arguments](./process_package_api/process_package_classes.md#prop-arguments) | `Linux` `Windows` `macOS` `iOS` |
+| [homeDirectory](./process_package_api/process_package_classes.md#prop-homeDirectory) | `Linux` `Windows` `macOS` `iOS` |
+| [tempDirectory](./process_package_api/process_package_classes.md#prop-tempDirectory) | `Linux` `Windows` `macOS` `iOS` |
+| [stdIn](./process_package_api/process_package_classes.md#prop-stdIn) | `Linux` `Windows` `macOS` `iOS` |
+| [stdOut](./process_package_api/process_package_classes.md#prop-stdOut) | `Linux` `Windows` `macOS` `iOS` |
+| [stdErr](./process_package_api/process_package_classes.md#prop-stdErr) | `Linux` `Windows` `macOS` `iOS` |
+| [atExit(() -> Unit)](./process_package_api/process_package_classes.md#func-atexit---unit) | `Linux` `Windows` `macOS` `iOS` |
+| [exit(Int64)](./process_package_api/process_package_classes.md#func-exitint64) | `Linux` `Windows` `macOS` `iOS` |
+| [getEnv(String)](./process_package_api/process_package_classes.md#func-getenvstring) | `Linux` `Windows` `macOS` `iOS` |
+| [removeEnv(String)](./process_package_api/process_package_classes.md#func-removeenvstring) | `Linux` `Windows` `macOS` `iOS` |
+| [setEnv(String, String)](./process_package_api/process_package_classes.md#func-setenvstring-string) | `Linux` `Windows` `macOS` `iOS` |
 
 #### class SubProcess
 

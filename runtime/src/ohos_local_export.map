@@ -1,0 +1,21 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+# This source file is part of the Cangjie project, licensed under Apache-2.0
+# with Runtime Library Exception.
+#
+# See https://cangjie-lang.cn/pages/LICENSE for license information.
+
+CANGJIE {
+  global: MRT_LibraryOnLoad;MRT_LibraryUnLoad;CJ_MRT_*;CJ_MCC_*;
+          _ZN12MapleRuntime6Logger9GetLoggerEv;_ZN12MapleRuntime6Logger9FormatLogE10RTLogLevelbPKcz;
+          _ZN12MapleRuntime8TimeUtil11NanoSecondsEv;_ZN12MapleRuntime8TimeUtil12GetTimestampEv;InitCJRuntime;RunCJTask;RunCJTaskWithLocal;
+          RunCJTaskToSchedule;InitUIScheduler;RunUIScheduler;RegisterEventHandlerCallbacks;RegisterArkVMInRuntime;
+          SuspendSchedule;ResumeSchedule;AnyTask;NetPollNotifyAdd;NetPollNotifyDel;FiniCJRuntime;SetCJCommandLineArgs;
+          GetTaskRet;GetTaskRetWithTimeout;ReleaseHandle;LoadCJLibrary;FindCJSymbol;UnloadCJLibrary;
+          InitCJLibrary;CJThreadKeyCreate;CJThreadSetspecific;
+          CJThreadGetspecific;LoadCJLibraryWithInit;CJ_*;__ccc_personality_v0;RegisterUncaughtExceptionHandler;
+          _ZN12MapleRuntime18CollectorResources17GCMainThreadEntryEPv;MRT_ProcessFinalizers;_ZN12MapleRuntime12GCPoolThread10WorkerFuncEPv;
+          CreateCJThread;SuspendCJThread;ResumeCJThread;GetCJThreadState;GetCJThreadResult;DestoryCJThread;
+          AddHandlerToSignalStack;RemoveHandlerFromSignalStack;sigaction;signal;sigprocmask;
+          _Z30CJ_MRT_GetCJThreadNumberUnsafev;_Z25CJ_MRT_GetAllCJThreadInfoPvj;RegisterStackInfoCallbacks;
+  local: *; # Hide everything else.
+};

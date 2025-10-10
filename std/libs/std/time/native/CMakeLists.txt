@@ -9,7 +9,8 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
         GLOB
         time_ffi_src
         ./time.c
-        ./time_common.c)
+        ./time_common.c
+        ./timezone.c)
 endif()
 
 set(libname cangjie-std-timeFFI)

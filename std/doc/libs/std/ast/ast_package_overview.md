@@ -4,6 +4,8 @@
 
 ast 包主要包含了仓颉源码的语法解析器和仓颉语法树节点，提供语法解析函数。可将仓颉源码的词法单元（[Tokens](./ast_package_api/ast_package_classes.md#class-tokens)）解析为抽象语法树（Abstract Syntax Tree）节点对象。
 
+对于 ios 平台运行的场景，本包仅支持在 ios 12 及以上系统运行。
+
 仓颉 ast 包提供了 `Macro With Context` 的相关函数，用于在宏展开时获取展开过程中的上下文相关信息。在嵌套宏场景下，内层宏可以调用库函数 [assertParentContext(String)](./ast_package_api/ast_package_funcs.md#func-assertparentcontextstring) 来保证内层宏调用一定嵌套在特定的外层宏调用中。如果内层宏调用这个函数时没有嵌套在给定的外层宏调用中，该函数将抛出一个错误。同时，函数 [insideParentContext(String)](./ast_package_api/ast_package_funcs.md#func-insideparentcontextstring) 也用于检查内层宏调用是否嵌套在特定的外层宏调用中，但是返回一个布尔值。`Macro With Context` 的相关函数只能作为函数被直接调用，不能赋值给变量，不能作为实参或返回值使用。
 
 `Macro With Context` 相关函数如下：

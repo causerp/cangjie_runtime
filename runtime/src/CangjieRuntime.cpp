@@ -28,6 +28,7 @@
 #include "LogManager.h"
 #include "Mutator/Mutator.h"
 #include "Mutator/MutatorManager.h"
+#include "Heap/Allocator/RegionSpace.h"
 #ifdef CANGJIE_GWPASAN_SUPPORT
 #include "Sanitizer/SanitizerInterface.h"
 #endif
@@ -35,7 +36,7 @@ namespace MapleRuntime {
 StackGrowConfig CangjieRuntime::stackGrowConfig = StackGrowConfig::UNDEF;
 extern "C" MRT_EXPORT void MRT_LibraryOnLoad(uint64_t address, bool enableGC)
 {
-    ScopedEntryHiTrace hiTrace("CJRT_LOAD_LIBRARY");
+    ScopedEntryTrace trace("CJRT_LOAD_LIBRARY");
     if (address == 0) {
         return;
     }
@@ -100,7 +101,7 @@ std::atomic<bool> g_initialized = { false };
 
 void CangjieRuntime::CreateAndInit(const RuntimeParam& runtimeParam)
 {
-    ScopedEntryHiTrace hiTrace("CJRT_CreateAndInit");
+    ScopedEntryTrace trace("CJRT_CreateAndInit");
     if (runtime != nullptr) {
     }
     // need to create runtime
@@ -116,15 +117,15 @@ void CangjieRuntime::CreateAndInit(const RuntimeParam& runtimeParam)
 
 void CangjieRuntime::FiniAndDelete()
 {
-    ScopedEntryHiTrace hiTrace("CJRT_FiniAndDelete");
+    ScopedEntryTrace trace("CJRT_FiniAndDelete");
     if (Runtime::runtime == nullptr) {
         LOG(RTLOG_ERROR, "Fini called but Cangjie runtime is not running");
         return;
     }
     auto cjRuntime = reinterpret_cast<CangjieRuntime*>(Runtime::runtime);
+    Runtime::runtime = nullptr;
     cjRuntime->Fini();
     delete cjRuntime;
-    Runtime::runtime = nullptr;
 }
 
 CangjieRuntime::CangjieRuntime(const RuntimeParam& runtimeParam) : param(runtimeParam) {}
@@ -177,6 +178,7 @@ void CangjieRuntime::Init()
 
     LOG(RTLOG_INFO, "Cangjie runtime started.");
     // Record runtime parameter to report. heap growth value needs to plus 1.
+#if not defined(__EULER__)
     VLOG(REPORT,
         "Runtime parameter:\n\tHeap size: %zu(KB)\n\tRegion size: %zu(KB)\n\tExemption threshold: %.2f\n\t"
         "Heap utilization: %.2f\n\tHeap growth: %.2f\n\tAllocation rate: %.2f(MB/s)\n\tAllocation wait time: %zuns\n\t"
@@ -189,6 +191,22 @@ void CangjieRuntime::Init()
         param.gcParam.gcInterval / MILLI_SECOND_TO_NANO_SECOND, param.gcParam.backupGCInterval / SECOND_TO_NANO_SECOND,
         static_cast<int>(param.logParam.logLevel), param.coParam.thStackSize,
         param.coParam.coStackSize, param.coParam.processorNum);
+#else
+    VLOG(REPORT,
+        "Runtime parameter:\n\tHeap size: %zu(KB)\n\tRegion size: %zu(KB)\n\tExemption threshold: %.2f\n\t"
+        "Heap utilization: %.2f\n\tCache Ratio: %.2f\n\tHeap growth: %.2f\n\tAllocation rate: %.2f(MB/s)\n\t"
+        "Allocation wait time: %zuns\n\tGC Threshold: %zu(KB)\n\t"
+        "Garbage threshold: %.2f\n\tGC interval: %zums\n\tBackup GC interval: %zus\n\t"
+        "Log level: %d\n\tThread stack size: %zu(KB)\n\tCangjie stack size: %zu(KB)\n\tProcessor number: %d",
+        param.heapParam.heapSize, param.heapParam.regionSize, param.heapParam.exemptionThreshold,
+        param.heapParam.heapUtilization, reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator()).
+        GetRegionManager().GetCacheRatio(), 1 + param.heapParam.heapGrowth,
+        param.heapParam.allocationRate, param.heapParam.allocationWaitTime,
+        param.gcParam.gcThreshold / KB, param.gcParam.garbageThreshold,
+        param.gcParam.gcInterval / MILLI_SECOND_TO_NANO_SECOND, param.gcParam.backupGCInterval / SECOND_TO_NANO_SECOND,
+        static_cast<int>(param.logParam.logLevel), param.coParam.thStackSize,
+        param.coParam.coStackSize, param.coParam.processorNum);
+#endif
 }
 
 void* CangjieRuntime::CreateSubSchedulerAndInit(ScheduleType type)
@@ -251,6 +269,8 @@ inline void CheckAndFini(T*& module)
 
 void CangjieRuntime::Fini()
 {
+    // To avoid foreign thread access finalized runtime.
+    ThreadLocal::ThreadLocalFini();
     // since there might be failure during initialization,
     // here we need to check and call fini.
 #ifdef _WIN64

@@ -497,7 +497,7 @@ install(TARGETS cangjie-std-runtime DESTINATION lib/${output_triple_name}_${CJNA
 if(CANGJIE_ENABLE_COMPILER_TSAN)
     set(STD_AST_ALLOW_UNDEFINED ALLOW_UNDEFINED)
 endif()
-if (NOT OHOS AND NOT MINGW AND NOT DARWIN)
+if (NOT OHOS AND NOT MINGW AND NOT DARWIN AND NOT ANDROID)
     set(GCC_S_FLAG -lgcc_s)
 endif()
 set(EXCLUDE_STD_AST_FFI_OPTION)
@@ -513,7 +513,7 @@ endif()
 
 make_cangjie_lib(
     std-ast IS_SHARED ${STD_AST_ALLOW_UNDEFINED}
-    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI
+    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs
     CANGJIE_STD_LIB_DEPENDS
         std-core
         std-collection
@@ -522,11 +522,11 @@ make_cangjie_lib(
         std-math
     OBJECTS ${output_cj_object_dir}/std/ast.o
     FLAGS
-        -lcangjie-std-astFFI
+        $<TARGET_OBJECTS:cangjie-std-astFFI-objs>
         -lcangjie-ast-support
         ${STDCPP_FLAG}
         ${GCC_S_FLAG}
-        -lpthread
+        $<$<NOT:$<BOOL:${ANDROID}>>:-lpthread>
         ${EXCLUDE_STD_AST_FFI_OPTION}
         # if(NOT WIN32) then add -ldl, because there is no libdl on Windows.
         $<$<NOT:$<BOOL:${WIN32}>>:-ldl>)

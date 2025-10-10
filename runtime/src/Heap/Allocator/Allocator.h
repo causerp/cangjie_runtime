@@ -26,6 +26,9 @@ public:
 
     // release physical pages of garbage memory.
     virtual size_t ReclaimGarbageMemory(bool releaseAll) = 0;
+#if defined(__EULER__)
+    virtual void TryReclaimGarbageMemory() = 0;
+#endif
     virtual void FeedHungryBuffers() = 0;
 
     // returns the total size of live large objects, excluding alignment/roundup/header, ...
@@ -37,6 +40,8 @@ public:
     virtual size_t AllocatedBytes() const = 0;
 
     inline void RegisterAllocBuffer(AllocBuffer& buffer) const { allocBufferManager->RegisterAllocBuffer(buffer); }
+
+    inline void RemoveAllocBuffer(AllocBuffer& buffer) const { allocBufferManager->RemoveAllocBuffer(buffer); }
 
     virtual ~Allocator() {}
     Allocator();
@@ -66,6 +71,7 @@ public:
 #endif
 
     void VisitAllocBuffers(const AllocBufferVisitor& visitor) { allocBufferManager->VisitAllocBuffers(visitor); }
+    size_t GetAllocBufersCount() { return allocBufferManager->GetAllocBufersCount(); }
     void AddHungryBuffer(AllocBuffer& buffer) { allocBufferManager->AddHungryBuffer(buffer); }
     void SwapHungryBuffers(AllocBufferManager::HungryBuffers &getBufferList)
     {

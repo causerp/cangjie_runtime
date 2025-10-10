@@ -94,6 +94,9 @@ uintptr_t _CJReflectGI;
 
 int _CJMetaDataSize;
 
+unsigned long* g_runtimeStaticStart;
+unsigned long* g_runtimeStaticEnd;
+
 static void InitSectionInformation(const struct mach_header_64* mhp)
 {
     _CJMetadataStart =
@@ -128,6 +131,12 @@ static void InitSectionInformation(const struct mach_header_64* mhp)
         reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_pkginfo", &_CJGCReflectPkgInfoSize));
     _CJReflectGV = reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_gv", &_CJReflectGVSize));
     _CJReflectGI = reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_gi", &_CJReflectGISize));
+
+    unsigned long _CJRuntimeTextSize;
+    unsigned long _CJRuntimeText =
+        reinterpret_cast<unsigned long>(getsectiondata(mhp, "__TEXT", "__cjrt_text", &_CJRuntimeTextSize));
+    g_runtimeStaticStart = reinterpret_cast<unsigned long*>(_CJRuntimeText);
+    g_runtimeStaticEnd = reinterpret_cast<unsigned long*>(_CJRuntimeText + _CJRuntimeTextSize);
 }
 
 __attribute__((constructor)) void InitData()

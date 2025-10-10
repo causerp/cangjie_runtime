@@ -157,12 +157,23 @@ func getCurrentProcessInfo(): (Option<String>, Option<Path>, Option<Array<String
     }
 }
 
+@When[os != "iOS"]
 func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<Path>, Option<Array<String>>, Option<Array<(String, 
     String)>>) {
     let command: ?String = cStringToOption(processInfo.command)
     let workDir: ?String = cStringToOption(processInfo.workingDirectory)
     let workDirPath: ?Path = workDir.map {dir => Path(dir)}
     let commandLine: ?Array<String> = cpointerToArray(processInfo.commandLine)
+    let environments: ?Array<(String, String)> = getEnvirments(processInfo.environment)
+    return (command, workDirPath, commandLine, environments)
+}
+
+@When[os == "iOS"]
+func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<Path>, Option<Array<String>>, Option<Array<(String, String)>>) {
+    let workDir: ?String = cStringToOption(processInfo.workingDirectory)
+    let command: ?String = cStringToOption(processInfo.command)
+    let commandLine: ?Array<String> = None
+    let workDirPath: ?Path = workDir.map {dir => Path(dir)}
     let environments: ?Array<(String, String)> = getEnvirments(processInfo.environment)
     return (command, workDirPath, commandLine, environments)
 }

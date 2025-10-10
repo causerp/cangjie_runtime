@@ -2268,14 +2268,18 @@ public class LambdaExpr <: Expr {
         ret.append(funcParams.toTokens())
         if (isValidPosition(db_arrow_)) {
             ret.append(db_arrow_)
-        }
-        if (!nodes_.isEmpty()) {
-            for (i in 0..nodes_.size - 1) {
-                ret.append(nodes_[i]).append(Token(TokenKind.NL))
+            if (nodes_.size != 0) {
+                let arrowPos = db_arrow_.pos
+                ret.append(Token(NL).addPosition(arrowPos.fileID, arrowPos.line, arrowPos.column + 1))
             }
-            ret.append(nodes_[nodes_.size - 1])
         }
-        ret.append(rCurl_)
+        for (n in nodes_) {
+            ret.append(n)
+            if (ret[ret.size - 1].kind != NL) {
+                ret.append(Token(NL).addPosition(n.endPos))
+            }
+        }
+       ret.append(rCurl_)
     }
 
     public func traverse(v: Visitor): Unit {
@@ -3998,6 +4002,9 @@ public class QuoteExpr <: Expr {
                 case dollarRef: RefExpr where dollarRef.identifier.kind == TokenKind.DOLLAR_IDENTIFIER => ret.append(
                     dollarRef)
                 case qt: QuoteToken => ret.append(qt)
+                case parenExpr: ParenExpr =>
+                    ret.append(Token(TokenKind.DOLLAR))
+                       .append(expr)
                 case _ => ret
                     .append(Token(TokenKind.DOLLAR))
                     .append(Token(TokenKind.LPAREN))

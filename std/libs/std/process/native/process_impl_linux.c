@@ -15,7 +15,9 @@
 #define EXPAND_MUL (2)
 #define MAX_PATH_LEN (4096)
 #define BUF_LEN (4096)
+#ifndef __android__
 #define CHAR_MAX (255)
+#endif
 
 typedef struct EnvListNode {
     char* env;

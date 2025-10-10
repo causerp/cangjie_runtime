@@ -143,6 +143,7 @@ public:
     void AddStringId(CjHeapDataStringId value);
 
     void ProcessRootGlobal();
+    void ProcessRootConcurrencyModel();
     void ProcessRootLocal();
     void ProcessRootThreadObject();
     void ProcessRootFinalizer();

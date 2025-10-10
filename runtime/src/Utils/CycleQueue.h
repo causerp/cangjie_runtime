@@ -22,12 +22,10 @@ public:
 
     ~CycleQueue()
     {
-        if (UNLIKELY(queueBuffer == nullptr)) {
-            return;
-         }
-        delete queueBuffer;
-        queueBuffer = nullptr;
-        return;
+        if (UNLIKELY(queueBuffer != nullptr)) {
+            delete queueBuffer;
+            queueBuffer = nullptr;
+        }
     }
 
     inline bool Empty() const { return (queueBuffer == nullptr) ? EmptyArray() : EmptyQueue(); }
@@ -35,10 +33,11 @@ public:
     inline void Push(T ele)
     {
         if (LIKELY(queueBuffer == nullptr)) {
-            if (!PushArray(ele)) {
-                CopyElementToQueue();
-            } else {
+            if (PushArray(ele)) {
                 return;
+            } else {
+                // cycle array is full, move to std::queue
+                CopyElementToQueue();
             }
         }
         PushQueue(ele);
@@ -46,10 +45,10 @@ public:
 
     inline void Pop()
     {
-        if (!LIKELY(queueBuffer == nullptr)) {
-            PopQueue();
-        } else {
+        if (LIKELY(queueBuffer == nullptr)) {
             PopArray();
+        } else {
+            PopQueue();
         }
     }
 
@@ -67,7 +66,7 @@ private:
     inline bool PushArray(T ele)
     {
         uint16_t tmpRear = (rearIndex + 1) % MAX_SIZE;
-        if (UNLIKELY(tmpRear == frontIndex)) {
+        if (UNLIKELY(frontIndex == tmpRear)) {
             return false;
         }
         arrayBuffer[rearIndex] = ele;
@@ -75,6 +74,7 @@ private:
         return true;
     }
 
+    // just adjust index, no pop value
     inline void PopArray() { frontIndex = (frontIndex + 1) % MAX_SIZE; }
 
     inline T FrontArray() { return arrayBuffer[frontIndex]; }

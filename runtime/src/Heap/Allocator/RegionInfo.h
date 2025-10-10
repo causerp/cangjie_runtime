@@ -332,7 +332,7 @@ public:
         return marked;
     }
 
-    bool ResurrentObject(const BaseObject* obj, size_t offset)
+    bool ResurrectObject(const BaseObject* obj, size_t offset)
     {
         if (IsLargeRegion()) {
             if (metadata.isResurrected != 1) {
@@ -778,6 +778,7 @@ public:
     {
         metadata.regionStateBitField.SetAtomicValue(RegionStateBitPos::MARKED_REGION_FLAG, 1, flag);
     }
+
     void SetEnqueuedRegionFlag(uint8_t flag)
     {
         metadata.regionStateBitField.SetAtomicValue(RegionStateBitPos::ENQUEUED_REGION_FLAG, 1, flag);

@@ -256,7 +256,7 @@ void RegionList::DumpRegionList(const char* msg)
 #endif
 inline void RegionManager::TagHugePage(RegionInfo* region, size_t num) const
 {
-#if defined (__linux__) || defined(__OHOS__)
+#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
     (void)madvise(reinterpret_cast<void*>(region->GetRegionStart()), num * RegionInfo::UNIT_SIZE, MADV_HUGEPAGE);
 #else
     (void)region;
@@ -266,7 +266,7 @@ inline void RegionManager::TagHugePage(RegionInfo* region, size_t num) const
 
 inline void RegionManager::UntagHugePage(RegionInfo* region, size_t num) const
 {
-#if defined (__linux__) || defined(__OHOS__)
+#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
     (void)madvise(reinterpret_cast<void*>(region->GetRegionStart()), num * RegionInfo::UNIT_SIZE, MADV_NOHUGEPAGE);
 #else
     (void)region;
@@ -317,11 +317,11 @@ void RegionManager::SetMaxUnitCountForPinnedRegion()
     size_t size = CString::ParseSizeFromEnv(env);
     // The minimum region size is system page size, measured in KB.
     size_t minSize = MapleRuntime::MRT_PAGE_SIZE / KB;
-    if (size >= minSize && size <= maxUnitCountPerRegion) {
-        maxUnitCountPerPinnedRegion = size;
+    if (size >= minSize && size <= CangjieRuntime::GetHeapParam().regionSize) {
+        maxUnitCountPerPinnedRegion = size * KB / RegionInfo::UNIT_SIZE;
     } else {
         LOG(RTLOG_ERROR, "Unsupported cjPinnedRegionSize parameter. Valid cjPinnedRegionSize"
-            "range is [%zuKB, %zuKB].\n", minSize, maxUnitCountPerRegion);
+            "range is [%zuKB, %zuKB].\n", minSize, CangjieRuntime::GetHeapParam().regionSize);
     }
 }
 
@@ -352,6 +352,26 @@ void RegionManager::SetGarbageThreshold()
     fromSpaceGarbageThreshold = CangjieRuntime::GetGCParam().garbageThreshold;
 }
 
+#if defined(__EULER__)
+void RegionManager::SetCacheRatio(double minSize, double maxSize, double defaultParam)
+{
+    auto env = std::getenv("cjCacheRatio");
+    if (env == nullptr) {
+        cacheRatio = defaultParam;
+        return;
+    }
+    double size = CString::ParsePosDecFromEnv(env);
+    if (size - minSize >= 0 && maxSize - size >= 0) {
+        cacheRatio = size;
+        return;
+    } else {
+        LOG(RTLOG_ERROR, "Unsupported cjCacheRatio parameter.Valid cjCacheRatio range is [%f, %f].\n",
+            minSize, maxSize);
+    }
+    cacheRatio = defaultParam;
+}
+#endif
+
 void RegionManager::Initialize(size_t nUnit, uintptr_t regionInfoAddr)
 {
     size_t metadataSize = GetMetadataSize(nUnit);
@@ -366,11 +386,13 @@ void RegionManager::Initialize(size_t nUnit, uintptr_t regionInfoAddr)
     SetMaxUnitCountForPinnedRegion();
     SetLargeObjectThreshold();
     SetGarbageThreshold();
+#if defined(__EULER__)
+    SetCacheRatio(0.0, 1.0, 1.0);
+#endif
     // propagate region heap layout
     RegionInfo::Initialize(nUnit, regionHeapStart);
     freeRegionManager.Initialize(nUnit);
     this->exemptedRegionThreshold = CangjieRuntime::GetHeapParam().exemptionThreshold;
-
     DLOG(REPORT, "region info @0x%zx+%zu, heap [0x%zx, 0x%zx), unit count %zu", regionInfoAddr, metadataSize,
          regionHeapStart, regionHeapEnd, nUnit);
 }
@@ -454,7 +476,7 @@ void RemoveRegionLocked(RegionList* regionList, RegionInfo* region)
 }
 
 // forward only regions whose garbage bytes is greater than or equal to exemptedRegionThreshold.
-void RegionManager::ExemptFromRegions()
+size_t RegionManager::ExemptFromRegions()
 {
     size_t forwardBytes = 0;
     size_t floatingGarbage = 0;
@@ -491,6 +513,7 @@ void RegionManager::ExemptFromRegions()
     size_t exemptedFromBytes = unmovableFromRegionList.GetUnitCount() * RegionInfo::UNIT_SIZE;
     VLOG(REPORT, "exempt from-space: %zu B - %zu B -> %zu B, %zu B floating garbage, %zu B to forward",
          oldFromBytes, exemptedFromBytes, newFromBytes, floatingGarbage, forwardBytes);
+    return newFromBytes - forwardBytes;
 }
 
 void RegionManager::ForEachObjUnsafe(const std::function<void(BaseObject*)>& visitor) const
@@ -623,19 +646,23 @@ void RegionManager::ForwardFromRegions()
     }
 }
 
-void RegionManager::CollectFreePinnedSlots(RegionInfo* region)
+size_t RegionManager::CollectFreePinnedSlots(RegionInfo* region)
 {
     // traverse pinned region to reclaim free pinned objects.
     size_t start = region->GetRegionStart();
-    region->VisitAllObjects([this, region, start](BaseObject* object) {
+    size_t garbageSize = 0;
+    region->VisitAllObjects([this, region, start, &garbageSize](BaseObject* object) {
         size_t offset = reinterpret_cast<MAddress>(object) - start;
         if (!region->IsSurvivedObject(offset)) {
-            DLOG(ALLOC, "reclaim pinned obj %p<%p>(%zu)", object, object->GetTypeInfo(), object->GetSize());
+            size_t objSize = object->GetSize();
+            DLOG(ALLOC, "reclaim pinned obj %p<%p>(%zu)", object, object->GetTypeInfo(), objSize);
+            garbageSize += objSize;
             std::lock_guard<std::mutex> lock(freePinnedSlotListMutex);
             ReleaseNativeResource(object);
             freePinnedSlotLists.PushFront(object);
         }
     });
+    return garbageSize;
 }
 
 size_t RegionManager::CollectPinnedGarbage()
@@ -658,7 +685,7 @@ size_t RegionManager::CollectPinnedGarbage()
             garbageSize += CollectRegion(del);
             continue;
         } else {
-            CollectFreePinnedSlots(region);
+            garbageSize += CollectFreePinnedSlots(region);
             region = region->GetNextRegion();
         }
     }
@@ -731,11 +758,6 @@ void RegionManager::DumpRegionStats(const char* msg) const
     size_t fromSize = fromUnits * RegionInfo::UNIT_SIZE;
     size_t allocFromSize = fromRegionList.GetAllocatedSize();
 
-    size_t exemptedFromRegions = unmovableFromRegionList.GetRegionCount();
-    size_t exemptedFromUnits = unmovableFromRegionList.GetUnitCount();
-    size_t exemptedFromSize = exemptedFromUnits * RegionInfo::UNIT_SIZE;
-    size_t allocExemptedFromSize = unmovableFromRegionList.GetAllocatedSize();
-
     size_t recentFullRegions = recentFullRegionList.GetRegionCount();
     size_t recentFullUnits = recentFullRegionList.GetUnitCount();
     size_t recentFullSize = recentFullUnits * RegionInfo::UNIT_SIZE;
@@ -756,15 +778,15 @@ void RegionManager::DumpRegionStats(const char* msg) const
     size_t recentPinnedSize = recentPinnedUnits * RegionInfo::UNIT_SIZE;
     size_t allocRecentPinnedSize = recentPinnedRegionList.GetAllocatedSize();
 
-    size_t largeRegions = oldLargeRegionList.GetRegionCount();
-    size_t largeUnits = oldLargeRegionList.GetUnitCount();
-    size_t largeSize = largeUnits * RegionInfo::UNIT_SIZE;
-    size_t allocLargeSize = oldLargeRegionList.GetAllocatedSize();
-
     size_t rawPointerPinnedRegions = rawPointerPinnedRegionList.GetRegionCount();
     size_t rawPointerPinnedUnits = rawPointerPinnedRegionList.GetUnitCount();
     size_t rawPointerPinnedSize = rawPointerPinnedUnits * RegionInfo::UNIT_SIZE;
     size_t allocRawPointerPinnedSize = rawPointerPinnedRegionList.GetAllocatedSize();
+
+    size_t largeRegions = oldLargeRegionList.GetRegionCount();
+    size_t largeUnits = oldLargeRegionList.GetUnitCount();
+    size_t largeSize = largeUnits * RegionInfo::UNIT_SIZE;
+    size_t allocLargeSize = oldLargeRegionList.GetAllocatedSize();
 
     size_t recentlargeRegions = recentLargeRegionList.GetRegionCount();
     size_t recentlargeUnits = recentLargeRegionList.GetUnitCount();
@@ -774,8 +796,8 @@ void RegionManager::DumpRegionStats(const char* msg) const
     size_t usedUnits = GetUsedUnitCount();
     size_t releasedUnits = freeRegionManager.GetReleasedUnitCount();
     size_t dirtyUnits = freeRegionManager.GetDirtyUnitCount();
-    size_t listedUnits = fromUnits + exemptedFromUnits + garbageUnits + recentFullUnits
-        + largeUnits + recentlargeUnits + pinnedUnits + recentPinnedUnits;
+    size_t listedUnits = fromUnits + garbageUnits + recentFullUnits + tlRegions +
+        rawPointerPinnedRegions + largeUnits + recentlargeUnits + pinnedUnits + recentPinnedUnits;
 
     VLOG(REPORT, msg);
 
@@ -784,8 +806,6 @@ void RegionManager::DumpRegionStats(const char* msg) const
 
     VLOG(REPORT, "\ttl-regions %zu: %zu units (%zu B, alloc %zu)", tlRegions,  tlUnits, tlSize, allocTLSize);
     VLOG(REPORT, "\tfrom-regions %zu: %zu units (%zu B, alloc %zu)", fromRegions,  fromUnits, fromSize, allocFromSize);
-    VLOG(REPORT, "\texempted from-regions %zu: %zu units (%zu B, alloc %zu)",
-         exemptedFromRegions, exemptedFromUnits, exemptedFromSize, allocExemptedFromSize);
     VLOG(REPORT, "\trecent-full regions %zu: %zu units (%zu B, alloc %zu)",
          recentFullRegions, recentFullUnits, recentFullSize, allocRecentFullSize);
     VLOG(REPORT, "\tgarbage regions %zu: %zu units (%zu B, alloc %zu)",
@@ -806,54 +826,50 @@ void RegionManager::DumpRegionStats(const char* msg) const
     VLOG(REPORT, "\treleased units: %zu (%zu B)", releasedUnits, releasedUnits * RegionInfo::UNIT_SIZE);
     VLOG(REPORT, "\tdirty units: %zu (%zu B)", dirtyUnits, dirtyUnits * RegionInfo::UNIT_SIZE);
 
-    OHOS_HITRACE_COUNT("CJRT_GC_totalSize", totalSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_totalUnits", totalUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_activeSize", activeSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_activeUnits", activeUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_tlRegions", tlRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_tlUnits", tlUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_tlSize", tlSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocTLSize", allocTLSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_fromRegions", fromRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_fromUnits", fromUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_fromSize", fromSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocFromSize", allocFromSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_exemptedFromRegions", exemptedFromRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_exemptedFromUnits", exemptedFromUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_exemptedFromSize", exemptedFromSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocExemptedFromSize", allocExemptedFromSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentFullRegions", recentFullRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentFullUnits", recentFullUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentFullSize", recentFullSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentFullSize", allocRecentFullSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_garbageRegions", garbageRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_garbageUnits", garbageUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_garbageSize", garbageSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocGarbageSize", allocGarbageSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_pinnedRegions", pinnedRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_pinnedUnits", pinnedUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_pinnedSize", pinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocPinnedSize", allocPinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedRegions", recentPinnedRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedUnits", recentPinnedUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedSize", recentPinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentPinnedSize", allocRecentPinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedRegions", rawPointerPinnedRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedUnits", rawPointerPinnedUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedSize", rawPointerPinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocRawPointerPinnedSize", allocRawPointerPinnedSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_largeRegions", largeRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_largeUnits", largeUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_largeSize", largeSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocLargeSize", allocLargeSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentlargeRegions", recentlargeRegions);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentlargeUnits", recentlargeUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_recentLargeSize", recentLargeSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentLargeSize", allocRecentLargeSize);
-    OHOS_HITRACE_COUNT("CJRT_GC_usedUnits", usedUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_releasedUnits", releasedUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_dirtyUnits", dirtyUnits);
-    OHOS_HITRACE_COUNT("CJRT_GC_listedUnits", listedUnits);
+    TRACE_COUNT("CJRT_GC_totalSize", totalSize);
+    TRACE_COUNT("CJRT_GC_totalUnits", totalUnits);
+    TRACE_COUNT("CJRT_GC_activeSize", activeSize);
+    TRACE_COUNT("CJRT_GC_activeUnits", activeUnits);
+    TRACE_COUNT("CJRT_GC_tlRegions", tlRegions);
+    TRACE_COUNT("CJRT_GC_tlUnits", tlUnits);
+    TRACE_COUNT("CJRT_GC_tlSize", tlSize);
+    TRACE_COUNT("CJRT_GC_allocTLSize", allocTLSize);
+    TRACE_COUNT("CJRT_GC_fromRegions", fromRegions);
+    TRACE_COUNT("CJRT_GC_fromUnits", fromUnits);
+    TRACE_COUNT("CJRT_GC_fromSize", fromSize);
+    TRACE_COUNT("CJRT_GC_allocFromSize", allocFromSize);
+    TRACE_COUNT("CJRT_GC_recentFullRegions", recentFullRegions);
+    TRACE_COUNT("CJRT_GC_recentFullUnits", recentFullUnits);
+    TRACE_COUNT("CJRT_GC_recentFullSize", recentFullSize);
+    TRACE_COUNT("CJRT_GC_allocRecentFullSize", allocRecentFullSize);
+    TRACE_COUNT("CJRT_GC_garbageRegions", garbageRegions);
+    TRACE_COUNT("CJRT_GC_garbageUnits", garbageUnits);
+    TRACE_COUNT("CJRT_GC_garbageSize", garbageSize);
+    TRACE_COUNT("CJRT_GC_allocGarbageSize", allocGarbageSize);
+    TRACE_COUNT("CJRT_GC_pinnedRegions", pinnedRegions);
+    TRACE_COUNT("CJRT_GC_pinnedUnits", pinnedUnits);
+    TRACE_COUNT("CJRT_GC_pinnedSize", pinnedSize);
+    TRACE_COUNT("CJRT_GC_allocPinnedSize", allocPinnedSize);
+    TRACE_COUNT("CJRT_GC_recentPinnedRegions", recentPinnedRegions);
+    TRACE_COUNT("CJRT_GC_recentPinnedUnits", recentPinnedUnits);
+    TRACE_COUNT("CJRT_GC_recentPinnedSize", recentPinnedSize);
+    TRACE_COUNT("CJRT_GC_allocRecentPinnedSize", allocRecentPinnedSize);
+    TRACE_COUNT("CJRT_GC_rawPointerPinnedRegions", rawPointerPinnedRegions);
+    TRACE_COUNT("CJRT_GC_rawPointerPinnedUnits", rawPointerPinnedUnits);
+    TRACE_COUNT("CJRT_GC_rawPointerPinnedSize", rawPointerPinnedSize);
+    TRACE_COUNT("CJRT_GC_allocRawPointerPinnedSize", allocRawPointerPinnedSize);
+    TRACE_COUNT("CJRT_GC_largeRegions", largeRegions);
+    TRACE_COUNT("CJRT_GC_largeUnits", largeUnits);
+    TRACE_COUNT("CJRT_GC_largeSize", largeSize);
+    TRACE_COUNT("CJRT_GC_allocLargeSize", allocLargeSize);
+    TRACE_COUNT("CJRT_GC_recentlargeRegions", recentlargeRegions);
+    TRACE_COUNT("CJRT_GC_recentlargeUnits", recentlargeUnits);
+    TRACE_COUNT("CJRT_GC_recentLargeSize", recentLargeSize);
+    TRACE_COUNT("CJRT_GC_allocRecentLargeSize", allocRecentLargeSize);
+    TRACE_COUNT("CJRT_GC_usedUnits", usedUnits);
+    TRACE_COUNT("CJRT_GC_releasedUnits", releasedUnits);
+    TRACE_COUNT("CJRT_GC_dirtyUnits", dirtyUnits);
+    TRACE_COUNT("CJRT_GC_listedUnits", listedUnits);
 }
 
 RegionInfo* RegionManager::AllocateThreadLocalRegion(bool expectPhysicalMem)

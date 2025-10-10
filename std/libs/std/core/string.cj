@@ -1408,6 +1408,43 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
         resArr[j] = String(this.myData, UInt32(itemStart) + start, length - UInt32(itemStart))
         return resArr
     }
+
+    @Frozen
+    public static unsafe func withRawData(rawData: Array<UInt8>): String {
+        return String(rawData)
+    }
+ 
+    @Frozen
+    public static func checkUtf8Encoding(data: Array<UInt8>): Bool {
+        let arr = data.rawptr
+        let endIndex = data.start + data.size
+ 
+        var i = data.start
+        while (i < endIndex) {
+            var nowByte: UInt8 = arrayGetUnchecked<UInt8>(arr, i)
+            match {
+                case nowByte < HIGH_1_UInt8 => i += 1
+                case nowByte < HIGH_2_UInt8 => return false
+                case nowByte < HIGH_3_UInt8 =>
+                    if (!checkUtf8Of2BytesWithoutException(arr, i, endIndex)) {
+                        return false
+                    }
+                    i += 2
+                case nowByte < HIGH_4_UInt8 =>
+                    if (!checkUtf8Of3BytesWithoutException(arr, i, endIndex)) {
+                        return false
+                    }
+                    i += 3
+                case nowByte < HIGH_5_UInt8 =>
+                    if (!checkUtf8Of4BytesWithoutException(arr, i, endIndex)) {
+                        return false
+                    }
+                    i += 4
+                case _ => return false
+            }
+        }
+        return true
+    }
 }
 
 @When[backend == "cjnative"]

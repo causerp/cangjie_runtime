@@ -10,7 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#ifdef __ios__
+#include <time.h>
+#else
 #include <libproc.h>
+#endif
 #include <sys/types.h>
 #include <sys/sysctl.h>
 #include "securec.h"
@@ -30,19 +34,30 @@
  *
  * This function queries process information for a given PID and returns either the
  * total user time or total system time, depending on the specified `kind` parameter.
- * The times are returned in nanoseconds.
+ * The times are returned in milliseconds.
  *
  * @param pid The process ID of the target process.
  * @param kind Specifies the type of time to retrieve. It can be one of the following:
  *             - `TIMEKIND_USER` to get the total user time of the process.
  *             - `TIMEKIND_SYSTEM` to get the total system time of the process.
  *
- * @return The requested time in nanoseconds, or an error code if the request fails:
- *         - A positive integer representing the time in nanoseconds if successful.
+ * @return The requested time in milliseconds, or an error code if the request fails:
+ *         - A positive integer representing the time in milliseconds if successful.
  *         - `ERROR_GET_PROCESS_TIME_FAILED` if the time could not be retrieved or process information query failed.
  */
-int64_t GetSystemTimeAndUserTime(int32_t pid, int8_t kind)
+int64_t GetSystemTimeOrUserTime(int32_t pid, int8_t kind)
 {
+#ifdef __ios__
+    struct rusage usage;
+    if (getrusage(RUSAGE_SELF, &usage) != 0) {
+        return ERROR_GET_PROCESS_TIME_FAILED;
+    }
+    if (kind == TIMEKIND_USER) {
+        return usage.ru_utime.tv_sec * SECOND_TO_MILLI_SECOND + usage.ru_utime.tv_usec / MILLI_SECOND_TO_MICRO_SECOND;
+    } else {
+        return usage.ru_stime.tv_sec * SECOND_TO_MILLI_SECOND + usage.ru_stime.tv_usec / MILLI_SECOND_TO_MICRO_SECOND;
+    }
+#else
     struct proc_taskinfo pti;
     int result = proc_pidinfo(pid, PROC_PIDTASKINFO, 0, &pti, sizeof(pti));
     if (result <= 0) { // result == 0 means the number of bytes written into provided buffer is `0`
@@ -56,10 +71,23 @@ int64_t GetSystemTimeAndUserTime(int32_t pid, int8_t kind)
     } else {
         return ERROR_GET_PROCESS_TIME_FAILED;
     }
+#endif
+}
+
+int64_t GetSystemTime(int32_t pid)
+{
+    return GetSystemTimeOrUserTime(pid, TIMEKIND_SYSTEM);
+}
+
+int64_t GetUserTime(int32_t pid)
+{
+    return GetSystemTimeOrUserTime(pid, TIMEKIND_USER);
 }
 
 /**
  * @brief Retrieves a specific time metric for a process based on its PID.
+ *
+ * @note Inner function, no need to check @param kind.
  *
  * This function uses the `sysctl` system call to query process information and extracts
  * time metrics such as:
@@ -93,9 +121,11 @@ extern int64_t GetProcessTime(int32_t pid, int8_t kind)
         }
 
         return (int64_t)(kp.kp_proc.p_starttime.tv_sec * SECOND_TO_MILLI_SECOND +
-            kp.kp_proc.p_starttime.tv_usec / MILLI_SECOND_TO_MICOR_SECOND);
+            kp.kp_proc.p_starttime.tv_usec / MILLI_SECOND_TO_MICRO_SECOND);
+    } else if (kind == TIMEKIND_SYSTEM) {
+        return GetSystemTime(pid);
     } else {
-        return GetSystemTimeAndUserTime(pid, kind);
+        return GetUserTime(pid);
     }
 }
 
@@ -242,20 +272,18 @@ char** GetCommandline(char* argv, size_t len, size_t argc, char** envStartAddr)
     for (char* start = cp; argumentCount < argc && cp < argv + len; ++cp) {
         if (*cp == '\0') {
             size_t argNLen = cp - start;
-            if (argNLen <= 0) {
-                break;
-            }
 
-            char* argN = (char*)malloc(argNLen + 1);
+            char* argN = (char*)calloc(argNLen + 1, sizeof(char));
             if (argN == NULL) {
                 break;
             }
 
-            if (memcpy_s(argN, argNLen + 1, start, argNLen) != EOK) {
-                free(argN);
-                break;
+            if (argNLen > 0) {
+                if (memcpy_s(argN, argNLen + 1, start, argNLen) != EOK) {
+                    free(argN);
+                    break;
+                }
             }
-            argN[argNLen] = '\0';
 
             arguments[argumentCount++] = argN;
             start = cp + 1;
@@ -398,6 +426,25 @@ void GetProcessCmdAndEnv(pid_t pid, ProcessInfo* out)
 
 char* GetCurrentWorkingDirectory(pid_t pid)
 {
+#ifdef __ios__
+    const char *home = getenv("HOME");
+    if (home == NULL) {
+        return NULL;
+    }
+
+    int length = strlen(home);
+    char* workingDirectory = (char*)calloc(length + 1, sizeof(char));
+    if (workingDirectory == NULL) {
+        return NULL;
+    }
+
+    if (memcpy_s(workingDirectory, length + 1, home, length) != EOK) {
+        free(workingDirectory);
+        return NULL;
+    }
+    workingDirectory[length] = '\0';
+    return workingDirectory;
+#else
     struct proc_vnodepathinfo vpi;
     int ret = proc_pidinfo(pid, PROC_PIDVNODEPATHINFO, 0, &vpi, sizeof(vpi));
     if (ret <= 0) {
@@ -421,6 +468,7 @@ char* GetCurrentWorkingDirectory(pid_t pid)
     workingDirectory[length] = '\0';
 
     return workingDirectory;
+#endif
 }
 
 extern void CJ_OS_FreeProcessInfo(ProcessInfo* info)
@@ -456,7 +504,12 @@ extern ProcessInfo* CJ_OS_GetProcessInfoByPid(int32_t pid)
         return NULL;
     }
 
+#ifdef __ios__
+    result->command = (char *)getprogname();
+    result->environment = GetCurrentProcessEnvironment(pid);
+#else
     GetProcessCmdAndEnv(pid, result);
+#endif
     result->workingDirectory = GetCurrentWorkingDirectory(pid);
     int64_t lastTime = CJ_OS_GetStartTimeFromUnixEpoch(pid);
     if (firstTime != lastTime || lastTime == ERROR_GET_PROCESS_TIME_FAILED) {

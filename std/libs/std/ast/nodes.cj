@@ -819,11 +819,12 @@ public class MatchCase <: Node {
  * Program is the Cangjie source File node.
  */
 public class Program <: Node {
-    init(pkgHeader: PackageHeader, importLists: ArrayList<ImportList>, decls: ArrayList<Decl>) {
+    init(pkgHeader: PackageHeader, importLists: ArrayList<ImportList>, decls: ArrayList<Decl>, ftrDirective: FeaturesDirective) {
         super()
         pkgHeader_ = pkgHeader
         importLists_ = importLists
         decls_ = decls
+        ftrDirective_ = ftrDirective
     }
     public init(inputs: Tokens) {
         try {
@@ -833,15 +834,27 @@ public class Program <: Node {
             this.pkgHeader_ = program.pkgHeader_
             this.importLists_ = program.importLists_
             this.decls_ = program.decls_
+            this.ftrDirective_ = program.ftrDirective_
         } catch (e: ParseASTException) {
             throw ASTException("Cannot construct the 'Program' node.")
         }
     }
     public init() {
     }
+
     private var pkgHeader_: PackageHeader = PackageHeader()
     private var importLists_: ArrayList<ImportList> = ArrayList<ImportList>()
     private var decls_: ArrayList<Decl> = ArrayList<Decl>()
+    private var ftrDirective_: FeaturesDirective = FeaturesDirective()
+
+    public mut prop featuresDirective: FeaturesDirective {
+        get() {
+            ftrDirective_
+        }
+        set(v) {
+            ftrDirective_ = v
+        }
+    }
     public mut prop packageHeader: PackageHeader {
         get() {
             pkgHeader_
@@ -867,7 +880,11 @@ public class Program <: Node {
         }
     }
     public func toTokens(): Tokens {
-        var ret = Tokens().append(pkgHeader_)
+        var ret = Tokens()
+        if (!ftrDirective_.isEmpty()) {
+            ret.append(ftrDirective_.toTokens())
+        }
+        ret.append(pkgHeader_)
         if (!importLists_.isEmpty()) {
             ret.append(importLists_.toTokens())
         }
@@ -885,6 +902,7 @@ public class Program <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        ftrDirective_.traverse(v)
         pkgHeader_.traverse(v)
         for (im in importLists_) {
             im.traverse(v)
@@ -901,6 +919,10 @@ public class Program <: Node {
         if (indent != 0 || beginNode) {
             currentIndent++
         }
+        if (!ftrDirective_.isEmpty()) {
+            ret += getIndent(currentIndent) + "-featuresDirective: "
+            ret += ftrDirective_.dump(currentIndent + 1)
+        }
         ret += getIndent(currentIndent) + "-packageHeader: "
         ret += pkgHeader_.dump(currentIndent + 1)
         for (i in 0..importLists_.size) {
@@ -913,6 +935,179 @@ public class Program <: Node {
         }
         ret += getIndent(indent) + "}\n"
         ret
+    }
+}
+
+public class FeatureId <: Node {
+    init(identifiers: Tokens, dots: Tokens) {
+        super()
+        identifiers_ = identifiers
+        dots_ = dots
+    }
+
+    public init() {}
+    private var identifiers_: Tokens = Tokens()
+    private var dots_: Tokens = Tokens()
+
+    public mut prop identifiers: Tokens {
+        get() {
+            identifiers_
+        }
+        set(v) {
+            checkTokensType(v, IDENTIFIER)
+            identifiers_ = v
+        }
+    }
+    public mut prop dots: Tokens {
+        get() {
+            dots_
+        }
+        set(v) {
+            checkTokensType(v, DOT)
+            dots_ = v
+        }
+    }
+
+    public func toTokens(): Tokens {
+        var ret = Tokens()
+        var idx = 0
+        for (ident in identifiers_) {
+            ret.append(ident)
+            if (idx < dots_.size) {
+                ret.append(dots_[idx])
+                idx++
+            }
+        }
+        return ret
+    }
+
+    public func traverse(v: Visitor): Unit {
+        v.visit(this)
+        return
+    }
+
+    protected func dump(indent: UInt16): String {
+        currentIndent = indent
+        var ret: String = "FeatureId {\n"
+        if (indent != 0 || beginNode) {
+            currentIndent++
+        }
+        var idx = 0
+        for (tkn in identifiers_) {
+            ret += getTokenIndent("-identifier", tkn, currentIndent)
+            if (idx < dots_.size) {
+                ret += getTokenIndent("-dot", dots_[idx], currentIndent)
+                idx++
+            }
+        }
+        ret += getIndent(indent) + "}\n"
+        return ret
+    }
+
+}
+
+public class FeaturesDirective <: Node {
+    init(keyword: Token, commas: Tokens, content: ArrayList<FeatureId>) {
+        super()
+        keyword_ = keyword
+        commas_ = commas
+        content_ = content
+    }
+    public init (inputs: Tokens) {
+        try {
+            let features = parseProgram(inputs).featuresDirective
+            if (features.content_.isEmpty()) {
+                throw ASTException("Cannot construct the 'FeaturesDirective' node.")
+            }
+            this.begin_ = features.beginPos
+            this.end_ = features.endPos
+            this.keyword_ = features.keyword_
+            this.commas_ = features.commas_
+            this.content_ = features.content_
+        } catch (e: ParseASTException) {
+            throw ASTException("Cannot construct the 'FeaturesDirective' node.")
+        }
+    }
+
+    public init() {}
+    private var keyword_: Token = Token(TokenKind.FEATURES)
+    private var commas_: Tokens = Tokens()
+    private var content_: ArrayList<FeatureId> = ArrayList<FeatureId>()
+
+    public mut prop keyword: Token {
+        get() {
+            keyword_
+        }
+        set(v) {
+            checkTokenType(v, FEATURES)
+            keyword_ = v
+        }
+    }
+    public mut prop commas: Tokens {
+        get() {
+            commas_
+        }
+        set(v) {
+            checkTokensType(v, COMMA)
+            commas_ = v
+        }
+    }
+    public mut prop content: ArrayList<FeatureId> {
+        get() {
+            content_
+        }
+        set(v) {
+            content_ = v
+        }
+    }
+
+    public func toTokens(): Tokens {
+        var ret = Tokens()
+        ret.append(keyword_)
+        var idx = 0
+        for (item in content_) {
+            ret.append(item.toTokens())
+            if (idx < commas_.size) {
+                ret.append(commas_[idx])
+                idx ++
+            }
+        }
+        let endTok = ret[ret.size - 1]
+        let endPos = endTok.pos
+        ret.append(Token(TokenKind.NL).addPosition(endPos.fileID, endPos.line, endPos.column + Int32(endTok.value.size)))
+        return ret
+    }
+
+    public func traverse(v: Visitor): Unit {
+        v.visit(this)
+        for (fc in content_) {
+            fc.traverse(v)
+        }
+        return
+    }
+
+    protected func dump(indent: UInt16): String {
+        currentIndent = indent
+        if (indent != 0 || beginNode) {
+            currentIndent++
+        }
+        var idx = 0
+        var ret: String = "FeaturesDirective {\n"
+        ret += getTokenIndent("-keyword", keyword_, currentIndent)
+        for (item in content_) {
+            ret += getIndent(currentIndent) + "-featureId: "
+            ret += item.dump(currentIndent + 1)
+            if (idx < commas_.size) {
+                ret += getTokenIndent("-comma", commas_[idx], currentIndent + 1)
+                idx++
+            }
+        }
+        ret += getIndent(indent) + "}\n"
+        return ret
+    }
+
+    public func isEmpty(): Bool {
+        return content_.isEmpty()
     }
 }
 

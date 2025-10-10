@@ -267,8 +267,8 @@ public:
 private:
     Count totalCount = 0u; // sum of all node counts.
     Node* root = nullptr;
-    SingleDeque<Node**> sud;
-    SingleDeque<Node*> traversalSud;
+    SingleUseDeque<Node**> sud;
+    SingleUseDeque<Node*> traversalSud;
     RTAllocator nodeAllocator;
 
     void DeleteNode(Node* n) noexcept

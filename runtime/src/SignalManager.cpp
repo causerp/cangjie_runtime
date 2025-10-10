@@ -11,7 +11,6 @@
 
 #include "Base/Log.h"
 #include "Base/LogFile.h"
-#include "Base/StlHelper.h"
 #include "Common/Runtime.h"
 #include "Concurrency/ConcurrencyModel.h"
 #include "Heap/Collector/TracingCollector.h"
@@ -28,6 +27,7 @@ namespace MapleRuntime {
 
 void SignalManager::Init()
 {
+    PrepareSigStack();
     // Block some ignored signals
     BlockSignals();
     // Install unexpected handler first
@@ -40,8 +40,28 @@ void SignalManager::Init()
 
 void SignalManager::Fini()
 {
-    // Free all handlers.
-    STLFreeAndClearContainer(segvHandlers);
+    FreeSigStack();
+}
+
+void SignalManager::PrepareSigStack()
+{
+    constexpr int stackSizeMultiples = 4;
+    signalStack.ss_sp = malloc(SIGSTKSZ * stackSizeMultiples);
+    if (signalStack.ss_sp == nullptr) {
+        LOG(RTLOG_FATAL, "Alloca signal stack failed.");
+    }
+
+    signalStack.ss_size = SIGSTKSZ * stackSizeMultiples;
+    signalStack.ss_flags = 0;
+
+    if (sigaltstack(&signalStack, nullptr) == -1) {
+        LOG(RTLOG_FATAL, "sigaltstack failed.");
+    }
+}
+
+void SignalManager::FreeSigStack()
+{
+    free(signalStack.ss_sp);
 }
 
 void SignalManager::BlockSignals()

@@ -413,17 +413,18 @@ enum StdIO {
     | StdErr
 }
 
-@When[os == "Windows" || os == "macOS"]
+@When[os == "Windows" || os == "macOS" || os == "iOS"]
 func getProcessStartTime(pid: Int32): Int64 {
     return unsafe { CJ_OS_GetStartTimeFromUnixEpoch(pid) }
 }
 
-@When[os != "Windows" && os != "macOS"] 
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 func getProcessStartTime(pid: Int32): Int64 {
     return unsafe { CJ_OS_GetStartTimeFromBoot(pid) }
 }
 
-func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>, 
+@When[os != "iOS"]
+func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>,
     Option<Array<String>>, Option<Map<String, String>>) {
     // Build subProcess instance use processInfo which return from System.
     let command: ?String = cStringToOption(processInfo.command)
@@ -436,6 +437,22 @@ func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, 
     let arguments: ?Array<String> = cpointerToArray(processInfo.arguments)
     let commandLine: ?Array<String> = cpointerToArray(processInfo.commandLine)
     let environments: ?Map<String, String> = getEnvirments(processInfo.environment)
+    return (command, name, workDirPath, arguments, commandLine, environments)
+}
+
+@When[os == "iOS"]
+func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>,
+    Option<Array<String>>, Option<Map<String, String>>) {
+    let workDir: ?String = cStringToOption(processInfo.workingDirectory)
+    let name: ?String = processInfo.command.toString()
+    let command: ?String = cStringToOption(processInfo.command)
+    let commandLine: ?Array<String> = cpointerToArray(processInfo.commandLine)
+    let workDirPath: ?Path = match (workDir) {
+        case Some(dir) => Path(dir)
+        case _ => None
+    }
+    let environments: ?Map<String, String> = getEnvirments(processInfo.environment)
+    let arguments: ?Array<String> = cpointerToArray(processInfo.arguments)
     return (command, name, workDirPath, arguments, commandLine, environments)
 }
 

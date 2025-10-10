@@ -175,21 +175,25 @@ void WriteLog(bool addPrefix, LogType type, const char* format, ...) noexcept;
 
 #define ENABLE_LOG(type) LogFile::LogIsEnabled(type)
 
-#if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
-// Macro for debug log
-#define DLOG(type, format...) \
-    if (LogFile::LogIsEnabled(type)) { \
+#if defined (__OHOS__)
+#define VLOG(type, format...) \
+    if (type == LogType::REPORT) { \
+        LOG(RTLOG_INFO, format); \
+    } else if (LogFile::LogIsEnabled(type)) { \
         WriteLog(true, type, format); \
     }
 #else
-#define DLOG(type, format...) (void)(0)
-#endif
-
-// Macros for writing log files
 #define VLOG(type, format...) \
     if (LogFile::LogIsEnabled(type)) { \
         WriteLog(true, type, format); \
     }
+#endif
+
+#if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
+#define DLOG(type, format...) VLOG(type, format)
+#else
+#define DLOG(type, format...) (void)(0)
+#endif
 
 // Macro for cjthread log and use it after ENABLE_LOG for judgment.
 #define VLOG_CJTHREAD(format...) WriteLog(true, CJTHREAD, format)

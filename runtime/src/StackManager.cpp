@@ -23,7 +23,9 @@
 #endif
 #ifdef __APPLE__
 #include <dlfcn.h>
+#ifndef __IOS__
 #include <libproc.h>
+#endif
 #endif
 #include "Inspector/CjHeapData.h"
 #include "Heap/Allocator/AllocBuffer.h"
@@ -46,8 +48,10 @@ Uptr StackManager::traceSoStartAddr = ULLONG_MAX;
 Uptr StackManager::traceSoEndAddr = 0;
 
 #if defined (COMPILE_DYNAMIC)
+#if !defined (__APPLE__)
 extern "C" Uptr* g_runtimeDynamicStart;
 extern "C" Uptr* g_runtimeDynamicEnd;
+#endif
 #else
 extern "C" Uptr* g_runtimeStaticStart;
 extern "C" Uptr* g_runtimeStaticEnd;
@@ -218,8 +222,13 @@ static void GetSoAddrScope(const CString& str, Uptr& startAddr, Uptr& endAddr)
 }
 
 
-static void GetEachSoAddrScope(FILE* file, std::vector<CString>& soNameVec)
+static void GetEachSoAddrScope(std::vector<CString>& soNameVec)
 {
+    FILE* file = fopen("/proc/self/maps", "r");
+    if (file == nullptr) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressScope(): fail to open the file");
+        return;
+    }
     const int bufSize = 1024;
     char buf[bufSize] = { '\0' };
     while (fgets(buf, bufSize, file) != nullptr) {
@@ -242,10 +251,11 @@ static void GetEachSoAddrScope(FILE* file, std::vector<CString>& soNameVec)
             }
         }
     }
+    std::fclose(file);
 }
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__) and !(defined(__IOS__) && !defined(COMPILE_DYNAMIC))
 static bool EndWith(const char* str, const char* suffix)
 {
     if (str == nullptr || suffix == nullptr) {
@@ -258,7 +268,9 @@ static bool EndWith(const char* str, const char* suffix)
     }
     return strncmp(str + strLen - suffixLen, suffix, suffixLen) == 0;
 }
+#endif
 
+#if defined(__APPLE__) and !defined(__IOS__)
 static void InitAddressInfoOnDarwin(const char* dylib, Uptr& start, Uptr& end)
 {
     int pid = GetPid();
@@ -278,51 +290,55 @@ static void InitAddressInfoOnDarwin(const char* dylib, Uptr& start, Uptr& end)
 }
 #endif
 
-void StackManager::InitAddressScope()
-{
 #if defined(_WIN64)
+static void InitAddressInfoOnWindows(const char* lib, Uptr& start, Uptr& end)
+{
     Runtime& runtime = Runtime::Current();
     WinModuleManager& winModuleManager = runtime.GetWinModuleManager();
-    const WinModule* rtModule = winModuleManager.GetWinModuleByName(LIBCANGJIE_RUNTIME ".dll");
-    if (rtModule != nullptr) {
-        rtStartAddr = rtModule->GetImageBaseStart();
-        rtEndAddr = rtModule->GetImageBaseEnd();
+    const WinModule* module = winModuleManager.GetWinModuleByName(lib);
+    if (module != nullptr) {
+        start = module->GetImageBaseStart();
+        end = module->GetImageBaseEnd();
     }
-    const WinModule* cjcModule = winModuleManager.GetWinModuleByName("cjc.exe");
-    if (cjcModule != nullptr) {
-        cjcSoStartAddr = cjcModule->GetImageBaseStart();
-        cjcSoEndAddr = cjcModule->GetImageBaseEnd();
-    }
+}
+#endif
+
+void StackManager::InitAddressScope()
+{
+// Init cangjie-runtime address info.
+#if defined(COMPILE_DYNAMIC)
+#if defined(_WIN64) // Windows
+    InitAddressInfoOnWindows(LIBCANGJIE_RUNTIME ".dll", StackManager::rtStartAddr, StackManager::rtEndAddr);
 #elif defined(__APPLE__)
+#if !defined(__IOS__) // MacOS
     InitAddressInfoOnDarwin("/" LIBCANGJIE_RUNTIME ".dylib", StackManager::rtStartAddr, StackManager::rtEndAddr);
-    InitAddressInfoOnDarwin("/cjc", StackManager::cjcSoStartAddr, StackManager::cjcSoEndAddr);
-#elif defined(__OHOS__) || defined(__HOS__)
-    CString procFileName("/proc/self/maps");
-    FILE* file = fopen(procFileName.Str(), "r");
-    if (file == nullptr) {
-        LOG(RTLOG_ERROR, "StackManager::InitAddressScope(): fail to open the file");
-        return;
-    }
-    std::vector<CString> soNameVec = { LIBCANGJIE_RUNTIME ".so\n", "cjc\n" };
-    GetEachSoAddrScope(file, soNameVec);
-    std::fclose(file);
-#else
-#if defined (COMPILE_DYNAMIC)
+#endif
+// For iOS, use `dladdr` to obtain the dylib name and perform string comparison.
+#elif defined(__OHOS__) || defined(__ANDROID__) // OHOS, ANDROID
+    std::vector<CString> rtSoNameVec = { LIBCANGJIE_RUNTIME ".so\n" };
+    GetEachSoAddrScope(rtSoNameVec);
+#else                                                            // Linux
     StackManager::rtStartAddr = reinterpret_cast<Uptr>(&g_runtimeDynamicStart);
     StackManager::rtEndAddr = reinterpret_cast<Uptr>(&g_runtimeDynamicEnd);
+#endif
+#else                  // !COMPILE_DYNAMIC
+#if defined(__APPLE__) // MacOS, iOS
+    StackManager::rtStartAddr = reinterpret_cast<Uptr>(g_runtimeStaticStart);
+    StackManager::rtEndAddr = reinterpret_cast<Uptr>(g_runtimeStaticEnd);
 #else
     StackManager::rtStartAddr = reinterpret_cast<Uptr>(&g_runtimeStaticStart);
     StackManager::rtEndAddr = reinterpret_cast<Uptr>(&g_runtimeStaticEnd);
 #endif
-    CString procFileName("/proc/self/maps");
-    FILE* file = fopen(procFileName.Str(), "r");
-    if (file == nullptr) {
-        LOG(RTLOG_ERROR, "StackManager::InitAddressScope(): fail to open the file");
-        return;
-    }
-    std::vector<CString> soNameVec = { "cjc\n" };
-    GetEachSoAddrScope(file, soNameVec);
-    std::fclose(file);
+#endif
+
+// Init cjc address info.
+#if defined(__linux__) // Linux, ANDROID, OHOS
+    std::vector<CString> cjcSoNameVec = { "cjc\n" };
+    GetEachSoAddrScope(cjcSoNameVec);
+#elif defined(_WIN64)                         // Windows
+    InitAddressInfoOnWindows("cjc.exe", StackManager::cjcSoStartAddr, StackManager::cjcSoEndAddr);
+#elif defined(__APPLE__) && !defined(__IOS__) // MacOS
+    InitAddressInfoOnDarwin("/cjc", StackManager::cjcSoStartAddr, StackManager::cjcSoEndAddr);
 #endif
 }
 
@@ -337,8 +353,10 @@ void InitAddressScopeForCJthreadTrace()
         StackManager::traceSoEndAddr = traceModule->GetImageBaseEnd();
     }
 #elif defined(__APPLE__)
+#ifndef __IOS__
     InitAddressInfoOnDarwin("/" LIBCANGJIE_CJTHREAD_TRACE ".dylib", StackManager::traceSoStartAddr,
                             StackManager::traceSoEndAddr);
+#endif
 #else
     CString procFileName("/proc/self/maps");
     FILE* file = fopen(procFileName.Str(), "r");
@@ -380,8 +398,20 @@ bool StackManager::IsRuntimeFrame(Uptr pc)
 #ifdef CANGJIE_HWASAN_SUPPORT
     pc = Sanitizer::UntagAddr(pc);
 #endif
-    return (pc > rtStartAddr && pc < rtEndAddr) ||
-        (pc > cjcSoStartAddr && pc < cjcSoEndAddr) ||
+#if defined(__IOS__) && defined(COMPILE_DYNAMIC) // iOS dynamic cangjie-runtime.
+    Dl_info info;
+    const void* addr = reinterpret_cast<const void*>(pc);
+    if (dladdr(addr, &info) &&
+        (EndWith(info.dli_fname, "/" LIBCANGJIE_RUNTIME ".dylib") ||
+         EndWith(info.dli_fname, "/" LIBCANGJIE_CJTHREAD_TRACE ".dylib"))) {
+        return true;
+    }
+    return false;
+#else // Otherwise.
+    // For platforms that do not support macro expansion, such as iOS and HOS, the second condition will always be true
+    // because there is no display setting for the address info of cjc. The same logic applies to cjthread-trace.
+    return (pc > rtStartAddr && pc < rtEndAddr) || (pc > cjcSoStartAddr && pc < cjcSoEndAddr) ||
         (pc > traceSoStartAddr && pc < traceSoEndAddr);
+#endif
 }
 } // namespace MapleRuntime

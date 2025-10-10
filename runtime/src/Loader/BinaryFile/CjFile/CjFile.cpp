@@ -196,6 +196,7 @@ void CJFile::GetGlobalInitFunc(std::vector<Uptr> &globalInitFuncs) const
         offset += sizeof(void*);
         char* funcNamePtr = reinterpret_cast<char*>(globalInitPtr) + offset;
         offset += strlen(funcNamePtr) + 1; // 1: '\0\' takes one charactor length.
+        offset = AlignUp(offset, static_cast<size_t>(8)); // 8: apple xcode needs aligment.
         CString funcName(funcNamePtr);
         if (funcName.Find(globalInitFuncName.Str()) != -1) {
             Uptr globalInitFunc = *reinterpret_cast<Uptr*>(funcPtrField);
@@ -205,12 +206,9 @@ void CJFile::GetGlobalInitFunc(std::vector<Uptr> &globalInitFuncs) const
 #else
     U32 cnt = sectionSize / sizeof(Uptr);
     for (int i = 0; i < cnt; ++i) {
-        Uptr globalInitFunc = reinterpret_cast<Uptr>(*(globalInitPtr + i));
-        FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(globalInitFunc);
-        CString funcName = funcDesc->GetFuncName();
-        if (funcName.Find(globalInitFuncName.Str()) == 0) {
-            globalInitFuncs.emplace_back(globalInitFunc);
-        }
+        auto func = reinterpret_cast<Uptr>(*(globalInitPtr + i));
+        CHECK_DETAIL(func != 0, "global init func could not be null");
+        globalInitFuncs.emplace_back(func);
     }
 #endif
 }

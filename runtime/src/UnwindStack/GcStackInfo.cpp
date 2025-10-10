@@ -17,6 +17,7 @@ void GCStackInfo::FillInStackTrace()
 {
     UnwindContext uwContext;
     // Top unwind context can only be runtime or Cangjie context.
+    
     CheckTopUnwindContextAndInit(uwContext);
     while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
         AnalyseAndSetFrameType(uwContext);

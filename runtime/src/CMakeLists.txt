@@ -57,7 +57,7 @@ if (BUILD_RUNTIME)
         "os/Linux/Loader.cpp"
         "os/Linux/Path.cpp"
     )
-elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0))
+elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0) AND (IOS_FLAG MATCHES 0) AND (IOS_SIMULATOR_FLAG MATCHES 0))
     set(SRC_LIST
         "CompilerCalls.cpp"
         "ExceptionManager.cpp"
@@ -100,6 +100,28 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (MACOS_FLAG MATCHES 1))
         "arch_os/aarch64_macos/HandleSafepointStub.S"
         "os/Linux/Loader.cpp"
         "os/Linux/Path.cpp"
+    )
+elseif (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
+    set(SRC_LIST
+        "CompilerCalls.cpp"
+        "ExceptionManager.cpp"
+        "StackManager.cpp"
+        "HeapManager.cpp"
+        "LoaderManager.cpp"
+        "SignalManager.cpp"
+        "TypeInfoManager.cpp"
+        "LogManager.cpp"
+        "CangjieRuntime.cpp"
+        "CjScheduler.cpp"
+        "CjTimer.cpp"
+        "CangjieRuntimeApi.cpp"
+        "arch_os/ios/N2CStub.S"
+        "arch_os/ios/C2NStub.S"
+        "arch_os/ios/CalleeSavedStub.S"
+        "arch_os/ios/StackGrowStub.S"
+        "arch_os/ios/HandleSafepointStub.S"
+        "Os/Linux/Loader.cpp"
+        "Os/Linux/Path.cpp"
     )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST

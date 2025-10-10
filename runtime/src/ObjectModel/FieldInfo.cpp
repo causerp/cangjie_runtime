@@ -200,8 +200,8 @@ void StaticFieldInfo::SetValue(ObjRef newValue)
         Heap::GetHeap().GetBarrier().WriteStaticRef(*rootField, newValue);
     } else if (fieldTi->IsStruct() || fieldTi->IsTuple()) {
         MSize fieldSize = fieldTi->GetInstanceSize();
-        Heap::GetBarrier().WriteStruct(nullptr, addr, fieldSize,
-            reinterpret_cast<Uptr>(newValue) + sizeof(TypeInfo*), fieldSize);
+        Heap::GetBarrier().WriteStaticStruct(addr, fieldSize,
+            reinterpret_cast<Uptr>(newValue) + sizeof(TypeInfo*), fieldSize, fieldTypeInfo->GetGCTib());
     } else if (fieldTi->IsPrimitiveType()) {
         MSize size = fieldTi->GetInstanceSize();
         if (memcpy_s(reinterpret_cast<void*>(addr), size,

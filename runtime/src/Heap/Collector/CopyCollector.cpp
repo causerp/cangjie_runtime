@@ -36,7 +36,7 @@ void CopyCollector::CopyObject(const BaseObject& fromObj, BaseObject& toObj, siz
 
 void CopyCollector::RunGarbageCollection(uint64_t gcIndex, GCReason reason)
 {
-    ScopedEntryHiTrace hiTrace("CJRT_GC_START");
+    ScopedEntryTrace trace("CJRT_GC_START");
     // prevent other threads stop-the-world during GC.
     // this may be removed in the future.
     ScopedSTWLock stwLock;
@@ -71,7 +71,7 @@ void CopyCollector::RunGarbageCollection(uint64_t gcIndex, GCReason reason)
 
 void CopyCollector::ForwardFromSpace()
 {
-    ScopedEntryHiTrace hiTrace("CJRT_GC_FORWARD");
+    ScopedEntryTrace trace("CJRT_GC_FORWARD");
     TransitionToGCPhase(GCPhase::GC_PHASE_FORWARD, true);
 
     RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
@@ -79,15 +79,12 @@ void CopyCollector::ForwardFromSpace()
     stats.liveBytesBeforeGC = space.AllocatedBytes();
     stats.fromSpaceSize = space.FromSpaceSize();
     space.ForwardFromSpace(GetThreadPool());
-
-    // ForwardFromSpace changes from-space size by exempting from regions, so re-read it.
-    // todo: to-space is meaningless.
-    stats.smallGarbageSize = space.FromSpaceSize();
 }
 
 void CopyCollector::RefineFromSpace()
 {
+    GCStats& stats = GetGCStats();
     RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
-    space.RefineFromSpace();
+    stats.smallGarbageSize = space.RefineFromSpace();
 }
 } // namespace MapleRuntime

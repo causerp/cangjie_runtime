@@ -69,6 +69,18 @@ func checkUtf8Of2Bytes(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64)
     Rune(((UInt32(byte1) & LOW_5_MASK) << SHIFT_6) | (UInt32(byte2) & LOW_6_MASK))
 }
 
+func checkUtf8Of2BytesWithoutException(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64): Bool {
+    if (startIndex + 2 > endIndex) {
+        return false
+    }
+    let byte1 = arrayGetUnchecked<UInt8>(arr, startIndex)
+    let byte2 = arrayGetUnchecked<UInt8>(arr, startIndex + 1)
+    if ((byte1 & 0x1e) == 0 || (byte2 & 0xc0) != 0x80) {
+        return false
+    }
+    true
+}
+
 /**
  * Legal UTF-8 Byte Sequences of 3 bytes
  * Code point        Byte 1	   Byte 2     Byte 3
@@ -102,6 +114,31 @@ func checkUtf8Of3Bytes(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64)
                 ((UInt32(byte2) & LOW_6_MASK) << SHIFT_6) |
                 (UInt32(byte3) & LOW_6_MASK)
     Rune(code)
+}
+
+func checkUtf8Of3BytesWithoutException(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64): Bool {
+    if (startIndex + 3 > endIndex) {
+        return false
+    }
+    let byte1 = arrayGetUnchecked<UInt8>(arr, startIndex)
+    let byte2 = arrayGetUnchecked<UInt8>(arr, startIndex + 1)
+    let byte3 = arrayGetUnchecked<UInt8>(arr, startIndex + 2)
+    // ensure b2 and b3 start with 0b10
+    if ((byte2 & 0xc0) != 0x80 || (byte3 & 0xc0) != 0x80) {
+        return false
+    }
+ 
+    // when the first equals E0, second byte cannot less then A0
+    if ((byte1 & 0b1111) == 0 && (byte2 & 0b00100000) == 0) {
+        return false
+    }
+ 
+    // Unicode does not have any characters in the range D800-DFFF
+    if ((byte1 & 0b1111) == 0b1101 && (byte2 & 0b00100000) != 0) {
+        return false
+    }
+ 
+    true
 }
 
 /**
@@ -144,6 +181,37 @@ func checkUtf8Of4Bytes(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64)
                 ((UInt32(byte3) & LOW_6_MASK) << SHIFT_6) |
                 (UInt32(byte4) & LOW_6_MASK)
     Rune(code)
+}
+
+func checkUtf8Of4BytesWithoutException(arr: RawArray<UInt8>, startIndex: Int64, endIndex: Int64): Bool {
+    if (startIndex + 4 > endIndex) {
+        return false
+    }
+ 
+    let byte1 = arrayGetUnchecked<UInt8>(arr, startIndex)
+    let byte2 = arrayGetUnchecked<UInt8>(arr, startIndex + 1)
+    let byte3 = arrayGetUnchecked<UInt8>(arr, startIndex + 2)
+    let byte4 = arrayGetUnchecked<UInt8>(arr, startIndex + 3)
+    if ((byte2 & 0xc0) != 0x80 || (byte3 & 0xc0) != 0x80 || (byte4 & 0xc0) != 0x80) {
+        return false
+    }
+ 
+    // byte 1 cannot bigger then 0xF4
+    if ((byte1 & 0b111) > 0b100) {
+        return false
+    }
+ 
+    // in the range of U+10000..U+3FFFF, when b1 equals 0xF0, b2 should not less then 0x90
+    if ((byte1 & 0b111) == 0 && (byte2 & 0b00110000) == 0) {
+        return false
+    }
+ 
+    // in the range of U+100000..U10FFFF, when b1 equals 0xF4, b2 no bigger then 8F
+    if ((byte1 & 0b111) == 0b100 && (byte2 & 0b00110000) != 0) {
+        return false
+    }
+ 
+    true
 }
 
 /**

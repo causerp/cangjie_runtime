@@ -583,21 +583,29 @@ public class ThisType <: TypeNode {
         keyword_ = keyword
     }
     public init(inputs: Tokens) {
-        let tokens = Tokens()
-        tokens.append(quote(class tmp)).append(Token(LCURL)).append(quote(func f():)).append(inputs).append(quote({}}))
-        let classDecl = (parseDecl(tokens) as ClassDecl).getOrThrow()
-        let funcDecl = (classDecl.body.decls[0] as FuncDecl).getOrThrow()
-        match (funcDecl.declType as ThisType) {
-            case Some(v) =>
-                this.begin_ = v.beginPos
-                this.end_ = v.endPos
-                super.typeParameterName = v.typeParameterName
-                this.keyword_ = v.keyword_
-            case None => throw ASTException("Cannot construct the 'ThisType' node.")
+        try {
+            let tokens = Tokens()
+            tokens
+                .append(quote(class tmp))
+                .append(Token(LCURL))
+                .append(quote(func f():))
+                .append(inputs)
+                .append(quote({}}))
+            let classDecl = (parseDecl(tokens) as ClassDecl).getOrThrow()
+            let funcDecl = (classDecl.body.decls[0] as FuncDecl).getOrThrow()
+            match (funcDecl.declType as ThisType) {
+                case Some(v) =>
+                    this.begin_ = v.beginPos
+                    this.end_ = v.endPos
+                    super.typeParameterName = v.typeParameterName
+                    this.keyword_ = v.keyword_
+                case None => throw ASTException("Cannot construct the 'ThisType' node.")
+            }
+        } catch (e: ParseASTException) {
+            throw ASTException("Cannot construct the 'ThisType' node.")
         }
     }
-    public init() {
-    }
+    public init() {}
     private var keyword_: Token = Token(TokenKind.THISTYPE)
     public mut prop keyword: Token {
         get() {

@@ -48,7 +48,8 @@ BaseObject* EnumBarrier::ReadWeakRef(BaseObject* obj, RefField<false>& field) co
     BaseObject* target = ReadReference(obj, field);
     DLOG(BARRIER, "read weakref obj %p ref@%p: 0x%zx", obj, &field, target);
     if (target != nullptr) {
-        (reinterpret_cast<CopyCollector*>(&Heap::GetHeap().GetCollector()))->MarkObject(target);
+        Mutator* mutator = Mutator::GetMutator();
+        mutator->RememberObjectInSatbBuffer(target);
         // remark the referent because it may be used later.
     }
     return target;

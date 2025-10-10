@@ -145,6 +145,7 @@ func generateNode(n: Option<NodeFormat_Node>): Node {
     }
     var astNode = match (astKind) {
         case "file" => createProgram(node.GetRootAsFile())
+        case "features_directive" => createFeatureHeader(node.GetRootAsFeaturesDirective())
         case "package_spec" => createPackageHeader(node.GetRootAsPackageSpec())
         case "import_spec" => createImportList(node.GetRootAsImportSpec())
         case _ => throw ParseASTException("Unsupported parse the node: ${astKind}.\n")
@@ -396,6 +397,49 @@ func getPackagePrefixes(prefixPaths: Array<Option<String>>, prefixPoses: Array<N
 func isSamePos(pos1: NodeFormat_Position, pos2: NodeFormat_Position) {
     return pos1.fileId == pos2.fileId && pos1.line == pos2.line && pos1.column == pos2.column
 }
+func createFeatureHeader(ftrHeader: Option<NodeFormat_FeaturesDirective>): FeaturesDirective {
+    return match (ftrHeader) {
+        case Some(v) =>
+            let commaPoses = v.GetCommaPoses()
+            let commas = Tokens()
+            let nodeBase = v.GetBase() ?? throw ParseASTException()
+            let featureContent = createFeatureContent(v.GetContent())
+            let keyword = Token(TokenKind.FEATURES, "features").addPosition(nodeBase.GetBegin())
+            for (idx in 0..commaPoses.size) {
+                commas.append(Token(TokenKind.COMMA).addPosition(commaPoses[idx]))
+            }
+            FeaturesDirective(keyword, commas, featureContent)
+        case None => FeaturesDirective()
+    }
+}
+ 
+func createFeatureContent(ftrContent: Array<Option<NodeFormat_FeatureId>>): ArrayList<FeatureId> {
+    let ret = ArrayList<FeatureId>()
+    for (item in ftrContent) {
+        match (item) {
+            case Some(v) =>
+                let idents = v.GetIdentifiers()
+                let identPoses = v.GetIdentPoses()
+                let dotPoses = v.GetDotPoses()
+                let identifiers = Tokens()
+                let dots = Tokens()
+                for (idx in 0..idents.size) {
+                    identifiers.append(Token(TokenKind.IDENTIFIER, idents[idx] ?? throw ParseASTException()).addPosition(identPoses[idx]))
+                    if (idx < dotPoses.size) {
+                        let pos = nodePositionToPosition(dotPoses[idx])
+                        dots.append(Token(TokenKind.DOT).addPosition(pos))
+                    }
+                }
+                ret.add(FeatureId(identifiers, dots))
+            case None => throw ParseASTException()
+        }
+    }
+    return ret
+}
+ 
+func nodePositionToPosition(node: NodeFormat_Position): Position {
+    return Position(node.fileId, node.line, node.column)
+}
 
 func createPackageHeader(pkgHeader: Option<NodeFormat_PackageSpec>): PackageHeader {
     return match (pkgHeader) {
@@ -500,6 +544,7 @@ func createProgram(file: Option<NodeFormat_File>): Program {
         case Some(v) => v
         case None => throw ParseASTException()
     }
+    var ftrDirective: FeaturesDirective = createFeatureHeader(f.GetFeature())
     var pkgHeader: PackageHeader = createPackageHeader(f.GetPackage())
     var imports: ArrayList<ImportList> = ArrayList<ImportList>()
     for (im in f.GetImports()) {
@@ -509,7 +554,7 @@ func createProgram(file: Option<NodeFormat_File>): Program {
     for (d in f.GetDecls()) {
         decls.add(generateDeclAST(d))
     }
-    return Program(pkgHeader, imports, decls)
+    return Program(pkgHeader, imports, decls, ftrDirective)
 }
 
 func createConstructor(decl: Option<NodeFormat_Decl>): Constructor {

@@ -256,6 +256,9 @@ public:
 
     // print this frame symbol
     virtual void PrintFrameInfo(uint32_t frameIdx = 0) const;
+#if defined(__IOS__) || defined(MRT_IOS)
+    CString GetFrameInfo(uint32_t frameIdx = 0) const;
+#endif
 
     const CString GetFuncName() const;
     const CString GetFileName() const;

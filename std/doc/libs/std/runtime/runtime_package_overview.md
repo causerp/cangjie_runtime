@@ -12,6 +12,7 @@ Cangjie 语言使用自动垃圾回收机制来管理内存，runtime 包提供�
 
 |              函数名          |           功能           |
 | --------------------------- | ------------------------ |
+| [blackBox\<T>(T)](./runtime_package_api/runtime_package_funcs.md#func-blackBoxtt) | 指示编译器传入的变量进入优化黑盒，无法进行死代码消除等优化。 |
 | [dumpHeapData(Path)](./runtime_package_api/runtime_package_funcs.md#func-dumpheapdatapath) | 生成堆内存快照信息，写入指定路径的文件。 |
 | [GC(Bool) <sup>(deprecated)</sup>](./runtime_package_api/runtime_package_funcs.md#func-gcbool-deprecated) | 执行 GC。 |
 | [gc(Bool)](./runtime_package_api/runtime_package_funcs.md#func-gcbool) | 执行 GC。 |

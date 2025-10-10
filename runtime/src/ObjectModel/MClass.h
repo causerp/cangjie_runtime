@@ -299,7 +299,6 @@ private:
     Uptr base[0];
 };
 
-// 4 : alignment of TypeTemplate.
 class ATTR_PACKED(4) TypeTemplate {
 public:
     inline bool IsRawArray() const;
@@ -378,6 +377,8 @@ public:
     inline bool IsRawArray() const;
     inline bool IsVArray() const;
     inline bool IsWeakRefType() const;
+    inline bool IsForeignType() const;
+    inline bool IsExportedType() const;
     inline bool IsArrayType() const;
     inline bool IsStructType() const;
     inline bool IsPrimitiveType() const;

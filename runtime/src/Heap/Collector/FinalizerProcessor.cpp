@@ -281,7 +281,7 @@ void FinalizerProcessor::RegisterFinalizer(BaseObject* obj)
 
 void FinalizerProcessor::ReclaimHeapGarbage()
 {
-    ScopedEntryHiTrace hiTrace("CJRT_GC_RECLAIM");
+    ScopedEntryTrace trace("CJRT_GC_RECLAIM");
     Heap::GetHeap().GetAllocator().ReclaimGarbageMemory(false);
     shouldReclaimHeapGarbage.store(false, std::memory_order_relaxed);
 }

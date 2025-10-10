@@ -73,6 +73,14 @@ def generate_cmake_defs(args):
             toolchain_file = "ohos_x86_64_clang_toolchain.cmake"
         elif args.target == "x86_64-w64-mingw32":
             toolchain_file = "mingw_x86_64_toolchain.cmake"
+        elif args.target == "arm64-apple-ios11-simulator":
+            toolchain_file = "ios_simulator_arm64_toolchain.cmake"
+        elif args.target == "arm64-apple-ios11":
+            toolchain_file = "ios_arm64_toolchain.cmake"
+        elif "aarch64-linux-android" in args.target:
+            toolchain_file = "android_aarch64_toolchain.cmake"
+        elif "x86_64-linux-android" in args.target:
+            toolchain_file = "android_x86_64_toolchain.cmake"
     else:
         args.target = None
         if IS_WINDOWS:
@@ -97,7 +105,14 @@ def generate_cmake_defs(args):
         "-DCANGJIE_TARGET_TOOLCHAIN=" + (args.target_toolchain if args.target_toolchain else ""),
         "-DCANGJIE_ENABLE_HWASAN=" + bool_to_opt(args.hwasan),
         "-DCANGJIE_TARGET_SYSROOT=" + (args.target_sysroot if args.target_sysroot else ""),
-        "-DCANGJIE_BUILD_ARGS=" + (";".join(args.build_args) if args.build_args else "")]
+        "-DCANGJIE_BUILD_ARGS=" + (";".join(args.build_args) if args.build_args else ""),
+        "-DCANGJIE_INCLUDE=" + (";".join(args.include) if args.include else "")]
+
+    if args.target and "aarch64-linux-android" in args.target:
+        android_api_level = re.match(r'aarch64-linux-android(\d{2})?', args.target).group(1)
+        result.append("-DCMAKE_ANDROID_NDK=" + os.path.join(args.target_toolchain, "../../../../.."))
+        result.append("-DCMAKE_ANDROID_API=" + (android_api_level if android_api_level else ""))
+
     return result
 
 def build(args):
@@ -110,6 +125,14 @@ def build(args):
         args.target = "x86_64-linux-ohos"
     elif args.target == "windows-x86_64":
         args.target = "x86_64-w64-mingw32"
+    elif args.target == "ios-simulator-aarch64":
+        args.target = "arm64-apple-ios11-simulator"
+    elif args.target == "ios-aarch64":
+        args.target = "arm64-apple-ios11"
+    elif args.target == "android-aarch64":
+        args.target = "aarch64-linux-android"
+    elif args.target == "android-x86_64":
+        args.target = "x86_64-linux-android"
 
     check_compiler(args)
 
@@ -123,6 +146,9 @@ def build(args):
         # OHOS toolchain is relative to the tool path we get. Tool path normally looks like
         # ${OHOS_ROOT}/prebuilts/clang/ohos/linux-x86_64/llvm/bin/. Six /.. can bring us to the root.
         os.environ["OHOS_ROOT"] = os.path.join(args.target_toolchain, "../../../../../..")
+
+    if args.target and "aarch64-linux-android" in args.target:
+        os.environ["ANDROID_NDK_ROOT"] = os.path.join(args.target_toolchain, "../../../../..")
 
     if IS_MACOS:
         os.environ["ZERO_AR_DATE"] = "1"
@@ -185,6 +211,14 @@ def install(args):
             args.host = "x86_64-linux-ohos"
         elif args.host == "windows-x86_64":
             args.host = "x86_64-w64-mingw32"
+        elif args.host == "ios-simulator-aarch64":
+            args.host = "arm64-apple-ios11-simulator"
+        elif args.host == "ios-aarch64":
+            args.host = "arm64-apple-ios11"
+        elif args.host == "android-aarch64":
+            args.host = "aarch64-linux-android"
+        elif args.host == "android-x86_64":
+            args.host = "x86_64-linux-android"
 
     targets = []
 
@@ -322,7 +356,11 @@ SupportedTarget = [
     "native",
     "ohos-aarch64",
     "ohos-x86_64",
-    "windows-x86_64"
+    "windows-x86_64",
+    "ios-simulator-aarch64",
+    "ios-aarch64",
+    "android-aarch64",
+    "android-x86_64"
 ]
 
 def main():
@@ -356,6 +394,10 @@ def main():
     parser_build.add_argument(
         "--target-toolchain", dest="target_toolchain", type=str,
         help="use the tools under the given path to cross-compile stdlib"
+    )
+    parser_build.add_argument(
+        "--include", "-I", dest="include", type=str, action='append', default=[],
+        help="search header files in given paths"
     )
     parser_build.add_argument(
         "--target-sysroot", dest="target_sysroot", type=str,

@@ -8,22 +8,22 @@
 
 package std.net
 
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 unsafe func setFamily(ptr: CPointer<Unit>, v: Int16): Unit {
     CPointer<Int16>(ptr).write(v)
 }
 
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 unsafe func readFamily(ptr: CPointer<Unit>): Int16 {
     CPointer<Int16>(ptr).read()
 }
 
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 unsafe func setFamily(ptr: CPointer<Unit>, v: Int16): Unit {
     CPointer<Int8>(ptr).write(1, Int8(v))
 }
 
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 unsafe func readFamily(ptr: CPointer<Unit>): Int16 {
     Int16(CPointer<Int8>(ptr).read(1))
 }

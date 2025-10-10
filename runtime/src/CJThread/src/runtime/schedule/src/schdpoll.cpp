@@ -239,7 +239,7 @@ struct CJThread *SchdpollReady(struct SchdpollDesc *pd, SchdpollEventType type, 
             // wait and needs to be woken up.
             cjthread = (struct CJThread *)old;
             if (atomic_compare_exchange_strong(&cjthread->state, &pending, CJTHREAD_READY)) {
-                OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_PARK, cjthread->id);
+                TRACE_FINISH_ASYNC(TRACE_CJTHREAD_PARK, cjthread->id);
                 ScheduleTraceEvent(TRACE_EV_CJTHREAD_UNBLOCK, -1, CJThreadGet(), TraceArgNum::TRACE_ARGS_2,
                                    CJThreadGetId(static_cast<CJThreadHandle>(cjthread)), CJTHREAD_NET_UNBLOCK);
                 return cjthread;
