@@ -383,6 +383,30 @@ InitCJLibraryStub:
     .cfi_endproc
     .size InitCJLibraryStub, .-InitCJLibraryStub
 
+.text
+.align 2
+.global  ResolveCycleRefStub
+.type    ResolveCycleRefStub, @function
+ResolveCycleRefStub:
+    .cfi_startproc
+    stp x29, x30, [sp, #-16]!
+    cfi_adjust_cfa_offset (16)
+    cfi_rel_offset (x29, 0)
+    cfi_rel_offset (x30, 8)
+    mov x29, sp
+    mov x9,  x0
+    mov x10, #0
+    mov x8,  x3
+    stp x9, x10, [sp, #-16]!
+    bl CJ_MCC_N2CStub
+    ldp x29, x30, [sp], #16
+    cfi_adjust_cfa_offset (-16)
+    cfi_restore (x29)
+    cfi_restore (x30)
+    ret
+    .cfi_endproc
+    .size ResolveCycleRefStub, .-ResolveCycleRefStub
+
 #ifdef __OHOS__
 .text
 .align 2

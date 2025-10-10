@@ -17,7 +17,8 @@ public func execute(command: String,
 
 > **注意：**
 >
-> 在 `Windows` 平台上，在子进程执行完成后立即删除子进程的可执行文件可能删除失败并抛出异常，异常信息为 `Access is denied`，如果遇到该问题，可以在一小段延迟后重新尝试删除该文件，详细实现可参考示例。
+> - 在 `Windows` 平台上，在子进程执行完成后立即删除子进程的可执行文件可能删除失败并抛出异常，异常信息为 `Access is denied`，如果遇到该问题，可以在一小段延迟后重新尝试删除该文件，详细实现可参考示例。
+> - 在 `iOS` 平台上，该功能不可用。
 
 参数：
 
@@ -61,6 +62,10 @@ public func executeWithOutput(command: String,
 
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态、标准输出和标准错误。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 `wait` 函数自行处理。
 
+> **注意：**
+>
+> 在 `iOS` 平台上，该功能不可用。
+
 参数：
 
 - command: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定子进程命令，`command` 不允许包含空字符。
@@ -98,6 +103,10 @@ public func findProcess(pid: Int64): Process
 
 功能：根据输入进程 `id` 绑定一个进程实例。
 
+> **注意：**
+>
+> 在 `iOS` 平台上，传入非当前进程的 pid 会抛出异常。
+
 参数：
 
 - pid: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 进程 `id`。
@@ -124,6 +133,10 @@ public func launch(command: String,
 ```
 
 功能：根据输入参数创建并运行一个子进程，并返回一个子进程实例。调用该函数创建子进程后，需要调用 `wait` 或 `waitOutput` 函数，否则该子进程结束后成为的僵尸进程的资源不会被回收。
+
+> **注意：**
+>
+> 在 `iOS` 平台上，该功能不可用。
 
 参数：
 

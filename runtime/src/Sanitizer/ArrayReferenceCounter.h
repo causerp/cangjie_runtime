@@ -64,12 +64,13 @@ public:
         auto it = map->find(addr);
         CHECK_DETAIL(it != map->end(), "invalid array release with zero reference");
 
-        auto count = it->second.first--;
-        CHECK_DETAIL(count >= 0, "invalid array reference with negative value or zero");
-        if (count == 1) {
+        it->second.first--;
+        auto currentValue = it->second;
+        CHECK_DETAIL(it->second.first >= 0, "invalid array reference with negative value or zero");
+        if (it->second.first == 0) {
             map->erase(it);
         }
-        return it->second;
+        return currentValue;
     }
 
     inline void Lock(uintptr_t addr) { lockList[CalculateIndex(addr)].Lock(); }

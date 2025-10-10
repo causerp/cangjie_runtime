@@ -316,8 +316,9 @@ static char* StackMemAllocInternal(size_t allocSize)
         stackAddr =
             reinterpret_cast<char*>(MapleRuntime::Sanitizer::UntagAddr(reinterpret_cast<uintptr_t>(stackAddr)));
 #endif
-#if defined (__linux__) || defined(__OHOS__)
+#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
         (void)madvise(stackAddr, allocSize, MADV_NOHUGEPAGE);
+        MRT_PRCTL(stackAddr, allocSize, "cj-stack");
 #endif
         return static_cast<char*>(stackAddr);
     } else {
@@ -370,6 +371,9 @@ char *CJThreadStackMemAlloc(struct Schedule *schedule, struct CJThread *cjthread
             LOG_ERROR(errno, "mmap failed, size is %u", *totalSize);
             return nullptr;
         }
+#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
+        MRT_PRCTL(addr, *totalSize, "cj-stack");
+#endif
 #ifdef CANGJIE_HWASAN_SUPPORT
         addr = reinterpret_cast<char*>(MapleRuntime::Sanitizer::UntagAddr(reinterpret_cast<uintptr_t>(addr)));
 #endif
@@ -479,8 +483,13 @@ struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAtt
 /* CJThreadMexit */
 void *CJThreadMexit(struct CJThread *delCJThread)
 {
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, delCJThread->id);
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, delCJThread->id);
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, delCJThread->id);
+    TRACE_START_ASYNC(TRACE_CJTHREAD_EXIT, delCJThread->id);
+#elif defined (__ANDROID__)
+    TRACE_FINISH();
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXIT, delCJThread->id));
+#endif
     struct Schedule *schedule = delCJThread->schedule;
     struct ScheduleCJThread *scheduleCJThread = &schedule->schdCJThread;
 #ifdef CANGJIE_ASAN_SUPPORT
@@ -496,7 +505,12 @@ void *CJThreadMexit(struct CJThread *delCJThread)
     if (schedule->scheduleType != SCHEDULE_DEFAULT) {
         atomic_fetch_sub(&scheduleCJThread->cjthreadNum, 1ULL);
     }
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, delCJThread->id);
+    
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXIT, delCJThread->id);
+#elif defined (__ANDROID__)
+    TRACE_FINISH();
+#endif
     // The special stackid of the event is set through hardcode.
     if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_END)) {
         ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_END, -1, nullptr, 1, SpecialStackId::CJTHREAD_EXIT);
@@ -839,7 +853,11 @@ CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *a
                            const void *argStart, unsigned int argSize, bool isSignal)
 {
     unsigned long long cjthreadId = CJThreadNewId();
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_NEW, cjthreadId);
+#ifdef __OHOS__
+    TRACE_START_ASYNC(TRACE_CJTHREAD_NEW, cjthreadId);
+#elif defined(__ANDROID__)
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_NEW, cjthreadId));
+#endif
     int error;
     struct Schedule *currentSchedule;
     struct Schedule *targetSchedule = (struct Schedule *)schedule;
@@ -854,7 +872,11 @@ CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *a
     CJThreadSetId(newCJThread, cjthreadId);
     CJThreadBuf buf =
         (CJThreadGet() == nullptr || currentSchedule != targetSchedule || isSignal) ? GLOBAL_BUF : LOCAL_BUF;
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_NEW, cjthreadId);
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_NEW, cjthreadId);
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
+#endif
     // Put new cjthread into the running queue of processor
     if (targetSchedule->scheduleType == SCHEDULE_UI_THREAD &&
         g_scheduleManager.postTaskFunc != nullptr) {
@@ -989,8 +1011,12 @@ void *CJThreadMpark(struct CJThread *parkCJThread)
             MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(cjthread0, parkCJThread);
             MapleRuntime::Sanitizer::AsanEndSwitchThreadContext(parkCJThread);
 #endif
-            OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_PARK, parkCJThread->id);
-            OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, parkCJThread->id);
+            TRACE_FINISH_ASYNC(TRACE_CJTHREAD_PARK, parkCJThread->id);
+#ifdef __OHOS__
+            TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, parkCJThread->id);
+#elif defined(__ANDROID__)
+            TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, parkCJThread->id));
+#endif
             CJThreadExecute(parkCJThread, (void**)&tlData->cjthread);
 #endif
         }
@@ -1024,8 +1050,12 @@ int CJThreadParkInForeignThread(CJThread* cjthread, ParkCallbackFunc func, void 
     if (ret != 0) {
         LOG_ERROR(ret, "sem_wait failed");
     }
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_PARK, cjthread->id);
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthread->id);
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_PARK, cjthread->id);
+#ifdef __OHOS__
+    TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, cjthread->id);
+#elif defined(__ANDROID__)
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, cjthread->id));
+#endif
 
     // Check the timer.
     ProcessorCheckFunc checkFunc;
@@ -1052,8 +1082,12 @@ int CJThreadPark(ParkCallbackFunc func, TraceEvent waitReason, void *arg)
     cjthread = CJThreadGet();
     cjthread->result = 0;
 
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthread->id);
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_PARK, cjthread->id);
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, cjthread->id);
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
+#endif
+    TRACE_START_ASYNC(TRACE_CJTHREAD_PARK, cjthread->id);
 #ifdef __OHOS__
     // cjthread is with foreign context if singleModelC2NCount size greater than 1.
     // cjthread is on UI thread if schedule type is SCHEDULE_UI_THREAD.
@@ -1135,7 +1169,11 @@ void *CJThreadMRAW(struct CJThread *parkCJThread)
             MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(CJThreadGet(), nextCJThread);
             MapleRuntime::Sanitizer::AsanEndSwitchThreadContext(nextCJThread);
 #endif
-            OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, nextCJThread->id);
+#ifdef __OHOS__
+            TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, nextCJThread->id);
+#elif defined (__ANDROID__)
+            TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, nextCJThread->id));
+#endif
 #ifdef __OHOS__
             if (nextCJThread->schedule->scheduleType == SCHEDULE_UI_THREAD) {
                 SingleCJThreadStoreSP();
@@ -1209,7 +1247,11 @@ __attribute__((noinline)) int CJThreadResched(void)
 #ifdef CANGJIE_ASAN_SUPPORT
     MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(CJThreadGet(), ThreadGet()->cjthread0);
 #endif
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthread->id);
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, cjthread->id);
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
+#endif
     if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_RESCHED)) {
         ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_RESCHED, -1, nullptr,
                                  1, SpecialStackId::CJTHREAD_RESCHED);
@@ -1294,7 +1336,7 @@ void CJThreadReady(CJThreadHandle readyCJThread)
             ProcessorWake(schedule, nullptr);
             return;
         }
-        OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_PARK, cjthread->id);
+        TRACE_FINISH_ASYNC(TRACE_CJTHREAD_PARK, cjthread->id);
         if (schedule->scheduleType == SCHEDULE_UI_THREAD &&
             g_scheduleManager.postTaskFunc != nullptr) {
             AddToCJSingleModeThreadList(cjthread);
@@ -1418,7 +1460,7 @@ CJThreadHandle CJThreadGetHandle()
 
 void CJThreadSetName(CJThreadHandle handle, const char *name, size_t len)
 {
-    int error;
+    int error = 0;
     struct CJThread *cjthread = (struct CJThread*)(handle);
     if (cjthread == nullptr || name == nullptr) {
         return;
@@ -1435,7 +1477,10 @@ void CJThreadSetName(CJThreadHandle handle, const char *name, size_t len)
         cjthread->name[len] = '\0';
     }
 #ifdef __OHOS__
-    MapleRuntime::ScopedEntryAsyncHiTrace(OHOS_HITRACE_CJTHREAD_SETNAME, cjthread->id, cjthread->name);
+    MapleRuntime::ScopedEntryAsyncTrace(TRACE_CJTHREAD_SETNAME, cjthread->id, cjthread->name);
+#elif defined(__ANDROID__)
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_SETNAME, cjthread->id, 1, cjthread->name));
+    TRACE_FINISH();
 #endif
 }
 

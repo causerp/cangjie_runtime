@@ -191,7 +191,7 @@ RTErrorCode InitCJRuntime(const struct RuntimeParam* param)
     }
 #ifdef _WIN64
     size_t defaultStackSize = 128; // default 128KB in windows, measured in KB
-#elif defined(__OHOS__) || defined(__HOS__)
+#elif defined(__OHOS__) || defined(__ANDROID__)
     size_t defaultStackSize = 1024; // default 1MB in OHOS, measured in KB
 #else
     size_t defaultStackSize = 128; // default 128KB, measured in KB
@@ -323,7 +323,6 @@ RTErrorCode FiniCJRuntime()
         return E_FAILED;
     }
     if (!g_runtimeFinished.exchange(true)) {
-        g_runtimeFinished.store(true);
         // Ensure that sampling thread is stopped before finishing runtime.
         MapleRuntime::CpuProfiler::GetInstance().TryStopSampling();
 
@@ -429,7 +428,7 @@ ScheduleHandle GetScheduler()
 CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJThreadSpecificDataInner* data = nullptr,
                              ScheduleHandle schedule = nullptr, bool isSignal = false)
 {
-    MapleRuntime::ScopedEntryHiTrace hiTrace("CJRT_INVOKE_CJTASK_ASYNC");
+    MapleRuntime::ScopedEntryTrace trace("CJRT_INVOKE_CJTASK_ASYNC");
     if (!CheckRuntimeValid(func)) {
         return nullptr;
     }

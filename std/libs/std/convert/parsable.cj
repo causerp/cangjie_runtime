@@ -944,7 +944,7 @@ func getDataAndFlagWithRadix(data: String, isSigned: Bool, typeName: String, rad
         throw IllegalArgumentException("The string is empty.")
     }
     if (radix < 2 || radix > 36) {
-         return ([], 1)
+        throw IllegalArgumentException("The radix out of range.")
     }
     let (rawData, isNegative) = match (data[0]) {
         case '+' => (unsafe { data.rawData() }[1..], 1)

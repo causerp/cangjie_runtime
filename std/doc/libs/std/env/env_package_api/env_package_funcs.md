@@ -52,6 +52,10 @@ public func getCommandLine(): Array<String>
 
 功能：获取当前进程命令行。对于 Windows 平台，只能获取当前进程的命令行，其他场景下无法在非特权 API 下获取到本属性。
 
+> **注意：**
+>
+> `iOS` 平台上不提供该 API。
+
 返回值：
 
 - [Array](../../../std/core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)> - 当前进程命令行。
@@ -159,6 +163,10 @@ public func getVariables(): Array<(String, String)>
 ```
 
 功能：获取当前进程环境变量。对于 Windows 平台，只能获取当前进程的环境变量，其他场景下无法在非特权 API 下获取到本属性。
+
+> **注意：**
+>
+> `iOS` 平台上不提供该 API。
 
 返回值：
 

@@ -694,6 +694,8 @@ U32 TypeInfoManager::GetTypeSize(TypeInfo* ti)
             return ti->GetInstanceSize();
         }
         case TypeKind::TYPE_KIND_CLASS:
+        case TypeKind::TYPE_KIND_EXPORTED_REF:
+        case TypeKind::TYPE_KIND_FOREIGN_PROXY:
         case TypeKind::TYPE_KIND_WEAKREF_CLASS:
         case TypeKind::TYPE_KIND_INTERFACE:
         case TypeKind::TYPE_KIND_TEMP_ENUM:
@@ -748,7 +750,7 @@ U32 TypeInfoManager::GetTypeSize(TypeInfo* ti)
             return MRT_ALIGN(totalSize, align);
         }
         default:
-            LOG(RTLOG_FATAL, "TypeInfoManager::GetTypeSize no type matched");
+            LOG(RTLOG_FATAL, "TypeInfoManager::GetTypeSize no type matched type: %d", type);
     }
     return 0;
 }

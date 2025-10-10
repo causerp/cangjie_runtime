@@ -20,17 +20,17 @@ public struct AddressFamily <: ToString & Equatable<AddressFamily> {
     public static const INET: AddressFamily = AddressFamily("INET", 2)
 
     // INET6
-    @When[os != "Windows" && os != "macOS"]
+    @When[os != "Windows" && os != "macOS" && os != "iOS"]
     public static const INET6: AddressFamily = AddressFamily("INET6", 10)
 
     @When[os == "Windows"]
     public static const INET6: AddressFamily = AddressFamily("INET6", 23)
 
-    @When[os == "macOS"]
+    @When[os == "macOS" || os == "iOS"]
     public static const INET6: AddressFamily = AddressFamily("INET6", 30)
 
     // NETLINK
-    @When[os != "Windows" && os != "macOS"]
+    @When[os != "Windows" && os != "macOS" && os != "iOS"]
     public static const NETLINK: AddressFamily = AddressFamily("NETLINK", 16)
 
     // name

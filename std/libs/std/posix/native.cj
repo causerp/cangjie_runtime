@@ -25,7 +25,7 @@ package std.posix
 foreign func open(pathname: CString, flags: Int32, ...): Int32
 
 @FastNative
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 foreign func open64(pathname: CString, flags: Int32, ...): Int32
 
 /**
@@ -47,7 +47,7 @@ foreign func open64(pathname: CString, flags: Int32, ...): Int32
 foreign func openat(dirfd: Int32, pathname: CString, flags: Int32, ...): Int32
 
 @FastNative
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 foreign func openat64(dirfd: Int32, pathname: CString, flags: Int32, ...): Int32
 
 /**

@@ -42,6 +42,7 @@ void CjHeapData::ProcessHeap()
 {
     ProcessRootGlobal();
     ProcessRootLocal();
+    ProcessRootConcurrencyModel();
     ProcessRootFinalizer();
     (void)LookupStringId("reserved");
     (void)LookupStringId("RefFields");
@@ -85,7 +86,6 @@ void CjHeapData::DumpHeap()
         LOG(RTLOG_ERROR, "Failed to open heap dump file, stop dumping heap info, %s", strerror(errno));
         return;
     }
-
     // step2 - write file
     ScopedStopTheWorld scopedStopTheWorld("dump heap to file");
     ProcessHeap();
@@ -97,7 +97,11 @@ void CjHeapData::DumpHeap()
         LOG(RTLOG_ERROR, "Fail to close file when dump heap data finished, %s", strerror(errno));
     }
     if (!dumpAfterOOM) {
-        ret = rename("item_data.dat.cache", "item_data.dat");
+        const int strLen = 20;
+        char* str = static_cast<char*>(NativeAllocator::NativeAlloc(strLen * sizeof(char)));
+        sprintf_s(str, strLen, "%s", "item_data.dat.cache");
+        ret = rename(str, "item_data.dat");
+        NativeAllocator::NativeFree(str, strLen * sizeof(char));
         if (ret) {
             LOG(RTLOG_ERROR, "Fail to rename file when dump heap data finished, %s", strerror(errno));
         }
@@ -271,6 +275,22 @@ void CjHeapData::ProcessRootGlobal()
         dumpObjects.push_back(dumpObject);
     };
     Heap::GetHeap().VisitStaticRoots(visitor);
+}
+
+void CjHeapData::ProcessRootConcurrencyModel()
+{
+    RootVisitor visitor = [this](ObjectRef& objRef) {
+        BaseObject* obj = objRef.object;
+        if (obj == nullptr || !Heap::IsHeapAddress(obj)) {
+            return;
+        }
+        DumpObject dumpObject = {
+            obj, TAG_ROOT_UNKNOWN, 0, 0,
+            LookupStringId(obj->GetTypeInfo()->GetName() == nullptr ? "anonymous" : obj->GetTypeInfo()->GetName())
+        };
+        dumpObjects.push_back(dumpObject);
+    };
+    Runtime::Current().GetConcurrencyModel().VisitGCRoots(&visitor);
 }
 
 void CjHeapData::ProcessRootFinalizer()
@@ -519,7 +539,6 @@ void CjHeapData::WritePrimitiveArray(BaseObject*& obj, const u1 tag)
 {
     MSize componentSize = obj->GetTypeInfo()->GetComponentSize();
     if (componentSize == 0) {
-        LOG(RTLOG_ERROR, "%s write failed, componentSize is 0.", obj->GetComponentTypeInfo()->GetName());
         return;
     }
     AddU1(tag);

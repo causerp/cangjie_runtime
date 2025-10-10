@@ -84,7 +84,7 @@ foreign {
     func unsetenv(name: CString): Int32
 }
 
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 foreign func CJ_OS_GetStartTimeFromBoot(pid: Int32): Int64
 
 @When[os != "Windows"]

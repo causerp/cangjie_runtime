@@ -114,7 +114,24 @@ public:
             return regionManager.ReleaseGarbageRegions(targetCachedSize);
         }
     }
-
+#if defined(__EULER__)
+    void TryReclaimGarbageMemory() override
+    {
+        double cachedRatio = regionManager.GetCacheRatio();
+        if (cachedRatio == 1.0) { // 1.0 is the default value
+            return;
+        }
+        {
+            MRT_PHASE_TIMER("TryReclaimGarbageRegions");
+            regionManager.ReclaimGarbageRegions();
+        }
+        MRT_PHASE_TIMER("TryReleaseGarbageMemory");
+        size_t size = regionManager.GetAllocatedSize();
+        size_t targetCachedSize = static_cast<size_t>(size * cachedRatio);
+        regionManager.ReleaseGarbageRegions(targetCachedSize);
+        return;
+    }
+#endif
     bool ForEachObj(const std::function<void(BaseObject*)>& visitor, bool safe) const override
     {
         if (UNLIKELY(safe)) {
@@ -125,10 +142,11 @@ public:
         return true;
     }
 
-    void RefineFromSpace()
+    // Return the garbage size of from space.
+    size_t RefineFromSpace()
     {
         MRT_PHASE_TIMER("ExemptFromRegions");
-        regionManager.ExemptFromRegions();
+        return regionManager.ExemptFromRegions();
     }
 
     BaseObject* RouteObject(BaseObject* fromObj) { return regionManager.RouteObject(fromObj); }

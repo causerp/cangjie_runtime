@@ -59,10 +59,10 @@ public const SIGIOT: Int32 = 0x6
 /**
  * Hardware fault; default action terminated + core.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGBUS: Int32 = 0x7
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGBUS: Int32 = 0xA
 
@@ -81,10 +81,10 @@ public const SIGKILL: Int32 = 0x9
 /**
  * User Defined Signal; Default Action Termination.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGUSR1: Int32 = 0xA
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGUSR1: Int32 = 0x1E
 
@@ -97,10 +97,10 @@ public const SIGSEGV: Int32 = 0xB
 /**
  * User Defined Signal; Default Action Termination.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGUSR2: Int32 = 0xC
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGUSR2: Int32 = 0x1F
 
@@ -125,47 +125,47 @@ public const SIGTERM: Int32 = 0xF
 /**
  * Coprocessor stack failure; default action terminated.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGSTKFLT: Int32 = 0x10
 
 /**
  * Subprocess status changes; default action ignored.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGCHLD: Int32 = 0x11
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGCHLD: Int32 = 0x14
 
 /**
  * Continuation of the suspension process; Default Action Continue/Ignore.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGCONT: Int32 = 0x12
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGCONT: Int32 = 0x13
 
 /**
  * Stop;Default Action Stop.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGSTOP: Int32 = 0x13
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGSTOP: Int32 = 0x11
 
 /**
  * Terminal stop symbol; The default action stops the process.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGTSTP: Int32 = 0x14
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGTSTP: Int32 = 0x12
 
@@ -184,10 +184,10 @@ public const SIGTTOU: Int32 = 0x16
 /**
  * Emergency (socket); default action ignored.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGURG: Int32 = 0x17
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGURG: Int32 = 0x10
 
@@ -224,27 +224,27 @@ public const SIGWINCH: Int32 = 0x1C
 /**
  * Asynchronous IO; Default Action Terminate/Ignore.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGIO: Int32 = 0x1D
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGIO: Int32 = 0x17
 
 /**
  * The power supply fails or restarts. Default Action Terminate/Ignore.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGPWR: Int32 = 0x1E
 
 /**
  * Invalid system call; Default action termination + core.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const SIGSYS: Int32 = 0x1F
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const SIGSYS: Int32 = 0xC
 
@@ -256,7 +256,7 @@ public const SIGSYS: Int32 = 0xC
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getgid(): UInt32 {
     return unsafe { CJ_OS_Getgid() }
@@ -270,7 +270,7 @@ public func getgid(): UInt32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getuid(): UInt32 {
     return unsafe { CJ_OS_Getuid() }
@@ -315,7 +315,7 @@ public func setuid(id: UInt32): Int32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getpgid(pid: Int32): Int32 {
     return unsafe { CJ_OS_Getpgid(pid) }
@@ -333,7 +333,7 @@ public func getpgid(pid: Int32): Int32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public unsafe func getgroups(size: Int32, gidArray: CPointer<UInt32>): Int32 {
     return CJ_OS_Getgroups(size, gidArray)
@@ -347,7 +347,7 @@ public unsafe func getgroups(size: Int32, gidArray: CPointer<UInt32>): Int32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "Windows" || os == "macOS"]
+@When[os == "Linux" || os == "Windows" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getpid(): Int32 {
     return unsafe { CJ_OS_Getpid() }
@@ -361,7 +361,7 @@ public func getpid(): Int32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getppid(): Int32 {
     return unsafe { CJ_OS_Getppid() }
@@ -376,7 +376,7 @@ public func getppid(): Int32 {
  *
  * @since 0.18.2
  */
-@When[os == "Linux" || os == "macOS"]
+@When[os == "Linux" || os == "macOS" || os == "iOS"]
 @Deprecated
 public func getpgrp(): Int32 {
     return unsafe { CJ_OS_Getpgrp() }

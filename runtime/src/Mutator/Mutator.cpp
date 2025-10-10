@@ -95,7 +95,9 @@ extern "C" void MRT_SetStackGrow(bool enableStackScale)
     if (!CJThreadSetStackGrow(enableStackScale)) {
         return;
     } else {
+#if not defined (__OHOS__) && not defined (_WIN64)
         LOG(RTLOG_ERROR, "CJThread Set StackScale failed");
+#endif
     }
 }
 
@@ -559,6 +561,8 @@ inline void Mutator::HandleGCPhase(GCPhase newPhase)
             SatbBuffer::Instance().RetireNode(satbNode);
             satbNode = nullptr;
         }
+    } else if (newPhase == GCPhase::GC_PHASE_IDLE && IsForeignThreadExit()) {
+        ReleaseForeignThread();
     }
 }
 
@@ -590,5 +594,16 @@ void Mutator::TransitionToCpuProfileExclusive()
     HandleCpuProfile();
     SetSafepointActive(false);
     ClearSuspensionFlag(SUSPENSION_FOR_CPU_PROFILE);
+}
+
+void Mutator::ReleaseForeignThread()
+{
+    AllocBuffer* buffer = foreignThreadInfo.allocBuffer;
+    foreignThreadInfo.allocBuffer = nullptr;
+    if (buffer != nullptr) {
+        buffer->Fini();
+        delete buffer;
+    }
+    // We can remove foreign thread c-heap resource here.
 }
 } // namespace MapleRuntime

@@ -13,7 +13,7 @@ const SOCK_LEN_MAX: Int64 = 120
 /**
  * Socket domain values.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 public struct SocketDomain <: Equatable<SocketDomain> & ToString & Hashable {
     let val: Int32
 
@@ -55,7 +55,7 @@ public struct SocketDomain <: Equatable<SocketDomain> & ToString & Hashable {
     }
 }
 
-@When[os == "Windows" || os == "macOS"]
+@When[os == "Windows" || os == "macOS" || os == "iOS"]
 public struct SocketDomain <: Equatable<SocketDomain> & ToString & Hashable {
     let val: Int32
 

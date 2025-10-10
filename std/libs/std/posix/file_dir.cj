@@ -40,10 +40,10 @@ public const O_WRONLY: Int32 = 0x1
  * Open the file in append mode.
  * That is, the written data is appended to the end of the file.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_APPEND: Int32 = 0x400
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_APPEND: Int32 = 0x00000008
 @When[os == "Windows"]
@@ -55,20 +55,20 @@ public const O_APPEND: Int32 = 0x8
  * set the FD_CLOEXEC flag does not suffice to avoid race conditions where one thread opens a file descriptor at the
  * same time as another thread does a fork(2) plus execve(2).
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_CLOEXEC: Int32 = 0x80000
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_CLOEXEC: Int32 = 0x01000000
 
 /**
  * If the file to be opened does not exist, it is automatically created.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_CREAT: Int32 = 0x40
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_CREAT: Int32 = 0x00000200
 @When[os == "Windows"]
@@ -78,10 +78,10 @@ public const O_CREAT: Int32 = 0x100
 /**
  * If the file specified by pathname is not a directory, it fails to be opened.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_DIRECTORY: Int32 = 0x10000
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_DIRECTORY: Int32 = 0x00100000
 
@@ -90,10 +90,10 @@ public const O_DIRECTORY: Int32 = 0x00100000
  * In practice, O_DSYNC means that the application does not need to wait for ancillary information,
  * such as file modification time, to be written to disk.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_DSYNC: Int32 = 0x1000
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_DSYNC: Int32 = 0x400000
 
@@ -102,10 +102,10 @@ public const O_DSYNC: Int32 = 0x400000
  * Otherwise, an error occurs in opening the file. In addition, if both O_CREAT
  *            and O_EXCL are set and the file to be opened is a symbolic link, the file fails to be opened.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_EXCL: Int32 = 0x80
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_EXCL: Int32 = 0x00000800
 @When[os == "Windows"]
@@ -115,40 +115,40 @@ public const O_EXCL: Int32 = 0x400
 /**
  * If the file to be opened is a terminal device, the terminal is not treated as a process control terminal.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_NOCTTY: Int32 = 0x100
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_NOCTTY: Int32 = 0x00020000
 
 /**
  * If the file specified by pathname is a one-symbol connection, the file fails to be opened.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_NOFOLLOW: Int32 = 0x20000
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_NOFOLLOW: Int32 = 0x00000100
 
 /**
  * Open a file in an unblockable manner, that is, immediately returns to the process with or without data read or waiting.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_NONBLOCK: Int32 = 0x800
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_NONBLOCK: Int32 = 0x00000004
 
 /**
  * Open the file synchronously.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_SYNC: Int32 = 0x101000
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_SYNC: Int32 = 0x0080
 
@@ -156,10 +156,10 @@ public const O_SYNC: Int32 = 0x0080
  * If a file exists and is opened writable, this flag clears the file length to 0,
  * and the data previously stored in the file disappears.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_TRUNC: Int32 = 0x200
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const O_TRUNC: Int32 = 0x00000400
 
@@ -168,7 +168,7 @@ public const O_TRUNC: Int32 = 0x00000400
  * It causes the region () call to block until the data being read (and possibly metadata)
  * has been flushed to disk, if necessary.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public const O_RSYNC: Int32 = 0x101000
 
@@ -320,7 +320,7 @@ public func `open`(path: String, oflag: Int32): Int32 {
  *
  * @since 0.16.5
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public func open64(path: String, oflag: Int32, flag: UInt32): Int32 {
     checkPath(path)
@@ -342,7 +342,7 @@ public func open64(path: String, oflag: Int32, flag: UInt32): Int32 {
  *
  * @since 0.16.5
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public func open64(path: String, oflag: Int32): Int32 {
     checkPath(path)
@@ -413,7 +413,7 @@ public func openat(fd: Int32, path: String, oflag: Int32): Int32 {
  *
  * @since 0.16.5
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public func openat64(fd: Int32, path: String, oflag: Int32, flag: UInt32): Int32 {
     checkPath(path)
@@ -436,7 +436,7 @@ public func openat64(fd: Int32, path: String, oflag: Int32, flag: UInt32): Int32
  *
  * @since 0.16.5
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 @Deprecated
 public func openat64(fd: Int32, path: String, oflag: Int32): Int32 {
     checkPath(path)
@@ -1019,7 +1019,7 @@ public func unlink(path: String): Int32 {
  * This will generally not work if the file has a link count of zero (files created with O_TMPFILE and without O_EXCL are an exception).
  * The caller must have the CAP_DAC_READ_SEARCH capability in order to use this flag.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const AT_EMPTY_PATH: Int32 = 0x1000
 
@@ -1028,20 +1028,20 @@ public const AT_EMPTY_PATH: Int32 = 0x1000
  * The flag AT_SYMLINK_FOLLOW can be specified in flags to cause oldpath to be dereferenced if it is a symbolic link.
  * If procfs is mounted, this can be used as an alternative to AT_EMPTY_PATH
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const AT_SYMLINK_FOLLOW: Int32 = 0x400
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const AT_SYMLINK_FOLLOW: Int32 = 0x040
 
 /**
  * fd The special value AT_FDCWD, then pathname is interpreted relative to the current working directory of the calling process.
  */
-@When[os != "macOS"]
+@When[os != "macOS" && os != "iOS"]
 @Deprecated
 public const AT_FDCWD: Int32 = -0x64
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 @Deprecated
 public const AT_FDCWD: Int32 = -2
 

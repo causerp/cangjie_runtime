@@ -89,7 +89,7 @@ MAddress RegionSpace::Allocate(size_t size, AllocType allocType)
 void RegionSpace::Init(const HeapParam& vmHeapParam)
 {
     MemMap::Option opt = MemMap::DEFAULT_OPTIONS;
-    opt.tag = "region_heap";
+    opt.tag = "cangjie_heap";
     size_t heapSize = vmHeapParam.heapSize * 1024;
     size_t totalSize = RegionManager::GetHeapMemorySize(heapSize);
     size_t unitNum = RegionManager::GetHeapUnitCount(heapSize);
@@ -134,7 +134,7 @@ AllocBuffer* AllocBuffer::GetAllocBuffer() { return ThreadLocal::GetAllocBuffer(
 
 AllocBuffer::~AllocBuffer()
 {
-    if (LIKELY(tlRegion != RegionInfo::NullRegion())) {
+    if (LIKELY(tlRegion != RegionInfo::NullRegion()) && tlRegion != nullptr) {
         RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
         RegionManager& manager = theAllocator.GetRegionManager();
         manager.RemoveThreadLocalRegion(tlRegion);
@@ -149,6 +149,11 @@ void AllocBuffer::Init()
                   "need to modify the offset of this value in llvm-project at the same time");
     tlRegion = RegionInfo::NullRegion();
     Heap::GetHeap().RegisterAllocBuffer(*this);
+}
+
+void AllocBuffer::Fini()
+{
+    Heap::GetHeap().RemoveAllocBuffer(*this);
 }
 
 MAddress AllocBuffer::Allocate(size_t totalSize, AllocType allocType)

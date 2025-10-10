@@ -753,7 +753,6 @@ extend TestGroupResult {
     func collectClassObjects(passedFQNames: Iterable<TestCaseId>): ArrayList<JsonObject> {
         let failedCases = HashSet<TestCaseId>()
         this.visitFailedSteps { step, result => failedCases.add(result.caseId) }
-        
         passedFQNames
             .iterator()
             .concat(failedCases.iterator())
@@ -1060,6 +1059,11 @@ func getOsVersion(): String {
     "macOS"
 }
 
+@When[os == "iOS"]
+func getOsVersion(): String {
+    "iOS"
+}
+
 @When[os == "Linux"]
 func getCpuName(): String {
     let (rc, stdout, _) = Process.runOutput("lscpu", [])
@@ -1080,6 +1084,11 @@ func getCpuName(): String {
     let matched = Regex("machdep.cpu.brand_string:[\\s]*([^\\r\\n]+)").matcher(intermediate).find()
 
     matched?.matchString(1) ?? return NO_INFO
+}
+
+@When[os == "iOS"]
+func getCpuName(): String {
+    "unknown"
 }
 
 @When[os == "Windows"]

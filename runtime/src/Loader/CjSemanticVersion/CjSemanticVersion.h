@@ -34,11 +34,12 @@ public:
     ~CjSemanticVersion() {}
     const char* GetRuntimeSDKVersion();
     bool CheckPackageCompatibility(CString& packageName, CString& binaryVersion);
-    void ThrowException(CString& packageName, CString& binaryVersion);
 private:
     bool IsCompatible(CString& binaryVersion);
     bool IsSemver(CString& version);
+#ifndef DISABLE_VERSION_CHECK
     bool IsCorePackage(CString& packageName);
+#endif
     bool IsUnstableVersion(SemanticVersionInfo& version);
 
     SemanticVersionInfo runtimeSemanticVersionInfo;

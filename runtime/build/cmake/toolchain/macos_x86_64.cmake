@@ -84,6 +84,12 @@ if("${BUILDING_STAGE}" STREQUAL "publish")
     set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -fstack-protector-strong")
 endif()
 
+if ("${BUILD_APPLE_STATIC}" STREQUAL "apple_static_lib")
+    set(APPLE_STATIC_BUILD "true")
+else()
+    set(APPLE_STATIC_BUILD "false")
+endif()
+
 # compile flags for debug version only
 if("${BUILDING_STAGE}" STREQUAL "asan")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize-recover=address")

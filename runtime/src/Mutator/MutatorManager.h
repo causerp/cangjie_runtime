@@ -105,7 +105,7 @@ public:
     // Visit all mutators, hold mutatorListLock firstly
     void VisitAllMutators(MutatorVisitor func);
 
-    // Some functions about stw/lsync
+    // Some functions about stw
     void StopTheWorld(bool syncGCPhase, GCPhase phase);
     void StartTheWorld() noexcept;
     void StartLightSync(bool syncGCPhase, GCPhase phase);

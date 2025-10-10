@@ -11,6 +11,7 @@
 #include "StackMap/StackMapTypeDef.h"
 #include "CangjieRuntime.h"
 #include "Base/LogFile.h"
+
 namespace MapleRuntime {
 using VarValue = U32;
 using BitLen = U32;

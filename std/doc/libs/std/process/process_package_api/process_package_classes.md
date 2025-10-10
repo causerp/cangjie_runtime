@@ -245,7 +245,8 @@ public prop commandLine: Array<String>
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [getcommandline()](../../env/env_package_api/env_package_funcs.md#func-getcommandline) 替代。
+> - 未来版本即将废弃，使用 [getcommandline()](../../env/env_package_api/env_package_funcs.md#func-getcommandline) 替代。
+> - `iOS` 平台下该属性不可用。
 
 类型：[Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
@@ -263,7 +264,8 @@ public prop environment: Map<String, String>
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [getVariables()](../../env/env_package_api/env_package_funcs.md#func-getvariables) 替代。
+> - 未来版本即将废弃，使用 [getVariables()](../../env/env_package_api/env_package_funcs.md#func-getvariables) 替代。
+> - `iOS` 平台下该属性不可用。
 
 类型：[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
@@ -365,7 +367,8 @@ public static func of(pid: Int64): Process
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [findProcess](./process_package_funcs.md#func-findprocessint64) 替代。
+> - 在 `iOS` 平台上，该功能不可用。
+> - 未来版本即将废弃，使用 [findProcess](./process_package_funcs.md#func-findprocessint64) 替代。
 
 参数：
 
@@ -397,6 +400,7 @@ public static func run(command: String,
 
 > **注意：**
 >
+> - 在 `iOS` 平台上，该功能不可用。
 > - 未来版本即将废弃，使用 [execute](./process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) 替代。
 > - 在 `Windows` 平台上，在子进程执行完成后立即删除子进程的可执行文件可能删除失败并抛出异常，异常信息为 `Access is denied`，如果遇到该问题，可以在一小段延迟后重新尝试删除该文件，详细实现可参考示例。
 
@@ -435,8 +439,8 @@ public static func runOutput(command: String,
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态、标准输出和标准错误。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 `wait` 函数自行处理。
 
 > **注意：**
->
-> 未来版本即将废弃，使用 [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
+> - 在 `iOS` 平台上，该功能不可用。
+> - 未来版本即将废弃，使用 [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
 
 参数：
 
@@ -473,7 +477,8 @@ public static func start(command: String,
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [launch](./process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
+> - 在 `iOS` 平台上，该功能不可用。
+> - 未来版本即将废弃，使用 [launch](./process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
 
 参数：
 
@@ -518,6 +523,10 @@ protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
 
 功能：终止指定进程，子进程执行返回结果，包含子进程退出状态（若子进程正常退出，返回子进程退出码，若子进程被信号杀死，返回导致子进程终止的信号编号），进程标准输出结果和进程错误结果。
 
+> **注意：**
+>
+> 在 `iOS` 平台上，传入非本进程的 `pid`，会抛出异常。
+
 参数：
 
 - pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 需要终止的进程 `ID`。
@@ -535,6 +544,10 @@ public class SubProcess <: Process
 ```
 
 功能：此类为子进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对子进程操作相关功能。
+
+> **注意：**
+>
+> 在 `iOS` 平台上，该功能不可用。
 
 > **说明：**
 >

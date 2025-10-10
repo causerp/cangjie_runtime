@@ -92,6 +92,15 @@ public:
 
     virtual void VisitStaticRoots(const RefFieldVisitor& visitor) = 0;
 
+    virtual U64 RegisterExportRoot(BaseObject*) = 0;
+    virtual void VisitAllExportRoots(const RootVisitor& visitor) = 0;
+
+    virtual BaseObject* GetExportObject(U64) = 0;
+    virtual void RemoveExportObject(U64) = 0;
+
+    virtual void SetExportObjActiveState(U64, bool) = 0;
+    virtual bool CheckExportObjState(U64, BaseObject*) = 0;
+
     virtual ssize_t GetHeapPhysicalMemorySize() const = 0;
 
     virtual FinalizerProcessor& GetFinalizerProcessor() = 0;
@@ -99,6 +108,10 @@ public:
     virtual CollectorResources& GetCollectorResources() = 0;
 
     virtual void RegisterAllocBuffer(AllocBuffer& buffer) = 0;
+
+    virtual void RemoveAllocBuffer(AllocBuffer& buffer) = 0;
+
+    virtual void CrossAccessBarrier(I64) = 0;
 
     virtual void StopGCWork() = 0;
 

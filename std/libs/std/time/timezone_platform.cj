@@ -26,6 +26,8 @@ foreign func CJ_TIME_GetLocalTimeOffset(): Int64
 @FastNative
 foreign func CJ_TIME_GetRealPath(path: CString): CString
 
+foreign func CJ_TIME_GetLocalTimeZoneProperty(): CString
+
 @When[os == "Windows"]
 func initLocal(): TimeZone {
     var timeZ = unsafe { LibC.mallocCString("TZ") }
@@ -51,7 +53,7 @@ func initLocal(): TimeZone {
     initLocalDefault()
 }
 
-@When[os != "Windows"]
+@When[os != "Windows" && os != "iOS"]
 func initLocal(): TimeZone {
     var timeZ = unsafe { LibC.mallocCString("TZ") }
     let ctz = unsafe { CJ_TIME_GetEnvVariable(timeZ) }
@@ -94,16 +96,28 @@ func initLocal(): TimeZone {
     initLocalDefault()
 }
 
-// get timezone which name is UTC+Offset
+@When[os == "iOS"]
+func initLocal(): TimeZone {
+    initLocalDefault()
+}
+
+// Get timezone which name is UTC+Offset
 func initLocalDefault(): TimeZone {
-    let offset = unsafe { CJ_TIME_GetLocalTimeOffset() }
+    let offset: Int64 = unsafe { CJ_TIME_GetLocalTimeOffset() }
     if (offset == 0) {
         return TimeZone.UTC
     }
     let duration = Duration.minute * offset
     let hour = duration.toHours()
     let minute = duration.abs().toMinutes() % 60
-    let name = "UTC${hour.format("+.2")}:${minute.format(".2")}"
+    let cname: CString = unsafe { CJ_TIME_GetLocalTimeZoneProperty() }
+    let name = if (cname.isNull()) {
+        "UTC${hour.format("+.2")}:${minute.format(".2")}"
+    } else {
+        let str = cname.toString() // Always valid utf8 sequence
+        unsafe { LibC.free(cname) }
+        str
+    }
     return TimeZone(name, duration)
 }
 

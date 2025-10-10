@@ -25,21 +25,21 @@ const IPV6_ADDR_LEN: Int64 = 28
  * CJ_SockCreate domain
  */
 const AF_INET: Int16 = 2
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const AF_UNIX: Int16 = 1
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const AF_INET6: Int16 = 10
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const AF_NETLINK: Int16 = 16
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const AF_PACKET: Int16 = 17
 @When[os == "Windows"]
 const AF_UNIX: Int16 = 0
 @When[os == "Windows"]
 const AF_INET6: Int16 = 23
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const AF_UNIX: Int16 = 1
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const AF_INET6: Int16 = 30
 
 /**
@@ -60,59 +60,59 @@ const IPPROTO_TCP: Int32 = 6
 const IPPROTO_UDP: Int32 = 17
 const IPPROTO_IPV6: Int32 = 41
 const IPPROTO_RAW: Int32 = 255
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOL_SOCKET: Int32 = 1
-@When[os == "Windows" || os == "macOS"]
+@When[os == "Windows" || os == "macOS" || os == "iOS"]
 const SOL_SOCKET: Int32 = 0xFFFF
 
 /**
  * sock option optname, If the value of an option is 0xFFFF, the option is not supported in the environment.
  */
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_DEBUG: Int32 = 0x0001
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_REUSEADDR: Int32 = 0x0002
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_ERROR: Int32 = 0x0004
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_DONTROUTE: Int32 = 0x0005
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_BROADCAST: Int32 = 0x0006
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_SNDBUF: Int32 = 0x0007
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_RCVBUF: Int32 = 0x0008
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_KEEPALIVE: Int32 = 0x0009
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_OOBINLINE: Int32 = 0x000A
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_LINGER: Int32 = 0x000D
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_REUSEPORT: Int32 = 0x000F
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_RCVTIMEO: Int32 = 0x0014
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_SNDTIMEO: Int32 = 0x0015
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_BINDTODEVICE: Int32 = 0x0019
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_ACCEPTCONN: Int32 = 0x001E
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_TCP_NODELAY: Int32 = 0x0001
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_TCP_QUICKACK: Int32 = 0x000C
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_TCP_KEEPIDLE: Int32 = 0x0004
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_TCP_KEEPINTVL: Int32 = 0x0005
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_TCP_KEEPCNT: Int32 = 0x0006
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_IP_TOS: Int32 = 0x0001
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_IP_TTL: Int32 = 0x0002
-@When[os != "Windows" && os != "macOS"]
+@When[os != "Windows" && os != "macOS" && os != "iOS"]
 const SOCK_IP_HDRINCL: Int32 = 0x0003
 @When[os == "Windows"]
 const SOCK_DEBUG: Int32 = 0x0001
@@ -164,55 +164,55 @@ const SOCK_IP_HDRINCL: Int32 = 0x0002
 const SOCK_IP_TOS: Int32 = 0x0003
 @When[os == "Windows"]
 const SOCK_IP_TTL: Int32 = 0x0004
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_DEBUG: Int32 = 0x0001
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_ACCEPTCONN: Int32 = 0x0002
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_REUSEADDR: Int32 = 0x0004
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_KEEPALIVE: Int32 = 0x0008
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_DONTROUTE: Int32 = 0x0010
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_BROADCAST: Int32 = 0x0020
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_OOBINLINE: Int32 = 0x0100
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_LINGER: Int32 = 0x0080
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_SNDBUF: Int32 = 0x1001
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_RCVBUF: Int32 = 0x1002
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_SNDTIMEO: Int32 = 0x1005
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_RCVTIMEO: Int32 = 0x1006
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_ERROR: Int32 = 0x1007
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TYPE: Int32 = 0x1008
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_REUSEPORT: Int32 = 0x0200
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_BINDTODEVICE: Int32 = 0xFFFF // Not on macOS
 
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TCP_NODELAY: Int32 = 0x0001
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TCP_KEEPIDLE: Int32 = 0x0010
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TCP_KEEPCNT: Int32 = 0x0102
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TCP_KEEPINTVL: Int32 = 0x0101
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_TCP_QUICKACK: Int32 = 0xFFFF // Not on macOS
 
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_IP_HDRINCL: Int32 = 0x0002
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_IP_TOS: Int32 = 0x0003
-@When[os == "macOS"]
+@When[os == "macOS" || os == "iOS"]
 const SOCK_IP_TTL: Int32 = 0x0004
 
 /**

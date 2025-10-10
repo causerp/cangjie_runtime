@@ -118,10 +118,10 @@ public func chmod(path: String, mode: UInt32): Int32
 
 功能：修改文件访问权限。
 
-在 `Windows` 环境下：
+- 在 `Windows` 环境下，所有文件和目录都是可读的，[chmod](#func-chmodstring-uint32-deprecated)() 不能更改文件的可读权限。
+- 在 `Windows` 环境下，文件的可执行权限通过文件扩展名设置，所有目录都是可执行的，[chmod](#func-chmodstring-uint32-deprecated)() 不能更改文件和目录的可执行权限。
+- 在 `iOS` 环境下，运行设置了可执行权限的文件，系统会忽略设置的可执行权限。
 
-- 所有文件和目录都是可读的，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)() 不能更改文件的可读权限；
-- 在 `Windows` 环境下，文件的可执行权限通过文件扩展名设置，所有目录都是可执行的，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)() 不能更改文件和目录的可执行权限。
 
 > **注意：**
 >
@@ -307,7 +307,7 @@ public func fchdir(fd: Int32): Int32
 public func fchmod(fd: Int32, mode: UInt32): Int32
 ```
 
-功能：修改文件描述符对应的文件访问权限。
+功能：修改文件描述符对应的文件访问权限。 在 `iOS` 环境下，运行设置了可执行权限的文件，系统会忽略设置的可执行权限。
 
 > **注意：**
 >
@@ -337,6 +337,7 @@ public func fchmodat(fd: Int32, path: String, mode: UInt32, flag: Int32): Int32
 - `path` 为相对路径且 `fd` 为特殊值 `AT_FDCWD` 时，则路径将相对于调用进程的当前工作目录。
 - `path` 为相对路径且 `fd` 非 `AT_FDCWD` 时，则路径将相对于 `fd` 引用的文件所属目录。
 - `path` 为绝对路径时 `fd` 参数将被忽略。
+- 在 `iOS` 环境下，运行设置了可执行权限的文件，系统会忽略设置的可执行权限。
 
 > **注意：**
 >
@@ -794,7 +795,8 @@ public func kill(pid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上无法用于非本进程的 `pid`。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -815,7 +817,8 @@ public func killpg(pgid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -946,7 +949,8 @@ public func nice(inc: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1309,7 +1313,8 @@ public func setgid(id: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1329,7 +1334,8 @@ public func sethostname(buf: String): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1353,7 +1359,8 @@ public func setpgid(pid: Int32, pgrp: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1374,7 +1381,8 @@ public func setpgrp(): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -1390,7 +1398,8 @@ public func setuid(id: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1471,7 +1480,8 @@ public func ttyname(fd: Int32): String
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 该功能在 `iOS` 上不可用。
+> - 未来版本即将废弃。
 
 参数：
 

@@ -30,7 +30,7 @@ bool Allocator::InitAyncAllocation()
 {
     auto enableAsyncAllocation = std::getenv("cjEnableAsyncAllocation");
     if (enableAsyncAllocation == nullptr) {
-#if defined(__OHOS__) || defined(__HOS__)
+#if defined(__OHOS__) || defined(__ANDROID__)
         return true;
 #else
         return false;
@@ -38,7 +38,7 @@ bool Allocator::InitAyncAllocation()
     }
     if (strlen(enableAsyncAllocation) != 1) {
         LOG(RTLOG_ERROR, "Unsupported cjEnableAsyncAllocation, cjEnableAsyncAllocation should be 0 or 1.\n");
-#if defined(__OHOS__) || defined(__HOS__)
+#if defined(__OHOS__) || defined(__ANDROID__)
         return true;
 #else
         return false;
