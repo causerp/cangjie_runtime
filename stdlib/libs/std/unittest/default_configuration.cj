@@ -22,7 +22,7 @@ func fillAbsentValues(config: Configuration) {
     config.setIfAbsent(KeyBatchSize.batchSize, 1..MAX_BATCH_SIZE)
     config.setIfAbsent(KeyMinDuration.minDuration, Duration.second * 5)
     config.setIfAbsent(KeyMinBatches.minBatches, 10)
-    config.setIfAbsent(KeyExplicitGC.explicitGC, ExplicitGcType.Light)
+    config.setIfAbsent(KeyExplicitGC.explicitGC, ExplicitGcType.Auto)
     config.setIfAbsent(KeyMeasurementInfo.measurementInfo, TimeNow().info)
 }
 

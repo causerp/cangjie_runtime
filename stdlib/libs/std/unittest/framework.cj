@@ -7,7 +7,7 @@
  */
 package std.unittest
 
-import std.sync.ReentrantMutex
+import std.sync.Mutex
 import std.time.DateTime
 import std.collection.ArrayList
 import std.collection.concurrent.ConcurrentLinkedQueue
@@ -36,7 +36,7 @@ enum LaunchSource {
 class Framework {
     private var transport: ?Transport = None
     private var progressQueue: ?ConcurrentLinkedQueue<UTProgress> = None
-    private let mtx: ReentrantMutex = ReentrantMutex()
+    private let mtx: Mutex = Mutex()
 
     // "global utils" like @Assert/@Expect/@Fail will be reported here
     private var currentlyRunning: RunContext = OutsideOfFrameworkContext()
@@ -59,6 +59,7 @@ class Framework {
             case _ => ()
         }
         instance.currentlyRunning = internalContext
+
         try {
             body()
         } finally {
@@ -242,7 +243,7 @@ class Framework {
 
 class OutsideOfFrameworkContext <: RunContext {
     protected func storeCheckResult(_: CheckResult) {
-        // behaviour for @Assert/@Expect outside of test cases can be defined here
+        // behaviour for @Assert/@Expect outside of test cases can be defined here, for now it is no-op
     }
 }
 

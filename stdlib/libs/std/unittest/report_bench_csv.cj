@@ -77,7 +77,7 @@ extend TestSuiteResult {
 
                 match (raw) {
                     case true =>
-                        for ((batchSize, value) in resultPiece.result.data) {
+                        for ((batchSize, value, _) in resultPiece.result.data) {
                             let (adjustedValue, unit) = conversionTable.minToNonAdjustedPair(value)
                             sb.appendCsvCell(caseName)
                             sb.appendCsvCell(args)
@@ -111,10 +111,6 @@ private func appendStatistics(
 
     let isEmptyBench = benchStats.errorEst == 0.0 && result == 0.0
 
-    // to get more stable output when result is basically zero
-    if (result < 0.001) {
-        result = 0.0
-    }
 
     let error = if (isEmptyBench) {
         None<ToString>

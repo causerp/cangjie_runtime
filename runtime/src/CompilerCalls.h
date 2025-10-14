@@ -65,6 +65,7 @@ extern "C" size_t MCC_GetNativeThreadNumber();
 extern "C" size_t MCC_GetGCCount();
 extern "C" uint64_t MCC_GetGCTimeUs();
 extern "C" size_t MCC_GetGCFreedSize();
+extern "C" bool MCC_IsGCRunning();
 
 extern "C" bool MCC_StartCpuProfiling();
 extern "C" bool MCC_StopCpuProfiling(int fd);

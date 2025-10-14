@@ -9,6 +9,7 @@ package std.unittest
 
 import std.time.DateTime
 import std.unittest.mock.*
+import std.collection.ArrayList
 
 // Marker interface to be able to detect BenchInputProvider<T> when we do not know `T`
 public interface BenchmarkInputMarker {}
@@ -60,7 +61,7 @@ public struct BatchInputProvider<T> <: BenchInputProvider<T> {
     public mut func reset(max: Int64) {
         if (data.size >= max) {
             // reuse existing array if possible
-            for (i in 0..data.size) {
+            for (i in 0..max) {
                 data[i] = builder()
             }
         } else {
@@ -112,21 +113,39 @@ public struct GenerateEachInputProvider<T> <: BenchInputProvider<T> {
 }
 
 struct SimpleBenchWrapper<T> <: BenchmarkWrapper {
-    SimpleBenchWrapper(let input: T, let f: (T, Int64, Int64) -> Float64) {}
+    SimpleBenchWrapper(
+        let input: T,
+        let m: Measurement,
+        let f: (T, Int64, Int64, Int64, Measurement) -> Float64
+    ) {}
 
-    public func measureLoopOnce(times: Int64, max: Int64): Float64 {
-        f(input, times, max)
+    public prop measurement: Measurement { get() { m }}
+
+    public func measureLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
+        f(input, times, max, batchSize, m)
     }
 
-    public func timeLoopOnce(times: Int64, max: Int64): Float64 {
-        let tmp = DateTime.now()
-        f(input, times, max)
-        Float64((DateTime.now() - tmp).toNanoseconds())
+    public func timeLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
+        f(input, times, max, batchSize, TimeNow())
     }
+
+    public func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
+        f(input, times, max, batchSize, Runtime(AllocatedMemory))
+    }
+
 }
 
+// Reduces mock overhead if mocks are used together with benchmarks.
+// While such case is rarely useful, it is technically allowed so we support it nevertheless.
 struct MockBenchWrapper<T> <: BenchmarkWrapper {
-    MockBenchWrapper(let input: T, let caseName: String, let f: (T, Int64, Int64) -> Float64) {}
+    MockBenchWrapper(
+        let input: T,
+        let caseName: String,
+        let m: Measurement,
+        let f: (T, Int64, Int64, Int64, Measurement) -> Float64
+    ) {}
+
+    public prop measurement: Measurement { get() { m } }
 
     private func runBenchStepWithMock(f: () -> Float64): Float64 {
         MockFramework.openSession(MockFramework.benchSessionPrefix + caseName, Verifiable)
@@ -134,27 +153,35 @@ struct MockBenchWrapper<T> <: BenchmarkWrapper {
         MockFramework.closeSession()
         result
     }
-
-    public func measureLoopOnce(times: Int64, max: Int64): Float64 {
+    
+    public func measureLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
         runBenchStepWithMock {
-            f(input, times, max)
+            f(input, times, max, batchSize, m)
         }
     }
 
-    public func timeLoopOnce(times: Int64, max: Int64): Float64 {
+    public func timeLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
         runBenchStepWithMock {
-            let tmp = DateTime.now()
-            f(input, times, max)
-            Float64((DateTime.now() - tmp).toNanoseconds())
+            f(input, times, max, batchSize, TimeNow())
+        }
+    }
+
+    public func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
+        runBenchStepWithMock {
+            f(input, times, max, batchSize, Runtime(AllocatedMemory))
         }
     }
 }
 
+struct EmptyBenchmark <: BenchmarkWrapper {}
+
 // Internal unifying interface for various benchmarks types
 interface BenchmarkWrapper {
-    func measureLoopOnce(times: Int64, max: Int64): Float64
+    prop measurement: Measurement { get() { TimeNow() }}
 
-    func timeLoopOnce(times: Int64, max: Int64): Float64
+    func measureLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
+    func timeLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
+    func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
 }
 
 public interface BenchmarkConfig {

@@ -7,38 +7,176 @@
  */
 package std.unittest
 
-import std.collection.ArrayList
+import std.collection.*
 import std.time.DateTime
 import std.random.Random
 import std.math.*
-import std.runtime.GC
+import std.core
+import std.runtime.*
+import std.runtime
 import std.convert.Formattable
 import std.sort.*
 
 // upper limit on number of saved measurements to keep reasonable statistics calculation time and memory cost
-const MEASUREMENTS_LIMIT = 5000
+const MEASUREMENTS_LIMIT = 500
+const DEFAULT_BATCHES_AMOUNT = 200.0
 const MAX_BATCH_SIZE = 2 ** 60
+// Currently in Cangjie minimal possible size of object is 8 because every object on heap has to store pointer to metadata
+const MIN_OBJECT_SIZE = 8.0
 
-private struct EmptyBenchmark <: BenchmarkWrapper {
-    public func measureLoopOnce(_: Int64, _: Int64): Float64 { 0.0 }
+// Threshold to detect that GC taking a lot of time so that it can infuence results of benchmarks
+const BIG_GC_THRESHOLD_NS = 50000.0
 
-    public func timeLoopOnce(_: Int64, _: Int64): Float64 { 0.0 }
+
+struct WarmupInfo {
+    var executedBatches = 0
+    var aggregateRuns = 0
+    var aggregateStartBatchOverhead = 0.0
+    var aggregateLoopOverheap = 0.0
+    var batchMemoryOverhead = 0.0
+    var benchmark: BenchmarkWrapper = EmptyBenchmark()
+    var estimation = 0.0
+    var gcCount = 0
+    var overallAllocated = 0.0
+    WarmupInfo(var warmupGC: ExplicitGcType) {}
+
+    prop allocatedPerIteration: Float64 { get () {
+        Float64(overallAllocated - batchMemoryOverhead*Float64(executedBatches)) / Float64(aggregateRuns)
+    }}
+
+    var ema = Ema(0)
+
+    private mut func runMultipleAndEstimateTime(times: Int64, maxMeasureBatch: Int64): Float64 {
+        let baseWithRun = benchmark.timeLoopOnce(times, times, maxMeasureBatch)
+        let baseLoopOnly = benchmark.timeLoopOnce(0, times, maxMeasureBatch)
+        let base = benchmark.timeLoopOnce(0, 0, maxMeasureBatch)
+
+        aggregateLoopOverheap += baseLoopOnly-base
+        aggregateStartBatchOverhead += base
+        aggregateRuns += times
+        executedBatches += 1
+
+        max((baseWithRun - baseLoopOnly)/Float64(times), 0.001)
+    }
+
+    func avgIterTime(): Float64 {
+        let overheadPerIteration = max(aggregateLoopOverheap/Float64(aggregateRuns), 0.0)
+        let overheadPerBatch = max(aggregateStartBatchOverhead/Float64(executedBatches), 0.0)
+        estimation + overheadPerIteration*2.0
+    }
+
+    private func memory(): Float64 {
+        Float64(getGCFreedSize() + getAllocatedHeapSize())
+    }
+
+    private mut func beforeWarmup() {
+        gcCount = getGCCount()
+        let mem1 = memory()
+
+        // ideally this should be zero, however with current implementation of generics
+        // there is an overhead to call our benchmark loop lambda
+        for (i in 0..20) {
+            batchMemoryOverhead += benchmark.memLoopOnce(0, 0, 1)
+        }
+        overallAllocated = memory()
+        batchMemoryOverhead = (overallAllocated - mem1) / 20.0
+    }
+
+    private mut func finishWarmup() {
+        overallAllocated = memory() - overallAllocated
+        gcCount = getGCCount() - gcCount
+    
+        estimation = ema.result
+
+        overallAllocated -= batchMemoryOverhead * Float64(executedBatches * 3) // there are three calls for each batch
+    }
+
+    private mut func chooseWarmupGC() {
+        let allocatedSoFar = memory() - overallAllocated - batchMemoryOverhead * Float64(executedBatches * 3)
+        if (Float64(allocatedSoFar) / Float64(aggregateRuns) > MIN_OBJECT_SIZE) {
+            warmupGC = Heavy
+        }
+    }
+
+    mut func warmupDuration(warmupTime: Duration, maxMeasureBatch: Int64, explicitGC: ExplicitGcType) {
+        beforeWarmup()
+
+        var aggregateTime = 0.0
+        var n = 0
+        // use exponential moving average to prevent single abnormal result
+        // on last warmup iteration to ruin some subsequent calculations
+        // which can cause benchmark to work for too long
+        ema = Ema(5)
+        do {
+            n = n * 12 / 10 + 1  // ~20% increase
+            if (let Auto <- warmupGC && aggregateTime < Float64(warmupTime.toNanoseconds()/2)) {
+                // for small allocation heavy benchmarks it is essential that we finish warmup
+                // with same GC strategy that will be active during benchmark
+                chooseWarmupGC()
+            }
+            warmupGC.invoke()
+            let estimation = runMultipleAndEstimateTime(n, maxMeasureBatch)
+
+            if (aggregateRuns > 1000000) { break }
+
+            // If estimation is that small then most likely result will be zero so we can speed up things.
+            // Now, with blackBox it should never happen, so it is left just as a fallback in case of a bug in blackBox
+            if (estimation <= 0.001) {
+                if (n > 100000 || aggregateRuns > 1000000) {
+                    break
+                }
+
+                n = n * 10
+            }
+            aggregateTime += estimation * Float64(n)
+
+            ema.append(estimation)
+        } while (aggregateTime < Float64(warmupTime.toNanoseconds()))
+
+
+        finishWarmup()
+    }
+
+    mut func warmupFixed(warmupCount: Int64, maxMeasureBatch: Int64) {
+        beforeWarmup()
+
+        let batches = max(warmupCount / maxMeasureBatch, 1)
+        ema = Ema(batches / 2)
+        for (i in 0..batches) {
+            if (let Auto <- warmupGC && i > batches / 2) {
+                chooseWarmupGC()
+            }
+            warmupGC.invoke()
+            ema.append(runMultipleAndEstimateTime(warmupCount/batches, maxMeasureBatch))
+        }
+
+        finishWarmup()
+    }
+}
+
+func waitGCFinish() {
+    if (isGCRunning()) {
+        let gcCount = getGCCount()
+        while (getGCCount() <= gcCount) {}
+    }
 }
 
 class BenchRunner {
     var benchmark: BenchmarkWrapper = EmptyBenchmark()
     var measurements: ArrayList<BenchRawMeasurement> = ArrayList()
-    private let time: TimeNow = TimeNow()
-    private var explicitGC: ExplicitGcType = Light
+    var explicitGC: ExplicitGcType = Auto
     private var targetDuration: Duration = Duration.second
     private var minBatches: Int64 = 100
     private var batchSize: Range<Int64> = 1..MAX_BATCH_SIZE
-    private var overheadPerIteration = 0.0
-    private var overheadPerBatch = 0.0
+    private var maxMeasureBatch = MAX_BATCH_SIZE
+    private var warmupInfo = WarmupInfo(Auto)
     private var random = Random()
     var isRunning: Bool = false
-    private var ema0 = Ema(0)
-    private var ema1 = Ema(0)
+
+    // whether we need full gc to be invoked before next benchmark
+    private static var needFullGc = true
+    
+    private static var memoryDiff = unsafe { zeroValue<MemoryInfo>() } // prevent cyclic dependency
 
     public BenchRunner(let configuration: Configuration, let progress: ProgressOutput) {
         if (configuration.get<Measurement>(KeyMeasurement.measurement).isSome()) {
@@ -48,32 +186,28 @@ class BenchRunner {
         }
     }
 
-    private func warmupFixedSize(warmupCount: Int64): Float64 {
-        if (warmupCount < 0) {
+    private func warmupFixedSize(warmupCount: Int64) {
+        if (warmupCount < 0 ) {
             throw IllegalArgumentException("Number of warmup iterations must be non negative")
         }
         if (warmupCount == 0) {
-            if (batchSize.end >= MAX_BATCH_SIZE) {
+            if (maxMeasureBatch >= MAX_BATCH_SIZE) {
                 throw IllegalArgumentException("if 'warmup' parameter is zero then 'batchSize' must be specified")
             }
             progress.println { "    Warmup disabled." }
+
             let avgBatchSize = Float64(batchSize.end + batchSize.start) / 2.0
-            return Float64(targetDuration.toNanoseconds()) / avgBatchSize / Float64(minBatches)
+            warmupInfo.estimation = Float64(targetDuration.toNanoseconds())/ avgBatchSize / Float64(minBatches)
+            warmupInfo.aggregateRuns = 1
+            warmupInfo.executedBatches = 1
+        } else {
+            progress.println { "    Warming up for ${warmupCount} iterations." }
+            warmupInfo.warmupFixed(warmupCount, this.batchSize.start)
         }
-        progress.println { "    Warming up for ${warmupCount} iterations." }
-
-        let batches = max(warmupCount / batchSize.end, 1)
-        var ema = Ema(batches / 2)
-        for (i in 0..batches) {
-            ema.append(runMultipleAndEstimateTime(warmupCount / batches))
-        }
-
-        overheadPerIteration = max(overheadPerIteration / Float64(warmupCount / batches * batches), 0.0)
-        overheadPerBatch = max(overheadPerBatch / Float64(batches), 0.0)
-        return ema.result
     }
 
-    private func warmupAndEstimate(): Float64 {
+    private func warmupAndEstimate() {
+        warmupInfo.benchmark = this.benchmark
         if (let Some(warmupCount) <- configuration.get<Int64>(KeyWarmup.warmup)) {
             return warmupFixedSize(warmupCount)
         }
@@ -81,51 +215,67 @@ class BenchRunner {
         let warmupTime = configuration.get<Duration>(KeyWarmup.warmup) ?? Duration.second
         progress.println { "    Warming up for ${printDuration(warmupTime)}."}
 
-        var executedBatches = 0
-        var n = 0
-        var aggregateTime = 0.0
-        var aggregateRuns = 0
-        // use exponential moving average to prevent single abnormal result
-        // on last warmup iteration to ruin some subsequent calculations
-        // which can cause benchmark to work for too long
-        var ema = Ema(3)
-        do {
-            n = min(n * 12 / 10 + 1, batchSize.end) // ~20% increase
-            let estimation = runMultipleAndEstimateTime(n)
-            aggregateRuns += n
-            executedBatches += 1
-            //if estimation is that small then most likely result will be zero so we can speed up things
-            if (estimation <= 0.001) {
-                if (n > 100000 || aggregateRuns > 1000000) {
-                    break
-                }
-
-                n = n * 10
-            }
-            aggregateTime += estimation * Float64(n)
-            ema.append(estimation)
-        } while (aggregateTime < Float64(warmupTime.toNanoseconds()))
-
-        overheadPerIteration = max(overheadPerIteration / Float64(aggregateRuns), 0.0)
-        overheadPerBatch = max(overheadPerBatch / Float64(executedBatches), 0.0)
-        ema.result
+        warmupInfo.warmupDuration(warmupTime, maxMeasureBatch, explicitGC)
     }
 
-    func runBench() {
-        this.explicitGC = configuration.get(KeyExplicitGC.explicitGC) ?? ExplicitGcType.Light
+    private func ensureFullGcIfNecessary() {
+        waitGCFinish()
+        if (!needFullGc) {
+            return
+        }
+
+        // runs GC internally
+        memoryDiff = memoryStats.updateAndDiff(from: 0)
+    }
+
+    // Runs warmup and based on various warmup measurements selects best values for various parameters
+    func warmupAndConfigure(): Unit {
+        this.explicitGC = configuration.get(KeyExplicitGC.explicitGC) ?? ExplicitGcType.Auto
+        warmupInfo = WarmupInfo(this.explicitGC) // reset info
 
         this.targetDuration = configuration.get(KeyMinDuration.minDuration) ?? Duration.second * 5
         let minBatches = configuration.get(KeyMinBatches.minBatches) ?? 10
         this.minBatches = max(minBatches, 1)
 
         if (let Some(range) <- configuration.get<Range<Int64>>(KeyBatchSize.batchSize)) {
-            this.batchSize = range
+            this.maxMeasureBatch = range.end
+            this.batchSize = max(range.start, 1)..range.end
         }
         if (let Some(size) <- configuration.get<Int64>(KeyBatchSize.batchSize)) {
+            this.maxMeasureBatch = size
             this.batchSize = size..=size
         }
+        if (this.batchSize.end <= 0){
+            throw IllegalArgumentException("batchSize must be positive")
+        }
 
-        measurements.reserve(minBatches)
+        waitGCFinish()
+
+        warmupAndEstimate()
+        
+        let gcPerInv = Float64(warmupInfo.gcCount) / Float64(warmupInfo.aggregateRuns)
+
+        if (let Auto <- this.explicitGC) {
+            let noGC = warmupInfo.allocatedPerIteration < MIN_OBJECT_SIZE && warmupInfo.gcCount == 0
+            let alwaysGC = gcPerInv > 0.5
+            let measuresGCInfo = (benchmark.measurement as Runtime)?.measuresGC() == Some(true)
+            if (noGC || alwaysGC || measuresGCInfo) {
+                this.explicitGC = Disabled
+            } else {
+                this.explicitGC = Heavy
+            }
+        }
+
+        if (warmupInfo.gcCount > 0) {
+            needFullGc = true
+        }
+
+    }
+
+    func runBench() {
+        // invoke gc here so that we have cleaned heap before next run
+        // otherwise GC can be triggered on bench warmup polluting the results
+        ensureFullGcIfNecessary()
 
         if (isRunning == true) {
             throw IllegalStateException("It is not allowed to run benchmark inside another benchmark")
@@ -136,91 +286,143 @@ class BenchRunner {
         } finally {
             isRunning = false
         }
+
+        let gcBatches = measurements.iterator().filter{ x => x[2] >= 1.0 }.count()
+        let gcRatio = Float64(gcBatches) / Float64(measurements.size)
+        let badBatches = measurements.iterator().filter{ x => x[2] > 1.99 }.count()
+
+        // due to some issues in runtime this causes a lot of false positives
+        // so for now warn only from 2 bad measurements
+        let gcTwiceWarn = (!explicitGC.waitsForFinish() && badBatches >= 2)
+            || (explicitGC.waitsForFinish() && gcBatches >= 1)
+
+        if (gcTwiceWarn) {
+            progress.println {
+"""
+Warning: GC was invoked twice during some of the batches. This can significantly affect final results.
+         It is recommended to either increase heap size limit using cjHeapSize enviroment variable,
+         increase default GC interval using cjGCInterval environment variable
+         or reduce benchmark duration with minDuration parameter of @Configure macro.
+"""
+            }
+        }
+
+        let tooLongGc = gcRatio > 0.2 && memoryDiff.gcTimeNs > BIG_GC_THRESHOLD_NS
+        if (tooLongGc) {
+            progress.println {
+"""
+Warning: Too many objects survive GC which causes unexpectedly long GC times.
+         Results might have been significantly affected by it. See documentation for more details and potential causes.
+"""
+            }
+        }
     }
 
     func runBenchInner(): Unit {
-        if (this.batchSize.end <= 0) {
-            throw IllegalArgumentException("batchSize must be positive")
-        }
         // do warmup and estimate the benchmark time
-        let estimation = warmupAndEstimate()
+        warmupAndConfigure()
 
-        let (batchSize, batchCount) = calcBatchSize(estimation)
+        let (batchRange, batchCount) = calcBatchSize()
         this.measurements.reserve(min(batchCount, MEASUREMENTS_LIMIT) - this.measurements.size)
 
-        var batch = Float64(batchSize.start)
-        // we use non-constant step to have more data points located closer to zero
-        // which allows better overhead calculation and accounts for potential heteroskedasticity
-        let avgStep = Float64(batchSize.end - batchSize.start) / Float64(batchCount)
-        let stepChange = 2.0 * avgStep / Float64(batchCount)
-        var step = stepChange * 0.5
-        let start = DateTime.now()
         progress.println {
-            let batch = Float64(batchSize.start)
-            let avgLen = Float64(batchSize.end - batchSize.start)
+            let batch = Float64(batchRange.start)
             let measurementInfo = configuration.get(KeyMeasurementInfo.measurementInfo) ?? TimeNow().info
-            let execTime = Duration.nanosecond * (batch + avgLen / 2.0) * batchCount * avgIterTime(estimation)
+            let execTime = Duration.nanosecond * (batch + Float64(batchRange.end) / 2.0) * batchCount * warmupInfo.avgIterTime()
             "    Starting measurements of ${batchCount} batches. Measuring ${measurementInfo.name}.\n" +
-                "    Max batch size: ${batchSize.end}, estimated execution time: ${printDuration(execTime)}."
+                "    Max batch size: ${batchRange.end}, estimated execution time: ${printDuration(execTime)}."
         }
 
-        for (i in 0..batchCount) {
-            batch = batch + step
-            step += stepChange
-            runMultipleAndMeasure(Int64(batch |> round), batchSize.end)
-            if (batchSize.end == 1) {
-                // IMPORTANT: this code MUST be inside this loop and not in a separate loop
-                // That is to ensure that any possible external effect is applied to overhead measurements in the same way
-                runMultipleAndMeasure(0, batchSize.end)
+        maxMeasureBatch = this.batchSize.start
+        let maxBatch = batchRange.end.ceilTo(maxMeasureBatch)
+
+        if (batchCount < 50) {
+            doMacroBench(maxBatch, batchCount)
+        } else {
+            doMicroBench(maxBatch, batchCount)
+        }
+        
+        // add some overhead calculations to collect at least some overhead statistics if not enough normal batches
+        for (i in min(batchCount, 10 - this.batchSize.start * 10 / maxBatch)..10) {
+            runMultipleAndMeasure(0, maxBatch) 
+        }
+    }
+
+    @OverflowWrapping
+    private func doMicroBench(maxBatch: Int64, batchCount: Int64) {
+        let max = Float64(maxBatch)
+        let avgStep = max / Float64(batchCount)
+
+        // run once on max to ensure that runtime requested all required memory from OS.
+        // Otherwise some allocations can cause page faults if new memory is requested from OS
+        for (i in 0..2) {
+            explicitGC.invoke()
+            benchmark.measureLoopOnce(maxBatch, maxBatch, this.batchSize.end)
+        }
+        
+        let start = DateTime.now()
+        for (i in 0..batchCount/2) {
+
+            // this way of invoking GC and changing batch size is necessary to average out the effects
+            // of changing the batch size itself, and effects of memory usage that depends on batch size
+            // Otherwise it is possible to get different results depending on whether batch size increasing or decreasing
+            explicitGC.invoke()
+
+            let idx = Float64(i*2)
+            var batch = max - avgStep * idx
+            runMultipleAndMeasure(Int64(batch |> round), maxBatch)
+
+            batch = avgStep * Float64(idx + 1.0)
+            runMultipleAndMeasure(Int64(batch |> round), maxBatch)
+
+            // sanity check
+            if (i*2 > minBatches && DateTime.now() - start > targetDuration * 4 && targetDuration > Duration.Zero) {
+                break
             }
-            // sanity check to prevent too long executions that look like hangs
+        }
+    }
+
+    @OverflowWrapping
+    private func doMacroBench(max: Int64, batchCount: Int64) {
+        let avgStep = Float64(max) / Float64(batchCount)
+        let start = DateTime.now()
+
+        var batch = 0.0
+        for (i in 0..batchCount) {
+            batch += avgStep
+            explicitGC.invoke()
+            runMultipleAndMeasure(Int64(batch |> ceil), max)
+
+            // sanity check
             if (i > minBatches && DateTime.now() - start > targetDuration * 4 && targetDuration > Duration.Zero) {
                 break
             }
         }
-
-        // add some measurements with zero executions to better account for measurement overhead
-        runMultipleAndMeasure(0, batchSize.end)
-
-        // invoke here so that we have cleaned heap before next run
-        // otherwise GC can be triggered on next bench warmup polluting the results
-        ExplicitGcType.Heavy.invoke()
     }
 
-    private func avgIterTime(estimation: Float64): Float64 {
-        // last summand is important when user explicitly specifies small batchSize for small benchmark
-        estimation + overheadPerIteration * 2.0 + overheadPerBatch / Float64(batchSize.end)
-    }
-
-    func calcBatchSize(estimation: Float64): (Range<Int64>, Int64) {
+    func calcBatchSize(): (Range<Int64>, Int64) {
         let targetDurationNs = max(Float64(targetDuration.toNanoseconds()), 0.0)
-
-        let avgOneIterationTime = avgIterTime(estimation)
+        
+        let avgOneIterationTime = warmupInfo.avgIterTime()
 
         // how many batches if executing batches with sizes 1,2,3..N
         // it would be a solution to the quadratic equation: (estimation+overhead*2)*N^2 = duration
         let batchesFrom1ToN = targetDurationNs / avgOneIterationTime |> sqrt |> ceil
 
         // apply all of the constraints on amount of batches
-        let batches = max(min(batchesFrom1ToN, 200.0), Float64(minBatches))
+        let batches = max(min(batchesFrom1ToN, DEFAULT_BATCHES_AMOUNT), Float64(minBatches))
 
         let avgBatchSize = if (targetDurationNs > 0.0) {
             targetDurationNs / avgOneIterationTime / batches
         } else if (this.batchSize.end >= MAX_BATCH_SIZE) {
             throw IllegalArgumentException("if 'minDuration' parameter is zero then 'batchSize' must be specified")
         } else {
-            Float64(this.batchSize.end + this.batchSize.start) / 2.0
-        }
-
-        // Setup special aggregating of results when not in batch mode and benchmark is small
-        if (this.batchSize.end == 1 && avgBatchSize > 10.0) {
-            ema0 = Ema(Int64(avgBatchSize))
-            ema1 = Ema(Int64(avgBatchSize))
+            Float64(this.batchSize.end) / 2.0
         }
 
         // apply all of the constraints on batch size
-        let maxBatchSize = min(Int64(ceil((avgBatchSize - 1.0) * 2.0 + 1.0)), this.batchSize.end)
-        let range = this.batchSize.start..=max(maxBatchSize, this.batchSize.start)
+        let maxBatchSize = Int64(ceil((avgBatchSize - 1.0) * 2.0 + 1.0))
+        let range = 1..=max(maxBatchSize, this.batchSize.start)
 
         let finalAvgBatchSize = Float64(range.start + range.end) / 2.0
         let finalBatches = max(targetDurationNs / avgOneIterationTime / finalAvgBatchSize, Float64(minBatches))
@@ -228,53 +430,33 @@ class BenchRunner {
         (range, Int64(ceil(finalBatches)))
     }
 
-    private func runMultipleAndEstimateTime(times: Int64): Float64 {
-        let baseWithRun = benchmark.timeLoopOnce(times, times)
-        let baseLoopOnly = benchmark.timeLoopOnce(0, times)
-        let base = benchmark.timeLoopOnce(0, 0)
-        overheadPerIteration += baseLoopOnly - base
-        overheadPerBatch += base
+    private func runMultipleAndMeasure(t: Int64, max: Int64) {
+        var times = min(t.ceilTo(maxMeasureBatch), max) // to fix rounding errors
+    
+        let gcCount = getGCCount()
+        let dur = benchmark.measureLoopOnce(times, max, this.batchSize.end)
+        waitGCFinish()
 
-        max((baseWithRun - baseLoopOnly) / Float64(times), 0.001)
-    }
+        let gcPolluted = getGCCount() - gcCount
+        let result = (Float64(times), dur, Float64(gcPolluted))
 
-    private func runMultipleAndMeasure(times: Int64, max: Int64) {
-        let dur = benchmark.measureLoopOnce(times, max)
-
-        let result = (Float64(times), dur)
-
-        if (max == 1 && ema0.maxLength != 0) {
-            // in that case for small benchmarks if we just save raw results
-            // it takes too much memory and takes too long to process later,
-            // but at the same time we still need to collect statistical distribution
-            // in order to detect signal in all of the noise
-            if (times == 0) {
-                ema0.append(dur)
-                if (ema0.reachedMax()) {
-                    explicitGC.invoke()
-                    measurements.add((0.0, ema0.result))
-                    ema0.reset()
-                }
-            }
-            if (times == 1) {
-                ema1.append(dur)
-                if (ema1.reachedMax()) {
-                    explicitGC.invoke()
-                    measurements.add((1.0, ema1.result))
-                    ema1.reset()
-                }
-            }
-        } else if (measurements.size > MEASUREMENTS_LIMIT) {
-            explicitGC.invoke()
+        if (measurements.size > MEASUREMENTS_LIMIT) {
             let randomIdx = abs(random.nextInt64()) % measurements.size
             measurements[randomIdx] = result
         } else {
-            explicitGC.invoke()
             measurements.add(result)
         }
     }
 }
 
+extend Int64 {
+    func ceilTo(target: Int64): Int64 {
+        Int64(ceil(Float64(this) / Float64(target)) * Float64(target)) 
+    }
+}
+
+// Exponential moving average
+// While number of added elements is less than maxLength it works exactly like regular average
 struct Ema {
     var result: Float64 = 0.0
     private var currentLength: Float64 = 0.0
@@ -296,246 +478,54 @@ struct Ema {
 }
 
 /**
- * Interface for all kinds of data that can be collected and analyzed during benchmarking.
- */
-public interface Measurement {
-    func setup() {}
-
-    /**
-     * @return representation of the measurement data that will be used for statistical analisys
-     * and should be suitable for substraction.
-     */
-    @Frozen
-    func measure(): Float64 { 0.0 }
-
-    /**
-     * Conversion table for measured values, contains value multipliers mapped to measurement unit representation.
-     */
-    prop conversionTable: MeasurementUnitTable {
-        get() { [(1.0, "")] }
-    }
-
-    /**
-     * Name for this type of measurement. Helps to distinguish between different types of Measurement.
-     */
-    prop name: String {
-        get() { "Measurement" }
-    }
-
-    /**
-     * Simple description of the measurement to be displayed in some reports
-     */
-    prop textDescription: String {
-        get() { "Measures ${name}" }
-    }
-
-    prop info: MeasurementInfo {
-        get() {
-            MeasurementInfo(
-                conversionTable, name, textDescription
-            )
-        }
-    }
-}
-
-public struct MeasurementInfo {
-    MeasurementInfo(
-        public let conversionTable: MeasurementUnitTable,
-        public let name: String,
-        public let textDescription: String
-    ) {}
-}
-
-/**
- * Conversion table for <value>, contains <value> multiplier and its measurement unit.
- */
-public type MeasurementUnitTable = Array<(Float64, String)>
-
-let RADIX_UNIT_TABLE: MeasurementUnitTable = [
-    TimeUnit.Nanos.conversionRow(),
-    TimeUnit.Micros.conversionRow(),
-    TimeUnit.Millis.conversionRow(),
-    TimeUnit.Seconds.conversionRow()
-]
-
-
-func printDuration(dur: Duration): String {
-    let duration = Float64(dur.toNanoseconds())
-    TimeNow().conversionTable.toString(duration)
-}
-
-extend MeasurementUnitTable {
-    private func adjustMeasurementPrecision(value: Float64): String {
-        // calculate how much precision do we need to print 4 most significant digits
-        // with at most 3 digits after the dot
-        let precision = 3 - Int64(log10(clamp(value, 0.0001, 1000.0)))
-        if (precision <= 5) {
-            "${value.format(".${precision}")}"
-        } else {
-            "${value.format(".2G")}"
-        }
-    }
-
-    /**
-     * Representation of measured `value` in suitable measurement unit.
-     */
-    func toString(value: Float64): String {
-        let (boundary, unit) = suitablePair(value)
-        toString(value, boundary: boundary, unit: unit)
-    }
-
-    /**
-     * Representation of measured `value` in suitable measurement `unit` in `boundary`.
-     */
-    func toString(value: Float64, boundary!: Float64, unit!: String): String {
-        if (value.isInf() || value.isNaN()) {
-            return value.toString()
-        }
-
-        let part = value / boundary
-        let formattedPart = adjustMeasurementPrecision(part)
-        if (unit.isEmpty()) {
-            formattedPart
-        } else {
-            "${formattedPart} ${unit}"
-        }
-    }
-
-    func suitablePair(value: Float64): (Float64, String) {
-        this.sortBy(comparator: { a, b =>
-            let (aMultiplier, _) = a
-            let (bMultiplier, _) = b
-            aMultiplier.compare(bMultiplier)
-        })
-
-        if (this.isEmpty()) {
-            (1.0, "")
-        } else {
-            var result = (this[0][0], this[0][1])
-            for ((b, n) in this) {
-                let part = value / b
-                if (part < 0.5) {
-                    break
-                }
-                result = (b, n)
-            }
-            result
-        }
-    }
-
-    func minToNonAdjustedPair(value: Float64): (Float64, String) {
-        let (minK, minUnit) = if (this.isEmpty()) {
-            (1.0, "")
-        } else {
-            var (_minK, _minUnit) = this[0]
-            for ((k, unit) in this) {
-                if (k < _minK) {
-                    _minK = k
-                    _minUnit = unit
-                }
-            }
-            (_minK, _minUnit)
-        }
-        (value / minK, minUnit)
-    }
-}
-
-/**
- * Measures how much time takes to execute a function.
- */
-public struct TimeNow <: Measurement {
-    var unit: ?TimeUnit = None
-    /**
-     * @param unit Allows to specify a unit of time that will be used for printing results.
-     */
-    public init(unit: ?TimeUnit) {
-        this.unit = unit
-    }
-    /**
-     * Chooses output precision automatically for each case.
-     */
-    public init() {}
-
-    @Frozen
-    public func measure(): Float64 {
-        Float64(DateTime.now().toUnixTimeStamp().toNanoseconds())
-    }
-
-    public prop conversionTable: MeasurementUnitTable {
-        get() {
-            match (unit) {
-                case Some(u) => [(u.inNanos(), u.toString())]
-                case None => RADIX_UNIT_TABLE
-            }
-        }
-    }
-
-    public prop name: String {
-        get() {
-            let unitStr = match (unit) {
-                case None => ""
-                case Some(u) => "(${u})"
-            }
-            "Duration${unitStr}"
-        }
-    }
-
-    public prop textDescription: String {
-        get() {
-            "Measures execution time using std.time.DateTime"
-        }
-    }
-}
-
-/**
- * Used to explicitly specify the time unit used when `TimeNow` prints time.
- */
-public enum TimeUnit <: ToString {
-    | Nanos
-    | Micros
-    | Millis
-    | Seconds
-
-    public func toString(): String {
-        match (this) {
-            case Nanos => "ns"
-            case Micros => "us"
-            case Millis => "ms"
-            case Seconds => "s"
-        }
-    }
-
-    func inNanos(): Float64 {
-        match (this) {
-            case Nanos => 1.0
-            case Micros => 1e3
-            case Millis => 1e6
-            case Seconds => 1e9
-        }
-    }
-
-    func conversionRow(): (Float64, String) {
-        (inNanos(), toString())
-    }
-}
-
-/**
- * Used to specify what type of GC is invoked by the test framework in benchmarks.
- * See std.runtime.GC(heavy: bool) for details about types of GC invokations
+ * Used to specify how GC is invoked by the test framework in benchmarks.
+ * See std.runtime.gc(heavy: bool) for details about types of GC invocations
  */
 public enum ExplicitGcType <: ToString {
-    // GC is not invoked explicitly
+    /**
+     * GC will not be explicitly invoked by the framework.
+     */
     | Disabled
-    // GC(heavy: false) is invoked after each batch
+    /**
+     * runtime.gc(heavy: false) is invoked before most of measurement batches 
+     * to try to evenly distribute GC impact between batches.
+     * Will *not* wait for the end of GC before starting a measurement
+     */
     | Light
-    // GC(heavy: true) is invoked after each batch
+    /**
+     * runtime.gc(heavy: true) is invoked before most measurement batches.
+     * Will busy-wait for the end of GC before starting a measurement.
+     *
+     * This variant produces the most stable and consistent results so it is more suitable option
+     * for most common usecases of benchmarks.
+     * However it completely excludes most effects of GC so results might not 
+     * exactly represent real world performance for some allocation heavy benchmarks.
+     */
     | Heavy
+    /**
+     * Framework automatically selects best option based on warmup results.
+     * Current logic is to use Heavy if otherwise GC would have been called during benchmark.
+     * and Disabled variant otherwise.
+     */
+    | Auto
+
+    func waitsForFinish(): Bool {
+        match(this) {
+            case Heavy => true
+            case _ => false
+        }
+    }
 
     func invoke() {
         match (this) {
-            case Disabled => ()
-            case Light => GC()
-            case Heavy => GC(heavy: true)
+            case Light => gc(heavy: false)
+            case Heavy =>
+                let before = getGCCount()
+                gc(heavy: true)
+                // GC most likely will run on different CPU
+                // so do busy wait to keep current CPU warmed up
+                while (getGCCount() <= before) {}
+            case _ => ()
         }
     }
 
@@ -544,211 +534,7 @@ public enum ExplicitGcType <: ToString {
             case Disabled => "Disabled"
             case Light => "Light"
             case Heavy => "Heavy"
-        }
-    }
-}
-
-@When[arch == "x86_64"]
-foreign func GetRdtsc(): UInt64
-
-@When[arch == "x86_64"]
-foreign func GetRdtscp(): UInt64
-
-// corresponds to HW_REF_CPU_CYCLES Perf measurements
-@When[arch == "x86_64"]
-public struct CpuCycles <: Measurement {
-    @Frozen
-    public func measure(): Float64 {
-        unsafe { Float64(GetRdtscp()) }
-    }
-
-    public func setup() {}
-
-    public prop conversionTable: MeasurementUnitTable {
-        get() { [(1.0, "cycles")] }
-    }
-
-    public prop name: String {
-        get() { "CpuCycles" }
-    }
-
-    public prop textDescription: String {
-        get() {
-            "Measures how many CPU cycles are taken by function execution using baremetal x86 RDTSCP instruction"
-        }
-    }
-}
-
-@When[os == "Linux"]
-foreign func InitPerf(counter: IntNative): IntNative
-
-@When[os == "Linux"]
-foreign func ReadPerf(): UInt64
-
-
-@When[os == "Linux"]
-public struct Perf <: Measurement {
-    public Perf(var counter: PerfCounter) {}
-
-    public init() {
-        this(PerfCounter.HW_INSTRUCTIONS)
-    }
-
-    public func setup() {
-        let rc = unsafe { InitPerf(counter.asRaw()) }
-        match (rc) {
-            case 0 => return
-            case 13 => // EACCESS
-                throw Exception("""
-Not enough permissions to access performance counters. You need to reduce required permission by
-setting `kernel.perf_event_paranoid` system configuration parameter to value 1 or less.
-On systemd distributions it can be done with:
-    sudo sysctl kernel.perf_event_paranoid=1
-""")
-            case 2 | 19 | 95 => // ENOENT|ENODEV|EOPNOTSUPP
-                throw Exception(
-                "${counter} performance counter is unsupported by current CPU or linux kernel. errno=${rc}")
-            case _ => throw Exception(
-                "Initialization for ${counter} performance counter failed. perf_event_open syscall returned errno=${rc}")
-        }
-    }
-
-    @Frozen
-    public func measure(): Float64 {
-        let result = unsafe { ReadPerf() }
-        if (result == UInt64.Max) {
-            throw Exception("Error while reading performance counter descriptor")
-        }
-        Float64(result)
-    }
-
-    public prop conversionTable: MeasurementUnitTable {
-        get() { [(1.0, counter.unit())] }
-    }
-
-    public prop name: String {
-        get() { "Perf(${counter.unit()})" }
-    }
-
-    public prop textDescription: String {
-        get() {
-            "Measures how many ${counter.description()} has happened during the execution using linux perf facility with ${counter} counter.\n"+
-            "For more details about specific counter see documentation for perf_event_open linux syscall"
-        }
-    }
-}
-
-// Detailed cache counters are not supported yet
-@When[os == "Linux"]
-public enum PerfCounter <: ToString {
-    | HW_CPU_CYCLES
-    | HW_INSTRUCTIONS
-    | HW_CACHE_REFERENCES
-    | HW_CACHE_MISSES
-    | HW_BRANCH_INSTRUCTIONS
-    | HW_BRANCH_MISSES
-    | HW_BUS_CYCLES
-    | HW_STALLED_CYCLES_FRONTEND
-    | HW_STALLED_CYCLES_BACKEND
-    | HW_REF_CPU_CYCLES
-    | SW_CPU_CLOCK
-    | SW_TASK_CLOCK
-    | SW_PAGE_FAULTS
-    | SW_CONTEXT_SWITCHES
-    | SW_CPU_MIGRATIONS
-    | SW_PAGE_FAULTS_MIN
-    | SW_PAGE_FAULTS_MAJ
-    | SW_EMULATION_FAULTS
-
-    func asRaw(): IntNative {
-        match (this) {
-            case HW_CPU_CYCLES => 0
-            case HW_INSTRUCTIONS => 1
-            case HW_CACHE_REFERENCES => 2
-            case HW_CACHE_MISSES => 3
-            case HW_BRANCH_INSTRUCTIONS => 4
-            case HW_BRANCH_MISSES => 5
-            case HW_BUS_CYCLES => 6
-            case HW_STALLED_CYCLES_FRONTEND => 7
-            case HW_STALLED_CYCLES_BACKEND => 8
-            case HW_REF_CPU_CYCLES => 9
-            case SW_CPU_CLOCK => 10
-            case SW_TASK_CLOCK => 11
-            case SW_PAGE_FAULTS => 12
-            case SW_CONTEXT_SWITCHES => 13
-            case SW_CPU_MIGRATIONS => 14
-            case SW_PAGE_FAULTS_MIN => 15
-            case SW_PAGE_FAULTS_MAJ => 16
-            case SW_EMULATION_FAULTS => 17
-        }
-    }
-
-    func unit(): String {
-        match (this) {
-            case HW_CPU_CYCLES => "cycles"
-            case HW_INSTRUCTIONS => "instr"
-            case HW_CACHE_REFERENCES => "cache"
-            case HW_CACHE_MISSES => "cmiss"
-            case HW_BRANCH_INSTRUCTIONS => "branch"
-            case HW_BRANCH_MISSES => "bmiss"
-            case HW_BUS_CYCLES => "bcycles"
-            case HW_STALLED_CYCLES_FRONTEND => "stalledf"
-            case HW_STALLED_CYCLES_BACKEND => "stalledb"
-            case HW_REF_CPU_CYCLES => "rcycles"
-            case SW_CPU_CLOCK => "clock"
-            case SW_TASK_CLOCK => "tclock"
-            case SW_PAGE_FAULTS => "pf"
-            case SW_CONTEXT_SWITCHES => "cswitch"
-            case SW_CPU_MIGRATIONS => "cpumig"
-            case SW_PAGE_FAULTS_MIN => "pfmin"
-            case SW_PAGE_FAULTS_MAJ => "pfmaj"
-            case SW_EMULATION_FAULTS => "emu"
-        }
-    }
-
-    public func toString(): String {
-        match (this) {
-            case HW_CPU_CYCLES => "PERF_COUNT_HW_CPU_CYCLES"
-            case HW_INSTRUCTIONS => "PERF_COUNT_HW_INSTRUCTIONS"
-            case HW_CACHE_REFERENCES => "PERF_COUNT_HW_CACHE_REFERENCES"
-            case HW_CACHE_MISSES => "PERF_COUNT_HW_CACHE_MISSES"
-            case HW_BRANCH_INSTRUCTIONS => "PERF_COUNT_HW_BRANCH_INSTRUCTIONS"
-            case HW_BRANCH_MISSES => "PERF_COUNT_HW_BRANCH_MISSES"
-            case HW_BUS_CYCLES => "PERF_COUNT_HW_BUS_CYCLES"
-            case HW_STALLED_CYCLES_FRONTEND => "PERF_COUNT_HW_STALLED_CYCLES_FRONTEND"
-            case HW_STALLED_CYCLES_BACKEND => "PERF_COUNT_HW_STALLED_CYCLES_BACKEND"
-            case HW_REF_CPU_CYCLES => "PERF_COUNT_HW_REF_CPU_CYCLES"
-            case SW_CPU_CLOCK => "PERF_COUNT_SW_CPU_CLOCK"
-            case SW_TASK_CLOCK => "PERF_COUNT_SW_TASK_CLOCK"
-            case SW_PAGE_FAULTS => "PERF_COUNT_SW_PAGE_FAULTS"
-            case SW_CONTEXT_SWITCHES => "PERF_COUNT_SW_CONTEXT_SWITCHES"
-            case SW_CPU_MIGRATIONS => "PERF_COUNT_SW_CPU_MIGRATIONS"
-            case SW_PAGE_FAULTS_MIN => "PERF_COUNT_SW_PAGE_FAULTS_MIN"
-            case SW_PAGE_FAULTS_MAJ => "PERF_COUNT_SW_PAGE_FAULTS_MAJ"
-            case SW_EMULATION_FAULTS => "PERF_COUNT_SW_EMULATION_FAULTS"
-        }
-    }
-
-    func description(): String {
-        match (this) {
-            case HW_CPU_CYCLES => "raw CPU cycles"
-            case HW_INSTRUCTIONS => "retired CPU instructions"
-            case HW_CACHE_REFERENCES => "cache accesses"
-            case HW_CACHE_MISSES => "cache misses"
-            case HW_BRANCH_INSTRUCTIONS => "retired branch CPU instructions"
-            case HW_BRANCH_MISSES => "branch prediction failures"
-            case HW_BUS_CYCLES => "bus cycles"
-            case HW_STALLED_CYCLES_FRONTEND => "CPU cycles was wasted on waiting in fronted phase of CPU pipeline"
-            case HW_STALLED_CYCLES_BACKEND => "CPU cycles was wasted on waiting in backend phase of CPU pipeline"
-            case HW_REF_CPU_CYCLES => "frequency independent CPU cycles"
-            case SW_CPU_CLOCK => "per-CPU clock time"
-            case SW_TASK_CLOCK => "per task CPU clock time"
-            case SW_PAGE_FAULTS => "page faults"
-            case SW_CONTEXT_SWITCHES => "OS context switches"
-            case SW_CPU_MIGRATIONS => "task migrations between CPUs"
-            case SW_PAGE_FAULTS_MIN => "minor page faults"
-            case SW_PAGE_FAULTS_MAJ => "major page faults"
-            case SW_EMULATION_FAULTS => "unsupported instructions that required kernel emulation"
+            case Auto => "Auto"
         }
     }
 }
