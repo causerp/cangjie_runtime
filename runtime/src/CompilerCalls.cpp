@@ -149,6 +149,10 @@ extern "C" ArrayRef MCC_NewArray64(const TypeInfo* arrayInfo, MIndex nElems)
 
 extern "C" void MCC_WriteRefField(const ObjectPtr ref, const ObjectPtr obj, RefField<false>* field)
 {
+#ifdef __arm__
+    field->SetTargetObject(ref);
+    return;
+#endif
     if (!Heap::IsHeapAddress(obj)) {
         field->SetTargetObject(ref);
         return;
@@ -166,13 +170,17 @@ extern "C" void MCC_WriteStructField(ObjectPtr obj, MAddress dst, size_t dstLen,
     }
 #ifdef __arm__
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK, "memcpy_s failed on arm32");
-#else
-    Heap::GetBarrier().WriteStruct(obj, dst, dstLen, src, srcLen);
+    return;
 #endif
+    Heap::GetBarrier().WriteStruct(obj, dst, dstLen, src, srcLen);
 }
 
 extern "C" void MCC_WriteStaticRef(const ObjectPtr ref, RefField<false>* field)
 {
+#ifdef __arm__
+    field->SetTargetObject(ref);
+    return;
+#endif
     Heap::GetBarrier().WriteStaticRef(*field, ref);
 }
 
@@ -181,9 +189,9 @@ extern "C" void MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src,
     CHECK_DETAIL((dst != 0u && src != 0u), "MCC_WriteStaticStruct wrong parameter, dst: %p src: %p", dst, src);
 #ifdef __arm__
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK, "memcpy_s failed on arm32");
-#else
-    Heap::GetBarrier().WriteStaticStruct(dst, dstLen, src, srcLen, gcTib);
+    return;
 #endif
+    Heap::GetBarrier().WriteStaticStruct(dst, dstLen, src, srcLen, gcTib);
 }
 
 extern "C" TypeInfo* MCC_GetObjClass(const ObjectPtr obj)
@@ -201,6 +209,11 @@ extern "C" void CJ_MCC_ArrayCopyRef(const ObjectPtr dstObj, MAddress dstField, s
         return;
     }
     MRT_ASSERT(dstSize <= SECUREC_MEM_MAX_LEN, "size too big in CJ_MCC_ArrayCopy");
+#ifdef __arm__
+    CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField), dstSize, reinterpret_cast<void*>(srcField), srcSize) ==
+                           EOK, "memmove_s failed");
+    return;
+#endif
     Heap::GetBarrier().CopyRefArray(dstObj, dstField, dstSize, srcObj, srcField, srcSize);
 }
 
@@ -211,28 +224,52 @@ extern "C" void CJ_MCC_ArrayCopyStruct(const ObjectPtr dstObj, MAddress dstField
         return;
     }
     MRT_ASSERT(dstSize <= SECUREC_MEM_MAX_LEN, "size too big in CJ_MCC_ArrayCopy");
+#ifdef __arm__
+    CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField), dstSize, reinterpret_cast<void*>(srcField), srcSize) ==
+                           EOK, "memmove_s failed");
+    return;
+#endif
     Heap::GetBarrier().CopyStructArray(dstObj, dstField, dstSize, srcObj, srcField, srcSize);
 }
 extern "C" void MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
                                          MemoryOrder order)
 {
+#ifdef __arm__
+    field->SetTargetObject(ref, order);
+    return;
+#endif
     Heap::GetBarrier().AtomicWriteReference(obj, *field, ref, order);
 }
 
 extern "C" ObjectPtr MCC_AtomicReadReference(const ObjectPtr obj, RefField<true>* field, MemoryOrder order)
 {
+#ifdef __arm__
+    RefField<false> tmpField(field->GetFieldValue(order));
+    return tmpField.GetTargetObject();
+#endif
     return Heap::GetBarrier().AtomicReadReference(obj, *field, order);
 }
 
 extern "C" ObjectPtr MCC_AtomicSwapReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
                                              MemoryOrder order)
 {
+#ifdef __arm__
+    MAddress oldValue = field->Exchange(ref, order);
+    RefField<> oldField(oldValue);
+    return oldField.GetTargetObject();
+#endif
     return Heap::GetBarrier().AtomicSwapReference(obj, *field, ref, order);
 }
 
 extern "C" bool MCC_AtomicCompareSwapReference(const ObjectPtr oldRef, const ObjectPtr newRef, const ObjectPtr obj,
                                                RefField<true>* field, MemoryOrder succOrder, MemoryOrder failOrder)
 {
+#ifdef __arm__
+    MAddress oldFieldValue = field->GetFieldValue(std::memory_order_seq_cst);
+    RefField<false> oldField(oldFieldValue);
+    oldField.GetTargetObject();
+    return field->CompareExchange(oldRef, newRef, succOrder, failOrder);
+#endif
     return Heap::GetBarrier().CompareAndSwapReference(obj, *field, oldRef, newRef, succOrder, failOrder);
 }
 
@@ -920,11 +957,17 @@ extern "C" void* MCC_GetParameterAnnotations(ParameterInfo* parameterInfo, TypeI
 
 extern "C" ObjectPtr CJ_MCC_ReadRefField(ObjectPtr obj, RefField<false>* field)
 {
+#ifdef __arm__
+    return field->GetTargetObject();
+#endif
     return Heap::GetHeap().GetBarrier().ReadReference(obj, *field);
 }
 
 extern "C" ObjectPtr CJ_MCC_ReadWeakRef(ObjectPtr obj, RefField<false>* field)
 {
+#ifdef __arm__
+    return field->GetTargetObject();
+#endif
     return Heap::GetHeap().GetBarrier().ReadWeakRef(obj, *field);
 }
 extern "C" void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress srcField, size_t size)
@@ -940,21 +983,24 @@ extern "C" void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress 
 #ifdef __arm__
     (void)obj;
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), size, reinterpret_cast<void*>(srcField), size) == EOK, "memcpy_s failed on arm32");
-#else
-    Heap::GetHeap().GetBarrier().ReadStruct(dstPtr, obj, srcField, size);
+    return;
 #endif
+    Heap::GetHeap().GetBarrier().ReadStruct(dstPtr, obj, srcField, size);
 }
 extern "C" ObjectPtr CJ_MCC_ReadStaticRef(RefField<false>* field)
 {
+#ifdef __arm__
+    return field->GetTargetObject();
+#endif
     return Heap::GetHeap().GetBarrier().ReadStaticRef(*field);
 }
 extern "C" void CJ_MCC_ReadStaticStruct(MAddress dstPtr, size_t dstSize, MAddress srcPtr, size_t srcSize, GCTib gctib)
 {
 #ifdef __arm__
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), dstSize, reinterpret_cast<void*>(srcPtr), srcSize) == EOK, "memcpy_s failed on arm32");
-#else
-    Heap::GetHeap().GetBarrier().ReadStaticStruct(dstPtr, srcPtr, dstSize, gctib);
+    return;
 #endif
+    Heap::GetHeap().GetBarrier().ReadStaticStruct(dstPtr, srcPtr, dstSize, gctib);
 }
 extern "C" void* MCC_GetTypeInfoAnnotations(TypeInfo* cls, TypeInfo* arrayTi) { return cls->GetAnnotations(arrayTi); }
 
@@ -1039,6 +1085,13 @@ extern "C" void CJ_MCC_WriteGeneric(const ObjectPtr obj, void* fieldPtr, const O
     if (src == nullptr || size == 0) {
         return;
     }
+#ifdef __arm__
+    CHECK_DETAIL(memcpy_s(fieldPtr, size,
+                          reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + TYPEINFO_PTR_SIZE),
+                          size) == EOK,
+                 "WriteGeneric memcpy_s failed");
+    return;
+#endif
     Heap::GetBarrier().WriteGeneric(obj, fieldPtr, src, size);
 }
 
@@ -1048,6 +1101,14 @@ extern "C" void CJ_MCC_AssignGeneric(ObjectPtr dst, ObjectPtr src, TypeInfo* typ
     if (instanceSize == 0) {
         return;
     }
+#ifdef __arm__
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dst) + TYPEINFO_PTR_SIZE),
+                          instanceSize,
+                          reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(src) + TYPEINFO_PTR_SIZE),
+                          instanceSize) == EOK,
+                 "MCC_AssignGeneric memcpy_s failed");
+    return;
+#endif
     if (!typeInfo->HasRefField()) {
         CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dst) + TYPEINFO_PTR_SIZE),
                               instanceSize,
@@ -1066,6 +1127,7 @@ extern "C" void CJ_MCC_WriteGenericPayload(ObjectPtr dst, MAddress srcField, siz
     if (srcSize == 0) {
         return;
     }
+
     if (!typeInfo->HasRefField()) {
         CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dst) + TYPEINFO_PTR_SIZE),
                               GENERIC_PAYLOAD_SIZE,
@@ -1074,7 +1136,12 @@ extern "C" void CJ_MCC_WriteGenericPayload(ObjectPtr dst, MAddress srcField, siz
                      "MCC_WriteGenericPayload memcpy_s failed");
     } else {
         MAddress dstAddr = reinterpret_cast<MAddress>(dst) + TYPEINFO_PTR_SIZE;
+#ifdef __arm__
+        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstAddr), srcSize, reinterpret_cast<void*>(srcField), srcSize) == EOK,
+                     "memcpy_s failed");
+#else
         Heap::GetBarrier().WriteStruct(dst, dstAddr, srcSize, srcField, srcSize);
+#endif
     }
 }
 
@@ -1083,6 +1150,12 @@ extern "C" void CJ_MCC_ReadGeneric(const ObjectPtr dstPtr, ObjectPtr obj, void* 
     if (size == 0) {
         return;
     }
+#ifdef __arm__
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(dstPtr) + TYPEINFO_PTR_SIZE),
+                          size, fieldPtr, size) == EOK,
+                 "ReadGeneric memcpy_s failed");
+    return;
+#endif
     Heap::GetBarrier().ReadGeneric(dstPtr, obj, fieldPtr, size);
 }
 
@@ -1194,7 +1267,12 @@ extern "C" void CJ_MCC_ArrayCopyGeneric(const ObjectPtr dstObj, MAddress dstFiel
         case TypeKind::TYPE_KIND_TEMP_ENUM:
         case TypeKind::TYPE_KIND_RAWARRAY:
         case TypeKind::TYPE_KIND_FUNC: {
+#ifdef __arm__
+            CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField), dstSize, reinterpret_cast<void*>(srcField), srcSize) ==
+                                   EOK, "memmove_s failed");
+#else
             Heap::GetBarrier().CopyRefArray(dstObj, dstField, dstSize, srcObj, srcField, srcSize);
+#endif
             break;
         }
         case TypeKind::TYPE_KIND_UNIT:
@@ -1226,7 +1304,12 @@ extern "C" void CJ_MCC_ArrayCopyGeneric(const ObjectPtr dstObj, MAddress dstFiel
         case TypeKind::TYPE_KIND_TUPLE:
         case TypeKind::TYPE_KIND_STRUCT:
         case TypeKind::TYPE_KIND_ENUM: {
+#ifdef __arm__
+            CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField), dstSize, reinterpret_cast<void*>(srcField), srcSize) ==
+                                   EOK, "memmove_s failed");
+#else
             Heap::GetBarrier().CopyStructArray(dstObj, dstField, dstSize, srcObj, srcField, srcSize);
+#endif
             break;
         }
         default:
