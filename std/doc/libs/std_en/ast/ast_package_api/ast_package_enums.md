@@ -260,6 +260,10 @@ public enum TokenKind <: ToString {
     ANNOTATION|               /*  e.g. "@When"       */
     AT_EXCL|                  /*  e.g. "@!"          */
     ILLEGAL|
+    HANDLE|                   /*  "handle"           */
+    PERFORM|                  /*  "perform"          */
+    RESUME|                   /*  "resume"           */
+    THROWING|                 /*  "throwing"         */
     ...
 }
 ```
@@ -596,7 +600,9 @@ Function: Constructs an enumeration instance representing `.`.
 DOUBLE_ARROW
 ```
 
-Function: Constructs an enumeration instance representing `=>`.### ELLIPSIS
+Function: Constructs an enumeration instance representing `=>`.
+
+### ELLIPSIS
 
 ```cangjie
 ELLIPSIS
@@ -739,6 +745,14 @@ GT
 ```
 
 Function: Constructs an enumeration instance representing `>`.
+
+### HANDLE
+
+```cangjie
+HANDLE
+```
+
+Function: Construct an enumeration instance representing `handle`.
 
 ### HASH
 
@@ -1132,6 +1146,14 @@ PACKAGE
 
 Function: Constructs an enumeration instance representing `package`.
 
+### PERFORM
+
+```cangjie
+PERFORM
+```
+
+Function: Construct an enumeration instance representing `perform`.
+
 ### PIPELINE
 
 ```cangjie
@@ -1211,6 +1233,14 @@ REDEF
 ```
 
 Function: Constructs an enum instance representing `redef`.
+
+### RESUME
+
+```cangjie
+RESUME
+```
+
+Function: Construct an enum instance representing `resume`.
 
 ### RETURN
 
@@ -1395,6 +1425,14 @@ THROW
 ```
 
 Function: Constructs an enum instance representing `throw`.
+
+### THROWING
+
+```cangjie
+THROWING
+```
+
+Function: Construct an enum instance representing `throwing`.
 
 ### TRY
 

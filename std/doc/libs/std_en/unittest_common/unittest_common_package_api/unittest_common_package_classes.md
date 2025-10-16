@@ -52,7 +52,7 @@ Return Value:
 
 - ?T - Returns None if not found, or Some\<T>(v) if a value matching the type and name is found.
 
-### func getByName\<T>(name: String): ?T
+### func getByName\<T>(String)
 
 ```cangjie
 public func getByName<T>(name: String): ?T
@@ -65,6 +65,10 @@ T is a generic parameter used to look up values of the corresponding type in the
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The key name.
+
+Return value:
+
+- ?T - Returns `None` when not found, returns `Some<T>(v)` when a value of the corresponding type and name is found.
 
 ### func remove\<T>(KeyFor\<T>)
 
@@ -575,7 +579,9 @@ Function: Sets the color.
 
 Parameters:
 
-- color: [Color](./unittest_common_package_enums.md#enum-color) - The specified color.## class PrettyText
+- color: [Color](./unittest_common_package_enums.md#enum-color) - The specified color.
+
+## class PrettyText
 
 ```cangjie
 public class PrettyText <: PrettyPrinter & PrettyPrintable & ToString {

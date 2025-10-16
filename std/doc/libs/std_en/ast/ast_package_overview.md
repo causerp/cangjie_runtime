@@ -65,6 +65,7 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [Body](./ast_package_api/ast_package_classes.md#class-body) | Represents structures composed of `{}` and internal declaration nodes in Class, Struct, Interface, and extension types. |
 | [CallExpr](./ast_package_api/ast_package_classes.md#class-callexpr) | Represents function call nodes. |
 | [ClassDecl](./ast_package_api/ast_package_classes.md#class-classdecl) | Class definition nodes. |
+| [CommandTypePattern](./ast_package_api/ast_package_classes.md#class-commandtypepattern) | Represents a command pattern with type annotations. |
 | [ConstPattern](./ast_package_api/ast_package_classes.md#class-constpattern) | Represents constant pattern nodes. |
 | [Constructor](./ast_package_api/ast_package_classes.md#class-constructor) | Represents `Constructor` nodes in `enum` types. |
 | [Decl](./ast_package_api/ast_package_classes.md#class-decl) | Parent class of all declaration nodes, inheriting from `Node`, providing common interfaces for all declaration nodes. |
@@ -80,6 +81,7 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [FuncType](./ast_package_api/ast_package_classes.md#class-functype) | Represents function type nodes. |
 | [GenericConstraint](./ast_package_api/ast_package_classes.md#class-genericconstraint) | Represents generic constraint nodes. |
 | [GenericParam](./ast_package_api/ast_package_classes.md#class-genericparam) | Represents type parameter nodes. |
+| [Handler](./ast_package_api/ast_package_classes.md#class-handler) | Represents a `handle` clause. |
 | [IfExpr](./ast_package_api/ast_package_classes.md#class-ifexpr) | Represents conditional expressions. |
 | [ImportContent](./ast_package_api/ast_package_classes.md#class-importcontent) | Represents import items in package import nodes. |
 | [ImportList](./ast_package_api/ast_package_classes.md#class-importlist) | Represents package import nodes. |
@@ -106,6 +108,7 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [ParenExpr](./ast_package_api/ast_package_classes.md#class-parenexpr) | Represents parenthesized expression nodes, which are expressions enclosed in parentheses. |
 | [ParenType](./ast_package_api/ast_package_classes.md#class-parentype) | Represents parenthesized type nodes. |
 | [Pattern](./ast_package_api/ast_package_classes.md#class-pattern) | Parent class of all pattern-matching nodes, inheriting from `Node`. |
+| [PerformExpr](./ast_package_api/ast_package_classes.md#class-performexpr) | Represents a `perform` expression node. |
 | [PrefixType](./ast_package_api/ast_package_classes.md#class-prefixtype) | Represents prefix type nodes with question marks. |
 | [PrimaryCtorDecl](./ast_package_api/ast_package_classes.md#class-primaryctordecl) | Represents primary constructor nodes. |
 | [PrimitiveType](./ast_package_api/ast_package_classes.md#class-primitivetype) | Represents primitive type nodes. |
@@ -118,6 +121,8 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [RangeExpr](./ast_package_api/ast_package_classes.md#class-rangeexpr) | Represents expressions containing range operators. |
 | [RefExpr](./ast_package_api/ast_package_classes.md#class-refexpr) | Represents expression nodes related to custom type nodes. |
 | [RefType](./ast_package_api/ast_package_classes.md#class-reftype) | Represents user-defined type nodes. |
+| [ResumeExpr](./ast_package_api/ast_package_classes.md#class-resumeexpr) | Represents a `resume` expression node. |
+| [ResumptionTypePattern](./ast_package_api/ast_package_classes.md#class-resumptiontypepattern) | Represents a resumption pattern with type annotation. |
 | [ReturnExpr](./ast_package_api/ast_package_classes.md#class-returnexpr) | Represents `return` expression nodes. |
 | [SpawnExpr](./ast_package_api/ast_package_classes.md#class-spawnexpr) | Represents `Spawn` expressions. |
 | [StructDecl](./ast_package_api/ast_package_classes.md#class-structdecl) | Represents `Struct` nodes. |
