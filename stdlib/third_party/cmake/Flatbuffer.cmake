@@ -3,7 +3,6 @@
 # with Runtime Library Exception.
 #
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
-include(ExternalProject)
 
 set(FLATBUFFERS_SRC ${CMAKE_CURRENT_SOURCE_DIR}/flatbuffers)
 set(FLATBUFFERS_COMPILE_OPTIONS -DCMAKE_C_FLAGS=${GCC_TOOLCHAIN_FLAG} -DCMAKE_CXX_FLAGS=${GCC_TOOLCHAIN_FLAG})
@@ -14,21 +13,14 @@ else()
 endif()
 
 # for CloudDragon, download in Prebuild
-if(EXISTS ${FLATBUFFERS_SRC}/CMakeLists.txt)
-    if(NOT EXISTS ${FLATBUFFERS_SRC}/cangjie)
-        set(FLATBUFFERS_DOWNLOAD_ARGS PATCH_COMMAND COMMAND git apply ../flatbufferPatch.diff)
-    else()
-        set(FLATBUFFERS_DOWNLOAD_ARGS)
-    endif()
-else()
+if(NOT EXISTS ${FLATBUFFERS_SRC}/CMakeLists.txt)
     # for Jenkins
     set(REPOSITORY_PATH https://gitcode.com/openharmony/third_party_flatbuffers.git)
     message(STATUS "Set flatbuffers REPOSITORY_PATH: ${REPOSITORY_PATH}")
     set(FLATBUFFERS_DOWNLOAD_ARGS
         GIT_REPOSITORY ${REPOSITORY_PATH}
         DOWNLOAD_DIR ${FLATBUFFERS_SRC}
-        PATCH_COMMAND COMMAND git apply ../flatbufferPatch.diff
-        GIT_TAG OpenHarmony-v6.0-Release
+        GIT_TAG master
         GIT_PROGRESS ON
         GIT_CONFIG ${GIT_ARGS}
         GIT_SHALLOW ON)
