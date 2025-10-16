@@ -13,25 +13,31 @@
 
 namespace MapleRuntime {
 RwLock ThreadLocal::tlEnableLock;
-ThreadLocalData::~ThreadLocalData()
+MRT_EXPORT thread_local uint64_t threadLocalData[sizeof(ThreadLocalData) / sizeof(uint64_t)];
+thread_local CleanThreadLocalData cleaner;
+
+ThreadLocalData* ThreadLocal::GetThreadLocalData()
+{
+    return reinterpret_cast<ThreadLocalData*>(threadLocalData);
+}
+
+CleanThreadLocalData::~CleanThreadLocalData()
 {
     if (!ThreadLocal::TryGetRdLock()) {
         return;
     }
 
-    if (Runtime::CurrentRef() == nullptr || this != ThreadLocal::GetThreadLocalData() ||
-        isCJProcessor || foreignCJThread == nullptr) {
+    ThreadLocalData* local = ThreadLocal::GetThreadLocalData();
+    if (Runtime::CurrentRef() == nullptr ||
+        local->isCJProcessor || local->foreignCJThread == nullptr) {
         ThreadLocal::UnlockRdLock();
         return;
     }
 
-    CJForeignThreadExit(reinterpret_cast<CJThreadHandle>(foreignCJThread));
+    CJForeignThreadExit(reinterpret_cast<CJThreadHandle>(local->foreignCJThread));
     ThreadLocal::UnlockRdLock();
 }
 
-MRT_EXPORT thread_local ThreadLocalData threadLocalData;
-
-ThreadLocalData* ThreadLocal::GetThreadLocalData() { return &threadLocalData; }
 extern "C" void MCC_CheckThreadLocalDataOffset()
 {
     static_assert(offsetof(ThreadLocalData, buffer) == 0,

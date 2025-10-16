@@ -826,6 +826,7 @@ void TracingCollector::UpdateGCStats()
     uint64_t gcInterval = CangjieRuntime::GetGCParam().gcInterval;
     // 2 : We regard the half of heap size as a limit because of copying algorithm.
     if (liveBytes < oldThreshold && oldThreshold < (heapSize / 2)) {
+#if defined (__OHOS__)
         // When the ulitization is low, we can give the old threshold a larger weight to compute average value.
         // 1, 4, 2, 1: These are the weights of the different parameters.
         // 8: It is the total weight.
@@ -835,6 +836,10 @@ void TracingCollector::UpdateGCStats()
         uint64_t gcAdaptiveInterval = static_cast<uint64_t>((newThreshold - liveBytes) / gcStats.collectionRate / MB);
         gcAdaptiveInterval = std::min(gcAdaptiveInterval, maxAdaptiveInterval);
         gcInterval = std::max(gcInterval, gcAdaptiveInterval);
+#else
+        // 4: Computing arithmetic mean
+        newThreshold = (threshold1 + threshold2 + threshold3 + threshold4) / 4;
+#endif
     } else {
         // When the ulitization is high, we try to avoid threshold increasing and give it a small weight.
         // 2, 1, 2, 3: These are the weights of the different parameters.

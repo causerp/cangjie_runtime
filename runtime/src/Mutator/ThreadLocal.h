@@ -21,7 +21,6 @@ enum class ThreadType { CJ_PROCESSOR = 0, GC_THREAD, FP_THREAD, HOT_UPDATE_THREA
 // must in the first place, followed by the internal tls.
 struct ThreadLocalData {
     // External thread local var.
-    ~ThreadLocalData();
     AllocBuffer* buffer;
     Mutator* mutator;
     uint8_t* cjthread;
@@ -35,6 +34,10 @@ struct ThreadLocalData {
     ThreadType threadType;
     bool isCJProcessor;
     void* threadCache;
+};
+
+struct CleanThreadLocalData {
+    ~CleanThreadLocalData();
 };
 
 class ThreadLocal { // merge this to ThreadLocalData.
