@@ -419,7 +419,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.## class AssignExpr
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class AssignExpr
 
 ```cangjie
 public class AssignExpr <: Expr {
@@ -911,7 +913,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class ClassDecl
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class ClassDecl
 
 ```cangjie
 public class ClassDecl <: Decl {
@@ -1023,6 +1027,82 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class CommandTypePattern
+
+```cangjie
+public class CommandTypePattern <: Pattern {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a command pattern with type annotations, e.g.: `pattern: Type1 | Type2 | ...`.
+
+An example of a [CommandTypePattern](ast_package_classes.md#class-commandtypepattern) node:
+`someCommand: Effect`
+
+Parent Type:
+
+- [Pattern](ast_package_classes.md#class-pattern)
+
+### prop pattern
+
+```cangjie
+public mut prop pattern: Pattern
+```
+
+Function: Gets or sets the command pattern before the colon (`:`).
+
+Type: [Pattern](ast_package_classes.md#class-pattern)
+
+### prop colon
+
+```cangjie
+public mut prop colon: Token
+```
+
+Function: Gets or sets the colon (`:`) token used to separate the pattern from types.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown if the provided token is not a colon.
+
+### prop types
+
+```cangjie
+public mut prop types: ArrayList<TypeNode>
+```
+
+Function: Gets or sets the list of type nodes after the colon, e.g.: `String | Int | Float`.
+
+Type: [ArrayList\<TypeNode>](ast_package_classes.md#class-typenode)
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [CommandTypePattern](ast_package_classes.md#class-commandtypepattern) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [CommandTypePattern](ast_package_classes.md#class-commandtypepattern) object from a token stream.
+
+Parameters:
+
+* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — The collection of tokens to be parsed into a `CommandTypePattern` node.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown if the input tokens cannot be parsed into a valid `CommandTypePattern` node.
 
 ## class ConstPattern
 
@@ -1425,7 +1505,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class DoWhileExpr
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class DoWhileExpr
 
 ```cangjie
 public class DoWhileExpr <: Expr {
@@ -1854,7 +1936,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class ExceptTypePattern
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class ExceptTypePattern
 
 ```cangjie
 public class ExceptTypePattern <: Pattern {
@@ -2807,7 +2891,8 @@ Purpose: Traverses the current syntax tree node and its child nodes. To terminat
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor).
-```## class GenericConstraint
+
+## class GenericConstraint
 
 ```cangjie
 public class GenericConstraint <: Node {
@@ -3024,6 +3109,18 @@ Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
 
+## class Handler
+
+```cangjie
+public class Handler {
+}
+```
+
+Function: Represents a `handle` clause containing a command pattern and the code block to be executed.
+
+An example of a [Handler](ast_package_classes.md#class-handler) node:
+`handle (e: Command<Unit>) { ... }`
+
 ## class IfExpr
 
 ```cangjie
@@ -3187,8 +3284,6 @@ public class ImportContent <: Node {
 }
 ```
 
-Function: Represents a package import node.
-
 Parent Type:
 
 - [Node](#class-node)
@@ -3318,6 +3413,68 @@ Function: Determines whether the [ImportContent](ast_package_classes.md#class-im
 Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the [ImportContent](ast_package_classes.md#class-importcontent) node has an alias for## class ImportList
+
+### func isImportAll()
+
+```cangjie
+public func isImportAll(): Bool
+```
+
+Function: Determines whether the [ImportContent](ast_package_classes.md#class-importcontent) node is a wildcard import.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Indicates whether the [ImportContent](ast_package_classes.md#class-importcontent) node is a wildcard import.
+
+### func isImportMulti()
+
+```cangjie
+public func isImportMulti(): Bool
+```
+
+Function: Determines whether the [ImportContent](ast_package_classes.md#class-importcontent) node imports multiple top-level definitions or declarations.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Indicates whether the [ImportContent](ast_package_classes.md#class-importcontent) node imports multiple top-level definitions or declarations.
+
+### func isImportSingle()
+
+```cangjie
+public func isImportSingle(): Bool
+```
+
+Function: Determines whether the [ImportContent](ast_package_classes.md#class-importcontent) node is a single import.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Indicates whether the [ImportContent](ast_package_classes.md#class-importcontent) node is a single import.
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+Function: Converts the current syntax tree node into [Tokens](ast_package_classes.md#class-tokens) type.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens) type node.
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate child node traversal early, override the `visit` function and call the `breakTraverse` function to terminate traversal prematurely. Refer to [Custom Visitor Function for AST Traversal Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class ImportList
 
 ```cangjie
 public class ImportList <: Node {
@@ -3721,7 +3878,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class JumpExpr
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class JumpExpr
 
 ```cangjie
 public class JumpExpr <: Expr {
@@ -4108,6 +4267,147 @@ Purpose: Traverses the current syntax tree node and its child nodes. To prematur
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) Instance of a type.
+
+## class MacroDecl
+
+```cangjie
+public class MacroDecl <: Decl {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a macro definition node.
+
+A [MacroDecl](ast_package_classes.md#class-macrodecl) node: `public macro M(input: Tokens): Tokens {...}`.
+
+Parent Type:
+
+- [Decl](#class-decl)
+
+### prop block
+
+```cangjie
+public mut prop block: Block
+```
+
+Function: Gets or sets the function body of the [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+Type: [Block](ast_package_classes.md#class-block)
+
+### prop colon
+
+```cangjie
+public mut prop colon: Token
+```
+
+Function: Gets or sets the colon of the [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Throws an exception when the set [Token](ast_package_structs.md#struct-token) is not a colon.
+
+### prop declType
+
+```cangjie
+public mut prop declType: TypeNode
+```
+
+Function: Gets or sets the return type of the [MacroDecl](ast_package_classes.md#class-macrodecl) node's function.
+
+Type: [TypeNode](ast_package_classes.md#class-typenode)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Throws an exception when the return type of the [MacroDecl](ast_package_classes.md#class-macrodecl) node's function is a default value.
+
+### prop funcParams
+
+```cangjie
+public mut prop funcParams: ArrayList<FuncParam>
+```
+
+Function: Gets or sets the parameters of the [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+Type: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[FuncParam](ast_package_classes.md#class-funcparam)>
+
+### prop lParen
+
+```cangjie
+public mut prop lParen: Token
+```
+
+Function: Gets or sets the "(" of the [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Throws an exception when the set [Token](ast_package_structs.md#struct-token) is not "(".
+
+### prop rParen
+
+```cangjie
+public mut prop rParen: Token
+```
+
+Function: Gets or sets the ")" of the [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Throws an exception when the set [Token](ast_package_structs.md#struct-token) is not ")".
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [MacroDecl](ast_package_classes.md#class-macrodecl) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [MacroDecl](ast_package_classes.md#class-macrodecl) object.
+
+Parameters:
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - The lexical unit collection ([Tokens](ast_package_classes.md#class-tokens)) to construct the [MacroDecl](ast_package_classes.md#class-macrodecl) type.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Throws an exception when the input [Tokens](ast_package_classes.md#class-tokens) type cannot be constructed as a [MacroDecl](ast_package_classes.md#class-macrodecl) node.
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+Function: Converts the current syntax tree node into the [Tokens](ast_package_classes.md#class-tokens) type.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens) type node.
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate the traversal of child nodes early, override the `visit` function and call the `breakTraverse` function to terminate traversal prematurely. See [Custom Visitor Function for Traversing AST Objects Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
 
 ## class MacroExpandDecl
 
@@ -4585,7 +4885,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.## class MacroMessage
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class MacroMessage
 
 ```cangjie
 public class MacroMessage
@@ -5441,7 +5743,8 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
-```## class OptionalExpr
+
+## class OptionalExpr
 
 ```cangjie
 public class OptionalExpr <: Expr {
@@ -5875,7 +6178,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class Pattern
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class Pattern
 
 ```cangjie
 public open class Pattern <: Node
@@ -5926,6 +6231,71 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class PerformExpr
+
+```cangjie
+public class PerformExpr <: Expr {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a `perform` expression node.
+
+An example of a [PerformExpr](ast_package_classes.md#class-performexpr) node: `perform Eff()`.
+
+Parent Types:
+
+- [Expr](ast_package_classes.md#class-expr)
+
+### prop expr
+
+```cangjie
+public mut prop expr: Expr
+```
+
+Function: Gets or sets the expression part within the [PerformExpr](ast_package_classes.md#class-performexpr) node.
+
+Type: [Expr](ast_package_classes.md#class-expr)
+
+### prop keyword
+
+```cangjie
+public mut prop keyword: Token
+```
+
+Function: Gets or sets the `perform` keyword within the [PerformExpr](ast_package_classes.md#class-performexpr) node.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the given [Token](ast_package_structs.md#struct-token) is not a `perform` keyword.
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [PerformExpr](ast_package_classes.md#class-performexpr) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [PerformExpr](ast_package_classes.md#class-performexpr) object from provided lexical tokens.
+
+Parameters:
+
+* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — The collection of lexical tokens to be parsed into a [PerformExpr](ast_package_classes.md#class-performexpr) node.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed into a [PerformExpr](ast_package_classes.md#class-performexpr) node.
 
 ## class PrefixType
 
@@ -6285,7 +6655,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.## class Program
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class Program
 
 ```cangjie
 public class Program <: Node {
@@ -6662,11 +7034,142 @@ Exceptions:
 public func toTokens(): Tokens
 ```
 
-Function: Converts the current syntax tree node into a [Tokens](ast_package_classes.md#class-tokens) is a leading technology education company in China, dedicated to providing high-quality IT training and knowledge services. Established in 2016, the company has quickly grown to become a trusted name in the tech education space, offering a wide range of courses, workshops, and certification programs designed to help professionals stay ahead in the rapidly evolving technology landscape.
+Function: Converts the current syntax tree node into the [Tokens](ast_package_classes.md#class-tokens) type.
 
-Geekbang's platform features content from top industry experts, covering areas such as software development, artificial intelligence, cloud computing, data science, and more. The company is known for its practical, hands-on approach to learning, ensuring that students gain real-world skills that can be immediately applied in their careers.
+Return Value:
 
-In addition to its online learning platform, Geekbang also organizes tech conferences, meetups, and other community events to foster knowledge sharing and networking among tech enthusiasts and professionals. With a strong commitment to innovation and excellence, Geekbang continues to empower individuals and organizations to thrive in the digital age.## class QuoteToken
+- [Tokens](ast_package_classes.md#class-tokens) - The converted node of type [Tokens](ast_package_classes.md#class-tokens).
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate child node traversal early, override the `visit` function and call the `breakTraverse` function to halt traversal. Refer to [Custom Visitor Function for AST Traversal Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of type [Visitor](ast_package_classes.md#class-visitor).
+
+## class QuoteExpr
+
+```cangjie
+public class QuoteExpr <: Expr {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a `quote` expression node.
+
+A [QuoteExpr](ast_package_classes.md#class-quoteexpr) node example: `quote(var ident = 0)`.
+
+Parent Type:
+
+- [Expr](#class-expr)
+
+### prop exprs
+
+```cangjie
+public mut prop exprs: ArrayList<Expr>
+```
+
+Function: Gets or sets the internally quoted expression nodes enclosed by `()` within the [QuoteExpr](ast_package_classes.md#class-quoteexpr).
+
+Type: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Expr](ast_package_classes.md#class-expr)>
+
+### prop keyword
+
+```cangjie
+public mut prop keyword: Token
+```
+
+Function: Gets or sets the `quote` keyword of the [QuoteExpr](ast_package_classes.md#class-quoteexpr).
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the provided [Token](ast_package_structs.md#struct-token) is not a `quote` keyword.
+
+### prop lParen
+
+```cangjie
+public mut prop lParen: Token
+```
+
+Function: Gets or sets the "(" token in the [QuoteExpr](ast_package_classes.md#class-quoteexpr).
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the provided [Token](ast_package_structs.md#struct-token) is not "(".
+
+### prop rParen
+
+```cangjie
+public mut prop rParen: Token
+```
+
+Function: Gets or sets the ")" token in the [QuoteExpr](ast_package_classes.md#class-quoteexpr).
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the provided [Token](ast_package_structs.md#struct-token) is not ")".
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [QuoteExpr](ast_package_classes.md#class-quoteexpr) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [QuoteExpr](ast_package_classes.md#class-quoteexpr) object.
+
+Parameters:
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - The lexical token collection ([Tokens](ast_package_classes.md#class-tokens)) used to construct the [QuoteExpr](ast_package_classes.md#class-quoteexpr) type.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be converted into a [QuoteExpr](ast_package_classes.md#class-quoteexpr) node.
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+Function: Converts the current syntax tree node into the [Tokens](ast_package_classes.md#class-tokens) type.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The converted node of type [Tokens](ast_package_classes.md#class-tokens).
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate child node traversal early, override the `visit` function and call the `breakTraverse` function to halt traversal. Refer to [Custom Visitor Function for AST Traversal Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of type [Visitor](ast_package_classes.md#class-visitor).
+
+## class QuoteToken
 
 ```cangjie
 public class QuoteToken <: Expr
@@ -7095,7 +7598,198 @@ Purpose: Traverses the current syntax tree node and its child nodes. To terminat
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.## class ReturnExpr
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class ResumeExpr
+
+```cangjie
+public class ResumeExpr <: Expr {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a `resume` expression node, optionally containing `with` and `throwing` clauses.
+
+A [ResumeExpr](ast_package_classes.md#class-resumeexpr) node example:
+`resume r with 42`.
+
+Parent Types:
+
+- [Expr](ast_package_classes.md#class-expr)
+
+### prop expr
+
+```cangjie
+public mut prop expr: Option<Expr>
+```
+
+Function: Gets or sets the expression following the `resume` keyword.
+
+Type: [Option\<Expr>](ast_package_classes.md#class-expr)
+
+### prop keywordR
+
+```cangjie
+public mut prop keywordR: Token
+```
+
+Function: Gets or sets the lexical token for the `resume` keyword.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the provided [Token](ast_package_structs.md#struct-token) is not a `resume` keyword.
+
+### prop keywordW
+
+```cangjie
+public mut prop keywordW: Option<Token>
+```
+
+Function: Gets or sets the lexical token for the `with` keyword (if present).
+
+Type: [Option\<Token>](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the provided [Token](ast_package_structs.md#struct-token) is not a `with` keyword.
+
+### prop withExpr
+
+```cangjie
+public mut prop withExpr: Option<Expr>
+```
+
+Function: Gets or sets the expression following the `with` keyword.
+
+Type: [Option\<Expr>](ast_package_classes.md#class-expr)
+
+### prop keywordT
+
+```cangjie
+public mut prop keywordT: Option<Token>
+```
+
+Function: Gets or sets the lexical token for the `throwing` keyword (if present).
+
+Type: [Option\<Token>](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the provided [Token](ast_package_structs.md#struct-token) is not a `throwing` keyword.
+
+### prop throwingExpr
+
+```cangjie
+public mut prop throwingExpr: Option<Expr>
+```
+
+Function: Gets or sets the expression following the `throwing` keyword.
+
+Type: Option\<[Expr](ast_package_classes.md#class-expr)>
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [ResumeExpr](ast_package_classes.md#class-resumeexpr) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [ResumeExpr](ast_package_classes.md#class-resumeexpr) object from a token stream.
+
+Parameters:
+
+* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — A collection of tokens to be parsed as a [ResumeExpr](ast_package_classes.md#class-resumeexpr) node.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed as a valid [ResumeExpr](ast_package_classes.md#class-resumeexpr) node.
+
+## class ResumptionTypePattern
+
+```cangjie
+public class ResumptionTypePattern <: Pattern {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+Function: Represents a resumption pattern with type annotation, typically appearing in handler declarations, e.g.: `pattern: Resumption<Unit, Unit>`.
+
+A `ResumptionTypePattern` example might appear in the resumption clause of a handler within a `try` expression.
+
+Parent Types:
+
+- [Pattern](ast_package_classes.md#class-pattern)
+
+### prop pattern
+
+```cangjie
+public mut prop pattern: Pattern
+```
+
+Function: Gets or sets the base pattern preceding the colon (`:`).
+
+Type: [Pattern](ast_package_classes.md#class-pattern)
+
+### prop colon
+
+```cangjie
+public mut prop colon: Token
+```
+
+Function: Gets or sets the colon (`:`) symbol separating the pattern from its type.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the provided token is not a colon.
+
+### prop types
+
+```cangjie
+public mut prop types: ArrayList<TypeNode>
+```
+
+Function: Gets or sets the list of type nodes following the colon, e.g. `EffectA | EffectB`.
+
+Type: [ArrayList\<TypeNode>](ast_package_classes.md#class-typenode)
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default `ResumptionTypePattern` object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a `ResumptionTypePattern` object from a set of tokens.
+
+Parameters:
+
+* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — A collection of tokens representing a resumption type pattern.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when a valid `ResumptionTypePattern` cannot be constructed from the provided tokens.
+
+## class ReturnExpr
 
 ```cangjie
 public class ReturnExpr <: Expr {
@@ -7543,7 +8237,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class SynchronizedExpr
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class SynchronizedExpr
 
 ```cangjie
 public class SynchronizedExpr <: Expr {
@@ -8060,7 +8756,66 @@ Parameters:
 
 Return Value:
 
-- [Tokens](ast_package_classes.md### class TokensIterator
+- [Tokens](ast_package_classes.md#class-tokens) - The newly concatenated collection of lexical units after [Tokens](ast_package_classes.md#class-tokens).
+
+### operator func +(Tokens)
+
+```cangjie
+public operator func +(r: Tokens): Tokens
+```
+
+Function: Uses the current [Tokens](ast_package_classes.md#class-tokens) to add with another [Tokens](ast_package_classes.md#class-tokens) and obtain a new [Tokens](ast_package_classes.md#class-tokens) type.
+
+Parameters:
+
+- r: [Tokens](ast_package_classes.md#class-tokens) - A set of [Tokens](ast_package_classes.md#class-tokens) objects to be operated on.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The newly concatenated collection of lexical units after [Tokens](ast_package_classes.md#class-tokens).
+
+### operator func [](Int64)
+
+```cangjie
+public operator func [](index: Int64): Token
+```
+
+Function: Operator overload to retrieve the corresponding [Token](ast_package_structs.md#struct-token) via an index value.
+
+Parameters:
+
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The numerical value to be indexed.
+
+Return Value:
+
+- [Token](ast_package_structs.md#struct-token) - Returns the [Token](ast_package_structs.md#struct-token) corresponding to the index.
+
+Exceptions:
+
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `index` is invalid.
+
+### operator func [](Range\<Int64>)
+
+```cangjie
+public open operator func [](range: Range<Int64>): Tokens
+```
+
+Function: Operator overload to retrieve the corresponding [Tokens](ast_package_classes.md#class-tokens) slice via a `range`.
+
+Parameters:
+
+- range: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - The slice range to be indexed.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - Returns the [Tokens](ast_package_classes.md#class-tokens) corresponding to the slice index.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `range.step` is not equal to 1.
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when the range is invalid.
+
+### class TokensIterator
 
 ```cangjie
 public class TokensIterator <: Iterator<Token> {
@@ -8261,6 +9016,16 @@ Type: [Block](ast_package_classes.md#class-block)
 Exceptions:
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the [TryExpr](ast_package_classes.md#class-tryexpr) node has no `Finally` block.
+
+### prop handlers
+
+```cangjie
+public mut prop handlers: ArrayList<Handler>
+```
+
+Function: Gets or sets the list of `Handler` nodes.
+
+Type: [ArrayList\<Handler>](ast_package_classes.md#class-handler)
 
 ### prop keywordF
 
@@ -8473,7 +9238,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.## class TuplePattern
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class TuplePattern
 
 ```cangjie
 public class TuplePattern <: Pattern {
@@ -8897,7 +9664,9 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 
 Parameters:
 
-- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.## class TypeNode
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class TypeNode
 
 ```cangjie
 public open class TypeNode <: Node
@@ -10216,7 +10985,9 @@ Function: Defines the operation when visiting a node, requires override.
 
 Parameters:
 
-- _: [MatchCase](ast_package_classes.md#class-matchcase) - The node being traversed of type [MatchCase](ast_package_classes.md#class-matchcase).### func visit(MatchExpr)
+- _: [MatchCase](ast_package_classes.md#class-matchcase) - The node being traversed of type [MatchCase](ast_package_classes.md#class-matchcase).
+
+### func visit(MatchExpr)
 
 ```cangjie
 protected open func visit(_: MatchExpr): Unit
@@ -10754,7 +11525,9 @@ Purpose: Defines the operation when visiting a node, requires override.
 
 Parameters:
 
-- _: [WildcardPattern](ast_package_classes.md#class-wildcardpattern) - The node being traversed of type [WildcardPattern](ast_package_classes.md#class-wildcardpattern).## class WhileExpr
+- _: [WildcardPattern](ast_package_classes.md#class-wildcardpattern) - The node being traversed of type [WildcardPattern](ast_package_classes.md#class-wildcardpattern).
+
+## class WhileExpr
 
 ```cangjie
 public class WhileExpr <: Expr {

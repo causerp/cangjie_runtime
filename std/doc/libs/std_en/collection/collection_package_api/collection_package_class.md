@@ -339,11 +339,15 @@ Functionality: Constructs an [ArrayList](collection_package_class.md#class-array
 
 Parameters:
 
-- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The input array.
+- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The input array, with variable-length argument syntax supporting the omission of array literal `[]`.
 
 Return Value:
 
 - [ArrayList](#class-arraylistt)\<T> - An ArrayList of type T.
+
+> **Note:**
+>
+> This function's parameters can be provided using variable-length arguments. For example: `ArrayList.of(1, 2, 3)` is equivalent to `ArrayList.of([1, 2, 3])`.
 
 ### func add(T)
 
@@ -417,7 +421,9 @@ Exceptions:
 
 Example:
 
-See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.### func clear()
+See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.
+
+### func clear()
 
 ```cangjie
 public func clear(): Unit
@@ -755,7 +761,147 @@ Parent Types:
 public operator func ==(that: ArrayList<T>): Bool
 ```
 
-Function: Determines whether the current instance
+Function: Determines whether the current instance is equal to the parameter-specified [ArrayList](./collection_package_class.md#class-arraylistt) instance.
+
+Two arrays are considered equal if their corresponding elements at each position are equal.
+
+Parameters:
+
+- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - The object to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise returns `false`.
+
+#### operator func !=(ArrayList\<T>)
+
+```cangjie
+public operator func !=(that: ArrayList<T>): Bool
+```
+
+Function: Determines whether the current instance is not equal to the parameter-specified [ArrayList](./collection_package_class.md#class-arraylistt) instance.
+
+Parameters:
+
+- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - The object to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise returns `false`.
+
+#### func contains(T)
+
+```cangjie
+public func contains(element: T): Bool
+```
+
+Function: Determines whether the current array contains the specified element `element`.
+
+Parameters:
+
+- element: T - The element to search for.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the array contains the specified element, otherwise returns `false`.
+
+### extend\<T> ArrayList\<T> <: SortExtension where T <: Comparable\<T> <sup>(deprecated)</sup>
+
+```cangjie
+extend<T> ArrayList<T> where T <: Comparable<T>
+```
+
+Function: Extends the [ArrayList](./collection_package_class.md#class-arraylistt)\<T> with the [SortExtension](../../sort/sort_package_api/sort_package_interfaces.md#interface-sortextension-deprecated) interface to support array sorting.
+
+> **Note:**
+>
+> This will be deprecated in future versions.
+
+Parent Type:
+
+- [SortExtension](../../sort/sort_package_api/sort_package_interfaces.md#interface-sortextension-deprecated)
+
+#### func sort() <sup>(deprecated)</sup>
+
+```cangjie
+public func sort(): Unit
+```
+
+Function: Sorts the elements in the current array in ascending order using an unstable sort.
+
+> **Note:**
+>
+> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
+
+#### func sort(Bool) <sup>(deprecated)</sup>
+
+```cangjie
+public func sort(stable!: Bool): Unit
+```
+
+Function: Sorts the elements in the current array in ascending order.
+
+Parameters:
+
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
+
+> **Note:**
+>
+> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
+
+#### func sortDescending() <sup>(deprecated)</sup>
+
+```cangjie
+public func sortDescending(): Unit
+```
+
+Function: Sorts the elements in the current array in descending order using an unstable sort.
+
+> **Note:**
+>
+> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
+
+#### func sortDescending(Bool) <sup>(deprecated)</sup>
+
+```cangjie
+public func sortDescending(stable!: Bool): Unit
+```
+
+Function: Sorts the elements in the current array in descending order.
+
+Parameters:
+
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
+
+> **Note:**
+>
+> This will be deprecated in future versions. Use [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) instead.
+
+### extend\<T> ArrayList\<T> <: ToString where T <: ToString
+
+```cangjie
+extend<T> ArrayList<T> <: ToString where T <: ToString
+```
+
+Function: Extends the [ArrayList](./collection_package_class.md#class-arraylistt)\<T> with the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface to support string conversion.
+
+Parent Type:
+
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+#### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Converts the current array to a string.
+
+The resulting string contains the string representation of each element in the array, formatted as: "[elem1, elem2, elem3]".
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
 
 ## class ArrayQueue\<T>
 
@@ -892,13 +1038,7 @@ public func reserve(additional: Int64): Unit
 
 Function: Increases the capacity of this queue.
 
-Expands the queue by additional size. No expansion occurs when:
-1. additional ≤ 0
-2. Remaining capacity ≥ additional
-
-When remaining capacity < additional, expansion occurs to the maximum value between:
-1. Original capacity × 1.5 (rounded down)
-2. additional + used capacity
+Expand the queue capacity by an additional size. No expansion occurs under the following conditions: 1. When `additional` is less than or equal to zero. 2. When the remaining capacity of the queue is greater than or equal to `additional`. When expansion is required (i.e., remaining capacity < `additional`), the new capacity will be set to the maximum value between: 1.5 times the original capacity (rounded down). The sum of `additional` and currently used capacity.
 
 Parameters:
 
@@ -1077,11 +1217,7 @@ Return Value:
 public func reserve(additional: Int64): Unit
 ```
 
-Function: Expands current [ArrayStack](#class-arraystackt) capacity. No expansion occurs when:
-1. additional ≤ 0
-2. Remaining space ≥ additional
-
-Otherwise expands to size + additional.
+Function: Expands current [ArrayStack](#class-arraystackt) capacity. No expansion occurs when: additional ≤ 0. Remaining space ≥ additional. Otherwise expands to size + additional.
 
 Parameters:
 
@@ -1182,7 +1318,8 @@ Return Value:
 Exceptions:
 
 - [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - Throws when detecting unsynchronized concurrent modifications.
-```## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
+
+## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
 
 ```cangjie
 public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
@@ -1593,7 +1730,81 @@ Return Value:
 
 Exceptions:
 
-- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class## class HashSet\<T> where T <: Hashable & Equatable\<T>
+- [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - Throws this exception if the specified key does not exist in this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+
+### extend\<K, V> HashMap\<K, V> <: Equatable\<HashMap\<K, V>> where V <: Equatable\<V>
+
+```cangjie
+extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
+```
+
+Function: Extends the [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>> interface for the [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> type to support equality comparison operations.
+
+Parent Types:
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>>
+
+#### operator func ==(HashMap\<K, V>)
+
+```cangjie
+public operator func ==(right: HashMap<K, V>): Bool
+```
+
+Function: Determines whether the current instance is equal to the specified [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance.
+
+Two [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instances are considered equal if they contain identical key-value pairs.
+
+Parameters:
+
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - The object to compare.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise returns false.
+
+#### operator func !=(HashMap\<K, V>)
+
+```cangjie
+public operator func !=(right: HashMap<K, V>): Bool
+```
+
+Function: Determines whether the current instance is not equal to the specified [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance.
+
+Parameters:
+
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - The object to compare.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
+
+### extend\<K, V> HashMap\<K, V> <: ToString where V <: ToString, K <: ToString
+
+```cangjie
+extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
+```
+
+Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> to support string conversion operations.
+
+Parent Types:
+
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+#### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Converts the current [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> instance to a string.
+
+The resulting string contains the string representation of each key-value pair in the [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>, formatted as: "[(k1, v1), (k2, v2), (k3, v3)]".
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
+
+## class HashSet\<T> where T <: Hashable & Equatable\<T>
 
 ```cangjie
 public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
@@ -2021,7 +2232,30 @@ Return Value:
 ### extend\<T> HashSet\<T> <: ToString where T <: ToString
 
 ```cangjie
-extend<T> HashSet<T> <: ToString where T## class LinkedListNode\<T>
+extend<T> HashSet<T> <: ToString where T <: ToString
+```
+
+Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>, supporting string conversion operations.
+
+Parent Types:
+
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+#### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Converts the current [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> instance to a string.
+
+The resulting string contains the string representation of each element in the [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>, formatted as: "[elem1, elem2, elem3]".
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
+
+## class LinkedListNode\<T>
 
 ```cangjie
 public class LinkedListNode<T>
@@ -2529,7 +2763,9 @@ The string contains the string representation of each element in [LinkedList](./
 
 Return Value:
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.## class TreeMap\<K, V> where K <: Comparable\<K>
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
+
+## class TreeMap\<K, V> where K <: Comparable\<K>
 
 ```cangjie
 public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
@@ -2945,7 +3181,67 @@ Parent Types:
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>>
 
-#### operator func ==(TreeMap\<## class TreeSet\<T> where T <: Comparable\<T>
+#### operator func ==(TreeMap\<K, V>)
+
+```cangjie
+public operator func ==(right: TreeMap<K, V>): Bool
+```
+
+Function: Determines whether the current instance is equal to the parameter-specified [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance.
+
+Two [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instances are considered equal if they contain identical key-value pairs.
+
+Parameters:
+
+- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - The object to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise returns false.
+
+#### operator func !=(TreeMap\<K, V>)
+
+```cangjie
+public operator func !=(right: TreeMap<K, V>): Bool
+```
+
+Function: Determines whether the current instance is not equal to the parameter-specified [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance.
+
+Parameters:
+
+- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - The object to be compared.
+
+Return Value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
+
+### extend\<K, V> TreeMap\<K, V> <: ToString where V <: ToString, K <: ToString & Comparable\<K>
+
+```cangjie
+extend<K, V> TreeMap<K, V> <: ToString where V <: ToString, K <: ToString & Comparable<K>
+```
+
+Function: Extends the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface for [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>, enabling string conversion operations.
+
+Parent Type:
+
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+#### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Converts the current [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> instance to a string.
+
+The resulting string contains the string representation of each key-value pair in the [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>, formatted as: "[(k1, v1), (k2, v2), (k3, v3)]".
+
+Return Value:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
+
+## class TreeSet\<T> where T <: Comparable\<T>
 
 ```cangjie
 public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
@@ -3051,6 +3347,10 @@ Parameters:
 Return Value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) of type T.
+
+> **Note:**
+>
+> This function's parameters can be provided using variable-length argument syntax. For example: `TreeSet.of(1, 2, 3)` is equivalent to `TreeSet.of([1, 2, 3])`.
 
 ### func add(T)
 
@@ -3344,7 +3644,9 @@ Parameters:
 
 Return Value:
 
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A set of type T.### extend\<T> TreeSet\<T> <: Equatable\<TreeSet\<T>>
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A set of type T.
+
+### extend\<T> TreeSet\<T> <: Equatable\<TreeSet\<T>>
 
 ```cangjie
 extend<T> TreeSet<T> <: Equatable<TreeSet<T>>

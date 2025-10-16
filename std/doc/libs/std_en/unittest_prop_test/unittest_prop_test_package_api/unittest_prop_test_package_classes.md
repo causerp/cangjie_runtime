@@ -241,8 +241,7 @@ Return Value:
 
 ```cangjie
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
-    RandomDataProviderRange(configuration: Configuration, min: T, max: T) 
-    override func provide(): Iterable<T>
+    public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 }
 ```
 
@@ -309,10 +308,7 @@ Return Value:
 ## class RandomDataShrinkerRange\<T>
 
 ```cangjie
-public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable<T> {
-    RandomDataShrinkerRange(min: T, max: T)
-    override func shrink(value: T): Iterable<T>
-}
+public class RandomDataShrinkerRange<T> <: DataShrinker<T> where T <: Comparable<T> {}
 ```
 
 Function: A data shrinker capable of shrinking data within a specified range.
@@ -321,23 +317,10 @@ Parent Type:
 
 - [DataShrinker\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert)
 
-### RandomDataShrinkerRange(T, T)
-
-```cangjie
-RandomDataShrinkerRange(min: T, max: T)
-```
-
-Function: Constructor.
-
-Parameters:
-
-- min: T - Minimum value (inclusive).
-- max: T - Maximum value (exclusive).
-
 ### func shrink(T)
 
 ```cangjie
-override func shrink(value: T): Iterable<T>
+public override func shrink(value: T): Iterable<T>
 ```
 
 Function: Shrinks the value into a set of possible "smaller" values.
@@ -398,15 +381,12 @@ Parameters:
 
 Return Value:
 
-- [RandomDataShrinker](#class-randomdatashrinkert)\<T> - Random data shrinker.## class RandomDataStrategyRange\<T>
+- [RandomDataShrinker](#class-randomdatashrinkert)\<T> - Random data shrinker.
+
+## class RandomDataStrategyRange\<T>
 
 ```cangjie
-public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryRange<T> {
-    RandomDataStrategyRange(min: T, max: T)
-    override func provider(configuration: Configuration): RandomDataProviderRange\<T>
-    override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
-    override prop isInfinite: Bool
-}
+public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryRange<T> {}
 ```
 
 Function: A data strategy generator that operates within specified ranges.
@@ -415,23 +395,10 @@ Parent Types:
 
 - [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
 
-### RandomDataStrategyRange(T, T)
-
-```cangjie
-RandomDataStrategyRange(min: T, max: T)
-```
-
-Function: Constructor
-
-Parameters:
-
-- min: T - Minimum value (inclusive).
-- max: T - Maximum value (exclusive).
-
 ### func provider(Configuration)
 
 ```cangjie
-override func provider(configuration: Configuration): RandomDataProviderRange<T>
+public override func provider(configuration: Configuration): RandomDataProviderRange<T>
 ```
 
 Function: Gets a random data provider.
@@ -814,7 +781,9 @@ Parameters:
 
 Return Value:
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1, T2,T3,T4)> - Tuple shrink iterator.### static func mix\<T>(Array<Iterable\<T>>)
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1, T2,T3,T4)> - Tuple shrink iterator.
+
+### static func mix\<T>(Array<Iterable\<T>>)
 
 ```cangjie
 public static func mix<T>(iterables: Array<Iterable<T>>): Iterable<T>
