@@ -1,6 +1,20 @@
 # Cangjie Runtime and Cangjie Standard Library
 
-In the Cangjie programming language, program execution relies on the capabilities of both the runtime and the standard library. The ​​Cangjie runtime​​ serves as a lightweight and efficient foundational engine, managing core resources like memory and threads during program execution; while the Cangjie programming language library​​ provides common functions and tools, laying a solid groundwork for developers to build application features.
+In the Cangjie programming language, program execution depends on the capabilities of the runtime and standard library. The Cangjie Runtime, as a lightweight and efficient fundamental engine, is responsible for managing core resources such as memory and threads during program execution. The Cangjie Language Standard Library provides feature-rich built-in libraries covering data structures, common algorithms, mathematical computations, regular expressions, system interactions, file operations, network communications, and other functionalities, which can meet most development needs.
+
+This repository provides the source code for the Cangjie Runtime and Cangjie Programming Language Standard Library. The overall structure diagram is shown below:
+
+![](runtime/figures/runtime_std.png)
+
+> Usage of Third-Party Libraries
+> - `libboundscheck` is used by the Cangjie Runtime and Cangjie Programming Language Standard Library. It is source code dependent and will be compiled and integrated into binary release packages.
+> - `OpenSSL` is used by the Cangjie Runtime. It dynamically links to the system's dynamic libraries without source code dependency.
+> - `PCRE2` is used by the standard library `regex`. It is source code dependent and will be compiled and integrated into binary release packages.
+> - `flatbuffers` is used by the standard library `ast`. It is source code dependent and will be compiled and integrated into binary release packages.
+
+For details on third-party dependencies, see the [Third-Party Library Documentation](./stdlib/third_party/README.md).
+
+Below is a detailed introduction to the Cangjie Runtime and the Cangjie Programming Language Standard Library.
 
 ## Cangjie Runtime
 
@@ -8,7 +22,9 @@ In the Cangjie programming language, program execution relies on the capabilitie
 
 The Cangjie runtime is one of the core components of the Cangjie Native backend (CJNative), designed with high performance and lightweight as its goals, and provides strong support for the high performance of the Cangjie language in all scenarios. As the fundamental engine for running Cangjie programs, the Cangjie runtime provides basic driving functions such as garbage collection (GC), CJThread, and loader.
 
-The Cangjie standard library (std) is built on a lower layer based on compiler frontend, middle-end, backend, and runtime, as shown in the figure.
+### System Architecture
+
+The architecture diagram of Cangjie Runtime is shown below:
 
 ![](runtime/figures/cangjie_runtime.png)
 
@@ -40,114 +56,50 @@ The Cangjie standard library (std) is built on a lower layer based on compiler f
 ### Directory Structure
 
 ```
-/runtime
-├─ src                  # Implementation of Cangjie Runtime, including memory management, Cangjie thread management, etc
-|   ├─ arch_os          # Hardware platform adaptation code
-|   ├─ Base             # Basic function module
-|   ├─ CJThread         # Cangjie thread management
-|   ├─ Common           # Common module
-|   ├─ Concurrency      # Concurrency interfaces
-|   ├─ CpuProfiler      # Cangjie CPUProfiler
-|   ├─ Demangler        # Cangjie Demangler
-|   ├─ Exception        # Exception handling
-|   ├─ Heap             # Memory management
-|   ├─ Inspector        # DFX Utilities
-|   ├─ Loader           # Cangjie Loader
-|   ├─ Mutator          # Handling mutator state when GC
-|   ├─ ObjectModel      # Cangjie object model
-|   ├─ os               # Software platform adaptation code
-|   ├─ Signal           # Signal management
-|   ├─ StackMap         # Stack metadata analysis module
-|   ├─ Sync             # Implementation of Synchronization
-|   ├─ UnwindStack      # Stack unwinding
-|   ├─ Utils            # General Utility Classes
-└─ build                # Compile build tools, scripts, etc
+/cangjie_runtime
+├── runtime
+│   ├── build            # Build scripts
+│   └── src
+│       ├── Base         # Basic function module
+│       ├── CJThread     # Cangjie thread management module
+│       ├── Common       # Common module
+│       ├── Concurrency  # Concurrency management module
+│       ├── CpuProfiler  # CPU Profiling module
+│       ├── Demangler    # Symbol demangling module
+│       ├── Exception    # Exception handling module
+│       ├── Heap         # Heap memory management module
+│       ├── Inspector    # DFX Utilities
+│       ├── Loader       # Cangjie Loader
+│       ├── Mutator      # Mutator state management module
+│       ├── ObjectModel  # Object model
+│       ├── Signal       # Signal management module
+│       ├── StackMap     # Stack metadata analysis module
+│       ├── Sync         # Synchronization primitive implementation module
+│       ├── UnwindStack  # Stack unwinding module
+│       ├── Utils        # General Utility Classes
+│       ├── arch         # Hardware platform adaptation code
+│       └── os           # Software platform adaptation code
+└── stdlib
 ```
 
 ### Constraints
 
-Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md).
+Currently, building the Cangjie Runtime within the Windows environment is not supported. To generate Cangjie Runtime build artifacts that can run on the Windows platform, cross-compilation in a Linux environment is required. For detailed information, please refer to [Cangjie SDK Integration and Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md). For specific future support plans, please see [Platform Support Plan](#platform-support-plan).
 
 ### Compilation & Build
 
-#### Build Preparation
-
-Before building, you need to set up the compilation environment according to the target output. For details, please refer to the [Cangjie SDK Integration and Build Guide](https://gitcode.com/Cangjie/cangjie_build).
-
-##### Download the source code:
-
-``` shell
-$ git clone https://gitcode.com/Cangjie/cangjie_runtime.git;
-```
-
-#### Build Steps
-
-For standalone builds, please run the `build.py` script, which supports three functions: build, install, and clean.
-
-##### Build Command
-
-The `build` command is used to independently construct the Cangjie runtime environment and supports multiple configurable options:
-
-- `--target <value>` specifies the build target. Default `value`: `native`. Available options:
-  - `native` -- refers to compiling and building from Linux/macOS to the native   platform;
-  - `windows-x86_64` -- refers to cross-compiling and building from Linux to the   Windows-x86_64 platform;
-  - `ohos-aarch64` -- refers to cross-compiling and building from Linux to the   ohos-aarch64 platform;
-  - `ohos-x86_64` -- refers to cross-compiling and building from Linux to the ohos-x86_64 platform.
-- `-t, --build-type <value>` specifies the build configuration. Valid values: `release, debug, relwithdebinfo`. Default: `release`.
-- `-v, --version <value>` sets the version number for the Cangjie runtime. Default: `0.0.1`.
-- `--prefix <value>` defines the installation path for build outputs. Defaults to `runtime/output/common`. If both `build` and `install` specify paths, install takes precedence.
-- `-hwasan` enables Hardware-Assisted Address Sanitizer (HWASAN).
-- `--target-toolchain <value>` specifies the toolchain for cross-compilation. **Required for cross-compilation builds**. See [Build Preparation](#build-preparation) for toolchain configuration details.
-
-Example:
-
-``` shell
-$ python3 build.py build --target native --build-type release -v 0.0.1
-```
-
-##### Install Command
-The `install` command can install the compiled output to the desired location. There is an optional parameter:
-
-- `--prefix <value>` specifies the installation path for build outputs. If not provided, outputs will be installed to the path specified by the `build` command. Otherwise, they will be installed to the path specified by this parameter.
-
-Example:
-
-``` shell
-$ python3 build.py install
-```
-
-##### Clean Command
-The `clean` command can be executed to remove all build outputs and intermediate files.
-
-Example:
-
-``` shell
-$ python3 build.py clean
-```
-
-#### Build Output
-```
-/runtime
-└─ output
-    ├─ common           # Default installation path for compiled outputs
-    |    └─ <target_platform><build_type><target_arch>  # outputs descriptor
-    |       ├─ bin      # Executable files
-    |       ├─ include  # Header files
-    |       ├─ lib      # Static libraries, etc.
-    |       └─ runtime  # Dynamic libraries, etc.
-    └─ temp             # Temporary outputs path
-```
+To build the Cangjie Runtime, please refer to [Build Cangjie Runtime](./runtime/build_runtime.md) for details.
 
 ### Usage
 
-The standalone build outputs must be used together with the `cjc` compiler and the standard library.
+The standalone build outputs must be used together with the `cjc` compiler and the standard library. The complete bundle runs out-of-the-box on Linux, macOS, Windows, and OpenHarmony systems.
 For integration details, please refer to the [Cangjie SDK Integration and Build Guide](https://gitcode.com/Cangjie/cangjie_build).
 
-## Cangjie Programming Language Library
+## Cangjie Programming Language - Standard Library (std)
 
 ### Introduction
 
-The Cangjie Programming Language Standard Library (std) is a library that comes bundled with the Cangjie SDK by default. The standard library pre-defines a set of functions, classes, structures, etc., aimed at providing common functionalities and tools to help developers write programs more quickly and efficiently.
+The Cangjie programming language’s standard library (std) is an officially provided library that predefines a set of functions, classes, structs, and more. Its purpose is to offer common features and tools, enabling developers to write programs more quickly and efficiently.
 
 The Cangjie Standard Library has three key characteristics and goals:
 
@@ -158,151 +110,77 @@ The Cangjie Standard Library has three key characteristics and goals:
 
 For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html).
 
-![](std/figures/cangjie_std.png)
+### System Architecture
+
+The architecture diagram of the Cangjie standard library is shown below:
+
+![](./stdlib/figures/cangjie_std.png)
 
 ### Directory
 
 The main directories are as follows:
 
 ```
-std/libs/std
-├── argopt                  # Command line argument string parsing
-├── ast                     # Syntax parser
-├── binary                  # Provides interfaces for endian conversion of basic data types and binary byte arrays, as well as endian reversal interfaces
-├── collection              # Implementation of common data structures, definition of relevant abstract interfaces, and common function features in collection types
-├── console                 # Provides methods for interacting with standard input, standard output, and standard error
-├── convert                 # Provides Convert series functions for converting from strings to specific types and formatting capabilities
-├── core                    # Core package of the standard library
-├── crypto                  # Symmetric encryption/decryption and common digest algorithm capabilities
-├── database                # Cangjie database access capabilities
-├── deriving                # Provides a set of macros to automatically generate interface implementations
-├── env                     # Provides information and functionality related to the current process
-├── fs                      # File library
-├── io                      # Provides the ability for programs to exchange data with external devices
-├── math                    # Math library
-├── net                     # Network communication
-├── objectpool              # Object caching
-├── overflow                # Overflow handling
-├── posix                   # POSIX system interface adaptation
-├── process                 # Process library
-├── random                  # Provides the ability to generate pseudo-random numbers
-├── ref                     # Provides weak reference capabilities
-├── reflect                 # Reflection functionality
-├── regex                   # Regular expression library
-├── runtime                 # Runtime interaction
-├── sort                    # Sorting
-├── sync                    # Concurrent programming
-├── time                    # Time library
-├── unicode                 # Character processing
-└── unittest                # For writing unit test code for Cangjie projects
+/cangjie_runtime
+├── runtime
+└── stdlib
+    └── libs
+        └── std
+            ├── argopt      # Command line argument string parsing
+            ├── ast         # Syntax parser
+            ├── binary      # Provides interfaces for endian conversion of basic data types and binary byte arrays, as well as endian reversal interfaces
+            ├── collection  # Implementation of common data structures, definition of relevant abstract interfaces, and common function features in collection types
+            ├── console     # Provides methods for interacting with standard input, standard output, and standard error
+            ├── convert     # Provides Convert series functions for converting from strings to specific types and formatting capabilities
+            ├── core        # Core package of the standard library
+            ├── crypto      # Symmetric encryption/decryption and common digest algorithm capabilities
+            ├── database    # Cangjie database access capabilities
+            ├── deriving    # Provides a set of macros to automatically generate interface implementations
+            ├── env         # Provides information and functionality related to the current process
+            ├── fs          # File library
+            ├── io          # Provides the ability for programs to exchange data with external devices
+            ├── math        # Math library
+            ├── net         # Network communication
+            ├── objectpool  # Object caching
+            ├── overflow    # Overflow handling
+            ├── posix       # POSIX system interface adaptation
+            ├── process     # Process library
+            ├── random      # Provides the ability to generate pseudo-random numbers
+            ├── ref         # Provides weak reference capabilities
+            ├── reflect     # Reflection functionality
+            ├── regex       # Regular expression library
+            ├── runtime     # Runtime interaction
+            ├── sort        # Sorting
+            ├── sync        # Concurrent programming
+            ├── time        # Time library
+            ├── unicode     # Character processing
+            └── unittest    # For writing unit test code for Cangjie projects
 ```
 
 ### Constraints
 
 Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md).
 
+Currently, building the Cangjie Programming Language Standard Library within the Windows environment is not supported. To generate Standard Library artifacts that can run on the Windows platform, cross-compilation in a Linux environment is required. For detailed information, please refer to  [Cangjie SDK Integration and Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md). For specific future support plans, please see [Platform Support Plan](#platform-support-plan).
+
 ### Compilation and Building
 
-#### Build Preparation
+To build the Cangjie Programming Language Standard Library, please refer to [Build Cangjie Standard Library](./stdlib/build_std.md) for details.
 
-The Cangjie standard library can be built in Ubuntu/MacOS (x86_64, aarch64) environments. Before building, you need to set up the compilation environment. For details, please check the [Build dependency tool](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md).
+### Usage Instructions
 
-#### Build Steps
+The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./stdlib/doc/libs/summary_cjnative_EN.md).
 
-Before building the standard library, you need to first build the runtime in this repository and [cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler). For detailed build instructions for runtime and cangjie_compiler, please refer to their respective project build guides.
-
-1. Configure cjc
-
-   ```
-   source <path to the source-built cjc, e.g., ..../output/envsetup.sh>
-   ```
-
-   You can verify if cjc is configured successfully using the command below. If version information appears, it indicates that cjc is configured successfully.
-
-
-   ```
-   cjc -v
-   ```
-
-2. Build Commands
-
-   Download the source code
-
-   ```
-   git clone https://gitcode.com/Cangjie/cangjie_runtime.git
-   ```
-
-   Enter the std directory, compile the standard library source code by executing the `build.py` script, which supports three functions: build, clean, and install.
-
-
-   ```
-   cd std
-   python3 build.py clean
-   python3 build.py build -t release --target-lib=<path to runtime build output directory> --target-lib=<path to openssl lib>
-   python3 build.py install
-   ```
-
-   1. `build.py clean` command is used to clear temporary files in the workspace;
-   2. `build.py build` command starts the compilation：
-      - `-t` or `--build-type`，specifies the type of build artifact, which can be either `release` or `debug`;
-      - `--target-lib` specifies the openssl lib directory and the output directory for runtime binary artifacts(By default, it is under runtime/output)
-   3. `build.py install` ommand installs the build artifacts to the `output` directory.
-      - `--prefix` specifies the installation path (optional), by default it installs in the std/output directory
-
-The output directory structure is as follows:
-
-```
-output
-├── lib     #std static lib
-├── modules #std cjo file
-└── runtime #std dynamic lib
-```
-
-#### Usage Instructions
-
-The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./std/doc/libs/summary_cjnative_EN.md).
-
-#### More Build Options
-
-The build functionality of build.py provides the following additional options:
-
-- `--target`: Specifies the build platform, defaults to native build, supported targets are shown below(For cross-compilation, please refer to [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)):
-  - `native` (default value)
-  - `ohos-aarch64`: Cross-compile for ohos(ohos-aarch64)
-  - `ohos-x86_64`: Cross-compile for ohos(ohos-x86_64)
-  - `windows-x86_64`: Cross-compile Windows from Linux
-- `--target-toolchain`: Specifies the path to compilation tools (required for cross-compilation)
-- `--target-sysroot`: Specifies the directory of target system libraries (required for cross-compilation)
-- `--build-args`: cjc build options (optional)
-- `--jobs(-j)`: maximum number of concurrent build tasks
-- `--hwasan`：Building the HWASAN version of std (for OHOS cross-compilation)
-
-The install functionality of build.py provides the following additional options:
-
-- `--prefix`: Specifies the installation directory
-- `--host`: Specifies which target platform to install for
-
-You can also refer to [build.py](./std/build.py) or use the `--help` option to learn more about compilation options:
-
-```
-python3 build.py --help
-python3 build.py build --help
-python3 build.py install --help
-```
-
-#### Integration Build Guide
-
-For integration building, please refer to the [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md).
+### Platform Support Plan
+- Build Platform Evolution: Plan to support Cangjie applications running on the OHOS-ARM32 platform on October 20, 2025. Advanced features such as reflection, dynamic loading capabilities, and some compiler optimizations are planned to be supported in Q4 2025.
 
 ## Repositories Involved
 
-[cangjie_compiler](https://gitcode.com/Cangjie/cangjie_compiler)
+[cangjie_compiler](https://gitcode.com/openharmony-sig/third_party_cangjie_compiler)
 
-[cangjie_runtime](https://gitcode.com/Cangjie/cangjie_runtime)
+[cangjie_tools](https://gitcode.com/openharmony-sig/third_party_cangjie_tools)
 
-[cangjie_tools](https://gitcode.com/Cangjie/cangjie_tools)
-
-[cangjie_stdx](https://gitcode.com/Cangjie/cangjie_stdx)
+[cangjie_stdx](https://gitcode.com/openharmony-sig/third_party_cangjie_stdx)
 
 [cangjie_docs](https://gitcode.com/Cangjie/cangjie_docs)
 
