@@ -324,6 +324,28 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
         default:
             PRINT_INFO("%s\n", buf);
     }
+#elif defined (__IOS__)
+    switch (level) {
+        case RTLOG_DEBUG:
+            PRINT_DEBUG("%{public}s", buf);
+            break;
+        case RTLOG_WARNING:
+            PRINT_WARN("%{public}s", buf);
+            break;
+        case RTLOG_ERROR: {
+            PRINT_ERROR("%{public}s", buf);
+            break;
+        }
+        case RTLOG_FAIL:
+        case RTLOG_FATAL: {
+            PRINT_FATAL("%{public}s", buf);
+            break;
+        }
+        case RTLOG_REPORT:
+            VLOG(REPORT, "%{public}s\n", buf)
+        default:
+            PRINT_INFO("%{public}s", buf);
+    }
 #else
     if (filePath.IsEmpty()) {
         std::lock_guard<std::recursive_mutex> lock(logMutex);

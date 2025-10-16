@@ -30,6 +30,19 @@
 #endif
 #define LOG_TAG "CANGJIE-RUNTIME"
 #endif
+
+#if defined (__IOS__)
+#include <os/log.h>
+#ifdef LOG_SUBSYSTEM
+#undef LOG_SUBSYSTEM
+#endif
+#define LOG_SUBSYSTEM "CANGJIE"
+#ifdef LOG_CATEGORY
+#undef LOG_CATEGORY
+#endif
+#define LOG_CATEGORY "RUNTIME"
+#endif
+
 namespace MapleRuntime {
 #if defined(__OHOS__) && (__OHOS__ == 1)
 #define PRINT_INFO(...)                                           \
@@ -92,6 +105,33 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
     do { \
         if (conf) { \
             __android_log_print(ANDROID_LOG_FATAL, LOG_TAG, __VA_ARGS__); \
+        } \
+    } while (0)
+
+#elif defined (__IOS__)
+inline os_log_t GetOsLogger() {
+    static os_log_t logger = os_log_create(LOG_SUBSYSTEM, LOG_CATEGORY);
+    return logger;
+}
+
+#define PRINT_DEBUG(...) os_log_debug(GetOsLogger(), __VA_ARGS__)
+#define PRINT_INFO(...) os_log_info(GetOsLogger(), __VA_ARGS__)
+#define PRINT_WARN(...) os_log(GetOsLogger(), __VA_ARGS__)
+#define PRINT_ERROR(...) os_log_error(GetOsLogger(), __VA_ARGS__)
+#define PRINT_FATAL(...) os_log_fault(GetOsLogger(), __VA_ARGS__)
+
+#define PRINT_ERROR_RETURN_IF(conf, retValue, ...) \
+    do { \
+        if (conf) { \
+            os_log(GetOsLogger(), __VA_ARGS__); \
+            return retValue; \
+        } \
+    } while (0)
+
+#define PRINT_FATAL_IF(conf, ...) \
+    do { \
+        if (conf) { \
+            os_log_fault(GetOsLogger(), __VA_ARGS__); \
         } \
     } while (0)
 
