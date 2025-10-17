@@ -66,7 +66,7 @@ public open class Decl <: Node {
     init() {
         super()
     }
-    private var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
     protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
     protected var keyword_: Token = Token()
     protected var identifier_: Token = Token()
@@ -1014,9 +1014,7 @@ public class FuncDecl <: Decl {
         for (constraint in genericConstraint) {
             constraint.traverse(v)
         }
-        for (node in block.nodes) {
-            node.traverse(v)
-        }
+        block_.traverse(v)
         return
     }
 
@@ -1670,25 +1668,27 @@ public open class FuncParam <: Decl {
     }
     public init(inputs: Tokens) {
         super()
-        var params = ArrayList<FuncParam>()
-        // a:Int64 -> func tmp(a:Int64)/tmp(a:Int64)
-        try {
-            let tokens = Tokens()
-            tokens
-                .append(Token(IDENTIFIER))
-                .append(Token(LPAREN))
-                .append(inputs)
-                .append(Token(RPAREN))
-                .append(Token(LCURL))
-                .append(Token(RCURL))
-            params = PrimaryCtorDecl(tokens).funcParams
-        } catch (e: ASTException) {
-            throw ASTException("Cannot construct the 'FuncParam' node.")
+        var v = parseFuncParam(inputs)
+        var decl: Decl = v
+        // @ amd @! annotations are considered as macro expansion nodes
+        // extract the FuncParam node from Annotations with a loop
+        while (true) {
+            decl = match (decl as MacroExpandParam) {
+                case Some(val) =>
+                    this.annotations_.add(createCustomAnnotation(val))
+                    try {
+                        parseFuncParam(val.macroInputs)
+                    } catch (e: ParseASTException | ASTException) {
+                        throw ParseASTException("Cannot construct the 'FuncParam' node.")
+                    }
+                case None => break
+            }
         }
-        if (params.size == 0) {
-            throw ASTException("Cannot construct the 'FuncParam' node.")
+        v = match (decl as FuncParam) {
+            case Some(val) => val
+            case None => throw ParseASTException()
         }
-        let v = params[0]
+        this.annotations_.add(all: v.annotations_)
         this.not_ = checkValid(v.not_)
         this.colon_ = v.colon_
         this.paramType_ = v.paramType_
@@ -2110,9 +2110,25 @@ public class MacroExpandDecl <: Decl {
         }
         set(v) {
             pkgIdentifier_ = v
+            if (let Some(index) <- v.value.lastIndexOf(".")) {
+                identifier_ = Token(TokenKind.IDENTIFIER, v.value.split(".", removeEmpty: true).last.getOrThrow())
+                .addPosition(v.pos.fileID, v.pos.line, v.pos.column + Int32(index) + 1)
+            } else {
+                identifier_ = v
+            }
         }
     }
-
+    public override mut prop identifier: Token {
+        get() {
+            identifier_
+        }
+        set(v) {
+            let prefix = pkgIdentifier_.value.removeSuffix(identifier_.value)
+            identifier_ = v
+            let pos = pkgIdentifier_.pos
+            pkgIdentifier_ = Token(TokenKind.IDENTIFIER, prefix + v.value).addPosition(pos)
+        }
+    }
     public mut prop lSquare: Token {
         get() {
             lSquare_
@@ -2294,9 +2310,25 @@ public class MacroExpandParam <: FuncParam {
         }
         set(v) {
             pkgIdentifier_ = v
+            if (let Some(index) <- v.value.lastIndexOf(".")) {
+                identifier_ = Token(TokenKind.IDENTIFIER, v.value.split(".", removeEmpty: true).last.getOrThrow())
+                .addPosition(v.pos.fileID, v.pos.line, v.pos.column + Int32(index) + 1)
+            } else {
+                identifier_ = v
+            }
         }
     }
-
+    public override mut prop identifier: Token {
+        get() {
+            identifier_
+        }
+        set(v) {
+            let prefix = pkgIdentifier_.value.removeSuffix(identifier_.value)
+            identifier_ = v
+            let pos = pkgIdentifier_.pos
+            pkgIdentifier_ = Token(TokenKind.IDENTIFIER, prefix + v.value).addPosition(pos)
+        }
+    }
     public mut prop lSquare: Token {
         get() {
             lSquare_

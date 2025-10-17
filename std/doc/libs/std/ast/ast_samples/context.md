@@ -74,7 +74,6 @@ public macro Inner(input: Tokens): Tokens {
 
 ```cangjie
 // macro_call.cj
-import std.ast.*
 import macro_definition.*
 
 main() {

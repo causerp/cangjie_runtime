@@ -71,6 +71,27 @@ public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int6
     return (astNode, count)
 }
 
+func parseFuncParam(input: Tokens): FuncParam {
+    var params = ArrayList<FuncParam>()
+    try {
+        let tokens = Tokens()
+        tokens
+            .append(Token(IDENTIFIER))
+            .append(Token(LPAREN))
+            .append(input)
+            .append(Token(RPAREN))
+            .append(Token(LCURL))
+            .append(Token(RCURL))
+        params = PrimaryCtorDecl(tokens).funcParams
+    } catch (e: ASTException) {
+        throw ASTException("Cannot construct the 'FuncParam' node.")
+    }
+    if (params.size == 0) {
+        throw ASTException("Cannot construct the 'FuncParam' node.")
+    }
+    params[0]
+}
+
 func generateDeclAST(declNode: Option<NodeFormat_Decl>): Decl {
     var decl = match (declNode) {
         case Some(v) => v
@@ -101,6 +122,7 @@ func generateDeclAST(declNode: Option<NodeFormat_Decl>): Decl {
         case "prop_decl" => createPropDecl(decl)
         case "macro_expand_decl" => createMacroExpandDecl(decl)
         case "func_param" => createFuncParam(decl)
+        case "macro_expand_param" => createMacroExpandParam(decl)
         case _ => throw ParseASTException("Unsupported parse the decl node: ${astKind}.\n")
     }
     addPositionInfo(astNode, nodeBase)
@@ -679,5 +701,23 @@ func createMacroExpandDecl(decl: NodeFormat_Decl) {
         case Some(v) => v.annotations.add(all: annos, at: 0)
                         v
         case None => throw ParseASTException("Failed to create MacroExpandDecl Node")
+    }
+}
+
+func createMacroExpandParam(decl: NodeFormat_Decl) {
+    var annos: ArrayList<Annotation> = ArrayList<Annotation>()
+ 
+    var declBase = decl.GetBase().getOrThrow()
+    for (anno in declBase.GetAnnotations()) {
+       annos.add(createAnnotation(anno))
+    }
+    var me = match (decl.GetDeclAsMacroExpandParam()) {
+        case Some(v) => v
+        case None => throw ParseASTException("Failed to get MacroExpand Node")
+    }
+    return match (createMacroExpand(me.GetInvocation(), isDecl: false, isFuncParam: true) as Decl) {
+        case Some(v) => v.annotations.add(all: annos, at: 0)
+                        v
+        case None => throw ParseASTException("Failed to create MacroExpandParam Node")
     }
 }

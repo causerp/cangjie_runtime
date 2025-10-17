@@ -56,14 +56,14 @@ cjc macro_call.cj -o demo
 
 ```text
 error: This expression is not allowed to contain identifier
- ==> call.cj:9:22:
+ ==> macro_call.cj:9:22:
   |
 9 |     let b = @testDef(a)
   |                      ^ Here is the illegal identifier
   |
 
 error: This expression is not allowed to contain identifier
-  ==> call.cj:10:26:
+  ==> macro_call.cj:10:26:
    |
 10 |     let c = @testDef(1 + a)
    |                          ^ Here is the illegal identifier
