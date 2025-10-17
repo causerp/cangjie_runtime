@@ -16,6 +16,11 @@
 #define MAX_MALLOC_SIZE 2147483647 /* max 2 GB */
 #endif
 
+#ifdef __arm__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Watomic-alignment"
+#endif
+
 typedef struct SockBuffer {
     int32_t rBufSize;
     int32_t wBufSize;
@@ -228,3 +233,7 @@ extern int32_t CJ_SOCKET_BufferClose(SocketBuffer* sockBuf, long long knownHandl
     (void)CJ_SocketDecreaseRef(sockBuf); // The value 0 is not returned because subsequent operations are not affected.
     return ret;
 }
+
+#ifdef __arm__
+#pragma GCC diagnostic pop
+#endif

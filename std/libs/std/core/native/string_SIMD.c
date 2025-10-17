@@ -198,6 +198,44 @@ inline __attribute__((always_inline)) static int64_t StrStrN(const uint8_t* org,
 }
 #endif
 
+#ifdef __arm__
+#include <stdint.h>
+#include <stdbool.h>
+#include <string.h>
+
+int64_t StrStrN(const uint8_t* org, int64_t ol, const uint8_t* sub,
+                       int64_t sl, bool (*memcmpFunc)(const uint8_t*, const uint8_t*, int64_t))
+{
+
+    if (!org || !sub || !memcmpFunc || ol < 0 || sl < 0) {
+        return -1;
+    }
+    if (sl == 0) {
+        return 0;
+    }
+    if (sl > ol) {
+        return -1;
+    }
+    if (sl == 1) {
+        const uint8_t* result = (const uint8_t*)memchr(org, sub[0], ol);
+        return result ? (int64_t)(result - org) : -1;
+    }
+    const int64_t search_limit = ol - sl;
+    const uint8_t sub_first = sub[0];
+    const uint8_t sub_last = sub[sl - 1];
+    const int64_t cmp_len_middle = sl - 2;
+
+    for (int64_t i = 0; i <= search_limit; ++i) {
+        if (org[i] == sub_first && org[i + sl - 1] == sub_last) {
+            if (cmp_len_middle <= 0 || memcmpFunc(org + i + 1, sub + 1, cmp_len_middle)) {
+                return i; 
+            }
+        }
+    }
+    return -1;
+}
+#endif
+
 // instruction set acceleration
 int64_t FastStrstr(const uint8_t* org, int64_t ol, const uint8_t* sub, int64_t sl)
 {
@@ -324,6 +362,21 @@ inline __attribute__((always_inline)) static int64_t StringSize(const uint8_t* s
     return size;
 }
 
+#endif
+
+#ifdef __arm__
+inline __attribute__((always_inline)) static int64_t StringSize(const uint8_t* str, int64_t len)
+{
+    int64_t size = 0;
+    uint8_t* tmp = (uint8_t*)str;
+    uint8_t* end = (uint8_t*)str + len;
+ 
+    for (; tmp < end; ++tmp) {
+        size += ((*tmp & 0xc0) != 0x80);
+    }
+    return size;
+}
+ 
 #endif
 
 int64_t FastSize(const uint8_t* str, int64_t len)

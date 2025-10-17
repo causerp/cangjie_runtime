@@ -124,6 +124,7 @@ set(CORE_FFI_OBJECTS_LIST
     CACHE INTERNAL "")
 set(libname cangjie-std-coreFFI)
 add_library(${libname} STATIC ${CORE_FFI_OBJECTS_LIST})
+target_compile_options(${libname} PRIVATE -fno-builtin-bcmp)
 install_cangjie_library_ffi(${libname})
 # make sure modify_typetemplate_object build finished
 add_dependencies(${libname} modify_typetemplate_object)
