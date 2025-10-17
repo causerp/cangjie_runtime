@@ -167,6 +167,17 @@ if(NOT DARWIN)
 endif()
 
 make_cangjie_lib(
+    std-interop IS_SHARED
+    DEPENDS cangjie${BACKEND_TYPE}Interop
+    CANGJIE_STD_LIB_DEPENDS
+        std-core
+    OBJECTS ${output_cj_object_dir}/std/interop.o)
+
+    add_library(cangjie-std-interop ${output_cj_object_dir}/std/interop.o)
+    set_target_properties(cangjie-std-interop PROPERTIES LINKER_LANGUAGE C)
+    install(TARGETS cangjie-std-interop DESTINATION lib/${output_triple_name}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
+
+make_cangjie_lib(
     std-ref IS_SHARED
     DEPENDS cangjie${BACKEND_TYPE}Ref
     CANGJIE_STD_LIB_DEPENDS
@@ -912,6 +923,17 @@ add_cangjie_library(
     SOURCES ${OBJECTPOOL_SRCS}
     SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/std/objectpool
     DEPENDS ${OBJECTPOOL_DEPENDENCIES})
+
+add_cangjie_library(
+    cangjie${BACKEND_TYPE}Interop
+    NO_SUB_PKG
+    IS_STDLIB
+    IS_CJNATIVE_BACKEND
+    PACKAGE_NAME "interop"
+    MODULE_NAME "std"
+    SOURCES ${INTEROP_SRCS}
+    SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/std/interop
+    DEPENDS ${INTEROP_DEPENDENCIES})
 
 add_cangjie_library(
     cangjie${BACKEND_TYPE}Ref
