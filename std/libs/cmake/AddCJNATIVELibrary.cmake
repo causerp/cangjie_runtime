@@ -511,6 +511,10 @@ elseif(OHOS)
     set(STDCPP_FLAG -l:libc++.a)
 endif()
 
+set(arm32_ast_support)
+if(TRIPLE STREQUAL "arm-linux-ohos")
+    set(arm32_ast_support -L$ENV{CANGJIE_HOME}/lib/linux_ohos_arm_cjnative)
+endif()
 make_cangjie_lib(
     std-ast IS_SHARED ${STD_AST_ALLOW_UNDEFINED}
     DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs
@@ -523,6 +527,7 @@ make_cangjie_lib(
     OBJECTS ${output_cj_object_dir}/std/ast.o
     FLAGS
         $<TARGET_OBJECTS:cangjie-std-astFFI-objs>
+        ${arm32_ast_support}
         -lcangjie-ast-support
         ${STDCPP_FLAG}
         ${GCC_S_FLAG}

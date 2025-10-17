@@ -8,6 +8,11 @@
 
 #include <stdatomic.h>
 
+#ifdef __arm__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Watomic-alignment"
+#endif
+
 static atomic_flag g_atexitCallbackListLocker = ATOMIC_FLAG_INIT;
 extern void CJ_CORE_AtExitCallbackListLock(void)
 {
@@ -18,3 +23,7 @@ extern void CJ_CORE_AtExitCallbackListUnlook(void)
 {
     atomic_flag_clear(&g_atexitCallbackListLocker);
 }
+
+#ifdef __arm__
+#pragma GCC diagnostic pop
+#endif

@@ -12,6 +12,11 @@
 #include <stdlib.h>
 #include "securec.h"
 
+#ifdef __arm__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Watomic-alignment"
+#endif
+
 extern uint8_t* CjStdSyncStateInit(int64_t capacity)
 {
     if (capacity <= 0) {
@@ -43,3 +48,7 @@ extern bool CjStdSyncStateCas(uint8_t* ptr, int index, uint8_t expected, uint8_t
     return atomic_compare_exchange_strong_explicit(
         atmPtr, &expected, desired, memory_order_acq_rel, memory_order_acquire);
 }
+
+#ifdef __arm__
+#pragma GCC diagnostic pop
+#endif

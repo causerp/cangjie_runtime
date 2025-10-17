@@ -6,7 +6,7 @@
 
 file(GLOB env_ffi_src ./*.c)
 set(libname cangjie-std-envFFI)
-
+include(AddAndCombineStaticLib)
 add_library(${libname}-objs OBJECT ${env_ffi_src})
 target_compile_options(${libname}-objs PRIVATE ${CMAKE_C_COVERAGE_FLAGS})
 if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
