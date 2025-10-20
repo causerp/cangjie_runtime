@@ -451,6 +451,29 @@ DECLARE_TYPE_INFO(Float64_ti,
         .reflection = NULL,
     }))
 
+#ifdef __arm__
+DECLARE_TYPE_INFO(CString_ti,
+    ((TypeInfo){
+        .name = "CString",
+        .type = UG_CSTRING,
+        .flag = 0,
+        .fieldsNum = 0,
+        .size = 4,
+        .gcTib = NULL,
+        .uuid = 0,
+        .align = 4,
+        .typeArgNum = 0,
+        .inheritedClassNum = 0,
+        .offsets = NULL,
+        .finalizer = NULL,
+        .typeArgs = NULL,
+        .fields = NULL,
+        .super = NULL,
+        .extensionDefPtr = NULL,
+        .mtable = NULL,
+        .reflection = NULL,
+    }))
+#else
 DECLARE_TYPE_INFO(CString_ti,
     ((TypeInfo){
         .name = "CString",
@@ -472,7 +495,7 @@ DECLARE_TYPE_INFO(CString_ti,
         .mtable = NULL,
         .reflection = NULL,
     }))
-
+#endif
 // GlobalVarible for TypeTemplate defined in core package
 DECLARE_TYPE_TEMPLATE(Tuple_tt,
     ((TypeTemplate){
