@@ -144,7 +144,7 @@ Return Value:
 
 > **Note:**
 >
-> Currently, [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#SINGLE_QUOTED_STRING_LITERAL) and [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL) share the number 147. Inputting 147 will only return [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL). Other [TokenKind](ast_package_enums.md#enum-tokenkind) do not share numbers.
+> Currently, [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#single_quoted_string_literal) and [STRING_LITERAL](ast_package_enums.md#string_literal) share the number 147. Inputting 147 will only return [STRING_LITERAL](ast_package_enums.md#string_literal). Other [TokenKind](ast_package_enums.md#enum-tokenkind) do not share numbers.
 
 ## func insideParentContext(String)
 
@@ -249,7 +249,7 @@ Examples:
 ## func parseDeclFragment(Tokens, Int64)
 
 ```cangjie
-public func parseDeclFragment(input: Tokens, startFrom !: Int64 = 0): (Decl, Int64)
+public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int64)
 ```
 
 Function: Parses a set of lexical units to obtain a [Decl](ast_package_classes.md#class-decl) type node and the index for continued parsing.
@@ -294,7 +294,7 @@ Exceptions:
 ## func parseExprFragment(Tokens, Int64)
 
 ```cangjie
-public func parseExprFragment(input: Tokens, startFrom !: Int64 = 0): (Expr, Int64)
+public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int64)
 ```
 
 Function: This function is Used to parse a set of lexical units and obtain a node of type [Expr](ast_package_classes.md#class-expr) along with the index for continued parsing.
@@ -335,7 +335,7 @@ Exceptions:
 ## func parsePatternFragment(Tokens, Int64)
 
 ```cangjie
-public func parsePatternFragment(input: Tokens, startFrom !: Int64 = 0): (Pattern, Int64)
+public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern, Int64)
 ```
 
 Function: Used to parse a set of lexical units and obtain a node of type [Pattern](ast_package_classes.md#class-pattern) along with the index for continued parsing.
@@ -363,7 +363,7 @@ Function: Used to parse the source code of a single Cangjie file and obtain a no
 
 > **Note:**
 >
-> Expanded Cangjie macro code must not contain package declarations or import statements. When using this function, if the input source code contains package declarations or import statements, the output [Program](ast_package_classes.md#class-program) node will also include them (in the [packageHeader](ast_package_classes.md#prop-packageHeader) and [importLists](ast_package_classes.md#prop-importLists) properties). Therefore, this node cannot be directly returned as [Tokens](ast_package_classes.md#class-tokens) in macro functions.
+> Expanded Cangjie macro code must not contain package declarations or import statements. When using this function, if the input source code contains package declarations or import statements, the output [Program](ast_package_classes.md#class-program) node will also include them (in the [packageHeader](ast_package_classes.md#prop-packageheader) and [importLists](ast_package_classes.md#prop-importlists) properties). Therefore, this node cannot be directly returned as [Tokens](ast_package_classes.md#class-tokens) in macro functions.
 
 Parameters:
 
@@ -400,7 +400,7 @@ Exceptions:
 ## func parseTypeFragment(Tokens, Int64)
 
 ```cangjie
-public func parseTypeFragment(input: Tokens, startFrom !: Int64 = 0): (TypeNode, Int64)
+public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, Int64)
 ```
 
 Function: Used to parse a set of lexical units and obtain a node of type [TypeNode](ast_package_classes.md#class-typenode) along with the index for continued parsing.

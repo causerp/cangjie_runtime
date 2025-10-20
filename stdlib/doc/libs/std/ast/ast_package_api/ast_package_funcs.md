@@ -145,7 +145,7 @@ public func getTokenKind(no: UInt16): TokenKind
 
 > **注意：**
 >
-> 当前 [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#SINGLE_QUOTED_STRING_LITERAL) 和 [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL) 共用序号 147，输入序号 147 只能获得 [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL)，其他 [TokenKind](ast_package_enums.md#enum-tokenkind) 无共用序号情况。
+> 当前 [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#single_quoted_string_literal) 和 [STRING_LITERAL](ast_package_enums.md#string_literal) 共用序号 147，输入序号 147 只能获得 [STRING_LITERAL](ast_package_enums.md#string_literal)，其他 [TokenKind](ast_package_enums.md#enum-tokenkind) 无共用序号情况。
 
 ## func insideParentContext(String)
 
@@ -254,7 +254,7 @@ Point(var x: Int32, var y: Int32) {
 ## func parseDeclFragment(Tokens, Int64)
 
 ```cangjie
-public func parseDeclFragment(input: Tokens, startFrom !: Int64 = 0): (Decl, Int64)
+public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Decl](ast_package_classes.md#class-decl) 类型的节点和继续解析节点的索引。
@@ -299,7 +299,7 @@ public func parseExpr(input: Tokens): Expr
 ## func parseExprFragment(Tokens, Int64)
 
 ```cangjie
-public func parseExprFragment(input: Tokens, startFrom !: Int64 = 0): (Expr, Int64)
+public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Expr](ast_package_classes.md#class-expr) 类型的节点和继续解析节点的索引。
@@ -340,7 +340,7 @@ public func parsePattern(input: Tokens): Pattern
 ## func parsePatternFragment(Tokens, Int64)
 
 ```cangjie
-public func parsePatternFragment(input: Tokens, startFrom !: Int64 = 0): (Pattern, Int64)
+public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Pattern](ast_package_classes.md#class-pattern) 类型的节点和继续解析节点的索引。
@@ -368,7 +368,7 @@ public func parseProgram(input: Tokens): Program
 
 > **注意：**
 >
-> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含(在 [packageHeader](ast_package_classes.md#prop-packageHeader) 和 [importLists](ast_package_classes.md#prop-importLists) 属性中)，因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
+> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含(在 [packageHeader](ast_package_classes.md#prop-packageheader) 和 [importLists](ast_package_classes.md#prop-importlists) 属性中)，因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
 
 参数：
 
@@ -405,7 +405,7 @@ public func parseType(input: Tokens): TypeNode
 ## func parseTypeFragment(Tokens, Int64)
 
 ```cangjie
-public func parseTypeFragment(input: Tokens, startFrom !: Int64 = 0): (TypeNode, Int64)
+public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [TypeNode](ast_package_classes.md#class-typenode) 类型的节点和继续解析节点的索引。

@@ -1078,7 +1078,7 @@ public mut prop types: ArrayList<TypeNode>
 
 功能：获取或设置冒号后面的类型节点列表，例如：`String | Int | Float`。
 
-类型：[ArrayList\<TypeNode>](ast_package_classes.md#class-typenode)
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[TypeNode](ast_package_classes.md#class-typenode)>
 
 ### init()
 
@@ -1098,7 +1098,7 @@ public init(inputs: Tokens)
 
 参数：
 
-* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 `CommandTypePattern` 节点的标记集合。
+- inputs: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 `CommandTypePattern` 节点的标记集合。
 
 异常：
 
@@ -3340,7 +3340,7 @@ public mut prop items: ArrayList<ImportContent>
 
 功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中被导入的所有项，只有 `importKind` 为 `ImportKind.Multi` 时非空。
 
-类型：ArrayList\<[ImportContent](ast_package_classes.md#class-importcontent)>
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[ImportContent](ast_package_classes.md#class-importcontent)>
 
 ### prop lBrace
 
@@ -6311,7 +6311,7 @@ public init(inputs: Tokens)
 
 参数：
 
-* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点的词法单元集合。
+- inputs: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点的词法单元集合。
 
 异常：
 
@@ -7646,7 +7646,7 @@ public mut prop expr: Option<Expr>
 
 功能：获取或设置 `resume` 关键字之后的表达式。
 
-类型：[Option\<Expr>](ast_package_classes.md#class-expr)
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
 
 ### prop keywordR
 
@@ -7670,7 +7670,7 @@ public mut prop keywordW: Option<Token>
 
 功能：获取或设置 `with` 关键字的词法单元（如果存在）。
 
-类型：[Option\<Token>](ast_package_structs.md#struct-token)
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Token](ast_package_structs.md#struct-token)>
 
 异常：
 
@@ -7684,7 +7684,7 @@ public mut prop withExpr: Option<Expr>
 
 功能：获取或设置 `with` 关键字之后的表达式。
 
-类型：[Option\<Expr>](ast_package_classes.md#class-expr)
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
 
 ### prop keywordT
 
@@ -7694,7 +7694,7 @@ public mut prop keywordT: Option<Token>
 
 功能：获取或设置 `throwing` 关键字的词法单元（如果存在）。
 
-类型：[Option\<Token>](ast_package_structs.md#struct-token)
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Token](ast_package_structs.md#struct-token)>
 
 异常：
 
@@ -7708,7 +7708,7 @@ public mut prop throwingExpr: Option<Expr>
 
 功能：获取或设置 `throwing` 关键字之后的表达式。
 
-类型：Option\<[Expr](ast_package_classes.md#class-expr)>
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
 
 ### init()
 
@@ -7728,7 +7728,7 @@ public init(inputs: Tokens)
 
 参数：
 
-* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 [ResumeExpr](ast_package_classes.md#class-resumeexpr) 节点的词法单元集合。
+- inputs: [Tokens](ast_package_classes.md#class-tokens) — 要解析为 [ResumeExpr](ast_package_classes.md#class-resumeexpr) 节点的词法单元集合。
 
 异常：
 
@@ -7783,7 +7783,7 @@ public mut prop types: ArrayList<TypeNode>
 
 功能：获取或设置紧跟在冒号后的类型节点列表，例如 `EffectA | EffectB`。
 
-类型： [ArrayList\<TypeNode>](ast_package_classes.md#class-typenode)
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[TypeNode](ast_package_classes.md#class-typenode)>
 
 ### init()
 
@@ -7803,7 +7803,7 @@ public init(inputs: Tokens)
 
 参数：
 
-* `inputs`: [Tokens](ast_package_classes.md#class-tokens) — 表示一个恢复类型模式的 token 集合。
+- inputs: [Tokens](ast_package_classes.md#class-tokens) — 表示一个恢复类型模式的 token 集合。
 
 异常：
 
@@ -9045,7 +9045,7 @@ public mut prop handlers: ArrayList<Handler>
 
 功能：获取或设置 `Handler` 节点列表。
 
-类型： [ArrayList\<Handler>](ast_package_classes.md#class-handler)
+类型： [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Handler](ast_package_classes.md#class-handler)>
 
 ### prop keywordF
 
