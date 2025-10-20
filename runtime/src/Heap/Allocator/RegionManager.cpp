@@ -40,8 +40,8 @@ static size_t GetPageSize() noexcept
         return 4 * KB;
     }
 #elif defined(__APPLE__)
-    // default page size is 4KB in MacOS
-    return 4 * KB;
+    // default page size is 16KB in MacOS
+    return 16 * KB;
 #else
     return getpagesize();
 #endif
