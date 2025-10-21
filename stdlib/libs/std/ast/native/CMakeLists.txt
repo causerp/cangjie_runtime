@@ -103,6 +103,11 @@ add_custom_command(
     DEPENDS ${libname}-objs
 )
 
+if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
+    target_compile_options(${libname} PUBLIC "-fno-exceptions")
+    target_compile_definitions(${libname} PRIVATE CANGJIE_ENABLE_GCOV)
+endif()
+
 add_custom_target(AST_SUPPORT ALL DEPENDS ${AST_FFI_LIB})
 
 # install for static lib

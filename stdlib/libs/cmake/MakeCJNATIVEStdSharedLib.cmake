@@ -96,6 +96,10 @@ function(make_cangjie_lib target_name)
             endif()
             list(APPEND flags_to_compile "${RUNTIME_COMMON_LIB_DIR}/cjstart.o")
 
+            if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
+                list(APPEND flags_to_compile "${CMAKE_BINARY_DIR}/lib/libclang_rt-profile.a")
+            endif()
+
             string(TOLOWER "${target_folder_name}_${CMAKE_SYSTEM_PROCESSOR}_${CJNATIVE_BACKEND}" tmpdir)
             list(APPEND flags_to_compile "-L${RUNTIME_COMMON_LIB_DIR}/../../runtime/lib/${tmpdir}")
             set(runtime_link_option "cangjie-runtime")
