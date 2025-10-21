@@ -11,6 +11,7 @@ import os
 import sys
 import subprocess
 import platform
+import re
 import shutil
 import argparse
 
@@ -53,7 +54,9 @@ def do_build(args):
     # Adjust CMAKE_INSTALL_PREFIX based on target_args
     if target_platform == "ohos":
         install_prefix = os.path.join(prefix_path, f"linux_ohos_{mode}")
-    elif target_platform == "android":
+    elif target_platform == "android26":
+        install_prefix = os.path.join(prefix_path, f"linux_android26_{mode}")
+    elif target_platform == "android31" or target_platform == "android":
         install_prefix = os.path.join(prefix_path, f"linux_android31_{mode}")
     elif target_platform == "ios-simulator":
         install_prefix = os.path.join(prefix_path, f"ios_simulator_{mode}")
@@ -75,7 +78,7 @@ def do_build(args):
 
     if target_args in ('native'):
         target_arch = host_arch
-    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
+    elif target_args in ('android26-aarch64', 'android31-aarch64', 'ohos-x86_64', 'ohos-aarch64', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
                          'ios-aarch64', 'ios-simulator-aarch64'):
         target_arch = target_args.rsplit('-', 1)[1]
     else:
@@ -207,15 +210,17 @@ def do_build(args):
         ] + ptrauth_flags
         build_target(cmake_command)
 
-    elif target_args in ["android-aarch64", "android-x86_64"]:
+    elif target_args in ["android-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64"]:
         if args.target_toolchain == None:
             print("Please configure android toolchain, for example '/root/workspace/android_dep_files/'")
             sys.exit(1)
-        android_flag = "1" if target_args == "android-aarch64" else "2"
-        if target_args == "android-aarch64":
+        android_api_level = 31
+        android_flag = "1" if (target_args == "android26-aarch64" or target_args == "android31-aarch64" or target_args == "android-aarch64") else "2"
+        if target_args == "android-aarch64" or target_args == "android26-aarch64" or target_args == "android31-aarch64":
             target_arch = "aarch64"
         elif target_args == "android-x86_64":
             target_arch = "x86_64"
+        android_api_level = re.match(r"android(\d{2})?", target_args).group(1)
         cmake_command = [
             "cmake",
             "-DCMAKE_INSTALL_PREFIX={}_{}".format(install_prefix, target_arch),
@@ -236,6 +241,7 @@ def do_build(args):
             "-DDUMPADDRESS_FLAG=0",
             "-DCJ_SDK_VERSION={}".format(version),
             "-DDISABLE_VERSION_CHECK=1",
+            "-DCMAKE_ANDROID_API={}".format(android_api_level if android_api_level else "31"),
             "-S", ".", "-B", "CMakebuild"
         ]
         build_target(cmake_command)
@@ -272,7 +278,7 @@ def do_build(args):
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
+               android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
         sys.exit(1)
 
 def build_target(cmake_command):
@@ -321,7 +327,18 @@ if __name__ == "__main__":
     b.set_defaults(func=do_build)
     b.add_argument(
         "--target",
-        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
+        choices=[
+            "native",
+            "windows-x86_64",
+            "ohos-aarch64",
+            "ohos-x86_64",
+            "ios-simulator-aarch64",
+            "ios-aarch64",
+            "android-aarch64",
+            "android26-aarch64",
+            "android31-aarch64",
+            "android-x86_64"
+        ],
         metavar="TARGET",
         default="native",
         help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-x86_64"
