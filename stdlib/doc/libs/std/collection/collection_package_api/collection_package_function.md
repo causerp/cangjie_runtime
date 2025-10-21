@@ -334,7 +334,7 @@ public func forEach<T>(action: (T) -> Unit): (Iterable<T>) -> Unit
 ## func inspect\<T>((T) -> Unit)
 
 ```cangjie
-public func inspect<T>(action: (T)->Unit): (Iterable<T>) ->Iterator<T>
+public func inspect<T>(action: (T) -> Unit): (Iterable<T>) -> Iterator<T>
 ```
 
 功能：迭代器每次调用 next() 对当前元素执行额外操作（不会消耗迭代器中元素）。

@@ -1122,9 +1122,7 @@ public prop capacity: Int64
 
 功能：获取当前缓冲区容量。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前缓冲区容量。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init()
 

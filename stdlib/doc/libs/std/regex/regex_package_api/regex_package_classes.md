@@ -67,6 +67,10 @@ public func find(index: Int64): Option<MatchData>
 
 功能：重置该匹配器索引位置，从 index 对应的位置处开始对输入序列进行匹配，返回匹配到的子序列。
 
+参数：
+
+- index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 匹配开始位置。
+
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - 匹配到结果返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>，如果匹配不到，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None。
