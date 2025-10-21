@@ -13,6 +13,10 @@ if(CANGJIELIB_IS_CJNATIVE_BACKEND)
     set(BACKEND "cjnative")
 endif()
 
+if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
+    set(CMAKE_C_COVERAGE_FLAGS "--coverage")
+endif()
+
 add_subdirectory(std)
 add_subdirectory(dynamicLoader)
 
@@ -64,6 +68,9 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos")
     target_link_libraries(${libname} ${pcre2_lib})
     add_dependencies(${libname} modify_typetemplate_object)
     target_link_libraries(${libname} m)
+    if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
+        target_link_libraries(${libname} clang_rt-profile)
+    endif()
 
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
         if(DARWIN)
