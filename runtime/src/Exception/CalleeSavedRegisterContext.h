@@ -101,12 +101,21 @@ struct CalleeSavedRegisterContext {
         *(++slotAddr) = value->high;
     }
 #endif
+#ifdef __arm__
+    void SetValueByIdx(uint32_t idx, uint32_t value)
+    {
+        uint32_t* baseSlotAddr = reinterpret_cast<uint32_t*>(this);
+        uint32_t* slotAddr = baseSlotAddr + idx;
+        *slotAddr = value;
+    }
+#else
     void SetValueByIdx(uint32_t idx, uint64_t value)
     {
         uint64_t* baseSlotAddr = reinterpret_cast<uint64_t*>(this);
         uint64_t* slotAddr = baseSlotAddr + idx;
         *slotAddr = value;
     }
+#endif
 };
 } // namespace MapleRuntime
 #endif // ~MRT_CALLEE_SAVED_REGISTER_CONTEXT_H
