@@ -254,7 +254,7 @@ Point(var x: Int32, var y: Int32) {
 ## func parseDeclFragment(Tokens, Int64)
 
 ```cangjie
-public func parseDeclFragment(input: Tokens, startFrom !: Int64 = 0): (Decl, Int64)
+public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Decl](ast_package_classes.md#class-decl) 类型的节点和继续解析节点的索引。
@@ -299,7 +299,7 @@ public func parseExpr(input: Tokens): Expr
 ## func parseExprFragment(Tokens, Int64)
 
 ```cangjie
-public func parseExprFragment(input: Tokens, startFrom !: Int64 = 0): (Expr, Int64)
+public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Expr](ast_package_classes.md#class-expr) 类型的节点和继续解析节点的索引。
@@ -340,7 +340,7 @@ public func parsePattern(input: Tokens): Pattern
 ## func parsePatternFragment(Tokens, Int64)
 
 ```cangjie
-public func parsePatternFragment(input: Tokens, startFrom !: Int64 = 0): (Pattern, Int64)
+public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [Pattern](ast_package_classes.md#class-pattern) 类型的节点和继续解析节点的索引。
@@ -405,7 +405,7 @@ public func parseType(input: Tokens): TypeNode
 ## func parseTypeFragment(Tokens, Int64)
 
 ```cangjie
-public func parseTypeFragment(input: Tokens, startFrom !: Int64 = 0): (TypeNode, Int64)
+public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, Int64)
 ```
 
 功能：用于解析一组词法单元，获取一个 [TypeNode](ast_package_classes.md#class-typenode) 类型的节点和继续解析节点的索引。

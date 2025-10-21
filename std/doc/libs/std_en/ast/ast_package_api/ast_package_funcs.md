@@ -249,7 +249,7 @@ Examples:
 ## func parseDeclFragment(Tokens, Int64)
 
 ```cangjie
-public func parseDeclFragment(input: Tokens, startFrom !: Int64 = 0): (Decl, Int64)
+public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int64)
 ```
 
 Function: Parses a set of lexical units to obtain a [Decl](ast_package_classes.md#class-decl) type node and the index for continued parsing.
@@ -294,7 +294,7 @@ Exceptions:
 ## func parseExprFragment(Tokens, Int64)
 
 ```cangjie
-public func parseExprFragment(input: Tokens, startFrom !: Int64 = 0): (Expr, Int64)
+public func parseExprFragment(input: Tokens, startFrom!: Int64 = 0): (Expr, Int64)
 ```
 
 Function: This function is Used to parse a set of lexical units and obtain a node of type [Expr](ast_package_classes.md#class-expr) along with the index for continued parsing.
@@ -335,7 +335,7 @@ Exceptions:
 ## func parsePatternFragment(Tokens, Int64)
 
 ```cangjie
-public func parsePatternFragment(input: Tokens, startFrom !: Int64 = 0): (Pattern, Int64)
+public func parsePatternFragment(input: Tokens, startFrom!: Int64 = 0): (Pattern, Int64)
 ```
 
 Function: Used to parse a set of lexical units and obtain a node of type [Pattern](ast_package_classes.md#class-pattern) along with the index for continued parsing.
@@ -400,7 +400,7 @@ Exceptions:
 ## func parseTypeFragment(Tokens, Int64)
 
 ```cangjie
-public func parseTypeFragment(input: Tokens, startFrom !: Int64 = 0): (TypeNode, Int64)
+public func parseTypeFragment(input: Tokens, startFrom!: Int64 = 0): (TypeNode, Int64)
 ```
 
 Function: Used to parse a set of lexical units and obtain a node of type [TypeNode](ast_package_classes.md#class-typenode) along with the index for continued parsing.

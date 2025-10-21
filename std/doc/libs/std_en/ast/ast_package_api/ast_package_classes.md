@@ -3245,7 +3245,7 @@ public mut prop items: ArrayList<ImportContent>
 
 Function: Gets or sets all imported items in the [ImportContent](ast_package_classes.md#class-importcontent) node, which is non-empty only when `importKind` is `ImportKind.Multi`.
 
-Type: ArrayList\<[ImportContent](ast_package_classes.md#class-importcontent)>
+Type: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[ImportContent](ast_package_classes.md#class-importcontent)>
 
 ### prop lBrace
 
