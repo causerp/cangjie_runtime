@@ -97,7 +97,7 @@ public func clone(): Array<T>
 ### func clone(Range\<Int64>)
 
 ```cangjie
-public func clone(range: Range<Int64>) : Array<T>
+public func clone(range: Range<Int64>): Array<T>
 ```
 
 功能：克隆数组的指定区间。
@@ -2178,7 +2178,7 @@ public static func malloc<T>(count!: Int64 = 1): CPointer<T> where T <: CType
 
 参数：
 
-- [count](../../collection/collection_package_api/collection_package_function.md#func-counttiterablet)!: [Int64](core_package_intrinsics.md#int64) - 为可选参数，默认为1，表示申请 T 类型的个数。
+- count!: [Int64](core_package_intrinsics.md#int64) - 为可选参数，默认为1，表示申请 T 类型的个数。
 
 返回值：
 
@@ -2309,7 +2309,7 @@ public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, i
 
 - start: T - 开始值。
 - end: T - 结束值。
-- [step](#let-step): [Int64](core_package_intrinsics.md#int64) - 步长，取值不能为 0。
+- step: [Int64](core_package_intrinsics.md#int64) - 步长，取值不能为 0。
 - hasStart: [Bool](core_package_intrinsics.md#bool) - 是否有开始值。
 - hasEnd: [Bool](core_package_intrinsics.md#bool) - 是否有结束值。
 - isClosed: [Bool](core_package_intrinsics.md#bool) - true 代表左闭右闭，false 代表左闭右开。
@@ -2491,7 +2491,7 @@ public static func checkUtf8Encoding(data: Array<UInt8>): Bool
 
 参数：
 
-- utf8Data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
+- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
 
 返回值：
 
@@ -2600,7 +2600,7 @@ public static unsafe func withRawData(rawData: Array<UInt8>): String
 
 参数：
 
-- utf8Data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
+- rawData: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
 
 返回值：
 

@@ -25,7 +25,7 @@ public struct AddressFamily <: ToString & Equatable<AddressFamily> {
 ### static const INET
 
 ```cangjie
-public static const INET = AddressFamily("INET", 2)
+public static const INET: AddressFamily = AddressFamily("INET", 2)
 ```
 
 功能：IPv4 地址族。
@@ -61,7 +61,7 @@ public static const NETLINK: AddressFamily
 ### static const UNIX
 
 ```cangjie
-public static const UNIX = AddressFamily("UNIX", 1)
+public static const UNIX: AddressFamily = AddressFamily("UNIX", 1)
 ```
 
 功能：unix domain socket 地址族。
@@ -71,7 +71,7 @@ public static const UNIX = AddressFamily("UNIX", 1)
 ### static const UNSPEC
 
 ```cangjie
-public static const UNSPEC = AddressFamily("UNSPEC", 0)
+public static const UNSPEC: AddressFamily = AddressFamily("UNSPEC", 0)
 ```
 
 功能：未指定的地址族。

@@ -515,7 +515,7 @@ public init()
 ### func iterator()
 
 ```cangjie
-public func iterator() : Iterator<T>
+public func iterator(): Iterator<T>
 ```
 
 功能：返回迭代器自身。
@@ -881,7 +881,7 @@ public func filterMap<R>(transform: (T) -> Option<R>): Iterator<R>
 
 参数：
 
-- transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+- transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<R> - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
 
 返回值：
 
@@ -967,7 +967,7 @@ public func flatMap<R>(transform: (T) -> Iterator<R>): Iterator<R>
 
 参数：
 
-- transform: (T) -> [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - 给定的映射函数。
+- transform: (T) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - 给定的映射函数。
 
 返回值：
 

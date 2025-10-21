@@ -59,7 +59,7 @@ public operator func !=(that: CleanupPolicy): Bool
 
 参数：
 
-- CleanupPolicy: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
+- that: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
 
 返回值：
 

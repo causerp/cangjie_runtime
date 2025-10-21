@@ -27,4 +27,4 @@ public prop options: ReadOnlyMap<String, String>
 
 功能：存储参数解析得到的选项。
 
-类型：[ReadOnlyMap](../../collection/collection_package_api/collection_package_interface.md#interface-readonlymapk-v)
+类型：[ReadOnlyMap](../../collection/collection_package_api/collection_package_interface.md#interface-readonlymapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)>
