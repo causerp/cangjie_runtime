@@ -182,7 +182,7 @@ void CangjieRuntime::Init()
     VLOG(REPORT,
         "Runtime parameter:\n\tHeap size: %zu(KB)\n\tRegion size: %zu(KB)\n\tExemption threshold: %.2f\n\t"
         "Heap utilization: %.2f\n\tHeap growth: %.2f\n\tAllocation rate: %.2f(MB/s)\n\tAllocation wait time: %zuns\n\t"
-        "GC Threshold: %zu(KB)\n\tGarbage threshold: %.2f\n\tGC interval: %zums\n\tBackup GC interval: %zus\n\t"
+        "GC Threshold: %zu(KB)\n\tGarbage threshold: %.2f\n\tGC interval: %llums\n\tBackup GC interval: %llus\n\t"
         "Log level: %d\n\tThread stack size: %zu(KB)\n\tCangjie stack size: %zu(KB)\n\t"
         "Processor number: %d", param.heapParam.heapSize, param.heapParam.regionSize,
         param.heapParam.exemptionThreshold, param.heapParam.heapUtilization, 1 + param.heapParam.heapGrowth,

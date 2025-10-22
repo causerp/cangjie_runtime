@@ -128,7 +128,7 @@ public:
 
     // Helper for parsing infomation from environment variables.
     static size_t ParseSizeFromEnv(const CString& env);
-    static size_t ParseTimeFromEnv(const CString& env);
+    static uint64_t ParseTimeFromEnv(const CString& env);
     static int ParseNumFromEnv(const CString& env);
     static size_t ParsePosNumFromEnv(const CString& env);
     static double ParseValidFromEnv(const CString& env);

@@ -174,11 +174,11 @@ static size_t InitSizeParameter(const char* name, size_t minSize, size_t default
     return defaultParam;
 }
 
-static size_t InitTimeParameter(const char* name, size_t minSize, size_t defaultParam)
+static uint64_t InitTimeParameter(const char* name, uint64_t minSize, uint64_t defaultParam)
 {
     auto env = std::getenv(name);
     if (env != nullptr) {
-        size_t parameter = CString::ParseTimeFromEnv(env);
+        uint64_t parameter = CString::ParseTimeFromEnv(env);
         if (parameter > minSize) {
             return parameter;
         } else {
@@ -530,11 +530,9 @@ static RuntimeParam InitRuntimeParam()
             // Default garbage ration is 50% of from space.
             .garbageThreshold = InitPercentParameterIncl("cjGarbageThreshold", 0.0, 1.0, 0.5),
             // Default GC interval is 150ms.
-            .gcInterval = static_cast<uint64_t>(InitTimeParameter("cjGCInterval", 0,
-                150 * MILLI_SECOND_TO_NANO_SECOND)),
+            .gcInterval = InitTimeParameter("cjGCInterval", 0, 150 * MILLI_SECOND_TO_NANO_SECOND),
             // Default backup GC interval is 240s.
-            .backupGCInterval = static_cast<uint64_t>(InitTimeParameter("cjBackupGCInterval", 0,
-                static_cast<size_t>(240 * SECOND_TO_NANO_SECOND))),
+            .backupGCInterval = InitTimeParameter("cjBackupGCInterval", 0, 240 * SECOND_TO_NANO_SECOND),
             // Default GC thread factor is 2.
             .gcThreads = 2,
         },

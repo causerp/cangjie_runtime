@@ -117,11 +117,7 @@ struct ShortGCTib {
 };
 
 struct StdGCTib {
-#ifdef __arm__
-    static constexpr U32 BITS_PER_BYTE = 4;
-#else
     static constexpr U32 BITS_PER_BYTE = 8;
-#endif
     static constexpr U32 REFS_PER_BIT_WORD = ((sizeof(U8) * BITS_PER_BYTE) / BITS_FOR_REF);
     // Number of bitmap words.
     U32 nBitmapWords;

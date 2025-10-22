@@ -15,7 +15,11 @@
 namespace MapleRuntime {
 void TypeGCInfo::FillTypeGCInfo(TypeInfo* ti, CString &gcTibStr, U32 &curSize)
 {
+#ifdef __arm__
+    U32 ptrSize = 4;
+#else
     U32 ptrSize = 8;
+#endif
     U16 tiAlign = ti->IsRef() ? sizeof(BaseObject*) : ti->GetAlign();
     curSize = MRT_ALIGN(curSize, tiAlign);
     if (ti->IsRef()) {
@@ -46,7 +50,11 @@ void TypeGCInfo::FillArrayTypeGCInfo(TypeInfo* ti, CString &gcTibStr, U32 &curSi
 
 CString TypeGCInfo::GetGCTibStr(TypeInfo* ti)
 {
+#ifdef __arm__
+    U32 ptrSize = 4;
+#else
     U32 ptrSize = 8;
+#endif
     CString gcTibStr;
     U32 curSize = 0;
     gcTibStr = CString((ti->GetInstanceSize() + ptrSize - 1) / ptrSize, '0');
