@@ -24,8 +24,10 @@ struct CJFuture {
     void* klass;
 #ifdef __arm__
     uint32_t padding;
-#endif
+    uint32_t data[4];
+#else
     long long int data[4]; // 4: occupied by _thread(1)/result(1)/executeFn(2)
+#endif
     // Reader/writer functions of `completeFlag` (i.e., MCC_FutureIsComplete/FutureSetComplete)
     // are used as callbacks of runtime functions, they will be executed with atomicity.
     // So the variable is not an atomic type.

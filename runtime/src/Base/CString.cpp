@@ -400,9 +400,9 @@ size_t CString::ParseSizeFromEnv(const CString& env)
     return tempSize;
 }
 
-size_t CString::ParseTimeFromEnv(const CString& env)
+uint64_t CString::ParseTimeFromEnv(const CString& env)
 {
-    size_t tempTime = 0;
+    uint64_t tempTime = 0;
     CString noBlankStr = env.RemoveBlankSpace();
     size_t len = noBlankStr.Length();
     if (len <= 1) { // The last one characters are units, such as "s".

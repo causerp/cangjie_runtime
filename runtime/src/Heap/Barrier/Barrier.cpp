@@ -177,7 +177,6 @@ void Barrier::ReadStruct(MAddress dst, BaseObject* obj, MAddress src, size_t siz
 {
     size_t dstSize = size;
     size_t srcSize = size;
-#ifndef __arm__
     if (obj != nullptr) {
         obj->ForEachRefInStruct(
             [this, obj](RefField<false>& field) {
@@ -190,7 +189,6 @@ void Barrier::ReadStruct(MAddress dst, BaseObject* obj, MAddress src, size_t siz
             },
             src, src + size);
     }
-#endif
 
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstSize, reinterpret_cast<void*>(src), srcSize) == EOK,
                  "read struct memcpy_s failed");
