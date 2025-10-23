@@ -41,7 +41,7 @@ class TestSuiteExecutor {
             return result
         }
 
-        MockFramework.openSession("initializer of class ${testSuite.name}", Stateless)
+        MockFramework.openSession(MockFramework.initSessionPrefix + testSuite.name, Stateless)
 
         let beforeAllResult = runNonTestBodyStep(suiteId, suiteInfo, BeforeAll) {
             testSuite.runBeforeAll()
@@ -120,7 +120,7 @@ class TestSuiteExecutor {
 
         let id = TestCaseId(suiteId, stepKind.toString(), isBench: false)
         let info = TestCaseReportInfo.empty()
-        let step = runLifecycleStep(stepKind, stepBody)
+        let step = runLifecycleStep(stepKind, suiteId.suiteName, stepBody)
         let result = TestCaseResult.fromSingleStep(id, info, step)
         result.finish()
 
@@ -128,8 +128,8 @@ class TestSuiteExecutor {
         return result
     }
 
-    private static func runLifecycleStep(step: LStep, stepBody: () -> Unit): RunStepResult {
-        Framework.runStepBody(Lifecycle(step), Test(0), stepBody)
+    private static func runLifecycleStep(step: LStep, testCaseName: String, stepBody: () -> Unit): RunStepResult {
+        Framework.runStepBody(Lifecycle(step), Test(0), testCaseName, stepBody)
     }
 
     private static func runTestCaseStep(
@@ -159,7 +159,7 @@ class TestSuiteExecutor {
     func runSingleCase(caseConfiguration: Configuration, executor: Executor): (TestCaseResult) -> Unit {
         return { result =>
             let caseId = result.caseId
-            let beforeEachResult = runLifecycleStep(BeforeEach) {
+            let beforeEachResult = runLifecycleStep(BeforeEach, caseId.caseName) {
                 testSuite.runBeforeEach(caseId.caseName)
             }
             result.add(beforeEachResult)
@@ -168,7 +168,7 @@ class TestSuiteExecutor {
                 executor.execute(suiteInfo, result, caseConfiguration)
             }
 
-            let afterEachResult = runLifecycleStep(AfterEach) {
+            let afterEachResult = runLifecycleStep(AfterEach, caseId.caseName) {
                 testSuite.runAfterEach(caseId.caseName)
             }
             if (!result.hasFailures() && afterEachResult.hasFailures()) {
@@ -178,6 +178,9 @@ class TestSuiteExecutor {
         }
     }
 
+    // TODO: as discussed timeout handling should limit whole test case execution
+    // itself rather than individual run execution
+    // we cannot properly implement property test that would shrink data that timed out
     private static func runConsideringTimeout(
         caseConfiguration: Configuration,
         duration: Duration,
@@ -221,7 +224,7 @@ class TestSuiteExecutor {
     }
 
     private static func exitOnTimeout(testCaseResult: TestCaseResult) {
-        Framework.withCurrentContext { ctx: RunContext => 
+        Framework.withCurrentContext { ctx: RunContext =>
             let msg = "Test case ended with timeout."
             ctx.storeCheckResult(TimeoutCheckResult(PrettyText(msg)))
         }
@@ -271,17 +274,8 @@ extend TestSuite {
     }
 
     func runBeforeEach(caseShortName: String): Unit {
-        try {
-            MockFramework.openSession("func beforeEach", Forbidden)
-            runBeforeEachMocked(caseShortName)
-        } finally {
-            MockFramework.closeSession()
-        }
-    }
-
-    private func runBeforeEachMocked(caseShortName: String): Unit {
         // Run template initializers before
-        this.template?.runBeforeEachMocked(caseShortName)
+        this.template?.runBeforeEach(caseShortName)
         for (c in beforeEachs) {
             c(caseShortName)
         }

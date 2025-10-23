@@ -71,6 +71,7 @@ class VerifyIterator {
 func verifyExhaustiveOrderedIteration(iterator: VerifyIterator): ?VerificationResult {
     var count = 0
     while (true) {
+        // TODO: optimize for exact cardinality
         if (iterator.currentStatementMatch && iterator.nextStatementMatch) {
             match (
                 (iterator.check(count),

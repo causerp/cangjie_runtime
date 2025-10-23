@@ -139,22 +139,31 @@ public class TestGroupBuilder {
     }
 
     public func add(test: UnitTestCase): TestGroupBuilder {
-        suites.add(fakeSuite(Case(test)))
+        add(fakeSuite(Case(test)))
         this
     }
 
     public func add(benchmark: Benchmark): TestGroupBuilder {
-        suites.add(fakeSuite(Bench(benchmark)))
+        add(fakeSuite(Bench(benchmark)))
         this
     }
 
     public func add(suite: TestSuite): TestGroupBuilder {
+        enableOptimizedMockForBenchIfNeeded(suite)
         suites.add(suite)
         this
     }
 
     public func build(): TestGroup {
         TestGroup(name, suites.toArray(), configuration)
+    }
+
+    private func enableOptimizedMockForBenchIfNeeded(suite: TestSuite) {
+        let optimizedMocksForBenchEnabled =
+            configuration.get(KeyOptimizeMocksForBench.optimizeMocksForBench) ?? false
+        if (optimizedMocksForBenchEnabled) {
+            suite.suiteConfiguration.set(KeyOptimizeMocksForBench.optimizeMocksForBench, true)
+        }
     }
 }
 
@@ -259,19 +268,31 @@ public class UnitTestCase {
         fakeGroup(fakeSuite(Case(this))).run(Configuration(), OnlyTests).asTestReport(caseConfiguration)
     }
 
-    public static func createParameterized<T>(name: String, strategy: DataStrategy<T>,
-        configuration!: Configuration = Configuration(), body!: (T) -> Unit): UnitTestCase {
+    public static func createParameterized<T>(
+        name: String,
+        strategy: DataStrategy<T>,
+        configuration!: Configuration = Configuration(),
+        body!: (T) -> Unit
+    ): UnitTestCase {
         let processor = DataStrategyProcessor<T>.start(strategy, "args")
         createParameterized<T>(name, processor, configuration: configuration, body: body)
     }
 
-    public static func createParameterized<T>(name: String, strategy: DataStrategyProcessor<T>,
-        configuration!: Configuration = Configuration(), body!: (T) -> Unit): UnitTestCase {
+    public static func createParameterized<T>(
+        name: String,
+        strategy: DataStrategyProcessor<T>,
+        configuration!: Configuration = Configuration(),
+        body!: (T) -> Unit
+    ): UnitTestCase {
         let executor = TestCaseExecutor(strategy, body)
         UnitTestCase(name, configuration, executor)
     }
 
-    public static func create(name: String, configuration!: Configuration = Configuration(), body!: () -> Unit): UnitTestCase {
+    public static func create(
+        name: String,
+        configuration!: Configuration = Configuration(),
+        body!: () -> Unit
+    ): UnitTestCase {
         createParameterized<Unit>(name, noArgsProcessor(), configuration: configuration, body: { _ => body() })
     }
 }
@@ -431,6 +452,7 @@ public interface TestClass {
 }
 
 // NOTE: this class is used internally by the compiler and is considered implementation details
+// TODO: rename to __TestRegister
 public class TestPackage {
     private let builder: TestGroupBuilder
 
@@ -450,6 +472,12 @@ public class TestPackage {
 
     public func registerBench(bench: () -> Benchmark): Unit {
         builder.add(bench())
+    }
+
+    public func enableOptimizedMockForBench(): Unit {
+        let mockOptimizedConfiguration = Configuration()
+        mockOptimizedConfiguration.set(KeyOptimizeMocksForBench(), true)
+        builder.configure(mockOptimizedConfiguration)
     }
 
     func build(): TestGroup {

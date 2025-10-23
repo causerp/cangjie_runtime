@@ -680,3 +680,17 @@ struct KeyProgressEntriesLimit <: KeyFor<Int64> {
         }
     }
 }
+
+public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {
+    public static prop optimizeMocksForBench: KeyOptimizeMocksForBench {
+        get() {
+            KeyOptimizeMocksForBench()
+        }
+    }
+
+    public prop name: String {
+        get() {
+            "optimizeMocksForBench"
+        }
+    }
+}

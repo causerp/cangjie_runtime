@@ -31,7 +31,7 @@ class RecordingHandler {
 
         match (data) {
             case None => data = RecordedCall(
-                object, StubId(call.funcInfo, object?.id ?? 0), locationFromTrace(), call.typeArgs)
+                object, StubId(call.funcInfo, object?.id ?? 0), LocationImpl.fromTrace(), call.typeArgs)
             case Some(_) => RecordingFailureReport().fail(info, UnmockableCallable)
         }
     }

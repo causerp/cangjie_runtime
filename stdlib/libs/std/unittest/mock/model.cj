@@ -35,8 +35,4 @@ class StubId <: Hashable & Equatable<StubId> {
     public operator func ==(that: StubId): Bool {
         return this.receiverId == that.receiverId && this.funcInfo.id == that.funcInfo.id
     }
-
-    public operator func !=(that: StubId): Bool {
-        return this.receiverId != that.receiverId || this.funcInfo.id != that.funcInfo.id
-    }
 }

@@ -29,8 +29,9 @@ class BenchExecutor<T> <: Executor {
         strategy.nextIteration(configuration)
 
         while (true) {
-            let result = strategy.processNextWith(configuration) { v, inputs =>
-                runSingle(v, inputs, suiteInfo, tcase.caseId, tcase.caseInfo, benchRunner, progress, configuration, step)
+            let result = strategy.processNextWith(configuration) {
+                v, inputs => runSingle(v, inputs, suiteInfo, tcase.caseId, tcase.caseInfo, benchRunner, progress,
+                    configuration, step)
             }
 
             match (result) {
@@ -61,11 +62,17 @@ class BenchExecutor<T> <: Executor {
             "Starting the benchmark `${caseId.suiteId.suiteName}.${caseId.caseName}(${args?.toString() ?? ""})`${tags}."
         }
 
-        benchRunner.benchmark = SimpleBenchWrapper<T>(value, doRun)
+        let mockOptForBenchEnabled = configuration.get(KeyOptimizeMocksForBench.optimizeMocksForBench) ?? false
+
+        benchRunner.benchmark = if (mockOptForBenchEnabled) {
+            MockBenchWrapper<T>(value, caseId.caseName, doRun)
+        } else {
+            SimpleBenchWrapper<T>(value, doRun)
+        }
 
         benchRunner.measurements = ArrayList()
         let stepKind = CaseStep(ArgumentDescription(args, step, 0, None))
-        Framework.runStepBody(stepKind, StepInfo.Bench(BenchmarkResult(benchRunner.measurements))) {
+        Framework.runStepBody(stepKind, StepInfo.Bench(BenchmarkResult(benchRunner.measurements)), caseId.caseName) {
             benchRunner.runBench()
             progress.println {""}
         }

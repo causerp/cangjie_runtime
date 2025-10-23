@@ -9,13 +9,13 @@ macro package std.unittest.mock.mockmacro
 
 import std.ast.*
 
-let tks = quote(any())
+let TKS = quote(any())
 
 func preprocess(userInput: Tokens): Tokens {
     var result = Tokens()
     for (tok in userInput) {
         match (tok.kind) {
-            case WILDCARD => result.append(quote($tks))
+            case WILDCARD => result.append(quote($TKS))
             case _ => result.append(tok)
         }
     }

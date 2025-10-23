@@ -11,22 +11,11 @@ import std.collection.enumerate
 import std.fs.Path
 
 abstract class Location {
-    public func getEntries(): Array<TraceEntry>
+    public func getEntry(): Option<TraceEntry>
 }
 
-let UNKNOWN_LOCATION = LocationImpl([])
+let UNKNOWN_LOCATION = LocationImpl.unknown()
 let UNKNOWN_LOCATION_STRING = "<unknown location>"
-
-class SimpleLocation <: Location {
-    SimpleLocation(
-        let filePath: String,
-        let lineNumber: Int64
-    ) {}
-
-    public func getEntries(): Array<TraceEntry> {
-        return [TraceEntry(filePath, lineNumber)]
-    }
-}
 
 struct TraceEntry {
     TraceEntry(
@@ -36,38 +25,62 @@ struct TraceEntry {
 }
 
 class LocationImpl <: Location {
-    LocationImpl(private let entries: Array<TraceEntry>) {}
+    private static let MOCKED_CLASS_NAME_FRAGMENT = "$Mocked"
 
-    public func getEntries() {
-        entries
+    static func fromTrace(): Location {
+        return LocationImpl(getRawStackTrace())
     }
-}
 
-let MOCKED_CLASS_NAME_FRAGMENT = "$Mocked"
+    static func unknown(): Location {
+        return LocationImpl()
+    }
 
-func locationFromTrace(): Location {
-    let stackTrace = Exception().getStackTrace()
-    for ((index, element) in stackTrace |> enumerate) {
-        if (element.methodName.contains(MOCKED_CLASS_NAME_FRAGMENT)) {
-            let relevantElement = if (element.lineNumber == 0) {
-                stackTrace.get(index + 1) ?? return UNKNOWN_LOCATION
-            } else {
-                element
-            }
-            return LocationImpl(relevantElement.toEntry())
+    private let rawStackTrace: Array<UInt64>
+    private var entry: Option<TraceEntry>
+
+    private init(rawStackTrace: Array<UInt64>) {
+        this.rawStackTrace = rawStackTrace
+        this.entry = Option<TraceEntry>.None
+    }
+
+    private init() {
+        this.rawStackTrace = []
+        this.entry = Option<TraceEntry>.None
+    }
+
+    public func getEntry(): Option<TraceEntry> {
+        if (let Some(entry) <- this.entry) {
+            return this.entry
         }
+        if (this.rawStackTrace.isEmpty()) {
+            return this.entry
+        }
+        if (let Some(stackTraceElement) <- _FRAMEWORK.getCachedStackTraceFrame(this.rawStackTrace)) {
+            this.entry = stackTraceElement.toEntry()
+            return this.entry
+        }
+
+        let frameSize = rawStackTrace.size / 3
+        var mockRelatedFrame = Option<StackTraceElement>.None
+        for (i in 0..frameSize) {
+            let frame = decodeRawStackTrace(rawStackTrace, i) ?? continue
+            if (let Some(previousFrame) <- mockRelatedFrame) {
+                let relevantFrame = if (frame.lineNumber == 0) { previousFrame } else { frame }
+                _FRAMEWORK.recordStackTraceFrame(rawStackTrace, i, relevantFrame)
+                this.entry = relevantFrame.toEntry()
+                return this.entry
+            }
+            if (frame.methodName.contains(MOCKED_CLASS_NAME_FRAGMENT)) {
+                mockRelatedFrame = frame
+            }
+        }
+        return Option<TraceEntry>.None
     }
-    return UNKNOWN_LOCATION
 }
 
 extend Location {
-    func forceLineNumber(lineNum: Int64): Location {
-        let filePath = getEntries().get(0)?.filePath ?? return UNKNOWN_LOCATION
-        return SimpleLocation(filePath, lineNum)
-    }
-
     func fileNameAndLine(): String {
-        let firstEntry = getEntries().get(0) ?? return UNKNOWN_LOCATION_STRING
+        let firstEntry = getEntry() ?? return UNKNOWN_LOCATION_STRING
         // Path.fileName sometimes fails because StackTraceElement.fileName can be empty (presumably only on Mac)
         let fileName = try {
             Path(firstEntry.filePath).fileName

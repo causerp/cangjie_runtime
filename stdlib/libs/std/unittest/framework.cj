@@ -11,6 +11,7 @@ import std.sync.ReentrantMutex
 import std.time.DateTime
 import std.collection.ArrayList
 import std.collection.concurrent.ConcurrentLinkedQueue
+import std.unittest.mock.*
 
 enum LaunchApi {
     | FromPublicApi // dynamic tests
@@ -86,12 +87,44 @@ class Framework {
         }
     }
 
-    static func runStepBody(stepKind: StepKind, info: StepInfo, body: () -> Unit): RunStepResult {
+    private static func computeMockSessionConfig(
+        stepKind: StepKind, info: StepInfo, testCaseName: String
+    ): Option<(String, MockSessionKind)> {
+        match (stepKind) {
+            case Lifecycle(BeforeEach) => (MockFramework.beforeEachSession, Forbidden)
+            case Lifecycle(_) => Option<(String, MockSessionKind)>.None
+            case _ =>
+                match (info) {
+                    case Test(_) => (MockFramework.testCaseSessionPrefix + testCaseName, Verifiable)
+                    case _ => Option<(String, MockSessionKind)>.None
+                }
+        }
+    }
+
+    private static func runStepBodyWithMock(
+        stepKind: StepKind, info: StepInfo, testCaseName: String, body: () -> Unit
+    ): Option<Unit> {
+        let mockSessionConfig = computeMockSessionConfig(stepKind, info, testCaseName)
+        let (name, kind) = (mockSessionConfig ?? return None)
+        Framework.runCatching {
+            MockFramework.openSession(name, kind)
+            body()
+        }
+        Framework.withCurrentContext { ctx => ctx.suppressIfHasFailures() }
+        MockFramework.closeSession()
+    }
+
+    static func runStepBody(
+        stepKind: StepKind, info: StepInfo, testCaseName: String, body: () -> Unit
+    ): RunStepResult {
         let context = RunStepContext(stepKind, info)
         instance.enterContext(context)
         try {
-            body()
+            runStepBodyWithMock(stepKind, info, testCaseName, body) ?? body()
         } catch (e: Exception) {
+            if (MockFramework.isCurrentSessionForBench(testCaseName)) {
+                MockFramework.closeSession()
+            }
             context.onException(e)
         } catch (e: Error) {
             context.onException(ErrorWrapperException(e))

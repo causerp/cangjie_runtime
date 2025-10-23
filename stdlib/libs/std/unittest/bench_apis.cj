@@ -8,6 +8,7 @@
 package std.unittest
 
 import std.time.DateTime
+import std.unittest.mock.*
 
 // Marker interface to be able to detect BenchInputProvider<T> when we do not know `T`
 public interface BenchmarkInputMarker {}
@@ -121,6 +122,31 @@ struct SimpleBenchWrapper<T> <: BenchmarkWrapper {
         let tmp = DateTime.now()
         f(input, times, max)
         Float64((DateTime.now() - tmp).toNanoseconds())
+    }
+}
+
+struct MockBenchWrapper<T> <: BenchmarkWrapper {
+    MockBenchWrapper(let input: T, let caseName: String, let f: (T, Int64, Int64) -> Float64) {}
+
+    private func runBenchStepWithMock(f: () -> Float64): Float64 {
+        MockFramework.openSession(MockFramework.benchSessionPrefix + caseName, Verifiable)
+        let result = f()
+        MockFramework.closeSession()
+        result
+    }
+
+    public func measureLoopOnce(times: Int64, max: Int64): Float64 {
+        runBenchStepWithMock {
+            f(input, times, max)
+        }
+    }
+
+    public func timeLoopOnce(times: Int64, max: Int64): Float64 {
+        runBenchStepWithMock {
+            let tmp = DateTime.now()
+            f(input, times, max)
+            Float64((DateTime.now() - tmp).toNanoseconds())
+        }
     }
 }
 

@@ -21,6 +21,12 @@ public class MockFramework {
     private var recording: Option<RecordingHandler> = None
     private let globalLock = ReentrantMutex()
     private let objCounter = AtomicUInt64(0)
+    private let stackTraceCache = HashMap<RawStackTraceElement, StackTraceElement>()
+
+    protected static const testCaseSessionPrefix = "test case "
+    protected static const benchSessionPrefix = "benchmark batch of "
+    protected static const initSessionPrefix = "initializer of class "
+    protected static const beforeEachSession = "func beforeEach"
 
     init() {
         CallHandler.recordStatic(CallHandlerImpl(objCounter.fetchAdd(1), GLOBAL_SESSION_NAME))
@@ -51,6 +57,10 @@ public class MockFramework {
      */
     public static func closeSession(): Unit {
         return _FRAMEWORK.doClose()
+    }
+
+    protected static func isCurrentSessionForBench(caseName: String): Bool {
+        _FRAMEWORK.currentSession().name == benchSessionPrefix + caseName
     }
 
     func generateUniqueId(): UInt64 {
@@ -96,6 +106,7 @@ public class MockFramework {
             if (let Verifiable <- sessionToClose.sessionKind) {
                 sessionToClose.verifyExpectations()
             }
+            stackTraceCache.clear()
         }
     }
 
@@ -147,7 +158,7 @@ public class MockFramework {
             recording.record(call, obj)
             return OnCall.ReturnZero
         }
-        let invocation = Invocation(obj, call, locationFromTrace())
+        let invocation = Invocation(obj, call, LocationImpl.fromTrace())
         let unmatchedChains = UnmatchedChains()
         let invocationLog = currentSession.invocationLog
         for (i in (sessions.size - 1)..=0 : -1) {
@@ -264,6 +275,23 @@ public class MockFramework {
             internalError(InternalError.InconsistentState("There is no recording call info before actual calling"))
         RecordingFailureReport().fail(recordingInfo, NotAMock, UnmockableCallable)
     }
+
+    func getCachedStackTraceFrame(rawStackTrace: Array<UInt64>): Option<StackTraceElement> {
+        let frameSize = rawStackTrace.size / 3
+        for (i in 0..frameSize) {
+            let rawStackTraceElement = RawStackTraceElement.byIndex(rawStackTrace, i)
+            if (stackTraceCache.contains(rawStackTraceElement)) {
+                return stackTraceCache[rawStackTraceElement]
+            }
+        }
+        return Option<StackTraceElement>.None
+    }
+
+    func recordStackTraceFrame(
+        rawStackTrace: Array<UInt64>, frameIndex: Int64, stackTraceElement: StackTraceElement
+    ) {
+        stackTraceCache[RawStackTraceElement.byIndex(rawStackTrace, frameIndex)] = stackTraceElement
+    }
 }
 
 extend MockObject {
@@ -303,13 +331,8 @@ class CallHandlerImpl <: CallHandler {
         _FRAMEWORK.handleSync(call, objId, objectCreatedAtSessionName)
     }
 
-    @When[backend == "cjnative"]
-    public func requireMockObject<T>(obj: T): T {
-        if (obj is Mocked) {
-            return obj
-        } else {
-            _FRAMEWORK.throwNotAMockObject()
-        }
+    public func throwNotAMockObject(): Nothing {
+        _FRAMEWORK.throwNotAMockObject()
     }
 }
 
@@ -340,5 +363,40 @@ class MockScopeViolation <: FailureReport {
             }
         }
         throw MockFrameworkException(message)
+    }
+}
+
+private struct RawStackTraceElement <: Hashable & Equatable<RawStackTraceElement> {
+    let methodName: UInt64
+    let fileName: UInt64
+    let lineNumber: UInt64
+
+    static func byIndex(rawStackTrace: Array<UInt64>, frameIndex: Int64) {
+        return RawStackTraceElement(
+            rawStackTrace[frameIndex * 3], rawStackTrace[frameIndex * 3 + 1], rawStackTrace[frameIndex * 3 + 2])
+    }
+
+    private init(methodName: UInt64, fileName: UInt64, lineNumber: UInt64) {
+        this.methodName = methodName
+        this.fileName = fileName
+        this.lineNumber = lineNumber
+    }
+
+    public func hashCode(): Int64 {
+        var hasher = DefaultHasher()
+        hasher.write(methodName)
+        hasher.write(fileName)
+        hasher.write(lineNumber)
+        return hasher.finish()
+    }
+
+    public operator func ==(that: RawStackTraceElement): Bool {
+        return this.methodName == that.methodName && this.fileName == that.fileName &&
+            this.lineNumber == that.lineNumber
+    }
+
+    public operator func !=(that: RawStackTraceElement): Bool {
+        return this.methodName != that.methodName || this.fileName != that.fileName ||
+            this.lineNumber != that.lineNumber
     }
 }
