@@ -8,6 +8,12 @@ Cangjie 语言使用自动垃圾回收机制来管理内存，runtime 包提供�
 
 ## API 列表
 
+### 类型别名
+
+| 类型别名                                                                                                 | 功能                 |
+| -------------------------------------------------------------------------------------------------------- | -------------------- |
+| [SignalHandlerFunc](./runtime_package_api/runtime_package_types.md#type-signalhandlerfunc--int32---bool) | 信号处理函数的别名。 |
+
 ### 函数
 
 |              函数名          |           功能           |
@@ -29,7 +35,8 @@ Cangjie 语言使用自动垃圾回收机制来管理内存，runtime 包提供�
 | [SetGCThreshold(UInt64) <sup>(deprecated)</sup>](./runtime_package_api/runtime_package_funcs.md#func-setgcthresholduint64-deprecated) | 修改用户期望触发 GC 的内存阈值，当仓颉堆大小超过该值时，触发 GC，单位为 KB。 |
 | [setGCThreshold(UInt64)](./runtime_package_api/runtime_package_funcs.md#func-setgcthresholduint64) | 修改用户期望触发 GC 的内存阈值，当仓颉堆大小超过该值时，触发 GC，单位为 KB。 |
 | [startCPUProfiling](./runtime_package_api/runtime_package_funcs.md#func-startcpuprofiling) | 启动 CPU profiler 跟踪。 |
-| [stopCPUProfiling(Path)](./runtime_package_api/runtime_package_funcs.md#func-stopcpuprofilingpath) | 停止 CPU profiler 跟踪，并将记录写入指定路径的文件。 |
+| [stopCPUProfiling(Path)](./runtime_package_api/runtime_package_funcs.md#func-stopcpuprofilingpath) | 停止CPU profiler 跟踪，并将记录写入指定路径的文件。 |
+| [unregisterSignalHandler(Signal, SignalHandlerFunc)](./runtime_package_api/runtime_package_funcs.md#func-unregistersignalhandlersignal-signalhandlerfunc) | 取消注册信号的处理函数。 |
 
 ### 结构体
 

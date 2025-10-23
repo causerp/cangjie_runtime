@@ -497,7 +497,7 @@ install(TARGETS cangjie-std-database.sql DESTINATION lib/${output_triple_name}_$
 make_cangjie_lib(
     std-runtime IS_SHARED
     DEPENDS cangjie${BACKEND_TYPE}Runtime cangjie-std-runtimeFFI
-    CANGJIE_STD_LIB_DEPENDS std-core std-io std-sync std-fs std-process std-env
+    CANGJIE_STD_LIB_DEPENDS std-core std-io std-sync std-fs std-process std-env std-collection
     OBJECTS ${output_cj_object_dir}/std/runtime.o
 FLAGS -lcangjie-std-runtimeFFI)
 
