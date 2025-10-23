@@ -94,10 +94,10 @@ void ExceptionManager::RegisterUncaughtExceptionHandler(const CJUncaughtExceptio
 #endif
 
 #ifdef __APPLE__
-static void DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj)
+void ExceptionManager::DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj)
 {
-    PRINT_INFO("%s\n", sunmary);
-    PRINT_INFO("%s\n%s\n%s\n", errorObj.name, errorObj.message, errorObj.stack);
+    (void)sunmary;
+    (void)errorObj;
     abort();
 }
 #endif
@@ -121,6 +121,11 @@ void ExceptionManager::DumpException()
     if (Runtime::Current().GetExceptionManager().GetUncaughtExceptionHandler().uncaughtTask) {
 #if defined(__OHOS__) && (__OHOS__ == 1) || (__APPLE__)
         const char* summary = "Uncaught exception was found.";
+        CString exceptionMsg(eWrapper.GetExceptionMessage());
+#if defined(__APPLE__)
+        LOG(RTLOG_ERROR, summary);
+        LOG(RTLOG_ERROR, exceptionMsg.Str());
+#endif
         CString exceptionStack;
         const int strLen = 10;
         char* str = static_cast<char*>(NativeAllocator::NativeAlloc(strLen * sizeof(char)));
@@ -140,9 +145,12 @@ void ExceptionManager::DumpException()
             exceptionStack += +":";
             exceptionStack += str;
             exceptionStack += ")\n";
+#if defined(__APPLE__)
+            LOG(RTLOG_ERROR, exceptionStack.Str());
+            exceptionStack = "";
+#endif
         }
-        CString exeptionMsg(eWrapper.GetExceptionMessage());
-        CJErrorObject errObj = {clsName.Str(), exeptionMsg.Str(), exceptionStack.Str()};
+        CJErrorObject errObj = {clsName.Str(), exceptionMsg.Str(), exceptionStack.Str()};
         eWrapper.ClearInfo();
         Runtime::Current().GetExceptionManager().GetUncaughtExceptionHandler().uncaughtTask(summary, errObj);
 #endif
