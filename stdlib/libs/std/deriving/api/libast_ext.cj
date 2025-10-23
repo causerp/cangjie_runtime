@@ -72,6 +72,16 @@ extend Body <: BodyExt {
     }
 }
 
+extend EnumDecl <: BodyExt {
+    public func declsUnwrapped(): Iterator<Decl> {
+        decls.iterator().map(unwrapChild)
+    }
+
+    private static func unwrapChild(decl: Decl): Decl {
+        decl.unwrap()
+    }
+}
+
 extend FuncParam <: FuncParamExt {
     public func unwrapParam(): FuncParam {
         match (this) {
