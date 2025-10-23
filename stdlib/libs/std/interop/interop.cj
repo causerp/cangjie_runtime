@@ -64,7 +64,7 @@ public class ExportTable {
         CrossAccessBarrier(handle)
     }
 
-    public func createExportHandle(ref: ExportedRef): UInt64 {
+    public static func createExportHandle(ref: ExportedRef): UInt64 {
         CreateExportHandle(ref)
     }
 }
