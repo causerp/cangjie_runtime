@@ -228,11 +228,15 @@ public override operator func !=(that: ConfigurationKey): Bool
 
 ```cangjie
 extend ConfigurationKey {
-    static func create<T>(name: String): ConfigurationKey 
+    public static func create<T>(name: String): ConfigurationKey 
 }
 ```
 
 #### static func create\<T>(String)
+
+```cangjie
+public static func create<T>(name: String): ConfigurationKey
+```
 
 功能：创建 [ConfigurationKey](#class-configurationkey)。
 

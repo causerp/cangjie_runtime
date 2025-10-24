@@ -704,7 +704,7 @@ public func productWithUnit<P>(p: P): MapProcessor<(T, Unit), T> where P <: Data
 
 返回值：
 
-- | [MapProcessor\<(T, Unit),R>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
+- | [MapProcessor\<(T, Unit), T>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
 
 ## class FlatMapProcessor\<T,R>
 

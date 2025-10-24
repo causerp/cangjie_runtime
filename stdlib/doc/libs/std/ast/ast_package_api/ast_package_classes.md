@@ -2077,7 +2077,7 @@ protected open func precedence(): Int64
 
 返回值：
 
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前表达式节点的优先级。
 
 ### func toTokens()
 
@@ -10526,7 +10526,7 @@ protected func needBreakTraverse(): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示需要停止遍历，反之表示不需要停止。
 
 ### func visit(Annotation)
 
@@ -10623,6 +10623,7 @@ protected open func visit(_: Body): Unit
 参数：
 
 - _: [Body](ast_package_classes.md#class-body) - [Body](ast_package_classes.md#class-body) 类型的被遍历节点。
+
 ### func visit(CallExpr)
 
 ```cangjie
@@ -11476,8 +11477,8 @@ protected open func visit(_: VArrayType): Unit
 - _: [VArrayType](ast_package_classes.md#class-varraytype) - [VArrayType](ast_package_classes.md#class-varraytype) 类型的被遍历节点。
 
 ### func visit(VarDecl)
-cangjie
-```
+
+```cangjie
 protected open func visit(_: VarDecl): Unit
 ```
 

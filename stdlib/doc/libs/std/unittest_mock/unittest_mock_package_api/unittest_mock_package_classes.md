@@ -319,7 +319,7 @@ public static func stubSetter<TArg>(
 
 返回值：
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - 针对普通成员方法插入桩代码的操作器对象。
+- [MethodActionSelector](#class-methodactionselectortret)\<TArg> - 针对普通成员方法插入桩代码的操作器对象。
 
 ## class Continuation\<A>
 
@@ -497,14 +497,14 @@ extend MethodActionSelector<Unit> {}
 #### func returns()
 
 ```cangjie
-public func returns(): CardinalitySelector<MethodActionSelector<TRet>>
+public func returns(): CardinalitySelector<MethodActionSelector<Unit>>
 ```
 
 功能：指定桩函数什么都不做。
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<Unit>> - 预期执行次数的操作器。
 
 ## class Matchers
 
