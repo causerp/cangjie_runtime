@@ -145,7 +145,7 @@ public func getTokenKind(no: UInt16): TokenKind
 
 > **注意：**
 >
-> 当前 [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#SINGLE_QUOTED_STRING_LITERAL) 和 [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL) 共用序号 147，输入序号 147 只能获得 [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL)，其他 [TokenKind](ast_package_enums.md#enum-tokenkind) 无共用序号情况。
+> 当前 [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#single_quoted_string_literal) 和 [STRING_LITERAL](ast_package_enums.md#string_literal) 共用序号 147，输入序号 147 只能获得 [STRING_LITERAL](ast_package_enums.md#string_literal)，其他 [TokenKind](ast_package_enums.md#enum-tokenkind) 无共用序号情况。
 
 ## func insideParentContext(String)
 
@@ -368,7 +368,7 @@ public func parseProgram(input: Tokens): Program
 
 > **注意：**
 >
-> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含(在 [packageHeader](ast_package_classes.md#prop-packageHeader) 和 [importLists](ast_package_classes.md#prop-importLists) 属性中)，因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
+> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含(在 [packageHeader](ast_package_classes.md#prop-packageheader) 和 [importLists](ast_package_classes.md#prop-importlists) 属性中)，因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
 
 参数：
 

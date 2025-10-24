@@ -144,7 +144,7 @@ Return Value:
 
 > **Note:**
 >
-> Currently, [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#SINGLE_QUOTED_STRING_LITERAL) and [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL) share the number 147. Inputting 147 will only return [STRING_LITERAL](ast_package_enums.md#STRING_LITERAL). Other [TokenKind](ast_package_enums.md#enum-tokenkind) do not share numbers.
+> Currently, [SINGLE_QUOTED_STRING_LITERAL](ast_package_enums.md#single_quoted_string_literal) and [STRING_LITERAL](ast_package_enums.md#string_literal) share the number 147. Inputting 147 will only return [STRING_LITERAL](ast_package_enums.md#string_literal). Other [TokenKind](ast_package_enums.md#enum-tokenkind) do not share numbers.
 
 ## func insideParentContext(String)
 
@@ -363,7 +363,7 @@ Function: Used to parse the source code of a single Cangjie file and obtain a no
 
 > **Note:**
 >
-> Expanded Cangjie macro code must not contain package declarations or import statements. When using this function, if the input source code contains package declarations or import statements, the output [Program](ast_package_classes.md#class-program) node will also include them (in the [packageHeader](ast_package_classes.md#prop-packageHeader) and [importLists](ast_package_classes.md#prop-importLists) properties). Therefore, this node cannot be directly returned as [Tokens](ast_package_classes.md#class-tokens) in macro functions.
+> Expanded Cangjie macro code must not contain package declarations or import statements. When using this function, if the input source code contains package declarations or import statements, the output [Program](ast_package_classes.md#class-program) node will also include them (in the [packageHeader](ast_package_classes.md#prop-packageheader) and [importLists](ast_package_classes.md#prop-importlists) properties). Therefore, this node cannot be directly returned as [Tokens](ast_package_classes.md#class-tokens) in macro functions.
 
 Parameters:
 

@@ -1578,6 +1578,10 @@ public operator func !=(right: TokenKind): Bool
 
 功能：重载不等号操作符，用于比较两个 [TokenKind](ast_package_enums.md#enum-tokenkind) 是否相等。
 
+参数：
+
+- right: [TokenKind](ast_package_enums.md#enum-tokenkind) - 待比较的枚举实例。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 布尔类型。
@@ -1589,6 +1593,10 @@ public operator func ==(right: TokenKind): Bool
 ```
 
 功能：重载等号操作符，用于比较两个 [TokenKind](ast_package_enums.md#enum-tokenkind) 是否相等。
+
+参数：
+
+- right: [TokenKind](ast_package_enums.md#enum-tokenkind) - 待比较的枚举实例。
 
 返回值：
 

@@ -1578,6 +1578,10 @@ public operator func !=(right: TokenKind): Bool
 
 Function: Overloads the inequality operator to compare two [TokenKind](ast_package_enums.md#enum-tokenkind) instances for equality.
 
+Parameters:
+
+- right: [TokenKind](ast_package_enums.md#enum-tokenkind) - The enumeration instance to be compared.
+
 Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Boolean type.
@@ -1589,6 +1593,10 @@ public operator func ==(right: TokenKind): Bool
 ```
 
 Function: Overloads the equality operator to compare two [TokenKind](ast_package_enums.md#enum-tokenkind) instances for equality.
+
+Parameters:
+
+- right: [TokenKind](ast_package_enums.md#enum-tokenkind) - The enumeration instance to be compared.
 
 Return Value:
 
