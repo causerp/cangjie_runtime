@@ -54,7 +54,7 @@ public func getCommandLine(): Array<String>
 
 > **注意：**
 >
-> `iOS` 平台上不提供该 API。
+> 不支持平台：iOS。
 
 返回值：
 
@@ -166,7 +166,7 @@ public func getVariables(): Array<(String, String)>
 
 > **注意：**
 >
-> `iOS` 平台上不提供该 API。
+> 不支持平台：iOS。
 
 返回值：
 

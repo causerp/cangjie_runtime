@@ -2255,9 +2255,13 @@ public mut prop reusePort: Bool
 
 功能：设置和读取 `SO_REUSEPORT` 属性。
 
-仅可在绑定前被修改。Windows 上可使用 `SO_REUSEADDR`，无该属性，抛出异常。
+仅可在绑定前被修改。
 属性默认及配置生效后的行为取决于系统，使用前，请参阅不同系统针对此属性 `SO_REUSEPORT` 的说明文档。
 同时开启 `SO_REUSEADDR/SO_REUSEPORT` 会导致不可预知的系统错误，用户需谨慎配置值。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -2622,7 +2626,11 @@ public mut prop quickAcknowledge: Bool
 
 功能：设置和读取 `TCP_QUICKACK` 属性，默认为 `false`。
 
-这个选项类似于 `noDelay`，但仅影响 TCP ACK 和第一次响应。不支持 Windows 和 macOS 系统。
+这个选项类似于 `noDelay`，但仅影响 TCP ACK 和第一次响应。
+
+> **注意：**
+>
+> 不支持平台：Windows、macOS、iOS。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -3127,8 +3135,11 @@ public mut prop reusePort: Bool
 
 功能：设置和读取 `SO_REUSEPORT` 属性。
 
-Windows 上可使用 `SO_REUSEADDR`，但无 `SO_REUSEPORT` 属性，因此会抛出异常。
 属性默认以及配置生效后的行为取决于系统，使用前，请参阅不同系统针对此属性 `SO_REUSEPORT` 的说明文档。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -3490,7 +3501,7 @@ public class UnixDatagramSocket <: DatagramSocket {
 
 > **注意：**
 >
-> 该类型不支持在 Windows 平台上运行。
+> 不支持平台：Windows。
 
 父类型：
 
@@ -3503,6 +3514,10 @@ public override prop localAddress: SocketAddress
 ```
 
 功能：读取 `socket` 将要或已经绑定的本地地址。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[SocketAddress](net_package_classes.md#class-socketaddress)
 
@@ -3517,6 +3532,10 @@ public mut prop receiveBufferSize: Int64
 ```
 
 功能：设置和读取 `SO_RCVBUF` 属性，提供一种方式指定发包缓存大小。选项的生效情况取决于系统。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -3535,6 +3554,10 @@ public override mut prop receiveTimeout: ?Duration
 
 如果设置的时间过小将会设置为最小时钟周期值；过大时将设置为最大超时时间（2<sup>63</sup>-1 纳秒）；默认值为 `None`。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 异常：
@@ -3549,6 +3572,10 @@ public override prop remoteAddress: ?SocketAddress
 
 功能：读取 `Socket` 已经连接的远端地址，当 `Socket` 未连接时返回 `None`。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：?[SocketAddress](net_package_classes.md#class-socketaddress)
 
 异常：
@@ -3562,6 +3589,10 @@ public mut prop sendBufferSize: Int64
 ```
 
 功能：设置和读取 `SO_SNDBUF` 属性，提供一种方式指定发包缓存大小。选项的生效情况取决于系统。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -3580,6 +3611,10 @@ public override mut prop sendTimeout: ?Duration
 
 如果设置的时间过小将会设置为最小时钟周期值；过大时将设置为最大超时时间（2<sup>63</sup>-1 纳秒）；默认值为 `None`。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 异常：
@@ -3595,6 +3630,10 @@ public init(bindAt!: SocketAddress)
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
 此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3613,6 +3652,10 @@ public init(bindAt!: String)
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
 此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3633,6 +3676,10 @@ public func bind(): Unit
 
 此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 异常：
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当文件地址已存在，或文件创建失败时，抛出异常。
@@ -3645,6 +3692,10 @@ public override func close(): Unit
 
 功能：关闭套接字，所有操作除了 `close/isClosed` 之外，均不允许再调用。接口允许多次调用。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 ### func connect(SocketAddress)
 
 ```cangjie
@@ -3654,6 +3705,10 @@ public func connect(remote: SocketAddress): Unit
 功能：连接特定远端地址，可通过 `disconnect` 撤销配置。
 
 仅接受该远端地址的报文。默认执行 `bind`，因此不需额外调用 `bind`。此操作执行后，端口将开始接收 ICMP 报文，若收到异常报文后，可能导致 `send/sendTo` 执行失败。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3673,6 +3728,10 @@ public func connect(remotePath: String): Unit
 
 仅接受该远端地址的报文。必须在 `bind` 后调用。此操作执行后，端口将开始接收 ICMP 报文，若收到异常报文后，可能导致 `send/sendTo` 执行失败。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - remotePath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 远端文件地址。
@@ -3688,6 +3747,10 @@ public func disconnect(): Unit
 ```
 
 功能：停止连接。取消仅收取特定对端报文。可在 `connect` 前调用，可多次调用。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 异常：
 
@@ -3705,6 +3768,10 @@ public func getSocketOption(
 ```
 
 功能：获取指定的套接字参数。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3728,6 +3795,10 @@ public func getSocketOptionIntNative(
 
 功能：获取指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -3749,6 +3820,10 @@ public override func isClosed(): Bool
 
 功能：判断套接字是否通过调用 `close` 显式关闭。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回套接字是否已经通过调用 `close` 显式关闭。是则返回 `true`；否则，返回 `false`。
@@ -3760,6 +3835,10 @@ public func receive(buffer: Array<Byte>): Int64
 ```
 
 功能：从 `connect` 连接到的地址收取报文。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3776,6 +3855,10 @@ public override func receiveFrom(buffer: Array<Byte>): (SocketAddress, Int64)
 ```
 
 功能：收取报文。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3798,6 +3881,10 @@ public func send(payload: Array<Byte>): Unit
 
 功能：发送报文到 `connect` 连接到的地址。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 发送报文内容。
@@ -3813,6 +3900,10 @@ public override func sendTo(recipient: SocketAddress, payload: Array<Byte>): Uni
 ```
 
 功能：发送报文。当没有足够的缓存地址时可能会被阻塞。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3835,6 +3926,10 @@ public func setSocketOption(
 ```
 
 功能：设置指定的套接字参数。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3859,6 +3954,10 @@ public func setSocketOptionBool(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -3881,6 +3980,10 @@ public func setSocketOptionIntNative(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -3901,6 +4004,10 @@ public func getSocketOptionBool(
 ```
 
 功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -3923,6 +4030,10 @@ public override func toString(): String
 
 功能：返回当前 `UDS` 的状态信息。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 包含当前 `UDS` 状态信息的字符串。
@@ -3942,7 +4053,7 @@ public class UnixServerSocket <: ServerSocket {
 
 > **注意：**
 >
-> 该类型不支持在 Windows 平台上运行。
+> 不支持平台：Windows。
 
 父类型：
 
@@ -3956,6 +4067,10 @@ public mut prop backlogSize: Int64
 
 功能：设置和读取 `backlog` 大小。仅可在调用 `bind` 前调用，否则将抛出异常。
 变量是否生效取决于系统行为。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -3971,6 +4086,10 @@ public override prop localAddress: SocketAddress
 
 功能：读取 `Socket` 将要或已经被绑定的本地地址。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：[SocketAddress](net_package_classes.md#class-socketaddress)
 
 异常：
@@ -3984,6 +4103,10 @@ public mut prop receiveBufferSize: Int64
 ```
 
 功能：设置和读取 `SO_RCVBUF` 属性。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -4000,6 +4123,10 @@ public mut prop sendBufferSize: Int64
 
 功能：设置和读取 `SO_SNDBUF` 属性。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 异常：
@@ -4015,6 +4142,10 @@ public init(bindAt!: SocketAddress)
 
 功能：创建一个未连接的 [UnixServerSocket](net_package_classes.md#class-unixserversocket) 实例。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - bindAt!: [SocketAddress](net_package_classes.md#class-socketaddress) - 连接的套接字地址。
@@ -4028,6 +4159,10 @@ public init(bindAt!: String)
 功能：创建一个未连接的 [UnixServerSocket](net_package_classes.md#class-unixserversocket) 实例。
 
 此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4045,6 +4180,10 @@ public override func accept(): UnixSocket
 
 功能：等待接受一个客户端的连接，或从队列中读取连接。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [UnixSocket](net_package_classes.md#class-unixsocket) - 连接的客户端套接字。
@@ -4056,6 +4195,10 @@ public override func accept(timeout!: ?Duration): UnixSocket
 ```
 
 功能：等待接受一个客户端的连接，或从队列中读取连接。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4080,6 +4223,10 @@ public override func bind(): Unit
 
 此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 接口判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 异常：
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当因系统原因绑定失败时，抛出异常。
@@ -4091,6 +4238,10 @@ public override func close(): Unit
 ```
 
 功能：关闭套接字，该套接字的所有操作除了 `close/isClosed` 之外，均不允许再调用。此接口允许多次调用。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 ### func getSocketOption(Int32, Int32, CPointer\<Unit>, CPointer\<UIntNative>)
 
@@ -4104,6 +4255,10 @@ public func getSocketOption(
 ```
 
 功能：获取指定的套接字参数。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4126,6 +4281,10 @@ public func getSocketOptionBool(
 ```
 
 功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4151,6 +4310,10 @@ public func getSocketOptionIntNative(
 
 功能：获取返回值为整型的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4172,6 +4335,10 @@ public override func isClosed(): Bool
 
 功能：判断套接字是否通过调用 `close` 显式关闭。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果套接字是通过调用 `close` 显式关闭，则返回 true；否则，返回 false。
@@ -4188,6 +4355,10 @@ public func setSocketOption(
 ```
 
 功能：设置返回值为整型的套接字参数。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4212,6 +4383,10 @@ public func setSocketOptionBool(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4234,6 +4409,10 @@ public func setSocketOptionIntNative(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4251,6 +4430,10 @@ public override func toString(): String
 ```
 
 功能：返回当前 [UnixServerSocket](net_package_classes.md#class-unixserversocket) 的状态信息。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 返回值：
 
@@ -4271,7 +4454,7 @@ public class UnixSocket <: StreamingSocket {
 
 > **注意：**
 >
-> 该类型不支持在 Windows 平台上运行。
+> 不支持平台：Windows。
 
 父类型：
 
@@ -4284,6 +4467,10 @@ public override prop localAddress: SocketAddress
 ```
 
 功能：读取 `Socket` 将要或已经被绑定的本地地址。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[SocketAddress](net_package_classes.md#class-socketaddress)
 
@@ -4301,6 +4488,10 @@ public override mut prop readTimeout: ?Duration
 
 如果设置的时间过小将会设置为最小时钟周期值，过大时将设置为`None`，默认值为 `None`。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 异常：
@@ -4314,6 +4505,10 @@ public mut prop receiveBufferSize: Int64
 ```
 
 功能：设置和读取 `SO_RCVBUF` 属性。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -4330,6 +4525,10 @@ public override prop remoteAddress: SocketAddress
 
 功能：读取 `Socket` 已经或将要连接的远端地址。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：[SocketAddress](net_package_classes.md#class-socketaddress)
 
 异常：
@@ -4343,6 +4542,10 @@ public mut prop sendBufferSize: Int64
 ```
 
 功能：设置和读取 `SO_SNDBUF` 属性。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -4361,6 +4564,10 @@ public override mut prop writeTimeout: ?Duration
 
 如果设置的时间过小将会设置为最小时钟周期值；过大时将设置为最大超时时间（2<sup>63</sup>-1 纳秒）；默认值为 `None`。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 类型：?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
 异常：
@@ -4374,6 +4581,10 @@ public init(address: SocketAddress, localAddress!: ?SocketAddress = None)
 ```
 
 功能：创建一个未连接的 [UnixSocket](net_package_classes.md#class-unixsocket) 实例。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4389,6 +4600,10 @@ public init(path: String, localPath!: ?String = None)
 功能：创建一个未连接的 [UnixSocket](net_package_classes.md#class-unixsocket) 实例。
 
 此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4407,6 +4622,10 @@ public func close(): Unit
 
 功能：关闭套接字，所有操作除了 `close/isClosed` 之外，均不允许再调用。接口允许多次调用。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 ### func connect(?Duration)
 
 ```cangjie
@@ -4414,6 +4633,10 @@ public func connect(timeout!: ?Duration = None): Unit
 ```
 
 功能：建立远端连接，对端拒绝时连接失败，会自动绑定本地地址，因此不需要进行额外的绑定操作。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4438,6 +4661,10 @@ public func getSocketOption(
 
 功能：获取指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4459,6 +4686,10 @@ public func getSocketOptionBool(
 ```
 
 功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false`，非 `0 => true`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4484,6 +4715,10 @@ public func getSocketOptionIntNative(
 
 功能：获取指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4505,6 +4740,10 @@ public func isClosed(): Bool
 
 功能：判断套接字是否通过调用 `close` 显式关闭。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回套接字是否已经调用 `close` 显示关闭。是则返回 `true`；否则，返回 `false`。
@@ -4516,6 +4755,10 @@ public override func read(buffer: Array<Byte>): Int64
 ```
 
 功能：读取报文。超时情况按 `readTimeout` 决定，详见 `readTimeout`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 
@@ -4542,6 +4785,10 @@ public func setSocketOption(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4565,6 +4812,10 @@ public func setSocketOptionBool(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4587,6 +4838,10 @@ public func setSocketOptionIntNative(
 
 功能：设置指定的套接字参数。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
@@ -4605,6 +4860,10 @@ public override func toString(): String
 
 功能：返回当前 [UnixSocket](net_package_classes.md#class-unixsocket) 的状态信息。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 包含当前 [UnixSocket](net_package_classes.md#class-unixsocket) 状态信息的字符串。
@@ -4616,6 +4875,10 @@ public override func write(buffer: Array<Byte>): Unit
 ```
 
 功能：读取写入。超时情况按 `writeTimeout` 决定，详见 `writeTimeout`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
 
 参数：
 

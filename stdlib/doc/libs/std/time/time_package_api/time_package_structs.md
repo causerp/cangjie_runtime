@@ -13,9 +13,13 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
 
   | 系统    | 系统调用函数   | 时钟类型 |
   | ------- | ------------- |--------------- |
-  | Linux   | clock_gettime | CLOCK_REALTIME |
-  | Windows | clock_gettime | CLOCK_REALTIME |
-  | macOS   | clock_gettime | CLOCK_REALTIME |
+  | Linux       | clock_gettime | CLOCK_REALTIME |
+  | Windows     | clock_gettime | CLOCK_REALTIME |
+  | macOS       | clock_gettime | CLOCK_REALTIME |
+  | OpenHarmony | clock_gettime | CLOCK_REALTIME |
+  | HarmonyOS   | clock_gettime | CLOCK_REALTIME |
+  | iOS         | clock_gettime | CLOCK_REALTIME |
+  | Android     | clock_gettime | CLOCK_REALTIME |
 
 父类型：
 

@@ -245,8 +245,8 @@ public prop commandLine: Array<String>
 
 > **注意：**
 >
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [getcommandline()](../../env/env_package_api/env_package_funcs.md#func-getcommandline) 替代。
-> - `iOS` 平台下该属性不可用。
 
 类型：[Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
@@ -264,8 +264,8 @@ public prop environment: Map<String, String>
 
 > **注意：**
 >
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [getVariables()](../../env/env_package_api/env_package_funcs.md#func-getvariables) 替代。
-> - `iOS` 平台下该属性不可用。
 
 类型：[Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
@@ -367,7 +367,7 @@ public static func of(pid: Int64): Process
 
 > **注意：**
 >
-> - 在 `iOS` 平台上，该功能不可用。
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [findProcess](./process_package_funcs.md#func-findprocessint64) 替代。
 
 参数：
@@ -386,21 +386,23 @@ public static func of(pid: Int64): Process
 ### static func run(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect,ProcessRedirect, ?Duration) <sup>(deprecated)</sup>
 
 ```cangjie
-public static func run(command: String,
-                      arguments: Array<String>,
-                      workingDirectory!: ?Path = None,
-                      environment!: ?Map<String, String> = None,
-                      stdIn!: ProcessRedirect = Inherit,
-                      stdOut!: ProcessRedirect = Inherit,
-                      stdErr!: ProcessRedirect = Inherit,
-                      timeout!: ?Duration = None): Int64
+public static func run(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Inherit,
+        stdErr!: ProcessRedirect = Inherit,
+        timeout!: ?Duration = None
+    ): Int64
 ```
 
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态。
 
 > **注意：**
 >
-> - 在 `iOS` 平台上，该功能不可用。
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [execute](./process_package_funcs.md#func-executestring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration) 替代。
 > - 在 `Windows` 平台上，在子进程执行完成后立即删除子进程的可执行文件可能删除失败并抛出异常，异常信息为 `Access is denied`，如果遇到该问题，可以在一小段延迟后重新尝试删除该文件，详细实现可参考示例。
 
@@ -427,19 +429,22 @@ public static func run(command: String,
 ### static func runOutput(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>
 
 ```cangjie
-public static func runOutput(command: String,
-                            arguments: Array<String>,
-                            workingDirectory!: ?Path = None,
-                            environment!: ?Map<String, String> = None,
-                            stdIn!: ProcessRedirect = Inherit,
-                            stdOut!: ProcessRedirect = Pipe,
-                            stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>)
+public static func runOutput(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Pipe,
+        stdErr!: ProcessRedirect = Pipe
+    ): (Int64, Array<Byte>, Array<Byte>)
 ```
 
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态、标准输出和标准错误。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 `wait` 函数自行处理。
 
 > **注意：**
-> - 在 `iOS` 平台上，该功能不可用。
+>
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
 
 参数：
@@ -464,20 +469,22 @@ public static func runOutput(command: String,
 ### static func start(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>
 
 ```cangjie
-public static func start(command: String,
-                        arguments: Array<String>,
-                        workingDirectory!: ?Path = None,
-                        environment!: ?Map<String, String> = None,
-                        stdIn!: ProcessRedirect = Inherit,
-                        stdOut!: ProcessRedirect = Inherit,
-                        stdErr!: ProcessRedirect = Inherit): SubProcess
+public static func start(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Inherit,
+        stdErr!: ProcessRedirect = Inherit
+    ): SubProcess
 ```
 
 功能：根据输入参数创建并运行一个子进程，并返回一个子进程实例。调用该函数创建子进程后，需要调用 `wait` 或 `waitOutput` 函数，否则该子进程结束后成为的僵尸进程的资源不会被回收。
 
 > **注意：**
 >
-> - 在 `iOS` 平台上，该功能不可用。
+> - 不支持平台：iOS。
 > - 未来版本即将废弃，使用 [launch](./process_package_funcs.md#func-launchstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
 
 参数：
@@ -547,7 +554,7 @@ public class SubProcess <: Process
 
 > **注意：**
 >
-> 在 `iOS` 平台上，该功能不可用。
+> 不支持平台：iOS。
 
 > **说明：**
 >
@@ -571,7 +578,8 @@ public prop stdErr: InputStream
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [stdErrPipe](./process_package_classes.md#prop-stderrpipe) 替代。
+> - 不支持平台：iOS。
+> - 未来版本即将废弃，使用 [stdErrPipe](./process_package_classes.md#prop-stderrpipe) 替代。
 
 类型：[InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -582,6 +590,10 @@ public prop stdErrPipe: InputStream
 ```
 
 功能：获取输入流，连接到子进程标准错误流。
+
+> **注意：**
+>
+> 不支持平台：iOS。
 
 类型：[InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -595,7 +607,8 @@ public prop stdIn: OutputStream
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [stdInPipe](./process_package_classes.md#prop-stdinpipe) 替代。
+> - 不支持平台：iOS。
+> - 未来版本即将废弃，使用 [stdInPipe](./process_package_classes.md#prop-stdinpipe) 替代。
 
 类型：[OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -606,6 +619,10 @@ public prop stdInPipe: OutputStream
 ```
 
 功能：获取输出流，连接到子进程标准输入流。
+
+> **注意：**
+>
+> 不支持平台：iOS。
 
 类型：[OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -619,7 +636,8 @@ public prop stdOut: InputStream
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [stdOutPipe](./process_package_classes.md#prop-stdoutpipe) 替代。
+> - 不支持平台：iOS。
+> - 未来版本即将废弃，使用 [stdOutPipe](./process_package_classes.md#prop-stdoutpipe) 替代。
 
 类型：[InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -631,6 +649,10 @@ public prop stdOutPipe: InputStream
 
 功能：获取输入流，连接到子进程标准输出流。
 
+> **注意：**
+>
+> 不支持平台：iOS。
+
 类型：[InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
 ### func wait(?Duration)
@@ -640,6 +662,10 @@ public func wait(timeout!: ?Duration = None): Int64
 ```
 
 功能：阻塞当前进程等待子进程任务执行完成并返回子进程退出状态码，允许指定等待超时时间。对于需要操作标准流的场景(Pipe 模式)，使用者需要优先处理标准流，避免子进程标准流缓冲区满后调用本函数产生死锁。
+
+> **注意：**
+>
+> 不支持平台：iOS。
 
 > **说明：**
 >
@@ -667,6 +693,10 @@ public func waitOutput(): (Int64, Array<Byte>, Array<Byte>)
 ```
 
 功能：阻塞当前进程等待子进程任务执行完成，并返回子进程退出状态码、返回结果(包含输出流和错误流返回结果)。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 wait 函数自行处理。
+
+> **注意：**
+>
+> 不支持平台：iOS。
 
 返回值：
 

@@ -25,7 +25,7 @@ Cangjie 语言使用自动垃圾回收机制来管理内存，runtime 包提供�
 | [getNativeThreadCount](./runtime_package_api/runtime_package_funcs.md#func-getnativethreadcount) | 获取物理线程数。 |
 | [getProcessorCount](./runtime_package_api/runtime_package_funcs.md#func-getprocessorcount) | 获取处理器数量。 |
 | [getThreadCount](./runtime_package_api/runtime_package_funcs.md#func-getthreadcount) | 获取仓颉当前的线程数量。 |
-| [getUsedHeapSize](./runtime_package_api/runtime_package_funcs.md#func-getusedheapsize) | 在 Linux 平台下获取仓颉堆实际占用的物理内存大小, 单位为 byte。在 Windows 及 macOs 平台下获取仓颉进程实际占用的物理内存大小, 单位为 byte。 |
+| [getUsedHeapSize](./runtime_package_api/runtime_package_funcs.md#func-getusedheapsize) | 在 Linux、OpenHarmony、HarmonyOS、Android 平台下获取仓颉堆实际占用的物理内存大小, 单位为 byte。在 Windows、macOS、iOS 平台下获取仓颉进程实际占用的物理内存大小, 单位为 byte。 |
 | [SetGCThreshold(UInt64) <sup>(deprecated)</sup>](./runtime_package_api/runtime_package_funcs.md#func-setgcthresholduint64-deprecated) | 修改用户期望触发 GC 的内存阈值，当仓颉堆大小超过该值时，触发 GC，单位为 KB。 |
 | [setGCThreshold(UInt64)](./runtime_package_api/runtime_package_funcs.md#func-setgcthresholduint64) | 修改用户期望触发 GC 的内存阈值，当仓颉堆大小超过该值时，触发 GC，单位为 KB。 |
 | [startCPUProfiling](./runtime_package_api/runtime_package_funcs.md#func-startcpuprofiling) | 启动 CPU profiler 跟踪。 |

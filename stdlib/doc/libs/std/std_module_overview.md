@@ -8,6 +8,26 @@
 - 功能通用：标准库提供了开发者最常使用的一些库能力，旨在为开发者解决大部分基础问题。
 - 质量标杆：标准库追求在性能、代码风格等方面为其他仓颉库树立范例和标杆。
 
+## 平台支持说明
+
+标准库提供的 API 支持在如下操作系统上运行：
+
+> **注意：**
+>
+> 部分 API 不支持在特定的操作系统运行，详情请参见对应 API 描述。
+
+| 操作系统       | CPU 架构  | 环境及其版本要求 |
+| ------------- | --------- | --------------- |
+| Linux         | x86_64    | glibc 2.22；Linux Kernel 4.12 或更高版本；系统安装 libstdc++ 6.0.24 或更高版本 |
+| Linux         | aarch64   | glibc 2.27；Linux Kernel 4.15 或更高版本；系统安装 libstdc++ 6.0.24 或更高版本 |
+| Windows       | x86_64    | Windows 10 或更高版本 |
+| macOS         | aarch64   | macOS 12.0 或更高版本 |
+| OpenHarmony   | aarch64   | OpenHarmony 5.1 或更高版本 |
+| OpenHarmony   | arm32     | OpenHarmony 5.1 或更高版本 |
+| HarmonyOS     | aarch64   | HarmonyOS 5.1 或更高版本 |
+| iOS           | aarch64   | iOS 11 或更高版本（ast 库需要 iOS 12 或更高版本） |
+| Android       | aarch64   | Android API 26 或更高版本 |
+
 ## 使用指导
 
 在仓颉编程语言中，标准库包含了若干包（package），而包是编译的最小单元。每个包可以单独输出 AST（Abstract Syntax Trees，抽象语法树）文件、静态库文件、动态库文件等产物。包可以定义子包，从而构成树形结构。没有父包的包称为 root 包，root 包及其子包（包括子包的子包）构成的整棵树称为模块（module）。模块的名称与 root 包相同，是开发者发布的最小单元。

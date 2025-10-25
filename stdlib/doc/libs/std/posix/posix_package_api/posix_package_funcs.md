@@ -14,7 +14,8 @@ public func `open`(path: String, oflag: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -43,7 +44,8 @@ public func `open`(path: String, oflag: Int32, flag: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -150,7 +152,8 @@ public func chown(path: String, owner: UInt32, group: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -264,7 +267,8 @@ public func faccessat(fd: Int32, path: String, mode: Int32, flag: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -291,7 +295,8 @@ public func fchdir(fd: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -368,7 +373,8 @@ public func fchown(fd: Int32, owner: UInt32, group: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -394,7 +400,8 @@ public func fchownat(fd: Int32, path: String, owner: UInt32, group: UInt32, flag
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -438,7 +445,8 @@ public func getgid(): UInt32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -456,7 +464,8 @@ public unsafe func getgroups(size: Int32, gidArray: CPointer<UInt32>): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -477,7 +486,8 @@ public func gethostname(): String
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -493,7 +503,8 @@ public func getlogin(): String
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -509,7 +520,8 @@ public func getos(): String
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -525,7 +537,8 @@ public func getpgid(pid: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -545,7 +558,8 @@ public func getpgrp(): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -577,7 +591,8 @@ public func getppid(): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -593,7 +608,8 @@ public func getuid(): UInt32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 返回值：
 
@@ -669,7 +685,8 @@ public func isFIFO(path: String): Bool
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -689,7 +706,8 @@ public func isLnk(path: String): Bool
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -729,7 +747,8 @@ public func isSock(path: String): Bool
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -749,7 +768,8 @@ public func isType(path: String, mode: UInt32): Bool
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -795,7 +815,7 @@ public func kill(pid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上无法用于非本进程的 `pid`。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -817,7 +837,7 @@ public func killpg(pgid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -839,7 +859,8 @@ public func lchown(path: String, owner: UInt32, group: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -865,7 +886,8 @@ public func link(path: String, newpath: String): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -895,7 +917,8 @@ public func linkat(fd: Int32, path: String, nfd: Int32, newPath: String, lflag: 
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -949,7 +972,7 @@ public func nice(inc: Int32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1030,7 +1053,8 @@ public func openat(fd: Int32, path: String, oflag: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1059,7 +1083,8 @@ public func openat(fd: Int32, path: String, oflag: Int32, flag: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1089,7 +1114,8 @@ public func openat64(fd: Int32, path: String, oflag: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1118,7 +1144,8 @@ public func openat64(fd: Int32, path: String, oflag: Int32, flag: UInt32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1147,7 +1174,8 @@ public unsafe func pread(fd: Int32, buffer: CPointer<UInt8>, nbyte: UIntNative, 
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1172,7 +1200,8 @@ public unsafe func pwrite(fd: Int32, buffer: CPointer<UInt8>, nbyte: UIntNative,
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1286,7 +1315,8 @@ public func renameat(oldfd: Int32, oldName: String, newfd: Int32, newName: Strin
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1313,7 +1343,7 @@ public func setgid(id: UInt32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1334,7 +1364,7 @@ public func sethostname(buf: String): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1359,7 +1389,7 @@ public func setpgid(pid: Int32, pgrp: Int32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1381,7 +1411,7 @@ public func setpgrp(): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 返回值：
@@ -1398,7 +1428,7 @@ public func setuid(id: UInt32): Int32
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1425,7 +1455,8 @@ public func symlink(path: String, symPath: String): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1454,7 +1485,8 @@ public func symlinkat(path: String, fd: Int32, symPath: String): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1480,7 +1512,7 @@ public func ttyname(fd: Int32): String
 
 > **注意：**
 >
-> - 该功能在 `iOS` 上不可用。
+> - 不支持平台：Windows、iOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1526,7 +1558,8 @@ public func unlink(path: String): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
@@ -1556,7 +1589,8 @@ public func unlinkat(fd: Int32, path: String, ulflag: Int32): Int32
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 参数：
 
