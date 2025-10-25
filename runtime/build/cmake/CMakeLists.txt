@@ -25,9 +25,7 @@ else()
 endif()
 
 if (MACOS_FLAG MATCHES 1)
-    if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -shared")
-    endif()
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -shared")
 endif()
 
 # Build shared library.
