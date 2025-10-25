@@ -8,7 +8,7 @@
 
 package std.core
 
-public open class StackTraceElement {
+public open class StackTraceElement <: ToString {
     public let declaringClass: String
     public let methodName: String
     public let fileName: String
@@ -19,6 +19,21 @@ public open class StackTraceElement {
         this.methodName = methodName
         this.fileName = fileName
         this.lineNumber = lineNumber
+    }
+
+    /**
+     * Converts the call point information to a string representation
+     * 
+     * @return Returns a formatted string containing class name, method name, file name and line number information
+     */
+    public func toString(): String { 
+        if (declaringClass.isEmpty() && methodName.isEmpty()) {
+                return("${fileName}:${lineNumber}")
+        } else {
+            let packageDelimiter: String = if (declaringClass.isEmpty()) { "" } else { "." }
+            return(
+                "${declaringClass}${packageDelimiter}${methodName}(${fileName}:${lineNumber})")
+        }
     }
 }
 

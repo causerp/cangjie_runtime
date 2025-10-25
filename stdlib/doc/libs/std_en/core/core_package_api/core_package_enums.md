@@ -144,6 +144,7 @@ Exceptions:
 Example:
 
 <!-- verify -->
+
 ```cangjie
 main() {
     let e = Endian.Platform
@@ -242,6 +243,7 @@ Return Value:
 Example:
 
 <!-- verify -->
+
 ```cangjie
 main() {
     var value1: Option<Int64> = Some(2)
@@ -570,4 +572,103 @@ Conversion results are as follows:
 Return Value:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
+
+## enum ThreadState
+
+```cangjie
+public enum ThreadState <: ToString {
+    | Ready
+    | Running
+    | Pending
+    | Terminated 
+    | ...
 ```
+
+Function: Represents the state of a thread.
+
+Parent type:
+
+- [ToString](core_package_interfaces.md#interface-tostring)
+
+### Ready
+
+```cangjie
+Ready
+```
+
+Function: Indicates that the thread has just been created or suspended and is waiting to be scheduled for execution.
+
+### Running
+
+```cangjie
+Running
+```
+
+Function: Indicates that the thread is executing.
+
+### Pending
+
+```cangjie
+Pending
+```
+
+Function: Indicates that the thread is suspended.
+
+### Terminated
+
+```cangjie
+Terminated
+```
+
+Function: Indicates that the thread has finished executing.
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Convert [ThreadState](core_package_enums.md#enum-threadstate) to an outputtable string.
+
+The conversion results are as follows:
+
+- Ready: "Ready".
+- Running: "Running".
+- Pending: "Pending".
+- Terminated: "Terminated".
+
+Return value:
+
+- [String](core_package_structs.md#struct-string) - The converted string.
+
+### func ==(rhs: ThreadState)
+
+```cangjie
+public operator func ==(rhs: ThreadState): Bool
+```
+
+Function: Used to compare whether two [ThreadState](core_package_enums.md#enum-threadstate) enum values are equal.
+
+Parameters:
+
+- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
+
+Return value:
+
+- [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are the same, otherwise returns false.
+
+### func !=(rhs: ThreadState)
+
+```cangjie
+public operator func !=(rhs: ThreadState): Bool
+```
+
+Function: Used to compare whether two [ThreadState](core_package_enums.md#enum-threadstate) enum values are not equal.
+
+Parameters:
+
+- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
+
+Return value:
+
+- [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are not the same, otherwise returns false.

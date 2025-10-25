@@ -16,6 +16,14 @@ func isThreadObjectInited(): Bool
 @Intrinsic
 func getThreadObject(): Thread
 
+@When[backend == "cjnative"]
+@Intrinsic
+func dumpAllThreadsInfo(): RawArray<ThreadSnapshotInfo>
+
+@When[backend == "cjnative"]
+@Intrinsic
+func dumpCurrentThreadInfo(): ThreadSnapshotInfo
+
 @FastNative
 foreign func CJ_MRT_SetCJThreadName(handle: CPointer<Unit>, name: CPointer<UInt8>, len: Int64): Unit
 
@@ -25,7 +33,180 @@ foreign func CJ_MRT_GetCJThreadId(handle: CPointer<Unit>): Int64
 @FastNative
 foreign func CJ_MRT_GetCurrentCJThread(): CPointer<Unit>
 
+@FastNative
+foreign func CJ_MRT_GetCJThreadState(handle: CPointer<Unit>): Int64
+
 const INVALID_ID: Int64 = -1
+
+/**
+ * Enum representing the possible states of a thread.
+ * Implements ToString for human-readable representation.
+ */
+public enum ThreadState <: ToString {
+    Ready | Running | Pending | Terminated | ...
+
+    /**
+     * Converts the enum value to its string representation
+     * @return String representation of the thread state
+     */
+    public func toString(): String {
+        match (this) {
+            case Ready => "Ready"
+            case Running => "Running"
+            case Pending => "Pending"
+            case Terminated => "Terminated"
+            case _ => "Unknown"
+        }
+    }
+
+    /**
+     * Overloads the equality operator to compare two ThreadState enum values for equality
+     * @param rhs Another ThreadState enum value to compare with the current instance
+     * @return Bool indicating whether the two ThreadState values are equal
+     */
+    public operator func ==(rhs: ThreadState): Bool {
+        match ((this, rhs)) {
+            case (Ready, Ready) => return true
+            case (Running, Running) => return true
+            case (Pending, Pending) => return true
+            case (Terminated, Terminated) => return true
+            case _ => return false
+        }
+    }
+
+    /**
+     * Overloads the inequality operator to compare two ThreadState enum values for inequality
+     * @param rhs Another ThreadState enum value to compare with the current instance
+     * @return Bool indicating whether the two ThreadState values are not equal
+     */
+    public operator func !=(rhs: ThreadState): Bool {
+        return !(this == rhs)
+    }
+
+    /**
+     * Parses an integer value into a ThreadState enum.
+     * @param value Integer value representing the thread state
+     * @return Corresponding ThreadState enum value
+     * @throws IllegalArgumentException if the value is not supported
+     */
+    static func parse(value: Int64): ThreadState {
+        match (value) {
+            case 0 => Terminated
+            case 1 => Ready
+            case 2 => Running
+            case 3 => Pending
+            case _ => throw IllegalArgumentException("The type is not supported.")
+        }
+    }
+}
+
+/**
+ * Structure containing information about a thread snapshot.
+ * Used for debugging and monitoring thread states.
+ */
+struct ThreadSnapshotInfo {
+    let name: RawArray<UInt8> = EMPTY_UINT8_RAW_ARRAY
+    let id: Int64 = 0
+    let stackTrace: RawArray<StackTraceData> = RawArray<StackTraceData>()
+    let state: Int64 = 0
+}
+
+/**
+ * Class representing a snapshot of a thread's state at a point in time.
+ * Provides functionality for retrieving and printing thread information.
+ */
+public class ThreadSnapshot <: ToString {
+    public let id: Int64
+    public let name: String
+    public let stackTrace: Array<StackTraceElement>
+    public let state: ThreadState
+
+    /**
+     * Constructor for ThreadSnapshot.
+     * @param id Thread identifier
+     * @param name Thread name
+     * @param state Current thread state
+     * @param stackTrace Stack trace elements
+     */
+    init(id: Int64, name: String, state: ThreadState, stackTrace: Array<StackTraceElement>) {
+        this.id = id
+        this.name = name
+        this.state = state
+        this.stackTrace = stackTrace
+    }
+
+    /**
+     * Converts the thread snapshot information to a string representation
+     * 
+     * @return Returns a formatted string containing thread ID, name, state and stack trace information
+     */
+    public func toString(): String {
+        var stringBuffer = "ThreadSnapshot(id=${id}, name=${name}, state=${state})\n"
+        stringBuffer = stringBuffer + "stack trace:\n"
+        for (element in stackTrace) {
+            if (element.declaringClass.isEmpty() && element.methodName.isEmpty()) { // simple stack trace format
+                stringBuffer = stringBuffer + "\t at ${element.fileName}:${element.lineNumber}\n"
+            } else {
+                let packageDelimiter: String = if (element.declaringClass.isEmpty()) { "" } else { "." }
+                stringBuffer = stringBuffer +
+                    "\t at ${element.declaringClass}${packageDelimiter}${element.methodName}(${element.fileName}:${element.lineNumber})\n"
+            }
+        }
+        return stringBuffer
+    }
+    
+    /**
+     * Parses ThreadSnapshotInfo into a ThreadSnapshot object.
+     * @param info ThreadSnapshotInfo to parse
+     * @return ThreadSnapshot object
+     */
+    private static func parseThreadInfo(info: ThreadSnapshotInfo): ThreadSnapshot {
+        let infoSize = arraySize(info.stackTrace)
+        let emptyStackTrace = StackTraceElement("", "", "", 0)
+        let stackTraceArray = Array<StackTraceElement>(infoSize, repeat: emptyStackTrace)
+        var eleSize = 0
+        for (i in 0..infoSize) {
+            let data = arrayGet(info.stackTrace, i)
+            if (data.lineNumber == 0 || data.lineNumber == -1 || arraySize(data.fileName) == 0) {
+                continue
+            }
+            let stkElem = StackTraceElement(
+                String(data.className),
+                String(data.methodName),
+                String(data.fileName),
+                data.lineNumber
+            )
+            stackTraceArray[eleSize] = stkElem
+            eleSize++
+        }
+        return ThreadSnapshot(info.id, String(info.name), ThreadState.parse(info.state), stackTraceArray.clone(0..eleSize))
+    }
+
+    /**
+     * Retrieves snapshots of all currently active threads.
+     * @return Array of ThreadSnapshot objects
+     */
+    public static func dumpAllThreads(): Array<ThreadSnapshot> {
+        let dumpInfo: RawArray<ThreadSnapshotInfo> = dumpAllThreadsInfo()
+        let threadNum = arraySize(dumpInfo)
+        let emptySnapshot = ThreadSnapshot(0, "", Terminated, [])
+        let allThreadArray = Array<ThreadSnapshot>(threadNum, repeat: emptySnapshot)
+        for (i in 0..threadNum) {
+            allThreadArray[i] = parseThreadInfo(arrayGet(dumpInfo, i))
+        }
+        return allThreadArray
+    }
+
+    /**
+     * Retrieves a snapshot of the current thread.
+     * @return ThreadSnapshot of the current thread
+     */
+    public static func dumpCurrentThread(): ThreadSnapshot {
+        let dumpInfo: ThreadSnapshotInfo = dumpCurrentThreadInfo()
+        return parseThreadInfo(dumpInfo)
+    }
+
+}
 
 public class Thread {
     static let exceptionHandler = AtomicBox<Option<(Thread, Exception) -> Unit>>(None)
@@ -54,7 +235,7 @@ public class Thread {
 
     /**
      * Set the CJThread handle and get the CJThread id.
-     * Note tat this method will be imported implicitly and called when creating a thread with a future.
+     * Note that this method will be imported implicitly and called when creating a thread with a future.
      */
     protected func setRuntimeCJThreadHandle(handle: CPointer<Unit>): Unit {
         _rtCJThreadHandle = handle
@@ -188,5 +369,25 @@ public class Thread {
 
     public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit {
         Thread.exceptionHandler.store(exHandler)
+    }
+    
+    /**
+     * Get thread state
+     * 
+     * Returns the current thread's state by querying the underlying CJ thread.
+     * Returns Terminated if thread handle is invalid.
+     * 
+     * @return ThreadState Current thread state
+     */
+    public prop state: ThreadState {
+        get() {
+            let handle = _rtCJThreadHandle
+            if (handle.isNull()) {
+                return ThreadState.Terminated
+            }
+            let state = unsafe { CJ_MRT_GetCJThreadState(handle) }
+
+            return ThreadState.parse(state)
+        }
     }
 }

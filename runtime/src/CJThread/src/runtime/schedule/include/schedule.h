@@ -717,6 +717,14 @@ void CJThreadSetName(CJThreadHandle handle, const char *name, size_t len);
 char* CJThreadGetName(void* cjthreadPtr);
 
 /**
+ * @brief Obtain the state of the current cjthread.
+ * @par Description: Obtains the state of the current cjthread.
+ * @attention must be called in cjthread context
+ * @retval Returns the state of the current cjthread. Returns -1 if not in cjthread context
+ */
+int CJThreadGetState(void* cjthreadPtr);
+
+/**
  * @brief Default scheduler parameter assignment.
  * @par Description: Assign a default value to the attrUser scheduler attribute.(The default
  * stack size is used. The number of processors is the same as the number of cores. Stack

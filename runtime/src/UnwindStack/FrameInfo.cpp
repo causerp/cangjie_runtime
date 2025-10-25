@@ -185,6 +185,30 @@ const CString FrameInfo::GetFuncName() const
     }
 }
 
+const CString FrameInfo::GetMethodName() const
+{
+    if (fType == FrameType::MANAGED) {
+        StackMetadataHelper stackMetadataHelper(*this);
+        stackMetadataHelper.GetMangleNameHelper()->Demangle();
+        return stackMetadataHelper.GetMangleNameHelper()->GetMethodName();
+    } else {
+        Os::Loader::BinaryInfo binInfo;
+        Os::Loader::GetBinaryInfoFromAddress(mFrame.GetIP(), &binInfo);
+        return CString(binInfo.symbolName);
+    }
+}
+
+const CString FrameInfo::GetPackClassName() const
+{
+    if (fType == FrameType::MANAGED) {
+        StackMetadataHelper stackMetadataHelper(*this);
+        stackMetadataHelper.GetMangleNameHelper()->Demangle();
+        return stackMetadataHelper.GetMangleNameHelper()->GetPackClassName();
+    } else {
+        return CString();
+    }
+}
+
 const CString FrameInfo::GetFileName() const
 {
     if (fType == FrameType::RUNTIME) {
