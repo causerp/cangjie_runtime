@@ -201,7 +201,6 @@ def do_build(args):
             "-DOHOS_FLAG={}".format(ohos_flag),
             "-DOHOS_ROOT={}".format(args.target_toolchain),
             "-DANDROID_FLAG=0",
-            "-DMACOS_FLAG={}".format(macos_flag),
             "-DIOS_FLAG=0",
             "-DIOS_SIMULATOR_FLAG=0",
             "-DEULER_FLAG=0",
