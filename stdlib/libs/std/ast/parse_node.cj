@@ -460,7 +460,15 @@ func createPackageHeader(pkgHeader: Option<NodeFormat_PackageSpec>): PackageHead
             let (prefixPaths, prefixDots) = getPackagePrefixes(v.GetPrefixPaths(), v.GetPrefixPoses(),
                 v.GetPrefixDotPoses())
             let packageIdentifier: Token = getPackageIdentToken(v.GetPackageName()).addPosition(v.GetPackageNamePos())
-            PackageHeader(accessible, macroKey, keyword, prefixPaths, prefixDots, packageIdentifier)
+            // prefixPaths[0] and prefixDots[0] would be orgnization name and position of double colon if double colon exists
+            if (v.GetHasDoubleColon()) {
+                PackageHeader(accessible, macroKey, keyword, prefixPaths[0],
+                    Token(TokenKind.DOUBLE_COLON).addPosition(prefixDots[0].pos.fileID, prefixDots[0].pos.line,
+                        prefixDots[0].pos.column), prefixPaths[1..], prefixDots[1..], packageIdentifier)
+            } else {
+                PackageHeader(accessible, macroKey, keyword, Token(), Token(), prefixPaths, prefixDots,
+                    packageIdentifier)
+            }
         case None => PackageHeader(true)
     }
 }
@@ -508,7 +516,16 @@ func createImportContent(content: Option<NodeFormat_ImportContent>): ImportConte
                 var rCurlPos = v.GetRightCurlPos()
                 rCurl = Token(TokenKind.RCURL, "}", rCurlPos.fileId, rCurlPos.line, rCurlPos.column)
             }
-            ImportContent(kind, prefixPaths, prefixDots, identifier, importAlias, lCurl, items, commas, rCurl)
+            // prefixPaths[0] and prefixDots[0] would be orgnization name and position of double colon if double colon exists
+            if (v.GetHasDoubleColon()) {
+                ImportContent(kind, prefixPaths[0],
+                    Token(TokenKind.DOUBLE_COLON).addPosition(prefixDots[0].pos.fileID, prefixDots[0].pos.line,
+                        prefixDots[0].pos.column), prefixPaths[1..], prefixDots[1..], identifier, importAlias, lCurl, items,
+                    commas, rCurl)
+            } else {
+                ImportContent(kind, Token(), Token(), prefixPaths, prefixDots, identifier, importAlias, lCurl, items,
+                    commas, rCurl)
+            }
         case None => throw ParseASTException()
     }
 }
