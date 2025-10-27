@@ -225,7 +225,7 @@ public class SqlBigInt <: SqlDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbigInt-deprecated)。
+功能：类型名称，即 [SqlBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbigint-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -245,7 +245,7 @@ public mut prop value: Int64
 public init(v: Int64)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbigInt-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlbigint-deprecated) 实例。
 
 参数：
 
@@ -825,7 +825,7 @@ public class SqlNullableBigInt <: SqlNullableDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlNullableBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullablebigInt-deprecated)。
+功能：类型名称，即 [SqlNullableBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullablebigint-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -845,7 +845,7 @@ public mut prop value: ?Int64
 public init(v: ?Int64)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlNullableBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullablebigInt-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlNullableBigInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullablebigint-deprecated) 实例。
 
 参数：
 
@@ -1575,7 +1575,7 @@ public class SqlNullableTimeTz <: SqlNullableDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated)。
+功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1595,7 +1595,7 @@ public mut prop value: ?DateTime
 public init(v: ?DateTime)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated) 实例。
 
 参数：
 
@@ -2110,7 +2110,7 @@ public class SqlSmallInt <: SqlDbType {
 public prop name: String
 ```
 
-功能：类型名称，即 [SqlSmallInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlsmallInt-deprecated)。
+功能：类型名称，即 [SqlSmallInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlsmallint-deprecated)。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2130,7 +2130,7 @@ public mut prop value: Int16
 public init(v: Int16)
 ```
 
-功能：根据传入参数 v 构造一个 [SqlSmallInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlsmallInt-deprecated) 实例。
+功能：根据传入参数 v 构造一个 [SqlSmallInt <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlsmallint-deprecated) 实例。
 
 参数：
 

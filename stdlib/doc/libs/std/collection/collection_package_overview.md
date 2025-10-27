@@ -16,7 +16,7 @@ collection 包提供了常见数据结构的高效实现、相关抽象的接口
 
 - [LinkedList](./collection_package_api/collection_package_class.md#class-linkedlistt)：链表结构， LinkedList 的优点是它可以动态地添加或删除元素，而不需要移动其他元素。这使得它在需要频繁添加或删除元素的情况下非常有用。它还可以轻松地进行修改或删除操作，并且可以在列表中存储多个元素。 LinkedList 的缺点是它需要额外的内存来存储每个元素的引用，这可能会导致内存浪费。
 
-- [HashMap](./collection_package_api/collection_package_class.md#class-hashmapk-v)：哈希表，它存储键值对，并且可以根据键快速访问值。在需要使用映射关系并且需要快速查找时使用。
+- [HashMap](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)：哈希表，它存储键值对，并且可以根据键快速访问值。在需要使用映射关系并且需要快速查找时使用。
 
 - [HashSet](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet)：基于哈希表实现的集合数据结构，它可以用于快速检索和删除元素，具有高效的插入、删除和查找操作。
 
@@ -47,7 +47,7 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [filter\<T>((T) -> Bool)](./collection_package_api/collection_package_function.md#func-filtertt---bool) | 筛选出满足条件的元素。 |
 | [filterMap\<T, R>((T) -> ?R)](./collection_package_api/collection_package_function.md#func-filtermapt-rt---r) | 同时进行筛选操作和映射操作，返回一个新的迭代器。 |
 | [first\<T>(Iterable\<T>)](./collection_package_api/collection_package_function.md#func-firsttiterablet) | 获取头部元素。 |
-| [flatMap\<T, R>( (T) -> Iterable\<R>)](./collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) | 创建一个带 flatten 功能的映射。 |
+| [flatMap\<T, R>( (T) -> Iterable\<R>)](./collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) | 创建一个带 flatten 功能的映射。 |
 | [flatten\<T, R>(Iterable\<T>) where T <: Iterable\<R>](./collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) | 将嵌套的迭代器展开一层。 |
 | [fold\<T, R>(R, (R, T) -> R)](./collection_package_api/collection_package_function.md#func-foldt-rr-r-t---r) | 使用指定初始值，从左向右计算。 |
 | [forEach\<T>((T) -> Unit)](./collection_package_api/collection_package_function.md#func-foreachtt---unit) | 遍历所有元素，指定给定的操作。 |
@@ -91,8 +91,8 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [ArrayQueue\<T>](./collection_package_api/collection_package_class.md#class-arrayqueuet)| 基于数组实现的循环队列数据结构。|
 | [ArrayStack\<T>](./collection_package_api/collection_package_class.md#class-arraystackt) | 基于数组实现的栈[Stack](./collection_package_api/collection_package_interface.md#interface-stackt) 数据结构。 |
 | [HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>](./collection_package_api/collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek) | 此类主要实现 HashMap 的迭代器功能。 |
-| [HashMap\<K, V> where K <: Hashable & Equatable\<K>](./collection_package_api/collection_package_class.md#class-hashmapk-v) |  [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口的哈希表实现。 |
-| [HashSet\<T> where T <: Hashable & Equatable\<T>](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet) | 基于  [HashMap\<K, V>](./collection_package_api/collection_package_class.md#class-hashmapk-v) 实现的 [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett) 接口的实例。 |
+| [HashMap\<K, V> where K <: Hashable & Equatable\<K>](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) |  [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口的哈希表实现。 |
+| [HashSet\<T> where T <: Hashable & Equatable\<T>](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet) | 基于  [HashMap\<K, V>](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 实现的 [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett) 接口的实例。 |
 | [LinkedListNode\<T>](./collection_package_api/collection_package_class.md#class-linkedlistnodet) | [LinkedList\<T>](./collection_package_api/collection_package_class.md#class-linkedlistt) 上的节点。 |
 | [LinkedList\<T>](./collection_package_api/collection_package_class.md#class-linkedlistt) | 实现双向链表的数据结构。 |
 | [TreeMap\<K, V> where K <: Comparable\<K>](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek) | 基于平衡二叉搜索树实现的 [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口实例。 |

@@ -3423,7 +3423,7 @@ public func divWithPrecision(d: Decimal, precision: Int64, roundingMode!: Roundi
 
 异常：
 
-- [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-ArithmeticException) - 当除数为 0 时，抛出此异常。
+- [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当除数为 0 时，抛出此异常。
 - [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当除法结果值范围超过 [-(maxValue(precision) * (10 <sup>[Int32](../../core/core_package_api/core_package_intrinsics.md#int32).MAX</sup>)), maxValue(precision) * (10 <sup>[Int32](../../core/core_package_api/core_package_intrinsics.md#int32).MAX</sup>)] 时，抛出此异常。
 
 示例：

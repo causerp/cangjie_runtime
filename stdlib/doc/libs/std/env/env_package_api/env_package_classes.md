@@ -8,7 +8,7 @@ public class ConsoleReader <: InputStream
 
 功能：提供从控制台读出数据并转换成字符或字符串的功能。
 
-该类型无法构造实例，只能通过 [getStdIn()](./env_package_funcs.md#func-getStdIn) 获取实例。
+该类型无法构造实例，只能通过 [getStdIn()](./env_package_funcs.md#func-getstdin) 获取实例。
 读操作是同步的，内部设有缓存区来保存控制台输入的内容，当到达控制台输入流的结尾时，控制台读取函数将返回`None`。
 
 > **说明：**
@@ -251,7 +251,7 @@ public class ConsoleWriter <: OutputStream
 功能：此类提供保证线程安全的标准输出功能。
 
 每次 write 调用写到控制台的结果是完整的，不同的 write 函数调用的结果不会混合到一起。
-该类型无法构造实例，只能通过 [getStdOut()](./env_package_funcs.md#func-getStdOut) 获取标准输出实例或者  [getStdErr()](./env_package_funcs.md#func-getStdErr) 获取标准错误的实例。
+该类型无法构造实例，只能通过 [getStdOut()](./env_package_funcs.md#func-getstdout) 获取标准输出实例或者  [getStdErr()](./env_package_funcs.md#func-getstderr) 获取标准错误的实例。
 
 父类型：
 

@@ -46,8 +46,8 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [Datasource](./database_sql_package_api/database_sql_package_interfaces.md#interface-datasource) | 数据源接口。                                                 |
 | [Driver](./database_sql_package_api/database_sql_package_interfaces.md#interface-driver) | 数据库驱动接口。                                             |
 | [QueryResult](./database_sql_package_api/database_sql_package_interfaces.md#interface-queryresult) | 执行 Select 语句产生的结果接口。                             |
-| [SqlDbType <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_interfaces.md#interface-sqldbType-deprecated) | 所有 sql 数据类型的父类。 |
-| [SqlNullableDbType <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_interfaces.md#interface-sqlnullabledbType-deprecated) | 允许 `null` 值的 sql 数据类型父类。 |
+| [SqlDbType <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_interfaces.md#interface-sqldbtype-deprecated) | 所有 sql 数据类型的父类。 |
+| [SqlNullableDbType <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated) | 允许 `null` 值的 sql 数据类型父类。 |
 | [Statement](./database_sql_package_api/database_sql_package_interfaces.md#interface-statement) | sql 语句预执行接口。                                         |
 | [Transaction](./database_sql_package_api/database_sql_package_interfaces.md#interface-transaction) | 定义数据库事务的核心行为。                                   |
 | [UpdateResult](./database_sql_package_api/database_sql_package_interfaces.md#interface-updateresult) | 执行 Insert、Update、Delete 语句产生的结果接口。             |
@@ -59,7 +59,7 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [DriverManager](./database_sql_package_api/database_sql_package_classes.md#class-drivermanager) | 支持运行时根据驱动名获取数据库驱动实例。                     |
 | [PooledDatasource](./database_sql_package_api/database_sql_package_classes.md#class-pooleddatasource) | 数据库连接池类，提供数据库连接池能力。                       |
 | [SqlOption](./database_sql_package_api/database_sql_package_classes.md#class-sqloption) | 预定义的 sql 选项名称和值。                                  |
-| [SqlBigInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbigInt-deprecated) | 大整数，对应仓颉 `Int64` 类型。                              |
+| [SqlBigInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbigint-deprecated) | 大整数，对应仓颉 `Int64` 类型。                              |
 | [SqlBinary <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbinary-deprecated) | 定长二进制字符串，对应仓颉 `Array<Byte>` 类型。              |
 | [SqlBlob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlblob-deprecated) | 变长超大二进制字符串（BINARY LARGE OBJECT），对应仓颉 `InputStream` 类型。 |
 | [SqlBool <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlbool-deprecated) | 布尔类型，对应仓颉 `Bool` 类型。                             |
@@ -72,13 +72,13 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [SqlInteger <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlinteger-deprecated) | 中整数，对应仓颉 `Int32` 类型。                              |
 | [SqlInterval <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlinterval-deprecated) | 时间间隔，对应仓颉 `Duration` 类型。                         |
 | [SqlReal <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlreal-deprecated) | 浮点数，对应仓颉 `Float32` 类型。                            |
-| [SqlSmallInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlsmallInt-deprecated) | 小整数，对应仓颉 `Int16` 类型。                              |
+| [SqlSmallInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlsmallint-deprecated) | 小整数，对应仓颉 `Int16` 类型。                              |
 | [SqlTime <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqltime-deprecated) | 时间，仅时分秒毫秒有效，对应仓颉 `DateTime` 类型。           |
 | [SqlTimestamp <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqltimestamp-deprecated) | 时间戳，对应仓颉 `DateTime` 类型。                           |
 | [SqlTimeTz <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqltimetz-deprecated) | 带时区的时间，仅时分秒毫秒时区有效，对应仓颉 `DateTime` 类型。 |
 | [SqlVarBinary <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlvarbinary-deprecated) | 变长二进制字符串，对应仓颉 `Array<Byte>` 类型。              |
 | [SqlVarchar <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlvarchar-deprecated) | 变长字符串，对应仓颉 `String` 类型。                         |
-| [SqlNullableBigInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebigInt-deprecated) | 大整数，对应仓颉 `Int64` 类型，可为数据库 `Null` 值。        |
+| [SqlNullableBigInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebigint-deprecated) | 大整数，对应仓颉 `Int64` 类型，可为数据库 `Null` 值。        |
 | [SqlNullableBinary <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebinary-deprecated) | 定长二进制字符串，对应仓颉 `Array<Byte>` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableBlob <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullableblob-deprecated) | 变长超大二进制字符串（BINARY LARGE OBJECT），对应仓颉 `InputStream` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableBool <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablebool-deprecated) | 布尔类型，对应仓颉 `Bool` 类型，可为数据库 `Null` 值。       |
@@ -94,7 +94,7 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | [SqlNullableSmallInt <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablesmallint-deprecated) | 小整数，对应仓颉 `Int16` 类型，可为数据库 `Null` 值。        |
 | [SqlNullableTime <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabletime-deprecated) | 时间，仅时分秒毫秒有效，对应仓颉 `DateTime` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableTimestamp <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabletimestamp-deprecated) | 时间戳，对应仓颉 `DateTime` 类型，可为数据库 `Null` 值。     |
-| [SqlNullableTimeTz <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated) | 带时区的时间，仅时分秒毫秒时区有效，对应仓颉 `DateTime` 类型，可为数据库 `Null` 值。 |
+| [SqlNullableTimeTz <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullabletimetz-deprecated) | 带时区的时间，仅时分秒毫秒时区有效，对应仓颉 `DateTime` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableVarBinary <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablevarbinary-deprecated) | 变长二进制字符串，对应仓颉 `Array<Byte>` 类型，可为数据库 `Null` 值。 |
 | [SqlNullableVarchar <sup>(deprecated)</sup>](./database_sql_package_api/database_sql_package_classes.md#class-sqlnullablevarchar-deprecated) | 变长字符串，对应仓颉 `String` 类型，可为数据库 `Null` 值。   |
 
