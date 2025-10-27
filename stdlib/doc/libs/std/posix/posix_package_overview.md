@@ -23,7 +23,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [close(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-closeint32-deprecated) | 关闭文件，`close` 将会触发数据写回磁盘，并释放文件占用的资源。 | 
 | [creat(String, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-creatstring-uint32-deprecated) | 创建文件并为其返回文件描述符，或在失败时返回 `-1`。 | 
 | [dup(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-dupint32-deprecated) | 用于复制旧 `fd` 参数指定的文件描述符并返回。 | 
-| [dup2(Int32, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-dupint32-int32-deprecated) | 用于复制 `oldfd` 参数指定的文件描述符，并将其返回到 `newfd` 参数。 | 
+| [dup2(Int32, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-dup2int32-int32-deprecated) | 用于复制 `oldfd` 参数指定的文件描述符，并将其返回到 `newfd` 参数。 | 
 | [faccessat(Int32, String, Int32, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-faccessatint32-string-int32-int32-deprecated) | 判断 `fd` 对应的文件是否具有某种权限，具有返回 `0`，否则返回 `-1`。 | 
 | [fchdir(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-fchdirint32-deprecated) | 通过指定文件路径的描述符，更改调用进程的当前工作目录。 | 
 | [fchmod(Int32, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-fchmodint32-uint32-deprecated) | 修改文件描述符对应的文件访问权限。 | 
