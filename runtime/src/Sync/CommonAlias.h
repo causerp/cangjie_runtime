@@ -29,6 +29,7 @@ MRT_EXPORT void CJ_MCC_SetCurrentCJThreadObject(void* ptr) __attribute__((alias(
 MRT_EXPORT void CJ_MRT_SetCJThreadName(void* handle, uint8_t* name, size_t len)
     __attribute__((alias("MRT_SetCJThreadName")));
 MRT_EXPORT int64_t CJ_MRT_GetCJThreadId(void* handle) __attribute__((alias("MRT_GetCJThreadId")));
+MRT_EXPORT int64_t CJ_MRT_GetCJThreadState(void* handle) __attribute__((alias("MRT_GetCJThreadState")));
 MRT_EXPORT void* CJ_MRT_GetCurrentCJThread() __attribute__((alias("MRT_GetCurrentCJThread")));
 
 #endif

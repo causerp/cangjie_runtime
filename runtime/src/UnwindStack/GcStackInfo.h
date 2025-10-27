@@ -39,8 +39,8 @@ public:
 class RecordStackInfo : public GCStackInfo {
 public:
     explicit RecordStackInfo(const UnwindContext* context = nullptr, uint32_t threadId = 0,
-                             CString threadname = nullptr)
-        : GCStackInfo(context), tid(threadId), name(threadname) {}
+                             CString threadname = nullptr, int threadState = -1)
+        : GCStackInfo(context), tid(threadId), name(threadname), state(threadState) {}
     ~RecordStackInfo() override
     {
         for (auto f:stacks) {
@@ -53,6 +53,7 @@ public:
     }
     uint32_t GetStackTid() { return tid; }
     CString GetThreadName() { return name; }
+    int GetThreadState() { return state; }
     uint32_t GetCurrentFrame() { return currentFrame; }
     void FillInStackTrace() override;
     void VisitStackRoots(const RootVisitor &func, Mutator &mutator);
@@ -63,6 +64,7 @@ private:
     uint32_t tid = 0;
     CString name;
     uint32_t currentFrame = 0;
+    int state;
 };
 
 class CJThreadStackInfo : public GCStackInfo {
