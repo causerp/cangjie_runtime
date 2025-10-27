@@ -59,7 +59,6 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [println\<T>(T) where T <: ToString](./core_package_api/core_package_funcs.md#func-printlntt-where-t--tostring) | 向控制台输出 `T` 类型实例的字符串表示，末尾添加换行。 |
 | [readln()](./core_package_api/core_package_funcs.md#func-readln) | 接受控制台输入，直到遇到换行或 EOF 结束。 |
 | [refEq(Object, Object)](./core_package_api/core_package_funcs.md#func-refeqobject-object) | 判断两个 Object 实例的内存地址是否相同。 |
-| [refEq\<A, R>((A)->R, (A)->R)](./core_package_api/core_package_funcs.md#func-refeqa-ra-r-a-r) | 判断两个函数的内存地址是否相同。 |
 | [releaseArrayRawData(CPointerHandle\<T>) where T <: CType](./core_package_api/core_package_funcs.md#func-releasearrayrawdatatcpointerhandlet-where-t--ctype) | 释放原始指针实例，该实例通过 acquireArrayRawData 获取。 |
 | [sizeOf\<T>() where T <: CType](./core_package_api/core_package_funcs.md#func-sizeoft-where-t--ctype) | 获取类型 T 所占用的内存空间大小。 |
 | [sleep(Duration)](./core_package_api/core_package_funcs.md#func-sleepduration) | 休眠当前线程。|

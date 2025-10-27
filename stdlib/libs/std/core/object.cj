@@ -25,16 +25,6 @@ public func refEq(a: Object, b: Object): Bool {
     return intrinsicRefEq(a, b)
 }
 
-/**
- * Check whether two functions are the same
- *
- * @return true means they are the same function.
- */
-@When[backend == "cjnative"]
-public func refEq<A,R>(a: (A)->R, b: (A)->R): Bool {
-    return intrinsicRefEqFunc(a, b)
-}
-
 // This function is only used by ArrayList type, and it is not intended to be documented in users' guide
 @Intrinsic
 public unsafe func zeroValue<T>(): T
@@ -45,7 +35,3 @@ func intrinsicRefEq(a: Object, b: Object): Bool
 @When[backend == "cjnative"]
 @Intrinsic
 func intrinsicRefEqRawArray<T>(a: RawArray<T>, b: RawArray<T>): Bool
-
-@When[backend == "cjnative"]
-@Intrinsic
-func intrinsicRefEqFunc<A,R>(a: (A)->R, b: (A)->R): Bool
