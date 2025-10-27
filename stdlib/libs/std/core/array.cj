@@ -433,6 +433,307 @@ public struct Array<T> {
     public func map<R>(transform: (T) -> R): Array<R> {
         return Array<R>(this.len, {idx => transform(this[idx])})
     }
+
+    /**
+     * @description Extracts elements from the array at specified intervals and returns a new array.
+     * 
+     * @param count the interval for selection.
+     * @returns a new array containing all elements extracted from the source array at intervals.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func step(count: Int64): Array<T> {
+        if (count <= 0) {
+            throw IllegalArgumentException("Step count must be greater than 0!")
+        }
+
+        if (len > 0) {
+            let newSize: Int64 = (len + count - 1) / count
+            var newRawPtr = RawArray<T>(newSize, repeat: unsafe { zeroValue<T>() })
+            let oldLastIndex: Int64 = (newSize - 1) * count
+            var j: Int64 = newSize - 1
+            for (i in oldLastIndex..=0 : -count) {
+                var value = unsafe { getUnchecked(i) }
+                arraySet(newRawPtr, j, value)
+                j--
+            }
+            return Array<T>(newRawPtr, 0, newSize)
+        }
+        return Array<T>()
+    }
+
+    /**
+     * @description Extracts a specific number of elements from the array and returns a new array.
+     * 
+     * @param count the number of elements to take.
+     * @returns a new array with the specified number of elements taken.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func take(count: Int64): Array<T> {
+        if (count == 0) {
+            return Array<T>()
+        }
+        if (count < 0) {
+            throw IllegalArgumentException("take count must be greater than 0!")
+        }
+        var newLen = min(count, this.len)
+        let newRawPtr = RawArray<T>(newLen, repeat: unsafe { zeroValue<T>() })
+        intrinsicBuiltInCopyTo<T>(this.rawptr, newRawPtr, this.start, 0, newLen)
+        return Array<T>(newRawPtr, 0, newLen)
+    }
+
+    /**
+     * @description Skips a specific number of elements and returns a new array.
+     * 
+     * @param count the number of elements to skip.
+     * @returns a new array with the specified number of elements skipped.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func skip(count: Int64): Array<T> {
+        if (count < 0) {
+            throw IllegalArgumentException("skip count must be greater than 0!")
+        }
+        if (count == 0) {
+            return Array(this.toRawArray(), this.start, this.len)
+        }
+        var newLen = this.len - count
+        if (newLen <= 0) {
+            return Array<T>()
+        }
+
+        let newRawPtr = RawArray<T>(newLen, repeat: unsafe { zeroValue<T>() })
+        intrinsicBuiltInCopyTo<T>(this.rawptr, newRawPtr, this.start + count, 0, newLen)
+        return Array<T>(newRawPtr, 0, newLen)
+    }
+
+    /**
+     * @description Returns a new array containing elements that satisfy the filtering condition.
+     * 
+     * @param predicate the given condition.
+     * @returns a new array containing elements that satisfy the filtering condition.
+     */
+    @Frozen
+    public func filter(predicate: (T) -> Bool): Array<T> {
+        if (this.len == 0) {
+            return Array<T>()
+        }
+        var newRawPtr = RawArray<T>(this.len, repeat: unsafe { zeroValue<T>() })
+        var t = 0
+        for (i in 0..this.len) {
+            var value = unsafe { getUnchecked(i) }
+            if (predicate(value)) {
+                arraySet(newRawPtr, t, value)
+                t++
+            }
+        }
+        return Array<T>(newRawPtr, 0, t)
+    }
+
+    /**
+     * @description Applies a transformation closure (transform) to each element in the array, where the closure returns an array, then "flattens" and concatenates all returned arrays into a single result array.
+     * 
+     * @param transform the given mapping function.
+     * @returns the new array after being "mapped" and "flattened".
+     */
+    @Frozen
+    public func flatMap<R>(transform: (T) -> Array<R>): Array<R> {
+        var result: Array<R> = Array<R>()
+        var newLen = 0
+        for (i in 0..this.len) {
+            result = result.concat(transform(unsafe { getUnchecked(i) }))
+        }
+
+        return result
+    }
+
+    /**
+     * @description Performs filtering and mapping operations simultaneously, returning a new array.
+     * 
+     * @param transform the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; 
+              otherwise, it is false.
+     * @returns a new array after filtering and mapping.
+     */
+    @Frozen
+    public func filterMap<R>(transform: (T) -> ?R): Array<R> {
+        if (this.len == 0) {
+            return Array<R>()
+        }
+
+        let newRawPtr = RawArray<R>(this.len, repeat: unsafe { zeroValue<R>() })
+        var j = 0
+        for (i in 0..this.len) {
+            var value = unsafe { getUnchecked(i) }
+            match (transform(value)) {
+                case Some(v) =>
+                    arraySet(newRawPtr, j, v)
+                    j++
+                case None => continue
+            }
+        }
+        return Array<R>(newRawPtr, 0, j)
+    }
+
+    /**
+     * @description Returns a new array with the given element inserted between every two elements.
+     * 
+     * @param separator the given element.
+     * @returns a new array.
+     */
+    @Frozen
+    public func intersperse(separator: T): Array<T> {
+        if (this.len < 2) {
+            return this.clone()
+        }
+        var newSize: Int64 = 2 * this.len - 1
+        let newRawPtr = RawArray<T>(newSize, repeat: unsafe { zeroValue<T>() })
+
+        for (i in 0..this.len - 1) {
+            arraySet(newRawPtr, 2*i, unsafe { getUnchecked(i) })
+            arraySet(newRawPtr, 2*i + 1, separator)
+        }
+        arraySet(newRawPtr, newSize - 1, unsafe { getUnchecked(this.len - 1) })
+        return Array<T>(newRawPtr,0,newSize)
+    }
+
+    /**
+     * @description Iterates over all elements and performs the given operation.
+     * 
+     * @param action the given operation function.
+     */
+    @Frozen
+    public func forEach(action: (T) -> Unit): Unit {
+        for (i in 0..this.len) {
+            action(unsafe{ getUnchecked(i) })
+        }
+    }
+
+    /**
+     * @description Determine whether all elements in the array satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns true if all elements in the array satisfy the condition, otherwise returns false.
+     */
+    @Frozen
+    public func all(predicate: (T) -> Bool): Bool {
+        for (i in 0..this.len) {
+            if (predicate(unsafe{getUnchecked(i)})) {
+                continue
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether all elements in the array satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether there is any element that satisfies the condition.
+     */
+    @Frozen
+    public func any(predicate: (T) -> Bool): Bool {
+        for (i in 0..this.len) {
+            if (predicate(unsafe{getUnchecked(i)})) {
+                return true
+            } else {
+                continue
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all elements in the array do not satisfy the condition.
+     * 
+     * @param separator the given element.
+     * @returns a new array.
+     */
+    @Frozen
+    public func none(predicate: (T) -> Bool): Bool {
+        for (i in 0..this.len) {
+            if (predicate(unsafe{getUnchecked(i)})) {
+                return false
+            } else {
+                continue
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     * 
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func fold<R>(initial: R, operation: (R, T) -> R): R {
+        var result: R = initial
+        for (i in 0..this.len) {
+            result = operation(result, unsafe{getUnchecked(i)})
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first element as the initial value.
+     * 
+     * @param operation the given computation function.
+     * @returns the computation result.
+     */
+    @Frozen
+    public func reduce(operation: (T, T) -> T): Option<T> {
+        if (this.len == 0) {
+            return None<T>
+        }
+        var result: T = unsafe{getUnchecked(0)}
+        for (i in 1..this.len) {
+            result = operation(result, unsafe{getUnchecked(i)})
+        }
+        return result
+    }
+}
+
+extend<T> Array<T> {
+    /**
+     * @description Merges two arrays into a new array (the length depends on the shorter array).
+     * 
+     * @param other one of the arrays to be merged.
+     * @returns a new array.
+     */
+    @Frozen
+    public func zip<R>(other: Array<R>): Array<(T, R)> {
+        var newSize: Int64 = min(this.len, other.size)
+        if (newSize == 0) {
+            return Array<(T, R)>()
+        }
+        let newRawPtr = RawArray<(T,R)>(newSize, repeat: unsafe { zeroValue<(T,R)>() })
+        for (i in newSize - 1..=0 : -1) {
+            arraySet(newRawPtr,i,unsafe{(getUnchecked(i),other.getUnchecked(i))})
+        }
+        return Array<(T,R)>(newRawPtr,0,newSize)
+    }
+
+    /**
+     * @description Used to obtain an array with indices.
+     * 
+     * @returns a new array with indices.
+     */
+    @Frozen
+    public func enumerate(): Array<(Int64, T)> {
+        if (this.len == 0) {
+            return Array<(Int64, T)>()
+        }
+        let newRawPtr = RawArray<(Int64,T)>(this.len, repeat: unsafe { zeroValue<(Int64,T)>() })
+        for (i in this.len - 1..=0 : -1) {
+            arraySet(newRawPtr,i,(i,unsafe{getUnchecked(i)}))
+        }
+        return Array<(Int64,T)>(newRawPtr,0,this.len)
+    }
 }
 
 extend<T> Array<Array<T>> {

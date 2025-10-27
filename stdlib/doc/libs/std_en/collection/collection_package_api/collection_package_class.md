@@ -423,6 +423,38 @@ Example:
 
 See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [ArrayList](collection_package_class.md#class-arraylistt) satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [ArrayList](collection_package_class.md#class-arraylistt) satisfy the condition, otherwise returns false.
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether there is any element in the [ArrayList](collection_package_class.md#class-arraylistt) that satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
 ### func clear()
 
 ```cangjie
@@ -446,6 +478,82 @@ Function: Returns a copy (shallow copy) of this [ArrayList](collection_package_c
 Return Value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt)\<T>.
+
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): ArrayList<T>
+```
+
+Function: Returns a new [ArrayList](collection_package_class.md#class-arraylistt)\<T> containing elements that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new collection containing elements that satisfy the filtering condition.
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): ArrayList<R>
+```
+
+Function: Performs filtering and mapping operations simultaneously, returning a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+Parameters:
+
+- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) after filtering and mapping.
+
+### func flatMap\<R>((T) -> ArrayList\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R>
+```
+
+Function: Applies a transformation closure (transform) to each element in the [ArrayList](collection_package_class.md#class-arraylistt), where the closure returns a new [ArrayList](collection_package_class.md#class-arraylistt), then "flattens" and concatenates all returned [ArrayList](collection_package_class.md#class-arraylistt) into a single result [ArrayList](collection_package_class.md#class-arraylistt).
+
+Parameters:
+
+- transform: (T) -> [ArrayList](collection_package_class.md#class-arraylistt)\<R> - the given mapping function.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> -  the new [ArrayList](collection_package_class.md#class-arraylistt) after being "mapped" and "flattened".
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, T) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+Function: Iterates over all elements and performs the given operation.
+
+Parameters:
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
 
 ### func get(Int64)
 
@@ -485,6 +593,22 @@ Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The underlying raw data of the [ArrayList](collection_package_class.md#class-arraylistt).
 
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): ArrayList<T> 
+```
+
+Function: Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with the given new element inserted between every two elements.
+
+Parameters:
+
+- separator: T - the given element.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
 ### func isEmpty()
 
 ```cangjie
@@ -508,6 +632,54 @@ Function: Returns an iterator over the elements in this [ArrayList](collection_p
 Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator over the elements in the [ArrayList](collection_package_class.md#class-arraylistt).
+
+### func map\<R>((T) -> R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): ArrayList<R>
+```
+
+Function: Performs mapping on this [ArrayList](collection_package_class.md#class-arraylistt) and returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+Parameters:
+
+- transform: (T) ->R - the given mapping function.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [ArrayList](collection_package_class.md#class-arraylistt) do not satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [ArrayList](collection_package_class.md#class-arraylistt) do not satisfy the condition.
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Compute from left to right using the first element as the initial value.
+
+Parameters:
+
+- operation: (T, T) -> T - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
 
 ### func remove(Int64)
 
@@ -628,6 +800,27 @@ Example:
 
 See usage example at [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md).
 
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): ArrayList<T>
+```
+
+Function: Skips a specific number of elements and returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, it is equivalent to not skipping any elements, and returns a new [ArrayList](collection_package_class.md#class-arraylistt) containing all elements of the source [ArrayList](collection_package_class.md#class-arraylistt). When count is greater than 0 and less than the size of the source [ArrayList](collection_package_class.md#class-arraylistt), the first count elements are skipped, and a new [ArrayList](collection_package_class.md#class-arraylistt) containing the remaining elements is returned. When count is greater than or equal to the size of the [ArrayList](collection_package_class.md#class-arraylistt), an empty [ArrayList](collection_package_class.md#class-arraylistt) is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to skip.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with the specified number of elements skipped.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -664,6 +857,48 @@ Parameters:
 
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
 - comparator!: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
+
+### func step(Int64)
+```cangjie
+public func step(count: Int64): ArrayList<T>
+```
+
+Function: Extracts elements from the [ArrayList](collection_package_class.md#class-arraylistt) at the specified interval and returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+When count is less than or equal to 0, an exception is thrown.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the selected interval.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - a new [ArrayList](collection_package_class.md#class-arraylistt) containing all elements extracted from the source [ArrayList](collection_package_class.md#class-arraylistt) at intervals.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
+
+### func take(Int64)
+```cangjie
+public func take(count: Int64): ArrayList<T>
+```
+
+Function: Extracts a specific number of elements from the array and returns a new array.
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, no elements are taken and an empty array is returned. When count is greater than 0 and less than the size of the source array, the first count elements are taken and a new array is returned. When count is greater than or equal to the size of the array, all elements are taken and a new array is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to take.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with the specified number of elements taken.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
 
 ### func toArray()
 
@@ -742,6 +977,42 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of `range` is not equal to 1.
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `range` is invalid.
+
+### extend\<T> ArrayList\<T>
+
+```cangjie
+extend<T> ArrayList<T>
+```
+
+Function: Extends the [ArrayList](collection_package_class.md#class-arraylistt)\<T> type.
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): ArrayList<(Int64, T)>
+```
+
+Function: Used to obtain an [ArrayList](collection_package_class.md#class-arraylistt) with indices.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with indices.
+
+#### func zip\<R>(ArrayList\<R>)
+
+```cangjie
+public func zip<R>(other: ArrayList<R>): ArrayList<(T, R)>
+```
+
+Function: Merges two ArrayList into a new [ArrayList](collection_package_class.md#class-arraylistt) (the length depends on the shorter [ArrayList](collection_package_class.md#class-arraylistt)).
+
+Parameters:
+
+- other: [ArrayList](collection_package_class.md#class-arraylistt)\<R> - one of the [ArrayList](collection_package_class.md#class-arraylistt) to be merged.
+
+Return value:
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<(T, R)> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) .
 
 ### extend\<T> ArrayList\<T> <: Equatable\<ArrayList\<T>> where T <: Equatable\<T>
 
@@ -1475,6 +1746,38 @@ Example:
 
 See [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md) for usage examples.
 
+### func all((K, V) -> Bool)
+
+```cangjie
+public func all(predicate: (K, V) -> Bool): Bool
+```
+
+Function: Determine whether all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) satisfy the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) satisfy the condition, otherwise returns false
+
+### func any((K, V) -> Bool)
+
+```cangjie
+public func any(predicate: (K, V) -> Bool): Bool
+```
+
+Function: Determine whether there is any key-value pair in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) that satisfies the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Parameters:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any key-value pair that satisfies the condition.
+
 ### func clear()
 
 ```cangjie
@@ -1551,6 +1854,50 @@ Return Value:
 
 - [MapEntryView](./collection_package_interface.md#interface-mapentryviewk-v)\<K, V> - A reference view.
 
+### func filter((K, V) -> Bool)
+```cangjie
+public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
+```
+
+Function: Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> containing key-value pairs that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Returns a new collection of key-value pairs that satisfy the filtering condition.
+
+### func fold\<R>(R, (R, K, V) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, K, V) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, K, V) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((K, V) -> Unit)
+
+```cangjie
+public func forEach(action: (K, V) -> Unit): Unit
+```
+
+Function: Iterates over all key-value pairs and performs the given operation.
+
+Parameters:
+
+- action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
 ### func get(K)
 
 ```cangjie
@@ -1606,6 +1953,69 @@ Functionality: Returns all keys in the [HashMap](collection_package_class.md#cla
 Return Value:
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - A container holding all returned keys.
+
+### func mapValues\<R>((K, V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R>
+```
+
+Function: Performs mapping on this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) and returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+
+Parameters:
+
+- transform: (K, V) -> R - the given mapping function.
+
+Return value:
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+
+### func mapValues\<R>((V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+```
+
+Function: Performs mapping on this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) and returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+
+Parameters:
+
+- transform: (V) -> R - the given mapping function.
+
+Return value:
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
+
+### func none((K, V) -> Bool)
+
+```cangjie
+public func none(predicate: (K, V) -> Bool): Bool
+```
+Function: Determine whether all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) do not satisfy the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all key-value pairs in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) do not satisfy the condition.
+
+### func reduce((V, V) -> V)
+
+```cangjie
+public func reduce(operation: (V, V) -> V): Option<V>
+```
+
+Function: Compute from left to right using the first value as the initial value.
+
+Parameters:
+
+- operation: (V, V) -> V - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - Returns the computation result.
 
 ### func remove(Collection\<K>)
 
@@ -1935,6 +2345,38 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be added.
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) satisfy the condition, otherwise returns false.
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether there is any element in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) that satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
 ### prop capacity
 
 ```cangjie
@@ -2003,6 +2445,66 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont); otherwise, returns false.
 
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): HashSet<T>
+```
+
+功能： Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> containing elements that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) containing elements that satisfy the filtering condition.
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): HashSet<R>
+```
+
+Function: Performs filtering and mapping operations simultaneously, returning a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+
+Parameters:
+
+- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+
+Return value:
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) after filtering and mapping. 
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, T) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+Function: Iterates over all elements and performs the given operation.
+
+Parameters:
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
 ### func isEmpty()
 
 ```cangjie
@@ -2030,6 +2532,53 @@ Return Value:
 Example:
 
 See [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md) for usage examples.
+
+### func map\<R>((T)->R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R>
+```
+Description: Maps all elements of type T in the current [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) to elements of type R using the transform function, and returns them as a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+
+Parameters:
+
+- transform: (T)-> R - The mapping closure to apply to each element.
+
+Return value:
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - A new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) containing the transformed elements from the original [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) do not satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) do not satisfy the condition.
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Compute from left to right using the first element as the initial value.
+
+Parameters:
+
+- operation: (T, T) -> T - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
 
 ### func remove(T)
 
@@ -2429,70 +2978,6 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the specified linked list length is less than 0.
 
-### func addLast(T)
-
-```cangjie
-public func addLast(element: T): LinkedListNode<T>
-```
-
-Function: Adds an element at the end of the linked list and returns the node of that element.
-
-Parameters:
-
-- element: T - The element to be added to the linked list.
-
-Return Value:
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
-
-### func backward(LinkedListNode\<T>)
-
-```cangjie
-public func backward(mark: LinkedListNode<T>): Iterator<T>
-```
-
-Function: Gets an iterator for all elements starting from the 'mark' node to the head node of the corresponding linked list.
-
-Parameters:
-
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
-
-Return Value:
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for corresponding elements.
-
-Exceptions:
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - Thrown if the node does not belong to any linked list instance.
-
-### func clear()
-
-```cangjie
-public func clear(): Unit
-```
-
-Function: Removes all elements from the linked list.
-
-### func forward(LinkedListNode\<T>)
-
-```cangjie
-public func forward(mark: LinkedListNode<T>): Iterator<T>
-```
-
-Function: Gets an iterator for all elements starting from the 'mark' node to the tail node of the corresponding linked list.
-
-Parameters:
-
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
-
-Return Value:
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for corresponding elements.
-
-Exceptions:
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - Thrown if the node does not belong to any linked list instance.
-
 ### func addAfter(LinkedListNode\<T>,T)
 
 ```cangjie
@@ -2535,6 +3020,210 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the specified node does not belong to this linked list.
 
+### func addFirst(T)
+
+```cangjie
+public func addFirst(element: T): LinkedListNode<T>
+```
+
+Function: Inserts an element at the head of the linked list and returns the node of that element.
+
+Parameters:
+
+- element: T - The element to be added to the linked list.
+
+Return Value:
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
+
+### func addLast(T)
+
+```cangjie
+public func addLast(element: T): LinkedListNode<T>
+```
+
+Function: Adds an element at the end of the linked list and returns the node of that element.
+
+Parameters:
+
+- element: T - The element to be added to the linked list.
+
+Return Value:
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
+
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the linked list satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in this linked list satisfy the condition, otherwise returns false.
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether there is any element in this linked list that satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+### func backward(LinkedListNode\<T>)
+
+```cangjie
+public func backward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+Function: Gets an iterator for all elements starting from the 'mark' node to the head node of the corresponding linked list.
+
+Parameters:
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
+
+Return Value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for corresponding elements.
+
+Exceptions:
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - Thrown if the node does not belong to any linked list instance.
+
+### func clear()
+
+```cangjie
+public func clear(): Unit
+```
+
+Function: Removes all elements from the linked list.
+
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): LinkedList<T>
+```
+
+Function: Returns a new linked list containing elements that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list containing elements that satisfy the filtering condition.
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): LinkedList<R>
+```
+
+Function: Performs filtering and mapping operations simultaneously, returning a new [LinkedList](collection_package_class.md#class-linkedlistt).
+
+参数：
+
+- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+
+Parameters:
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list after filtering and mapping.
+
+### func flatMap\<R>((T) -> LinkedList\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R> 
+```
+
+Function: Applies a transformation closure (transform) to each element in the linked list. The closure returns a new linked list, and then all returned linked lists are "flattened" and concatenated into a single resulting linked list.
+
+Parameters:
+
+- transform: (T) -> [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - the given mapping function.
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt) -  the new linked list after being "mapped" and "flattened".
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, T) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+Function: Iterates over all elements and performs the given operation.
+
+Parameters:
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+### func forward(LinkedListNode\<T>)
+
+```cangjie
+public func forward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+Function: Gets an iterator for all elements starting from the 'mark' node to the tail node of the corresponding linked list.
+
+Parameters:
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The starting node.
+
+Return Value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for corresponding elements.
+
+Exceptions:
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - Thrown if the node does not belong to any linked list instance.
+
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): LinkedList<T> 
+```
+
+Function: Returns a new [LinkedList](collection_package_class.md#class-linkedlistt) with the given new element inserted between every two elements.
+
+Parameters:
+
+- separator: T - the given element.
+
+Return value:
+
+- LinkedList\<T> - Returns a new linked list.
+
 ### func isEmpty()
 
 ```cangjie
@@ -2559,6 +3248,22 @@ Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for elements in the current collection.
 
+### func map\<R>((T) -> R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): LinkedList<R>
+```
+
+Function: Performs mapping on this LinkedList and returns a new LinkedList.
+
+Parameters:
+
+- transform: (T) ->R - the given mapping function.
+
+Return value:
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - Returns a new LinkedList.
+
 ### func nodeAt(Int64)
 
 ```cangjie
@@ -2576,6 +3281,38 @@ Parameters:
 Return Value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>> - The node at the specified index, returns None if it doesn't exist.
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in this linked list do not satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current linked list do not satisfy the condition.
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Compute from left to right using the first element as the initial value.
+
+Parameters:
+
+- operation: (T, T) -> T - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
 
 ### func removeFirst()
 
@@ -2600,22 +3337,6 @@ Function: Removes the last element of the linked list and returns its value.
 Return Value:
 
 - ?T - The value of the removed element, returns None if the list is empty.
-
-### func addFirst(T)
-
-```cangjie
-public func addFirst(element: T): LinkedListNode<T>
-```
-
-Function: Inserts an element at the head of the linked list and returns the node of that element.
-
-Parameters:
-
-- element: T - The element to be added to the linked list.
-
-Return Value:
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
 
 ### func remove(LinkedListNode\<T>)
 
@@ -2661,6 +3382,27 @@ public func reverse(): Unit
 
 Function: Reverses the order of elements in this linked list.
 
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): LinkedList<T>
+```
+
+Function: Skips a specific number of elements and returns a new linked list.
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, it is equivalent to not skipping any elements, and returns a new linked list containing all elements of the source linked list. When count is greater than 0 and less than the size of the source linked list, the first count elements are skipped, and a new linked list containing the remaining elements is returned. When count is greater than or equal to the size of the source linked list, an empty linked list is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to skip.
+
+Return value:
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list with the specified number of elements skipped.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
 ### func splitOff(LinkedListNode\<T>)
 
 ```cangjie
@@ -2681,6 +3423,48 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the specified node does not belong to this linked list.
 
+### func step(Int64)
+```cangjie
+public func step(count: Int64): LinkedList<T>
+```
+
+Function: Extracts elements from the linked list at the specified interval and returns a new linked list.
+
+When count is less than or equal to 0, an exception is thrown.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the selected interval.
+
+Return value:
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - a new LinkedList containing all elements extracted from the source LinkedList at intervals.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
+
+### func take(Int64)
+```cangjie
+public func take(count: Int64): LinkedList<T>
+```
+
+Function: Extracts a specific number of elements from the linked list and returns a new linked list.
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, no elements are taken and an empty linked list is returned. When count is greater than 0 and less than the size of the source linked list, the first count elements are taken and a new linked list is returned. When count is greater than or equal to the size of the source linked list, all elements are taken and a new linked list is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to take.
+
+Return value:
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list with the specified number of elements taken.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
 ### func toArray()
 
 ```cangjie
@@ -2692,6 +3476,42 @@ Function: Returns an array containing all elements of this linked list in the sa
 Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
+
+### extend\<T> LinkedList\<T>
+
+```cangjie
+extend<T> LinkedList<T>
+```
+
+Function: Extends the [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> type
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): LinkedList<(Int64, T)>
+```
+
+Function: Used to obtain a linked list with indices.
+
+Return value:
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new [LinkedList](./collection_package_class.md#class-linkedlistt) with indices.
+
+#### func zip\<R>(ArrayList\<R>)
+
+```cangjie
+public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
+```
+
+Function: Merges two [LinkedList](./collection_package_class.md#class-linkedlistt) into a new [LinkedList](./collection_package_class.md#class-linkedlistt) (the length depends on the shorter linked list).
+
+Parameters:
+
+- other: [LinkedList](./collection_package_class.md#class-linkedlistt)\<R> - one of the linked lists to be merged.
+
+Return value:
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<(T, R)> - Returns a new linked list.
 
 ### extend\<T> LinkedList\<T> <: Equatable\<LinkedList\<T>> where T <: Equatable\<T>
 
@@ -2902,6 +3722,38 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The collection of key-value pairs to add to the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
+### func all((K, V) -> Bool)
+
+```cangjie
+public func all(predicate: (K, V) -> Bool): Bool
+```
+
+Function: Determine whether all key-value pairs in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) satisfy the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
+
+### func any((K, V) -> Bool)
+
+```cangjie
+public func any(predicate: (K, V) -> Bool): Bool
+```
+
+Function: Determine whether there is any key-value pair in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) that satisfies the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any key-value pair that satisfies the condition.
+
 ### func backward(K, Bool)
 
 ```cangjie
@@ -2987,6 +3839,50 @@ Return Value:
 
 - [MapEntryView](./collection_package_interface.md#interface-mapentryviewk-v)\<K, V> - A reference view.
 
+### func filter((K, V) -> Bool)
+```cangjie
+public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
+```
+
+Function: Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)<K, V> containing key-value pairs that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - Returns a new collection of key-value pairs that satisfy the filtering condition.
+
+### func fold\<R>(R, (R, K, V) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, K, V) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, K, V) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((K, V) -> Unit)
+
+```cangjie
+public func forEach(action: (K, V) -> Unit): Unit
+```
+
+Function: Iterates over all key-value pairs and performs the given operation.
+
+Parameters:
+
+- action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
 ### func forward(K, Bool)
 
 ```cangjie
@@ -3055,6 +3951,70 @@ Functionality: Returns all keys in the [TreeMap](collection_package_class.md#cla
 Return Value:
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - A collection containing all keys.
+
+### func mapValues\<R>((K, V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R>
+```
+
+Function: Performs mapping on this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) and returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+
+Parameters:
+
+- transform: (K, V) -> R -  the given mapping function.
+
+Return value:
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
+
+### func mapValues\<R>((V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+```
+
+Function: Performs mapping on this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>  and returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> .
+
+Parameters:
+
+- transform: (V) -> R - the given mapping function.
+
+Return value:
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>.
+
+### func none((K, V) -> Bool)
+
+```cangjie
+public func none(predicate: (K, V) -> Bool): Bool
+```
+
+Function: Determine whether all key-value pairs in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) do not satisfy the condition.
+
+Parameters:
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all key-value pairs in the current [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) do not satisfy the condition.
+
+### func reduce((V, V) -> V)
+
+```cangjie
+public func reduce(operation: (V, V) -> V): Option<V>
+```
+
+Function: Compute from left to right using the first value as the initial value.
+
+Parameters:
+
+- operation: (V, V) -> V - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - Returns the computation result.
 
 ### func removeFirst()
 
@@ -3380,6 +4340,38 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be added.
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfy the condition, otherwise returns false.
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether there is any element in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) that satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
 ### func backward(T, Bool)
 
 ```cangjie
@@ -3449,6 +4441,66 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements from the collection; otherwise, returns false.
 
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): TreeSet<T>
+```
+
+Function: Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> containing elements that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new collection of elements that satisfy the filtering condition.
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R>
+```
+
+Function: Performs filtering and mapping operations simultaneously, returning a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+
+Parameters:
+
+- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+
+Return value:
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) after filtering and mapping.
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, T) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+Function: Iterates over all elements and performs the given operation.
+
+Parameters:
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
 ### func forward(T, Bool)
 
 ```cangjie
@@ -3489,6 +4541,54 @@ Function: Returns an iterator for the [TreeSet](collection_package_class.md#clas
 Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+
+### func map\<R>((T)->R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R>
+```
+
+Function: Maps all elements of type T in the current [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) to elements of type R using the transform function, forming a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+
+Parameters:
+
+- transform: (T)->R - the mapping function.
+
+Return value:
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) composed of elements obtained by mapping all elements in the original [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) do not satisfy the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) do not satisfy the condition.
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Compute from left to right using the first element as the initial value.
+
+Parameters:
+
+- operation: (T, T) -> T - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
 
 ### func removeFirst()
 

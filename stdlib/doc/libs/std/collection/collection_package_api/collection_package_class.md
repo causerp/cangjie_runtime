@@ -1196,6 +1196,38 @@ main() {
 列表大小: 5
 ```
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 中所有元素是否都满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [ArrayList](collection_package_class.md#class-arraylistt) 中所有元素都满足条件，返回 true，否则返回 false
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 是否存在任意一个满足条件的元素。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
 ### func clear()
 
 ```cangjie
@@ -1286,6 +1318,82 @@ main() {
 修改后的原始列表: [1, 2, 3, 4]
 克隆列表保持不变: [1, 2, 3]
 ```
+
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): ArrayList<T>
+```
+
+功能： 返回一个满足筛选条件的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)\<T>。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个满足筛选条件的元素的新集合。
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): ArrayList<R>
+```
+
+功能：同时进行筛选操作和映射操作，返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+参数：
+
+- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个筛选和映射后的新[ArrayList](collection_package_class.md#class-arraylistt)。
+
+### func flatMap\<R>((T) -> ArrayList\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R>
+```
+
+功能：对 [ArrayList](collection_package_class.md#class-arraylistt) 中的每个元素应用一个转换闭包（transform），该闭包返回一个新的 [ArrayList](collection_package_class.md#class-arraylistt)，然后将所有返回的 [ArrayList](collection_package_class.md#class-arraylistt)“压平”（flatten）并连接成一个单一的结果 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+参数：
+
+- transform: (T) -> [ArrayList](collection_package_class.md#class-arraylistt)\<R> - 给定的映射函数。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> -  被“映射（map）”和“压平（flatten）”后的新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, T) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+功能：遍历所有元素，执行给定的操作。
+
+参数：
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
 
 ### func get(Int64)
 
@@ -1411,6 +1519,21 @@ main() {
 原始数组: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 原始数组大小: 16
 ```
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): ArrayList<T> 
+```
+
+功能：返回每两个元素之间插入一个给定的新元素后的新 [ArrayList](collection_package_class.md#class-arraylistt) 。
+
+参数：
+
+- separator: T - 给定的元素。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
 
 ### func isEmpty()
 
@@ -1490,6 +1613,54 @@ main() {
 2
 3
 ```
+
+### func map\<R>((T) -> R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): ArrayList<R>
+```
+
+功能：对此 [ArrayList](collection_package_class.md#class-arraylistt) 进行映射并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+参数：
+
+- transform: (T) ->R - 给定的映射函数。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> - 返回一个新的 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 中所有元素是否都不满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前 [ArrayList](collection_package_class.md#class-arraylistt) 中元素是否都不满足条件。
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+功能：使用第一个元素作为初始值，从左向右计算。
+
+参数：
+
+- operation: (T, T) -> T - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
 ### func remove(Int64)
 
@@ -1794,6 +1965,27 @@ main() {
 切片列表大小: 3
 ```
 
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): ArrayList<T>
+```
+
+功能： 跳过特定个数元素并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源 [ArrayList](collection_package_class.md#class-arraylistt) 所有元素的新 [ArrayList](collection_package_class.md#class-arraylistt) 。当 count 大于 0 小于源 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，跳过前 count 个元素，返回包含剩下的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。当 count 大于等于 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，返回空 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个跳过指定数量元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1908,6 +2100,48 @@ main() {
 排序前: [3, 1, 4, 2]
 稳定排序后: [4, 3, 2, 1]
 ```
+
+### func step(Int64)
+```cangjie
+public func step(count: Int64): ArrayList<T>
+```
+
+功能：以指定的间隔从 [ArrayList](collection_package_class.md#class-arraylistt) 中提取元素，并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+当 count 小于等于 0 时，抛出异常
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 选取的间隔
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 一个新的 [ArrayList](collection_package_class.md#class-arraylistt)，包含了按间隔从源 [ArrayList](collection_package_class.md#class-arraylistt) 中提取出的所有元素。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
+
+### func take(Int64)
+```cangjie
+public func take(count: Int64): ArrayList<T>
+```
+
+功能： 从数组取出特定个数元素并返回一个新数组。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空数组。当 count 大于 0 小于源数组的大小时，取前 count 个元素，返回新数组。当 count 大于等于数组的大小时，取所有元素，返回新数组。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要取出的个数。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个取出指定数量元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### func toArray()
 
@@ -2116,6 +2350,42 @@ main() {
 切片列表: [1, 2, 3]
 切片列表大小: 3
 ```
+
+### extend\<T> ArrayList\<T>
+
+```cangjie
+extend<T> ArrayList<T>
+```
+
+功能：为 [ArrayList](collection_package_class.md#class-arraylistt)\<T> 类型进行拓展
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): ArrayList<(Int64, T)>
+```
+
+功能：用于获取带索引的 [ArrayList](collection_package_class.md#class-arraylistt) 。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+#### func zip\<R>(ArrayList\<R>)
+
+```cangjie
+public func zip<R>(other: ArrayList<R>): ArrayList<(T, R)>
+```
+
+功能：将两个 [ArrayList](collection_package_class.md#class-arraylistt) 合并成一个新 [ArrayList](collection_package_class.md#class-arraylistt)（长度取决于短的那个 [ArrayList](collection_package_class.md#class-arraylistt)）。
+
+参数：
+
+- other: [ArrayList](collection_package_class.md#class-arraylistt)\<R> - 要合并的其中一个 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<(T, R)> - 返回一个新 [ArrayList](collection_package_class.md#class-arraylistt) 。
 
 ### extend\<T> ArrayList\<T> <: Equatable\<ArrayList\<T>> where T <: Equatable\<T>
 
@@ -4297,6 +4567,38 @@ main() {
 添加集合后 'a' 的值: 10
 ```
 
+### func all((K, V) -> Bool)
+
+```cangjie
+public func all(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中所有键值对是否都满足条件。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中所有键值对都满足条件，返回 true，否则返回 false
+
+### func any((K, V) -> Bool)
+
+```cangjie
+public func any(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 是否存在任意一个满足条件的键值对。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的键值对。
+
 ### func clear()
 
 ```cangjie
@@ -4531,6 +4833,50 @@ main() {
 修改后键 'key1' 的值为: 150
 ```
 
+### func filter((K, V) -> Bool)
+```cangjie
+public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
+```
+
+功能： 返回一个满足筛选条件的键值对的新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 返回一个满足筛选条件的键值对的新集合。
+
+### func fold\<R>(R, (R, K, V) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, K, V) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, K, V) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((K, V) -> Unit)
+
+```cangjie
+public func forEach(action: (K, V) -> Unit): Unit
+```
+
+功能：遍历所有键值对，执行给定的操作。
+
+参数：
+
+- action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
 ### func get(K)
 
 ```cangjie
@@ -4722,6 +5068,70 @@ main() {
 键的数量: 3
 包含键 'b'
 ```
+
+### func mapValues\<R>((K, V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R>
+```
+
+功能：对此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 进行映射并返回一个新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+
+参数：
+
+- transform: (K, V) -> R - 给定的映射函数。
+
+返回值：
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - 返回一个新的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+
+### func mapValues\<R>((V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+```
+
+功能：对此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 进行映射并返回一个新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+
+参数：
+
+- transform: (V) -> R - 给定的映射函数。
+
+返回值：
+
+- [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - 返回一个新的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+
+### func none((K, V) -> Bool)
+
+```cangjie
+public func none(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中所有键值对是否都不满足条件。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中键值对是否都不满足条件。
+
+### func reduce((V, V) -> V)
+
+```cangjie
+public func reduce(operation: (V, V) -> V): Option<V>
+```
+
+功能：使用第一个值作为初始值，从左向右计算。
+
+参数：
+
+- operation: (V, V) -> V - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 返回计算结果。
 
 ### func remove(Collection\<K>)
 
@@ -5701,6 +6111,38 @@ main() {
 添加集合后大小: 4
 ```
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素是否都满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素都满足条件，返回 true，否则返回 false
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否存在任意一个满足条件的元素。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
 ### prop capacity
 
 ```cangjie
@@ -5966,6 +6408,66 @@ main() {
 包含其他HashSet的所有元素
 ```
 
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): HashSet<T>
+```
+
+功能： 返回一个满足筛选条件的元素的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 返回一个满足筛选条件的元素的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): HashSet<R>
+```
+
+功能：同时进行筛选操作和映射操作，返回一个新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+
+参数：
+
+- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+
+返回值：
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 返回一个筛选和映射后的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, T) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+功能：遍历所有元素，执行给定的操作。
+
+参数：
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
 ### func isEmpty()
 
 ```cangjie
@@ -6076,6 +6578,54 @@ main() {
 - banana
 - orange
 ```
+
+### func map\<R>((T)->R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R>
+```
+
+功能：将当前 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 内所有 T 类型元素根据 transform 映射为 R 类型的元素，组成新的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+
+参数：
+
+- transform: (T)->R - 映射函数。
+
+返回值：
+
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - 原 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素映射后得到的元素组成的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素是否都不满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中元素是否都不满足条件。
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+功能：使用第一个元素作为初始值，从左向右计算。
+
+参数：
+
+- operation: (T, T) -> T - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
 ### func remove(T)
 
@@ -8207,6 +8757,210 @@ main() {
 链表大小: 4
 ```
 
+### func addFirst(T)
+
+```cangjie
+public func addFirst(element: T): LinkedListNode<T>
+```
+
+功能：在链表的头部位置插入一个元素，并且返回该元素的节点。
+
+参数：
+
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
+
+### func addLast(T)
+
+```cangjie
+public func addLast(element: T): LinkedListNode<T>
+```
+
+功能：在链表的尾部位置添加一个元素，并且返回该元素的节点。
+
+参数：
+
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
+
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+功能：判断链表中所有元素是否都满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果此链表中所有元素都满足条件，返回 true，否则返回 false
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+功能：判断此链表是否存在任意一个满足条件的元素。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
+### func backward(LinkedListNode\<T>)
+
+```cangjie
+public func backward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+功能：获取一个从 mark 节点开始，到所对应链表的头部节点的所有元素的迭代器。
+
+参数：
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+### func clear()
+
+```cangjie
+public func clear(): Unit
+```
+
+功能：删除链表中的所有元素。
+
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): LinkedList<T>
+```
+
+功能： 返回一个满足筛选条件的元素的新链表。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - 返回一个满足筛选条件的元素的新链表。
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): LinkedList<R>
+```
+
+功能：同时进行筛选操作和映射操作，返回一个新 [LinkedList](collection_package_class.md#class-linkedlistt)。
+
+参数：
+
+- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - 返回一个筛选和映射后的新链表。
+
+### func flatMap\<R>((T) -> LinkedList\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R> 
+```
+
+功能：对链表中的每个元素应用一个转换闭包（transform），该闭包返回一个新的链表，然后将所有返回的链表“压平”（flatten）并连接成一个单一的结果链表。
+
+参数：
+
+- transform: (T) -> [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - 给定的映射函数。
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt) -  被“映射（map）”和“压平（flatten）”后的新链表。
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, T) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+功能：遍历所有元素，执行给定的操作。
+
+参数：
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
+### func forward(LinkedListNode\<T>)
+
+```cangjie
+public func forward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+功能：获取一个从 mark 节点开始，到所对应链表的尾部节点的所有元素的迭代器。
+
+参数：
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): LinkedList<T> 
+```
+
+功能：返回每两个元素之间插入一个给定的新元素后的新 [LinkedList](collection_package_class.md#class-linkedlistt) 。
+
+参数：
+
+- separator: T - 给定的元素。
+
+返回值：
+
+- LinkedList\<T> - 返回一个新链表。
+
 ### func isEmpty()
 
 ```cangjie
@@ -8328,6 +9082,21 @@ main() {
 使用for-in语法遍历:
 苹果 香蕉 橙子 葡萄 
 ```
+### func map\<R>((T) -> R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): LinkedList<R>
+```
+
+功能：对此 [LinkedList](collection_package_class.md#class-linkedlistt) 进行映射并返回一个新 [LinkedList](collection_package_class.md#class-linkedlistt)。
+
+参数：
+
+- transform: (T) ->R - 给定的映射函数。
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - 返回一个新的 [LinkedList](collection_package_class.md#class-linkedlistt)。
 
 ### func nodeAt(Int64)
 
@@ -8417,6 +9186,38 @@ main() {
 索引5没有节点（超出范围）
 索引-1没有节点（负索引）
 ```
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+功能：判断此链表中所有元素是否都不满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前链表中元素是否都不满足条件。
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+功能：使用第一个元素作为初始值，从左向右计算。
+
+参数：
+
+- operation: (T, T) -> T - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
 ### func removeFirst()
 
@@ -8920,6 +9721,26 @@ main() {
 反转后最后一个元素: 第一个
 链表大小保持不变: 5
 ```
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): LinkedList<T>
+```
+
+功能： 跳过特定个数元素并返回一个新链表。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源链表所有元素的新链表。当 count 大于 0 小于源链表的大小时，跳过前 count 个元素，返回包含剩下的元素的新链表。当 count 大于等于源链表的大小时，返回空链表。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+
+返回值：
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - 返回一个跳过指定数量元素的新链表。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### func splitOff(LinkedListNode\<T>)
 
@@ -9020,6 +9841,48 @@ main() {
 新链表的第一个元素: 3
 原链表的最后一个元素: 2
 ```
+
+### func step(Int64)
+```cangjie
+public func step(count: Int64): LinkedList<T>
+```
+
+功能：以指定的间隔从链表中提取元素，并返回一个新链表。
+
+当 count 小于等于 0 时，抛出异常
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 选取的间隔
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - 一个新的 [LinkedList](collection_package_class.md#class-linkedlistt)，包含了按间隔从源 [LinkedList](collection_package_class.md#class-linkedlistt) 中提取出的所有元素。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
+
+### func take(Int64)
+```cangjie
+public func take(count: Int64): LinkedList<T>
+```
+
+功能： 从链表取出特定个数元素并返回一个新链表。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空链表。当 count 大于 0 小于源链表的大小时，取前 count 个元素，返回新链表。当 count 大于等于源链表的大小时，取所有元素，返回新链表。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要取出的个数。
+
+返回值：
+
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - 返回一个取出指定数量元素的新链表。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### func toArray()
 
@@ -9305,6 +10168,42 @@ list2: 第一个 第二个
 list3: 第一个 第三个 
 list4: 第二个 第一个 
 ```
+
+### extend\<T> LinkedList\<T>
+
+```cangjie
+extend<T> LinkedList<T>
+```
+
+功能：为 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 类型进行拓展
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): LinkedList<(Int64, T)>
+```
+
+功能：用于获取带索引的链表。
+
+返回值：
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新 [LinkedList](./collection_package_class.md#class-linkedlistt)。
+
+#### func zip\<R>(ArrayList\<R>)
+
+```cangjie
+public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
+```
+
+功能：将两个 [LinkedList](./collection_package_class.md#class-linkedlistt) 合并成一个新 [LinkedList](./collection_package_class.md#class-linkedlistt)（长度取决于短的那个链表）。
+
+参数：
+
+- other: [LinkedList](./collection_package_class.md#class-linkedlistt)\<R> - 要合并的其中一个链表。
+
+返回值：
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<(T, R)> - 返回一个新链表。
 
 ### extend\<T> LinkedList\<T> <: ToString where T <: ToString
 
@@ -9929,6 +10828,38 @@ d: 4
 e: 5
 ```
 
+### func all((K, V) -> Bool)
+
+```cangjie
+public func all(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中所有键值对是否都满足条件。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中所有键值对都满足条件，返回 true，否则返回 false
+
+### func any((K, V) -> Bool)
+
+```cangjie
+public func any(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 是否存在任意一个满足条件的键值对。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的键值对。
+
 ### func backward(K, Bool)
 
 ```cangjie
@@ -10343,6 +11274,50 @@ TreeMap内容: [(apple, 10), (banana, 20), (cherry, 30)]
 entryView用于提供对TreeMap中特定键值对的引用视图访问
 ```
 
+### func filter((K, V) -> Bool)
+```cangjie
+public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
+```
+
+功能： 返回一个满足筛选条件的键值对的新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 返回一个满足筛选条件的键值对的新集合。
+
+### func fold\<R>(R, (R, K, V) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, K, V) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, K, V) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((K, V) -> Unit)
+
+```cangjie
+public func forEach(action: (K, V) -> Unit): Unit
+```
+
+功能：遍历所有键值对，执行给定的操作。
+
+参数：
+
+- action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
 ### func forward(K, Bool)
 
 ```cangjie
@@ -10672,6 +11647,70 @@ Key: date
 键的数量: 4
 TreeMap的大小: 4
 ```
+
+### func mapValues\<R>((K, V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R>
+```
+
+功能：对此 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 进行映射并返回一个新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)。
+
+参数：
+
+- transform: (K, V) -> R - 给定的映射函数。
+
+返回值：
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - 返回一个新的 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)。
+
+### func mapValues\<R>((V) -> R)
+
+```cangjie
+public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+```
+
+功能：对此 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> 进行映射并返回一个新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>。
+
+参数：
+
+- transform: (V) -> R - 给定的映射函数。
+
+返回值：
+
+- [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - 返回一个新的 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>。
+
+### func none((K, V) -> Bool)
+
+```cangjie
+public func none(predicate: (K, V) -> Bool): Bool
+```
+
+功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中所有键值对是否都不满足条件。
+
+参数：
+
+- predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中键值对是否都不满足条件。
+
+### func reduce((V, V) -> V)
+
+```cangjie
+public func reduce(operation: (V, V) -> V): Option<V>
+```
+
+功能：使用第一个值作为初始值，从左向右计算。
+
+参数：
+
+- operation: (V, V) -> V - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 返回计算结果。
 
 ### func removeFirst()
 
@@ -11949,6 +12988,38 @@ main() {
 集合大小: 4
 ```
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素是否都满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素都满足条件，返回 true，否则返回 false
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 是否存在任意一个满足条件的元素。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
 ### func backward(T, Bool)
 
 ```cangjie
@@ -12210,6 +13281,66 @@ main() {
 包含所有['fig', 'grape']: false
 ```
 
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): TreeSet<T>
+```
+
+功能： 返回一个满足筛选条件的元素的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 返回一个满足筛选条件的元素的新集合。
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R>
+```
+
+功能：同时进行筛选操作和映射操作，返回一个新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
+
+参数：
+
+- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+
+返回值：
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 返回一个筛选和映射后的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, T) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+功能：遍历所有元素，执行给定的操作。
+
+参数：
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
 ### func forward(T, Bool)
 
 ```cangjie
@@ -12363,6 +13494,54 @@ main() {
   cherry
   date
 ```
+
+### func map\<R>((T)->R)
+
+```cangjie
+public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R>
+```
+
+功能：将当前 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 内所有 T 类型元素根据 transform 映射为 R 类型的元素，组成新的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
+
+参数：
+
+- transform: (T)->R - 映射函数。
+
+返回值：
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - 原 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素映射后得到的元素组成的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素是否都不满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中元素是否都不满足条件。
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+功能：使用第一个元素作为初始值，从左向右计算。
+
+参数：
+
+- operation: (T, T) -> T - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
 ### func removeFirst()
 

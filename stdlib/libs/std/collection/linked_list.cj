@@ -259,6 +259,313 @@ public class LinkedList<T> <: Collection<T> {
         }
     }
 
+    /**
+     * @description Extracts elements from the linked list at the specified interval and returns a new linked list.
+     *
+     * @param count the selected interval.
+     * @returns a new LinkedList containing all elements extracted from the source LinkedList at intervals.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func step(count: Int64): LinkedList<T> {
+        if (count <= 0) {
+            throw IllegalArgumentException("Step count must be greater than 0!")
+        }
+        var result: LinkedList<T> = LinkedList<T>()
+        if (size == 0) {
+            return result
+        }
+        var node = _head
+        var position = 0
+        while (let Some(n) <- node) {
+            if (position % count == 0) {
+                result.addLast(n.value)
+            }
+            position++
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Extracts a specific number of elements from the linked list and returns a new linked list.
+     *
+     * @param count the number of elements to take.
+     * @returns a new linked list with the specified number of elements taken.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func take(count: Int64): LinkedList<T> {
+        if (count == 0) {
+            return LinkedList<T>()
+        }
+
+        if (count < 0) {
+            throw IllegalArgumentException("take count must be greater than 0!")
+        }
+        var result: LinkedList<T> = LinkedList<T>()
+        var newSize = min(count, _size)
+        var node = _head
+        for (i in 0..newSize) {
+            result.addLast(node.getOrThrow().value)
+            node = node.getOrThrow().next
+        }
+        return result
+    }
+
+    /**
+     * @description Skips a specific number of elements and returns a new linked list.
+     *
+     * @param count the number of elements to skip.
+     * @returns a new linked list with the specified number of elements skipped.
+     * @throws IllegalArgumentException, if count < 0.
+     */
+    @Frozen
+    public func skip(count: Int64): LinkedList<T> {
+        if (count < 0) {
+            throw IllegalArgumentException("skip count must be greater than 0!")
+        }
+        if (size - count <= 0) {
+            return LinkedList<T>()
+        }
+        var result: LinkedList<T> = LinkedList<T>()
+        var node = _head
+        for (i in 0..count) {
+            node = node.getOrThrow().next
+        }
+        for (i in count..size) {
+            result.addLast(node.getOrThrow().value)
+            node = node.getOrThrow().next
+        }
+        return result
+    }
+
+    /**
+     * @description Returns a new linked list containing elements that satisfy the filtering condition.
+     *
+     * @param predicate the given condition.
+     * @returns a new linked list containing elements that satisfy the filtering condition.
+     */
+    @Frozen
+    public func filter(predicate: (T) -> Bool): LinkedList<T> {
+        if (size == 0) {
+            return LinkedList<T>()
+        }
+        var result: LinkedList<T> = LinkedList<T>()
+        var node = _head
+        while (let Some(n) <- node) {
+            var v = n.value
+            if (predicate(v)) {
+                result.addLast(v)
+            }
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Returns a new linked list containing elements that satisfy the filtering condition.
+     *
+     * @param transform the given mapping function.
+     * @returns a new linked list.
+     */
+    @Frozen
+    public func map<R>(transform: (T) -> R): LinkedList<R> {
+        if (size == 0) {
+            return LinkedList<R>()
+        }
+        var result: LinkedList<R> = LinkedList<R>()
+        var node = _head
+        while (let Some(n) <- node) {
+            result.addLast(transform(n.value))
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Applies a transformation closure (transform) to each element in the linked list. The closure returns a new linked list
+                    and then all returned linked lists are "flattened" and concatenated into a single resulting linked list.
+     *
+     * @param transform the given mapping function.
+     * @returns the new linked list after being "mapped" and "flattened".
+     */
+    @Frozen
+    public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R> {
+        var result = LinkedList<R>()
+
+        var node = _head
+        while (let Some(n) <- node) {
+            var newList = transform(n.value)
+            var newNode = newList._head
+            while (let Some(t) <- newNode) {
+                result.addLast(t.value)
+                newNode = t.next
+            }
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Performs filtering and mapping operations simultaneously, returning a new LinkedList.
+     *
+     * @param transform the given mapping function
+     * @returns a new linked list.
+     */
+    @Frozen
+    public func filterMap<R>(transform: (T) -> ?R): LinkedList<R> {
+        if (size == 0) {
+            return LinkedList<R>()
+        }
+        var result: LinkedList<R> = LinkedList<R>()
+        var node = _head
+        while (let Some(n) <- node) {
+            match (transform(n.value)) {
+                case Some(v) => result.addLast(v)
+                case None => node = n.next
+                            continue
+            }
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Returns a new LinkedList with the given new element inserted between every two elements.
+     *
+     * @param separator the given element.
+     * @returns a new linked list.
+     */
+    @Frozen
+    public func intersperse(separator: T): LinkedList<T> {
+        if (size == 0) {
+            return LinkedList<T>()
+        }
+        var result = LinkedList<T>()
+        var node = _head.getOrThrow()
+        for(i in 0..size - 1){
+            result.addLast(node.value)
+            result.addLast(separator)
+            node = node.next.getOrThrow()
+        }
+        result.addLast(node.value)
+        return result
+    }
+
+    /**
+     * @description Iterates over all elements and performs the given operation.
+     *
+     * @param action the given operation function.
+     */
+    @Frozen
+    public func forEach(action: (T) -> Unit): Unit {
+        var node = _head
+        while (let Some(n) <- node) {
+            action(n.value)
+            node = n.next
+        }
+    }
+
+    /**
+     * @description Determine whether all elements in the linked list satisfy the condition.
+     *
+     * @param predicate the given condition.
+     * @returns true if all elements in this linked list satisfy the condition, otherwise returns false.
+     */
+    @Frozen
+    public func all(predicate: (T) -> Bool): Bool {
+        var node = _head
+        while (let Some(n) <- node) {
+            if (predicate(n.value)) {
+                node = n.next
+                continue
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether there is any element in this linked list that satisfies the condition.
+     *
+     * @param predicate the given condition.
+     * @returns Whether there is any element that satisfies the condition.
+     */
+    @Frozen
+    public func any(predicate: (T) -> Bool): Bool {
+        var node = _head
+        while (let Some(n) <- node) {
+            if (predicate(n.value)) {
+                return true
+            } else {
+                node = n.next
+                continue
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all elements in this linked list do not satisfy the condition.
+     *
+     * @param predicate the given condition.
+     * @returns Whether all elements in the current linked list do not satisfy the condition.
+     */
+    @Frozen
+    public func none(predicate: (T) -> Bool): Bool {
+        var node = _head
+        while (let Some(n) <- node) {
+            if (predicate(n.value)) {
+                return false
+            } else {
+                node = n.next
+                continue
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     *
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func fold<R>(initial: R, operation: (R, T) -> R): R {
+        var result: R = initial
+        var node = _head
+        while (let Some(n) <- node) {
+            result = operation(result, n.value)
+            node = n.next
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first element as the initial value.
+     *
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func reduce(operation: (T, T) -> T): Option<T> {
+        if (size == 0) {
+            return None<T>
+        }
+        var node = _head
+        var result: T = node.getOrThrow().value
+        node = node.getOrThrow().next
+        while (let Some(n) <- node) {
+            result = operation(result, n.value)
+            node = n.next
+        }
+        return result
+    }
+
     public func clear(): Unit {
         _size = 0
         _head = None
@@ -382,6 +689,47 @@ public class LinkedList<T> <: Collection<T> {
             }
         }
         throw IllegalArgumentException("The node is not a member of this LinkedList.")
+    }
+}
+
+extend<T> LinkedList<T> {
+    /**
+     * @description Merges two LinkedList into a new LinkedList (the length depends on the shorter linked list).
+     *
+     * @param other one of the linked lists to be merged.
+     * @returns a new linked list.
+     */
+    @Frozen
+    public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)> {
+        var result = LinkedList<(T, R)>()
+
+        var node1 = _head
+        var node2 = other._head
+
+        while (let Some(n) <- node1 && let Some(t) <- node2) {
+            result.addLast((n.value, t.value))
+            node1 = n.next
+            node2 = t.next
+        }
+        return result
+    }
+
+    /**
+     * @description Used to obtain a linked list with indices.
+     *
+     * @returns a new LinkedList with indices.
+     */
+    @Frozen
+    public func enumerate(): LinkedList<(Int64, T)> {
+        var result = LinkedList<(Int64, T)>()
+        var node = _head
+        var i = 0
+        while (let Some(n) <- node) {
+            result.addLast((i, n.value))
+            node = n.next
+            i++
+        }
+        return result
     }
 }
 
