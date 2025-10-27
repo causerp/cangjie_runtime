@@ -1876,7 +1876,7 @@ public func toString(): String
 
 返回值：
 
-[String](core_package_structs.md#struct-string) - 转换后的字符串。
+- [String](core_package_structs.md#struct-string) - 转换后的字符串。
 
 ## class StringBuilder
 
@@ -2354,7 +2354,7 @@ public prop state: ThreadState
 
 功能：获取线程的状态。
 
-类型：[ThreadState](core_package_enums.md#enum-threadState)
+类型：[ThreadState](core_package_enums.md#enum-threadstate)
 
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
@@ -2472,7 +2472,7 @@ public let state: ThreadState
 
 类型：[ThreadState](core_package_enums.md#enum-threadstate)
 
-### func  dumpAllThreads()
+### func dumpAllThreads()
 
 ```cangjie
 public static func dumpAllThreads(): Array<ThreadSnapshot>
@@ -2482,7 +2482,7 @@ public static func dumpAllThreads(): Array<ThreadSnapshot>
 
 返回值：
 
-[Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - 返回一个包含当前进程所有线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)数组。
+- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - 返回一个包含当前进程所有线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)数组。
 
 示例：
 
@@ -2525,7 +2525,7 @@ stack trace:
          at std.core.Future<...>::execute()(future.cj:161)
 ```
 
-### func  dumpCurrentThread()
+### func dumpCurrentThread()
 
 ```cangjie
 public static func dumpCurrentThread(): ThreadSnapshot
@@ -2535,7 +2535,7 @@ public static func dumpCurrentThread(): ThreadSnapshot
 
 返回值：
 
-[ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - 返回一个包含当前线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)对象。
+- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - 返回一个包含当前线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)对象。
 
 示例：
 
@@ -2570,4 +2570,6 @@ public func toString(): String
 
 返回值：
 
-[String](core_package_structs.md#struct-string) - 转换后的字符串。
+- [String](core_package_structs.md#struct-string) - 转换后的字符串。
+
+

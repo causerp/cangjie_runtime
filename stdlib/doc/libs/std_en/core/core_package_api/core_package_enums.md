@@ -641,7 +641,7 @@ Return value:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
-### func ==(rhs: ThreadState)
+### func ==(ThreadState)
 
 ```cangjie
 public operator func ==(rhs: ThreadState): Bool
@@ -657,7 +657,7 @@ Return value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are the same, otherwise returns false.
 
-### func !=(rhs: ThreadState)
+### func !=(ThreadState)
 
 ```cangjie
 public operator func !=(rhs: ThreadState): Bool

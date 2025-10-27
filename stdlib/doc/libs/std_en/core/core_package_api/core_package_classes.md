@@ -1506,7 +1506,7 @@ Function: Get the string representation of the [StackTraceElement](core_package_
 
 Return value:
 
- [String](core_package_structs.md#struct-string) - The converted string.
+- [String](core_package_structs.md#struct-string) - The converted string.
 
 ## class StringBuilder
 
@@ -1927,7 +1927,7 @@ public prop state: ThreadState
 
 Function: Get the state of the thread.
 
-Type: [ThreadState](core_package_enums.md#enum-threadState)
+Type: [ThreadState](core_package_enums.md#enum-threadstate)
 
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
@@ -2055,7 +2055,7 @@ Function: Get information of all threads in the current process.
 
 Return value:
 
-[Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Return an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information of all threads in the current process.
+- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Return an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information of all threads in the current process.
 
 Example:
 
@@ -2108,7 +2108,7 @@ Function: Get information of the current thread.
 
 Return value:
 
-[ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Return a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information of the current thread.
+- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Return a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information of the current thread.
 
 Example:
 
@@ -2143,4 +2143,4 @@ Function: Get the string representation of the [ThreadSnapshot](core_package_cla
 
 Return value:
 
-[String](core_package_structs.md#struct-string) - The converted string.
+- [String](core_package_structs.md#struct-string) - The converted string.

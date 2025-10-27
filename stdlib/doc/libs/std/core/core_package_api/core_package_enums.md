@@ -641,7 +641,7 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
-### func ==(rhs: ThreadState)
+### func ==(ThreadState)
 
 ```cangjie
 public operator func ==(rhs: ThreadState): Bool
@@ -657,7 +657,7 @@ public operator func ==(rhs: ThreadState): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举相同则返回true，否则返回false。
 
-### func !=(rhs: ThreadState)
+### func !=(ThreadState)
 
 ```cangjie
 public operator func !=(rhs: ThreadState): Bool
