@@ -157,6 +157,20 @@ void* DYN_OPENSSL_secure_malloc(size_t num, DynMsg* dynMsg)
     return func(num, OPENSSL_FILE, OPENSSL_LINE);
 }
 
+void* DYN_OPENSSL_zalloc(size_t num, DynMsg* dynMsg)
+{
+    typedef void* (*SSLFunc)(size_t, const char*, int);
+    FINDFUNCTION(dynMsg, CRYPTO_secure_zalloc, NULL)
+    return func(num, OPENSSL_FILE, OPENSSL_LINE);
+}
+
+int DYN_BN_num_bytes(const BIGNUM* bn, DynMsg* dynMsg)
+{
+    typedef int (*SSLFunc)(const BIGNUM*);
+    FINDFUNCTION(dynMsg, BN_num_bits, 0)
+    return (func(bn) + 7) / 8; // Convert bits to bytes, rounding up
+}
+
 void DYN_OPENSSL_secure_free(void* ptr, DynMsg* dynMsg)
 {
     typedef void (*SSLFunc)(void*, const char*, int);
