@@ -75,7 +75,8 @@ struct EHTable {
     static bool IsAbnormalEHTable(const uint8_t* lsda)
     {
         uint32_t* point = reinterpret_cast<uint32_t*>(reinterpret_cast<uintptr_t>(const_cast<uint8_t*>(lsda)));
-        return *point == ABNORMAL_EH_TABLE_TAG;
+        // The second condition is for ABI compatibility.
+	return point == nullptr || *point == ABNORMAL_EH_TABLE_TAG;
     }
 
 private:
