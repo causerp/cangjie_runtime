@@ -61,6 +61,7 @@ void DYN_CRYPTO_free(void* str, DynMsg* dynMsg);
 void CJ_TLS_DYN_CRYPTO_free(void* str, DynMsg* dynMsg);
 void* DYN_OPENSSL_secure_malloc(size_t num, DynMsg* dynMsg);
 void DYN_OPENSSL_secure_free(void* ptr, DynMsg* dynMsg);
+void* DYN_OPENSSL_zalloc(size_t num, DynMsg* dynMsg);
 
 int DYN_SSL_CTX_set_min_proto_version(SSL_CTX* ctx, int version, DynMsg* dynMsg);
 int DYN_SSL_CTX_set_max_proto_version(SSL_CTX* ctx, int version, DynMsg* dynMsg);
@@ -119,5 +120,7 @@ void DynPopFree(void* extlist, char* funcName, DynMsg* dynMsg);
 #undef DECLAREFUNCTION6
 #undef DECLAREFUNCTION7
 #undef DECLAREFUNCTION8
+
+int DYN_BN_num_bytes(const BIGNUM* bn, DynMsg* dynMsg);
 
 #endif
