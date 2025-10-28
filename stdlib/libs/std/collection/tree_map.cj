@@ -572,6 +572,12 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
                 var childNode: Node<K, V> = node.getChild(sr.index).getOrThrow()
                 if (childNode.entrySize == MAX_ENTRY_SIZE) {
                     splitNode(node, childNode, sr.index)
+                    if (entry.key == node.getEntry(0).getOrThrow().key) {
+                        let tmp = node.getEntry(0).getOrThrow()
+                        let oldValue = tmp.value
+                        tmp.value = entry.value
+                        return oldValue
+                    }
                     if (entry.key > node.getEntry(sr.index).getOrThrow().key) {
                         childNode = node.getChild(sr.index + 1).getOrThrow()
                     }
