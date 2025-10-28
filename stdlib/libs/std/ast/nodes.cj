@@ -1138,9 +1138,6 @@ public class PackageHeader <: Node {
             this.keyword_ = pkg.keyword_
             this.orgName_ = checkValid(pkg.orgName_)
             this.orgToken_ = checkValid(pkg.orgToken_)
-            if (pkg.orgName_.value == "") {
-                throw ASTException("Cannot construct the 'PackageHeader' node.")
-            }
             this.prefixPaths_ = pkg.prefixPaths_
             this.prefixDots_ = pkg.prefixDots_
             this.pkgIdentifier_ = pkg.pkgIdentifier_
