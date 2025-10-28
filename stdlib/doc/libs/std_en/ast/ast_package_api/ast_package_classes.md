@@ -3356,6 +3356,34 @@ Exceptions:
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) is not the "{" operator.
 
+### prop orgName
+
+```cangjie
+public mut prop orgName: Token
+```
+
+Function: Gets or sets the lexical unit representing organization name in the [ImportContent](ast_package_classes.md#class-importcontent) node, setter would check if orgSeparator is "::" operator lexeme, set it to "::" if not.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) has a value of empty string.
+
+### prop orgSeparator
+
+```cangjie
+public mut prop orgSeparator: Token
+```
+
+Function: Gets or sets the "::" operator lexeme in the [ImportContent](ast_package_classes.md#class-importcontent) node, setter would check if orgName has a value of empty string, throw exception if it does.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) is not the "::" operator or orgName has a value of empty string.
+
 ### prop prefixPaths
 
 ```cangjie
@@ -5891,6 +5919,34 @@ Type: [Token](ast_package_structs.md#struct-token)
 Exceptions:
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) is not the `package` keyword.
+
+### prop orgName
+
+```cangjie
+public mut prop orgName: Token
+```
+
+Function: Gets or sets the lexical unit representing organization name in the [PackageHeader](ast_package_classes.md#class-packageheader) node, setter would check if orgSeparator is "::" operator lexeme, set it to "::" if not.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) has a value of empty string.
+
+### prop orgSeparator
+
+```cangjie
+public mut prop orgSeparator: Token
+```
+
+Function: Gets or sets the "::" operator lexeme in the [PackageHeader](ast_package_classes.md#class-packageheader) node, setter would check if orgName has a value of empty string, throw exception if it does.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) is not the "::" operator or orgName has a value of empty string.
 
 ### prop prefixPaths
 
