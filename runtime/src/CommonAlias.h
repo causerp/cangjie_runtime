@@ -74,6 +74,8 @@ extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetObjClass(const ObjectPtr obj) __attrib
 
 extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetTypeForAny(const ObjectPtr obj) __attribute__((alias("MCC_GetTypeForAny")));
 
+extern "C" MRT_EXPORT bool CJ_MCC_IsWrapperClassForAutoEnv(TypeInfo* ti) __attribute__((alias("MCC_IsWrapperClassForAutoEnv")));
+
 // for dynamic loader
 extern "C" MRT_EXPORT void* CJ_MCC_LoadPackage(const char* path) __attribute__((alias("MCC_LoadPackage")));
 

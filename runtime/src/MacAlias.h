@@ -99,6 +99,9 @@ __asm__(".global _CJ_MCC_GetOrCreateTypeInfoForReflect\n\t.set _CJ_MCC_GetOrCrea
 extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetTypeForAny(const ObjectPtr obj);
 __asm__(".global _CJ_MCC_GetTypeForAny\n\t.set _CJ_MCC_GetTypeForAny, _MCC_GetTypeForAny");
 
+extern "C" MRT_EXPORT bool MCC_IsWrapperClassForAutoEnv(const TypeInfo* ti);
+__asm__(".global _CJ_MCC_IsWrapperClassForAutoEnv\n\t.set _CJ_MCC_IsWrapperClassForAutoEnv, _MCC_IsWrapperClassForAutoEnv");
+
 extern "C" MRT_EXPORT void* CJ_MCC_LoadPackage(const char* path);
 __asm__(".global _CJ_MCC_LoadPackage\n\t.set _CJ_MCC_LoadPackage, _MCC_LoadPackage");
 

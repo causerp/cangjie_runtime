@@ -202,6 +202,20 @@ extern "C" TypeInfo* MCC_GetObjClass(const ObjectPtr obj)
 
 extern "C" TypeInfo* MCC_GetTypeForAny(const ObjectPtr obj) { return obj->GetTypeInfo(); }
 
+extern "C" bool MCC_IsWrapperClassForAutoEnv(const TypeInfo* ti)
+{
+    const char* tiName = ti->GetName();
+    const char* targetPattern = ":$Cw$";
+    const char *p = strchr(tiName, ':');
+    if (p == nullptr) {
+        return false;
+    } else if (strncmp(p, targetPattern, strlen(targetPattern)) == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 extern "C" void CJ_MCC_ArrayCopyRef(const ObjectPtr dstObj, MAddress dstField, size_t dstSize, const ObjectPtr srcObj,
                                     MAddress srcField, size_t srcSize)
 {

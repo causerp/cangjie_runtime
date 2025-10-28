@@ -39,7 +39,8 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
          cangjie${BACKEND_TYPE}Io
          cangjie${BACKEND_TYPE}Sync
          cangjie${BACKEND_TYPE}PROCESS
-         cangjie${BACKEND_TYPE}ENV)
+         cangjie${BACKEND_TYPE}ENV
+         cangjie${BACKEND_TYPE}Collection)
 endif()
 
 set(STD_DEPENDENCIES 
