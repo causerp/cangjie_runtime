@@ -9,6 +9,14 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#ifdef __ohos__
+#include <dlfcn.h>
+
+#define TIMESERVICE_NDK "libtime_service_ndk.so"
+#define NDK_NAME "OH_TimeService_GetTimeZone"
+#endif
+
+#define MAX_BUF_LENGTH 64
 
 char* CJ_TIME_GetLocalTimeZoneProperty()
 {
@@ -17,7 +25,6 @@ char* CJ_TIME_GetLocalTimeZoneProperty()
     if (!fp) {
         return NULL;
     }
-    const size_t MAX_BUF_LENGTH = 64;
     char buf[MAX_BUF_LENGTH];
     if (fgets(buf, sizeof(buf), fp)) {
         pclose(fp);
@@ -25,6 +32,24 @@ char* CJ_TIME_GetLocalTimeZoneProperty()
         return strdup(buf); // Need to free
     }
     pclose(fp);
+#endif
+#ifdef __ohos__
+    void* timeNdk = dlopen(TIMESERVICE_NDK, RTLD_LAZY);
+    if (timeNdk == NULL) {
+        return NULL;
+    }
+    int (*getZoneFunc) (char*, int64_t) = dlsym(timeNdk, NDK_NAME);
+    if (getZoneFunc == NULL) {
+        dlclose(timeNdk);
+        return NULL;
+    }
+    char buf[MAX_BUF_LENGTH] = {0};
+    int code = getZoneFunc(buf, MAX_BUF_LENGTH);
+    dlclose(timeNdk);
+    if (code != 0) {
+        return NULL;
+    }
+    return strdup(buf);
 #endif
     return NULL;
 }

@@ -248,13 +248,13 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
         if (id.contains("..") || id.contains("\0") || id[0] == b'/' || id[0] == b'\\') {
             throw IllegalArgumentException("Invalid timezone id.")
         }
+        if (let Some(tzdata) <- getOhosTzDataById(id)) {
+            return TimeZone.loadFromTZData(id, tzdata)
+        }
         var env = unsafe { LibC.mallocCString(TZPATH) }
         let envPath = unsafe { CJ_TIME_GetEnvVariable(env) }
         unsafe { LibC.free(env) }
         var envPathArray = envPath.toString().split(SEPARATOR, removeEmpty: true)
-        if (envPathArray.size == 0) {
-            return loadFromPaths(id, TZIF_SOURCE)
-        }
         if (envPathArray.size == 0) {
             return loadFromPaths(id, TZIF_SOURCE)
         }
