@@ -310,7 +310,7 @@ public class Regex {
 
 功能：用来指定编译类型并创建正则表达式实例。
 
-正则匹配规则详见 [regex 规则集](../regex_package_overview.md#-regex-规则集)。
+正则匹配规则详见 [regex 规则集](../regex_package_overview.md#regex-规则集)。
 
 ### init(String, Array\<RegexFlag>)
 

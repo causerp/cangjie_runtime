@@ -3629,7 +3629,7 @@ public init(bindAt!: SocketAddress)
 
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 > **注意：**
 >
@@ -3651,7 +3651,7 @@ public init(bindAt!: String)
 
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 > **注意：**
 >
@@ -3674,7 +3674,7 @@ public func bind(): Unit
 
 功能：绑定一个 `Unix datagram` 套接字，并创建监听队列。
 
-此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
+此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
 > **注意：**
 >
@@ -4158,7 +4158,7 @@ public init(bindAt!: String)
 
 功能：创建一个未连接的 [UnixServerSocket](net_package_classes.md#class-unixserversocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 > **注意：**
 >
@@ -4221,7 +4221,7 @@ public override func bind(): Unit
 
 功能：绑定一个 `Unix domain` 套接字，并创建监听队列。
 
-此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 接口判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
+此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 接口判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
 > **注意：**
 >
@@ -4599,7 +4599,7 @@ public init(path: String, localPath!: ?String = None)
 
 功能：创建一个未连接的 [UnixSocket](net_package_classes.md#class-unixsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 > **注意：**
 >

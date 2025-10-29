@@ -191,7 +191,7 @@ func toUpperCase(opt: CasingOption): Rune
 extend Rune <: UnicodeRuneExtension
 ```
 
-功能：为 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeRuneExtension) 接口，支持字符集相关的操作。
+功能：为 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-unicoderuneextension) 接口，支持字符集相关的操作。
 
 父类型：
 
@@ -798,7 +798,7 @@ func trimStart(): String
 extend String <: UnicodeStringExtension
 ```
 
-功能：为 [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeStringExtension) 接口，支持字符集相关的操作。
+功能：为 [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-unicoderuneextension) 接口，支持字符集相关的操作。
 
 父类型：
 

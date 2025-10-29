@@ -20,7 +20,7 @@ public class CurrentProcess <: Process
 
 父类型：
 
-- [Process](../process_package_overview.md#class-process)
+- [Process](process_package_classes.md#class-process)
 
 ### prop arguments
 
@@ -566,7 +566,7 @@ public class SubProcess <: Process
 
 父类型：
 
-- [Process](../process_package_overview.md#class-process)
+- [Process](process_package_classes.md#class-process)
 
 ### prop stdErr <sup>(deprecated)</sup>
 
