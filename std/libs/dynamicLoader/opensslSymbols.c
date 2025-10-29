@@ -18,8 +18,13 @@
 #define OPENSSLPATH "libcrypto-3-x64.dll"
 #define OPENSSLPATHSSL "libssl-3-x64.dll"
 #elif defined(__APPLE__)
-#include <dlfcn.h>
-#define OPENSSLPATH "libssl.3.dylib"
+  #include <dlfcn.h>
+  #include <TargetConditionals.h>
+  #if TARGET_OS_IOS
+    #define OPENSSLPATH NULL
+  #else
+    #define OPENSSLPATH "libssl.3.dylib"
+  #endif
 #elif defined(__ohos__)
 #include <dlfcn.h>
 #define OPENSSLPATH "libssl_openssl.z.so"
