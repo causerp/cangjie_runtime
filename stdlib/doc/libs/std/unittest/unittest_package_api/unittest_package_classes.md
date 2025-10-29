@@ -1730,3 +1730,29 @@ public XmlReporter(let directory: Path)
 参数：
 
 - directory: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 打印文件生成地址。
+
+## class XmlPerPackageReporter
+
+```cangjie
+public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
+    public XmlPerPackageReporter(let directory: Path)
+}
+```
+
+功能：打印单元测试用例结果数据到 Xml 文件上。
+
+父类型：
+
+- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+
+### XmlPerPackageReporter(Path)
+
+```cangjie
+public XmlReporter(let directory: Path)
+```
+
+功能：XmlPerPackageReporter 构造函数。
+
+参数：
+
+- directory: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 打印文件生成地址。

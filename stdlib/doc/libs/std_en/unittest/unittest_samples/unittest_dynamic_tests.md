@@ -94,4 +94,4 @@ The `runTests` function returns an instance of the `Report` class. You can use t
 
 - Print results to the console using `ConsoleReporter`: `report.reportTo(ConsoleReporter(colored: true))`.
 - Print to any `PrettyPrinter` implementation using `TextReporter`: `report.reportTo(TextReporter(into: PrettyText()))`.
-- Export results in supported formats, such as XML (`XmlReporter`, for unit tests only, not performance tests) or CSV (`CsvReporter` or `CsvRawReporter`, for performance tests only).
+- Export results in supported formats, such as XML (`XmlReporter` and `XmlPerPackageReporter`, for unit tests only, not performance tests) or CSV (`CsvReporter` or `CsvRawReporter`, for performance tests only).
