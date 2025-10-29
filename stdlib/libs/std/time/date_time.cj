@@ -258,7 +258,6 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
      * @param timeZone specified time zone. the default value is set to TimeZone.Local.
      * @return current DateTime in specified time zone.
      */
-    @Frozen
     public static func now(timeZone!: TimeZone = TimeZone.Local): DateTime {
         var (curSec, curNS) = systemNow()
         return DateTime(curSec + SECS_OF_UNIX_TO_AD1, UInt32(curNS), timeZone)
@@ -525,6 +524,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
      *
      * @throws ArithmeticException if the timestamp is out of range for 'Duration'.
      */
+    @Frozen
     public func toUnixTimeStamp(): Duration {
         return this - UnixEpoch
     }

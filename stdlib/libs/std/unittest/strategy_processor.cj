@@ -450,14 +450,39 @@ sealed abstract class DataStrategyProcessor<T> {
         return result
     }
 
+    // For backwards compatibility
     public func intoBenchmark(
         caseName!: String,
         configuration!: Configuration,
         doRun!: (T, Int64, Int64) -> Float64
     ): Benchmark {
-        Benchmark.createWithExplicitLoop<T>(caseName, this, configuration, doRun)
+        // in previous versions measurement was captured by doRun lambda
+        Benchmark.createWithExplicitLoop<T>(caseName, this, configuration, TimeNow()) {
+            t,a,_,c,_ => doRun(t,a,c)
+        }
     }
 
+    /**
+     *   Creates benchmark from a stragegy and benchmark loop lambda.
+     *
+     *   It is a member function on a strategy due to type inference limitations.
+     *   Otherwise compiler can't infer T in some cases.
+     */
+    public func intoBenchmark(
+        caseName!: String,
+        configuration!: Configuration,
+        measurement!: Measurement,
+        doRun!: (T, Int64, Int64, Int64, Measurement) -> Float64
+    ): Benchmark {
+        Benchmark.createWithExplicitLoop<T>(caseName, this, configuration, measurement, doRun)
+    }
+
+    /**  
+     *   Creates test case from a stragegy and a test function.
+     *
+     *   It is a member function on a strategy due to type inference limitations.
+     *   Otherwise compiler can't infer T.
+     */
     public func intoUnitTestCase(
         caseName!: String,
         configuration!: Configuration,

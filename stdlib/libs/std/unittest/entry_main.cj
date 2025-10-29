@@ -30,21 +30,25 @@ public func entryMain(testPackage: TestPackage): Int64 {
     if (printUnittestHelpPageIfRequested()) {
         return 0
     }
+
+    memoryStats.push("afterStaticInit")
+    let testGroup = testPackage.build()
+
     /* -m Compiler completes the module name in the constructor */
     /* -p Compiler completes the package name in the constructor */
     let reportFormat = ReportFormat.fromDefaultConfiguration() // check report options correctness before tests execution
-    let testGroup = testPackage.build()
     let outputReporter = TestOutputReporter.fromDefaultConfiguration()
     let progressReporter = ProgressReporter.fromDefaultConfiguration()
     progressReporter?.startReporting()
     let filterService = FilterService.fromDefaultConfiguration()
-    let hasWorersInSetup = needStartWorker(testGroup.suites, outputReporter) || TestProcessKind
+    let hasWorkersInSetup = needStartWorker(testGroup.suites, outputReporter) || TestProcessKind
         .fromDefaultConfiguration()
         .isWorker
+
     let result = Framework.launch(api: FromCli, progressQueue: progressReporter?.updateQueue,
-        hasWorkersInSetup: hasWorersInSetup) {
+        hasWorkersInSetup: hasWorkersInSetup) {
         => executeSmart(testGroup.name, testGroup.suites, filterService, outputReporter,
-            needStartWorker: hasWorersInSetup)
+            needStartWorker: hasWorkersInSetup)
     }
 
     progressReporter?.stopAndClear()

@@ -7,7 +7,7 @@
  */
 package std.unittest
 
-import std.collection.ArrayList
+import std.collection.*
 
 public class TestSuite {
     TestSuite(
@@ -43,7 +43,7 @@ public class TestSuite {
     }
 
     func run(configuration: Configuration, mode: ExecutionMode): TestGroupResult {
-        fakeGroup(this).run(configuration, mode)
+        fakeGroup({ => this }).run(configuration, mode)
     }
 
     func execute(groupName: String, runConfiguration: Configuration, filterService: FilterService): TestSuiteResult {
@@ -121,7 +121,7 @@ public class TestGroup {
 }
 
 public class TestGroupBuilder {
-    private let suites = ArrayList<TestSuite>()
+    private let suites = ArrayList<() -> TestSuite>()
     private var configuration = Configuration()
 
     TestGroupBuilder(
@@ -140,7 +140,6 @@ public class TestGroupBuilder {
 
     public func add(test: UnitTestCase): TestGroupBuilder {
         add(fakeSuite(Case(test)))
-        this
     }
 
     public func add(benchmark: Benchmark): TestGroupBuilder {
@@ -150,12 +149,17 @@ public class TestGroupBuilder {
 
     public func add(suite: TestSuite): TestGroupBuilder {
         enableOptimizedMockForBenchIfNeeded(suite)
+        add({ => suite })
+    }
+
+    func add(suite: () -> TestSuite): TestGroupBuilder {
         suites.add(suite)
         this
     }
 
     public func build(): TestGroup {
-        TestGroup(name, suites.toArray(), configuration)
+        let suites = suites.iterator().map{ x => x() }.inspect{ s => enableOptimizedMockForBenchIfNeeded(s) } |> collectArray
+        TestGroup(name, suites, configuration)
     }
 
     private func enableOptimizedMockForBenchIfNeeded(suite: TestSuite) {
@@ -314,9 +318,10 @@ public class Benchmark {
         name: String,
         strategy: DataStrategyProcessor<T>,
         configuration: Configuration,
-        optLambda: (T, Int64, Int64) -> Float64
+        measurement: Measurement,
+        optLambda: (T, Int64, Int64, Int64, Measurement) -> Float64
     ): Benchmark {
-        Benchmark(name, configuration, BenchExecutor<T>(strategy, optLambda))
+        Benchmark(name, configuration, BenchExecutor<T>(strategy, measurement, optLambda))
     }
 
     // Creates parameterized benchmark with provided data strategy.
@@ -346,7 +351,7 @@ public class Benchmark {
         body!: (T) -> Unit
     ): Benchmark {
         configuration.set(KeyMeasurementInfo.measurementInfo, measurement.info)
-        createWithExplicitLoop<T>(name, strategy, configuration, createBenchmarkLoop<T>(measurement, body))
+        createWithExplicitLoop<T>(name, strategy, configuration, measurement, createBenchmarkLoop<T>(measurement, body))
     }
 
     // Creates parameterized benchmark from given lambda.
@@ -369,8 +374,8 @@ public class Benchmark {
     private static func createBenchmarkLoop<T>(
         measurement: Measurement,
         singleRun: (T) -> Unit
-    ): (T, Int64, Int64) -> Float64 {
-        { value, count: Int64, max: Int64 =>
+    ): (T, Int64, Int64, Int64, Measurement) -> Float64 {
+        { value, count: Int64, max: Int64, batchSize___: Int64,  measurement: Measurement =>
             let start = measurement.measure()
             for (i in 0..max) {
                 if (i < count) {
@@ -467,7 +472,7 @@ public class TestPackage {
     }
 
     public func registerSuite(suite: () -> TestSuite): Unit {
-        builder.add(suite())
+        builder.add(suite)
     }
 
     public func registerBench(bench: () -> Benchmark): Unit {
@@ -537,16 +542,18 @@ enum CaseOrBench {
     }
 }
 
-private func fakeSuite(test: CaseOrBench): TestSuite {
-    TestSuite("TestCase_${test.name}", [test], Configuration(),
-        [], [], [], [], None
-    )
+private func fakeSuite(test: CaseOrBench): () -> TestSuite {
+    { =>
+        TestSuite("TestCase_${test.name}", [test], Configuration(),
+            [], [], [], [], None
+        )
+    }
 }
 
-private func fakeGroup(testSuite: TestSuite): TestGroup {
+private func fakeGroup(testSuite: () -> TestSuite): TestGroup {
     TestGroup(
         "default",
-        [testSuite], Configuration()
+        [testSuite()], Configuration()
     )
 }
 

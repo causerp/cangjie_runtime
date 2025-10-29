@@ -10,20 +10,24 @@ package std.unittest
 import std.unittest.common.PrettyText
 import std.collection.*
 import std.math.abs
-import std.runtime.ProcessorInfo
+import std.math.sqrt
+import std.runtime.getProcessorCount
 import std.random.Random
 
-type BenchRawMeasurement = (Float64, Float64)
+type BenchRawMeasurement = (Float64, Float64, Float64)
 
 class BenchExecutor<T> <: Executor {
     var step = 0
+
     BenchExecutor(
         private let strategy: DataStrategyProcessor<T>,
-        private let doRun: (T, Int64, Int64) -> Float64
+        private let measurement: Measurement,
+        private let doRun: (T, Int64, Int64, Int64, Measurement) -> Float64
     ) {
     }
 
     public func execute(suiteInfo: TestSuiteReportInfo, tcase: TestCaseResult, configuration: Configuration): Unit {
+
         let progress = ProgressOutput(configuration)
         let benchRunner = BenchRunner(configuration, progress)
         strategy.nextIteration(configuration)
@@ -65,9 +69,9 @@ class BenchExecutor<T> <: Executor {
         let mockOptForBenchEnabled = configuration.get(KeyOptimizeMocksForBench.optimizeMocksForBench) ?? false
 
         benchRunner.benchmark = if (mockOptForBenchEnabled) {
-            MockBenchWrapper<T>(value, caseId.caseName, doRun)
+            MockBenchWrapper<T>(value, caseId.caseName, measurement, doRun)
         } else {
-            SimpleBenchWrapper<T>(value, doRun)
+            SimpleBenchWrapper<T>(value, measurement, doRun)
         }
 
         benchRunner.measurements = ArrayList()
@@ -113,6 +117,14 @@ struct StatisticsSample {
         this(Sample(ArrayList()))
     }
 
+    init(cap: Int64) {
+        this(Sample(ArrayList(cap)))
+    }
+
+    func isEmpty(): Bool {
+        sample.data.isEmpty()
+    }
+
     func append(data: Float64) {
         sample.data.add(data)
     }
@@ -140,7 +152,7 @@ struct StatisticsSample {
 
     private func update() {
         if (_kde.isEmpty()) {
-            _kde.add(all: sample.kde(0.4))
+            _kde.add(all: sample.kde(0.6))
         }
     }
 
@@ -190,96 +202,117 @@ struct StatisticsSample {
     }
 }
 
-let BOOTSTRAP_ITERATIONS: Int64 = 2000
+private let BOOTSTRAP_ITERATIONS: Int64 = 2000
+private let BOOTSTRAP_PARALLEL: Int64 = 8
+private let EXPECTED_CAP: Int64 = BOOTSTRAP_ITERATIONS / BOOTSTRAP_PARALLEL
+
+enum SeparateGc <: ToString {
+    | AllPoints
+    | GCOnly
+    | WithoutGCOnly
+
+    public func toString() {
+        match(this) {
+            case AllPoints => "all"
+            case GCOnly => "only GC"
+            case WithoutGCOnly => "no GC"
+        }
+    }
+
+    func hasSeparation() {
+        match (this) {
+            case AllPoints => false
+            case GCOnly | WithoutGCOnly => true
+        }
+    }
+
+    func toFilter(): (BenchRawMeasurement) -> Bool {
+        match (this) {
+            case AllPoints => { x => true }
+            case GCOnly => { x => x[2] >= 1.0 }
+            case WithoutGCOnly => { x => x[2] == 0.0 }
+        }
+    }
+}
 
 class BenchmarkResult {
     var finished = false
 
-    var bootstrapped: BootstrapResult = BootstrapResult()
+    var bootstrapped: BootstrapResult = BootstrapResult(AllPoints)
 
     prop median: Float64 { get() {
-        bootstrapped.medianStats.sample.percentile(0.5)
-    }}
-    // median confidence interval radius
-    prop medianCI99: Float64 { get() {
-        (bootstrapped.medianStats.sample.percentile(0.99) - bootstrapped.medianStats.sample.percentile(0.01)) / 2.0
-    }}
-    prop medianOverhead: Float64 { get() {
-        bootstrapped.medianOverheadStats.sample.percentile(0.5)
+        bootstrapped.resultSample.sample.percentile(0.5)
     }}
 
     prop mean: Float64 { get() {
-        bootstrapped.meanStats.sample.mean()
+        bootstrapped.resultSample.sample.mean()
     }}
     prop meanCI99: Float64 { get() {
         (bootstrapped.meanStats.sample.percentile(0.99) - bootstrapped.meanStats.sample.percentile(0.01)) / 2.0
     }}
-    prop meanLower: Float64 { get() { mean-meanCI99 } }
-    prop meanUpper: Float64 { get() { mean+meanCI99 } }
-    prop meanOverhead: Float64 { get() {
-        bootstrapped.meanOverheadStats.sample.percentile(0.5)
+
+    prop overhead: Float64 { get() {
+        bootstrapped.overhead.sample.percentile(0.5)
     }}
 
-    prop mainResult: Float64 {
-        get() {
-            // to get more stable output when result is basically zero
-            if (median < 0.001) { 0.0 } else { median }
-        }
-    }
+    prop mainResult: Float64 { get() {
+        median
+    }}
+
     prop errorEst: Float64 { get () {
-        if (meanCI99 < 0.001) { 0.0 } else { meanCI99 }
+        if (meanCI99 < 0.000001) { 0.0 } else { meanCI99 }
     }}
 
     BenchmarkResult(var data: ArrayList<BenchRawMeasurement>) {}
 
-    func calculate() {
+    func calculate(measurement: MeasurementInfo) {
         if (finished) { return }
 
-        bootstrap()
+        bootstrap(measurement)
 
         finished = true
     }
 
-    private func bootstrap() {
-        let workers = min(ProcessorInfo.processorCount, 8)
+    private func bootstrap(measurement: MeasurementInfo) {
+        let workers = min(getProcessorCount(), BOOTSTRAP_PARALLEL)
+
+        let gcBatches = data.iterator().filter{ x => x[2] >= 1.0}.count()
+        let badBatches = Float64(data.iterator().filter{ x => x[2] > 1.99}.count())
+        let gcRatio = Float64(gcBatches) / Float64(data.size)
+        let separateGcPollution = if (data.size <= 20 || measurement.name.startsWith("Runtime")) {
+            // not much points to separate. And benchmark likely big enough for that to not matter.
+            // Also no need to separate runtime impact if user was explicitly measuring it.
+            AllPoints
+        } else if (gcRatio > 0.8 && gcBatches > 3) {
+            // almost all batches with GC so use them for main result
+            GCOnly
+        } else if (gcRatio < 0.6 && gcBatches > 0) {
+            // enough batches without GC so use them for main result
+            WithoutGCOnly
+        } else {
+            AllPoints
+        }
+
         bootstrapped = (0..workers) |>
             map { _ => ArrayList<BenchRawMeasurement>(data.size) } |>
             mapParallelOrdered(workers) { subsample =>
-                let results = BootstrapResult()
+                let results = BootstrapResult(separateGcPollution)
                 let random = Random()
                 for (_ in 0..BOOTSTRAP_ITERATIONS / workers) {
                     subsample.clear()
                     for (_ in 0..data.size) {
-                        subsample.add(data[random.nextInt64(data.size)])
+                        let p = random.nextInt64(data.size)
+                        subsample.add(data[p])
                     }
                     results.appendStatisticsFromSample(subsample)
                 }
                 results
             } |>
-            fold(BootstrapResult()) { a, b => a.join(b) }
+            fold(BootstrapResult(separateGcPollution)) { a, b => a.join(b) }
 
-        bootstrapped.finish()
+        bootstrapped.finish(data)
     }
 
-    // bootstrap actual values distribution accounting for batch size and overhead
-    func valuesSample(): StatisticsSample {
-        let bootstrapped = ArrayList<Float64>()
-        let medianOverhead = this.bootstrapped.medianOverheadStats.sample.data
-        let random = Random()
-        for (_ in 0..1000) {
-            let overhead = max(medianOverhead[random.nextInt64(medianOverhead.size)], 0.0)
-            let batch = data[random.nextInt64(data.size)]
-            if (batch[1] <= overhead) {
-                continue
-            }
-            let value = (batch[1] - overhead) / batch[0]
-            if (value.isNormal()) {
-                bootstrapped.add(value)
-            }
-        }
-
-        StatisticsSample(Sample(bootstrapped))
-    }
 }
 
 extend<T> Iterator<T> {
@@ -312,13 +345,50 @@ extend<T> Iterator<T> {
     }
 }
 
-struct BootstrapResult {
-    let meanStats = StatisticsSample()
-    let meanOverheadStats = StatisticsSample()
-    let medianStats = StatisticsSample()
-    let medianOverheadStats = StatisticsSample()
-    let r2Stats = StatisticsSample()
+
+class BootstrapResult {
+    let meanStats = StatisticsSample(EXPECTED_CAP)
+    let meanOverheadStats = StatisticsSample(EXPECTED_CAP)
+    let medianStats = StatisticsSample(EXPECTED_CAP)
+    let medianOverheadStats = StatisticsSample(EXPECTED_CAP)
+    let r2Stats = StatisticsSample(EXPECTED_CAP)
     let buffer = ArrayList<Float64>()
+    let buffer2 = ArrayList<Float64>()
+
+    // if we excluded measurements polluted by GC, do a separate analysis with all points included
+    var allPoints: ?BootstrapResult = None
+    var resultSample = StatisticsSample()
+
+    BootstrapResult(
+        let separateGc: SeparateGc
+    ){
+        if (separateGc.hasSeparation()) {
+            allPoints = default()
+        }
+    }
+
+    prop overhead: StatisticsSample {
+        get() {
+            let medianOH = medianOverheadStats.median
+            let medianIrq = medianOverheadStats.sample.irq()
+            let meanOH = meanOverheadStats.mean
+            let meanIrq = meanOverheadStats.sample.irq()
+            // Choose better estimation of overhead based on their IRQ.
+            // It is necessary because for cases with heteroschedasticity, 
+            // median estimation is much better because it is a robust estimator.
+            // But for good cases where OLS is the best linear regression estimator,
+            // OLS based bootstrapped distribution of overhead is also the best.
+            if (abs(meanOH - medianOH) < medianIrq/2.0 && medianIrq > meanIrq) {
+                meanOverheadStats
+            } else {
+                medianOverheadStats
+            }
+        }
+    }
+
+    private static func default(): BootstrapResult {
+        BootstrapResult(AllPoints)
+    }
 
     func join(other: BootstrapResult): BootstrapResult {
         meanStats.sample.data.add(all: other.meanStats.sample.data)
@@ -326,25 +396,104 @@ struct BootstrapResult {
         medianStats.sample.data.add(all: other.medianStats.sample.data)
         medianOverheadStats.sample.data.add(all: other.medianOverheadStats.sample.data)
         r2Stats.sample.data.add(all: other.r2Stats.sample.data)
+        allPoints?.join(other.allPoints.getOrThrow())
         this
     }
 
-    func finish() {
+    func finish(rawData: ArrayList<BenchRawMeasurement>): Unit {
+        var f = None<Future<Unit>>
+        if (let Some(all) <- allPoints) {
+            f = spawn { all.finish(rawData) }
+        }
+        
         meanStats.finish()
         meanOverheadStats.finish()
         medianStats.finish()
         medianOverheadStats.finish()
         r2Stats.finish()
+
+        resultSample = valuesSample(rawData)
+        f?.get()
     }
 
-    func appendStatisticsFromSample(subsample: ArrayList<BenchRawMeasurement>) {
-        let (median, overheadMedian) = medianRegression(subsample)
+    // bootstrap actual values distribution accounting for batch size and overhead
+    func valuesSample(rawData: ArrayList<BenchRawMeasurement>): StatisticsSample {
+        let result = ArrayList<Float64>()
+
+        let overhead = overhead.sample
+
+        let mean = meanStats.sample
+
+        let N1 = overhead.mean()
+        let N2 = mean.mean()
+
+        let stddev1 = overhead.stddev()
+        let stddev2 = medianStats.sample.stddev()
+        let gcRatio = rawData.iterator().map{ x => x[2] }.sum() / Float64(rawData.size)
+
+        let random = Random()
+        for (_ in 0..BOOTSTRAP_ITERATIONS) {
+            let offset = overhead.data.size / 5 // remove overhead outliers
+            
+            let overheadIdx = try { random.nextInt64(overhead.data.size - 2 * offset) + offset } catch (_: Exception) { 0 }
+
+            let overhead_sample = max(overhead.data[overheadIdx], 0.0)
+
+            let meanIdx = try { random.nextInt64(mean.data.size) } catch (_: Exception) { 0 }
+            // I think we can't assume that mean and overhead distributions are independent
+            // So here i assume that if overhead is smaller than mean would be most likely bigger
+            let mean_sample = max(mean.data[meanIdx], 0.0)
+            
+            let batch = rawData[random.nextInt64(rawData.size)]
+            if (!separateGc.toFilter()(batch)) { continue }
+
+
+            // The main idea here is that when batch size is small then most of the dispersion
+            // is explained by deviation in overhead.
+            // So here we assume that our measured distribution is a sum of overhead distribution
+            // and batchSize*<distribution we want to bootstrap>
+            // Under such assumption we know that mean of sum of distributions = sum of means
+            // However those are most likely not normal distributions so we can't use
+            // formula for variance of sum of normal distributions.
+            // Moreover if distribution is multimodal then such assumption do not work at all.
+            // So instead in practice stddev of sum = sum of stddevs assumption works very well.
+            // At least it gives expected results if there are two very distinct modes in our distribution.
+
+            // sampled mean of measured distribution
+            let N = overhead_sample + batch[0] * mean_sample
+            let b = (batch[1] - N)
+            let variance1 = stddev1
+            let variance2 = batch[0] * stddev2
+
+            // ratio of how much of variance comes from the variance of actual benchmark
+            let b2 = b * variance2 / (variance2 + variance1)
+
+            let value = mean_sample + b2/batch[0]
+            if (!value.isNaN()) {
+                result.add(value)
+            } else {
+                result.add(mean_sample)
+            }
+        }
+
+        StatisticsSample(Sample(result))
+    }
+
+    func appendStatisticsFromSample(subsample: ArrayList<BenchRawMeasurement>): Unit {
+        allPoints?.appendStatisticsFromSample(subsample)
+
+        let filtered = subsample.iterator().filter(separateGc.toFilter()).map{ x => (x[0], x[1]) } |> collectArray
+        if (filtered.size < 5 || filtered.size < subsample.size/10) {
+            return
+        }
+
+        let (median, overheadMedian) = medianRegression(filtered)
         if (!median.isNaN()) {
             this.medianStats.append(median)
             this.medianOverheadStats.append(overheadMedian)
         }
 
-        let (mean, meanOverhead, r2) = olsRegression(subsample)
+        let (mean, meanOverhead, r2) = olsRegression(filtered)
         if (!mean.isNaN()) {
             this.meanStats.append(mean)
             this.meanOverheadStats.append(meanOverhead)
@@ -352,28 +501,42 @@ struct BootstrapResult {
         }
     }
 
-    private func olsRegression(subsample: ArrayList<BenchRawMeasurement>): (Float64, Float64, Float64) {
-        let result = Measurements(subsample.toArray()).calculateMean()
+    private func olsRegression(subsample: Array<(Float64, Float64)>): (Float64, Float64, Float64) {
+        let result = Measurements(subsample).calculateMean()
         (result.mainSlope, result.intercept, result.r2)
     }
 
-    private func medianRegression(subsample: ArrayList<BenchRawMeasurement>): (Float64, Float64) {
+    // Uses shrinked version of Theil-Sen linear regression for sqrt(n) random points.
+    // It produces much worse results, but it is compensated by bootstrapping.
+    // Otherwise it has unacceptable performance when used together with bootstrapping.   
+    private func medianRegression(subsample: Array<(Float64, Float64)>): (Float64, Float64) {
+        // reduce allocation pressure
         let slopes = buffer
+        let intercepts = buffer2
         slopes.clear()
-        let (x1, y1) = subsample[0]
-        for ((x2, y2) in subsample) {
-            if (abs(x1 - x2) > 0.0001) {
-                let slope = (y1 - y2) / (x1 - x2)
-                let yat0 = abs(y2 - x2 * slope) - 0.001
-                if (yat0 > y2 || yat0 > y1) {
-                    // do not include nonsensical values
-                    continue
+        intercepts.clear()
+
+        // use only sqrt points for suitable performance
+        let sqrtSlice = 0..max(Int64(sqrt(Float64(subsample.size))), min(subsample.size, 15))
+
+        for (i in sqrtSlice) {
+            let (x1, y1) = subsample[i]
+            for (j in sqrtSlice) {
+                let (x2, y2) = subsample[j]
+                if (abs(x1 - x2) > 0.0001) {
+                    let slope = (y1 - y2) / (x1 - x2)
+                    let yat0 = abs(y2 - x2 * slope) - 0.001
+                    if (yat0 > y2 || yat0 > y1) {
+                        // do not include nonsensical values that are impossible under our model
+                        continue
+                    }
+                    slopes.add(slope)
+                    intercepts.add(y1 - x1 * slope)
                 }
-                slopes.add(slope)
             }
         }
-        let sample = Sample(slopes)
-        let slope = sample.percentile(0.5)
-        (slope, y1 - x1 * slope)
+        let slope = Sample(slopes).percentile(0.5)
+        let intercept = Sample(intercepts).percentile(0.5)
+        (slope, intercept)
     }
 }

@@ -76,13 +76,14 @@ extend StepKind <: Serializable<StepKind> {
     }
 }
 
+type SavedBenchData = HListOfTuples<Float64,HListOfTuples<Float64, HListOfTuples<Float64, End>>>
 extend StepInfo <: Serializable<StepInfo> {
     public func serializeInternal(): DataModel {
         let dms = DataModelStruct()
         match (this) {
             case Test(args) => dms.add(field<Int64>("test", args))
             case Bench(rawMeasurements) =>
-                dms.add(field("bench", ArrayOfTuples<Float64,Float64>(rawMeasurements.data)))
+                dms.add(field<SavedBenchData>("bench", rawMeasurements.data |> collToHlist3))
             case Failure(checks) => dms.add(field<Array<CheckResult>>("failure", checks))
         }
         dms
@@ -94,7 +95,7 @@ extend StepInfo <: Serializable<StepInfo> {
             return Test(Int64.deserialize(testArgs))
         }
         if (let Some(bench) <- dms.tryGet("bench")) {
-            return Bench(BenchmarkResult(ArrayList(ArrayOfTuples<Float64, Float64>.deserialize(bench).original())))
+            return Bench(BenchmarkResult(ArrayList(SavedBenchData.deserialize(bench) |> hlistToColl3)))
         }
         if (let Some(failure) <- dms.tryGet("failure")) {
             return Failure(Array<CheckResult>.deserialize(failure))
@@ -219,16 +220,15 @@ extend TestGroupResult {
 }
 
 private const RENDER_OPTIONS_BASELINE_KEY = "baseline"
-// private const RENDER_OPTIONS_CONVERSION_TABLE_MULTIPLIER_KEY = "conversionTableMultiplier"
-// private const RENDER_OPTIONS_CONVERSION_TABLE_UNIT_KEY = "conversionTableUnit"
-// private const RENDER_OPTIONS_MEASUREMENT_NAME_KEY = "measurementName"
+type ConvTable = HListOfTuples<Float64, HListOfTuples<String, End>>
+
 
 extend RenderOptions <: Serializable<RenderOptions> {
     public func serializeInternal(): DataModel {
         let dm = DataModelStruct()
             .add(field<?String>(KeyBaseline.baseline.name, baselineString))
         if (let Some(info) <- measurementInfo) {
-            dm.add(field<ArrayOfTuples<Float64,String>>("conversionTable", ArrayOfTuples(info.conversionTable)))
+            dm.add(field<ConvTable>("conversionTable", info.conversionTable |> collToHlist2))
                 .add(field<?String>("name", info.name))
                 .add(field<?String>("textDescription", info.textDescription))
         }
@@ -240,7 +240,7 @@ extend RenderOptions <: Serializable<RenderOptions> {
         var info = None<MeasurementInfo>
         if (let Some(conv) <- dm.asStruct().tryGet("conversionTable")) {
             info = MeasurementInfo(
-                ArrayOfTuples<Float64, String>.deserialize(conv).original(),
+                ConvTable.deserialize(conv) |> hlistToColl2,
                 String.deserialize(dm.asStruct().get("name")),
                 String.deserialize(dm.asStruct().get("textDescription"))
             )
@@ -252,36 +252,76 @@ extend RenderOptions <: Serializable<RenderOptions> {
     }
 }
 
-struct ArrayOfTuples<A, B> <: Serializable<ArrayOfTuples<A, B>> where A <: Serializable<A>, B <: Serializable<B> {
-    ArrayOfTuples(
-        let left: Array<A>,
-        let right: Array<B>
+struct End <: Serializable<End> {
+    public func serializeInternal(): DataModel {
+        DataModelNull()
+    }
+
+    public static func deserialize(dm: DataModel): End {
+        if (dm is DataModelNull) {
+            End()
+        } else {
+            throw Exception("invalid json")
+        }
+    }
+}
+
+struct HListOfTuples<A,B> {
+    HListOfTuples(
+        let data: Array<A>,
+        let tail: B
     ) {}
+}
 
-    init(col: Collection<(A, B)>) {
-        let data = col.toArray()
-        left = Array(data.size) { i =>
-            data[i][0]
-        }
-        right = Array(data.size) { i =>
-            data[i][1]
-        }
-    }
-
-    func original(): Array<(A, B)> {
-        left |> zip(right) |> collectArray
-    }
-
+extend<A,B> HListOfTuples<A,B> <: Serializable<HListOfTuples<A, B>> where A <: Serializable<A>, B <: Serializable<B> {
     public func serializeInternal(): DataModel {
         DataModelStruct()
-            .add(field("left", left))
-            .add(field("right", right))
+            .add(field<Array<A>>("data", data))
+            .add(field<B>("tail", tail))
     }
 
-    public static func deserialize(dm: DataModel): ArrayOfTuples<A, B> {
-        ArrayOfTuples(
-            Array<A>.deserialize(dm.asStruct().get("left")),
-            Array<B>.deserialize(dm.asStruct().get("right")),
+    public static func deserialize(dm: DataModel): HListOfTuples<A, B> {
+        HListOfTuples(
+            Array<A>.deserialize(dm.asStruct().get("data")),
+            B.deserialize(dm.asStruct().get("tail")),
         )
     }
+}
+
+func collToHlist2<A,B>(col: Collection<(A, B)>): HListOfTuples<A, HListOfTuples<B, End>> {
+    let data = col.toArray()
+    let left = Array(data.size) { i =>
+        data[i][0]
+    }
+    let right = Array(data.size) { i =>
+        data[i][1]
+    }
+    HListOfTuples(left, HListOfTuples(right, End()))
+}
+
+func collToHlist3<A,B,C>(col: Collection<(A, B, C)>): HListOfTuples<A, HListOfTuples<B, HListOfTuples<C, End>>> {
+    let data = col.toArray()
+    let left = Array(data.size) { i =>
+        data[i][0]
+    }
+    let right = Array(data.size) { i =>
+        data[i][1]
+    }
+    let end = Array(data.size) { i =>
+        data[i][2]
+    }
+    HListOfTuples(left, HListOfTuples(right, HListOfTuples(end, End())))       
+}
+
+func hlistToColl2<A,B>(hlist: HListOfTuples<A, HListOfTuples<B, End>>): Array<(A, B)> {
+    let a = hlist.data
+    let b = hlist.tail.data
+    a |> zip(b) |> collectArray
+}
+
+func hlistToColl3<A,B,C>(hlist: HListOfTuples<A, HListOfTuples<B, HListOfTuples<C, End>>>): Array<(A, B, C)> {
+    let a = hlist.data
+    let b = hlist.tail.data
+    let c = hlist.tail.tail.data
+    a |> zip(b) |> zip(c) |> map { x => (x[0][0], x[0][1], x[1])} |> collectArray
 }

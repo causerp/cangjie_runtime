@@ -10,6 +10,7 @@ package std.core
 
 public class Box<T> {
     public var value: T
+    @Frozen
     public init(v: T) {
         value = v
     }
