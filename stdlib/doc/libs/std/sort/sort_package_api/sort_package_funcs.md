@@ -518,6 +518,57 @@ public func sort<T>(data: List<T>, stable!: Bool = false, descending!: Bool = fa
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+import std.collection.*
+
+class Rectangle <: Comparable<Rectangle> & ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func compare(r: Rectangle) {
+        let tValue: Int64 = this.width * this.height
+        let rValue: Int64 = r.width * r.height
+        if (tValue > rValue) {
+            return Ordering.GT
+        } else if (tValue == rValue) {
+            return Ordering.EQ
+        } else {
+            return Ordering.LT
+        }
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积降序排序 */
+    let arrayList = ArrayList<Rectangle>()
+    arrayList.add(Rectangle(4, 8))
+    arrayList.add(Rectangle(6, 7))
+    arrayList.add(Rectangle(2, 6))
+    sort<Rectangle>(arrayList, stable: true, descending: true)
+    println(arrayList)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 6, height: 7, #width: 4, height: 8, #width: 2, height: 6]
+```
+
 ## func sort\<T>(List\<T>, (T, T) -> Ordering, Bool, Bool)
 
 ```cangjie
@@ -534,6 +585,61 @@ public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = fals
 - by!: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 传入的比较函数。
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+import std.collection.*
+
+class Rectangle <: ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积降序排序 */
+    let arrayList = ArrayList<Rectangle>()
+    arrayList.add(Rectangle(4, 8))
+    arrayList.add(Rectangle(6, 7))
+    arrayList.add(Rectangle(2, 6))
+    sort<Rectangle>(
+        arrayList,
+        by: {
+            r1: Rectangle, r2: Rectangle =>
+            let r1Value: Int64 = r1.width * r1.height
+            let r2Value: Int64 = r2.width * r2.height
+            if (r1Value > r2Value) {
+                return Ordering.GT
+            } else if (r1Value == r2Value) {
+                return Ordering.EQ
+            } else {
+                return Ordering.LT
+            }
+        },
+        stable: true,
+        descending: true
+    )
+    println(arrayList)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 6, height: 7, #width: 4, height: 8, #width: 2, height: 6]
+```
 
 ## func sort\<T>(List\<T>, (T, T) -> Bool, Bool, Bool)
 
@@ -552,6 +658,55 @@ public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = fa
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+import std.collection.*
+
+class Rectangle <: ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积降序排序 */
+    let arrayList = ArrayList<Rectangle>()
+    arrayList.add(Rectangle(4, 8))
+    arrayList.add(Rectangle(6, 7))
+    arrayList.add(Rectangle(2, 6))
+    sort<Rectangle>(
+        arrayList,
+        lessThan: {
+            r1: Rectangle, r2: Rectangle =>
+            let r1Value: Int64 = r1.width * r1.height
+            let r2Value: Int64 = r2.width * r2.height
+            return r1Value < r2Value
+        },
+        stable: true,
+        descending: true
+    )
+    println(arrayList)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 6, height: 7, #width: 4, height: 8, #width: 2, height: 6]
+```
+
 ## func sort\<T, K>(List\<T>, (T) -> K, Bool, Bool) where K <: Comparable\<K>
 
 ```cangjie
@@ -569,6 +724,52 @@ public func sort<T, K>(data: List<T>, key!: (T) -> K, stable!: Bool = false, des
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+import std.collection.*
+
+class Rectangle <: ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照宽降序排序 */
+    let arrayList = ArrayList<Rectangle>()
+    arrayList.add(Rectangle(4, 8))
+    arrayList.add(Rectangle(6, 7))
+    arrayList.add(Rectangle(2, 6))
+    sort<Rectangle, Int64>(
+        arrayList,
+        key: {
+            r: Rectangle => return r.width
+        },
+        stable: true,
+        descending: true
+    )
+    println(arrayList)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 6, height: 7, #width: 4, height: 8, #width: 2, height: 6]
+```
+
 ## func stableSort\<T>(Array\<T>) where T <: Comparable\<T> <sup>(deprecated)</sup>
 
 ```cangjie
@@ -584,6 +785,53 @@ public func stableSort<T>(data: Array<T>): Unit where T <: Comparable<T>
 参数：
 
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 需要排序的数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+class Rectangle <: Comparable<Rectangle> & ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func compare(r: Rectangle) {
+        let tValue: Int64 = this.width * this.height
+        let rValue: Int64 = r.width * r.height
+        if (tValue > rValue) {
+            return Ordering.GT
+        } else if (tValue == rValue) {
+            return Ordering.EQ
+        } else {
+            return Ordering.LT
+        }
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积升序稳定排序 */
+    var arr = [Rectangle(4, 8), Rectangle(6, 7), Rectangle(2, 6)]
+    stableSort<Rectangle>(arr)
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 2, height: 6, #width: 4, height: 8, #width: 6, height: 7]
+```
 
 ## func stableSort\<T>(Array\<T>, (T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -604,6 +852,55 @@ public func stableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Unit
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 需要排序的数组。
 - comparator: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 用户传入的比较函数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+class Rectangle <: ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积升序稳定排序 */
+    var arr = [Rectangle(4, 8), Rectangle(6, 7), Rectangle(2, 6)]
+    stableSort<Rectangle>(
+        arr,
+        {
+            r1: Rectangle, r2: Rectangle =>
+            let r1Value: Int64 = r1.width * r1.height
+            let r2Value: Int64 = r2.width * r2.height
+            if (r1Value > r2Value) {
+                return Ordering.GT
+            } else if (r1Value == r2Value) {
+                return Ordering.EQ
+            } else {
+                return Ordering.LT
+            }
+        }
+    )
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 2, height: 6, #width: 4, height: 8, #width: 6, height: 7]
+```
+
 ## func unstableSort\<T>(Array\<T>) where T <: Comparable\<T> <sup>(deprecated)</sup>
 
 ```cangjie
@@ -619,6 +916,53 @@ public func unstableSort<T>(data: Array<T>): Unit where T <: Comparable<T>
 参数：
 
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 需要排序的数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+class Rectangle <: Comparable<Rectangle> & ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func compare(r: Rectangle) {
+        let tValue: Int64 = this.width * this.height
+        let rValue: Int64 = r.width * r.height
+        if (tValue > rValue) {
+            return Ordering.GT
+        } else if (tValue == rValue) {
+            return Ordering.EQ
+        } else {
+            return Ordering.LT
+        }
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积升序不稳定排序 */
+    var arr = [Rectangle(4, 8), Rectangle(6, 7), Rectangle(2, 6)]
+    unstableSort<Rectangle>(arr)
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 2, height: 6, #width: 4, height: 8, #width: 6, height: 7]
+```
 
 ## func unstableSort\<T>(Array\<T>, (T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -638,3 +982,52 @@ public func unstableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Uni
 
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 需要排序的数组。
 - comparator: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 用户传入的比较函数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+class Rectangle <: ToString {
+    var width: Int64
+    var height: Int64
+
+    public init(width: Int64, height: Int64) {
+        this.width = width
+        this.height = height
+    }
+
+    public func toString(): String {
+        return "#width: ${this.width}, height: ${this.height}"
+    }
+}
+
+main() {
+    /* 按照面积升序不稳定排序 */
+    var arr = [Rectangle(4, 8), Rectangle(6, 7), Rectangle(2, 6)]
+    unstableSort<Rectangle>(
+        arr,
+        {
+            r1: Rectangle, r2: Rectangle =>
+            let r1Value: Int64 = r1.width * r1.height
+            let r2Value: Int64 = r2.width * r2.height
+            if (r1Value > r2Value) {
+                return Ordering.GT
+            } else if (r1Value == r2Value) {
+                return Ordering.EQ
+            } else {
+                return Ordering.LT
+            }
+        }
+    )
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[#width: 2, height: 6, #width: 4, height: 8, #width: 6, height: 7]
+```

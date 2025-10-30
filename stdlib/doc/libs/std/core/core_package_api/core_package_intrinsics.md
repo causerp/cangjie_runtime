@@ -1109,6 +1109,27 @@ public static prop Inf: Float16
 
 类型：[Float16](./core_package_intrinsics.md#float16)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.Inf 属性
+    let infValue = Float16.Inf
+    println("Float16.Inf 的值: ${infValue}")
+    
+    // 验证它确实是无穷大
+    println("Float16.Inf 是否为无穷大: ${infValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.Inf 的值: inf
+Float16.Inf 是否为无穷大: true
+```
+
 #### static prop Max
 
 ```cangjie
@@ -1118,6 +1139,27 @@ public static prop Max: Float16
 功能：获取半精度浮点数的最大值。
 
 类型：[Float16](./core_package_intrinsics.md#float16)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.Max 属性
+    let maxValue = Float16.Max
+    println("Float16.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Float16.Max 是否为常规数值: ${maxValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.Max 的值: 65504.000000
+Float16.Max 是否为常规数值: true
+```
 
 #### static prop Min
 
@@ -1129,6 +1171,27 @@ public static prop Min: Float16
 
 类型：[Float16](./core_package_intrinsics.md#float16)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.Min 属性
+    let minValue = Float16.Min
+    println("Float16.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Float16.Min 是否为常规数值: ${minValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.Min 的值: -65504.000000
+Float16.Min 是否为常规数值: true
+```
+
 #### static prop MinDenormal
 
 ```cangjie
@@ -1138,6 +1201,27 @@ public static prop MinDenormal: Float16
 功能：获取半精度浮点数的最小次正规数。最小的正的次正规数是以 IEEE 双精度格式表示的最小正数。
 
 类型：[Float16](./core_package_intrinsics.md#float16)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.MinDenormal 属性
+    let minDenormalValue = Float16.MinDenormal
+    println("Float16.MinDenormal 的值: ${minDenormalValue}")
+    
+    // 验证它确实是最小次正规数
+    println("Float16.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.MinDenormal 的值: 0.000000
+Float16.MinDenormal 是否为常规数值: true
+```
 
 #### static prop MinNormal
 
@@ -1149,6 +1233,27 @@ public static prop MinNormal: Float16
 
 类型：[Float16](./core_package_intrinsics.md#float16)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.MinNormal 属性
+    let minNormalValue = Float16.MinNormal
+    println("Float16.MinNormal 的值: ${minNormalValue}")
+    
+    // 验证它确实是最小正规数
+    println("Float16.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.MinNormal 的值: 0.000061
+Float16.MinNormal 是否为常规数值: true
+```
+
 #### static prop NaN
 
 ```cangjie
@@ -1158,6 +1263,27 @@ public static prop NaN: Float16
 功能：获取半精度浮点数的非数。
 
 类型：[Float16](./core_package_intrinsics.md#float16)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.NaN 属性
+    let nanValue = Float16.NaN
+    println("Float16.NaN 的值: ${nanValue}")
+    
+    // 验证它确实是 NaN
+    println("Float16.NaN 是否为非数值: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float16.NaN 的值: nan
+Float16.NaN 是否为非数值: true
+```
 
 #### static func max(Float16, Float16, Array\<Float16>)
 
@@ -1177,6 +1303,36 @@ public static func max(a: Float16, b: Float16, others: Array<Float16>): Float16
 
 - [Float16](./core_package_intrinsics.md#float16) - 返回参数中的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.max 静态方法
+    let a: Float16 = 1.5f16
+    let b: Float16 = 2.7f16
+    let c: Float16 = 0.8f16
+    let d: Float16 = 3.2f16
+    let e: Float16 = 3.4f16
+    let f: Float16 = 3.8f16
+    let g: Float16 = 3.9f16
+    
+    // 使用 max 方法找出最大值
+    let maxValue = Float16.max(a, b, c, d, e, f, g)
+    println("Float16.max(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: ${maxValue}")
+    
+    // 验证结果
+    println("最大值是否正确: ${maxValue == g}")
+}
+```
+
+运行结果：
+
+```text
+Float16.max(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: 3.900391
+最大值是否正确: true
+```
+
 #### static func min(Float16, Float16, Array\<Float16>)
 
 ```cangjie
@@ -1195,6 +1351,36 @@ public static func min(a: Float16, b: Float16, others: Array<Float16>): Float16
 
 - [Float16](./core_package_intrinsics.md#float16) - 返回参数中的最小值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.min 静态方法
+    let a: Float16 = 1.5f16
+    let b: Float16 = 2.7f16
+    let c: Float16 = 0.8f16
+    let d: Float16 = 3.2f16
+    let e: Float16 = 3.4f16
+    let f: Float16 = 3.8f16
+    let g: Float16 = 3.9f16
+    
+    // 使用 min 方法找出最小值
+    let minValue = Float16.min(a, b, c, d, e, f, g)
+    println("Float16.min(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: ${minValue}")
+    
+    // 验证结果
+    println("最小值是否正确: ${minValue == c}")
+}
+```
+
+运行结果：
+
+```text
+Float16.min(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: 0.799805
+最小值是否正确: true
+```
+
 #### func isInf()
 
 ```cangjie
@@ -1206,6 +1392,35 @@ public func isInf(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float16](./core_package_intrinsics.md#float16) 的值正无穷大或负无穷大，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.isInf 方法
+    let normalValue: Float16 = 1.5f16
+    let infValue = Float16.Inf
+    let negInfValue = -Float16.Inf
+    
+    // 检查普通值是否为无穷
+    println("1.5f16.isInf() 的结果: ${normalValue.isInf()}")
+    
+    // 检查正无穷是否为无穷
+    println("Float16.Inf.isInf() 的结果: ${infValue.isInf()}")
+    
+    // 检查负无穷是否为无穷
+    println("(-Float16.Inf).isInf() 的结果: ${negInfValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f16.isInf() 的结果: false
+Float16.Inf.isInf() 的结果: true
+(-Float16.Inf).isInf() 的结果: true
+```
 
 #### func isNaN()
 
@@ -1219,6 +1434,30 @@ public func isNaN(): Bool
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float16](./core_package_intrinsics.md#float16) 的值为非数值，则返回 `true`；否则，返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.isNaN 方法
+    let normalValue: Float16 = 1.5f16
+    let nanValue = Float16.NaN
+    
+    // 检查普通值是否为 NaN
+    println("1.5f16.isNaN() 的结果: ${normalValue.isNaN()}")
+    
+    // 检查 NaN 值是否为 NaN
+    println("Float16.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f16.isNaN() 的结果: false
+Float16.NaN.isNaN() 的结果: true
+```
+
 #### func isNormal()
 
 ```cangjie
@@ -1230,6 +1469,40 @@ public func isNormal(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float16](./core_package_intrinsics.md#float16) 的值是正常的浮点数，返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.isNormal 方法
+    let normalValue: Float16 = 1.5f16
+    let zeroValue: Float16 = 0.0f16
+    let infValue = Float16.Inf
+    let nanValue = Float16.NaN
+    
+    // 检查普通值是否为常规数值
+    println("1.5f16.isNormal() 的结果: ${normalValue.isNormal()}")
+    
+    // 检查零值是否为常规数值
+    println("0.0f16.isNormal() 的结果: ${zeroValue.isNormal()}")
+    
+    // 检查无穷值是否为常规数值
+    println("Float16.Inf.isNormal() 的结果: ${infValue.isNormal()}")
+    
+    // 检查 NaN 值是否为常规数值
+    println("Float16.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f16.isNormal() 的结果: true
+0.0f16.isNormal() 的结果: false
+Float16.Inf.isNormal() 的结果: false
+Float16.NaN.isNormal() 的结果: false
+```
 
 ### extend Float16 <: Comparable\<Float16>
 
@@ -1290,7 +1563,7 @@ extend Float16
 public static func fromBits(bits: UInt16): Float16
 ```
 
-功能：将指定的 [UInt16](core_package_intrinsics.md#uint16) 数转换为 [Float16](core_package_intrinsics.md#float16) 数。
+功能：将指定的 [UInt16](core_package_intrinsics.md#uint16) 按照`IEEE 754`标准中 float16 的二进制位表示形式，直接转换为对应的 [Float16](core_package_intrinsics.md#float16) 浮点数。
 
 参数：
 
@@ -1305,7 +1578,7 @@ public static func fromBits(bits: UInt16): Float16
 <!-- verify -->
 ```cangjie
 main() {
-    let v = Float16.fromBits(0x4A40)
+    let v = Float16.fromBits(0x4A40u16)
     println(v)
 }
 ```
@@ -1367,6 +1640,39 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.hashCode 方法
+    let value1: Float16 = 1.5f16
+    let value2: Float16 = 1.5f16
+    let value3: Float16 = 2.0f16
+    
+    // 计算哈希值
+    let hash1 = value1.hashCode()
+    let hash2 = value2.hashCode()
+    let hash3 = value3.hashCode()
+    
+    println("1.5f16 的哈希值: ${hash1}")
+    println("1.5f16 的哈希值: ${hash2}")
+    println("2.0f16 的哈希值: ${hash3}")
+    
+    // 验证相等的值具有相同的哈希值
+    println("相等值的哈希值是否相同: ${hash1 == hash2}")
+}
+```
+
+运行结果：
+
+```text
+1.5f16 的哈希值: 7729828949621302189
+1.5f16 的哈希值: 7729828949621302189
+2.0f16 的哈希值: 396734039217596648
+相等值的哈希值是否相同: true
+```
+
 ### extend Float16 <: ToString
 
 ```cangjie
@@ -1391,6 +1697,39 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float16.toString 方法
+    let value1: Float16 = 1.5f16
+    let value2: Float16 = 123.456f16
+    let value3: Float16 = -0.001f16
+    
+    // 转换为字符串
+    let str1 = value1.toString()
+    let str2 = value2.toString()
+    let str3 = value3.toString()
+    
+    println("1.5f16 转换为字符串: \"${str1}\"")
+    println("123.456f16 转换为字符串: \"${str2}\"")
+    println("-0.001f16 转换为字符串: \"${str3}\"")
+    
+    // 验证类型
+    println("转换后的类型是否为 String: ${str1 is String}")
+}
+```
+
+运行结果：
+
+```text
+1.5f16 转换为字符串: "1.500000"
+123.456f16 转换为字符串: "123.437500"
+-0.001f16 转换为字符串: "-0.001000"
+转换后的类型是否为 String: true
+```
+
 ## Float32
 
 功能：表示 32 位浮点数，符合 `IEEE 754` 中的单精度格式（`binary32`）。
@@ -1413,6 +1752,27 @@ public static prop Inf: Float32
 
 类型：[Float32](./core_package_intrinsics.md#float32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.Inf 属性
+    let infValue = Float32.Inf
+    println("Float32.Inf 的值: ${infValue}")
+    
+    // 验证它确实是无穷大
+    println("Float32.Inf 是否为无穷大: ${infValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.Inf 的值: inf
+Float32.Inf 是否为无穷大: true
+```
+
 #### static prop Max
 
 ```cangjie
@@ -1422,6 +1782,27 @@ public static prop Max: Float32
 功能：获取单精度浮点数的最大值。
 
 类型：[Float32](./core_package_intrinsics.md#float32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.Max 属性
+    let maxValue = Float32.Max
+    println("Float32.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Float32.Max 是否为常规数值: ${maxValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.Max 的值: 340282346638528859811704183484516925440.000000
+Float32.Max 是否为常规数值: true
+```
 
 #### static prop Min
 
@@ -1433,6 +1814,27 @@ public static prop Min: Float32
 
 类型：[Float32](./core_package_intrinsics.md#float32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.Min 属性
+    let minValue = Float32.Min
+    println("Float32.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Float32.Min 是否为常规数值: ${minValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.Min 的值: -340282346638528859811704183484516925440.000000
+Float32.Min 是否为常规数值: true
+```
+
 #### static prop MinDenormal
 
 ```cangjie
@@ -1442,6 +1844,27 @@ public static prop MinDenormal: Float32
 功能：获取单精度浮点数的最小次正规数。
 
 类型：[Float32](./core_package_intrinsics.md#float32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.MinDenormal 属性
+    let minDenormalValue = Float32.MinDenormal
+    println("Float32.MinDenormal 的值: ${minDenormalValue}")
+    
+    // 验证它确实是最小次正规数
+    println("Float32.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.MinDenormal 的值: 0.000000
+Float32.MinDenormal 是否为常规数值: false
+```
 
 #### static prop MinNormal
 
@@ -1453,6 +1876,27 @@ public static prop MinNormal: Float32
 
 类型：[Float32](./core_package_intrinsics.md#float32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.MinNormal 属性
+    let minNormalValue = Float32.MinNormal
+    println("Float32.MinNormal 的值: ${minNormalValue}")
+    
+    // 验证它确实是最小正规数
+    println("Float32.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.MinNormal 的值: 0.000000
+Float32.MinNormal 是否为常规数值: true
+```
+
 #### static prop NaN
 
 ```cangjie
@@ -1462,6 +1906,27 @@ public static prop NaN: Float32
 功能：获取单精度浮点数的非数。
 
 类型：[Float32](./core_package_intrinsics.md#float32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.NaN 属性
+    let nanValue = Float32.NaN
+    println("Float32.NaN 的值: ${nanValue}")
+    
+    // 验证它确实是 NaN
+    println("Float32.NaN 是否为非数值: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float32.NaN 的值: nan
+Float32.NaN 是否为非数值: true
+```
 
 #### static func max(Float32, Float32, Array\<Float32>)
 
@@ -1481,6 +1946,33 @@ public static func max(a: Float32, b: Float32, others: Array<Float32>): Float32
 
 - [Float32](./core_package_intrinsics.md#float32) - 返回参数中的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.max 静态方法
+    let a: Float32 = 1.5f32
+    let b: Float32 = 2.7f32
+    let c: Float32 = 0.8f32
+    let d: Float32 = 3.2f32
+    
+    // 使用 max 方法找出最大值
+    let maxValue = Float32.max(a, b, c, d)
+    println("Float32.max(1.5, 2.7, 0.8, 3.2) 的结果: ${maxValue}")
+    
+    // 验证结果
+    println("最大值是否正确: ${maxValue == d}")
+}
+```
+
+运行结果：
+
+```text
+Float32.max(1.5, 2.7, 0.8, 3.2) 的结果: 3.200000
+最大值是否正确: true
+```
+
 #### static func min(Float32, Float32, Array\<Float32>)
 
 ```cangjie
@@ -1499,6 +1991,33 @@ public static func min(a: Float32, b: Float32, others: Array<Float32>): Float32
 
 - [Float32](./core_package_intrinsics.md#float32) - 返回参数中的最小值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.min 静态方法
+    let a: Float32 = 1.5f32
+    let b: Float32 = 2.7f32
+    let c: Float32 = 0.8f32
+    let d: Float32 = 3.2f32
+    
+    // 使用 min 方法找出最小值
+    let minValue = Float32.min(a, b, c, d)
+    println("Float32.min(1.5, 2.7, 0.8, 3.2) 的结果: ${minValue}")
+    
+    // 验证结果
+    println("最小值是否正确: ${minValue == c}")
+}
+```
+
+运行结果：
+
+```text
+Float32.min(1.5, 2.7, 0.8, 3.2) 的结果: 0.800000
+最小值是否正确: true
+```
+
 #### func isInf()
 
 ```cangjie
@@ -1510,6 +2029,35 @@ public func isInf(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float32](./core_package_intrinsics.md#float32) 的值正无穷大或负无穷大，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.isInf 方法
+    let normalValue: Float32 = 1.5f32
+    let infValue = Float32.Inf
+    let negInfValue = -Float32.Inf
+    
+    // 检查普通值是否为无穷
+    println("1.5f32.isInf() 的结果: ${normalValue.isInf()}")
+    
+    // 检查正无穷是否为无穷
+    println("Float32.Inf.isInf() 的结果: ${infValue.isInf()}")
+    
+    // 检查负无穷是否为无穷
+    println("(-Float32.Inf).isInf() 的结果: ${negInfValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f32.isInf() 的结果: false
+Float32.Inf.isInf() 的结果: true
+(-Float32.Inf).isInf() 的结果: true
+```
 
 #### func isNaN()
 
@@ -1523,6 +2071,30 @@ public func isNaN(): Bool
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float32](./core_package_intrinsics.md#float32) 的值为非数值，则返回 `true`；否则，返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.isNaN 方法
+    let normalValue: Float32 = 1.5f32
+    let nanValue = Float32.NaN
+    
+    // 检查普通值是否为 NaN
+    println("1.5f32.isNaN() 的结果: ${normalValue.isNaN()}")
+    
+    // 检查 NaN 值是否为 NaN
+    println("Float32.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f32.isNaN() 的结果: false
+Float32.NaN.isNaN() 的结果: true
+```
+
 #### func isNormal()
 
 ```cangjie
@@ -1534,6 +2106,40 @@ public func isNormal(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float32](./core_package_intrinsics.md#float32) 的值是正常的浮点数，返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.isNormal 方法
+    let normalValue: Float32 = 1.5f32
+    let zeroValue: Float32 = 0.0f32
+    let infValue = Float32.Inf
+    let nanValue = Float32.NaN
+    
+    // 检查普通值是否为常规数值
+    println("1.5f32.isNormal() 的结果: ${normalValue.isNormal()}")
+    
+    // 检查零值是否为常规数值
+    println("0.0f32.isNormal() 的结果: ${zeroValue.isNormal()}")
+    
+    // 检查无穷值是否为常规数值
+    println("Float32.Inf.isNormal() 的结果: ${infValue.isNormal()}")
+    
+    // 检查 NaN 值是否为常规数值
+    println("Float32.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f32.isNormal() 的结果: true
+0.0f32.isNormal() 的结果: false
+Float32.Inf.isNormal() 的结果: false
+Float32.NaN.isNormal() 的结果: false
+```
 
 ### extend Float32 <: Comparable\<Float32>
 
@@ -1594,7 +2200,7 @@ extend Float32
 public static func fromBits(bits: UInt32): Float32
 ```
 
-功能：将指定的 [UInt32](core_package_intrinsics.md#uint32) 类型转换为 [Float32](core_package_intrinsics.md#float32) 类型。
+功能：将指定的 [UInt32](core_package_intrinsics.md#uint32)按照`IEEE 754`标准中float32的二进制位表示形式，直接转换为对应的[Float32](core_package_intrinsics.md#float32)浮点数。
 
 参数：
 
@@ -1609,7 +2215,7 @@ public static func fromBits(bits: UInt32): Float32
 <!-- verify -->
 ```cangjie
 main() {
-    let v = Float16.fromBits(0x4A40u16)
+    let v = Float32.fromBits(0x415E147Bu32)
     println(v)
 }
 ```
@@ -1617,7 +2223,7 @@ main() {
 运行结果：
 
 ```text
-12.500000
+13.880000
 ```
 
 #### func toBits()
@@ -1671,6 +2277,39 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.hashCode 方法
+    let value1: Float32 = 1.5f32
+    let value2: Float32 = 1.5f32
+    let value3: Float32 = 2.0f32
+    
+    // 计算哈希值
+    let hash1 = value1.hashCode()
+    let hash2 = value2.hashCode()
+    let hash3 = value3.hashCode()
+    
+    println("1.5f32 的哈希值: ${hash1}")
+    println("1.5f32 的哈希值: ${hash2}")
+    println("2.0f32 的哈希值: ${hash3}")
+    
+    // 验证相等的值具有相同的哈希值
+    println("相等值的哈希值是否相同: ${hash1 == hash2}")
+}
+```
+
+运行结果：
+
+```text
+1.5f32 的哈希值: 7729828949621302189
+1.5f32 的哈希值: 7729828949621302189
+2.0f32 的哈希值: 396734039217596648
+相等值的哈希值是否相同: true
+```
+
 ### extend Float32 <: ToString
 
 ```cangjie
@@ -1695,6 +2334,39 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float32.toString 方法
+    let value1: Float32 = 1.5f32
+    let value2: Float32 = 123.456f32
+    let value3: Float32 = -0.001f32
+    
+    // 转换为字符串
+    let str1 = value1.toString()
+    let str2 = value2.toString()
+    let str3 = value3.toString()
+    
+    println("1.5f32 转换为字符串: \"${str1}\"")
+    println("123.456f32 转换为字符串: \"${str2}\"")
+    println("-0.001f32 转换为字符串: \"${str3}\"")
+    
+    // 验证类型
+    println("转换后的类型是否为 String: ${str1 is String}")
+}
+```
+
+运行结果：
+
+```text
+1.5f32 转换为字符串: "1.500000"
+123.456f32 转换为字符串: "123.456001"
+-0.001f32 转换为字符串: "-0.001000"
+转换后的类型是否为 String: true
+```
+
 ## Float64
 
 功能：表示 64 位浮点数，符合 `IEEE 754` 中的双精度格式（`binary64`）。
@@ -1717,6 +2389,27 @@ public static prop Inf: Float64
 
 类型：[Float64](./core_package_intrinsics.md#float64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.Inf 属性
+    let infValue = Float64.Inf
+    println("Float64.Inf 的值: ${infValue}")
+    
+    // 验证它确实是无穷大
+    println("Float64.Inf 是否为无穷大: ${infValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.Inf 的值: inf
+Float64.Inf 是否为无穷大: true
+```
+
 #### static prop Max
 
 ```cangjie
@@ -1726,6 +2419,27 @@ public static prop Max: Float64
 功能：获取双精度浮点数的最大值。
 
 类型：[Float64](./core_package_intrinsics.md#float64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.Max 属性
+    let maxValue = Float64.Max
+    println("Float64.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Float64.Max 是否为常规数值: ${maxValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.Max 的值: 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
+Float64.Max 是否为常规数值: true
+```
 
 #### static prop Min
 
@@ -1737,6 +2451,27 @@ public static prop Min: Float64
 
 类型：[Float64](./core_package_intrinsics.md#float64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.Min 属性
+    let minValue = Float64.Min
+    println("Float64.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Float64.Min 是否为常规数值: ${minValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.Min 的值: -179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
+Float64.Min 是否为常规数值: true
+```
+
 #### static prop MinDenormal
 
 ```cangjie
@@ -1746,6 +2481,27 @@ public static prop MinDenormal: Float64
 功能：获取双精度浮点数的最小次正规数。
 
 类型：[Float64](./core_package_intrinsics.md#float64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.MinDenormal 属性
+    let minDenormalValue = Float64.MinDenormal
+    println("Float64.MinDenormal 的值: ${minDenormalValue}")
+    
+    // 验证它确实是最小次正规数
+    println("Float64.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.MinDenormal 的值: 0.000000
+Float64.MinDenormal 是否为常规数值: false
+```
 
 #### static prop MinNormal
 
@@ -1757,6 +2513,27 @@ public static prop MinNormal: Float64
 
 类型：[Float64](./core_package_intrinsics.md#float64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.MinNormal 属性
+    let minNormalValue = Float64.MinNormal
+    println("Float64.MinNormal 的值: ${minNormalValue}")
+    
+    // 验证它确实是最小正规数
+    println("Float64.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.MinNormal 的值: 0.000000
+Float64.MinNormal 是否为常规数值: true
+```
+
 #### static prop NaN
 
 ```cangjie
@@ -1766,6 +2543,27 @@ public static prop NaN: Float64
 功能：获取双精度浮点数的非数。
 
 类型：[Float64](./core_package_intrinsics.md#float64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.NaN 属性
+    let nanValue = Float64.NaN
+    println("Float64.NaN 的值: ${nanValue}")
+    
+    // 验证它确实是 NaN
+    println("Float64.NaN 是否为非数值: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float64.NaN 的值: nan
+Float64.NaN 是否为非数值: true
+```
 
 #### static func max(Float64, Float64, Array\<Float64>)
 
@@ -1785,6 +2583,33 @@ public static func max(a: Float64, b: Float64, others: Array<Float64>): Float64
 
 - [Float64](./core_package_intrinsics.md#float64) - 返回参数中的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.max 静态方法
+    let a: Float64 = 1.5f64
+    let b: Float64 = 2.7f64
+    let c: Float64 = 0.8f64
+    let d: Float64 = 3.2f64
+    
+    // 使用 max 方法找出最大值
+    let maxValue = Float64.max(a, b, [c, d])
+    println("Float64.max(1.5, 2.7, [0.8, 3.2]) 的结果: ${maxValue}")
+    
+    // 验证结果
+    println("最大值是否正确: ${maxValue == d}")
+}
+```
+
+运行结果：
+
+```text
+Float64.max(1.5, 2.7, [0.8, 3.2]) 的结果: 3.200000
+最大值是否正确: true
+```
+
 #### static func min(Float64, Float64, Array\<Float64>)
 
 ```cangjie
@@ -1803,6 +2628,33 @@ public static func min(a: Float64, b: Float64, others: Array<Float64>): Float64
 
 - [Float64](./core_package_intrinsics.md#float64) - 返回参数中的最小值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.min 静态方法
+    let a: Float64 = 1.5f64
+    let b: Float64 = 2.7f64
+    let c: Float64 = 0.8f64
+    let d: Float64 = 3.2f64
+    
+    // 使用 min 方法找出最小值
+    let minValue = Float64.min(a, b, [c, d])
+    println("Float64.min(1.5, 2.7, [0.8, 3.2]) 的结果: ${minValue}")
+    
+    // 验证结果
+    println("最小值是否正确: ${minValue == c}")
+}
+```
+
+运行结果：
+
+```text
+Float64.min(1.5, 2.7, [0.8, 3.2]) 的结果: 0.800000
+最小值是否正确: true
+```
+
 #### func isInf()
 
 ```cangjie
@@ -1814,6 +2666,35 @@ public func isInf(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float64](./core_package_intrinsics.md#float64) 的值正无穷大或负无穷大，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.isInf 方法
+    let normalValue: Float64 = 1.5f64
+    let infValue = Float64.Inf
+    let negInfValue = -Float64.Inf
+    
+    // 检查普通值是否为无穷
+    println("1.5f64.isInf() 的结果: ${normalValue.isInf()}")
+    
+    // 检查正无穷是否为无穷
+    println("Float64.Inf.isInf() 的结果: ${infValue.isInf()}")
+    
+    // 检查负无穷是否为无穷
+    println("(-Float64.Inf).isInf() 的结果: ${negInfValue.isInf()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f64.isInf() 的结果: false
+Float64.Inf.isInf() 的结果: true
+(-Float64.Inf).isInf() 的结果: true
+```
 
 #### func isNaN()
 
@@ -1827,6 +2708,30 @@ public func isNaN(): Bool
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float64](./core_package_intrinsics.md#float64) 的值为非数值，则返回 `true`；否则，返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.isNaN 方法
+    let normalValue: Float64 = 1.5f64
+    let nanValue = Float64.NaN
+    
+    // 检查普通值是否为 NaN
+    println("1.5f64.isNaN() 的结果: ${normalValue.isNaN()}")
+    
+    // 检查 NaN 值是否为 NaN
+    println("Float64.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f64.isNaN() 的结果: false
+Float64.NaN.isNaN() 的结果: true
+```
+
 #### func isNormal()
 
 ```cangjie
@@ -1838,6 +2743,40 @@ public func isNormal(): Bool
 返回值：
 
 - [Bool](./core_package_intrinsics.md#bool) - 如果 [Float64](./core_package_intrinsics.md#float64) 的值是正常的浮点数，返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.isNormal 方法
+    let normalValue: Float64 = 1.5f64
+    let zeroValue: Float64 = 0.0f64
+    let infValue = Float64.Inf
+    let nanValue = Float64.NaN
+    
+    // 检查普通值是否为常规数值
+    println("1.5f64.isNormal() 的结果: ${normalValue.isNormal()}")
+    
+    // 检查零值是否为常规数值
+    println("0.0f64.isNormal() 的结果: ${zeroValue.isNormal()}")
+    
+    // 检查无穷值是否为常规数值
+    println("Float64.Inf.isNormal() 的结果: ${infValue.isNormal()}")
+    
+    // 检查 NaN 值是否为常规数值
+    println("Float64.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
+}
+```
+
+运行结果：
+
+```text
+1.5f64.isNormal() 的结果: true
+0.0f64.isNormal() 的结果: false
+Float64.Inf.isNormal() 的结果: false
+Float64.NaN.isNormal() 的结果: false
+```
 
 ### extend Float64 <: Comparable\<Float64>
 
@@ -1898,7 +2837,7 @@ extend Float64
 public static func fromBits(bits: UInt64): Float64
 ```
 
-功能：将指定的 [UInt64](core_package_intrinsics.md#uint64) 数转换为 [Float64](core_package_intrinsics.md#float64) 数。
+功能：将指定的 [UInt64](core_package_intrinsics.md#uint64)按照`IEEE 754`标准中float64的二进制位表示形式，直接转换为对应的[Float64](core_package_intrinsics.md#float32)浮点数。
 
 参数：
 
@@ -1913,7 +2852,7 @@ public static func fromBits(bits: UInt64): Float64
 <!-- verify -->
 ```cangjie
 main() {
-    let v = Float64.fromBits(0x402BC28F5C28F5C3)
+    let v = Float64.fromBits(0x402BC28F5C28F5C3u64)
     println(v)
 }
 ```
@@ -1975,6 +2914,39 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.hashCode 方法
+    let value1: Float64 = 1.5f64
+    let value2: Float64 = 1.5f64
+    let value3: Float64 = 2.0f64
+    
+    // 计算哈希值
+    let hash1 = value1.hashCode()
+    let hash2 = value2.hashCode()
+    let hash3 = value3.hashCode()
+    
+    println("1.5f64 的哈希值: ${hash1}")
+    println("1.5f64 的哈希值: ${hash2}")
+    println("2.0f64 的哈希值: ${hash3}")
+    
+    // 验证相等的值具有相同的哈希值
+    println("相等值的哈希值是否相同: ${hash1 == hash2}")
+}
+```
+
+运行结果：
+
+```text
+1.5f64 的哈希值: -991904502584296975
+1.5f64 的哈希值: -991904502584296975
+2.0f64 的哈希值: 8889205371494514623
+相等值的哈希值是否相同: true
+```
+
 ### extend Float64 <: ToString
 
 ```cangjie
@@ -1999,6 +2971,39 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64.toString 方法
+    let value1: Float64 = 1.5f64
+    let value2: Float64 = 123.456f64
+    let value3: Float64 = -0.001f64
+    
+    // 转换为字符串
+    let str1 = value1.toString()
+    let str2 = value2.toString()
+    let str3 = value3.toString()
+    
+    println("1.5f64 转换为字符串: \"${str1}\"")
+    println("123.456f64 转换为字符串: \"${str2}\"")
+    println("-0.001f64 转换为字符串: \"${str3}\"")
+    
+    // 验证类型
+    println("转换后的类型是否为 String: ${str1 is String}")
+}
+```
+
+运行结果：
+
+```text
+1.5f64 转换为字符串: "1.500000"
+123.456f64 转换为字符串: "123.456000"
+-0.001f64 转换为字符串: "-0.001000"
+转换后的类型是否为 String: true
+```
+
 ## Int16
 
 功能：表示 16 位有符号整型，表示范围为 [-2^{15}, 2^{15} - 1]。
@@ -2021,6 +3026,27 @@ public static prop Max: Int16
 
 类型：[Int16](./core_package_intrinsics.md#int16)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int16.Max 属性
+    let maxValue = Int16.Max
+    println("Int16.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Int16.Max 是否等于 32767: ${maxValue == 32767}")
+}
+```
+
+运行结果：
+
+```text
+Int16.Max 的值: 32767
+Int16.Max 是否等于 32767: true
+```
+
 #### static prop Min
 
 ```cangjie
@@ -2030,6 +3056,27 @@ public static prop Min: Int16
 功能：获取 16 位有符号整数的最小值。
 
 类型：[Int16](./core_package_intrinsics.md#int16)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int16.Min 属性
+    let minValue = Int16.Min
+    println("Int16.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Int16.Min 是否等于 -32768: ${minValue == -32768}")
+}
+```
+
+运行结果：
+
+```text
+Int16.Min 的值: -32768
+Int16.Min 是否等于 -32768: true
+```
 
 ### extend Int16 <: Comparable\<Int16>
 
@@ -2178,6 +3225,39 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int16.hashCode 方法
+    let value1: Int16 = 42
+    let value2: Int16 = 42
+    let value3: Int16 = -100
+    
+    // 计算哈希值
+    let hash1 = value1.hashCode()
+    let hash2 = value2.hashCode()
+    let hash3 = value3.hashCode()
+    
+    println("42 的哈希值: ${hash1}")
+    println("42 的哈希值: ${hash2}")
+    println("-100 的哈希值: ${hash3}")
+    
+    // 验证相等的值具有相同的哈希值
+    println("相等值的哈希值是否相同: ${hash1 == hash2}")
+}
+```
+
+运行结果：
+
+```text
+42 的哈希值: 42
+42 的哈希值: 42
+-100 的哈希值: -100
+相等值的哈希值是否相同: true
+```
+
 ### extend Int16 <: ToString
 
 ```cangjie
@@ -2202,6 +3282,39 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int16.toString 方法
+    let value1: Int16 = 42
+    let value2: Int16 = -123
+    let value3: Int16 = 0
+    
+    // 转换为字符串
+    let str1 = value1.toString()
+    let str2 = value2.toString()
+    let str3 = value3.toString()
+    
+    println("42 转换为字符串: \"${str1}\"")
+    println("-123 转换为字符串: \"${str2}\"")
+    println("0 转换为字符串: \"${str3}\"")
+    
+    // 验证类型
+    println("转换后的类型是否为 String: ${str1 is String}")
+}
+```
+
+运行结果：
+
+```text
+42 转换为字符串: "42"
+-123 转换为字符串: "-123"
+0 转换为字符串: "0"
+转换后的类型是否为 String: true
+```
+
 ## Int32
 
 功能：表示 32 位有符号整型，表示范围为 [-2^{31}, 2^{31} - 1]。
@@ -2224,6 +3337,27 @@ public static prop Max: Int32
 
 类型：[Int32](./core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int32.Max 属性
+    let maxValue = Int32.Max
+    println("Int32.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Int32.Max 是否等于 2147483647: ${maxValue == 2147483647}")
+}
+```
+
+运行结果：
+
+```text
+Int32.Max 的值: 2147483647
+Int32.Max 是否等于 2147483647: true
+```
+
 #### static prop Min
 
 ```cangjie
@@ -2233,6 +3367,27 @@ public static prop Min: Int32
 功能：获取 32 位有符号整数的最小值。
 
 类型：[Int32](./core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int32.Min 属性
+    let minValue = Int32.Min
+    println("Int32.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Int32.Min 是否等于 -2147483648: ${minValue == -2147483648}")
+}
+```
+
+运行结果：
+
+```text
+Int32.Min 的值: -2147483648
+Int32.Min 是否等于 -2147483648: true
+```
 
 ### extend Int32 <: Comparable\<Int32>
 
@@ -2375,6 +3530,39 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int32.hashCode 方法
+    let value1: Int32 = 42
+    let value2: Int32 = 42
+    let value3: Int32 = -100
+    
+    // 计算哈希值
+    let hash1 = value1.hashCode()
+    let hash2 = value2.hashCode()
+    let hash3 = value3.hashCode()
+    
+    println("42 的哈希值: ${hash1}")
+    println("42 的哈希值: ${hash2}")
+    println("-100 的哈希值: ${hash3}")
+    
+    // 验证相等的值具有相同的哈希值
+    println("相等值的哈希值是否相同: ${hash1 == hash2}")
+}
+```
+
+运行结果：
+
+```text
+42 的哈希值: 42
+42 的哈希值: 42
+-100 的哈希值: -100
+相等值的哈希值是否相同: true
+```
+
 ### extend Int32 <: ToString
 
 ```cangjie
@@ -2399,6 +3587,39 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int32.toString 方法
+    let value1: Int32 = 42
+    let value2: Int32 = -123
+    let value3: Int32 = 0
+    
+    // 转换为字符串
+    let str1 = value1.toString()
+    let str2 = value2.toString()
+    let str3 = value3.toString()
+    
+    println("42 转换为字符串: \"${str1}\"")
+    println("-123 转换为字符串: \"${str2}\"")
+    println("0 转换为字符串: \"${str3}\"")
+    
+    // 验证类型
+    println("转换后的类型是否为 String: ${str1 is String}")
+}
+```
+
+运行结果：
+
+```text
+42 转换为字符串: "42"
+-123 转换为字符串: "-123"
+0 转换为字符串: "0"
+转换后的类型是否为 String: true
+```
+
 ## Int64
 
 功能：表示 64 位有符号整型，表示范围为 [-2^{63}, 2^{63} - 1]。
@@ -2421,6 +3642,27 @@ public static prop Max: Int64
 
 类型：[Int64](./core_package_intrinsics.md#int64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int64.Max 属性
+    let maxValue = Int64.Max
+    println("Int64.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Int64.Max 是否等于 9223372036854775807: ${maxValue == 9223372036854775807}")
+}
+```
+
+运行结果：
+
+```text
+Int64.Max 的值: 9223372036854775807
+Int64.Max 是否等于 9223372036854775807: true
+```
+
 #### static prop Min
 
 ```cangjie
@@ -2430,6 +3672,27 @@ public static prop Min: Int64
 功能：获取 64 位有符号整数的最小值。
 
 类型：[Int64](./core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int64.Min 属性
+    let minValue = Int64.Min
+    println("Int64.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Int64.Min 是否等于 -9223372036854775808: ${minValue == -9223372036854775808}")
+}
+```
+
+运行结果：
+
+```text
+Int64.Min 的值: -9223372036854775808
+Int64.Min 是否等于 -9223372036854775808: true
+```
 
 ### extend Int64 <: Comparable\<Int64>
 
@@ -2572,6 +3835,42 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int64.hashCode() 方法
+    let num: Int64 = 42
+    let hash = num.hashCode()
+    println("Int64 值: ${num}")
+    println("hashCode: ${hash}")
+    
+    // 测试不同值的哈希码
+    let negativeNum: Int64 = -42
+    let negativeHash = negativeNum.hashCode()
+    println("Int64 值: ${negativeNum}")
+    println("hashCode: ${negativeHash}")
+    
+    // 测试零值
+    let zero: Int64 = 0
+    let zeroHash = zero.hashCode()
+    println("Int64 值: ${zero}")
+    println("hashCode: ${zeroHash}")
+}
+```
+
+运行结果：
+
+```text
+Int64 值: 42
+hashCode: 42
+Int64 值: -42
+hashCode: -42
+Int64 值: 0
+hashCode: 0
+```
+
 ### extend Int64 <: ToString
 
 ```cangjie
@@ -2596,6 +3895,57 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int64.toString() 方法
+    let num: Int64 = 42
+    let str = num.toString()
+    println("Int64 值: ${num}")
+    println("转换为字符串: ${str}")
+    
+    // 测试负数
+    let negativeNum: Int64 = -42
+    let negativeStr = negativeNum.toString()
+    println("Int64 值: ${negativeNum}")
+    println("转换为字符串: ${negativeStr}")
+    
+    // 测试零值
+    let zero: Int64 = 0
+    let zeroStr = zero.toString()
+    println("Int64 值: ${zero}")
+    println("转换为字符串: ${zeroStr}")
+    
+    // 测试最大值和最小值
+    let maxVal = Int64.Max
+    let maxStr = maxVal.toString()
+    println("Int64 最大值: ${maxVal}")
+    println("转换为字符串: ${maxStr}")
+    
+    let minVal = Int64.Min
+    let minStr = minVal.toString()
+    println("Int64 最小值: ${minVal}")
+    println("转换为字符串: ${minStr}")
+}
+```
+
+运行结果：
+
+```text
+Int64 值: 42
+转换为字符串: 42
+Int64 值: -42
+转换为字符串: -42
+Int64 值: 0
+转换为字符串: 0
+Int64 最大值: 9223372036854775807
+转换为字符串: 9223372036854775807
+Int64 最小值: -9223372036854775808
+转换为字符串: -9223372036854775808
+```
+
 ## Int8
 
 功能：表示 8 位有符号整型，表示范围为 [-2^7, 2^7 - 1]。
@@ -2618,6 +3968,27 @@ public static prop Max: Int8
 
 类型：[Int8](./core_package_intrinsics.md#int8)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int8.Max 属性
+    let maxValue = Int8.Max
+    println("Int8.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值
+    println("Int8.Max 是否等于 127: ${maxValue == 127}")
+}
+```
+
+运行结果：
+
+```text
+Int8.Max 的值: 127
+Int8.Max 是否等于 127: true
+```
+
 #### static prop Min
 
 ```cangjie
@@ -2627,6 +3998,27 @@ public static prop Min: Int8
 功能：获取 8 位有符号整数的最小值。
 
 类型：[Int8](./core_package_intrinsics.md#int8)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int8.Min 属性
+    let minValue = Int8.Min
+    println("Int8.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值
+    println("Int8.Min 是否等于 -128: ${minValue == -128}")
+}
+```
+
+运行结果：
+
+```text
+Int8.Min 的值: -128
+Int8.Min 是否等于 -128: true
+```
 
 ### extend Int8 <: Comparable\<Int8>
 
@@ -2769,6 +4161,57 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int8.hashCode() 方法
+    let num: Int8 = 42
+    let hash = num.hashCode()
+    println("Int8 值: ${num}")
+    println("hashCode: ${hash}")
+    
+    // 测试不同值的哈希码
+    let negativeNum: Int8 = -42
+    let negativeHash = negativeNum.hashCode()
+    println("Int8 值: ${negativeNum}")
+    println("hashCode: ${negativeHash}")
+    
+    // 测试零值
+    let zero: Int8 = 0
+    let zeroHash = zero.hashCode()
+    println("Int8 值: ${zero}")
+    println("hashCode: ${zeroHash}")
+    
+    // 测试最大值和最小值
+    let maxVal = Int8.Max
+    let maxHash = maxVal.hashCode()
+    println("Int8 最大值: ${maxVal}")
+    println("hashCode: ${maxHash}")
+    
+    let minVal = Int8.Min
+    let minHash = minVal.hashCode()
+    println("Int8 最小值: ${minVal}")
+    println("hashCode: ${minHash}")
+}
+```
+
+运行结果：
+
+```text
+Int8 值: 42
+hashCode: 42
+Int8 值: -42
+hashCode: -42
+Int8 值: 0
+hashCode: 0
+Int8 最大值: 127
+hashCode: 127
+Int8 最小值: -128
+hashCode: -128
+```
+
 ### extend Int8 <: ToString
 
 ```cangjie
@@ -2793,6 +4236,57 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int8.toString() 方法
+    let num: Int8 = 42
+    let str = num.toString()
+    println("Int8 值: ${num}")
+    println("转换为字符串: ${str}")
+    
+    // 测试负数
+    let negativeNum: Int8 = -42
+    let negativeStr = negativeNum.toString()
+    println("Int8 值: ${negativeNum}")
+    println("转换为字符串: ${negativeStr}")
+    
+    // 测试零值
+    let zero: Int8 = 0
+    let zeroStr = zero.toString()
+    println("Int8 值: ${zero}")
+    println("转换为字符串: ${zeroStr}")
+    
+    // 测试最大值和最小值
+    let maxVal = Int8.Max
+    let maxStr = maxVal.toString()
+    println("Int8 最大值: ${maxVal}")
+    println("转换为字符串: ${maxStr}")
+    
+    let minVal = Int8.Min
+    let minStr = minVal.toString()
+    println("Int8 最小值: ${minVal}")
+    println("转换为字符串: ${minStr}")
+}
+```
+
+运行结果：
+
+```text
+Int8 值: 42
+转换为字符串: 42
+Int8 值: -42
+转换为字符串: -42
+Int8 值: 0
+转换为字符串: 0
+Int8 最大值: 127
+转换为字符串: 127
+Int8 最小值: -128
+转换为字符串: -128
+```
+
 ## IntNative
 
 功能：表示平台相关的有符号整型，其长度与当前系统的位宽一致。
@@ -2815,6 +4309,27 @@ public static prop Max: IntNative
 
 类型：[IntNative](./core_package_intrinsics.md#intnative)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 IntNative.Max 属性
+    let maxValue = IntNative.Max
+    println("IntNative.Max 的值: ${maxValue}")
+    
+    // 验证它确实是最大值（在64位系统上应该是 9223372036854775807）
+    println("IntNative.Max 是否等于 9223372036854775807: ${maxValue == 9223372036854775807}")
+}
+```
+
+运行结果：
+
+```text
+IntNative.Max 的值: 9223372036854775807
+IntNative.Max 是否等于 9223372036854775807: true
+```
+
 #### static prop Min
 
 ```cangjie
@@ -2824,6 +4339,27 @@ public static prop Min: IntNative
 功能：获取平台相关有符号整数的最小值。
 
 类型：[IntNative](./core_package_intrinsics.md#intnative)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 IntNative.Min 属性
+    let minValue = IntNative.Min
+    println("IntNative.Min 的值: ${minValue}")
+    
+    // 验证它确实是最小值（在64位系统上应该是 -9223372036854775808）
+    println("IntNative.Min 是否等于 -9223372036854775808: ${minValue == -9223372036854775808}")
+}
+```
+
+运行结果：
+
+```text
+IntNative.Min 的值: -9223372036854775808
+IntNative.Min 是否等于 -9223372036854775808: true
+```
 
 ### extend IntNative <: Comparable\<IntNative>
 
@@ -2966,6 +4502,57 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 IntNative.hashCode() 方法
+    let num: IntNative = 42
+    let hash = num.hashCode()
+    println("IntNative 值: ${num}")
+    println("hashCode: ${hash}")
+    
+    // 测试不同值的哈希码
+    let negativeNum: IntNative = -42
+    let negativeHash = negativeNum.hashCode()
+    println("IntNative 值: ${negativeNum}")
+    println("hashCode: ${negativeHash}")
+    
+    // 测试零值
+    let zero: IntNative = 0
+    let zeroHash = zero.hashCode()
+    println("IntNative 值: ${zero}")
+    println("hashCode: ${zeroHash}")
+    
+    // 测试最大值和最小值
+    let maxVal = IntNative.Max
+    let maxHash = maxVal.hashCode()
+    println("IntNative 最大值: ${maxVal}")
+    println("hashCode: ${maxHash}")
+    
+    let minVal = IntNative.Min
+    let minHash = minVal.hashCode()
+    println("IntNative 最小值: ${minVal}")
+    println("hashCode: ${minHash}")
+}
+```
+
+运行结果：
+
+```text
+IntNative 值: 42
+hashCode: 42
+IntNative 值: -42
+hashCode: -42
+IntNative 值: 0
+hashCode: 0
+IntNative 最大值: 9223372036854775807
+hashCode: 9223372036854775807
+IntNative 最小值: -9223372036854775808
+hashCode: -9223372036854775808
+```
+
 ### extend IntNative <: ToString
 
 ```cangjie
@@ -2989,6 +4576,57 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 IntNative.toString() 方法
+    let num: IntNative = 42
+    let str = num.toString()
+    println("IntNative 值: ${num}")
+    println("转换为字符串: ${str}")
+    
+    // 测试负数
+    let negativeNum: IntNative = -42
+    let negativeStr = negativeNum.toString()
+    println("IntNative 值: ${negativeNum}")
+    println("转换为字符串: ${negativeStr}")
+    
+    // 测试零值
+    let zero: IntNative = 0
+    let zeroStr = zero.toString()
+    println("IntNative 值: ${zero}")
+    println("转换为字符串: ${zeroStr}")
+    
+    // 测试最大值和最小值
+    let maxVal = IntNative.Max
+    let maxStr = maxVal.toString()
+    println("IntNative 最大值: ${maxVal}")
+    println("转换为字符串: ${maxStr}")
+    
+    let minVal = IntNative.Min
+    let minStr = minVal.toString()
+    println("IntNative 最小值: ${minVal}")
+    println("转换为字符串: ${minStr}")
+}
+```
+
+运行结果：
+
+```text
+IntNative 值: 42
+转换为字符串: 42
+IntNative 值: -42
+转换为字符串: -42
+IntNative 值: 0
+转换为字符串: 0
+IntNative 最大值: 9223372036854775807
+转换为字符串: 9223372036854775807
+IntNative 最小值: -9223372036854775808
+转换为字符串: -9223372036854775808
+```
 
 ## Rune
 
@@ -3030,7 +4668,7 @@ public static func fromUtf8(arr: Array<UInt8>, index: Int64): (Rune, Int64)
 <!-- verify -->
 ```cangjie
 main() {
-    var arr: Array<UInt8> = [4u8, 8u8, 65u8] // A <=> 65
+    var arr: Array<UInt8> = [4, 8, 65] // A <=> 65
     var tuple = Rune.fromUtf8(arr, 2)
     println(tuple[0]) // Rune
     println(tuple[1]) // len
@@ -3050,22 +4688,47 @@ A
 public static func getPreviousFromUtf8(arr: Array<UInt8>, index: Int64): (Rune, Int64)
 ```
 
-功能：获取字节数组中指定索引对应的字节所在的 UTF-8 编码字符，同时返回该字符首位字节码在数组中的索引。
+功能：获取字节数组中指定索引对应的字节所在的 UTF-8 编码字符，同时返回该字符字节的长度。
 
 当指定了一个索引，那么函数会找到数组对应索引位置并且根据 UTF-8 规则，查看该字节码是否是字符的首位字节码，如果不是就继续向前遍历，直到该字节码是首位字节码，然后利用字节码序列找到对应的字符。
 
 参数：
 
 - arr: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 待从中获取字符的字节数组。
-- index: [Int64](core_package_intrinsics.md#int64) - 待查找字符在数组中的索引。
+- index: [Int64](core_package_intrinsics.md#int64) - 待查找字符字节在数组中的索引。
 
 返回值：
 
-- ([Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64)) - 找到的字符，以及该字符首位字节码在数组中的索引。
+- ([Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64)) - 找到的字符，以及该字符字节码的长度。
 
 异常：
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 如果找不到对应首位字节码，即指定字节所在位置的字节不符合 UTF-8 编码，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.getPreviousFromUtf8 方法
+    // 创建一个包含中文字符的字节数组
+    var arr: Array<UInt8> = [72, 101, 108, 108, 111, 231, 136, 177] // "Hello爱" 的 UTF-8 编码
+    println("字节数组: ${arr}")
+    
+    // 获取索引为 7（即中文字符"爱"的第二个字节）对应的字符
+    var tuple = Rune.getPreviousFromUtf8(arr, 7)
+    println("获取的字符: ${tuple[0]}")
+    println("字符的字节长度: ${tuple[1]}")
+}
+```
+
+运行结果：
+
+```text
+字节数组: [72, 101, 108, 108, 111, 231, 136, 177]
+获取的字符: 爱
+字符的字节长度: 3
+```
 
 #### static func intoUtf8Array(Rune, Array\<UInt8>, Int64)
 
@@ -3090,7 +4753,7 @@ public static func intoUtf8Array(c: Rune, arr: Array<UInt8>, index: Int64): Int6
 <!-- verify -->
 ```cangjie
 main() {
-    var arr: Array<UInt8> = [1u8, 2u8, 3u8, 230u8, 136u8, 145u8]
+    var arr: Array<UInt8> = [1, 2, 3, 230, 136, 145]
     var len: Int64 = Rune.intoUtf8Array(r'爱', arr, 2)
     println(len)
     println(arr[2]) // 字符爱的utf-8编码的第一个字节
@@ -3132,7 +4795,7 @@ public static func utf8Size(arr: Array<UInt8>, index: Int64): Int64
 <!-- verify -->
 ```cangjie
 main() {
-    var arr: Array<UInt8> = [1u8, 2u8, 231u8, 136u8, 177u8, 145u8]
+    var arr: Array<UInt8> = [1, 2, 231, 136, 177, 145]
     var len: Int64 = Rune.utf8Size(arr, 2)
     println(len) // 索引为2-4的数组元素为中文字符爱的utf-8编码，占用三字节
 }
@@ -3189,6 +4852,27 @@ public func isAscii(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAscii() 方法
+    var asciiChar: Rune = r'A'  // ASCII 字符
+    var nonAsciiChar: Rune = r'爱'  // 非 ASCII 字符
+    
+    println("字符 '${asciiChar}' 是 ASCII 字符吗? ${asciiChar.isAscii()}")
+    println("字符 '${nonAsciiChar}' 是 ASCII 字符吗? ${nonAsciiChar.isAscii()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'A' 是 ASCII 字符吗? true
+字符 '爱' 是 ASCII 字符吗? false
+```
+
 #### func isAsciiControl()
 
 ```cangjie
@@ -3200,6 +4884,28 @@ public func isAsciiControl(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 控制字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiControl() 方法
+    var controlChar: Rune = r'\n'  // ASCII 控制字符
+    var nonControlChar: Rune = r'A'  // 非控制字符
+    
+    println("字符 '${controlChar}' 是 ASCII 控制字符吗? ${controlChar.isAsciiControl()}")
+    println("字符 '${nonControlChar}' 是 ASCII 控制字符吗? ${nonControlChar.isAsciiControl()}")
+}
+```
+
+运行结果：
+
+```text
+字符 '
+' 是 ASCII 控制字符吗? true
+字符 'A' 是 ASCII 控制字符吗? false
+```
 
 #### func isAsciiGraphic()
 
@@ -3213,6 +4919,28 @@ public func isAsciiGraphic(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 图形字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiGraphic() 方法
+    var graphicChar: Rune = r'A'  // ASCII 图形字符
+    var nonGraphicChar: Rune = r'\n'  // 非图形字符（控制字符）
+    
+    println("字符 '${graphicChar}' 是 ASCII 图形字符吗? ${graphicChar.isAsciiGraphic()}")
+    println("字符 '${nonGraphicChar}' 是 ASCII 图形字符吗? ${nonGraphicChar.isAsciiGraphic()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'A' 是 ASCII 图形字符吗? true
+字符 '
+' 是 ASCII 图形字符吗? false
+```
+
 #### func isAsciiHex()
 
 ```cangjie
@@ -3224,6 +4952,27 @@ public func isAsciiHex(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 十六进制字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiHex() 方法
+    var hexChar: Rune = r'A'  // ASCII 十六进制字符
+    var nonHexChar: Rune = r'G'  // 非十六进制字符
+    
+    println("字符 '${hexChar}' 是 ASCII 十六进制字符吗? ${hexChar.isAsciiHex()}")
+    println("字符 '${nonHexChar}' 是 ASCII 十六进制字符吗? ${nonHexChar.isAsciiHex()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'A' 是 ASCII 十六进制字符吗? true
+字符 'G' 是 ASCII 十六进制字符吗? false
+```
 
 #### func isAsciiLetter()
 
@@ -3237,6 +4986,27 @@ public func isAsciiLetter(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 字母字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiLetter() 方法
+    var letterChar: Rune = r'A'  // ASCII 字母字符
+    var nonLetterChar: Rune = r'1'  // 非字母字符
+    
+    println("字符 '${letterChar}' 是 ASCII 字母字符吗? ${letterChar.isAsciiLetter()}")
+    println("字符 '${nonLetterChar}' 是 ASCII 字母字符吗? ${nonLetterChar.isAsciiLetter()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'A' 是 ASCII 字母字符吗? true
+字符 '1' 是 ASCII 字母字符吗? false
+```
+
 #### func isAsciiLowerCase()
 
 ```cangjie
@@ -3248,6 +5018,27 @@ public func isAsciiLowerCase(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 小写字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiLowerCase() 方法
+    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
+    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
+    
+    println("字符 '${lowerCaseChar}' 是 ASCII 小写字符吗? ${lowerCaseChar.isAsciiLowerCase()}")
+    println("字符 '${upperCaseChar}' 是 ASCII 小写字符吗? ${upperCaseChar.isAsciiLowerCase()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'a' 是 ASCII 小写字符吗? true
+字符 'A' 是 ASCII 小写字符吗? false
+```
 
 #### func isAsciiNumber()
 
@@ -3261,6 +5052,27 @@ public func isAsciiNumber(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 数字字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiNumber() 方法
+    var numberChar: Rune = r'1'  // ASCII 数字字符
+    var nonNumberChar: Rune = r'A'  // 非数字字符
+    
+    println("字符 '${numberChar}' 是 ASCII 数字字符吗? ${numberChar.isAsciiNumber()}")
+    println("字符 '${nonNumberChar}' 是 ASCII 数字字符吗? ${nonNumberChar.isAsciiNumber()}")
+}
+```
+
+运行结果：
+
+```text
+字符 '1' 是 ASCII 数字字符吗? true
+字符 'A' 是 ASCII 数字字符吗? false
+```
+
 #### func isAsciiNumberOrLetter()
 
 ```cangjie
@@ -3272,6 +5084,30 @@ public func isAsciiNumberOrLetter(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 数字或拉丁字母字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiNumberOrLetter() 方法
+    var numberChar: Rune = r'1'  // ASCII 数字字符
+    var letterChar: Rune = r'A'  // ASCII 字母字符
+    var specialChar: Rune = r'!'  // 特殊字符
+    
+    println("字符 '${numberChar}' 是 ASCII 数字或字母字符吗? ${numberChar.isAsciiNumberOrLetter()}")
+    println("字符 '${letterChar}' 是 ASCII 数字或字母字符吗? ${letterChar.isAsciiNumberOrLetter()}")
+    println("字符 '${specialChar}' 是 ASCII 数字或字母字符吗? ${specialChar.isAsciiNumberOrLetter()}")
+}
+```
+
+运行结果：
+
+```text
+字符 '1' 是 ASCII 数字或字母字符吗? true
+字符 'A' 是 ASCII 数字或字母字符吗? true
+字符 '!' 是 ASCII 数字或字母字符吗? false
+```
 
 #### func isAsciiOct()
 
@@ -3285,6 +5121,27 @@ public func isAsciiOct(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 八进制字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiOct() 方法
+    var octChar: Rune = r'7'  // ASCII 八进制字符
+    var nonOctChar: Rune = r'8'  // 非八进制字符
+    
+    println("字符 '${octChar}' 是 ASCII 八进制字符吗? ${octChar.isAsciiOct()}")
+    println("字符 '${nonOctChar}' 是 ASCII 八进制字符吗? ${nonOctChar.isAsciiOct()}")
+}
+```
+
+运行结果：
+
+```text
+字符 '7' 是 ASCII 八进制字符吗? true
+字符 '8' 是 ASCII 八进制字符吗? false
+```
+
 #### func isAsciiPunctuation()
 
 ```cangjie
@@ -3296,6 +5153,27 @@ public func isAsciiPunctuation(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 标点符号字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiPunctuation() 方法
+    var punctuationChar: Rune = r'!'  // ASCII 标点符号字符
+    var nonPunctuationChar: Rune = r'A'  // 非标点符号字符
+    
+    println("字符 '${punctuationChar}' 是 ASCII 标点符号字符吗? ${punctuationChar.isAsciiPunctuation()}")
+    println("字符 '${nonPunctuationChar}' 是 ASCII 标点符号字符吗? ${nonPunctuationChar.isAsciiPunctuation()}")
+}
+```
+
+运行结果：
+
+```text
+字符 '!' 是 ASCII 标点符号字符吗? true
+字符 'A' 是 ASCII 标点符号字符吗? false
+```
 
 #### func isAsciiUpperCase()
 
@@ -3309,6 +5187,27 @@ public func isAsciiUpperCase(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 大写字符返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiUpperCase() 方法
+    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
+    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
+    
+    println("字符 '${upperCaseChar}' 是 ASCII 大写字符吗? ${upperCaseChar.isAsciiUpperCase()}")
+    println("字符 '${lowerCaseChar}' 是 ASCII 大写字符吗? ${lowerCaseChar.isAsciiUpperCase()}")
+}
+```
+
+运行结果：
+
+```text
+字符 'A' 是 ASCII 大写字符吗? true
+字符 'a' 是 ASCII 大写字符吗? false
+```
+
 #### func isAsciiWhiteSpace()
 
 ```cangjie
@@ -3320,6 +5219,27 @@ public func isAsciiWhiteSpace(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果是 Ascii 空白字符返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.isAsciiWhiteSpace() 方法
+    var whiteSpaceChar: Rune = r' '  // ASCII 空白字符
+    var nonWhiteSpaceChar: Rune = r'A'  // 非空白字符
+    
+    println("字符 '${whiteSpaceChar}' 是 ASCII 空白字符吗? ${whiteSpaceChar.isAsciiWhiteSpace()}")
+    println("字符 '${nonWhiteSpaceChar}' 是 ASCII 空白字符吗? ${nonWhiteSpaceChar.isAsciiWhiteSpace()}")
+}
+```
+
+运行结果：
+
+```text
+字符 ' ' 是 ASCII 空白字符吗? true
+字符 'A' 是 ASCII 空白字符吗? false
+```
 
 #### func toAsciiLowerCase()
 
@@ -3333,6 +5253,34 @@ public func toAsciiLowerCase(): Rune
 
 - [Rune](core_package_intrinsics.md#rune) - 转换后的字符，如果无法转换则返回原来的 [Rune](core_package_intrinsics.md#rune)。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.toAsciiLowerCase() 方法
+    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
+    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
+    var nonLetterChar: Rune = r'1'  // 非字母字符
+    
+    var convertedUpper = upperCaseChar.toAsciiLowerCase()
+    var convertedLower = lowerCaseChar.toAsciiLowerCase()
+    var convertedNonLetter = nonLetterChar.toAsciiLowerCase()
+    
+    println("大写字符 '${upperCaseChar}' 转换为小写: ${convertedUpper}")
+    println("小写字符 '${lowerCaseChar}' 转换为小写: ${convertedLower}")
+    println("非字母字符 '${nonLetterChar}' 转换为小写: ${convertedNonLetter}")
+}
+```
+
+运行结果：
+
+```text
+大写字符 'A' 转换为小写: a
+小写字符 'a' 转换为小写: a
+非字母字符 '1' 转换为小写: 1
+```
+
 #### func toAsciiUpperCase()
 
 ```cangjie
@@ -3344,6 +5292,34 @@ public func toAsciiUpperCase(): Rune
 返回值：
 
 - [Rune](core_package_intrinsics.md#rune) - 转换后的字符，如果无法转换则返回原来的 [Rune](core_package_intrinsics.md#rune)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.toAsciiUpperCase() 方法
+    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
+    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
+    var nonLetterChar: Rune = r'1'  // 非字母字符
+    
+    var convertedLower = lowerCaseChar.toAsciiUpperCase()
+    var convertedUpper = upperCaseChar.toAsciiUpperCase()
+    var convertedNonLetter = nonLetterChar.toAsciiUpperCase()
+    
+    println("小写字符 '${lowerCaseChar}' 转换为大写: ${convertedLower}")
+    println("大写字符 '${upperCaseChar}' 转换为大写: ${convertedUpper}")
+    println("非字母字符 '${nonLetterChar}' 转换为大写: ${convertedNonLetter}")
+}
+```
+
+运行结果：
+
+```text
+小写字符 'a' 转换为大写: A
+大写字符 'A' 转换为大写: A
+非字母字符 '1' 转换为大写: 1
+```
 
 ### extend Rune <: Comparable\<Rune>
 
@@ -3424,6 +5400,31 @@ public func next(right: Int64): Rune
 
 - [OverflowException](core_package_exceptions.md#class-overflowexception) - 如果与 [Int64](core_package_intrinsics.md#int64) 数进行加法运算后为不合法的 Unicode 值，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.next 方法
+    var char: Rune = r'A'
+    var nextChar = char.next(1)
+    println("字符: ${char}")
+    println("下一个字符: ${nextChar}")
+    
+    // 测试向后移动
+    var prevChar = char.next(-1)
+    println("前一个字符: ${prevChar}")
+}
+```
+
+运行结果：
+
+```text
+字符: A
+下一个字符: B
+前一个字符: @
+```
+
 #### func position()
 
 ```cangjie
@@ -3435,6 +5436,34 @@ public func position(): Int64
 返回值：
 
 - [Int64](core_package_intrinsics.md#int64) - 当前 [Rune](core_package_intrinsics.md#rune) 值的位置信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.position 方法
+    var char: Rune = r'A'
+    var position = char.position()
+    println("字符: ${char}")
+    println("Unicode码点位置: ${position}")
+    
+    // 测试中文字符
+    var chineseChar: Rune = r'爱'
+    var chinesePosition = chineseChar.position()
+    println("字符: ${chineseChar}")
+    println("Unicode码点位置: ${chinesePosition}")
+}
+```
+
+运行结果：
+
+```text
+字符: A
+Unicode码点位置: 65
+字符: 爱
+Unicode码点位置: 29233
+```
 
 ### extend Rune <: Hashable
 
@@ -3460,6 +5489,34 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.hashCode 方法
+    var char: Rune = r'A'
+    var hash = char.hashCode()
+    println("字符: ${char}")
+    println("哈希值: ${hash}")
+    
+    // 测试中文字符
+    var chineseChar: Rune = r'爱'
+    var chineseHash = chineseChar.hashCode()
+    println("字符: ${chineseChar}")
+    println("哈希值: ${chineseHash}")
+}
+```
+
+运行结果：
+
+```text
+字符: A
+哈希值: 65
+字符: 爱
+哈希值: 29233
+```
+
 ### extend Rune <: ToString
 
 ```cangjie
@@ -3484,6 +5541,34 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Rune.toString 方法
+    var char: Rune = r'A'
+    var str = char.toString()
+    println("字符: ${char}")
+    println("转换为字符串: ${str}")
+    
+    // 测试中文字符
+    var chineseChar: Rune = r'爱'
+    var chineseStr = chineseChar.toString()
+    println("字符: ${chineseChar}")
+    println("转换为字符串: ${chineseStr}")
+}
+```
+
+运行结果：
+
+```text
+字符: A
+转换为字符串: A
+字符: 爱
+转换为字符串: 爱
+```
+
 ## UInt16
 
 功能：表示 16 位无符号整型，表示范围为 [0, 2^{16} - 1]。
@@ -3506,6 +5591,31 @@ public static prop Max: UInt16
 
 类型：[UInt16](./core_package_intrinsics.md#uint16)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 UInt16.Max 属性
+    var maxVal = UInt16.Max
+    println("UInt16的最大值: ${maxVal}")
+    
+    // 验证最大值是否正确
+    if (maxVal == 65535) {
+        println("验证通过: UInt16.Max 等于 65535")
+    } else {
+        println("验证失败: UInt16.Max 不等于 65535")
+    }
+}
+```
+
+运行结果：
+
+```text
+UInt16的最大值: 65535
+验证通过: UInt16.Max 等于 65535
+```
+
 #### static prop Min
 
 ```cangjie
@@ -3515,6 +5625,31 @@ public static prop Min: UInt16
 功能：获取 16 位无符号整数的最小值。
 
 类型：[UInt16](./core_package_intrinsics.md#uint16)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 UInt16.Min 属性
+    var minVal = UInt16.Min
+    println("UInt16的最小值: ${minVal}")
+    
+    // 验证最小值是否正确
+    if (minVal == 0) {
+        println("验证通过: UInt16.Min 等于 0")
+    } else {
+        println("验证失败: UInt16.Min 不等于 0")
+    }
+}
+```
+
+运行结果：
+
+```text
+UInt16的最小值: 0
+验证通过: UInt16.Min 等于 0
+```
 
 ### extend UInt16 <: Comparable\<UInt16>
 
@@ -3657,6 +5792,34 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 UInt16.hashCode 方法
+    var num: UInt16 = 42
+    var hash = num.hashCode()
+    println("UInt16值: ${num}")
+    println("哈希值: ${hash}")
+    
+    // 测试最大值
+    var maxNum: UInt16 = UInt16.Max
+    var maxHash = maxNum.hashCode()
+    println("最大UInt16值: ${maxNum}")
+    println("哈希值: ${maxHash}")
+}
+```
+
+运行结果：
+
+```text
+UInt16值: 42
+哈希值: 42
+最大UInt16值: 65535
+哈希值: 65535
+```
+
 ### extend UInt16 <: ToString
 
 ```cangjie
@@ -3681,6 +5844,34 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 UInt16.toString 方法
+    var num: UInt16 = 42
+    var str = num.toString()
+    println("UInt16值: ${num}")
+    println("转换为字符串: ${str}")
+    
+    // 测试最大值
+    var maxNum: UInt16 = UInt16.Max
+    var maxStr = maxNum.toString()
+    println("最大UInt16值: ${maxNum}")
+    println("转换为字符串: ${maxStr}")
+}
+```
+
+运行结果：
+
+```text
+UInt16值: 42
+转换为字符串: 42
+最大UInt16值: 65535
+转换为字符串: 65535
+```
+
 ## UInt32
 
 功能：表示 32 位无符号整型，表示范围为 [0, 2^{32} - 1]。
@@ -3703,6 +5894,22 @@ public static prop Max: UInt32
 
 类型：[UInt32](./core_package_intrinsics.md#uint32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var maxValue = UInt32.Max
+    println(maxValue)
+}
+```
+
+运行结果：
+
+```text
+4294967295
+```
+
 #### static prop Min
 
 ```cangjie
@@ -3712,6 +5919,22 @@ public static prop Min: UInt32
 功能：获取 32 位无符号整数的最小值。
 
 类型：[UInt32](./core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var minValue = UInt32.Min
+    println(minValue)
+}
+```
+
+运行结果：
+
+```text
+0
+```
 
 ### extend UInt32 <: Comparable\<UInt32>
 
@@ -3854,6 +6077,23 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt32 = 42
+    var hash = num.hashCode()
+    println(hash)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ### extend UInt32 <: ToString
 
 ```cangjie
@@ -3878,6 +6118,24 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt32 = 42
+    var str = num.toString()
+    println(str)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
+
 ## UInt64
 
 功能：表示 64 位无符号整型，表示范围为 [0, 2^{64} - 1]。
@@ -3900,6 +6158,22 @@ public static prop Max: UInt64
 
 类型：[UInt64](./core_package_intrinsics.md#uint64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var maxValue = UInt64.Max
+    println(maxValue)
+}
+```
+
+运行结果：
+
+```text
+18446744073709551615
+```
+
 #### static prop Min
 
 ```cangjie
@@ -3909,6 +6183,22 @@ public static prop Min: UInt64
 功能：获取 64 位无符号整数的最小值。
 
 类型：[UInt64](./core_package_intrinsics.md#uint64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var minValue = UInt64.Min
+    println(minValue)
+}
+```
+
+运行结果：
+
+```text
+0
+```
 
 ### extend UInt64 <: Comparable\<UInt64>
 
@@ -4051,6 +6341,23 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt64 = 42
+    var hash = num.hashCode()
+    println(hash)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ### extend UInt64 <: ToString
 
 ```cangjie
@@ -4075,6 +6382,23 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt64 = 42
+    var str = num.toString()
+    println(str)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ## UInt8
 
 功能：表示 8 位无符号整型，表示范围为 [0, 2^8 - 1]。
@@ -4097,6 +6421,22 @@ public static prop Max: UInt8
 
 类型：[UInt8](./core_package_intrinsics.md#uint8)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var maxValue = UInt8.Max
+    println(maxValue)
+}
+```
+
+运行结果：
+
+```text
+255
+```
+
 #### static prop Min
 
 ```cangjie
@@ -4106,6 +6446,22 @@ public static prop Min: UInt8
 功能：获取 8 位无符号整数的最小值。
 
 类型：[UInt8](./core_package_intrinsics.md#uint8)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var minValue = UInt8.Min
+    println(minValue)
+}
+```
+
+运行结果：
+
+```text
+0
+```
 
 ### extend UInt8 <: Comparable\<UInt8>
 
@@ -4248,6 +6604,23 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt8 = 42
+    var hash = num.hashCode()
+    println(hash)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ### extend UInt8 <: ToString
 
 ```cangjie
@@ -4272,6 +6645,23 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UInt8 = 42
+    var str = num.toString()
+    println(str)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ## UIntNative
 
 功能：表示平台相关的无符号整型，其长度与当前系统的位宽一致。
@@ -4294,6 +6684,22 @@ public static prop Max: UIntNative
 
 类型：[UIntNative](./core_package_intrinsics.md#uintnative)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var maxValue = UIntNative.Max
+    println(maxValue)
+}
+```
+
+运行结果：
+
+```text
+18446744073709551615
+```
+
 #### static prop Min
 
 ```cangjie
@@ -4303,6 +6709,22 @@ public static prop Min: UIntNative
 功能：获取平台相关无符号整数的最小值。
 
 类型：[UIntNative](./core_package_intrinsics.md#uintnative)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var minValue = UIntNative.Min
+    println(minValue)
+}
+```
+
+运行结果：
+
+```text
+0
+```
 
 ### extend UIntNative <: Comparable\<UIntNative>
 
@@ -4445,6 +6867,23 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UIntNative = 42
+    var hash = num.hashCode()
+    println(hash)
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ### extend UIntNative <: ToString
 
 ```cangjie
@@ -4468,6 +6907,23 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num: UIntNative = 12345
+    var str = num.toString()
+    println("The string representation is: " + str)
+}
+```
+
+运行结果：
+
+```text
+The string representation is: 12345
+```
 
 ## Unit
 
@@ -4513,6 +6969,23 @@ public func hashCode(): Int64
 
 - [Int64](core_package_intrinsics.md#int64) - 哈希值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var unitValue = ()
+    var hash = unitValue.hashCode()
+    println(hash)
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
 ### extend Unit <: ToString
 
 ```cangjie
@@ -4538,3 +7011,20 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var unitValue = ()
+    var str = unitValue.toString()
+    println("The string representation is: " + str)
+}
+```
+
+运行结果：
+
+```text
+The string representation is: ()
+```

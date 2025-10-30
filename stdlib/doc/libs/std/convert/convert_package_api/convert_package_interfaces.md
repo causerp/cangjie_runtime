@@ -62,6 +62,35 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var f: Float16 = -0.34
+    var res1 = f.format("-20")  // 左对齐，宽度为20
+    var res2 = f.format("20")   // 右对齐，宽度为20
+    var res3 = f.format("g")    // 使用通用格式
+    var res4 = f.format("e")    // 使用科学计数法
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"-0.340088           "
+"           -0.340088"
+"-0.340088"
+"-3.400879e-01"
+```
+
 ### extend Float32 <: Formattable
 
 ```cangjie
@@ -93,6 +122,35 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var f: Float32 = 3.14159
+    var res1 = f.format("-20")   // 左对齐，宽度为20
+    var res2 = f.format("+20")   // 右对齐，带符号，宽度为20
+    var res3 = f.format("10")    // 右对齐，宽度为10
+    var res4 = f.format("e")     // 使用科学计数法
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"3.141590            "
+"           +3.141590"
+"  3.141590"
+"3.141590e+00"
+```
 
 ### extend Float64 <: Formattable
 
@@ -126,6 +184,35 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var f: Float64 = 3.141592653589793
+    var res1 = f.format("-20")   // 左对齐，宽度为20
+    var res2 = f.format("+20")   // 右对齐，带符号，宽度为20
+    var res3 = f.format("15")    // 右对齐，宽度为15
+    var res4 = f.format("g")     // 使用通用格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"3.141593            "
+"           +3.141593"
+"       3.141593"
+"3.14159"
+```
+
 ### extend Int16 <: Formattable
 
 ```cangjie
@@ -157,6 +244,35 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: Int16 = 20
+    var res1 = u.format("-10")   // 左对齐，宽度为10
+    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = u.format("10")    // 右对齐，宽度为10
+    var res4 = u.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"20        "
+"       +20"
+"        20"
+"10100"
+```
 
 ### extend Int32 <: Formattable
 
@@ -190,6 +306,35 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: Int32 = 20
+    var res1 = u.format("-10")   // 左对齐，宽度为10
+    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = u.format("10")    // 右对齐，宽度为10
+    var res4 = u.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"20        "
+"       +20"
+"        20"
+"10100"
+```
+
 ### extend Int64 <: Formattable
 
 ```cangjie
@@ -221,6 +366,35 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var i: Int64 = -123456789
+    var res1 = i.format("-20")   // 左对齐，宽度为20
+    var res2 = i.format("+20")   // 右对齐，带符号，宽度为20
+    var res3 = i.format("20")    // 右对齐，宽度为20
+    var res4 = i.format("#x")    // 使用带前缀的十六进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"-123456789          "
+"          -123456789"
+"          -123456789"
+"-0x75bcd15"
+```
 
 ### extend Int8 <: Formattable
 
@@ -254,6 +428,35 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: Int8 = 20
+    var res1 = u.format("-10")   // 左对齐，宽度为10
+    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = u.format("10")    // 右对齐，宽度为10
+    var res4 = u.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"20        "
+"       +20"
+"        20"
+"10100"
+```
+
 ### extend Rune <: Formattable
 
 ```cangjie
@@ -285,6 +488,29 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var r: Rune = 'A'
+    var res1 = r.format("-10")   // 左对齐，宽度为10
+    var res2 = r.format("10")    // 右对齐，宽度为10
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+}
+```
+
+运行结果：
+
+```text
+"A         "
+"         A"
+```
 
 ### extend UInt16 <: Formattable
 
@@ -318,6 +544,35 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var i: UInt16 = 123
+    var res1 = i.format("-10")   // 左对齐，宽度为10
+    var res2 = i.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = i.format("10")    // 右对齐，宽度为10
+    var res4 = i.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"123       "
+"      +123"
+"       123"
+"1111011"
+```
+
 ### extend UInt32 <: Formattable
 
 ```cangjie
@@ -349,6 +604,35 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: UInt32 = 200
+    var res1 = u.format("-10")   // 左对齐，宽度为10
+    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = u.format("10")    // 右对齐，宽度为10
+    var res4 = u.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"200       "
+"      +200"
+"       200"
+"11001000"
+```
 
 ### extend UInt64 <: Formattable
 
@@ -382,6 +666,32 @@ public func format(fmt: String): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: UInt64 = 18446744073709551615
+    var res1 = u.format("-20")   // 左对齐，宽度为20
+    var res2 = u.format("20")    // 右对齐，宽度为20
+    var res3 = u.format("#x")    // 使用带前缀的十六进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+}
+```
+
+运行结果：
+
+```text
+"18446744073709551615"
+"18446744073709551615"
+"0xffffffffffffffff"
+```
+
 ### extend UInt8 <: Formattable
 
 ```cangjie
@@ -413,6 +723,35 @@ public func format(fmt: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 fmt 不合法时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var u: UInt8 = 200
+    var res1 = u.format("-10")   // 左对齐，宽度为10
+    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
+    var res3 = u.format("10")    // 右对齐，宽度为10
+    var res4 = u.format("b")     // 使用二进制格式
+    
+    println("\"${res1}\"")
+    println("\"${res2}\"")
+    println("\"${res3}\"")
+    println("\"${res4}\"")
+}
+```
+
+运行结果：
+
+```text
+"200       "
+"      +200"
+"       200"
+"11001000"
+```
 
 ## interface Parsable\<T>
 
@@ -492,6 +831,30 @@ public static func parse(data: String): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空或转换失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strTrue: String = "true"
+    var strFalse: String = "false"
+    var res1 = Bool.parse(strTrue)
+    var res2 = Bool.parse(strFalse)
+    
+    println("After the conversion of parse, \"true\" became ${res1}")
+    println("After the conversion of parse, \"false\" became ${res2}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "true" became true
+After the conversion of parse, "false" became false
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -507,6 +870,30 @@ public static func tryParse(data: String): Option<Bool>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strTrue: String = "true"
+    var strFalse: String = "false"
+    var res1 = Bool.tryParse(strTrue)
+    var res2 = Bool.tryParse(strFalse)
+    
+    println("After the conversion of tryParse, \"true\" became ${res1}")
+    println("After the conversion of tryParse, \"false\" became ${res2}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "true" became Some(true)
+After the conversion of tryParse, "false" became Some(false)
+```
 
 ### extend Float16 <: Parsable\<Float16>
 
@@ -544,6 +931,26 @@ public static func parse(data: String): Float16
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串不符合浮点数语法时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.14159"
+    var res = Float16.parse(strFloat)
+    
+    println("After the conversion of parse, \"3.14159\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "3.14159" became 3.140625
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -559,6 +966,26 @@ public static func tryParse(data: String): Option<Float16>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.14159"
+    var res = Float16.tryParse(strFloat)
+    
+    println("After the conversion of tryParse, \"3.14159\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "3.14159" became Some(3.140625)
+```
 
 ### extend Float32 <: Parsable\<Float32>
 
@@ -596,6 +1023,26 @@ public static func parse(data: String): Float32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串不符合浮点数语法时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.14159"
+    var res = Float32.parse(strFloat)
+    
+    println("After the conversion of parse, \"3.14159\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "3.14159" became 3.141590
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -611,6 +1058,26 @@ public static func tryParse(data: String): Option<Float32>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.14159"
+    var res = Float32.tryParse(strFloat)
+    
+    println("After the conversion of tryParse, \"3.14159\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "3.14159" became Some(3.141590)
+```
 
 ### extend Float64 <: Parsable\<Float64>
 
@@ -648,6 +1115,26 @@ public static func parse(data: String): Float64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串不符合浮点数语法时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.141592653589793"
+    var res = Float64.parse(strFloat)
+    
+    println("After the conversion of parse, \"3.141592653589793\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "3.141592653589793" became 3.141593
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -663,6 +1150,26 @@ public static func tryParse(data: String): Option<Float64>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strFloat: String = "3.141592653589793"
+    var res = Float64.tryParse(strFloat)
+    
+    println("After the conversion of tryParse, \"3.141592653589793\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "3.141592653589793" became Some(3.141593)
+```
 
 ### extend Int16 <: Parsable\<Int16>
 
@@ -696,6 +1203,26 @@ public static func parse(data: String): Int16
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` ，转换失败，或转换后超出 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-32768"
+    var res = Int16.parse(strInt)
+    
+    println("After the conversion of parse, \"-32768\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "-32768" became -32768
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -711,6 +1238,26 @@ public static func tryParse(data: String): Option<Int16>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-32768"
+    var res = Int16.tryParse(strInt)
+    
+    println("After the conversion of tryParse, \"-32768\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "-32768" became Some(-32768)
+```
 
 ### extend Int32 <: Parsable\<Int32>
 
@@ -744,6 +1291,26 @@ public static func parse(data: String): Int32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` ，转换失败，或转换后超出 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-2147483648"
+    var res = Int32.parse(strInt)
+    
+    println("After the conversion of parse, \"-2147483648\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "-2147483648" became -2147483648
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -759,6 +1326,26 @@ public static func tryParse(data: String): Option<Int32>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-2147483648"
+    var res = Int32.tryParse(strInt)
+    
+    println("After the conversion of tryParse, \"-2147483648\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "-2147483648" became Some(-2147483648)
+```
 
 ### extend Int64 <: Parsable\<Int64>
 
@@ -792,6 +1379,26 @@ public static func parse(data: String): Int64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` ，转换失败，或转换后超出 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-9223372036854775808"
+    var res = Int64.parse(strInt)
+    
+    println("After the conversion of parse, \"-9223372036854775808\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "-9223372036854775808" became -9223372036854775808
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -807,6 +1414,26 @@ public static func tryParse(data: String): Option<Int64>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-9223372036854775808"
+    var res = Int64.tryParse(strInt)
+    
+    println("After the conversion of tryParse, \"-9223372036854775808\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "-9223372036854775808" became Some(-9223372036854775808)
+```
 
 ### extend Int8 <: Parsable\<Int8>
 
@@ -840,6 +1467,26 @@ public static func parse(data: String): Int8
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` ，转换失败，或转换后超出 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+``cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-128"
+    var res = Int8.parse(strInt)
+    
+    println("After the conversion of parse, \"-128\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "-128" became -128
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -855,6 +1502,26 @@ public static func tryParse(data: String): Option<Int8>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt: String = "-128"
+    var res = Int8.tryParse(strInt)
+    
+    println("After the conversion of tryParse, \"-128\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "-128" became Some(-128)
+```
 
 ### extend Rune <: Parsable\<Rune>
 
@@ -888,6 +1555,26 @@ public static func parse(data: String): Rune
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，或转换失败时，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strRune: String = "'A'"
+    var res = Rune.parse(strRune)
+    
+    println("After the conversion of parse, \"'A'\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "'A'" became A
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -903,6 +1590,26 @@ public static func tryParse(data: String): Option<Rune>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strRune: String = "'A'"
+    var res = Rune.tryParse(strRune)
+    
+    println("After the conversion of tryParse, \"'A'\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "'A'" became Some(A)
+```
 
 ### extend UInt16 <: Parsable\<UInt16>
 
@@ -936,6 +1643,26 @@ public static func parse(data: String): UInt16
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` 或 `-`，转换失败，或转换后超出 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "65535"
+    var res = UInt16.parse(strUInt)
+    
+    println("After the conversion of parse, \"65535\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "65535" became 65535
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -951,6 +1678,26 @@ public static func tryParse(data: String): Option<UInt16>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "65535"
+    var res = UInt16.tryParse(strUInt)
+    
+    println("After the conversion of tryParse, \"65535\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "65535" became Some(65535)
+```
 
 ### extend UInt32 <: Parsable\<UInt32>
 
@@ -984,6 +1731,26 @@ public static func parse(data: String): UInt32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` 或 `-`，转换失败，或转换后超出 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "4294967295"
+    var res = UInt32.parse(strUInt)
+    
+    println("After the conversion of parse, \"4294967295\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "4294967295" became 4294967295
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -999,6 +1766,26 @@ public static func tryParse(data: String): Option<UInt32>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "4294967295"
+    var res = UInt32.tryParse(strUInt)
+    
+    println("After the conversion of tryParse, \"4294967295\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "4294967295" became Some(4294967295)
+```
 
 ### extend UInt64 <: Parsable\<UInt64>
 
@@ -1032,6 +1819,26 @@ public static func parse(data: String): UInt64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` 或 `-`，转换失败，或转换后超出 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "18446744073709551615"
+    var res = UInt64.parse(strUInt)
+    
+    println("After the conversion of parse, \"18446744073709551615\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "18446744073709551615" became 18446744073709551615
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -1047,6 +1854,26 @@ public static func tryParse(data: String): Option<UInt64>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "18446744073709551615"
+    var res = UInt64.tryParse(strUInt)
+    
+    println("After the conversion of tryParse, \"18446744073709551615\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "18446744073709551615" became Some(18446744073709551615)
+```
 
 ### extend UInt8 <: Parsable\<UInt8>
 
@@ -1080,6 +1907,26 @@ public static func parse(data: String): UInt8
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，首位为 `+` 或 `-`，转换失败，或转换后超出 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 范围，或字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "255"
+    var res = UInt8.parse(strUInt)
+    
+    println("After the conversion of parse, \"255\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "255" became 255
+```
+
 #### static func tryParse(String)
 
 ```cangjie
@@ -1095,6 +1942,26 @@ public static func tryParse(data: String): Option<UInt8>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strUInt: String = "255"
+    var res = UInt8.tryParse(strUInt)
+    
+    println("After the conversion of tryParse, \"255\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "255" became Some(255)
+```
 
 ## interface RadixConvertible\<T>
 
@@ -1199,6 +2066,26 @@ public static func parse(value: String, radix!: Int64): Int8
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，进制超出范围，转换后超出 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 范围或字符串中含有无效的 UTF-8 字符，转换失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var strInt8: String = "A"
+    var res = Int8.parse(strInt8, radix: 16)
+    
+    println("After the conversion of parse, \"A\" became ${res}")
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "A" became 10
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1215,6 +2102,25 @@ public static func tryParse(value: String, radix!: Int64): Option<Int8>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "7a"
+    var res = Int8.tryParse(strInt, radix: 16)
+    
+    println("After the conversion of tryParse, \"7a\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "7a" in hexadecimal became Some(122)
+```
 
 #### func toString(Int64)
 
@@ -1235,6 +2141,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: Int8 = 122
+    var res = value.toString(radix: 16)
+    
+    println("After the conversion of toString, 122 in hexadecimal became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 122 in hexadecimal became "7a"
+```
 
 ### extend Int16 <: RadixConvertible\<Int16>
 
@@ -1269,6 +2194,25 @@ public static func parse(value: String, radix!: Int64): Int16
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、转换后超出 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 范围、字符串中含有无效的 UTF-8 字符、转换失败时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "7fff"
+    var res = Int16.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"7fff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "7fff" in hexadecimal became 32767
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1285,6 +2229,25 @@ public static func tryParse(value: String, radix!: Int64): Option<Int16>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "7B"
+    var res = Int16.tryParse(strInt, radix: 16)
+    
+    println("After the conversion of tryParse, \"7B\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "7B" in hexadecimal became Some(123)
+```
 
 #### func toString(Int64)
 
@@ -1305,6 +2268,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+``cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: Int16 = 123
+    var res = value.toString(radix: 16)
+    
+    println("After the conversion of toString, 123 in hexadecimal became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 123 in hexadecimal became "7b"
+```
 
 ### extend Int32 <: RadixConvertible\<Int32>
 
@@ -1339,6 +2321,25 @@ public static func parse(value: String, radix!: Int64): Int32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、转换后超出 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 范围、字符串中含有无效的 UTF-8 字符、转换失败时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "7fffffff"
+    var res = Int32.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"7fffffff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "7fffffff" in hexadecimal became 2147483647
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1355,6 +2356,25 @@ public static func tryParse(value: String, radix!: Int64): Option<Int32>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1z"
+    var res = Int32.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1z" in base-36 became Some(71)
+```
 
 #### func toString(Int64)
 
@@ -1375,6 +2395,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: Int32 = 71
+    var res = value.toString(radix: 36)
+    
+    println("After the conversion of toString, 71 in base-36 became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 71 in base-36 became "1z"
+```
 
 ### extend Int64 <: RadixConvertible\<Int64>
 
@@ -1409,6 +2448,25 @@ public static func parse(value: String, radix!: Int64): Int64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、转换后超出 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 范围、字符串中含有无效的 UTF-8 字符、转换失败时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "7fffffffffffffff"
+    var res = Int64.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"7fffffffffffffff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "7fffffffffffffff" in hexadecimal became 9223372036854775807
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1425,6 +2483,25 @@ public static func tryParse(value: String, radix!: Int64): Option<Int64>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1y2p0ij32e8e7"
+    var res = Int64.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1y2p0ij32e8e7\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1y2p0ij32e8e7" in base-36 became Some(9223372036854775807)
+```
 
 #### func toString(Int64)
 
@@ -1445,6 +2522,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: Int64 = 9223372036854775807
+    var res = value.toString(radix: 16)
+    
+    println("After the conversion of toString, 9223372036854775807 in hexadecimal became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 9223372036854775807 in hexadecimal became "7fffffffffffffff"
+```
 
 ### extend UInt8 <: RadixConvertible\<UInt8>
 
@@ -1479,6 +2575,25 @@ public static func parse(value: String, radix!: Int64): UInt8
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "ff"
+    var res = UInt8.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"ff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "ff" in hexadecimal became 255
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1495,6 +2610,25 @@ public static func tryParse(value: String, radix!: Int64): Option<UInt8>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1z"
+    var res = UInt8.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1z" in base-36 became Some(71)
+```
 
 #### func toString(Int64)
 
@@ -1515,6 +2649,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: UInt8 = 71
+    var res = value.toString(radix: 36)
+    
+    println("After the conversion of toString, 71 in base-36 became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 71 in base-36 became "1z"
+```
 
 ### extend UInt16 <: RadixConvertible\<UInt16>
 
@@ -1549,6 +2702,25 @@ public static func parse(value: String, radix!: Int64): UInt16
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "ffff"
+    var res = UInt16.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"ffff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "ffff" in hexadecimal became 65535
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1565,6 +2737,25 @@ public static func tryParse(value: String, radix!: Int64): Option<UInt16>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1yz"
+    var res = UInt16.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1yz\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1yz" in base-36 became Some(2555)
+```
 
 #### func toString(Int64)
 
@@ -1585,6 +2776,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: UInt16 = 2555
+    var res = value.toString(radix: 36)
+    
+    println("After the conversion of toString, 2555 in base-36 became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 2555 in base-36 became "1yz"
+```
 
 ### extend UInt32 <: RadixConvertible\<UInt32>
 
@@ -1619,6 +2829,25 @@ public static func parse(value: String, radix!: Int64): UInt32
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "ffffffff"
+    var res = UInt32.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"ffffffff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "ffffffff" in hexadecimal became 4294967295
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1635,6 +2864,25 @@ public static func tryParse(value: String, radix!: Int64): Option<UInt32>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1z141z3"
+    var res = UInt32.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1z141z3\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1z141z3" in base-36 became Some(4294967295)
+```
 
 #### func toString(Int64)
 
@@ -1655,6 +2903,25 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+``cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: UInt32 = 4294967295
+    var res = value.toString(radix: 16)
+    
+    println("After the conversion of toString, 4294967295 in hexadecimal became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 4294967295 in hexadecimal became "ffffffff"
+```
 
 ### extend UInt64 <: RadixConvertible\<UInt64>
 
@@ -1689,6 +2956,25 @@ public static func parse(value: String, radix!: Int64): UInt64
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "ffffffffffffffff"
+    var res = UInt64.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"ffffffffffffffff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "ffffffffffffffff" in hexadecimal became 18446744073709551615
+```
+
 #### static func tryParse(String, Int64)
 
 ```cangjie
@@ -1705,6 +2991,25 @@ public static func tryParse(value: String, radix!: Int64): Option<UInt64>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "3w5e11264sgsf"
+    var res = UInt64.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"3w5e11264sgsf\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "3w5e11264sgsf" in base-36 became Some(18446744073709551615)
+```
 
 #### func toString(Int64)
 
@@ -1725,3 +3030,22 @@ public func toString(radix!: Int64): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: UInt64 = 18446744073709551615
+    var res = value.toString(radix: 16)
+    
+    println("After the conversion of toString, 18446744073709551615 in hexadecimal became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 18446744073709551615 in hexadecimal became "ffffffffffffffff"
+```

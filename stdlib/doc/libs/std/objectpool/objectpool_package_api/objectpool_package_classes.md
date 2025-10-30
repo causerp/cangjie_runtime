@@ -20,7 +20,7 @@ public class ObjectPool<T> where T <: Object {
 >
 > 未来版本即将废弃。
 
-示例:
+示例：
 
 <!-- verify -->
 ```cangjie

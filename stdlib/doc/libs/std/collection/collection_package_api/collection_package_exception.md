@@ -30,6 +30,33 @@ public init()
 
 功能：构造一个不带异常信息的实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main(): Unit {
+    // 使用无参构造函数创建ConcurrentModificationException实例
+    let exception = ConcurrentModificationException()
+    println("创建了无参的ConcurrentModificationException实例")
+    
+    // 可以抛出并捕获该异常
+    try {
+        throw ConcurrentModificationException()
+    } catch (e: ConcurrentModificationException) {
+        println("捕获到ConcurrentModificationException异常")
+    }
+}
+```
+
+运行结果：
+
+```text
+创建了无参的ConcurrentModificationException实例
+捕获到ConcurrentModificationException异常
+```
+
 ### init(String)
 
 ```cangjie
@@ -41,3 +68,31 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main(): Unit {
+    // 使用带消息的构造函数创建ConcurrentModificationException实例
+    let message = "并发修改异常：在遍历过程中修改了容器"
+    let exception = ConcurrentModificationException(message)
+    println("创建了带消息的ConcurrentModificationException实例: ${exception.message}")
+    
+    // 可以抛出并捕获该异常
+    try {
+        throw ConcurrentModificationException("容器在遍历过程中被修改")
+    } catch (e: ConcurrentModificationException) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+运行结果：
+
+```text
+创建了带消息的ConcurrentModificationException实例: 并发修改异常：在遍历过程中修改了容器
+捕获到异常: 容器在遍历过程中被修改
+```
