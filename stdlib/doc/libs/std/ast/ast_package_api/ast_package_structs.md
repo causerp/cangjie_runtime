@@ -196,6 +196,16 @@ public var delimiterNum: UInt16 = 1
 
 类型：[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
+### prop isSingleQuote
+
+```cangjie
+public mut prop isSingleQuote: Bool
+```
+
+功能：词法单元是否为单引号的。
+
+类型：Bool
+
 ### init()
 
 ```cangjie

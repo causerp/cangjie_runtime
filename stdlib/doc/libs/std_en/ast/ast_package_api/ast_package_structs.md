@@ -196,6 +196,16 @@ Function: The number of '#' symbols in a multi-line string.
 
 Type: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
+### prop isSingleQuote
+
+```cangjie
+public mut prop isSingleQuote: Bool
+```
+
+Function: Indicates whether the lexical token is single quote.
+
+Type: Bool
+
 ### init()
 
 ```cangjie
