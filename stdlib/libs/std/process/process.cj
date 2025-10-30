@@ -172,9 +172,15 @@ public open class Process {
      * @return SubProcess - a new subProcess instance.
      */
     @Deprecated[message: "Use global function `public func launch(command: String, arguments: Array<String>, workingDirectory!: ?Path = None, environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Inherit, stdErr!: ProcessRedirect = Inherit): SubProcess` instead."]
-    public static func start(command: String, arguments: Array<String>, workingDirectory!: ?Path = None,
-        environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit,
-        stdOut!: ProcessRedirect = Inherit, stdErr!: ProcessRedirect = Inherit): SubProcess {
+    public static func start(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Inherit,
+        stdErr!: ProcessRedirect = Inherit
+    ): SubProcess {
         var std_redirects: Array<ProcessRedirect> = [stdIn, stdOut, stdErr]
         // check command, arguments and environment, can not be empty or Null.
         // workingDirectory must be directory.
@@ -233,16 +239,18 @@ public open class Process {
      * provide a convenient way for user, which want start a subprocess and wait the command exec return code.
      */
     @Deprecated[message: "Use global function `public func execute(command: String, arguments: Array<String>, workingDirectory!: ?Path = None, environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Inherit, stdErr!: ProcessRedirect = Inherit, timeout!: ?Duration = None): Int64` instead."]
-    public static func run(command: String, arguments: Array<String>, 
-            workingDirectory!: ?Path = None, 
-            environment!: ?Map<String, String> = None, 
-            stdIn!: ProcessRedirect = Inherit, 
-            stdOut!: ProcessRedirect = Inherit, 
-            stdErr!: ProcessRedirect = Inherit, 
-            timeout!: ?Duration = None): Int64 {
-        let subProcess: SubProcess = start(command, arguments, 
-                workingDirectory: workingDirectory, environment: environment, 
-                stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
+    public static func run(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Inherit,
+        stdErr!: ProcessRedirect = Inherit,
+        timeout!: ?Duration = None
+    ): Int64 {
+        let subProcess: SubProcess = start(command, arguments, workingDirectory: workingDirectory,
+            environment: environment, stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
         return subProcess.wait(timeout: timeout)
     }
 
@@ -251,9 +259,15 @@ public open class Process {
      * provide a convenient way for user, which want start a subprocess and wait the command exec output and err result.
      */
     @Deprecated[message: "Use global function `public func executeWithOutput(command: String, arguments: Array<String>, workingDirectory!: ?Path = None, environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Pipe, stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>)` instead."]
-    public static func runOutput(command: String, arguments: Array<String>, workingDirectory!: ?Path = None,
-        environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Pipe,
-        stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>) {
+    public static func runOutput(
+        command: String,
+        arguments: Array<String>,
+        workingDirectory!: ?Path = None,
+        environment!: ?Map<String, String> = None,
+        stdIn!: ProcessRedirect = Inherit,
+        stdOut!: ProcessRedirect = Pipe,
+        stdErr!: ProcessRedirect = Pipe
+    ): (Int64, Array<Byte>, Array<Byte>) {
         let subProcess: SubProcess = start(command, arguments, workingDirectory: workingDirectory,
             environment: environment, stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
         return subProcess.waitOutput()
@@ -424,7 +438,7 @@ func getProcessStartTime(pid: Int32): Int64 {
 }
 
 @When[os != "iOS"]
-func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>,
+func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>, 
     Option<Array<String>>, Option<Map<String, String>>) {
     // Build subProcess instance use processInfo which return from System.
     let command: ?String = cStringToOption(processInfo.command)
@@ -441,7 +455,7 @@ func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, 
 }
 
 @When[os == "iOS"]
-func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>,
+func getProcessInfo(processInfo: ProcessInfo): (Option<String>, Option<String>, Option<Path>, Option<Array<String>>, 
     Option<Array<String>>, Option<Map<String, String>>) {
     let workDir: ?String = cStringToOption(processInfo.workingDirectory)
     let name: ?String = processInfo.command.toString()
@@ -747,14 +761,13 @@ func createEnvironmentBlock(environments: ?Map<String, String>): CStringResource
         return unsafe { LibC.mallocCString(String.fromUtf8Unchecked([0u8, 0u8])).asResource() }
     }
 
-    let environment_arr: Array<String> = environmentMap |>
-        map<(String, String), String> {
+    let environment_arr: Array<String> = environmentMap |> map<(String, String), String> {
         envEntry: (String, String) =>
-        let sb = StringBuilder(envEntry[0])
-        sb.append(r'=')
-        sb.append(envEntry[1])
-        sb.append(r'\0')
-        sb.toString()
+            let sb = StringBuilder(envEntry[0])
+            sb.append(r'=')
+            sb.append(envEntry[1])
+            sb.append(r'\0')
+            sb.toString()
     } |> collectArray
     let envBlockBuilder: StringBuilder = StringBuilder()
     environment_arr |> forEach<String> {
@@ -800,13 +813,12 @@ func buildSubProcess(command: String, arguments: Array<String>, workingDir_c: CS
     try {
         // if environment is None, it will be use current environment which from it's parent's process.
         environment_cArr = match (environment) {
-            case Some(env) => env |>
-                map<(String, String), CString> {
+            case Some(env) => env |> map<(String, String), CString> {
                 envEntry: (String, String) =>
-                let sb: StringBuilder = StringBuilder(envEntry[0])
-                sb.append(r'=')
-                sb.append(envEntry[1])
-                unsafe { LibC.mallocCString(sb.toString()) }
+                    let sb: StringBuilder = StringBuilder(envEntry[0])
+                    sb.append(r'=')
+                    sb.append(envEntry[1])
+                    unsafe { LibC.mallocCString(sb.toString()) }
             } |> collectCStringArray
             case _ => Array<CString>()
         }
@@ -943,9 +955,80 @@ public func findProcess(pid: Int64): Process {
  *
  * @return SubProcess - a new subProcess instance.
  */
-public func launch(command: String, arguments: Array<String>, workingDirectory!: ?Path = None,
-    environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Inherit,
-    stdErr!: ProcessRedirect = Inherit): SubProcess {
+@When[os != "iOS"]
+public func launch(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit
+): SubProcess {
+    var std_redirects: Array<ProcessRedirect> = [stdIn, stdOut, stdErr]
+    // check command, arguments and environment, can not be empty or Null.
+    // workingDirectory must be directory.
+    if (command.contains("\0")) {
+        throw IllegalArgumentException("Command \"${command}\" cannot contains null character.")
+    }
+
+    for (arg in arguments) {
+        if (arg.contains("\0")) {
+            throw IllegalArgumentException("Argument \"${arg}\" cannot contains null character.")
+        }
+    }
+
+    if (let Some(envMap) <- environment) {
+        for (envEntry in envMap) {
+            if (envEntry[0].contains("\0") || envEntry[0].contains("=") || envEntry[1].contains("\0")) {
+                throw IllegalArgumentException(
+                    "Environment \"${envEntry[0]}\" entry cannot contains invalid character.")
+            }
+        }
+    }
+
+    if (let Some(dir) <- workingDirectory) {
+        try {
+            if (!FileInfo(dir).isDirectory()) {
+                throw IllegalArgumentException("WorkingDirectory \"${dir}\" must be directory.")
+            }
+        } catch (_: FSException) {
+            throw IllegalArgumentException("WorkingDirectory \"${dir}\" not exist in the file system.")
+        }
+    }
+
+    if (getNulFileHandle().isNone() && Process.hasDiscardMode(std_redirects)) {
+        throw IllegalArgumentException("Failed to open null file, can not redirect stdio to discard mode.")
+    }
+
+    // convert attribute from String to CString
+    // if workingDir is None, it means exec the command in current dir.
+    let workingDir_c: CString = match (workingDirectory) {
+        case Some(dir) => unsafe { LibC.mallocCString(dir.toString()) }
+        case _ => CString(CPointer())
+    }
+
+    try {
+        return buildSubProcess(command, arguments, workingDir_c, environment, std_redirects)
+    } finally {
+        // release malloc space
+        unsafe {
+            workingDir_c.asResource().close()
+        }
+    }
+}
+
+@When[os == "iOS"]
+@Deprecated
+public func launch(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit
+): SubProcess {
     var std_redirects: Array<ProcessRedirect> = [stdIn, stdOut, stdErr]
     // check command, arguments and environment, can not be empty or Null.
     // workingDirectory must be directory.
@@ -1003,9 +1086,34 @@ public func launch(command: String, arguments: Array<String>, workingDirectory!:
  * func execute is combine the launch and wait.
  * provide a convenient way for user, which want start a subprocess and wait the command exec return code.
  */
-public func execute(command: String, arguments: Array<String>, workingDirectory!: ?Path = None,
-    environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Inherit,
-    stdErr!: ProcessRedirect = Inherit, timeout!: ?Duration = None): Int64 {
+@When[os != "iOS"]
+public func execute(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit,
+    timeout!: ?Duration = None
+): Int64 {
+    let subProcess: SubProcess = launch(command, arguments, workingDirectory: workingDirectory, environment: environment,
+        stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
+    subProcess.wait(timeout: timeout)
+}
+
+@When[os == "iOS"]
+@Deprecated
+public func execute(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit,
+    timeout!: ?Duration = None
+): Int64 {
     let subProcess: SubProcess = launch(command, arguments, workingDirectory: workingDirectory, environment: environment,
         stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
     subProcess.wait(timeout: timeout)
@@ -1015,9 +1123,32 @@ public func execute(command: String, arguments: Array<String>, workingDirectory!
  * func executeWithOutput is combine the start and waitOutput.
  * provide a convenient way for user, which want start a subprocess and wait the command exec output and err result.
  */
-public func executeWithOutput(command: String, arguments: Array<String>, workingDirectory!: ?Path = None,
-    environment!: ?Map<String, String> = None, stdIn!: ProcessRedirect = Inherit, stdOut!: ProcessRedirect = Pipe,
-    stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>) {
+@When[os != "iOS"]
+public func executeWithOutput(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Pipe,
+    stdErr!: ProcessRedirect = Pipe
+): (Int64, Array<Byte>, Array<Byte>) {
+    let subProcess: SubProcess = launch(command, arguments, workingDirectory: workingDirectory, environment: environment,
+        stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
+    subProcess.waitOutput()
+}
+
+@When[os == "iOS"]
+@Deprecated
+public func executeWithOutput(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Pipe,
+    stdErr!: ProcessRedirect = Pipe
+): (Int64, Array<Byte>, Array<Byte>) {
     let subProcess: SubProcess = launch(command, arguments, workingDirectory: workingDirectory, environment: environment,
         stdIn: stdIn, stdOut: stdOut, stdErr: stdErr)
     subProcess.waitOutput()
