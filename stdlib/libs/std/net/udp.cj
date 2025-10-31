@@ -259,6 +259,18 @@ public class UdpSocket <: DatagramSocket {
      * Please note that there are limitations on when ports could be reused. Behaviour of this option
      * is system-dependant (e.g. this option is unavailable on Windows).
      */
+    @When[os != "Windows"]
+    public mut prop reusePort: Bool {
+        get() {
+            impl.getSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT)
+        }
+        set(reuse) {
+            impl.setSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT, reuse)
+        }
+    }
+
+    @When[os == "Windows"]
+    @Deprecated
     public mut prop reusePort: Bool {
         get() {
             impl.getSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT)
