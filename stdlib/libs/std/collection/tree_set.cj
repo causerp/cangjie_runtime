@@ -15,7 +15,7 @@ package std.collection
 
 public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
     /* TreeMap */
-    private var map: TreeMap<T, Unit>
+    private var myMap: TreeMap<T, Unit>
 
     /**
      * Returns the size.
@@ -25,7 +25,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public prop size: Int64 {
         get() {
-            return this.map.size
+            return this.myMap.size
         }
     }
 
@@ -37,7 +37,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public prop first: ?T {
         get() {
-            this.map.first?[0]
+            this.myMap.first?[0]
         }
     }
 
@@ -49,7 +49,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public prop last: ?T {
         get() {
-            this.map.last?[0]
+            this.myMap.last?[0]
         }
     }
 
@@ -57,7 +57,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * Constructs a new, empty set.
      */
     public init() {
-        map = TreeMap<T, Unit>()
+        myMap = TreeMap<T, Unit>()
     }
 
     /**
@@ -67,9 +67,9 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public init(elements: Collection<T>) {
-        this.map = TreeMap<T, Unit>()
+        this.myMap = TreeMap<T, Unit>()
         for (i in elements) {
-            this.map.add(i, ())
+            this.myMap.add(i, ())
         }
     }
 
@@ -80,9 +80,9 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     private init(elements: Array<T>) {
-        this.map = TreeMap<T, Unit>()
+        this.myMap = TreeMap<T, Unit>()
         for (i in elements) {
-            this.map.add(i, ())
+            this.myMap.add(i, ())
         }
     }
 
@@ -97,7 +97,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
         if (size < 0) {
             throw IllegalArgumentException("Invalid size of TreeSet: ${size}.")
         }
-        this.map = TreeMap<T, Unit>(size, {i => (initElement(i), ())})
+        this.myMap = TreeMap<T, Unit>(size, {i => (initElement(i), ())})
     }
 
     /**
@@ -118,7 +118,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func contains(element: T): Bool {
-        return map.contains(element)
+        return myMap.contains(element)
     }
 
     /**
@@ -129,7 +129,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func contains(all!: Collection<T>): Bool {
-        return map.contains(all: all)
+        return myMap.contains(all: all)
     }
 
     /**
@@ -140,7 +140,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func add(element: T): Bool {
-        return this.map.add(element, ()).isNone()
+        return this.myMap.add(element, ()).isNone()
     }
 
     /**
@@ -151,7 +151,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public func add(all!: Collection<T>): Unit {
         for (i in all) {
-            this.map.add(i, ())
+            this.myMap.add(i, ())
         }
     }
 
@@ -163,7 +163,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func remove(element: T): Bool {
-        return map.remove(element).isSome()
+        return myMap.remove(element).isSome()
     }
 
     /**
@@ -173,7 +173,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func remove(all!: Collection<T>): Unit {
-        map.remove(all: all)
+        myMap.remove(all: all)
     }
 
     /**
@@ -183,14 +183,14 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func removeIf(predicate: (T) -> Bool): Unit {
-        this.map.removeIf({e, _ => predicate(e)})
+        this.myMap.removeIf({e, _ => predicate(e)})
     }
 
     /**
      * Clears all elements.
      */
     public func clear(): Unit {
-        this.map.clear()
+        this.myMap.clear()
     }
 
     /**
@@ -210,7 +210,169 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func isEmpty(): Bool {
-        return this.map.isEmpty()
+        return this.myMap.isEmpty()
+    }
+
+    /**
+     * @description Maps all elements of type T in the current TreeSet to elements of type R using the transform function, forming a new TreeSet.
+     * 
+     * @param transform the mapping function.
+     * @returns a new TreeSet composed of elements obtained by mapping all elements in the original TreeSet.
+     */
+    @Frozen
+    public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R> {
+        var arr: Array<T> = this.toArray()
+        var result: TreeSet<R> = TreeSet<R>()
+        var len = arr.size
+        for (i in 0..len) {
+            result.add(transform(arr[i]))
+        }
+        return result
+    }
+
+    /**
+     * @description Returns a new TreeSet<T> containing elements that satisfy the filtering condition.
+     * 
+     * @param predicate the given condition.
+     * @returns a new collection of elements that satisfy the filtering condition.
+     */
+    @Frozen
+    public func filter(predicate: (T) -> Bool): TreeSet<T> {
+        var arr: Array<T> = this.toArray()
+        var result: TreeSet<T> = TreeSet<T>()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                result.add(arr[i])
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Performs filtering and mapping operations simultaneously, returning a new TreeSet.
+     * 
+     * @param transform the given mapping function.
+     * @returns a new TreeSet after filtering and mapping.
+     */
+    @Frozen
+    public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R> {
+        var arr: Array<T> = this.toArray()
+        var result: TreeSet<R> = TreeSet<R>()
+        var len = arr.size
+        for (i in 0..len) {
+            match (transform(arr[i])) {
+                case Some(v) => result.add(v)
+                case None => continue
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Iterates over all elements and performs the given operation.
+     * 
+     * @param action the given operation function.
+     */
+    @Frozen
+    public func forEach(action: (T) -> Unit): Unit {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            action(arr[i])
+        }
+    }
+
+    /**
+     * @description Determine whether all elements in the TreeSet satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns true if all elements in the TreeSet satisfy the condition, otherwise returns false.
+     */
+    @Frozen
+    public func all(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (!predicate(arr[i])) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether there is any element in the TreeSet that satisfies the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether there is any element that satisfies the condition.
+     */
+    @Frozen
+    public func any(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all elements in the TreeSet do not satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether all elements in the current TreeSet do not satisfy the condition.
+     */
+    @Frozen
+    public func none(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     * 
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func fold<R>(initial: R, operation: (R, T) -> R): R {
+        var result: R = initial
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            result = operation(result, arr[i])
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first value as the initial value.
+     * 
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func reduce(operation: (T, T) -> T): Option<T> {
+        if (size <= 0) {
+            return None<T>
+        }
+        var arr: Array<T> = this.toArray()
+        var result: T = arr[0]
+        var len = arr.size
+        for (i in 1..len) {
+            result = operation(result, arr[i])
+        }
+        return result
     }
 
     /**
@@ -221,7 +383,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @Frozen
     public func iterator(): Iterator<T> {
-        return this.map.keys().iterator()
+        return this.myMap.keys().iterator()
     }
 
     /**
@@ -231,7 +393,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func removeFirst(): ?T {
-        return this.map.removeFirst()?[0]
+        return this.myMap.removeFirst()?[0]
     }
 
     /**
@@ -241,7 +403,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func removeLast(): ?T {
-        return this.map.removeLast()?[0]
+        return this.myMap.removeLast()?[0]
     }
 
     /**
@@ -256,7 +418,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func backward(mark: T, inclusive!: Bool = true): Iterator<T> {
-        return IteratorForSet<T>(this.map.backward(mark, inclusive: inclusive))
+        return IteratorForSet<T>(this.myMap.backward(mark, inclusive: inclusive))
     }
 
     /**
@@ -271,7 +433,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func forward(mark: T, inclusive!: Bool = true): Iterator<T> {
-        return IteratorForSet<T>(this.map.forward(mark, inclusive: inclusive))
+        return IteratorForSet<T>(this.myMap.forward(mark, inclusive: inclusive))
     }
 
     /**
@@ -285,7 +447,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func retain(all!: Set<T>): Unit {
-        this.map.removeIf({k, _ => !all.contains(k)})
+        this.myMap.removeIf({k, _ => !all.contains(k)})
     }
 
     /**
@@ -293,7 +455,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func toArray(): Array<T> {
-        return map.keys().toArray()
+        return myMap.keys().toArray()
     }
 
     /**
@@ -304,7 +466,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      */
     public func subsetOf(other: ReadOnlySet<T>): Bool {
-        return other.contains(all: this.map.keys())
+        return other.contains(all: this.myMap.keys())
     }
 
     /**
@@ -323,7 +485,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public operator func &(other: ReadOnlySet<T>): TreeSet<T> {
         let result = TreeSet<T>()
-        for (key in this.map.keys() where other.contains(key)) {
+        for (key in this.myMap.keys() where other.contains(key)) {
             result.add(key)
         }
         return result
@@ -365,7 +527,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public operator func -(other: ReadOnlySet<T>): TreeSet<T> {
         let result = TreeSet<T>()
-        for (key in this.map.keys() where !other.contains(key)) {
+        for (key in this.myMap.keys() where !other.contains(key)) {
             result.add(key)
         }
         return result

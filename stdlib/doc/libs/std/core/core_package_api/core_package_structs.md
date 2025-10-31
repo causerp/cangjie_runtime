@@ -198,6 +198,38 @@ String array with repeated value: [Hello, Hello, Hello]
 Boolean array with repeated value: [true, true, true, true]
 ```
 
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+功能：判断数组所有元素是否都满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组所有元素都满足条件，返回 true，否则返回 false
+
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+功能：判断数组是否存在任意一个满足条件的元素。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
 ### func clone()
 
 ```cangjie
@@ -450,6 +482,82 @@ Before partial fill: [1, 2, 3, 4, 5]
 After partial fill: [1, -1, -1, -1, 5]
 ```
 
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): Array<T> 
+```
+
+功能： 返回一个满足筛选条件的元素的新数组。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个满足筛选条件的元素的新数组。
+
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): Array<R>
+```
+
+功能：同时进行筛选操作和映射操作，返回一个新数组。
+
+参数：
+
+- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个筛选和映射的新数组。
+
+### func flatMap\<R>((T) -> Array\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
+```
+
+功能：对数组中的每个元素应用一个转换闭包（transform），该闭包返回一个数组，然后将所有返回的数组“压平”（flatten）并连接成一个单一的结果数组。
+
+参数：
+
+- transform: (T) -> [Array](core_package_structs.md#struct-arrayt)\<R> - 给定的映射函数。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<R> -  被“映射（map）”和“压平（flatten）”后的新数组
+
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+功能：使用指定初始值，从左向右计算。
+
+参数：
+
+- initial: R - 给定的 R 类型的初始值。
+- operation: (R, T) -> R - 给定的计算函数。
+
+返回值：
+
+- R - 返回最终计算得到的值。
+
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+功能：遍历所有元素，执行给定的操作。
+
+参数：
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
 ### func get(Int64)
 
 ```cangjie
@@ -486,6 +594,22 @@ main() {
 ```text
 Some(0)
 ```
+
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): Array<T>
+```
+
+功能：返回每两个元素之间插入一个给定的新元素后的新数组
+
+参数：
+
+- separator: T - 给定的元素。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个新数组。
 
 ### func map\<R>((T)->R)
 
@@ -531,6 +655,38 @@ Original array: [1, 2, 3, 4, 5]
 Mapped array (each element + 1): [2, 3, 4, 5, 6]
 String array: [Number: 1, Number: 2, Number: 3, Number: 4, Number: 5]
 ```
+
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+功能：判断数组中所有元素是否都不满足条件。
+
+参数：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前数组中元素是否都不满足条件。
+
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+功能：使用第一个元素作为初始值，从左向右计算。
+
+参数：
+
+- operation: (T, T) -> T - 给定的计算函数。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
 ### func repeat(Int64)
 
@@ -622,6 +778,27 @@ Reversed array: [5, 4, 3, 2, 1]
 Original string array: [Hello, World, Cangjie]
 Reversed string array: [Cangjie, World, Hello]
 ```
+
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): Array<T>
+```
+
+功能： 跳过特定个数元素并返回一个新数组。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源数组所有元素的新数组。当 count 大于 0 小于源数组的大小时，跳过前 count 个元素，返回包含剩下的元素的新数组。当 count 大于等于数组的大小时，返回空数组。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个跳过指定数量元素的新数组。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### func slice(Int64, Int64)
 
@@ -737,6 +914,26 @@ Original array: [-1, 1, 2, 3, 4, 5]
 Left slice: [-1, 1, 2]
 Right slice: [3, 4, 5]
 ```
+### func step(Int64)
+```cangjie
+public func step(count: Int64): Array<T>
+```
+
+功能：以指定的间隔从数组中提取元素，并返回一个新数组。
+
+当 count 小于等于 0 时，抛出异常
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 选取的间隔
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 一个新的数组，包含了按间隔从源数组中提取出的所有元素。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
 
 ### func swap(Int64, Int64)
 
@@ -785,6 +982,27 @@ Original array: [1, 2, 3, 4, 5]
 After swapping indices 1 and 3: [1, 4, 3, 2, 5]
 After swapping index 2 with itself: [1, 4, 3, 2, 5]
 ```
+
+### func take(Int64)
+```cangjie
+public func take(count: Int64): Array<T>
+```
+
+功能： 从数组取出特定个数元素并返回一个新数组。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空数组。当 count 大于 0 小于源数组的大小时，取前 count 个元素，返回新数组。当 count 大于等于数组的大小时，取所有元素，返回新数组。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要取出的个数。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个取出指定数量元素的新数组。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### operator func \[](Int64)
 
@@ -971,6 +1189,42 @@ main() {
 ```text
 [0, 10, 11, 3, 4, 5]
 ```
+
+### extend\<T> Array\<T>
+
+```cangjie
+extend<T> Array<T>
+```
+
+功能：为 [Array](core_package_structs.md#struct-arrayt)\<T> 类型进行拓展
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): Array<(Int64, T)>
+```
+
+功能：用于获取带索引的数组。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新数组。
+
+#### func zip\<R>(Array\<R>)
+
+```cangjie
+public func zip<R>(other: Array<R>): Array<(T, R)>
+```
+
+功能：将两个数组合并成一个新数组（长度取决于短的那个数组）。
+
+参数：
+
+- other: [Array](core_package_structs.md#struct-arrayt)\<R> - 要合并的其中一个数组。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - 返回一个新数组。
 
 ### extend\<T> Array\<T> <: Collection\<T>
 

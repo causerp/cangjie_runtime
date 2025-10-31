@@ -27,7 +27,7 @@ package std.collection
  */
 public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     /* hashMap */
-    private var map: HashMap<T, Unit>
+    private var myMap: HashMap<T, Unit>
 
     /**
      * Constructs a new, empty set; the backing @p HashSet instance has
@@ -37,7 +37,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public init() {
-        map = HashMap<T, Unit>()
+        myMap = HashMap<T, Unit>()
     }
 
     /**
@@ -49,9 +49,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public init(elements: Collection<T>) {
-        this.map = HashMap<T, Unit>(elements.size)
+        this.myMap = HashMap<T, Unit>(elements.size)
         for (i in elements) {
-            this.map.putWithoutResize(i, ())
+            this.myMap.putWithoutResize(i, ())
         }
     }
 
@@ -64,9 +64,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public init(elements: Array<T>) {
-        this.map = HashMap<T, Unit>(elements.size)
+        this.myMap = HashMap<T, Unit>(elements.size)
         for (i in elements) {
-            this.map.putWithoutResize(i, ())
+            this.myMap.putWithoutResize(i, ())
         }
     }
 
@@ -79,7 +79,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public init(capacity: Int64) {
-        this.map = HashMap<T, Unit>(capacity)
+        this.myMap = HashMap<T, Unit>(capacity)
     }
 
     /**
@@ -92,7 +92,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public init(size: Int64, initElement: (Int64) -> T) {
-        this.map = HashMap<T, Unit>(size, {i => (initElement(i), ())})
+        this.myMap = HashMap<T, Unit>(size, {i => (initElement(i), ())})
     }
 
     /**
@@ -105,7 +105,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func contains(element: T): Bool {
-        return map.contains(element)
+        return myMap.contains(element)
     }
 
     /**
@@ -136,7 +136,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func contains(all!: Collection<T>): Bool {
-        return map.contains(all: all)
+        return myMap.contains(all: all)
     }
 
     /**
@@ -149,7 +149,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func add(element: T): Bool {
-        return match (this.map.add(element, ())) {
+        return match (this.myMap.add(element, ())) {
             case None => true
             case _ => false
         }
@@ -164,7 +164,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func remove(element: T): Bool {
-        return match (map.remove(element)) {
+        return match (myMap.remove(element)) {
             case None => false
             case _ => true
         }
@@ -181,7 +181,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public func add(all!: Collection<T>): Unit {
         for (i in all) {
-            this.map.add(i, ())
+            this.myMap.add(i, ())
         }
     }
 
@@ -194,7 +194,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func remove(all!: Collection<T>): Unit {
-        map.remove(all: all)
+        myMap.remove(all: all)
     }
 
     /**
@@ -206,7 +206,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func removeIf(predicate: (T) -> Bool): Unit {
-        this.map.removeIf({k, _ => predicate(k)})
+        this.myMap.removeIf({k, _ => predicate(k)})
     }
 
     /**
@@ -216,7 +216,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func clear(): Unit {
-        this.map.clear()
+        this.myMap.clear()
     }
 
     /**
@@ -232,7 +232,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func retain(all!: Set<T>): Unit {
-        let it: HashMapIterator<T, Unit> = this.map.iterator()
+        let it: HashMapIterator<T, Unit> = this.myMap.iterator()
         for ((k, _) in it where !all.contains(k)) {
             it.remove()
         }
@@ -261,7 +261,169 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func reserve(additional: Int64): Unit {
-        this.map.reserve(additional)
+        this.myMap.reserve(additional)
+    }
+
+    /**
+     * @description Maps all elements of type T in the current HashSet to elements of type R using the transform function, and returns them as a new HashSet.
+     * 
+     * @param transform The mapping closure to apply to each element.
+     * @returns A new HashSet containing the transformed elements from the original HashSet.
+     */
+    @Frozen
+    public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R> {
+        var arr: Array<T> = this.toArray()
+        var result: HashSet<R> = HashSet<R>()
+        var len = arr.size
+        for (i in 0..len) {
+            result.add(transform(arr[i]))
+        }
+        return result
+    }
+
+    /**
+     * @description Returns a new HashSet<T> containing elements that satisfy the filtering condition.
+     * 
+     * @param predicate the given condition.
+     * @returns a new HashSet containing elements that satisfy the filtering condition.
+     */
+    @Frozen
+    public func filter(predicate: (T) -> Bool): HashSet<T> {
+        var arr: Array<T> = this.toArray()
+        var result: HashSet<T> = HashSet<T>()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                result.add(arr[i])
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Performs filtering and mapping operations simultaneously, returning a new HashSet.
+     * 
+     * @param transform the given mapping function.
+     * @returns a new HashSet after filtering and mapping.
+     */
+    @Frozen
+    public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R> {
+        var arr: Array<T> = this.toArray()
+        var result: HashSet<R> = HashSet<R>()
+        var len = arr.size
+        for (i in 0..len) {
+            match (transform(arr[i])) {
+                case Some(v) => result.add(v)
+                case None => continue
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Iterates over all elements and performs the given operation.
+     * 
+     * @param action the given operation function.
+     */
+    @Frozen
+    public func forEach(action: (T) -> Unit): Unit {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            action(arr[i])
+        }
+    }
+
+    /**
+     * @description Determine whether all elements in the HashSet satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns true if all elements in the HashSet satisfy the condition, otherwise returns false.
+     */
+    @Frozen
+    public func all(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (!predicate(arr[i])) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether there is any element in the HashSet that satisfies the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether there is any element that satisfies the condition.
+     */
+    @Frozen
+    public func any(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all elements in the HashSet do not satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether all elements in the current HashSet do not satisfy the condition.
+     */
+    @Frozen
+    public func none(predicate: (T) -> Bool): Bool {
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            if (predicate(arr[i])) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     * 
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func fold<R>(initial: R, operation: (R, T) -> R): R {
+        var result: R = initial
+        var arr: Array<T> = this.toArray()
+        var len = arr.size
+        for (i in 0..len) {
+            result = operation(result, arr[i])
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first element as the initial value.
+     * 
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func reduce(operation: (T, T) -> T): Option<T> {
+        if (size <= 0) {
+            return None<T>
+        }
+        var arr: Array<T> = this.toArray()
+        var result: T = arr[0]
+        var len = arr.size
+        for (i in 1..len) {
+            result = operation(result, arr[i])
+        }
+        return result
     }
 
     /**
@@ -274,7 +436,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public prop capacity: Int64 {
         get() {
-            return this.map.capacity
+            return this.myMap.capacity
         }
     }
 
@@ -287,7 +449,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func iterator(): Iterator<T> {
-        return this.map.keys().iterator()
+        return this.myMap.keys().iterator()
     }
 
     /**
@@ -300,7 +462,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public prop size: Int64 {
         get() {
-            return this.map.size
+            return this.myMap.size
         }
     }
 
@@ -313,7 +475,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func isEmpty(): Bool {
-        return map.isEmpty()
+        return myMap.isEmpty()
     }
 
     /**
@@ -323,7 +485,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func toArray(): Array<T> {
-        return map.keys().toArray()
+        return myMap.keys().toArray()
     }
 
     /**
@@ -343,7 +505,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public operator func &(other: ReadOnlySet<T>): HashSet<T> {
         let result = HashSet<T>()
-        for (key in this.map.keys() where other.contains(key)) {
+        for (key in this.myMap.keys() where other.contains(key)) {
             result.add(key)
         }
         return result
@@ -387,7 +549,7 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public operator func -(other: ReadOnlySet<T>): HashSet<T> {
         let result = HashSet<T>()
-        for (key in this.map.keys() where !other.contains(key)) {
+        for (key in this.myMap.keys() where !other.contains(key)) {
             result.add(key)
         }
         return result
