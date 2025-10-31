@@ -35,7 +35,7 @@ static bool IsType(uint32_t mode, uint32_t mask)
     return ((mode) & S_IFMT) == mask;
 }
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
 extern bool CJ_OS_IsType(const char* path, uint32_t mode)
 {
     struct stat buf;
@@ -53,7 +53,7 @@ enum TypeFunc {
     CHR_TYPE,
     BLK_TYPE,
     FIFO_TYPE,
-#if defined(__linux__) || defined(__ohos__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__ohos__) || defined(__APPLE__) || defined(__ANDROID__)
     LNK_TYPE,
     SOCK_TYPE,
 #endif
@@ -77,7 +77,7 @@ extern bool CJ_OS_IsTypeFunc(const char* fileName, enum TypeFunc typeNum)
             return S_ISBLK(buf.st_mode);
         case FIFO_TYPE:
             return S_ISFIFO(buf.st_mode);
-#if defined(__linux__) || defined(__ohos__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__ohos__) || defined(__APPLE__) || defined(__ANDROID__)
         case LNK_TYPE:
             return S_ISLNK(buf.st_mode);
         case SOCK_TYPE:
