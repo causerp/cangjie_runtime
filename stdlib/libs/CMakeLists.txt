@@ -69,7 +69,7 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos")
     add_dependencies(${libname} modify_typetemplate_object)
     target_link_libraries(${libname} m)
     if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
-        target_link_libraries(${libname} clang_rt-profile)
+        target_link_libraries(${libname} -L$ENV{CANGJIE_HOME}/lib/${output_cj_lib_dir} -l:libclang_rt-profile.a)
     endif()
 
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)

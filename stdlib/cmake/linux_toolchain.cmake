@@ -29,6 +29,11 @@ set(LINK_FLAGS_BUILD_ID "-Wl,--build-id=none")
 set(C_FLAGS "${WARNINGS_SETTINGS} ${C_OTHER_FLAGS} ${OTHER_FLAGS}")
 set(CPP_FLAGS "${WARNINGS_SETTINGS} ${CXX_OTHER_FLAGS} ${OTHER_FLAGS}")
 
+if(CANGJIE_ENABLE_ASAN_COV)
+    set(C_FLAGS "${C_FLAGS} ${ASAN_FLAGS} -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-div,trace-gep")
+    set(CPP_FLAGS "${CPP_FLAGS} ${ASAN_FLAGS} -fsanitize-coverage=trace-pc-guard,trace-cmp,trace-div,trace-gep")
+endif()
+
 option(CANGJIE_ENABLE_HWASAN "Enable hardware asan (relwithdebinfo or debug, OHOS builds only)" OFF)
 if(CANGJIE_ENABLE_HWASAN)
     set(C_FLAGS "${C_FLAGS} ${HWASAN_FLAGS}")
