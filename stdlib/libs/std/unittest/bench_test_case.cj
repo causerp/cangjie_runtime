@@ -398,6 +398,12 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
                 break
             }
         }
+
+        progress.println {
+            let realExecTime = DateTime.now() - start
+            "Finished in ${printDuration(realExecTime)}. Analysing results:"
+        }
+        
     }
 
     func calcBatchSize(): (Range<Int64>, Int64) {

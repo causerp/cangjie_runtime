@@ -7,12 +7,15 @@
  */
 package std.unittest
 
-import std.unittest.common.PrettyText
 import std.collection.*
+import std.convert.Formattable
 import std.math.abs
 import std.math.sqrt
-import std.runtime.getProcessorCount
 import std.random.Random
+import std.runtime.ProcessorInfo
+import std.runtime.getProcessorCount
+import std.unittest.common.PrettyText
+
 
 type BenchRawMeasurement = (Float64, Float64, Float64)
 
@@ -31,7 +34,8 @@ class BenchExecutor<T> <: Executor {
         let progress = ProgressOutput(configuration)
         let benchRunner = BenchRunner(configuration, progress)
         strategy.nextIteration(configuration)
-
+        
+        let measurementInfo = configuration.get(KeyMeasurementInfo.measurementInfo).getOrThrow()
         while (true) {
             let result = strategy.processNextWith(configuration) {
                 v, inputs => runSingle(v, inputs, suiteInfo, tcase.caseId, tcase.caseInfo, benchRunner, progress,
@@ -42,6 +46,9 @@ class BenchExecutor<T> <: Executor {
                 case Success(result) =>
                     step += 1
                     tcase.add(result)
+                    if (let Bench(benchmarkResult) <- result.info) {
+                        benchmarkResult.printSummary(progress, measurementInfo)
+                    }
                 case Failure(input, failure) =>
                     tcase.add(failure)
                     break
@@ -78,7 +85,6 @@ class BenchExecutor<T> <: Executor {
         let stepKind = CaseStep(ArgumentDescription(args, step, 0, None))
         Framework.runStepBody(stepKind, StepInfo.Bench(BenchmarkResult(benchRunner.measurements)), caseId.caseName) {
             benchRunner.runBench()
-            progress.println {""}
         }
     }
 
@@ -243,6 +249,9 @@ class BenchmarkResult {
     prop median: Float64 { get() {
         bootstrapped.resultSample.sample.percentile(0.5)
     }}
+    prop medianCI99: Float64 { get() {
+        (bootstrapped.resultSample.sample.percentile(0.99) - bootstrapped.resultSample.sample.percentile(0.01)) / 2.0
+    }}
 
     prop mean: Float64 { get() {
         bootstrapped.resultSample.sample.mean()
@@ -261,6 +270,16 @@ class BenchmarkResult {
 
     prop errorEst: Float64 { get () {
         if (meanCI99 < 0.000001) { 0.0 } else { meanCI99 }
+    }}
+
+    prop errorEstPercent: Float64 { get() {
+        let result = this.median
+        let error = this.errorEst
+        if (error == 0.0 && result == 0.0) {
+            0.0
+        } else {
+            error / result * 100.0
+        }
     }}
 
     BenchmarkResult(var data: ArrayList<BenchRawMeasurement>) {}
@@ -313,6 +332,54 @@ class BenchmarkResult {
         bootstrapped.finish(data)
     }
 
+    func printSummary(progress: ProgressOutput, measurementInfo: MeasurementInfo) {
+        let converter = measurementInfo.conversionTable
+        this.calculate(measurementInfo)
+
+        let plusMinus = if (isConsoleUtf8) { "±" } else { "+/-" }
+
+        let table: PrettyTable = PrettyTable(sep: " ", separateColumnsNames: false, leftAligneAll: true, minColumnWidth: 1)
+        table.addColumns(["percentiles: ", "[", "10%", "50%", "90%", "95%", "99%", "]"])
+        table.nextRow()
+        table.addCell("time:        ")
+        table.addCell("[")
+        table.addCell(converter.toString(bootstrapped.medianStats.sample.percentile(0.10)))
+        table.addCell(converter.toString(median))
+        table.addCell(converter.toString(bootstrapped.medianStats.sample.percentile(0.90)))
+        table.addCell(converter.toString(bootstrapped.medianStats.sample.percentile(0.95)))
+        table.addCell(converter.toString(bootstrapped.medianStats.sample.percentile(0.99)))
+        table.addCell("]")
+
+        let pp = TerminalPrettyPrinter.fromDefaultConfiguration()
+        pp.append(table)
+
+        progress.println{
+            "  mean:           " +
+            converter.toString(mean - meanCI99) + " .. " +
+            converter.toString(mean + meanCI99) + "  " +
+            "Err " + plusMinus + (errorEstPercent).format(".1") + "%"
+        }
+
+        progress.println{
+            "  median:         " +
+            converter.toString(median - medianCI99) + " .. " +
+            converter.toString(median + medianCI99)
+        }
+
+        let r2Low = bootstrapped.r2Stats.sample.percentile(0.01)
+        let r2High = bootstrapped.r2Stats.sample.percentile(0.99)
+        progress.println{
+            "  R²:             " +
+            r2Low.format(".3").toString() + " .. " + r2High.format(".3").toString()
+        }
+
+        progress.println{
+            "  stddev:         " +
+            converter.toString(bootstrapped.meanStats.sample.stddev())
+        }
+
+        progress.println{""}
+    }
 }
 
 extend<T> Iterator<T> {
