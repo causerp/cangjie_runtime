@@ -272,11 +272,11 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R> {
-        var arr: Array<T> = this.toArray()
+        var entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
-        var len = arr.size
+        var len = entries.size
         for (i in 0..len) {
-            result.add(transform(arr[i]))
+            result.add(transform(entries[i].key))
         }
         return result
     }
@@ -289,12 +289,12 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func filter(predicate: (T) -> Bool): HashSet<T> {
-        var arr: Array<T> = this.toArray()
+        var entries = myMap.entries
         var result: HashSet<T> = HashSet<T>()
-        var len = arr.size
+        var len = entries.size
         for (i in 0..len) {
-            if (predicate(arr[i])) {
-                result.add(arr[i])
+            if (predicate(entries[i].key)) {
+                result.add(entries[i].key)
             }
         }
         return result
@@ -308,11 +308,11 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R> {
-        var arr: Array<T> = this.toArray()
+        var entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
-        var len = arr.size
+        var len = entries.size
         for (i in 0..len) {
-            match (transform(arr[i])) {
+            match (transform(entries[i].key)) {
                 case Some(v) => result.add(v)
                 case None => continue
             }
@@ -327,10 +327,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func forEach(action: (T) -> Unit): Unit {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
         for (i in 0..len) {
-            action(arr[i])
+            action(entries[i].key)
         }
     }
 
@@ -342,10 +342,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func all(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
         for (i in 0..len) {
-            if (!predicate(arr[i])) {
+            if (!predicate(entries[i].key)) {
                 return false
             }
         }
@@ -360,10 +360,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func any(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
         for (i in 0..len) {
-            if (predicate(arr[i])) {
+            if (predicate(entries[i].key)) {
                 return true
             }
         }
@@ -378,10 +378,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      */
     @Frozen
     public func none(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
         for (i in 0..len) {
-            if (predicate(arr[i])) {
+            if (predicate(entries[i].key)) {
                 return false
             }
         }
@@ -398,10 +398,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
     @Frozen
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
         for (i in 0..len) {
-            result = operation(result, arr[i])
+            result = operation(result, entries[i].key)
         }
         return result
     }
@@ -417,11 +417,11 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
         if (size <= 0) {
             return None<T>
         }
-        var arr: Array<T> = this.toArray()
-        var result: T = arr[0]
-        var len = arr.size
+        var entries = myMap.entries
+        var len = entries.size
+        var result: T = entries[0].key
         for (i in 1..len) {
-            result = operation(result, arr[i])
+            result = operation(result, entries[i].key)
         }
         return result
     }

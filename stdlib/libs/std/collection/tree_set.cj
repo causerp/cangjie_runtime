@@ -215,7 +215,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
 
     /**
      * @description Maps all elements of type T in the current TreeSet to elements of type R using the transform function, forming a new TreeSet.
-     * 
+     *
      * @param transform the mapping function.
      * @returns a new TreeSet composed of elements obtained by mapping all elements in the original TreeSet.
      */
@@ -232,26 +232,21 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
 
     /**
      * @description Returns a new TreeSet<T> containing elements that satisfy the filtering condition.
-     * 
+     *
      * @param predicate the given condition.
      * @returns a new collection of elements that satisfy the filtering condition.
      */
     @Frozen
     public func filter(predicate: (T) -> Bool): TreeSet<T> {
-        var arr: Array<T> = this.toArray()
-        var result: TreeSet<T> = TreeSet<T>()
-        var len = arr.size
-        for (i in 0..len) {
-            if (predicate(arr[i])) {
-                result.add(arr[i])
-            }
-        }
-        return result
+        var newMap = myMap.filter({k, v => predicate(k)})
+        var res = TreeSet<T>()
+        res.myMap = newMap
+        return res
     }
 
     /**
      * @description Performs filtering and mapping operations simultaneously, returning a new TreeSet.
-     * 
+     *
      * @param transform the given mapping function.
      * @returns a new TreeSet after filtering and mapping.
      */
@@ -271,93 +266,62 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
 
     /**
      * @description Iterates over all elements and performs the given operation.
-     * 
+     *
      * @param action the given operation function.
      */
     @Frozen
     public func forEach(action: (T) -> Unit): Unit {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
-        for (i in 0..len) {
-            action(arr[i])
-        }
+        myMap.forEach({k, v => action(k)})
     }
 
     /**
      * @description Determine whether all elements in the TreeSet satisfy the condition.
-     * 
+     *
      * @param predicate the given condition.
      * @returns true if all elements in the TreeSet satisfy the condition, otherwise returns false.
      */
     @Frozen
     public func all(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
-        for (i in 0..len) {
-            if (!predicate(arr[i])) {
-                return false
-            }
-        }
-        return true
+        return myMap.all({k, v => predicate(k)})
     }
 
     /**
      * @description Determine whether there is any element in the TreeSet that satisfies the condition.
-     * 
+     *
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
     @Frozen
     public func any(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
-        for (i in 0..len) {
-            if (predicate(arr[i])) {
-                return true
-            }
-        }
-        return false
+        return myMap.any({k, v => predicate(k)})
     }
 
     /**
      * @description Determine whether all elements in the TreeSet do not satisfy the condition.
-     * 
+     *
      * @param predicate the given condition.
      * @returns Whether all elements in the current TreeSet do not satisfy the condition.
      */
     @Frozen
     public func none(predicate: (T) -> Bool): Bool {
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
-        for (i in 0..len) {
-            if (predicate(arr[i])) {
-                return false
-            }
-        }
-        return true
+        return myMap.none({k, v => predicate(k)})
     }
 
     /**
      * @description Computes from left to right using the specified initial value.
-     * 
+     *
      * @param initial the given initial value of type R.
      * @param operation the given computation function.
      * @returns the final computed value.
      */
     @Frozen
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
-        var result: R = initial
-        var arr: Array<T> = this.toArray()
-        var len = arr.size
-        for (i in 0..len) {
-            result = operation(result, arr[i])
-        }
-        return result
+        return myMap.fold<R>(initial, {r, k, v => operation(r, k)})
     }
 
     /**
      * @description Compute from left to right using the first value as the initial value.
-     * 
+     *
      * @param operation the given computation function.
      * @returns the final computed value.
      */
