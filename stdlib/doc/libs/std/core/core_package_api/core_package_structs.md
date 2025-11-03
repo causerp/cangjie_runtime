@@ -511,7 +511,7 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 
 返回值：
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个筛选和映射的新数组。
+- [Array](core_package_structs.md#struct-arrayt)\<R> - 返回一个筛选和映射的新数组。
 
 ### func flatMap\<R>((T) -> Array\<R>)
 

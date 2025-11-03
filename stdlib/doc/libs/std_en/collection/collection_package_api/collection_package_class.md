@@ -508,7 +508,7 @@ Parameters:
 
 Return value:
 
-- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) after filtering and mapping.
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) after filtering and mapping.
 
 ### func flatMap\<R>((T) -> ArrayList\<R>)
 
@@ -2474,7 +2474,7 @@ Parameters:
 
 Return value:
 
-- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) after filtering and mapping. 
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) after filtering and mapping. 
 
 ### func fold\<R>(R, (R, T) -> R)
 
@@ -3141,7 +3141,7 @@ Function: Performs filtering and mapping operations simultaneously, returning a 
 
 Parameters:
 
-- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list after filtering and mapping.
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - Returns a new linked list after filtering and mapping.
 
 ### func flatMap\<R>((T) -> LinkedList\<R>)
 
@@ -3157,7 +3157,7 @@ Parameters:
 
 返回值：
 
-- [LinkedList](collection_package_class.md#class-linkedlistt) -  the new linked list after being "mapped" and "flattened".
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> -  the new linked list after being "mapped" and "flattened".
 
 ### func fold\<R>(R, (R, T) -> R)
 
@@ -3497,7 +3497,7 @@ Return value:
 
 - [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new [LinkedList](./collection_package_class.md#class-linkedlistt) with indices.
 
-#### func zip\<R>(ArrayList\<R>)
+#### func zip\<R>(LinkedList\<R>)
 
 ```cangjie
 public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
@@ -3971,7 +3971,7 @@ Return value:
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
-public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+public func mapValues<R>(transform: (V) -> R): TreeMap<K, R>
 ```
 
 Function: Performs mapping on this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>  and returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> .
@@ -4456,7 +4456,7 @@ Return value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new collection of elements that satisfy the filtering condition.
 
-### func filterMap\<R>((T) -> ?R)
+### func filterMap\<R>((T) -> Option<R>)
 
 ```cangjie
 public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R>
@@ -4466,11 +4466,11 @@ Function: Performs filtering and mapping operations simultaneously, returning a 
 
 Parameters:
 
-- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+- transform: (T) -> Option<R> - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
 
 Return value:
 
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) after filtering and mapping.
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) after filtering and mapping.
 
 ### func fold\<R>(R, (R, T) -> R)
 
