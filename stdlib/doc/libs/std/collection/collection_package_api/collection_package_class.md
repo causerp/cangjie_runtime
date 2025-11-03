@@ -508,7 +508,7 @@ public func filterMap<R>(transform: (T) -> ?R): ArrayList<R>
 
 返回值：
 
-- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个筛选和映射后的新[ArrayList](collection_package_class.md#class-arraylistt)。
+- [ArrayList](collection_package_class.md#class-arraylistt)\<R> - 返回一个筛选和映射后的新[ArrayList](collection_package_class.md#class-arraylistt)。
 
 ### func flatMap\<R>((T) -> ArrayList\<R>)
 
@@ -2471,7 +2471,7 @@ public func filterMap<R>(transform: (T) -> ?R): HashSet<R>
 
 返回值：
 
-- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 返回一个筛选和映射后的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
+- [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - 返回一个筛选和映射后的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
 
 ### func fold\<R>(R, (R, T) -> R)
 
@@ -3203,7 +3203,7 @@ public func filterMap<R>(transform: (T) -> ?R): LinkedList<R>
 
 返回值：
 
-- [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - 返回一个筛选和映射后的新链表。
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - 返回一个筛选和映射后的新链表。
 
 ### func flatMap\<R>((T) -> LinkedList\<R>)
 
@@ -3219,7 +3219,7 @@ public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R>
 
 返回值：
 
-- [LinkedList](collection_package_class.md#class-linkedlistt) -  被“映射（map）”和“压平（flatten）”后的新链表。
+- [LinkedList](collection_package_class.md#class-linkedlistt)\<R> -  被“映射（map）”和“压平（flatten）”后的新链表。
 
 ### func fold\<R>(R, (R, T) -> R)
 
@@ -3621,7 +3621,7 @@ public func enumerate(): LinkedList<(Int64, T)>
 
 - [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新 [LinkedList](./collection_package_class.md#class-linkedlistt)。
 
-#### func zip\<R>(ArrayList\<R>)
+#### func zip\<R>(LinkedList\<R>)
 
 ```cangjie
 public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
@@ -4045,7 +4045,7 @@ public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R>
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
-public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
+public func mapValues<R>(transform: (V) -> R): TreeMap<K, R>
 ```
 
 功能：对此 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> 进行映射并返回一个新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>。
@@ -4530,7 +4530,7 @@ public func filter(predicate: (T) -> Bool): TreeSet<T>
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 返回一个满足筛选条件的元素的新集合。
 
-### func filterMap\<R>((T) -> ?R)
+### func filterMap\<R>((T) -> Option<R>)
 
 ```cangjie
 public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R>
@@ -4540,11 +4540,11 @@ public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Com
 
 参数：
 
-- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+- transform: (T) -> Option<R> - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
 
 返回值：
 
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 返回一个筛选和映射后的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - 返回一个筛选和映射后的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
 
 ### func fold\<R>(R, (R, T) -> R)
 

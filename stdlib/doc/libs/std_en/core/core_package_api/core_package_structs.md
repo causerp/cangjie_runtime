@@ -317,7 +317,7 @@ Parameters:
 
 Return value:
 
-- [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array after filtering and mapping.
+- [Array](core_package_structs.md#struct-arrayt)\<R> - Returns a new array after filtering and mapping.
 
 ### func flatMap\<R>((T) -> Array\<R>)
 
