@@ -1697,7 +1697,9 @@ Parameters:
 
 Return value:
 
-- [UnitTestCase](#class-unittestcase) - Unit test case object.## class XmlReporter
+- [UnitTestCase](#class-unittestcase) - Unit test case object.
+ 
+## class XmlReporter
 
 ```cangjie
 public class XmlReporter <: Reporter<TestReport, Unit> {
@@ -1718,6 +1720,32 @@ public XmlReporter(let directory: Path)
 ```
 
 Function: Constructor for XmlReporter.
+
+Parameters:
+
+- directory: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - The output file generation path.
+
+## class XmlPerPackageReporter
+
+```cangjie
+public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
+    public XmlPerPackageReporter(let directory: Path)
+}
+```
+
+Function: Outputs unit test case result data to XML files per package.
+
+Parent Types:
+
+- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+
+### XmlPerPackageReporter(Path)
+
+```cangjie
+public XmlPerPackageReporter(let directory: Path)
+```
+
+Function: Constructor for XmlPerPackageReporter.
 
 Parameters:
 
