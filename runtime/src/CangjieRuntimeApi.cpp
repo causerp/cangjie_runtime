@@ -730,9 +730,9 @@ int InitCJLibrary(const char* libName)
         return E_ARGS;
     }
 
-    if (libName == nullptr) {
-        return E_ARGS;
-    }
+    // if (libName == nullptr) {
+    //     return E_ARGS;
+    // }
 #if defined(__OHOS__)
     bool ret = MapleRuntime::MRT_CJLibInit(const_cast<char*>(libName));
     return ret ? E_OK : E_ARGS;
