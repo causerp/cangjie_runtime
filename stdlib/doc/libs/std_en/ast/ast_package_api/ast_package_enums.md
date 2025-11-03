@@ -264,6 +264,7 @@ public enum TokenKind <: ToString {
     PERFORM|                  /*  "perform"          */
     RESUME|                   /*  "resume"           */
     THROWING|                 /*  "throwing"         */
+    DOUBLE_COLON|             /*  "::"               */
     ...
 }
 ```
@@ -601,6 +602,14 @@ DOUBLE_ARROW
 ```
 
 Function: Constructs an enumeration instance representing `=>`.
+
+### DOUBLE_COLON
+
+```cangjie
+DOUBLE_COLON
+```
+
+Function: Constructs an enumeration instance representing `::`.
 
 ### ELLIPSIS
 

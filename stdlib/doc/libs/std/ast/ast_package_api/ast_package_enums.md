@@ -264,6 +264,7 @@ public enum TokenKind <: ToString {
     PERFORM|                  /*  "perform"          */
     RESUME|                   /*  "resume"           */
     THROWING|                 /*  "throwing"         */
+    DOUBLE_COLON|             /*  "::"               */
     ...
 }
 ```
@@ -601,6 +602,14 @@ DOUBLE_ARROW
 ```
 
 功能：构造一个表示 `=>` 的枚举实例。
+
+### DOUBLE_COLON
+
+```cangjie
+DOUBLE_COLON
+```
+
+功能：构造一个表示 `::` 的枚举实例。
 
 ### ELLIPSIS
 
