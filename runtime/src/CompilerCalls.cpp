@@ -169,7 +169,8 @@ extern "C" void MCC_WriteStructField(ObjectPtr obj, MAddress dst, size_t dstLen,
         return;
     }
 #ifdef __arm__
-    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK, "memcpy_s failed on arm32");
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK,
+                 "memcpy_s failed on arm32");
     return;
 #endif
     Heap::GetBarrier().WriteStruct(obj, dst, dstLen, src, srcLen);
@@ -188,7 +189,8 @@ extern "C" void MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src,
 {
     CHECK_DETAIL((dst != 0u && src != 0u), "MCC_WriteStaticStruct wrong parameter, dst: %p src: %p", dst, src);
 #ifdef __arm__
-    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK, "memcpy_s failed on arm32");
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstLen, reinterpret_cast<void*>(src), srcLen) == EOK,
+                 "memcpy_s failed on arm32");
     return;
 #endif
     Heap::GetBarrier().WriteStaticStruct(dst, dstLen, src, srcLen, gcTib);
@@ -1166,7 +1168,8 @@ extern "C" void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress 
     }
 #ifdef __arm__
     (void)obj;
-    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), size, reinterpret_cast<void*>(srcField), size) == EOK, "memcpy_s failed on arm32");
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), size, reinterpret_cast<void*>(srcField), size) == EOK,
+                 "memcpy_s failed on arm32");
     return;
 #endif
     Heap::GetHeap().GetBarrier().ReadStruct(dstPtr, obj, srcField, size);
@@ -1181,7 +1184,8 @@ extern "C" ObjectPtr CJ_MCC_ReadStaticRef(RefField<false>* field)
 extern "C" void CJ_MCC_ReadStaticStruct(MAddress dstPtr, size_t dstSize, MAddress srcPtr, size_t srcSize, GCTib gctib)
 {
 #ifdef __arm__
-    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), dstSize, reinterpret_cast<void*>(srcPtr), srcSize) == EOK, "memcpy_s failed on arm32");
+    CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstPtr), dstSize, reinterpret_cast<void*>(srcPtr), srcSize) == EOK,
+                 "memcpy_s failed on arm32");
     return;
 #endif
     Heap::GetHeap().GetBarrier().ReadStaticStruct(dstPtr, srcPtr, dstSize, gctib);
@@ -1321,7 +1325,10 @@ extern "C" void CJ_MCC_WriteGenericPayload(ObjectPtr dst, MAddress srcField, siz
     } else {
         MAddress dstAddr = reinterpret_cast<MAddress>(dst) + TYPEINFO_PTR_SIZE;
 #ifdef __arm__
-        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstAddr), srcSize, reinterpret_cast<void*>(srcField), srcSize) == EOK,
+        CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dstAddr),
+                              srcSize,
+                              reinterpret_cast<void*>(srcField),
+                              srcSize) == EOK,
                      "memcpy_s failed");
 #else
         Heap::GetBarrier().WriteStruct(dst, dstAddr, srcSize, srcField, srcSize);
@@ -1452,8 +1459,11 @@ extern "C" void CJ_MCC_ArrayCopyGeneric(const ObjectPtr dstObj, MAddress dstFiel
         case TypeKind::TYPE_KIND_RAWARRAY:
         case TypeKind::TYPE_KIND_FUNC: {
 #ifdef __arm__
-            CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField), dstSize, reinterpret_cast<void*>(srcField), srcSize) ==
-                                   EOK, "memmove_s failed");
+            CHECK_DETAIL(memmove_s(reinterpret_cast<void*>(dstField),
+                                   dstSize,
+                                   reinterpret_cast<void*>(srcField),
+                                   srcSize) == EOK,
+                         "memmove_s failed");
 #else
             Heap::GetBarrier().CopyRefArray(dstObj, dstField, dstSize, srcObj, srcField, srcSize);
 #endif
