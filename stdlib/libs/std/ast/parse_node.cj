@@ -455,7 +455,12 @@ func createPackageHeader(pkgHeader: Option<NodeFormat_PackageSpec>): PackageHead
             } else {
                 Token(kind).addPosition(beginPos)
             }
-            let macroKey: Token = Token(TokenKind.MACRO).addPosition(v.GetMacroPos())
+            let macroPos = v.GetMacroPos()
+            let macroKey = if (isValidPosition(macroPos)) {
+                Token(TokenKind.MACRO).addPosition(macroPos)
+            } else {
+                Token()
+            } 
             let keyword: Token = Token(TokenKind.PACKAGE).addPosition(v.GetPackagePos())
             let (prefixPaths, prefixDots) = getPackagePrefixes(v.GetPrefixPaths(), v.GetPrefixPoses(),
                 v.GetPrefixDotPoses())
