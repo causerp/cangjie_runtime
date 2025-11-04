@@ -220,6 +220,8 @@ make_cangjie_lib(
         std-convert
         std-math
         std-collection
+        std-io
+        std-binary
     CANGJIE_STD_LIB_INDIRECT_DEPENDS
         std-sort
     OBJECTS ${output_cj_object_dir}/std/time.o
