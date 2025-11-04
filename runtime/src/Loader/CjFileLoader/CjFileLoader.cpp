@@ -370,6 +370,15 @@ void CJFileLoader::ClearLoadedFiles()
 
 bool CJFileLoader::LibInit(const char* libName)
 {
+    if (libName == nullptr) {
+        // If libName is nullptr, it means to initialize the only library.
+        if (loadedFiles.size() == 1) {
+            return DoInitImage(loadedFiles.front());
+        }
+        LOG(RTLOG_ERROR, "libName is nullptr but loadedFiles size is %zu",
+            loadedFiles.size());
+        return false;
+    }
     BaseFile* baseFile = GetBaseFile(libName);
     if (baseFile == nullptr) {
         return false;

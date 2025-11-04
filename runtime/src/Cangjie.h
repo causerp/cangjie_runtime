@@ -654,10 +654,11 @@ MRT_EXPORT int LoadCJLibrary(const char* libName);
  * Cangjie runtime, and it will be implemented in elibc later. Therefore, the API needs to be\n
  * temporarily extracted out separately.
  * @attention Make sure Cangjie runtime environment must have been launched before calling this API.
- * @param  libName  [IN]  name of Cangjie dynamic shared library.
+ * @param  libName  [IN]  name of Cangjie dynamic shared library. If libName is nullptr, it means\n
+ * to initialize the only library.
  * @retval Return 0 if OK. Otherwise, return an error code.
  */
-MRT_EXPORT int InitCJLibrary(const char* libName);
+MRT_EXPORT int InitCJLibrary(const char* libName = nullptr);
 
 /*
  * @brief Load and initialize Cangjie dynamic shared library.
