@@ -24,7 +24,7 @@ constexpr uint64_t SIGNAL_STACK_ALLOW_NORETURN = 0x1UL;
 
 class SignalStack {
 public:
-    SignalStack() noexcept : isMark(false) {}
+    SignalStack() noexcept : isMark(false), isUserSigHandler(false) {}
 
     bool IsMarked() { return isMark; }
 
@@ -34,6 +34,12 @@ public:
             Register(signal);
             isMark = true;
         }
+    }
+
+    bool IsUserSigHandler() { return isUserSigHandler; }
+
+    void setUserSigHandler(bool flag) {
+        isUserSigHandler = flag;
     }
 
     void Register(int signal);
@@ -51,6 +57,8 @@ public:
     struct sigaction sigAction;
 private:
     bool isMark;
+
+    bool isUserSigHandler;
     
     std::vector<SignalAction> handlerStack;
 #ifdef __APPLE__

@@ -383,6 +383,20 @@ extern "C" void CJ_MCC_SignalRaise(int sig)
 }
 extern "C" void CJ_MCC_AddSignalHandler(int signal, struct SignalAction* sa)
 {
+    if (signal == SIGABRT || signal == SIGILL) {
+        SignalStack::GetStacks()[signal].setUserSigHandler(true);
+    }
+    // By default, block the SIGPIPE signal, and take no action on the SIGPIPE signal;
+    // when the user registers a handler, unblock the SIGPIPE signal,
+    // allowing the user to take action on the SIGPIPE signal.
+    if (signal == SIGPIPE) {
+        sigset_t set;
+        CHECK_SIGNAL_CALL(sigemptyset, (&set), "sigemptyset failed in AddHandlerToSignalStack");
+        CHECK_SIGNAL_CALL(sigaddset, (&set, SIGPIPE), "sigaddset failed in AddHandlerToSignalStack");
+        CHECK_SIGNAL_CALL(pthread_sigmask, (SIG_UNBLOCK, &set, nullptr),
+                          "pthread_sigmask failed in AddHandlerToSignalStack");
+    }
+
     AddHandlerToSignalStack(signal, sa);
 }
 extern "C" void CJ_MCC_RemoveSignalHandler(int signal, bool (*fn)(int, siginfo_t*, void*))
