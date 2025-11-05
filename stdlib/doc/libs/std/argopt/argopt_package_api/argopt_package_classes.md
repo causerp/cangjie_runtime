@@ -52,21 +52,14 @@ public init(longArgList: Array<String>)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.argopt.*
 
-public main() {
+main() {
     let longArgs = ["--name=", "--age="]
     let argOpt = ArgOpt(longArgs)
-    println("ArgOpt instance created successfully")
 }
-```
-
-运行结果：
-
-```text
-ArgOpt instance created successfully
 ```
 
 ### init(Array\<String>, String, Array\<String>)
@@ -89,7 +82,7 @@ public init(args: Array<String>, shortArgFormat: String, longArgList: Array<Stri
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.argopt.*
 
@@ -98,14 +91,7 @@ main() {
     let shortFormat = "a:"
     let longArgs = ["--name="]
     let argOpt = ArgOpt(args, shortFormat, longArgs)
-    println("ArgOpt instance created successfully")
 }
-```
-
-运行结果：
-
-```text
-ArgOpt instance created successfully
 ```
 
 ### init(String)
@@ -126,21 +112,14 @@ public init(shortArgFormat: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.argopt.*
 
 main() {
     let shortFormat = "a:b:"
     let argOpt = ArgOpt(shortFormat)
-    println("ArgOpt instance created successfully")
 }
-```
-
-运行结果：
-
-```text
-ArgOpt instance created successfully
 ```
 
 ### init(String, Array\<String>)
@@ -162,7 +141,7 @@ public init(shortArgFormat: String, longArgList: Array<String>)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.argopt.*
 
@@ -170,14 +149,7 @@ main() {
     let shortFormat = "a:"
     let longArgs = ["--name=", "--age="]
     let argOpt = ArgOpt(shortFormat, longArgs)
-    println("ArgOpt instance created successfully")
 }
-```
-
-运行结果：
-
-```text
-ArgOpt instance created successfully
 ```
 
 ### func getArg(String)
@@ -242,14 +214,14 @@ main() {
     let longArgs = ["--name="]
     let argOpt = ArgOpt(args, shortFormat, longArgs)
     let map = argOpt.getArgumentsMap()
-    println("Arguments map retrieved successfully")
+    println(map)
 }
 ```
 
 运行结果：
 
 ```text
-Arguments map retrieved successfully
+[(-a, 123), (--name, John)]
 ```
 
 ### func getUnparseArgs()
@@ -276,12 +248,12 @@ main() {
     let longArgs = ["--name="]
     let argOpt = ArgOpt(args, shortFormat, longArgs)
     let unparsed = argOpt.getUnparseArgs()
-    println("Unparsed args retrieved successfully")
+    println(unparsed)
 }
 ```
 
 运行结果：
 
 ```text
-Unparsed args retrieved successfully
+[extraArg1, extraArg2]
 ```

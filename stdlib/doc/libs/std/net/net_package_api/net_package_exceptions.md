@@ -23,6 +23,30 @@ public init()
 
 功能：创建 [SocketException](net_package_exceptions.md#class-socketexception) 实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    try {
+        throw SocketException()
+    } catch (e: SocketException) {
+        println("Caught SocketException: ${e.message}")
+        println("Exception type: ${e.toString()}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Caught SocketException: 
+Exception type: SocketException
+```
+
 ### init(String)
 
 ```cangjie
@@ -34,6 +58,30 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    try {
+        throw SocketException("Connection failed")
+    } catch (e: SocketException) {
+        println("Caught SocketException: ${e.message}")
+        println("Exception type: ${e.toString()}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Caught SocketException: Connection failed
+Exception type: SocketException: Connection failed
+```
 
 ## class SocketTimeoutException
 
@@ -58,6 +106,30 @@ public init()
 
 功能：创建 [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) 实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    try {
+        throw SocketTimeoutException()
+    } catch (e: SocketTimeoutException) {
+        println("Caught SocketTimeoutException: ${e.message}")
+        println("Exception type: ${e.toString()}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Caught SocketTimeoutException: 
+Exception type: SocketTimeoutException
+```
+
 ### init(String)
 
 ```cangjie
@@ -69,3 +141,27 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    try {
+        throw SocketTimeoutException("Operation timed out")
+    } catch (e: SocketTimeoutException) {
+        println("Caught SocketTimeoutException: ${e.message}")
+        println("Exception type: ${e.toString()}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Caught SocketTimeoutException: Operation timed out
+Exception type: SocketTimeoutException: Operation timed out
+```

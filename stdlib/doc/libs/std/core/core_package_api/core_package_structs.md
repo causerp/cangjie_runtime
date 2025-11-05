@@ -2747,8 +2747,7 @@ main() {
     var ctrResource: CStringResource = ctr.asResource()
     // try块结束自动释放ctr
     try (r = ctrResource) {
-        var str = r.value.toString()
-        println(str)
+        println(r.value)
     }
     println(ctrResource.isClosed())
 }
@@ -2776,8 +2775,7 @@ public func close(): Unit
 main() {
     var ctr = unsafe { LibC.mallocCString("Hello") }
     var ctrResource: CStringResource = ctr.asResource()
-    var str = ctrResource.value.toString()
-    println(str)
+    println(ctrResource.value)
     ctrResource.close()
     println(ctrResource.isClosed())
 }
@@ -2811,8 +2809,7 @@ main() {
     var ctrResource: CStringResource = ctr.asResource()
     // try块结束自动释放ctr
     try (r = ctrResource) {
-        var str = r.value.toString()
-        println(str)
+        println(r.value)
     }
     println(ctrResource.isClosed())
 }

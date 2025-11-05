@@ -53,6 +53,25 @@ public func toString(): String
 
 - [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 溢出策略名称字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.*
+
+main() {
+    let e = OverflowStrategy.Saturating
+    let str = e.toString()
+    println("enum string: ${str}")
+}
+```
+
+运行结果：
+
+```text
+enum string: Saturating
+```
+
 ### operator func ==(OverflowStrategy)
 
 ```cangjie
@@ -68,3 +87,29 @@ public operator func ==(that: OverflowStrategy): Bool
 返回值：
 
 - [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 溢出策略相同，返回 true；否则，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.*
+
+main() {
+    let e1 = OverflowStrategy.Saturating
+    let e2 = OverflowStrategy.Saturating
+    let e3 = OverflowStrategy.Throwing
+    
+    let equal = (e1 == e2)
+    let notEqual = (e1 == e3)
+    
+    println("e1 == e2: ${equal}")
+    println("e1 == e3: ${notEqual}")
+}
+```
+
+运行结果：
+
+```text
+e1 == e2: true
+e1 == e3: false
+```

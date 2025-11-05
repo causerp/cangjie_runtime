@@ -17,6 +17,7 @@ public func abs(i: BigInt): BigInt
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - 返回入参 [BigInt](math_numeric_package_structs.md#struct-bigint) 的绝对值。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -51,6 +52,7 @@ public func abs(d: Decimal): Decimal
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - 返回入参 [Decimal](math_numeric_package_structs.md#struct-decimal) 的绝对值。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -88,6 +90,25 @@ public func countOne(i: BigInt): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回入参 [BigInt](math_numeric_package_structs.md#struct-bigint) 的二进制补码中 1 的个数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.*
+
+main() {
+    let i: BigInt = BigInt(255)
+    let countOne = countOne(i)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+8
+```
+
 ## func countOnes(BigInt)
 
 ```cangjie
@@ -105,6 +126,7 @@ public func countOnes(i: BigInt): Int64
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回入参 [BigInt](math_numeric_package_structs.md#struct-bigint) 的二进制补码中 1 的个数。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -140,6 +162,7 @@ public func gcd(i1: BigInt, i2: BigInt): BigInt
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - 返回 `i1` 和 `i2` 的最大公约数，总是返回非负数。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -176,6 +199,7 @@ public func lcm(i1: BigInt, i2: BigInt): BigInt
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - 返回 `i1` 和 `i2` 的最小公倍数，入参为 0 时返回 0，其余情形总是返回正数（相当于绝对值的最小公倍数）。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -215,6 +239,26 @@ public func round(d: Decimal, roundingMode!: RoundingMode = RoundingMode.HalfEve
 
 - [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当舍入操作结果标度值溢出时，抛出此异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.*
+import std.math.RoundingMode
+
+main() {
+    let d: Decimal = Decimal.parse("3.14159")
+    let rounded = round(d, roundingMode: RoundingMode.HalfEven)
+    println(rounded)
+}
+```
+
+运行结果：
+
+```text
+3
+```
+
 ## func sqrt(BigInt)
 
 ```cangjie
@@ -236,6 +280,7 @@ public func sqrt(i: BigInt): BigInt
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果入参为负数，则抛此异常。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -275,6 +320,7 @@ public func sqrt(d: Decimal): Decimal
 - [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当计算平方根操作结果标度值溢出时，抛出此异常。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.*
@@ -309,6 +355,7 @@ public func trailingZeros(x: BigInt): Int64
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 后置 0 的位数。
 
 示例：
+
 <!-- verify -->
 ```cangjie
 import std.math.numeric.{BigInt, trailingZeros}

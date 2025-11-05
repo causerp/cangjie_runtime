@@ -53,6 +53,35 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 转换后的字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    // 创建不同的SocketNet枚举值
+    let tcp = SocketNet.TCP
+    let udp = SocketNet.UDP
+    let unix = SocketNet.UNIX
+    
+    // 使用toString()方法并打印结果
+    println("TCP toString: ${tcp.toString()}")
+    println("UDP toString: ${udp.toString()}")
+    println("UNIX toString: ${unix.toString()}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+TCP toString: tcp
+UDP toString: udp
+UNIX toString: domain
+```
+
 ### operator func !=(SocketNet)
 
 ```cangjie
@@ -69,6 +98,44 @@ public operator func !=(that: SocketNet): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不相等，则返回 `true`；否则，返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    // 创建不同的SocketNet枚举值
+    let tcp = SocketNet.TCP
+    let udp = SocketNet.UDP
+    let unix = SocketNet.UNIX
+    
+    // 使用!=操作符比较它们
+    let tcpNotUdp = tcp != udp
+    let udpNotUnix = udp != unix
+    let unixNotTcp = unix != tcp
+    
+    println("TCP != UDP: ${tcpNotUdp}")
+    println("UDP != UNIX: ${udpNotUnix}")
+    println("UNIX != TCP: ${unixNotTcp}")
+    
+    // 比较相同的枚举值
+    let tcpNotTcp = tcp != tcp
+    println("TCP != TCP: ${tcpNotTcp}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+TCP != UDP: true
+UDP != UNIX: true
+UNIX != TCP: true
+TCP != TCP: false
+```
+
 ### operator func ==(SocketNet)
 
 ```cangjie
@@ -84,3 +151,48 @@ public operator func ==(that: SocketNet): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    // 创建不同的SocketNet枚举值
+    let tcp = SocketNet.TCP
+    let udp = SocketNet.UDP
+    let unix = SocketNet.UNIX
+    
+    // 使用==操作符比较它们
+    let tcpEqualsUdp = tcp == udp
+    let udpEqualsUnix = udp == unix
+    let unixEqualsTcp = unix == tcp
+    
+    println("TCP == UDP: ${tcpEqualsUdp}")
+    println("UDP == UNIX: ${udpEqualsUnix}")
+    println("UNIX == TCP: ${unixEqualsTcp}")
+    
+    // 比较相同的枚举值
+    let tcpEqualsTcp = tcp == tcp
+    let udpEqualsUdp = udp == udp
+    let unixEqualsUnix = unix == unix
+    
+    println("TCP == TCP: ${tcpEqualsTcp}")
+    println("UDP == UDP: ${udpEqualsUdp}")
+    println("UNIX == UNIX: ${unixEqualsUnix}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+TCP == UDP: false
+UDP == UNIX: false
+UNIX == TCP: false
+TCP == TCP: true
+UDP == UDP: true
+UNIX == UNIX: true
+```

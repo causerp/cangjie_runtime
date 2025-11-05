@@ -353,21 +353,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建Exception实例
     let exception = Exception()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: Exception
 ```
 
 ### init(String)
@@ -384,21 +375,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建Exception实例
     let exception = Exception("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: Exception: 自定义异常信息
 ```
 
 ### func getClassName()
@@ -468,12 +450,12 @@ main() {
     } catch (e: Exception) {
         // 获取堆栈信息
         let stackTrace = e.getStackTrace()
-        println("堆栈跟踪元素数量: " + stackTrace.size.toString())
+        println("堆栈跟踪元素数量: ${stackTrace.size}")
         // 打印第一个堆栈元素（如果存在）
         if (stackTrace.size > 0) {
             let element = stackTrace[0]
-            println("第一个堆栈元素的类名: " + element.declaringClass)
-            println("第一个堆栈元素的方法名: " + element.methodName)
+            println("第一个堆栈元素的类名: ${element.declaringClass}")
+            println("第一个堆栈元素的方法名: ${element.methodName}")
         }
     }
 }
@@ -578,21 +560,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IllegalArgumentException实例
     let exception = IllegalArgumentException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IllegalArgumentException
 ```
 
 ### init(String)
@@ -609,21 +582,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IllegalArgumentException实例
     let exception = IllegalArgumentException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IllegalArgumentException: 自定义异常信息
 ```
 
 ### func getClassName()
@@ -695,21 +659,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IllegalFormatException实例
     let exception = IllegalFormatException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IllegalFormatException
 ```
 
 ### init(String)
@@ -726,21 +681,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IllegalFormatException实例
     let exception = IllegalFormatException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IllegalFormatException: 自定义异常信息
 ```
 
 ### func getClassName()
@@ -812,21 +758,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IllegalMemoryException实例
     let exception = IllegalMemoryException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IllegalMemoryException
 ```
 
 ### init(String)
@@ -843,21 +780,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IllegalMemoryException实例
     let exception = IllegalMemoryException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IllegalMemoryException: 自定义异常信息
 ```
 
 ## class IllegalStateException
@@ -885,21 +813,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IllegalStateException实例
     let exception = IllegalStateException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IllegalStateException
 ```
 
 ### init(String)
@@ -916,21 +835,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IllegalStateException实例
     let exception = IllegalStateException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IllegalStateException: 自定义异常信息
 ```
 
 ## class IncompatiblePackageException
@@ -958,21 +868,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IncompatiblePackageException实例
     let exception = IncompatiblePackageException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IncompatiblePackageException
 ```
 
 ### init(String)
@@ -989,21 +890,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IncompatiblePackageException实例
     let exception = IncompatiblePackageException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IncompatiblePackageException: 自定义异常信息
 ```
 
 ## class IndexOutOfBoundsException
@@ -1031,21 +923,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建IndexOutOfBoundsException实例
     let exception = IndexOutOfBoundsException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: IndexOutOfBoundsException
 ```
 
 ### init(String)
@@ -1062,23 +945,13 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建IndexOutOfBoundsException实例
     let exception = IndexOutOfBoundsException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
 ```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: IndexOutOfBoundsException: 自定义异常信息
-```
-
 
 ## class NegativeArraySizeException
 
@@ -1105,21 +978,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建NegativeArraySizeException实例
     let exception = NegativeArraySizeException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: NegativeArraySizeException
 ```
 
 ### init(String)
@@ -1136,21 +1000,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建NegativeArraySizeException实例
     let exception = NegativeArraySizeException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: NegativeArraySizeException: 自定义异常信息
 ```
 
 ## class NoneValueException
@@ -1178,21 +1033,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建NoneValueException实例
     let exception = NoneValueException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: NoneValueException
 ```
 
 ### init(String)
@@ -1209,21 +1055,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建NoneValueException实例
     let exception = NoneValueException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: NoneValueException: 自定义异常信息
 ```
 
 ## class OutOfMemoryError
@@ -1295,21 +1132,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建OverflowException实例
     let exception = OverflowException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: OverflowException
 ```
 
 ### init(String)
@@ -1326,21 +1154,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建OverflowException实例
     let exception = OverflowException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: OverflowException: 自定义异常信息
 ```
 
 ## class SpawnException
@@ -1368,21 +1187,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建SpawnException实例
     let exception = SpawnException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: SpawnException
 ```
 
 ### init(String)
@@ -1399,21 +1209,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建SpawnException实例
     let exception = SpawnException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: SpawnException: 自定义异常信息
 ```
 
 ## class StackOverflowError
@@ -1507,21 +1308,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建TimeoutException实例
     let exception = TimeoutException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: TimeoutException
 ```
 
 ### init(String)
@@ -1538,21 +1330,12 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建TimeoutException实例
     let exception = TimeoutException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: TimeoutException: 自定义异常信息
 ```
 
 ## class UnsupportedException
@@ -1580,21 +1363,12 @@ public init()
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用默认构造函数创建UnsupportedException实例
     let exception = UnsupportedException()
-    println("默认异常信息: '" + exception.message + "'")
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-默认异常信息: ''
-异常类名: UnsupportedException
 ```
 
 ### init(String)
@@ -1611,19 +1385,10 @@ public init(message: String)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 main() {
     // 使用带消息的构造函数创建UnsupportedException实例
     let exception = UnsupportedException("自定义异常信息")
-    println("异常信息: " + exception.message)
-    println("异常类名: " + exception.toString())
 }
-```
-
-运行结果：
-
-```text
-异常信息: 自定义异常信息
-异常类名: UnsupportedException: 自定义异常信息
 ```

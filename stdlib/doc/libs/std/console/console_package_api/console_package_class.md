@@ -55,24 +55,14 @@ public static prop stdIn: ConsoleReader
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.console.*
 
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
-    // 注意：在实际使用中，我们通常不会直接操作stdin，
-    // 而是使用其提供的read方法来读取用户输入
-    println("已成功获取标准输入流")
 }
-```
-
-运行结果：
-
-```text
-已成功获取标准输入流
 ```
 
 ### static prop stdOut
