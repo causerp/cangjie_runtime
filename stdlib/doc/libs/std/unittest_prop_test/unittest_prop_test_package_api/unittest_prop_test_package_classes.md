@@ -20,7 +20,7 @@ public static func generate<T>(l: T, r: T, body: (T, T) -> T): Generator<T>
 
 - l: T - 最小值。
 - r: T - 最大值。
-- body: () -> T - 被调用的生成器闭包。
+- body: (T, T) -> T - 被调用的生成器闭包。
 
 返回值：
 
@@ -325,6 +325,10 @@ public override func shrink(value: T): Iterable<T>
 
 功能：将该值缩小为一组可能的“较小”值。
 
+参数：
+
+- value: T - 将被缩减的值。
+
 返回值：
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 数据迭代器。
@@ -349,7 +353,7 @@ public override prop isInfinite: Bool
 
 功能：当该策略为无穷尽时，值为 true, 否则为 false。
 
-类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)。
+类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ### func provider(Configuration)
 
@@ -435,7 +439,7 @@ public prop isInfinite: Bool
 
 功能：当该策略为无穷尽时，值为 true, 否则为 false。
 
-类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)。
+类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ## class LazySeq\<T>
 
@@ -515,7 +519,7 @@ public func iterator(): Iterator<T>
 
 返回值：
 
-- [Iterator](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 序列迭代器。
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 序列迭代器。
 
 ### func map\<U>((T) -> U)
 
@@ -561,7 +565,7 @@ public func prepend(element: T): LazySeq<T>
 
 参数：
 
-- other: [LazySeq](#class-lazyseqt)\<T> - 待插入的序列。
+- element: T - 待插入的序列。
 
 返回值：
 

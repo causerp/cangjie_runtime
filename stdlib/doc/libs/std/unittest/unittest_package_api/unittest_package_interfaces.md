@@ -107,7 +107,7 @@ func minBatches(x: Int64): Unit
 
 参数：
 
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 需配置的最小批次个数。
+- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 需配置的最小批次个数。
 
 ### func minDuration(Duration)
 
@@ -119,7 +119,7 @@ func minDuration(x: Duration): Unit
 
 参数：
 
-- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 需配置的性能测试最小执行时间。
+- x: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 需配置的性能测试最小执行时间。
 
 ### func warmup(Int64)
 
@@ -143,7 +143,7 @@ func warmup(x: Duration): Unit
 
 参数：
 
-- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 需配置的预热期的执行时间。
+- x: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 需配置的预热期的执行时间。
 
 ### extend Configuration <: BenchmarkConfig
 
@@ -179,7 +179,7 @@ public func batchSize(x: Range<Int64>)
 
 参数：
 
-- b: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<Int64> - 执行次数范围。
+- x: [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<Int64> - 执行次数范围。
 
 #### func explicitGC(ExplicitGcType)
 
@@ -278,7 +278,7 @@ prop conversionTable: MeasurementUnitTable
 对于 CSV 格式报告，始终选择下限以简化结果处理。
 默认值为 `[(1.0, "")]`。
 
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
 
 ### prop name
 
@@ -290,7 +290,7 @@ prop name: String
 有助于区分报告表中的不同测量类型。
 默认值为 `Measurement`。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop textDescription
 
@@ -300,7 +300,7 @@ prop textDescription: String
 
 功能：描述此测量的简单文本将显示在某些报告中。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func measure()
 

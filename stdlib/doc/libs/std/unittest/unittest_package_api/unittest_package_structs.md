@@ -132,7 +132,7 @@ prop conversionTable: MeasurementUnitTable
 功能：提供当前时间的单位换算表。
 例如 `[(1.0, "cycles")]`。
 
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
 
 ### prop name
 
@@ -142,7 +142,7 @@ prop name: String
 
 功能：提供当前时间单位唯一的显示名称，例如：`CpuCycles`。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop textDescription
 
@@ -152,7 +152,7 @@ prop textDescription: String
 
 功能：描述此测量的简单文本将显示在某些报告中。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func measure()
 
@@ -298,7 +298,7 @@ public static func createOrExisting<U>(arg: U): U where U <: BenchInputProvider<
 
 参数：
 
-- arg: T - 提供器需复制的参数。
+- arg: U - 提供器需复制的参数。
 
 返回值：
 
@@ -327,10 +327,12 @@ conf.set(KeyBaseline.baseline, "baseline")
 ### prop baseline
 
 ```cangjie
-public static prop baseline: Baseline
+public static prop baseline: KeyBaseline
 ```
 
 功能：配置项的键值。
+
+类型：[KeyBaseline](#struct-keybaseline)
 
 ### prop name
 
@@ -339,6 +341,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyBaselinePath
 
@@ -355,10 +359,12 @@ public struct KeyBaselinePath <: KeyFor<String> {}
 ### prop baselinePath
 
 ```cangjie
-public static prop baselinePath: BaselinePath
+public static prop baselinePath: KeyBaselinePath
 ```
 
 功能：配置项的键值。
+
+类型：[KeyBaselinePath](#struct-keybaselinepath)
 
 ### prop name
 
@@ -367,6 +373,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyBatchSize
 
@@ -384,10 +392,12 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 ### prop batchSize
 
 ```cangjie
-public static prop batchSize: BatchSize
+public static prop batchSize: KeyBatchSize
 ```
 
 功能：配置项的键值。
+
+类型：[KeyBatchSize](#struct-keybatchsize)
 
 ### prop name
 
@@ -396,6 +406,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyBench
 
@@ -412,10 +424,12 @@ public struct KeyBench <: KeyFor<Bool> {}
 ### prop bench
 
 ```cangjie
-public static prop bench: Bench
+public static prop bench: KeyBench
 ```
 
 功能：配置项的键值。
+
+类型：[KeyBench](#struct-keybench)
 
 ### prop name
 
@@ -424,6 +438,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCaptureOutput
 
@@ -440,10 +456,12 @@ public struct KeyCaptureOutput <: KeyFor<Bool> {}
 ### prop captureOutput
 
 ```cangjie
-public static prop captureOutput: CaptureOutput
+public static prop captureOutput: KeyCaptureOutput
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCaptureOutput](#struct-keycaptureoutput)
 
 ### prop name
 
@@ -452,6 +470,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuided
 
@@ -468,10 +488,12 @@ public struct KeyCoverageGuided <: KeyFor<Bool> {}
 ### prop coverageGuided
 
 ```cangjie
-public static prop coverageGuided: CoverageGuided
+public static prop coverageGuided: KeyCoverageGuided
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuided](#struct-keycoverageguided)
 
 ### prop name
 
@@ -480,6 +502,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuidedBaselineScore
 
@@ -496,10 +520,12 @@ public struct KeyCoverageGuidedBaselineScore <: KeyFor<Int64> {}
 ### prop coverageGuidedBaselineScore
 
 ```cangjie
-public static prop coverageGuidedBaselineScore: CoverageGuidedBaselineScore
+public static prop coverageGuidedBaselineScore: KeyCoverageGuidedBaselineScore
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuidedBaselineScore](#struct-keycoverageguidedbaselinescore)
 
 ### prop name
 
@@ -508,6 +534,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuidedInitialSeeds
 
@@ -524,10 +552,12 @@ public struct KeyCoverageGuidedInitialSeeds <: KeyFor<Int64> {}
 ### prop coverageGuidedInitialSeeds
 
 ```cangjie
-public static prop coverageGuidedInitialSeeds: CoverageGuidedInitialSeeds
+public static prop coverageGuidedInitialSeeds: KeyCoverageGuidedInitialSeeds
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuidedInitialSeeds](#struct-keycoverageguidedinitialseeds)
 
 ### prop name
 
@@ -536,6 +566,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuidedMaxCandidates
 
@@ -552,10 +584,12 @@ public struct KeyCoverageGuidedMaxCandidates <: KeyFor<Int64> {}
 ### prop coverageGuidedMaxCandidates
 
 ```cangjie
-public static prop coverageGuidedMaxCandidates: CoverageGuidedMaxCandidates
+public static prop coverageGuidedMaxCandidates: KeyCoverageGuidedMaxCandidates
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuidedMaxCandidates](#struct-keycoverageguidedmaxcandidates)
 
 ### prop name
 
@@ -564,6 +598,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuidedNewCoverageBonus
 
@@ -580,10 +616,12 @@ public struct KeyCoverageGuidedNewCoverageBonus <: KeyFor<Int64> {}
 ### prop coverageGuidedNewCoverageBonus
 
 ```cangjie
-public static prop coverageGuidedNewCoverageBonus: CoverageGuidedNewCoverageBonus
+public static prop coverageGuidedNewCoverageBonus: KeyCoverageGuidedNewCoverageBonus
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuidedNewCoverageBonus](#struct-keycoverageguidednewcoveragebonus)
 
 ### prop name
 
@@ -592,6 +630,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyCoverageGuidedNewCoverageScore
 
@@ -608,10 +648,12 @@ public struct KeyCoverageGuidedNewCoverageScore <: KeyFor<Int64> {}
 ### prop coverageGuidedNewCoverageScore
 
 ```cangjie
-public static prop coverageGuidedNewCoverageScore: CoverageGuidedNewCoverageScore
+public static prop coverageGuidedNewCoverageScore: KeyCoverageGuidedNewCoverageScore
 ```
 
 功能：配置项的键值。
+
+类型：[KeyCoverageGuidedNewCoverageScore](#struct-keycoverageguidednewcoveragescore)
 
 ### prop name
 
@@ -620,6 +662,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyDeathAware
 
@@ -636,10 +680,12 @@ public struct KeyDeathAware <: KeyFor<Bool> {}
 ### prop deathAware
 
 ```cangjie
-public static prop deathAware: DeathAware
+public static prop deathAware: KeyDeathAware
 ```
 
 功能：配置项的键值。
+
+类型：[KeyDeathAware](#struct-keydeathaware)
 
 ### prop name
 
@@ -648,6 +694,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyDryRun
 
@@ -664,10 +712,12 @@ public struct KeyDryRun <: KeyFor<Bool> {}
 ### prop dryRun
 
 ```cangjie
-public static prop dryRun: DryRun
+public static prop dryRun: KeyDryRun
 ```
 
 功能：配置项的键值。
+
+类型：[KeyDryRun](#struct-keydryrun)
 
 ### prop name
 
@@ -676,6 +726,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyExcludeTags
 
@@ -692,10 +744,12 @@ public struct KeyExcludeTags <: KeyFor<String> {}
 ### prop excludeTags
 
 ```cangjie
-public static prop excludeTags: ExcludeTags
+public static prop excludeTags: KeyExcludeTags
 ```
 
 功能：配置项的键值。
+
+类型：[KeyExcludeTags](#struct-keyexcludetags)
 
 ### prop name
 
@@ -704,6 +758,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyExplicitGC
 
@@ -720,10 +776,12 @@ public struct KeyExplicitGC <: KeyFor<ExplicitGcType> {}
 ### prop explicitGC
 
 ```cangjie
-public static prop explicitGC: ExplicitGC
+public static prop explicitGC: KeyExplicitGC
 ```
 
 功能：配置项的键值。
+
+类型：[KeyExplicitGC](#struct-keyexplicitgc)
 
 ### prop name
 
@@ -732,6 +790,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyFilter
 
@@ -748,10 +808,12 @@ public struct KeyFilter <: KeyFor<String> {}
 ### prop filter
 
 ```cangjie
-public static prop filter: Filter
+public static prop filter: KeyFilter
 ```
 
 功能：配置项的键值。
+
+类型：[KeyFilter](#struct-keyfilter)
 
 ### prop name
 
@@ -760,6 +822,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyFromTopLevel
 
@@ -776,10 +840,12 @@ public struct KeyFromTopLevel <: KeyFor<Bool> {}
 ### prop fromTopLevel
 
 ```cangjie
-public static prop fromTopLevel: FromTopLevel
+public static prop fromTopLevel: KeyFromTopLevel
 ```
 
 功能：配置项的键值。
+
+类型：[KeyFromTopLevel](#struct-keyfromtoplevel)
 
 ### prop name
 
@@ -788,6 +854,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyGenerationSteps
 
@@ -804,10 +872,12 @@ public struct KeyGenerationSteps <: KeyFor<Int64> {}
 ### prop generationSteps
 
 ```cangjie
-public static prop generationSteps: GenerationSteps
+public static prop generationSteps: KeyGenerationSteps
 ```
 
 功能：配置项的键值。
+
+类型：[KeyGenerationSteps](#struct-keygenerationsteps)
 
 ### prop name
 
@@ -816,6 +886,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyHelp
 
@@ -837,6 +909,8 @@ public static prop help: KeyHelp
 
 功能：配置项的键值。
 
+类型：[KeyHelp](#struct-keyhelp)
+
 ### prop name
 
 ```cangjie
@@ -844,6 +918,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyIncludeTags
 
@@ -860,10 +936,12 @@ public struct KeyIncludeTags <: KeyFor<String> {}
 ### prop includeTags
 
 ```cangjie
-public static prop includeTags: IncludeTags
+public static prop includeTags: KeyIncludeTags
 ```
 
 功能：配置项的键值。
+
+类型：[KeyIncludeTags](#struct-keyincludetags)
 
 ### prop name
 
@@ -872,6 +950,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyInternalTestrunnerInputPath
 
@@ -888,10 +968,12 @@ public struct KeyInternalTestrunnerInputPath <: KeyFor<String> {}
 ### prop internalTestrunnerInputPath
 
 ```cangjie
-public static prop internalTestrunnerInputPath: InternalTestrunnerInputPath
+public static prop internalTestrunnerInputPath: KeyInternalTestrunnerInputPath
 ```
 
 功能：配置项的键值。
+
+类型：[KeyInternalTestrunnerInputPath](#struct-keyinternaltestrunnerinputpath)
 
 ### prop name
 
@@ -900,6 +982,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyMeasurement
 
@@ -916,10 +1000,12 @@ public struct KeyMeasurement <: KeyFor<Measurement> {}
 ### prop measurement
 
 ```cangjie
-public static prop measurement: Measurement
+public static prop measurement: KeyMeasurement
 ```
 
 功能：配置项的键值。
+
+类型：[KeyMeasurement](#struct-keymeasurement)
 
 ### prop name
 
@@ -928,6 +1014,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyMeasurementInfo
 
@@ -944,10 +1032,12 @@ public struct KeyMeasurementInfo <: KeyFor<MeasurementInfo> {}
 ### prop measurementInfo
 
 ```cangjie
-public static prop measurementInfo: MeasurementInfo
+public static prop measurementInfo: KeyMeasurementInfo
 ```
 
 功能：配置项的键值。
+
+类型：[KeyMeasurementInfo](#struct-keymeasurementinfo)
 
 ### prop name
 
@@ -956,6 +1046,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyMinBatches
 
@@ -972,10 +1064,12 @@ public struct KeyMinBatches <: KeyFor<Int64> {}
 ### prop minBatches
 
 ```cangjie
-public static prop minBatches: MinBatches
+public static prop minBatches: KeyMinBatches
 ```
 
 功能：配置项的键值。
+
+类型：[KeyMinBatches](#struct-keyminbatches)
 
 ### prop name
 
@@ -984,6 +1078,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyMinDuration
 
@@ -1000,10 +1096,12 @@ public struct KeyMinDuration <: KeyFor<Duration> {}
 ### prop minDuration
 
 ```cangjie
-public static prop minDuration: MinDuration
+public static prop minDuration: KeyMinDuration
 ```
 
 功能：配置项的键值。
+
+类型：[KeyMinDuration](#struct-keyminduration)
 
 ### prop name
 
@@ -1012,6 +1110,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyNoCaptureOutput
 
@@ -1028,10 +1128,12 @@ public struct KeyNoCaptureOutput <: KeyFor<Bool> {}
 ### prop noCaptureOutput
 
 ```cangjie
-public static prop noCaptureOutput: NoCaptureOutput
+public static prop noCaptureOutput: KeyNoCaptureOutput
 ```
 
 功能：配置项的键值。
+
+类型：[KeyNoCaptureOutput](#struct-keynocaptureoutput)
 
 ### prop name
 
@@ -1040,6 +1142,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyNoColor
 
@@ -1056,10 +1160,12 @@ public struct KeyNoColor <: KeyFor<Bool> {}
 ### prop noColor
 
 ```cangjie
-public static prop noColor: NoColor
+public static prop noColor: KeyNoColor
 ```
 
 功能：配置项的键值。
+
+类型：[KeyNoColor](#struct-keynocolor)
 
 ### prop name
 
@@ -1068,6 +1174,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyOptimizeMocksForBench
 
@@ -1084,10 +1192,12 @@ public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
 ### prop optimizeMocksForBench
 
 ```cangjie
-public static prop optimizeMocksForBench: OptimizeMocksForBench
+public static prop optimizeMocksForBench: KeyOptimizeMocksForBench
 ```
 
 功能：配置项的键值。
+
+类型：[KeyOptimizeMocksForBench](#struct-keyoptimizemocksforbench)
 
 ### prop name
 
@@ -1096,6 +1206,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyParallel
 
@@ -1114,10 +1226,12 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 ### prop parallel
 
 ```cangjie
-public static prop parallel: Parallel
+public static prop parallel: KeyParallel
 ```
 
 功能：配置项的键值。
+
+类型：[KeyParallel](#struct-keyparallel)
 
 ### prop name
 
@@ -1126,6 +1240,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyRandomSeed
 
@@ -1142,10 +1258,12 @@ public struct KeyRandomSeed <: KeyFor<Int64> {}
 ### prop randomSeed
 
 ```cangjie
-public static prop randomSeed: RandomSeed
+public static prop randomSeed: keyRandomSeed
 ```
 
 功能：配置项的键值。
+
+类型：[keyRandomSeed](#struct-keyrandomseed)
 
 ### prop name
 
@@ -1154,6 +1272,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyReductionSteps
 
@@ -1170,10 +1290,12 @@ public struct KeyReductionSteps <: KeyFor<Int64> {}
 ### prop reductionSteps
 
 ```cangjie
-public static prop reductionSteps: ReductionSteps
+public static prop reductionSteps: KeyReductionSteps
 ```
 
 功能：配置项的键值。
+
+类型：[KeyReductionSteps](#struct-keyreductionsteps)
 
 ### prop name
 
@@ -1182,6 +1304,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyReportFormat
 
@@ -1198,10 +1322,12 @@ public struct KeyReportFormat <: KeyFor<String> {}
 ### prop reportFormat
 
 ```cangjie
-public static prop reportFormat: ReportFormat
+public static prop reportFormat: KeyReportFormat
 ```
 
 功能：配置项的键值。
+
+类型：[KeyReportFormat](#struct-keyreportformat)
 
 ### prop name
 
@@ -1210,6 +1336,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyReportPath
 
@@ -1226,10 +1354,12 @@ public struct KeyReportPath <: KeyFor<String> {}
 ### prop reportPath
 
 ```cangjie
-public static prop reportPath: ReportPath
+public static prop reportPath: KeyReportPath
 ```
 
 功能：配置项的键值。
+
+类型：[KeyReportPath](#struct-keyreportpath)
 
 ### prop name
 
@@ -1238,6 +1368,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyShowAllOutput
 
@@ -1254,10 +1386,12 @@ public struct KeyShowAllOutput <: KeyFor<Bool> {}
 ### prop showAllOutput
 
 ```cangjie
-public static prop showAllOutput: ShowAllOutput
+public static prop showAllOutput: KeyShowAllOutput
 ```
 
 功能：配置项的键值。
+
+类型：[KeyShowAllOutput](#struct-keyshowalloutput)
 
 ### prop name
 
@@ -1266,6 +1400,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyShowTags
 
@@ -1282,10 +1418,12 @@ public struct KeyShowTags <: KeyFor<Bool> {}
 ### prop showTags
 
 ```cangjie
-public static prop showTags: ShowTags
+public static prop showTags: KeyShowTags
 ```
 
 功能：配置项的键值。
+
+类型：[KeyShowTags](#struct-keyshowtags)
 
 ### prop name
 
@@ -1294,6 +1432,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeySkip
 
@@ -1310,10 +1450,12 @@ public struct KeySkip <: KeyFor<Bool> {}
 ### prop skip
 
 ```cangjie
-public static prop skip: Skip
+public static prop skip: KeySkip
 ```
 
 功能：配置项的键值。
+
+类型：[KeySkip](#struct-keyskip)
 
 ### prop name
 
@@ -1322,6 +1464,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyTimeout
 
@@ -1338,10 +1482,12 @@ public struct KeyTimeout <: KeyFor<Duration> {}
 ### prop timeout
 
 ```cangjie
-public static prop timeout: Timeout
+public static prop timeout: KeyTimeout
 ```
 
 功能：配置项的键值。
+
+类型：[KeyTimeout](#struct-keytimeout)
 
 ### prop name
 
@@ -1350,6 +1496,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyTimeoutEach
 
@@ -1366,10 +1514,12 @@ public struct KeyTimeoutEach <: KeyFor<String> {}
 ### prop timeoutEach
 
 ```cangjie
-public static prop timeoutEach: TimeoutEach
+public static prop timeoutEach: KeyTimeoutEach
 ```
 
 功能：配置项的键值。
+
+类型：[KeyTimeoutEach](#struct-keytimeouteach)
 
 ### prop name
 
@@ -1378,6 +1528,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyTimeoutHandler
 
@@ -1407,7 +1559,7 @@ public static prop timeoutHandler: KeyTimeoutHandler
 
 功能：超时处理句柄。
 
-类型：[KeyTimeoutHandler](#struct-keytimeouthandler)。
+类型：[KeyTimeoutHandler](#struct-keytimeouthandler)
 
 ### prop name
 
@@ -1417,7 +1569,7 @@ public prop name: String
 
 功能：超时处理句柄的名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyVerbose
 
@@ -1434,10 +1586,12 @@ public struct KeyVerbose <: KeyFor<Bool> {}
 ### prop verbose
 
 ```cangjie
-public static prop verbose: Verbose
+public static prop verbose: KeyVerbose
 ```
 
 功能：配置项的键值。
+
+类型：[KeyVerbose](#struct-keyverbose)
 
 ### prop name
 
@@ -1446,6 +1600,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct KeyWarmup
 
@@ -1463,10 +1619,12 @@ public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 ### prop warmup
 
 ```cangjie
-public static prop warmup: Warmup
+public static prop warmup: KeyWarmup
 ```
 
 功能：配置项的键值。
+
+类型：[KeyWarmup](#struct-keywarmup)
 
 ### prop name
 
@@ -1475,6 +1633,8 @@ public prop name: String
 ```
 
 功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct MeasurementInfo
 
@@ -1500,7 +1660,7 @@ prop conversionTable: MeasurementUnitTable
 对于 CSV 格式报告，始终选择下限以简化结果处理。
 默认值为 `[(1.0, "")]`。
 
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
 
 ### prop name
 
@@ -1512,7 +1672,7 @@ prop name: String
 有助于区分报告表中的不同测量类型。
 默认值为 `Measurement`。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop textDescription
 
@@ -1522,7 +1682,7 @@ prop textDescription: String
 
 功能：描述此测量的简单文本将显示在某些报告中。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct Perf
 
@@ -1547,7 +1707,7 @@ prop conversionTable: MeasurementUnitTable
 
 功能：提供对应 CPU 计数器的换算表。
 
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
 
 ### prop name
 
@@ -1557,7 +1717,7 @@ prop name: String
 
 功能：为当前 CPU 计数器提供唯一的显示名称，例如：`Perf(cycles)`。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop textDescription
 
@@ -1567,7 +1727,7 @@ prop textDescription: String
 
 功能：描述此测量的简单文本将显示在某些报告中。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### init()
 
@@ -1654,7 +1814,7 @@ public let caseName: String
 
 功能：用例名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### let groupName
 
@@ -1664,7 +1824,7 @@ public let groupName: String
 
 功能：用例的测试组名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### let suiteName
 
@@ -1674,7 +1834,7 @@ public let suiteName: String
 
 功能：用例的测试套名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ## struct TimeNow
 
@@ -1700,7 +1860,7 @@ prop conversionTable: MeasurementUnitTable
 功能：提供当前时间的单位换算表。
 例如 `[(1.0, "ns"), (1e3, "us"), (1e6, "ms"), (1e9, "s")]`。
 
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
 
 ### prop name
 
@@ -1710,7 +1870,7 @@ prop name: String
 
 功能：提供当前时间单位唯一的显示名称，例如：`Duration(ns)` 或 `Duration(s)`。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop textDescription
 
@@ -1720,7 +1880,7 @@ prop textDescription: String
 
 功能：描述此测量的简单文本将显示在某些报告中。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### init()
 
