@@ -23,7 +23,6 @@ struct StructureString {
     let length: UIntNative = 0
 }
 
-@FastNative
 foreign func CJ_CONSOLE_Readline(): CPointer<StructureString>
 
 @FastNative
