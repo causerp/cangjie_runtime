@@ -27,11 +27,13 @@ if [ ${platform} == "macos_cangjie" ] || [ ${platform} == "mac_x86_64_cangjie" ]
   done
 else
   if [ ${platform} == "ios_simulator_cangjie" ]; then
-    CMAKE_IOS_DEVELOPER_ROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer
+    XCODE_PATH=$(xcode-select -p)
+    CMAKE_IOS_DEVELOPER_ROOT=${XCODE_PATH}/Platforms/iPhoneSimulator.platform/Developer
     CMAKE_IOS_SDK_ROOT=${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneSimulator17.5.sdk
     TARGET=arm64-apple-ios11-simulator
   else
-    CMAKE_IOS_DEVELOPER_ROOT=/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer
+    XCODE_PATH=$(xcode-select -p)
+    CMAKE_IOS_DEVELOPER_ROOT=${XCODE_PATH}/Platforms/iPhoneOS.platform/Developer
     CMAKE_IOS_SDK_ROOT=${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneOS17.5.sdk
     TARGET=arm64-apple-ios11
   fi
