@@ -14,7 +14,7 @@ UDS（Unix Domain Socket）是一种用于在同一台计算机上的进程之�
 
 如下为本库提供 `Socket` 的类继承关系：
 
-```cangjie
+```text
 Hierarchy
  Resource
  ├StreamingSocket
