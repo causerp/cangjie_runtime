@@ -4318,6 +4318,9 @@ public class StructTypeInfo <: TypeInfo
 
 由于实现限制，目前 `Struct` 类型的变量/属性修改需要参考如下代码手动 box/unbox。
 
+示例：
+
+<!-- run -->
 ```cangjie
 import std.reflect.*
 

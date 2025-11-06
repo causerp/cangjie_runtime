@@ -1017,7 +1017,7 @@ public struct SocketOptions {
 
 功能：[SocketOptions](net_package_structs.md#struct-socketoptions) 存储了设置套接字选项的一些参数常量方便后续调用。
 
-### const IPPROTO_TCP <sup>(deprecated)</sup>
+### static const IPPROTO_TCP <sup>(deprecated)</sup>
 
 ```cangjie
 public static const IPPROTO_TCP: Int32 = 6
@@ -1031,7 +1031,7 @@ public static const IPPROTO_TCP: Int32 = 6
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const IPPROTO_UDP <sup>(deprecated)</sup>
+### static const IPPROTO_UDP <sup>(deprecated)</sup>
 
 ```cangjie
 public static const IPPROTO_UDP: Int32 = 17
@@ -1045,7 +1045,7 @@ public static const IPPROTO_UDP: Int32 = 17
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SOL_SOCKET <sup>(deprecated)</sup>
+### static const SOL_SOCKET <sup>(deprecated)</sup>
 
 ```cangjie
 public static const SOL_SOCKET: Int32
@@ -1063,7 +1063,7 @@ public static const SOL_SOCKET: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_BINDTODEVICE
+### static const SO_BINDTODEVICE
 
 ```cangjie
 public static const SO_BINDTODEVICE: Int32
@@ -1077,7 +1077,7 @@ public static const SO_BINDTODEVICE: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_KEEPALIVE
+### static const SO_KEEPALIVE
 
 ```cangjie
 public static const SO_KEEPALIVE: Int32
@@ -1091,7 +1091,7 @@ public static const SO_KEEPALIVE: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_LINGER
+### static const SO_LINGER
 
 ```cangjie
 public static const SO_LINGER: Int32
@@ -1105,7 +1105,7 @@ public static const SO_LINGER: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_RCVBUF
+### static const SO_RCVBUF
 
 ```cangjie
 public static const SO_RCVBUF: Int32
@@ -1119,7 +1119,7 @@ public static const SO_RCVBUF: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_REUSEADDR
+### static const SO_REUSEADDR
 
 ```cangjie
 public static const SO_REUSEADDR: Int32
@@ -1133,7 +1133,7 @@ public static const SO_REUSEADDR: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_REUSEPORT
+### static const SO_REUSEPORT
 
 ```cangjie
 public static const SO_REUSEPORT: Int32
@@ -1147,7 +1147,7 @@ public static const SO_REUSEPORT: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SO_SNDBUF
+### static const SO_SNDBUF
 
 ```cangjie
 public static const SO_SNDBUF: Int32
@@ -1161,7 +1161,7 @@ public static const SO_SNDBUF: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const TCP_NODELAY
+### static const TCP_NODELAY
 
 ```cangjie
 public static const TCP_NODELAY: Int32 = 0x0001
@@ -1171,7 +1171,7 @@ public static const TCP_NODELAY: Int32 = 0x0001
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const TCP_QUICKACK
+### static const TCP_QUICKACK
 
 ```cangjie
 public static const TCP_QUICKACK: Int32
