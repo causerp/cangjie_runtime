@@ -53,6 +53,25 @@ Return value:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The argument mode string.
 
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let mode = ArgumentMode.NoValue
+    let str = mode.toString()
+    println("ArgumentMode string: ${str}")
+}
+```
+
+Execution Result：
+
+```text
+ArgumentMode string: NoValue
+```
+
 ### operator func ==(ArgumentMode)
 
 ```cangjie
@@ -68,6 +87,32 @@ Parameters:
 Return value:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if identical, otherwise `false`.
+
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let mode1 = ArgumentMode.NoValue
+    let mode2 = ArgumentMode.NoValue
+    let mode3 = ArgumentMode.RequiredValue
+    
+    let equal = (mode1 == mode2)
+    let notEqual = (mode1 == mode3)
+    
+    println("mode1 == mode2: ${equal}")
+    println("mode1 == mode3: ${notEqual}")
+}
+```
+
+Execution Result：
+
+```text
+mode1 == mode2: true
+mode1 == mode3: false
+```
 
 ## enum ArgumentSpec
 

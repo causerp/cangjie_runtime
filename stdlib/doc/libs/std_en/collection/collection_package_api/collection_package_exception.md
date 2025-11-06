@@ -30,6 +30,33 @@ public init()
 
 Function: Constructs an instance without exception message.
 
+Example:
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main(): Unit {
+    // Create a ConcurrentModificationException instance using the no-argument constructor
+    let exception = ConcurrentModificationException()
+    println("Created a no-argument ConcurrentModificationException instance")
+    
+    // The exception can be thrown and caught
+    try {
+        throw ConcurrentModificationException()
+    } catch (e: ConcurrentModificationException) {
+        println("Caught a ConcurrentModificationException")
+    }
+}
+```
+
+Execution result:
+
+```text
+Created a no-argument ConcurrentModificationException instance
+Caught a ConcurrentModificationException
+```
+
 ### init(String)
 
 ```cangjie
@@ -41,3 +68,31 @@ Function: Constructs an exception instance with the specified message.
 Parameters:
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The exception message.
+
+Example:
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main(): Unit {
+    // Create a ConcurrentModificationException instance with a custom message
+    let message = "Concurrent modification exception: Container was modified during iteration"
+    let exception = ConcurrentModificationException(message)
+    println("Created a ConcurrentModificationException instance with message: ${exception.message}")
+    
+    // Can throw and catch this exception
+    try {
+        throw ConcurrentModificationException("Container was modified during iteration")
+    } catch (e: ConcurrentModificationException) {
+        println("Caught exception: ${e.message}")
+    }
+}
+```
+
+Execution result:
+
+```text
+Created a ConcurrentModificationException instance with message: Concurrent modification exception: Container was modified during iteration
+Caught exception: Container was modified during iteration
+```
