@@ -139,6 +139,16 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
         }
     }
 
+    public prop organizationName: String {
+        get() {
+            if (let Some(index) <- qualifiedName.indexOf("::")) {
+                qualifiedName[..index]
+            } else {
+                ""
+            }
+        }
+    }
+
     prop noPublicInfos: ArrayList<TypeInfo> {
         get() {
             _noPublicInfoList
@@ -213,9 +223,9 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
 
             HashMap<String, PackageInfo>(infos.size) {
                 idx =>
-                let info = PackageInfo(infos[idx])
-                qualifiedNameMap.add(info.qualifiedName, info)
-                (info.qualifiedName, info)
+                    let info = PackageInfo(infos[idx])
+                    qualifiedNameMap.add(info.qualifiedName, info)
+                    (info.qualifiedName, info)
             }
         }
     }

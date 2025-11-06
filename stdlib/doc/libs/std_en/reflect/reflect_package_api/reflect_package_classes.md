@@ -2229,6 +2229,21 @@ Function: Gets the name of the package corresponding to this package information
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+### prop organizationName
+
+```cangjie
+public prop organizationName: String
+```
+
+Function: Retrieves the organization name of the package corresponding to this package information.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+
 ### prop parentPackage
 
 ```cangjie
