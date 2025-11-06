@@ -2214,6 +2214,7 @@ public func entryView(key: K, fn: (MapEntryView<K, V>) -> Unit): ?V
 
 注意参数 fn 中不能并发调用函数 [entryView](#func-entryviewk-mapentryviewk-v---unit)、[remove](#func-remove)、[replace](#func-replacek-v)，如：
 
+<!-- code_no_check -->
 ```cangjie
 map.entryView(1) { _ =>
     let f = spawn {
