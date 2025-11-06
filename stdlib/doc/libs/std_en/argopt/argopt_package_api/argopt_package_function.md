@@ -10,13 +10,7 @@ Function: Parses command-line arguments `args` according to the provided argumen
 
 This function matches each argument in `args` with the options defined in `specs`. For successfully matched options, it adds the option name and corresponding value to [options](./argopt_package_struct.md#prop-options). Unmatched arguments are treated as non-option arguments and added to [nonOptions](./argopt_package_struct.md#prop-nonoptions). Additionally, when encountering `--`, option scanning terminates early, and all subsequent arguments are treated as `non-option` arguments.
 
-The function supports parsing and handling of:
-- Short options
-- Long options
-- Short-prefixed long options
-- Combined short options
-- Non-option arguments
-- Illegal options
+The function supports parsing and handling of: short options, long options, short-prefixed long options, combined short options, non-option arguments, illegal options.
 
 The [ArgumentMode](./argopt_package_enums.md#enum-argumentmode) held by each [ArgumentSpec](./argopt_package_enums.md#enum-argumentspec) in `specs` determines how arguments are processed.
 
@@ -56,3 +50,56 @@ Exceptions:
 - [ArgumentParseException](./argopt_package_exception.md#class-argumentparseexception) - Thrown when argument parsing fails or an `illegal option` is encountered.
 
 - [IllegalArgumentException](../../../std_en/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when [ArgumentSpec](./argopt_package_enums.md#enum-argumentspec) with duplicate `name` is defined.
+
+Example:
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main(): Unit {
+    // Define argument specifications
+    let helpSpec = ArgumentSpec.Short(r'h', ArgumentMode.NoValue)
+    let outputSpec = ArgumentSpec.Long("output", ArgumentMode.RequiredValue)
+    let verboseSpec = ArgumentSpec.Short(r'v', ArgumentMode.OptionalValue)
+    
+    // Create specs array
+    let specs = [helpSpec, outputSpec, verboseSpec]
+    
+    // Create arguments array
+    let args = ["-h", "--output", "output.txt", "file1.txt"]
+    
+    // Parse command line arguments
+    let parsed = parseArguments(args, specs)
+    
+    // Output parsing results
+    println("Options:")
+    let options = parsed.options
+    for (key in options.keys()) {
+        println("  ${key}: ${options[key]}")
+    }
+    
+    println("Non-option arguments:")
+    for (nonOption in parsed.nonOptions) {
+        println("  ${nonOption}")
+    }
+    
+    // Test exception cases
+    try {
+        parseArguments(["-x", "value"], specs)  // Undefined option
+    } catch (e: ArgumentParseException) {
+        println("Exception caught: ${e.message}")
+    }
+}
+```
+
+Possible execution result:
+
+```text
+Options:
+  h: 
+  output: output.txt
+Non-option arguments:
+  file1.txt
+Exception caught: Unknown option: x.
+```

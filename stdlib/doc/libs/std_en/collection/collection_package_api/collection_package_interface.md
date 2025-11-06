@@ -32,9 +32,7 @@ prop first: ?T
 
 Functionality: Accesses the head element of the deque without removing it.
 
-Return value:
-
-- ?T - The value of the head element wrapped in Option. Returns None if the deque is empty.
+Type: ?T
 
 ### prop last
 
@@ -44,9 +42,7 @@ prop last: ?T
 
 Functionality: Accesses the tail element of the deque without removing it.
 
-Return value:
-
-- ?T - The value of the tail element wrapped in Option. Returns None if the deque is empty.
+Type: ?T
 
 ### func addFirst(T)
 
@@ -300,7 +296,7 @@ A [Map](collection_package_interface.md#interface-mapk-v) cannot contain duplica
 
 Parent type:
 
-- [ReadOnlyMap](collection_package_interface.md#interface-orderedmapk-v)\<K, V>
+- [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v)\<K, V>
 
 ### func add(K, V)
 
@@ -471,7 +467,7 @@ Function: Reads or modifies the value corresponding to the view in the original 
 When setting a non-null value, if the view's value does not exist, a new element will be added to the original map corresponding to this view.  
 When set to `None`, the current Entry will be deleted. After deletion, the view can still be used.
 
-Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)(V)
+Type: ?V
 
 ## interface OrderedMap\<K, V>
 

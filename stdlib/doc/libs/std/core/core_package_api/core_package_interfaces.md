@@ -886,7 +886,6 @@ Duration值: 1s
 2 * Duration.second = 2s
 ```
 
-
 ## interface Equal\<T>
 
 ```cangjie

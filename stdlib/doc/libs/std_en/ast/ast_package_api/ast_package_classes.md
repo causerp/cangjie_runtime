@@ -2077,7 +2077,7 @@ Function: Returns the precedence of the current expression node.
 
 Return Value:
 
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The precedence level of the current expression node.
 
 ### func toTokens()
 
@@ -4460,7 +4460,17 @@ Parent Type:
 public mut prop fullIdentifier: Token
 ```
 
-Function: Gets or sets the full identifier of the macro expansion node.
+Function: Gets or sets the complete identifier of the macro invocation node, such as `pkg.m` in `@pkg.m class a{}`.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+### prop identifier
+
+```cangjie
+public override mut prop identifier: Token
+```
+
+Function: This property is inherited from the [Decl](ast_package_classes.md#class-decl) node and represents the identifier of the macro invocation node, such as `m` in `@pkg.m class a{}`.
 
 Type: [Token](ast_package_structs.md#struct-token)
 
@@ -4777,7 +4787,7 @@ public class MacroExpandParam <: FuncParam {
 
 Function: Represents a macro expansion node.
 
-A [MacroExpandDecl](ast_package_classes.md#class-macroexpanddecl) node: `@M a: Int64` within `func foo (@M a: Int64)`.
+A [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) node: `@M a: Int64` within `func foo (@M a: Int64)`.
 
 Parent Type:
 
@@ -4789,7 +4799,17 @@ Parent Type:
 public mut prop fullIdentifier: Token
 ```
 
-Function: Gets or sets the full identifier of the macro expansion node.
+Function: Gets or sets the complete identifier of the macro invocation node, such as `pkg.m` in `func bar (@pkg.m a: Int64)`.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+### prop identifier
+
+```cangjie
+public override mut prop identifier: Token
+```
+
+Function: This property is inherited from the [Decl](ast_package_classes.md#class-decl) node, representing the identifier of the macro invocation node, such as `m` in `func bar (@pkg.m a: Int64)`.
 
 Type: [Token](ast_package_structs.md#struct-token)
 
@@ -5644,7 +5664,7 @@ Parent Type:
 
 - [Node](#class-node)
 
-### prop keyword(Token)
+### prop keyword
 
 ```cangjie
 public mut prop keyword: Token
@@ -8708,7 +8728,7 @@ Return Value:
 public func concat(tokens: Tokens): Tokens
 ```
 
-Function: Concatenates the current [Tokens](ast_package_classes.md#class-tokens) with the input [Tokens](ast_package_classes.md#class-tokens).
+Function: Concatenates the current [Tokens](ast_package_classes.md#class-tokens) with the input [Tokens](ast_package_classes.md#class-tokens), and returns a new [Tokens](ast_package_classes.md#class-tokens) instance.
 
 Parameters:
 
@@ -8804,7 +8824,7 @@ Return Value:
 public operator func +(r: Token): Tokens
 ```
 
-Function: Operator overload to obtain a new [Tokens](ast_package_classes.md#class-tokens) by adding the current [Tokens](ast_package_classes.md#class-tokens) with another [Token](ast_package_structs.md#struct-token).
+Function: Operator overload to obtain a new [Tokens](ast_package_classes.md#class-tokens) by adding the current [Tokens](ast_package_classes.md#class-tokens) with another [Token](ast_package_structs.md#struct-token) instance.
 
 Parameters:
 
@@ -10562,7 +10582,7 @@ Function: Determines whether traversal should be stopped.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` indicates that traversal should be terminated, otherwise it indicates that traversal should continue.
 
 ### func visit(Annotation)
 
@@ -10635,7 +10655,8 @@ Function: Defines operations during node access and requires overriding.
 Parameters:
 
 - _: [BinaryExpr](ast_package_classes.md#class-binaryexpr) - The traversed node of type [BinaryExpr](ast_package_classes.md#class-binaryexpr).
-```### func visit(Block)
+
+### func visit(Block)
 
 ```cangjie
 protected open func visit(_: Block): Unit

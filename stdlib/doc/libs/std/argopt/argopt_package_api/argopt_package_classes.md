@@ -53,7 +53,7 @@ public init(longArgList: Array<String>)
 示例：
 
 <!-- verify -->
-``cangjie
+```cangjie
 import std.argopt.*
 
 public main() {

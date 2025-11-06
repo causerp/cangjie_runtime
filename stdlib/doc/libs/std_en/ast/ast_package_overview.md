@@ -4,6 +4,8 @@
 
 The ast package primarily contains the syntax parser for Cangjie source code and Cangjie syntax tree nodes, providing syntax parsing functions. It can parse lexical units ([Tokens](./ast_package_api/ast_package_classes.md#class-tokens)) of Cangjie source code into Abstract Syntax Tree (AST) node objects.
 
+For iOS platform scenarios, this package only supports running on iOS 12 and above.
+
 The Cangjie ast package provides `Macro With Context` related functions for obtaining contextual information during macro expansion. In nested macro scenarios, inner macros can call the library function [assertParentContext(String)](./ast_package_api/ast_package_funcs.md#func-assertparentcontextstring) to ensure the inner macro call is always nested within a specific outer macro call. If this function is called without being nested within the given outer macro call, it will throw an error. Additionally, the function [insideParentContext(String)](./ast_package_api/ast_package_funcs.md#func-insideparentcontextstring) checks whether an inner macro call is nested within a specific outer macro call, returning a boolean value. `Macro With Context` related functions can only be called directly as functions and cannot be assigned to variables, passed as arguments, or returned as values.
 
 `Macro With Context` related functions include:

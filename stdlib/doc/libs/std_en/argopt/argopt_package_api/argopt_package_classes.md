@@ -50,6 +50,25 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the long argument name strings in the array do not conform to the specification, or the strings are not UTF-8 encoded, or the Unicode character does not exist.
 
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+public main() {
+    let longArgs = ["--name=", "--age="]
+    let argOpt = ArgOpt(longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+Execution Result：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### init(Array\<String>, String, Array\<String>)
 
 ```cangjie
@@ -68,6 +87,27 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the short argument name string does not conform to the specification, or the long argument name strings in the array do not conform to the specification, or the strings are not UTF-8 encoded, or the Unicode character does not exist.
 
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John", "extraArg"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+Execution Result：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### init(String)
 
 ```cangjie
@@ -83,6 +123,25 @@ Parameters:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the short argument name string does not conform to the specification, or the string is not UTF-8 encoded, or the Unicode character does not exist.
+
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let shortFormat = "a:b:"
+    let argOpt = ArgOpt(shortFormat)
+    println("ArgOpt instance created successfully")
+}
+```
+
+Execution Result：
+
+```text
+ArgOpt instance created successfully
+```
 
 ### init(String, Array\<String>)
 
@@ -101,6 +160,26 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the short argument name string does not conform to the specification, or the long argument name strings in the array do not conform to the specification, or the strings are not UTF-8 encoded, or the Unicode character does not exist.
 
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let shortFormat = "a:"
+    let longArgs = ["--name=", "--age="]
+    let argOpt = ArgOpt(shortFormat, longArgs)
+    println("ArgOpt instance created successfully")
+}
+```
+
+Execution Result：
+
+```text
+ArgOpt instance created successfully
+```
+
 ### func getArg(String)
 
 ```cangjie
@@ -117,6 +196,28 @@ Return Value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The parsed argument value.
 
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let value = argOpt.getArg("a")
+    println("Value of argument 'a': ${value}")
+}
+```
+
+Execution Result：
+
+```text
+Value of argument 'a': Some(123)
+```
+
 ### func getArgumentsMap()
 
 ```cangjie
@@ -127,7 +228,29 @@ Function: Retrieves all parsed argument names and their values, returned as a ha
 
 Return Value:
 
-- [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - A hash map with parsed argument names as keys and their values as values.
+- [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - A hash map with parsed argument names as keys and their values as values.
+
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let map = argOpt.getArgumentsMap()
+    println("Arguments map retrieved successfully")
+}
+```
+
+Execution Result：
+
+```text
+Arguments map retrieved successfully
+```
 
 ### func getUnparseArgs()
 
@@ -140,3 +263,25 @@ Function: Returns the unparsed command-line arguments.
 Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - An array containing the strings that were not parsed.
+
+Example：
+
+<!-- verify -->
+```cangjie
+import std.argopt.*
+
+main() {
+    let args = ["-a123", "--name=John", "extraArg1", "extraArg2"]
+    let shortFormat = "a:"
+    let longArgs = ["--name="]
+    let argOpt = ArgOpt(args, shortFormat, longArgs)
+    let unparsed = argOpt.getUnparseArgs()
+    println("Unparsed args retrieved successfully")
+}
+```
+
+Execution Result：
+
+```text
+Unparsed args retrieved successfully
+```

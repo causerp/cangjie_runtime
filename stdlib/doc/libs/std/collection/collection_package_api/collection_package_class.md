@@ -1519,6 +1519,7 @@ main() {
 原始数组: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 原始数组大小: 16
 ```
+
 ### func intersperse(T)
 
 ```cangjie
@@ -1966,6 +1967,7 @@ main() {
 ```
 
 ### func skip(Int64)
+
 ```cangjie
 public func skip(count: Int64): ArrayList<T>
 ```
@@ -3393,7 +3395,6 @@ main() {
 队列字符串: [1, 2, 3]
 字符串长度: 9
 ```
-
 
 ## class ArrayStack\<T>
 
@@ -9721,7 +9722,9 @@ main() {
 反转后最后一个元素: 第一个
 链表大小保持不变: 5
 ```
+
 ### func skip(Int64)
+
 ```cangjie
 public func skip(count: Int64): LinkedList<T>
 ```

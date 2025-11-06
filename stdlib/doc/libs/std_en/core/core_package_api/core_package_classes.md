@@ -26,6 +26,25 @@ Parameters:
 
 - data: [Array](core_package_structs.md#struct-arrayt)\<T> - The array instance.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var arr: Array<Int64> = [1, 2, 3]
+    // Initialize iterator
+    ArrayIterator(arr)
+    println("Iterator initialized successfully")
+    return 0
+}
+```
+
+Output:
+
+```text
+Iterator initialized successfully
+```
+
 ### func next()
 
 ```cangjie
@@ -36,7 +55,7 @@ Function: Returns the next value in the array iterator.
 
 Return Value:
 
-- [Option](core_package_enums.md#enum-optiont)\<T> - The next element in the array iterator, wrapped in [Option](core_package_enums.md#enum-optiont). Returns `None` when reaching the end.
+- [Option](core_package_enums.md#enum-optiont)\<T> - The next element in the array iterator, wrapped in [Option](core_package_enums.md#enum-optiont). Returns `None` when iteration reaches the end.
 
 Example:
 
@@ -49,10 +68,11 @@ main() {
     var num: Option<Int64>
     while (true) {
         num = arrIterator.next()
-        if (num.isNone()) {
+        if (let Some(element) <- num) {
+            println(element)
+        } else {
             break
         }
-        println(num.getOrDefault({=> -1}))
     }
 }
 ```
@@ -77,7 +97,7 @@ public class Box<T> {
 
 Function: The [Box](core_package_classes.md#class-boxt) type provides the ability to add a `class` wrapper layer to other types.
 
-If type `T` itself lacks reference capability (e.g., `struct` types), wrapping it with [Box](core_package_classes.md#class-boxt)\<T> makes it referenceable.
+If type `T` itself lacks reference capability (e.g., `struct` types), the wrapped [Box](core_package_classes.md#class-boxt)\<T> type will become referenceable.
 
 ### var value
 
@@ -89,17 +109,62 @@ Function: Gets or modifies the wrapped value.
 
 Type: T
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box: Box<Int64> = Box<Int64>(42)
+    
+    // Get wrapped value
+    println("Box contains: ${box.value}")
+    
+    // Modify wrapped value
+    box.value = 100
+    println("Box now contains: ${box.value}")
+}
+```
+
+Output:
+
+```text
+Box contains: 42
+Box now contains: 100
+```
+
 ### init(T)
 
 ```cangjie
 public init(v: T)
 ```
 
-Function: Constructs a [Box](core_package_classes.md#class-boxt)\<T> instance for a given `T` type instance.
+Function: Constructs a corresponding [Box](core_package_classes.md#class-boxt)\<T> instance given a `T` type instance.
 
 Parameters:
 
 - v: T - An instance of any type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    // Create Box instance with integer
+    var intBox: Box<Int64> = Box<Int64>(42)
+    println("Integer box contains: ${intBox.value}")
+    
+    // Create Box instance with string
+    var stringBox: Box<String> = Box<String>("Hello, Box!")
+    println("String box contains: ${stringBox.value}")
+}
+```
+
+Output:
+
+```text
+Integer box contains: 42
+String box contains: Hello, Box!
+```
 
 ### extend\<T> Box\<T> <: Comparable\<Box\<T>> where T <: Comparable\<T>
 
@@ -107,9 +172,9 @@ Parameters:
 extend<T> Box<T> <: Comparable<Box<T>> where T <: Comparable<T>
 ```
 
-Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> class with the [Comparable](core_package_interfaces.md#interface-comparablet)\<[Box](core_package_classes.md#class-boxt)\<T>> interface, providing comparison capability.
+Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> class with the [Comparable](core_package_interfaces.md#interface-comparablet)\<[Box](core_package_classes.md#class-boxt)\<T>> interface, providing comparison capabilities.
 
-The size relationship of [Box](core_package_classes.md#class-boxt)\<T> instances matches that of their wrapped `T` instances.
+The size relationship between [Box](core_package_classes.md#class-boxt)\<T> instances matches that of their wrapped `T` instances.
 
 Parent Types:
 
@@ -187,6 +252,30 @@ Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is not equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(42)
+    var box3: Box<Int64> = Box<Int64>(100)
+    
+    // Compare equal Box objects
+    println("box1 != box2: ${box1 != box2}")
+    
+    // Compare unequal Box objects
+    println("box1 != box3: ${box1 != box3}")
+}
+```
+
+Output:
+
+```text
+box1 != box2: false
+box1 != box3: true
+```
+
 #### operator func <(Box\<T>)
 
 ```cangjie
@@ -202,6 +291,29 @@ Parameters:
 Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is less than the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(100)
+    
+    // Compare Box object sizes
+    println("box1 < box2: ${box1 < box2}")
+    println("box2 < box1: ${box2 < box1}")
+    println("box1 < box1: ${box1 < box1}")
+}
+```
+
+Output:
+
+```text
+box1 < box2: true
+box2 < box1: false
+box1 < box1: false
+```
 
 #### operator func <=(Box\<T>)
 
@@ -219,6 +331,30 @@ Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is less than or equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(100)
+    var box3: Box<Int64> = Box<Int64>(42)
+    
+    // Compare Box object sizes
+    println("box1 <= box2: ${box1 <= box2}")
+    println("box2 <= box1: ${box2 <= box1}")
+    println("box1 <= box3: ${box1 <= box3}")
+}
+```
+
+Output:
+
+```text
+box1 <= box2: true
+box2 <= box1: false
+box1 <= box3: true
+```
+
 #### operator func ==(Box\<T>)
 
 ```cangjie
@@ -234,6 +370,30 @@ Parameters:
 Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object equals the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(42)
+    var box3: Box<Int64> = Box<Int64>(100)
+    
+    // Compare equal Box objects
+    println("box1 == box2: ${box1 == box2}")
+    
+    // Compare unequal Box objects
+    println("box1 == box3: ${box1 == box3}")
+}
+```
+
+Output:
+
+```text
+box1 == box2: true
+box1 == box3: false
+```
 
 #### operator func >(Box\<T>)
 
@@ -251,6 +411,29 @@ Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is greater than the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(100)
+    
+    // Compare Box object sizes
+    println("box1 > box2: ${box1 > box2}")
+    println("box2 > box1: ${box2 > box1}")
+    println("box1 > box1: ${box1 > box1}")
+}
+```
+
+Output:
+
+```text
+box1 > box2: false
+box2 > box1: true
+box1 > box1: false
+```
+
 #### operator func >=(Box\<T>)
 
 ```cangjie
@@ -267,13 +450,37 @@ Return Value:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is greater than or equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(100)
+    var box3: Box<Int64> = Box<Int64>(42)
+    
+    // Compare Box object sizes
+    println("box1 >= box2: ${box1 >= box2}")
+    println("box2 >= box1: ${box2 >= box1}")
+    println("box1 >= box3: ${box1 >= box3}")
+}
+```
+
+Output:
+
+```text
+box1 >= box2: false
+box2 >= box1: true
+box1 >= box3: true
+```
+
 ### extend\<T> Box\<T> <: Hashable where T <: Hashable
 
 ```cangjie
 extend<T> Box<T> <: Hashable where T <: Hashable
 ```
 
-Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> class with the [Hashable](core_package_interfaces.md#interface-hashable) interface, providing hashing capability.
+Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> class with the [Hashable](core_package_interfaces.md#interface-hashable) interface, supporting hash value computation.
 
 Parent Types:
 
@@ -293,13 +500,41 @@ Return Value:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value of the current [Box](core_package_classes.md#class-boxt) object.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var box1: Box<Int64> = Box<Int64>(42)
+    var box2: Box<Int64> = Box<Int64>(42)
+    var box3: Box<Int64> = Box<Int64>(100)
+    
+    // Get hash values of Box objects
+    println("box1 hashCode: ${box1.hashCode()}")
+    println("box2 hashCode: ${box2.hashCode()}")
+    println("box3 hashCode: ${box3.hashCode()}")
+    
+    // Box objects with same values have same hash codes
+    println("box1 and box2 have same hashCode: ${box1.hashCode() == box2.hashCode()}")
+}
+```
+
+Output:
+
+```text
+box1 hashCode: 42
+box2 hashCode: 42
+box3 hashCode: 100
+box1 and box2 have same hashCode: true
+```
+
 ### extend\<T> Box\<T> <: ToString where T <: ToString
 
 ```cangjie
 extend<T> Box<T> <: ToString where T <: ToString
 ```
 
-Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> type with the [ToString](core_package_interfaces.md#interface-tostring) interface, supporting string conversion.
+Function: Extends the [Box](core_package_classes.md#class-boxt)\<T> type with the [ToString](core_package_interfaces.md#interface-tostring) interface, supporting string conversion operations.
 
 Parent Types:
 
@@ -317,15 +552,39 @@ Return Value:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    var intBox: Box<Int64> = Box<Int64>(42)
+    var stringBox: Box<String> = Box<String>("Hello")
+    var boolBox: Box<Bool> = Box<Bool>(true)
+    
+    // Get string representations of Box objects
+    println("intBox as string: ${intBox.toString()}")
+    println("stringBox as string: ${stringBox.toString()}")
+    println("boolBox as string: ${boolBox.toString()}")
+}
+```
+
+Output:
+
+```text
+intBox as string: 42
+stringBox as string: Hello
+boolBox as string: true
+```
+
 ## class Future\<T>
 
 ```cangjie
 public class Future<T>
 ```
 
-Function: A [Future](core_package_classes.md#class-futuret)\<T> instance represents a Cangjie thread task, used to obtain computation results from Cangjie threads and send cancellation signals.
+Function: A [Future](core_package_classes.md#class-futuret)\<T> instance represents a Cangjie thread task, which can be used to obtain the computation result of a Cangjie thread or send cancellation signals to it.
 
-The return type of `spawn` expressions is [Future](core_package_classes.md#class-futuret)\<T>, where `T` depends on the return type of the closure in the `spawn` expression.
+The return type of `spawn` expressions is [Future](core_package_classes.md#class-futuret)\<T>, where `T` depends on the return type of the closure within the `spawn` expression.
 
 ### prop thread
 
@@ -333,9 +592,38 @@ The return type of `spawn` expressions is [Future](core_package_classes.md#class
 public prop thread: Thread
 ```
 
-Function: Gets the [Thread](core_package_classes.md#class-thread) instance of the corresponding Cangjie thread.
+Function: Gets the [Thread](core_package_classes.md#class-thread) instance corresponding to the Cangjie thread.
 
 Type: [Thread](core_package_classes.md#class-thread)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    let future: Future<Int64> = spawn {
+        =>
+        return 42
+    }
+    
+    // Get the Thread instance corresponding to the Future
+    let thread: Thread = future.thread
+    println("Thread id: ${thread.id}")
+    
+    // Wait for thread completion
+    let result: Int64 = future.get()
+    println("Result: ${result}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Thread id: 2
+Result: 42
+```
 
 ### func cancel()
 
@@ -343,7 +631,7 @@ Type: [Thread](core_package_classes.md#class-thread)
 public func cancel(): Unit
 ```
 
-Function: Sends a cancellation request to the Cangjie thread corresponding to the current [Future](core_package_classes.md#class-futuret) instance. This method does not immediately stop thread execution but only sends a request. Correspondingly, the `hasPendingCancellation` function of the [Thread](core_package_classes.md#class-thread) class can be used to check if there's a pending cancellation request, allowing developers to decide whether and how to terminate the thread early.
+Function: Sends a cancellation request to the Cangjie thread corresponding to the current [Future](core_package_classes.md#class-futuret) instance. This method does not immediately stop thread execution but only sends the request. Correspondingly, the `hasPendingCancellation` function of the [Thread](core_package_classes.md#class-thread) class can be used to check if there is a cancellation request. Developers can use this check to decide whether to terminate the thread early and how to do so.
 
 Example:
 
@@ -379,11 +667,11 @@ Output:
 public func get(): T
 ```
 
-Function: Blocks the current thread, waiting for and obtaining the result of the thread corresponding to the current [Future](core_package_classes.md#class-futuret)\<T> object.
+Function: Blocks the current thread, waits for, and retrieves the result of the thread corresponding to the current [Future](core_package_classes.md#class-futuret)\<T> object.
 
 Return Value:
 
-- T - The return value after the thread represented by the current [Future](core_package_classes.md#class-futuret)\<T> instance completes execution.
+- T - The return value of the thread represented by the current [Future](core_package_classes.md#class-futuret)\<T> instance after execution completes.
 
 Example:
 
@@ -416,17 +704,17 @@ Output:
 public func get(timeout: Duration): T
 ```
 
-Function: Blocks the current thread, waits for a specified duration, and obtains the return value of the thread corresponding to the current [Future](core_package_classes.md#class-futuret)\<T> object.
+Function: Blocks the current thread, waits for a specified duration, and retrieves the return value of the thread corresponding to the current [Future](core_package_classes.md#class-futuret)\<T> object.
 
-A timeout must be specified. If the corresponding thread does not complete execution within the specified time, this function throws a [TimeoutException](./core_package_exceptions.md#class-timeoutexception). If timeout <= Duration.Zero, it behaves the same as get(), meaning no timeout limit. If the thread throws an exception during execution, the same exception will be propagated at the get call site.
+A timeout must be specified. If the corresponding thread does not complete execution within the specified time, this function throws a [TimeoutException](./core_package_exceptions.md#class-timeoutexception). If timeout <= Duration.Zero, it is equivalent to get(), meaning no waiting limit. If the thread throws an exception during execution, the exception will be rethrown at the get() call site.
 
 Parameters:
 
-- timeout: [Duration](./core_package_structs.md#struct-duration) - The waiting duration.
+- timeout: [Duration](./core_package_structs.md#struct-duration) - The waiting time.
 
 Return Value:
 
-- T - Returns the execution result of the Cangjie thread after the specified duration.
+- T - The execution result of the Cangjie thread after the specified duration.
 
 Exceptions:
 
@@ -445,7 +733,7 @@ main(): Int64 {
     }
 
     let result: Int64 = fut.get(2000 * Duration.millisecond)
-    /* Maximum wait time is 2 seconds, throws TimeoutException if exceeded */
+    /* Maximum wait time is 2 seconds; TimeoutException is thrown if exceeded */
 
     println(result)
     return 0
@@ -464,11 +752,11 @@ Output:
 public func tryGet(): Option<T>
 ```
 
-Function: Attempts to get the execution result without blocking the current thread. Returns `None` if the corresponding thread hasn't completed.
+Function: Attempts to retrieve the execution result without blocking the current thread. Returns `None` if the corresponding thread has not completed.
 
 Return Value:
 
-- [Option](core_package_enums.md#enum-optiont)\<T> - Returns `None` if the Cangjie thread hasn't completed, otherwise returns the execution result.
+- [Option](core_package_enums.md#enum-optiont)\<T> - Returns `None` if the Cangjie thread has not completed; otherwise, returns the execution result.
 
 Example:
 
@@ -482,10 +770,10 @@ main(): Int64 {
         return 1
     }
 
-    /* Main thread waits 4 seconds to ensure spawned thread completes */
+    /* Main thread waits 4 seconds to ensure the spawned thread completes */
     sleep(4000 * Duration.millisecond)
 
-    /* Attempt to get spawned thread's execution result */
+    /* Attempt to retrieve the spawned thread's result */
     let result: Option<Int64> = fut.tryGet()
     println(result)
     return 0
@@ -504,7 +792,7 @@ Some(1)
 public abstract class Iterator<T> <: Iterable<T>
 ```
 
-Function: This class represents an iterator, providing the `next` method to support iterative traversal of container elements.
+Function: This class represents an iterator, providing the `next` method to support iterative traversal over container elements.
 
 Parent Type:
 
@@ -518,10 +806,35 @@ public init()
 
 Function: Constructs a default [Iterator](core_package_classes.md#class-iteratort)\<T> object.
 
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // The abstract class Iterator cannot be instantiated directly
+    MyIterator<Int64>()
+    println("Abstract subclass initialized successfully")
+    return 0
+}
+
+public class MyIterator<T> <: Iterator<T> {
+    public init() {}
+    public func next(): ?T {
+        return None<T>
+    }
+}
+```
+
+Output:
+
+```text
+Abstract subclass initialized successfully
+```
+
 ### func iterator()
 
 ```cangjie
-public func iterator() : Iterator<T>
+public func iterator(): Iterator<T>
 ```
 
 Function: Returns the iterator itself.
@@ -529,6 +842,41 @@ Function: Returns the iterator itself.
 Return Value:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<T> - The iterator itself.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create an array and get its iterator
+    var arr: Array<Int64> = [10, 20, 30]
+    var iter: Iterator<Int64> = arr.iterator()
+    
+    // Call iterator() to get the iterator itself
+    var iter2: Iterator<Int64> = iter.iterator()
+    
+    // Verify both iterators are the same object
+    println("Iterators are the same object")
+    
+    // Traverse elements using both iterators
+    println("First element from iter: ${iter.next()}")
+    println("Second element from iter2: ${iter2.next()}")
+    println("Third element from iter: ${iter.next()}")
+    println("Fourth element from iter2: ${iter2.next()}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Iterators are the same object
+First element from iter: Some(10)
+Second element from iter2: Some(20)
+Third element from iter: Some(30)
+Fourth element from iter2: None
+```
 
 ### func next()
 
@@ -549,7 +897,7 @@ Example:
 ```cangjie
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
-    var iter = arr.iterator() /* Obtain the iterator object of the container */
+    var iter = arr.iterator() /* Get the container's iterator object */
 
     while (true) { /* Traverse using the iterator */
         match (iter.next()) {
@@ -561,7 +909,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 1
@@ -579,7 +927,7 @@ extend<T> Iterator<T>
 
 Function: Extends the [Iterator](core_package_classes.md#class-iteratort)\<T> type.
 
-Iterator methods primarily include intermediate operations and terminal operations. Intermediate operations (e.g., [skip()](#func-skipint64), [map()](#func-maprt---r)) produce a new iterator. Terminal operations (e.g., [count()](#func-count), [all()](#func-allt---bool)) compute results based on the elements produced by the iterator without generating a new iterator. Each iterator method consumes different numbers of elements from the iterator; see individual method descriptions for details.
+Iterator methods mainly include intermediate operations and terminal operations. Intermediate operations (e.g., [skip()](#func-skipint64), [map()](#func-maprt---r)) produce a new iterator. Terminal operations (e.g., [count()](#func-count), [all()](#func-allt---bool)) compute results based on the elements produced by the iterator without generating a new iterator. Each iterator method consumes different numbers of elements; see individual method descriptions for details.
 
 #### func all((T) -> Bool)
 
@@ -587,7 +935,7 @@ Iterator methods primarily include intermediate operations and terminal operatio
 public func all(predicate: (T)-> Bool): Bool
 ```
 
-Function: Determines whether all elements in the iterator satisfy the condition. This method repeatedly retrieves and consumes elements from the iterator until an element fails to meet the condition.
+Function: Checks if all elements in the iterator satisfy the condition. This method repeatedly retrieves and consumes elements until an element fails the condition.
 
 Parameters:
 
@@ -605,7 +953,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object of the container */
+    /* Get the container's iterator object */
     var iter = arr.iterator()
     var flag: Bool = iter.all({v: Int64 => v > 0})
     println(flag)
@@ -613,7 +961,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 true
@@ -625,7 +973,7 @@ true
 public func any(predicate: (T)-> Bool): Bool
 ```
 
-Function: Determines whether any element in the iterator satisfies the condition. This method repeatedly retrieves and consumes elements from the iterator until an element meets the condition.
+Function: Checks if any element in the iterator satisfies the condition. This method repeatedly retrieves and consumes elements until an element meets the condition.
 
 Parameters:
 
@@ -643,7 +991,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object of the container */
+    /* Get the container's iterator object */
     var iter = arr.iterator()
     var flag: Bool = iter.any({v: Int64 => v > 4})
     println(flag)
@@ -651,7 +999,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 true
@@ -663,15 +1011,15 @@ true
 public func at(n: Int64): Option<T>
 ```
 
-Function: Retrieves the nth element of the current iterator (indexing starts at 0). This method consumes all elements before the specified element (including the specified element).
+Function: Retrieves the nth element of the current iterator (indexing starts at 0). This method consumes all elements before the specified one (including the specified element).
 
 Parameters:
 
-- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The given element index (starting from 0).
+- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The element index (0-based).
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The element at the specified position. Returns None if n exceeds the number of remaining elements.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The element at the specified position; returns None if n exceeds the remaining elements.
 
 Example:
 
@@ -681,7 +1029,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object of the container */
+    /* Get the container's iterator object */
     var iter = arr.iterator()
     var num: Option<Int64> = iter.at(2)
     println(num)
@@ -689,7 +1037,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 Some(3)
@@ -701,11 +1049,11 @@ Some(3)
 public func concat(other: Iterator<T>): Iterator<T>
 ```
 
-Function: Concatenates two iterators, with the current iterator first and the parameter iterator following.
+Function: Concatenates two iterators, with the current iterator first and the parameter iterator second.
 
 Parameters:
 
-- other: [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator to concatenate afterward.
+- other: [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator to concatenate after.
 
 Return Value:
 
@@ -720,14 +1068,14 @@ main(): Int64 {
     var arr1: Array<Int64> = [1, 2]
     var arr2: Array<Int64> = [3, 4]
 
-    /* Obtain the iterator objects of the containers */
+    /* Get the container's iterator objects */
     var iter1 = arr1.iterator()
     var iter2 = arr2.iterator()
 
-    /* Merge the two iterators */
+    /* Merge two iterators */
     var iter = iter1.concat(iter2)
 
-    /* Traverse using the iterator */
+    /* Traverse using the merged iterator */
     while (true) {
         match (iter.next()) {
             case Some(i) => println(i)
@@ -738,7 +1086,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 1
@@ -753,11 +1101,11 @@ Execution Result:
 public func count(): Int64
 ```
 
-Function: Counts the number of elements in the current iterator. This method consumes all elements in the iterator to calculate the count.
+Function: Counts the number of elements in the current iterator. This method consumes all elements to compute the count.
 
 > **Note:**
 > 
-> This method consumes the iterator, meaning no elements remain in the iterator after its use.
+> This method consumes the iterator, meaning no elements remain after its use.
 
 Return Value:
 
@@ -771,12 +1119,12 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* Obtain the iterator object of the container */
+    /* Get the container's iterator object */
     var iter = arr.iterator()
     let len: Int64 = iter.count()
     println(len)
 
-    /* Attempt to traverse the iterator, but count() has consumed all elements, so nothing prints */
+    /* Attempt to traverse, but count() consumed all elements */
     while (true) {
         match (iter.next()) {
             case Some(i) => println(i)
@@ -787,7 +1135,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 2
@@ -803,7 +1151,7 @@ Function: Creates an iterator with indices.
 
 Return Value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - An iterator with indices.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns an iterator with indices.
 
 Example:
 
@@ -813,11 +1161,11 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* Obtain the iterator object of the container */
+    /* Get the container's iterator object */
     var iter = arr.iterator()
     var iter1 = iter.enumerate()
 
-    /* Traverse using the iterator */
+    /* Traverse using the indexed iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) =>
@@ -831,7 +1179,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 0 1
@@ -848,7 +1196,7 @@ Function: Filters elements that satisfy the condition.
 
 Parameters:
 
-- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition. Elements for which the condition is `true` appear in the returned iterator in order.
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition; elements returning `true` appear in order in the returned iterator.
 
 Return Value:
 
@@ -862,11 +1210,11 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the filtered iterator object */
+    /* Get a filtered iterator object */
     var iter = arr.iterator()
     var iter1 = iter.filter({value: Int64 => value > 2})
 
-    /* Traverse using the iterator */
+    /* Traverse using the filtered iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) => println(i)
@@ -877,7 +1225,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 3
@@ -891,11 +1239,11 @@ Execution Result:
 public func filterMap<R>(transform: (T) -> Option<R>): Iterator<R>
 ```
 
-Function: Performs both filtering and mapping operations, returning a new iterator.
+Function: Performs both filtering and mapping, returning a new iterator.
 
 Parameters:
 
-- transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The given mapping function. A return value of Some corresponds to a predicate of true in filter, while None corresponds to false.
+- transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<R> - The mapping function. A return value of Some corresponds to a predicate of true in filter; otherwise, it's false.
 
 Return Value:
 
@@ -909,7 +1257,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the filtered iterator object, performing both filtering and mapping (mapping must return Option type) */
+    /* Get a filtered and mapped iterator; mapping must return Option type */
     var iter = arr.iterator()
     var iter1 = iter.filterMap({
         value: Int64 => if (value > 2) {
@@ -919,7 +1267,7 @@ main(): Int64 {
         }
     })
 
-    /* Traverse using the iterator */
+    /* Traverse using the new iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) => println(i)
@@ -930,7 +1278,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Output:
 
 ```text
 4
@@ -944,11 +1292,11 @@ Execution Result:
 public func first(): Option<T>
 ```
 
-Function: Retrieves the first element of the current iterator. This method retrieves and consumes the first element.
+Function: Retrieves the first element of the current iterator. This method consumes the first element.
 
 Return Value:
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The first element. Returns None if the iterator is empty.
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The first element; returns None if empty.
 
 Example:
 
@@ -958,7 +1306,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object */
+    /* Get iterator object */
     var iter = arr.iterator()
     var head: Option<Int64> = iter.first()
     println(head)
@@ -967,7 +1315,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 Some(1)
@@ -979,15 +1327,15 @@ Some(1)
 public func flatMap<R>(transform: (T) -> Iterator<R>): Iterator<R>
 ```
 
-Function: Creates a mapping with [flatten](../../collection/collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) functionality.
+Function: Creates a mapping with [flatten](../../collection/collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) capability.
 
 Parameters:
 
-- transform: (T) -> [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - The given mapping function.
+- transform: (T) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - The given mapping function.
 
-Return Value:
+Return value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - A mapping with [flatten](../../collection/collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) functionality.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping with [flatten](../../collection/collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) capability.
 
 Example:
 
@@ -997,11 +1345,11 @@ Example:
 main(): Int64 {
     var arr: Array<Array<Int64>> = [[1], [2], [3], [4, 5]]
 
-    /* Obtain the iterator object with flatten functionality */
+    /* Get iterator object with flatten capability */
     var iter = arr.iterator()
     var iter1 = iter.flatMap({value => value.iterator()})
 
-    /* Traverse using the flattened iterator */
+    /* Perform flattened traversal using the iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) => println(i)
@@ -1012,7 +1360,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 1
@@ -1032,12 +1380,12 @@ Function: Computes from left to right using the specified initial value. This me
 
 Parameters:
 
-- initial: R - The initial value of type R.
+- initial: R - The given initial value of type R.
 - operation: (R, T) -> R - The given computation function.
 
-Return Value:
+Return value:
 
-- R - The final computed value.
+- R - Returns the final computed value.
 
 Example:
 
@@ -1047,7 +1395,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object and compute the sum of array elements */
+    /* Get iterator object and sum the array elements */
     var iter = arr.iterator()
     var sum: Int64 = iter.fold(0, {total, value => total + value})
 
@@ -1056,7 +1404,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 15
@@ -1068,7 +1416,7 @@ Execution Result:
 public func forEach(action: (T)-> Unit): Unit
 ```
 
-Function: Traverses all elements of the current iterator, executing the given operation for each element. This method consumes all elements in the iterator.
+Function: Traverses all elements of the current iterator and performs the given operation on each element. This method consumes all elements in the iterator.
 
 Parameters:
 
@@ -1089,7 +1437,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 1
@@ -1105,15 +1453,15 @@ Execution Result:
 public func inspect(action: (T) -> Unit): Iterator<T>
 ```
 
-Function: Executes an additional operation on the current element each time next() is called (does not consume elements from the iterator).
+Function: Performs an additional operation on the current element each time the iterator calls next() (does not consume elements in the iterator).
 
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
-Return Value:
+Return value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - A new iterator.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator.
 
 Example:
 
@@ -1123,11 +1471,11 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* Obtain the iterator object and attach an additional operation to the next function */
+    /* Get iterator object and attach additional operations to the next function */
     var iter = arr.iterator()
     var iter1 = iter.inspect({value => println("Logging: Processing ${value}")})
 
-    /* Traverse using the iterator */
+    /* Perform traversal using the iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) => println("Processing ${i} !")
@@ -1138,7 +1486,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 Logging: Processing 1
@@ -1153,15 +1501,15 @@ Processing 2 !
 public func intersperse(separator: T): Iterator<T>
 ```
 
-Function: Inserts a given new element between every two elements of the iterator.
+Function: Inserts a given new element between every two elements in the iterator.
 
 Parameters:
 
 - separator: T - The given element.
 
-Return Value:
+Return value:
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - A new iterator.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator.
 
 Example:
 
@@ -1171,11 +1519,328 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* Obtain the iterator object, inserting a 0 between every two elements */
+    /* Get iterator object and insert a 0 between every two elements */
     var iter = arr.iterator()
     var iter1 = iter.intersperse(0)
 
-    /* Traverse using the iterator */
+    /* Perform traversal using the iterator */
+    while (true) {
+        match (iter1.next()) {
+            case Some(i) => println(i)
+            case None => break
+        }
+    }
+    return 0
+}
+```
+
+Execution result:
+
+```text
+1
+0
+2
+```
+
+#### func isEmpty()
+
+```cangjie
+public func isEmpty(): Bool
+```
+
+Function: Determines whether the current iterator is empty. This method calls [next()](#func-next-1) and determines whether the current iterator is empty based on its return value. Therefore, if the current iterator is not empty, one element will be consumed.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns whether the current iterator is empty.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2]
+
+    /* Get iterator object */
+    var iter = arr.iterator()
+
+    /* Check if the iterator has elements; if yes, one element will be consumed */
+    println(iter.isEmpty())
+
+    /* Perform traversal using the iterator */
+    while (true) {
+        match (iter.next()) {
+            case Some(i) => println(i)
+            case None => break
+        }
+    }
+    println(iter.isEmpty())
+    return 0
+}
+```
+
+Execution result:
+
+```text
+false
+2
+true
+```
+
+#### func last()
+
+```cangjie
+public func last(): Option<T>
+```
+
+Function: Gets the tail element of the current iterator. This method retrieves and consumes all elements in the iterator and returns the last element.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the tail element, or None if empty.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2]
+
+    /* Get iterator object */
+    var iter = arr.iterator()
+    println(iter.last())
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Some(2)
+```
+
+#### func map\<R>((T) -> R)
+
+```cangjie
+public func map<R>(transform: (T)-> R): Iterator<R>
+```
+
+Function: Creates a mapping.
+
+Parameters:
+
+- transform: (T) ->R - The given mapping function.
+
+Return value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2, 3, 4]
+
+    /* Get iterator object, map the elements, and obtain a new iterator object */
+    var iter = arr.iterator()
+    var iter1 = iter.map({value => value * 2})
+
+    /* Perform traversal using the iterator */
+    while (true) {
+        match (iter1.next()) {
+            case Some(i) => println(i)
+            case None => break
+        }
+    }
+    return 0
+}
+```
+
+Execution result:
+
+```text
+2
+4
+6
+8
+```
+
+#### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T)-> Bool): Bool
+```
+
+Function: Determines whether none of the elements in the current iterator satisfy the condition. This method repeatedly retrieves and consumes elements in the iterator until an element satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether none of the elements in the iterator satisfy the condition.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2, 3, 4]
+
+    /* Get iterator object, map the elements, and obtain a new iterator object */
+    var iter1 = arr.iterator()
+    var iter2 = arr.iterator()
+
+    /* There exists an element greater than 2, returns false */
+    var flag1: Bool = iter1.none({value => value > 2})
+    println(flag1)
+
+    /* No element is greater than 5, returns true */
+    var flag2: Bool = iter2.none({value => value > 5})```markdown
+    println(flag2)
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+false
+true
+```
+
+#### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Performs left-to-right reduction using the first element as the initial value. This method consumes all elements in the iterator.
+
+Parameters:
+
+- operation: (T, T) -> T - The specified computation function.
+
+Return Value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2, 3, 4, 5]
+
+    /* Obtain an iterator object and sum the array elements */
+    var iter = arr.iterator()
+    var sum: Option<Int64> = iter.reduce({total, value => total + value})
+    println(sum)
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Some(15)
+```
+
+#### func skip(Int64)
+
+```cangjie
+public func skip(count: Int64): Iterator<T>
+```
+
+Function: Skips a specified number of elements from the current iterator in a forward direction.
+
+Throws an exception when count < 0. When count = 0, it effectively skips no elements and returns the original iterator. When count > 0 and count < the iterator's size, it skips 'count' elements and returns a new iterator containing the remaining elements. When count ≥ the iterator's size, it skips all elements and returns an empty iterator.
+
+Parameters:
+
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to skip.
+
+Return Value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns an iterator that skips the specified number of elements.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2, 3, 4, 5]
+
+    /* Obtain an iterator object and skip the first two elements */
+    var iter = arr.iterator()
+    var iter1 = iter.skip(2)
+
+    /* Perform iterative traversal using the iterator */
+    while (true) {
+        match (iter1.next()) {
+            case Some(i) => println(i)
+            case None => break
+        }
+    }
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+3
+4
+5
+```
+
+#### func step(Int64)
+
+```cangjie
+public func step(count: Int64): Iterator<T>
+```
+
+Function: Skips a specified number of elements each time next() is called on the iterator.
+
+Throws an exception when count ≤ 0. When count > 0, each call to next() skips 'count' elements until the iterator is exhausted.
+
+Parameters:
+
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to skip per next() call.
+
+Return Value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator that skips the specified number of elements per next() call.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count ≤ 0.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr: Array<Int64> = [1, 2, 3, 4, 5]
+
+    /* Obtain an iterator object that skips two elements per next() call */
+    var iter = arr.iterator()
+    var iter1 = iter.step(2)
+
+    /* Perform iterative traversal using the iterator */
     while (true) {
         match (iter1.next()) {
             case Some(i) => println(i)
@@ -1190,21 +1855,31 @@ Execution Result:
 
 ```text
 1
-0
-2
+3
+5
 ```
 
-#### func isEmpty()
+#### func take(Int64)
 
 ```cangjie
-public func isEmpty(): Bool
+public func take(count: Int64): Iterator<T>
 ```
 
-Function: Determines whether the current iterator is empty. This method calls [next()](#func-next-1) and checks its return value to determine if the iterator is empty. Thus, if the iterator is not empty, one element is consumed.
+Function: Takes a specified number of elements from the current iterator.
+
+Takes elements from the current iterator in a forward direction. Throws an exception when count < 0. When count = 0, takes no elements and returns an empty iterator. When 0 < count < the iterator's size, takes the first 'count' elements and returns a new iterator. When count ≥ the iterator's size, takes all elements and returns the original iterator.
+
+Parameters:
+
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to take.
 
 Return Value:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the current iterator is empty.
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns an iterator containing the specified number of elements.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
 
 Example:
 
@@ -1212,22 +1887,19 @@ Example:
 
 ```cangjie
 main(): Int64 {
-    var arr: Array<Int64> = [1, 2]
+    var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* Obtain the iterator object */
+    /* Obtain an iterator object and take the first three elements */
     var iter = arr.iterator()
+    var iter1 = iter.take(3)
 
-    /* Check if the iterator has elements (consumes one element if true) */
-    println(iter.isEmpty())
-
-    /* Traverse using the iterator */
+    /* Perform iterative traversal using the iterator */
     while (true) {
-        match (iter.next()) {
+        match (iter1.next()) {
             case Some(i) => println(i)
             case None => break
         }
     }
-    println(iter.isEmpty())
     return 0
 }
 ```
@@ -1235,15 +1907,61 @@ main(): Int64 {
 Execution Result:
 
 ```text
-false
+1
 2
-true
+3
 ```
 
-#### func last()
+#### func zip\<R>(Iterator\<R>)
 
 ```cangjie
-public func last(): Option### extend\<T> Iterator\<T> where T <: Comparable\<T>
+public func zip<R>(it: Iterator<R>): Iterator<(T, R)>
+```
+
+Function: Merges two iterators into one (length determined by the shorter iterator).
+
+Parameters:
+
+- it: [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - One of the iterators to merge.
+
+Return Value:
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(T, R)> - Returns a new iterator.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Int64 {
+    var arr1: Array<Int64> = [1, 2, 3, 4]
+    var arr2: Array<Int64> = [4, 5, 6]
+
+    /* Obtain iterator objects and merge them; elements in the new iterator are tuples of corresponding index positions */
+    var iter1 = arr1.iterator()
+    var iter2 = arr2.iterator()
+    var iter = iter1.zip(iter2)
+
+    /* Perform traversal using the iterator; length depends on the shorter iterator */
+    while (true) {
+        match (iter.next()) {
+            case Some(i) => println("The current element is (${i[0]}, ${i[1]})")
+            case None => break
+        }
+    }
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+The current element is (1, 4)
+The current element is (2, 5)
+The current element is (3, 6)
+```
+    
+### extend\<T> Iterator\<T> where T <: Comparable\<T>
 
 ```cangjie
 extend<T> Iterator<T> where T <: Comparable<T>
@@ -1259,7 +1977,7 @@ public func max(): Option<T>
 
 Function: Filters the maximum element. This method consumes all elements in the iterator.
 
-Return Value:
+Return value:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - Returns the maximum element, or None if empty.
 
@@ -1271,7 +1989,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4]
 
-    /* Get iterator object and use max() to find maximum value */
+    /* Get iterator object and use max() to find the maximum value */
     var iter = arr.iterator()
     match (iter.max()) {
         case Some(i) => println(i)
@@ -1281,7 +1999,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 4
@@ -1295,7 +2013,7 @@ public func min(): Option<T>
 
 Function: Filters the minimum element. This method consumes all elements in the iterator.
 
-Return Value:
+Return value:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - Returns the minimum element, or None if empty.
 
@@ -1307,7 +2025,7 @@ Example:
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4]
 
-    /* Get iterator object and use min() to find minimum value */
+    /* Get iterator object and use min() to find the minimum value */
     var iter = arr.iterator()
     match (iter.min()) {
         case Some(i) => println(i)
@@ -1317,7 +2035,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 1
@@ -1329,7 +2047,7 @@ Execution Result:
 extend<T> Iterator<T> where T <: Equatable<T>
 ```
 
-Function: Extends the [Iterator](core_package_classes.md#class-iteratort)\<T> type with the [Equatable](core_package_interfaces.md#interface-equatablet)\<T> interface to support equality comparison operations.
+Function: Extends the [Iterator](core_package_classes.md#class-iteratort)\<T> type with the [Equatable](core_package_interfaces.md#interface-equatablet)\<T> interface to support equality operations.
 
 #### func contains(T)
 
@@ -1337,13 +2055,13 @@ Function: Extends the [Iterator](core_package_classes.md#class-iteratort)\<T> ty
 public func contains(element: T): Bool
 ```
 
-Function: Traverses all elements to determine if the specified element is present. This method repeatedly fetches and consumes elements from the iterator until an element equal to the parameter `element` is found.
+Function: Traverses all elements to determine if the specified element is contained. This method repeatedly fetches and consumes elements from the iterator until an element equal to the parameter `element` is found.
 
 Parameters:
 
 - element: T - The element to search for.
 
-Return Value:
+Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the specified element is contained.
 
@@ -1370,7 +2088,7 @@ main(): Int64 {
 }
 ```
 
-Execution Result:
+Execution result:
 
 ```text
 true
@@ -1385,9 +2103,9 @@ public open class Object <: Any {
 }
 ```
 
-Function: [Object](core_package_classes.md#class-object) is the parent class of all `class` types, and all `class` types implicitly inherit from it. The [Object](core_package_classes.md#class-object) class contains no members, making it an "empty" class.
+Function: [Object](core_package_classes.md#class-object) is the parent class of all `class` types, and all `class` types inherit from it by default. The [Object](core_package_classes.md#class-object) class contains no members, making it an "empty" class.
 
-Parent Type:
+Parent type:
 
 - [Any](core_package_interfaces.md#interface-any)
 
@@ -1399,15 +2117,25 @@ public const init()
 
 Function: Constructs an `object` instance.
 
+Example:
+
+<!-- run -->
+```cangjie
+main(): Int64 {
+    Object()
+    return 0
+}
+```
+
 ## class RangeIterator\<T> <: Iterator\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>
 
 ```cangjie
 public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T>
 ```
 
-Function: Iterator for the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) type. For iteration functionality details, refer to the [Iterable](core_package_interfaces.md#interface-iterablee) and [Iterator](core_package_classes.md#class-iteratort) interface descriptions.
+Function: Iterator for the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) type. For detailed iteration functionality, refer to the [Iterable](core_package_interfaces.md#interface-iterablee) and [Iterator](core_package_classes.md#class-iteratort) interface descriptions.
 
-Parent Type:
+Parent type:
 
 - [Iterator](#class-iteratort)\<T>
 
@@ -1419,9 +2147,42 @@ public func next(): Option<T>
 
 Function: Gets the next value in the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) iterator.
 
-Return Value:
+Return value:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The next member in the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) iterator, encapsulated in [Option](core_package_enums.md#enum-optiont). Returns `None` when iteration reaches the end.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a Range and get its iterator
+    let range: Range<Int64> = 1..=5
+    var iter = range.iterator()
+    
+    // Use iterator to traverse all values in the Range
+    println("Iterating through range 1..=5:")
+    while (true) {
+        match (iter.next()) {
+            case Some(value) => println(value)
+            case None => break
+        }
+    }
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Iterating through range 1..=5:
+1
+2
+3
+4
+5
+```
 
 ## class StackTraceElement
 
@@ -1435,11 +2196,11 @@ public open class StackTraceElement <: ToString {
 }
 ```
 
-Function: Represents detailed information about an exception stack trace, including the class name, method name, file name, and line number where the exception occurred.
+Function: Represents specific information about an exception stack trace, including the class name, method name, file name, and line number where the exception occurred.
 
-Parent Type:
+Parent type:
 
-* [ToString](core_package_interfaces.md#interface-tostring)
+- [ToString](core_package_interfaces.md#interface-tostring)
 
 ### let declaringClass
 
@@ -1451,6 +2212,33 @@ Function: Gets the class name where the exception occurred.
 
 Type: [String](core_package_structs.md#struct-string)
 
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Get and print the class name
+    let className: String = stackTraceElement.declaringClass
+    println("Class name: ${className}")
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Class name: MyClass
+```
+
 ### let fileName
 
 ```cangjie
@@ -1460,6 +2248,33 @@ public let fileName: String
 Function: Gets the file name where the exception occurred.
 
 Type: [String](core_package_structs.md#struct-string)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Get and print the file name
+    let fileName: String = stackTraceElement.fileName
+    println("File name: ${fileName}")
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+File name: MyClass.cj
+```
 
 ### let lineNumber
 
@@ -1471,6 +2286,33 @@ Function: Gets the line number where the exception occurred.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Get and print the line number
+    let lineNum: Int64 = stackTraceElement.lineNumber
+    println("Line number: ${lineNum}")
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Line number: 42
+```
+
 ### let methodName
 
 ```cangjie
@@ -1480,6 +2322,33 @@ public let methodName: String
 Function: Gets the method name where the exception occurred.
 
 Type: [String](core_package_structs.md#struct-string)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Get and print the method name
+    let methodName: String = stackTraceElement.methodName
+    println("Method name: ${methodName}")
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Method name: myMethod
+```
 
 ### init(String, String, String, Int64)
 
@@ -1496,17 +2365,74 @@ Parameters:
 - fileName: [String](core_package_structs.md#struct-string) - The file name.
 - lineNumber: [Int64](core_package_intrinsics.md#int64) - The line number.
 
-### func  toString()
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Print stack trace element information
+    println("Class: ${stackTraceElement.declaringClass}")
+    println("Method: ${stackTraceElement.methodName}")
+    println("File: ${stackTraceElement.fileName}")
+    println("Line: ${stackTraceElement.lineNumber}")
+    
+    return 0
+}
+```
+
+Execution result:
+
+```text
+Class: MyClass
+Method: myMethod
+File: MyClass.cj
+Line: 42
+```
+
+### func toString()
 
 ```cangjie
 public func toString(): String
 ```
 
-Function: Get the string representation of the [StackTraceElement](core_package_classes.md#class-stacktraceelement)  object.
+Function: Gets the string representation of the [StackTraceElement](core_package_classes.md#class-stacktraceelement) object.
 
 Return value:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StackTraceElement instance
+    let stackTraceElement = StackTraceElement(
+        "MyClass", 
+        "myMethod", 
+        "MyClass.cj", 
+        42
+    )
+    
+    // Directly print
+    println(stackTraceElement)
+    return 0
+}
+```
+
+Execution result:
+
+```text
+MyClass.myMethod(MyClass.cj:42)
+```
 
 ## class StringBuilder
 
@@ -1520,12 +2446,12 @@ public class StringBuilder <: ToString {
 }
 ```
 
-Function: This class is primarily used for string construction.
+Functionality: This class is primarily used for string construction.
 
 [StringBuilder](core_package_classes.md#class-stringbuilder) is more efficient than [String](core_package_structs.md#struct-string) for string construction:
 
-- Functionally supports input of multiple types, automatically converting them to [String](core_package_structs.md#struct-string) type objects and appending them to the constructed string.
-- Performance-wise uses dynamic expansion algorithms to reduce memory allocation frequency, resulting in faster string construction and typically lower memory usage.
+- Functionally supports input of multiple value types, which are automatically converted to [String](core_package_structs.md#struct-string) type objects and appended to the constructed string.
+- Performance-wise, it uses a dynamic expansion algorithm to reduce memory allocation frequency, resulting in faster string construction and typically lower memory resource usage.
 
 > **Note:**
 > 
@@ -1541,9 +2467,39 @@ Parent Type:
 public prop capacity: Int64
 ```
 
-Function: Gets the current capacity of the [StringBuilder](core_package_classes.md#class-stringbuilder) instance to hold strings. This value increases as expansion occurs.
+Functionality: Gets the current capacity of the [StringBuilder](core_package_classes.md#class-stringbuilder) instance to hold strings. This value increases as expansion occurs.
 
 Type: [Int64](core_package_intrinsics.md#int64)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder()
+    
+    // Get initial capacity
+    let initialCapacity: Int64 = sb.capacity
+    println("Initial capacity: ${initialCapacity}")
+    
+    // Append some content
+    sb.append("Hello, World!")
+    
+    // Get capacity after appending
+    let currentCapacity: Int64 = sb.capacity
+    println("Current capacity: ${currentCapacity}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Initial capacity: 32
+Current capacity: 32
+```
 
 ### prop size
 
@@ -1551,9 +2507,39 @@ Type: [Int64](core_package_intrinsics.md#int64)
 public prop size: Int64
 ```
 
-Function: Gets the length of the string in the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+Functionality: Gets the length of the string in the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
 
 Type: [Int64](core_package_intrinsics.md#int64)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder()
+    
+    // Get initial size
+    let initialSize: Int64 = sb.size
+    println("Initial size: ${initialSize}")
+    
+    // Append some content
+    sb.append("Hello")
+    
+    // Get size after appending
+    let currentSize: Int64 = sb.size
+    println("Current size: ${currentSize}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Initial size: 0
+Current size: 5
+```
 
 ### init()
 
@@ -1561,7 +2547,32 @@ Type: [Int64](core_package_intrinsics.md#int64)
 public init()
 ```
 
-Function: Constructs an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with an initial capacity of 32.
+Functionality: Constructs an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with an initial capacity of 32.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance using default constructor
+    var sb = StringBuilder()
+    
+    // Verify initial state
+    println("Initial capacity: ${sb.capacity}")
+    println("Initial size: ${sb.size}")
+    println("Initial content: '${sb}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Initial capacity: 32
+Initial size: 0
+Initial content: ''
+```
 
 ### init(Array\<Rune>)
 
@@ -1569,11 +2580,39 @@ Function: Constructs an empty [StringBuilder](core_package_classes.md#class-stri
 public init(value: Array<Rune>)
 ```
 
-Function: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance using the character array specified by `value`. The initial capacity is the size of `value`, and the initial content is the characters contained in `value`.
+Functionality: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the character array specified by parameter `value`. The instance's initial capacity is the size of `value`, and its initial content is the characters contained in `value`.
 
 Parameters:
 
 - value: [Array](core_package_structs.md#struct-arrayt)\<Rune> - The character array used to initialize the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a Rune array
+    let runes: Array<Rune> = [r'H', r'e', r'l', r'l', r'o']
+    
+    // Create a StringBuilder instance using the Rune array
+    var sb = StringBuilder(runes)
+    
+    // Verify initialization result
+    println("Capacity: ${sb.capacity}")
+    println("Size: ${sb.size}")
+    println("Content: '${sb}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Capacity: 37
+Size: 5
+Content: 'Hello'
+```
 
 ### init(Int64)
 
@@ -1581,15 +2620,47 @@ Parameters:
 public init(capacity: Int64)
 ```
 
-Function: Initializes an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the capacity specified by `capacity`. The initial capacity is the size of `value`, and the initial content consists of several `\0` characters.
+Functionality: Initializes an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the capacity specified by parameter `capacity`. The instance's initial capacity is the size of `value`, and its initial content consists of several `\0` characters.
 
 Parameters:
 
-- capacity: [Int64](core_package_intrinsics.md#int64) - The byte capacity for initializing the [StringBuilder](core_package_classes.md#class-stringbuilder), with a valid range of (0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)].
+- capacity: [Int64](core_package_intrinsics.md#int64) - The byte capacity for initializing the [StringBuilder](core_package_classes.md#class-stringbuilder) instance. Valid range is (0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)].
 
 Exceptions:
 
-- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when the `capacity` parameter is less than or equal to 0.
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when parameter `capacity` is less than or equal to 0.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance with specified capacity
+    var sb = StringBuilder(100)
+    
+    // Verify initialization result
+    println("Capacity: ${sb.capacity}")
+    println("Size: ${sb.size}")
+    println("Content: '${sb}'")
+    
+    // Append content
+    sb.append("Hello, World!")
+    println("After append - Size: ${sb.size}")
+    println("After append - Content: '${sb}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Capacity: 100
+Size: 0
+Content: ''
+After append - Size: 13
+After append - Content: 'Hello, World!'
+```
 
 ### init(Rune, Int64)
 
@@ -1597,16 +2668,48 @@ Exceptions:
 public init(r: Rune, n: Int64)
 ```
 
-Function: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with `n` copies of the character `r`. The initial capacity is `n`, and the initial content consists of `n` copies of `r`.
+Functionality: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with `n` instances of character `r`. The instance's initial capacity is `n`, and its initial content consists of `n` instances of character `r`.
 
 Parameters:
 
 - r: Rune - The character used to initialize the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
-- n: [Int64](core_package_intrinsics.md#int64) - The number of `r` characters, with a valid range of [0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)].
+- n: [Int64](core_package_intrinsics.md#int64) - The number of character `r`. Valid range is [0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)].
 
 Exceptions:
 
-- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when the `n` parameter is less than 0.
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when parameter `n` is less than 0.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance with 5 '*' characters
+    var sb = StringBuilder(r'*', 5)
+    
+    // Verify initialization result
+    println("Capacity: ${sb.capacity}")
+    println("Size: ${sb.size}")
+    println("Content: '${sb}'")
+    
+    // Append more content
+    sb.append("Hello")
+    println("After append - Size: ${sb.size}")
+    println("After append - Content: '${sb}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Capacity: 37
+Size: 5
+Content: '*****'
+After append - Size: 10
+After append - Content: '*****Hello'
+```
 
 ### init(String)
 
@@ -1614,11 +2717,43 @@ Exceptions:
 public init(str: String)
 ```
 
-Function: Constructs a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the specified initial string. The initial capacity is the size of the specified string, and the initial content is the specified string.
+Functionality: Constructs a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the specified initial string. The instance's initial capacity is the size of the specified string, and its initial content is the specified string.
 
 Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The string used to initialize the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance with initial string
+    var sb = StringBuilder("Hello, World!")
+    
+    // Verify initialization result
+    println("Capacity: ${sb.capacity}")
+    println("Size: ${sb.size}")
+    println("Content: '${sb}'")
+    
+    // Append more content
+    sb.append(" Welcome!")
+    println("After append - Size: ${sb.size}")
+    println("After append - Content: '${sb}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Capacity: 45
+Size: 13
+Content: 'Hello, World!'
+After append - Size: 22
+After append - Content: 'Hello, World! Welcome!'
+```
 
 ### func append(Array\<Rune>)
 
@@ -1626,11 +2761,40 @@ Parameters:
 public func append(runeArr: Array<Rune>): Unit
 ```
 
-Function: Appends all characters from the `Rune` array to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Functionality: Appends all characters from a `Rune` array to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - runeArr: [Array](core_package_structs.md#struct-arrayt)\<Rune> - The `Rune` array to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello")
+    
+    // Create a Rune array
+    let runes: Array<Rune> = [r' ', r'W', r'o', r'r', r'l', r'd']
+    
+    // Append the Rune array to StringBuilder
+    sb.append(runes)
+    
+    // Verify result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Hello World'
+Size: 11
+```
 
 ### func append\<T>(Array\<T>) where T <: ToString
 
@@ -1638,11 +2802,40 @@ Parameters:
 public func append<T>(val: Array<T>): Unit where T <: ToString
 ```
 
-Function: Appends the string representation of the [Array](core_package_structs.md#struct-arrayt)\<T> specified by `val` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
+Functionality: Appends the string representation of the [Array](core_package_structs.md#struct-arrayt)\<T> specified by parameter `val` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
 
 Parameters:
 
 - val: [Array](core_package_structs.md#struct-arrayt)\<T> - The [Array](core_package_structs.md#struct-arrayt)\<T> instance to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Numbers: ")
+    
+    // Create an integer array
+    let numbers: Array<Int64> = [1, 2, 3, 4, 5]
+    
+    // Append the integer array to StringBuilder
+    sb.append(numbers)
+    
+    // Verify result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Numbers: 12345'
+Size: 14
+```
 
 ### func append(Bool)
 
@@ -1650,11 +2843,39 @@ Parameters:
 public func append(b: Bool): Unit
 ```
 
-Function: Appends the string representation of the `b` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `b` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - b: [Bool](core_package_intrinsics.md#bool) - The [Bool](core_package_intrinsics.md#bool) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Boolean values: ")
+    
+    // Append boolean values
+    sb.append(true)
+    sb.append(" and ")
+    sb.append(false)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Boolean values: true and false'
+Size: 30
+```
 
 ### func append(CString)
 
@@ -1662,11 +2883,41 @@ Parameters:
 public func append(cstr: CString): Unit
 ```
 
-Function: Appends the content of the [CString](core_package_intrinsics.md#cstring) specified by `cstr` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the content specified by parameter `cstr` from [CString](core_package_intrinsics.md#cstring) to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - cstr: [CString](core_package_intrinsics.md#cstring) - The [CString](core_package_intrinsics.md#cstring) to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Message: ")
+    
+    // Create a CString
+    let cstr: CString = unsafe { LibC.mallocCString("Hello from C string") }
+    
+    // Append CString
+    sb.append(cstr)
+    
+    unsafe { LibC.free(cstr) }
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Message: Hello from C string'
+Size: 28
+```
 
 ### func append(Float16)
 
@@ -1674,11 +2925,37 @@ Parameters:
 public func append(n: Float16): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Float16](core_package_intrinsics.md#float16) - The [Float16](core_package_intrinsics.md#float16) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Float16 value: ")
+    
+    // Append Float16 value
+    sb.append(3.14f16)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Float16 value: 3.140625'
+Size: 23
+```
 
 ### func append(Float32)
 
@@ -1686,11 +2963,37 @@ Parameters:
 public func append(n: Float32): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Float32](core_package_intrinsics.md#float32) - The [Float32](core_package_intrinsics.md#float32) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Float32 value: ")
+    
+    // Append Float32 value
+    sb.append(3.14159f32)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Float32 value: 3.141590'
+Size: 23
+```
 
 ### func append(Float64)
 
@@ -1698,11 +3001,37 @@ Parameters:
 public func append(n: Float64): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Float64](core_package_intrinsics.md#float64) - The [Float64](core_package_intrinsics.md#float64) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Float64 value: ")
+    
+    // Append Float64 value
+    sb.append(3.141592653589793)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Float64 value: 3.141593'
+Size: 23
+```
 
 ### func append(Int16)
 
@@ -1710,11 +3039,37 @@ Parameters:
 public func append(n: Int16): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Int16](core_package_intrinsics.md#int16) - The [Int16](core_package_intrinsics.md#int16) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Int16 value: ")
+    
+    // Append Int16 value
+    sb.append(12345i16)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Int16 value: 12345'
+Size: 18
+```
 
 ### func append(Int32)
 
@@ -1722,11 +3077,37 @@ Parameters:
 public func append(n: Int32): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Int32](core_package_intrinsics.md#int32) - The [Int32](core_package_intrinsics.md#int32) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Int32 value: ")
+    
+    // Append Int32 value
+    sb.append(1234567890i32)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Int32 value: 1234567890'
+Size: 23
+```
 
 ### func append(Int64)
 
@@ -1734,11 +3115,37 @@ Parameters:
 public func append(n: Int64): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Int64](core_package_intrinsics.md#int64) - The [Int64](core_package_intrinsics.md#int64) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Int64 value: ")
+    
+    // Append Int64 value
+    sb.append(123456789012345)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Int64 value: 123456789012345'
+Size: 28
+```
 
 ### func append(Int8)
 
@@ -1746,11 +3153,37 @@ Parameters:
 public func append(n: Int8): Unit
 ```
 
-Function: Appends the string representation of the `n` parameter to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string representation of parameter `n` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - n: [Int8](core_package_intrinsics.md#int8) - The [Int8](core_package_intrinsics.md#int8) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Int8 value: ")
+    
+    // Append Int8 value
+    sb.append(123i8)
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Int8 value: 123'
+Size: 15
+```
 
 ### func append(Rune)
 
@@ -1758,11 +3191,37 @@ Parameters:
 public func append(r: Rune): Unit
 ```
 
-Function: Appends the character specified by `r` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the character specified by parameter `r` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - r: Rune - The character to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello")
+    
+    // Append a character
+    sb.append(r'!')
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Hello!'
+Size: 6
+```
 
 ### func append(String)
 
@@ -1770,11 +3229,37 @@ Parameters:
 public func append(str: String): Unit
 ```
 
-Function: Appends the string specified by `str` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the string specified by parameter `str` to the end of [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The string to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello")
+    
+    // Append a string
+    sb.append(", World!")
+    
+    // Verify results
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Execution Result:
+
+```text
+Content: 'Hello, World!'
+Size: 13
+```
 
 ### func append(StringBuilder)
 
@@ -1782,11 +3267,38 @@ Parameters:
 public func append(sb: StringBuilder): Unit
 ```
 
-Function: Appends the content of the [StringBuilder](core_package_classes.md#class-stringbuilder) specified by `sb` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends the content of the specified [StringBuilder](core_package_classes.md#class-stringbuilder) parameter `sb` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
 - sb: [StringBuilder](core_package_classes.md#class-stringbuilder) - The [StringBuilder](core_package_classes.md#class-stringbuilder) instance to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create two StringBuilder instances
+    var sb1 = StringBuilder("Hello")
+    var sb2 = StringBuilder(", World!")
+    
+    // Append sb2's content to sb1
+    sb1.append(sb2)
+    
+    // Verify the result
+    println("Content: '${sb1}'")
+    println("Size: ${sb1.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Hello, World!'
+Size: 13
+```
 
 ### func append\<T>(T) where T <: ToString
 
@@ -1794,15 +3306,428 @@ Parameters:
 public func append<T>(v: T): Unit where T <: ToString
 ```
 
-Function: Appends the string representation of the `T` type instance specified by `v` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
+Function: Appends the string representation of the parameter `v` of type `T` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
 
-Parameters## class Thread
+Parameters:
+
+- v: T - The instance of type `T` to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("The answer is: ")
+    
+    // Append an integer (implements ToString interface)
+    sb.append(42)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'The answer is: 42'
+Size: 17
+```
+
+### func append(UInt16)
+
+```cangjie
+public func append(n: UInt16): Unit
+```
+
+Function: Appends the string representation of the parameter `n` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+Parameters:
+
+- n: [UInt16](core_package_intrinsics.md#uint16) - The [UInt16](core_package_intrinsics.md#uint16) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("UInt16 value: ")
+    
+    // Append a UInt16 value
+    sb.append(12345u16)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'UInt16 value: 12345'
+Size: 19
+```
+
+### func append(UInt32)
+
+```cangjie
+public func append(n: UInt32): Unit
+```
+
+Function: Appends the string representation of the parameter `n` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+Parameters:
+
+- n: [UInt32](core_package_intrinsics.md#uint32) - The [UInt32](core_package_intrinsics.md#uint32) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("UInt32 value: ")
+    
+    // Append a UInt32 value
+    sb.append(1234567890u32)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'UInt32 value: 1234567890'
+Size: 24
+```
+
+### func append(UInt64)
+
+```cangjie
+public func append(n: UInt64): Unit
+```
+
+Function: Appends the string representation of the parameter `n` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+Parameters:
+
+- n: [UInt64](core_package_intrinsics.md#uint64) - The [UInt64](core_package_intrinsics.md#uint64) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("UInt64 value: ")
+    
+    // Append a UInt64 value
+    sb.append(123456789012345u64)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'UInt64 value: 123456789012345'
+Size: 29
+```
+
+### func append(UInt8)
+
+```cangjie
+public func append(n: UInt8): Unit
+```
+
+Function: Appends the string representation of the parameter `n` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+Parameters:
+
+- n: [UInt8](core_package_intrinsics.md#uint8) - The [UInt8](core_package_intrinsics.md#uint8) value to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("UInt8 value: ")
+    
+    // Append a UInt8 value
+    sb.append(123u8)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'UInt8 value: 123'
+Size: 16
+```
+
+### func appendFromUtf8(Array\<Byte>)
+
+```cangjie
+public func appendFromUtf8(arr: Array<Byte>): Unit
+```
+
+Function: Appends the byte array pointed to by parameter `arr` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+This function requires the parameter `arr` to be UTF-8 encoded. If not, an exception will be thrown.
+
+Parameters:
+
+- arr: [Array](core_package_structs.md#struct-arrayt)\<[Byte](core_package_types.md#type-byte)> - The byte array to append.
+
+Exceptions:
+
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when the byte array does not conform to UTF-8 encoding rules.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello, ")
+    
+    // Create a UTF-8 encoded byte array (ASCII codes for "World")
+    let utf8Bytes: Array<Byte> = [87, 111, 114, 108, 100] // ASCII for "World"
+    
+    // Append the UTF-8 byte array
+    sb.appendFromUtf8(utf8Bytes)
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Hello, World'
+Size: 12
+```
+
+### func appendFromUtf8Unchecked(Array\<Byte>)
+
+```cangjie
+public unsafe func appendFromUtf8Unchecked(arr: Array<Byte>): Unit
+```
+
+Function: Appends the byte array pointed to by parameter `arr` to the end of this [StringBuilder](core_package_classes.md#class-stringbuilder).
+
+Unlike the `appendFromUtf8` function, this does not perform UTF-8 encoding checks on the byte array. Therefore, the resulting string is not guaranteed to be valid and may cause unexpected exceptions. Unless performance is critical, prefer using the safer `appendFromUtf8` function.
+
+Parameters:
+
+- arr: [Array](core_package_structs.md#struct-arrayt)\<[Byte](core_package_types.md#type-byte)> - The byte array to append.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello, ")
+    
+    // Create a byte array (ASCII codes for "World")
+    let bytes: Array<Byte> = [87, 111, 114, 108, 100] // ASCII for "World"
+    
+    // Append the byte array (without UTF-8 check)
+    unsafe { sb.appendFromUtf8Unchecked(bytes) }
+    
+    // Verify the result
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Hello, World'
+Size: 12
+```
+
+### func reserve(Int64)
+
+```cangjie
+public func reserve(additional: Int64): Unit
+```
+
+Function: Expands the capacity of this [StringBuilder](core_package_classes.md#class-stringbuilder) by `additional` size.
+
+No expansion occurs if `additional` is less than or equal to zero, or if the remaining capacity is greater than or equal to `additional`. When the remaining capacity is less than `additional`, the capacity is expanded to the maximum of either 1.5 times the current capacity (rounded down) or `size` + `additional`.
+
+Parameters:
+
+- additional: [Int64](core_package_intrinsics.md#int64) - The additional capacity to reserve.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance
+    var sb = StringBuilder("Hello")
+    
+    // Check initial capacity and size
+    println("Initial capacity: ${sb.capacity}")
+    println("Initial size: ${sb.size}")
+    
+    // Reserve additional space
+    sb.reserve(100)
+    
+    // Check capacity after reservation
+    println("Capacity after reserve: ${sb.capacity}")
+    println("Size after reserve: ${sb.size}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Initial capacity: 37
+Initial size: 5
+Capacity after reserve: 105
+Size after reserve: 5
+```
+
+### func reset(Option\<Int64>)
+
+```cangjie
+public func reset(capacity!: Option<Int64> = None): Unit
+```
+
+Function: Clears the current [StringBuilder](core_package_classes.md#class-stringbuilder) and resets its capacity to the value specified by `capacity`.
+
+Parameters:
+
+- capacity!: [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The capacity to reset the [StringBuilder](core_package_classes.md#class-stringbuilder) instance to. Valid values are `None` and (`Some(0)`, `Some(Int64.Max)`]. Default `None` uses the default capacity (32).
+
+Exceptions:
+
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when the `capacity` parameter is less than or equal to 0.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance and add some content
+    var sb = StringBuilder("Hello, World!")
+    println("Before reset - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
+    
+    // Reset StringBuilder with default capacity
+    sb.reset()
+    println("After reset - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
+    
+    // Add new content
+    sb.append("New content")
+    println("After append - Content: '${sb}', Size: ${sb.size}")
+    
+    // Reset with specified capacity
+    sb.reset(capacity: Some(50))
+    println("After reset with capacity - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Before reset - Content: 'Hello, World!', Size: 13, Capacity: 45
+After reset - Content: '', Size: 0, Capacity: 32
+After append - Content: 'New content', Size: 11
+After reset with capacity - Content: '', Size: 0, Capacity: 50
+```
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Retrieves the string from this [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+
+> **Note:**
+> 
+> This function does not copy the string data.
+
+Return Value:
+
+- [String](core_package_structs.md#struct-string) - The string contained in this [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Create a StringBuilder instance and add some content
+    var sb = StringBuilder("Hello")
+    sb.append(", World!")
+    
+    // Get the string representation
+    let result: String = sb.toString()
+    println("Content: '${result}'")
+    println("Size: ${sb.size}")
+    
+    // Verify the return type is String
+    println("Type check: ${result is String}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Content: 'Hello, World!'
+Size: 13
+Type check: true
+```
+
+## class Thread
 
 ```cangjie
 public class Thread
 ```
 
-Function: Obtains thread ID and name, checks for cancellation requests, registers unhandled exception handlers, etc.
+Functionality: Retrieves thread ID and name, checks for thread cancellation requests, registers uncaught exception handlers, etc.
 
 Instances of this type cannot be constructed directly. They can only be obtained through the `thread` property of a [Future](core_package_classes.md#class-futuret) object or the `currentThread` static property of the [Thread](core_package_classes.md#class-thread) class.
 
@@ -1812,9 +3737,32 @@ Instances of this type cannot be constructed directly. They can only be obtained
 public static prop currentThread: Thread
 ```
 
-Function: Gets the [Thread](core_package_classes.md#class-thread) object representing the currently executing thread.
+Functionality: Gets the [Thread](core_package_classes.md#class-thread) object representing the currently executing thread.
 
 Type: [Thread](core_package_classes.md#class-thread)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Get current thread
+    let currentThread = Thread.currentThread
+    
+    // Print thread information
+    println("Current thread ID: ${currentThread.id}")
+    println("Current thread name: '${currentThread.name}'")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Current thread ID: 1
+Current thread name: ''
+```
 
 ### prop hasPendingCancellation
 
@@ -1822,9 +3770,46 @@ Type: [Thread](core_package_classes.md#class-thread)
 public prop hasPendingCancellation: Bool
 ```
 
-Function: Indicates whether the thread has a pending cancellation request (i.e., whether a cancellation request was sent via future.cancel()). Common usage: [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
+Functionality: Determines whether the current thread has received a cancellation request, i.e., whether another thread has sent a cancellation request via future.cancel(). Common usage: [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
 
 Type: [Bool](core_package_intrinsics.md#bool)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Get current thread
+    let currentThread = Thread.currentThread
+    
+    // Check for cancellation request
+    let hasPendingCancellation: Bool = currentThread.hasPendingCancellation
+    
+    println("Has pending cancellation: ${hasPendingCancellation}")
+    
+    let future = spawn {
+        while (true) {
+            if (Thread.currentThread.hasPendingCancellation) {
+                println("Has pending cancellation: ${Thread.currentThread.hasPendingCancellation}")
+                return 0
+            }
+        }
+        return 1
+    }
+    /* Send cancellation request to thread */
+    future.cancel()
+    /* Wait for thread result */
+    future.get()
+    return 0
+}
+```
+
+Output:
+
+```text
+Has pending cancellation: false
+Has pending cancellation: true
+```
 
 ### prop id
 
@@ -1832,9 +3817,32 @@ Type: [Bool](core_package_intrinsics.md#bool)
 public prop id: Int64
 ```
 
-Function: Gets the identifier of the currently executing thread, represented as [Int64](core_package_intrinsics.md#int64). All live threads have unique identifiers, but identifiers may be reused after thread termination.
+Functionality: Gets the identifier of the currently executing thread as an [Int64](core_package_intrinsics.md#int64). All live threads have unique identifiers, but there's no guarantee that a thread's identifier won't be reused after it terminates.
 
 Type: [Int64](core_package_intrinsics.md#int64)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Get current thread
+    let currentThread = Thread.currentThread
+    
+    // Get thread ID
+    let threadId: Int64 = currentThread.id
+    
+    println("Current thread ID: ${threadId}")
+    
+    return 0
+}
+```
+
+Output:
+
+```text
+Current thread ID: 1
+```
 
 ### prop name
 
@@ -1842,82 +3850,39 @@ Type: [Int64](core_package_intrinsics.md#int64)
 public mut prop name: String
 ```
 
-Function: Gets or sets the thread's name. Both operations are atomic.
+Functionality: Gets or sets the thread name atomically.
 
 Type: [String](core_package_structs.md#struct-string)
 
-### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
+Example:
 
+<!-- verify -->
 ```cangjie
-public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit
+main(): Int64 {
+    // Get current thread
+    let currentThread = Thread.currentThread
+    
+    // Get current thread name
+    let originalName: String = currentThread.name
+    println("Original thread name: '${originalName}'")
+    
+    // Set thread name
+    currentThread.name = "MyCustomThread"
+    
+    // Get updated thread name
+    let newName: String = currentThread.name
+    println("New thread name: '${newName}'")
+    
+    return 0
+}
 ```
 
-Function: Registers a handler for unhandled thread exceptions.
+Output:
 
-When a thread terminates prematurely due to an exception, if a global unhandled exception handler is registered, this function will be invoked before thread termination. If an exception is thrown within this handler, a warning message will be printed to the terminal (without stack trace) before thread termination. If no global handler is registered, the exception stack trace will be printed by default.
-
-Subsequent registrations will override previous handler functions.
-
-When multiple threads terminate due to exceptions concurrently, the handler function will be executed concurrently. Developers must ensure thread safety within the handler.
-
-Handler parameters:
-
-- First parameter: [Thread](core_package_classes.md#class-thread) - The thread where the exception occurred
-- Second parameter: [Exception](core_package_exceptions.md#class-exception) - The unhandled exception
-
-Parameters:
-
-- exHandler: ([Thread](core_package_classes.md#class-thread), [Exception](core_package_exceptions.md#class-exception)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
-
-## class Thread
-
-```cangjie
-public class Thread
+```text
+Original thread name: ''
+New thread name: 'MyCustomThread'
 ```
-
-Function: Get thread ID and name, check if there is a cancellation request for the thread, register handler functions for unhandled exceptions in threads, etc.
-
-Instances of this type cannot be obtained through construction, but can only be obtained through the `thread` property of [Future](core_package_classes.md#class-futuret) objects or the `currentThread` static property of the [Thread](core_package_classes.md#class-thread) class.
-
-### static prop currentThread
-
-```cangjie
-public static prop currentThread: Thread
-```
-
-Function: Get the [Thread](core_package_classes.md#class-thread) object of the currently executing thread.
-
-Type: [Thread](core_package_classes.md#class-thread)
-
-### prop hasPendingCancellation
-
-```cangjie
-public prop hasPendingCancellation: Bool
-```
-
-Function: Whether the thread has a cancellation request, that is, whether a cancellation request has been sent through future.cancel(). Commonly used by [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
-
-Type: [Bool](core_package_intrinsics.md#bool)
-
-### prop id
-
-```cangjie
-public prop id: Int64
-```
-
-Function: Get the identifier of the currently executing thread, represented by [Int64](core_package_intrinsics.md#int64). All living threads have different identifiers, but it is not guaranteed that the identifier will be reused after the thread execution ends.
-
-Type: [Int64](core_package_intrinsics.md#int64)
-
-### prop name
-
-```cangjie
-public mut prop name: String
-```
-
-Function: Get or set the name of the thread. Both getting and setting are atomic.
-
-Type: [String](core_package_structs.md#struct-string)
 
 ### prop state
 
@@ -1925,9 +3890,30 @@ Type: [String](core_package_structs.md#struct-string)
 public prop state: ThreadState
 ```
 
-Function: Get the state of the thread.
+Functionality: Gets the thread's state.
 
 Type: [ThreadState](core_package_enums.md#enum-threadstate)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // Get current thread
+    let currentThread = Thread.currentThread
+    
+    // Get current thread state
+    let state = currentThread.state
+    println("Current thread state: '${state}'")
+    return 0
+}
+```
+
+Output:
+
+```text
+Current thread state: 'Running'
+```
 
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
@@ -1935,19 +3921,54 @@ Type: [ThreadState](core_package_enums.md#enum-threadstate)
 public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit
 ```
 
-Function: Register a handler function for uncaught exceptions in threads.
+Functionality: Registers a handler for uncaught thread exceptions.
 
-When a thread terminates prematurely due to an exception, if the global uncaught exception function is registered, the function will be called and the thread will end. When an exception is thrown in the function, a prompt message will be printed to the terminal and the thread will end, but the exception call stack information will not be printed; if the global exception handler function is not registered, the default will print the exception call stack information to the terminal.
+When a thread terminates prematurely due to an exception, if a global uncaught exception handler is registered, it will be invoked before thread termination. If the handler itself throws an exception, a warning message will be printed to the terminal (without stack trace). If no handler is registered, the exception stack trace will be printed by default.
 
-When registering handler functions multiple times, subsequent registration functions will overwrite the previous handler functions.
+Multiple registrations will overwrite previous handlers.
 
-When multiple threads terminate due to exceptions at the same time, the handler functions will be executed concurrently, so developers need to ensure concurrency correctness in the handler functions.
+When multiple threads terminate due to exceptions concurrently, the handler will be executed concurrently for each thread, so thread safety must be ensured in the handler.
 
-The first parameter of the handler function is of type [Thread](core_package_classes.md#class-thread), which is the thread where the exception occurred. The second parameter is of type [Exception](core_package_exceptions.md#class-exception), which is the unhandled exception of the thread.
+The handler's first parameter is the [Thread](core_package_classes.md#class-thread) where the exception occurred, and the second parameter is the uncaught [Exception](core_package_exceptions.md#class-exception).
 
 Parameters:
 
-- exHandler: ([Thread](core_package_classes.md#class-thread), [Exception](core_package_exceptions.md#class-exception)) -> [Unit](core_package_intrinsics.md#unit) - The registered handler function.
+- exHandler: ([Thread](core_package_classes.md#class-thread), [Exception](core_package_exceptions.md#class-exception)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
+
+Example:
+
+<!-- verify -->
+```cangjie
+// Define exception handler
+func handleException(thread: Thread, exception: Exception): Unit {
+    println("Unhandled exception in thread ${thread.name}: ${exception.message}")
+}
+
+main(): Int64 {
+    // Register uncaught exception handler
+    Thread.handleUncaughtExceptionBy(handleException)
+    
+    // Create a thread that throws an exception
+    let future = spawn {
+        throw Exception("This is a thread exception.")
+    }
+
+    try {
+        // Wait for thread result
+        future.get()
+    } catch (e: Exception) {
+        println("Caught exception: ${e.message}")
+    }
+    return 0
+}
+```
+
+Output:
+
+```text
+Unhandled exception in thread : This is a thread exception.
+Caught exception: This is a thread exception.
+```
 
 ## class ThreadLocal\<T>
 
@@ -1955,9 +3976,9 @@ Parameters:
 public class ThreadLocal<T>
 ```
 
-Function: This class represents Cangjie thread-local variables.
+Functionality: Represents Cangjie thread-local variables.
 
-Compared to regular variables, thread-local variables have different access semantics. When multiple threads share the same thread-local variable, each thread maintains its own copy. Threads accessing the variable will read/write their local copy without affecting other threads' values.
+Unlike regular variables, thread-local variables have different access semantics. When multiple threads share the same thread-local variable, each thread maintains its own copy. Threads access their local copies without affecting other threads' values.
 
 ### func get()
 
@@ -1965,11 +3986,66 @@ Compared to regular variables, thread-local variables have different access sema
 public func get(): ?T
 ```
 
-Function: Gets the value of the Cangjie thread-local variable.
+Functionality: Gets the value of the Cangjie thread-local variable.
 
 Return value:
 
-- ?T - Returns the value if the current thread-local variable is non-null, otherwise returns `None`.
+- ?T - Returns the value if the thread-local variable is non-null, otherwise returns `None`.
+
+Example:
+
+<!-- run -->
+```cangjie
+
+let local = ThreadLocal<Int64>()
+
+func printUserID(): Unit {
+    println("User ID: ${local.get() ?? 0}")
+}
+
+func setUserID(id: Int64): Unit {
+    local.set(Some(id))
+}
+
+main() {
+    let future = spawn {
+        // Simulate getting user ID
+        var id = 1001
+        setUserID(id)
+
+        // ThreadLocal eliminates parameter passing
+        printUserID()
+    }
+    let future1 = spawn {
+        // Simulate getting user ID
+        var id = 1002
+        setUserID(id)
+
+        // Using ThreadLocal allows obtaining the user ID without passing parameters
+        printUserID()
+    }
+    let future2 = spawn {
+        // Simulate getting user ID
+        var id = 1003
+        setUserID(id)
+
+        // Using ThreadLocal allows obtaining the user ID without passing parameters
+        printUserID()
+    }
+    future.get()
+    future1.get()
+    future2.get()
+    return 0
+}
+```
+
+Possible output:
+
+```text
+User ID: 1003
+User ID: 1001
+User ID: 1002
+```
 
 ### func set(?T)
 
@@ -1977,11 +4053,66 @@ Return value:
 public func set(value: ?T): Unit
 ```
 
-Function: Sets the value of the Cangjie thread-local variable. If `None` is passed, the local value will be removed and become inaccessible in subsequent thread operations.
+Functionality: Sets the value of the Cangjie thread-local variable. If `None` is passed, the value is removed and becomes inaccessible to the thread.
 
 Parameters:
 
-- value: ?T - The value to set for the thread-local variable.
+- value: ?T - The value to set.
+
+Example:
+
+<!-- run -->
+```cangjie
+
+let local = ThreadLocal<Int64>()
+
+func printUserID(): Unit {
+    println("User ID: ${local.get() ?? 0}")
+}
+
+func setUserID(id: Int64): Unit {
+    local.set(Some(id))
+}
+
+main() {
+    let future = spawn {
+        // Simulate fetching user ID
+        var id = 1001
+        setUserID(id)
+
+        // ThreadLocal allows obtaining user ID without passing parameters
+        printUserID()
+    }
+    let future1 = spawn {
+        // Simulate fetching user ID
+        var id = 1002
+        setUserID(id)
+
+        // ThreadLocal allows obtaining user ID without passing parameters
+        printUserID()
+    }
+    let future2 = spawn {
+        // Simulate fetching user ID
+        var id = 1003
+        setUserID(id)
+
+        // ThreadLocal allows obtaining user ID without passing parameters
+        printUserID()
+    }
+    future.get()
+    future1.get()
+    future2.get()
+    return 0
+}
+```
+
+Possible output:
+
+```text
+User ID: 1003
+User ID: 1001
+User ID: 1002
+```
 
 ## class ThreadSnapshot
 
@@ -1997,9 +4128,9 @@ public class ThreadSnapshot <: ToString {
 }
 ```
 
-Function: Get information of the current thread or all threads, including name, id, state, and call stack.
+Functionality: Retrieves information about current or all threads, including name, ID, state, and call stack.
 
-Instances of this type cannot be obtained through construction, but only through the [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread) and [dumpAllThreads](core_package_classes.md#func-dumpallthreads) static functions of the [class ThreadSnapshot ](core_package_classes.md#class-threadsnapshot) class.
+Instances of this type cannot be constructed directly. They can only be obtained through the static functions [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread) and [dumpAllThreads](core_package_classes.md#func-dumpallthreads) of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) class.
 
 Parent type:
 
@@ -2011,7 +4142,7 @@ Parent type:
 public let id: Int64
 ```
 
-Function: Get the id of the thread.
+Function: Gets the thread's ID.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
@@ -2021,7 +4152,7 @@ Type: [Int64](core_package_intrinsics.md#int64)
 public let name: String
 ```
 
-Function: Get the name of the thread.
+Function: Gets the thread's name.
 
 Type: [String](core_package_structs.md#struct-string)
 
@@ -2031,7 +4162,7 @@ Type: [String](core_package_structs.md#struct-string)
 public let stackTrace: Array<StackTraceElement>
 ```
 
-Function: Get the call stack information of the thread.
+Function: Gets the thread's call stack information.
 
 Type: [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)>
 
@@ -2041,7 +4172,7 @@ Type: [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_p
 public let state: ThreadState
 ```
 
-Function: Get the state of the thread.
+Function: Gets the thread's state.
 
 Type: [ThreadState](core_package_enums.md#enum-threadstate)
 
@@ -2051,11 +4182,11 @@ Type: [ThreadState](core_package_enums.md#enum-threadstate)
 public static func dumpAllThreads(): Array<ThreadSnapshot>
 ```
 
-Function: Get information of all threads in the current process.
+Function: Gets information about all threads in the current process.
 
-Return value:
+Return Value:
 
-- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Return an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information of all threads in the current process.
+- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Returns an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information about all threads in the current process.
 
 Example:
 
@@ -2072,9 +4203,9 @@ main(): Unit {
             }
         }
     }
-    /* Get information of all threads */
+    /* Get information about all threads */
     let threadInfoArray: Array<ThreadSnapshot> = ThreadSnapshot.dumpAllThreads()
-    /* Loop print thread information */
+    /* Iterate and print thread information */
     let size = threadInfoArray.size
     for (i in 0..size) {
         let threadInfoData = threadInfoArray[i]
@@ -2083,7 +4214,7 @@ main(): Unit {
 }
 ```
 
-Running result:
+Execution Result:
 
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
@@ -2104,11 +4235,11 @@ stack trace:
 public static func dumpCurrentThread(): ThreadSnapshot
 ```
 
-Function: Get information of the current thread.
+Function: Gets information about the current thread.
 
-Return value:
+Return Value:
 
-- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Return a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information of the current thread.
+- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Returns a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information about the current thread.
 
 Example:
 
@@ -2118,12 +4249,12 @@ Example:
 main(): Unit {
     /* Get current thread information */
     let threadInfo: ThreadSnapshot = ThreadSnapshot.dumpCurrentThread()
-    /* Print information */
+    /* Print the information */
     println(threadInfo)
 }
 ```
 
-Running result:
+Execution Result:
 
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
@@ -2133,14 +4264,14 @@ stack trace:
          at default.main()(hello.cj:148)
 ```
 
-### func toString()
+### func  toString()
 
 ```cangjie
 public func toString(): String
 ```
 
-Function: Get the string representation of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object.
+Function: Gets the string representation of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object.
 
-Return value:
+Return Value:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
