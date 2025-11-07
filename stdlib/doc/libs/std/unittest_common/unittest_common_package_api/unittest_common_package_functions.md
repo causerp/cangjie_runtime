@@ -29,7 +29,7 @@ public func setOptionInfo(
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项名称。
 - types: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 可以表示的选项值的有效类型
-- description: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项描述。
+- description!: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项描述。
 
 ## func setOrUpdateOptionInfo(String, ?String, String, String)
 
@@ -49,5 +49,4 @@ public func setOrUpdateOptionInfo(
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项名称。
 - description: ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项的描述。如果值不为 None ，则覆盖先前的值。
 - ty: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的字符串形式。
-- typeDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 
-选项的类型描述。
+- typeDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 选项的类型描述。

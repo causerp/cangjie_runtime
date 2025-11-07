@@ -279,8 +279,7 @@ public static func stubFunction<TRet>(
 
 参数：
 
-- stubCall: () -> Unit - 桩签名对应的调用表达式。
-- _: () -> TArg - 用于捕获属性或者字段的类型。
+- stubCall: () -> TRet - 桩签名对应的调用表达式。
 - matchers: Array\<[ArgumentMatcher](#class-argumentmatcher)> - 对应入参的参数匹配器。
 - prefixRefName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 用于模拟类/接口成员的对象引用令牌，用于模拟静态声明的类型引用令牌，用于顶级声明的时为 None。
 - methodName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 方法的名称。
@@ -319,7 +318,7 @@ public static func stubSetter<TArg>(
 
 返回值：
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TArg> - 针对普通成员方法插入桩代码的操作器对象。
+- [SetterActionSelector](#class-setteractionselectortret)\<TArg> - 针对普通成员方法插入桩代码的操作器对象。
 
 ## class Continuation\<A>
 
@@ -1379,8 +1378,8 @@ public static func unordered(exhaustive: Exhaustiveness, collectStatements: (Uno
 
 参数：
 
-- collectStatements: ([UnorderedVerifier](unittest_mock_package_classes.md#class-unorderedverifier)) ->[Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 支持可动态增加“验证语句”的闭包。
 - exhaustive: [Exhaustiveness](unittest_mock_package_enums.md#enum-exhaustiveness) - 验证模式。
+- collectStatements: ([UnorderedVerifier](unittest_mock_package_classes.md#class-unorderedverifier)) ->[Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 支持可动态增加“验证语句”的闭包。
 
 异常：
 
@@ -1397,8 +1396,8 @@ public static func unordered(exhaustive: Exhaustiveness, statements: Array<Verif
 
 参数：
 
-- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - 待验证的多条“验证语句”，变长参数语法支持参数省略 `[]` 。
 - exhaustive: [Exhaustiveness](unittest_mock_package_enums.md#enum-exhaustiveness) - 验证模式。
+- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - 待验证的多条“验证语句”，变长参数语法支持参数省略 `[]` 。
 
 异常：
 

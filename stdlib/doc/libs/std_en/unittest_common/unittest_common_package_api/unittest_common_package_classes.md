@@ -423,7 +423,7 @@ Return Value:
 ### func fillLimitedSpace(Int64, () -\> Unit)
 
 ```cangjie
-public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): c
+public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): PrettyPrinter
 ```
 
 Function: Fills a code block with the specified size.

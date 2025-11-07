@@ -46,7 +46,7 @@ T 为 泛型参数，用于在对象中查找对应类型的值。
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
 
 返回值：
 
@@ -80,7 +80,7 @@ public func remove<T>(key: KeyFor<T>): ?T
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
 
 返回值：
 
@@ -96,7 +96,7 @@ public func removeByName<T>(name: String): ?T
 
 参数：
 
-- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 键名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 键名称。
 
 返回值：
 
@@ -112,7 +112,7 @@ public func set<T>(key: KeyFor<T>, value: T)
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
 - value: T - 键值。
 
 ### func setByName\<T>(String, T)
@@ -208,7 +208,7 @@ public override operator func ==(that: ConfigurationKey): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否相等。
 
-### operator func !=(that: ConfigurationKey)
+### operator func !=(ConfigurationKey)
 
 ```cangjie
 public override operator func !=(that: ConfigurationKey): Bool
@@ -244,7 +244,7 @@ public static func create<T>(name: String): ConfigurationKey
 
 - name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
 
-返回值:
+返回值：
 
 - [ConfigurationKey](#class-configurationkey) - 创建的配置键值。
 
@@ -279,7 +279,7 @@ public prop isTopLevel: Bool
 
 功能：获取是否在打印的缩进顶层。
 
-类型：Bool 。
+类型：Bool
 
 ### func append(String)
 
@@ -427,7 +427,7 @@ pp.colored(RED) {
 ### func fillLimitedSpace(Int64, () -\> Unit)
 
 ```cangjie
-public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): c
+public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): PrettyPrinter
 ```
 
 功能：指定大小填充代码块。
@@ -435,7 +435,7 @@ public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): c
 参数：
 
 - spaceSize: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)  - 所指定的大小。
-- body: () -\> body - 填充的方式。
+- body: () -\> Unit - 填充的方式。
 
 返回值：
 
