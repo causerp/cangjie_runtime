@@ -182,6 +182,11 @@ void ExceptionManager::DumpException()
 #endif
             LOG(RTLOG_INFO, "\t ... Some frames are not displayed ...\n");
         }
+#if defined(__OHOS__) && (__OHOS__ == 1)
+        // In OHOS, C calling Cangjie: uncaught exception allow C-side execution to continue without proactive exit,
+        // leading to unexpected behavior. Proactive exit is required.
+        LOG(RTLOG_FATAL, "Uncaught exception: %s. Terminate required.", clsName.Str());
+#endif
     }
 }
 
