@@ -30,7 +30,6 @@ foreign {
     @FastNative
     func CJ_BUFFER_Float64ToCPointer(num: Float64, buf: CPointer<UInt8>, bufferSize: Int64): Int64
 
-    @FastNative
     func CJ_CONSOLE_Readline(): CPointer<StructureString>
 
     @FastNative
