@@ -16,6 +16,7 @@ import std.runtime.*
 import std.runtime
 import std.convert.Formattable
 import std.sort.*
+import std.sync.*
 
 // upper limit on number of saved measurements to keep reasonable statistics calculation time and memory cost
 const MEASUREMENTS_LIMIT = 500
@@ -45,6 +46,7 @@ struct WarmupInfo {
     }}
 
     var ema = Ema(0)
+    var emaGC = Ema(5)
 
     private mut func runMultipleAndEstimateTime(times: Int64, maxMeasureBatch: Int64): Float64 {
         let baseWithRun = benchmark.timeLoopOnce(times, times, maxMeasureBatch)
@@ -71,15 +73,16 @@ struct WarmupInfo {
 
     private mut func beforeWarmup() {
         gcCount = getGCCount()
-        let mem1 = memory()
-
         // ideally this should be zero, however with current implementation of generics
         // there is an overhead to call our benchmark loop lambda
-        for (i in 0..20) {
-            batchMemoryOverhead += benchmark.memLoopOnce(0, 0, 1)
+        let benchmark = benchmark
+        let overhead = measureInternal(Runtime(AllocatedMemory)) {
+            for (i in 0..20) {
+                benchmark.memLoopOnce(0, 0, 1)
+            }
         }
+        batchMemoryOverhead = overhead / 20.0
         overallAllocated = memory()
-        batchMemoryOverhead = (overallAllocated - mem1) / 20.0
     }
 
     private mut func finishWarmup() {
@@ -114,9 +117,13 @@ struct WarmupInfo {
                 // with same GC strategy that will be active during benchmark
                 chooseWarmupGC()
             }
-            warmupGC.invoke()
-            let estimation = runMultipleAndEstimateTime(n, maxMeasureBatch)
+            let warmupGC = warmupGC
+            let gcDur = measureInternal(TimeNow()) { warmupGC.invoke() }
+            if (let Heavy <- warmupGC) {
+                emaGC.append(gcDur)
+            }
 
+            let estimation = runMultipleAndEstimateTime(n, maxMeasureBatch)
             if (aggregateRuns > 1000000) { break }
 
             // If estimation is that small then most likely result will be zero so we can speed up things.
@@ -152,6 +159,13 @@ struct WarmupInfo {
 
         finishWarmup()
     }
+}
+
+private func measureInternal<T>(m: T, f:() -> Unit): Float64 where T <: Measurement{
+    m.setup()
+    let x = m.measure()
+    f()
+    m.measure() - x
 }
 
 func waitGCFinish() {
@@ -336,7 +350,8 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
         maxMeasureBatch = this.batchSize.start
         let maxBatch = batchRange.end.ceilTo(maxMeasureBatch)
 
-        if (batchCount < 50) {
+        Runtime.lastAccountedResult = 0.0
+        if (batchCount < 50 || (benchmark.measurement as Runtime)?.measuresGC() == Some(true)) {
             doMacroBench(maxBatch, batchCount)
         } else {
             doMicroBench(maxBatch, batchCount)
@@ -352,6 +367,7 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
     private func doMicroBench(maxBatch: Int64, batchCount: Int64) {
         let max = Float64(maxBatch)
         let avgStep = max / Float64(batchCount)
+        let expectedGCTime = Duration.nanosecond * warmupInfo.emaGC.result * batchCount
 
         // run once on max to ensure that runtime requested all required memory from OS.
         // Otherwise some allocations can cause page faults if new memory is requested from OS
@@ -374,9 +390,8 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
 
             batch = avgStep * Float64(idx + 1.0)
             runMultipleAndMeasure(Int64(batch |> round), maxBatch)
-
             // sanity check
-            if (i*2 > minBatches && DateTime.now() - start > targetDuration * 4 && targetDuration > Duration.Zero) {
+            if (i*2 > minBatches && DateTime.now() - start > targetDuration * 4 + expectedGCTime && targetDuration > Duration.Zero) {
                 break
             }
         }
@@ -385,6 +400,7 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
     @OverflowWrapping
     private func doMacroBench(max: Int64, batchCount: Int64) {
         let avgStep = Float64(max) / Float64(batchCount)
+        let expectedGCTime = Duration.nanosecond * warmupInfo.emaGC.result * batchCount
         let start = DateTime.now()
 
         var batch = 0.0
@@ -394,7 +410,7 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
             runMultipleAndMeasure(Int64(batch |> ceil), max)
 
             // sanity check
-            if (i > minBatches && DateTime.now() - start > targetDuration * 4 && targetDuration > Duration.Zero) {
+            if (i > minBatches && DateTime.now() - start > targetDuration * 4 + expectedGCTime && targetDuration > Duration.Zero) {
                 break
             }
         }
@@ -461,6 +477,14 @@ extend Int64 {
     }
 }
 
+let gcFinished = AtomicBool(false)
+var notifier: ?Notifier = None
+class Notifier {
+    ~init() {
+        gcFinished.store(true)
+    }
+}
+
 // Exponential moving average
 // While number of added elements is less than maxLength it works exactly like regular average
 struct Ema {
@@ -500,7 +524,7 @@ public enum ExplicitGcType <: ToString {
     | Light
     /**
      * runtime.gc(heavy: true) is invoked before most measurement batches.
-     * Will busy-wait for the end of GC before starting a measurement.
+     * Before starting a measurement it will busy-wait until GC and finalizers are finished.
      *
      * This variant produces the most stable and consistent results so it is more suitable option
      * for most common usecases of benchmarks.
@@ -524,13 +548,20 @@ public enum ExplicitGcType <: ToString {
 
     func invoke() {
         match (this) {
-            case Light => gc(heavy: false)
-            case Heavy =>
+            case Light where isGcEnabled => gc(heavy: false)
+            case Heavy where isGcEnabled =>
+                // This logic relies on implementation detail of cangjie runtime.
+                // Currently finalizers are invoked in the order of their creation.
+                // So our notifying finalizer will be called last, and this code expects that.
+                gcFinished.store(false)
+                notifier = Notifier()
                 let before = getGCCount()
+                notifier = None
                 gc(heavy: true)
                 // GC most likely will run on different CPU
                 // so do busy wait to keep current CPU warmed up
                 while (getGCCount() <= before) {}
+                while (!gcFinished.load()) {}
             case _ => ()
         }
     }

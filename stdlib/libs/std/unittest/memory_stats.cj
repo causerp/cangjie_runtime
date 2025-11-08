@@ -5,6 +5,7 @@ import std.env.*
 import std.collection.*
 import std.runtime.*
 
+var isGcEnabled = { => getVariable("cjEnableGC") != "0" }()
 // it is created here so that we collect statistics before any of the user code is initialized
 var memoryStats = MemoryStats()
 
@@ -61,6 +62,14 @@ struct MemoryInfo {
     ) {}
 
     static func collect(name: String): MemoryInfo {
+        if (!isGcEnabled) {
+            return MemoryInfo(
+                name,
+                getAllocatedHeapSize() + getGCFreedSize(),
+                0,
+                0.0
+            )
+        }
         // measure time before all because it invokes GC
         let time = measureGcTime()
         MemoryInfo(
