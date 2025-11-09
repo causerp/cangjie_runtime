@@ -61,7 +61,6 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [entryMain(TestPackage)](./unittest_package_api/unittest_package_functions.md#func-entrymaintestpackage) | 提供给 `cjc --test` 使用，框架执行测试用例的入口函数。 |
 | [expectCaughtUnexpectedE(String,String,String, ?AssertionCtx)](./unittest_package_api/unittest_package_functions.md#func-assertcaughtunexpectedestring-string-string-assertionctx) | 捕获的异常不符合预期，记录信息，不抛出异常。 |
 | [expectEqual(String, String, T, T, ?AssertionCtx)](./unittest_package_api/unittest_package_functions.md#func-assertequaltstring-string-t-t-assertionctx) | 比较 `expected` 和 `actual` 值是否相等。记录比较结果，不抛出异常。 |
-
 | [expectEqual(String, String, T, T, Bool, ?AssertionCtx)](./unittest_package_api/unittest_package_functions.md#func-expectequaltstring-string-t-t-bool-assertionctx) | 比较 `expected` 和 `actual` 值是否相等。记录比较结果，不抛出异常。 |
 | [fail(String)](./unittest_package_api/unittest_package_functions.md#func-failstring) | 使该用例失败，直接抛出异常。 |
 | [failExpect(String)](./unittest_package_api/unittest_package_functions.md#func-failexpectstring) | 使该用例失败，记录信息，不抛出异常。 |
@@ -142,8 +141,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [KeyCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-KeyCaptureOutput) | 作为在配置信息中配置值的键值。 |
 | [KeyCoverageGuided](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuided) | 作为在配置信息中配置值的键值。 |
 | [KeyCoverageGuidedBaselineScore](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedBaselineScore) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-keytimeouthandler) | 作为在配置信息中配置值的键值。 |
-) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-keytimeouthandler) | 作为在配置信息中配置值的键值。 |
 | [KeyCoverageGuidedMaxCandidates](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedMaxCandidates) | 作为在配置信息中配置值的键值。 |
 | [KeyCoverageGuidedNewCoverageBonus](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedNewCoverageBonus) | 作为在配置信息中配置值的键值。 |
 | [KeyCoverageGuidedNewCoverageScore](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedNewCoverageScore) | 作为在配置信息中配置值的键值。 |
