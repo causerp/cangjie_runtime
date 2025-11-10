@@ -8,6 +8,9 @@ The custom error reporting interface produces output in the same format as nativ
 
 Macro definition:
 
+<!-- compile.error -macro1 -->
+<!-- cfg="--compile-macro" -->
+
 ```cangjie
 // macro_definition.cj
 macro package macro_definition
@@ -26,6 +29,9 @@ public macro testDef(input: Tokens): Tokens {
 ```
 
 Macro invocation:
+
+<!-- compile.error -macro1 -->
+<!-- cfg="--debug-macro" -->
 
 ```cangjie
 // macro_call.cj
@@ -73,6 +79,8 @@ error: This expression is not allowed to contain identifier
 ```
 
 ## Non-Macro Expansion Context Example
+
+<!-- compile -->
 
 ```cangjie
 import std.ast.*
