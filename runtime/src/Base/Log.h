@@ -22,6 +22,9 @@
 #include "hitrace/trace.h"
 #elif defined(__ANDROID__)
 #include "android/trace.h"
+#elif defined(__IOS__)
+#include <dlfcn.h>
+#include <os/signpost.h>
 #endif
 
 namespace MapleRuntime {
@@ -33,6 +36,81 @@ void ATraceBeginAsync(const char* name, int32_t taskId);
 void ATraceEndAsync(const char* name, int32_t taskId);
 
 void ATraceSetCounter(const char* name, int64_t value);
+
+#if defined(__IOS__)
+typedef uint64_t os_signpost_id_t;
+enum class SignpostType: uint8_t {
+    SIGNPOST_TYPE_EVENT                = 0x00,
+    SIGNPOST_TYPE_INTERVAL_BEGIN       = 0x01,
+    SIGNPOST_TYPE_INTERVAL_END         = 0x02,
+    SIGNPOST_TYPE_INTERVAL_BEGIN_ASYNC = 0x03,
+    SIGNPOST_TYPE_INTERVAL_END_ASYNC   = 0x04,
+};
+#define OS_SIGNPOST_ID_NULL ((os_signpost_id_t)0)
+#define OS_SIGNPOST_ID_INVALID ((os_signpost_id_t)~0)
+#define INTERVAL_FORMAT_STR "name:%s"
+#define INTERVAL_ASYNC_FORMAT_STR "name:%s id: %d"
+#define EVENT_FORMAT_STR "name:%s, count: %lld"
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern struct mach_header __dso_handle;
+#ifdef __cplusplus
+}
+#endif
+
+class SignpostWrapper {
+public:
+    static SignpostWrapper& GetInstance();
+
+    void IntervalBegin(const char* name);
+    void IntervalEnd();
+    void IntervalBeginAsync(const char* name, int32_t taskId);
+    void IntervalEndAsync(const char* name, int32_t taskId);
+    void EventEmit(const char* name, int64_t count);
+
+private:
+    SignpostWrapper();
+    ~SignpostWrapper();
+
+    SignpostWrapper(const SignpostWrapper&) = delete;
+    SignpostWrapper& operator=(const SignpostWrapper&) = delete;
+
+    bool IsIdValid(os_signpost_id_t spId);
+    bool IsLogValid(os_log_t osLog);
+    std::pair<size_t, void *> FormatArgs(SignpostType type, const char* name, int64_t value = 0);
+
+    os_log_t GetLog() {
+        os_log_t log = os_log_create("com.cangjie.trace", "ios-tracing");
+        return log;
+    }
+    os_signpost_id_t& GetId() {
+        thread_local os_signpost_id_t id = 0;
+        return id;
+    }
+    const char* GetName() {
+        return endName;
+    }
+    void SetName(const char* name) {
+        endName = name;
+    }
+
+    using EmitWithNameImplFunc = void(*)(void*, os_log_t, os_signpost_type_t, os_signpost_id_t,
+                                         const char*, const char*, uint8_t*, uint32_t);
+    using IdGenerateFunc = os_signpost_id_t(*)(os_log_t);
+    using IdMakeWithPointerFunc = os_signpost_id_t(*)(os_log_t, const void*);
+    using OsSignpostEnabledFunc = bool(*)(os_log_t);
+
+    EmitWithNameImplFunc emitWithNameImplFunc = nullptr;
+    IdGenerateFunc idGenerateFunc = nullptr;
+    IdMakeWithPointerFunc idMakeWithPointerFunc = nullptr;
+    OsSignpostEnabledFunc osSignpostEnabledFunc = nullptr;
+
+    void* libHandle = nullptr;
+    bool isAvailable = false;
+    const char* endName = nullptr; // used in TRACE_FINISH
+};
+#endif
 
 #if defined(__OHOS__) && (__OHOS__ == 1)
     /**
@@ -65,6 +143,15 @@ void ATraceSetCounter(const char* name, int64_t value);
     #define TRACE_START_ASYNC(name, taskId)      MapleRuntime::ATraceBeginAsync(name, static_cast<int32_t>(taskId))
     #define TRACE_FINISH_ASYNC(name, taskId)     MapleRuntime::ATraceEndAsync(name, static_cast<int32_t>(taskId))
     #define TRACE_COUNT(name, count)             MapleRuntime::ATraceSetCounter(name, static_cast<int64_t>(count))
+#elif defined(__IOS__)
+    #define TRACE_START(name)                    MapleRuntime::SignpostWrapper::GetInstance().IntervalBegin(name)
+    #define TRACE_FINISH()                       MapleRuntime::SignpostWrapper::GetInstance().IntervalEnd()
+    #define TRACE_START_ASYNC(name, taskId)      \
+        MapleRuntime::SignpostWrapper::GetInstance().IntervalBeginAsync(name, static_cast<int32_t>(taskId))
+    #define TRACE_FINISH_ASYNC(name, taskId)     \
+        MapleRuntime::SignpostWrapper::GetInstance().IntervalEndAsync(name, static_cast<int32_t>(taskId))
+    #define TRACE_COUNT(name, count)             \
+        MapleRuntime::SignpostWrapper::GetInstance().EventEmit(name, static_cast<int64_t>(count))
 #else
     #define TRACE_START(name)
     #define TRACE_FINISH()
