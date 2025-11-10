@@ -448,7 +448,7 @@ public enum PerfCounter <: ToString {
 }
  
 let MEMORY_UNIT_TABLE: MeasurementUnitTable = [
-    (1.0, "Bytes"), // or just B ?
+    (1.0, "Bytes"),
     (Float64(2**10), "KiB"),
     (Float64(2**20), "MiB"),
     (Float64(2**30), "GiB")
@@ -457,21 +457,38 @@ let MEMORY_UNIT_TABLE: MeasurementUnitTable = [
 // Measures various statistics of Cangjie Runtime
 @When[backend == "cjnative"]
 public struct Runtime <: Measurement {
-    
+
+    static var lastAccountedResult = 0.0
+    static var unaccounted = 0.0
+
     public Runtime(let variant: RuntimeInfo) {}
     
-    public func setup() {}
+    public func setup() {  
+        // some measurements significantly interfere with explicitGC strategy
+        // so we ensure that information from internal GC invocations will not be lost
+        if (lastAccountedResult != 0.0 && measuresGC()) {
+            unaccounted = measureRaw() - lastAccountedResult
+        }
+    }
+
+    func measureRaw(): Float64 {
+        match (variant) {
+            case GCCount => Float64(getGCCount())
+            case GCTime => Float64(getGCTime())*1000.0
+            case AllocatedMemory => Float64(getGCFreedSize() + getAllocatedHeapSize())
+        }
+    }
 
     @Frozen
     public func measure(): Float64 { 
-        unsafe {
-            waitGCFinish()
-            match (variant) {
-                case GCCount => Float64(getGCCount())
-                case GCTime => Float64(getGCTime())
-                case AllocatedMemory => 
-                    Float64(getGCFreedSize() + getAllocatedHeapSize())
-            }
+        lastAccountedResult = measureRaw()
+
+        if (unaccounted != 0.0) {
+            let x = unaccounted
+            unaccounted = 0.0
+            Float64(lastAccountedResult) - x
+        } else {
+            Float64(lastAccountedResult)
         }
     }
 
@@ -502,12 +519,12 @@ public struct Runtime <: Measurement {
 }
 
 
-// Measures various metrics provided by cangjie runtime.
+// Measures various metrics provided by Cangjie runtime.
 @When[backend == "cjnative"]
 public enum RuntimeInfo {
     // Measures average number of GC invocations
     | GCCount
-    // Measures duration of GC.
+    // Measures how much each benchmark invocation increases GC duration.
     | GCTime
     // Measures how much memory was allocated
     | AllocatedMemory
