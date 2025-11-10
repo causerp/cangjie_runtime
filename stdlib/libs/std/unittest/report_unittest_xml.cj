@@ -12,7 +12,7 @@ import std.fs.*
 import std.unittest.common.PrettyText
 
 class XmlBuilder <: ToString {
-    private let element_ = XmlElementBuilder()
+    private var element_ = XmlElementBuilder()
     private var version_: ToString = "1.0"
     private var encoding_: ?ToString = None
 
@@ -26,14 +26,11 @@ class XmlBuilder <: ToString {
         this
     }
 
-    func element(childBuilder: (XmlElementBuilder) -> Unit): This {
-        childBuilder(element_)
-        this
-    }
-
-    public func element(name: ToString, childBuilder: (XmlElementBuilder) -> Unit): This {
-        element_.name(name)
-        childBuilder(element_)
+    public func root(name: ToString, childBuilder: (XmlElementBuilder) -> Unit): This {
+        let element = XmlElementBuilder()
+        element.name(name)
+        childBuilder(element)
+        element_ = element
         this
     }
 
@@ -87,11 +84,6 @@ class XmlElementBuilder <: ToString {
         if (let Some(value) <- value) {
             attribute(key, value)
         }
-        this
-    }
-
-    public open func element(contentBuilder: () -> ToString): This {
-        content = contentBuilder()
         this
     }
 
@@ -271,32 +263,35 @@ private class SuiteXmlReport {
 
     func buildTestSuite() {
         let builder = XmlBuilder().encoding("UTF-8")
-        builder.element { elementXml => buildTestSuite(elementXml) }
+        builder.root("testsuite") { testSuiteXml => testSuiteElementContent(testSuiteXml) }
     }
 
     func buildTestSuite(builder: XmlElementBuilder): ToString {
-        builder.element("testsuite") { testSuiteXml =>
-            let details = suiteResult.details
-            testSuiteXml
-                .attribute("name", suiteResult.suiteId.asClassName())
-                .attributesFromDetails(details)
+        builder.element("testsuite") { testSuiteXml => testSuiteElementContent(testSuiteXml) }
+    }
 
-            if (!suiteResult.suiteInfo.isEmpty && !suiteResult.suiteId.isFromTopLevelFunc) {
-                testSuiteXml.element("properties") { propertiesXml =>
-                    tagsProperty(propertiesXml, suiteResult.suiteInfo.tags)
-                }
-            }
+    private func testSuiteElementContent(testSuiteXml: XmlElementBuilder): ToString {
+        let details = suiteResult.details
+        testSuiteXml
+            .attribute("name", suiteResult.suiteId.asClassName())
+            .attributesFromDetails(details)
 
-            suiteResult.visitPassedTests { tcr =>
-                if (tcr.details.totalCount == 0) { return }
-                buildTestEntry(tcr.subResults[0], tcr.caseId, tcr.caseInfo, testSuiteXml)
-            }
-
-            suiteResult.visitFailedSteps { subResult, tcr =>
-                buildTestEntry(subResult, tcr.caseId, tcr.caseInfo, testSuiteXml)
+        if (!suiteResult.suiteInfo.isEmpty && !suiteResult.suiteId.isFromTopLevelFunc) {
+            testSuiteXml.element("properties") { propertiesXml =>
+                tagsProperty(propertiesXml, suiteResult.suiteInfo.tags)
             }
         }
+
+        suiteResult.visitPassedTests { tcr =>
+            if (tcr.details.totalCount == 0) { return }
+            buildTestEntry(tcr.subResults[0], tcr.caseId, tcr.caseInfo, testSuiteXml)
+        }
+
+        suiteResult.visitFailedSteps { subResult, tcr =>
+            buildTestEntry(subResult, tcr.caseId, tcr.caseInfo, testSuiteXml)
+        }
     }
+    
 
     private func buildTestEntry(
         result: RunStepResult, caseId: TestCaseId,
@@ -319,16 +314,16 @@ private class SuiteXmlReport {
                 case SKIP => testCaseXml.element("skipped") { _ => }
                 case FAIL => testCaseXml.element("failure") { it =>
                     it.optionalAttribute("message", message)
-                    it.element { checkResultsAsString(result.checkResults) }
+                    it.content = checkResultsAsString(result.checkResults)
                 }
                 case TIMEOUT => testCaseXml.element("failure") { it =>
                     it.optionalAttribute("message", message)
                     it.attribute("type", "Timeout")
-                    it.element { checkResultsAsString(result.checkResults) }
+                    it.content = checkResultsAsString(result.checkResults)
                 }
                 case ERROR => testCaseXml.element("error") { it =>
                     it.optionalAttribute("message", message)
-                    it.element { checkResultsAsString(result.checkResults) }
+                    it.content = checkResultsAsString(result.checkResults)
                 }
                 case NORUN => ()
                 case PASS => ()
@@ -385,7 +380,7 @@ extend TestGroupResult {
         Directory.ensureExists(dir)
         let fileName = "test-${this.groupName.toSafeFileName()}.xml"
         let builder = XmlBuilder().encoding("UTF-8")
-        builder.element("testsuites") { groupXml =>
+        builder.root("testsuites") { groupXml =>
             groupXml
                 .attribute("name", this.groupName)
                 .attributesFromDetails(this.details)
