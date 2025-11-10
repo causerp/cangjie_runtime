@@ -473,7 +473,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
         return parseTime(str, format)
     }
 
-    @Deprecated[message: "Use member funtion `public static func parse(str: String, format: String): DateTime` instead."]
+    @Deprecated[message: "Use member function `public static func parse(str: String, format: String): DateTime` instead."]
     public static func parse(str: String, format: DateTimeFormat): DateTime {
         return parseTime(str, format.format)
     }
