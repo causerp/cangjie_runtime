@@ -814,7 +814,7 @@ public func slice(start: Int64, len: Int64): Array<T>
 
 参数：
 
-- start: [Int64](core_package_intrinsics.md#int64) - 切片的起始位置，取值需大于 0，且 start + len 小于等于当前 [Array](core_package_structs.md#struct-arrayt) 实例的长度。
+- start: [Int64](core_package_intrinsics.md#int64) - 切片的起始位置，取值需大于等于 0，且 start + len 小于等于当前 [Array](core_package_structs.md#struct-arrayt) 实例的长度。
 - len: [Int64](core_package_intrinsics.md#int64) - 切片的长度，取值需大于 0。
 
 返回值：
