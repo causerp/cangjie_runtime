@@ -8,6 +8,9 @@
 
 宏定义如下：
 
+<!-- compile.error -macro1 -->
+<!-- cfg="--compile-macro" -->
+
 ```cangjie
 // macro_definition.cj
 macro package macro_definition
@@ -26,6 +29,9 @@ public macro testDef(input: Tokens): Tokens {
 ```
 
 宏调用如下：
+
+<!-- compile.error -macro1 -->
+<!-- cfg="--debug-macro" -->
 
 ```cangjie
 // macro_call.cj
@@ -73,6 +79,8 @@ error: This expression is not allowed to contain identifier
 ```
 
 ## 非宏展开过程中调用示例
+
+<!-- compile -->
 
 ```cangjie
 import std.ast.*
