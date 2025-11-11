@@ -17,7 +17,8 @@ mock 框架处理 mock/spy 对象成员（或静态成员或顶层函数或顶�
 
 无论是否为单个成员定义了多个桩，每个桩都有自己的预期，需要满足这些[预期](./mock_framework_basics.md#预期)才能通过测试。
 
-!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 @On(foo.bar(1)).returns(1)
 @On(foo.bar(2)).returns(2)
@@ -30,7 +31,8 @@ foo.bar(2)
 
 如果希望在测试中更改桩的行为，可以重新定义桩。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 @On(service.request()).returns(testData)
 // 使用服务
@@ -45,7 +47,8 @@ foo.bar(2)
 
 示例：
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 @On(storage.get(_)).returns(None) // 1
 @On(storage.get(TEST_ID)).returns(Some(TEST_DATA)) // 2
@@ -54,7 +57,8 @@ foo.bar(2)
 示例中，`storage` 为除 `TEST_ID` 之外的所有参数返回 `None` 。
 如果从未使用 `TEST_ID` 参数调用 `get` ，则测试失败，因为桩 **2** 未使用。如果始终使用 `TEST_ID` 参数调用 `get` ，则测试失败，因为桩 **1** 未使用。这些限制确保测试代码是纯净的，让开发人员知道桩何时变为未使用。如果用例不需要此功能，则使用 `anyTimes()` 基数说明符来提升这些预期。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 // 实现经常更改，但不希望测试中断
 // 使用 anyTimes 提升与测试本身无关的预期
@@ -64,7 +68,8 @@ foo.bar(2)
 
 鉴于桩优先级是**从下到上**，以下用法都不正确。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 @On(storage.get(TEST_ID)).returns(Some(TEST_DATA)) // 不正确，这个桩永远不会被触发
 @On(storage.get(_)).returns(None) // 在上面的桩始终会被隐藏
@@ -72,7 +77,8 @@ foo.bar(2)
 
 您还可以使用预期来检查调用的参数。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 let renderer = spy(Renderer())
 
@@ -202,7 +208,8 @@ markUpRenderer.render("text inside tag <b>must be bold</b>")
 
 另外 `ValueListener` 还提供了 `allValues()` 和 `lastValue()` 函数来检查参数。模式如下：
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 // 创建捕获器
 let captor = ValueListener<String>.new()
@@ -220,7 +227,8 @@ let argumentValues = captor.allValues()
 
 <!-- 链接至argThat匹配器 （自动生成的 API 手册） -->
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 let filter = { arg: String => arg.contains("bold") }
 let captor = ValueListener<String>.new()
@@ -246,7 +254,8 @@ markUpRenderer.render("text inside tag <b>must be bold</b>")
 
 如下示例为在测试用例之间共享匹配器：
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 @On(foo.bar(oddNumbers())).returns("Odd")
 @On(foo.bar(evenNumbers())).returns("Even")
@@ -273,6 +282,7 @@ extend Matchers {
 ```
 
 函数参数匹配器可以包含参数。
+
 <!--compile-->
 ```cangjie
 import std.unittest.mock.*
@@ -294,6 +304,8 @@ extend Matchers {
 setter 类似于返回 `Unit` 的函数。特殊操作 `doesNothing()` 可用于 setter。
 
 可变属性打桩的常用模式如下：
+
+<!-- code_no_check -->
 
 ```cangjie
 @On(foo.prop).returns("value")  // 配置getter
@@ -354,7 +366,8 @@ public func mock<T>(modes: Array<StubMode>): T
 
 在此模式下，当成员的返回类型在如下表格中时，无需显式配置桩，即可调用。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 let foo = mock<Foo>(ReturnsDefaults)
 @Assert(foo.isPretty(), false)
@@ -382,7 +395,8 @@ let foo = mock<Foo>(ReturnsDefaults)
 
 `SyntheticFields` 将通过 mock 框架为所有属性和字段隐式创建对应类型的合成字段。但是，这些字段只能在被赋值后读取。仅对可变属性和字段生效。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 let foo = mock<Foo>(SyntheticFields)
 // can simply assign a value to a mutable property
@@ -394,7 +408,8 @@ foo.bar = "Hello"
 
 当同时启用 `SyntheticFields` 和 `ReturnsDefaults` 时，赋的值优先于默认值。但是，只要字段或属性尚未被赋值，就可以使用默认值。
 
-<!--compile.onlyformat-->
+<!-- code_no_check -->
+
 ```cangjie
 let foo = mock<Foo>(ReturnsDefaults, SyntheticFields)
 @Assert(foo.bar, "")
