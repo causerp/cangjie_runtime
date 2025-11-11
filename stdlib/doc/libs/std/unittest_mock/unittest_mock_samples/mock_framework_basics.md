@@ -4,6 +4,8 @@
 
 **mock 构造函数**可以通过调用 `mock<T>` 和 `spy<T>` 函数来创建两种对象：**mock**和**spy**，其中 `T` 表示被 mock 的类或接口。
 
+<!-- code_no_check -->
+
 ```cangjie
 public func mock<T>(): T
 public func spy<T>(objectToSpyOn: T): T
@@ -205,6 +207,8 @@ let hasQuestionMark = { arg: String => arg.contains("?") }
 
 重要规则：函数调用作为**参数匹配器**时，会视为对匹配器的调用。
 
+<!-- code_no_check -->
+
 ```cangjie
 @On(foo.bar(calculateArgument())) // 不正确，calculateArgument()不是匹配器。
 
@@ -246,6 +250,8 @@ mock 框架提供 API 来指定桩操作。触发桩后，打桩声明会执行�
 * `returns(value: R)`：返回 `value` 。
 * `returns(valueFactory: () -> R)`：调用 `valueFactory` 去构造桩触发时抛出的异常。
 * `returnsConsecutively(values: Array<R>)`, `returnsConsecutively(values: ArrayList<R>)`：触发桩时，返回 `values` 中的下一个元素。
+
+<!-- code_no_check -->
 
 ```cangjie
 @On(foo.bar()).returns(2) // 返回 0
@@ -330,6 +336,8 @@ Expectation failed
 **续体**本身只提供了一个返回新 `ActionSelector` 的 `then()` 函数。链上的所有操作都适用相同的规则。如果调用了 `then()` ，则**必须**指定新的操作。
 
 总预期为各个链预期之和。如果在测试中指定了一个复杂的链，那么链的所有部分都会被触发。
+
+<!-- code_no_check -->
 
 <!--compile.onlyformat-->
 ```cangjie

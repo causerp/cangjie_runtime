@@ -182,6 +182,7 @@ func validate_even_number_generator() {
 
 举例来说:
 
+<!-- code_no_check -->
 ```cangjie
 // No.1
 @AssertThrows(throw Exception())
@@ -209,12 +210,14 @@ func validate_even_number_generator() {
 
 如果指定的异常不超过一个，则返回类型与预期抛出的异常类型相同：
 
+<!-- code_no_check -->
 ```cangjie
 let e: NoneValueException = @AssertThrows[NoneValueException](foo())
 ```
 
 如果指定的异常超过一个，则返回类型为预期抛出的异常类型的最小公共超类型：
 
+<!-- code_no_check -->
 ```cangjie
 // A <: C
 // B <: C
@@ -225,12 +228,14 @@ let e: C = @AssertThrows[A | B](foo())
 
 `@ExpectThrows` 检查失败后也会继续执行，在指定的异常不超过一个时，它返回的类型是 Option\<T>，其中 `T` 是预期的异常类型:
 
+<!-- code_no_check -->
 ```cangjie
 let e: ?NoneValueException = @ExpectThrows[NoneValueException](foo())
 ```
 
 在指定的异常超过一个时，返回的类型是 ?Exception ：
 
+<!-- code_no_check -->
 ```cangjie
 let e: ?Exception = @ExpectThrows[NoneValueException | IllegalMemoryException](foo())
 ```
