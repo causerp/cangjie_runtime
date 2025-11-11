@@ -397,7 +397,9 @@ protected prop isInfinite: Bool
 
 Function: Gets whether this strategy is infinite.
 
-Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).### func intoBenchmark(String, Configuration, (T, Int64, Int64) -> Float64)
+Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
+
+### func intoBenchmark(String, Configuration, (T, Int64, Int64) -> Float64)
 
 ```cangjie
 public func intoBenchmark(

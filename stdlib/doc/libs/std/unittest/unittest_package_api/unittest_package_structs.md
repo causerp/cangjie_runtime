@@ -1836,6 +1836,82 @@ public let suiteName: String
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+## struct Runtime
+
+```cangjie
+public struct Runtime <: Measurement {
+    public Runtime(counter: RuntimeInfo)
+}
+```
+
+功能：统计 Cangjie 运行时提供的指标值。
+
+父类型：
+
+- [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+### prop conversionTable
+
+```cangjie
+prop conversionTable: MeasurementUnitTable
+```
+
+功能：提供相应运行时指标的转换表。
+
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
+
+### prop name
+
+```cangjie
+prop name: String
+```
+
+功能：运行时指标的名字。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+### prop textDescription
+
+```cangjie
+prop textDescription: String
+```
+
+功能：在某些报告中将显示的该测量结果的简要文字描述。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string).
+
+### Runtime(RuntimeInfo)
+
+```cangjie
+public Runtime(counter: RuntimeInfo)
+```
+
+功能：构造函数，用于指定要测量的运行时指标。
+
+参数：
+
+- counter: [RuntimeInfo](../unittest_package_api/unittest_package_enums.md#enum-runtimeinfo) - 指定计数器。
+
+### func measure()
+
+```cangjie
+public func measure(): Float64
+```
+
+功能：返回指定运行时指标的值。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 用于统计分析的计算数据。
+
+### func setup()
+
+```cangjie
+func setup()
+```
+
+功能：此测量的初始化函数。在每个基准测试步骤之前调用。
+
 ## struct TimeNow
 
 ```cangjie

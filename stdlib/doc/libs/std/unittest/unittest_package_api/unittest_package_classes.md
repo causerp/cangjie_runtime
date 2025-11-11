@@ -421,6 +421,30 @@ public func intoBenchmark(
 
 - [Benchmark](#class-benchmark) - 性能测试用例对象。
 
+## func intoBenchmark(String, Configuration, Measurement, (T, Int64, Int64, Int64, Measurement) -> Float64)
+
+```cangjie
+public func intoBenchmark(
+    caseName!: String,
+    configuration!: Configuration,
+    measurement!: Measurement,
+    doRun!: (T, Int64, Int64, Int64, Measurement) -> Float64
+): Benchmark
+```
+
+功能：`@Bench` 宏生成的代码使用的辅助函数，创建性能测试用例。
+
+参数：
+
+- caseName!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 测试用例名称。
+- configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 配置信息。
+- measurement!: [Measurement](./unittest_package_interfaces.md#interface-measurement) - 创建的性能用例使用的计算方案。
+- doRun!: (T, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Measurement](./unittest_package_interfaces.md#interface-measurement)) -> [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 性能测试执行体。
+
+返回值：
+
+- [Benchmark](#class-benchmark) - 性能测试用例对象。
+
 ### func intoUnitTestCase(String, Configuration, (T) -> Unit)
 
 ```cangjie

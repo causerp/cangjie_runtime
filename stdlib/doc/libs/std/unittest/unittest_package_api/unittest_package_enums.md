@@ -301,3 +301,39 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 处理器计数器的字符串表示。
+
+## enum RuntimeInfo
+
+```cangjie
+public enum RuntimeInfo <: ToString { 
+    | GCCount
+    | GCTime
+    | AllocatedMemory
+}
+```
+
+功能：提供统计的 Cangjie 运行时提供的信息类型。
+
+### GCCount
+
+```cangjie
+GCCount
+```
+
+功能：统计 GC 执行次数平均值。
+
+### GCTime
+
+```cangjie
+GCTime
+```
+
+功能：统计每次基准测试调用增加 GC 持续时间的程度。
+
+### AllocatedMemory
+
+```cangjie
+AllocatedMemory
+```
+
+功能：统计内存占用情况。
