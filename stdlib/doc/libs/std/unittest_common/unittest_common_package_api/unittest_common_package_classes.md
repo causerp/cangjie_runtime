@@ -401,6 +401,8 @@ public func colored(color: Color, body: () -> Unit): PrettyPrinter
 功能：对闭包中给打印器增加的字符串指定颜色。
 常见的用法如下：
 
+<!-- code_no_check -->
+
 ```cangjie
 pp.colored(RED) {
     pp.appendLine("1")
@@ -463,6 +465,8 @@ public func customOffset(symbols: UInt64, body: () -> Unit): PrettyPrinter
 功能：对闭包中给打印器增加的字符串指定额外缩进的个数。
 常见的用法如下：
 
+<!-- code_no_check -->
+
 ```cangjie
 pp.customOffset(5) {
     pp.appendLine("1")
@@ -491,6 +495,8 @@ public func indent(body: () -> Unit): PrettyPrinter
 功能：对闭包中给打印器增加的字符串指定额外缩进一次。
 常见的用法如下：
 
+<!-- code_no_check -->
+
 ```cangjie
 pp.indent {
     pp.appendLine("1")
@@ -517,6 +523,8 @@ public func indent(indents: UInt64, body: () -> Unit): PrettyPrinter
 
 功能：对闭包中给打印器增加的字符串指定额外缩进指定次数。
 常见的用法如下：
+
+<!-- code_no_check -->
 
 ```cangjie
 pp.indent(2) {

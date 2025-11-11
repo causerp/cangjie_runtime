@@ -520,30 +520,36 @@ public class Matchers {}
 
 - 为不同的参数指定不同的行为。例如：
 
-    ```cangjie
-    // 当 bar 的入参为 5 时，返回某个值
-    @On(foo.bar(eq(5))).returns(...)
-    // 当 bar 的入参为 6 时，抛出异常
-    @On(foo.bar(eq(6))).throws(...)
-    ```
+<!-- code_no_check -->
+
+```cangjie
+// 当 bar 的入参为 5 时，返回某个值
+@On(foo.bar(eq(5))).returns(...)
+// 当 bar 的入参为 6 时，抛出异常
+@On(foo.bar(eq(6))).throws(...)
+```
 
 - 确保只有某些参数被传递到某些桩签名中。
 
-    ```cangjie
-    let foo = mock<Foo>()
-    // bar 的入参只能为正数，否则将抛出 UnhandledCallException 异常
-    @On(foo.bar(argThat<Int64> { arg => arg > 0 })).returns(...)
-    ```
+<!-- code_no_check -->
+
+```cangjie
+let foo = mock<Foo>()
+// bar 的入参只能为正数，否则将抛出 UnhandledCallException 异常
+@On(foo.bar(argThat<Int64> { arg => arg > 0 })).returns(...)
+```
 
     > **注意：**
     >
     > 上例仅适用于 `mock object` 。`spy object` 的行为不同。
 
-    ```cangjie
-    let foo = spy(Foo())
-    // 当 bar 的入参不为正数时，将调用 Foo() 对象的成员函数。
-    @On(foo.bar(argThat<Int64> { arg => arg <= 0 })).fails()
-    ```
+<!-- code_no_check -->
+
+```cangjie
+let foo = spy(Foo())
+// 当 bar 的入参不为正数时，将调用 Foo() 对象的成员函数。
+@On(foo.bar(argThat<Int64> { arg => arg <= 0 })).fails()
+```
 
 ### static func any()
 
@@ -1180,6 +1186,8 @@ public class Verify {}
 
 举例来说：
 
+<!-- code_no_check -->
+
 ```cangjie
 let foo = mock<Foo>()
 // 定义“桩签名”的“桩行为”
@@ -1301,6 +1309,8 @@ public static func unordered(collectStatements: (UnorderedVerifier) -> Unit): Un
 验证模式为 `exhaustive` (全量匹配，验证范围内的所有执行情况都应在验证动作中被指定)。
 “验证语句”通过入参中的闭包动态增加。举例来说：
 
+<!-- code_no_check -->
+
 ```cangjie
 
 let totalTimes = getTimes()
@@ -1334,6 +1344,8 @@ public static func unordered(statements: Array<VerifyStatement>): Unit
 验证模式为 `exhaustive` (全量匹配，验证范围内的所有执行情况都应在验证动作中被指定)。
 
 举例来说:
+
+<!-- code_no_check -->
 
 ```cangjie
 let foo = mock<Foo>()
