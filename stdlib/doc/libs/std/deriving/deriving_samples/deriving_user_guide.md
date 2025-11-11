@@ -134,12 +134,14 @@ main(){}
 
 当 Deriving 多个相交的接口时，例如，`Comparable` 还包括 `Equatable` ，则允许两者同时存在，等同于仅有范围最广的一个：
 
+<!-- code_no_check -->
 ```cangjie
 @Derive[Comparable] // does also generate Equatable
 ```
 
 等同于：
 
+<!-- code_no_check -->
 ```cangjie
 @Derive[Comparable, Equatable]
 ```

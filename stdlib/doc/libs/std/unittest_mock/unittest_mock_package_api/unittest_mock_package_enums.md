@@ -16,6 +16,8 @@ Partial 模式的要求较松，可以忽略“桩签名”在验证范围内未
 
 举例来说:
 
+<!-- code_no_check -->
+
 ```cangjie
 for (i in 0..6) {
     foo.bar(i % 3)

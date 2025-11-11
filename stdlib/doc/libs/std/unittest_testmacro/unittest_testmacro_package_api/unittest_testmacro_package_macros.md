@@ -44,6 +44,8 @@
 
 参数化的 DSL 与 `@Bench` 结合的示例如下，具体语法与规则详见[`@TestCase` 宏](#testcase-宏)章节：
 
+<!-- compile -->
+
 ```cangjie
 func sortArray<T>(arr: Array<T>): Unit
         where T <: Comparable<T> {
@@ -142,6 +144,11 @@ TP: default, time elapsed: 68610430659 ns, Result:
 
 示例如下：
 
+`@CustomAssertion` 的输出为树状结构，以提高 [嵌套断言](#嵌套断言) 的可读性。
+
+例如：
+
+<!-- compile -->
 ```cangjie
 @CustomAssertion
 public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
@@ -150,13 +157,6 @@ public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
     }
     ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
 }
-```
-
-`@CustomAssertion` 的输出为树状结构，以提高 [嵌套断言](#嵌套断言) 的可读性。
-
-例如：
-
-```cangjie
 @Test
 func customTest() {
     @Assert[checkNotNone](Option<Bool>.None)
@@ -175,6 +175,7 @@ Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
 
 示例如下:
 
+<!-- compile -->
 ```cangjie
 @Test
 func testfunc() {
@@ -193,14 +194,13 @@ func testfunc() {
 
 例如:
 
+<!-- compile -->
 ```cangjie
 @CustomAssertion
 func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Interable<?T>): Array<T> {
     iter |> map { it: ?T => @Assert[checkNotNone](it)} |> collectArray
 }
-```
 
-```cangjie
 @Test
 func customTest() {
     @Assert[iterWithoutNone]([true, false, Option<Bool>.None])
@@ -223,6 +223,7 @@ Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
 
 例如:
 
+<!-- compile-->
 ```cangjie
 @CustomAssertion
 public func doesThrow<E>(ctx: AssertionCtx, codeblock: () -> Any): E where E <: Excepiton {
@@ -265,6 +266,7 @@ func customTest() {
 
 例如：
 
+<!-- compile -->
 ```cangjie
 @Test
 @Measure[TimeNow(), TimeNow(Nanos)]
@@ -360,25 +362,28 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 1. 单个 `@Tag` 在测试函数上。
 
-    ```cangjie
-    @Tag[Unittest]
-    func test() {}
-    ```
+<!-- code_no_check -->
+```cangjie
+@Tag[Unittest]
+func test() {}
+```
 
 2. 单个 `@Tag` 包含多个标签名，用逗号分隔。
 
-    ```cangjie
-    @Tag[Unittest, TestAuthor]
-    func test() {}
-    ```
+<!-- code_no_check -->
+```cangjie
+@Tag[Unittest, TestAuthor]
+func test() {}
+```
 
 3. 多个 `@Tag` 在测试函数上。
 
-    ```cangjie
-    @Tag[Smoke]
-    @Tag[Backend, JiraTask3271]
-    func test() {}
-    ```
+<!-- code_no_check -->
+```cangjie
+@Tag[Smoke]
+@Tag[Backend, JiraTask3271]
+func test() {}
+```
 
 ### 规则与约束
 
@@ -388,6 +393,7 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 例如：
 
+<!-- compile -->
 ```cangjie
 @Test
 @Tag[Unittest]
@@ -403,6 +409,7 @@ public class UnittestClass {
 
 等同于：
 
+<!-- compile -->
 ```cangjie
 @Test
 @Tag[Unittest]
@@ -448,6 +455,7 @@ public class UnittestClass {
 1. 该类必须用 `@Test` 标记。
 2. 该函数返回类型必须是 [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) 。
 
+<!-- compile -->
 ```cangjie
 @Test
 class Tests {
@@ -458,6 +466,7 @@ class Tests {
 
 测试用例可能有参数，在这种情况下，开发人员必须使用参数化测试 DSL 指定这些参数的值：
 
+<!-- code_no_check -->
 ```cangjie
 @Test[x in source1, y in source2, z in source3]
 func test(x: Int64, y: String, z: Float64): Unit {}
@@ -519,6 +528,7 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 - 该声明必须是具有与 `@Types` 宏中列出的相同类型参数的泛型类或函数。
 - 类型列表中列出的类型不能相互依赖，例如 `@Types[A in <Int64, String>, B in <List<A>>]` 将无法正确编译。但是，在为该类内的测试函数提供类型时，可以使用为测试类提供的类型。例如：
 
+<!-- code_no_check -->
 ```cangjie
 @Test
 @Types[T in <...>]
@@ -538,6 +548,7 @@ class TestClass<T> {
 
 示例：
 
+<!-- code_no_check -->
 ```cangjie
 @UnittestOption[String, Int](optionName)
 @UnittestOption[String](opt, /*validator*/ { str: String => str.size < 5 })
@@ -559,6 +570,7 @@ class TestClass<T> {
 
 配置项的键名称是通过首字母大写并以 `Key` 字符串开头构建的成员。例如，对于名为 `zxc` 的配置项，有效键名称将为 `KeyZxc.zxc`
 
+<!-- compile -->
 ```cangjie
 @UnittestOption[String](opt)
 
@@ -574,6 +586,7 @@ func test_that_derived_type_overwrite_parent_type_value_in_configuration() {
 
 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 类正确处理继承的情况。示例如下：
 
+<!-- compile -->
 ```cangjie
 open class Base {
     public open func str() {

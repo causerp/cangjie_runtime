@@ -20,6 +20,8 @@ public interface ValueListener<T> {
 
 举例来说：
 
+<!-- code_no_check -->
+
 ```cangjie
 struct Animal {
     Animal(
