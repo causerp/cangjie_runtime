@@ -266,7 +266,7 @@ foo.bar(1) // "Odd"
 由于每个匹配器都只是 `Matchers` 类的静态函数，因此可以使用**扩展**来自定义参数匹配器。新参数匹配器需要调用现有的（实例）。
 
 <!-- 链接至Matchers类 （自动生成的 API 手册） -->
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 
@@ -283,7 +283,7 @@ extend Matchers {
 
 函数参数匹配器可以包含参数。
 
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 
@@ -320,7 +320,7 @@ setter 类似于返回 `Unit` 的函数。特殊操作 `doesNothing()` 可用于
 
 <!-- 待办：链接至字段操作 -->
 
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*

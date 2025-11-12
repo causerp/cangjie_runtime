@@ -264,18 +264,20 @@ a > b with delta <=> !a.isNear(b, delta) && a > b
 <!-- run -->
 ```cangjie
 // 基础类型
+import std.math.*
+
 @Test
 func test1() {
     @Expect(1.0, 1.001, delta: 0.001) // 解糖为 @Expect(1.0 == 1.001, delta: 0.001)
     @Expect(1.0 == 1.001, delta: 0.001)
-    @Expect(1.0 != 1.901, delta: RelativeDelta(absoluteDelta: 0.001, relativeDelta: 0.02))
+    @Expect(1.0 != 1.901, delta: RelativeDelta(absolute: 0.001, relative: 0.02))
     @Expect(1.0 < 1.401, delta: 0.001)
 }
 // 自定义类型
 class Point <: NearEquatable<Point, Point> {
     Point(let x: Int64, let y: Int64) { }
 
-    public func isNear(obj: Point, delta: Point): Bool {
+    public func isNear(obj: Point, delta!: Point): Bool {
         if (x < 0 || y < 0) {
             throw IllegalArgumentException("Coordinates must be non negative. Actual: ($x, $y)")
         }

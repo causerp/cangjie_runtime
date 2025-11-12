@@ -177,12 +177,28 @@ Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
 
 <!-- compile -->
 ```cangjie
+public class A {}
+
+@CustomAssertion
+public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
+    if (let Some(res) <- value) {
+        return res
+    }
+    ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
+}
+
+@CustomAssertion
+public func checkA(ctx: AssertionCtx, value: A): Unit {
+    /* ... */
+}
+func maybeReturnsSomeObject() { Option<A>.None }
+
 @Test
 func testfunc() {
-    let maybeValue: Option<SomeObject> = maybeReturnsSomeObject()
+    let maybeValue: Option<A> = maybeReturnsSomeObject()
     let value = @Assert[checkNotNone](maybeValue)
 
-    @Assert[otherAssertion](value)
+    @Assert[checkA](value)
 }
 ```
 
@@ -196,20 +212,30 @@ func testfunc() {
 
 <!-- compile -->
 ```cangjie
+import std.collection.*
+
 @CustomAssertion
-func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Interable<?T>): Array<T> {
+public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
+    if (let Some(res) <- value) {
+        return res
+    }
+    ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
+}
+
+@CustomAssertion
+func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Iterable<?T>): Array<T> {
     iter |> map { it: ?T => @Assert[checkNotNone](it)} |> collectArray
 }
 
 @Test
 func customTest() {
-    @Assert[iterWithoutNone]([true, false, Option<Bool>.None])
+    @Assert[iterableWithoutNone]([true, false, Option<Bool>.None])
 }
 ```
 
 ```text
 [ FAILED ] CASE: customTest
-Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
+Assert Failed: @Assert[iterableWithoutNone]([true, false, Option < Bool >.None])
 └── @Assert[checkNotNone](it):
     └── Assert Failed: `('it' was expected to be Some(_) but got None)`
 ```
@@ -223,11 +249,12 @@ Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
 
 例如:
 
-<!-- compile-->
+<!-- compile -->
 ```cangjie
 @CustomAssertion
-public func doesThrow<E>(ctx: AssertionCtx, codeblock: () -> Any): E where E <: Excepiton {
-    ...
+public func doesThrow<E>(ctx: AssertionCtx, codeblock: () -> Any): E where E <: Exception {
+    /*...*/
+    throw Exception()
 }
 
 @Test
@@ -460,7 +487,7 @@ public class UnittestClass {
 @Test
 class Tests {
     @TestCase
-    func fooTest(): Unit {...}
+    func fooTest(): Unit {/*...*/}
 }
 ```
 
