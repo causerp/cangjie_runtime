@@ -236,3 +236,213 @@ After the conversion of tryParse, "4294967295" became Some(4294967295)
 After the conversion of parse, "18446744073709551615" became 18446744073709551615
 After the conversion of tryParse, "18446744073709551615" became Some(18446744073709551615)
 ```
+
+## convert 参数语法示例
+
+### convert 参数 flag 的语法 1
+
+'-' 适用于 Int，UInt，Rune 和 Float，表示左对齐。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var c : Int32 = -20
+    print("\"${c.format("-10")}\"")
+}
+```
+
+运行结果：
+
+```text
+"-20       "
+```
+
+### convert 参数 flag 的语法 2
+
+-'+' 适用于 Int，UInt 和 Float，如果数值为正数则打出 '+' 符号，如果数值为负数则忽略。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var c: Int32 = 20
+    print("\"${c.format("+10")}\"")
+}
+```
+
+运行结果：
+
+```text
+"       +20"
+```
+
+### convert 参数 flag 的语法 3
+
+'#' 是针对进制打印的，对于二进制打印会补充一个 '0b' 或者 '0B'，对于八进制打印会补充一个 '0o' 或者 '0O'，对于十六进制会补充 '0x' 或者 '0X'。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var c: Int32 = 1
+    print("\"${c.format("#10x")}\"")
+}
+```
+
+运行结果：
+
+```text
+"       0x1"
+```
+
+### convert 参数 flag 的语法 4
+
+'0' 适用于 Int，UInt 和 Float，在空位补充 0。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var c: Int32 = -20
+    print("\"${c.format("010")}\"")
+}
+```
+
+运行结果：
+
+```text
+"-000000020"
+```
+
+### convert 参数 width 的语法
+
+- 宽度为正整数，适用于 Int，UInt，Rune 和 Float。
+- 宽度前有负号则表示左对齐，没有负号则是右对齐，如果数值小于数值本身的长度，不会发生截断。
+- 如果前缀有 `+` 或 `-` 符号会占用一个字符位，如果前缀有 `0x` 或 `0o` 等会占用两个字符位。
+
+来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var c: Int32 = 20
+    println("\"${c.format("1")}\"") // 不会发生截断
+    println("\"${c.format("3")}\"")
+    println("\"${c.format("+4")}\"")
+}
+```
+
+运行结果：
+
+```text
+"20"
+" 20"
+" +20"
+```
+
+### convert 参数 precision 的语法
+
+- 精度为正整数，适用于 Int，UInt 和 Float。
+- 对于浮点数表示小数点后的有效数字位数，如果不指定，那么则打印六位小数，如果小于数值本身有效数字的长度，那就四舍五入，如果大于就补全，补全的不一定是 0。
+- 对于整数类型，不指定或者指定的数字小于数值本身的长度，则无效果，如果大于数值本身的长度，则在前面补全'0'。
+
+来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var e: Float32 = 1234.1
+    println("\"${e.format("20.20")}\"")
+    var c: Int32 = -20
+    println("\"${c.format("10.8")}\"")
+}
+```
+
+运行结果：
+
+```text
+"1234.09997558593750000000"
+" -00000020"
+```
+
+### convert 参数 specifier 的语法 1
+
+'b' | 'B' | 'o' | 'O' | 'x' | 'X' 适用于 Int 和 UInt 类型。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var a = 20
+    println("\"${a.format("b")}\"")
+    println("\"${a.format("o")}\"")
+    println("\"${a.format("x")}\"")
+    println("\"${a.format("X")}\"")
+    println("\"${a.format("#X")}\"")
+}
+```
+
+运行结果：
+
+```text
+"10100"
+"24"
+"14"
+"14"
+"0X14"
+```
+
+### convert 参数 specifier 的语法 2
+
+'e' | 'E' | 'g' | 'G' 适用于 Float 类型。来自[概述](./../convert_package_overview.md#功能介绍)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main() {
+    var f: Float32 = 1234.1
+    var c: Float32 = 123412341234.1
+    println("\"${f.format("20.2e")}\"")
+    println("\"${f.format("20G")}\"")
+    println("\"${c.format("20G")}\"")
+    println("\"${f.format("20")}\"")
+    println("\"${c.format("20")}\"")
+}
+```
+
+运行结果：
+
+```text
+"            1.23e+03"
+"              1234.1"
+"         1.23412E+11"
+"         1234.099976"
+" 123412340736.000000"
+```
