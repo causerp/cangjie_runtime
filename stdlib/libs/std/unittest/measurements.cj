@@ -6,7 +6,6 @@ import std.math.*
 import std.runtime.*
 import std.time.*
 import std.collection.*
-
 /**
  * Interface for all kinds of data that can be collected and analyzed during benchmarking.
  */ 
@@ -162,7 +161,7 @@ extend MeasurementUnitTable {
 /**
  * Measures how much time takes to execute a function.
  */
-public class TimeNow <: Measurement {
+public struct TimeNow <: Measurement {
     var unit: ?TimeUnit = None
     /**
      * @param unit Allows to specify a unit of time that will be used for printing results.
@@ -474,8 +473,12 @@ public struct Runtime <: Measurement {
     func measureRaw(): Float64 {
         match (variant) {
             case GCCount => Float64(getGCCount())
-            case GCTime => Float64(getGCTime())*1000.0
-            case AllocatedMemory => Float64(getGCFreedSize() + getAllocatedHeapSize())
+            case GCTime => Float64(getGCTime()) * 1000.0
+            case AllocatedMemory =>
+                let result = Float64(getAllocatedHeapSize() + getGCFreedSize())
+                // make it monotonic because if gc is running, the above two calls
+                // can produce unsychronized results which temporarily produce lower results.
+                max(result, lastAccountedResult)
         }
     }
 

@@ -68,19 +68,12 @@ class InstrumentedBench <: InstrumentedFunction {
 
         let isOriginalTopLevel = original.loadRepeatable(TEST_MACRO).size == 1
 
-        let doCall = if (isOriginalTopLevel) {
-            quote(
+        let doCall = quote(
                 if (q___ < count) {
                     var x___ = $funIdent($(commaSeparated(namesTokens)))
                     blackBox(x___)
                 }
             )
-        } else {
-            quote(
-                var x___ = $funIdent($(commaSeparated(namesTokens)) $run)
-                blackBox(x___)
-            )
-        }
 
         quote(
             measurement: m___,
@@ -104,9 +97,7 @@ class InstrumentedBench <: InstrumentedFunction {
                     for(q___ in start .. end) {
                         $(get.toTokens())
 
-                        
                         $doCall
-
                     }
 
                     result += m___.measure() - tmp_
@@ -508,8 +499,6 @@ class InstrumentedClass {
             let className = Token(STRING_LITERAL, original.className.value)
             tb.append(
                 quote(
-                    iff___(false) { 1 }                 // prevents unused warning
-                    iff___(false) { throw Exception() } // prevents unused warning
                     let suiteConfiguration = classConfiguration()
                     let suiteBuilder = TestSuite.builder($className).configure(suiteConfiguration)
                 )
@@ -570,26 +559,6 @@ class InstrumentedClass {
             case funcDecl: FuncDecl where funcDecl.getDeprecatedLifecycleStage().isSome() =>
                 LifecycleStages.transformFunction(funcDecl, tb)
             case funcDecl: FuncDecl where funcDecl.has(BENCH_MACRO) =>
-                funcDecl.funcParams.add(FuncParam(quote(run___!: Bool = true)))
-                let tmp = try {
-                    parseDecl(quote(
-                        func foo() {
-                            if (run___) $(funcDecl.block)
-                            else {
-                                unsafe { zeroValue<$(funcDecl.declType)>() }
-                            }
-                        }
-                    ))
-                } catch(e: Exception) {
-                    parseDecl(quote(
-                        func foo() {
-                            iff___(run___ ) $(funcDecl.block)
-                        }
-                    ))
-                }
-
-                funcDecl.block = (tmp as FuncDecl)?.block ?? throw Exception("Unreachable")
-
                 tb.append(funcDecl).append(NL)
             // temporary solution until insideParentContext("Test") is fixed on cjvm
             case varDecl: VarDecl where varDecl.getAttrs().size >= 1 && varDecl.getAttrs()[0].value == "Strategy" =>
@@ -640,19 +609,6 @@ class InstrumentedClass {
                 buildConstructor(tb, quote(init), quote(()), ArrayList<Node>())
                 hasDefaultConstructor.value = true
             }
-
-            // temporary workarounds for current type inference limitations
-            tb.append(quote(
-                @Frozen
-                private static func iff___(cond: Bool, a:() -> Nothing): Unit {
-                    if(cond) { a() } else { () }
-                }
-
-                @Frozen
-                private static func iff___<T>(cond: Bool, a: () -> T): T {
-                    if (cond) { a() } else { unsafe { zeroValue<T>() } }
-                }
-            )).append(NL)
 
             buildConfigurationFunc(tb)
 
