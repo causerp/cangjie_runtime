@@ -80,6 +80,10 @@ struct RegionBitmap {
         }
         size_t markWordSize = regionSize / (kMarkedBytesPerBit * kBitsPerWord);
         uint8_t calFactor = factor > markWordSize ? markWordSize : factor;
+        if (markWordSize % calFactor) {
+            // The markWordSize needs to be rounded up to ensure it is divisible by calFactor.
+            markWordSize = markWordSize + calFactor - markWordSize % calFactor;
+        }
         partLiveBytes[maskInfo.headWordIdx / (markWordSize / calFactor)].fetch_add(
             __builtin_popcountll(maskInfo.headMaskBits));
         liveBytes.fetch_add(byteCnt);
@@ -137,6 +141,10 @@ struct RegionBitmap {
         maskInfo.index = offset / (kBitsPerWord * kMarkedBytesPerBit);
         size_t markWordSize = regionSize / (kMarkedBytesPerBit * kBitsPerWord);
         uint8_t calFactor = factor > markWordSize ? markWordSize : factor;
+        if (markWordSize % calFactor) {
+            // The markWordSize needs to be rounded up to ensure it is divisible by calFactor.
+            markWordSize = markWordSize + calFactor - markWordSize % calFactor;
+        }
         maskInfo.partIndex = maskInfo.index / (markWordSize / calFactor) - 1;
         size_t bitIndex = (offset / kMarkedBytesPerBit) % kBitsPerWord;
         maskInfo.mask = (static_cast<uint64_t>(1) << bitIndex) - 1;

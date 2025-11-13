@@ -13,10 +13,7 @@
 #include "ObjectModel/MObject.inline.h"
 
 namespace MapleRuntime {
-TypeInfo* BaseObject::GetTypeInfo() const
-{
-    return stateWord.GetTypeInfo();
-}
+TypeInfo* BaseObject::GetTypeInfo() const { return stateWord.GetTypeInfo(); }
 
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
 void BaseObject::DumpObject(int logtype, bool isSimple) const

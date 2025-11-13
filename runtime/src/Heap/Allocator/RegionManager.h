@@ -97,7 +97,9 @@ public:
         size_t metadataSize = num * sizeof(RegionInfo);
         return RoundUp<size_t>(metadataSize, MapleRuntime::MRT_PAGE_SIZE);
     }
-
+#if defined(__EULER__)
+    void SetCacheRatio(double minSize, double maxSize, double defaultParam);
+#endif
     void Initialize(size_t regionNum, uintptr_t regionInfoStart);
 
     RegionManager()
@@ -132,6 +134,10 @@ public:
 
     uintptr_t GetInactiveZone() const { return inactiveZone; }
 
+#if defined(__EULER__)
+    double GetCacheRatio() const { return cacheRatio; }
+#endif
+
     uintptr_t GetRegionHeapStart() const { return regionHeapStart; }
 
     ~RegionManager() = default;
@@ -161,11 +167,11 @@ public:
             addr = AllocPinnedFromFreeList(size);
         }
         if (addr == 0) {
-            size_t regionSize = maxUnitCountPerRegion;
-#if defined(__linux__)
-            regionSize = maxUnitCountPerPinnedRegion;
+            size_t needUnitCount = maxUnitCountPerRegion;
+#if defined(__EULER__)
+            needUnitCount = maxUnitCountPerPinnedRegion;
 #endif
-            RegionInfo* region = TakeRegion(regionSize, RegionInfo::UnitRole::SMALL_SIZED_UNITS);
+            RegionInfo* region = TakeRegion(needUnitCount, RegionInfo::UnitRole::SMALL_SIZED_UNITS);
             if (region == nullptr) {
                 regionListMutex.unlock();
                 return 0;
@@ -313,16 +319,14 @@ public:
     size_t CollectLargeGarbage();
 
     size_t CollectPinnedGarbage();
-    void CollectFreePinnedSlots(RegionInfo* region);
+    size_t CollectFreePinnedSlots(RegionInfo* region);
 
     // targetSize: size of memory which we do not release and keep it as cache for future allocation.
     size_t ReleaseGarbageRegions(size_t targetSize) { return freeRegionManager.ReleaseGarbageRegions(targetSize); }
 
-    // these methods are helpers for compaction. Since pinned object can not be moved during compaction,
-    // we first virtually reclaim all compactable heap memory, which are handled in cartesian tree. So far we get a map
-    // of heap memory about which region can be used for compaction.
-
-    void ExemptFromRegions();
+    // Ignore dynamic pinned regions and from regions whose garbage objects are quite few, return the garbage size that
+    // can be reclaimed.
+    size_t ExemptFromRegions();
     void ReassembleFromSpace();
 
     void ForEachObjUnsafe(const std::function<void(BaseObject*)>& visitor) const;
@@ -338,8 +342,8 @@ public:
 
     size_t GetSurvivedSize() const
     {
-        return fromRegionList.GetAllocatedSize() + unmovableFromRegionList.GetAllocatedSize() +
-            oldPinnedRegionList.GetAllocatedSize() + oldLargeRegionList.GetAllocatedSize();
+        return fromRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
+            oldLargeRegionList.GetAllocatedSize();
     }
 
     size_t GetUsedUnitCount() const
@@ -348,7 +352,8 @@ public:
             recentFullRegionList.GetUnitCount() + oldLargeRegionList.GetUnitCount() +
             recentLargeRegionList.GetUnitCount() + oldPinnedRegionList.GetUnitCount() +
             recentPinnedRegionList.GetUnitCount() + rawPointerPinnedRegionList.GetUnitCount() +
-            largeTraceRegions.GetUnitCount() + fullTraceRegions.GetUnitCount() + tlRegionList.GetUnitCount();
+            largeTraceRegions.GetUnitCount() + fullTraceRegions.GetUnitCount() +
+            Heap::GetHeap().GetAllocator().GetAllocBufersCount() + tlRegionList.GetUnitCount();
     }
 
     size_t GetDirtyUnitCount() const { return freeRegionManager.GetDirtyUnitCount(); }
@@ -589,7 +594,9 @@ private:
     size_t largeObjectThreshold;
     double fromSpaceGarbageThreshold = 0.5; // 0.5: default garbage ratio.
     double exemptedRegionThreshold;
-
+#if defined(__EULER__)
+    double cacheRatio;
+#endif
     std::mutex freePinnedSlotListMutex;
     FreePinnedSlotLists freePinnedSlotLists;
 };

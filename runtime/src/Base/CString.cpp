@@ -322,6 +322,7 @@ void CString::Replace(size_t pos, CString cStr)
     PRINT_FATAL_IF(memcpy_s(str + pos, repLen, cStr.Str(), repLen) != EOK, "CString::Replace memcpy_s failed");
 }
 
+#ifdef __OHOS__
 void CString::ReplaceAll(CString replacement, CString target)
 {
     int index = -1;
@@ -333,6 +334,7 @@ void CString::ReplaceAll(CString replacement, CString target)
     }
     return;
 }
+#endif
 
 std::vector<CString> CString::Split(CString& source, char separator)
 {

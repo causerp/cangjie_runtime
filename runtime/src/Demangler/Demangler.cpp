@@ -45,6 +45,8 @@ const char MANGLE_GLOBAL_INIT_SUFFIX[] = "iiHv";
 const char MANGLE_GLOBAL_INIT_RESET_SUFFIX[] = "irHv";
 const char MANGLE_GLOBAL_INIT_FLAG_RESET_SUFFIX[] = "ifHv";
 const char MANGLE_GLOBAL_INIT_LITERAL_RESET_SUFFIX[] = "ilHv";
+const char MANGLE_GLOBAL_INIT_IMPORTS_INIT[] = "fiHv";
+const char MANGLE_GLOBAL_LITERAL_IMPORTS_INIT[] = "flHv";
 const char MANGLE_INNER_FUNCTION_PREFIX[] = "$lambda.";
 const char MANGLE_CFUNCTION_WRAPPER[] = "$real";
 const char BOX_DECL_PREFIX[] = "$BOX_";
@@ -591,6 +593,10 @@ DemangleInfo<T> Demangler<T>::DemangleGlobalInit()
         return DemangleInfo<T>{ prefix + T{ "_global_flag_reset" }, TypeKind::NAME, isValid };
     } else if (mangledName.EndsWith(MANGLE_GLOBAL_INIT_LITERAL_RESET_SUFFIX)) {
         return DemangleInfo<T>{ prefix + T{ "_global_init_literal" }, TypeKind::NAME, isValid };
+    } else if (mangledName.EndsWith(MANGLE_GLOBAL_INIT_IMPORTS_INIT)) {
+        return DemangleInfo<T>{ prefix + T{ "_global_init_imports" }, TypeKind::NAME, isValid };
+    } else if (mangledName.EndsWith(MANGLE_GLOBAL_LITERAL_IMPORTS_INIT)) {
+        return DemangleInfo<T>{ prefix + T{ "_global_init_import_literal" }, TypeKind::NAME, isValid };
     } else if (!mangledName.EndsWith(MANGLE_GLOBAL_INIT_SUFFIX)) {
         return Reject("global init function should end with iiHv");
     }
@@ -698,6 +704,10 @@ DemangleInfo<T> Demangler<T>::DemanglePackageName()
     DemangleInfo<T> di{ "", TypeKind::COMMON_DECL };
     if (pkg.IsEmpty()) {
         pkg = DemangleStringName();
+        auto pos = pkg.Find(':');
+        if (pos > -1 && pkg.Length() - pos > 0) {
+            pkg = pkg.SubStr(0, pos) + T{':'} + pkg.SubStr(pos, pkg.Length() - pos);
+        }
     }
     if (IsFileName()) {
         di.isPrivateDeclaration = true;

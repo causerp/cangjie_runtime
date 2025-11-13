@@ -22,6 +22,10 @@
 #if defined (MRT_LINUX) || defined (MRT_MACOS)
 #include "schdpoll.h"
 #endif
+#ifdef MRT_IOS
+#include "Mutator/MutatorManager.h"
+#include "UnwindStack/PrintStackInfo.h"
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -1351,7 +1355,7 @@ unsigned long long ScheduleCJThreadCount(void)
         }
     }
     pthread_mutex_unlock(&g_scheduleManager.allCJThreadListLock);
-    OHOS_HITRACE_COUNT("CJRT_cjthreadNum", cjthreadNum);
+    TRACE_COUNT("CJRT_cjthreadNum", cjthreadNum);
     return cjthreadNum;
 }
 
@@ -1536,6 +1540,18 @@ void RunCJSingleModeThread()
     }
 #endif
     return;
+}
+
+extern "C" void CJ_MRT_RolveCycleRef();
+
+void RunResolveCycle(void* funcPtr)
+{
+    PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;
+    if (PostTask == nullptr) {
+        LOG(RTLOG_ERROR, "The event handler function is nullptr when try run cjSingleModeThread.");
+        return;
+    }
+    while (!PostTask(funcPtr)) {}
 }
 
 void TryRunCJSingleModeThread()
@@ -1977,9 +1993,9 @@ bool ScheduleStartTrace(unsigned short traceType)
     DlHandle dlHandle = nullptr;
     char dlPath[TRACE_PATH_LENGTH];
 #ifdef MRT_WINDOWS
-    char tracePathFormat[] = "%s\\runtime\\lib\\%s_llvm\\libcangjie-trace.dll";
+    char tracePathFormat[] = "%s\\runtime\\lib\\%s_cjnative\\libcangjie-trace.dll";
 #elif defined (MRT_LINUX)
-    char tracePathFormat[] = "%s/runtime/lib/%s_llvm/libcangjie-trace.so";
+    char tracePathFormat[] = "%s/runtime/lib/%s_cjnative/libcangjie-trace.so";
 #endif
     if (g_scheduleManager.trace.openType) {
         LOG_ERROR(ERRNO_SCHD_TRACE_ALREADY_START, "trace is already start");
@@ -2160,3 +2176,79 @@ int CJ_MRT_GetAllCJThreadInfo(void *cjthreadBufPtr, unsigned int num)
     return index;
 }
 
+void CJForeignThreadExit(CJThreadHandle foreignThread)
+{
+    auto* foreignCJThread = reinterpret_cast<CJThread*>(foreignThread);
+    Schedule* schedule = foreignCJThread->schedule;
+    if (schedule->scheduleType != SCHEDULE_FOREIGN_THREAD) {
+        LOG_FATAL(ERRNO_SCHD_WRONG_TYPE, "foreign cj thread has wrong scheduler");
+    }
+#ifndef MRT_TEST
+    MapleRuntime::Mutator* mutator = foreignCJThread->mutator;
+    if (mutator != nullptr && mutator->IsForeignThread()) {
+        mutator->SetForeignCJThreadExit();
+    }
+#endif
+}
+
+#ifdef MRT_IOS
+MapleRuntime::CString GetThreadStateString(void *cjthreadPtr)
+{
+    if (cjthreadPtr == nullptr) {
+        return MapleRuntime::CString();
+    }
+    struct CJThread *cjthread = static_cast<struct CJThread*>(cjthreadPtr);
+    if (cjthread->state == CJTHREAD_IDLE) {
+        return MapleRuntime::CString("idle");
+    } else if (cjthread->state == CJTHREAD_READY) {
+        return MapleRuntime::CString("ready");
+    } else if (cjthread->state == CJTHREAD_RUNNING) {
+        return MapleRuntime::CString("running");
+    } else if (cjthread->state == CJTHREAD_PENDING) {
+        return MapleRuntime::CString("pending");
+    } else if (cjthread->state == CJTHREAD_SYSCALL) {
+        return MapleRuntime::CString("syscall");
+    } else {
+        LOG_FATAL(ERRNO_SCHD_CJTHREAD_STATE_INVALID, "cjthread has wrong state");
+    }
+}
+
+bool IsPendingThread(void *cjthreadPtr)
+{
+    if (cjthreadPtr == nullptr) {
+        return false;
+    }
+    struct CJThread *cjthread = static_cast<struct CJThread*>(cjthreadPtr);
+    return (cjthread->state == CJTHREAD_READY || cjthread->state == CJTHREAD_PENDING);
+}
+
+int CJ_MRT_GetAllCJThreadStackTrace(void *cjStackTraceBufPtr, unsigned int num)
+{
+    unsigned int recordCnt = 0;
+    char *cjStackTraceBuffer = reinterpret_cast<char*>(cjStackTraceBufPtr);
+    MapleRuntime::MutatorManager::Instance().VisitAllMutators(
+        [&recordCnt, num, cjStackTraceBuffer](MapleRuntime::Mutator &mutator) {
+            // skip finalizer
+            if (!mutator.IsVaildCJThread() || recordCnt == num ||
+                !IsPendingThread(mutator.GetCjthreadPtr())) {
+                return;
+            }
+            uint32_t threadId = static_cast<uint32_t>(mutator.GetCJThreadId());
+            MapleRuntime::CString threadState = GetThreadStateString(mutator.GetCjthreadPtr());
+            MapleRuntime::CString threadName;
+            if (mutator.GetCJThreadName() != nullptr) {
+                threadName = MapleRuntime::CString(mutator.GetCJThreadName());
+            }
+            MapleRuntime::CString get;
+            get.Append(MapleRuntime::CString::FormatString("cjthread #%d state: %s name: %s\n",
+                                                           threadId, threadState.Str(), threadName.Str()));
+            MapleRuntime::PrintStackInfo printStackInfo(&(mutator.GetUnwindContext()));
+            get.Append(printStackInfo.GetStackTraceString());
+            snprintf_s(cjStackTraceBuffer + recordCnt * CJTHREAD_STACK_STRING_SIZE,
+                       CJTHREAD_STACK_STRING_SIZE, CJTHREAD_STACK_STRING_SIZE - 1, "%s", get.Str());
+            recordCnt++;
+        }
+    );
+    return recordCnt;
+}
+#endif

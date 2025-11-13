@@ -20,6 +20,8 @@
 #include "Cangjie.h"
 #if defined(__OHOS__) && (__OHOS__ == 1)
 #include "hitrace/trace.h"
+#elif defined(__ANDROID__)
+#include "android/trace.h"
 #endif
 
 namespace MapleRuntime {
@@ -30,72 +32,83 @@ namespace MapleRuntime {
     /**
      * Sample code: \n
      * Synchronous timeslice trace event: \n
-     *     OHOS_HITRACE_START("hitraceTest"); \n
-     *     OHOS_HITRACE_FINISH();\n
+     *     TRACE_START("hitraceTest"); \n
+     *     TRACE_FINISH();\n
      * Output: \n
      *     <...>-1668    (-------) [003] ....   135.059377: tracing_mark_write: B|1668|H:hitraceTest \n
      *     <...>-1668    (-------) [003] ....   135.059415: tracing_mark_write: E|1668| \n
      * Asynchronous timeslice trace event: \n
-     *     OHOS_HITRACE_START_ASYNC("hitraceTest", 123); \n
-     *     OHOS_HITRACE_FINISH_ASYNC("hitraceTest", 123); \n
+     *     TRACE_START_ASYNC("hitraceTest", 123); \n
+     *     TRACE_FINISH_ASYNC("hitraceTest", 123); \n
      * Output: \n
      *     <...>-2477    (-------) [001] ....   396.427165: tracing_mark_write: S|2477|H:hitraceTest 123 \n
      *     <...>-2477    (-------) [001] ....   396.427196: tracing_mark_write: F|2477|H:hitraceTest 123 \n
      * Integer value trace event: \n
-     *     OHOS_HITRACE_COUNT("hitraceTest", 500); \n
+     *     TRACE_COUNT("hitraceTest", 500); \n
      * Output: \n
      *     <...>-2638    (-------) [002] ....   458.904382: tracing_mark_write: C|2638|H:hitraceTest 500 \n
      */
-    #define OHOS_HITRACE_START(name)                    OH_HiTrace_StartTrace(name)
-    #define OHOS_HITRACE_FINISH()                       OH_HiTrace_FinishTrace()
-    #define OHOS_HITRACE_START_ASYNC(name, taskId)      OH_HiTrace_StartAsyncTrace(name, static_cast<int32_t>(taskId))
-    #define OHOS_HITRACE_FINISH_ASYNC(name, taskId)     OH_HiTrace_FinishAsyncTrace(name, static_cast<int32_t>(taskId))
-    #define OHOS_HITRACE_COUNT(name, count)             OH_HiTrace_CountTrace(name, count)
+    #define TRACE_START(name)                    OH_HiTrace_StartTrace(name)
+    #define TRACE_FINISH()                       OH_HiTrace_FinishTrace()
+    #define TRACE_START_ASYNC(name, taskId)      OH_HiTrace_StartAsyncTrace(name, static_cast<int32_t>(taskId))
+    #define TRACE_FINISH_ASYNC(name, taskId)     OH_HiTrace_FinishAsyncTrace(name, static_cast<int32_t>(taskId))
+    #define TRACE_COUNT(name, count)             OH_HiTrace_CountTrace(name, static_cast<int64_t>(count))
+#elif defined(__ANDROID__)
+    #define TRACE_START(name)                    ATrace_beginSection(name)
+    #define TRACE_FINISH()                       ATrace_endSection()
+    #define TRACE_START_ASYNC(name, taskId)      ATrace_beginAsyncSection(name, static_cast<int32_t>(taskId))
+    #define TRACE_FINISH_ASYNC(name, taskId)     ATrace_endAsyncSection(name, static_cast<int32_t>(taskId))
+    #define TRACE_COUNT(name, count)             ATrace_setCounter(name, static_cast<int64_t>(count))
 #else
-    #define OHOS_HITRACE_START(name)
-    #define OHOS_HITRACE_FINISH()
-    #define OHOS_HITRACE_START_ASYNC(name, taskId)
-    #define OHOS_HITRACE_FINISH_ASYNC(name, taskId)
-    #define OHOS_HITRACE_COUNT(name, count)
+    #define TRACE_START(name)
+    #define TRACE_FINISH()
+    #define TRACE_START_ASYNC(name, taskId)
+    #define TRACE_FINISH_ASYNC(name, taskId)
+    #define TRACE_COUNT(name, count)
 #endif
 
-#define OHOS_HITRACE_CJTHREAD_NEW                           "CJTHREAD_CJThreadNew READY"
-#define OHOS_HITRACE_CJTHREAD_EXEC                          "CJTHREAD_CJThreadExecute RUNNING"
-#define OHOS_HITRACE_CJTHREAD_PARK                          "CJTHREAD_CJThreadPark PENDING"
-#define OHOS_HITRACE_CJTHREAD_EXIT                          "CJTHREAD_CJThreadExit IDLE"
-#define OHOS_HITRACE_CJTHREAD_SETNAME                       "CJTHREAD_CJThreadSetName "
+#define TRACE_CJTHREAD_NEW                           "CJTHREAD_CJThreadNew READY"
+#define TRACE_CJTHREAD_EXEC                          "CJTHREAD_CJThreadExecute RUNNING"
+#define TRACE_CJTHREAD_PARK                          "CJTHREAD_CJThreadPark PENDING"
+#define TRACE_CJTHREAD_EXIT                          "CJTHREAD_CJThreadExit IDLE"
+#define TRACE_CJTHREAD_SETNAME                       "CJTHREAD_CJThreadSetName"
 
-class ScopedEntryHiTrace {
+#ifdef __ANDROID__
+const char* TraceInfoFormat(const char* name, unsigned long long id, unsigned int argNum = 0, ...);
+#endif
+
+class ScopedEntryTrace {
 public:
-    explicit ScopedEntryHiTrace(CString name)
+    explicit ScopedEntryTrace(CString name)
     {
         (void)name;
-        OHOS_HITRACE_START(name.Str());
+        TRACE_START(name.Str());
     }
 
-    ~ScopedEntryHiTrace()
+    ~ScopedEntryTrace()
     {
-        OHOS_HITRACE_FINISH();
+        TRACE_FINISH();
     }
 };
 
-class ScopedEntryAsyncHiTrace {
+class ScopedEntryAsyncTrace {
 public:
-    explicit ScopedEntryAsyncHiTrace(CString n, int32_t id, const char *arg = nullptr)
+    explicit ScopedEntryAsyncTrace(CString n, int32_t id, const char *arg = nullptr)
         : name(n), taskId(id), extraArg(arg)
     {
         (void)name;
         (void)taskId;
         (void)extraArg;
         if (extraArg != nullptr && *extraArg != '\0') {
+            name = name.Append(" ");
             name = name.Append(extraArg);
         }
-        OHOS_HITRACE_START_ASYNC(name.Str(), static_cast<int32_t>(taskId));
+        TRACE_START_ASYNC(name.Str(), static_cast<int32_t>(taskId));
     }
 
-    ~ScopedEntryAsyncHiTrace()
+    ~ScopedEntryAsyncTrace()
     {
-        OHOS_HITRACE_FINISH_ASYNC(name.Str(), static_cast<int32_t>(taskId));
+        TRACE_FINISH_ASYNC(name.Str(), static_cast<int32_t>(taskId));
     }
 private:
     CString name;

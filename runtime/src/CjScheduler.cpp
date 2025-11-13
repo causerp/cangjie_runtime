@@ -92,7 +92,7 @@ static size_t InitHeapSize(size_t defaultParam)
     }
     size_t size = CString::ParseSizeFromEnv(env);
 
-#if defined(__OHOS__) || defined(__HOS__)
+#if defined(__OHOS__) || defined(__ANDROID__)
     // 64UL * KB: The minimum heap size in OHOS, measured in KB, the value is 64MB.
     size_t minSize = 64UL * KB;
 #else
@@ -128,21 +128,18 @@ static size_t InitRegionSize(size_t defaultParam)
     return defaultParam;
 }
 
-static double InitGarbageRatio(double defaultParam)
+static double InitPercentParameterIncl(const char* name, double minSize, double maxSize, double defaultParam)
 {
-    auto env = std::getenv("cjGarbageThreshold");
+    auto env = std::getenv(name);
     if (env == nullptr) {
         return defaultParam;
     }
-    // 10: The minimum garbage ratio, measured in percent, the value is 0%.
-    double minSize = 0.0;
-    // 100: The maximum garbage ratio, measured in percent, the value is 100%.
-    double maxSize = 1;
     double size = CString::ParseValidFromEnv(env);
     if (size - minSize >= 0 && maxSize - size >= 0) {
         return size;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported cjGarbageThreshold parameter. Valid cjGarbageThreshold range is [0.1, 1].\n");
+        LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is [%f, %f].\n",
+            name, name, minSize, maxSize);
     }
     return defaultParam;
 }
@@ -155,7 +152,7 @@ static double InitPercentParameter(const char* name, double minSize, double maxS
         if (parameter - minSize > 0 && maxSize - parameter >= 0) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is [%f, %f].\n",
+            LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is (%f, %f].\n",
                 name, name, minSize, maxSize);
         }
     }
@@ -221,8 +218,8 @@ static size_t InitCoStackSize()
 #elif defined(CANGJIE_SANITIZER_SUPPORT)
     // cus sanitizer calls tons of instrumentation, which use more stack memory than normal does
     size_t defaultStackSize = 2048; // default 2MB in sanitizer version, measured in KB
-#elif defined(__OHOS__) || defined(__HOS__) || defined (__APPLE__)
-    size_t defaultStackSize = 1024; // default 1MB in OHOS/HOS/MACOS, measured in KB
+#elif defined(__OHOS__) || defined(__ANDROID__) || defined (__APPLE__)
+    size_t defaultStackSize = 1024; // default 1MB in OHOS/ANDROID/MACOS, measured in KB
 #else
     size_t defaultStackSize = 128; // default 128KB, measured in KB
 #endif
@@ -291,6 +288,13 @@ void* StartMainTask(void* arg, unsigned int len)
 #ifdef CANGJIE_TSAN_SUPPORT
     MapleRuntime::Sanitizer::TsanFinalize();
 #endif
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, CJThreadId());
+    TRACE_START_ASYNC(TRACE_CJTHREAD_EXIT, CJThreadId());
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXIT, CJThreadId()));
+#endif
     CpuProfiler::GetInstance().TryStopSampling();
     RTErrorCode rtCode = SetRuntimeFiniFlag();
     if (rtCode != E_OK) {
@@ -299,6 +303,11 @@ void* StartMainTask(void* arg, unsigned int len)
     MutatorManager::Instance().TransitMutatorToExit();
     ScheduleStop(scheduler);
     CangjieRuntime::FiniAndDelete();
+#ifdef __OHOS__
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXIT, CJThreadId());
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
+#endif
     // If the return value is 0, func may not be successful.
     // If the value of res is a wild value (cj exception), -1 is returned.
     constexpr uint8_t errRet = 255;
@@ -369,7 +378,7 @@ bool MRT_TryNewAndRunCJThread()
     if (ThreadLocal::IsCJProcessor() || ThreadLocal::GetMutator() != nullptr) {
         return false;
     }
-    OHOS_HITRACE_START("CJRT_INVOKE_CJTASK");
+    TRACE_START("CJRT_INVOKE_CJTASK");
     ScheduleHandle scheduler = nullptr;
     if (ThreadLocal::GetForeignCJThread() == nullptr) {
         auto runtime = reinterpret_cast<MapleRuntime::CangjieRuntime*>(&MapleRuntime::Runtime::Current());
@@ -398,9 +407,14 @@ bool MRT_TryNewAndRunCJThread()
         ThreadLocal::SetSchedule(scheduler);
         ThreadLocal::SetProtectAddr(nullptr);
     }
+    mutator->InitForeignCJThread();
     // 1: state is SCHEDULE_RUNNING
     SetSchedulerState(1);
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread));
+#ifdef __OHOS__
+    TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread));
+#elif defined(__ANDROID__)
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread)));
+#endif
     return true;
 }
 
@@ -411,14 +425,16 @@ bool MRT_EndCJThread()
     }
 #if defined(__OHOS__)
     unsigned long long cjthreadId = CJThreadGetId(ThreadLocal::GetForeignCJThread());
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthreadId);
+    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, cjthreadId);
+#elif defined(__ANDROID__)
+    TRACE_FINISH();
 #endif
     MapleRuntime::ExceptionManager::CheckAndDumpException();
     MapleRuntime::Runtime::Current().GetMutatorManager().TransitMutatorToExit();
     ThreadLocal::SetCJThread(nullptr);
     // 0: state is SCHEDULE_INIT
     SetSchedulerState(0);
-    OHOS_HITRACE_FINISH();
+    TRACE_FINISH();
     return true;
 }
 
@@ -478,7 +494,7 @@ static RuntimeParam InitRuntimeParam()
     size_t initHeapSize = InitHeapSize(g_sysmemSize > 1 * GB ? 256 * KB : 64 * KB);
     RuntimeParam param = {
         .heapParam = {
-#if defined(__OHOS__) || defined(__HOS__)
+#if defined(__OHOS__) || defined(__ANDROID__)
             // Default region size is 1024KB.
             .regionSize = InitRegionSize(1024UL),
 #else
@@ -508,7 +524,7 @@ static RuntimeParam InitRuntimeParam()
             // Default gc threshold is heapSize.
             .gcThreshold = InitSizeParameter("cjGCThreshold", 0, initHeapSize) * KB,
             // Default garbage ration is 50% of from space.
-            .garbageThreshold = InitGarbageRatio(0.5),
+            .garbageThreshold = InitPercentParameterIncl("cjGarbageThreshold", 0.0, 1.0, 0.5),
             // Default GC interval is 150ms.
             .gcInterval = static_cast<uint64_t>(InitTimeParameter("cjGCInterval", 0,
                 150 * MILLI_SECOND_TO_NANO_SECOND)),
@@ -674,6 +690,15 @@ int8_t MRT_StopSubScheduler(void* schedule)
         return 1;
     }
     return 0;
+}
+
+static void ResolveCycleRefImpl()
+{
+    Heap::GetHeap().GetCollector().ResolveCycleRef();
+}
+extern "C" void CJ_MRT_RolveCycleRef()
+{
+    RunResolveCycle(reinterpret_cast<void*>(&ResolveCycleRefImpl));
 }
 
 const void* MRT_RuntimeNewSubScheduler()

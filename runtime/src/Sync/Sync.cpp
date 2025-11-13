@@ -688,7 +688,6 @@ void MRT_ThreadWait()
 {
     CJThreadWait();
 }
-
 #ifdef __APPLE__
 #include "MacAlias.h"
 #else

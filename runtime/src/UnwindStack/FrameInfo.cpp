@@ -65,6 +65,55 @@ void FrameInfo::PrintFrameInfo(uint32_t frameIdx) const
     LOG(RTLOG_ERROR, outputStr.Str());
 }
 
+#if defined(__IOS__) || defined(MRT_IOS)
+CString FrameInfo::GetFrameInfo(uint32_t frameIdx) const
+{
+    if (frameIdx > 0 && fType == FrameType::NATIVE) {
+        return "";
+    }
+    CString methodName;
+    CString fileName;
+    uint32_t lineNumber = 0;
+    CString outputStr(CString::FormatString("  frame #%d: %p", frameIdx, mFrame.GetIP()));
+    if (fType == FrameType::MANAGED) {
+        StackMetadataHelper stackMetadataHelper(*this);
+        MangleNameHelper* mangleNameHelper = stackMetadataHelper.GetMangleNameHelper();
+        mangleNameHelper->Demangle();
+        methodName = mangleNameHelper->GetDemangleName();
+        Os::Loader::BinaryInfo binInfo;
+        (void)Os::Loader::GetBinaryInfoFromAddress(mFrame.GetIP(), &binInfo);
+        CString outFileName = CString(binInfo.filePathName);
+        outputStr.Append(" ");
+        if (!outFileName.IsEmpty()) {
+            outFileName = CString::Split(outFileName, '/').back();
+            outputStr.Append(CString::FormatString("%s`", outFileName.Str()));
+        }
+        fileName = stackMetadataHelper.GetFileName();
+        lineNumber = stackMetadataHelper.GetLineNumber();
+        outputStr.Append(CString::FormatString("%s", methodName.IsEmpty() ? "?" : methodName.Str()));
+        if (!fileName.IsEmpty()) {
+            outputStr.Append(CString::FormatString(" at %s", fileName.Str()));
+            if (lineNumber != 0) {
+                outputStr.Append(CString::FormatString(":%d", lineNumber));
+            }
+        }
+    } else {
+        Os::Loader::BinaryInfo binInfo;
+        (void)Os::Loader::GetBinaryInfoFromAddress(mFrame.GetIP(), &binInfo);
+        fileName = CString(binInfo.filePathName);
+        methodName = CString(binInfo.symbolName);
+        outputStr.Append(" ");
+        if (!fileName.IsEmpty()) {
+            fileName = CString::Split(fileName, '/').back();
+            outputStr.Append(CString::FormatString("%s`", fileName.Str()));
+        }
+        outputStr.Append(CString::FormatString("%s", methodName.IsEmpty() ? "?" : methodName.Str()));
+    }
+    outputStr.Append("\n");
+    return outputStr;
+}
+#endif
+
 void SigHandlerFrameinfo::PrintFrameInfo(uint32_t frameIdx) const
 {
     if (frameIdx > 0 && fType == FrameType::NATIVE) {

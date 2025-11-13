@@ -53,7 +53,7 @@ void GCStats::Dump() const
     // Print a summary of the last GC.
     size_t liveSize = Heap::GetHeap().GetAllocatedSize();
     size_t heapSize = Heap::GetHeap().GetUsedPageSize();
-    double utilization = (heapSize == 0) ? 0 : (static_cast<double>(liveSize) / heapSize);
+    double utilization = (heapSize == 0) ? 0 : (static_cast<double>(liveSize) / heapSize) * 100; // 100 for percentage.
 
     // Do not change this GC log format.
     // Output one line statistic info after each gc task,
@@ -64,11 +64,11 @@ void GCStats::Dump() const
         "total GC time: %lu->%s",
         g_gcRequests[reason].name, (async ? "async:" : "sync:"),
         collectedBytes, PrettyOrderInfo(collectedBytes, "B").Str(),
-        (utilization * 100), liveSize, PrettyOrderInfo(liveSize, "B").Str(),
+        utilization, liveSize, PrettyOrderInfo(liveSize, "B").Str(),
         heapSize, PrettyOrderInfo(heapSize, "B").Str(),
-        gcEndTime - gcStartTime, PrettyOrderMathNano(gcEndTime - gcStartTime, "s").Str()); // 100 for percentage.
+        gcEndTime - gcStartTime, PrettyOrderMathNano(gcEndTime - gcStartTime, "s").Str());
 
     VLOG(REPORT, "allocated size: %s, heap size: %s, heap utilization: %.2f%%", Pretty(liveSize).Str(),
-         Pretty(heapSize).Str(), utilization * 100); // 100 for percentage.
+         Pretty(heapSize).Str(), utilization);
 }
 } // namespace MapleRuntime

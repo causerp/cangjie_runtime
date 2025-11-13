@@ -130,7 +130,7 @@ protected:
 #else
         void* result = mmap(nullptr, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_NORESERVE, -1, 0);
         CHECK_DETAIL(result != MAP_FAILED, "allocate create page failed! Out of Memory!");
-#if defined(__linux__) || defined(__OHOS__)
+#if defined(__linux__) || defined(__OHOS__) || defined(__ANDROID__)
         (void)madvise(result, size, MADV_NOHUGEPAGE);
 #endif
         (void)isCommit;
