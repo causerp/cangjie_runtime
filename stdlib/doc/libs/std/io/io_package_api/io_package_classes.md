@@ -432,7 +432,7 @@ public prop position: Int64
 public prop remainLength: Int64
 ```
 
-功能：返回当前流中未读的数据量（以字节为单位）。
+功能：返回当前流中未读的数据量（以字节为单位，不包含缓冲区中的数据）。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
