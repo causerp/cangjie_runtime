@@ -126,13 +126,13 @@ struct SimpleBenchWrapper<T> <: BenchmarkWrapper {
     }
 
     public func timeLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
-        f(input, times, max, batchSize, TimeNow())
+        // we do not pass TimeNow directly into f because
+        //   1. we want to measure full execution cycle with target measurement
+        //   2. it will incur additional allocation.for conversion to interface
+        measureInternal<TimeNow> (TimeNow()) {
+            f(input, times, max, batchSize, m)
+        }
     }
-
-    public func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
-        f(input, times, max, batchSize, Runtime(AllocatedMemory))
-    }
-
 }
 
 // Reduces mock overhead if mocks are used together with benchmarks.
@@ -165,12 +165,6 @@ struct MockBenchWrapper<T> <: BenchmarkWrapper {
             f(input, times, max, batchSize, TimeNow())
         }
     }
-
-    public func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 {
-        runBenchStepWithMock {
-            f(input, times, max, batchSize, Runtime(AllocatedMemory))
-        }
-    }
 }
 
 struct EmptyBenchmark <: BenchmarkWrapper {}
@@ -181,7 +175,6 @@ interface BenchmarkWrapper {
 
     func measureLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
     func timeLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
-    func memLoopOnce(times: Int64, max: Int64, batchSize: Int64): Float64 { 0.0 }
 }
 
 public interface BenchmarkConfig {

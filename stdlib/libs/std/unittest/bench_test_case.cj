@@ -63,7 +63,6 @@ struct WarmupInfo {
 
     func avgIterTime(): Float64 {
         let overheadPerIteration = max(aggregateLoopOverheap/Float64(aggregateRuns), 0.0)
-        let overheadPerBatch = max(aggregateStartBatchOverhead/Float64(executedBatches), 0.0)
         estimation + overheadPerIteration*2.0
     }
 
@@ -78,7 +77,7 @@ struct WarmupInfo {
         let benchmark = benchmark
         let overhead = measureInternal(Runtime(AllocatedMemory)) {
             for (i in 0..20) {
-                benchmark.memLoopOnce(0, 0, 1)
+                benchmark.measureLoopOnce(0, 0, 1)
             }
         }
         batchMemoryOverhead = overhead / 20.0
@@ -161,7 +160,7 @@ struct WarmupInfo {
     }
 }
 
-private func measureInternal<T>(m: T, f:() -> Unit): Float64 where T <: Measurement{
+func measureInternal<T>(m: T, f:() -> Unit): Float64 where T <: Measurement{
     m.setup()
     let x = m.measure()
     f()
@@ -242,8 +241,7 @@ class BenchRunner {
         memoryDiff = memoryStats.updateAndDiff(from: 0)
     }
 
-    // Runs warmup and based on various warmup measurements selects best values for various parameters
-    func warmupAndConfigure(): Unit {
+    private func preWarmupConfig() {
         this.explicitGC = configuration.get(KeyExplicitGC.explicitGC) ?? ExplicitGcType.Auto
         warmupInfo = WarmupInfo(this.explicitGC) // reset info
 
@@ -262,6 +260,11 @@ class BenchRunner {
         if (this.batchSize.end <= 0){
             throw IllegalArgumentException("batchSize must be positive")
         }
+    }
+
+    // Runs warmup and based on various warmup measurements selects best values for various parameters
+    func warmupAndConfigure(): Unit {
+        preWarmupConfig()
 
         waitGCFinish()
 
@@ -350,7 +353,6 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
         maxMeasureBatch = this.batchSize.start
         let maxBatch = batchRange.end.ceilTo(maxMeasureBatch)
 
-        Runtime.lastAccountedResult = 0.0
         if (batchCount < 50 || (benchmark.measurement as Runtime)?.measuresGC() == Some(true)) {
             doMacroBench(maxBatch, batchCount)
         } else {
@@ -369,12 +371,13 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
         let avgStep = max / Float64(batchCount)
         let expectedGCTime = Duration.nanosecond * warmupInfo.emaGC.result * batchCount
 
-        // run once on max to ensure that runtime requested all required memory from OS.
+        // run couple of times on max to ensure that runtime requested all required memory from OS.
         // Otherwise some allocations can cause page faults if new memory is requested from OS
         for (i in 0..2) {
             explicitGC.invoke()
-            benchmark.measureLoopOnce(maxBatch, maxBatch, this.batchSize.end)
+            runMultipleAndMeasure(maxBatch, maxBatch)
         }
+        this.measurements.clear()
         
         let start = DateTime.now()
         for (i in 0..batchCount/2) {
@@ -403,9 +406,14 @@ Warning: Too many objects survive GC which causes unexpectedly long GC times.
         let expectedGCTime = Duration.nanosecond * warmupInfo.emaGC.result * batchCount
         let start = DateTime.now()
 
+        explicitGC.invoke()
+        runMultipleAndMeasure(0, 0)
+        this.measurements.clear()
+
         var batch = 0.0
         for (i in 0..batchCount) {
             batch += avgStep
+
             explicitGC.invoke()
             runMultipleAndMeasure(Int64(batch |> ceil), max)
 
