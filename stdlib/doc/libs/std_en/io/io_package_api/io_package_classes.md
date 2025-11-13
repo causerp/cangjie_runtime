@@ -431,7 +431,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop remainLength: Int64
 ```
 
-Function: Returns the amount of unread data in the current stream (in bytes).
+Function: Returns the amount of unread data in the current stream (in bytes, does not include the data in the buffer).
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
