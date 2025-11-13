@@ -238,10 +238,10 @@ add_subdirectory(third_party/third_party_bounds_checking_function)
 if (ANDROID_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0 AND IOS_FLAG MATCHES 0 AND IOS_SIMULATOR_FLAG MATCHES 0)
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/CjNativeRuntimeStartAndEnd.S)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/aarch64_linux/CjNativeRuntimeStartAndEnd.S)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/CjNativeRuntimeStartAndEnd.S)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_linux/CjNativeRuntimeStartAndEnd.S)
 endif()
 endif()
 
@@ -384,27 +384,27 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/RuntimeConfig.h
 # install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build/scripts/envsetup.sh DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 if (WINDOWS_FLAG MATCHES 1)
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_windows/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_windows/Cjstart.S)
     add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Windows/Section.cpp)
 elseif (MACOS_FLAG MATCHES 1)
     add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Macos/section.cpp)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/X86_64_macos/Cjstart.S)
+        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/X86_64_macos/Cjstart.S)
     else()
-        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/Aarch64_macos/Cjstart.S)
+        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/Aarch64_macos/Cjstart.S)
     endif()
 elseif (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/ios/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/ios/Cjstart.S)
     add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Macos/Section.cpp)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/aarch64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/discard_eh_frame.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.shared.lds
             DESTINATION lib/${TARGET_ARCH})
 else()
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/discard_eh_frame.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cld.lds
