@@ -57,42 +57,15 @@ $<TARGET_OBJECTS:sema>
 $<TARGET_OBJECTS:external>
 )
 
-if ((${PLATFORM_NAME} STREQUAL "ios_cangjie" OR ${PLATFORM_NAME} STREQUAL "ios_simulator_cangjie" OR 
-     ${PLATFORM_NAME} STREQUAL "mac_x86_64_cangjie" OR ${PLATFORM_NAME} STREQUAL "mac_aarch64_cangjie") AND 
-    ("${APPLE_STATIC_BUILD}" STREQUAL "true"))
-    add_custom_command(TARGET cangjie-thread PRE_BUILD
-        COMMAND sh ${CMAKE_SOURCE_DIR}/../../build/apple_rename_section.sh 
-            "${PLATFORM_NAME}"
-            "${CMAKE_C_COMPILER}"
-            "$<TARGET_OBJECTS:schedule>"
-            "$<TARGET_OBJECTS:log>"
-            "$<TARGET_OBJECTS:netpoll>"
-            "$<TARGET_OBJECTS:basetime>"
-            "$<TARGET_OBJECTS:timer>"
-            "$<TARGET_OBJECTS:syscall>"
-            "$<TARGET_OBJECTS:waitqueue>"
-            "$<TARGET_OBJECTS:sema>"
-            "$<TARGET_OBJECTS:external>"
-        VERBATIM
-    )
-endif()
-
 if(${PLATFORM_NAME} STREQUAL "linux_aarch64_cangjie" OR ${PLATFORM_NAME} STREQUAL "linux_aarch64" OR
     ${PLATFORM_NAME} STREQUAL "linux12_x86_64_cangjie" OR ${PLATFORM_NAME} STREQUAL "linux12_x86_64_fuzz" OR
-    ${PLATFORM_NAME} STREQUAL "linux12_x86_64_gcov" OR ${PLATFORM_NAME} STREQUAL "linux12_x86_64" OR
-    ${PLATFORM_NAME} STREQUAL "ios_cangjie" OR ${PLATFORM_NAME} STREQUAL "ios_simulator_cangjie" OR
-    ${PLATFORM_NAME} STREQUAL "mac_x86_64_cangjie" OR ${PLATFORM_NAME} STREQUAL "mac_aarch64_cangjie" OR
-    ${PLATFORM_NAME} STREQUAL "windows_x86_64" OR ${PLATFORM_NAME} STREQUAL "cross_windows_x86_64")
+    ${PLATFORM_NAME} STREQUAL "linux12_x86_64_gcov" OR ${PLATFORM_NAME} STREQUAL "linux12_x86_64")
 install(TARGETS cangjie-thread ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH})
 set(OBJCOPY_PROGRAM objcopy)
  
 install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} -D --rename-section .text=.text_thread \
             ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-thread.a)"
         COMPONENT cangjie-thread)
-if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
-    install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib/libcangjie-thread.a)"
-        COMPONENT cangjie-thread)
-endif()
 endif()
 
 if(${OS} STREQUAL "linux")
@@ -113,15 +86,6 @@ $<TARGET_OBJECTS:udpsock>
 $<TARGET_OBJECTS:rawsock>
 )
 elseif(${OS} STREQUAL "macos")
-add_library(cangjie-aio ${LIBTYPE}
-$<TARGET_OBJECTS:schdfd>
-$<TARGET_OBJECTS:sock>
-$<TARGET_OBJECTS:tcpsock>
-$<TARGET_OBJECTS:domainsock>
-$<TARGET_OBJECTS:udpsock>
-$<TARGET_OBJECTS:rawsock>
-)
-elseif(${OS} STREQUAL "ios")
 add_library(cangjie-aio ${LIBTYPE}
 $<TARGET_OBJECTS:schdfd>
 $<TARGET_OBJECTS:sock>

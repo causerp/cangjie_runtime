@@ -282,7 +282,6 @@ if (COV MATCHES 1)
         target_compile_options(threadmodel PUBLIC "SHELL:${CMAKE_COV_FLAGS}")
     endif ()
 else ()
-    target_compile_definitions(cangjie-runtime PUBLIC COMPILE_DYNAMIC)
     if (WINDOWS_FLAG MATCHES 1)
         set_target_properties(cangjie-runtime PROPERTIES LINK_FLAGS " -Wl,--gc-sections")
     elseif (WINDOWS_FLAG MATCHES 0)
@@ -485,127 +484,34 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
 endif () # CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$"
 
 
-if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1 OR MACOS_FLAG MATCHES 1 OR
-    (ANDROID_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0))
+if (WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0)
     add_library(cangjie-runtime-static STATIC)
-    if (WINDOWS_FLAG MATCHES 1)
-        target_sources(cangjie-runtime-static PRIVATE
-            $<TARGET_OBJECTS:runtime>
-            $<TARGET_OBJECTS:Base>
-            $<TARGET_OBJECTS:CjFile>
-            $<TARGET_OBJECTS:Concurrency>
-            $<TARGET_OBJECTS:Common>
-            $<TARGET_OBJECTS:Exception>
-            $<TARGET_OBJECTS:Heap>
-            $<TARGET_OBJECTS:Allocator>
-            $<TARGET_OBJECTS:Barrier>
-            $<TARGET_OBJECTS:Collector>
-            $<TARGET_OBJECTS:Loader>
-            $<TARGET_OBJECTS:Inspector>
-            $<TARGET_OBJECTS:Mutator>
-            $<TARGET_OBJECTS:ObjectModel>
-            $<TARGET_OBJECTS:BinaryFile>
-            $<TARGET_OBJECTS:CjFileLoader>
-            $<TARGET_OBJECTS:UnwindStack>
-            $<TARGET_OBJECTS:Sync>
-            $<TARGET_OBJECTS:WCollector>
-            $<TARGET_OBJECTS:cjthreadmodel>
-            $<TARGET_OBJECTS:CjSemanticVersion>
-            $<TARGET_OBJECTS:CpuProfiler>
-            ${SANITIZER_LIB_STATIC}
-        )
-    else()
-        target_sources(cangjie-runtime-static PRIVATE
-            $<TARGET_OBJECTS:runtime>
-            $<TARGET_OBJECTS:Base>
-            $<TARGET_OBJECTS:CjFile>
-            $<TARGET_OBJECTS:Concurrency>
-            $<TARGET_OBJECTS:Common>
-            $<TARGET_OBJECTS:Exception>
-            $<TARGET_OBJECTS:Heap>
-            $<TARGET_OBJECTS:Allocator>
-            $<TARGET_OBJECTS:Barrier>
-            $<TARGET_OBJECTS:Collector>
-            $<TARGET_OBJECTS:Loader>
-            $<TARGET_OBJECTS:Inspector>
-            $<TARGET_OBJECTS:Mutator>
-            $<TARGET_OBJECTS:ObjectModel>
-            $<TARGET_OBJECTS:Signal>
-            $<TARGET_OBJECTS:BinaryFile>
-            $<TARGET_OBJECTS:CjFileLoader>
-            $<TARGET_OBJECTS:UnwindStack>
-            $<TARGET_OBJECTS:Sync>
-            $<TARGET_OBJECTS:WCollector>
-            $<TARGET_OBJECTS:cjthreadmodel>
-            $<TARGET_OBJECTS:CjSemanticVersion>
-            $<TARGET_OBJECTS:CpuProfiler>
-            ${SANITIZER_LIB_STATIC}
-        )
-    endif()
-    if (IOS_FLAG MATCHES 1)
-        add_custom_command(TARGET cangjie-runtime-static POST_BUILD
-            COMMAND sh build/build_cjthread.sh -p ios_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            VERBATIM
-        )
-    elseif (IOS_SIMULATOR_FLAG MATCHES 1)
-        add_custom_command(TARGET cangjie-runtime-static POST_BUILD
-            COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p ios_simulator_cangjie ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            VERBATIM
-        )
-    elseif (MACOS_FLAG MATCHES 1)
-        if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-            add_custom_command(TARGET cangjie-runtime-static POST_BUILD
-                COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p macos_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                VERBATIM
-            )
-        else()
-            add_custom_command(TARGET cangjie-runtime-static POST_BUILD
-                COMMAND sh ${CMAKE_SOURCE_DIR}/build/build_cjthread.sh -p macos_aarch64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH} "apple_static_lib" WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                VERBATIM
-            )
-        endif()
-    endif()
-    if (IOS_FLAG MATCHES 1)
-        set(RENAME_PLATFORM "ios_cangjie")
-    elseif (IOS_SIMULATOR_FLAG MATCHES 1)
-        set(RENAME_PLATFORM "ios_simulator_cangjie")
-    elseif (MACOS_FLAG MATCHES 1)
-        set(RENAME_PLATFORM "macos_cangjie")
-    else()
-        set(RENAME_PLATFORM "empty")
-    endif()
-    if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR MACOS_FLAG MATCHES 1)
-        add_custom_command(TARGET cangjie-runtime-static PRE_BUILD
-            COMMAND sh ${CMAKE_SOURCE_DIR}/build/apple_rename_section.sh 
-                "${RENAME_PLATFORM}"
-                "${CMAKE_C_COMPILER}"
-                "$<TARGET_OBJECTS:runtime>"
-                "$<TARGET_OBJECTS:Base>"
-                "$<TARGET_OBJECTS:CjFile>"
-                "$<TARGET_OBJECTS:Concurrency>"
-                "$<TARGET_OBJECTS:Common>"
-                "$<TARGET_OBJECTS:Exception>"
-                "$<TARGET_OBJECTS:Heap>"
-                "$<TARGET_OBJECTS:Allocator>"
-                "$<TARGET_OBJECTS:Barrier>"
-                "$<TARGET_OBJECTS:Collector>"
-                "$<TARGET_OBJECTS:Loader>"
-                "$<TARGET_OBJECTS:Inspector>"
-                "$<TARGET_OBJECTS:Mutator>"
-                "$<TARGET_OBJECTS:ObjectModel>"
-                "$<TARGET_OBJECTS:Signal>"
-                "$<TARGET_OBJECTS:BinaryFile>"
-                "$<TARGET_OBJECTS:CjFileLoader>"
-                "$<TARGET_OBJECTS:UnwindStack>"
-                "$<TARGET_OBJECTS:Sync>"
-                "$<TARGET_OBJECTS:WCollector>"
-                "$<TARGET_OBJECTS:cjthreadmodel>"
-                "$<TARGET_OBJECTS:CjSemanticVersion>"
-                "$<TARGET_OBJECTS:CpuProfiler>"
-                "${SANITIZER_LIB_STATIC}"
-            VERBATIM
-        )
-    endif()
+    target_sources(cangjie-runtime-static PRIVATE
+        $<TARGET_OBJECTS:runtime>
+        $<TARGET_OBJECTS:Base>
+        $<TARGET_OBJECTS:CjFile>
+        $<TARGET_OBJECTS:Concurrency>
+        $<TARGET_OBJECTS:Common>
+        $<TARGET_OBJECTS:Exception>
+        $<TARGET_OBJECTS:Heap>
+        $<TARGET_OBJECTS:Allocator>
+        $<TARGET_OBJECTS:Barrier>
+        $<TARGET_OBJECTS:Collector>
+        $<TARGET_OBJECTS:Loader>
+        $<TARGET_OBJECTS:Inspector>
+        $<TARGET_OBJECTS:Mutator>
+        $<TARGET_OBJECTS:ObjectModel>
+        $<TARGET_OBJECTS:Signal>
+        $<TARGET_OBJECTS:BinaryFile>
+        $<TARGET_OBJECTS:CjFileLoader>
+        $<TARGET_OBJECTS:UnwindStack>
+        $<TARGET_OBJECTS:Sync>
+        $<TARGET_OBJECTS:WCollector>
+        $<TARGET_OBJECTS:cjthreadmodel>
+        $<TARGET_OBJECTS:CjSemanticVersion>
+        $<TARGET_OBJECTS:CpuProfiler>
+        ${SANITIZER_LIB_STATIC}
+    )
 install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH})
 set_target_properties(cangjie-runtime-static PROPERTIES OUTPUT_NAME "cangjie-runtime")
 
