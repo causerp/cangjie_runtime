@@ -47,9 +47,9 @@ elif [ "$1" = "-p" ];then
       mkdir ${BUILD_PATH}
     fi
 
-    if [ -d "$7" ]; then
-      rm -r $7
-    fi
+    # DO NOT remove install prefix directory, it is none of your business
+    # rm -r $7
+
     if [ ! -d "${PROJECT_PATH}/output" ]; then
       mkdir -p ${PROJECT_PATH}/output/temp/lib
       mkdir -p ${PROJECT_PATH}/output/temp/include

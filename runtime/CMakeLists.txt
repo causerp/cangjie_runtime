@@ -63,17 +63,21 @@ if (SANITIZER_SUPPORT_FLAG MATCHES 1 OR GWPASAN_SUPPORT_FLAG MATCHES 1)
 endif ()
 
 set(CJTHREAD_SAN_PRARM "cj")
+set(SANITIZER_SUBPATH "")
 if (ASAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjasan")
     add_compile_definitions(CANGJIE_ASAN_SUPPORT)
     add_compile_definitions(GENERAL_ASAN_SUPPORT_INTERFACE)
+    set(SANITIZER_SUBPATH "/asan")
 elseif (TSAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjtsan")
     add_compile_definitions(CANGJIE_TSAN_SUPPORT)
+    set(SANITIZER_SUBPATH "/tsan")
 elseif (HWASAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjhwasan")
     add_compile_definitions(CANGJIE_HWASAN_SUPPORT)
     add_compile_definitions(GENERAL_ASAN_SUPPORT_INTERFACE)
+    set(SANITIZER_SUBPATH /hwasan)
 elseif (GWPASAN_SUPPORT_FLAG MATCHES 1)
     add_compile_definitions(CANGJIE_GWPASAN_SUPPORT)
 endif ()
@@ -386,10 +390,10 @@ if (DOPRA_FLAG MATCHES 1 AND RUNTIME_TRACE_FLAG MATCHES 1)
         target_link_libraries(cangjie-trace cangjie-runtime)
         target_link_options(cangjie-trace PRIVATE "-Wl,--no-insert-timestamp")
     endif()
-    install(TARGETS cangjie-trace DESTINATION runtime/lib/${TARGET_ARCH})
+    install(TARGETS cangjie-trace DESTINATION runtime/lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
 endif()
 
-install(TARGETS cangjie-runtime DESTINATION runtime/lib/${TARGET_ARCH})
+install(TARGETS cangjie-runtime DESTINATION runtime/lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
 
 install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/RuntimeConfig.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Cangjie.h
@@ -486,7 +490,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
             COMPONENT cangjie-trace)
         endif()
     else()
-        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}/libcangjie-runtime.so)"
+        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.so)"
                 COMPONENT cangjie-runtime)
         install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} -g ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/cjstart.o)"
                 COMPONENT cjstart)
@@ -499,7 +503,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
                 COMPONENT cjfilt)
         endif()
         if (RUNTIME_TRACE_FLAG MATCHES 1)
-        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}/libcangjie-trace.so)"
+        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} ${CMAKE_INSTALL_PREFIX}/runtime/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-trace.so)"
             COMPONENT cangjie-trace)
         endif()
     endif()
@@ -627,17 +631,17 @@ if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR WINDOWS_FLAG MATCHES 1
             VERBATIM
         )
     endif()
-install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH})
+install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
 set_target_properties(cangjie-runtime-static PROPERTIES OUTPUT_NAME "cangjie-runtime")
 
 set(OBJCOPY_PROGRAM objcopy)
 set(STRIP_PROGRAM strip)
 
 install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} --rename-section .text=.text_runtime \
-            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-runtime.a)"
+            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
         COMPONENT cangjie-runtime)
 if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
-    install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib/libcangjie-runtime.a)"
+    install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
         COMPONENT cangjie-runtime)
 endif()
 endif()

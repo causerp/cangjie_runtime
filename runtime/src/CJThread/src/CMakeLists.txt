@@ -83,11 +83,11 @@ if(${PLATFORM_NAME} STREQUAL "linux_aarch64_cangjie" OR ${PLATFORM_NAME} STREQUA
     ${PLATFORM_NAME} STREQUAL "ios_cangjie" OR ${PLATFORM_NAME} STREQUAL "ios_simulator_cangjie" OR
     ${PLATFORM_NAME} STREQUAL "mac_x86_64_cangjie" OR ${PLATFORM_NAME} STREQUAL "mac_aarch64_cangjie" OR
     ${PLATFORM_NAME} STREQUAL "windows_x86_64" OR ${PLATFORM_NAME} STREQUAL "cross_windows_x86_64")
-install(TARGETS cangjie-thread ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH})
+install(TARGETS cangjie-thread ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
 set(OBJCOPY_PROGRAM objcopy)
  
 install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} -D --rename-section .text=.text_thread \
-            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-thread.a)"
+            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-thread.a)"
         COMPONENT cangjie-thread)
 if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
     install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib/libcangjie-thread.a)"
