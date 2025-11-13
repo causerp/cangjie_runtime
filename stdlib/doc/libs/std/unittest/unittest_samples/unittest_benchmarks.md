@@ -273,6 +273,7 @@ class Bench {
 - `TimeNow`：使用 `DateTime.now` 测试实时时间。可以配置特定的时间单位，以便所有结果都使用相同的时间单位打印。
 - `CpuCycles`：用于测试裸机 CPU 指令的 CPU 使用周期数。仅在有此类指令的平台上可用，并且可以在用户空间中执行。
 - `Perf`：使用Linux的 `perf_event_open` 系统调用，测试各种软硬件的CPU计数器。
+- `Runtime`: 支持 Cangjie 运行时提供的指标，例如已分配内存量。
 
 ### 每次调用前的设置
 
