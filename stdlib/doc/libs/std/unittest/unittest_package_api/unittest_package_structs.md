@@ -314,7 +314,7 @@ public struct KeyBaseline <: KeyFor<String> {}
 
 例如：
 
-<!-- compile -->
+<!-- code_no_check -->
 ```cangjie
 let conf = Configuration()
 conf.set(KeyBaseline.baseline, "baseline")
@@ -1386,7 +1386,7 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 例如：
 
-<!-- compile -->
+<!-- code_no_check -->
 ```cangjie
 let conf = Configuration()
 conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
