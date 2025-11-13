@@ -108,6 +108,16 @@ function(add_cangjie_library target_name)
         endif()
     endif()
 
+    if (CANGJIELIB_IS_CJNATIVE_BACKEND)
+        if (CANGJIE_ASAN_SUPPORT)
+            list(APPEND cangjie_compile_flags "--sanitize=address")
+        elseif (CANGJIE_TSAN_SUPPORT)
+            list(APPEND cangjie_compile_flags "--sanitize=thread")
+        elseif (CANGJIE_HWASAN_SUPPORT)
+            list(APPEND cangjie_compile_flags "--sanitize=hwaddress")
+        endif()
+    endif()
+
     set(MKDIR_TEMP_FILES_CMD)
     # append backend-options
     list(LENGTH CANGJIELIB_OPTS options_length)
@@ -224,6 +234,7 @@ function(add_cangjie_library target_name)
         COMMENT "Generating ${target_name}")
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND
        AND NOT WIN32
+       AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED
        AND NOT DARWIN)
         add_custom_target(
             ${target_name}_bc ALL
@@ -266,6 +277,10 @@ function(add_cangjie_library target_name)
     endif()
 
     # install
+    # sanitizer version only needs library files, cjo, bchir, pdba files are not needed
+    if (CANGJIE_SANITIZER_SUPPORT_ENABLED)
+        return()
+    endif()
     if(NOT ("${CANGJIELIB_MODULE_NAME}" STREQUAL ""))
         set(file_name "${CANGJIELIB_MODULE_NAME}.${CANGJIELIB_PACKAGE_NAME}")
     else()
@@ -295,7 +310,7 @@ function(install_cangjie_library_ffi lib_name)
     # set install dir
     string(TOLOWER ${TARGET_TRIPLE_DIRECTORY_PREFIX} output_lib_dir)
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
-        install(TARGETS ${lib_name} DESTINATION lib/${output_lib_dir}_${CJNATIVE_BACKEND})
+        install(TARGETS ${lib_name} DESTINATION lib/${output_lib_dir}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
     endif()
 endfunction()
 
@@ -303,6 +318,6 @@ function(install_cangjie_library_ffi_s lib_name)
     # set install dir
     string(TOLOWER ${TARGET_TRIPLE_DIRECTORY_PREFIX} output_lib_dir)
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
-        install(TARGETS ${lib_name} DESTINATION runtime/lib/${output_lib_dir}_${CJNATIVE_BACKEND})
+        install(TARGETS ${lib_name} DESTINATION runtime/lib/${output_lib_dir}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
     endif()
 endfunction()

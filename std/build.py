@@ -98,6 +98,10 @@ def generate_cmake_defs(args):
         "-DCANGJIE_ENABLE_HWASAN=" + bool_to_opt(args.hwasan),
         "-DCANGJIE_TARGET_SYSROOT=" + (args.target_sysroot if args.target_sysroot else ""),
         "-DCANGJIE_BUILD_ARGS=" + (";".join(args.build_args) if args.build_args else "")]
+
+    if args.sanitizer_support:
+        result.append("-DCANGJIE_SANITIZER_SUPPORT=" + args.sanitizer_support)
+
     return result
 
 def build(args):
@@ -153,11 +157,16 @@ def build(args):
             build_cmd.extend(["-j", str(args.jobs)])
 
     cmake_command = ["cmake", HOME_DIR, "-G", generator] + generate_cmake_defs(args)
-
+    
     if not os.path.exists(BUILD_DIR):
         os.makedirs(BUILD_DIR)
 
-    cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.target)) if args.target else CMAKE_BUILD_DIR
+    if args.sanitizer_support:
+        cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.sanitizer_support))
+        if args.target:
+            cmake_build_dir += "-{}".format(args.target)
+    else:
+        cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.target)) if args.target else CMAKE_BUILD_DIR
 
     if not os.path.exists(cmake_build_dir):
         os.makedirs(cmake_build_dir)
@@ -360,6 +369,16 @@ def main():
     parser_build.add_argument(
         "--target-sysroot", dest="target_sysroot", type=str,
         help="pass this argument to C/CXX compiler as --sysroot"
+    )
+    parser_build.add_argument(
+        "--asancov", action="store_true", help="build with asan and sanitize-coverage, used for cjc_fuzz and lsp_test"
+    )
+    parser_build.add_argument(
+        "--cjlib-sanitizer-support",
+        type=str,
+        choices=["asan", "tsan", "hwasan"],
+        dest="sanitizer_support",
+        help="Enable cangjie sanitizer support for cangjie libraries."
     )
     parser_build.add_argument(
         "--build-args",

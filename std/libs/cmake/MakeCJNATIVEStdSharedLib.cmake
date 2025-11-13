@@ -47,6 +47,11 @@ function(make_cangjie_lib target_name)
         set(linker_ld_library_path "$ENV{CANGJIE_HOME}/third_party/llvm/lib")
     elseif(NOT MINGW)
         list(APPEND flags_to_compile "-Wl,-z,relro,-z,now,-z,noexecstack")
+        if(CANGJIE_HWASAN_SUPPORT)
+            # We need use our lld since we have modification to make it link properly,
+            # otherwise it will has false alignment and finally lead to a SEGV when load std-lib.
+            list(APPEND flags_to_compile "-fuse-ld=$ENV{CANGJIE_HOME}/third_party/llvm/bin/ld.lld")
+        endif()    
     endif()
 
     if(MINGW)
@@ -89,7 +94,7 @@ function(make_cangjie_lib target_name)
                 set(target_system_name "linux_ohos")
             endif()
             string(TOLOWER "${target_system_name}_${CMAKE_SYSTEM_PROCESSOR}_${CJNATIVE_BACKEND}" tmpdir)
-            list(APPEND flags_to_compile "-L${RUNTIME_COMMON_LIB_DIR}/../../runtime/lib/${tmpdir}")
+            list(APPEND flags_to_compile "-L${RUNTIME_COMMON_LIB_DIR}/../../runtime/lib/${tmpdir}${SANITIZER_SUBPATH}")
             set(runtime_link_option "cangjie-runtime")
             to_link_library_option(runtime_link_option)
             list(APPEND flags_to_compile "${runtime_link_option}")
@@ -148,7 +153,7 @@ function(make_cangjie_lib target_name)
             list(APPEND flags_to_compile "-lc")
             list(APPEND flags_to_compile "-lunwind")
         endif()
-        if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN)
+        if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
             # Extra checkes when generating cangjie shared libraries. If symbols are used in Cangjie but not
             # defined in the shared library, an error will be reported. If any of such errors are reported,
             # we are likely missing some dependencies to link or functions to implement (e.g. using an
