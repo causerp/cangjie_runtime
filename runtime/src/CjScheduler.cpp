@@ -288,13 +288,6 @@ void* StartMainTask(void* arg, unsigned int len)
 #ifdef CANGJIE_TSAN_SUPPORT
     MapleRuntime::Sanitizer::TsanFinalize();
 #endif
-#ifdef __OHOS__
-    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, CJThreadId());
-    TRACE_START_ASYNC(TRACE_CJTHREAD_EXIT, CJThreadId());
-#elif defined(__ANDROID__)
-    TRACE_FINISH();
-    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXIT, CJThreadId()));
-#endif
     CpuProfiler::GetInstance().TryStopSampling();
     RTErrorCode rtCode = SetRuntimeFiniFlag();
     if (rtCode != E_OK) {
@@ -303,11 +296,6 @@ void* StartMainTask(void* arg, unsigned int len)
     MutatorManager::Instance().TransitMutatorToExit();
     ScheduleStop(scheduler);
     CangjieRuntime::FiniAndDelete();
-#ifdef __OHOS__
-    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXIT, CJThreadId());
-#elif defined(__ANDROID__)
-    TRACE_FINISH();
-#endif
     // If the return value is 0, func may not be successful.
     // If the value of res is a wild value (cj exception), -1 is returned.
     constexpr uint8_t errRet = 255;
@@ -378,7 +366,7 @@ bool MRT_TryNewAndRunCJThread()
     if (ThreadLocal::IsCJProcessor() || ThreadLocal::GetMutator() != nullptr) {
         return false;
     }
-    TRACE_START("CJRT_INVOKE_CJTASK");
+    OHOS_HITRACE_START("CJRT_INVOKE_CJTASK");
     ScheduleHandle scheduler = nullptr;
     if (ThreadLocal::GetForeignCJThread() == nullptr) {
         auto runtime = reinterpret_cast<MapleRuntime::CangjieRuntime*>(&MapleRuntime::Runtime::Current());
@@ -410,11 +398,7 @@ bool MRT_TryNewAndRunCJThread()
     mutator->InitForeignCJThread();
     // 1: state is SCHEDULE_RUNNING
     SetSchedulerState(1);
-#ifdef __OHOS__
-    TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread));
-#elif defined(__ANDROID__)
-    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread)));
-#endif
+    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, CJThreadGetId(cjthread));
     return true;
 }
 
@@ -425,16 +409,14 @@ bool MRT_EndCJThread()
     }
 #if defined(__OHOS__)
     unsigned long long cjthreadId = CJThreadGetId(ThreadLocal::GetForeignCJThread());
-    TRACE_FINISH_ASYNC(TRACE_CJTHREAD_EXEC, cjthreadId);
-#elif defined(__ANDROID__)
-    TRACE_FINISH();
+    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthreadId);
 #endif
     MapleRuntime::ExceptionManager::CheckAndDumpException();
     MapleRuntime::Runtime::Current().GetMutatorManager().TransitMutatorToExit();
     ThreadLocal::SetCJThread(nullptr);
     // 0: state is SCHEDULE_INIT
     SetSchedulerState(0);
-    TRACE_FINISH();
+    OHOS_HITRACE_FINISH();
     return true;
 }
 

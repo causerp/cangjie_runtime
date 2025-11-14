@@ -39,7 +39,7 @@ def do_build(args):
     if target_args == 'native':
         target_platform = platform.system().lower()
     else:
-        target_platform = target_args.rsplit('-', 1)[0]
+        target_platform =  target_args.split('-')[0]
 
     # Validate the version number parameter
     if not version:
@@ -53,10 +53,6 @@ def do_build(args):
     # Adjust CMAKE_INSTALL_PREFIX based on target_args
     if target_platform == "ohos":
         install_prefix = os.path.join(prefix_path, f"linux_ohos_{mode}")
-    elif target_platform == "android":
-        install_prefix = os.path.join(prefix_path, f"linux_android31_{mode}")
-    elif target_platform == "ios-simulator":
-        install_prefix = os.path.join(prefix_path, f"ios_simulator_{mode}")
     else:
         install_prefix = os.path.join(prefix_path, f"{target_platform}_{mode}")
 
@@ -75,9 +71,8 @@ def do_build(args):
 
     if target_args in ('native'):
         target_arch = host_arch
-    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
-                         'ios-aarch64', 'ios-simulator-aarch64'):
-        target_arch = target_args.rsplit('-', 1)[1]
+    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'windows-x86_64'):
+        target_arch = target_args.split('-', 1)[1]
     else:
         target_arch = None
 
@@ -112,10 +107,9 @@ def do_build(args):
             "-DCMAKE_BUILD_TYPE={}".format(mode),
             "-DCOPYGC_FLAG=1",
             "-DDOPRA_FLAG=1",
+            "-DRTOS_FLAG=0",
+            "-DRTOS_LINUX_KERNEL_FLAG=0",
             "-DOHOS_FLAG=0",
-            "-DANDROID_FLAG=0",
-            "-DIOS_FLAG=0",
-            "-DIOS_SIMULATOR_FLAG=0",
             "-DEULER_FLAG=0",
             "-DMACOS_FLAG={}".format(macos_flag),
             "-DRUNTIME_TRACE_FLAG=1",
@@ -146,10 +140,9 @@ def do_build(args):
             "-DCMAKE_BUILD_TYPE={}".format(mode),
             "-DCOPYGC_FLAG=1",
             "-DDOPRA_FLAG=1",
+            "-DRTOS_FLAG=0",
+            "-DRTOS_LINUX_KERNEL_FLAG=0",
             "-DOHOS_FLAG=0",
-            "-DANDROID_FLAG=0",
-            "-DIOS_FLAG=0",
-            "-DIOS_SIMULATOR_FLAG=0",
             "-DEULER_FLAG=0",
             "-DWINDOWS_FLAG=1",
             "-DDSU_FLAG=0",
@@ -189,11 +182,10 @@ def do_build(args):
             "-DCMAKE_BUILD_TYPE={}".format(mode),
             "-DCOPYGC_FLAG=1",
             "-DDOPRA_FLAG=1",
+            "-DRTOS_FLAG=0",
+            "-DRTOS_LINUX_KERNEL_FLAG=0",
             "-DOHOS_FLAG={}".format(ohos_flag),
             "-DOHOS_ROOT={}".format(args.target_toolchain),
-            "-DANDROID_FLAG=0",
-            "-DIOS_FLAG=0",
-            "-DIOS_SIMULATOR_FLAG=0",
             "-DEULER_FLAG=0",
             "-DRUNTIME_TRACE_FLAG=1",
             "-DASAN_FLAG=0",
@@ -207,72 +199,8 @@ def do_build(args):
         ] + ptrauth_flags
         build_target(cmake_command)
 
-    elif target_args in ["android-aarch64", "android-x86_64"]:
-        if args.target_toolchain == None:
-            print("Please configure android toolchain, for example '/root/workspace/android_dep_files/'")
-            sys.exit(1)
-        android_flag = "1" if target_args == "android-aarch64" else "2"
-        if target_args == "android-aarch64":
-            target_arch = "aarch64"
-        elif target_args == "android-x86_64":
-            target_arch = "x86_64"
-        cmake_command = [
-            "cmake",
-            "-DCMAKE_INSTALL_PREFIX={}_{}".format(install_prefix, target_arch),
-            "-DCMAKE_BUILD_TYPE={}".format(mode),
-            "-DCOPYGC_FLAG=1",
-            "-DDOPRA_FLAG=1",
-            "-DOHOS_FLAG=0",
-            "-DANDROID_FLAG={}".format(android_flag),
-            "-DANDROID_ROOT={}".format(args.target_toolchain),
-            "-DIOS_FLAG=0",
-            "-DIOS_SIMULATOR_FLAG=0",
-            "-DEULER_FLAG=0",
-            "-DRUNTIME_TRACE_FLAG=1",
-            "-DASAN_FLAG=0",
-            "-DHWASAN_FLAG={}".format(hwasan_flag),
-            "-DSANITIZER_SUPPORT=0",
-            "-DCOV=0",
-            "-DDUMPADDRESS_FLAG=0",
-            "-DCJ_SDK_VERSION={}".format(version),
-            "-DDISABLE_VERSION_CHECK=1",
-            "-S", ".", "-B", "CMakebuild"
-        ]
-        build_target(cmake_command)
-
-    elif target_args in ["ios-aarch64", "ios-simulator-aarch64"]:
-        if args.target_toolchain == None:
-            print("Please configure ios toolchain, for example '/root/workspace/ios_dep_files/'")
-            sys.exit(1)
-        os.environ["PATH"] = os.path.join(args.target_toolchain, "bin") + ":" + os.environ["PATH"]
-        ios_flag = "1" if target_args == "ios-aarch64" else "0"
-        ios_simulator_flag = "1" if target_args == "ios-simulator-aarch64" else "0"
-        cmake_command = [
-            "cmake",
-            "-DCMAKE_INSTALL_PREFIX={}_{}".format(install_prefix, target_arch),
-            "-DCMAKE_BUILD_TYPE={}".format(mode),
-            "-DCOPYGC_FLAG=1",
-            "-DDOPRA_FLAG=1",
-            "-DOHOS_FLAG=0",
-            "-DANDROID_FLAG=0",
-            "-DIOS_FLAG={}".format(ios_flag),
-            "-DIOS_SIMULATOR_FLAG={}".format(ios_simulator_flag),
-            "-DEULER_FLAG=0",
-            "-DRUNTIME_TRACE_FLAG=1",
-            "-DASAN_FLAG=0",
-            "-DHWASAN_FLAG={}".format(hwasan_flag),
-            "-DSANITIZER_SUPPORT=0",
-            "-DCOV=0",
-            "-DDUMPADDRESS_FLAG=0",
-            "-DCJ_SDK_VERSION={}".format(version),
-            "-DDISABLE_VERSION_CHECK=1",
-            "-S", ".", "-B", "CMakebuild"
-        ]
-        build_target(cmake_command)
-
     else:
-        print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
+        print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64")
         sys.exit(1)
 
 def build_target(cmake_command):
@@ -321,7 +249,7 @@ if __name__ == "__main__":
     b.set_defaults(func=do_build)
     b.add_argument(
         "--target",
-        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
+        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64"],
         metavar="TARGET",
         default="native",
         help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-x86_64"

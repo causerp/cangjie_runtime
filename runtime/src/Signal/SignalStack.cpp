@@ -122,7 +122,7 @@ void SignalStack::HandlerImpl(void* args)
     int signal = signalArgs->signal;
     siginfo_t* siginfo = signalArgs->siginfo;
     void* ucontextRaw = signalArgs->ucontextRaw;
-    ScopedEntryTrace trace("CJRT_SIGNAL_HANDLER");
+    ScopedEntryHiTrace hiTrace("CJRT_SIGNAL_HANDLER");
     // Check if we are already handling a signal
     if (!GetHandlingSignal()) {
         std::vector<SignalAction>& handlerStack = SignalStack::stacks[signal].handlerStack;
@@ -196,7 +196,7 @@ void SignalStack::HandlerImpl(void* args)
 template <typename T>
 static void FindSymbolInLibc(T* result, const char* name)
 {
-#if defined(__OHOS__) || defined(__ANDROID__)
+#if defined(__OHOS__)
     constexpr const char* libName = "libc.so";
 #elif defined(__APPLE__)
     constexpr const char* libName = "libc.dylib";

@@ -1351,7 +1351,7 @@ unsigned long long ScheduleCJThreadCount(void)
         }
     }
     pthread_mutex_unlock(&g_scheduleManager.allCJThreadListLock);
-    TRACE_COUNT("CJRT_cjthreadNum", cjthreadNum);
+    OHOS_HITRACE_COUNT("CJRT_cjthreadNum", cjthreadNum);
     return cjthreadNum;
 }
 

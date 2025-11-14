@@ -226,7 +226,7 @@ static void InstallExceptionAbortHandler()
 
 void ExceptionManager::ThrowException(const ExceptionRef& exception)
 {
-    ScopedEntryTrace trace("CJRT_THROW_EXCEPTION");
+    ScopedEntryHiTrace hiTrace("CJRT_THROW_EXCEPTION");
     MRT_SetStackGrow(true);
     ExceptionWrapper& mExceptionWrapper = Mutator::GetMutator()->GetExceptionWrapper();
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
@@ -256,7 +256,7 @@ void ExceptionManager::ThrowException(const ExceptionRef& exception)
 
 void* ExceptionManager::BeginCatch(ExceptionWrapper* mExceptionWrapper __attribute__((unused)))
 {
-    ScopedEntryTrace trace("CJRT_CATCH_EXCEPTION");
+    ScopedEntryHiTrace hiTrace("CJRT_CATCH_EXCEPTION");
     Mutator* mutator = Mutator::GetMutator();
     ExceptionWrapper& eWrapper = mutator->GetExceptionWrapper();
     if (eWrapper.IsThrowingSOFE()) {

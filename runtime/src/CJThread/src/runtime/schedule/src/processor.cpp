@@ -775,11 +775,7 @@ void ProcessorSchedule(void)
             MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(CJThreadGet(), nextCJThread);
             MapleRuntime::Sanitizer::AsanEndSwitchThreadContext(nextCJThread);
 #endif
-#ifdef __OHOS__
-            TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, nextCJThread->id);
-#elif defined (__ANDROID__)
-            TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, nextCJThread->id));
-#endif
+            OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, nextCJThread->id);
 #ifdef __OHOS__
             if (nextCJThread->schedule->scheduleType == SCHEDULE_UI_THREAD) {
                 SingleCJThreadStoreSP();
@@ -812,11 +808,7 @@ void ProcessorSchedule(void)
             MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(CJThreadGet(), nextCJThread);
             MapleRuntime::Sanitizer::AsanEndSwitchThreadContext(nextCJThread);
 #endif
-#ifdef __OHOS__
-            TRACE_START_ASYNC(TRACE_CJTHREAD_EXEC, nextCJThread->id);
-#elif defined (__ANDROID__)
-            TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, nextCJThread->id));
-#endif
+            OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, nextCJThread->id);
 #ifdef __OHOS__
             if (nextCJThread->schedule->scheduleType == SCHEDULE_UI_THREAD) {
                 SingleCJThreadStoreSP();

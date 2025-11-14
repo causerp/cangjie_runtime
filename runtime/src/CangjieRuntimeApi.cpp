@@ -424,7 +424,7 @@ ScheduleHandle GetScheduler()
 CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJThreadSpecificDataInner* data = nullptr,
                              ScheduleHandle schedule = nullptr, bool isSignal = false)
 {
-    MapleRuntime::ScopedEntryTrace trace("CJRT_INVOKE_CJTASK_ASYNC");
+   MapleRuntime::ScopedEntryHiTrace hiTrace("CJRT_INVOKE_CJTASK_ASYNC");
     if (!CheckRuntimeValid(func)) {
         return nullptr;
     }

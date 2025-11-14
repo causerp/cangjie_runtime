@@ -46,10 +46,8 @@ Uptr StackManager::traceSoStartAddr = ULLONG_MAX;
 Uptr StackManager::traceSoEndAddr = 0;
 
 #if defined (COMPILE_DYNAMIC)
-#if !defined (__APPLE__)
 extern "C" Uptr* g_runtimeDynamicStart;
 extern "C" Uptr* g_runtimeDynamicEnd;
-#endif
 #else
 extern "C" Uptr* g_runtimeStaticStart;
 extern "C" Uptr* g_runtimeStaticEnd;
@@ -298,7 +296,7 @@ void StackManager::InitAddressScope()
 #elif defined(__APPLE__)
     InitAddressInfoOnDarwin("/" LIBCANGJIE_RUNTIME ".dylib", StackManager::rtStartAddr, StackManager::rtEndAddr);
     InitAddressInfoOnDarwin("/cjc", StackManager::cjcSoStartAddr, StackManager::cjcSoEndAddr);
-#elif defined(__OHOS__) || defined(__HOS__)
+#elif defined(__OHOS__) || defined(__ANDROID__)
     CString procFileName("/proc/self/maps");
     FILE* file = fopen(procFileName.Str(), "r");
     if (file == nullptr) {

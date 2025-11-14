@@ -315,7 +315,7 @@ void TracingCollector::EnumAllExportRoots(RootSet &foreignRootsSet)
 }
 void TracingCollector::DoEnumeration(WorkStack& workStack, WorkStack& foreignRootsSet)
 {
-    ScopedEntryTrace trace("CJRT_GC_ENUM");
+    ScopedEntryHiTrace hiTrace("CJRT_GC_ENUM");
     EnumAllCommonRoots(GetThreadPool(), workStack);
     EnumAllExportRoots(foreignRootsSet);
 }
@@ -392,7 +392,7 @@ void TracingCollector::FindUselessExternObjects()
 }
 void TracingCollector::DoTracing(WorkStack& workStack, WorkStack& foreignRootsSet)
 {
-    ScopedEntryTrace trace("CJRT_GC_TRACE");
+    ScopedEntryHiTrace hiTrace("CJRT_GC_TRACE");
     MRT_PHASE_TIMER("DoTracing");
     VLOG(REPORT, "roots size: %zu", workStack.size());
 
@@ -669,7 +669,7 @@ void TracingCollector::PreGarbageCollection(bool isConcurrent)
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
     DumpBeforeGC();
 #endif
-    TRACE_COUNT("CJRT_pre_GC_HeapSize", Heap::GetHeap().GetAllocatedSize());
+    OHOS_HITRACE_COUNT("CJRT_pre_GC_HeapSize", Heap::GetHeap().GetAllocatedSize());
 }
 
 void TracingCollector::PostGarbageCollection(uint64_t gcIndex)
@@ -852,6 +852,6 @@ void TracingCollector::UpdateGCStats()
     g_gcRequests[GC_REASON_HEU].SetMinInterval(gcInterval);
     VLOG(REPORT, "live bytes %zu (survived %zu, recent-allocated %zu), update gc threshold %zu -> %zu", liveBytes,
          liveBytes - recentBytes, recentBytes, oldThreshold, gcStats.heapThreshold);
-    TRACE_COUNT("CJRT_post_GC_HeapSize", Heap::GetHeap().GetAllocatedSize());
+    OHOS_HITRACE_COUNT("CJRT_post_GC_HeapSize", Heap::GetHeap().GetAllocatedSize());
 }
 } // namespace MapleRuntime

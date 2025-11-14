@@ -19,7 +19,7 @@ void CJFileLoader::Fini()
 
 void CJFileLoader::RegisterLoadFile(Uptr fileMetaAddr)
 {
-    ScopedEntryTrace trace("CJRT_RegisterLoadFile");
+    ScopedEntryHiTrace hiTrace("CJRT_RegisterLoadFile");
     BaseFile* file = GetBaseFileByMetaAddr(fileMetaAddr);
     if (file == nullptr) {
         return;
@@ -235,7 +235,7 @@ void CJFileLoader::RegisterOuterTypeExtensions(BaseFile* baseFile)
 
 void CJFileLoader::GenerateMTableForStaticGI()
 {
-    ScopedEntryTrace trace("CJRT_GenerateMTableForStaticGI");
+    ScopedEntryHiTrace hiTrace("CJRT_GenerateMTableForStaticGI");
     for (auto ti : staticGIs) {
         U32 tiUUID = ti->GetUUID();
         TypeTemplate* tt = ti->GetSourceGeneric();
@@ -438,7 +438,7 @@ Uptr CJFileLoader::FindSymbol(const CString libName, const CString symName) cons
 
 bool CJFileLoader::DoInitImage(BaseFile* baseFile) const
 {
-    ScopedEntryTrace trace((CString("CJRT_INIT_LIBRARY_") + baseFile->GetBaseName()).Str());
+    ScopedEntryHiTrace hiTrace((CString("CJRT_INIT_LIBRARY_") + baseFile->GetBaseName()).Str());
     std::vector<Uptr> funcs;
     baseFile->GetGlobalInitFunc(funcs);
     for (Uptr func : funcs) {

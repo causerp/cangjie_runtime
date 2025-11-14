@@ -256,7 +256,7 @@ void RegionList::DumpRegionList(const char* msg)
 #endif
 inline void RegionManager::TagHugePage(RegionInfo* region, size_t num) const
 {
-#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
+#if defined (__linux__) || defined(__OHOS__)
     (void)madvise(reinterpret_cast<void*>(region->GetRegionStart()), num * RegionInfo::UNIT_SIZE, MADV_HUGEPAGE);
 #else
     (void)region;
@@ -266,7 +266,7 @@ inline void RegionManager::TagHugePage(RegionInfo* region, size_t num) const
 
 inline void RegionManager::UntagHugePage(RegionInfo* region, size_t num) const
 {
-#if defined (__linux__) || defined(__OHOS__) || defined(__ANDROID__)
+#if defined (__linux__) || defined(__OHOS__)
     (void)madvise(reinterpret_cast<void*>(region->GetRegionStart()), num * RegionInfo::UNIT_SIZE, MADV_NOHUGEPAGE);
 #else
     (void)region;
@@ -826,50 +826,50 @@ void RegionManager::DumpRegionStats(const char* msg) const
     VLOG(REPORT, "\treleased units: %zu (%zu B)", releasedUnits, releasedUnits * RegionInfo::UNIT_SIZE);
     VLOG(REPORT, "\tdirty units: %zu (%zu B)", dirtyUnits, dirtyUnits * RegionInfo::UNIT_SIZE);
 
-    TRACE_COUNT("CJRT_GC_totalSize", totalSize);
-    TRACE_COUNT("CJRT_GC_totalUnits", totalUnits);
-    TRACE_COUNT("CJRT_GC_activeSize", activeSize);
-    TRACE_COUNT("CJRT_GC_activeUnits", activeUnits);
-    TRACE_COUNT("CJRT_GC_tlRegions", tlRegions);
-    TRACE_COUNT("CJRT_GC_tlUnits", tlUnits);
-    TRACE_COUNT("CJRT_GC_tlSize", tlSize);
-    TRACE_COUNT("CJRT_GC_allocTLSize", allocTLSize);
-    TRACE_COUNT("CJRT_GC_fromRegions", fromRegions);
-    TRACE_COUNT("CJRT_GC_fromUnits", fromUnits);
-    TRACE_COUNT("CJRT_GC_fromSize", fromSize);
-    TRACE_COUNT("CJRT_GC_allocFromSize", allocFromSize);
-    TRACE_COUNT("CJRT_GC_recentFullRegions", recentFullRegions);
-    TRACE_COUNT("CJRT_GC_recentFullUnits", recentFullUnits);
-    TRACE_COUNT("CJRT_GC_recentFullSize", recentFullSize);
-    TRACE_COUNT("CJRT_GC_allocRecentFullSize", allocRecentFullSize);
-    TRACE_COUNT("CJRT_GC_garbageRegions", garbageRegions);
-    TRACE_COUNT("CJRT_GC_garbageUnits", garbageUnits);
-    TRACE_COUNT("CJRT_GC_garbageSize", garbageSize);
-    TRACE_COUNT("CJRT_GC_allocGarbageSize", allocGarbageSize);
-    TRACE_COUNT("CJRT_GC_pinnedRegions", pinnedRegions);
-    TRACE_COUNT("CJRT_GC_pinnedUnits", pinnedUnits);
-    TRACE_COUNT("CJRT_GC_pinnedSize", pinnedSize);
-    TRACE_COUNT("CJRT_GC_allocPinnedSize", allocPinnedSize);
-    TRACE_COUNT("CJRT_GC_recentPinnedRegions", recentPinnedRegions);
-    TRACE_COUNT("CJRT_GC_recentPinnedUnits", recentPinnedUnits);
-    TRACE_COUNT("CJRT_GC_recentPinnedSize", recentPinnedSize);
-    TRACE_COUNT("CJRT_GC_allocRecentPinnedSize", allocRecentPinnedSize);
-    TRACE_COUNT("CJRT_GC_rawPointerPinnedRegions", rawPointerPinnedRegions);
-    TRACE_COUNT("CJRT_GC_rawPointerPinnedUnits", rawPointerPinnedUnits);
-    TRACE_COUNT("CJRT_GC_rawPointerPinnedSize", rawPointerPinnedSize);
-    TRACE_COUNT("CJRT_GC_allocRawPointerPinnedSize", allocRawPointerPinnedSize);
-    TRACE_COUNT("CJRT_GC_largeRegions", largeRegions);
-    TRACE_COUNT("CJRT_GC_largeUnits", largeUnits);
-    TRACE_COUNT("CJRT_GC_largeSize", largeSize);
-    TRACE_COUNT("CJRT_GC_allocLargeSize", allocLargeSize);
-    TRACE_COUNT("CJRT_GC_recentlargeRegions", recentlargeRegions);
-    TRACE_COUNT("CJRT_GC_recentlargeUnits", recentlargeUnits);
-    TRACE_COUNT("CJRT_GC_recentLargeSize", recentLargeSize);
-    TRACE_COUNT("CJRT_GC_allocRecentLargeSize", allocRecentLargeSize);
-    TRACE_COUNT("CJRT_GC_usedUnits", usedUnits);
-    TRACE_COUNT("CJRT_GC_releasedUnits", releasedUnits);
-    TRACE_COUNT("CJRT_GC_dirtyUnits", dirtyUnits);
-    TRACE_COUNT("CJRT_GC_listedUnits", listedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_totalSize", totalSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_totalUnits", totalUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_activeSize", activeSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_activeUnits", activeUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_tlRegions", tlRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_tlUnits", tlUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_tlSize", tlSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocTLSize", allocTLSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_fromRegions", fromRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_fromUnits", fromUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_fromSize", fromSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocFromSize", allocFromSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentFullRegions", recentFullRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentFullUnits", recentFullUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentFullSize", recentFullSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentFullSize", allocRecentFullSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_garbageRegions", garbageRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_garbageUnits", garbageUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_garbageSize", garbageSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocGarbageSize", allocGarbageSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_pinnedRegions", pinnedRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_pinnedUnits", pinnedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_pinnedSize", pinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocPinnedSize", allocPinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedRegions", recentPinnedRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedUnits", recentPinnedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentPinnedSize", recentPinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentPinnedSize", allocRecentPinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedRegions", rawPointerPinnedRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedUnits", rawPointerPinnedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_rawPointerPinnedSize", rawPointerPinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocRawPointerPinnedSize", allocRawPointerPinnedSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_largeRegions", largeRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_largeUnits", largeUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_largeSize", largeSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocLargeSize", allocLargeSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentlargeRegions", recentlargeRegions);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentlargeUnits", recentlargeUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_recentLargeSize", recentLargeSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_allocRecentLargeSize", allocRecentLargeSize);
+    OHOS_HITRACE_COUNT("CJRT_GC_usedUnits", usedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_releasedUnits", releasedUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_dirtyUnits", dirtyUnits);
+    OHOS_HITRACE_COUNT("CJRT_GC_listedUnits", listedUnits);
 }
 
 RegionInfo* RegionManager::AllocateThreadLocalRegion(bool expectPhysicalMem)

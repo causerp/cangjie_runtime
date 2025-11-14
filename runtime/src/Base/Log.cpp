@@ -229,17 +229,13 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
     }
     char buf[LOG_BUFFER_SIZE];
     int index;
-#if defined (__OHOS__) || defined (__ANDROID__)
-    index = 0;
-    (void)LOG_LEVEL[level];
-#else
     if (notInSigHandler) {
         index = sprintf_s(buf, sizeof(buf), "%s %d %c ", TimeUtil::GetTimestamp().Str(), MapleRuntime::GetTid(),
                           LOG_LEVEL[level]);
     } else {
         index = sprintf_s(buf, sizeof(buf), "%d %c ", MapleRuntime::GetTid(), LOG_LEVEL[level]);
     }
-#endif
+
     va_list args;
     va_start(args, format);
     int ret = vsprintf_s(buf + index, sizeof(buf) - index, format, args);
@@ -272,27 +268,6 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
             VLOG(REPORT, "%{public}s\n", buf)
         default:
             PRINT_INFO("%{public}s\n", buf);
-    }
-#elif defined(__ANDROID__)
-    switch (level) {
-        case RTLOG_DEBUG:
-            PRINT_DEBUG("%s\n", buf);
-            break;
-        case RTLOG_WARNING:
-            PRINT_WARN("%s\n", buf);
-            break;
-        case RTLOG_ERROR: {
-            PRINT_ERROR("%s\n", buf);
-            break;
-        }
-        case RTLOG_FAIL:
-        case RTLOG_FATAL:
-            PRINT_FATAL("%s\n", buf);
-            break;
-        case RTLOG_REPORT:
-            VLOG(REPORT, "%{public}s\n", buf)
-        default:
-            PRINT_INFO("%s\n", buf);
     }
 #else
     if (filePath.IsEmpty()) {
@@ -335,32 +310,4 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
         std::abort();
     }
 }
-
-#ifdef __ANDROID__
-// The trace info format: "name arg1 ... cjthreadId"
-const char* TraceInfoFormat(const char* name, unsigned long long id, unsigned int argNum, ...)
-{
-    if (name == nullptr || *name == '\0') {
-        return "null info";
-    }
-    CString nameStr(name);
-    CString idStr(static_cast<uint32_t>(id));
-    if (argNum > 0) {
-        va_list args;
-        va_start(args, argNum);
-        for (unsigned int i = 0; i < argNum; i++) {
-            const char* arg = va_arg(args, const char*);
-            if (arg != nullptr && *arg != '\0') {
-                CString argStr(arg);
-                nameStr = nameStr.Append(" ");
-                nameStr = nameStr.Append(argStr);
-            }
-        }
-        va_end(args);
-    }
-    nameStr = nameStr.Append(" ");
-    nameStr = nameStr.Append(idStr);
-    return nameStr.Str();
-}
-#endif
 } // namespace MapleRuntime
