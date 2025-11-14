@@ -539,17 +539,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     /**
      * Searches the type info's annotation by incoming name.
      */
-    public func findAnnotation<T>(): ?T where T <: Annotation {
+    public func findAnnotation<T>(): Option<T> {
         findAnnotation<T>(annotations)
    }
-
-    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
-        findAllAnnotations<T>(annotations)
-    }
-
-    public func getAllAnnotations(): Array<Annotation> {
-        annotations.toArray()
-    }
 
     public operator func ==(that: TypeInfo): Bool {
         this.qualifiedName == that.qualifiedName
