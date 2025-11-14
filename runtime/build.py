@@ -126,7 +126,7 @@ def do_build(args):
             "-DRUNTIME_TRACE_FLAG=1",
             "-DASAN_FLAG=0",
             "-DHWASAN_FLAG={}".format(hwasan_flag),
-            "-DSANITIZER_SUPPORT=0",
+            "-DSANITIZER_SUPPORT={}".format(args.sanitizer_support),
             "-DCOV=0",
             "-DDUMPADDRESS_FLAG=0",
             "-DCJ_SDK_VERSION={}".format(version),
@@ -143,6 +143,9 @@ def do_build(args):
     elif target_args == "windows-x86_64":
         if args.target_toolchain == None:
             print("Please configure windows toolchain, for example '/opt/buildtools/mingw-w64-v11.0.1'")
+            sys.exit(1)
+        if args.sanitizer_support:
+            print("Windows does not support sanitizer support")
             sys.exit(1)
         os.environ["PATH"] = os.path.join(args.target_toolchain, "bin") + ":" + os.environ["PATH"]
         cmake_command = [
@@ -210,7 +213,7 @@ def do_build(args):
             "-DRUNTIME_TRACE_FLAG=0",
             "-DASAN_FLAG=0",
             "-DHWASAN_FLAG={}".format(hwasan_flag),
-            "-DSANITIZER_SUPPORT=0",
+            "-DSANITIZER_SUPPORT={}".format(args.sanitizer_support),
             "-DCOV=0",
             "-DDUMPADDRESS_FLAG=0",
             "-DCJ_SDK_VERSION={}".format(version),
@@ -377,6 +380,13 @@ if __name__ == "__main__":
     b.add_argument(
         "--target-toolchain",
         help="The toolchain required for cross-compilation depends on the specific build target; please specify the appropriate toolchain according to each build-target."
+    )
+    b.add_argument(
+        "--cjlib-sanitizer-support",
+        type=str,
+        choices=["asan", "tsan", "hwasan"],
+        dest="sanitizer_support",
+        help="Enable cangjie runtime sanitizer support."
     )
 
     i = sub.add_parser("install", help="install the project")

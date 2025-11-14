@@ -17,5 +17,8 @@ install_cangjie_library_ffi(${libname})
 
 
 add_library(${libname}-shared SHARED $<TARGET_OBJECTS:${libname}-objs>)
+if (CANGJIE_HWASAN_SUPPORT)
+    target_link_options(${libname}-shared PRIVATE "-fuse-ld=lld")
+endif()
 set_target_properties(${libname}-shared PROPERTIES OUTPUT_NAME ${libname})
 install_cangjie_library_ffi_s(${libname}-shared)
