@@ -1014,9 +1014,7 @@ public class FuncDecl <: Decl {
         for (constraint in genericConstraint) {
             constraint.traverse(v)
         }
-        for (node in block.nodes) {
-            node.traverse(v)
-        }
+        block_.traverse(v)
         return
     }
 
