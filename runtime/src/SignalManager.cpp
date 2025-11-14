@@ -32,8 +32,10 @@ void SignalManager::Init()
     BlockSignals();
     // Install unexpected handler first
     InstallUnexpectedSignalHandlers();
+#ifndef __ANDROID__
     // Install sigsegv handler
     InstallSegvHandler();
+#endif
     // Install sigusr1 handler
     InstallSIGUSR1Handlers();
 }
