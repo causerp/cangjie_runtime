@@ -201,7 +201,7 @@ public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 >
 > - 目前不支持 Windows 平台。
 > - 仅支持前 31 个可被捕获的非实时信号。
-> - 暂不支持 SIGILL、SIGABRT、SIGPIPE、SIGBUS、SIGFPE、SIGSEGV 等中断信号。
+> - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 > - handler 暂不支持成员函数和 foreign 函数。
 
 ## func resetSignalHandler(Array<Signal>)
@@ -225,7 +225,7 @@ public func resetSignalHandler(sigs: Array<Signal>): Unit
 >
 > - 目前不支持 Windows 平台。
 > - 仅支持前 31 个可被捕获的非实时信号。
-> - 暂不支持 SIGILL、SIGABRT、SIGPIPE、SIGBUS、SIGFPE、SIGSEGV 等中断信号。
+> - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 
 
 ## func SetGCThreshold(UInt64) <sup>(deprecated)</sup>
@@ -338,5 +338,5 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 >
 > - 目前不支持 Windows 平台。
 > - 仅支持前 31 个可被捕获的非实时信号。
-> - 暂不支持 SIGILL、SIGABRT、SIGPIPE、SIGBUS、SIGFPE、SIGSEGV 等中断信号。
+> - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 > - handler 暂不支持成员函数和 foreign 函数。

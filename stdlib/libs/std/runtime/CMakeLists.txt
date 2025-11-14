@@ -15,5 +15,6 @@ set(CANGJIE_RUNTIME_SRCS
 if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
     set(CJNATIVE_RUNTIME_SRCS
         ${CANGJIE_RUNTIME_SRCS}
+        runtime_signal.cj
         CACHE INTERNAL "")
 endif()
