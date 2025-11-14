@@ -758,19 +758,6 @@ MRT_EXPORT void RegisterUncaughtExceptionHandler(const CJUncaughtExceptionInfo& 
  */
 MRT_EXPORT char* CJ_MRT_DemangleHandle(const char* functionName);
 
-/*
- * @brief Dump Cangjie Heap.
- * @param  fd  [IN]  file descriptor.
- * @retval.
- */
-MRT_EXPORT void CJ_MRT_DumpHeapSnapshot(int fd);
-
-/*
- * @brief Trigger GC.
- * @retval.
- */
-MRT_EXPORT void CJ_MRT_ForceFullGC();
-
 CANGJIE_RT_API_DECLS_END
 
 #endif // CANGJIE_H

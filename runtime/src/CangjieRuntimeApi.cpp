@@ -37,10 +37,6 @@
 #include "Sanitizer/SanitizerInterface.h"
 #endif
 #include "CpuProfiler/CpuProfiler.h"
-#include "Heap/Collector/GcRequest.h"
-#include "Common/ScopedObjectAccess.h"
-#include "HeapManager.h"
-#include "HeapManager.inline.h"
 
 CANGJIE_RT_API_DECLS_BEGIN
 const double ERRORESTIMATE = 1e-12;
@@ -813,14 +809,5 @@ void CJ_MCC_RegisterLogHandle(MapleRuntime::LogHandle handle) { MapleRuntime::Lo
 #endif
 
 void* CJThreadGetspecific(CJThreadKey key) { return CJThreadGetspecificInner(key); }
-
-void CJ_MRT_DumpHeapSnapshot(int fd)
-{
-    MapleRuntime::ScopedEnterSaferegion enterSaferegion(false);
-    MapleRuntime::CjHeapData cjHeapData;
-    cjHeapData.DumpHeap(fd);
-}
-
-void CJ_MRT_ForceFullGC() { MapleRuntime::HeapManager::RequestGC(MapleRuntime::GC_REASON_USER, false); }
 
 CANGJIE_RT_API_DECLS_END
