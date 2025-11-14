@@ -1,0 +1,76 @@
+/.gitcode/ @xuanjz
+OAT.xml @xuanjz
+
+*.md @luojianing
+
+# stdlib
+/stdlib/ @ChaosJohn
+
+/stdlib/libs/std/argopt/ @MinamiK
+/stdlib/libs/std/env/ @MinamiK
+/stdlib/libs/std/process/ @MinamiK
+/stdlib/libs/std/reflect/ @MinamiK
+/stdlib/libs/std/runtime/ @MinamiK
+
+/stdlib/libs/std/convert/ @chongweizhi
+/stdlib/libs/std/crypto/ @chongweizhi
+/stdlib/libs/std/database/ @chongweizhi
+/stdlib/libs/std/io/ @chongweizhi
+
+/stdlib/libs/std/net/ @ovy
+/stdlib/libs/std/random/ @ovy
+/stdlib/libs/std/sync/ @ovy
+/stdlib/libs/std/net/ @ovy
+
+/stdlib/libs/std/math/ @jiyuan_99
+/stdlib/libs/std/overflow/ @jiyuan_99
+
+/stdlib/libs/std/binary/ @renyi43
+/stdlib/libs/std/console/ @renyi43
+/stdlib/libs/std/posix/ @renyi43
+/stdlib/libs/std/sort/ @renyi43
+/stdlib/libs/std/unicode/ @renyi43
+
+/stdlib/libs/std/collection/ @EMROF
+/stdlib/libs/std/core/ @EMROF
+/stdlib/libs/std/fs/ @EMROF
+/stdlib/libs/std/time/ @EMROF
+
+/stdlib/libs/std/objectpool/ @ChaosJohn
+/stdlib/libs/std/regex/ @ChaosJohn
+
+#stdlib docs
+/stdlib/doc @luojianing
+
+/stdlib/doc/libs/std/argopt/ @MinamiK @luojianing
+/stdlib/doc/libs/std/env/ @MinamiK @luojianing
+/stdlib/doc/libs/std/process/ @MinamiK @luojianing
+/stdlib/doc/libs/std/reflect/ @MinamiK @luojianing
+/stdlib/doc/libs/std/runtime/ @MinamiK @luojianing
+
+/stdlib/doc/libs/std/convert/ @chongweizhi @luojianing
+/stdlib/doc/libs/std/crypto/ @chongweizhi @luojianing
+/stdlib/doc/libs/std/database/ @chongweizhi @luojianing
+/stdlib/doc/libs/std/io/ @chongweizhi @luojianing
+
+/stdlib/doc/libs/std/net/ @ovy @luojianing
+/stdlib/doc/libs/std/random/ @ovy @luojianing
+/stdlib/doc/libs/std/sync/ @ovy @luojianing
+/stdlib/doc/libs/std/net/ @ovy @luojianing
+
+/stdlib/doc/libs/std/math/ @jiyuan_99 @luojianing
+/stdlib/doc/libs/std/overflow/ @jiyuan_99 @luojianing
+
+/stdlib/doc/libs/std/binary/ @renyi43 @luojianing
+/stdlib/doc/libs/std/console/ @renyi43 @luojianing
+/stdlib/doc/libs/std/posix/ @renyi43 @luojianing
+/stdlib/doc/libs/std/sort/ @renyi43 @luojianing
+/stdlib/doc/libs/std/unicode/ @renyi43 @luojianing
+
+/stdlib/doc/libs/std/collection/ @EMROF @luojianing
+/stdlib/doc/libs/std/core/ @EMROF @luojianing
+/stdlib/doc/libs/std/fs/ @EMROF @luojianing
+/stdlib/doc/libs/std/time/ @EMROF @luojianing
+
+/stdlib/doc/libs/std/objectpool/ @ChaosJohn @luojianing
+/stdlib/doc/libs/std/regex/ @ChaosJohn @luojianing
