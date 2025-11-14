@@ -27,6 +27,54 @@ foreign func CJ_TIME_GetLocalTimeOffset(): Int64
 foreign func CJ_TIME_GetRealPath(path: CString): CString
 
 foreign func CJ_TIME_GetLocalTimeZoneProperty(): CString
+foreign func CJ_TIME_GetTzDataById(id: CString, dataLen: CPointer<Int64>): CPointer<UInt8>
+
+func getOhosTzDataById(id: String): ?Array<Byte> {
+    try (cstr = unsafe { LibC.mallocCString(id).asResource() }) {
+        var len = 0
+        let dataptr = unsafe { CJ_TIME_GetTzDataById(cstr.value, inout len) }
+        if (dataptr.isNull()) {
+            return None
+        } else {
+            let data = Array<Byte>(len) {
+                i => unsafe { dataptr.read(i) }
+            }
+            unsafe { LibC.free(dataptr) }
+            return data
+        }
+    }
+    throw Exception("Unreachable.")
+}
+
+func getOhosTzDataById(id: CString): ?Array<Byte> {
+    var len = 0
+    let dataptr = unsafe { CJ_TIME_GetTzDataById(id, inout len) }
+    if (dataptr.isNull()) {
+        return None
+    } else {
+        let data = Array<Byte>(len) {
+            i => unsafe { dataptr.read(i) }
+        }
+        unsafe { LibC.free(dataptr) }
+        return data
+    }
+}
+
+func initOhosDefault(): ?TimeZone {
+    let id = unsafe { CJ_TIME_GetLocalTimeZoneProperty() }
+    if (id.isNull()) {
+        return None
+    }
+    try {
+        return if (let Some(tzdata) <- getOhosTzDataById(id)) {
+            TimeZone.loadFromTZData(id.toString(), tzdata)
+        } else {
+            None
+        }
+    } finally {
+        unsafe { LibC.free(id) }
+    }
+}
 
 @When[os == "Windows"]
 func initLocal(): TimeZone {
@@ -93,7 +141,12 @@ func initLocal(): TimeZone {
             unsafe { LibC.free(realpath) }
         }
     }
-    initLocalDefault()
+    // try get ohos timezone first
+    if (let Some(tz) <- initOhosDefault()) {
+        tz
+    } else {
+        initLocalDefault()
+    }
 }
 
 @When[os == "iOS"]
