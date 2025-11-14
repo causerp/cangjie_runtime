@@ -1477,25 +1477,4 @@ unsigned long long CJ_MRT_GetCJThreadNumberUnsafe(void);
  */
 int CJ_MRT_GetAllCJThreadInfo(void *cjthreadBufPtr, unsigned int num);
 
-#ifdef MRT_IOS
-/**
- * @brief Maximum length of a cjthread stack string.
- */
-#define CJTHREAD_STACK_STRING_SIZE             2048
-
-/**
- * @brief Obtain stack trace string about all running cjthreads.
- * @attention
- * 1. This method is not locked. Therefore, ensure that no other processor is scheduled when
- *    invoking this method.
- * 2. cjStackTraceBufPtr must be of the void* type.
- * 3. The capacity of string buffer within the cjStackTraceBufPtr must be greater than
- *    CJTHREAD_STACK_STRING_SIZE.
- * @param cjthreadBufPtr   [IN] Pointer to the buffer for saving the stack trace.
- * @param num              [IN] A maximum of num processes can be obtained.
- * @retval Return the number of stack trace obtained.
- */
-int CJ_MRT_GetAllCJThreadStackTrace(void *cjStackTraceBufPtr, unsigned int num);
-#endif
-
 #endif /* MRT_SCHEDULE_H */

@@ -29,9 +29,6 @@ public:
     ~PrintStackInfo() override = default;
     void FillInStackTrace() override;
     virtual void PrintStackTrace() const;
-#if defined(__IOS__) || defined(MRT_IOS)
-    CString GetStackTraceString();
-#endif
 };
 } // namespace MapleRuntime
 #endif // MRT_PRINT_STACKINFO_H
