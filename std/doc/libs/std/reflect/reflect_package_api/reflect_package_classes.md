@@ -703,41 +703,17 @@ public func apply(args: Array<Any>): Any
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该构造函数信息所对应的构造函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的构造函数信息所对应的构造函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-### func getAllAnnotations()
-
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
 ### func hashCode()
 
@@ -962,41 +938,18 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该全局函数信息所对应的全局函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-### func getAllAnnotations()
-
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
 ### func hashCode()
 
@@ -1103,29 +1056,17 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
 ### func getValue()
 
@@ -1139,17 +1080,7 @@ public func getValue(): Any
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该全局变量的值。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func hashCode()
 
@@ -1436,41 +1367,20 @@ main(): Unit {
 Some(20)
 ```
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func hashCode()
 
@@ -1621,41 +1531,20 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func getValue(Any)
 
@@ -1892,41 +1781,20 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func getValue(Any)
 
@@ -2605,41 +2473,20 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func hashCode()
 
@@ -3027,41 +2874,20 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该静态成员函数信息所对应的静态成员函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func hashCode()
 
@@ -3184,41 +3010,20 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func getValue()
 
@@ -3467,41 +3272,20 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T> where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func getValue()
 
@@ -4368,17 +4152,6 @@ main(): Unit {
 default.Rectangular
 ```
 
-### func findAllAnnotations\<T>() where T <: Annotation
-
-```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取所有具有给定限定名称的注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定T类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
 
 ### func findAnnotation\<T>() where T <: Annotation
 
@@ -4392,17 +4165,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getAllAnnotations()
 
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取作用于该对象的所有注解。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
 
 ### func getInstanceFunction(String, Array\<TypeInfo>)
 
