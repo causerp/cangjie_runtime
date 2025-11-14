@@ -89,7 +89,7 @@ private:
     std::unordered_set<std::string> nativeLibNames{
         "ntdll.dll",       "KERNEL32.DLL",        "KERNELBASE.dll", "msvcrt.dll",           "libgcc_s_seh-1.dll",
         "libstdc++-6.dll", "libwinpthread-1.dll", "ucrtbase.dll",   "dbghelp.dll",          "libssp-0.dll",
-        "ADVAPI32.dll",    "sechost.dll",         "RPCRT4.dll",     "libsecurec.dll",       "CRYPTSP.dll",
+        "ADVAPI32.dll",    "sechost.dll",         "RPCRT4.dll",     "libboundscheck.dll",       "CRYPTSP.dll",
         "rsaenh.dll",      "bcrypt.dll",          "CRYPTBASE.dll",  "bcryptPrimitives.dll", "SYSFER.DLL"
     };
 };

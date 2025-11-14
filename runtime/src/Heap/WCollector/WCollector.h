@@ -38,8 +38,6 @@ public:
     RegionSpace& theSpace;
 };
 
-using CrossRefHandler = void(*)(BaseObject*, BaseObject*);
-
 class WCollector : public CopyCollector {
 public:
     explicit WCollector(Allocator& allocator, CollectorResources& resources)
@@ -63,20 +61,6 @@ public:
     void TraceObjectRefFields(BaseObject* obj, WorkStack& workStack) override;
     BaseObject* GetAndTryTagObj(BaseObject* obj, RefField<>& field) override;
     BaseObject* ForwardObject(BaseObject* fromVersion) override;
-    void PostResolveCycleTask();
-    void PrepareCycleRef()
-    {
-        std::lock_guard<std::mutex> lg(cycleWorkStackMtx);
-        cycleRefWorkStack.insert(discoveredExternObjects.begin(), discoveredExternObjects.end());
-        discoveredExternObjects.clear();
-    }
-    void MergeResurrectExportObjects()
-    {
-        std::lock_guard<std::mutex> lg(resurrectExportMtx);
-        resurrectedExportObjectes.insert(resurrectedExportObjectesForwardPhase.begin(),
-            resurrectedExportObjectesForwardPhase.end());
-        resurrectedExportObjectesForwardPhase.clear();
-    }
     void FlipTagID() { currentTagID ^= 1; }
     uint16_t GetCurrentTagID() override { return currentTagID; }
     uint16_t GetPreviousTagID() const { return currentTagID ^ 1; }
@@ -98,8 +82,6 @@ public:
         RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
         space.RemoveRawPointerObject(obj);
     }
-
-    void ResolveCycleRef() override;
 
     // BaseObject* ForwardFixRefField(RefField<>& field) const;
     BaseObject* ForwardUpdateRawRef(ObjectRef& ref);
@@ -196,11 +178,7 @@ private:
     void PreforwardConcurrencyModelRoots();
     void PostTrace();
     void Preforward();
-    void PreforwardAllExportFromRoots();
     void PreforwardFinalizerProcessorRoots();
-    void PreforwardDiscoveredExternObjects();
-    void PreforwardAllResurrectExportFromObjects();
-    CrossRefHandler GetCrossRefHandler(BaseObject* foreignProxy);
 
     ForwardTable fwdTable;
     // gc index 0 or 1 is used to distinguish previous gc and current gc.

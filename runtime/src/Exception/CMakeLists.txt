@@ -11,7 +11,7 @@ if ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (MACOS_FLAG MATCHES 1))
         "ExceptionCApi.cpp"
         "${CMAKE_SOURCE_DIR}/src/arch/x86_64_macos/RestoreContextForEH.S"
     )
-elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0) AND (IOS_FLAG MATCHES 0) AND (IOS_SIMULATOR_FLAG MATCHES 0))
+elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST
         "Exception.cpp"
         "EhTable.cpp"
@@ -23,7 +23,7 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (MACOS_FLAG MATCHES 1))
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/archrch64_macos/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/aarch64_macos/RestoreContextForEH.S"
     )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST

@@ -154,12 +154,6 @@ extern "C" MRT_EXPORT void CJ_MCC_CopyStructField(BaseObject* dstBase, void* dst
                                                   BaseObject* srcBase, void* srcField, size_t srcLen);
 
 extern "C" void CJ_MCC_IVCallInstrumentation(TypeInfo* cls, const char* callBaseKey);
-// interop
-extern "C" MRT_EXPORT void CJ_MCC_CrossAccessBarrier(U64 cjExport);
-extern "C" MRT_EXPORT U64 CJ_MCC_CreateExportHandle(BaseObject* obj);
-extern "C" MRT_EXPORT BaseObject* CJ_MCC_GetExportedRef(U64 id);
-extern "C" MRT_EXPORT void CJ_MCC_RemoveExportedRef(U64 id);
-extern "C" MRT_EXPORT void CJ_MRT_RolveCycleRef();
 #ifdef __OHOS__
 extern "C" void* CJ_MRT_ARKTS_CreateEngine();
 #endif

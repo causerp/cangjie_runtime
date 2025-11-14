@@ -280,32 +280,7 @@ InitCJLibraryStub:
     .cfi_endproc
     .size InitCJLibraryStub, .-InitCJLibraryStub
 
-    .text
-    .align 2
-    .global   ResolveCycleRefStub
-    .type     ResolveCycleRefStub, @function
-ResolveCycleRefStub:
-    .cfi_startproc
-    pushq   %rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset %rbp, -16
-    movq    %rsp, %rbp
-    .cfi_def_cfa_register %rbp
-    movq    %rdi, %r11
-    pushq   %r11
-    pushq   $0
-    movq    %rsi, %rdi
-    movq    %rdx, %rsi
-    callq   CJ_MCC_N2CStub
-    popq    %rbp
-    .cfi_def_cfa %rsp, 8
-    retq
-    .cfi_endproc
-    .size ResolveCycleRefStub, .-ResolveCycleRefStub
-
 #ifdef __OHOS__
-
-
     .text
     .align 2
     .global   CJ_MRT_ARKTS_CreateEngineStub

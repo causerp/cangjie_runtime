@@ -94,7 +94,6 @@ public:
     virtual bool IsCurrentPointer(RefField<>&) const { std::abort(); }
     virtual void AddRawPointerObject(BaseObject*) { std::abort(); }
     virtual void RemoveRawPointerObject(BaseObject*) { std::abort(); }
-    virtual void ResolveCycleRef() { std::abort(); }
 
     BaseObject* FindLatestVersion(BaseObject* obj) const
     {

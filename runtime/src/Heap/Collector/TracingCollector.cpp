@@ -53,13 +53,6 @@ void StaticRootTable::VisitRoots(const RefFieldVisitor& visitor)
     }
 }
 
-void ExportRootTable::VisitGCRoots(const RootVisitor& visitor)
-{
-    std::lock_guard<std::mutex> lock(tableMutex);
-    for (auto &rootInfo : exportRoots) {
-        visitor(reinterpret_cast<ObjectRef&>(rootInfo.exportObj));
-    }
-}
 class ConcurrentMarkingWork : public HeapWork {
 public:
     ConcurrentMarkingWork(TracingCollector& tc, GCThreadPool* pool, TracingCollector::WorkStack&& stack)
@@ -147,38 +140,6 @@ private:
     TracingCollector::WorkStack workStack;
 };
 
-class ExportRootsTracingWork : public HeapWork {
-public:
-    ExportRootsTracingWork(TracingCollector& tc, TracingCollector::WorkStack&& stack)
-        : collector(tc),  workStack(std::move(stack)) {}
-    void Execute(size_t) override
-    {
-        size_t nNewlyMarked = 0;
-        // loop until work stack empty.
-        for (;;) {
-            if (workStack.empty()) {
-                break;
-            }
-            // get next object from work stack.
-            BaseObject* obj = workStack.back();
-            workStack.pop_back();
-
-            // skip dangling object (such as: object already released).
-            DCHECK(obj->IsValidObject());
-
-            bool wasMarked = collector.MarkObject(obj);
-            if (!wasMarked) {
-                collector.DFSTraceExportObject(obj);
-            }
-            // try to fork new task if needed.
-        } // end of mark loop.
-        // newly marked statistics.
-        (void)collector.markedObjectCount.fetch_add(nNewlyMarked, std::memory_order_relaxed);
-    }
-private:
-    TracingCollector& collector;
-    TracingCollector::WorkStack workStack;
-};
 void TracingCollector::VisitStackRoots(const RootVisitor& visitor, RegSlotsMap& regSlotsMap, const FrameInfo& frame,
                                        Mutator& mutator)
 {
@@ -307,29 +268,13 @@ void TracingCollector::MergeMutatorRoots(WorkStack& workStack)
     mutatorManager.MutatorManagementWUnlock();
 }
 
-void TracingCollector::EnumAllExportRoots(RootSet &foreignRootsSet)
-{
-    Heap::GetHeap().VisitAllExportRoots([&foreignRootsSet, this](ObjectRef& root) {
-        EnumAndTagRawRoot(root, foreignRootsSet);
-    });
-}
-void TracingCollector::DoEnumeration(WorkStack& workStack, WorkStack& foreignRootsSet)
+void TracingCollector::DoEnumeration(WorkStack& workStack)
 {
     ScopedEntryHiTrace hiTrace("CJRT_GC_ENUM");
-    EnumAllCommonRoots(GetThreadPool(), workStack);
-    EnumAllExportRoots(foreignRootsSet);
+    EnumAllRoots(GetThreadPool(), workStack);
 }
 
-void TracingCollector::AddExportObjectsTracingWork(RootSet &exportRoots)
-{
-    if (exportRoots.empty()) {
-        return;
-    }
-    GCThreadPool* threadPool = GetThreadPool();
-    threadPool->AddWork(new (std::nothrow) ExportRootsTracingWork(*this, std::move(exportRoots)));
-}
-
-void TracingCollector::TracingImpl(WorkStack& workStack, WorkStack& foreignRootsSet, bool parallel)
+void TracingCollector::TracingImpl(WorkStack& workStack, bool parallel)
 {
     if (workStack.empty()) {
         return;
@@ -352,8 +297,6 @@ void TracingCollector::TracingImpl(WorkStack& workStack, WorkStack& foreignRoots
         markTask.Execute(0);
         threadPool->DrainWorkQueue(); // drain stack roots task
     }
-    AddExportObjectsTracingWork(foreignRootsSet);
-    threadPool->WaitFinish();
 }
 
 bool TracingCollector::AddConcurrentTracingWork(RootSet& rs)
@@ -372,25 +315,7 @@ bool TracingCollector::AddConcurrentTracingWork(RootSet& rs)
     return true;
 }
 
-void TracingCollector::FindUselessExternObjects()
-{
-    auto it = discoveredExternObjects.begin();
-    while (it != discoveredExternObjects.end()) {
-        auto& ls = it->second;
-        auto listIt = ls.begin();
-        auto listEnd = ls.end();
-        while (listIt != listEnd) {
-            if (IsMarkedObject(*listIt)) {
-                listIt = ls.erase(listIt);
-            } else {
-                MarkObject(*listIt);
-                listIt++;
-            }
-        }
-        it++;
-    }
-}
-void TracingCollector::DoTracing(WorkStack& workStack, WorkStack& foreignRootsSet)
+void TracingCollector::DoTracing(WorkStack& workStack)
 {
     ScopedEntryHiTrace hiTrace("CJRT_GC_TRACE");
     MRT_PHASE_TIMER("DoTracing");
@@ -415,17 +340,12 @@ void TracingCollector::DoTracing(WorkStack& workStack, WorkStack& foreignRootsSe
 
     {
         MRT_PHASE_TIMER("Concurrent marking");
-        TracingImpl(workStack, foreignRootsSet, maxWorkers > 0);
+        TracingImpl(workStack, maxWorkers > 0);
     }
 
     {
         MRT_PHASE_TIMER("Concurrent re-marking");
         ConcurrentReMark(workStack, maxWorkers > 0);
-    }
-
-    {
-        MRT_PHASE_TIMER("identify useless extern ref");
-        FindUselessExternObjects();
     }
 
     {
@@ -483,14 +403,12 @@ bool TracingCollector::MarkSatbBuffer(WorkStack& workStack)
             ScopedStopTheWorld stw("MarkSatbBuffer timeout", true, GCPhase::GC_PHASE_CLEAR_SATB_BUFFER);
             VLOG(REPORT, "MarkSatbBuffer is done for timeout");
             GCThreadPool* threadPool = GetThreadPool();
-            WorkStack tmp;
-            TracingImpl(workStack, tmp, (workStack.size() > MAX_MARKING_WORK_SIZE) || (threadPool->GetWorkCount() > 0));
+            TracingImpl(workStack, (workStack.size() > MAX_MARKING_WORK_SIZE) || (threadPool->GetWorkCount() > 0));
             return workStack.empty();
         }
         if (LIKELY(!workStack.empty())) {
             GCThreadPool* threadPool = GetThreadPool();
-            WorkStack tmp;
-            TracingImpl(workStack, tmp, (workStack.size() > MAX_MARKING_WORK_SIZE) || (threadPool->GetWorkCount() > 0));
+            TracingImpl(workStack, (workStack.size() > MAX_MARKING_WORK_SIZE) || (threadPool->GetWorkCount() > 0));
         }
         visitSatbObj();
         if (workStack.empty()) {
@@ -557,26 +475,6 @@ void TracingCollector::EnumFinalizerProcessorRoots(RootSet& rootSet) const
 {
     RootVisitor visitor = [this, &rootSet](ObjectRef& root) { EnumAndTagRawRoot(root, rootSet); };
     collectorResources.GetFinalizerProcessor().VisitGCRoots(visitor);
-}
-
-void TracingCollector::EnumAllSurrectedExportRoots(RootSet &rootSet)
-{
-    {
-        std::lock_guard<std::mutex> lg(resurrectExportMtx);
-        for (auto* obj : resurrectedExportObjectes) {
-            rootSet.push_back(obj);
-        }
-    }
-    std::lock_guard<std::mutex> lg(cycleWorkStackMtx);
-    auto it = cycleRefWorkStack.begin();
-    while (it != cycleRefWorkStack.end()) {
-        BaseObject* exportObj = it->first;
-        rootSet.push_back(exportObj);
-        for (auto &externObj : it->second) {
-            rootSet.push_back(externObj);
-        }
-        it++;
-    }
 }
 
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
@@ -685,71 +583,7 @@ void TracingCollector::PostGarbageCollection(uint64_t gcIndex)
 #endif
 }
 
-void TracingCollector::DFSTraceExportObject(BaseObject *exportObj)
-{
-    WorkStack workStack;
-    workStack.push_back(exportObj);
-    std::list<BaseObject*> externObjs;
-    while (!workStack.empty()) {
-        BaseObject* obj = workStack.back();
-        workStack.pop_back();
-        obj->ForEachRefField([&workStack, obj, this, &externObjs](RefField<>& field) {
-            (void)obj;
-            RefField<> oldField(field);
-            if (IsCurrentPointer(oldField)) {
-                BaseObject* targetObj = oldField.GetTargetObject();
-                if (IsMarkedObject(targetObj)) {
-                    return;
-                }
-                if (targetObj->GetTypeInfo()->IsForeignType()) {
-                    workStack.push_back(targetObj);
-                    externObjs.push_back(targetObj);
-                } else if (!MarkObject(targetObj)) {
-                    workStack.push_back(targetObj);
-                }
-                return;
-            }
-
-            BaseObject* latest = nullptr;
-            if (IsOldPointer(oldField)) {
-                BaseObject* targetObj = oldField.GetTargetObject();
-                latest = FindLatestVersion(targetObj);
-            } else {
-                latest = field.GetTargetObject();
-            }
-
-            // target object could be null or non-heap for some static variable.
-            if (!Heap::IsHeapAddress(latest)) {
-                return;
-            }
-            CHECK(latest->IsValidObject());
-
-            RefField<> newField = GetAndTryTagRefField(latest);
-            if (oldField.GetFieldValue() == newField.GetFieldValue()) {
-                DLOG(TRACE, "trace obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(),
-                     latest->GetSize());
-            } else if (field.CompareExchange(oldField.GetFieldValue(), newField.GetFieldValue())) {
-                DLOG(TRACE, "trace obj %p ref@%p: %#zx => %#zx->%p<%p>(%zu)", obj, &field, oldField.GetFieldValue(),
-                     newField.GetFieldValue(), latest, latest->GetTypeInfo(), latest->GetSize());
-            }
-
-            if (IsMarkedObject(latest)) {
-                return;
-            }
-            if (latest->GetTypeInfo()->IsForeignType()) {
-                workStack.push_back(latest);
-                externObjs.push_back(latest);
-            } else {
-                if (!MarkObject(latest)) {
-                    workStack.push_back(latest);
-                }
-            }
-        });
-    }
-    std::lock_guard<std::mutex> lg(externMtx);
-    discoveredExternObjects[exportObj] = externObjs;
-}
-void TracingCollector::EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& rootSet)
+void TracingCollector::EnumAllRoots(GCThreadPool* threadPool, RootSet& rootSet)
 {
     MRT_ASSERT(threadPool != nullptr, "thread pool is null");
 
@@ -769,8 +603,6 @@ void TracingCollector::EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& roo
     threadPool->AddWork(new (std::nothrow) LambdaWork(
         [this, rootSets](size_t workerID) { EnumFinalizerProcessorRoots(rootSets[workerID]); }));
 
-    threadPool->AddWork(new (std::nothrow) LambdaWork(
-        [this, rootSets](size_t workerID) { EnumAllSurrectedExportRoots(rootSets[workerID]); }));
     threadPool->Start();
     threadPool->WaitFinish();
 

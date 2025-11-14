@@ -1093,8 +1093,6 @@ extern "C" ArrayRef MCC_NewArrayGeneric(const TypeInfo* arrayInfo, MIndex nElems
     I8 type = componentTypeInfo->GetType();
     switch (type) {
         case TypeKind::TYPE_KIND_CLASS:
-        case TypeKind::TYPE_KIND_EXPORTED_REF:
-        case TypeKind::TYPE_KIND_FOREIGN_PROXY:
         case TypeKind::TYPE_KIND_WEAKREF_CLASS:
         case TypeKind::TYPE_KIND_INTERFACE:
         case TypeKind::TYPE_KIND_TEMP_ENUM:
@@ -1170,8 +1168,6 @@ extern "C" void CJ_MCC_ArrayCopyGeneric(const ObjectPtr dstObj, MAddress dstFiel
     }
     switch (type) {
         case TypeKind::TYPE_KIND_CLASS:
-        case TypeKind::TYPE_KIND_EXPORTED_REF:
-        case TypeKind::TYPE_KIND_FOREIGN_PROXY:
         case TypeKind::TYPE_KIND_WEAKREF_CLASS:
         case TypeKind::TYPE_KIND_INTERFACE:
         case TypeKind::TYPE_KIND_TEMP_ENUM:
@@ -1223,27 +1219,6 @@ extern "C" void CJ_MCC_CopyStructField(BaseObject* dstBase, void* dstField, size
 extern "C" int32_t __ccc_personality_v0() { return 0; }
 // @deprecated
 extern "C" void CJ_MCC_IVCallInstrumentation(TypeInfo* cls, const char* callBaseKey) {}
-
-void CJ_MCC_CrossAccessBarrier(U64 cjExport)
-{
-    Heap::GetHeap().CrossAccessBarrier(cjExport);
-}
-
-U64 CJ_MCC_CreateExportHandle(BaseObject *obj)
-{
-    U64 id = Heap::GetHeap().RegisterExportRoot(obj);
-    return id;
-}
-
-BaseObject* CJ_MCC_GetExportedRef(U64 id)
-{
-    return Heap::GetHeap().GetExportObject(id);
-}
-void CJ_MCC_RemoveExportedRef(U64 id)
-{
-    Heap::GetHeap().RemoveExportObject(id);
-}
-
 
 #if defined(__OHOS__)
 void* ARKTS_CreateEngine = nullptr;

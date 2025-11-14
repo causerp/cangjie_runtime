@@ -1538,18 +1538,6 @@ void RunCJSingleModeThread()
     return;
 }
 
-extern "C" void CJ_MRT_RolveCycleRef();
-
-void RunResolveCycle(void* funcPtr)
-{
-    PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;
-    if (PostTask == nullptr) {
-        LOG(RTLOG_ERROR, "The event handler function is nullptr when try run cjSingleModeThread.");
-        return;
-    }
-    while (!PostTask(funcPtr)) {}
-}
-
 void TryRunCJSingleModeThread()
 {
     PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;

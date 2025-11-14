@@ -92,81 +92,11 @@ private:
     USize totalRootsCount;
 };
 
-class ExportObject : public BaseObject {
-public:
-    U32 GetId() { return id; }
-private:
-    U32 id = { 0 };
-};
-
-struct ExportObjectInfo {
-    ExportObjectInfo(BaseObject* obj, bool state) : exportObj(static_cast<ExportObject*>(obj)), activeState(state) {}
-    ExportObject* exportObj = nullptr;
-    bool activeState = true;
-};
-class ExportRootTable {
-public:
-    U64 RegisterExportRoot(BaseObject* exportObj)
-    {
-        std::lock_guard<std::mutex> lg(tableMutex);
-        if (accessableId.empty()) {
-            exportRoots.emplace_back(exportObj, true);
-            return exportRoots.size() - 1;
-        }
-        U64 id = accessableId.front();
-        accessableId.pop_front();
-        exportRoots[id].exportObj = static_cast<ExportObject*>(exportObj);
-        exportRoots[id].activeState = true;
-        return id;
-    }
-    BaseObject* GetExportRoot(U64 id)
-    {
-        std::lock_guard<std::mutex> lg(tableMutex);
-        if (id < exportRoots.size()) {
-            return Heap::GetBarrier().ReadStaticRef(reinterpret_cast<RefField<>&>(exportRoots[id].exportObj));
-        }
-        return nullptr;
-    }
-    void RemoveExportRoot(U64 id)
-    {
-        std::lock_guard<std::mutex> lg(tableMutex);
-        if (id < exportRoots.size()) {
-            exportRoots[id].exportObj = nullptr;
-            exportRoots[id].activeState = true;
-            accessableId.push_back(id);
-        }
-    }
-    void VisitGCRoots(const RootVisitor& visitor);
-    void SetActiveState(U64 id, bool state)
-    {
-        std::lock_guard<std::mutex> lg(tableMutex);
-        exportRoots[id].activeState = state;
-    }
-    bool CheckActiveState(U64 id, BaseObject* obj)
-    {
-        std::lock_guard<std::mutex> lg(tableMutex);
-        if (id >= exportRoots.size()) {
-            return false;
-        }
-        auto info = exportRoots[id];
-        if (info.exportObj != obj) {
-            return false;
-        }
-        return info.activeState;
-    }
-private:
-    std::mutex tableMutex;
-    std::vector<ExportObjectInfo> exportRoots;
-    std::list<U64> accessableId;
-};
-
 class MarkingWork;
 class ConcurrentMarkingWork;
-class ExportRootsTracingWork;
 class TracingCollector : public Collector {
     friend MarkingWork;
     friend ConcurrentMarkingWork;
-    friend ExportRootsTracingWork;
 public:
     explicit TracingCollector(Allocator& allocator, CollectorResources& resources)
         : Collector(), theAllocator(allocator), collectorResources(resources)
@@ -222,25 +152,6 @@ public:
     }
 #endif
 
-    void ResurrectExportObject(BaseObject* obj)
-    {
-        auto phase = GetGCPhase();
-        std::lock_guard<std::mutex> lg(resurrectExportMtx);
-        if (phase != GCPhase::GC_PHASE_PREFORWARD && phase != GCPhase::GC_PHASE_FORWARD) {
-            resurrectedExportObjectes.insert(obj);
-        } else {
-            resurrectedExportObjectesForwardPhase.insert(obj);
-        }
-    }
-
-    void VisitAllResurrectExportObjects(const RootVisitor& visitor)
-    {
-        std::lock_guard<std::mutex> lg(resurrectExportMtx);
-        for (auto& obj : resurrectedExportObjectes) {
-            visitor(reinterpret_cast<ObjectRef&>(*obj));
-        }
-    }
-
     bool ShouldIgnoreRequest(GCRequest& request) override { return request.ShouldBeIgnored(); }
 
     // live but not resurrected object.
@@ -251,7 +162,6 @@ public:
     {
         return RegionSpace::IsMarkedObject(obj) || RegionSpace::IsResurrectedObject(obj);
     }
-    void DFSTraceExportObject(BaseObject* exportObj);
     virtual bool MarkObject(BaseObject* obj) const
     {
         RegionInfo* regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
@@ -328,13 +238,6 @@ protected:
     bool fixReferences = false;
 
     std::atomic<size_t> markedObjectCount = { 0 };
-    std::mutex externMtx;
-    std::unordered_map<BaseObject*, std::list<BaseObject*>> discoveredExternObjects;
-    std::mutex cycleWorkStackMtx;
-    std::unordered_map<BaseObject*, std::list<BaseObject*>> cycleRefWorkStack;
-    std::mutex resurrectExportMtx;
-    std::unordered_set<BaseObject*> resurrectedExportObjectes;
-    std::unordered_set<BaseObject*> resurrectedExportObjectesForwardPhase;
 
     void ResetBitmap(bool heapMarked)
     {
@@ -355,28 +258,23 @@ protected:
     inline void SetGCReason(const GCReason reason) { gcReason = reason; }
 
     GCThreadPool* GetThreadPool() const { return collectorResources.GetThreadPool(); }
-    // enum all common roots.
-    void EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& rootSet);
-    // enum roots referenced by foreign languages.
-    void EnumAllExportRoots(RootSet& foreignRootsSet);
+    // enum all roots.
+    void EnumAllRoots(GCThreadPool* threadPool, RootSet& rootSet);
     // let finalizerProcessor process finalizers, and mark resurrected if in light sync gc
     virtual void ProcessFinalizers() {}
     // designed to mark resurrected finalizer, should not be call in stw gc
     virtual void DoResurrection(WorkStack& workStack);
 
     void MergeMutatorRoots(WorkStack& workStack);
-    void DoEnumeration(WorkStack& workStack, WorkStack& foreignRootsSet);
-    void DoTracing(WorkStack& workStack, WorkStack& foreignRootsSet);
+    void DoEnumeration(WorkStack& workStack);
+    void DoTracing(WorkStack& workStack);
     bool MarkSatbBuffer(WorkStack& workStack);
 
     // concurrent marking.
-    void TracingImpl(WorkStack& workStack, WorkStack& foreignRootsSet, bool parallel);
+    void TracingImpl(WorkStack& workStack, bool parallel);
 
     bool AddConcurrentTracingWork(RootSet& rs);
-    void AddExportObjectsTracingWork(RootSet& exportRoots);
     virtual void EnumAndTagRawRoot(ObjectRef& root, RootSet& rootSet) const { std::abort(); }
-
-    void FindUselessExternObjects();
 
 private:
     void ConcurrentReMark(WorkStack& remarkStack, bool parallel);
@@ -384,7 +282,6 @@ private:
     void EnumConcurrencyModelRoots(RootSet& rootSet) const;
     void EnumStaticRoots(RootSet& rootSet) const;
     void EnumFinalizerProcessorRoots(RootSet& rootSet) const;
-    void EnumAllSurrectedExportRoots(RootSet& rootSet);
 
     void VisitStaticRoots(const RefFieldVisitor& visitor) const;
     void VisitFinalizerRoots(const RootVisitor& visitor) const;

@@ -32,8 +32,7 @@ inline bool TypeTemplate::IsInterface() const { return type == TypeKind::TYPE_KI
 
 inline bool TypeTemplate::IsClass() const
 {
-    return type == TypeKind::TYPE_KIND_CLASS || type == TypeKind::TYPE_KIND_TEMP_ENUM ||
-        type == TypeKind::TYPE_KIND_FOREIGN_PROXY || type == TypeKind::TYPE_KIND_EXPORTED_REF;
+    return type == TypeKind::TYPE_KIND_CLASS || type == TypeKind::TYPE_KIND_TEMP_ENUM;
 }
 
 inline bool TypeTemplate::IsNothing() const { return type == TypeKind::TYPE_KIND_NOTHING; }
@@ -80,16 +79,10 @@ inline bool TypeInfo::IsObjectType() const
     return type == TypeKind::TYPE_KIND_CLASS ||
            type == TypeKind::TYPE_KIND_WEAKREF_CLASS ||
            type == TypeKind::TYPE_KIND_TEMP_ENUM ||
-           type == TypeKind::TYPE_KIND_FUNC ||
-           type == TypeKind::TYPE_KIND_FOREIGN_PROXY ||
-           type == TypeKind::TYPE_KIND_EXPORTED_REF;
+           type == TypeKind::TYPE_KIND_FUNC;
 }
 
 inline bool TypeInfo::IsWeakRefType() const { return type == TypeKind::TYPE_KIND_WEAKREF_CLASS; }
-
-inline bool TypeInfo::IsForeignType() const { return type == TypeKind::TYPE_KIND_FOREIGN_PROXY; }
-
-inline bool TypeInfo::IsExportedType() const { return type == TypeKind::TYPE_KIND_EXPORTED_REF; }
 
 inline bool TypeInfo::IsArrayType() const { return type == TypeKind::TYPE_KIND_RAWARRAY; }
 
@@ -112,8 +105,7 @@ inline bool TypeInfo::IsInterface() const { return type == TypeKind::TYPE_KIND_I
 inline bool TypeInfo::IsClass() const
 {
     return type == TypeKind::TYPE_KIND_CLASS || type == TypeKind::TYPE_KIND_TEMP_ENUM ||
-           type == TypeKind::TYPE_KIND_WEAKREF_CLASS || type == TypeKind::TYPE_KIND_EXPORTED_REF ||
-           type == TypeKind::TYPE_KIND_FOREIGN_PROXY;
+           type == TypeKind::TYPE_KIND_WEAKREF_CLASS;
 }
 
 inline bool TypeInfo::IsSyncClass() const

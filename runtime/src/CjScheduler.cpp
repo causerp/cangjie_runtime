@@ -674,15 +674,6 @@ int8_t MRT_StopSubScheduler(void* schedule)
     return 0;
 }
 
-static void ResolveCycleRefImpl()
-{
-    Heap::GetHeap().GetCollector().ResolveCycleRef();
-}
-extern "C" void CJ_MRT_RolveCycleRef()
-{
-    RunResolveCycle(reinterpret_cast<void*>(&ResolveCycleRefImpl));
-}
-
 const void* MRT_RuntimeNewSubScheduler()
 {
     static int id = 0;

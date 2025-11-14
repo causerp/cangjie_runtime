@@ -105,14 +105,7 @@ public:
     CollectorResources& GetCollectorResources() override;
     void RegisterAllocBuffer(AllocBuffer& buffer) override;
     void RemoveAllocBuffer(AllocBuffer& buffer) override;
-    U64 RegisterExportRoot(BaseObject* obj) override;
-    void VisitAllExportRoots(const RootVisitor& visitor) override;
-    BaseObject* GetExportObject(U64 id) override;
-    void RemoveExportObject(U64 id) override;
     void StopGCWork() override;
-    void CrossAccessBarrier(I64 handle) override;
-    void SetExportObjActiveState(U64 id, bool state) override;
-    bool CheckExportObjState(U64 id, BaseObject* exportObj) override;
 
     class ScopedFileHandler {
     public:
@@ -139,7 +132,6 @@ private:
     // collector (i.e. no-gc), allocator and barrier (interface to access heap) is still needed.
     CollectorProxy collectorProxy;
 
-    ExportRootTable exportRootsTable;
     Barrier stwBarrier;
     IdleBarrier idleBarrier;
     EnumBarrier enumBarrier;
@@ -324,55 +316,4 @@ void HeapImpl::StopGCWork() { collectorResources.StopGCWork(); }
 void HeapImpl::RegisterAllocBuffer(AllocBuffer& buffer) { GetAllocator().RegisterAllocBuffer(buffer); }
 
 void HeapImpl::RemoveAllocBuffer(AllocBuffer &buffer) { GetAllocator().RemoveAllocBuffer(buffer); }
-
-void HeapImpl::VisitAllExportRoots(const RootVisitor &visitor)
-{
-    exportRootsTable.VisitGCRoots(visitor);
-}
-
-BaseObject* HeapImpl::GetExportObject(U64 id)
-{
-    return exportRootsTable.GetExportRoot(id);
-}
-
-U64 HeapImpl::RegisterExportRoot(BaseObject *obj)
-{
-    if (!IsHeapAddress(obj)) {
-        return std::numeric_limits<U64>::max();
-    }
-    return exportRootsTable.RegisterExportRoot(obj);
-}
-
-void HeapImpl::RemoveExportObject(U64 id)
-{
-    exportRootsTable.RemoveExportRoot(id);
-}
-
-void HeapImpl::CrossAccessBarrier(I64 id)
-{
-    BaseObject* recordObj = GetExportObject(id);
-    if (recordObj == nullptr) {
-        return;
-    }
-    if (GetGCPhase() == GCPhase::GC_PHASE_PREFORWARD) {
-        auto& collector = GetCollector();
-        if (collector.IsGhostFromObject(recordObj) &&
-            !collector.IsUnmovableFromObject(recordObj)) {
-                recordObj = collector.ForwardObject(recordObj);
-            }
-    }
-
-    reinterpret_cast<TracingCollector&>(GetCollector()).ResurrectExportObject(recordObj);
-    SetExportObjActiveState(id, true);
-}
-
-void HeapImpl::SetExportObjActiveState(U64 id, bool state)
-{
-    exportRootsTable.SetActiveState(id, state);
-}
-
-bool HeapImpl::CheckExportObjState(U64 id, BaseObject *exportObj)
-{
-    return exportRootsTable.CheckActiveState(id, exportObj);
-}
 } // namespace MapleRuntime

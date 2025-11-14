@@ -1436,7 +1436,6 @@ void* ProcessorGetHandle(void);
 #endif
 
 void CJThreadGetInfo(struct CJThread *cjthread, struct CJThreadInfo *cjthreadInfo);
-void RunResolveCycle(void* funcPtr);
 
 /**
  * @brief handle some foreign-cj thread when a foreign os thread exit.
