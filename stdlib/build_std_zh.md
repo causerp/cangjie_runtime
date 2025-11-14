@@ -67,6 +67,7 @@ output
 - `--build-args` ：cjc构建选项（可选）
 - `--jobs(-j)` : 并发构建任务最大数量
 - `--hwasan` ：构建hwasan版本std（OHOS交叉编译使用）
+- `--cjlib-sanitizer-support`： 构建 sanitizer 版本的仓颉标准库。可选项有 `asan`, `tsan` 和 `hwasan`。
 
 `build.py` 的 `install` 功能提供如下额外选项：
 
