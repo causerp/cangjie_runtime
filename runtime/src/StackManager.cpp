@@ -23,9 +23,7 @@
 #endif
 #ifdef __APPLE__
 #include <dlfcn.h>
-#ifndef __IOS__
 #include <libproc.h>
-#endif
 #endif
 #include "Inspector/CjHeapData.h"
 #include "Heap/Allocator/AllocBuffer.h"
@@ -249,7 +247,7 @@ static void GetEachSoAddrScope(FILE* file, std::vector<CString>& soNameVec)
 }
 #endif
 
-#if defined(__APPLE__) and !(defined(__IOS__) && !defined(COMPILE_DYNAMIC))
+#ifdef __APPLE__
 static bool EndWith(const char* str, const char* suffix)
 {
     if (str == nullptr || suffix == nullptr) {
@@ -262,9 +260,7 @@ static bool EndWith(const char* str, const char* suffix)
     }
     return strncmp(str + strLen - suffixLen, suffix, suffixLen) == 0;
 }
-#endif
 
-#if defined(__APPLE__) and !defined(__IOS__)
 static void InitAddressInfoOnDarwin(const char* dylib, Uptr& start, Uptr& end)
 {
     int pid = GetPid();
@@ -343,10 +339,8 @@ void InitAddressScopeForCJthreadTrace()
         StackManager::traceSoEndAddr = traceModule->GetImageBaseEnd();
     }
 #elif defined(__APPLE__)
-#ifndef __IOS__
     InitAddressInfoOnDarwin("/" LIBCANGJIE_CJTHREAD_TRACE ".dylib", StackManager::traceSoStartAddr,
                             StackManager::traceSoEndAddr);
-#endif
 #else
     CString procFileName("/proc/self/maps");
     FILE* file = fopen(procFileName.Str(), "r");

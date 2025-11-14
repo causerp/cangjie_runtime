@@ -25,13 +25,6 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (MACOS_FLAG MATCHES 1))
         "ExceptionCApi.cpp"
         "${CMAKE_SOURCE_DIR}/src/archrch64_macos/RestoreContextForEH.S"
     )
-elseif ((IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1))
-    set(SRC_LIST
-        "Exception.cpp"
-        "EhTable.cpp"
-        "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch/ios/RestoreContextForEH.S"
-    )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST
         "Exception.cpp"
