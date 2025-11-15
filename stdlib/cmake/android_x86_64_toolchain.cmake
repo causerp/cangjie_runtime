@@ -17,6 +17,10 @@ set(CMAKE_ANDROID_ARCH_ABI "x86_64")
 string(TOLOWER ${CMAKE_HOST_SYSTEM_NAME} lower_host_os)
 set(CANGJIE_TARGET_TOOLCHAIN "${CMAKE_ANDROID_NDK}/toolchains/llvm/prebuilt/${lower_host_os}-${CMAKE_HOST_SYSTEM_PROCESSOR}/bin")
 set(TRIPLE x86_64-linux-android${CMAKE_ANDROID_API})
-set(TARGET_TRIPLE_DIRECTORY_PREFIX linux_android${CMAKE_ANDROID_API}_x86_64)
+if(CMAKE_ANDROID_API EQUAL 26)
+    set(TARGET_TRIPLE_DIRECTORY_PREFIX linux_android_x86_64)
+else()
+    set(TARGET_TRIPLE_DIRECTORY_PREFIX linux_android${CMAKE_ANDROID_API}_x86_64)
+endif()
  
 # Variable ANDROID will be set by CMake. Custom variables are not necessary here.
