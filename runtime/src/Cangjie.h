@@ -46,7 +46,7 @@
 #endif
 
 #ifndef MRT_OPTIONAL_BRANCH_PROTECT_NONE
-#if (defined(__OHOS__) && defined(__aarch64__)) || defined(__HOS__)
+#if (defined(__OHOS__) && defined(__aarch64__)) || (defined(__ANDROID__) && defined(__aarch64__))
 #define MRT_OPTIONAL_BRANCH_PROTECT_NONE __attribute__((target("branch-protection=none")))
 #else
 #define MRT_OPTIONAL_BRANCH_PROTECT_NONE
@@ -210,7 +210,6 @@ struct HeapParam {
      * It will be set to default value if assigned with 0.
      */
     double heapUtilization;
-
     /*
      * The ratio to expand heap after each GC.
      * GC is probably triggered more often if this value is set to an improperly small number.
@@ -758,19 +757,6 @@ MRT_EXPORT void RegisterUncaughtExceptionHandler(const CJUncaughtExceptionInfo& 
  * @retval Return demangled name.
  */
 MRT_EXPORT char* CJ_MRT_DemangleHandle(const char* functionName);
-
-/*
- * @brief Dump Cangjie Heap.
- * @param  fd  [IN]  file descriptor.
- * @retval.
- */
-MRT_EXPORT void CJ_MRT_DumpHeapSnapshot(int fd);
-
-/*
- * @brief Trigger GC.
- * @retval.
- */
-MRT_EXPORT void CJ_MRT_ForceFullGC();
 
 CANGJIE_RT_API_DECLS_END
 

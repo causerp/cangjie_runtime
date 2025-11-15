@@ -9,35 +9,35 @@ if ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (MACOS_FLAG MATCHES 1))
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/x86_64_macos/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/x86_64_macos/RestoreContextForEH.S"
     )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/x86_64_linux/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/x86_64_linux/RestoreContextForEH.S"
     )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (MACOS_FLAG MATCHES 1))
     set(SRC_LIST
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/aarch64_macos/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/aarch64_macos/RestoreContextForEH.S"
     )
 elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
     set(SRC_LIST
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/aarch64_linux/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/aarch64_linux/RestoreContextForEH.S"
     )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(SRC_LIST
         "Exception.cpp"
         "EhTable.cpp"
         "ExceptionCApi.cpp"
-        "${CMAKE_SOURCE_DIR}/src/arch_os/x86_64_windows/RestoreContextForEH.S"
+        "${CMAKE_SOURCE_DIR}/src/arch/x86_64_windows/RestoreContextForEH.S"
     )
 endif()
 add_library(Exception STATIC ${SRC_LIST})

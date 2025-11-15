@@ -43,7 +43,7 @@ bool WCollector::MarkObject(BaseObject* obj) const
 
 bool WCollector::ResurrectObject(BaseObject* obj, size_t offset, RegionInfo* region)
 {
-    bool resurrected = region->ResurrentObject(obj, offset);
+    bool resurrected = region->ResurrectObject(obj, offset);
         if (!resurrected) {
             region->AddLiveByteCount(obj->GetSize());
             DLOG(TRACE, "resurrect region %p@%#zx obj %p<%p>(%zu), live bytes %u", region, region->GetRegionStart(),
@@ -51,7 +51,6 @@ bool WCollector::ResurrectObject(BaseObject* obj, size_t offset, RegionInfo* reg
         }
         return resurrected;
 }
-
 
 // this api updates current pointer as well as old pointer, caller should take care of this.
 template<bool forward>
@@ -241,7 +240,6 @@ void WCollector::TraceObjectRefFields(BaseObject* obj, WorkStack& workStack)
 
 BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
 {
-    // get and try tag the referent field for weakref objs
     RefField<> oldField(field);
     BaseObject* latest = nullptr;
     if (IsCurrentPointer(oldField)) {
@@ -261,9 +259,9 @@ BaseObject* WCollector::GetAndTryTagObj(BaseObject* obj, RefField<>& field)
     CHECK(latest->IsValidObject());
     RefField<> newField = GetAndTryTagRefField(latest);
     if (oldField.GetFieldValue() == newField.GetFieldValue()) {
-        DLOG(TRACE, "trace weakref obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(), latest->GetSize());
+        DLOG(TRACE, "trace obj %p ref@%p: %p<%p>(%zu)", obj, &field, latest, latest->GetTypeInfo(), latest->GetSize());
     } else if (field.CompareExchange(oldField.GetFieldValue(), newField.GetFieldValue())) {
-        DLOG(TRACE, "trace weakref obj %p ref@%p: %#zx => %#zx->%p<%p>(%zu)", obj, &field, oldField.GetFieldValue(),
+        DLOG(TRACE, "trace obj %p ref@%p: %#zx => %#zx->%p<%p>(%zu)", obj, &field, oldField.GetFieldValue(),
             newField.GetFieldValue(), latest, latest->GetTypeInfo(), latest->GetSize());
     }
     return latest;
@@ -299,7 +297,6 @@ BaseObject* WCollector::ForwardUpdateRawRef(ObjectRef& root)
 
     return oldObj;
 }
-
 void WCollector::PreforwardFinalizerProcessorRoots()
 {
     RootVisitor visitor = [this](ObjectRef& root) { ForwardUpdateRawRef(root); };
@@ -364,10 +361,8 @@ void WCollector::Preforward()
     MRT_ASSERT(threadPool != nullptr, "thread pool is null");
     // forward and fix cj future objects
     threadPool->AddWork(new (std::nothrow) LambdaWork([this](size_t) { PreforwardConcurrencyModelRoots(); }));
-
     // forward and fix finalizer roots.
     threadPool->AddWork(new (std::nothrow) LambdaWork([this](size_t) { PreforwardFinalizerProcessorRoots(); }));
-
     threadPool->Start();
     threadPool->WaitFinish();
 }
@@ -498,6 +493,9 @@ void WCollector::CollectSmallSpace()
          stats.garbageRatio * 100); // The base of the percentage is 100
 
     VLOG(REPORT, "start to release heap garbage memory");
+#if defined(__EULER__)
+    Heap::GetHeap().GetAllocator().TryReclaimGarbageMemory();
+#endif
     collectorResources.GetFinalizerProcessor().NotifyToReclaimGarbage();
 }
 

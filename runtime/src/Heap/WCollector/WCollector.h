@@ -61,7 +61,6 @@ public:
     void TraceObjectRefFields(BaseObject* obj, WorkStack& workStack) override;
     BaseObject* GetAndTryTagObj(BaseObject* obj, RefField<>& field) override;
     BaseObject* ForwardObject(BaseObject* fromVersion) override;
-
     void FlipTagID() { currentTagID ^= 1; }
     uint16_t GetCurrentTagID() override { return currentTagID; }
     uint16_t GetPreviousTagID() const { return currentTagID ^ 1; }

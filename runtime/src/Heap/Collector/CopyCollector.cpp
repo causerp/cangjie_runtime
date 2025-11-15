@@ -79,15 +79,12 @@ void CopyCollector::ForwardFromSpace()
     stats.liveBytesBeforeGC = space.AllocatedBytes();
     stats.fromSpaceSize = space.FromSpaceSize();
     space.ForwardFromSpace(GetThreadPool());
-
-    // ForwardFromSpace changes from-space size by exempting from regions, so re-read it.
-    // todo: to-space is meaningless.
-    stats.smallGarbageSize = space.FromSpaceSize();
 }
 
 void CopyCollector::RefineFromSpace()
 {
+    GCStats& stats = GetGCStats();
     RegionSpace& space = reinterpret_cast<RegionSpace&>(theAllocator);
-    space.RefineFromSpace();
+    stats.smallGarbageSize = space.RefineFromSpace();
 }
 } // namespace MapleRuntime

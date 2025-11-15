@@ -64,25 +64,13 @@ bool CjSemanticVersion::IsCompatible(CString& binaryVersion)
     return true;
 }
 
+#ifndef DISABLE_VERSION_CHECK
 bool CjSemanticVersion::IsCorePackage(CString& packageName)
 {
     CString baseName = Os::Path::GetBaseName(packageName.Str());
     return baseName.Find("cangjie-std-core") != -1;
 }
-
-void CjSemanticVersion::ThrowException(CString& packageName, CString& binaryVersion)
-{
-    CString msg = "executable cangjie file ";
-    msg.Append(packageName);
-    msg.Append(CString::FormatString(" version %s is not compatible with deployed cangjie runtime version %s",
-        binaryVersion.Str(), GetRuntimeSDKVersion()));
-#ifndef DISABLE_VERSION_CHECK
-    ExceptionManager::IncompatiblePackageExpection(msg);
-#else
-    LOG(RTLOG_WARNING, "%s", msg.Str());
 #endif
-}
-
 
 SemanticVersionInfo::SemanticVersionInfo(CString& version)
 {

@@ -7,7 +7,6 @@
 #ifndef MRT_CJTHREAD_SYSCALL_H
 #define MRT_CJTHREAD_SYSCALL_H
 
-#include "mid.h"
 #include "mrt_syscall_common.h"
 
 #ifdef __cplusplus

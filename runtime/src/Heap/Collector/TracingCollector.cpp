@@ -119,7 +119,7 @@ public:
                     if (referent != nullptr) {
                         DLOG(TRACE, "trace weakref obj %p ref@%p: 0x%zx", obj, &referent, referent);
                         collector.TraceObjectRefFields(reinterpret_cast<BaseObject*>(referent), workStack);
-                        WeakRefBuffer::Instance().Insert(obj); // record live weakref objects, wiil be processed later
+                        WeakRefBuffer::Instance().Insert(obj); // record live weakref objects
                     } // If referent is set to none, the corresponding weakref does not need to be recorded.
                 } else {
                     collector.TraceObjectRefFields(obj, workStack);
@@ -632,29 +632,58 @@ void TracingCollector::UpdateGCStats()
 
     size_t oldThreshold = gcStats.heapThreshold;
     size_t liveBytes = space.AllocatedBytes();
+    size_t heapSize = space.GetMaxCapacity();
     size_t recentBytes = space.GetRecentAllocatedSize();
-    size_t survivedBytes = space.GetSurvivedSize();
 
     // 2 / 3: when live bytes is over 2/3 heap size, the async allocation need to be closed.
-    if (liveBytes > space.GetMaxCapacity() * 2 / 3) {
+    if (liveBytes > heapSize * 2 / 3) {
         space.EnableAsyncAllocation(false);
     } else {
         space.EnableAsyncAllocation(true);
     }
     // 4 ways to estimate heap next threshold.
+#if defined (__OHOS__)
+    constexpr double lowUtilGrowth = 1.8;
+    constexpr double lowUtilRatio = 0.25;
+    double heapGrowth = liveBytes < heapSize * lowUtilRatio ?
+        lowUtilGrowth : 1 + (CangjieRuntime::GetHeapParam().heapGrowth);
+#else
     double heapGrowth = 1 + (CangjieRuntime::GetHeapParam().heapGrowth);
-    size_t threshold1 = survivedBytes * heapGrowth;
+#endif
+    size_t threshold1 = liveBytes * heapGrowth;
     size_t threshold2 = oldThreshold * heapGrowth;
-    size_t threshold3 = survivedBytes * 1.2 / (1.0 + gcStats.garbageRatio);
+    size_t threshold3 = liveBytes * 1.2 / (1.0 + gcStats.garbageRatio);
     size_t threshold4 = space.GetTargetSize();
-    size_t newThreshold = (threshold1 + threshold2 + threshold3 + threshold4) / 4;
-
+    size_t newThreshold = 0;
+    uint64_t gcInterval = CangjieRuntime::GetGCParam().gcInterval;
+    // 2 : We regard the half of heap size as a limit because of copying algorithm.
+    if (liveBytes < oldThreshold && oldThreshold < (heapSize / 2)) {
+#if defined (__OHOS__)
+        // When the ulitization is low, we can give the old threshold a larger weight to compute average value.
+        // 1, 4, 2, 1: These are the weights of the different parameters.
+        // 8: It is the total weight.
+        newThreshold = (threshold1 * 1 + threshold2 * 4 + threshold3 * 2 + threshold4 * 1) / 8;
+        // 2s: We set the max waiting time to 2s to avoid memory increasing too fast.
+        auto maxAdaptiveInterval = static_cast<uint64_t>(2) * MapleRuntime::SECOND_TO_NANO_SECOND;
+        uint64_t gcAdaptiveInterval = static_cast<uint64_t>((newThreshold - liveBytes) / gcStats.collectionRate / MB);
+        gcAdaptiveInterval = std::min(gcAdaptiveInterval, maxAdaptiveInterval);
+        gcInterval = std::max(gcInterval, gcAdaptiveInterval);
+#else
+        // 4: Computing arithmetic mean
+        newThreshold = (threshold1 + threshold2 + threshold3 + threshold4) / 4;
+#endif
+    } else {
+        // When the ulitization is high, we try to avoid threshold increasing and give it a small weight.
+        // 2, 1, 2, 3: These are the weights of the different parameters.
+        // 8: It is the total weight.
+        newThreshold = (threshold1 * 2 + threshold2 * 1 + threshold3 * 2 + threshold4 * 3) / 8;
+    }
     // 0.98: make sure new threshold does not exceed reasonable limit.
-    gcStats.heapThreshold = std::min(newThreshold, static_cast<size_t>(space.GetMaxCapacity() * 0.98));
-    gcStats.heapThreshold = std::min(gcStats.heapThreshold, CangjieRuntime::GetGCParam().gcThreshold);
-    g_gcRequests[GC_REASON_HEU].SetMinInterval(CangjieRuntime::GetGCParam().gcInterval);
+    newThreshold = std::min(newThreshold, static_cast<size_t>(space.GetMaxCapacity() * 0.98));
+    gcStats.heapThreshold = std::min(newThreshold, CangjieRuntime::GetGCParam().gcThreshold);
+    g_gcRequests[GC_REASON_HEU].SetMinInterval(gcInterval);
     VLOG(REPORT, "live bytes %zu (survived %zu, recent-allocated %zu), update gc threshold %zu -> %zu", liveBytes,
-         survivedBytes, recentBytes, oldThreshold, gcStats.heapThreshold);
+         liveBytes - recentBytes, recentBytes, oldThreshold, gcStats.heapThreshold);
     OHOS_HITRACE_COUNT("CJRT_post_GC_HeapSize", Heap::GetHeap().GetAllocatedSize());
 }
 } // namespace MapleRuntime

@@ -9,6 +9,7 @@
 #define MRT_THREAD_LOCAL_H
 
 #include <cstdint>
+#include "Base/RwLock.h"
 
 namespace MapleRuntime {
 class AllocBuffer;
@@ -33,6 +34,10 @@ struct ThreadLocalData {
     ThreadType threadType;
     bool isCJProcessor;
     void* threadCache;
+};
+
+struct CleanThreadLocalData {
+    ~CleanThreadLocalData();
 };
 
 class ThreadLocal { // merge this to ThreadLocalData.
@@ -88,6 +93,24 @@ public:
     {
         return GetThreadLocalData()->threadCache = threadCache;
     }
+
+    // When runtime is stop, we need to lock any operation which may access runtime.
+    static void ThreadLocalFini()
+    {
+        tlEnableLock.LockWrite();
+    }
+
+    static bool TryGetRdLock()
+    {
+        return tlEnableLock.TryLockRead();
+    }
+
+    static void UnlockRdLock()
+    {
+        tlEnableLock.UnlockRead();
+    }
+private:
+    static RwLock tlEnableLock;
 };
 } // namespace MapleRuntime
 #endif // MRT_THREAD_LOCAL_H

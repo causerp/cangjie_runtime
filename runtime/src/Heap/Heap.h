@@ -100,6 +100,8 @@ public:
 
     virtual void RegisterAllocBuffer(AllocBuffer& buffer) = 0;
 
+    virtual void RemoveAllocBuffer(AllocBuffer& buffer) = 0;
+
     virtual void StopGCWork() = 0;
 
     static void OnHeapCreated(MAddress startAddr)

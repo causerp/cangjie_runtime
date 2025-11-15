@@ -154,7 +154,6 @@ extern "C" MRT_EXPORT void CJ_MCC_CopyStructField(BaseObject* dstBase, void* dst
                                                   BaseObject* srcBase, void* srcField, size_t srcLen);
 
 extern "C" void CJ_MCC_IVCallInstrumentation(TypeInfo* cls, const char* callBaseKey);
-
 #ifdef __OHOS__
 extern "C" void* CJ_MRT_ARKTS_CreateEngine();
 #endif

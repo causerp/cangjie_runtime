@@ -506,9 +506,15 @@ void CJFileLoader::TryThrowException(Uptr fileMetaAddr)
     }
     CString packageName = file->GetRealPath();
     CString packageVersion = file->GetSDKVersion();
-    compatibility.ThrowException(packageName, packageVersion);
+    CString msg = "executable cangjie file ";
+    msg.Append(packageName);
+    msg.Append(CString::FormatString(" version %s is not compatible with deployed cangjie runtime version %s",
+        packageVersion.Str(), compatibility.GetRuntimeSDKVersion()));
 #ifndef DISABLE_VERSION_CHECK
+    ExceptionManager::IncompatiblePackageExpection(msg);
     RemoveLoadedFiles(file);
+#else
+    LOG(RTLOG_WARNING, "%s", msg.Str());
 #endif
 }
 

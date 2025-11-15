@@ -296,7 +296,7 @@ void StackManager::InitAddressScope()
 #elif defined(__APPLE__)
     InitAddressInfoOnDarwin("/" LIBCANGJIE_RUNTIME ".dylib", StackManager::rtStartAddr, StackManager::rtEndAddr);
     InitAddressInfoOnDarwin("/cjc", StackManager::cjcSoStartAddr, StackManager::cjcSoEndAddr);
-#elif defined(__OHOS__) || defined(__HOS__)
+#elif defined(__OHOS__) || defined(__ANDROID__)
     CString procFileName("/proc/self/maps");
     FILE* file = fopen(procFileName.Str(), "r");
     if (file == nullptr) {

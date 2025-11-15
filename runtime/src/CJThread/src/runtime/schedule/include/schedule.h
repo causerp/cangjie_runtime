@@ -237,6 +237,11 @@ extern "C" {
 #define ERRNO_SCHD_TRACE_ALREADY_START ((MID_SCHEDULE) | 0x503)
 
 /**
+* @brief 0x10040504 scheduler type is wrong
+*/
+#define ERRNO_SCHD_WRONG_TYPE ((MID_SCHEDULE) | 0x504)
+
+/**
 * @brief The flag bit is set to - 1 when preemption is triggered.
 */
 #define PREEMPT_DO_FLAG ((uintptr_t)-1)
@@ -640,6 +645,12 @@ CJThreadHandle CJThreadNewToDefault(const struct CJThreadAttr *attr, CJThreadFun
  */
 void CJThreadPreemptResched(void);
 
+/**
+ * @brief Add the cjthread to the running queue.
+ * @par Add the specified cjthread to the running queue under the processor. If the cjthread
+ * is not in the context, add the cjthread to the global running queue.
+ * @param readyCJThread    [IN] cjthread to be added to the running queue.
+ */
 void CJThreadReady(CJThreadHandle readyCJThread);
 
 /**
@@ -1426,6 +1437,10 @@ void* ProcessorGetHandle(void);
 
 void CJThreadGetInfo(struct CJThread *cjthread, struct CJThreadInfo *cjthreadInfo);
 
+/**
+ * @brief handle some foreign-cj thread when a foreign os thread exit.
+ */
+void CJForeignThreadExit(CJThreadHandle foreignCJThread);
 #ifdef __cplusplus
 #if __cplusplus
 }

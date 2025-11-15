@@ -1,10 +1,11 @@
+#!/bin/bash
+
 # Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
 # This source file is part of the Cangjie project, licensed under Apache-2.0
 # with Runtime Library Exception.
 #
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-#!/bin/bash
 # CI shell script for calling build.py
 set -e
 
@@ -21,7 +22,7 @@ export PROJECT_PATH="$(dirname $script_abs)/../"
 export CJTHREAD_PATH="${PROJECT_PATH}/src/CJThread"
 export BUILD_PATH="${PROJECT_PATH}/build/cjthread_build"
 
-# example
+# Example
 # 1. make static lib
 # sh build/build_cjthread.sh -p linux_x86_64 Debug SHARED
 # sh build/build_cjthread.sh -p linux_x86_64 Debug SHARED asan

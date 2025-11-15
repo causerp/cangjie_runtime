@@ -21,6 +21,7 @@ public:
                     tlLargeRawPointerRegions("thread-local large raw-pointer regions") {}
     ~AllocBuffer();
     void Init();
+    void Fini();
     static AllocBuffer* GetOrCreateAllocBuffer();
     static AllocBuffer* GetAllocBuffer();
 

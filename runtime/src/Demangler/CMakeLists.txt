@@ -23,15 +23,15 @@ if (COV MATCHES 0)
         ${CMAKE_CURRENT_SOURCE_DIR}/Demangler.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/CangjieDemangle.cpp)
     target_compile_definitions(cangjie-demangle PRIVATE BUILD_LIB_CANGJIE_DEMANGLE)
-if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
-    add_library(cangjie-demangle-shared SHARED
-        ${CMAKE_CURRENT_SOURCE_DIR}/DeCompression.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Demangler.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/CangjieDemangle.cpp)
-    target_compile_definitions(cangjie-demangle-shared PRIVATE BUILD_LIB_CANGJIE_DEMANGLE)
-    install(TARGETS cangjie-demangle-shared LIBRARY DESTINATION runtime/lib/${TARGET_ARCH})
-    set_target_properties(cangjie-demangle-shared PROPERTIES OUTPUT_NAME "cangjie-demangle")
-endif()
+    if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
+        add_library(cangjie-demangle-shared SHARED
+            ${CMAKE_CURRENT_SOURCE_DIR}/DeCompression.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/Demangler.cpp
+            ${CMAKE_CURRENT_SOURCE_DIR}/CangjieDemangle.cpp)
+        target_compile_definitions(cangjie-demangle-shared PRIVATE BUILD_LIB_CANGJIE_DEMANGLE)
+        install(TARGETS cangjie-demangle-shared LIBRARY DESTINATION runtime/lib/${TARGET_ARCH})
+        set_target_properties(cangjie-demangle-shared PROPERTIES OUTPUT_NAME "cangjie-demangle")
+    endif()
     # demangleTest
     add_executable(demangleTest ${CMAKE_CURRENT_SOURCE_DIR}/Demangler.cpp ${CMAKE_CURRENT_SOURCE_DIR}/DeCompression.cpp ${CMAKE_CURRENT_SOURCE_DIR}/CheckDemangle.cpp)
     add_dependencies(demangleTest demangler cangjie-demangle)

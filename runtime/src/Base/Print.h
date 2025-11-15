@@ -22,6 +22,7 @@
 #define LOG_DOMAIN (BASE_DOMAIN + 8)
 #define LOG_TAG "CANGJIE-RUNTIME"
 #endif
+
 namespace MapleRuntime {
 #if defined(__OHOS__) && (__OHOS__ == 1)
 #define PRINT_INFO(...)                                           \
@@ -64,7 +65,6 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
             return retValue; \
         } \
     } while (0)
-
 #else
 
 #define PRINT_INFO(format...) fprintf(stdout, format)
@@ -77,7 +77,6 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
             return retValue; \
         } \
     } while (0)
-
 
 #define PRINT_FATAL(format...) \
     do { \

@@ -41,19 +41,20 @@ private:
 
 class ScopedObjectAccess {
 public:
-    ScopedObjectAccess() : mutator(*Mutator::GetMutator()), leavedSafeRegion(mutator.LeaveSaferegion()) {}
+    ScopedObjectAccess() : mutator(Mutator::GetMutator()),
+                           leavedSafeRegion(mutator == nullptr ? false : mutator->LeaveSaferegion()) {}
 
     ~ScopedObjectAccess()
     {
         if (LIKELY(leavedSafeRegion)) {
             // qemu use c++ thread local, it has issue with some cases for ZRT annotation, if reload again
             // fail on O3 and pass on O0 if load mutator again, not figureout why yet
-            (void)mutator.EnterSaferegion(false);
+            (void)mutator->EnterSaferegion(false);
         }
     }
 
 private:
-    Mutator& mutator;
+    Mutator* mutator{ nullptr };
     bool leavedSafeRegion;
 };
 } // namespace MapleRuntime

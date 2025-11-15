@@ -11,6 +11,9 @@ if (WINDOWS_FLAG MATCHES 1)
     set(CMAKE_C_FLAGS "${SECURE_CFLAG_FOR_SHARED_LIBRARY} ${WARNING_FLAGS}")
 endif()
 
+string(REPLACE "-fvisibility=hidden" "" CMAKE_C_FLAGS_NO_VISIBILITY "${CMAKE_C_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS_NO_VISIBILITY}")
+ 
 if (WINDOWS_FLAG MATCHES 1)
     # MSVCRT already provides most of secure functions,
     # so only files listed below need to be compiled from boundscheck library,

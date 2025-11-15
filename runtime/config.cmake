@@ -139,6 +139,8 @@ if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
     set(CMAKE_AR_PATH "${OHOS_ROOT}/prebuilts/clang/ohos/${cmake_host_system_name}-${cmake_host_system_processor}/llvm/bin/llvm-ar")
     message("set c/cxx ${OHOS_ROOT}/prebuilts/clang/ohos/${cmake_host_system_name}-${cmake_host_system_processor}/llvm/bin/clang/clang++")
     add_definitions(-D__OHOS__)
+elseif (EULER_FLAG MATCHES 1)
+    add_definitions(-D__EULER__)
 elseif (WINDOWS_FLAG MATCHES 1)
     message("Building runtime in Windows.")
     if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
@@ -244,7 +246,7 @@ set(HWASAN_FLAGS "-shared-libsan -fsanitize=hwaddress -fno-omit-frame-pointer -f
 set(CMAKE_INIT_FLAGS "${CMAKE_INIT_FLAGS} -Wfloat-equal -Wextra -Wno-unused-parameter -Wno-sign-compare")
 
 if (NOT CMAKE_AR_PATH)
-    # command "which llvm-ar" to obtain ar path
+    # The command "which llvm-ar" to obtain ar path
     EXECUTE_PROCESS(COMMAND which llvm-ar OUTPUT_VARIABLE AR_PATH OUTPUT_STRIP_TRAILING_WHITESPACE)
     set(CMAKE_AR ${AR_PATH} CACHE FILEPATH "" FORCE)
 else ()
@@ -252,7 +254,7 @@ else ()
 endif ()
 message(STATUS "CMAKE_AR : ${CMAKE_AR}")
 
-#Set C flags
+# Set C flags
 set(CMAKE_C_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_C_FLAGS} -std=c99")
 set(CMAKE_C_FLAGS_DEBUG "-O0 -gdwarf-4 -DMRT_DEBUG=1")
 if (CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
@@ -294,7 +296,7 @@ endif()
 set(CMAKE_ASM_FLAGS_RELWITHDEBINFO "${CMAKE_ASM_FLAGS_RELEASE}")
 set(CMAKE_ASM_FLAGS_MINSIZERELWITHDEBINFO "-Os -D_FORTIFY_SOURCE=2 -gdwarf-4")
 
-#Set Asan flags
+# Set Asan flags
 if (ASAN_FLAG MATCHES 1)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${ASAN_FLAGS}")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${ASAN_FLAGS}")
@@ -305,12 +307,12 @@ if (HWASAN_FLAG MATCHES 1)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${HWASAN_FLAGS}")
 endif ()
 
-#Limit the size of a single frame.
+# Limit the size of a single frame.
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wframe-larger-than=10240")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wframe-larger-than=10240")
 
 
-#Set cjthread path.
+# Set cjthread path.
 set(OUTPUT_TEMP_PATH ${CMAKE_CURRENT_SOURCE_DIR}/output/temp CACHE FILEPATH "" FORCE)
 message(STATUS "OUTPUT_TEMP_PATH : ${OUTPUT_TEMP_PATH}")
 set(DOPRA_INCLUDE ${OUTPUT_TEMP_PATH}/include)
@@ -335,24 +337,24 @@ elseif (OHOS_FLAG MATCHES 2)
 endif ()
 include_directories(${BOUNDSCHECK_INCLUDE})
 
-#Set coverage compilation flags.
+# Set coverage compilation flags.
 set(CMAKE_COV_FLAGS "-fprofile-arcs -ftest-coverage -Xclang -coverage-cfg-checksum -Xclang -coverage-no-function-names-in-data -Xclang -coverage-version=A75\\*")
 
-#Set compilation option of each module.
+# Set compilation option of each module.
 option(BUILD_CJTHREAD "Build cjthread module" ON)
 option(BUILD_RUNTIME   "Build runtime module"   ON)
 option(BUILD_DEMANGLE  "Build demangle module"  OFF)
 
 set(TARGET_ARCH "linux_${CMAKE_HOST_SYSTEM_PROCESSOR}_cjnative")
 if (OHOS_FLAG MATCHES 1)
-    set(TARGET_ARCH "linux_ohos_aarch64_cjnative")    
+    set(TARGET_ARCH "linux_ohos_aarch64_cjnative")
 endif()
 if (OHOS_FLAG MATCHES 2)
-    set(TARGET_ARCH "linux_ohos_x86_64_cjnative")    
+    set(TARGET_ARCH "linux_ohos_x86_64_cjnative")
 endif()
 if (MACOS_FLAG MATCHES 1)
-    set(TARGET_ARCH "darwin_${CMAKE_HOST_SYSTEM_PROCESSOR}_cjnative")    
+    set(TARGET_ARCH "darwin_${CMAKE_HOST_SYSTEM_PROCESSOR}_cjnative")
 endif()
 if (WINDOWS_FLAG MATCHES 1)
-    set(TARGET_ARCH "windows_x86_64_cjnative")    
+    set(TARGET_ARCH "windows_x86_64_cjnative")
 endif()

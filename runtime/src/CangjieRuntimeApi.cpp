@@ -37,10 +37,6 @@
 #include "Sanitizer/SanitizerInterface.h"
 #endif
 #include "CpuProfiler/CpuProfiler.h"
-#include "Heap/Collector/GcRequest.h"
-#include "Common/ScopedObjectAccess.h"
-#include "HeapManager.h"
-#include "HeapManager.inline.h"
 
 CANGJIE_RT_API_DECLS_BEGIN
 const double ERRORESTIMATE = 1e-12;
@@ -191,7 +187,7 @@ RTErrorCode InitCJRuntime(const struct RuntimeParam* param)
     }
 #ifdef _WIN64
     size_t defaultStackSize = 128; // default 128KB in windows, measured in KB
-#elif defined(__OHOS__) || defined(__HOS__)
+#elif defined(__OHOS__) || defined(__ANDROID__)
     size_t defaultStackSize = 1024; // default 1MB in OHOS, measured in KB
 #else
     size_t defaultStackSize = 128; // default 128KB, measured in KB
@@ -323,7 +319,6 @@ RTErrorCode FiniCJRuntime()
         return E_FAILED;
     }
     if (!g_runtimeFinished.exchange(true)) {
-        g_runtimeFinished.store(true);
         // Ensure that sampling thread is stopped before finishing runtime.
         MapleRuntime::CpuProfiler::GetInstance().TryStopSampling();
 
@@ -429,7 +424,7 @@ ScheduleHandle GetScheduler()
 CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJThreadSpecificDataInner* data = nullptr,
                              ScheduleHandle schedule = nullptr, bool isSignal = false)
 {
-    MapleRuntime::ScopedEntryHiTrace hiTrace("CJRT_INVOKE_CJTASK_ASYNC");
+   MapleRuntime::ScopedEntryHiTrace hiTrace("CJRT_INVOKE_CJTASK_ASYNC");
     if (!CheckRuntimeValid(func)) {
         return nullptr;
     }
@@ -814,14 +809,5 @@ void CJ_MCC_RegisterLogHandle(MapleRuntime::LogHandle handle) { MapleRuntime::Lo
 #endif
 
 void* CJThreadGetspecific(CJThreadKey key) { return CJThreadGetspecificInner(key); }
-
-void CJ_MRT_DumpHeapSnapshot(int fd)
-{
-    MapleRuntime::ScopedEnterSaferegion enterSaferegion(false);
-    MapleRuntime::CjHeapData cjHeapData;
-    cjHeapData.DumpHeap(fd);
-}
-
-void CJ_MRT_ForceFullGC() { MapleRuntime::HeapManager::RequestGC(MapleRuntime::GC_REASON_USER, false); }
 
 CANGJIE_RT_API_DECLS_END

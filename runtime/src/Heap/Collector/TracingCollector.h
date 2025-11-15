@@ -94,11 +94,9 @@ private:
 
 class MarkingWork;
 class ConcurrentMarkingWork;
-
 class TracingCollector : public Collector {
     friend MarkingWork;
     friend ConcurrentMarkingWork;
-
 public:
     explicit TracingCollector(Allocator& allocator, CollectorResources& resources)
         : Collector(), theAllocator(allocator), collectorResources(resources)
@@ -164,7 +162,6 @@ public:
     {
         return RegionSpace::IsMarkedObject(obj) || RegionSpace::IsResurrectedObject(obj);
     }
-
     virtual bool MarkObject(BaseObject* obj) const
     {
         RegionInfo* regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
@@ -187,7 +184,7 @@ public:
 
     virtual bool ResurrectObject(BaseObject* obj, size_t offset, RegionInfo* regionInfo)
     {
-        bool resurrected = regionInfo->ResurrentObject(obj, offset);
+        bool resurrected = regionInfo->ResurrectObject(obj, offset);
         if (!resurrected) {
             size_t objSize = obj->GetSize();
             regionInfo->AddLiveByteCount(objSize);
@@ -231,7 +228,6 @@ protected:
     // Also provides the resource access interfaces, such as invokeGC, waitGC.
     // This resource should be singleton and shared for multi-collectors
     CollectorResources& collectorResources;
-
     U32 snapshotFinalizerNum = 0;
 
     // reason for current GC.
@@ -264,8 +260,7 @@ protected:
     GCThreadPool* GetThreadPool() const { return collectorResources.GetThreadPool(); }
     // enum all roots.
     void EnumAllRoots(GCThreadPool* threadPool, RootSet& rootSet);
-
-    // let finalizerProcessor process finalizers, and mark resurrected if in stw gc
+    // let finalizerProcessor process finalizers, and mark resurrected if in light sync gc
     virtual void ProcessFinalizers() {}
     // designed to mark resurrected finalizer, should not be call in stw gc
     virtual void DoResurrection(WorkStack& workStack);

@@ -1977,9 +1977,9 @@ bool ScheduleStartTrace(unsigned short traceType)
     DlHandle dlHandle = nullptr;
     char dlPath[TRACE_PATH_LENGTH];
 #ifdef MRT_WINDOWS
-    char tracePathFormat[] = "%s\\runtime\\lib\\%s_llvm\\libcangjie-trace.dll";
+    char tracePathFormat[] = "%s\\runtime\\lib\\%s_cjnative\\libcangjie-trace.dll";
 #elif defined (MRT_LINUX)
-    char tracePathFormat[] = "%s/runtime/lib/%s_llvm/libcangjie-trace.so";
+    char tracePathFormat[] = "%s/runtime/lib/%s_cjnative/libcangjie-trace.so";
 #endif
     if (g_scheduleManager.trace.openType) {
         LOG_ERROR(ERRNO_SCHD_TRACE_ALREADY_START, "trace is already start");
@@ -2160,3 +2160,17 @@ int CJ_MRT_GetAllCJThreadInfo(void *cjthreadBufPtr, unsigned int num)
     return index;
 }
 
+void CJForeignThreadExit(CJThreadHandle foreignThread)
+{
+    auto* foreignCJThread = reinterpret_cast<CJThread*>(foreignThread);
+    Schedule* schedule = foreignCJThread->schedule;
+    if (schedule->scheduleType != SCHEDULE_FOREIGN_THREAD) {
+        LOG_FATAL(ERRNO_SCHD_WRONG_TYPE, "foreign cj thread has wrong scheduler");
+    }
+#ifndef MRT_TEST
+    MapleRuntime::Mutator* mutator = foreignCJThread->mutator;
+    if (mutator != nullptr && mutator->IsForeignThread()) {
+        mutator->SetForeignCJThreadExit();
+    }
+#endif
+}

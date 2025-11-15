@@ -104,6 +104,7 @@ public:
     FinalizerProcessor& GetFinalizerProcessor() override;
     CollectorResources& GetCollectorResources() override;
     void RegisterAllocBuffer(AllocBuffer& buffer) override;
+    void RemoveAllocBuffer(AllocBuffer& buffer) override;
     void StopGCWork() override;
 
     class ScopedFileHandler {
@@ -313,4 +314,6 @@ CollectorResources& HeapImpl::GetCollectorResources() { return collectorResource
 void HeapImpl::StopGCWork() { collectorResources.StopGCWork(); }
 
 void HeapImpl::RegisterAllocBuffer(AllocBuffer& buffer) { GetAllocator().RegisterAllocBuffer(buffer); }
+
+void HeapImpl::RemoveAllocBuffer(AllocBuffer &buffer) { GetAllocator().RemoveAllocBuffer(buffer); }
 } // namespace MapleRuntime

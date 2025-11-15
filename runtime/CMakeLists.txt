@@ -5,7 +5,7 @@
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
 
 cmake_minimum_required(VERSION 3.16.3)
-if (OHOS_FLAG MATCHES 1 OR OHOS_FLAG MATCHES 2)
+if (OHOS_FLAG MATCHES 1 OR OHOS_FLAG MATCHES 2 OR OHOS_FLAG MATCHES 3)
     # Target OHOS is Linux-like system.
     set(CMAKE_SYSTEM_NAME Linux)
     set(CMAKE_C_COMPILER_WORKS 1)
@@ -80,10 +80,10 @@ if (WINDOWS_FLAG MATCHES 1)
     if (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
         message("build cjthread for windows on windows")
         # build\build_cjthread_windows.bat -p windows_x86_64 Debug STATIC
-        execute_process(COMMAND build\\build_cjthread_windows.bat -p windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+        execute_process(COMMAND build\\build_cjthread_windows.bat -p windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} "${OTHER_DEFINITIONS}" "${CMAKE_INSTALL_PREFIX}" ${TARGET_ARCH})
     elseif (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
         message("build cjthread for windows on linux")
-        execute_process(COMMAND bash build/build_cjthread.sh -p cross_windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} ${OTHER_DEFINITIONS} ${CMAKE_INSTALL_PREFIX} ${TARGET_ARCH})
+        execute_process(COMMAND bash build/build_cjthread.sh -p cross_windows_x86_64 ${CMAKE_BUILD_TYPE} STATIC ${CJTHREAD_SAN_PRARM} "${OTHER_DEFINITIONS}" "${CMAKE_INSTALL_PREFIX}" ${TARGET_ARCH})
     else ()
         message("Only the Windows and Linux platforms are supported.")
     endif ()
@@ -147,7 +147,7 @@ if (DUMPADDRESS_FLAG MATCHES 1)
     add_definitions(-DMRT_DUMP_ADDRESS)
 endif ()
 
-if(CJ_SDK_VERSION)
+if (CJ_SDK_VERSION)
     add_definitions(-DCJ_SDK_VERSION="${CJ_SDK_VERSION}")
 endif()
 
@@ -177,10 +177,10 @@ add_subdirectory(third_party/third_party_bounds_checking_function)
 if (OHOS_FLAG MATCHES 0 AND WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0)
 if (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/CjNativeRuntimeStartAndEnd.s)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/aarch64_linux/CjNativeRuntimeStartAndEnd.S)
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
     set(LINK_SCRIPTS "-Wl,-T${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjnative_runtime.lds")
-    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/CjNativeRuntimeStartAndEnd.s)
+    add_library(cjNativeStartAndEnd OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_linux/CjNativeRuntimeStartAndEnd.S)
 endif()
 endif()
 
@@ -311,24 +311,24 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/RuntimeConfig.h
 # install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build/scripts/envsetup.sh DESTINATION ${CMAKE_INSTALL_PREFIX})
 
 if (WINDOWS_FLAG MATCHES 1)
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_windows/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_windows/Cjstart.S)
     add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Windows/Section.cpp)
 elseif (MACOS_FLAG MATCHES 1)
     add_library(section OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/os/Macos/section.cpp)
     if (CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
-        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/X86_64_macos/Cjstart.S)
+        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/X86_64_macos/Cjstart.S)
     else()
-        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/Aarch64_macos/Cjstart.S)
+        add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/Aarch64_macos/Cjstart.S)
     endif()
 elseif (CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/aarch64_linux/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/aarch64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/discard_eh_frame.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/aarch64_linux/cjld.shared.lds
             DESTINATION lib/${TARGET_ARCH})
 else()
-    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch_os/x86_64_linux/Cjstart.S)
+    add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_linux/Cjstart.S)
     install(PROGRAMS ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cjld.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/discard_eh_frame.lds
             ${CMAKE_CURRENT_SOURCE_DIR}/build/lds/x86_64_linux/cld.lds

@@ -955,7 +955,9 @@ extern "C" bool CJ_MCC_IsSubType(TypeInfo* typeInfo, TypeInfo* superTypeInfo)
     if (typeInfo == superTypeInfo) {
         return true;
     }
-    return typeInfo->IsSubType(superTypeInfo);
+    
+    bool isSub = typeInfo->IsSubType(superTypeInfo);
+    return isSub;
 }
 
 static bool IsTupleTypeOf(ObjectPtr obj, TypeInfo* typeInfo, TypeInfo* targetTypeInfo)

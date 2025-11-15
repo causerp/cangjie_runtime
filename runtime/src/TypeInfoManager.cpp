@@ -748,7 +748,7 @@ U32 TypeInfoManager::GetTypeSize(TypeInfo* ti)
             return MRT_ALIGN(totalSize, align);
         }
         default:
-            LOG(RTLOG_FATAL, "TypeInfoManager::GetTypeSize no type matched");
+            LOG(RTLOG_FATAL, "TypeInfoManager::GetTypeSize no type matched type: %d", type);
     }
     return 0;
 }

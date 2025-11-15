@@ -7,25 +7,36 @@
 
 #include "ThreadLocal.h"
 
-#include "Allocator/AllocBuffer.h"
+#include "Common/Runtime.h"
+#include "schedule.h"
 #include "Base/Globals.h"
 
 namespace MapleRuntime {
-#if defined(_WIN64)
-MRT_EXPORT thread_local ThreadLocalData threadLocalData;
-#elif !defined(__clang__) && defined(__aarch64__)
-__asm__(".section .maplert_tls, \"waT\"");
-MRT_EXPORT __attribute__((section(".maplert_tls#"))) thread_local ThreadLocalData threadLocalData;
-#elif defined(__APPLE__)
-MRT_EXPORT thread_local ThreadLocalData threadLocalData;
-#else
-// g++ generates "awT" and "%progbits" for __attribute((section)), which causes "changed section
-// attributes" warning (or error) at assembling stage. "#" suffix (depends on target architecture)
-// could comment out the attribute g++ generates to suppress the "changed section attributes" warning.
-__asm__(".section .maplert_tls, \"waT\"");
-MRT_EXPORT __attribute__((section(".maplert_tls"))) thread_local ThreadLocalData threadLocalData;
-#endif
-ThreadLocalData* ThreadLocal::GetThreadLocalData() { return &threadLocalData; }
+RwLock ThreadLocal::tlEnableLock;
+MRT_EXPORT thread_local uint64_t threadLocalData[sizeof(ThreadLocalData) / sizeof(uint64_t)];
+thread_local CleanThreadLocalData cleaner;
+
+ThreadLocalData* ThreadLocal::GetThreadLocalData()
+{
+    return reinterpret_cast<ThreadLocalData*>(threadLocalData);
+}
+
+CleanThreadLocalData::~CleanThreadLocalData()
+{
+    if (!ThreadLocal::TryGetRdLock()) {
+        return;
+    }
+
+    ThreadLocalData* local = ThreadLocal::GetThreadLocalData();
+    if (Runtime::CurrentRef() == nullptr ||
+        local->isCJProcessor || local->foreignCJThread == nullptr) {
+        ThreadLocal::UnlockRdLock();
+        return;
+    }
+
+    CJForeignThreadExit(reinterpret_cast<CJThreadHandle>(local->foreignCJThread));
+    ThreadLocal::UnlockRdLock();
+}
 
 extern "C" void MCC_CheckThreadLocalDataOffset()
 {

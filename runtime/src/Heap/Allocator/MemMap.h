@@ -65,22 +65,21 @@ public:
     void* GetMappedEndAddr() const { return memMappedEndAddr; }
     size_t GetCurrSize() const { return memCurrSize; }
     size_t GetMappedSize() const { return memMappedSize; }
-    
-    MemMap(MemMap&& that) = delete;
-    MemMap(const MemMap& that) = delete;
-    MemMap& operator=(MemMap&& that) = delete;
-    MemMap& operator=(const MemMap& that) = delete;
+
     ~MemMap();
+    MemMap(const MemMap& that) = delete;
+    MemMap(MemMap&& that) = delete;
+    MemMap& operator=(const MemMap& that) = delete;
+    MemMap& operator=(MemMap&& that) = delete;
 
 private:
     static bool ProtectMemInternal(void* addr, size_t size, int prot);
 
-    void* memBaseAddr;      // start of mapped memory
-    void* memCurrEndAddr;   // current end of used memory
-    void* memMappedEndAddr; // end of mapped memory (>= memCurrEndAddr)
-
-    size_t memCurrSize;     // size of used memory
-    size_t memMappedSize;   // size of mapped memory (>= memCurrSize)
+    void* memBaseAddr;      // start of the mapped memory
+    void* memCurrEndAddr;   // end of the memory **in use**
+    void* memMappedEndAddr; // end of the mapped memory, always >= currEndAddr
+    size_t memCurrSize;     // size of the memory **in use**
+    size_t memMappedSize;   // size of the mapped memory, always >= currSize
 
     // MemMap is created via factory method
     MemMap(void* baseAddr, size_t initSize, size_t mappedSize);
