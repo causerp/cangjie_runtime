@@ -210,6 +210,7 @@ extern const int64_t CJ_TIME_GetLocalTimeOffset()
 #endif
 
 #ifdef __ohos__
+// convert 4 bytes to int
 static int readInt(const uint8_t src[4])
 {
     int result = (src[0] << 24) |
