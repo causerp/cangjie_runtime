@@ -35,7 +35,7 @@ env 包提供当前进程的相关信息与功能、包括环境变量、命令�
 | [getHomeDirectory()](./env_package_api/env_package_funcs.md#func-gethomedirectory) | 获取当前进程 home 目录的路径。 |
 | [getProcessId()](./env_package_api/env_package_funcs.md#func-getprocessid) | 获取当前进程 id。 |
 | [getStdErr()](./env_package_api/env_package_funcs.md#func-getstderr) | 获取当前进程标准错误流。 |
-| [getStdIn()](./env_package_api/env_package_funcs.md#func-getstdin) | 获取当前进程标准错误流。 |
+| [getStdIn()](./env_package_api/env_package_funcs.md#func-getstdin) | 获取当前进程标准输入流。 |
 | [getStdOut()](./env_package_api/env_package_funcs.md#func-getstdout) | 获取当前进程标准输出流。 |
 | [getTempDirectory()](./env_package_api/env_package_funcs.md#func-gettempdirectory) | 获取当前进程临时目录的路径。 |
 | [getVariable()](./env_package_api/env_package_funcs.md#func-getvariablestring) | 获取当前进程指定名称的环境变量值。 |
