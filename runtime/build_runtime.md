@@ -30,6 +30,7 @@ The `build` command is used to independently construct the Cangjie runtime envir
 - `--prefix <value>` defines the installation path for build outputs. Defaults to `runtime/output/common`. If both `build` and `install` specify paths, install takes precedence.
 - `-hwasan` enables Hardware-Assisted Address Sanitizer (HWASAN).
 - `--target-toolchain <value>` specifies the toolchain for cross-compilation. **Required for cross-compilation builds**. See [Build Preparation](#build-preparation) for toolchain configuration details.
+- `--cjlib-sanitizer-support`： Build runtime with sanitizer support, which runs sanitizer version of cangjie binary. Valid values: `asan`, `tsan` or `hwasan`.
 
 Example:
 
