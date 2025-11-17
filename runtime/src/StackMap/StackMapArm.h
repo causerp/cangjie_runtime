@@ -54,13 +54,11 @@ public:
     static void RecordStubAllRegister(RegSlotsMap& regSlotsMap, Uptr fp)
     {
         constexpr Uptr slotLength = 4;
-        constexpr Uptr registersAreaOffset = 4 * 2;
+        constexpr Uptr registersAreaOffset = 4 * 4;
         Uptr slotAddr = fp + registersAreaOffset;
-        for (RegisterNum i = R0; i <= R10; ++i, slotAddr += slotLength) {
+        for (RegisterNum i = R4; i <= R10; ++i, slotAddr += slotLength) {
             regSlotsMap.Insert(i, reinterpret_cast<SlotAddress>(slotAddr));
         }
-        slotAddr += slotLength;
-        regSlotsMap.Insert(R12, reinterpret_cast<SlotAddress>(slotAddr));
     }
 
     bool VisitGCRoots(const RootVisitor& visitor, const RegDebugVisitor& debugFunc, RegSlotsMap& regSlotsMap,
