@@ -1,7 +1,7 @@
-/.gitcode/ @xuanjz
 OAT.xml @xuanjz
-
 *.md @luojianing
+
+/.gitcode/ @xuanjz
 
 # stdlib
 /stdlib/ @ChaosJohn

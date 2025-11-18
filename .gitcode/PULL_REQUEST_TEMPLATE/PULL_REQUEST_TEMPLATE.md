@@ -1,30 +1,36 @@
-# 仓颉Runtime仓PR信息
+## Change Details (Required)
 
+Please describe the changes in this Pull Request.
 
-## 变更内容**（必填）**
+## Change Type (Required)
 
-请描述本次Pull Request的变更内容。
+Please describe the type of changes in this Pull Request (reason). **Simply save and click the checkbox, or when editing, change `[ ]` to `[x]` for the relevant item.**
 
+- [ ] Feature
+- [ ] Bugfix
+- [ ] Build Process or Auxiliary Tool Changes
+- [ ] Documentation Update
 
-## 变更类型**（必填）**
+## Self-Check of Changes (Required)
 
-请描述本次Pull Request变更类型（原因），**请在对应类型的括号内填写Y**：
+**Please do not modify or delete the following options. Simply save and click the checkbox, or when editing, change `[ ]` to `[x]` for the relevant item.**
 
-- 新增需求（ ）
-- 问题修复（ ）
-- 构建过程或辅助工具变动（）
-- 文档更新（）
+### Local Compilation Verification Results:
 
-## 变更内容自检
+- [ ] Cangjie Compiler compiled successfully
+- [ ] Cangjie Runtime compiled successfully
+- [ ] Cangjie Standard Library compiled successfully
+- [ ] Not applicable (select this option for auxiliary tool changes or documentation updates)
 
-### 编译器及标准库编译通过截图证明（如涉及新增需求、问题修复、构建过程变动需提供）
+### Local Test Case Verification Results:
 
-请分别提供此Pull Request在你本地环境中的编译器及标准库编译成功截图。
+- [ ] Pass. Please provide screenshots below.
+- [ ] Not applicable. Please explain the reasons below.
 
-### 测试用例本地自验证通过截图证明（如涉及新增需求、问题修复需提供）
+## Related Issues (Required)
 
-请提供此Pull Request相关的测试用例在你本地环境中的自验证通过截图。
+Please provide links to issues related to this Pull Request.
 
-### 其他信息
+## Additional Information (Please delete this part if you have no additional information)
 
-在这里可以添加任何与这个 Pull Request 相关的其他说明。
+Please provide additional information related to this Pull Request.
