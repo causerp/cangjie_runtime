@@ -49,8 +49,6 @@ let EXPR_LIST: Array<String> = [
     "do_while_expr",
     "type_conv_expr",
     "throw_expr",
-    "perform_expr",
-    "resume_expr",
     "spawn_expr",
     "synchronized_expr",
     "macro_expand_expr"
@@ -92,7 +90,6 @@ let PATTERN_LIST: Array<String> = [
     "var_or_enum_pattern",
     "type_pattern",
     "except_type_pattern",
-    "effect_type_pattern",
     "wildcard_pattern"
 ]
 

@@ -927,229 +927,6 @@ public class ThrowExpr <: Expr {
     }
 }
 
-public class PerformExpr <: Expr {
-    init(keyWord: Token, expr: Expr) {
-        keyWord_ = keyWord
-        expr_ = expr
-    }
-    public init(inputs: Tokens) {
-        try {
-            match (parseExpr(inputs) as PerformExpr) {
-                case Some(v) =>
-                    this.keyWord_ = v.keyWord_
-                    this.expr_ = v.expr_
-                case None => throw ASTException("Cannot construct the 'PerformExpr' node.")
-            }
-        } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'PerformExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
-        }
-    }
-    public init() {
-        super()
-    }
-    private var keyWord_: Token = Token(TokenKind.PERFORM)
-    private var expr_: Expr = Expr()
-    public mut prop keyword: Token {
-        get() {
-            keyWord_
-        }
-        set(v) {
-            checkTokenType(v, PERFORM)
-            keyWord_ = v
-        }
-    }
-    public mut prop expr: Expr {
-        get() {
-            expr_
-        }
-        set(v) {
-            expr_ = v
-        }
-    }
-    public func toTokens(): Tokens {
-        Tokens().append(keyWord_).append(expr_.toTokens())
-    }
-
-    public func traverse(v: Visitor): Unit {
-        v.visit(this)
-        if (v.needBreakTraverse()) {
-            return
-        }
-        expr_.traverse(v)
-        return
-    }
-
-    protected func dump(indent: UInt16): String {
-        var ret: String = "PerformExpr {\n"
-        currentIndent = indent
-        if (indent != 0 || beginNode) {
-            currentIndent++
-        }
-        ret += getTokenIndent("-keyword", keyWord_, currentIndent)
-        ret += getIndent(currentIndent) + "-expr: "
-        ret += expr_.dump(currentIndent)
-        ret += getIndent(indent) + "}\n"
-        ret
-    }
-}
-
-public class ResumeExpr <: Expr {
-    init(resume_: Token, with_: Option<Token>, withExpr_: Option<Expr>, throwing_: Option<Token>, throwingExpr_: Option<Expr>) {
-        this.resume_ = resume_
-        this.with_ = with_
-        this.withExpr_ = withExpr_
-        this.throwing_ = throwing_
-        this.throwingExpr_ = throwingExpr_
-    }
-    public init(inputs: Tokens) {
-        try {
-            match (parseExpr(inputs) as ResumeExpr) {
-                case Some(v) =>
-                    this.resume_ = v.resume_
-                    this.with_ = with_
-                    this.withExpr_ = v.withExpr_
-                    this.throwing_ = v.throwing_
-                    this.throwingExpr_ = v.throwingExpr_
-                case None => throw ASTException("Cannot construct the 'ResumeExpr' node.")
-            }
-        } catch (e: ParseASTException) {
-            if (e.message == String.empty) {
-                throw ASTException("Cannot construct the 'ResumeExpr' node.")
-            } else {
-                throw ASTException(e.message)
-            }
-        }
-    }
-    public init() {
-        super()
-    }
-    private var resume_: Token = Token(TokenKind.RESUME)
-    private var with_: Option<Token> = None<Token>
-    private var withExpr_: Option<Expr> = None<Expr>
-    private var throwing_: Option<Token> = None<Token>
-    private var throwingExpr_: Option<Expr> = None<Expr>
-    public mut prop keywordR : Token {
-        get() {
-            resume_
-        }
-        set(v) {
-            checkTokenType(v, RESUME)
-            resume_ = v
-        }
-    }
-    public mut prop keywordW : Option<Token> {
-        get() {
-            with_
-        }
-        set(v) {
-            match (v) {
-                case Some(token) => checkTokenType(token, WITH)
-                case None => ()
-            }
-            with_ = v
-        }
-    }
-    public mut prop withExpr: Option<Expr> {
-        get() {
-            withExpr_
-        }
-        set(v) {
-            withExpr_ = v
-        }
-    }
-    public mut prop keywordT : Option<Token> {
-        get() {
-            throwing_
-        }
-        set(v) {
-            match (v) {
-                case Some(token) => checkTokenType(token, THROWING)
-                case None => ()
-            }
-            throwing_ = v
-        }
-    }
-    public mut prop throwingExpr: Option<Expr> {
-        get() {
-            throwingExpr_
-        }
-        set(v) {
-            throwingExpr_ = v
-        }
-    }
-    public func toTokens(): Tokens {
-        var tokens = Tokens().append(resume_)
-        match (with_) {
-            case Some(v) => tokens.append(v)
-            case None => ()
-        }
-        match (withExpr_) {
-            case Some(v) => tokens.append(v.toTokens())
-            case None => ()
-        }
-        match (throwing_) {
-            case Some(v) => tokens.append(v)
-            case None => ()
-        }
-        match (throwingExpr_) {
-            case Some(v) => tokens.append(v.toTokens())
-            case None => ()
-        }
-        tokens
-    }
-
-    public func traverse(v: Visitor): Unit {
-        v.visit(this)
-        if (v.needBreakTraverse()) {
-            return
-        }
-        match(withExpr_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
-        match(throwingExpr_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
-        return
-    }
-
-    protected func dump(indent: UInt16): String {
-        var ret: String = "ResumeExpr {\n"
-        currentIndent = indent
-        if (indent != 0 || beginNode) {
-            currentIndent++
-        }
-        ret += getTokenIndent("-keywordR", resume_, currentIndent)
-        match(with_) {
-            case Some(v) => ret += getTokenIndent("-keywordW", v, currentIndent)
-            case None => ()
-        }
-        match(withExpr_) {
-            case Some(v) =>
-                ret += getIndent(currentIndent) + "-withExpr: "
-                ret += v.dump(currentIndent)
-            case None => ()
-        }
-        match(throwing_) {
-            case Some(v) => ret += getTokenIndent("-keywordT", v, currentIndent)
-            case None => ()
-        }
-        match(throwingExpr_) {
-            case Some(v) =>
-                ret += getIndent(currentIndent) + "-throwingExpr: "
-                ret += v.dump(currentIndent)
-            case None => ()
-        }
-        ret += getIndent(indent) + "}\n"
-        ret
-    }
-}
-
 public class AssignExpr <: Expr {
     init(lexpr: Expr, assign: Token, rexpr: Expr) {
         lexpr_ = lexpr
@@ -3554,22 +3331,11 @@ public class IncOrDecExpr <: Expr {
     }
 }
 
-public class Handler {
-    init(handle_: Token, commandPattern: Pattern, handleBlock: Block) {
-        this.handle_ = handle_
-        this.commandPattern_ = commandPattern
-        this.handleBlock_ = handleBlock
-    }
-    internal var handle_: Token = Token(TokenKind.HANDLE)
-    internal var commandPattern_: Pattern = Pattern()
-    internal var handleBlock_: Block = Block()
-}
-
 
 public class TryExpr <: Expr {
     init(try_: Token, resourceSpecLParen: Token, resourceSpec: ArrayList<VarDecl>, resourceSpecCommas: Tokens,
         resourceSpecRParen: Token, tryBlock: Block, catches: Tokens, catchLParens: Tokens, catchRParens: Tokens,
-        patterns: ArrayList<Pattern>, catchBlocks: ArrayList<Block>, finally_: Token, finallyBlock: Option<Block>, handlers: ArrayList<Handler>) {
+        patterns: ArrayList<Pattern>, catchBlocks: ArrayList<Block>, finally_: Token, finallyBlock: Option<Block>) {
         this.try_ = try_
         this.resourceSpecLParen_ = resourceSpecLParen
         this.resourceSpec_ = resourceSpec
@@ -3583,7 +3349,6 @@ public class TryExpr <: Expr {
         this.catchBlocks_ = catchBlocks
         this.finally_ = finally_
         this.finallyBlock_ = finallyBlock
-        this.handlers_ = handlers
     }
     public init(inputs: Tokens) {
         try {
@@ -3604,7 +3369,6 @@ public class TryExpr <: Expr {
                     this.catchBlocks_ = v.catchBlocks_
                     this.finally_ = checkValid(v.finally_)
                     this.finallyBlock_ = v.finallyBlock_
-                    this.handlers_ = v.handlers_
                 case None => throw ASTException("Cannot construct the 'TryExpr' node.")
             }
         } catch (e: ParseASTException) {
@@ -3631,7 +3395,6 @@ public class TryExpr <: Expr {
     private var catchBlocks_: ArrayList<Block> = ArrayList<Block>()
     private var finally_: Token = Token()
     private var finallyBlock_: Option<Block> = None<Block>
-    private var handlers_: ArrayList<Handler> = ArrayList<Handler>()
     public mut prop keywordT: Token {
         get() {
             try_
@@ -3682,14 +3445,6 @@ public class TryExpr <: Expr {
             catchBlocks_ = v
         }
     }
-    public mut prop handlers: ArrayList<Handler> {
-        get() {
-            handlers_
-        }
-        set(v) {
-            handlers_ = v
-        }
-    }
     public mut prop keywordF: Token {
         get() {
             finally_
@@ -3722,10 +3477,6 @@ public class TryExpr <: Expr {
         }
         ret.append(tryBlock_)
         ret.remove(ret.size - 1)
-        for (i in 0..handlers_.size) {
-            let handle_ = handlers_[i].handle_
-            ret.append(handle_).append(Token(TokenKind.LPAREN)).append(handlers_[i].commandPattern_).append(Token(TokenKind.RPAREN)).append(handlers_[i].handleBlock_)
-        }
         if (!patterns_.isEmpty()) {
             for (i in 0..patterns_.size) {
                 let catch_ = catches_.tryGet(i) ?? Token(TokenKind.CATCH)
@@ -3750,10 +3501,6 @@ public class TryExpr <: Expr {
             res.traverse(v)
         }
         tryBlock_.traverse(v)
-        for (handler_ in handlers_) {
-            handler_.commandPattern_.traverse(v)
-            handler_.handleBlock_.traverse(v)
-        }
         for (i in 0..patterns_.size) {
             patterns_[i].traverse(v)
             catchBlocks_[i].traverse(v)
@@ -3778,14 +3525,6 @@ public class TryExpr <: Expr {
         }
         ret += getIndent(currentIndent) + "-tryBlock: "
         ret += tryBlock_.dump(currentIndent)
-        for (i in 0..handlers_.size) {
-            let handle_ = handlers_[i].handle_
-            ret += getTokenIndent("-keywordsH", handle_, currentIndent, index: i)
-            ret += getIndent(currentIndent) + "-commandPattern: ${i}, "
-            ret += handlers_[i].commandPattern_.dump(currentIndent)
-            ret += getIndent(currentIndent) + "-handleBlocks: ${i}, "
-            ret += handlers_[i].handleBlock_.dump(currentIndent)
-        }
         for (i in 0..patterns_.size) {
             let catch_ = catches_.tryGet(i) ?? Token(TokenKind.CATCH)
             ret += getTokenIndent("-keywordsC", catch_, currentIndent, index: i)

@@ -95,8 +95,6 @@ func generateExprAST(exprNode: Option<NodeFormat_Expr>): Expr {
         case "spawn_expr" => createSpawnExpr(expr)
         case "do_while_expr" => createDoWhileExpr(expr)
         case "throw_expr" => createThrowExpr(expr)
-        case "perform_expr" => createPerformExpr(expr)
-        case "resume_expr" => createResumeExpr(expr)
         case "is_expr" => createIsExpr(expr)
         case "as_expr" => createAsExpr(expr)
         case "array_expr" => createArrayExpr(expr)
@@ -291,41 +289,6 @@ func createThrowExpr(expr: NodeFormat_Expr): Expr {
     var keyWord = Token(TokenKind.THROW).addPosition(getNodeBeginPos(throwExpr.GetBase()))
     var exprNode = generateExprAST(throwExpr.GetExpr())
     return ThrowExpr(keyWord, exprNode)
-}
-
-func createPerformExpr(expr: NodeFormat_Expr): Expr {
-    var performExpr = match (expr.GetExprAsPerformExpr()) {
-        case Some(v) => v
-        case None => throw ParseASTException()
-    }
-    var keyWord = Token(TokenKind.PERFORM).addPosition(getNodeBeginPos(performExpr.GetBase()))
-    var exprNode = generateExprAST(performExpr.GetExpr())
-    return PerformExpr(keyWord, exprNode)
-}
-
-func createResumeExpr(expr: NodeFormat_Expr): Expr {
-    var resumeExpr = match(expr.GetExprAsResumeExpr()) {
-        case Some(v) => v
-        case None => throw ParseASTException()
-    }
-    var resume_ = Token(TokenKind.RESUME).addPosition(getNodeBeginPos(resumeExpr.GetBase()))
-    var with_ = None<Token>
-    var withExpr_ = None<Expr>
-    match(resumeExpr.GetWithExpr()) {
-        case Some(v) =>
-            with_ = Some(Token(TokenKind.WITH).addPosition(resumeExpr.GetWithPos()))
-            withExpr_ = Some(generateExprAST(resumeExpr.GetWithExpr()))
-        case None => ()
-    }
-    var throwing_ = None<Token>
-    var throwingExpr_ = None<Expr>
-    match(resumeExpr.GetThrowingExpr()) {
-        case Some(v) =>
-            throwing_ = Some(Token(TokenKind.THROWING).addPosition(resumeExpr.GetThrowingPos()))
-            throwingExpr_ = Some(generateExprAST(resumeExpr.GetThrowingExpr()))
-        case None => ()
-    }
-    return ResumeExpr(resume_, with_, withExpr_, throwing_, throwingExpr_)
 }
 
 func createAssignExpr(expr: NodeFormat_Expr): Expr {
@@ -806,18 +769,6 @@ func createTryExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
     for (cb in catchBlocks) {
         cbs.add(generateBlock(cb))
     }
-    var handlers = ArrayList<Handler>();
-    for (item in tryExpr.GetHandlers()) {
-        var fbHandler = match (item) {
-            case Some(v) => v
-            case None => throw ParseASTException("fbHandler is None")
-        }
-        var handle_ = Token(TokenKind.HANDLE).addPosition(fbHandler.GetHandlerPos())
-        var commandPattern = generatePatternAST(fbHandler.GetCommandPattern())
-        var handleBlock = generateBlock(fbHandler.GetHandleBlock())
-        var handler = Handler(handle_, commandPattern, handleBlock)
-        handlers.add(handler)
-    }
     var finTk = Token()
     var finallyBlock = try {
         var fb = generateBlock(tryExpr.GetFinallyBlock())
@@ -827,7 +778,7 @@ func createTryExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
         None<Block>
     }
     return TryExpr(tryToken, resourceSpecLParen, resourceSpec, resourceSpecCommas, resourceSpecRParen, tryBlock, catches,
-        catchLParens, catchRParens, catchPatterns, cbs, finTk, finallyBlock, handlers)
+        catchLParens, catchRParens, catchPatterns, cbs, finTk, finallyBlock)
 }
 
 func createQuoteExpr(expr: NodeFormat_Expr, exprBase: NodeFormat_NodeBase): Expr {
