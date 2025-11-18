@@ -83,7 +83,7 @@ struct MemoryInfo {
     static func measureGcTime(): Float64 {
         let gcCount = getGCCount()
         let gcTime = getGCTime()    
-        gc(heavy: true) // should we do that twice to measure actual mark and copy time for persistent objects?
+        gc(heavy: true) 
         while (getGCCount() <= gcCount) {}
         Float64(getGCTime() - gcTime)
     }

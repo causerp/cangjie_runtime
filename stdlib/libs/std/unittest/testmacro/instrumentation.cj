@@ -60,12 +60,6 @@ class InstrumentedBench <: InstrumentedFunction {
 
         let destructuring = nestedTuple(namesTokens).ifEmpty(quote(_))
 
-        let run = if (namesTokens.isEmpty()) {
-            quote(run___: q___ < count)
-        } else {
-            quote(, run___: q___ < count)
-        }
-
         let isOriginalTopLevel = original.loadRepeatable(TEST_MACRO).size == 1
 
         let doCall = quote(

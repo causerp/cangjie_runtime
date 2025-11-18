@@ -1120,11 +1120,12 @@ extend BenchmarkResult {
         let overhead = bootstrapped.medianOverheadStats.mean
 
         // prevent major outliers to ruin whole image
-        let bound = max(maxx * result * 1.4 + overhead, max98 * 1.2, 0.000001) |> ceil
+        let upperBound = min(max(maxx * result * 1.4 + overhead, max98 * 1.2), maxy + (maxy-miny)*0.5) + 0.000001
+        let lowerBound = miny*0.99
 
         let dataFile = File.createTemp(into.parent)
         for ((batchSize, timeNanos, gc) in this.data) {
-            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, bound))} ${gc}\n".toArray())
+            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, upperBound))} ${gc}\n".toArray())
         }
         dataFile.close()
 
@@ -1153,10 +1154,10 @@ extend BenchmarkResult {
             set lmargin at screen 0.090;
             set rmargin at screen 0.77;
             set label "${mName}" at graph 0.0, 1.0 right front offset character -1,0.3;
-            set label "max=${maxy.format(".2g")}" at first ${maxyPos}, ${min(bound, maxy)} left front offset character 0,0.4 font "Arial,18";
-            set object circle at first ${maxyPos}, ${min(bound, maxy)} radius char 0.5 front noclip fillstyle empty border lc rgb '#aa1100';
+            set label "max=${maxy.format(".2g")}" at first ${maxyPos}, ${min(upperBound, maxy)} left front offset character 0,0.4 font "Arial,18";
+            set object circle at first ${maxyPos}, ${min(upperBound, maxy)} radius char 0.5 front noclip fillstyle empty border lc rgb '#aa1100';
             set label "batch size" at graph 1.0, 0.0 left front offset character 3,-1;
-            set yrange [${miny}:${bound}];
+            set yrange [${lowerBound}:${upperBound}];
             plot
                 ${data}
                 ${lines};

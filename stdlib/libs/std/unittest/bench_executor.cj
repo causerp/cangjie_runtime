@@ -507,9 +507,8 @@ class BootstrapResult {
             let overhead_sample = max(overhead.data[overheadIdx], 0.0)
 
             let meanIdx = try { random.nextInt64(mean.data.size) } catch (_: Exception) { 0 }
-            // I think we can't assume that mean and overhead distributions are independent
-            // So here i assume that if overhead is smaller than mean would be most likely bigger
-            let mean_sample = max(mean.data[meanIdx], 0.0)
+
+            let mean_sample = mean.data[meanIdx]
             
             let batch = rawData[random.nextInt64(rawData.size)]
             if (!separateGc.toFilter()(batch)) { continue }
