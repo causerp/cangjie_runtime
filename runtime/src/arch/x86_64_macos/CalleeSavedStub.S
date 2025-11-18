@@ -188,24 +188,6 @@ _CJ_MRT_Sleep:
 
     .text
     .align 2
-    .global _CJ_MRT_ThreadWait
-_CJ_MRT_ThreadWait:
-    CalleeSavedRegistersStub MRT_ThreadWait
-
-    .text
-    .align 2
-    .global _CJ_MRT_ThreadResumeAndWait
-_CJ_MRT_ThreadResumeAndWait:
-    CalleeSavedRegistersStub MRT_ThreadResumeAndWait
-
-    .text
-    .align 2
-    .global _CJ_MRT_ThreadReady
-_CJ_MRT_ThreadReady:
-    CalleeSavedRegistersStub MRT_ThreadReady
-
-    .text
-    .align 2
     .global _CJ_MCC_NewPinnedObject
 _CJ_MCC_NewPinnedObject:
     CalleeSavedRegistersStub MCC_NewPinnedObject

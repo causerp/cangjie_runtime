@@ -196,8 +196,6 @@
 #define CJThreadeStateHookRegister             CJ_CJThreadStateHookRegister
 #define CJThreadMpark                          CJ_CJThreadMpark
 #define CJThreadPark                           CJ_CJThreadPark
-#define CJThreadWait                           CJ_CJThreadWait
-#define CJThreadResumeAndWait                  CJ_CJThreadResumeAndWait
 #define CJThreadMresched                       CJ_CJThreadMresched
 #define CJThreadResched                        CJ_CJThreadResched
 #define CJThreadPreemptResched                 CJ_CJThreadPreemptResched

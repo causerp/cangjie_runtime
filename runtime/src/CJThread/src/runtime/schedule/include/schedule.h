@@ -646,28 +646,6 @@ CJThreadHandle CJThreadNewToDefault(const struct CJThreadAttr *attr, CJThreadFun
 void CJThreadPreemptResched(void);
 
 /**
- * @brief Add the cjthread to the running queue.
- * @par Add the specified cjthread to the running queue under the processor. If the cjthread
- * is not in the context, add the cjthread to the global running queue.
- * @param readyCJThread    [IN] cjthread to be added to the running queue.
- */
-void CJThreadReady(CJThreadHandle readyCJThread);
-
-/**
- * @brief Make the current thread wait
- * @par Description: Park the current thread
- */
-void CJThreadWait(void);
-
-/**
- * @brief Park the current thread and schedule another one
- * @par Description: The current thread is parked and the next thread is scheduled for execution.
- * These operations are done one after the other.
- * @param readyCJThread    [IN] cjthread to to be added to the running queue.
- */
-void CJThreadResumeAndWait(CJThreadHandle readyCJThread);
-
-/**
  * @brief Obtain the ID of the current cjthread.
  * @par Description: Obtain the ID of the current cjthread. The ID is greater than or equal
  * to 1 and less than U64_MAX.

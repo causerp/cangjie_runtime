@@ -674,20 +674,6 @@ void* MRT_GetCurrentCJThread()
     return CJThreadGetHandle();
 }
 
-void MRT_ThreadResumeAndWait(void* handle)
-{
-    CJThreadResumeAndWait(handle);
-}
-
-void MRT_ThreadReady(void* handle)
-{
-    CJThreadReady(handle);
-}
-
-void MRT_ThreadWait()
-{
-    CJThreadWait();
-}
 #ifdef __APPLE__
 #include "MacAlias.h"
 #else
