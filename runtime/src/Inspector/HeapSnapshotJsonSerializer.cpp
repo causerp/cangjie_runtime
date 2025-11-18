@@ -90,7 +90,7 @@ void CjHeapDataForIDE::SerializeString()
 
 void CjHeapDataForIDE::SerializeAllClassLoad()
 {
-    writer->WriteString("\\\"CLASSLOAD\\\":[");
+    writer->WriteContinueString("\\\"CLASSLOAD\\\":[");
     bool isFirstElement = true;
     for (auto klassInfo : dumpClassMap) {
         if (!isFirstElement) {
@@ -106,7 +106,7 @@ void CjHeapDataForIDE::SerializeAllClassLoad()
 
 void CjHeapDataForIDE::SerializeAllClass()
 {
-    writer->WriteString("\\\"CLASS\\\":[");
+    writer->WriteContinueString("\\\"CLASS\\\":[");
     bool isFirstElement = true;
     for (auto klassInfo : dumpClassMap) {
         if (!isFirstElement) {
@@ -122,7 +122,7 @@ void CjHeapDataForIDE::SerializeAllClass()
 
 void CjHeapDataForIDE::SerializeAllStructClass()
 {
-    writer->WriteString("\\\"STRUCTCLASS\\\":[");
+    writer->WriteContinueString("\\\"STRUCTCLASS\\\":[");
     bool isFirstElement = true;
     for (auto klassInfo : dumpStructClassMap) {
         if (!isFirstElement) {
@@ -147,7 +147,7 @@ void CjHeapDataForIDE::SerializeClassLoad(TypeInfo* ti, CjHeapDataStringId klass
 
 void CjHeapDataForIDE::SerializeAllStructClassLoad()
 {
-    writer->WriteString("\\\"STRUCTCLASSLOAD\\\":[");
+    writer->WriteContinueString("\\\"STRUCTCLASSLOAD\\\":[");
     bool isFirstElement = true;
     for (auto klassInfo : dumpStructClassMap) {
         if (!isFirstElement) {
@@ -202,7 +202,7 @@ void CjHeapDataForIDE::SerializeStackTrace()
         size_t size = 10;
         size_t depth = trace->first->stacks.size() > size ? size : trace->first->stacks.size();
         std::vector<FrameInfo*> stack = trace->first->stacks;
-        writer->WriteString("\\\"STACKFRAME\\\":[");
+        writer->WriteContinueString("\\\"STACKFRAME\\\":[");
         for (size_t i = 0; i < depth; ++i) {
             if (i != 0) {
                 writer->WriteChar(',');
@@ -211,7 +211,7 @@ void CjHeapDataForIDE::SerializeStackTrace()
         }
         writer->WriteChar(']');
         writer->WriteChar(',');
-        writer->WriteString("\\\"STACKTRACE\\\":[");
+        writer->WriteContinueString("\\\"STACKTRACE\\\":[");
         writer->WriteNumber(trace->second);
         writer->WriteChar(',');
         writer->WriteNumber(trace->first->GetStackTid());
@@ -240,7 +240,7 @@ void CjHeapDataForIDE::SerializeStartThread()
         } else {
             isFirstElement = false;
         }
-        writer->WriteString("\\\"STARTTHREAD\\\":[");
+        writer->WriteContinueString("\\\"STARTTHREAD\\\":[");
         writer->WriteNumber(trace->first->GetStackTid());
         writer->WriteChar(',');
         writer->WriteNumber(GetId(threadObjectId++));
@@ -263,7 +263,7 @@ void CjHeapDataForIDE::SerializeHeapDump()
 
 void CjHeapDataForIDE::SerializeAllObjects()
 {
-    writer->WriteString("\\\"OBJECTS\\\":[");
+    writer->WriteContinueString("\\\"OBJECTS\\\":[");
     bool isFirstElement = true;
     for (auto objectInfo : dumpObjects) {
         if (!isFirstElement) {
