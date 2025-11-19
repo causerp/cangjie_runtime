@@ -191,6 +191,16 @@ if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
     # add_definitions(-D__USE_GNU)
 endif()
 
+# Build the runtime for ARM-based Euler operating system
+# the -outline-atomics option is enabled by default, which can cause symbol not found.
+# To resolve the issue, disable the option by default.
+if (EULER_FLAG MATCHES 1 AND CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64" AND WINDOWS_FLAG MATCHES 1)
+    message("disable option -mno-outline-atomics")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mno-outline-atomics")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mno-outline-atomics")
+    set(CMAKE_ASM_FLAGS "${CMAKE_ASM_FLAGS} -mno-outline-atomics")
+endif ()
+
 if (COPYGC_FLAG MATCHES 1)
     add_definitions(-DMRT_USE_COPYGC)
 endif ()
