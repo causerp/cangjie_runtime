@@ -26,7 +26,6 @@ public:
     void AddPreLoadedImageMetaAddr(Uptr address);
     void RemovePreLoadedImageMetaAddr(Uptr address);
     void LoadPreLoadedImages();
-    void GenerateMTableForStaticGI();
 
     void RegisterLoadFile(Uptr address) const;
     void UnregisterLoadFile(Uptr address) const;
