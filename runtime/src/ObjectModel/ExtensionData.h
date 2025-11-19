@@ -22,23 +22,19 @@ public:
         }
         return tt;
     }
-    TypeInfo* GetInterfaceTypeInfo(U32 argsNum = 0U, TypeInfo** args = nullptr) const
-    {
-        if (isInterfaceTypeInfo) {
-            return interfaceTypeInfo;
-        }
-        void* iFn = reinterpret_cast<void*>(interfaceFn);
-        TypeInfo* itf = reinterpret_cast<TypeInfo*>(TypeTemplate::ExecuteGenericFunc(iFn, argsNum, args));
-        return itf;
-    }
+    TypeInfo* GetInterfaceTypeInfo(U32 argsNum = 0U, TypeInfo** args = nullptr) const;
     FuncPtr GetWhereCondFn() const { return whereCondFn; }
     FuncPtr* GetFuncTable() const { return funcTable; }
+    void UpdateFuncTable(U16 ftSize, FuncPtr* newFt) { funcTableSize  = ftSize; funcTable = newFt; }
+    U16 GetFuncTableSize() const { return funcTableSize; }
 
-private:
+//private: // temporary solution
+public:
     U32 argNum;
     U8 isInterfaceTypeInfo;
     // optimization: use 1 byte to speed up the search of mtable.
-    U8 __attribute__((unused)) padding[3] { 0 }; // 3 bytes padding
+    U8 flag;
+    U16 funcTableSize;
     union {
         TypeTemplate* tt;
         TypeInfo* ti;
