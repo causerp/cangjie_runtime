@@ -55,7 +55,8 @@ set(CMAKE_C_FLAGS
     -fPIC \
     -fstack-protector-strong \
     --param=ssp-buffer-size=4 \
-    -fsigned-char"
+    -fsigned-char" \
+    "-mno-outline-atomics"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -83,7 +84,8 @@ set(CMAKE_CXX_FLAGS
     -fstack-protector-strong \
     --param=ssp-buffer-size=4 \
     -fno-exceptions \
-    -fsigned-char"
+    -fsigned-char" \
+    "-mno-outline-atomics"
 )
 
 if("${DEBUG_INFO}" STREQUAL "INFO")
