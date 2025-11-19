@@ -276,6 +276,12 @@ SECTIONS
       KEEP(*(.cjmetadata.reflect.generic.ti))
       KEEP(*(SORT(.cjmetadata.reflect.generic.ti.*)))
       PROVIDE_HIDDEN(__CJReflectGIEnd = . - __CJMetadataStart);
+
+      . = ALIGN(16);
+      PROVIDE_HIDDEN(__CJTypeExt = . - __CJMetadataStart);
+      KEEP(*(.cjmetadata.type.ext))
+      KEEP(*(SORT(.cjmetadata.type.ext.*)))
+      PROVIDE_HIDDEN(__CJTypeExtEnd = . - __CJMetadataStart);
   }
   PROVIDE_HIDDEN(__CJMethodInfoSize = __CJMethodInfoEnd - __CJMethodInfo);
   PROVIDE_HIDDEN(__CJGlobalInitFuncSize = __CJGlobalInitFuncEnd - __CJGlobalInitFunc);
@@ -287,6 +293,7 @@ SECTIONS
   PROVIDE_HIDDEN(__CJTypeTemplateSize  = __CJTypeTemplateEnd - __CJTypeTemplate);
   PROVIDE_HIDDEN(__CJTypeInfoSize  = __CJTypeInfoEnd - __CJTypeInfo);
   PROVIDE_HIDDEN(__CJTypeFieldsSize  = __CJTypeFieldsEnd - __CJTypeFields);
+  PROVIDE_HIDDEN(__CJTypeExtSize  = __CJTypeExtEnd - __CJTypeExt);
   PROVIDE_HIDDEN(__CJMTableSize     = __CJMTableEnd - __CJMTable);
   PROVIDE_HIDDEN(__CJInnerTypeExtensionsSize = __CJInnerTypeExtensionsEnd - __CJInnerTypeExtensions);
   PROVIDE_HIDDEN(__CJOuterTypeExtensionsSize = __CJOuterTypeExtensionsEnd - __CJOuterTypeExtensions);

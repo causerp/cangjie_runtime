@@ -92,6 +92,10 @@ uintptr_t _CJReflectGV;
 unsigned long _CJReflectGISize;
 uintptr_t _CJReflectGI;
 
+// CJTypeExt
+unsigned long _CJTypeExtSize;
+uintptr_t _CJTypeExt;
+
 int _CJMetaDataSize;
 
 unsigned long* g_runtimeStaticStart;
@@ -131,6 +135,7 @@ static void InitSectionInformation(const struct mach_header_64* mhp)
         reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_pkginfo", &_CJGCReflectPkgInfoSize));
     _CJReflectGV = reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_gv", &_CJReflectGVSize));
     _CJReflectGI = reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjref_gi", &_CJReflectGISize));
+    _CJTypeExt = reinterpret_cast<uintptr_t>(getsectiondata(mhp, "__CJ_METADATA", "__cjtype_ext", &_CJTypeExtSize));
 
     unsigned long _CJRuntimeTextSize;
     unsigned long _CJRuntimeText =
@@ -184,6 +189,7 @@ __attribute__((constructor)) void InitData()
         _CJReflectPkgInfo, reinterpret_cast<uintptr_t>(_CJReflectPkgInfo + _CJGCReflectPkgInfoSize),
         _CJReflectGV,      reinterpret_cast<uintptr_t>(_CJReflectGV + _CJReflectGVSize),
         _CJReflectGI,      reinterpret_cast<uintptr_t>(_CJReflectGI + _CJReflectGISize),
+        _CJTypeExt,      reinterpret_cast<uintptr_t>(_CJTypeExt + _CJTypeExtSize),
     };
     uintptr_t start = std::min<uintptr_t>(addrs);
     uintptr_t end = std::max<uintptr_t>(addrs);

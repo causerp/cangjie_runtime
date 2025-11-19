@@ -61,6 +61,7 @@ constexpr U32 FLAG_MUTEX_CLASS = 0x1 << 3;
 constexpr U32 FLAG_MONITOR_CLASS = 0x1 << 4;
 constexpr U32 FLAG_WAIT_QUEUE_CLASS = 0x1 << 5;
 constexpr U32 FLAG_REFLECTION = 0x1 << 6;
+constexpr U32 FLAG_HAS_EXT_PART = 0x1 << 7;
 
 constexpr U32 MODIFIER_DEFAULT     = 0x1 << 0;
 constexpr U32 MODIFIER_PRIVATE     = 0x1 << 1;
