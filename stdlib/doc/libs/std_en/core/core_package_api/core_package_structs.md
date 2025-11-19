@@ -812,7 +812,7 @@ Function: Obtains an array slice.
 
 Parameters:
 
-- start: [Int64](core_package_intrinsics.md#int64) - The starting position of the slice. The value must be greater than 0, and start + len must be less than or equal to the length of the current [Array](core_package_structs.md#struct-arrayt) instance.
+- start: [Int64](core_package_intrinsics.md#int64) - The starting position of the slice. The value must be greater than or equal to 0, and start + len must be less than or equal to the length of the current [Array](core_package_structs.md#struct-arrayt) instance.
 - len: [Int64](core_package_intrinsics.md#int64) - The length of the slice. The value must be greater than 0.
 
 Return Value:
