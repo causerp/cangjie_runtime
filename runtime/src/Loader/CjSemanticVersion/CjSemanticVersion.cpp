@@ -77,8 +77,34 @@ SemanticVersionInfo::SemanticVersionInfo(CString& version)
     if (version.IsEmpty()) {
         return;
     }
-    auto tokens = CString::Split(version, '.');
-    if (tokens.size() != static_cast<size_t>(VersionType::VERSION_TYPE_NUMBER)) {
+    CString coreVersion;
+    int dashPos = version.Find('-');
+    int plusPos = version.Find('+');
+    int endPos = version.Length() - 1;
+    if (dashPos == endPos || plusPos == endPos) {
+        LOG(RTLOG_ERROR, "The version %s is incorrect.", version.Str());
+        return;
+    }
+    if (dashPos >= 0 && plusPos >= 0) {
+        if (dashPos > plusPos) {
+            LOG(RTLOG_ERROR, "The version %s is incorrect.", version.Str());
+            return;
+        }
+        coreVersion = version.SubStr(0, dashPos);
+        preRelease = version.SubStr(dashPos + 1, plusPos - dashPos - 1);
+        buildMetaData = version.SubStr(plusPos + 1);
+    } else if (dashPos < 0 && plusPos < 0) {
+        coreVersion = version;
+    } else if (dashPos < 0) {
+        coreVersion = version.SubStr(0, plusPos);
+        buildMetaData = version.SubStr(plusPos + 1);
+    } else {
+        coreVersion = version.SubStr(0, dashPos);
+        preRelease = version.SubStr(dashPos + 1);
+    }
+    auto tokens = CString::Split(coreVersion, '.');
+    // A normal version number MUST consists of three parts, MAJOR.MINOR.PATCH.
+    if (tokens.size() != 3) {
         LOG(RTLOG_ERROR, "The version %s is incorrect.", version.Str());
         return;
     }
