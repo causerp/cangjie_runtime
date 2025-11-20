@@ -78,8 +78,15 @@ enum class SignpostType: uint8_t {
 #define OS_SIGNPOST_ID_NULL ((os_signpost_id_t)0)
 #define OS_SIGNPOST_ID_INVALID ((os_signpost_id_t)~0)
 #define INTERVAL_FORMAT_STR "name:%s"
-#define INTERVAL_ASYNC_FORMAT_STR "name:%s id: %d"
+#define INTERVAL_ASYNC_FORMAT_STR "name:%s, taskId: %d"
 #define EVENT_FORMAT_STR "name:%s, count: %lld"
+#define NEG_NUM_FORMAT_STR "name:%s, taskId/count: %s"
+
+#define OS_LOG_FMT(name, str) \
+    __attribute__((section("__TEXT, __oslogstring, cstring_literals"), internal_linkage)) \
+    static const char name[] = str
+OS_LOG_FMT(PRINT_NEG_NUM_FMT, "name:%{public}s, taskId/count:%{public}s");
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -122,6 +129,18 @@ private:
     }
     void SetName(const char* name) {
         endName = name;
+    }
+
+    static char* SignpostInt(int64_t val, bool isInt32 = true) {
+        static char buf[64];
+        size_t maxLen32 = 32;
+        size_t maxLen64 = 64;
+        if (isInt32) {
+            snprintf(buf, maxLen32, "%d", (static_cast<int32_t>(val)));
+        } else {
+            snprintf(buf, maxLen64, "%lld", val);
+        }
+        return buf;
     }
 
     using EmitWithNameImplFunc = void(*)(void*, os_log_t, os_signpost_type_t, os_signpost_id_t,

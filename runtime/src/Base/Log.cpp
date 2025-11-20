@@ -534,7 +534,11 @@ std::pair<size_t, void *> SignpostWrapper::FormatArgs(SignpostType type, const c
     void *buffer = nullptr;
     switch (type) {
         case SignpostType::SIGNPOST_TYPE_EVENT: {
-            bufferSize = __builtin_os_log_format_buffer_size(EVENT_FORMAT_STR, name, value);
+            if (value >= 0) {
+                bufferSize = __builtin_os_log_format_buffer_size(EVENT_FORMAT_STR, name, value);
+            } else {
+                bufferSize = __builtin_os_log_format_buffer_size(NEG_NUM_FORMAT_STR, name, SignpostInt(value, false));
+            }
             break;
         }
         case SignpostType::SIGNPOST_TYPE_INTERVAL_BEGIN:
@@ -544,8 +548,12 @@ std::pair<size_t, void *> SignpostWrapper::FormatArgs(SignpostType type, const c
         }
         case SignpostType::SIGNPOST_TYPE_INTERVAL_BEGIN_ASYNC:
         case SignpostType::SIGNPOST_TYPE_INTERVAL_END_ASYNC: {
-            bufferSize = __builtin_os_log_format_buffer_size(INTERVAL_ASYNC_FORMAT_STR, name,
-                                                             static_cast<int32_t>(value));
+            if (value >= 0) {
+                bufferSize = __builtin_os_log_format_buffer_size(INTERVAL_ASYNC_FORMAT_STR, name,
+                                                                 static_cast<int32_t>(value));
+            } else {
+                bufferSize = __builtin_os_log_format_buffer_size(NEG_NUM_FORMAT_STR, name, SignpostInt(value));
+            }
             break;
         }
         default:
@@ -561,6 +569,34 @@ std::pair<size_t, void *> SignpostWrapper::FormatArgs(SignpostType type, const c
     if (!buffer || retVal != 0) {
         PRINT_ERROR("Error: buffer malloc failed, retVal: %d \n", retVal);
         return {0, nullptr};
+    }
+
+    switch (type) {
+        case SignpostType::SIGNPOST_TYPE_EVENT: {
+            if (value >= 0) {
+                __builtin_os_log_format(buffer, EVENT_FORMAT_STR, name, value);
+            } else {
+                __builtin_os_log_format(buffer, NEG_NUM_FORMAT_STR, name, SignpostInt(value, false));
+            }
+            break;
+        }
+        case SignpostType::SIGNPOST_TYPE_INTERVAL_BEGIN:
+        case SignpostType::SIGNPOST_TYPE_INTERVAL_END: {
+            __builtin_os_log_format(buffer, INTERVAL_FORMAT_STR, name);
+            break;
+        }
+        case SignpostType::SIGNPOST_TYPE_INTERVAL_BEGIN_ASYNC:
+        case SignpostType::SIGNPOST_TYPE_INTERVAL_END_ASYNC: {
+            if (value >= 0) {
+                __builtin_os_log_format(buffer, INTERVAL_ASYNC_FORMAT_STR, name, static_cast<int32_t>(value));
+            } else {
+                __builtin_os_log_format(buffer, NEG_NUM_FORMAT_STR, name, SignpostInt(value));
+            }
+
+            break;
+        }
+        default:
+            break;
     }
     return {bufferSize, buffer};
 }
@@ -585,7 +621,6 @@ void SignpostWrapper::IntervalBegin(const char* name) {
     if (bufferSize == 0 || buffer == nullptr) {
         return;
     }
-    __builtin_os_log_format(buffer, INTERVAL_FORMAT_STR, endName);
     emitWithNameImplFunc(&__dso_handle, osLog, OS_SIGNPOST_INTERVAL_BEGIN, spId, "Operation",
                          "name:%{public}s", static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
     std::free(buffer);
@@ -610,7 +645,6 @@ void SignpostWrapper::IntervalEnd() {
     if (bufferSize == 0 || buffer == nullptr) {
         return;
     }
-    __builtin_os_log_format(buffer, INTERVAL_FORMAT_STR, taskName);
     emitWithNameImplFunc(&__dso_handle, osLog, OS_SIGNPOST_INTERVAL_END, spId, "Operation",
                          "name:%{public}s", static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
     std::free(buffer);
@@ -635,9 +669,9 @@ void SignpostWrapper::IntervalBeginAsync(const char* name, int32_t taskId) {
     if (bufferSize == 0 || buffer == nullptr) {
         return;
     }
-    __builtin_os_log_format(buffer, INTERVAL_ASYNC_FORMAT_STR, taskName, taskId);
     emitWithNameImplFunc(&__dso_handle, osLog, OS_SIGNPOST_INTERVAL_BEGIN, spId, "AsyncOperation",
-        "name:%{public}s, taskId: %ld", static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
+                         ((taskId >= 0) ? "name:%{public}s, taskId:%d" : PRINT_NEG_NUM_FMT),
+                         static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
     std::free(buffer);
 }
 
@@ -660,9 +694,9 @@ void SignpostWrapper::IntervalEndAsync(const char* name, int32_t taskId) {
     if (bufferSize == 0 || buffer == nullptr) {
         return;
     }
-    __builtin_os_log_format(buffer, INTERVAL_ASYNC_FORMAT_STR, taskName, taskId);
     emitWithNameImplFunc(&__dso_handle, osLog, OS_SIGNPOST_INTERVAL_END, spId, "AsyncOperation",
-        "name:%{public}s, taskId: %ld", static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
+                         ((taskId >= 0) ? "name:%{public}s, taskId:%d" : PRINT_NEG_NUM_FMT),
+                         static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
     std::free(buffer);
 }
 
@@ -684,9 +718,9 @@ void SignpostWrapper::EventEmit(const char* name, int64_t count) {
     if (bufferSize == 0 || buffer == nullptr) {
         return;
     }
-    __builtin_os_log_format(buffer, EVENT_FORMAT_STR, taskName, count);
     emitWithNameImplFunc(&__dso_handle, osLog, OS_SIGNPOST_EVENT, spId, "OperationEmit",
-        "name:%{public}s, count: %lld", static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
+                         ((count >= 0) ? "name:%{public}s, count: %lld" : PRINT_NEG_NUM_FMT),
+                         static_cast<uint8_t*>(buffer), static_cast<uint32_t>(bufferSize));
     std::free(buffer);
 }
 #endif
