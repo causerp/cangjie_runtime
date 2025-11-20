@@ -1229,7 +1229,7 @@ struct TreeMapEntryView<K, V> <: MapEntryView<K, V> where K <: Comparable<K> {
                 case Some(node) =>
                     let entry = node.getEntry(curNode.index).getOrThrow()
                     entry.value
-                case None => throw NoneValueException("Value does not exist!")
+                case None => None
             }
         }
         set(v) {
