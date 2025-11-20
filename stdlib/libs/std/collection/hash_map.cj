@@ -832,7 +832,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param transform the given mapping function.
      * @returns a new HashMap.
      */
-    @Frozen
     public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R> {
         let size: Int64 = entries.size
         var newMap = HashMap<K, R>()
@@ -850,7 +849,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param transform the given mapping function.
      * @returns a new HashMap.
      */
-    @Frozen
     public func mapValues<R>(transform: (V) -> R): HashMap<K, R> {
         let size: Int64 = entries.size
         var newMap = HashMap<K, R>()
@@ -868,7 +866,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param predicate the given condition.
      * @returns a new collection of key-value pairs that satisfy the filtering condition.
      */
-    @Frozen
     public func filter(predicate: (K, V) -> Bool): HashMap<K, V> {
         let size: Int64 = entries.size
         var newMap = HashMap<K, V>()
@@ -885,7 +882,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * 
      * @param action the given operation function.
      */
-    @Frozen
     public func forEach(action: (K, V) -> Unit): Unit {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -901,7 +897,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param predicate the given condition.
      * @returns true if all key-value pairs in the HashMap satisfy the condition, otherwise returns false.
      */
-    @Frozen
     public func all(predicate: (K, V) -> Bool): Bool {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -918,7 +913,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param predicate the given condition.
      * @returns Whether there is any key-value pair that satisfies the condition.
      */
-    @Frozen
     public func any(predicate: (K, V) -> Bool): Bool {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -935,7 +929,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param predicate the given condition.
      * @returns Whether all key-value pairs in the current HashMap do not satisfy the condition.
      */
-    @Frozen
     public func none(predicate: (K, V) -> Bool): Bool {
         let size: Int64 = entries.size
         for (i in 0..size) {
@@ -953,7 +946,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func fold<R>(initial: R, operation: (R, K, V) -> R): R {
         var result: R = initial
         let size: Int64 = entries.size
@@ -971,7 +963,6 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func reduce(operation: (V, V) -> V): Option<V> {
         if (this.size == 0) {
             return None<V>

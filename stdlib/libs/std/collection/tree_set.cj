@@ -219,7 +219,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param transform the mapping function.
      * @returns a new TreeSet composed of elements obtained by mapping all elements in the original TreeSet.
      */
-    @Frozen
     public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R> {
         var arr: Array<T> = this.toArray()
         var result: TreeSet<R> = TreeSet<R>()
@@ -236,7 +235,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param predicate the given condition.
      * @returns a new collection of elements that satisfy the filtering condition.
      */
-    @Frozen
     public func filter(predicate: (T) -> Bool): TreeSet<T> {
         var newMap = myMap.filter({k, v => predicate(k)})
         var res = TreeSet<T>()
@@ -250,7 +248,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param transform the given mapping function.
      * @returns a new TreeSet after filtering and mapping.
      */
-    @Frozen
     public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R> {
         var arr: Array<T> = this.toArray()
         var result: TreeSet<R> = TreeSet<R>()
@@ -269,7 +266,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      *
      * @param action the given operation function.
      */
-    @Frozen
     public func forEach(action: (T) -> Unit): Unit {
         myMap.forEach({k, v => action(k)})
     }
@@ -280,7 +276,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param predicate the given condition.
      * @returns true if all elements in the TreeSet satisfy the condition, otherwise returns false.
      */
-    @Frozen
     public func all(predicate: (T) -> Bool): Bool {
         return myMap.all({k, v => predicate(k)})
     }
@@ -291,7 +286,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @Frozen
     public func any(predicate: (T) -> Bool): Bool {
         return myMap.any({k, v => predicate(k)})
     }
@@ -302,7 +296,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current TreeSet do not satisfy the condition.
      */
-    @Frozen
     public func none(predicate: (T) -> Bool): Bool {
         return myMap.none({k, v => predicate(k)})
     }
@@ -314,7 +307,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         return myMap.fold<R>(initial, {r, k, v => operation(r, k)})
     }
@@ -325,7 +317,6 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (size <= 0) {
             return None<T>

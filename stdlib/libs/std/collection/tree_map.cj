@@ -263,9 +263,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param transform the given mapping function.
      * @returns a new TreeMap.
      */
-    @Frozen
     public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R> {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
@@ -294,9 +293,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param transform the given mapping function.
      * @returns a new TreeMap.
      */
-    @Frozen
     public func mapValues<R>(transform: (V) -> R): TreeMap<K, R> {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
@@ -325,9 +323,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given mapping function.
      * @returns a new collection of key-value pairs that satisfy the filtering condition.
      */
-    @Frozen
     public func filter(predicate: (K, V) -> Bool): TreeMap<K, V> {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         var arr: Array<(K, V)> = unsafe { Array<(K, V)>(this.size, repeat: zeroValue<(K, V)>()) }
@@ -357,9 +354,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      *
      * @param action the given operation function.
      */
-    @Frozen
     public func forEach(action: (K, V) -> Unit): Unit {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         while (!deque.isEmpty()) {
@@ -384,9 +380,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
      */
-    @Frozen
     public func all(predicate: (K, V) -> Bool): Bool {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         while (!deque.isEmpty()) {
@@ -414,9 +409,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns Whether there is any key-value pair that satisfies the condition.
      */
-    @Frozen
     public func any(predicate: (K, V) -> Bool): Bool {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         while (!deque.isEmpty()) {
@@ -444,9 +438,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns Whether all key-value pairs in the current TreeMap do not satisfy the condition.
      */
-    @Frozen
     public func none(predicate: (K, V) -> Bool): Bool {
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         while (!deque.isEmpty()) {
@@ -475,10 +468,9 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func fold<R>(initial: R, operation: (R, K, V) -> R): R {
         var result = initial
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
         while (!deque.isEmpty()) {
@@ -504,12 +496,11 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func reduce(operation: (V, V) -> V): Option<V> {
         if (this.size <= 0) {
             return None<V>
         }
-        var curNode: Node<K, V> = this.root
+        let curNode: Node<K, V> = this.root
         var result = curNode.entries[0].value
         for (i in 1..curNode.entries.size) {
             var value = curNode.entries[i].value

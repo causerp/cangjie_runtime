@@ -270,11 +270,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param transform The mapping closure to apply to each element.
      * @returns A new HashSet containing the transformed elements from the original HashSet.
      */
-    @Frozen
     public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R> {
-        var entries = myMap.entries
+        let entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
-        var len = entries.size
+        let len = entries.size
         for (i in 0..len) {
             result.add(transform(entries[i].key))
         }
@@ -287,11 +286,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns a new HashSet containing elements that satisfy the filtering condition.
      */
-    @Frozen
     public func filter(predicate: (T) -> Bool): HashSet<T> {
-        var entries = myMap.entries
+        let entries = myMap.entries
         var result: HashSet<T> = HashSet<T>()
-        var len = entries.size
+        let len = entries.size
         for (i in 0..len) {
             if (predicate(entries[i].key)) {
                 result.add(entries[i].key)
@@ -306,11 +304,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param transform the given mapping function.
      * @returns a new HashSet after filtering and mapping.
      */
-    @Frozen
     public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R> {
-        var entries = myMap.entries
+        let entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
-        var len = entries.size
+        let len = entries.size
         for (i in 0..len) {
             match (transform(entries[i].key)) {
                 case Some(v) => result.add(v)
@@ -325,10 +322,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * 
      * @param action the given operation function.
      */
-    @Frozen
     public func forEach(action: (T) -> Unit): Unit {
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         for (i in 0..len) {
             action(entries[i].key)
         }
@@ -340,10 +336,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns true if all elements in the HashSet satisfy the condition, otherwise returns false.
      */
-    @Frozen
     public func all(predicate: (T) -> Bool): Bool {
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         for (i in 0..len) {
             if (!predicate(entries[i].key)) {
                 return false
@@ -358,10 +353,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @Frozen
     public func any(predicate: (T) -> Bool): Bool {
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         for (i in 0..len) {
             if (predicate(entries[i].key)) {
                 return true
@@ -376,10 +370,9 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current HashSet do not satisfy the condition.
      */
-    @Frozen
     public func none(predicate: (T) -> Bool): Bool {
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         for (i in 0..len) {
             if (predicate(entries[i].key)) {
                 return false
@@ -395,11 +388,10 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         for (i in 0..len) {
             result = operation(result, entries[i].key)
         }
@@ -412,13 +404,12 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (size <= 0) {
             return None<T>
         }
-        var entries = myMap.entries
-        var len = entries.size
+        let entries = myMap.entries
+        let len = entries.size
         var result: T = entries[0].key
         for (i in 1..len) {
             result = operation(result, entries[i].key)
