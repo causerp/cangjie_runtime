@@ -420,9 +420,6 @@ def main():
         help="pass this argument to C/CXX compiler as --sysroot"
     )
     parser_build.add_argument(
-        "--asancov", action="store_true", help="build with asan and sanitize-coverage, used for cjc_fuzz and lsp_test"
-    )
-    parser_build.add_argument(
         "--cjlib-sanitizer-support",
         type=str,
         choices=["asan", "tsan", "hwasan"],
