@@ -11,9 +11,11 @@
 #include "Base/Log.h"
 #include "Base/LogFile.h"
 #include "Common/BaseObject.h"
+#include "ObjectModel/FieldInfo.h"
 
 // module interfaces
 #include "ObjectManager.inline.h"
+#include "ObjectModel/MethodInfo.h"
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
 #include "Sanitizer/SanitizerInterface.h"
 #endif
@@ -781,7 +783,7 @@ extern "C" ObjectPtr MCC_GetSubPackages(PackageInfo* packageInfo, TypeInfo* arra
     LoaderManager::GetInstance()->GetSubPackages(packageInfo, subPackages);
     size_t subPkgCnt = subPackages.size();
     // Array<CPointer<Unit>> layout likes { Rarray<CPointer<Unit>>, Int64, Int64 }
-    TypeInfo* rawArrayTi = arrayTi->GetFieldTypeInfo(0); // 0: first field type RawArray<CPointer<Unit>>.ti
+    TypeInfo* rawArrayTi = arrayTi->GetFieldType(0); // 0: first field type RawArray<CPointer<Unit>>.ti
     ArrayRef rawArrayObj = ObjectManager::NewKnownWidthArray(subPkgCnt, rawArrayTi,
         ObjectManager::ArrayElemBits::ELEM_64B, AllocType::RAW_POINTER_OBJECT);
     for (size_t idx = 0; idx < subPkgCnt; ++idx) {
@@ -848,6 +850,10 @@ extern "C" bool MCC_MethodEntryPointIsNull(MethodInfo* methodInfo) { return meth
 
 extern "C" void* MCC_ApplyCJInstanceMethod(MethodInfo* methodInfo, ObjRef obj, void* args)
 {
+    if (methodInfo == nullptr) {
+        DynamicMethodInfo mthInfo(obj);
+        return mthInfo.ApplyCangjieMethod(args);
+    }
     return methodInfo->ApplyCJMethod(obj, nullptr, args, nullptr);
 }
 
@@ -1035,7 +1041,215 @@ extern "C" bool MCC_IsPrimitive(TypeInfo* ti) { return ti->IsPrimitiveType(); }
 
 extern "C" bool MCC_IsGeneric(TypeInfo* ti) { return ti->IsGeneric(); }
 
+extern "C" bool MCC_IsEnum(TypeInfo* ti) { return ti->IsEnum() || ti->IsTempEnum(); }
+
+extern "C" bool MCC_IsFunction(TypeInfo* ti) {
+    if (ti->IsFunc()) {
+        return true;
+    }
+    auto super = ti->GetSuperTypeInfo();
+    if (super == nullptr) {
+        return false;
+    }
+    return super->IsFunc();
+}
+
+extern "C" bool MCC_IsTuple(TypeInfo* ti) { return ti->IsTuple(); }
+
 extern "C" bool MCC_IsReflectUnsupportedType(TypeInfo* ti) { return ti->IsReflectUnsupportedType(); }
+
+// reflect support enum
+extern "C" U32 MCC_GetNumOfEnumConstructorInfos(TypeInfo* ti)
+{
+    if (!ti->IsEnum() && !ti->IsTempEnum()) {
+        return 0;
+    }
+    return ti->GetNumOfEnumCtor();
+}
+
+extern "C" EnumCtorInfo* MCC_GetEnumConstructorInfo(TypeInfo* ti, U32 idx)
+{
+    return ti->GetEnumCtor(idx);
+}
+
+extern "C" const char* MCC_GetEnumConstructorName(EnumCtorInfo* ti)
+{
+    return ti->GetName();
+}
+
+extern "C" EnumCtorInfo* MCC_GetEnumConstructorInfoFromAny(ObjRef obj) {
+    TypeInfo* ti = obj->GetTypeInfo();
+    if (!ti->IsEnum() && !ti->IsTempEnum()) {
+        return nullptr;
+    }
+    EnumInfo* enumInfo = ti->GetEnumInfo();
+    if (ti->IsEnumCtor()) {
+        enumInfo = ti->GetSuperTypeInfo()->GetEnumInfo();
+    }
+
+    I32 tag = FieldInitializer::GetEnumTag(obj, ti);
+    return enumInfo->GetEnumCtor(tag);
+}
+
+// reflect support function
+extern "C" U32 MCC_GetNumOfFunctionSignatureTypes(TypeInfo* funcTi)
+{
+    TypeInfo* ti = nullptr;
+    auto super = funcTi->GetSuperTypeInfo();
+    if (funcTi->IsFunc()) {
+        ti = funcTi;
+    } else if (super != nullptr && super->IsFunc()) {
+        ti = super;
+    } else {
+        return 0;
+    }
+
+    // Now, `super` both are Closure type.
+    // Get function type from Closure type, i.e., typeArgs[0]:
+    TypeInfo* funcType = ti->GetTypeArgs()[0];
+    U16 typeArgNum = funcType->GetTypeArgNum();
+
+    return typeArgNum;
+}
+
+extern "C" TypeInfo** MCC_GetFunctionSignatureTypes(TypeInfo* funcTi)
+{
+    TypeInfo* ti = nullptr;
+    auto super = funcTi->GetSuperTypeInfo();
+    if (funcTi->IsFunc()) {
+        ti = funcTi;
+    } else if (super != nullptr && super->IsFunc()) {
+        ti = super;
+    } else {
+        return nullptr;
+    }
+
+    // Now, `super` both are Closure type.
+    // Get function type from Closure type, i.e., typeArgs[0]:
+    TypeInfo* funcType = ti->GetTypeArgs()[0];
+
+    TypeInfo** params = funcType->GetTypeArgs();
+    return params;
+}
+
+// for tuple
+extern "C" U32 MCC_GetNumOfFieldTypes(TypeInfo* ti)
+{
+    U32 num = ti->GetFieldNum();
+    if ((ti->IsEnum() || ti->IsTempEnum()) && FieldInitializer::HaveEnumTag(ti)) {
+        if (ti->IsOptionLikeUnassociatedCtor()) {
+            return num - 2;
+        }
+        return num - 1;
+    }
+    return num;
+}
+
+extern "C" TypeInfo** MCC_GetFieldTypes(TypeInfo* ti)
+{
+    TypeInfo** fieldTypes = ti->GetFieldTypes();
+    if ((ti->IsEnum() || ti->IsTempEnum()) && FieldInitializer::HaveEnumTag(ti)) {
+        if (ti->IsOptionLikeUnassociatedCtor()) {
+            return nullptr;
+        }
+        return fieldTypes + 1;
+    }
+    return fieldTypes;
+}
+
+// MCC_NewAndInitEnumTupleObject - Creates and initializes objects for enum and tuple types
+//
+// This function is specifically designed to handle object creation for:
+// 1. Enum types (including temporary enums)
+// 2. Tuple types
+extern "C" ObjRef MCC_NewAndInitEnumTupleObject(TypeInfo* ti, void* args)
+{
+    if (args == nullptr) {
+        return nullptr;
+    }
+    MSize size = MRT_ALIGN(ti->GetInstanceSize() + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
+    ObjRef obj = nullptr;
+
+    // Need set tag for enum and temp enum.
+    if (ti->IsEnum() || ti->IsTempEnum()) {
+        obj = FieldInitializer::CreateEnumObject(ti, size);
+    } else if (ti->IsTuple()) {
+        obj = ObjectManager::NewObject(ti, size, AllocType::RAW_POINTER_OBJECT);
+        if (obj == nullptr) {
+            VLOG(REPORT, "MCC_NewAndInitEnumTupleObject new tuple object failed and throw OutOfMemoryError");
+            ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewObject return nullptr");
+        }
+    } else {
+        LOG(RTLOG_FATAL, "MCC_NewAndInitEnumTupleObject: unsupported type %s", ti->GetName());
+    }
+
+    if (obj == nullptr) {
+        VLOG(REPORT, "Allocating object %s (%zu B) failed and throw OutOfMemoryError",
+             ti->GetName(), size);
+        ExceptionManager::CheckAndThrowPendingException("MCC_NewAndInitEnumTupleObject: Object creation failed");
+        return nullptr;
+    }
+
+    // Parse fields from args and store them into obj.
+    FieldInitializer::SetFieldFromArgs(obj, ti, args);
+    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
+    if (buffer != nullptr) {
+        buffer->CommitRawPointerRegions();
+    }
+    return obj;
+}
+
+extern "C" ObjRef MCC_GetAssociatedValues(ObjRef obj, TypeInfo* arrayTi)
+{
+    TypeInfo* ti = obj->GetTypeInfo();
+    U16 fieldNum = ti->GetFieldNum();
+    // For enum and temp enum, fields include the tag,
+    // but the tag is not part of associated values.
+    if (ti->IsEnum() || ti->IsTempEnum()) {
+        if (!ti->IsEnumCtor()) {
+            // The object's TypeInfo(ti) is the enum's TypeInfo.
+            // Read the tag, and get constructor's TypeInfo based on the tag.
+            EnumInfo* enumInfo = ti->GetEnumInfo();
+            I32 tag = FieldInitializer::GetEnumTag(obj, ti);
+            ti = enumInfo->GetCtorTypeInfo(tag);
+            fieldNum = ti->GetFieldNum();
+        }
+        if (FieldInitializer::HaveEnumTag(ti)) {
+            if (ti->IsOptionLikeUnassociatedCtor()) {
+                fieldNum -= 2;
+            } else {
+                fieldNum -= 1;
+            }
+        }
+    }
+
+    TypeInfo* rawArrayTi = arrayTi->GetFieldType(0);
+    ArrayRef array = ObjectManager::NewArray(fieldNum, rawArrayTi, AllocType::RAW_POINTER_OBJECT);
+    if (array == nullptr) {
+        VLOG(REPORT, "MCC_GetAssociatedValues new array failed and throw OutOfMemoryError");
+        ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewArray return nullptr");
+    }
+    // Extract fields from obj and put them into array.
+    FieldInitializer::SetElementFromObject(array, obj, ti, fieldNum);
+
+    U32 size = arrayTi->GetInstanceSize();
+    MSize arrayObjSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
+    ObjRef arrayObj = ObjectManager::NewObject(arrayTi, arrayObjSize, AllocType::RAW_POINTER_OBJECT);
+    if (arrayObj == nullptr) {
+        VLOG(REPORT, "MCC_GetAssociatedValues new object failed and throw OutOfMemoryError");
+        ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewObject return nullptr");
+    }
+    Heap::GetBarrier().WriteReference(
+        arrayObj, arrayObj->GetRefField(TYPEINFO_PTR_SIZE), static_cast<BaseObject*>(array));
+    CJArray* cjArray = reinterpret_cast<CJArray*>(reinterpret_cast<Uptr>(arrayObj) + TYPEINFO_PTR_SIZE);
+    cjArray->start = 0;
+    cjArray->length = fieldNum;
+    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
+    if (buffer != nullptr) {
+        buffer->CommitRawPointerRegions();
+    }
+    return arrayObj;
+}
 
 // @deprecated
 extern "C" U32 MCC_GetQualifiedNameLength(TypeInfo* ti) { return 0; }
@@ -1205,7 +1419,7 @@ extern "C" bool CJ_MCC_IsSubType(TypeInfo* typeInfo, TypeInfo* superTypeInfo)
     if (typeInfo == superTypeInfo) {
         return true;
     }
-    
+
     bool isSub = typeInfo->IsSubType(superTypeInfo);
     return isSub;
 }
@@ -1226,13 +1440,16 @@ static bool IsTupleTypeOf(ObjectPtr obj, TypeInfo* typeInfo, TypeInfo* targetTyp
     if (ti == nullptr) {
         LOG(RTLOG_FATAL, "IsTupleTypeOf: get typeInfo failed");
     }
+    if (ti->GetUUID() == targetTypeInfo->GetUUID()) {
+        return true;
+    }
     if (ti->GetFieldNum() != targetTypeInfo->GetFieldNum()) {
         return false;
     }
     for (U16 idx = 0; idx < ti->GetFieldNum(); ++idx) {
         TypeInfo* fieldTypeInfo = ti->GetFieldType(idx);
         TypeInfo* fieldTargetTI = targetTypeInfo->GetFieldType(idx);
-        U32 offset = ti->GetFieldOffsets(idx) + base;
+        U32 offset = ti->GetFieldOffset(idx) + base;
         ObjectPtr curObj = nullptr;
         if (fieldTargetTI->IsRef()) {
             if (!fieldTypeInfo->IsClass() && !fieldTypeInfo->IsInterface()) {

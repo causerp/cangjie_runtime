@@ -405,5 +405,17 @@ _CJ_MCC_NewArrayGeneric:
 _CJ_MCC_DumpCJHeapData:
     CalleeSavedRegistersStub MCC_DumpCJHeapData
 
+    .text
+    .align 2
+    .global _CJ_MCC_NewAndInitEnumTupleObject
+_CJ_MCC_NewAndInitEnumTupleObject:
+    CalleeSavedRegistersStub MCC_NewAndInitEnumTupleObject
+
+    .text
+    .align 2
+    .global _CJ_MCC_GetAssociatedValues
+_CJ_MCC_GetAssociatedValues:
+    CalleeSavedRegistersStub MCC_GetAssociatedValues
+
     .global _unwindPCForC2RStubEnd
 _unwindPCForC2RStubEnd:
