@@ -112,5 +112,22 @@ private:
     DataRefOffset64<ParameterInfo> actualParameterInfos;
     DataRefOffset64<GenericParameterInfo> genericParameterInfos;
 };
+
+// MethodInfo information is stored in the Closure object. To optimize code size, no additional metadata
+// is added to store MethodInfo. DynamicMethodInfo parses the Closure object during execution
+// to construct MethodInfo for function calls.
+class DynamicMethodInfo {
+public:
+    DynamicMethodInfo(ObjRef obj);
+    void* ApplyCangjieMethod(void* args);
+private:
+    U32 parameterCount;
+    ObjRef instanceObj;
+    TypeInfo* functionTi;
+    Uptr entryPoint;
+    TypeInfo* returnType;
+    TypeInfo** parameterTypes;
+};
+
 } // namespace MapleRuntime
 #endif // MRT_METHOD_INFO_H
