@@ -70,7 +70,7 @@ main() {
 1.23
 ```
 
-## func countOne(BigInt) <sup>(deprecated)<sup>
+## func countOne(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(i: BigInt): Int64

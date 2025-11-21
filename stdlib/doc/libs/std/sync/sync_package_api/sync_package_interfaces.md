@@ -131,7 +131,7 @@ func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `timeout` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)，抛出异常。
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
-## interface IReentrantMutex <sup>(deprecated)<sup>
+## interface IReentrantMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public interface IReentrantMutex {
