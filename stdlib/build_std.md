@@ -67,6 +67,7 @@ The build functionality of build.py provides the following additional options:
 - `--build-args`: cjc build options (optional)
 - `--jobs(-j)`: maximum number of concurrent build tasks
 - `--hwasan`：Building the HWASAN version of std (for OHOS cross-compilation)
+- `--cjlib-sanitizer-support`： Build sanitizer version of cangjie std library. Valid values: `asan`, `tsan` or `hwasan`.
 
 The install functionality of build.py provides the following additional options:
 
