@@ -116,6 +116,8 @@ def generate_cmake_defs(args):
         result.append("-DCMAKE_ANDROID_NDK=" + os.path.join(args.target_toolchain, "../../../../.."))
         result.append("-DCMAKE_ANDROID_API=" + (android_api_level if android_api_level else ""))
 
+    if args.sanitizer_support:
+        result.append("-DCANGJIE_SANITIZER_SUPPORT=" + args.sanitizer_support)
     return result
 
 def build(args):
@@ -188,7 +190,12 @@ def build(args):
     if not os.path.exists(BUILD_DIR):
         os.makedirs(BUILD_DIR)
 
-    cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.target)) if args.target else CMAKE_BUILD_DIR
+    if args.sanitizer_support:
+        cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.sanitizer_support))
+        if args.target:
+            cmake_build_dir += "-{}".format(args.target)
+    else:
+        cmake_build_dir = os.path.join(BUILD_DIR, "build-libs-{}".format(args.target)) if args.target else CMAKE_BUILD_DIR
 
     if not os.path.exists(cmake_build_dir):
         os.makedirs(cmake_build_dir)
@@ -411,6 +418,13 @@ def main():
     parser_build.add_argument(
         "--target-sysroot", dest="target_sysroot", type=str,
         help="pass this argument to C/CXX compiler as --sysroot"
+    )
+    parser_build.add_argument(
+        "--cjlib-sanitizer-support",
+        type=str,
+        choices=["asan", "tsan", "hwasan"],
+        dest="sanitizer_support",
+        help="Enable cangjie sanitizer support for cangjie libraries."
     )
     parser_build.add_argument(
         "--build-args",

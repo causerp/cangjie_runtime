@@ -11,6 +11,14 @@ project(boundscheck)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(SECURE_CFLAG_FOR_SHARED_LIBRARY "-fstack-protector-all")
 
+# we are not expect libboundscheck to be instrumented by asan or hwasan
+# otherwise it will generate false positive everywhere
+if(CANGJIE_SANITIZER_SUPPORT_ENABLED)
+    get_directory_property(boundscheck_COMPILE_OPTIONS COMPILE_OPTIONS)
+    list(REMOVE_ITEM boundscheck_COMPILE_OPTIONS "-fsanitize=address" "-fsanitize=hwaddress")
+    set_directory_properties(PROPERTIES COMPILE_OPTIONS "${boundscheck_COMPILE_OPTIONS}")
+endif()
+
 if (MINGW)
     set(CMAKE_C_COMPILER x86_64-w64-mingw32-gcc)
     set(CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++)

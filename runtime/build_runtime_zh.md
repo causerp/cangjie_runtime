@@ -22,6 +22,7 @@
 - `--prefix <value>` 可用于指定构建产物的安装路径，默认安装到 runtime 目录下的 output/common 目录。当 `build` 和 `install` 同时指定了安装路径，后者生效。
 - `-hwasan` 用于使能 Hardware-Assisted Address Sanitizer (HWASAN)。
 - `--target-toolchain <value>` 用于指定交叉编译的工具链，**交叉编译构建时为必选参数**。工具链配置请参见[构建准备](#构建准备)。
+- `--cjlib-sanitizer-support`： 构建运行 sanitizer 版本的仓颉二进制的仓颉 runtime。可选项有 `asan`, `tsan` 和 `hwasan`。
 
 示例：
 
