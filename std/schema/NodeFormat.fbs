@@ -52,8 +52,6 @@ union AnyExpr {
   MACRO_EXPAND_EXPR: MacroExpandExpr,
   WILDCARD_EXPR: WildcardExpr,
   ARRAY_EXPR: ArrayExpr,
-  PERFORM_EXPR: PerformExpr,
-  RESUME_EXPR: ResumeExpr,
 }
 
 table MatchCase {
@@ -404,25 +402,6 @@ table ThrowExpr {
   expr: Expr;
 }
 
-table PerformExpr {
-  base: NodeBase;
-  expr: Expr;
-}
-
-table ResumeExpr {
-  base: NodeBase;
-  with_pos: Position;
-  with_expr: Expr;
-  throwing_pos: Position;
-  throwing_expr: Expr;
-}
-
-table Handler {
-  handler_pos: Position;
-  command_pattern: Pattern;
-  handle_block: Block;
-}
-
 table TryExpr {
   base: NodeBase;
   resource_spec: [VarDecl];
@@ -438,7 +417,6 @@ table TryExpr {
   catch_pos_vec: [Position];
   catch_left_paren_pos_vec: [Position];
   catch_right_paren_pos_vec: [Position];
-  handlers: [Handler];
 }
 
 table DoWhileExpr {

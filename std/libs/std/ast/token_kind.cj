@@ -328,14 +328,6 @@ public enum TokenKind <: ToString {
     | /*  "@!"               */
         ILLEGAL
     |
-        HANDLE
-    | /*  "handle"           */
-        PERFORM
-    | /*  "perform"          */
-         RESUME
-    | /*  "resume"           */
-        THROWING
-    | /*  "throwing"         */
       ...
 
     public operator func ==(right: TokenKind): Bool {
@@ -968,22 +960,6 @@ public enum TokenKind <: ToString {
                 case AT_EXCL => true
                 case _ => false
             }
-            case HANDLE => match (right) {
-                case HANDLE => true
-                case _ => false
-            }
-            case PERFORM => match (right) {
-                case PERFORM => true
-                case _ => false
-            }
-            case RESUME => match (right) {
-                case RESUME => true
-                case _ => false
-            }
-            case THROWING => match (right) {
-                case THROWING => true
-                case _ => false
-            }
             case ILLEGAL => match (right) {
                 case ILLEGAL => true
                 case _ => false
@@ -1155,10 +1131,6 @@ public enum TokenKind <: ToString {
             case UNIT_LITERAL => return "UNIT_LITERAL"
             case DOLLAR_IDENTIFIER => return "DOLLAR_IDENTIFIER"
             case ANNOTATION => return "ANNOTATION"
-            case HANDLE => return "HANDLE"
-            case PERFORM => return "PERFORM"
-            case RESUME => return "RESUME"
-            case THROWING => return "THROWING"
             case ILLEGAL => return "ILLEGAL"
             case _ => return "INVALID_TOKENKIND"
         }
@@ -1358,10 +1330,6 @@ let PATTERNS: Array<(TokenKind, String, String)> = [
     (TokenKind.DOLLAR_IDENTIFIER, "dollar_identifier", ""),
     (TokenKind.ANNOTATION, "annotation", ""),
     (TokenKind.AT_EXCL, "at_exclamation", "@!"),
-    (TokenKind.PERFORM, "perform", "perform"),
-    (TokenKind.RESUME, "resume", "resume"),
-    (TokenKind.THROWING, "throwing", "throwing"),
-    (TokenKind.HANDLE, "handle", "handle"),
     (TokenKind.ILLEGAL, "illegal", "")
 ]
 
@@ -1527,11 +1495,7 @@ func getTokenID(tk: TokenKind): UInt16 {
         case TokenKind.DOLLAR_IDENTIFIER => return 153
         case TokenKind.ANNOTATION => return 154
         case TokenKind.AT_EXCL => return 155
-        case TokenKind.PERFORM => return 156
-        case TokenKind.RESUME => return 157
-        case TokenKind.THROWING => return 158
-        case TokenKind.HANDLE => return 159
-        case _ => return 160
+        case _ => return 156
     }
 }
 
