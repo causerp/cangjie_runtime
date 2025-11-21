@@ -95,7 +95,7 @@ SeqCst
 
 功能：用于表示顺序一致的顺序，即禁止了指令重排，确保该原子操作之前的所有原子操作都先于该操作之后的原子操作完成。
 
-## enum ReadWriteMutexMode <sup>(deprecated)<sup>
+## enum ReadWriteMutexMode <sup>(deprecated)</sup>
 
 ```cangjie
 public enum ReadWriteMutexMode {

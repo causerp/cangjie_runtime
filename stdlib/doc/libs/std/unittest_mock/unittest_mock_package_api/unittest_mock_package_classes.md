@@ -262,7 +262,7 @@ public static func stubGetter<TRet>(
 
 - [GetterActionSelector](#class-getteractionselectortret)\<TRet> - 针对属性的 Getter 方法插入桩代码的操作器对象。
 
-### static func stubFunction\<TRet>(() -> TRet, Array<ArgumentMatcher>, Option<String>, String, String, Int64)
+### static func stubFunction\<TRet>(() -> TRet, Array\<ArgumentMatcher>, Option\<String>, String, String, Int64)
 
 ```cangjie
 public static func stubFunction<TRet>(
@@ -833,7 +833,7 @@ func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodAction
 
 返回值：
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - 定义了桩签名抛出异常行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> 对象实例。
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)\<TRet>> - 定义了桩签名抛出异常行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> 对象实例。
 
 ### func throws(Exception)
 
@@ -849,7 +849,7 @@ func throws(exception: Exception): CardinalitySelector<MethodActionSelector<TRet
 
 返回值：
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>>  - 定义了桩签名抛出异常的行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> 对象实例。
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)\<TRet>>  - 定义了桩签名抛出异常的行为的 [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> 对象实例。
 
 ## class MockFramework
 
