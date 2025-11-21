@@ -43,7 +43,7 @@ main(): Int64 {
 count = 1000
 ```
 
-## Monitor <sup>(deprecated)<sup> 的使用
+## Monitor <sup>(deprecated)</sup> 的使用
 
 > **注意：**
 >
