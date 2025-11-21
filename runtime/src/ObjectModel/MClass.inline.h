@@ -32,8 +32,10 @@ inline bool TypeTemplate::IsInterface() const { return type == TypeKind::TYPE_KI
 
 inline bool TypeTemplate::IsClass() const
 {
-    return type == TypeKind::TYPE_KIND_CLASS || type == TypeKind::TYPE_KIND_TEMP_ENUM ||
-        type == TypeKind::TYPE_KIND_FOREIGN_PROXY || type == TypeKind::TYPE_KIND_EXPORTED_REF;
+    return type == TypeKind::TYPE_KIND_CLASS ||
+            type == TypeKind::TYPE_KIND_TEMP_ENUM ||
+            type == TypeKind::TYPE_KIND_FOREIGN_PROXY ||
+            type == TypeKind::TYPE_KIND_EXPORTED_REF;
 }
 
 inline bool TypeTemplate::IsNothing() const { return type == TypeKind::TYPE_KIND_NOTHING; }
@@ -60,6 +62,7 @@ inline bool TypeTemplate::IsCFunc() const { return type == TypeKind::TYPE_KIND_C
 inline const char* TypeTemplate::GetName() const { return name; }
 
 inline bool TypeTemplate::ReflectInfoIsNull() const { return reflectInfo == nullptr; }
+inline bool TypeTemplate::HasExtPart() const { return static_cast<bool>(flag & FLAG_HAS_EXT_PART); }
 
 inline EnumInfo* TypeTemplate::GetEnumInfo()
 {
@@ -111,7 +114,8 @@ inline bool TypeInfo::IsInterface() const { return type == TypeKind::TYPE_KIND_I
 
 inline bool TypeInfo::IsClass() const
 {
-    return type == TypeKind::TYPE_KIND_CLASS || type == TypeKind::TYPE_KIND_TEMP_ENUM ||
+    return type == TypeKind::TYPE_KIND_CLASS ||
+           type == TypeKind::TYPE_KIND_TEMP_ENUM ||
            type == TypeKind::TYPE_KIND_WEAKREF_CLASS || type == TypeKind::TYPE_KIND_EXPORTED_REF ||
            type == TypeKind::TYPE_KIND_FOREIGN_PROXY;
 }
@@ -155,6 +159,19 @@ inline bool TypeInfo::IsCFunc() const { return type == TypeKind::TYPE_KIND_CFUNC
 inline bool TypeInfo::IsGenericTypeInfo() const
 {
     return (typeArgsNum > 0) || IsRawArray() || IsVArray() || IsCPointer();
+}
+
+inline TypeTemplate* TypeInfo::GetSourceGeneric() const
+{
+    return IsGenericTypeInfo() ? sourceGeneric : nullptr;
+}
+
+inline ExtensionData** TypeInfo::GetvExtensionDataStart() const
+{
+    if (!IsGenericTypeInfo()) {
+        return vExtensionDataStart;
+    }
+    return vExtensionDataStart ? vExtensionDataStart : sourceGeneric->GetvExtensionDataStart();
 }
 
 inline bool TypeInfo::IsGeneric() const
@@ -214,11 +231,12 @@ inline bool TypeInfo::HasRefField() const
 }
 
 inline bool TypeInfo::HasFinalizer() const { return static_cast<bool>(flag & FLAG_HAS_FINALIZER); }
-
+inline bool TypeInfo::IsInitialUUID() const { return uuid == 0; }
 inline bool TypeInfo::IsFutureClass() const { return static_cast<bool>(flag & FLAG_FUTURE_CLASS); }
 inline bool TypeInfo::IsMonitorClass() const { return static_cast<bool>(flag & FLAG_MUTEX_CLASS); }
 inline bool TypeInfo::IsMutexClass() const { return static_cast<bool>(flag & FLAG_MONITOR_CLASS); }
 inline bool TypeInfo::IsWaitQueueClass() const { return static_cast<bool>(flag & FLAG_WAIT_QUEUE_CLASS); }
+inline bool TypeInfo::HasExtPart() const { return static_cast<bool>(flag & FLAG_HAS_EXT_PART); }
 inline bool TypeInfo::IsBoxClass() { return static_cast<bool>(GetModifier() & MODIFIER_BOXCLASS); }
 
 inline bool TypeInfo::ReflectInfoIsNull() const { return reflectInfo == nullptr; }
@@ -237,13 +255,13 @@ inline U16 TypeInfo::GetValidInheritNum() const { return validInheritNum; }
 
 inline U32 TypeInfo::GetUUID()
 {
-    if (uuid == 0) {
+    if (IsInitialUUID()) {
         TypeInfoManager *manager = TypeInfoManager::GetInstance();
         std::lock_guard<std::recursive_mutex> lock(manager->tiMutex);
-        if (uuid == 0) {
+        if (IsInitialUUID()) {
             manager->AddTypeInfo(this);
         }
-        CHECK(uuid != 0);
+        CHECK(!IsInitialUUID());
     }
     return uuid;
 }
