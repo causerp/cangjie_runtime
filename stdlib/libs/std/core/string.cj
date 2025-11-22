@@ -1138,7 +1138,7 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
     @OverflowWrapping
     public operator const func [](index: Int64): Byte {
         if (index < 0 || index >= size) {
-            throw IndexOutOfBoundsException("The length of the string is ${this.size}, but the index is ${index}.")
+            throw IndexOutOfBoundsException(stringIndexOutOfBoundsExceptionMessage(index, size))
         }
         return arrayGetUnchecked(myData, index + Int64(start))
     }
@@ -1413,12 +1413,12 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
     public static unsafe func withRawData(rawData: Array<UInt8>): String {
         return String(rawData)
     }
- 
+
     @Frozen
     public static func checkUtf8Encoding(data: Array<UInt8>): Bool {
         let arr = data.rawptr
         let endIndex = data.start + data.size
- 
+
         var i = data.start
         while (i < endIndex) {
             var nowByte: UInt8 = arrayGetUnchecked<UInt8>(arr, i)
@@ -1512,4 +1512,8 @@ struct RunesToUtf8Bytes {
         }
         return size
     }
+}
+
+private func stringIndexOutOfBoundsExceptionMessage(index: Int64, len: Int64): String {
+    "The length of the string is ${len}, but the index is ${index}."
 }
