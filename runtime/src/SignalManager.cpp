@@ -30,14 +30,14 @@ void SignalManager::Init()
     PrepareSigStack();
     // Block some ignored signals
     BlockSignals();
+#if !defined(__OHOS__) && !defined(__ANDROID__)
     // Install unexpected handler first
     InstallUnexpectedSignalHandlers();
-#ifndef __ANDROID__
     // Install sigsegv handler
     InstallSegvHandler();
-#endif
     // Install sigusr1 handler
     InstallSIGUSR1Handlers();
+#endif
 }
 
 void SignalManager::Fini()
