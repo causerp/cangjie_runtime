@@ -39,6 +39,10 @@ OAT.xml @xuanjz
 /stdlib/libs/std/objectpool/ @ChaosJohn
 /stdlib/libs/std/regex/ @ChaosJohn
 
+
+/stdlib/libs/std/deriving/ @JasmineZhu
+/stdlib/libs/std/unittest/ @JasmineZhu
+
 #stdlib docs
 /stdlib/doc @luojianing
 
