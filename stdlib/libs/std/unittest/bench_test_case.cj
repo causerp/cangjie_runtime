@@ -102,6 +102,7 @@ struct WarmupInfo {
 
     mut func warmupDuration(warmupTime: Duration, maxMeasureBatch: Int64, explicitGC: ExplicitGcType) {
         beforeWarmup()
+        let targetTime = Float64(warmupTime.toNanoseconds())
 
         var aggregateTime = 0.0
         var n = 0
@@ -109,9 +110,11 @@ struct WarmupInfo {
         // on last warmup iteration to ruin some subsequent calculations
         // which can cause benchmark to work for too long
         ema = Ema(5)
+        let start = TimeNow().measure()
+        var elapsed = 0.0
         do {
             n = n * 12 / 10 + 1  // ~20% increase
-            if (let Auto <- warmupGC && aggregateTime < Float64(warmupTime.toNanoseconds()/2)) {
+            if (let Auto <- warmupGC && aggregateTime > Float64(warmupTime.toNanoseconds()) / 2.0) {
                 // for small allocation heavy benchmarks it is essential that we finish warmup
                 // with same GC strategy that will be active during benchmark
                 chooseWarmupGC()
@@ -123,21 +126,20 @@ struct WarmupInfo {
             }
 
             let estimation = runMultipleAndEstimateTime(n, maxMeasureBatch)
-            if (aggregateRuns > 1000000) { break }
-
             // If estimation is that small then most likely result will be zero so we can speed up things.
-            // Now, with blackBox it should never happen, so it is left just as a fallback in case of a bug in blackBox
-            if (estimation <= 0.001) {
-                if (n > 100000 || aggregateRuns > 1000000) {
+            // Now, with blackBox it almost never happen, but there are cases where due to CPU speculative execution
+            // for sufficiently small benchmark, actually executing code can take same time as not executing it.
+            if (estimation <= 0.0001) {
+                if (n > 1000000000 ) {
                     break
                 }
 
                 n = n * 10
             }
             aggregateTime += estimation * Float64(n)
-
+            elapsed = TimeNow().measure() - start
             ema.append(estimation)
-        } while (aggregateTime < Float64(warmupTime.toNanoseconds()))
+        } while (aggregateTime < targetTime && elapsed < targetTime*2.0)
 
 
         finishWarmup()
