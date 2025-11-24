@@ -379,7 +379,7 @@ func callNativeFunc(path: String, nativeFunc: CFunc<(CString) -> CPointer<FsErro
         if (result.rtnCode < 0) {
             try {
                 let errMessage = result.msg.toString()
-                throw FSException("${errMsgPrefix}: \"${errMessage.trimAscii()}\".")
+                throw FSException("${errMsgPrefix} input path is `${path}`: \"${errMessage.trimAscii()}\", return ${result.rtnCode}.")
             } finally {
                 LibC.free(result.msg)
             }
@@ -397,7 +397,7 @@ func callNativeFunc(
         try (cPath1 = LibC.mallocCString(path1).asResource(), cPath2 = LibC.mallocCString(path2).asResource()) {
             var ret: Int8 = nativeFunction(cPath1.value, cPath2.value)
             if (ret < 0) {
-                throw FSException("${msg}, native function error.")
+                throw FSException("${msg} input paths are `${path1}` and `${path2}`, native function error return ${ret}.")
             }
         }
     }
