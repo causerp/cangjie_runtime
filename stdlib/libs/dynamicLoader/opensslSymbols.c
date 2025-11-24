@@ -449,6 +449,27 @@ bool LoadDynFuncCertVerifyCallback(DynMsg* dynMsg)
     return true;
 }
 
+bool LoadDynFuncForCustomVerifyCallback(DynMsg* dynMsg)
+{
+    typedef SSL* (*SSLFunc1)(const X509_STORE_CTX*, int);
+    FINDFUNCTIONI(dynMsg, 1, X509_STORE_CTX_get_ex_data, false)
+    typedef int (*SSLFunc2)(void);
+    FINDFUNCTIONI(dynMsg, 2, SSL_get_ex_data_X509_STORE_CTX_idx, false)
+    typedef SSL_CTX* (*SSLFunc3)(const SSL*);
+    FINDFUNCTIONI(dynMsg, 3, SSL_get_SSL_CTX, false)
+    typedef STACK_OF(X509)* (*SSLFunc4)(const X509_STORE_CTX* ctx);
+    FINDFUNCTIONI(dynMsg, 4, X509_STORE_CTX_get0_untrusted, false)
+    typedef int (*SSLFunc5)(void*);
+    FINDFUNCTIONI(dynMsg, 5, OPENSSL_sk_num, false)
+    typedef void* (*SSLFunc6)(void*, int);
+    FINDFUNCTIONI(dynMsg, 6, OPENSSL_sk_value, false)
+    typedef void (*SSLFunc7)(void*, const char*, int);
+    FINDFUNCTIONI(dynMsg, 7, CRYPTO_free, false)
+
+    return true;
+}
+
+
 bool LoadDynForInfoCallback(DynMsg* dynMsg)
 {
     typedef void* (*SSLFunc1)(const SSL*, int);

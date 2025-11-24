@@ -336,6 +336,9 @@ DECLAREFUNCTIONCB2(SSL_CTX_sess_set_remove_cb, void, SSL_CTX* arg1, void(arg2)(S
 DECLAREFUNCTIONCB2(
     SSL_CTX_sess_set_get_cb, void, SSL_CTX* arg1, SSL_SESSION*(arg2)(SSL*, const unsigned char*, int, int*))
 DECLAREFUNCTION1(X509_STORE_CTX_get0_untrusted, STACK_OF(X509) *, const X509_STORE_CTX*)
+DECLAREFUNCTION2(X509_STORE_CTX_get_ex_data, SSL*, const X509_STORE_CTX*, int)
+DECLAREFUNCTION0(SSL_get_ex_data_X509_STORE_CTX_idx, int)
+DECLAREFUNCTION1(X509_STORE_CTX_get0_chain, STACK_OF(X509)*, const X509_STORE_CTX*)
 DECLAREFUNCTION2(SSL_CTX_set_security_level, void, SSL_CTX*, int)
 DECLAREFUNCTION0(OPENSSL_init, void)
 DECLAREFUNCTION1(OPENSSL_sk_free, void, void*)

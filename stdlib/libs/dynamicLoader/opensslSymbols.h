@@ -87,6 +87,7 @@ bool LoadDynFuncForAlpnCallback(DynMsg* dynMsg);
 bool LoadFuncForNewSessionCallback(DynMsg* dynMsg);
 bool LoadDynFuncForCreateMethod(DynMsg* dynMsg);
 bool LoadDynFuncCertVerifyCallback(DynMsg* dynMsg);
+bool LoadDynFuncForCustomVerifyCallback(DynMsg* dynMsg);
 bool LoadDynForInfoCallback(DynMsg* dynMsg);
 
 void DynPopFree(void* extlist, char* funcName, DynMsg* dynMsg);
