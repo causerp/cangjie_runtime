@@ -15,6 +15,8 @@ enum class VersionType {
     MAJOR = 0,
     MINOR,
     PATCH,
+    PRE_RELEASE,
+    BUILD_METADATA,
     VERSION_TYPE_NUMBER
 };
 
@@ -22,6 +24,8 @@ struct SemanticVersionInfo {
     size_t major;
     size_t minor;
     size_t patch;
+    CString preRelease;
+    CString buildMetaData;
 
     SemanticVersionInfo() {}
     explicit SemanticVersionInfo(CString& version);
