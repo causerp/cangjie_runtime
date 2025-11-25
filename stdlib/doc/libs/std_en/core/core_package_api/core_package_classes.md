@@ -1401,7 +1401,7 @@ Return Value:
 ## class StackTraceElement
 
 ```cangjie
-public open class StackTraceElement {
+public open class StackTraceElement <: ToString {
     public let declaringClass: String
     public let methodName: String
     public let fileName: String
@@ -1411,6 +1411,10 @@ public open class StackTraceElement {
 ```
 
 Function: Represents detailed information about an exception stack trace, including the class name, method name, file name, and line number where the exception occurred.
+
+Parent Type:
+
+* [ToString](core_package_interfaces.md#interface-tostring)
 
 ### let declaringClass
 
@@ -1466,6 +1470,18 @@ Parameters:
 - methodName: [String](core_package_structs.md#struct-string) - The method name.
 - fileName: [String](core_package_structs.md#struct-string) - The file name.
 - lineNumber: [Int64](core_package_intrinsics.md#int64) - The line number.
+
+### func  toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Get the string representation of the [StackTraceElement](core_package_classes.md#class-stacktraceelement)  object.
+
+Return value:
+
+- [String](core_package_structs.md#struct-string) - The converted string.
 
 ## class StringBuilder
 
@@ -1826,6 +1842,86 @@ Handler parameters:
 Parameters:
 - exHandler: ([Thread](core_package_classes.md#class-thread), [Exception](core_package_exceptions.md#class-exception)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
 
+## class Thread
+
+```cangjie
+public class Thread
+```
+
+Function: Get thread ID and name, check if there is a cancellation request for the thread, register handler functions for unhandled exceptions in threads, etc.
+
+Instances of this type cannot be obtained through construction, but can only be obtained through the `thread` property of [Future](core_package_classes.md#class-futuret) objects or the `currentThread` static property of the [Thread](core_package_classes.md#class-thread) class.
+
+### static prop currentThread
+
+```cangjie
+public static prop currentThread: Thread
+```
+
+Function: Get the [Thread](core_package_classes.md#class-thread) object of the currently executing thread.
+
+Type: [Thread](core_package_classes.md#class-thread)
+
+### prop hasPendingCancellation
+
+```cangjie
+public prop hasPendingCancellation: Bool
+```
+
+Function: Whether the thread has a cancellation request, that is, whether a cancellation request has been sent through future.cancel(). Commonly used by [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
+
+Type: [Bool](core_package_intrinsics.md#bool)
+
+### prop id
+
+```cangjie
+public prop id: Int64
+```
+
+Function: Get the identifier of the currently executing thread, represented by [Int64](core_package_intrinsics.md#int64). All living threads have different identifiers, but it is not guaranteed that the identifier will be reused after the thread execution ends.
+
+Type: [Int64](core_package_intrinsics.md#int64)
+
+### prop name
+
+```cangjie
+public mut prop name: String
+```
+
+Function: Get or set the name of the thread. Both getting and setting are atomic.
+
+Type: [String](core_package_structs.md#struct-string)
+
+### prop state
+
+```cangjie
+public prop state: ThreadState
+```
+
+Function: Get the state of the thread.
+
+Type: [ThreadState](core_package_enums.md#enum-threadstate)
+
+### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
+
+```cangjie
+public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit
+```
+
+Function: Register a handler function for uncaught exceptions in threads.
+
+When a thread terminates prematurely due to an exception, if the global uncaught exception function is registered, the function will be called and the thread will end. When an exception is thrown in the function, a prompt message will be printed to the terminal and the thread will end, but the exception call stack information will not be printed; if the global exception handler function is not registered, the default will print the exception call stack information to the terminal.
+
+When registering handler functions multiple times, subsequent registration functions will overwrite the previous handler functions.
+
+When multiple threads terminate due to exceptions at the same time, the handler functions will be executed concurrently, so developers need to ensure concurrency correctness in the handler functions.
+
+The first parameter of the handler function is of type [Thread](core_package_classes.md#class-thread), which is the thread where the exception occurred. The second parameter is of type [Exception](core_package_exceptions.md#class-exception), which is the unhandled exception of the thread.
+
+Parameters:
+
+- exHandler: ([Thread](core_package_classes.md#class-thread), [Exception](core_package_exceptions.md#class-exception)) -> [Unit](core_package_intrinsics.md#unit) - The registered handler function.
+
 ## class ThreadLocal\<T>
 
 ```cangjie
@@ -1857,3 +1953,165 @@ Function: Sets the value of the Cangjie thread-local variable. If `None` is pass
 
 Parameters:
 - value: ?T - The value to set for the thread-local variable.
+
+## class ThreadSnapshot
+
+```cangjie
+public class ThreadSnapshot <: ToString {
+    public let id: Int64
+    public let name: String
+    public let stackTrace: Array<StackTraceElement>
+    public let state: ThreadState
+    public static func dumpAllThreads(): Array<ThreadSnapshot>
+    public static func dumpCurrentThread(): ThreadSnapshot
+    public func toString(): String
+}
+```
+
+Function: Get information of the current thread or all threads, including name, id, state, and call stack.
+
+Instances of this type cannot be obtained through construction, but only through the [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread) and [dumpAllThreads](core_package_classes.md#func-dumpallthreads) static functions of the [class ThreadSnapshot ](core_package_classes.md#class-threadsnapshot) class.
+
+Parent type:
+
+* [ToString](core_package_interfaces.md#interface-tostring)
+
+### let id
+
+```cangjie
+public let id: Int64
+```
+
+Function: Get the id of the thread.
+
+Type: [Int64](core_package_intrinsics.md#int64)
+
+### let name
+
+```cangjie
+public let name: String
+```
+
+Function: Get the name of the thread.
+
+Type: [String](core_package_structs.md#struct-string)
+
+### let stackTrace
+
+```cangjie
+public let stackTrace: Array<StackTraceElement>
+```
+
+Function: Get the call stack information of the thread.
+
+Type: [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)>
+
+### let state
+
+```cangjie
+public let state: ThreadState
+```
+
+Function: Get the state of the thread.
+
+Type: [ThreadState](core_package_enums.md#enum-threadstate)
+
+### func dumpAllThreads()
+
+```cangjie
+public static func dumpAllThreads(): Array<ThreadSnapshot>
+```
+
+Function: Get information of all threads in the current process.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Return an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information of all threads in the current process.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Unit {
+    /* Create a thread */
+    let future =spawn {
+        while(true) {
+            sleep(1 * Duration.second)
+            if (Thread.currentThread.hasPendingCancellation){
+                return
+            }
+        }
+    }
+    /* Get information of all threads */
+    let threadInfoArray: Array<ThreadSnapshot> = ThreadSnapshot.dumpAllThreads()
+    /* Loop print thread information */
+    let size = threadInfoArray.size
+    for (i in 0..size) {
+        let threadInfoData = threadInfoArray[i]
+        println(threadInfoData)
+    }
+}
+```
+
+Running result:
+
+```text
+ThreadSnapshot(id=1, name=, state=Running)
+stack trace:
+         at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:176)
+         at default.test4()(hello.cj:46)
+         at default.main()(hello.cj:146)
+ThreadSnapshot(id=2, name=, state=Pending)
+stack trace:
+         at std.core.sleep(std.core::Duration)(sleep.cj:36)
+         at default.test6::lambda.0()(hello.cj:66)
+         at std.core.Future<...>::execute()(future.cj:161)
+```
+
+### func dumpCurrentThread()
+
+```cangjie
+public static func dumpCurrentThread(): ThreadSnapshot
+```
+
+Function: Get information of the current thread.
+
+Return value:
+
+- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Return a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information of the current thread.
+
+Example:
+
+<!-- verify -->
+
+```cangjie
+main(): Unit {
+    /* Get current thread information */
+    let threadInfo: ThreadSnapshot = ThreadSnapshot.dumpCurrentThread()
+    /* Print information */
+    println(threadInfo)
+}
+```
+
+Running result:
+
+```text
+ThreadSnapshot(id=1, name=, state=Running)
+stack trace:
+         at std.core.ThreadSnapshot::dumpAllThreads()(thread.cj:161)
+         at default.test6()(hello.cj:74)
+         at default.main()(hello.cj:148)
+```
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Get the string representation of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object.
+
+Return value:
+
+- [String](core_package_structs.md#struct-string) - The converted string.
