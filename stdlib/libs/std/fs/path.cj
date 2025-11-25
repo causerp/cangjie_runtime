@@ -16,7 +16,7 @@ package std.fs
 public func canonicalize(path: String): Path {
     Path(path).checkPath()
     if (!exists(path)) {
-        throw FSException("Failed to canonical: the path may not exist or permission denied!")
+        throw FSException("Failed to canonical: the path `${path}` may not exist or permission denied!")
     }
     return Path(processPathHeader(path, Path.canonicalizePath(path)))
 }
@@ -25,7 +25,7 @@ public func canonicalize(path: Path): Path {
     path.checkPath()
     let rawPath = path.toString()
     if (!exists(rawPath)) {
-        throw FSException("Failed to canonical: the path may not exist or permission denied!")
+        throw FSException("Failed to canonical: the path `${path}` may not exist or permission denied!")
     }
     return Path(processPathHeader(rawPath, Path.canonicalizePath(rawPath)))
 }
@@ -133,7 +133,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
         }
         let specialPrefix = #"\??\"#
         if (path.contains(specialPrefix)) {
-            throw IllegalArgumentException("Path cannot contain `${specialPrefix}`!")
+            throw IllegalArgumentException("Path `${path}` cannot contain `${specialPrefix}`!")
         }
     }
 
@@ -143,7 +143,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
      */
     public func join(path: String): Path {
         if (path.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The `path` cannot contain null character!")
+            throw IllegalArgumentException("The path value ${unsafe { path.rawData() }} contains null character.")
         }
         checkPath()
         if (path.isEmpty()) {
@@ -153,7 +153,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
             return Path(String.join([_rawPath, SLASH_STRING]))
         }
         if (isAbsolutePath(path)) {
-            throw FSException("The `path` cannot be an absolute path!")
+            throw FSException("The path `${path}` cannot be an absolute path!")
         }
         var newPath = if (isSlash(_rawPath[_rawPath.size - 1])) {
             String.join([_rawPath, path])
@@ -345,7 +345,7 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
             if (availLen <= 0) {
                 try {
                     let errMessage = result.msg.toString()
-                    throw FSException("Failed to canonical: \"${errMessage.trimAscii()}\".")
+                    throw FSException("Failed to canonical path `${pathStr}`: \"${errMessage.trimAscii()}\".")
                 } finally {
                     LibC.free(result.msg)
                 }
@@ -356,10 +356,10 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
 
     func checkPath(): Unit {
         if (_rawPath.isEmpty()) {
-            throw IllegalArgumentException("The `rawPath` cannot be an empty string!")
+            throw IllegalArgumentException("The rawPath is an empty string.")
         }
         if (_rawPath.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The `rawPath` cannot contain null character!")
+            throw IllegalArgumentException("The rawPath value ${unsafe { _rawPath.rawData() }} contains null character.")
         }
     }
 }
