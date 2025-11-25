@@ -129,13 +129,13 @@ bool TypeInfoManager::GenericTiDesc::operator==(const GenericTiDesc &other) cons
         TypeInfo* ti = argsVector[idx];
         TypeInfo* otherTi = other.args[idx];
         U32 tiUUID = ti->GetUUID();
-        if (ti->IsInitialUUID()) {    // dead code?
+        if (ti->IsInitialUUID()) {
             TypeInfoManager::GetInstance()->AddTypeInfo(ti);
             tiUUID = ti->GetUUID();
         }
 
         U32 otherTiUUID = otherTi->GetUUID();
-        if (otherTi->IsInitialUUID()) {    // dead code?
+        if (otherTi->IsInitialUUID()) {
             TypeInfoManager::GetInstance()->AddTypeInfo(otherTi);
             otherTiUUID = otherTi->GetUUID();
         }
