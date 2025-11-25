@@ -92,6 +92,9 @@ libs/std/ast/nodeformat_generated.cj
 libs/std/ast/table.cj
 libs/std/ast/flatbuffer_object.cj
 libs/std/ast/decode.cj
+libs/std/ast/builder.cj
+libs/std/ast/constants.cj
+libs/std/ast/flatc_exception.cj
 
 libs/encoding/json/native/*.a
 libs/encoding/json/native/json_api.h
