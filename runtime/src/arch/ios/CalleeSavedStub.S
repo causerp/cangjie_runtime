@@ -245,6 +245,18 @@ _CJ_MCC_DecodeStackTrace:
 
     .text
     .align 2
+    .global _CJ_MCC_GetAllThreadSnapshot
+_CJ_MCC_GetAllThreadSnapshot:
+    CalleeSavedRegistersStub MCC_GetAllThreadSnapshotImpl
+
+    .text
+    .align 2
+    .global _CJ_MCC_GetCurrentThreadSnapshot
+_CJ_MCC_GetCurrentThreadSnapshot:
+    CalleeSavedRegistersStub MCC_GetCurrentThreadSnapshotImpl
+
+    .text
+    .align 2
     .global _CJ_SchedulePreemptCheckStub
 _CJ_SchedulePreemptCheckStub:
     CalleeSavedRegistersStub CJ_SchedulePreemptCheck

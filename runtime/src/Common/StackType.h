@@ -87,6 +87,14 @@ struct StackTraceData {
     int64_t lineNumber;
 };
 
+// Thread snapshot structure used to return data of the arrayRef type to cangjie code.
+struct ThreadSnapshot {
+    ArrayRef name;
+    int64_t id;
+    ArrayRef stackTrace;
+    int64_t state;
+};
+
 class FrameInfo;
 
 // Minimal stack information data structure, used for fast stack back,
@@ -261,6 +269,8 @@ public:
 #endif
 
     const CString GetFuncName() const;
+    const CString GetMethodName() const;
+    const CString GetPackClassName() const;
     const CString GetFileName() const;
     const CString GetFileNameForTrace() const;
     uint32_t GetLineNum() const;

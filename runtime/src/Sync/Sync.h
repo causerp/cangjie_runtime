@@ -103,6 +103,7 @@ void* MRT_GetCurrentCJThreadObject();
 void MCC_SetCurrentCJThreadObject(void* ptr);
 void MRT_SetCJThreadName(void* handle, uint8_t* name, size_t len);
 int64_t MRT_GetCJThreadId(void* handle);
+int64_t MRT_GetCJThreadState(void* handle);
 void* MRT_GetCurrentCJThread();
 void MRT_ThreadWait();
 void MRT_ThreadResumeAndWait(void* handle);

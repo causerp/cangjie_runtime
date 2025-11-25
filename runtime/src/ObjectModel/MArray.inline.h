@@ -95,12 +95,12 @@ static inline MIndex CalculateArraySize(MIndex nElems, const U32 elemBytes)
     return static_cast<MIndex>(totalSize);
 }
 
-inline MArray* MArray::NewArray(MIndex nElems, TypeInfo& arrayClass)
+inline MArray* MArray::NewArray(MIndex nElems, TypeInfo& arrayClass, AllocType allocType)
 {
     DCHECK_D(arrayClass.IsArrayType(), "Expect an array type");
     MArray* newArray = nullptr;
     if (arrayClass.GetComponentTypeInfo()->IsObjectType()) {
-        newArray = NewRefArray(nElems, arrayClass);
+        newArray = NewRefArray(nElems, arrayClass, allocType);
     } else {
         // component is value type
         auto elem = arrayClass.GetSuperTypeInfo();
@@ -108,7 +108,7 @@ inline MArray* MArray::NewArray(MIndex nElems, TypeInfo& arrayClass)
         if (!elem->IsRef()) {
             elemBits = arrayClass.GetSuperTypeInfo()->GetComponentSize();
         }
-        newArray = NewKnownWidthArray(nElems, arrayClass, elemBits);
+        newArray = NewKnownWidthArray(nElems, arrayClass, elemBits, allocType);
     }
     return newArray;
 }

@@ -35,7 +35,8 @@ public:
     static inline GCTib GetGCInfo(const TypeInfo* ti);
 
     // general (slow) interface for array creation
-    static inline ArrayRef NewArray(MIndex nElems, const TypeInfo* arrayTi);
+    static inline ArrayRef NewArray(MIndex nElems, const TypeInfo* arrayTi,
+                                    AllocType allocType = AllocType::MOVEABLE_OBJECT);
 
     // create object array: it needs special care.
     static inline ArrayRef NewObjArray(MIndex nElems, const TypeInfo* arrayTi,
