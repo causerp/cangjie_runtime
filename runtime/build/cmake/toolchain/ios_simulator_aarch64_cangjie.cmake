@@ -7,7 +7,7 @@
 # toolchain for linux12_x86_64
 
 # Platform
-set(PLATFORM_NAME "ios_simulator_cangjie")
+set(PLATFORM_NAME "ios_simulator_aarch64_cangjie")
 
 # Environment info
 set(OS "ios")

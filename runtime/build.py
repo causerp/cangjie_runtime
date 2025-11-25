@@ -76,7 +76,7 @@ def do_build(args):
     if target_args in ('native'):
         target_arch = host_arch
     elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'ohos-arm', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
-                         'ios-aarch64', 'ios-simulator-aarch64'):
+                         'ios-aarch64', 'ios-simulator-aarch64', 'ios-simulator-x86_64'):
         target_arch = target_args.rsplit('-', 1)[1]
     else:
         target_arch = None
@@ -252,13 +252,21 @@ def do_build(args):
         ]
         build_target(cmake_command)
 
-    elif target_args in ["ios-aarch64", "ios-simulator-aarch64"]:
+    elif target_args in ["ios-aarch64", "ios-simulator-aarch64", "ios-simulator-x86_64"]:
         if args.target_toolchain == None:
             print("Please configure ios toolchain, for example '/root/workspace/ios_dep_files/'")
             sys.exit(1)
         os.environ["PATH"] = os.path.join(args.target_toolchain, "bin") + ":" + os.environ["PATH"]
         ios_flag = "1" if target_args == "ios-aarch64" else "0"
-        ios_simulator_flag = "1" if target_args == "ios-simulator-aarch64" else "0"
+        if target_args == "ios-simulator-aarch64":
+            target_arch = "aarch64"
+            ios_simulator_flag = "1"
+        elif target_args == "ios-simulator-x86_64":
+            target_arch = "x86_64"
+            ios_simulator_flag = "2"
+        else:
+            ios_simulator_flag = "0"
+
         cmake_command = [
             "cmake",
             "-DCMAKE_INSTALL_PREFIX={}_{}".format(install_prefix, target_arch),
@@ -284,7 +292,7 @@ def do_build(args):
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               ohos-arm, android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64")
+               ohos-arm, android-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64, ios-simulator-x86_64")
         sys.exit(1)
 
 def build_target(cmake_command):
@@ -333,7 +341,7 @@ if __name__ == "__main__":
     b.set_defaults(func=do_build)
     b.add_argument(
         "--target",
-        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ohos-arm", "ios-simulator-aarch64", "ios-aarch64", "android-aarch64", "android-x86_64"],
+        choices=["native", "windows-x86_64", "ohos-aarch64", "ohos-x86_64", "ohos-arm", "ios-simulator-aarch64", "ios-simulator-x86_64", "ios-aarch64", "android-aarch64", "android-x86_64"],
         metavar="TARGET",
         default="native",
         help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-arm, ohos-x86_64"
