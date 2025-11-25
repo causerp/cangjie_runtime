@@ -12,7 +12,7 @@ Parameters:
 
 - i: [BigInt](math_numeric_package_structs.md#struct-bigint) - The [BigInt](math_numeric_package_structs.md#struct-bigint) whose absolute value is to be calculated.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the absolute value of the input [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -46,7 +46,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) whose absolute value is to be calculated.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns the absolute value of the input [Decimal](math_numeric_package_structs.md#struct-decimal).
 
@@ -84,7 +84,7 @@ Parameters:
 
 - i: [BigInt](math_numeric_package_structs.md#struct-bigint) - The [BigInt](math_numeric_package_structs.md#struct-bigint) whose number of 1's in two's complement is to be counted.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of 1's in the two's complement binary representation of the input [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -100,7 +100,7 @@ Parameters:
 
 - i: [BigInt](math_numeric_package_structs.md#struct-bigint) - The [BigInt](math_numeric_package_structs.md#struct-bigint) structure whose number of 1's in two's complement is to be counted.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of 1's in the two's complement binary representation of the input [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -135,7 +135,7 @@ Parameters:
 - i1: [BigInt](math_numeric_package_structs.md#struct-bigint) - The first input parameter for GCD calculation.
 - i2: [BigInt](math_numeric_package_structs.md#struct-bigint) - The second input parameter for GCD calculation.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the GCD of `i1` and `i2`, always a non-negative value.
 
@@ -171,7 +171,7 @@ Parameters:
 - i1: [BigInt](math_numeric_package_structs.md#struct-bigint) - The first input parameter for LCM calculation.
 - i2: [BigInt](math_numeric_package_structs.md#struct-bigint) - The second input parameter for LCM calculation.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the LCM of `i1` and `i2`. Returns 0 if either input is 0; otherwise always returns a positive value (equivalent to the LCM of absolute values).
 
@@ -207,7 +207,7 @@ Parameters:
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) value to be rounded.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - The rounding rule.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns a new [Decimal](math_numeric_package_structs.md#struct-decimal) object resulting from the rounding operation.
 
@@ -227,7 +227,7 @@ Parameters:
 
 - i: [BigInt](math_numeric_package_structs.md#struct-bigint) - The non-negative [BigInt](math_numeric_package_structs.md#struct-bigint) whose square root is to be calculated.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the integer square root (floor value) of the input [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -265,7 +265,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The non-negative [Decimal](math_numeric_package_structs.md#struct-decimal) whose square root is to be calculated.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns the square root of the input [Decimal](math_numeric_package_structs.md#struct-decimal).
 
@@ -304,7 +304,7 @@ Parameters:
 
 - x: [BigInt](math_numeric_package_structs.md#struct-bigint) - The [BigInt](math_numeric_package_structs.md#struct-bigint) for which to count trailing zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zero bits.
 

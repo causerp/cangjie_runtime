@@ -10,7 +10,7 @@ public class BufferedInputStream<T> <: InputStream where T <: InputStream {
 }
 ```
 
-Functionality: Provides a buffered input stream.
+Function: Provides a buffered input stream.
 
 Can bind other [InputStream](io_package_interfaces.md#interface-inputstream) type input streams (such as [ByteBuffer](io_package_classes.md#class-bytebuffer)) to a [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) instance. When reading data from this instance, data is first read from the bound stream into a buffer for temporary storage, then read from the buffer as needed by the user.
 
@@ -24,7 +24,7 @@ Parent Type:
 public init(input: T)
 ```
 
-Functionality: Creates a [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) instance with default buffer capacity of 4096.
+Function: Creates a [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) instance with default buffer capacity of 4096.
 
 Parameters:
 
@@ -62,7 +62,7 @@ Hello World
 public init(input: T, buffer: Array<Byte>)
 ```
 
-Functionality: Creates a [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) instance.
+Function: Creates a [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) instance.
 
 The internal buffer used is determined by the input parameter. In performance-critical scenarios, reusing the passed `buffer` can reduce memory allocation frequency and improve performance.
 
@@ -138,7 +138,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer to store the read data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes read.
 
@@ -197,7 +197,7 @@ public func readByte(): ?Byte
 
 Function: Reads a single byte from the input stream.
 
-Return Value:
+Returns:
 - ?[Byte](../../core/core_package_api/core_package_types.md#type-byte) - The read data. Returns `None` if the read operation fails.
 
 Example:
@@ -331,7 +331,7 @@ public func isClosed(): Bool
 
 Function: Checks whether the current stream is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current stream has been closed, otherwise returns `false`.
 
@@ -453,7 +453,7 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the position to move the cursor to.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset from the start of the stream data to the new position (in bytes).
 
@@ -896,7 +896,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the current stream is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current stream is closed, otherwise returns `false`.
 
@@ -1019,7 +1019,7 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the target position after cursor movement.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset (in bytes) from the start of the stream data to the new cursor position.
 
@@ -1103,7 +1103,7 @@ public class ByteBuffer <: IOStream & Seekable {
 }
 ```
 
-Functionality: Based on the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> data type, provides operations for reading and writing byte streams.
+Function: Based on the [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> data type, provides operations for reading and writing byte streams.
 
 Parent Types:
 
@@ -1116,9 +1116,9 @@ Parent Types:
 public prop capacity: Int64
 ```
 
-Functionality: Gets the current buffer capacity.
+Function: Gets the current buffer capacity.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The current buffer capacity.
 
@@ -1128,7 +1128,7 @@ Return Value:
 public init()
 ```
 
-Functionality: Creates a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance with a default initial capacity of 32.
+Function: Creates a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance with a default initial capacity of 32.
 
 Example:
 
@@ -1154,7 +1154,7 @@ Execution Result:
 public init(source: Array<Byte>)
 ```
 
-Functionality: Constructs a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance from the provided array.
+Function: Constructs a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance from the provided array.
 
 Parameters:
 
@@ -1189,7 +1189,7 @@ Hello World
 public init(capacity: Int64)
 ```
 
-Functionality: Creates a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance.
+Function: Creates a [ByteBuffer](io_package_classes.md#class-bytebuffer) instance.
 
 Parameters:
 
@@ -1236,7 +1236,7 @@ Function: Gets a slice of the unread data in the current [ByteBuffer](io_package
 > - Modifying operations on the buffer such as reading, writing, or resetting will invalidate this slice.
 > - Modifications to the slice will affect the buffer's content.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - A slice of the unread data in the current stream.
 
@@ -1309,7 +1309,7 @@ public func clone(): ByteBuffer
 
 Function: Constructs a new [ByteBuffer](io_package_classes.md#class-bytebuffer) using the data from the current [ByteBuffer](io_package_classes.md#class-bytebuffer).
 
-Return Value:
+Returns:
 
 - [ByteBuffer](io_package_classes.md#class-bytebuffer) - The newly constructed [ByteBuffer](io_package_classes.md#class-bytebuffer) object.
 
@@ -1358,7 +1358,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the read data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes read.
 
@@ -1406,7 +1406,7 @@ public func readByte(): ?Byte
 
 Function: Reads one byte from the input stream.
 
-Return value:
+Returns:
 
 - ?[Byte](../../core/core_package_api/core_package_types.md#type-byte) - The read data. Returns `None` if reading fails.
 
@@ -1525,7 +1525,7 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the position after the cursor jump.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The offset in bytes from the start of the data in the stream to the new position after the jump.
 
@@ -1739,7 +1739,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing the read data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes read.
 
@@ -1865,7 +1865,7 @@ Equivalent to repeatedly calling `func readln()`, and internally throws an excep
 > - Line terminators can be `\n`, `\r`, or `\r\n`.
 > - Each line does not include the line terminator.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - A line iterator for strings.
 
@@ -1881,7 +1881,7 @@ public func read(): ?Rune
 
 Function: Reads data from the stream character by character.
 
-Return Value:
+Returns:
 
 - ?[Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) - If the read is successful, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune)>.Some(c), where c is the character read; otherwise, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune)>.None.
 
@@ -1897,7 +1897,7 @@ public func readToEnd(): String
 
 Function: Reads all remaining data from the stream.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - All remaining data in the stream.
 
@@ -1917,7 +1917,7 @@ Parameters:
 
 - predicate: ([Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune))->Bool - An expression that returns `true` when a certain condition is met.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - If successful, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str), where str is the read string; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None.
 
@@ -1937,7 +1937,7 @@ Parameters:
 
 - v: [Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) - The specified character.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - If successful, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str), where str is the read string; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None.
 
@@ -1957,7 +1957,7 @@ Function: Reads data from the stream line by line.
 >
 > - The read data will have the original line break characters removed.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - If successful, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str), where str is the read string; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None.
 
@@ -1973,7 +1973,7 @@ public func runes(): Iterator<Rune>
 
 Function: Obtains a [Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) iterator for the [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream).
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune)> - A [Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) iterator for the string.
 
@@ -2013,7 +2013,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the current stream is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current stream has been closed, otherwise returns `false`.
 
@@ -2056,7 +2056,7 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the position to which the cursor will be moved.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset (in bytes) from the start of the stream data to the new cursor position.
 
@@ -2493,7 +2493,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the current stream is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current stream has been closed, otherwise returns `false`.
 
@@ -2526,7 +2526,7 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the position to which the cursor will be moved.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset (in bytes) from the start of the stream data to the new cursor position.
 

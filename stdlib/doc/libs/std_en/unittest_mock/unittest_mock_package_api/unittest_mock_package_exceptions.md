@@ -61,7 +61,7 @@ Parameters:
 
 - to: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - A printer that adds color and indentation.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - A printer with added color and indentation.
 

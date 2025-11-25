@@ -187,7 +187,7 @@ Function: Determines whether the current user has permission to execute the file
 - On Windows, execute permission for files is determined by the file extension; users always have execute permission for directories, and this function returns true without effect.
 - On Linux and macOS, this function works as expected.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates permission; false indicates no permission.
 
@@ -208,7 +208,7 @@ Function: Determines whether the current user has permission to read the file co
 - On Windows, users always have read permission for files and directories, and this function returns true without effect.
 - On Linux and macOS, this function works as expected.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates permission; false indicates no permission.
 
@@ -229,7 +229,7 @@ Function: Determines whether the current user has permission to write to the fil
 - On Windows, write permission for files works as expected; users always have write permission for directories, and this function returns true without effect.
 - On Linux and macOS, this function works as expected.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates permission; false indicates no permission.
 
@@ -245,7 +245,7 @@ public func isDirectory(): Bool
 
 Function: Determines whether the current file is a directory.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates a directory; false indicates not a directory.
 
@@ -261,7 +261,7 @@ public func isRegular(): Bool
 
 Function: Determines whether the current file is a regular file.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates a file; false indicates not a file.
 
@@ -277,7 +277,7 @@ public func isHidden(): Bool
 
 Function: Determines whether the current file is hidden.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates hidden; false indicates not hidden.
 
@@ -292,7 +292,7 @@ Function: Determines whether the current file is read-only.
 - On Windows, read-only permission for files works as expected; users always have delete/modify permission for directories, and this function returns false without effect.
 - On Linux and macOS, this function works as expected.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates read-only; false indicates not read-only.
 
@@ -308,7 +308,7 @@ public func isSymbolicLink(): Bool
 
 Function: Determines whether the current file is a symbolic link.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates a symbolic link; false indicates not a symbolic link.
 
@@ -333,7 +333,7 @@ Parameters:
 
 - executable: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to set as executable.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates success; false indicates failure.
 
@@ -354,7 +354,7 @@ Parameters:
 
 - readable: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to set as readable.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates success; false indicates failure.
 
@@ -375,7 +375,7 @@ Parameters:
 
 - writable: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to set as writable.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates success; false indicates failure.
 
@@ -391,7 +391,7 @@ Parameters:
 
 - that: [FileInfo](fs_package_structs.md#struct-fileinfo) - Another [FileInfo](fs_package_structs.md#struct-fileinfo).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true indicates the same file; false indicates different files.
 
@@ -588,7 +588,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of the [Path](fs_package_structs.md#struct-path).
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the [Path](fs_package_structs.md#struct-path).
 
@@ -600,7 +600,7 @@ public func isAbsolute(): Bool
 
 Function: Determines whether the [Path](fs_package_structs.md#struct-path) is absolute. On Unix systems, paths starting with `/` are absolute.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true if absolute; false otherwise.
 
@@ -616,7 +616,7 @@ public func isEmpty(): Bool
 
 Function: Determines whether the current instance is an empty path.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the current instance is an empty path; otherwise, false.
 
@@ -628,7 +628,7 @@ public func isRelative(): Bool
 
 Function: Determines whether the [Path](fs_package_structs.md#struct-path) is relative. The result is opposite to [isAbsolute](fs_package_structs.md#func-isAbsolute).
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true if relative; false otherwise.
 
@@ -651,7 +651,7 @@ Parameters:
 
 - path: [Path](fs_package_structs.md#struct-path) - Another [Path](fs_package_structs.md#struct-path).
 
-Return value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - A new [Path](fs_package_structs.md#struct-path) instance.
 
@@ -675,7 +675,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Another path string.
 
-Return value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - A new [Path](fs_package_structs.md#struct-path) instance.
 
@@ -704,7 +704,7 @@ Normalization rules:
 
 Windows-specific: Volume names only undergo separator conversion (/ to \\).
 
-Return value:
+Returns:
 
 - [Path](./fs_package_structs.md#struct-path) - Normalized [Path](./fs_package_structs.md#struct-path) instance.
 
@@ -716,7 +716,7 @@ public func toString(): String
 
 Function: Gets the path string of the [Path](fs_package_structs.md#struct-path).
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string of the [Path](fs_package_structs.md#struct-path).
 
@@ -734,6 +734,6 @@ Parameters:
 
 - that: [Path](fs_package_structs.md#struct-path) - Another [Path](fs_package_structs.md#struct-path).
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true if paths are identical; false otherwise.

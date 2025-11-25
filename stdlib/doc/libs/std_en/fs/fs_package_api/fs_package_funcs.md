@@ -14,7 +14,7 @@ Parameters:
 
 - path: [Path](./fs_package_structs.md#struct-path) - The [Path](fs_package_structs.md#struct-path) instance to be canonicalized.
 
-Return value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - The canonicalized [Path](fs_package_structs.md#struct-path) instance.
 
@@ -37,7 +37,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string to be canonicalized.
 
-Return value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - The canonicalized [Path](fs_package_structs.md#struct-path) instance.
 
@@ -100,7 +100,7 @@ Parameters:
 
 - path: [Path](./fs_package_structs.md#struct-path) - The target path to be checked.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the target path exists.
 
@@ -120,7 +120,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The target path to be checked.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the target path exists.
 
@@ -227,7 +227,7 @@ Parameters:
 - path: [Path](./fs_package_structs.md#struct-path) - The target path.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively delete the directory, default value is `false`.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the target path exists.
 
@@ -249,7 +249,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The target path.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively delete the directory, default value is `false`.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the target path exists.
 

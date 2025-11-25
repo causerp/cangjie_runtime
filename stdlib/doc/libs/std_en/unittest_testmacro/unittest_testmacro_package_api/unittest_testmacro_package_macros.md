@@ -304,7 +304,7 @@ Function: The `@Parallel` macro can decorate a test class. Test cases in a class
 3. The test cases to be parallelized should themselves be time-consuming. Otherwise, the overhead of multiple `beforeAll()` and `afterAll()` calls introduced by parallelization may exceed the benefits of parallelization.
 4. Concurrent use## `@Test` Macro
 
-Functionality: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
+Function: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
 
 If applied to a top-level function, it creates a new class containing a single test case for framework use, while the function remains callable as a normal function.
 
@@ -321,11 +321,11 @@ Users of the unit testing framework should not modify these fields, as it may le
 
 ## `@TestBuilder` Macro
 
-Functionality: Declares a [dynamic test suite](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests).
+Function: Declares a [dynamic test suite](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests).
 
 ## `@TestCase` Macro
 
-Functionality: The `@TestCase` macro marks functions within a unit test class as test cases for unit testing.
+Function: The `@TestCase` macro marks functions within a unit test class as test cases for unit testing.
 
 Functions marked with `@TestCase` must satisfy the following conditions:
 
@@ -378,11 +378,11 @@ The `random()` function supports the following types by default:
 
 ## `@TestTemplate` Macro
 
-Functionality: The `@TestTemplate` macro marks an abstract class as a [test template](../../unittest/unittest_samples/unittest_test_templates.md).
+Function: The `@TestTemplate` macro marks an abstract class as a [test template](../../unittest/unittest_samples/unittest_test_templates.md).
 
 ## `@Timeout` Macro
 
-Functionality: The `@Timeout` macro specifies that a test should terminate after a given duration. It is useful for testing complex algorithms that may run for extended periods or enter infinite loops.
+Function: The `@Timeout` macro specifies that a test should terminate after a given duration. It is useful for testing complex algorithms that may run for extended periods or enter infinite loops.
 
 Syntax: `@Timeout[expr]`
 
@@ -391,7 +391,7 @@ When applied to a test class, it sets the timeout for each corresponding test ca
 
 ## `@Types` Macro
 
-Functionality: The `@Types` macro provides type parameters for test classes or test functions. It can be placed on test classes or test functions.
+Function: The `@Types` macro provides type parameters for test classes or test functions. It can be placed on test classes or test functions.
 
 Syntax: `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`  
 Here, `Id1`, `Id2`, etc., are valid type parameter identifiers, and `Type1`, `Type2`, etc., are valid Cangjie types.

@@ -24,7 +24,7 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
 }
 ```
 
-Functionality: [BigInt](math_numeric_package_structs.md#struct-bigint) is defined as an arbitrary-precision (binary) signed integer. The Cangjie struct [BigInt](math_numeric_package_structs.md#struct-bigint) is used for arbitrary-precision signed integer calculations, type conversions, etc.
+Function: [BigInt](math_numeric_package_structs.md#struct-bigint) is defined as an arbitrary-precision (binary) signed integer. The Cangjie struct [BigInt](math_numeric_package_structs.md#struct-bigint) is used for arbitrary-precision signed integer calculations, type conversions, etc.
 
 Parent Types:
 
@@ -38,7 +38,7 @@ Parent Types:
 public prop bitLen: Int64
 ```
 
-Functionality: Gets the minimum bit length of this [BigInt](math_numeric_package_structs.md#struct-bigint). For example, -3 (101) returns 3, -1 (11) returns 2, and 0 (0) returns 1.
+Function: Gets the minimum bit length of this [BigInt](math_numeric_package_structs.md#struct-bigint). For example, -3 (101) returns 3, -1 (11) returns 2, and 0 (0) returns 1.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -76,7 +76,7 @@ Execution Result:
 public prop sign: Int64
 ```
 
-Functionality: Gets the sign of this [BigInt](math_numeric_package_structs.md#struct-bigint). Returns 1 for positive numbers, 0 for zero, and -1 for negative numbers.
+Function: Gets the sign of this [BigInt](math_numeric_package_structs.md#struct-bigint). Returns 1 for positive numbers, 0 for zero, and -1 for negative numbers.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -114,7 +114,7 @@ Execution Result:
 public init(bytes: Array<Byte>)
 ```
 
-Functionality: Constructs a [BigInt](math_numeric_package_structs.md#struct-bigint) struct using a big-endian [Byte](../../core/core_package_api/core_package_types.md#type-byte) array in two's complement form.
+Function: Constructs a [BigInt](math_numeric_package_structs.md#struct-bigint) struct using a big-endian [Byte](../../core/core_package_api/core_package_types.md#type-byte) array in two's complement form.
 
 > **Note:**
 >
@@ -698,7 +698,7 @@ Parameters:
 - certainty: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of times the generated random prime must pass the Miller-Rabin primality test. The more times it passes, the lower the probability of incorrectly identifying a composite number as prime.
 - rand!: [Random](../../random/random_package_api/random_package_classes.md#class-random) - The specified random seed.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the generated random prime number.
 
@@ -729,7 +729,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the bit position to be set. `index` must be greater than or equal to 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) resulting from setting the bit at `index` of the original [BigInt](math_numeric_package_structs.md#struct-bigint) to 0.
 
@@ -765,7 +765,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
-Return Value:
+Returns:
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - Returns the relationship between this [BigInt](math_numeric_package_structs.md#struct-bigint) and another [BigInt](math_numeric_package_structs.md#struct-bigint). If equal, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ; if less than, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT; if greater than, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT.
 
@@ -813,7 +813,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. The divisor must not be 0.
 
-Return Value:
+Returns:
 
 - ([BigInt](math_numeric_package_structs.md#struct-bigint), [BigInt](math_numeric_package_structs.md#struct-bigint)) - The quotient and modulus.
 
@@ -854,7 +854,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the bit position to flip. `index` must be greater than or equal to 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) resulting from flipping the bit at `index` of the original [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -888,7 +888,7 @@ public func hashCode(): Int64
 
 Function: Computes and returns the hash code of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the hash code of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -925,7 +925,7 @@ Parameters:
 
 - certainty: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of times the Miller-Rabin test should be executed. Note that if the test count is 0 (indicating no test), the function will always return true (i.e., non-prime numbers will also return true).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the number is determined to be prime using this function; otherwise, returns false.
 
@@ -959,7 +959,7 @@ Function: Determines the position of the lowest-order bit that is set to 1.
 >
 > This method will be deprecated in future versions. Use [trailingZeros(BigInt)](./math_numeric_package_funcs.md#func-trailingzerosbigint) instead.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the position of the lowest-order bit set to 1. If all bits are 0, returns -1.
 
@@ -995,7 +995,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint). The input must not be 0 and must be coprime with `this`.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the modular multiplicative inverse.
 
@@ -1037,7 +1037,7 @@ Parameters:
 - n: [BigInt](math_numeric_package_structs.md#struct-bigint) - The exponent, which must be non-negative.
 - m!: ?[BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. This parameter must not be 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The result of the exponentiation followed by the modulo operation.
 
@@ -1084,7 +1084,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. The divisor must not be zero.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the result of dividing this [BigInt](math_numeric_package_structs.md#struct-bigint) by another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1129,7 +1129,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. The divisor must not be zero.
 
-Return Value:
+Returns:
 
 - ([BigInt](math_numeric_package_structs.md#struct-bigint), [BigInt](math_numeric_package_structs.md#struct-bigint)) - The quotient and remainder.
 
@@ -1176,7 +1176,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. The divisor must not be zero.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the remainder of dividing this [BigInt](math_numeric_package_structs.md#struct-bigint) by another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1215,7 +1215,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the bit position to be set. `index` must be greater than or equal to 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) resulting from changing the bit at `index` of the original [BigInt](math_numeric_package_structs.md#struct-bigint) to 1.
 
@@ -1253,7 +1253,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the bit to be queried. `index` must be greater than or equal to 0.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The bit information at the specified position.
 
@@ -1289,7 +1289,7 @@ Function: Computes and returns the big-endian two's complement byte array of thi
 
 The least significant bit of the lowest index in the byte array is the sign bit. For example, 128 returns [0, 128] (sign bit is 0), and -128 returns [128] (sign bit is 1).
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The big-endian two's complement byte array of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1319,7 +1319,7 @@ public func toFloat16(): Float16
 
 Function: Converts the current [BigInt](math_numeric_package_structs.md#struct-bigint) object to a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The converted [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value. In case of overflow, if the current value is positive, returns `inf`; if negative, returns `-inf`.
 
@@ -1349,7 +1349,7 @@ public func toFloat32(): Float32
 
 Function: Converts the current [BigInt](math_numeric_package_structs.md#struct-bigint) object to [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The converted [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value. On overflow, returns `inf` for positive values and `-inf` for negative values.
 
@@ -1379,7 +1379,7 @@ public func toFloat64(): Float64
 
 Function: Converts the current [BigInt](math_numeric_package_structs.md#struct-bigint) object to [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The converted [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value. On overflow, returns `inf` for positive values and `-inf` for negative values.
 
@@ -1413,7 +1413,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy during conversion.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Returns the converted [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -1452,7 +1452,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy during conversion.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the converted [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -1491,7 +1491,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy during conversion.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the converted [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -1528,7 +1528,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the converted [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -1567,7 +1567,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Returns the converted [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) value.
 
@@ -1602,7 +1602,7 @@ public func toString(): String
 
 Function: Computes and returns the decimal string representation of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the decimal string representation of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1636,7 +1636,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Returns the converted [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -1675,7 +1675,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the converted [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
@@ -1714,7 +1714,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Returns the converted [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -1753,7 +1753,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy for conversion.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Returns the converted [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 
@@ -1794,7 +1794,7 @@ Function: Converts the current [BigInt](math_numeric_package_structs.md#struct-b
 
 Parameters:
 
-- overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy for conversion.Return Value:
+- overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow handling strategy for conversion.Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Returns the converted [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -1829,7 +1829,7 @@ public operator func !(): BigInt
 
 Function: Bitwise NOT. Inverts all binary bits of the operand (0 becomes 1, and 1 becomes 0).
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the result of the bitwise NOT operation on this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1863,7 +1863,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for the inequality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The result of the inequality comparison. Returns `true` if not equal, otherwise `false`.
 
@@ -1899,7 +1899,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. The divisor must not be 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the result of the modulus operation between this [BigInt](math_numeric_package_structs.md#struct-bigint) and another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1938,7 +1938,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for the bitwise AND operation.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the result of the bitwise AND operation with another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -1973,7 +1973,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The multiplier.
 
-Return value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the product of this [BigInt](math_numeric_package_structs.md#struct-bigint) multiplied by another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2008,7 +2008,7 @@ Parameters:
 
 - n: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The exponent.
 
-Return value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The result of the exponentiation operation.
 
@@ -2042,7 +2042,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The addend.
 
-Return value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the sum of this [BigInt](math_numeric_package_structs.md#struct-bigint) added to another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2073,7 +2073,7 @@ public operator func -(): BigInt
 
 Function: Computes the negation of a [BigInt](math_numeric_package_structs.md#struct-bigint).
 
-Return value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the negation of this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2107,7 +2107,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the result of subtracting another [BigInt](math_numeric_package_structs.md#struct-bigint) from this [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2142,7 +2142,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The comparison result. Returns true if less than, otherwise false.
 
@@ -2176,7 +2176,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bits to shift left (must be greater than or equal to 0).
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The result of left-shifting this [BigInt](math_numeric_package_structs.md#struct-bigint) by n bits.
 
@@ -2214,7 +2214,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The comparison result. Returns true if less than or equal, otherwise false.
 
@@ -2246,7 +2246,7 @@ Function: Equality comparison operation.Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The result of equality comparison. Returns true if equal, false otherwise.
 
@@ -2280,7 +2280,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for greater-than comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The comparison result. Returns true if greater than, false otherwise.
 
@@ -2314,7 +2314,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for greater-than-or-equal comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The comparison result. Returns true if greater than or equal, false otherwise.
 
@@ -2348,7 +2348,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bits to right-shift. Must be greater than or equal to 0.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The result of right-shifting this [BigInt](math_numeric_package_structs.md#struct-bigint) by n bits.
 
@@ -2388,7 +2388,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - The divisor. Must not be zero.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - A new [BigInt](math_numeric_package_structs.md#struct-bigint) representing the result of dividing this [BigInt](math_numeric_package_structs.md#struct-bigint) by another [BigInt](math_numeric_package_structs.md#struct-bigint).Exceptions:
 
@@ -2425,7 +2425,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for the bitwise XOR operation.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the result of the bitwise XOR operation with another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2460,7 +2460,7 @@ Parameters:
 
 - that: [BigInt](math_numeric_package_structs.md#struct-bigint) - Another [BigInt](math_numeric_package_structs.md#struct-bigint) for the bitwise OR operation.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - Returns the result of the bitwise OR operation with another [BigInt](math_numeric_package_structs.md#struct-bigint).
 
@@ -2503,7 +2503,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [BigInt](#struct-bigint) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -2531,7 +2531,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [BigInt](#struct-bigint) instance.
 
@@ -2597,7 +2597,7 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string used to construct the [BigInt](math_numeric_package_structs.md#struct-bigint) struct. The string rules are: an optional positive (+) or negative (-) sign at the beginning, followed by an optional base prefix (default is decimal). Use "0b" or "0B" for binary, "0o" or "0O" for octal, and "0x" or "0X" for hexadecimal. This is followed by a mandatory non-empty sequence of Arabic numerals or Latin letters (case-insensitive, where 'a' and 'A' equal decimal 10, 'b' and 'B' equal decimal 11, etc.). The characters in the sequence must comply with the character set requirements of the corresponding base.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The parsed [BigInt](math_numeric_package_structs.md#struct-bigint) struct.
 
@@ -2639,7 +2639,7 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string used to construct the [BigInt](math_numeric_package_structs.md#struct-bigint) struct. The string rules are: an optional positive (+) or negative (-) sign at the beginning, followed by an optional base prefix (default is decimal). Use "0b" or "0B" for binary, "0o" or "0O" for octal, and "0x" or "0X" for hexadecimal. This is followed by a mandatory non-empty sequence of Arabic numerals or Latin letters (case-insensitive, where 'a' and 'A' equal decimal 10, 'b' and 'B' equal decimal 11, etc.). The characters in the sequence must comply with the character set requirements of the corresponding base.
 
-Return Value:
+Returns:
 
 - ?[BigInt](math_numeric_package_structs.md#struct-bigint) - The parsed [BigInt](math_numeric_package_structs.md#struct-bigint) struct, or `None` if parsing fails.
 
@@ -2686,7 +2686,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string used to construct the [BigInt](math_numeric_package_structs.md#struct-bigint) struct. The string rules are: an optional positive (+) or negative (-) sign at the beginning, followed by a mandatory non-empty sequence of Arabic numerals or Latin letters (case-insensitive, where 'a' and 'A' equal decimal 10, 'b' and 'B' equal decimal 11, etc.). The value of each character must not exceed the radix.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The radix. The base of the string representation, ranging from [2, 36].
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The parsed [BigInt](math_numeric_package_structs.md#struct-bigint) struct.Exceptions:
 
@@ -2723,7 +2723,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string used to construct the [BigInt](math_numeric_package_structs.md#struct-bigint) structure. The string must start with an optional positive (+) or negative (-) sign, followed by a non-empty sequence of Arabic numerals or Latin letters (case-insensitive). The letters 'a' and 'A' represent the decimal value 10, 'b' and 'B' represent 11, and so on. The value of each character in the sequence must be less than the radix.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The radix (base) of the string representation, which must be within the range [2, 36].
 
-Return Value:
+Returns:
 
 - ?[BigInt](math_numeric_package_structs.md#struct-bigint) - The parsed [BigInt](math_numeric_package_structs.md#struct-bigint) structure, or `None` if parsing fails.
 
@@ -2739,7 +2739,7 @@ Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The radix (base) for the string representation, which must be within the range [2, 36].
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this [BigInt](math_numeric_package_structs.md#struct-bigint) in the specified `radix`.
 
@@ -3364,7 +3364,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to be compared.
 
-Return value:
+Returns:
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - Returns the comparison result. If the current object is less than the input, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT; if greater, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT; otherwise, returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ.
 
@@ -3402,7 +3402,7 @@ Parameters:
 - precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Precision value.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - Rounding rule.
 
-Return value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns a new [Decimal](math_numeric_package_structs.md#struct-decimal) object storing the division result.
 
@@ -3446,7 +3446,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) divisor object.
 
-Return Value:
+Returns:
 
 - ([BigInt](math_numeric_package_structs.md#struct-bigint), [Decimal](math_numeric_package_structs.md#struct-decimal)) - Returns a tuple object containing the integer quotient result and remainder result values.
 
@@ -3467,7 +3467,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) divisor object.
 
-Return Value:
+Returns:
 
 - ([BigInt](math_numeric_package_structs.md#struct-bigint), [Decimal](math_numeric_package_structs.md#struct-decimal)) - Returns a tuple object containing the integer quotient result and remainder result values.
 
@@ -3484,7 +3484,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash code of the current object.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the hash code of the current object.
 
@@ -3514,7 +3514,7 @@ public func isInteger(): Bool
 
 Function: Determines whether the current [Decimal](math_numeric_package_structs.md#struct-decimal) object is an integer.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the determination result of whether the current object is an integer. Returns true if the current object is an integer, otherwise returns false.
 
@@ -3549,7 +3549,7 @@ Parameters:
 - precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The precision value.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - The rounding rule.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns a new [Decimal](math_numeric_package_structs.md#struct-decimal) object containing the exponentiation result value.
 
@@ -3586,7 +3586,7 @@ Function: Adjusts the scale value of the [Decimal](math_numeric_package_structs.
 - newScale: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The new scale value.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - The rounding rule.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - A new [Decimal](math_numeric_package_structs.md#struct-decimal) object with the new scale value.
 
@@ -3615,7 +3615,7 @@ public func removeTrailingZeros(): Decimal
 
 Function: Removes trailing zeros from the current [Decimal](math_numeric_package_structs.md#struct-decimal) object without changing its numerical value.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - A new [Decimal](math_numeric_package_structs.md#struct-decimal) object without trailing zeros.
 
@@ -3649,7 +3649,7 @@ Parameters:
 - precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The precision value.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - The rounding rule.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - A new [Decimal](math_numeric_package_structs.md#struct-decimal) object generated by the rounding operation.
 
@@ -3686,7 +3686,7 @@ public func scaleUnit(): Decimal
 
 Function: Returns the scale unit for the current [Decimal](math_numeric_package_structs.md#struct-decimal) object, which is a [Decimal](math_numeric_package_structs.md#struct-decimal) object with a numerical value of 1 and the same scale as the current object.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - The scale unit [Decimal](math_numeric_package_structs.md#struct-decimal) object.
 
@@ -3719,7 +3719,7 @@ Parameters:
 
 - n: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Specifies the number of positions and direction to move the decimal point.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - A new [Decimal](math_numeric_package_structs.md#struct-decimal) object generated by moving the decimal point of the current object by the specified number of positions.
 
@@ -3753,7 +3753,7 @@ Parameters:
 - precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Precision value.
 - roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - Rounding rule.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns the arithmetic square root of the input [Decimal](math_numeric_package_structs.md#struct-decimal), rounded according to the specified precision and rounding mode.
 
@@ -3788,7 +3788,7 @@ public func toBigInt(): BigInt
 
 Function: Converts the current [Decimal](math_numeric_package_structs.md#struct-decimal) object to [BigInt](math_numeric_package_structs.md#struct-bigint) type.
 
-Return Value:
+Returns:
 
 - [BigInt](math_numeric_package_structs.md#struct-bigint) - The converted [BigInt](math_numeric_package_structs.md#struct-bigint) value.
 
@@ -3800,7 +3800,7 @@ public func toEngString(): String
 
 Function: Prints the [Decimal](math_numeric_package_structs.md#struct-decimal) object in engineering notation, where the exponent is a multiple of 3. When the value is less than 0, it starts with "-" followed by decimal digits. When the value is greater than or equal to 0, it directly prints the digits without an additional "+". The same rules apply when the exponent is less than 0.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The [Decimal](math_numeric_package_structs.md#struct-decimal) string in engineering notation.
 
@@ -3812,7 +3812,7 @@ public func toSciString(): String
 
 Function: Prints the [Decimal](math_numeric_package_structs.md#struct-decimal) object in scientific notation. When the value is less than 0, it starts with "-" followed by decimal digits. When the value is greater than or equal to 0, it directly prints the digits without an additional "+". The same rules apply when the exponent is less than 0.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The [Decimal](math_numeric_package_structs.md#struct-decimal) string in scientific notation.
 
@@ -3851,7 +3851,7 @@ public func toFloat16(): Float16
 
 Function: Converts the current [Decimal](math_numeric_package_structs.md#struct-decimal) object to [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The converted [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value. On overflow, returns `inf` if the current value is positive, or `-inf` if negative.
 
@@ -3863,7 +3863,7 @@ public func toFloat32(): Float32
 
 Function: Converts the current [Decimal](math_numeric_package_structs.md#struct-decimal) object to [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The converted [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value. On overflow, returns `inf` if the current value is positive, or `-inf` if negative.
 
@@ -3875,7 +3875,7 @@ public func toFloat64(): Float64
 
 Function: Converts the current [Decimal](math_numeric_package_structs.md#struct-decimal) object to [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The converted [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value. On overflow, returns `inf` if the current value is positive, or `-inf` if negative.
 
@@ -3891,7 +3891,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow strategy for conversion.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The converted [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -3911,7 +3911,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow strategy for conversion.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The converted [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -3931,7 +3931,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow strategy for conversion.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The converted [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -3951,7 +3951,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow strategy for conversion.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The converted [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -3971,7 +3971,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - The overflow strategy for conversion.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The converted [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) value.
 
@@ -4012,7 +4012,7 @@ public func toString(): String
 
 Function: Prints the [Decimal](math_numeric_package_structs.md#struct-decimal) object in non-exponential form. For values less than 0, it starts with "-" followed by decimal digits. For values greater than or equal to 0, it directly prints the digits without an additional "+".
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The [Decimal](math_numeric_package_structs.md#struct-decimal) string in non-exponential form.
 
@@ -4049,7 +4049,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The converted [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -4069,7 +4069,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The converted [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
@@ -4089,7 +4089,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The converted [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -4109,7 +4109,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The converted [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 
@@ -4129,7 +4129,7 @@ Parameters:
 
 - overflowHandling!: [OverflowStrategy](math_numeric_package_enums.md#enum-overflowstrategy) - Overflow handling strategy for conversion.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The converted [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) value.
 
@@ -4174,7 +4174,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the inequality comparison. Returns true if the current object is not equal to the input parameter, otherwise returns false.
 
@@ -4213,7 +4213,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) multiplier object.
 
-Return value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Creates a new [Decimal](math_numeric_package_structs.md#struct-decimal) object to store the multiplication result.
 
@@ -4256,7 +4256,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The exponent value for the exponentiation operation.
 
-Return value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Creates a new [Decimal](math_numeric_package_structs.md#struct-decimal) object to store the exponentiation result.
 
@@ -4293,7 +4293,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) addend object.
 
-Return value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Creates a new [Decimal](math_numeric_package_structs.md#struct-decimal) object to store the addition result.
 
@@ -4328,7 +4328,7 @@ public operator func -(): Decimal
 
 Function: Negation operation, overloading the unary minus operator to negate the current [Decimal](math_numeric_package_structs.md#struct-decimal) object, returning the result value. Preserves the actual precision of the negation result.
 
-Return value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Creates a new [Decimal](math_numeric_package_structs.md#struct-decimal) object to store the negation result.
 
@@ -4344,7 +4344,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The subtrahend [Decimal](math_numeric_package_structs.md#struct-decimal) object.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns a new [Decimal](math_numeric_package_structs.md#struct-decimal) object storing the result of the subtraction operation.
 
@@ -4383,7 +4383,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the less-than comparison. Returns true if the current object is less than the input, otherwise returns false.
 
@@ -4399,7 +4399,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the less-than-or-equal comparison. Returns true if the current object is less than or equal to the input, otherwise returns false.
 
@@ -4415,7 +4415,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the equality comparison. Returns true if the current object is equal to the input, otherwise returns false.
 
@@ -4431,7 +4431,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the greater-than comparison. Returns true if the current object is greater than the input, otherwise returns false.
 
@@ -4447,7 +4447,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The [Decimal](math_numeric_package_structs.md#struct-decimal) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the result of the greater-than-or-equal comparison. Returns true if the current object is greater than or equal to the input, otherwise returns false.
 
@@ -4467,7 +4467,7 @@ Parameters:
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - The divisor [Decimal](math_numeric_package_structs.md#struct-decimal) object.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - Returns a new [Decimal](math_numeric_package_structs.md#struct-decimal) object storing the result of the division operation.
 
@@ -4518,7 +4518,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [Decimal](#struct-decimal) instance.
 
@@ -4580,7 +4580,7 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string.
 
-Return Value:
+Returns:
 
 - [Decimal](math_numeric_package_structs.md#struct-decimal) - The parsed [Decimal](math_numeric_package_structs.md#struct-decimal) struct.
 
@@ -4619,6 +4619,6 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string.
 
-Return Value:
+Returns:
 
 - ?[Decimal](math_numeric_package_structs.md#struct-decimal) - The parsed [Decimal](math_numeric_package_structs.md#struct-decimal) struct, or `None` if parsing fails.

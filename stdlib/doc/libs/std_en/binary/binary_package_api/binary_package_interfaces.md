@@ -23,7 +23,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - T - The value of type T.
 
@@ -43,7 +43,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -75,7 +75,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value.
 
@@ -114,7 +114,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -167,7 +167,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value.
 
@@ -207,7 +207,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -262,7 +262,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value.
 
@@ -301,7 +301,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -356,7 +356,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value.
 
@@ -391,7 +391,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -437,7 +437,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -472,7 +472,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -520,7 +520,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -555,7 +555,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -604,7 +604,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -639,7 +639,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -687,7 +687,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -722,7 +722,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -770,7 +770,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -805,7 +805,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -855,7 +855,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - T - The value of type T.
 
@@ -875,7 +875,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -907,7 +907,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value.
 
@@ -942,7 +942,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -990,7 +990,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value.
 
@@ -1025,7 +1025,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -1073,7 +1073,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value.
 
@@ -1108,7 +1108,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -1156,7 +1156,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value.
 
@@ -1191,7 +1191,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer to store the data to be written.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -1239,7 +1239,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer containing the data to be read.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -1286,7 +1286,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer containing the data to be read.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -1321,7 +1321,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The buffer to store the written data.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes written.
 
@@ -1375,7 +1375,7 @@ func swapBytes(): T
 
 Function: Reverses the byte order of a value of type T.
 
-Return value:
+Returns:
 
 - T - The value of type T.
 
@@ -1399,7 +1399,7 @@ public func swapBytes(): Int16
 
 Function: Reverses the byte order of an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -1438,7 +1438,7 @@ public func swapBytes(): Int32
 
 Function: Reverses the byte order of an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -1477,7 +1477,7 @@ public func swapBytes(): Int64
 
 Function: Reverses the byte order of an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -1516,7 +1516,7 @@ public func swapBytes(): Int8
 
 Function: Reverses the byte order of an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -1555,7 +1555,7 @@ public func swapBytes(): UInt16
 
 Function: Reverses the byte order of a [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -1594,7 +1594,7 @@ public func swapBytes(): UInt32
 
 Function: Reverses the byte order of a [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
@@ -1633,7 +1633,7 @@ public func swapBytes(): UInt64
 
 Function: Reverses the byte order of a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -1672,7 +1672,7 @@ public func swapBytes(): UInt8
 
 Function: Reverses the byte order of a [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 

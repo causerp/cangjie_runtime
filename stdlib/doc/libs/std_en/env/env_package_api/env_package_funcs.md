@@ -36,7 +36,7 @@ public func getCommand(): String
 
 Function: Retrieves the process command.
 
-Return value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The command of the current process.
 
@@ -52,7 +52,7 @@ public func getCommandLine(): Array<String>
 
 Function: Retrieves the command line of the current process. On Windows platforms, only the command line of the current process can be retrieved. In other scenarios, this property cannot be obtained without privileged APIs.
 
-Return value:
+Returns:
 
 - [Array](../../../std_en/core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)> - The command line of the current process.
 
@@ -68,7 +68,7 @@ public func getHomeDirectory(): Path
 
 Function: Retrieves the home directory path of the current process.
 
-Return value:
+Returns:
 
 - [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - The home directory path of the current process.
 
@@ -80,7 +80,7 @@ public func getProcessId(): Int64
 
 Function: Retrieves the current process ID.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The current process ID.
 
@@ -92,7 +92,7 @@ public func getStdErr(): ConsoleWriter
 
 Function: Retrieves the standard error stream of the current process.
 
-Return value:
+Returns:
 
 - [ConsoleWriter](./env_package_classes.md#class-consolewriter) - The standard error stream of the process.
 
@@ -104,7 +104,7 @@ public func getStdIn(): ConsoleReader
 
 Function: Retrieves the standard input stream of the current process.
 
-Return value:
+Returns:
 
 - [ConsoleReader](./env_package_classes.md#class-consolereader) - The standard input stream of the process.
 
@@ -116,7 +116,7 @@ public func getStdOut(): ConsoleWriter
 
 Function: Retrieves the standard output stream of the current process.
 
-Return value:
+Returns:
 
 - [ConsoleWriter](./env_package_classes.md#class-consolewriter) - The standard output stream of the process.
 
@@ -128,7 +128,7 @@ public func getTempDirectory(): Path
 
 Function: Retrieves the temporary directory path of the current process. Obtains environment variables TMPDIR, TMP, TEMP, and TEMPDIR. If none of these variables exist, defaults to returning the `/tmp` directory.
 
-Return value:
+Returns:
 
 - [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - The temporary directory path of the current process.
 
@@ -144,7 +144,7 @@ Parameters:
 
 - key: [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The specified name.
 
-Return value:
+Returns:
 
 - ?[String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The value of the specified environment variable for the current process.
 
@@ -160,7 +160,7 @@ public func getVariables(): Array<(String, String)>
 
 Function: Retrieves the environment variables of the current process. On Windows platforms, only the environment variables of the current process can be retrieved. In other scenarios, this property cannot be obtained without privileged APIs.
 
-Return value:
+Returns:
 
 - [Array](../../../std_en/core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string), [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string))> - The environment variables of the current process.
 
@@ -176,7 +176,7 @@ public func getWorkingDirectory(): Path
 
 Function: Retrieves the working directory path of the current process. On Windows platforms, only the working directory path of the current process can be retrieved. In other scenarios, this property cannot be obtained without privileged APIs.
 
-Return value:
+Returns:
 
 - [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - The working directory path of the current process.
 

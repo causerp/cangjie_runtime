@@ -12,7 +12,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the absolute value of the input parameter.
 
@@ -46,7 +46,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the absolute value of the input parameter.
 
@@ -80,7 +80,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the absolute value of the input parameter.
 
@@ -115,7 +115,7 @@ Parameters:
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The input 16-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Returns the absolute value of the input parameter.
 
@@ -175,7 +175,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The input 32-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the absolute value of the input parameter.
 
@@ -213,7 +213,7 @@ Parameters:
 
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The input 64-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the absolute value of the input parameter.
 
@@ -251,7 +251,7 @@ Parameters:
 
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The input 8-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the absolute value of the input parameter.
 
@@ -289,7 +289,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the arccosine value of the input parameter in radians.
 
@@ -338,7 +338,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the arccosine value of the input parameter in radians.
 
@@ -376,7 +376,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the arccosine value of the input parameter in radians.
 
@@ -414,7 +414,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the inverse hyperbolic cosine value of the input parameter. `x` >= 1.0.
 
@@ -464,7 +464,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number. `x` >= 1.0.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the inverse hyperbolic cosine value of the input parameter.
 
@@ -502,7 +502,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number. `x` >= 1.0.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the inverse hyperbolic cosine value of the input parameter.
 
@@ -540,7 +540,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the arcsine value of the input parameter in radians.
 
@@ -590,7 +590,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the arcsine value of the input parameter in radians.
 
@@ -618,7 +618,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number. -1.0 <= `x` <= 1.0.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the arcsine value of the input parameter in radians.
 
@@ -656,7 +656,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the inverse hyperbolic sine value of the input parameter.
 
@@ -690,7 +690,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the inverse hyperbolic sine value of the input parameter.
 
@@ -724,7 +724,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the inverse hyperbolic sine value of the input parameter.
 
@@ -757,7 +757,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The arctangent value of the input parameter, in radians.
 
@@ -791,7 +791,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The arctangent value of the input parameter, in radians.
 
@@ -825,7 +825,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The arctangent value of the input parameter, in radians.
 
@@ -860,7 +860,7 @@ Parameters:
 - y: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The arctangent value of y/x, in radians.
 
@@ -897,7 +897,7 @@ Parameters:
 - y: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number.
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the arctangent of y/x in radians.
 
@@ -934,7 +934,7 @@ Parameters:
 - y: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the arctangent of y/x in radians.
 
@@ -970,7 +970,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number. -1.0 < `x` < 1.0.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the inverse hyperbolic tangent of the input parameter.
 
@@ -1020,7 +1020,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number. -1.0 < `x` < 1.0.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the inverse hyperbolic tangent of the input parameter.
 
@@ -1058,7 +1058,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number. -1.0 < `x` < 1.0.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the inverse hyperbolic tangent of the input parameter.
 
@@ -1096,7 +1096,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the cube root of the input parameter.
 
@@ -1130,7 +1130,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the cube root of the input parameter.
 
@@ -1164,7 +1164,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the cube root of the input parameter.
 
@@ -1196,7 +1196,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the ceiling value of the input parameter.
 
@@ -1230,7 +1230,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the ceiling value of the input parameter.
 
@@ -1264,7 +1264,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the ceiling value of the input parameter.
 
@@ -1298,7 +1298,7 @@ Parameters:
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The input 16-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> - Returns the absolute value of the input parameter as an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) type.
 
@@ -1332,7 +1332,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The input 32-bit signed integer.
 
-Return Value:- [Option](../../../std_en/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - Returns the absolute value of the input parameter as an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) type.
+Returns:- [Option](../../../std_en/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - Returns the absolute value of the input parameter as an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) type.
 
 Example:
 <!-- verify -->
@@ -1364,7 +1364,7 @@ Parameters:
 
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The input 64-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Option](../../../std_en/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - Returns the absolute value of the input parameter as an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) type.
 
@@ -1398,7 +1398,7 @@ Parameters:
 
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The input 8-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Option](../../../std_en/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - Returns the absolute value of the input parameter as an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) type.
 
@@ -1434,7 +1434,7 @@ Parameters:
 - min: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The specified minimum value.
 - max: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The specified maximum value.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns `v` if `v` is between `min` and `max`; returns `min` if `v` is less than or equal to `min`; returns `max` if `v` is greater than or equal to `max`; returns `NaN` if `v` is `NaN`.
 
@@ -1474,7 +1474,7 @@ Parameters:
 - min: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The specified minimum value.
 - max: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The specified maximum value.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns `v` if `v` is between `min` and `max`; returns `min` if `v` is less than or equal to `min`; returns `max` if `v` is greater than or equal to `max`; returns `NaN` if `v` is `NaN`.
 
@@ -1512,7 +1512,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the cosine value of the input parameter.
 
@@ -1546,7 +1546,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the cosine value of the input parameter.
 
@@ -1580,7 +1580,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number in radians.
 
-Return Value:- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the cosine value of the input parameter.
+Returns:- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the cosine value of the input parameter.
 
 Example:
 <!-- verify -->
@@ -1612,7 +1612,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the hyperbolic cosine value of the input parameter.
 
@@ -1646,7 +1646,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the hyperbolic cosine value of the input parameter.
 
@@ -1680,7 +1680,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the hyperbolic cosine value of the input parameter.
 
@@ -1718,7 +1718,7 @@ Parameters:
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Input 16-bit signed integer.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of 1 bits in the binary representation of the input parameter.
 
@@ -1732,7 +1732,7 @@ Function: Counts the number of 1 bits in the binary representation of a 16-bit i
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The input 16-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of set bits (1s) in the binary representation of the input parameter.
 
@@ -1770,7 +1770,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The input 32-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of set bits (1s) in the binary representation of the input parameter.
 
@@ -1786,7 +1786,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The input 32-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of set bits (1s) in the binary representation of the input parameter.
 
@@ -1824,7 +1824,7 @@ Parameters:
 
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The input 64-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of set bits (1s) in the binary representation of the input parameter.
 
@@ -1840,7 +1840,7 @@ Parameters:
 
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The input 64-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of set bits (1s) in the binary representation of the input parameter.
 
@@ -1876,7 +1876,7 @@ Function: Counts the number of set bits (1s) in the binary representation of an 
 
 Parameters:
 
-- x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The input 8-bit signed integer.Return Value:
+- x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The input 8-bit signed integer.Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -1892,7 +1892,7 @@ Parameters:
 
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The input 8-bit signed integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -1930,7 +1930,7 @@ Parameters:
 
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The input 16-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -1946,7 +1946,7 @@ Parameters:
 
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The input 16-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -1984,7 +1984,7 @@ Parameters:
 
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The input 32-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -2000,7 +2000,7 @@ Parameters:
 
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The input 32-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of '1' bits in the binary representation of the input parameter.
 
@@ -2038,7 +2038,7 @@ Parameters:
 
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The input 64-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of 1 bits in the binary representation of the input parameter.
 
@@ -2054,7 +2054,7 @@ Parameters:
 
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The input 64-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of 1 bits in the binary representation of the input parameter.
 
@@ -2092,7 +2092,7 @@ Parameters:
 
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The input 8-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the count of 1 bits in the binary representation of the input parameter.
 
@@ -2108,7 +2108,7 @@ Parameters:
 
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The input 8-bit unsigned integer.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the count of 1 bits in the binary representation of the input parameter.
 
@@ -2142,7 +2142,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the error function value of the input half-precision floating-point number.
 
@@ -2176,7 +2176,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the error function value of the input single-precision floating-point number.
 
@@ -2210,7 +2210,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the error function value of the input double-precision floating-point number.
 
@@ -2244,7 +2244,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point exponent.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns e raised to the power of `x`.
 
@@ -2278,7 +2278,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point exponent.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns e raised to the power of `x`.
 
@@ -2312,7 +2312,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point exponent.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns e raised to the power of `x`.
 
@@ -2345,7 +2345,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point exponent.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns 2 raised to the power of `x`.
 
@@ -2379,7 +2379,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point exponent.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns 2 raised to the power of `x`.
 
@@ -2413,7 +2413,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point exponent.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns 2 raised to the power of `x`.
 
@@ -2447,7 +2447,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number to be floored.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the floor value of the input floating-point number.
 
@@ -2481,7 +2481,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The single-precision floating-point number to be floored.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the floor value of the input floating-point number.
 
@@ -2515,7 +2515,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The double-precision floating-point number to be floored.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the floor value of the input floating-point number.
 
@@ -2550,7 +2550,7 @@ Parameters:
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The dividend.
 - y: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The divisor.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the remainder of x/y. Returns `NaN` when either x or y is `NaN`.
 
@@ -2591,7 +2591,7 @@ Parameters:
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The dividend.
 - y: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The divisor.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the remainder of x/y. Returns `NaN` when either x or y is `NaN`.
 
@@ -2632,7 +2632,7 @@ Parameters:
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The dividend.
 - y: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The divisor.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the remainder of x/y. Returns `NaN` if x or y is `NaN`.
 
@@ -2674,7 +2674,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The half-precision floating-point number for which the gamma function value is to be computed.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the gamma function value of the input floating-point number.
 
@@ -2708,7 +2708,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The single-precision floating-point number for which the gamma function value is to be computed.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the gamma function value of the input floating-point number.
 
@@ -2742,7 +2742,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The double-precision floating-point number for which the gamma function value is to be computed.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the gamma function value of the input floating-point number.
 
@@ -2775,7 +2775,7 @@ Function: Computes the greatest common divisor (GCD) of two 16-bit signed intege
 Parameters:- x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The first integer for GCD calculation.
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Returns the greatest common divisor of the two integers.
 
@@ -2815,7 +2815,7 @@ Parameters:
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The first integer for GCD calculation.
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the greatest common divisor of the two integers.
 
@@ -2855,7 +2855,7 @@ Parameters:
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The first integer for GCD calculation.
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the greatest common divisor of the two integers.
 
@@ -2895,7 +2895,7 @@ Parameters:
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The first integer for GCD calculation.
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the greatest common divisor of the two integers.
 
@@ -2935,7 +2935,7 @@ Parameters:
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The first integer for GCD calculation.
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The greatest common divisor of the two integers.
 
@@ -2971,7 +2971,7 @@ Parameters:
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The first integer for GCD calculation.
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The greatest common divisor of the two integers.
 
@@ -3007,7 +3007,7 @@ Parameters:
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The first integer for GCD calculation.
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The greatest common divisor of the two integers.
 
@@ -3043,7 +3043,7 @@ Parameters:
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The first integer for GCD calculation.
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The second integer for GCD calculation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The greatest common divisor of the two integers.
 
@@ -3079,7 +3079,7 @@ Parameters:
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The first integer for LCM calculation.
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3119,7 +3119,7 @@ Parameters:
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The first integer for LCM calculation.
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3159,7 +3159,7 @@ Parameters:
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The first integer for LCM calculation.
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3199,7 +3199,7 @@ Parameters:
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The first integer for LCM calculation.
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3239,7 +3239,7 @@ Parameters:
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The first integer for LCM calculation.
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3279,7 +3279,7 @@ Parameters:
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The first integer for LCM calculation.
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3319,7 +3319,7 @@ Parameters:
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The first integer for LCM calculation.
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3359,7 +3359,7 @@ Parameters:
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The first integer for LCM calculation.
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The second integer for LCM calculation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The least common non-negative multiple of the two integers. Returns 0 only when either input is 0.
 
@@ -3397,7 +3397,7 @@ Parameters:
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The integer for which to count leading zeros.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of leading zero bits.
 
@@ -3431,7 +3431,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The integer for which to count leading zeros.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of leading zero bits.
 
@@ -3465,7 +3465,7 @@ Parameters:
 
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The integer for which to count leading zeros.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of leading zero bits.
 
@@ -3499,7 +3499,7 @@ Parameters:
 
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The integer for which to count leading zeros.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of leading zero bits.
 
@@ -3533,7 +3533,7 @@ Parameters:
 
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The integer for which to count leading zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of leading zero bits.
 
@@ -3567,7 +3567,7 @@ Parameters:
 
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The integer for which to count leading zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of leading zero bits.
 
@@ -3601,7 +3601,7 @@ Parameters:
 
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The integer for which to count leading zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of leading zero bits.
 
@@ -3635,7 +3635,7 @@ Parameters:
 
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The integer for which to count leading zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of leading zero bits.
 
@@ -3669,7 +3669,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The antilogarithm.
 
-Return Value:- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the natural logarithm of `x` (base e).
+Returns:- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the natural logarithm of `x` (base e).
 
 > **Note:**
 >
@@ -3720,7 +3720,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The argument.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The natural logarithm of `x` (base e).
 
@@ -3762,7 +3762,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The argument.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The natural logarithm of `x` (base e).
 
@@ -3804,7 +3804,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The argument.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The base-10 logarithm of `x`.
 
@@ -3846,7 +3846,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The argument (antilogarithm).
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the base-10 logarithm of `x`.
 
@@ -3888,7 +3888,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The argument (antilogarithm).
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the base-10 logarithm of `x`.
 
@@ -3930,7 +3930,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The argument (antilogarithm).
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the base-2 logarithm of `x`.
 
@@ -3971,7 +3971,7 @@ Function: Computes the base-2 logarithm of `x`.
 Parameters:
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The argument.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the base-2 logarithm of `x`.
 
@@ -4013,7 +4013,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The argument.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the base-2 logarithm of `x`.
 
@@ -4056,7 +4056,7 @@ Parameters:
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The argument. Must be greater than 0.
 - base: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The base. Must be greater than 0 and not equal to 1.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the logarithm of `x` with base `base`.
 
@@ -4139,7 +4139,7 @@ Parameters:
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Antilogarithm. Must be greater than 0.
 - base: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Base. Must be greater than 0 and not equal to 1.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the logarithm of `x` with base `base`.
 
@@ -4179,7 +4179,7 @@ Parameters:
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Antilogarithm. Must be greater than 0.
 - base: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Base. Must be greater than 0 and not equal to 1.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the logarithm of `x` with base `base`.
 
@@ -4219,7 +4219,7 @@ Parameters:
 - base: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Base number.
 - exponent: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Exponent.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the `exponent` power of the input floating-point number `base`. Returns `nan` if the value doesn't exist.
 
@@ -4255,7 +4255,7 @@ Parameters:
 - base: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Base number.
 - exponent: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Exponent.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the `exponent` power of the input floating-point number `base`.
 
@@ -4291,7 +4291,7 @@ Parameters:
 - base: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The base number.
 - exponent: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The exponent.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the result of `base` raised to `exponent`. Returns `nan` if the value does not exist.
 
@@ -4327,7 +4327,7 @@ Parameters:
 - base: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The base number.
 - exponent: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The exponent.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the result of `base` raised to `exponent`.
 
@@ -4362,7 +4362,7 @@ Parameters:
 
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The unsigned integer to be reversed.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Returns the reversed unsigned integer.
 
@@ -4396,7 +4396,7 @@ Parameters:
 
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The unsigned integer to be reversed.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the reversed unsigned integer.
 
@@ -4430,7 +4430,7 @@ Parameters:
 
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The unsigned integer to be reversed.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The reversed unsigned integer.
 
@@ -4464,7 +4464,7 @@ Parameters:
 
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The unsigned integer to be reversed.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The reversed unsigned integer.
 
@@ -4499,7 +4499,7 @@ Parameters:
 - num: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate (negative for right shift, positive for left shift).
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The rotated integer.
 
@@ -4534,7 +4534,7 @@ Parameters:
 - num: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate (negative for right shift, positive for left shift).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The rotated integer.
 
@@ -4569,7 +4569,7 @@ Parameters:
 - num: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the rotated integer.
 
@@ -4604,7 +4604,7 @@ Parameters:
 - num: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the rotated integer.
 
@@ -4639,7 +4639,7 @@ Parameters:
 - num: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Returns the rotated integer.
 
@@ -4674,7 +4674,7 @@ Parameters:
 - num: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the rotated integer.
 
@@ -4709,7 +4709,7 @@ Parameters:
 - num: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Returns the rotated integer.
 
@@ -4744,7 +4744,7 @@ Parameters:
 - num: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Input integer.
 - d: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Number of bits to rotate. Negative values indicate right shift, positive values indicate left shift.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Returns the rotated integer.
 
@@ -4778,7 +4778,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The floating-point number to be rounded.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the rounded value of the floating-point number. If the number is exactly halfway between two integers, it returns the nearest even integer.
 
@@ -4812,7 +4812,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The floating-point number to be rounded.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the rounded value of the floating-point number. If the number is exactly halfway between two integers, it returns the nearest even integer.
 
@@ -4846,7 +4846,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The floating-point number to be rounded.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the rounded value of the floating-point number. If the number is exactly halfway between two integers, it returns the nearest even integer.
 
@@ -4880,7 +4880,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the sine value of the input parameter.
 
@@ -4914,7 +4914,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the sine value of the input parameter.
 
@@ -4948,7 +4948,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the sine value of the input parameter.
 
@@ -4982,7 +4982,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the hyperbolic sine value of the input parameter.
 
@@ -5016,7 +5016,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the hyperbolic sine value of the input parameter.
 
@@ -5050,7 +5050,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the hyperbolic sine value of the input parameter.
 
@@ -5103,7 +5103,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The input double-precision floating-point number.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the hyperbolic sine value of the input parameter.
 
@@ -5137,7 +5137,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The floating-point number for which to calculate the arithmetic square root. `x` must be greater than or equal to 0.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the arithmetic square root of the input floating-point number.
 
@@ -5175,7 +5175,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The floating-point number for which to calculate the arithmetic square root. `x` must be greater than or equal to 0.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the arithmetic square root of the input floating-point number.
 
@@ -5213,7 +5213,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The floating-point number for which to calculate the arithmetic square root. `x` must be greater than or equal to 0.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the arithmetic square root of the input floating-point number.
 
@@ -5251,7 +5251,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the tangent of the input parameter.
 
@@ -5285,7 +5285,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the tangent of the input parameter.
 
@@ -5319,7 +5319,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number in radians.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the tangent of the input parameter.
 
@@ -5353,7 +5353,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Input half-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the hyperbolic tangent of the input parameter.
 
@@ -5387,7 +5387,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Input single-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Hyperbolic tangent value of the input parameter.
 
@@ -5421,7 +5421,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Input double-precision floating-point number.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Hyperbolic tangent value of the input parameter.
 
@@ -5455,7 +5455,7 @@ Parameters:
 
 - x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Input integer for counting trailing zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of trailing zero bits.
 
@@ -5489,7 +5489,7 @@ Parameters:
 
 - x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Input integer for counting trailing zeros.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of trailing zero bits.
 
@@ -5522,7 +5522,7 @@ Function: Counts the number of trailing zero bits (starting from the least signi
 Parameters:
 - x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zeros.
 
@@ -5556,7 +5556,7 @@ Parameters:
 
 - x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zeros.
 
@@ -5590,7 +5590,7 @@ Parameters:
 
 - x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zeros.
 
@@ -5624,7 +5624,7 @@ Parameters:
 
 - x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zeros.
 
@@ -5658,7 +5658,7 @@ Parameters:
 
 - x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of trailing zeros.
 
@@ -5692,7 +5692,7 @@ Parameters:
 
 - x: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The integer for which trailing zeros are to be counted.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of trailing zero bits.
 
@@ -5726,7 +5726,7 @@ Parameters:
 
 - x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The floating-point number to be truncated.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The truncated value of the input floating-point number.
 
@@ -5760,7 +5760,7 @@ Parameters:
 
 - x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The floating-point number to be truncated.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The truncated value of the input floating-point number.
 
@@ -5794,7 +5794,7 @@ Parameters:
 
 - x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The floating-point number to be truncated.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The truncated value of the input floating-point number.
 

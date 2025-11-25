@@ -13,7 +13,7 @@ Parameters:
 - from: [InputStream](io_package_interfaces.md#interface-inputstream) - The input stream to read data from.
 - to!: [OutputStream](io_package_interfaces.md#interface-outputstream) - The output stream to copy data to.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of bytes copied.
 
@@ -62,7 +62,7 @@ Parameters:
 
 - from: T - The object to read data from.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The resulting string read.
 
@@ -126,7 +126,7 @@ Parameters:
 
 - from: T - The object to read data from.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The resulting string read.
 
@@ -175,7 +175,7 @@ Parameters:
 
 - from: T - The object to read data from.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - A copy of the unread data.
 

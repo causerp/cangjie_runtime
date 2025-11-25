@@ -41,7 +41,7 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.
 
@@ -81,7 +81,7 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.
 
@@ -121,7 +121,7 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.
 
@@ -161,7 +161,7 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.
 
@@ -201,7 +201,7 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.
 
@@ -241,6 +241,6 @@ Parameters:
 - thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
-Return value:
+Returns:
 
 - PrettyPrinter - Printer.

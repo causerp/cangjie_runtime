@@ -49,7 +49,7 @@ public func toString(): String
 
 Function: Gets the argument mode string.
 
-Return value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The argument mode string.
 
@@ -84,7 +84,7 @@ Parameters:
 
 - that: [ArgumentMode](./argopt_package_enums.md#enum-argumentmode) - The argument mode to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if identical, otherwise `false`.
 

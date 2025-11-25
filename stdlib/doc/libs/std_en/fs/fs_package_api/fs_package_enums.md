@@ -62,7 +62,7 @@ public func toString(): String
 
 Function: String representation of the file opening mode.
 
-Return value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The name of the file opening mode.
 
@@ -78,7 +78,7 @@ Parameters:
 
 - that: [OpenMode](fs_package_enums.md#enum-openmode) - The [OpenMode](fs_package_enums.md#enum-openmode) instance to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
 
@@ -94,6 +94,6 @@ Parameters:
 
 - that: [OpenMode](fs_package_enums.md#enum-openmode) - The [OpenMode](fs_package_enums.md#enum-openmode) instance to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if not equal, otherwise false.

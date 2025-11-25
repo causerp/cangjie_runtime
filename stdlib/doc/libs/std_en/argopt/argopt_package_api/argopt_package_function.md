@@ -41,7 +41,7 @@ Parameters:
 
 - specs: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[ArgumentSpec](./argopt_package_enums.md#enum-argumentspec)> - The specifications for the arguments.
 
-Return Value:
+Returns:
 
 - [ParsedArguments](./argopt_package_struct.md#struct-parsedarguments) - The result of argument parsing.
 

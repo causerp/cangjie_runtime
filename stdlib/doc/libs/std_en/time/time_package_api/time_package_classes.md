@@ -85,7 +85,7 @@ Parameters:
 
 - format: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string format.
 
-Return Value:
+Returns:
 
 - [DateTimeFormat](#class-datetimeformat) - The datetime format.
 
@@ -183,7 +183,7 @@ Parameters:
 
 - id: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The time zone ID.
 
-Return Value:
+Returns:
 
 - [TimeZone](time_package_classes.md#class-timezone) - The loaded time zone.
 
@@ -207,7 +207,7 @@ Parameters:
 - id: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The time zone ID.
 - tzpaths: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - Array of time zone file paths.
 
-Return Value:
+Returns:
 
 - [TimeZone](time_package_classes.md#class-timezone) - The loaded time zone.
 
@@ -229,7 +229,7 @@ Parameters:
 - id: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The time zone ID.
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Data compliant with [Time Zone Information Format](https://datatracker.ietf.org/doc/html/rfc8536).
 
-Return Value:
+Returns:
 
 - [TimeZone](time_package_classes.md#class-timezone) - The loaded time zone.
 
@@ -246,7 +246,7 @@ public func toString(): String
 
 Function: Gets the string representation of the time zone ID for this [TimeZone](time_package_classes.md#class-timezone) instance.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the time zone ID.
 
@@ -262,7 +262,7 @@ Parameters:
 
 - r: [TimeZone](time_package_classes.md#class-timezone) - A [TimeZone](time_package_classes.md#class-timezone) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the references are not equal; otherwise, returns `false`.
 
@@ -278,6 +278,6 @@ Parameters:
 
 - r: [TimeZone](time_package_classes.md#class-timezone) - A [TimeZone](time_package_classes.md#class-timezone) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the references are equal; otherwise, returns `false`.

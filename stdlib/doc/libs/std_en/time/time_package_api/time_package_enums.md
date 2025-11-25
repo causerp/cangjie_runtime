@@ -14,7 +14,7 @@ public enum DayOfWeek <: ToString & Equatable<DayOfWeek> {
 }
 ```
 
-Functionality: [DayOfWeek](time_package_enums.md#enum-dayofweek) represents a day of the week, providing capabilities for conversion to/from [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), equality comparison, and string representation.
+Function: [DayOfWeek](time_package_enums.md#enum-dayofweek) represents a day of the week, providing capabilities for conversion to/from [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), equality comparison, and string representation.
 
 Parent types:
 
@@ -27,7 +27,7 @@ Parent types:
 Friday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Friday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Friday.
 
 ### Monday
 
@@ -35,7 +35,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Monday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Monday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Monday.
 
 ### Saturday
 
@@ -43,7 +43,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Saturday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Saturday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Saturday.
 
 ### Sunday
 
@@ -51,7 +51,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Sunday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Sunday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Sunday.
 
 ### Thursday
 
@@ -59,7 +59,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Thursday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Thursday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Thursday.
 
 ### Tuesday
 
@@ -67,7 +67,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Tuesday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Tuesday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Tuesday.
 
 ### Wednesday
 
@@ -75,7 +75,7 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 Wednesday
 ```
 
-Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Wednesday.
+Function: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) instance representing Wednesday.
 
 ### static func of(Int64)
 
@@ -83,13 +83,13 @@ Functionality: Constructs a [DayOfWeek](time_package_enums.md#enum-dayofweek) in
 public static func of(dayOfWeek: Int64): DayOfWeek
 ```
 
-Functionality: Returns the [DayOfWeek](time_package_enums.md#enum-dayofweek) instance corresponding to the parameter `dayOfWeek`.
+Function: Returns the [DayOfWeek](time_package_enums.md#enum-dayofweek) instance corresponding to the parameter `dayOfWeek`.
 
 Parameters:
 
 - dayOfWeek: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Integer representation of the day, valid range [0, 6]. 0 represents Sunday, 1-6 represent Monday through Saturday.
 
-Return value:
+Returns:
 
 - [DayOfWeek](time_package_enums.md#enum-dayofweek) - The [DayOfWeek](time_package_enums.md#enum-dayofweek) instance corresponding to `dayOfWeek`.
 
@@ -103,9 +103,9 @@ Exceptions:
 public func toString(): String
 ```
 
-Functionality: Returns the string representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, e.g. "Monday" for Monday.
+Function: Returns the string representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, e.g. "Monday" for Monday.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance.
 
@@ -115,9 +115,9 @@ Return value:
 public func toInteger(): Int64
 ```
 
-Functionality: Returns the integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, where Sunday is 0 and Monday through Saturday are 1 through 6.
+Function: Returns the integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, where Sunday is 0 and Monday through Saturday are 1 through 6.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance.
 
@@ -127,13 +127,13 @@ Return value:
 public func value(): Int64
 ```
 
-Functionality: Returns the integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, where Sunday is 0 and Monday through Saturday are 1 through 6.
+Function: Returns the integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance, where Sunday is 0 and Monday through Saturday are 1 through 6.
 
 > **Note:**
 >
 > This will be deprecated in future versions. Use [toInteger()](#func-tointeger) instead.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Integer representation of the current [DayOfWeek](time_package_enums.md#enum-dayofweek) instance.
 
@@ -143,13 +143,13 @@ Return value:
 public operator func !=(r: DayOfWeek): Bool
 ```
 
-Functionality: Determines whether the current [DayOfWeek](time_package_enums.md#enum-dayofweek) and `r` represent different days of the week.
+Function: Determines whether the current [DayOfWeek](time_package_enums.md#enum-dayofweek) and `r` represent different days of the week.
 
 Parameters:
 
 - r: [DayOfWeek](time_package_enums.md#enum-dayofweek) - A [DayOfWeek](time_package_enums.md#enum-dayofweek) instance.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current instance is not equal to `r`; otherwise, returns `false`.
 
@@ -159,13 +159,13 @@ Return value:
 public operator func ==(r: DayOfWeek): Bool
 ```
 
-Functionality: Determines whether the current [DayOfWeek](time_package_enums.md#enum-dayofweek) and `r` represent the same day of the week.
+Function: Determines whether the current [DayOfWeek](time_package_enums.md#enum-dayofweek) and `r` represent the same day of the week.
 
 Parameters:
 
 - r: [DayOfWeek](time_package_enums.md#enum-dayofweek) - A [DayOfWeek](time_package_enums.md#enum-dayofweek) instance.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current instance equals `r`; otherwise, returns `false`.
 
@@ -175,13 +175,13 @@ Return value:
 public operator func +(n: Int64): DayOfWeek
 ```
 
-Functionality: Calculates the day of the week `n` days after the current instance (when `n` is positive). If `n` is negative, calculates the day before.
+Function: Calculates the day of the week `n` days after the current instance (when `n` is positive). If `n` is negative, calculates the day before.
 
 Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of days to add.
 
-Return value:
+Returns:
 
 - [DayOfWeek](time_package_enums.md#enum-dayofweek) - The day of the week `n` days later.
 
@@ -191,13 +191,13 @@ Return value:
 public operator func -(n: Int64): DayOfWeek
 ```
 
-Functionality: Calculates the day of the week `n` days before the current instance (when `n` is positive). If `n` is negative, calculates the day after.
+Function: Calculates the day of the week `n` days before the current instance (when `n` is positive). If `n` is negative, calculates the day after.
 
 Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of days to subtract.
 
-Return value:
+Returns:
 
 - [DayOfWeek](time_package_enums.md#enum-dayofweek) - The day of the week `n` days earlier.
 
@@ -220,7 +220,7 @@ public enum Month <: ToString & Equatable<Month> {
 }
 ```
 
-Functionality: [Month](time_package_enums.md#enum-month) represents a month of the year, providing capabilities for conversion to/from [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), calculations, equality comparison, and string representation.
+Function: [Month](time_package_enums.md#enum-month) represents a month of the year, providing capabilities for conversion to/from [Int64](../../core/core_package_api/core_package_intrinsics.md#int64), calculations, equality comparison, and string representation.
 
 Parent types:
 
@@ -233,7 +233,7 @@ Parent types:
 April
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing April.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing April.
 
 ### August
 
@@ -241,7 +241,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 August
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing August.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing August.
 
 ### December
 
@@ -249,7 +249,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 December
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing December.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing December.
 
 ### February
 
@@ -257,7 +257,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 February
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing February.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing February.
 
 ### January
 
@@ -265,7 +265,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 January
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing January.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing January.
 
 ### July
 
@@ -273,7 +273,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 July
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing July.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing July.
 
 ### June
 
@@ -281,7 +281,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 June
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing June.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing June.
 
 ### March
 
@@ -289,7 +289,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 March
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing March.
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing March.
 
 ### May
 
@@ -297,7 +297,7 @@ Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance r
 May
 ```
 
-Functionality: Constructs a [Month](time_package_enums.md#enum-month) instance representing May.### November
+Function: Constructs a [Month](time_package_enums.md#enum-month) instance representing May.### November
 
 ```cangjie
 November
@@ -333,7 +333,7 @@ Parameters:
 
 - mon: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The month in integer form, with a valid range of [1, 12], representing the twelve months of the year.
 
-Return Value:
+Returns:
 
 - [Month](time_package_enums.md#enum-month) - The [Month](time_package_enums.md#enum-month) instance corresponding to the parameter `mon`.
 
@@ -349,7 +349,7 @@ public func toString(): String
 
 Function: Returns the string representation of the current [Month](time_package_enums.md#enum-month) instance, e.g., "January" represents the first month.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [Month](time_package_enums.md#enum-month) instance.
 
@@ -361,7 +361,7 @@ public func toInteger(): Int64
 
 Function: Obtains the integer representation of the current [Month](time_package_enums.md#enum-month) instance, where January to December are represented as 1 to 12, respectively.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The integer representation of the current [Month](time_package_enums.md#enum-month) instance.
 
@@ -377,7 +377,7 @@ Function: Obtains the integer representation of the current [Month](time_package
 >
 > This method will be deprecated in future versions. Use [toInteger()](#func-tointeger-1) instead.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The integer representation of the current [Month](time_package_enums.md#enum-month) instance.
 
@@ -393,7 +393,7 @@ Parameters:
 
 - r: [Month](time_package_enums.md#enum-month) - A [Month](time_package_enums.md#enum-month) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the current [Month](time_package_enums.md#enum-month) instance is not equal to `r`.
 
@@ -409,7 +409,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of months to add.
 
-Return Value:
+Returns:
 
 - [Month](time_package_enums.md#enum-month) - The month after `n` months.
 
@@ -425,7 +425,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of months to subtract.
 
-Return Value:
+Returns:
 
 - [Month](time_package_enums.md#enum-month) - The month before `n` months.
 
@@ -441,6 +441,6 @@ Parameters:
 
 - r: [Month](time_package_enums.md#enum-month) - A [Month](time_package_enums.md#enum-month) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Month](time_package_enums.md#enum-month) instance equals `r`; otherwise, returns `false`.

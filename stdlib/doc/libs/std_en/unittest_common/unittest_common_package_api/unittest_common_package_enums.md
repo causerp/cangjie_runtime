@@ -97,7 +97,7 @@ Parameters:
 
 - that: [Color](#enum-color) - The color to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise returns `false`.
 
@@ -113,7 +113,7 @@ Parameters:
 
 - that: [Color](#enum-color) - The color to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise returns `false`.
 

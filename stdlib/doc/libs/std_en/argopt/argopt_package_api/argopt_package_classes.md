@@ -192,7 +192,7 @@ Parameters:
 
 - arg: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string consisting of the prefix and argument name (the prefix can be omitted).
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - The parsed argument value.
 
@@ -226,7 +226,7 @@ public func getArgumentsMap(): HashMap<String, String>
 
 Function: Retrieves all parsed argument names and their values, returned as a hash map.
 
-Return Value:
+Returns:
 
 - [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - A hash map with parsed argument names as keys and their values as values.
 
@@ -260,7 +260,7 @@ public func getUnparseArgs(): Array<String>
 
 Function: Returns the unparsed command-line arguments.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - An array containing the strings that were not parsed.
 

@@ -9,7 +9,7 @@ public class Random {
 }
 ```
 
-Functionality: Provides capabilities for generating pseudo-random numbers.
+Function: Provides capabilities for generating pseudo-random numbers.
 
 Example:
 <!-- verify -->
@@ -39,7 +39,7 @@ b=true,c=true
 public prop seed: UInt64
 ```
 
-Functionality: Gets the random number seed.
+Function: Gets the random number seed.
 
 Type: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)
 
@@ -49,7 +49,7 @@ Type: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)
 public init()
 ```
 
-Functionality: Default parameterless constructor creates a new [Random](random_package_classes.md#class-random) object.
+Function: Default parameterless constructor creates a new [Random](random_package_classes.md#class-random) object.
 
 ### init(UInt64)
 
@@ -57,7 +57,7 @@ Functionality: Default parameterless constructor creates a new [Random](random_p
 public init(seed: UInt64)
 ```
 
-Functionality: Creates a new [Random](random_package_classes.md#class-random) object using a random number seed.
+Function: Creates a new [Random](random_package_classes.md#class-random) object using a random number seed.
 
 Parameters:
 
@@ -69,7 +69,7 @@ Parameters:
 public func next(bits: UInt64): UInt64
 ```
 
-Functionality: Generates a random integer with user-specified bit length.
+Function: Generates a random integer with user-specified bit length.
 
 > **Note:**
 >
@@ -79,7 +79,7 @@ Parameters:
 
 - bits: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits for the pseudo-random number (range: (0, 64]).
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number with the specified bit length.
 
@@ -93,13 +93,13 @@ Exceptions:
 public func nextBits(bits: UInt64): UInt64
 ```
 
-Functionality: Generates a random integer with specified bit length.
+Function: Generates a random integer with specified bit length.
 
 Parameters:
 
 - bits: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits for the pseudo-random number (range: (0, 64]).
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number with the specified bit length.
 
@@ -113,9 +113,9 @@ Exceptions:
 public func nextBool(): Bool
 ```
 
-Functionality: Gets a pseudo-random boolean value.
+Function: Gets a pseudo-random boolean value.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A pseudo-random boolean value.
 
@@ -144,9 +144,9 @@ n=true
 public func nextFloat16(): Float16
 ```
 
-Functionality: Gets a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type pseudo-random number in range [0.0, 1.0).
+Function: Gets a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type pseudo-random number in range [0.0, 1.0).
 
-Return Value:- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type pseudo-random number.
+Returns:- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type pseudo-random number.
 
 Example:
 <!-- verify -->
@@ -175,9 +175,9 @@ n is Float16
 public func nextFloat32(): Float32
 ```
 
-Functionality: Generates a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type pseudo-random number in the range [0.0, 1.0).
+Function: Generates a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type pseudo-random number in the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type pseudo-random number.
 
@@ -208,9 +208,9 @@ n is Float32
 public func nextFloat64(): Float64
 ```
 
-Functionality: Generates a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type pseudo-random number in the range [0.0, 1.0).
+Function: Generates a [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type pseudo-random number in the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type pseudo-random number.
 
@@ -241,7 +241,7 @@ n is Float64
 public func nextGaussianFloat16(mean!: Float16 = 0.0, sigma!: Float16 = 1.0): Float16
 ```
 
-Functionality: Generates a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type random number following Gaussian distribution with specified mean and standard deviation.
+Function: Generates a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type random number following Gaussian distribution with specified mean and standard deviation.
 
 By default, returns a [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type random number following standard normal distribution (mean=0.0, standard deviation=1.0). The mean parameter determines the distribution's central location, while sigma controls the distribution's spread.
 
@@ -250,7 +250,7 @@ Parameters:
 - mean!: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Mean value (default: 0.0).
 - sigma!: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Standard deviation (default: 1.0).
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type random number.
 
@@ -281,7 +281,7 @@ n is Float16
 public func nextGaussianFloat32(mean!: Float32 = 0.0, sigma!: Float32 = 1.0): Float32
 ```
 
-Functionality: Generates a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type random number following Gaussian distribution with specified mean and standard deviation.
+Function: Generates a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type random number following Gaussian distribution with specified mean and standard deviation.
 
 By default, returns a [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type random number following standard normal distribution (mean=0.0, standard deviation=1.0). The mean parameter determines the distribution's central location, while sigma controls the distribution's spread.
 
@@ -290,7 +290,7 @@ Parameters:
 - mean!: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Mean value (default: 0.0).
 - sigma!: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Standard deviation (default: 1.0).
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type random number.
 
@@ -330,7 +330,7 @@ Parameters:
 - mean!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Mean value, default 0.0.
 - sigma!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Standard deviation, default 1.0.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type random number.
 
@@ -363,7 +363,7 @@ public func nextInt16(): Int16
 
 Function: Obtains a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -400,7 +400,7 @@ Parameters:
 
 - upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Upper bound (exclusive) for the generated pseudo-random number, valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -444,7 +444,7 @@ public func nextInt32(): Int32
 
 Function: Obtains a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -481,7 +481,7 @@ Parameters:
 
 - upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Upper bound (exclusive) for the generated pseudo-random number, valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -525,7 +525,7 @@ public func nextInt64(): Int64
 
 Function: Obtains a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -562,7 +562,7 @@ Parameters:
 
 - upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Upper bound (exclusive) for the generated pseudo-random number, valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -606,7 +606,7 @@ public func nextInt8(): Int8
 
 Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -643,7 +643,7 @@ Parameters:
 
 - upper: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound (exclusive) for the generated pseudo-random number range, with valid values in (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -687,7 +687,7 @@ public func nextUInt16(): UInt16
 
 Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -724,7 +724,7 @@ Parameters:
 
 - upper: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound (exclusive) for the generated pseudo-random number range, with valid values in (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -768,7 +768,7 @@ public func nextUInt32(): UInt32
 
 Function: Obtains a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -805,7 +805,7 @@ Parameters:
 
 - upper: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound (exclusive) for the generated pseudo-random number range, with valid values in (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -849,7 +849,7 @@ public func nextUInt64(): UInt64
 
 Function: Obtains a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
@@ -886,7 +886,7 @@ Parameters:
 
 - upper: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound (exclusive) for the generated pseudo-random number range, with valid values in (0, [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).Max].
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
@@ -930,7 +930,7 @@ public func nextUInt8(): UInt8
 
 Function: Obtains a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -967,7 +967,7 @@ Parameters:
 
 - upper: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The upper bound of the generated pseudo-random number range (excluding `upper`), with valid range (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max].
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -1019,7 +1019,7 @@ Parameters:
 
 - array: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The array to be replaced.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Returns the replaced [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt).
 
@@ -1047,7 +1047,7 @@ Parameters:
 
 - length: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The length of the generated random number array, where `length` is greater than 0.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The generated random number array.
 

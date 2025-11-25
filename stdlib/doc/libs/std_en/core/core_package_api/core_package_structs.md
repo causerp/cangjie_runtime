@@ -210,7 +210,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Given condition.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements satisfy the condition, otherwise returns false.
 
@@ -226,7 +226,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Given condition.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether any element satisfies the condition.
 
@@ -238,7 +238,7 @@ public func clone(): Array<T>
 
 Function: Clones the array, performing a deep copy of the array data.
 
-Return value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The newly cloned array.
 
@@ -290,7 +290,7 @@ Parameters:
 
 - range: [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](core_package_intrinsics.md#int64)> - The range to clone.
 
-Return value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The newly cloned array.
 
@@ -327,7 +327,7 @@ Parameters:
 
 - other: [Array](core_package_structs.md#struct-arrayt)\<T> - The array to concatenate to the end of the current array.
 
-Return value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The newly concatenated array.
 
@@ -493,7 +493,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - A new array containing elements that satisfy the predicate.
 
@@ -509,7 +509,7 @@ Parameters:
 
 - transform: (T) -> ?R - The given transformation function. A return value of Some corresponds to predicate being true in filter, while None indicates false.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> - A new array after filtering and mapping.
 
@@ -525,7 +525,7 @@ Parameters:
 
 - transform: (T) -> [Array](core_package_structs.md#struct-arrayt)\<R> - The given transformation function.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> - A new array after "map" and "flatten" operations.
 
@@ -542,7 +542,7 @@ Parameters:
 - initial: R - The initial value of type R.
 - operation: (R, T) -> R - The given computation function.
 
-Return Value:
+Returns:
 
 - R - The final computed value.
 
@@ -574,7 +574,7 @@ Parameters:
 
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the element to retrieve.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The value at the specified index in the current array.
 
@@ -607,7 +607,7 @@ Parameters:
 
 - separator: T - The given element.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - A new array.
 
@@ -623,7 +623,7 @@ Parameters:
 
 - transform: (T)->R - The mapping function.
 
-Return Value:
+Returns:
 
 - [Array](./core_package_structs.md#struct-arrayt)\<R> - A new array consisting of mapped elements.
 
@@ -668,7 +668,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether none of the elements satisfy the condition.
 
@@ -684,7 +684,7 @@ Parameters:
 
 - operation: (T, T) -> T - The given computation function.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The computation result.
 
@@ -700,7 +700,7 @@ Parameters:
 
 - n: [Int64](core_package_intrinsics.md#int64) - The number of repetitions.
 
-Return Value:
+Returns:
 
 - [Array](./core_package_structs.md#struct-arrayt)\<T> - A new array formed by repeating the current array n times.
 
@@ -792,7 +792,7 @@ Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to skip.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - A new array with specified elements skipped.
 
@@ -815,7 +815,7 @@ Parameters:
 - start: [Int64](core_package_intrinsics.md#int64) - The starting position of the slice. The value must be greater than or equal to 0, and start + len must be less than or equal to the length of the current [Array](core_package_structs.md#struct-arrayt) instance.
 - len: [Int64](core_package_intrinsics.md#int64) - The length of the slice. The value must be greater than 0.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - Returns the sliced array.
 
@@ -869,7 +869,7 @@ Parameters:
 
 - mid: [Int64](core_package_intrinsics.md#int64) - The split position. The value range is [0, this.size].
 
-Return Value:
+Returns:
 
 - ([Array](./core_package_structs.md#struct-arrayt)\<T>, [Array](./core_package_structs.md#struct-arrayt)\<T>) - Two slices obtained by splitting the original array.
 
@@ -926,7 +926,7 @@ Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The extraction interval.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - A new array containing elements extracted from the source array at the specified interval.
 
@@ -995,7 +995,7 @@ Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to extract.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array containing the specified number of elements.
 
@@ -1017,7 +1017,7 @@ Parameters:
 
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the value to retrieve. The value range is [0, [Int64](core_package_intrinsics.md#int64).Max].
 
-Return Value:
+Returns:
 
 - T - The value at the specified index in the array.
 
@@ -1116,7 +1116,7 @@ Parameters:
 
 - range: [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](core_package_intrinsics.md#int64)> - The range of the slice. The range must not exceed the array bounds.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The array slice.
 
@@ -1203,7 +1203,7 @@ public func enumerate(): Array<(Int64, T)>
 
 Function: Retrieves an array with indices.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new array with indices.
 
@@ -1219,7 +1219,7 @@ Parameters:
 
 - other: [Array](core_package_structs.md#struct-arrayt)\<R> - One of the arrays to merge.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - Returns a new array.### extend\<T> Array\<T> <: Collection\<T>
 
@@ -1286,7 +1286,7 @@ public func isEmpty(): Bool
 
 Function: Determines whether the array is empty.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the array is empty, otherwise returns false.
 
@@ -1333,7 +1333,7 @@ public func iterator(): Iterator<T>
 
 Function: Gets an iterator for the current array, used to traverse the array.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<T> - An iterator for the current array.
 
@@ -1399,7 +1399,7 @@ public func toArray(): Array<T>
 
 Function: Creates a new [Array](core_package_structs.md#struct-arrayt) instance by copying the current [Array](core_package_structs.md#struct-arrayt) instance.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - A new [Array](core_package_structs.md#struct-arrayt) instance obtained by copying.
 
@@ -1478,7 +1478,7 @@ Parameters:
 
 - element: T - The target element to search for.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the element exists, otherwise returns false.
 
@@ -1515,7 +1515,7 @@ Parameters:
 
 - elements: [Array](core_package_structs.md#struct-arrayt)\<T> - The target subarray to locate.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The first position where the subarray `elements` appears in the array. If the array does not contain this subarray, returns None.
 
@@ -1552,7 +1552,7 @@ Parameters:
 - elements: [Array](core_package_structs.md#struct-arrayt)\<T> - The target subarray to locate.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The starting position for the search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The first position where the subarray `elements` appears in the array after `fromIndex`. If not found, returns None.
 
@@ -1586,7 +1586,7 @@ Parameters:
 
 - element: T - The target element to locate.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The first position where `element` appears in the array. If the array does not contain this element, returns None.
 
@@ -1644,7 +1644,7 @@ Parameters:
 - element: T - The target element to locate.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The starting position for the search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The first position where `element` appears in the array after `fromIndex`. If not found, returns None.
 
@@ -1717,7 +1717,7 @@ Parameters:
 
 - elements: [Array](core_package_structs.md#struct-arrayt)\<T> - The target subarray to locate.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last position where the subarray `elements` appears in the array. If the array does not contain this subarray, returns None.
 
@@ -1767,7 +1767,7 @@ Parameters:
 - elements: [Array](core_package_structs.md#struct-arrayt)\<T> - The target subarray to locate.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The starting position for the search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last position where the subarray `elements` appears in the array when searching backward from `fromIndex`. If the array does not contain this subarray, returns None.
 
@@ -1813,7 +1813,7 @@ Parameters:
 
 - element: T - The target element to locate.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last occurrence position of `element` in the array. Returns None if the element does not exist.
 
@@ -1871,7 +1871,7 @@ Parameters:
 - element: T - The target element to locate.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The starting position for the search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - The last occurrence position of `element` when searching backward from `fromIndex`. Returns None if the element does not exist.
 
@@ -1928,7 +1928,7 @@ Parameters:
 
 - prefix: [Array](./core_package_structs.md#struct-arrayt)\<T> - The prefix to be removed.
 
-Return Value:
+Returns:
 
 - [Array](./core_package_structs.md#struct-arrayt)\<T> - The slice of the original array after removing the prefix.
 
@@ -1963,7 +1963,7 @@ Parameters:
 
 - suffix: [Array](./core_package_structs.md#struct-arrayt)\<T> - The suffix to be removed.
 
-Return Value:
+Returns:
 
 - [Array](./core_package_structs.md#struct-arrayt)\<T> - The slice of the original array after removing the suffix.
 
@@ -1996,7 +1996,7 @@ Parameters:
 
 - set: [Array](core_package_structs.md#struct-arrayt)\<T> - The set of elements to be removed.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The trimmed array slice.
 
@@ -2029,7 +2029,7 @@ Parameters:
 
 - predicate: (T)->[Bool](./core_package_intrinsics.md#bool) - The filtering condition.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The trimmed array slice.
 
@@ -2079,7 +2079,7 @@ Parameters:
 
 - set: [Array](core_package_structs.md#struct-arrayt)\<T> - The set of elements to be removed.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The trimmed array slice.
 
@@ -2112,7 +2112,7 @@ Parameters:
 
 - predicate: (T)->[Bool](./core_package_intrinsics.md#bool) - The filtering condition.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The trimmed array slice.
 
@@ -2162,7 +2162,7 @@ Parameters:
 
 - that: [Array](core_package_structs.md#struct-arrayt)\<T> - Another [Array](core_package_structs.md#struct-arrayt)\<T> instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if not equal; otherwise, returns false.
 
@@ -2238,7 +2238,7 @@ Parameters:
 
 - that: [Array](core_package_structs.md#struct-arrayt)\<T> - Another [Array](core_package_structs.md#struct-arrayt)\<T> instance to compare with the current instance.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise false.
 
@@ -2323,7 +2323,7 @@ Function: Converts the array to an output-ready string.
 
 The string format resembles "[1, 2, 3, 4, 5]"
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -2387,7 +2387,7 @@ Function: Flattens the current 2D array into a 1D array.
 
 For example, converts [[1, 2], [3, 4]] to [1, 2, 3, 4].
 
-Return Value:
+Returns:
 
 - [Array](./core_package_structs.md#struct-arrayt)\<T> - The flattened 1D array.
 
@@ -2676,7 +2676,7 @@ public func isClosed(): Bool
 
 Function: Checks whether the pointer's content has been released.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if released.
 
@@ -2792,7 +2792,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the string has been released.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if released.
 
@@ -2889,7 +2889,7 @@ public func finish(): Int64
 
 Function: Obtains the result of the hash operation.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The result of the hash operation.
 
@@ -3801,7 +3801,7 @@ public func abs(): Duration
 
 Function: Returns a new [Duration](core_package_structs.md#struct-duration) instance whose value is the absolute value of the current [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The result of taking the absolute value of the current [Duration](core_package_structs.md#struct-duration) instance.
 
@@ -3849,7 +3849,7 @@ Parameters:
 
 - rhs: [Duration](core_package_structs.md#struct-duration) - The [Duration](core_package_structs.md#struct-duration) instance to compare with.
 
-Return Value:
+Returns:
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - The comparison result between the current [Duration](core_package_structs.md#struct-duration) instance and `rhs`.
 
@@ -3897,7 +3897,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of the current [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the current [Duration](core_package_structs.md#struct-duration) instance.
 
@@ -3951,7 +3951,7 @@ public func toDays(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in days.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in days.
 
@@ -3993,7 +3993,7 @@ public func toHours(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in hours.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in hours.
 
@@ -4035,7 +4035,7 @@ public func toMicroseconds(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in microseconds.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in microseconds.
 
@@ -4081,7 +4081,7 @@ public func toMilliseconds(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in milliseconds.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in milliseconds.
 
@@ -4127,7 +4127,7 @@ public func toMinutes(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in minutes.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in minutes.
 
@@ -4169,7 +4169,7 @@ public func toNanoseconds(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in nanoseconds, rounded toward zero.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in nanoseconds.
 
@@ -4215,7 +4215,7 @@ public func toSeconds(): Int64
 
 Function: Gets the integer value of the current [Duration](core_package_structs.md#struct-duration) instance in seconds.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the current [Duration](core_package_structs.md#struct-duration) instance in seconds.
 
@@ -4257,7 +4257,7 @@ public func toString(): String
 
 Function: Gets the string representation of the current [Duration](core_package_structs.md#struct-duration) instance, formatted as "1d2h3m4s5ms6us7ns", representing "1 day 2 hours 3 minutes 4 seconds 5 milliseconds 6 microseconds 7 nanoseconds". Units with a value of 0 are omitted. Specifically, if all units are 0, returns "0s".
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [Duration](core_package_structs.md#struct-duration) instance.
 
@@ -4305,7 +4305,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is not equal to `r`; otherwise, returns `false`.
 
@@ -4362,7 +4362,7 @@ Parameters:
 
 - r: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The right operand of multiplication.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The product of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4409,7 +4409,7 @@ Parameters:
 
 - r: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The right operand of multiplication.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The product of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4456,7 +4456,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - The right operand of addition.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The sum of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4509,7 +4509,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - The right operand of subtraction.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The difference between the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4562,7 +4562,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - The divisor.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The quotient of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4618,7 +4618,7 @@ Parameters:
 
 - r: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The divisor.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The quotient of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4666,7 +4666,7 @@ Parameters:
 
 - r: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The divisor.
 
-Return Value:
+Returns:
 
 - [Duration](core_package_structs.md#struct-duration) - The quotient of the [Duration](core_package_structs.md#struct-duration) instance and `r`.
 
@@ -4714,7 +4714,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is less than `r`; otherwise, returns `false`.
 
@@ -4770,7 +4770,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is less than or equal to `r`; otherwise, returns `false`.
 
@@ -4838,7 +4838,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is equal to `r`; otherwise, returns `false`.
 
@@ -4894,7 +4894,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is greater than `r`; otherwise, returns `false`.
 
@@ -4950,7 +4950,7 @@ Parameters:
 
 - r: [Duration](core_package_structs.md#struct-duration) - A [Duration](core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [Duration](core_package_structs.md#struct-duration) instance is greater than or equal to `r`; otherwise, returns `false`.
 
@@ -5827,7 +5827,7 @@ Parameters:
 
 - data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the Byte array conforms to UTF-8 encoding; otherwise, returns false.
 
@@ -5843,7 +5843,7 @@ Parameters:
 
 - utf8Data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The constructed string.
 
@@ -5888,7 +5888,7 @@ Parameters:
 
 - utf8Data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The constructed string.
 
@@ -5932,7 +5932,7 @@ Parameters:
 - strArray: [Array](core_package_structs.md#struct-arrayt)\<[String](core_package_structs.md#struct-string)> - The array of strings to be joined. Returns an empty string if the array is empty.
 - delimiter!: [String](core_package_structs.md#struct-string) - The intermediate string used for joining, with a default value of [String](core_package_structs.md#struct-string).empty.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The newly concatenated string.
 
@@ -5982,7 +5982,7 @@ Parameters:
 
 - rawData: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The constructed string.
 
@@ -5998,7 +5998,7 @@ public func clone(): String
 
 Function: Returns a copy of the original string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The newly copied string.
 
@@ -6039,7 +6039,7 @@ Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The string to be compared.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns an enum value [Ordering](core_package_enums.md#enum-ordering) indicating the result. [Ordering](core_package_enums.md#enum-ordering).GT means the current string is lexicographically greater than str, [Ordering](core_package_enums.md#enum-ordering).LT means the current string is lexicographically less than str, and [Ordering](core_package_enums.md#enum-ordering).EQ means the two strings are lexicographically equal.
 
@@ -6088,7 +6088,7 @@ Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The substring to search for.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the substring str is found in the original string, otherwise returns false. Specifically, if str is an empty string, returns true.
 
@@ -6136,7 +6136,7 @@ Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The substring to search for.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The number of occurrences. If str is an empty string, returns the number of Runes in the original string plus one.
 
@@ -6184,7 +6184,7 @@ Parameters:
 
 - suffix: [String](core_package_structs.md#struct-string) - The suffix string to check.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string str is a suffix of the original string, otherwise returns false. Specifically, if str is an empty string, returns true.
 
@@ -6239,7 +6239,7 @@ Parameters:
 
 - that: [String](./core_package_structs.md#struct-string) - The string to compare.
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns true if the current string is equal to the specified string, otherwise returns false.
 
@@ -6308,7 +6308,7 @@ Parameters:
 
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the byte to retrieve.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Byte](core_package_types.md#type-byte)> - Returns the UTF-8 encoded byte value at the specified index. If index is less than 0 or greater than or equal to the string length, returns [Option](core_package_enums.md#enum-optiont)\<[Byte](core_package_types.md#type-byte)>.None.
 
@@ -6349,7 +6349,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash code of the string.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - Returns the hash code of the string.
 
@@ -6385,7 +6385,7 @@ Parameters:
 
 - b: [Byte](core_package_types.md#type-byte) - The byte to search for.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the byte is found, returns the index of its first occurrence. If the byte is not found, returns [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)>.None.
 
@@ -6435,7 +6435,7 @@ Parameters:
 - b: [Byte](core_package_types.md#type-byte) - The byte to search for.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The index to start searching from.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the byte is found, returns the index of its first occurrence. Otherwise, returns `None`. Specifically, if fromIndex is less than 0, it is treated as 0. If fromIndex is greater than or equal to the string length, returns [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)>.None.
 
@@ -6484,7 +6484,7 @@ Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The string to search for.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the original string contains `str`, returns the index of its first occurrence; if `str` is not found, returns `None`.
 
@@ -6534,7 +6534,7 @@ Parameters:
 - str: [String](core_package_structs.md#struct-string) - The string to search for.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The index from which to start the search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the search is successful, returns the index of the first occurrence of `str`; otherwise, returns `None`. Specifically, if `str` is an empty string and `fromIndex` is greater than 0, returns `None`; otherwise, returns `Some(0)`. If `fromIndex` is negative, it is treated as 0. If `fromIndex` is greater than or equal to the length of the original string, returns `None`.
 
@@ -6579,7 +6579,7 @@ public func isAscii(): Bool
 
 Function: Determines whether the string is an ASCII string. Returns `true` if the string is empty or contains no non-ASCII characters.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the string is ASCII, otherwise `false`.
 
@@ -6624,7 +6624,7 @@ public func isAsciiBlank(): Bool
 
 Function: Determines whether the string is empty or all its Runes are ASCII whitespace characters (including: 0x09, 0x10, 0x11, 0x12, 0x13, 0x20).
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the string is empty or contains only ASCII whitespace, otherwise `false`.
 
@@ -6677,7 +6677,7 @@ public func isEmpty(): Bool
 
 Function: Determines whether the original string is an empty string.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the string is empty, otherwise `false`.
 
@@ -6718,7 +6718,7 @@ public func iterator(): Iterator<Byte>
 
 Function: Returns a UTF-8 encoded byte iterator for the string, which can be used in `for-in` loops.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<[Byte](core_package_types.md#type-byte)> - A UTF-8 encoded byte iterator for the string.
 
@@ -6756,7 +6756,7 @@ Parameters:
 
 - b: [Byte](core_package_types.md#type-byte) - The byte to search for.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the original string contains the byte, returns the index of its last occurrence; otherwise, returns `None`.
 
@@ -6806,7 +6806,7 @@ Parameters:
 - b: [Byte](core_package_types.md#type-byte) - The byte to search for.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The index from which to start the backward search.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the search is successful, returns the index of the last occurrence of the byte; otherwise, returns `None`. If `fromIndex` is negative, it is treated as 0. If `fromIndex` is greater than or equal to the length of the original string, returns `None`.
 
@@ -6855,7 +6855,7 @@ Parameters:
 
 - str: [String](core_package_structs.md#struct-string) - The string to search for.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - If the original string contains `str`, returns the index of its last occurrence; otherwise, returns `None`.
 
@@ -6905,7 +6905,7 @@ Parameters:
 - str: [String](core_package_structs.md#struct-string) - The string to search for.
 - fromIndex: [Int64](core_package_intrinsics.md#int64) - The index to start the search from.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - Returns `None` if the string does not occur at or after position fromIndex. Specifically, when str is an empty string, returns `None` if fromIndex > 0, otherwise returns `Some(0)`. If fromIndex < 0, it is treated as 0. If fromIndex ≥ the length of the original string, returns `None`.
 
@@ -6957,7 +6957,7 @@ Parameters:
 - str: [String](core_package_structs.md#struct-string) - The string delimiter.
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - Removes empty strings from the split result. Default is false.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<[String](core_package_structs.md#struct-string)> - An iterator of split strings.
 
@@ -7006,7 +7006,7 @@ Parameters:
 - maxSplits: [Int64](core_package_intrinsics.md#int64) - Maximum number of splits (maxSplit substrings).
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - Removes empty strings from the split result. Default is false.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<[String](core_package_structs.md#struct-string)> - An iterator of split strings.
 
@@ -7041,7 +7041,7 @@ public func lines(): Iterator<String>
 
 Function: Returns an iterator of lines in the string, each separated by line terminators (`\n`, `\r`, or `\r\n`). The line terminators are not included in the result.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<[String](core_package_structs.md#struct-string)> - An iterator of lines in the string.
 
@@ -7084,7 +7084,7 @@ Parameters:
 - totalWidth: [Int64](core_package_intrinsics.md#int64) - The target length after padding. Must be ≥ 0.
 - padding!: [String](core_package_structs.md#struct-string) - The string used for right padding when length is insufficient.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The padded string.
 
@@ -7139,7 +7139,7 @@ Parameters:
 - totalWidth: [Int64](core_package_intrinsics.md#int64) - The target length after padding. Must be ≥ 0.
 - padding!: [String](core_package_structs.md#struct-string) - The string used for left padding when length is insufficient.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The padded string.
 
@@ -7191,7 +7191,7 @@ Function: Gets the raw byte array of the string encoded in UTF-8.
 >
 > Users should not modify the obtained array, as this would violate string immutability.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[Byte](core_package_types.md#type-byte)> - The raw byte array corresponding to the current string.
 
@@ -7248,7 +7248,7 @@ Parameters:
 
 - prefix: [String](core_package_structs.md#struct-string) - The prefix to remove.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The new string after prefix removal.
 
@@ -7304,7 +7304,7 @@ Parameters:
 
 - suffix: [String](core_package_structs.md#struct-string) - The suffix to be removed.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The new string with the suffix removed.
 
@@ -7361,7 +7361,7 @@ Parameters:
 - old: [String](core_package_structs.md#struct-string) - The substring to be replaced.
 - new: [String](core_package_structs.md#struct-string) - The replacement string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The new string after replacement.
 
@@ -7417,7 +7417,7 @@ public func runes(): Iterator<Rune>
 
 Function: Returns an iterator over the Unicode runes of the string.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<Rune> - A Rune iterator for the string.
 
@@ -7483,7 +7483,7 @@ Parameters:
 - str: [String](core_package_structs.md#struct-string) - The delimiter string.
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - Whether to remove empty strings from results (default: false).
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[String](core_package_structs.md#struct-string)> - The resulting string array.
 
@@ -7550,7 +7550,7 @@ Parameters:
 - maxSplits: [Int64](core_package_intrinsics.md#int64) - Maximum number of splits.
 - removeEmpty!: [Bool](core_package_intrinsics.md#bool) - Remove empty strings (default: false).
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[String](core_package_structs.md#struct-string)> - The resulting string array.
 
@@ -7613,7 +7613,7 @@ Parameters:
 
 - prefix: [String](core_package_structs.md#struct-string) - The prefix to check.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string starts with the prefix. Empty prefix always returns true.
 
@@ -7667,7 +7667,7 @@ public func toArray(): Array<Byte>
 
 Function: Returns the UTF-8 encoded byte array of the string.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[Byte](core_package_types.md#type-byte)> - The UTF-8 byte array.
 
@@ -7717,7 +7717,7 @@ public func toAsciiLower(): String
 
 Function: Converts all ASCII uppercase letters in the string to ASCII lowercase letters.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -7775,7 +7775,7 @@ Function: Capitalizes the string in title case.
 
 This function only converts ASCII English characters. When an English character is the first character in the string or the preceding character is not an English character, the character is capitalized; other English characters are converted to lowercase.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -7831,7 +7831,7 @@ public func toAsciiUpper(): String
 
 Function: Converts all ASCII lowercase letters in the string to ASCII uppercase letters.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -7887,7 +7887,7 @@ public func toRuneArray(): Array<Rune>
 
 Function: Gets the Rune array of the string. If the original string is empty, returns an empty array.
 
-Return value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<Rune> - The Rune array of the string.
 
@@ -7936,7 +7936,7 @@ public func toString(): String
 
 Function: Returns the string itself.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The string itself.
 
@@ -7984,7 +7984,7 @@ ASCII whitespace characters include characters with ASCII codes in the range [0x
 | Carriage return (\r, CR) | 0x0D |
 | Space (Space) | 0x20 |
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -8046,7 +8046,7 @@ Function: Removes trailing substrings composed of ASCII whitespace characters fr
 
 ASCII whitespace characters include characters with ASCII codes in the range [0x09, 0x0D] and the character with ASCII code 0x20. Specific characters are listed in [trimAscii()](#func-trimascii).
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -8108,7 +8108,7 @@ Function: Removes leading substrings composed of ASCII whitespace characters fro
 
 ASCII whitespace characters include characters with ASCII codes in the range [0x09, 0x0D] and the character with ASCII code 0x20. Specific characters are listed in [trimAscii()](#func-trimascii).
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted new string.
 
@@ -8172,7 +8172,7 @@ Parameters:
 
 - predicate: ([Rune](./core_package_intrinsics.md#rune))->[Bool](./core_package_intrinsics.md#bool) - The filtering condition.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8205,7 +8205,7 @@ Parameters:
 
 - set: [Array](./core_package_structs.md#struct-arrayt)\<[Rune](./core_package_intrinsics.md#rune)> - The collection of characters to be removed.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8238,7 +8238,7 @@ Parameters:
 
 - set: [String](./core_package_structs.md#struct-string) - The collection of characters to be removed.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8271,7 +8271,7 @@ Parameters:
 
 - predicate: ([Rune](./core_package_intrinsics.md#rune))->[Bool](./core_package_intrinsics.md#bool) - The filtering condition.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8313,7 +8313,7 @@ Parameters:
 
 - set: [Array](./core_package_structs.md#struct-arrayt)\<[Rune](./core_package_intrinsics.md#rune)> - The collection of characters to be removed.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8355,7 +8355,7 @@ Parameters:
 
 - set: [String](./core_package_structs.md#struct-string) - The collection of characters to be removed.
 
-Return Value:
+Returns:
 
 - [String](./core_package_structs.md#struct-string) - The newly trimmed string.
 
@@ -8395,7 +8395,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The [String](core_package_structs.md#struct-string) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if not equal, false otherwise.
 
@@ -8443,7 +8443,7 @@ Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of repetitions.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Returns the new string after repetition.
 
@@ -8492,7 +8492,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to append.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Returns the concatenated string.
 
@@ -8547,7 +8547,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the original string is lexicographically smaller than right, false otherwise.
 
@@ -8598,7 +8598,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the original string is lexicographically less than or equal to `right`, otherwise returns false.
 
@@ -8649,7 +8649,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the strings are equal, otherwise returns false.
 
@@ -8697,7 +8697,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the original string is lexicographically greater than `right`, otherwise returns false.
 
@@ -8748,7 +8748,7 @@ Parameters:
 
 - right: [String](core_package_structs.md#struct-string) - The string to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the original string is lexicographically greater than or equal to `right`, otherwise returns false.
 
@@ -8799,7 +8799,7 @@ Parameters:
 
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the UTF-8 byte to retrieve.
 
-Return Value:
+Returns:
 
 - [Byte](core_package_types.md#type-byte) - The UTF-8 encoded byte at the specified index.
 
@@ -8855,7 +8855,7 @@ Parameters:
 
 - range: [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](core_package_intrinsics.md#int64)> - The range for the substring.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The substring slice.
 

@@ -84,7 +84,7 @@ public func toString(): String
 
 Function: Generate a string representation of the rounding mode.
 
-Return Value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The name string of the rounding mode.
 
@@ -100,6 +100,6 @@ Parameters:
 
 - that: [RoundingMode](#enum-roundingmode) - The rounding mode to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the rounding modes are identical, otherwise returns false.

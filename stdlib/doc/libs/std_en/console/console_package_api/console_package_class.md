@@ -6,7 +6,7 @@
 public class Console
 ```
 
-Functionality: This class provides interfaces for obtaining standard input, standard output, and standard error streams.
+Function: This class provides interfaces for obtaining standard input, standard output, and standard error streams.
 
 > **Note:**
 >
@@ -18,7 +18,7 @@ Functionality: This class provides interfaces for obtaining standard input, stan
 public static prop stdErr: ConsoleWriter
 ```
 
-Functionality: This member property is of type [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated), providing access to standard error output.
+Function: This member property is of type [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated), providing access to standard error output.
 
 Type: [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated)
 
@@ -49,7 +49,7 @@ This is a standard error message
 public static prop stdIn: ConsoleReader
 ```
 
-Functionality: This member property is of type [ConsoleReader](console_package_class.md#class-consolereader-deprecated), providing access to standard input.
+Function: This member property is of type [ConsoleReader](console_package_class.md#class-consolereader-deprecated), providing access to standard input.
 
 Type: [ConsoleReader](console_package_class.md#class-consolereader-deprecated)
 
@@ -81,7 +81,7 @@ Standard input stream successfully obtained
 public static prop stdOut: ConsoleWriter
 ```
 
-Functionality: This member property is of type [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated), providing access to standard output.
+Function: This member property is of type [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated), providing access to standard output.
 
 Type: [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated)
 
@@ -112,7 +112,7 @@ This is a standard output message
 public class ConsoleReader <: InputStream
 ```
 
-Functionality: Provides functionality to read data from console and convert it to characters or strings.
+Function: Provides functionality to read data from console and convert it to characters or strings.
 
 This type cannot be instantiated directly; instances can only be obtained through [Console.stdIn](console_package_class.md#static-prop-stdin). 
 Read operations are synchronous, with an internal buffer storing console input content. When reaching the end of console input stream, console read functions will return `None`.
@@ -137,9 +137,9 @@ Parent Types:
 public func read(): ?Rune
 ```
 
-Functionality: Reads the next character from standard input.
+Function: Reads the next character from standard input.
 
-Return Value:
+Returns:
 
 - ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - Returns ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) if a character is read, otherwise returns `None`.
 
@@ -176,7 +176,7 @@ User input: Some(H)
 public func read(arr: Array<Byte>): Int64
 ```
 
-Functionality: Reads from standard input and stores in `arr`.
+Function: Reads from standard input and stores in `arr`.
 
 > **Note:**
 >
@@ -186,7 +186,7 @@ Parameters:
 
 - arr: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Target array.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the number of bytes read.
 
@@ -222,11 +222,11 @@ Buffer content: [97, 98, 99, 100, 101]
 public func readToEnd(): ?String
 ```
 
-Functionality: Reads all characters from standard input.
+Function: Reads all characters from standard input.
 
 Reads until EOF is encountered, or `Ctrl+D` is pressed in Linux or `Ctrl+Z` + Enter in Windows. Returns ?[String](../../core/core_package_api/core_package_structs.md#struct-string) if characters are read, otherwise returns `None`. This interface won't throw exceptions even if input isn't `UTF-8` encoded, behaving equivalently to [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>).
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns all read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -262,7 +262,7 @@ abcdeInput: Some(abcde)
 public func readUntil(predicate: (Rune) -> Bool): ?String
 ```
 
-Functionality: Reads data from standard input until the read character satisfies `predicate` condition.
+Function: Reads data from standard input until the read character satisfies `predicate` condition.
 
 Characters satisfying predicate: (Rune) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) are included in the result. Returns `None` if reading fails.
 
@@ -270,7 +270,7 @@ Parameters:
 
 - predicate: (Rune) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Condition to terminate reading.
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -303,7 +303,7 @@ Some(abcde)
 public func readUntil(ch: Rune): ?String
 ```
 
-Functionality: Reads data from standard input until character `ch` is encountered.
+Function: Reads data from standard input until character `ch` is encountered.
 
 `ch` is included in the result. If EOF is encountered, returns all read information. Returns `None` if reading fails.
 
@@ -311,7 +311,7 @@ Parameters:
 
 - ch: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - Termination character.
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -344,11 +344,11 @@ Some(abcde)
 public func readln(): ?String
 ```
 
-Functionality: Reads a line of string from standard input.
+Function: Reads a line of string from standard input.
 
 Returns ?[String](../../core/core_package_api/core_package_structs.md#struct-string) if characters are read (excluding trailing newline). This interface won't throw exceptions even if input isn't `UTF-8` encoded, behaving equivalently to [String](../../core/core_package_api/core_package_structs.md#struct-string).fromUtf8Uncheck([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>).
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the read line data, or `None` if reading fails.
 
@@ -381,7 +381,7 @@ Some(abcde)
 public class ConsoleWriter <: OutputStream
 ```
 
-Functionality: This class provides thread-safe standard output functionality.
+Function: This class provides thread-safe standard output functionality.
 
 Each write call produces complete output to console, with no mixing between different write function calls.
 This type cannot be instantiated directly; instances can only be obtained through [Console.stdOut](console_package_class.md#static-prop-stdout) for standard output or [Console.stdErr](console_package_class.md#static-prop-stderr) for standard error.
@@ -400,7 +400,7 @@ Parent Types:
 public func flush(): Unit
 ```
 
-Functionality: Flushes the output stream.
+Function: Flushes the output stream.
 
 Example:
 

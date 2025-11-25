@@ -16,7 +16,7 @@ public func groupCount(): Int64
 
 Function: Gets the number of capturing groups.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of capturing groups.
 
@@ -57,7 +57,7 @@ Function: Gets the number of capturing groups.
 >
 > Will be deprecated in future versions, use [groupCount()](#func-groupcount) instead.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of capturing groups.
 
@@ -69,7 +69,7 @@ public func matchPosition(): Position
 
 Function: Gets the start and end indices of the last matched substring in the input string.
 
-Return value:
+Returns:
 
 - [Position](#struct-position) - Position information of the matching result.
 
@@ -115,7 +115,7 @@ Parameters:
 
 - group: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified group.
 
-Return value:
+Returns:
 
 - [Position](#struct-position) - Position information of the corresponding capturing group.
 
@@ -166,7 +166,7 @@ Parameters:
 
 - group: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the specified named capturing group.
 
-Return value:
+Returns:
 
 - [Position](#struct-position) - Position information of the corresponding capturing group.
 
@@ -212,7 +212,7 @@ public func matchString(): String
 
 Function: Gets the last matched substring, equivalent to calling matchString(0).
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The matched substring.
 
@@ -257,7 +257,7 @@ Parameters:
 
 - group: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified group.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The matched substring.
 
@@ -277,7 +277,7 @@ Parameters:
 
 - group: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name of the specified named capturing group.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The matched substring.
 

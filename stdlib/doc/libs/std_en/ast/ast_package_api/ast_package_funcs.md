@@ -28,7 +28,7 @@ Parameters:
 
 - code: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be lexically parsed.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The lexically parsed [Tokens](ast_package_classes.md#class-tokens).
 
@@ -50,7 +50,7 @@ Parameters:
 - code: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be lexically parsed.
 - truncated: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to remove the Token([END](ast_package_enums.md#end)) from the parsed [Tokens](ast_package_classes.md#class-tokens).
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The lexically parsed [Tokens](ast_package_classes.md#class-tokens).
 
@@ -72,7 +72,7 @@ Parameters:
 - tokens1: [Tokens](ast_package_classes.md#class-tokens) - The first [Tokens](ast_package_classes.md#class-tokens) to compare.
 - tokens2: [Tokens](ast_package_classes.md#class-tokens) - The second [Tokens](ast_package_classes.md#class-tokens) to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [Tokens](ast_package_classes.md#class-tokens) have identical content (excluding line breaks, terminators, and position information).
 
@@ -122,7 +122,7 @@ Parameters:
 
 - children: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the nested macro whose messages are to be received.
 
-Return Value:
+Returns:
 
 - [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[MacroMessage](ast_package_classes.md#class-macromessage)> - Returns a set of [MacroMessage](ast_package_classes.md#class-macromessage) objects.
 
@@ -138,7 +138,7 @@ Parameters:
 
 - no: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The number to be converted.
 
-Return Value:
+Returns:
 
 - [TokenKind](ast_package_enums.md#enum-tokenkind) - The [TokenKind](ast_package_enums.md#enum-tokenkind) corresponding to the token kind number.
 
@@ -163,7 +163,7 @@ Parameters:
 
 - parentMacroName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the outer macro invocation to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current macro is nested within the specified macro invocation.
 
@@ -186,7 +186,7 @@ Parameters:
     - `PrimaryCtorDecl`: Parses the primary constructor.
     - `PropMemberDecl`: Parses the getter and setter functions of a prop declaration.
 
-Return Value:
+Returns:
 
 - [Decl](ast_package_classes.md#class-decl) - A [Decl](ast_package_classes.md#class-decl) type node.
 
@@ -263,7 +263,7 @@ Parameters:
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 - startFrom!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position.
 
-Return Value:
+Returns:
 
 - ([Decl](ast_package_classes.md#class-decl), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The syntax tree node and the position for continued parsing.
 
@@ -283,7 +283,7 @@ Parameters:
 
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 
-Return Value:
+Returns:
 
 - [Expr](ast_package_classes.md#class-expr) - An [Expr](ast_package_classes.md#class-expr) type node.
 
@@ -304,7 +304,7 @@ Parameters:
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 - startFrom!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position.
 
-Return Value:
+Returns:
 
 - ([Expr](ast_package_classes.md#class-expr), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The syntax tree node and the position for continued parsing.
 
@@ -324,7 +324,7 @@ Parameters:
 
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 
-Return Value:
+Returns:
 
 - [Pattern](ast_package_classes.md#class-pattern) - A node of type [Pattern](ast_package_classes.md#class-pattern).
 
@@ -345,7 +345,7 @@ Parameters:
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 - startFrom!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position.
 
-Return Value:
+Returns:
 
 - ([Pattern](ast_package_classes.md#class-pattern), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The syntax tree node and the position for continued parsing.
 
@@ -369,7 +369,7 @@ Parameters:
 
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 
-Return Value:
+Returns:
 
 - [Program](ast_package_classes.md#class-program) - A node of type [Program](ast_package_classes.md#class-program).
 
@@ -389,7 +389,7 @@ Parameters:
 
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 
-Return Value:
+Returns:
 
 - [TypeNode](ast_package_classes.md#class-typenode) - A node of type [TypeNode](ast_package_classes.md#class-typenode).
 
@@ -410,7 +410,7 @@ Parameters:
 - input: [Tokens](ast_package_classes.md#class-tokens) - The lexical units of the source code to be parsed.
 - startFrom!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position.
 
-Return Value:
+Returns:
 
 - ([TypeNode](ast_package_classes.md#class-typenode), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The syntax tree node and the position for continued parsing.
 

@@ -21,7 +21,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns a new file descriptor, or `-1` on failure.
 
@@ -49,7 +49,7 @@ Parameters:
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 - flag: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - If `oflag` includes [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated) and a new file needs to be created, the `flag` parameter specifies permissions for the new file; otherwise, `flag` does not change file permissions.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns a new file descriptor, or `-1` on failure.
 
@@ -76,7 +76,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - mode: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Permission to check.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` if the file has the specified permission, otherwise returns `-1`.
 
@@ -100,7 +100,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - New path.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -129,7 +129,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - mode: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Permissions to modify.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure. When `mode` is an invalid parameter, [chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated) ignores the parameter and returns `0`.
 
@@ -155,7 +155,7 @@ Parameters:
 - owner: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Owner `uid`.
 - group: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Specified `gid` parameter.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -179,7 +179,7 @@ Parameters:
 
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -200,7 +200,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - flag: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - File creation permissions.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns file descriptor, or `-1` on failure.
 
@@ -224,7 +224,7 @@ Parameters:
 
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the smallest unused file descriptor, or `-1` on failure.
 
@@ -245,7 +245,7 @@ Parameters:
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor specified by `oldfd` parameter.
 - fd2: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor specified by `newfd` parameter.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - `fd2` file descriptor.
 
@@ -270,7 +270,7 @@ Parameters:
 - mode: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Permission to check.
 - flag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Obtained by bitwise OR of one or more of the following values: `(512)` performs access check using effective user and group IDs (default uses effective IDs); `(256)` if pathname is a symbolic link, does not dereference it but returns information about the link itself.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` if the file has the specified permission, otherwise returns `-1`.
 
@@ -294,7 +294,7 @@ Parameters:
 
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Descriptor of the new file path.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -315,7 +315,7 @@ Parameters:
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 - mode: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Permissions to modify.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -346,7 +346,7 @@ Parameters:
 - mode: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Permissions to modify.
 - flag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Can be `0`, or `(256)` if pathname is a symbolic link, does not dereference it but returns information about the link itself.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -372,7 +372,7 @@ Parameters:
 - owner: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Owner `uid`.
 - group: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Specified `gid` parameter.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -391,7 +391,7 @@ Function: Gets the absolute path of the current working directory of the executi
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns a string containing path information on success, or an empty string on failure.
 
@@ -407,7 +407,7 @@ Function: Gets the group `ID`.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The current group `ID`.
 
@@ -430,7 +430,7 @@ Parameters:
 - size: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The number of `gid` values that `gidArray` can hold.
 - gidArray: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> - Stores `gid` information.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns group codes on success, or `-1` on failure.
 
@@ -446,7 +446,7 @@ Function: Gets the hostname, which is typically the name of the host on a `TCP`/
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the hostname string on success, or an empty string on failure.
 
@@ -462,7 +462,7 @@ Function: Gets the current login name.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the login name on success, or an empty string on failure.
 
@@ -478,7 +478,7 @@ Function: Gets Linux system information from the `/proc/version` file. Example: 
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the Linux system information string.
 
@@ -498,7 +498,7 @@ Parameter:
 
 - pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The target process `ID`.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the process group `ID` on success, or `-1` on failure.
 
@@ -514,7 +514,7 @@ Function: Gets the parent process `ID` of the calling process.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the parent process `ID` of the calling process.
 
@@ -530,7 +530,7 @@ Function: Gets the process `ID (PID)` of the calling process.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the process `ID (PID)` of the calling process.
 
@@ -546,7 +546,7 @@ Function: Gets the parent process `ID` of the calling process.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the parent process `ID` of the calling process.
 
@@ -562,7 +562,7 @@ Function: Gets the real user `ID` of the calling process.
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The current real user `ID`.
 
@@ -582,7 +582,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a block device, otherwise `false`.
 
@@ -602,7 +602,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a character device, otherwise `false`.
 
@@ -622,7 +622,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a directory, otherwise `false`.
 
@@ -642,7 +642,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a `FIFO` file, otherwise `false`.
 
@@ -662,7 +662,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a symbolic link, otherwise `false`.
 
@@ -682,7 +682,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a regular file, otherwise `false`.
 
@@ -702,7 +702,7 @@ Parameter:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a socket file, otherwise `false`.
 
@@ -723,7 +723,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path.
 - mode: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The mode parameter.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the file matches the specified mode, otherwise `false`.
 
@@ -743,7 +743,7 @@ Parameter:
 
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The file descriptor.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` on success, otherwise `false`.
 
@@ -769,7 +769,7 @@ Parameters:
 - pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The process `ID`.
 - sig: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The signal `ID`.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, otherwise `-1`.
 
@@ -790,7 +790,7 @@ Parameters:
 - pgid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The group `ID`.
 - sig: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The signal `ID`.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, otherwise `-1`.## func lchown(String, UInt32, UInt32) <sup>(deprecated)</sup>
 
@@ -810,7 +810,7 @@ Parameters:
 - owner: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Owner `uid`.
 - group: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Specified `gid` parameter.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -835,7 +835,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - newpath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Alternative file path.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -868,7 +868,7 @@ Parameters:
 - newPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Alternative file path (existing `newpath` will not be overwritten).
 - lflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [AT_EMPTY_PATH](posix_package_constants_vars.md#const-at_empty_path-deprecated) or `AT_SYMLINK_FOLLOW` or `0`.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -894,7 +894,7 @@ Parameters:
 - offset: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Offset value.
 - whence: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Control mode indicator.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns current read/write position (byte offset from file start) on success.
 
@@ -916,7 +916,7 @@ Parameters:
 
 - inc: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Priority increment, range `+19` (low) to `-20` (high).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new priority value.
 
@@ -940,7 +940,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -969,7 +969,7 @@ Parameters:
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 - flag: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - When `oflag` includes [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated) and a new file is created, `flag` specifies permissions; otherwise, `flag` doesn't modify file permissions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -998,7 +998,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -1028,7 +1028,7 @@ Parameters:
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 - flag: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - When `oflag` includes [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated) and a new file is created, `flag` specifies permissions; otherwise, `flag` doesn't modify file permissions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -1057,7 +1057,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -1087,7 +1087,7 @@ Parameters:
 - oflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File opening mode.
 - flag: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - When `oflag` includes [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated) and a new file is created, `flag` specifies permissions; otherwise, `flag` doesn't modify file permissions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns new file descriptor on success, `-1` on failure.
 
@@ -1128,7 +1128,7 @@ Parameters:
 - oldName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Filename (including path).
 - newName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Filename (including path).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1162,7 +1162,7 @@ Parameters:
 - newfd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 - newName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Filename.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1186,7 +1186,7 @@ Parameters:
 
 - id: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Effective group ID number for the calling process.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -1206,7 +1206,7 @@ Parameters:
 
 - buf: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Hostname to set.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -1231,7 +1231,7 @@ Parameters:
 - pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Process ID.
 - pgrp: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Process group ID.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the group ID on success, `-1` on failure.
 
@@ -1247,7 +1247,7 @@ Function: Sets the group ID of the current process to its process ID. Equivalent
 >
 > This function will be deprecated in future versions.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the current process's group ID on success, `-1` on failure.
 
@@ -1267,7 +1267,7 @@ Parameters:
 
 - id: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Effective user ID number for the calling process.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on failure.
 
@@ -1294,7 +1294,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - symPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Link file path.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1324,7 +1324,7 @@ Parameters:
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 - symPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Link file path.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1348,7 +1348,7 @@ Parameters:
 
 - fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - File descriptor.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the pathname on success, `NULL` on failure.
 
@@ -1368,7 +1368,7 @@ Parameters:
 
 - cmask: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - File permission parameter.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the previous value of the file mode mask.
 
@@ -1393,7 +1393,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1425,7 +1425,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - File path.
 - ulflag: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - May be `0` or a bitwise OR of flags controlling operation behavior (currently only supports [AT_REMOVEDIR](posix_package_constants_vars.md#const-at_removedir-deprecated)).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns `0` on success, `-1` on error.
 
@@ -1453,6 +1453,6 @@ Parameters:
 - buffer: [CPointer](../../core/core_package_api/core_package_intrinsics.md#cpointert)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Buffer container.
 - nbyte: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Number of bytes to write (recommended to use `buffer.size`).
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Returns actual bytes written, `-1` on error.

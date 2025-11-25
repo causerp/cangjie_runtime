@@ -35,7 +35,7 @@ public func level(): Int32
 
 Function: Returns the integer value corresponding to the enum.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The integer value corresponding to the enum. `ERROR` returns 0, `WARNING` returns 1.
 
@@ -93,7 +93,7 @@ public func toString(): String
 
 Function: Converts [ImportKind](ast_package_enums.md#enum-importkind) type to string representation.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string value of [ImportKind](ast_package_enums.md#enum-importkind).
 
@@ -1591,7 +1591,7 @@ Parameters:
 
 - right: [TokenKind](ast_package_enums.md#enum-tokenkind) - The enumeration instance to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Boolean type.
 
@@ -1607,7 +1607,7 @@ Parameters:
 
 - right: [TokenKind](ast_package_enums.md#enum-tokenkind) - The enumeration instance to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Boolean type.
 
@@ -1619,6 +1619,6 @@ public func toString(): String
 
 Function: Converts the [TokenKind](ast_package_enums.md#enum-tokenkind) type into its string representation.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string value converted from [TokenKind](ast_package_enums.md#enum-tokenkind).

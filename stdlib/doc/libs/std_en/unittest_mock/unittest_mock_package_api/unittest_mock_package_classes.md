@@ -6,7 +6,7 @@
 public sealed abstract class ActionSelector {}
 ```
 
-Functionality: This abstract class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to member functions and enabling method chaining.
+Function: This abstract class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to member functions and enabling method chaining.
 
 When the `@On` macro call expression is passed with a call expression of a member function from a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
 
@@ -16,7 +16,7 @@ When the `@On` macro call expression is passed with a call expression of a membe
 func fails(): Unit
 ```
 
-Functionality: Defines that calling the stub signature will cause the test to fail, throwing an [AssertionException](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when the stub signature is executed.
+Function: Defines that calling the stub signature will cause the test to fail, throwing an [AssertionException](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) when the stub signature is executed.
 
 ## class AnyMatcher
 
@@ -24,7 +24,7 @@ Functionality: Defines that calling the stub signature will cause the test to fa
 public class AnyMatcher <: ArgumentMatcher {}
 ```
 
-Functionality: A wildcard argument matcher that allows any parameters in stub signatures.
+Function: A wildcard argument matcher that allows any parameters in stub signatures.
 
 Parent Types:
 
@@ -36,13 +36,13 @@ Parent Types:
 public func matchesAny(_: Any): Bool
 ```
 
-Functionality: Matches any value of any type.
+Function: Matches any value of any type.
 
 Parameters:
 
 - _: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input parameter to be checked. Any value of any type.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -52,7 +52,7 @@ Return Value:
 extend AnyMatcher {}
 ```
 
-Functionality: Extends [AnyMatcher](#class-anymatcher).
+Function: Extends [AnyMatcher](#class-anymatcher).
 
 #### func value\<T>()
 
@@ -60,9 +60,9 @@ Functionality: Extends [AnyMatcher](#class-anymatcher).
 public func value<T>(): T
 ```
 
-Functionality: The return value of the argument matcher required by the framework.
+Function: The return value of the argument matcher required by the framework.
 
-Return Value:
+Returns:
 
 - T - A value matching the type of the actual input parameter.
 
@@ -72,7 +72,7 @@ Return Value:
 public abstract class ArgumentMatcher {}
 ```
 
-Functionality: An abstract class for argument matchers. This class and its subclasses can be used as parameter types for stub signatures.
+Function: An abstract class for argument matchers. This class and its subclasses can be used as parameter types for stub signatures.
 
 ### func withDescription(String)
 
@@ -80,13 +80,13 @@ Functionality: An abstract class for argument matchers. This class and its subcl
 public func withDescription(description: String): ArgumentMatcher
 ```
 
-Functionality: Configures the description information for the argument matcher when an exception is thrown.
+Function: Configures the description information for the argument matcher when an exception is thrown.
 
 Parameters:
 
 - description: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The description information.
 
-Return Value:
+Returns:
 
 - ArgumentMatcher - The configured argument matcher.
 
@@ -96,13 +96,13 @@ Return Value:
 public func forParameter(name: String): ArgumentMatcher
 ```
 
-Functionality: Configures the name of the parameter to be matched.
+Function: Configures the name of the parameter to be matched.
 
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the parameter to be matched.
 
-Return Value:
+Returns:
 
 - ArgumentMatcher - The configured argument matcher.
 
@@ -112,13 +112,13 @@ Return Value:
 public func matchesAny(arg: Any)
 ```
 
-Functionality: Matches any value of any type.
+Function: Matches any value of any type.
 
 Parameters:
 
 - arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input parameter to be checked. Any value of any type.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The matching result.
 
@@ -128,7 +128,7 @@ Return Value:
 public class CardinalitySelector<A> where A <: ActionSelector {}
 ```
 
-Functionality: This class provides APIs to define the execution count of the most recent behavior of stub signatures.
+Function: This class provides APIs to define the execution count of the most recent behavior of stub signatures.
 For example: `@On(foo.bar()).returns("Predefined value").atLeastOnce()`.
 For convenience, the most recent behavior of a stub signature is referred to as "stub behavior" in the following text.
 The verification capabilities provided by the APIs in this interface are as follows:
@@ -142,7 +142,7 @@ The verification capabilities provided by the APIs in this interface are as foll
 func anyTimes(): Unit
 ```
 
-Functionality: Defines that the "stub behavior" can be executed any number of times. This function does not perform any validation on the call count of the stub signature.
+Function: Defines that the "stub behavior" can be executed any number of times. This function does not perform any validation on the call count of the stub signature.
 
 ### func atLeastOnce()
 
@@ -150,7 +150,7 @@ Functionality: Defines that the "stub behavior" can be executed any number of ti
 func atLeastOnce(): Unit
 ```
 
-Functionality: Defines that the "stub behavior" must be executed at least once. Throws an exception if verified less than once.
+Function: Defines that the "stub behavior" must be executed at least once. Throws an exception if verified less than once.
 
 Exceptions:
 
@@ -162,7 +162,7 @@ Exceptions:
 func atLeastTimes(minTimesExpected: Int64): Unit
 ```
 
-Functionality: Defines that the "stub behavior" must be executed at least the specified number of times. Throws an exception if the actual execution count is less than the specified minimum.
+Function: Defines that the "stub behavior" must be executed at least the specified number of times. Throws an exception if the actual execution count is less than the specified minimum.
 
 Parameters:
 
@@ -179,9 +179,9 @@ Exceptions:
 func once(): Continuation<A>
 ```
 
-Functionality: Defines that the "stub behavior" should be executed exactly once. Throws an exception if the stub signature is executed more than once.
+Function: Defines that the "stub behavior" should be executed exactly once. Throws an exception if the stub signature is executed more than once.
 
-Return Value:
+Returns:
 
 - [Continuation](#class-continuationa)\<A> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
 
@@ -195,13 +195,13 @@ Exceptions:
 func times(expectedTimes: Int64): Continuation<A>
 ```
 
-Functionality: Defines that the "stub behavior" should be executed the specified number of times. Throws an exception if the execution count does not match the specified number.
+Function: Defines that the "stub behavior" should be executed the specified number of times. Throws an exception if the execution count does not match the specified number.
 
 Parameters:
 
 - expectedTimes: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The expected number of times the "stub behavior" should be executed.
 
-Return Value:
+Returns:
 
 - [Continuation](#class-continuationa)\<A> - An object instance that can call methods to continue generating [ActionSelector](#class-actionselector) objects.
 
@@ -216,7 +216,7 @@ Exceptions:
 func times(min!: Int64, max!: Int64): Unit
 ```
 
-Functionality: Defines a range for the execution count of the "stub behavior". Throws an exception if the execution count falls outside the specified range.
+Function: Defines a range for the execution count of the "stub behavior". Throws an exception if the execution count falls outside the specified range.
 
 Parameters:
 
@@ -234,7 +234,7 @@ Exceptions:
 public class ConfigureMock {}
 ```
 
-Functionality: Configures a `mock object`.
+Function: Configures a `mock object`.
 
 ### static func stubGetter\<TRet>(() -> TRet,Option\<String>,String,String,Int64)
 
@@ -248,7 +248,7 @@ public static func stubGetter<TRet>(
 ): GetterActionSelector<TRet>
 ```
 
-Functionality: Creates an operator object for inserting stub code for property Getter methods.
+Function: Creates an operator object for inserting stub code for property Getter methods.
 
 Parameters:
 
@@ -258,7 +258,7 @@ Parameters:
 - callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
 - lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
-Return Value:
+Returns:
 
 - [GetterActionSelector](#class-getteractionselectortret)\<TRet> - The operator object for inserting stub code for property Getter methods.
 
@@ -275,7 +275,7 @@ public static func stubFunction<TRet>(
 ): MethodActionSelector<TRet>
 ```
 
-Functionality: Creates an operator object for inserting stub code for ordinary member methods.
+Function: Creates an operator object for inserting stub code for ordinary member methods.
 
 Parameters:
 
@@ -287,7 +287,7 @@ Parameters:
 - callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
 - lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
-Return Value:
+Returns:
 
 - [MethodActionSelector](#class-methodactionselectortret)\<TRet> - The operator object for inserting stub code for ordinary member methods.
 
@@ -305,7 +305,7 @@ public static func stubSetter<TArg>(
 ): SetterActionSelector<TArg>
 ```
 
-Functionality: Creates an operator object for inserting stub code for property Setter methods.
+Function: Creates an operator object for inserting stub code for property Setter methods.
 
 Parameters:
 
@@ -317,7 +317,7 @@ Parameters:
 - callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
 - lineNumber: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The line number of the corresponding call expression.
 
-Return Value:
+Returns:
 
 - [MethodActionSelector](#class-methodactionselectortret)\<TRet> - The operator object for inserting stub code for ordinary member methods.
 
@@ -327,7 +327,7 @@ Return Value:
 public class Continuation<A> where A <: ActionSelector {}
 ```
 
-Functionality: This class provides APIs to continue defining the behavior of stub signatures.
+Function: This class provides APIs to continue defining the behavior of stub signatures.
 The capabilities provided by the methods in this class are as follows:
 
 - Allows the stub signature to perform additional operations when the previous operation is satisfied. A `Continuation` instance is meaningful only when followed by a behavior definition.
@@ -339,9 +339,9 @@ The capabilities provided by the methods in this class are as follows:
 func then(): A
 ```
 
-Functionality: Returns a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector) when the previous operation in the chain is completed.
+Function: Returns a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector) when the previous operation in the chain is completed.
 
-Return Value:
+Returns:
 
 - A - An instance of a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector).
 
@@ -355,7 +355,7 @@ Exceptions:
 public class GetterActionSelector<TRet> <: ActionSelector {}
 ```
 
-Functionality: This class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to property `Getter` functions and enabling method chaining.
+Function: This class provides methods for assigning an [Action API](../unittest_mock_samples/mock_framework_basics.md#action-api) to property `Getter` functions and enabling method chaining.
 When the `@On` macro call expression is passed with a call expression of a member function from a `mock object` or `spy object`, it returns an instance of [ActionSelector](#class-actionselector). That is, APIs in this class or its subclasses can insert stub code for member functions.
 
 Parent Types:
@@ -368,13 +368,13 @@ Parent Types:
 public func getsField(field: SyntheticField<TRet>): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Functionality: Reads a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#setting-properties-fields-and-top-level-variables).
+Function: Reads a [synthetic field](../unittest_mock_samples/mock_framework_stubs.md#setting-properties-fields-and-top-level-variables).
 
 Parameters:
 
 - field: [SyntheticField](#class-syntheticfieldt)\<TRet> - The synthetic field for handling mutable properties.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
@@ -384,9 +384,9 @@ Return Value:
 public func getsOriginal(): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Functionality: Reads the original property or field value from the original instance.
+Function: Reads the original property or field value from the original instance.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
@@ -396,13 +396,13 @@ Return Value:
 public func returns(value: TRet): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Functionality: Specifies the return value.
+Function: Specifies the return value.
 
 Parameters:
 
 - value: TRet - The specified return value.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
@@ -412,13 +412,13 @@ Return Value:
 public func returns(valueFactory: () -> TRet): CardinalitySelector<GetterActionSelector<TRet>>
 ```
 
-Functionality: Specifies the return value.
+Function: Specifies the return value.
 
 Parameters:
 
 - valueFactory: () -> TRet - The specified return value generator.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
@@ -428,13 +428,13 @@ Return Value:
 public func returnsConsecutively(values: Array<TRet>): Continuation<GetterActionSelector<TRet>>
 ```
 
-Functionality: Specifies multiple return values.
+Function: Specifies multiple return values.
 
 Parameters:
 
 - values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<TRet> - The specified multiple return values.
 
-Return Value:
+Returns:
 
 - [Continuation](#class-continuationa)\<[GetterActionSelector](#class-getteractionselectortret)\<TRet>> - The operator for expected execution counts.
 
@@ -444,13 +444,13 @@ Return Value:
 public func returnsConsecutively(values: ArrayList<TRet>): Continuation<GetterActionSelector<TRet>>
 ```
 
-Functionality: Specifies multiple return values.
+Function: Specifies multiple return values.
 
 Parameters:
 
 - values: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<TRet> - The specified multiple return values.
 
-Return Value:
+Returns:
 
 - [Continuation](#class-continuationa)\## class Matchers
 
@@ -458,7 +458,7 @@ Return Value:
 public class Matchers {}
 ```
 
-Functionality: This class provides static functions for generating [matchers](../unittest_mock_samples/mock_framework_basics.md#argument-matchers). Matcher objects can only be created through the static functions provided here. Matchers can be used in [stub chains](../unittest_mock_samples/mock_framework_basics.md#stub-chains).
+Function: This class provides static functions for generating [matchers](../unittest_mock_samples/mock_framework_basics.md#argument-matchers). Matcher objects can only be created through the static functions provided here. Matchers can be used in [stub chains](../unittest_mock_samples/mock_framework_basics.md#stub-chains).
 
 Example: `@On(foo.bar(ofType<Int64>())).returns(1)`
 
@@ -497,9 +497,9 @@ Argument matchers can be used in the parameter expressions of `@On` macro calls 
 public static func any(): AnyMatcher
 ```
 
-Functionality: Allows any value as an argument.
+Function: Allows any value as an argument.
 
-Return value:
+Returns:
 
 - [AnyMatcher](#class-anymatcher) - An argument matcher that permits any value.
 
@@ -509,14 +509,14 @@ Return value:
 public static func argThat<T>(listener: ValueListener<T>, predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Functionality: Filters input argument values through the provided predicate closure function, allowing the listener to process the argument values that meet the conditions.
+Function: Filters input argument values through the provided predicate closure function, allowing the listener to process the argument values that meet the conditions.
 
 Parameters:
 
 - listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - A value listener.
 - predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter that defines the matching conditions for argument values.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher with a value listener and filter.
 
@@ -526,13 +526,13 @@ Return value:
 public static func argThat<T>(predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Functionality: Filters input values based on the provided predicate closure.
+Function: Filters input values based on the provided predicate closure.
 
 Parameters:
 
 - predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - An instance of a parameter-filtering typed matcher.
 
@@ -542,13 +542,13 @@ Return value:
 public static func argThatNot<T>(predicate: (T) -> Bool): TypedMatcher<T>
 ```
 
-Functionality: Filters input values based on the provided predicate closure.
+Function: Filters input values based on the provided predicate closure.
 
 Parameters:
 
 - predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A filter.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - An instance of a parameter-filtering typed matcher.
 
@@ -558,13 +558,13 @@ Return value:
 public static func capture<T>(listener: ValueListener<T>): TypedMatcher<T>
 ```
 
-Functionality: Allows the listener to process input argument values of type T. When the type parameter of capture is not specified, the type parameter value of the value listener will be used.
+Function: Allows the listener to process input argument values of type T. When the type parameter of capture is not specified, the type parameter value of the value listener will be used.
 
 Parameters:
 
 - listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - A value listener.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher with a value listener.
 
@@ -576,13 +576,13 @@ Note: Value listeners are not allowed to be used within the parameter scope of @
 public static func default<T>(target: T): TypedMatcher<T>
 ```
 
-Functionality: Matches values based on structure (higher priority) or reference equality. If the input argument is neither [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<T> nor a reference type, an exception will be thrown at runtime (no compile-time check).
+Function: Matches values based on structure (higher priority) or reference equality. If the input argument is neither [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<T> nor a reference type, an exception will be thrown at runtime (no compile-time check).
 
 Parameters:
 
 - target: T - The matching object that must be matched via structure or reference equality.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - A default typed matcher.
 
@@ -596,13 +596,13 @@ Exceptions:
 public static func eq<T>(target: T): TypedMatcher<T> where T <: Equatable<T>
 ```
 
-Functionality: Filters input values based on structural equality with the provided value.
+Function: Filters input values based on structural equality with the provided value.
 
 Parameters:
 
 - target: T - The matching object.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - An argument matcher that only permits values structurally equal to the given value.
 
@@ -612,9 +612,9 @@ Return value:
 public static func ofType<T>(): TypedMatcher<T>
 ```
 
-Functionality: Filters input values based on type.
+Function: Filters input values based on type.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - A typed matcher that only permits values of a specific type.
 
@@ -624,13 +624,13 @@ Return value:
 public static func same<T>(target: T): TypedMatcher<T> where T <: Object
 ```
 
-Functionality: Filters input values based on reference equality with the provided object.
+Function: Filters input values based on reference equality with the provided object.
 
 Parameters:
 
 - target: T - The matching object.
 
-Return value:
+Returns:
 
 - [TypedMatcher](#class-typedmatchert)\<T> - An argument matcher that only permits arguments reference-equal to the given object.
 
@@ -640,7 +640,7 @@ Return value:
 extend Matchers {}
 ```
 
-Functionality: Extends [Matchers](#class-matchers).
+Function: Extends [Matchers](#class-matchers).
 
 #### static func none()
 
@@ -648,9 +648,9 @@ Functionality: Extends [Matchers](#class-matchers).
 public static func none(): NoneMatcher
 ```
 
-Functionality: Filters input values that are `None`.
+Function: Filters input values that are `None`.
 
-Return value:
+Returns:
 
 - [NoneMatcher](#class-nonematcher) - A matcher for `None` values.
 
@@ -660,7 +660,7 @@ Return value:
 public class MethodActionSelector<TRet> <: ActionSelector {}
 ```
 
-Functionality: This class provides an [action API](../unittest_mock_samples/mock_framework_basics.md#action-api) for specifying member functions and allows chained calls. The `@On` macro call expression with a member function call expression of a `mock object` or `spy object` as input returns an instance of [ActionSelector](#class-actionselector)\<TRet> (where `TRet` represents the return type of the member function being configured). That is, the APIs in this class can insert stub code for member functions.
+Function: This class provides an [action API](../unittest_mock_samples/mock_framework_basics.md#action-api) for specifying member functions and allows chained calls. The `@On` macro call expression with a member function call expression of a `mock object` or `spy object` as input returns an instance of [ActionSelector](#class-actionselector)\<TRet> (where `TRet` represents the return type of the member function being configured). That is, the APIs in this class can insert stub code for member functions.
 
 Parent type:
 
@@ -672,9 +672,9 @@ Parent type:
 func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature executes the original code logic.
+Function: Defines the behavior where the stub signature executes the original code logic.
 
-Return value:
+Returns:
 
 - [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the behavior of executing original code logic for stub signatures.
 
@@ -684,13 +684,13 @@ Return value:
 func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature returns a specified value generated by the provided closure.
+Function: Defines the behavior where the stub signature returns a specified value generated by the provided closure.
 
 Parameters:
 
 - valueFactory: () -> TRet - A closure function (generator) that produces the expected return value.
 
-Return value:
+Returns:
 
 - [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the behavior of returning a specified value for stub signatures.
 
@@ -700,13 +700,13 @@ Return value:
 func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the [stub signature](../unittest_mock_samples/mock_framework_basics.md#stub-signature) returns a specified value.
+Function: Defines the behavior where the [stub signature](../unittest_mock_samples/mock_framework_basics.md#stub-signature) returns a specified value.
 
 Parameters:
 
 - value: TRet - The expected return value of the stub signature.
 
-Return value:
+Returns:
 
 - [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<TRet> that defines the return behavior of the stub signature.
 
@@ -716,13 +716,13 @@ Return value:
 func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called multiple times, equal to the number of values in the array.
+Function: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called multiple times, equal to the number of values in the array.
 
 Parameters:
 
 - values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<TRet> - A list of return values for the stub signature.
 
-Return value:
+Returns:
 
 - [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [Continuation](#class-continuationa)\<TRet> that defines the behavior of returning specified values sequentially for stub signatures.
 
@@ -736,13 +736,13 @@ Exceptions:
 func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called consecutively multiple times, equal to the number of values in the array list.
+Function: Defines the behavior where the stub signature returns specified values in the order of the list. The stub signature will be called consecutively multiple times, equal to the number of values in the array list.
 
 Parameters:
 
 - values: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<TRet> - A list of return values for the stub signature.
 
-Return value:
+Returns:
 
 - [Continuation](#class-continuationa)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - An instance of [Continuation](#class-continuationa)\<TRet> that defines the behavior of returning specified values sequentially for stub signatures.
 
@@ -756,7 +756,7 @@ Exceptions:
 func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature throws an exception, with the exception generated by the provided closure function.
+Function: Defines the behavior where the stub signature throws an exception, with the exception generated by the provided closure function.
 
 > **Explanation:**
 >
@@ -769,7 +769,7 @@ Parameters:
 
 - exceptionFactory: () ->[Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - A closure function (generator) that constructs the exception object expected to be thrown by the stub signature.
 
-Return value:
+Returns:
 
 - [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
@@ -779,13 +779,13 @@ Return value:
 func throws(exception: Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
-Functionality: Defines the behavior where the stub signature throws an exception.
+Function: Defines the behavior where the stub signature throws an exception.
 
 Parameters:
 
 - exception: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The exception object expected to be thrown by the stub signature.
 
-Return value:
+Returns:
 
 - [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
@@ -795,7 +795,7 @@ Return value:
 public class MockFramework {}
 ```
 
-Functionality: Provides functions for framework preparation and cleanup during test case execution.
+Function: Provides functions for framework preparation and cleanup during test case execution.
 
 ### static func openSession(String, MockSessionKind)
 
@@ -803,7 +803,7 @@ Functionality: Provides functions for framework preparation and cleanup during t
 public static func openSession(name: String, sessionKind: MockSessionKind): Unit
 ```
 
-Functionality: Opens a new session. Sessions form a stack-like structure.
+Function: Opens a new session. Sessions form a stack-like structure.
 Sessions are closed in the reverse order of their creation.
 `mock object`s created during a given session can only be accessed within that session or any of its inner sessions.
 Each session maintains its own call log, so any verification of calls made within the most recently opened session can only be performed when the session ends.
@@ -819,7 +819,7 @@ Parameters:
 public static func closeSession(): Unit
 ```
 
-Functionality: Opens a new session. Sessions form a stack-like structure.
+Function: Opens a new session. Sessions form a stack-like structure.
 Sessions are closed in the reverse order of their creation.
 `mock object`s created during a given session can only be accessed within that session or any of its inner sessions.
 Each session maintains its own call log, so any verification of calls made within the most recently opened session can only be performed when the session ends.
@@ -835,7 +835,7 @@ Exceptions:
 public class NoneMatcher <: ArgumentMatcher {}
 ```
 
-Functionality: A matcher for argument values that are `None`.
+Function: A matcher for argument values that are `None`.
 
 Parent type:
 
@@ -847,13 +847,13 @@ Parent type:
 public override func matchesAny(arg: Any): Bool
 ```
 
-Functionality: Matches any input value, returning `true` if the value is None.
+Function: Matches any input value, returning `true` if the value is None.
 
 Parameters:
 
 - arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The argument value to be matched.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the input is None, otherwise returns `false`.
 
@@ -863,7 +863,7 @@ Return value:
 extend NoneMatcher {}
 ```
 
-Functionality: Extends [NoneMatcher](#class-nonematcher).
+Function: Extends [NoneMatcher](#class-nonematcher).
 
 #### func value\<T>()
 
@@ -871,9 +871,9 @@ Functionality: Extends [NoneMatcher](#class-nonematcher).
 public func value<T>(): Option<T>
 ```
 
-Functionality: The return value of the argument matcher that the framework needs to call.
+Function: The return value of the argument matcher that the framework needs to call.
 
-Return value:
+Returns:
 
 - Option\<T> - A value matching the type of the actual argument.## class OrderedVerifier
 
@@ -895,7 +895,7 @@ Parameters:
 
 - statement: [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - The "verification statement" to be added.
 
-Return Value:
+Returns:
 
 - [OrderedVerifier](unittest_mock_package_classes.md#class-orderedverifier) - Returns the object itself.
 
@@ -920,7 +920,7 @@ public func doesNothing(): CardinalitySelector<SetterActionSelector<TArg>>
 
 Purpose: Specifies that the property or field should perform no action.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
@@ -932,7 +932,7 @@ public func setsOriginal(): CardinalitySelector<SetterActionSelector<TArg>>
 
 Purpose: Sets the original property or retrieves the field value from the original instance.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
@@ -948,7 +948,7 @@ Parameters:
 
 - field: [SyntheticField](#class-syntheticfieldt)\<TArg> - The synthetic field for handling mutable properties.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
@@ -964,7 +964,7 @@ Parameters:
 
 - exception: [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - The specified exception to be thrown.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
@@ -980,7 +980,7 @@ Parameters:
 
 - exceptionFactory: () -> [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - A generator for the specified exception to be thrown.
 
-Return Value:
+Returns:
 
 - [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
 
@@ -1004,7 +1004,7 @@ Parameters:
 
 - initialValue!: T - The initial value.
 
-Return Value:
+Returns:
 
 - [SyntheticField](#class-syntheticfieldt)\<T> - The synthetic field.
 
@@ -1032,7 +1032,7 @@ Parameters:
 
 - arg: T - The input argument to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise `false`.
 
@@ -1048,7 +1048,7 @@ Parameters:
 
 - arg: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The input argument to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the types match, otherwise `false`.
 
@@ -1068,7 +1068,7 @@ public func value<T>(): T
 
 Purpose: The return value of the argument matcher required by the framework.
 
-Return Value:
+Returns:
 
 - T - A value matching the type of the actual input argument.
 
@@ -1092,7 +1092,7 @@ Parameters:
 
 - statement: [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - The "verification statement" to be added.
 
-Return Value:
+Returns:
 
 - [UnorderedVerifier](unittest_mock_package_classes.md#class-unorderedverifier) - Returns the object itself.
 
@@ -1343,7 +1343,7 @@ Parameters:
 public class VerifyStatement {}
 ```
 
-Functionality: This type represents a single verification statement (referred to as "verification statement" above) for a "stub signature" within the verification scope. It provides member functions to specify the execution count of the "stub signature".
+Function: This type represents a single verification statement (referred to as "verification statement" above) for a "stub signature" within the verification scope. It provides member functions to specify the execution count of the "stub signature".
 Objects of this type can only be created through the `@Called` macro call expression.
 Consecutively calling multiple member functions on an object is meaningless and will throw an exception. That is, the execution count can only be specified once.
 When no member function is called to specify the execution count, the default verification value for execution count will be based on the type of verification action where the statement resides. For example, a "verification statement" in [Verify](unittest_mock_package_classes.md#class-verify).ordered() defaults to verifying one execution.
@@ -1354,9 +1354,9 @@ When no member function is called to specify the execution count, the default ve
 public func atLeastOnce(): VerifyStatement
 ```
 
-Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed at least once within the verification scope.
+Function: Specifies that this "verification statement" verifies the "stub signature" is executed at least once within the verification scope.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1370,13 +1370,13 @@ Exceptions:
 public func atLeastTimes(minTimesExpected: Int64): VerifyStatement
 ```
 
-Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed at least the specified number of times within the verification scope.
+Function: Specifies that this "verification statement" verifies the "stub signature" is executed at least the specified number of times within the verification scope.
 
 Parameters:
 
 - minTimesExpected: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected number of executions to verify.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1391,9 +1391,9 @@ Exceptions:
 public func once(): VerifyStatement
 ```
 
-Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed exactly once within the verification scope.
+Function: Specifies that this "verification statement" verifies the "stub signature" is executed exactly once within the verification scope.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1407,13 +1407,13 @@ Exceptions:
 public func times(expectedTimes: Int64): VerifyStatement
 ```
 
-Functionality: Specifies that this "verification statement" verifies the "stub signature" is executed the specified number of times within the verification scope.
+Function: Specifies that this "verification statement" verifies the "stub signature" is executed the specified number of times within the verification scope.
 
 Parameters:
 
 - expectedTimes: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The expected number of executions to verify.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1428,14 +1428,14 @@ Exceptions:
 public func times(min!: Int64, max!: Int64): VerifyStatement
 ```
 
-Functionality: Specifies that this "verification statement" verifies the execution count of the "stub signature" falls within the specified range within the verification scope.
+Function: Specifies that this "verification statement" verifies the execution count of the "stub signature" falls within the specified range within the verification scope.
 
 Parameters:
 
 - min!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum expected number of executions to verify.
 - max!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum expected number of executions to verify.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1457,7 +1457,7 @@ public static func fromStub<R>(
 ): VerifyStatement
 ```
 
-Functionality: Constructs a [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement). For internal framework use, not recommended for direct user invocation.
+Function: Constructs a [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement). For internal framework use, not recommended for direct user invocation.
 
 Parameters:
 
@@ -1468,7 +1468,7 @@ Parameters:
 - callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the call expression corresponding to the stub signature.
 - _: Int64 - Line number.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.
 
@@ -1478,8 +1478,8 @@ Return value:
 public func never(): VerifyStatement
 ```
 
-Functionality: Indicates that this statement will never be executed.
+Function: Indicates that this statement will never be executed.
 
-Return value:
+Returns:
 
 - [VerifyStatement](unittest_mock_package_classes.md#class-verifystatement) - Returns the object itself.

@@ -12,7 +12,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to test.
 
-Return value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a function that checks if all elements satisfy the condition.
 
@@ -63,7 +63,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to test.
 
-Return value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a function that checks if any element satisfies the condition.
 
@@ -114,7 +114,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index position.
 
-Return value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns a function that gets the element at the specified position, returns None if the iterator is empty.
 
@@ -167,7 +167,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The input iterator.
 
-Return value:
+Returns:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns an [ArrayList](collection_package_class.md#class-arraylistt).
 
@@ -210,7 +210,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The input iterator.
 
-Return value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an array.
 
@@ -253,7 +253,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(K, V)> - The input iterator of key-value pairs.
 
-Return value:
+Returns:
 
 - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Returns a [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
@@ -296,7 +296,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The input iterator.
 
-Return value:
+Returns:
 
 - [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns a [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
@@ -339,7 +339,7 @@ Parameters:
 
 - delimiter!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The separator string for joining elements.
 
-Return value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns a conversion function.
 
@@ -393,7 +393,7 @@ Parameters:
 
 - other: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The iterator to concatenate.
 
-Return value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a concatenation function.
 
@@ -445,7 +445,7 @@ Parameters:
 
 - element: T - The element to search for.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a search function.
 
@@ -487,7 +487,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the number of elements in the iterator.
 
@@ -535,7 +535,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns an iterator with indices.
 
@@ -584,7 +584,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a filter function.
 
@@ -638,7 +638,7 @@ Parameters:
 
 - transform: (T) -> ?R - The given mapping function. A return value of Some corresponds to a filter predicate of true, while None indicates false.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a combined filter and map function.
 
@@ -708,7 +708,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the first element, or None if empty.
 
@@ -762,7 +762,7 @@ Parameters:
 
 - transform: (T) -> [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - The given mapping function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping function with [flatten](collection_package_function.md#func-flattent-riterablet-where-t--iterabler) functionality.
 
@@ -849,7 +849,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns an iterator flattened by one level.
 
@@ -896,7 +896,7 @@ Parameters:
 - initial: R - The initial value of type R.
 - operation: (R, T) -> R - The given computation function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> R - Returns a folding function.
 
@@ -956,7 +956,7 @@ Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - Returns a function that performs the iteration operation.
 
@@ -1009,7 +1009,7 @@ Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that performs additional operations on each element of the iterator.
 
@@ -1075,7 +1075,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns whether the iterator is empty.
 
@@ -1123,7 +1123,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the last element, or None if empty.
 
@@ -1177,7 +1177,7 @@ Parameters:
 
 - transform: (T) -> R - The given mapping function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping function.
 
@@ -1231,7 +1231,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the maximum element, or None if empty.
 
@@ -1284,7 +1284,7 @@ Parameters:
 
 - it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The given iterator.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the smallest element, or None if empty.
 
@@ -1338,7 +1338,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns a function that checks if none satisfy the condition.
 
@@ -1389,7 +1389,7 @@ Parameters:
 
 - operation: (T, T) -> T - The given operation function.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns a reduction function.
 
@@ -1452,7 +1452,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to skip.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that skips the specified number of elements.
 
@@ -1508,7 +1508,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of positions to move per next() call.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns an iterator with modified step size.
 
@@ -1564,7 +1564,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to take.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a function that takes the specified number of elements.
 
@@ -1618,7 +1618,7 @@ Parameters:
 
 - other: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<R> - One of the iterators to merge.
 
-Return Value:
+Returns:
 
 - ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(T, R)> - Returns a merging function.
 

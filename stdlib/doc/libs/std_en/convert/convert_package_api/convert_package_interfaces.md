@@ -26,7 +26,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current instance.
 
@@ -54,7 +54,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) instance.
 
@@ -115,7 +115,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) instance.
 
@@ -176,7 +176,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) instance.
 
@@ -237,7 +237,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) instance.
 
@@ -298,7 +298,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) instance.
 
@@ -359,7 +359,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) instance.
 
@@ -420,7 +420,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string obtained from the current [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) instance.
 
@@ -481,7 +481,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) instance.
 
@@ -536,7 +536,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) instance.
 
@@ -597,7 +597,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) instance.
 
@@ -658,7 +658,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) instance.
 
@@ -716,7 +716,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Formatting parameters.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string representation of the current [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) instance.
 
@@ -779,7 +779,7 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be parsed.
 
-Return Value:
+Returns:
 
 - T - The converted value.
 
@@ -795,7 +795,7 @@ Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be parsed.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The converted value, or [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None if conversion fails.
 
@@ -823,7 +823,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The converted [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) value.
 
@@ -867,7 +867,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)> - The converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)> value, or [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>.None if conversion fails.
 
@@ -923,7 +923,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Returns the converted [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) value.
 
@@ -963,7 +963,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>.None if conversion fails.
 
@@ -1015,7 +1015,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Returns the converted [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) value.
 
@@ -1055,7 +1055,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>.None if conversion fails.
 
@@ -1107,7 +1107,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Returns the converted [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) value.
 
@@ -1147,7 +1147,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>.None if conversion fails.
 
@@ -1195,7 +1195,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Returns the converted [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -1235,7 +1235,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>.None if conversion fails.
 
@@ -1283,7 +1283,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Returns the converted [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -1323,7 +1323,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>.None if conversion fails.
 
@@ -1353,7 +1353,7 @@ After the conversion of tryParse, "-2147483648" became Some(-2147483648)
 extend Int64 <: Parsable<Int64>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) values.
+Function: This extension primarily implements operations for converting string literals of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) values.
 
 Parent Type:
 
@@ -1365,13 +1365,13 @@ Parent Type:
 public static func parse(data: String): Int64
 ```
 
-Functionality: Converts a string literal of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
+Function: Converts a string literal of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to an [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the converted [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -1405,13 +1405,13 @@ After the conversion of parse, "-9223372036854775808" became -922337203685477580
 public static func tryParse(data: String): Option<Int64>
 ```
 
-Functionality: Converts a string literal of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> value.
+Function: Converts a string literal of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>.None if conversion fails.
 
@@ -1441,7 +1441,7 @@ After the conversion of tryParse, "-9223372036854775808" became Some(-9223372036
 extend Int8 <: Parsable<Int8>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) values.
+Function: This extension primarily implements operations for converting string literals of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) values.
 
 Parent Type:
 
@@ -1453,13 +1453,13 @@ Parent Type:
 public static func parse(data: String): Int8
 ```
 
-Functionality: Converts a string literal of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
+Function: Converts a string literal of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Returns the converted [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -1493,13 +1493,13 @@ After the conversion of parse, "-128" became -128
 public static func tryParse(data极客时间: String): Option<Int8>
 ```
 
-Functionality: Converts a string literal of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value.
+Function: Converts a string literal of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None if conversion fails.
 
@@ -1529,7 +1529,7 @@ After the conversion of tryParse, "-128" became Some(-128)
 extend Rune <: Parsable<Rune>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) values.
+Function: This extension primarily implements operations for converting string literals of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) values.
 
 Parent Type:
 
@@ -1541,13 +1541,13 @@ Parent Type:
 public static func parse(data: String): Rune
 ```
 
-Functionality: Converts a string literal of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to an [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) value.
+Function: Converts a string literal of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to an [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [R极客时间une](../../core/core_package_api/core_package_intrinsics.md#rune) - Returns the converted [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) value.
 
@@ -1581,13 +1581,13 @@ After the conversion of parse, "'A'" became A
 public static func tryParse(data: String): Option<Rune>
 ```
 
-Functionality: Converts a string literal of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> value.
+Function: Converts a string literal of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.None if conversion fails.
 
@@ -1617,7 +1617,7 @@ After the conversion of tryParse, "'A'" became Some(A)
 extend UInt16 <: Parsable<UInt16>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) values.
+Function: This extension primarily implements operations for converting string literals of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) values.
 
 Parent Type:
 
@@ -1629,13 +1629,13 @@ Parent Type:
 public static func parse(data: String): UInt16
 ```
 
-Functionality: Converts a string literal of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to an [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
+Function: Converts a string literal of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to an [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Returns the converted [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -1669,13 +1669,13 @@ After the conversion of parse, "65535" became 65535
 public static func tryParse(data: String): Option<UInt16>
 ```
 
-Functionality: Converts a string literal of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to an [Option](../../core/core_package_api/core_package_enums.md极客时间#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> value.
+Function: Converts a string literal of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) to an [Option](../../core/core_package_api/core_package_enums.md极客时间#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>.None if conversion fails.
 
@@ -1705,7 +1705,7 @@ After the conversion of tryParse, "65535" became Some(65535)
 extend UInt32 <: Parsable<UInt32>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) values.
+Function: This extension primarily implements operations for converting string literals of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) values.
 
 Parent Type:
 
@@ -1717,13 +1717,13 @@ Parent Type:
 public static func parse(data: String): UInt32
 ```
 
-Functionality: Converts a string literal of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to an [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
+Function: Converts a string literal of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to an [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the converted [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
@@ -1757,13 +1757,13 @@ After the conversion of parse, "4294967295" became 4294967295
 public static func tryParse(data: String): Option<UInt32>
 ```
 
-Functionality: Converts a string literal of type [极客时间UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> value.
+Function: Converts a string literal of type [极客时间UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> value.
 
 Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>.None if conversion fails.
 
@@ -1811,7 +1811,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Returns the converted [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -1851,7 +1851,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>.None if conversion fails.
 
@@ -1899,7 +1899,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Returns the converted [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 
@@ -1939,7 +1939,7 @@ Parameters:
 
 - data: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None if conversion fails.
 
@@ -1976,7 +1976,7 @@ public interface RadixConvertible<T> {
 }
 ```
 
-Functionality: This interface provides unified methods to support parsing strings of specified radix into specific types.
+Function: This interface provides unified methods to support parsing strings of specified radix into specific types.
 
 The radix is specified via parameters rather than string prefixes, with a valid range of 2-36. Values beyond decimal are represented using uppercase or lowercase English letters in alphabetical order (10 digits + 26 letters = base-36). For Int series strings, they may start with `+` or `-`; if neither is present, they are treated as `+`. UInt series strings may start with `+`, but will throw an exception if starting with `-`. Returns the string representation in specified radix, with values beyond decimal represented using lowercase English letters (10 digits + 26 lowercase letters = base-36).
 
@@ -1989,14 +1989,14 @@ The package has already implemented this interface for basic types like [Int64](
 static func parse(value: String, radix!: Int64): T
 ```
 
-Functionality: Parses a specific type from a string of specified radix.
+Function: Parses a specific type from a string of specified radix.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be parsed.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - T - The converted value.
 
@@ -2006,14 +2006,14 @@ Return value:
 static func tryParse(value: String, radix!: Int64): Option<T>
 ```
 
-Functionality: Parses a specific type from a string of specified radix.
+Function: Parses a specific type from a string of specified radix.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be parsed.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The converted value, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None on failure.
 
@@ -2023,13 +2023,13 @@ Return value:
 func toString(radix!: Int64): String
 ```
 
-Functionality: Returns the string representation in specified radix.
+Function: Returns the string representation in specified radix.
 
 Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in specified radix.
 
@@ -2039,7 +2039,7 @@ Return value:
 extend Int8 <: RadixConvertible<Int8>
 ```
 
-Functionality: This extension primarily implements operations for converting [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal strings to [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) values.
+Function: This extension primarily implements operations for converting [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal strings to [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) values.
 
 Parent type:
 
@@ -2051,14 +2051,14 @@ Parent type:
 public static func parse(value: String, radix!: Int64): Int8
 ```
 
-Functionality: Converts an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal string to an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
+Function: Converts an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal string to an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The converted [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) value.
 
@@ -2092,14 +2092,14 @@ After the conversion of parse, "A" became 10
 public static func tryParse(value: String, radix!: Int64): Option<Int8>
 ```
 
-Functionality: Converts an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value.
+Function: Converts an [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - The converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> value, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None on failure.
 
@@ -2128,13 +2128,13 @@ After the conversion of tryParse, "7a" in hexadecimal became Some(122)
 public func toString(radix!: Int64): String
 ```
 
-Functionality: Returns the string representation in specified radix.
+Function: Returns the string representation in specified radix.
 
 Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in specified radix.
 
@@ -2167,7 +2167,7 @@ After the conversion of toString, 122 in hexadecimal became "7a"
 extend Int16 <: RadixConvertible<Int16>
 ```
 
-Functionality: This extension primarily implements operations for converting [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal strings to [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) values.
+Function: This extension primarily implements operations for converting [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal strings to [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) values.
 
 Parent type:
 
@@ -2179,14 +2179,14 @@ Parent type:
 public static func parse(value: String, radix!: Int64): Int16
 ```
 
-Functionality: Converts an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal string to an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
+Function: Converts an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal string to an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core极package_api/core_package_intrinsics.md#int16) - The converted [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) value.
 
@@ -2219,14 +2219,14 @@ After the conversion of parse, "7fff" in hexadecimal became 32767
 public static func tryParse(value: String, radix!: Int64): Option<Int16>
 ```
 
-Functionality: Converts an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> value.
+Function: Converts an [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> - The converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)> value, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>.None on failure.
 
@@ -2255,13 +2255,13 @@ After the conversion of tryParse, "7B" in hexadecimal became Some(123)
 public func toString(radix!: Int64): String
 ```
 
-Functionality: Returns the string representation in specified radix.
+Function: Returns the string representation in specified radix.
 
 Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in specified radix.
 
@@ -2294,7 +2294,7 @@ After the conversion of toString, 123 in hexadecimal became "7b"
 extend Int32 <: RadixConvertible<Int32>
 ```
 
-Functionality: This extension primarily implements operations for converting [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal strings to [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values.
+Function: This extension primarily implements operations for converting [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal strings to [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values.
 
 Parent type:
 
@@ -2306,14 +2306,14 @@ Parent type:
 public static func parse(value: String, radix!: Int64): Int32
 ```
 
-Functionality: Converts an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal string to an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
+Function: Converts an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal string to an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#极64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The converted [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) value.
 
@@ -2346,14 +2346,14 @@ After the conversion of parse, "7fffffff" in hexadecimal became 2147483647
 public static func tryParse(value: String, radix!: Int64): Option<Int32>
 ```
 
-Functionality: Converts an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> value.
+Function: Converts an [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) literal string to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to convert.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - The converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> value, returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>.None on failure.
 
@@ -2382,13 +2382,13 @@ After the conversion of tryParse, "1z" in base-36 became Some(71)
 public func toString(radix!: Int64): String
 ```
 
-Functionality: Returns the string representation in specified radix.
+Function: Returns the string representation in specified radix.
 
 Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in specified radix.
 
@@ -2438,7 +2438,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the converted [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) value.
 
@@ -2478,7 +2478,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>.None if conversion fails.
 
@@ -2513,7 +2513,7 @@ Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in the specified radix.
 
@@ -2565,7 +2565,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Returns the converted [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) value.
 
@@ -2605,7 +2605,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None if conversion fails.
 
@@ -2640,7 +2640,7 @@ Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in the specified radix.
 
@@ -2692,7 +2692,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Returns the converted [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) value.
 
@@ -2732,7 +2732,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>.None if conversion fails.
 
@@ -2767,7 +2767,7 @@ Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in the specified radix.
 
@@ -2819,7 +2819,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Returns the converted [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) value.
 
@@ -2859,7 +2859,7 @@ Parameters:
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>.None if conversion fails.
 
@@ -2894,7 +2894,7 @@ Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in the specified radix.
 
@@ -2927,7 +2927,7 @@ After the conversion of toString, 4294967295 in hexadecimal became "ffffffff"
 extend UInt64 <: RadixConvertible<UInt64>
 ```
 
-Functionality: This extension primarily implements operations for converting string literals of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) values.
+Function: This extension primarily implements operations for converting string literals of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) values.
 
 Parent Type:
 
@@ -2939,14 +2939,14 @@ Parent Type:
 public static func parse(value: String, radix!: Int64): UInt64
 ```
 
-Functionality: Converts a string literal of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
+Function: Converts a string literal of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to a [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Returns the converted [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) value.
 
@@ -2979,14 +2979,14 @@ After the conversion of parse, "ffffffffffffffff" in hexadecimal became 18446744
 public static func tryParse(value: String, radix!: Int64): Option<UInt64>
 ```
 
-Functionality: Converts a string literal of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> value.
+Function: Converts a string literal of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to an [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> value.
 
 Parameters:
 
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be converted.
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> - Returns the converted [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)> value. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>.None if conversion fails.
 
@@ -3015,13 +3015,13 @@ After the conversion of tryParse, "3w5e11264sgsf" in base-36 became Some(1844674
 public func toString(radix!: Int64): String
 ```
 
-Functionality: Returns a string representation in the specified radix.
+Function: Returns a string representation in the specified radix.
 
 Parameters:
 
 - radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified radix.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation in the specified radix.
 
