@@ -37,7 +37,7 @@ Parameters:
 - old: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value to compare with the current atomic type.
 - new: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value to write to the atomic type if the comparison is equal.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the compare-and-swap succeeds, otherwise returns `false`.
 
@@ -62,7 +62,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read-modify-write" operation if the CAS succeeds.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read" operation if the CAS fails.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the compare-and-swap succeeds, otherwise returns `false`.
 
@@ -74,7 +74,7 @@ public func load(): Bool
 
 Function: Read operation using default memory ordering to read the value of the atomic type.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The current value of the atomic type.
 
@@ -94,7 +94,7 @@ Parameters:
 
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The current value of the atomic type.
 
@@ -139,7 +139,7 @@ Parameters:
 
 - val: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value to write to the atomic type.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value before the write.
 
@@ -160,7 +160,7 @@ Parameters:
 - val: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value to write to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The value before the write.
 
@@ -201,7 +201,7 @@ Parameters:
 - old: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to compare with the current atomic type.
 - new: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to write to the atomic type if the comparison is equal.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the compare-and-swap succeeds, otherwise returns `false`.
 
@@ -226,7 +226,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read-modify-write" operation if the CAS succeeds.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read" operation if the CAS fails.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the compare-and-swap succeeds, otherwise returns `false`.
 
@@ -242,7 +242,7 @@ Parameters:
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to add to the atomic type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the addition.
 
@@ -263,7 +263,7 @@ Parameters:
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to add to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the addition.
 
@@ -279,7 +279,7 @@ Parameters:
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to perform bitwise AND with the atomic type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the operation.
 
@@ -300,7 +300,7 @@ Parameters:
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to perform bitwise AND with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the operation.
 
@@ -316,7 +316,7 @@ Parameters:
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to perform bitwise OR with the atomic type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the operation.
 
@@ -337,7 +337,7 @@ Parameters:
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to perform bitwise OR with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the operation.
 
@@ -353,7 +353,7 @@ Parameters:
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to subtract from the atomic type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the subtraction.
 
@@ -374,7 +374,7 @@ Parameters:
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to subtract from the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the current operation.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the subtraction.
 
@@ -390,7 +390,7 @@ Parameters:
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value to perform bitwise XOR with the atomic type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The value before the operation.
 
@@ -445,7 +445,7 @@ Parameters:
 - old: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to compare with the current atomic type.
 - new: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -470,7 +470,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for "read-modify-write" operations on CAS success.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for "read" operations on CAS failure.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -486,7 +486,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to add to the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the addition.
 
@@ -507,7 +507,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to add to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the addition.
 
@@ -523,7 +523,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to AND with the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -544,7 +544,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to AND with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -560,7 +560,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to OR with the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -581,7 +581,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to OR with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -597,7 +597,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to subtract from the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -618,7 +618,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to subtract from the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -634,7 +634,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to XOR with the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -655,7 +655,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to XOR with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the operation.
 
@@ -667,7 +667,7 @@ public func load(): Int32
 
 Function: Atomic load operation using default memory ordering. Reads the value of the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The current value of the atomic type.
 
@@ -687,7 +687,7 @@ Parameters:
 
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The current value of the atomic type.
 
@@ -732,7 +732,7 @@ Parameters:
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to write to the atomic type.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the swap.
 
@@ -753,7 +753,7 @@ Parameters:
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value to write to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The value before the swap.
 
@@ -794,7 +794,7 @@ Parameters:
 - old: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to compare with the current atomic type.
 - new: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -819,7 +819,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for "read-modify-write" operations on CAS success.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for "read" operations on CAS failure.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.### func fetchAdd(Int64)
 
@@ -833,7 +833,7 @@ Parameters:
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be added to the atomic type.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the addition operation.
 
@@ -854,7 +854,7 @@ Parameters:
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be added to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the addition operation.
 
@@ -870,7 +870,7 @@ Parameters:
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be ANDed with the atomic type.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the AND operation.
 
@@ -891,7 +891,7 @@ Parameters:
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be ANDed with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the AND operation.
 
@@ -907,7 +907,7 @@ Parameters:
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be ORed with the atomic type.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the OR operation.
 
@@ -928,7 +928,7 @@ Parameters:
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be ORed with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the OR operation.
 
@@ -944,7 +944,7 @@ Parameters:
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be subtracted from the atomic type.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the subtraction operation.
 
@@ -965,7 +965,7 @@ Parameters:
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to be subtracted from the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value before the subtraction operation.
 
@@ -1017,7 +1017,7 @@ Parameters:
 - old: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The value to compare with the current atomic type.
 - new: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1042,7 +1042,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read-modify-write" operation on successful CAS.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read" operation on failed CAS.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1054,7 +1054,7 @@ public func load(): Option<T>
 
 Function: Read operation using default memory ordering to retrieve the atomic type's value.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The current value of the atomic type.
 
@@ -1074,7 +1074,7 @@ Parameters:
 
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The current value of the atomic type.
 
@@ -1119,7 +1119,7 @@ Parameters:
 
 - val: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The value to write to the atomic type.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The previous value before writing.
 
@@ -1140,7 +1140,7 @@ Parameters:
 - val: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The value to write to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The previous value before writing.
 
@@ -1183,7 +1183,7 @@ Parameters:
 - old: T - The value to compare with the current atomic type.
 - new: T - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1208,7 +1208,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read-modify-write" operation on successful CAS.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read" operation on failed CAS.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1220,7 +1220,7 @@ public func load(): T
 
 Function: Read operation using default memory ordering to retrieve the atomic type's value.
 
-Return Value:
+Returns:
 
 - T - The current value of the atomic type.
 
@@ -1240,7 +1240,7 @@ Parameters:
 
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - T - The current value of the atomic type.
 
@@ -1285,7 +1285,7 @@ Parameters:
 
 - val: T - The value to write to the atomic type.
 
-Return Value:
+Returns:
 
 - T - The previous value before writing.
 
@@ -1306,7 +1306,7 @@ Parameters:
 - val: T - The value to write to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - T - The previous value before writing.
 
@@ -1347,7 +1347,7 @@ Parameters:
 - old: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value to compare with the current atomic type.
 - new: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1372,7 +1372,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read-modify-write" operation on successful CAS.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read" operation on failed CAS.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1388,7 +1388,7 @@ Parameters:
 
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value to add to the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value before the addition operation.
 
@@ -1409,7 +1409,7 @@ Parameters:
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value to add to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for this operation.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value before the addition operation.
 
@@ -1425,7 +1425,7 @@ Parameters:
 
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value to AND with the atomic type.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The value before the operation.
 
@@ -1466,7 +1466,7 @@ Parameters:
 - old: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to compare with the current atomic type.
 - new: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to write to the atomic type if the comparison succeeds.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1491,7 +1491,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read-modify-write" operation on success.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering for the "read" operation on failure.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap succeeds, otherwise `false`.
 
@@ -1507,7 +1507,7 @@ Parameters:
 
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to add to the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value before the addition.
 
@@ -1528,7 +1528,7 @@ Parameters:
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to add to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value before the addition.
 
@@ -1544,7 +1544,7 @@ Parameters:
 
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to AND with the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value before the AND operation.
 
@@ -1565,7 +1565,7 @@ Parameters:
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to AND with the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Value before performing the 'AND' operation
 
@@ -1612,7 +1612,7 @@ Function: Performs atomic addition using default memory ordering. Adds `val` to 
 Parameters:
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to add
 
-Return Value:
+Returns:
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value before addition
 
 ### func fetchAdd(UInt32, MemoryOrder) <sup>(deprecated)</sup>
@@ -1631,7 +1631,7 @@ Parameters:
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value to add
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - Memory ordering mode
 
-Return Value:
+Returns:
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The value before addition
 
 ## class AtomicUInt8
@@ -1671,7 +1671,7 @@ Parameters:
 - old: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to compare with the current atomic type.
 - new: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to write to the atomic type if the comparison is successful.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap is successful, otherwise `false`.
 
@@ -1696,7 +1696,7 @@ Parameters:
 - successOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read-modify-write" operation on success.
 - failureOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the "read" operation on failure.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the swap is successful, otherwise `false`.
 
@@ -1712,7 +1712,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to add to the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the addition operation.
 
@@ -1733,7 +1733,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to add to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the addition operation.
 
@@ -1749,7 +1749,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the AND operation with.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the AND operation.
 
@@ -1770,7 +1770,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the AND operation with.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the AND operation.
 
@@ -1786,7 +1786,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the OR operation with.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the OR operation.
 
@@ -1807,7 +1807,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the OR operation with.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the OR operation.
 
@@ -1823,7 +1823,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to subtract from the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the subtraction operation.
 
@@ -1844,7 +1844,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to subtract from the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the subtraction operation.
 
@@ -1860,7 +1860,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the XOR operation with.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the XOR operation.
 
@@ -1881,7 +1881,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to perform the XOR operation with.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the XOR operation.
 
@@ -1893,7 +1893,7 @@ public func load(): UInt8
 
 Function: Performs a read operation using the default memory ordering to read the value of the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The current value of the atomic type.
 
@@ -1913,7 +1913,7 @@ Parameters:
 
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The current value of the atomic type.
 
@@ -1958,7 +1958,7 @@ Parameters:
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to write to the atomic type.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the write.
 
@@ -1979,7 +1979,7 @@ Parameters:
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value to write to the atomic type.
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - The memory ordering for the operation.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The value before the write.
 
@@ -2082,7 +2082,7 @@ public func newCondition(): ConditionID
 
 Function: Creates a [ConditionID <sup>(deprecated)</sup>](sync_package_structs.md#struct-conditionid-deprecated) associated with this [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated), which can be used to implement "single mutex with multiple wait queues" concurrency primitives.
 
-Return Value:
+Returns:
 
 - [ConditionID](sync_package_structs.md#struct-conditionid-deprecated) - A new [ConditionID <sup>(deprecated)</sup>](sync_package_structs.md#struct-conditionid-deprecated).
 
@@ -2139,7 +2139,7 @@ Parameters:
 - condID: [ConditionID](sync_package_structs.md#struct-conditionid-deprecated) - The condition variable.
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The suspension duration, with a default value of [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated) specified condition variable is awakened by another thread; returns `false` if the operation times out.
 
@@ -2191,7 +2191,7 @@ Function: Creates a [Condition](./sync_package_interfaces.md#interface-condition
 
 Can be used to implement "single Lock with multiple wait queues" concurrency primitives.
 
-Return Value:
+Returns:
 
 - [Condition](./sync_package_interfaces.md#interface-condition) - The created [Condition](./sync_package_interfaces.md#interface-condition) instance associated with this [Mutex](#class-mutex).
 
@@ -2215,7 +2215,7 @@ public func tryLock(): Bool
 
 Function: Attempts to lock the mutex.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the mutex is already locked; otherwise, locks the mutex and returns `true`.
 
@@ -2298,7 +2298,7 @@ public func isFair(): Bool
 
 Function: Checks whether the read-write lock is in "fair" mode.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` indicates fair mode; otherwise, indicates non-fair mode.
 
@@ -2353,7 +2353,7 @@ public open func tryLock(): Bool
 
 Function: Attempts to lock the mutex.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the mutex is already locked; otherwise, locks the mutex and returns `true`.
 
@@ -2409,7 +2409,7 @@ public func tryLock(): Bool
 
 Function: Attempts to acquire the read lock. This method does not follow fair mode when acquiring the read lock.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the read lock is acquired successfully; otherwise, returns `false`.
 
@@ -2510,7 +2510,7 @@ public func tryLock(): Bool
 
 Function: Attempts to acquire the write lock. This method does not follow fair mode when acquiring the write lock.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the write lock is successfully acquired; otherwise, returns `false`.
 
@@ -2620,7 +2620,7 @@ Parameters:
 
 - amount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The value to acquire from the internal counter. Defaults to 1.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the current counter value is less than the requested amount; otherwise, returns `true`.
 
@@ -2725,7 +2725,7 @@ Parameters:
 - delay: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The time interval from now until the first execution of the Task.
 - task: () ->[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)> - The Task to be scheduled by this [Timer](sync_package_classes.md#class-timer).
 
-Return Value:
+Returns:
 
 - [Timer](sync_package_classes.md#class-timer) - A [Timer](sync_package_classes.md#class-timer) instance.
 
@@ -2742,7 +2742,7 @@ Parameters:
 - delay: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The time interval from now until the Task is executed. Valid range: [[Duration.Min](../../core/core_package_api/core_package_structs.md#static-const-min), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]. If less than or equal to [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), the Task will be executed immediately.
 - task: ()->Unit - The task to be executed.
 
-Return Value:
+Returns:
 
 - [Timer](sync_package_classes.md#class-timer) - The created instance.
 
@@ -2786,7 +2786,7 @@ Parameters:
 - task: ()->Unit - The task to be executed.
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - The catch-up strategy, defaulting to Burst. If the Task execution time is too long, subsequent executions may be delayed. Different strategies suit different scenarios. See [CatchupStyle](sync_package_enums.md#enum-catchupstyle) for details.
 
-Return Value:
+Returns:
 
 - [Timer](sync_package_classes.md#class-timer) - The created instance.
 
@@ -2839,7 +2839,7 @@ Parameters:
 - task: ()->Unit - The task to be executed.
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - The catch-up strategy, defaulting to Burst. If the Task execution time is too long, subsequent executions may be delayed. Different strategies suit different scenarios. See [CatchupStyle](sync_package_enums.md#enum-catchupstyle) for details.
 
-Return Value:
+Returns:
 
 - [Timer](sync_package_classes.md#class-timer) - The created instance.
 
@@ -2861,7 +2861,7 @@ Parameters:
 - task: ()->Unit - The task to be executed on schedule.
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - The catch-up strategy, defaulting to Burst. When Task execution takes too long, subsequent execution time points may be delayed. Different catch-up strategies suit different scenarios. For details, see [CatchupStyle](sync_package_enums.md#enum-catchupstyle) description.
 
-Return Value:
+Returns:
 
 - [Timer](sync_package_classes.md#class-timer) - The generated object instance.
 
@@ -2914,7 +2914,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of the [Timer](sync_package_classes.md#class-timer) object.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the object.
 
@@ -2930,7 +2930,7 @@ Parameters:
 
 - rhs: [Timer](#class-timer) - Another [Timer](#class-timer) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [Timer](sync_package_classes.md#class-timer) instances are not the same, otherwise returns `false`.
 
@@ -2946,6 +2946,6 @@ Parameters:
 
 - rhs: [Timer](#class-timer) - Another [Timer](#class-timer) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [Timer](sync_package_classes.md#class-timer) instances are the same, otherwise returns `false`.

@@ -211,7 +211,7 @@ Parameters:
 
 - d: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The time duration.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The date and time after the specified `d` from [UnixEpoch](#static-prop-unixepoch).
 
@@ -231,7 +231,7 @@ Parameters:
 
 - timeZone!: [TimeZone](time_package_classes.md#class-timezone) - The timezone, defaults to local timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Returns the current time in the specified timezone.
 
@@ -243,7 +243,7 @@ public static func nowUTC(): DateTime
 
 Description: Gets the current time in UTC timezone. The obtained time is affected by system time. For timing scenarios that should not be affected by system time, use [MonoTime](time_package_structs.md#struct-monotime).now() instead.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Current time in UTC timezone.
 
@@ -275,7 +275,7 @@ Parameters:
 - nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nanosecond, range [0, 999,999,999].
 - timeZone!: [TimeZone](time_package_classes.md#class-timezone) - Timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance constructed based on the specified parameters.
 
@@ -310,7 +310,7 @@ Parameters:
 - nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nanosecond, range [0, 999,999,999].
 - timeZone!: [TimeZone](time_package_classes.md#class-timezone) - Timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance constructed from the specified parameters.
 
@@ -331,7 +331,7 @@ Parameters:
 - second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Seconds portion of Unix time.
 - nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nanoseconds portion of Unix time, range must not exceed [0, 999,999,999].
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time after the specified `second` and `nanosecond` from [UnixEpoch](#static-prop-unixepoch).
 
@@ -366,7 +366,7 @@ Parameters:
 - second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Second, range [0, 59].
 - nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nanosecond, range [0, 999,999,999].
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A UTC timezone [DateTime](time_package_structs.md#struct-datetime) instance constructed from the specified parameters.
 
@@ -400,7 +400,7 @@ Parameters:
 - second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Second, range [0, 59].
 - nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nanosecond, range [0, 999,999,999].
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A UTC timezone [DateTime](time_package_structs.md#struct-datetime) instance constructed from the specified parameters.
 
@@ -420,7 +420,7 @@ Parameters:
 
 - str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Time string in `RFC3339` `date-time` format, which may include fractional seconds (e.g., "2023-04-10T08:00:00[.123456]+08:00" where content in `[]` is optional).
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance parsed from the input string `str`.
 
@@ -441,7 +441,7 @@ Parameters:
 - str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Time string (e.g., "2023/04/10 08:00:00 +08:00").
 - format: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Time string format (e.g., "yyyy/MM/dd HH:mm:ss OOOO"). For format specifications, see [Time String Format](../time_package_overview.md#time-string-format).
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance parsed from the input string `str` according to the specified format `format`.
 
@@ -467,7 +467,7 @@ Parameters:
 - str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Time string (e.g., "2023/04/10 08:00:00 +08:00").
 - format: [DateTimeFormat](./time_package_classes.md#class-datetimeformat) - Time format (e.g., the format corresponding to "yyyy/MM/dd HH:mm:ss OOOO"). For format specifications, see [Time String Format](../time_package_overview.md#time-string-format).
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance parsed from the input string `str` according to the specified format `format`.
 
@@ -488,7 +488,7 @@ Parameters:
 
 - str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Time string in `RFC3339` `date-time` format, which may include fractional seconds (e.g., "2023-04-10T08:00:00[.123456]+08:00" where content in `[]` is optional).
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[DateTime](time_package_structs.md#struct-datetime)> - An [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[DateTime](time_package_structs.md#struct-datetime)> instance parsed from the input string `str`. Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<DateTime>.None if parsing fails.
 
@@ -504,7 +504,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of days after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time `n` days after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -524,7 +524,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of hours after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time `n` hours after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -544,7 +544,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of minutes after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time `n` minutes after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -568,7 +568,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of months after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time `n` months after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -588,7 +588,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of nanoseconds after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - Time `n` nanoseconds after the current [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -608,7 +608,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of seconds after the [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A new [DateTime](time_package_structs.md#struct-datetime) instance representing the time `n` seconds later.
 
@@ -628,7 +628,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of weeks after the [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A new [DateTime](time_package_structs.md#struct-datetime) instance representing the time `n` weeks later.
 
@@ -652,7 +652,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of years after the [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - A new [DateTime](time_package_structs.md#struct-datetime) instance representing the time `n` years later.
 
@@ -672,7 +672,7 @@ Parameters:
 
 - rhs: [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance to compare with.
 
-Return Value:
+Returns:
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - The comparison result between the current [DateTime](time_package_structs.md#struct-datetime) instance and `rhs`.
 
@@ -684,7 +684,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of the [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value.
 
@@ -696,7 +696,7 @@ public func inLocal(): DateTime
 
 Function: Retrieves the [DateTime](time_package_structs.md#struct-datetime) instance in the local timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance in the local timezone.
 
@@ -716,7 +716,7 @@ Parameters:
 
 - timeZone: [TimeZone](time_package_classes.md#class-timezone) - The target timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance in the specified timezone.
 
@@ -732,7 +732,7 @@ public func inUTC(): DateTime
 
 Function: Retrieves the [DateTime](time_package_structs.md#struct-datetime) instance in UTC timezone.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance in UTC timezone.
 
@@ -748,7 +748,7 @@ public func toString(): String
 
 Function: Returns a string representation of the [DateTime](time_package_structs.md#struct-datetime) instance in `RFC3339` `date-time` format. If the time includes nanosecond information (non-zero), the fractional seconds will be displayed.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -764,7 +764,7 @@ Parameters:
 
 - fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The format string (e.g., "yyyy/MM/dd HH:mm:ss OOOO").
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string of the [DateTime](time_package_structs.md#struct-datetime) instance. If parsing fails, returns `fmt` as-is.
 
@@ -788,7 +788,7 @@ Parameters:
 
 - format: [DateTimeFormat](./time_package_classes.md#class-datetimeformat) - The time format (e.g., "yyyy/MM/dd HH:mm:ss OOOO").
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The formatted string of the [DateTime](time_package_structs.md#struct-datetime) instance.
 
@@ -804,7 +804,7 @@ public func toUnixTimeStamp(): Duration
 
 Function: Retrieves the time interval between the current instance and [UnixEpoch](#static-prop-unixepoch).
 
-Return Value:
+Returns:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The time interval since [UnixEpoch](#static-prop-unixepoch).
 
@@ -822,7 +822,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` if the instances are unequal; otherwise, `false`.
 
@@ -838,7 +838,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The right-hand operand.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The sum of the [DateTime](time_package_structs.md#struct-datetime) instance and `r`.
 
@@ -858,7 +858,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - The right-hand operand.
 
-Return Value:
+Returns:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The difference between the [DateTime](time_package_structs.md#struct-datetime) instances.
 
@@ -874,7 +874,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The right-hand operand.
 
-Return Value:
+Returns:
 
 - [DateTime](time_package_structs.md#struct-datetime) - The difference between the [DateTime](time_package_structs.md#struct-datetime) instance and `r`.
 
@@ -894,7 +894,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - The [DateTime](time_package_structs.md#struct-datetime) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` if the current instance is earlier; otherwise, `false`.### operator func <=(DateTime)
 
@@ -908,7 +908,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [DateTime](time_package_structs.md#struct-datetime) instance is earlier than or equal to `r`; otherwise, returns `false`.
 
@@ -926,7 +926,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [DateTime](time_package_structs.md#struct-datetime) instance is equal to `r`; otherwise, returns `false`.
 
@@ -942,7 +942,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [DateTime](time_package_structs.md#struct-datetime) instance is later than `r`; otherwise, returns `false`.
 
@@ -958,7 +958,7 @@ Parameters:
 
 - r: [DateTime](time_package_structs.md#struct-datetime) - A [DateTime](time_package_structs.md#struct-datetime) instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [DateTime](time_package_structs.md#struct-datetime) instance is later than or equal to `r`; otherwise, returns `false`.
 
@@ -992,7 +992,7 @@ public static func now(): MonoTime
 
 Function: Obtains the [MonoTime](time_package_structs.md#struct-monotime) corresponding to the current time.
 
-Return Value:
+Returns:
 
 - [MonoTime](time_package_structs.md#struct-monotime) - The [MonoTime](time_package_structs.md#struct-monotime) corresponding to the current time.
 
@@ -1008,7 +1008,7 @@ Parameters:
 
 - rhs: [MonoTime](time_package_structs.md#struct-monotime) - The [MonoTime](time_package_structs.md#struct-monotime) instance to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - The size relationship between the current [MonoTime](time_package_structs.md#struct-monotime) instance and `rhs`.
 
@@ -1020,7 +1020,7 @@ public func hashCode(): Int64
 
 Function: Obtains the hash value of the current [MonoTime](time_package_structs.md#struct-monotime) instance.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value.
 
@@ -1036,7 +1036,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is not equal to `r`; otherwise, returns `false`.
 
@@ -1052,7 +1052,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - A time interval.
 
-Return Value:
+Returns:
 
 - [MonoTime](time_package_structs.md#struct-monotime) - The monotonic time after the time interval represented by parameter `r`.
 
@@ -1072,7 +1072,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - A time interval.
 
-Return Value:
+Returns:
 
 - [MonoTime](time_package_structs.md#struct-monotime) - The monotonic time before the time interval represented by parameter `r`.
 
@@ -1092,7 +1092,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The time interval elapsed from `r` to the current instance.
 
@@ -1108,7 +1108,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is earlier than `r`; otherwise, returns `false`.
 
@@ -1124,7 +1124,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is earlier than or equal to `r`; otherwise, returns `false`.
 
@@ -1140,7 +1140,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is equal to `r`; otherwise, returns `false`.
 
@@ -1156,7 +1156,7 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is later than `r`; otherwise, returns `false`.
 
@@ -1172,6 +1172,6 @@ Parameters:
 
 - r: [MonoTime](time_package_structs.md#struct-monotime) - A monotonic time instance.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` or `false`. Returns `true` if the current [MonoTime](time_package_structs.md#struct-monotime) instance is later than or equal to `r`; otherwise, returns `false`.

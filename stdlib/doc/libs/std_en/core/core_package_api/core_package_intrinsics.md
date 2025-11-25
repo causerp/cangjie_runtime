@@ -36,7 +36,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -79,7 +79,7 @@ public func toString(): String
 
 Function: Converts a [Bool](core_package_intrinsics.md#bool) value to an output-ready string.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -134,7 +134,7 @@ public func asResource(): CPointerResource<T>
 
 Function: Gets the [CPointerResource](core_package_structs.md#struct-cpointerresourcet-where-t--ctype) instance for this pointer, which enables automatic resource release in `try-with-resource` syntax contexts.
 
-Return value:
+Returns:
 
 - [CPointerResource](core_package_structs.md#struct-cpointerresourcet-where-t--ctype)\<T> - The corresponding [CPointerResource](core_package_structs.md#struct-cpointerresourcet-where-t--ctype) instance for the current pointer.
 
@@ -174,7 +174,7 @@ public func isNotNull(): Bool
 
 Function: Checks if the pointer is not null.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if not null, otherwise false.
 
@@ -211,7 +211,7 @@ public func isNull(): Bool
 
 Function: Checks if the pointer is null.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if null, otherwise false.
 
@@ -248,7 +248,7 @@ public unsafe func read(): T
 
 Function: Reads the first data element. Users must ensure pointer validity to avoid undefined behavior.
 
-Return value:
+Returns:
 
 - T - The first data element of the object type.
 
@@ -289,7 +289,7 @@ Parameters:
 
 - idx: [Int64](core_package_intrinsics.md#int64) - The index of the data to read.
 
-Return value:
+Returns:
 
 - T - The data at the specified index.
 
@@ -323,7 +323,7 @@ public func toUIntNative(): UIntNative
 
 Function: Gets the integer representation of the pointer.
 
-Return value:
+Returns:
 
 - [UIntNative](core_package_intrinsics.md#uintnative) - The integer representation of the pointer.
 
@@ -437,7 +437,7 @@ Parameters:
 
 - offset: [Int64](core_package_intrinsics.md#int64) - The offset value.
 
-Return value:
+Returns:
 
 - [CPointer](core_package_intrinsics.md#cpointert)\<T> - The pointer after offset.
 
@@ -478,7 +478,7 @@ Parameters:
 
 - offset: [Int64](core_package_intrinsics.md#int64) - The offset value.
 
-Return value:
+Returns:
 
 - [CPointer](core_package_intrinsics.md#cpointert)\<T> - The pointer after offset.
 
@@ -539,7 +539,7 @@ Function: Obtains the [CStringResource](core_package_structs.md#struct-cstringre
 
 [CStringResource](core_package_structs.md#struct-cstringresource) implements the [Resource](core_package_interfaces.md#interface-resource) interface, enabling automatic resource release in `try-with-resource` syntax contexts.
 
-Return Value:
+Returns:
 
 - [CStringResource](core_package_structs.md#struct-cstringresource) - The corresponding [CStringResource](core_package_structs.md#struct-cstringresource) C-string resource type instance.
 
@@ -579,7 +579,7 @@ Parameters:
 
 - str: [CString](core_package_intrinsics.md#cstring) - The target string to compare.
 
-Return Value:
+Returns:
 
 - [Int32](core_package_intrinsics.md#int32) - Returns 0 if equal, -1 if the current string is lexicographically smaller than str, otherwise 1.
 
@@ -635,7 +635,7 @@ Parameters:
 
 - suffix: [CString](core_package_intrinsics.md#cstring) - The target suffix string to match.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string ends with suffix, false otherwise. Returns false if either string pointer is null.
 
@@ -678,7 +678,7 @@ Parameters:
 
 - rhs: [CString](core_package_intrinsics.md#cstring) - The target string to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the strings are equal, false otherwise.
 
@@ -720,7 +720,7 @@ Parameters:
 
 - rhs: [CString](core_package_intrinsics.md#cstring) - The target string to match.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the strings are equal ignoring case, false otherwise.
 
@@ -758,7 +758,7 @@ public func getChars(): CPointer<UInt8>
 
 Function: Retrieves the pointer to the string.
 
-Return Value:
+Returns:
 
 - [CPointer](./core_package_intrinsics.md#cpointert)\<[UInt8](./core_package_intrinsics.md#uint8)> - The pointer to the string.
 
@@ -791,7 +791,7 @@ public func isEmpty(): Bool
 
 Function: Checks if the string is empty.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string is empty or the pointer is null, false otherwise.
 
@@ -823,7 +823,7 @@ public func isNotEmpty(): Bool
 
 Function: Checks if the string is not empty.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string is not empty, false if the pointer is null.
 
@@ -855,7 +855,7 @@ public func isNull(): Bool
 
 Function: Checks if the string pointer is null.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the pointer is null, false otherwise.
 
@@ -887,7 +887,7 @@ public func size(): Int64
 
 Function: Returns the length of the string, equivalent to C's `strlen`.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The length of the string.
 
@@ -923,7 +923,7 @@ Parameters:
 
 - prefix: [CString](core_package_intrinsics.md#cstring) - The target prefix string to match.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the string starts with prefix, false otherwise. Returns false if either string pointer is null.
 
@@ -966,7 +966,7 @@ Parameters:
 
 - beginIndex: [UIntNative](core_package_intrinsics.md#uintnative) - The starting position for extraction, range [0, this.size()].
 
-Return Value:
+Returns:
 
 - [CString](core_package_intrinsics.md#cstring) - The extracted substring.
 
@@ -1018,7 +1018,7 @@ Parameters:
 - beginIndex: [UIntNative](core_package_intrinsics.md#uintnative) - The starting position for extraction, range [0, this.size()].
 - subLen: [UIntNative](core_package_intrinsics.md#uintnative) - The length to extract, range [0, [UIntNative](core_package_intrinsics.md#uintnative).Max].
 
-Return Value:
+Returns:
 
 - [CString](core_package_intrinsics.md#cstring) - The extracted substring.
 
@@ -1059,7 +1059,7 @@ public func toString(): String
 
 Function: Converts [CString](core_package_intrinsics.md#cstring) to Cangjie's [String](core_package_structs.md#struct-string) type.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -1691,7 +1691,7 @@ public func toString(): String
 
 Function: Converts a [Float16](core_package_intrinsics.md#float16) value into an output-ready string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -1940,7 +1940,7 @@ Parameters:
 - b: [Float32](./core_package_intrinsics.md#float32) - The second number to compare.
 - others: [Array](core_package_structs.md#struct-arrayt)\<[Float32](./core_package_intrinsics.md#float32)> - Additional numbers to compare.
 
-Return Value:
+Returns:
 
 - [Float32](./core_package_intrinsics.md#float32) - The maximum value among the parameters.
 
@@ -1985,7 +1985,7 @@ Parameters:
 - b: [Float32](./core_package_intrinsics.md#float32) - The second number to compare.
 - others: [Array](core_package_structs.md#struct-arrayt)\<[Float32](./core_package_intrinsics.md#float32)> - Additional numbers to compare.
 
-Return Value:
+Returns:
 
 - [Float32](./core_package_intrinsics.md#float32) - The minimum value among the parameters.
 
@@ -2024,7 +2024,7 @@ public func isInf(): Bool
 
 Function: Determines whether a floating-point number [Float32](./core_package_intrinsics.md#float32) is infinite.
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float32](./core_package_intrinsics.md#float32) value is positive or negative infinity; otherwise, returns `false`.
 
@@ -2065,7 +2065,7 @@ public func isNaN(): Bool
 
 Function: Determines whether a floating-point number [Float32](./core_package_intrinsics.md#float32) is Not-a-Number (NaN).
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float32](./core_package_intrinsics.md#float32) value is NaN; otherwise, returns `false`.
 
@@ -2101,7 +2101,7 @@ public func isNormal(): Bool
 
 Function: Determines whether a floating-point number [Float32](./core_package_intrinsics.md#float32) is a normal number.
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float32](./core_package_intrinsics.md#float32) value is a normal floating-point number; otherwise, returns `false`.
 
@@ -2163,7 +2163,7 @@ Parameters:
 
 - rhs: [Float32](core_package_intrinsics.md#float32) - Another [Float32](core_package_intrinsics.md#float32) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater; [Ordering](core_package_enums.md#enum-ordering).EQ if equal; [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -2204,7 +2204,7 @@ Parameters:
 
 - bits: [UInt32](core_package_intrinsics.md#uint32) - The number to convert.
 
-Return Value:
+Returns:
 
 - [Float32](core_package_intrinsics.md#float32) - The conversion result, with the same bits as the parameter bits.
 
@@ -2232,7 +2232,7 @@ public func toBits(): UInt32
 
 Function: Converts the specified [Float32](core_package_intrinsics.md#float32) number to its bit representation as a [UInt32](core_package_intrinsics.md#uint32) number.
 
-Return Value:
+Returns:
 
 - [UInt32](core_package_intrinsics.md#uint32) - The conversion result, with the same value as the bit representation of [Float32](core_package_intrinsics.md#float32).
 
@@ -2271,7 +2271,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -2328,7 +2328,7 @@ public func toString(): String
 
 Function: Converts a [Float32](core_package_intrinsics.md#float32) value to a printable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -2577,7 +2577,7 @@ Parameters:
 - b: [Float64](./core_package_intrinsics.md#float64) - The second number to compare.
 - others: [Array](core_package_structs.md#struct-arrayt)\<[Float64](./core_package_intrinsics.md#float64)> - Additional numbers to compare.
 
-Return Value:
+Returns:
 
 - [Float64](./core_package_intrinsics.md#float64) - The maximum value among the parameters.
 
@@ -2622,7 +2622,7 @@ Parameters:
 - b: [Float64](./core_package_intrinsics.md#float64) - The second number to compare.
 - others: [Array](core_package_structs.md#struct-arrayt)\<[Float64](./core_package_intrinsics.md#float64)> - Additional numbers to compare.
 
-Return Value:
+Returns:
 
 - [Float64](./core_package_intrinsics.md#float64) - The minimum value among the parameters.
 
@@ -2661,7 +2661,7 @@ public func isInf(): Bool
 
 Function: Determines whether a floating-point number [Float64](./core_package_intrinsics.md#float64) is infinite.
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float64](./core_package_intrinsics.md#float64) value is positive or negative infinity; otherwise, returns `false`.
 
@@ -2702,7 +2702,7 @@ public func isNaN(): Bool
 
 Function: Determines whether a floating-point number [Float64](./core_package_intrinsics.md#float64) is Not-a-Number (NaN).
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float64](./core_package_intrinsics.md#float64) value is NaN; otherwise, returns `false`.
 
@@ -2738,7 +2738,7 @@ public func isNormal(): Bool
 
 Function: Determines whether a floating-point number [Float64](./core_package_intrinsics.md#float64) is a normal number.
 
-Return Value:
+Returns:
 
 - [Bool](./core_package_intrinsics.md#bool) - Returns `true` if the [Float64](./core_package_intrinsics.md#float64) value is a normal floating-point number; otherwise, returns `false`.
 
@@ -2800,7 +2800,7 @@ Parameter:
 
 - rhs: [Float64](core_package_intrinsics.md#float64) - Another [Float64](core_package_intrinsics.md#float64) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater than, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less than.
 
@@ -2841,7 +2841,7 @@ Parameter:
 
 - bits: [UInt64](core_package_intrinsics.md#uint64) - The number to convert.
 
-Return Value:
+Returns:
 
 - [Float64](core_package_intrinsics.md#float64) - The conversion result, whose bits are identical to the parameter bits.
 
@@ -2869,7 +2869,7 @@ public func toBits(): UInt64
 
 Function: Converts the specified Float64 number to the corresponding [UInt64](core_package_intrinsics.md#uint64) number represented by its bits.
 
-Return Value:
+Returns:
 
 - [UInt64](core_package_intrinsics.md#uint64) - The conversion result, whose value is identical to the bit representation of the [Float64](core_package_intrinsics.md#float64).
 
@@ -2908,7 +2908,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -2951,7 +2951,7 @@ Do equal values have the same hash: true
 extend Float64 <: ToString
 ```
 
-Functionality: Extends the [Float64](core_package_intrinsics.md#float64) type to implement the [ToString](core_package_interfaces.md#interface-tostring) interface, enabling conversion to [String](core_package_structs.md#struct-string) type. By default retains 6 decimal places.
+Function: Extends the [Float64](core_package_intrinsics.md#float64) type to implement the [ToString](core_package_interfaces.md#interface-tostring) interface, enabling conversion to [String](core_package_structs.md#struct-string) type. By default retains 6 decimal places.
 
 Parent type:
 
@@ -2963,9 +2963,9 @@ Parent type:
 public func toString(): String
 ```
 
-Functionality: Converts a [Float64](core_package_intrinsics.md#float64) value to an outputtable string.
+Function: Converts a [Float64](core_package_intrinsics.md#float64) value to an outputtable string.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -3100,7 +3100,7 @@ Parameters:
 
 - rhs: [Int16](core_package_intrinsics.md#int16) - Another [Int16](core_package_intrinsics.md#int16) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, or [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -3145,7 +3145,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [Int16](core_package_intrinsics.md#int16) - The [Int16](core_package_intrinsics.md#int16) value at the new position.
 
@@ -3176,7 +3176,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [Int16](core_package_intrinsics.md#int16) value, i.e., converts the [Int16](core_package_intrinsics.md#int16) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [Int16](core_package_intrinsics.md#int16) value.
 
@@ -3219,7 +3219,7 @@ public func hashCode(): Int64
 
 Function: Computes the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -3276,7 +3276,7 @@ public func toString(): String
 
 Function: Converts the [Int16](core_package_intrinsics.md#int16) value to an output-ready string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -3411,7 +3411,7 @@ Parameters:
 
 - rhs: [Int32](core_package_intrinsics.md#int32) - Another [Int32](core_package_intrinsics.md#int32) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, or [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -3456,7 +3456,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [Int32](core_package_intrinsics.md#int32) - The [Int32](core_package_intrinsics.md#int32) value at the new position.
 
@@ -3484,7 +3484,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [Int32](core_package_intrinsics.md#int32) value, i.e., converts the [Int32](core_package_intrinsics.md#int32) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [Int32](core_package_intrinsics.md#int32) value.
 
@@ -3524,7 +3524,7 @@ public func hashCode(): Int64
 
 Function: Computes the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -3581,7 +3581,7 @@ public func toString(): String
 
 Function: Converts the [Int32](core_package_intrinsics.md#int32) value to an output-ready string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -3716,7 +3716,7 @@ Parameters:
 
 - rhs: [Int64](core_package_intrinsics.md#int64) - Another [Int64](core_package_intrinsics.md#int64) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater; [Ordering](core_package_enums.md#enum-ordering).EQ if equal; [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -3761,7 +3761,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to count to the right.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The [Int64](core_package_intrinsics.md#int64) value at the position after counting `right` units to the right.
 
@@ -3789,7 +3789,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [Int64](core_package_intrinsics.md#int64) value, i.e., returns the [Int64](core_package_intrinsics.md#int64) value itself.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [Int64](core_package_intrinsics.md#int64) value.
 
@@ -3829,7 +3829,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -3889,7 +3889,7 @@ public func toString(): String
 
 Function: Converts the [Int64](core_package_intrinsics.md#int64) value to an output string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -4042,7 +4042,7 @@ Parameters:
 
 - rhs: [Int8](core_package_intrinsics.md#int8) - Another [Int8](core_package_intrinsics.md#int8) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater; [Ordering](core_package_enums.md#enum-ordering).EQ if equal; [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -4087,7 +4087,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to count to the right.
 
-Return Value:
+Returns:
 
 - [Int8](core_package_intrinsics.md#int8) - The [Int8](core_package_intrinsics.md#int8) value at the position after counting `right` units to the right.
 
@@ -4115,7 +4115,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [Int8](core_package_intrinsics.md#int8) value, i.e., converts the [Int8](core_package_intrinsics.md#int8) value to [Int64](core_package_intrinsics.md#int64).
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [Int8](core_package_intrinsics.md#int8) value.
 
@@ -4155,7 +4155,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -4230,7 +4230,7 @@ public func toString(): String
 
 Function: Converts the [Int8](core_package_intrinsics.md#int8) value to an output string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -4383,7 +4383,7 @@ Parameters:
 
 - rhs: [IntNative](core_package_intrinsics.md#intnative) - Another [IntNative](core_package_intrinsics.md#intnative) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -4428,7 +4428,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to count to the right.
 
-Return Value:
+Returns:
 
 - [IntNative](core_package_intrinsics.md#intnative) - The [IntNative](core_package_intrinsics.md#intnative) value at the position `right` units to the right.
 
@@ -4456,7 +4456,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [IntNative](core_package_intrinsics.md#intnative) value, i.e., converts the [IntNative](core_package_intrinsics.md#intnative) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [IntNative](core_package_intrinsics.md#intnative) value.
 
@@ -4496,7 +4496,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -4571,7 +4571,7 @@ public func toString(): String
 
 Function: Converts the [IntNative](core_package_intrinsics.md#intnative) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -4653,7 +4653,7 @@ Parameters:
 - arr: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array containing the bytes to convert.
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the byte to convert in the array.
 
-Return Value:
+Returns:
 
 - ([Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64)) - The converted character and the byte length occupied by the character.
 
@@ -4695,7 +4695,7 @@ Parameters:
 - arr: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array to search for the character.
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the byte to find the character for.
 
-Return Value:
+Returns:
 
 - ([Rune](core_package_intrinsics.md#rune), [Int64](core_package_intrinsics.md#int64)) - The found character and the byte length of the character.
 
@@ -4742,7 +4742,7 @@ Parameters:
 - arr: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The [Array](core_package_structs.md#struct-arrayt) array to overwrite.
 - index: [Int64](core_package_intrinsics.md#int64) - The starting index of the target position.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The byte length of the character, e.g., 3 for Chinese characters.
 
@@ -4780,7 +4780,7 @@ Parameters:
 - arr: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array to get the character from.
 - index: [Int64](core_package_intrinsics.md#int64) - The index of the character.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The byte length of the character, e.g., 3 for Chinese characters.
 
@@ -4817,7 +4817,7 @@ Parameters:
 
 - `c`: [Rune](core_package_intrinsics.md#rune) - The character whose UTF-8 byte length is to be calculated.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The UTF-8 byte length of the character.
 
@@ -4846,7 +4846,7 @@ public func isAscii(): Bool
 
 Function: Determines whether the character is an ASCII character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is ASCII, otherwise `false`.
 
@@ -4879,7 +4879,7 @@ public func isAsciiControl(): Bool
 
 Function: Determines whether the character is an ASCII control character. The valid range is the union of [00, 1F] and {7F}.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII control character, otherwise `false`.
 
@@ -4913,7 +4913,7 @@ public func isAsciiGraphic(): Bool
 
 Function: Determines whether the character is an ASCII graphic character. The valid range is [21, 7E].
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII graphic character, otherwise `false`.
 
@@ -4947,7 +4947,7 @@ public func isAsciiHex(): Bool
 
 Function: Determines whether the character is an ASCII hexadecimal character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII hexadecimal character, otherwise `false`.
 
@@ -4980,7 +4980,7 @@ public func isAsciiLetter(): Bool
 
 Function: Determines whether the character is an ASCII alphabetic character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII alphabetic character, otherwise `false`.
 
@@ -5013,7 +5013,7 @@ public func isAsciiLowerCase(): Bool
 
 Function: Determines whether the character is an ASCII lowercase character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII lowercase character, otherwise `false`.
 
@@ -5046,7 +5046,7 @@ public func isAsciiNumber(): Bool
 
 Function: Determines whether the character is an ASCII numeric character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII numeric character, otherwise `false`.
 
@@ -5079,7 +5079,7 @@ public func isAsciiNumberOrLetter(): Bool
 
 Function: Determines whether the character is an ASCII numeric or Latin alphabetic character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII numeric or Latin alphabetic character, otherwise `false`.
 
@@ -5115,7 +5115,7 @@ public func isAsciiOct(): Bool
 
 Function: Determines whether the character is an ASCII octal character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII octal character, otherwise `false`.
 
@@ -5148,7 +5148,7 @@ public func isAsciiPunctuation(): Bool
 
 Function: Determines whether the character is an ASCII punctuation character. The valid range is the union of [21, 2F], [3A, 40], [5B, 60], and [7B, 7E].
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII punctuation character, otherwise `false`.
 
@@ -5181,7 +5181,7 @@ public func isAsciiUpperCase(): Bool
 
 Function: Determines whether the character is an ASCII uppercase character.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII uppercase character, otherwise `false`.
 
@@ -5214,9 +5214,9 @@ public func isAsciiWhiteSpace(): Bool
 
 Function: Determines whether the character is an ASCII whitespace character. The valid range is the union of [09, 0D] and {20}.
 
-Return Value:
+Returns:
 
-- [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII whitespace character, otherwise `false`.Return Value:
+- [Bool](core_package_intrinsics.md#bool) - Returns `true` if the character is an ASCII whitespace character, otherwise `false`.Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if it's an ASCII whitespace character, otherwise returns false.
 
@@ -5249,7 +5249,7 @@ public func toAsciiLowerCase(): Rune
 
 Function: Converts the character to ASCII lowercase. If conversion is not possible, returns the original character unchanged.
 
-Return Value:
+Returns:
 
 - [Rune](core_package_intrinsics.md#rune) - The converted character, or the original [Rune](core_package_intrinsics.md#rune) if conversion is not possible.
 
@@ -5289,7 +5289,7 @@ public func toAsciiUpperCase(): Rune
 
 Function: Converts the character to ASCII uppercase. If conversion is not possible, returns the original character unchanged.
 
-Return Value:
+Returns:
 
 - [Rune](core_package_intrinsics.md#rune) - The converted character, or the original [Rune](core_package_intrinsics.md#rune) if conversion is not possible.
 
@@ -5347,7 +5347,7 @@ Parameters:
 
 - rhs: [Rune](core_package_intrinsics.md#rune) - Another [Rune](core_package_intrinsics.md#rune) instance to compare with.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -5392,7 +5392,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of positions to move right.
 
-Return Value:
+Returns:
 
 - [Rune](core_package_intrinsics.md#rune) - The [Rune](core_package_intrinsics.md#rune) value `right` positions to the right.
 
@@ -5433,7 +5433,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [Rune](core_package_intrinsics.md#rune) value, i.e., converts the [Rune](core_package_intrinsics.md#rune) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [Rune](core_package_intrinsics.md#rune) value.
 
@@ -5485,7 +5485,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -5537,7 +5537,7 @@ public func toString(): String
 
 Function: Converts the [Rune](core_package_intrinsics.md#rune) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -5675,7 +5675,7 @@ Parameters:
 
 - rhs: [UInt16](core_package_intrinsics.md#uint16) - Another [UInt16](core_package_intrinsics.md#uint16) value to compare with.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -5720,7 +5720,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of positions to move right.
 
-Return Value:
+Returns:
 
 - [UInt16](core_package_intrinsics.md#uint16) - The [UInt16](core_package_intrinsics.md#uint16) value `right` positions to the right.
 
@@ -5748,7 +5748,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [UInt16](core_package_intrinsics.md#uint16) value, i.e., converts the [UInt16](core_package_intrinsics.md#uint16) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [UInt16](core_package_intrinsics.md#uint16) value.
 
@@ -5788,7 +5788,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -5840,7 +5840,7 @@ public func toString(): String
 
 Function: Converts the [UInt16](core_package_intrinsics.md#uint16) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -5960,7 +5960,7 @@ Parameters:
 
 - rhs: [UInt32](core_package_intrinsics.md#uint32) - Another [UInt32](core_package_intrinsics.md#uint32) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -6005,7 +6005,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [UInt32](core_package_intrinsics.md#uint32) - The [UInt32](core_package_intrinsics.md#uint32) value at the new position after moving right by `right` units.
 
@@ -6033,7 +6033,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [UInt32](core_package_intrinsics.md#uint32) value, i.e., converts the [UInt32](core_package_intrinsics.md#uint32) to a [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [UInt32](core_package_intrinsics.md#uint32) value.
 
@@ -6073,7 +6073,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -6114,7 +6114,7 @@ public func toString(): String
 
 Function: Converts the [UInt32](core_package_intrinsics.md#uint32) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -6223,7 +6223,7 @@ Parameters:
 
 - rhs: [UInt64](core_package_intrinsics.md#uint64) - Another [UInt64](core_package_intrinsics.md#uint64) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -6268,7 +6268,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [UInt64](core_package_intrinsics.md#uint64) - The [UInt64](core_package_intrinsics.md#uint64) value at the new position after moving right by `right` units.
 
@@ -6296,7 +6296,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [UInt64](core_package_intrinsics.md#uint64) value, i.e., converts the [UInt64](core_package_intrinsics.md#uint64) to a [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [UInt64](core_package_intrinsics.md#uint64) value.
 
@@ -6336,7 +6336,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -6377,7 +6377,7 @@ public func toString(): String
 
 Function: Converts the [UInt64](core_package_intrinsics.md#uint64) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -6486,7 +6486,7 @@ Parameters:
 
 - rhs: [UInt8](core_package_intrinsics.md#uint8) - Another [UInt8](core_package_intrinsics.md#uint8) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater; [Ordering](core_package_enums.md#enum-ordering).EQ if equal; [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -6531,7 +6531,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [UInt8](core_package_intrinsics.md#uint8) - The [UInt8](core_package_intrinsics.md#uint8) value at the position after moving `right` units to the right.
 
@@ -6559,7 +6559,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [UInt8](core_package_intrinsics.md#uint8) value, i.e., converts the [UInt8](core_package_intrinsics.md#uint8) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [UInt8](core_package_intrinsics.md#uint8) value.
 
@@ -6599,7 +6599,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -6640,7 +6640,7 @@ public func toString(): String
 
 Function: Converts the [UInt8](core_package_intrinsics.md#uint8) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -6749,7 +6749,7 @@ Parameters:
 
 - rhs: [UIntNative](core_package_intrinsics.md#uintnative) - Another [UIntNative](core_package_intrinsics.md#uintnative) value to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater; [Ordering](core_package_enums.md#enum-ordering).EQ if equal; [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -6794,7 +6794,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of units to move right.
 
-Return Value:
+Returns:
 
 - [UIntNative](core_package_intrinsics.md#uintnative) - The [UIntNative](core_package_intrinsics.md#uintnative) value at the position after moving `right` units to the right.
 
@@ -6822,7 +6822,7 @@ public func position(): Int64
 
 Function: Gets the position information of the current [UIntNative](core_package_intrinsics.md#uintnative) value, i.e., converts the [UIntNative](core_package_intrinsics.md#uintnative) to an [Int64](core_package_intrinsics.md#int64) value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The position information of the current [UIntNative](core_package_intrinsics.md#uintnative) value.
 
@@ -6862,7 +6862,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -6903,7 +6903,7 @@ public func toString(): String
 
 Function: Converts the [UIntNative](core_package_intrinsics.md#uintnative) value to an outputtable string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -6964,7 +6964,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value. The hash value of [Unit](core_package_intrinsics.md#unit) is 0.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -7007,7 +7007,7 @@ public func toString(): String
 
 Function: Converts a [Unit](core_package_intrinsics.md#unit) value to an output-ready string.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 

@@ -26,7 +26,7 @@ Parameters:
 - min: T - Minimum value of the generatable range.
 - max: T - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - Generator.
 
@@ -38,7 +38,7 @@ func max(): T
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - T - Maximum value.
 
@@ -50,7 +50,7 @@ func min(): T
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - T - Minimum value.
 
@@ -80,7 +80,7 @@ Parameters:
 - min: Float16 - Minimum value of the generatable range.
 - max: Float16 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float16> - Generator.
 
@@ -92,7 +92,7 @@ func max(): Float16
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Float16 - Maximum value.
 
@@ -104,7 +104,7 @@ func min(): Float16
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Float16 - Minimum value.
 
@@ -134,7 +134,7 @@ Parameters:
 - min: Float32 - Minimum value of the generatable range.
 - max: Float32 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float32> - Generator.
 
@@ -146,7 +146,7 @@ func max(): Float32
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Float32 - Maximum value.
 
@@ -158,7 +158,7 @@ func min(): Float32
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Float32 - Minimum value.
 
@@ -188,7 +188,7 @@ Parameters:
 - min: Float64 - Minimum value of the generatable range.
 - max: Float64 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float64> - Generator.
 
@@ -200,7 +200,7 @@ func max(): Float64
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Float64 - Maximum value.
 
@@ -212,7 +212,7 @@ func min(): Float64
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Float64 - Minimum value.
 
@@ -242,7 +242,7 @@ Parameters:
 - min: Int16 - Minimum value of the generatable range.
 - max: Int16 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int16> - Generator.
 
@@ -254,7 +254,7 @@ func max(): Int16
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Int16 - Maximum value.
 
@@ -266,7 +266,7 @@ func min(): Int16
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Int16 - Minimum value.
 
@@ -296,7 +296,7 @@ Parameters:
 - min: Int32 - Minimum value of the generatable range.
 - max: Int32 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int32> - Generator.
 
@@ -308,7 +308,7 @@ func max(): Int32
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Int32 - Maximum value.
 
@@ -320,7 +320,7 @@ func min(): Int32
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Int32 - Minimum value.
 
@@ -350,7 +350,7 @@ Parameters:
 - min: Int64 - Minimum value of the generatable range.
 - max: Int64 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int64> - Generator.
 
@@ -362,7 +362,7 @@ func max(): Int64
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Int64 - Maximum value.
 
@@ -374,7 +374,7 @@ func min(): Int64
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Int64 - Minimum value.
 
@@ -404,7 +404,7 @@ Parameters:
 - min: Int8 - Minimum value of the generatable range.
 - max: Int8 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int8> - Generator.
 
@@ -416,7 +416,7 @@ func max(): Int8
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - Int8 - Maximum value.
 
@@ -428,7 +428,7 @@ func min(): Int8
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - Int8 - Minimum value.### extend IntNative <: ArbitraryRange\<IntNative>
 
@@ -456,7 +456,7 @@ Parameters:
 - min: IntNative - Minimum value of the generatable range.
 - max: IntNative - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<IntNative> - Generator.
 
@@ -468,7 +468,7 @@ func max(): IntNative
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - IntNative - Maximum value.
 
@@ -480,7 +480,7 @@ func min(): IntNative
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - IntNative - Minimum value.
 
@@ -510,7 +510,7 @@ Parameters:
 - min: UInt16 - Minimum value of the generatable range.
 - max: UInt16 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt16> - Generator.
 
@@ -522,7 +522,7 @@ func max(): UInt16
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - UInt16 - Maximum value.
 
@@ -534,7 +534,7 @@ func min(): UInt16
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - UInt16 - Minimum value.
 
@@ -564,7 +564,7 @@ Parameters:
 - min: UInt32 - Minimum value of the generatable range.
 - max: UInt32 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt32> - Generator.
 
@@ -576,7 +576,7 @@ func max(): UInt32
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - UInt32 - Maximum value.
 
@@ -588,7 +588,7 @@ func min(): UInt32
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - UInt32 - Minimum value.
 
@@ -618,7 +618,7 @@ Parameters:
 - min: UInt64 - Minimum value of the generatable range.
 - max: UInt64 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt64> - Generator.
 
@@ -630,7 +630,7 @@ func max(): UInt64
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - UInt64 - Maximum value.
 
@@ -642,7 +642,7 @@ func min(): UInt64
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - UInt64 - Minimum value.
 
@@ -672,7 +672,7 @@ Parameters:
 - min: UInt8 - Minimum value of the generatable range.
 - max: UInt8 - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt8> - Generator.
 
@@ -684,7 +684,7 @@ func max(): UInt8
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - UInt8 - Maximum value.
 
@@ -696,7 +696,7 @@ func min(): UInt8
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - UInt8 - Minimum value.
 
@@ -726,7 +726,7 @@ Parameters:
 - min: UIntNative - Minimum value of the generatable range.
 - max: UIntNative - Maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UIntNative> - Generator.
 
@@ -738,7 +738,7 @@ func max(): UIntNative
 
 Function: Returns the maximum value.
 
-Return Value:
+Returns:
 
 - UIntNative - Maximum value.
 
@@ -750,7 +750,7 @@ func min(): UIntNative
 
 Function: Returns the minimum value.
 
-Return Value:
+Returns:
 
 - UIntNative - Minimum value.
 
@@ -776,7 +776,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - Generator for random values of type T.
 
@@ -804,7 +804,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Bool> - Generator for random Bool values.
 
@@ -832,7 +832,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float16> - Generator for random Float16 values.### extend Float32 <: Arbitrary\<Float32>
 
@@ -858,7 +858,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float32> - Generator for random Float32 values.
 
@@ -886,7 +886,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Float64> - Generator for random Float64 values.
 
@@ -914,7 +914,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int16> - Generator for random Int16 values.
 
@@ -942,7 +942,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int32> - Generator for random Int32 values.
 
@@ -970,7 +970,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int64> - Generator for random Int64 values.
 
@@ -998,7 +998,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Int8> - Generator for random Int8 values.
 
@@ -1026,7 +1026,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<IntNative> - Generator for random IntNative values.
 
@@ -1054,7 +1054,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Ordering> - Generator for random Ordering values.
 
@@ -1082,7 +1082,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Rune> - Generator for random Rune values.
 
@@ -1110,7 +1110,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<String> - Generator for random String values.
 
@@ -1138,7 +1138,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt16> - Generator for random UInt16 values.
 
@@ -1166,7 +1166,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt32> - Generator for random UInt32 values.
 
@@ -1194,7 +1194,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt64> - Generator for random UInt64 values.
 
@@ -1222,7 +1222,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UInt8> - Generator for random UInt8 values.
 
@@ -1250,7 +1250,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<UIntNative> - Generator for random UIntNative values.
 
@@ -1278,7 +1278,7 @@ Parameters:
 
 - random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<Unit> - Generator for random Unit values.
 
@@ -1315,7 +1315,7 @@ func next(): T
 
 Function: Retrieves the generated value of type T.
 
-Return value:
+Returns:
 
 - T - The generated value of type T.
 
@@ -1341,7 +1341,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
 
-Return value:
+Returns:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The element value. Returns `None` if not found.
 
@@ -1415,7 +1415,7 @@ public open func nextBool(): Bool
 
 Function: Retrieves a pseudo-random boolean value.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A pseudo-random number of type [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
 
@@ -1427,7 +1427,7 @@ public open func nextFloat16(): Float16
 
 Function: Retrieves a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) in the range [0.0, 1.0).
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16).
 
@@ -1439,7 +1439,7 @@ public open func nextFloat32(): Float32
 
 Function: Retrieves a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) in the range [0.0, 1.0).
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32).
 
@@ -1451,7 +1451,7 @@ public open func nextFloat64(): Float64
 
 Function: Retrieves a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) in the range [0.0, 1.0).
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64).
 
@@ -1470,7 +1470,7 @@ Parameters:
 - mean!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The mean, default value 0.0.
 - sigma!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The standard deviation, default value 1.0.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64).
 
@@ -1482,7 +1482,7 @@ public open func nextInt16(): Int16
 
 Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -1498,7 +1498,7 @@ Parameters:
 
 - upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -1514,7 +1514,7 @@ public open func nextInt32(): Int32
 
 Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -1530,7 +1530,7 @@ Parameters:
 
 - upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -1546,7 +1546,7 @@ public open func nextInt64(): Int64
 
 Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -1562,7 +1562,7 @@ Parameters:
 
 - upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -1578,7 +1578,7 @@ public open func nextInt8(): Int8
 
 Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -1594,7 +1594,7 @@ Parameters:
 
 - upper: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -1610,7 +1610,7 @@ public func nextIntNative(): IntNative
 
 Function: Retrieves a pseudo-random number of type [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - A pseudo-random number of type [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
@@ -1622,7 +1622,7 @@ public open func nextUInt16(): UInt16
 
 Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -1638,7 +1638,7 @@ Parameters:
 
 - upper: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -1654,7 +1654,7 @@ public open func nextUInt32(): UInt32
 
 Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -1670,7 +1670,7 @@ Parameters:
 
 - upper: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -1686,7 +1686,7 @@ public open func nextUInt64(): UInt64
 
 Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
@@ -1708,7 +1708,7 @@ public open func nextUInt8(): UInt8
 
 Function: Retrieves a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -1724,7 +1724,7 @@ Parameters:
 
 - upper: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The upper bound (exclusive) of the generated pseudo-random number range, with valid values in (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max].
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -1740,7 +1740,7 @@ public func nextUIntNative(): UIntNative
 
 Function: Retrieves a pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - A pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
 
@@ -1752,7 +1752,7 @@ public open func suggestBool(): Bool
 
 Function: Retrieves a pseudo-random boolean value.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A pseudo-random number of type [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
 
@@ -1764,7 +1764,7 @@ public open func suggestRune(): Rune
 
 Function: Retrieves a pseudo-random value of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune).
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - A pseudo-random number of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune).
 
@@ -1776,7 +1776,7 @@ public open func suggestFloat16(): Float16
 
 Function: Retrieves a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) within the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16).
 
@@ -1788,7 +1788,7 @@ public open func suggestFloat32(): Float32
 
 Function: Retrieves a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) within the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32).
 
@@ -1800,7 +1800,7 @@ public open func suggestFloat64(): Float64
 
 Function: Retrieves a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) within the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64).
 
@@ -1812,7 +1812,7 @@ public open func suggestInt16(): Int16
 
 Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -1829,7 +1829,7 @@ Parameters:
 - l: Float32 - The minimum value of the generatable range.
 - l: Float32 - The maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32).
 
@@ -1846,7 +1846,7 @@ Parameters:
 - l: Float16 - The minimum value of the generatable range.
 - l: Float16 - The maximum value of the generatable range.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16).
 
@@ -1866,7 +1866,7 @@ public open func nextBool(): Bool
 
 Function: Generates a pseudo-random boolean value.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A pseudo-random number of type [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
 
@@ -1878,7 +1878,7 @@ public open func nextFloat16(): Float16
 
 Function: Generates a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) in the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - A pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16).
 
@@ -1890,7 +1890,7 @@ public open func nextFloat32(): Float32
 
 Function: Generates a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) in the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - A pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32).
 
@@ -1902,7 +1902,7 @@ public open func nextFloat64(): Float64
 
 Function: Generates a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) in the range [0.0, 1.0).
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64).
 
@@ -1921,7 +1921,7 @@ Parameters:
 - mean!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The mean, default value 0.0.
 - sigma!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The standard deviation, default value 1.0.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - A random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64).
 
@@ -1933,7 +1933,7 @@ public open func nextInt16(): Int16
 
 Function: Generates a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -1949,7 +1949,7 @@ Parameters:
 
 - upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - A pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
 
@@ -1965,7 +1965,7 @@ public open func nextInt32(): Int32
 
 Function: Generates a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -1981,7 +1981,7 @@ Parameters:
 
 - upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - A pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
 
@@ -1997,7 +1997,7 @@ public open func nextInt64(): Int64
 
 Function: Generates a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -2013,7 +2013,7 @@ Parameters:
 
 - upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - A pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
@@ -2029,7 +2029,7 @@ public open func nextInt8(): Int8
 
 Function: Generates a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -2045,7 +2045,7 @@ Parameters:
 
 - upper: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - A pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
 
@@ -2061,7 +2061,7 @@ public func nextIntNative(): IntNative
 
 Function: Generates a pseudo-random number of type [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - A pseudo-random number of type [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
 
@@ -2073,7 +2073,7 @@ public open func nextUInt16(): UInt16
 
 Function: Generates a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -2089,7 +2089,7 @@ Parameters:
 
 - upper: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound (exclusive) of the generatable range, with valid values in (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - A pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
 
@@ -2105,7 +2105,7 @@ public open func nextUInt32(): UInt32
 
 Function: Generates a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -2121,7 +2121,7 @@ Parameters:
 
 - upper: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound (exclusive) of the generatable range, with valid values in (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - A pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
 
@@ -2137,7 +2137,7 @@ public open func nextUInt64(): UInt64
 
 Function: Generates a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
@@ -2153,7 +2153,7 @@ Parameters:
 
 - upper: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound (exclusive) of the generatable range, with valid values in (0, [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).Max].
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
@@ -2169,7 +2169,7 @@ public open func nextUInt8(): UInt8
 
 Function: Generates a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -2185,7 +2185,7 @@ Parameters:
 
 - upper: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The upper bound (exclusive) of the generatable range, with valid values in (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max].
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - A pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
 
@@ -2201,7 +2201,7 @@ public func nextUIntNative(): UIntNative
 
 Function: Generates a pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - A pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
 
@@ -2213,7 +2213,7 @@ public open func suggestBool(): Bool
 
 Function: Generates a pseudo-random boolean value.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A### func shrink()
 
@@ -2223,7 +2223,7 @@ func shrink(): Iterable<T>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - An iterator of possible "smaller" values.
 
@@ -2247,7 +2247,7 @@ func shrink(): Iterable<Bool>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Bool> - An iterator of possible "smaller" values.
 
@@ -2271,7 +2271,7 @@ func shrink(): Iterable<Int16>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Int16> - An iterator of possible "smaller" values.
 
@@ -2295,7 +2295,7 @@ func shrink(): Iterable<Int32
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Int32> - An iterator of possible "smaller" values.
 
@@ -2319,7 +2319,7 @@ func shrink(): Iterable<Int64>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Int64> - An iterator of possible "smaller" values.
 
@@ -2343,7 +2343,7 @@ func shrink(): Iterable<Int8>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Int8> - An iterator of possible "smaller" values.
 
@@ -2367,7 +2367,7 @@ func shrink(): Iterable<IntNative>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<IntNative> - An iterator of possible "smaller" values.
 
@@ -2391,7 +2391,7 @@ func shrink(): Iterable<Rune>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Rune> - An iterator of possible "smaller" values.
 
@@ -2415,7 +2415,7 @@ func shrink(): Iterable<String>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<String> - An iterator of possible "smaller" values.
 
@@ -2439,7 +2439,7 @@ func shrink(): Iterable<UInt16>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<UInt16> - An iterator of possible "smaller" values.
 
@@ -2463,7 +2463,7 @@ func shrink(): Iterable<UInt32>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<UInt32> - An iterator of possible "smaller" values.
 
@@ -2487,7 +2487,7 @@ func shrink(): Iterable<UInt64>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<UInt64> - An iterator of possible "smaller" values.
 
@@ -2511,7 +2511,7 @@ func shrink(): Iterable<UInt8>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<UInt8> - An iterator of possible "smaller" values.
 
@@ -2535,7 +2535,7 @@ func shrink(): Iterable<UIntNative>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<UIntNative> - An iterator of possible "smaller" values.
 
@@ -2559,7 +2559,7 @@ func shrink(): Iterable<Unit>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Unit> - An iterator of possible "smaller" values.
 
@@ -2583,7 +2583,7 @@ func shrink(): Iterable<Float16>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Float16> - An iterator of possible "smaller" values.
 
@@ -2607,7 +2607,7 @@ func shrink(): Iterable<Float32>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Float32> - An iterator of possible "smaller" values.
 
@@ -2631,7 +2631,7 @@ func shrink(): Iterable<Float64>
 
 Function: Shrinks this value into a set of possible "smaller" values.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Float64> - An iterator of possible "smaller" values.### extend\<T> Array\<T> <: Shrink\<Array\<T>>
 
@@ -2653,7 +2653,7 @@ func shrink(): Iterable<Array<T>>
 
 Function: Reduces this value to a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Array\<T>> - An iterator of possible "smaller" values.
 
@@ -2677,7 +2677,7 @@ func shrink(): Iterable<Option<T>>
 
 Function: Reduces this value to a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<Option\<T>> - An iterator of possible "smaller" values.
 
@@ -2701,7 +2701,7 @@ func shrink(): Iterable<ArrayList<T>>
 
 Function: Reduces this value to a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<ArrayList\<T>> - An iterator of possible "smaller" values.
 
@@ -2725,7 +2725,7 @@ func shrink(): Iterable<HashSet<T>>
 
 Function: Reduces this value to a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<HashSet\<T>> - An iterator of possible "smaller" values.
 
@@ -2749,6 +2749,6 @@ func shrink(): Iterable<HashMap<K, V>>
 
 Function: Reduces this value to a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<HashMap\<K, V>> - An iterator of possible "smaller" values.

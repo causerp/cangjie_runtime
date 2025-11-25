@@ -204,7 +204,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](core_package_intrinsics.md#bool) - The filter function.
 
-Return Value:
+Returns:
 
 - Option\<T> - If the [Option](core_package_enums.md#enum-optiont) value is [Some](#somet)(v) and v satisfies `predicate(v) = true`, returns [Some](#somet)(v); otherwise, returns [None](#none).
 
@@ -253,7 +253,7 @@ Parameters:
 
 - transform: (T) -> [Option](core_package_enums.md#enum-optiont)\<R> - The mapping function.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<R> - If the current instance value is [Some](#somet), executes the transform function and returns the result; otherwise, returns [None](#none).
 
@@ -314,7 +314,7 @@ Parameters:
 
 - other: () -> T - The default function. If the current instance value is [None](#none), calls this function to get an instance of type `T` and returns it.
 
-Return Value:
+Returns:
 
 - T - If the current instance value is [Some](#somet)\<T>, returns the instance of type `T` carried by the current instance. If the [Option](core_package_enums.md#enum-optiont) value is [None](#none), calls the specified function to get an instance of type `T` and returns it.
 
@@ -351,7 +351,7 @@ Parameters:
 
 - exception: () ->[Exception](core_package_exceptions.md#class-exception) - The exception function. If the current instance value is [None](#none), executes this function and throws the returned exception.
 
-Return Value:
+Returns:
 
 - T - If the current instance value is [Some](#somet)\<T>, returns the instance of type `T`.
 
@@ -399,7 +399,7 @@ public func getOrThrow(): T
 
 Function: Gets the value or throws an exception.
 
-Return Value:
+Returns:
 
 - T - If the current instance value is [Some](#somet)\<T>, returns the instance of type `T`.
 
@@ -447,7 +447,7 @@ public func isNone(): Bool
 
 Function: Determines whether the current instance value is [None](#none).
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current instance value is [None](#none), otherwise returns false.
 
@@ -485,7 +485,7 @@ public func isSome(): Bool
 
 Function: Determines whether the current instance value is [Some](#somet).
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current instance value is [Some](#somet), otherwise returns false.
 
@@ -527,7 +527,7 @@ Parameters:
 
 - transform: (T)-> R - The mapping function.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<R> - If the current instance value is [Some](#somet), executes the transform function and returns the result as [Option](#enum-optiont)\<R> type; otherwise, returns [None](#none).
 
@@ -583,7 +583,7 @@ Parameters:
 
 - that: [Option](core_package_enums.md#enum-optiont)\<T> - The [Option](core_package_enums.md#enum-optiont)\<T> instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
 
@@ -645,7 +645,7 @@ Parameters:
 
 - that: [Option](core_package_enums.md#enum-optiont)\<T> - The [Option](core_package_enums.md#enum-optiont)\<T> instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if equal, otherwise returns false.
 
@@ -715,7 +715,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value.
 
@@ -781,7 +781,7 @@ public func toString(): String
 
 Function: Converts [Option](core_package_enums.md#enum-optiont) to an output string, with content being "Some(${T.toString()})" or "None".
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -837,7 +837,7 @@ public func flatten(): Option<T>
 
 Function: Flattens the [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> type. If the current instance is [Some](#somet)([Option](core_package_enums.md#enum-optiont)\<T>.[Some](#somet)(v)), the flattened result is [Some](#somet)(v).
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The flattened result of [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> type.
 
@@ -945,7 +945,7 @@ Parameters:
 
 - that: [Ordering](core_package_enums.md#enum-ordering) - The [Ordering](core_package_enums.md#enum-ordering) instance to compare with.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns GT if greater than, EQ if equal, or LT if less than.
 
@@ -1006,7 +1006,7 @@ public func hashCode(): Int64
 
 Function: Computes the hash value. GT has a hash value of 3, EQ has 2, and LT has 1.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The computed hash value.
 
@@ -1065,7 +1065,7 @@ Conversion results are as follows:
 - LT: "[Ordering](core_package_enums.md#enum-ordering).ET".
 - EQ: "[Ordering](core_package_enums.md#enum-ordering).EQ".
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -1163,7 +1163,7 @@ Conversion results are as follows:
 - Pending: "Pending".
 - Terminated: "Terminated".
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -1179,7 +1179,7 @@ Parameters:
 
 - rhs: [ThreadState](core_package_enums.md#enum-threadstate) - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are identical, otherwise false.
 
@@ -1195,6 +1195,6 @@ Parameters:
 
 - rhs: [ThreadState](core_package_enums.md#enum-threadstate) - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are different, otherwise false.

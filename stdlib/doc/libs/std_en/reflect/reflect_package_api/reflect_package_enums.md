@@ -90,7 +90,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of this modifier information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this modifier information.
 
@@ -106,7 +106,7 @@ public override func toString(): String
 
 Function: Gets the string representation of this modifier information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this modifier information.
 
@@ -126,7 +126,7 @@ Parameters:
 
 - that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - Another modifier information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this modifier information is equal to `that`, otherwise returns `false`.
 
@@ -150,6 +150,6 @@ Parameters:
 
 - that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - Another modifier information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this modifier information is not equal to `that`, otherwise returns `false`.

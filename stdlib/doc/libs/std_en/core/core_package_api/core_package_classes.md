@@ -53,7 +53,7 @@ public func next(): Option<T>
 
 Function: Returns the next value in the array iterator.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The next element in the array iterator, wrapped in [Option](core_package_enums.md#enum-optiont). Returns `None` when iteration reaches the end.
 
@@ -192,7 +192,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if the current [Box](core_package_classes.md#class-boxt) instance is greater than `that`, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -248,7 +248,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is not equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -288,7 +288,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is less than the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -327,7 +327,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is less than or equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -367,7 +367,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object equals the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -407,7 +407,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is greater than the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -446,7 +446,7 @@ Parameters:
 
 - that: [Box](core_package_classes.md#class-boxt)\<T> - The other [Box](core_package_classes.md#class-boxt) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the current [Box](core_package_classes.md#class-boxt) object is greater than or equal to the parameter [Box](core_package_classes.md#class-boxt) object, otherwise false.
 
@@ -496,7 +496,7 @@ Function: Gets the hash value of the [Box](core_package_classes.md#class-boxt) o
 
 This value is actually the hash value of the wrapped `T` type instance.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The hash value of the current [Box](core_package_classes.md#class-boxt) object.
 
@@ -548,7 +548,7 @@ public func toString(): String
 
 Function: Gets the string representation of the [Box](core_package_classes.md#class-boxt) object, which is the string representation of the wrapped `T` type instance.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -669,7 +669,7 @@ public func get(): T
 
 Function: Blocks the current thread, waits for, and retrieves the result of the thread corresponding to the current [Future](core_package_classes.md#class-futuret)\<T> object.
 
-Return Value:
+Returns:
 
 - T - The return value of the thread represented by the current [Future](core_package_classes.md#class-futuret)\<T> instance after execution completes.
 
@@ -712,7 +712,7 @@ Parameters:
 
 - timeout: [Duration](./core_package_structs.md#struct-duration) - The waiting time.
 
-Return Value:
+Returns:
 
 - T - The execution result of the Cangjie thread after the specified duration.
 
@@ -754,7 +754,7 @@ public func tryGet(): Option<T>
 
 Function: Attempts to retrieve the execution result without blocking the current thread. Returns `None` if the corresponding thread has not completed.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - Returns `None` if the Cangjie thread has not completed; otherwise, returns the execution result.
 
@@ -839,7 +839,7 @@ public func iterator(): Iterator<T>
 
 Function: Returns the iterator itself.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<T> - The iterator itself.
 
@@ -886,7 +886,7 @@ public func next(): Option<T>
 
 Function: Retrieves the next element during iteration.
 
-Return Value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The next element during iteration.
 
@@ -941,7 +941,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements satisfy the condition.
 
@@ -979,7 +979,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether any element satisfies the condition.
 
@@ -1017,7 +1017,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The element index (0-based).
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The element at the specified position; returns None if n exceeds the remaining elements.
 
@@ -1055,7 +1055,7 @@ Parameters:
 
 - other: [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator to concatenate after.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The concatenated new iterator.
 
@@ -1107,7 +1107,7 @@ Function: Counts the number of elements in the current iterator. This method con
 > 
 > This method consumes the iterator, meaning no elements remain after its use.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements in the iterator.
 
@@ -1149,7 +1149,7 @@ public func enumerate(): Iterator<(Int64, T)>
 
 Function: Creates an iterator with indices.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns an iterator with indices.
 
@@ -1198,7 +1198,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition; elements returning `true` appear in order in the returned iterator.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - A new iterator.
 
@@ -1245,7 +1245,7 @@ Parameters:
 
 - transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<R> - The mapping function. A return value of Some corresponds to a predicate of true in filter; otherwise, it's false.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - A new iterator.
 
@@ -1294,7 +1294,7 @@ public func first(): Option<T>
 
 Function: Retrieves the first element of the current iterator. This method consumes the first element.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - The first element; returns None if empty.
 
@@ -1333,7 +1333,7 @@ Parameters:
 
 - transform: (T) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - The given mapping function.
 
-Return value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping with [flatten](../../collection/collection_package_api/collection_package_function.md#func-flattent-riterablet-where-t--iterabler) capability.
 
@@ -1383,7 +1383,7 @@ Parameters:
 - initial: R - The given initial value of type R.
 - operation: (R, T) -> R - The given computation function.
 
-Return value:
+Returns:
 
 - R - Returns the final computed value.
 
@@ -1459,7 +1459,7 @@ Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given operation function.
 
-Return value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator.
 
@@ -1507,7 +1507,7 @@ Parameters:
 
 - separator: T - The given element.
 
-Return value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator.
 
@@ -1550,7 +1550,7 @@ public func isEmpty(): Bool
 
 Function: Determines whether the current iterator is empty. This method calls [next()](#func-next-1) and determines whether the current iterator is empty based on its return value. Therefore, if the current iterator is not empty, one element will be consumed.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns whether the current iterator is empty.
 
@@ -1596,7 +1596,7 @@ public func last(): Option<T>
 
 Function: Gets the tail element of the current iterator. This method retrieves and consumes all elements in the iterator and returns the last element.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the tail element, or None if empty.
 
@@ -1633,7 +1633,7 @@ Parameters:
 
 - transform: (T) ->R - The given mapping function.
 
-Return value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - Returns a mapping.
 
@@ -1681,7 +1681,7 @@ Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether none of the elements in the iterator satisfy the condition.
 
@@ -1727,7 +1727,7 @@ Parameters:
 
 - operation: (T, T) -> T - The specified computation function.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
 
@@ -1767,7 +1767,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to skip.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns an iterator that skips the specified number of elements.
 
@@ -1820,7 +1820,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to skip per next() call.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns a new iterator that skips the specified number of elements per next() call.
 
@@ -1873,7 +1873,7 @@ Parameters:
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of elements to take.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - Returns an iterator containing the specified number of elements.
 
@@ -1924,7 +1924,7 @@ Parameters:
 
 - it: [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<R> - One of the iterators to merge.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(T, R)> - Returns a new iterator.
 
@@ -1977,7 +1977,7 @@ public func max(): Option<T>
 
 Function: Filters the maximum element. This method consumes all elements in the iterator.
 
-Return value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - Returns the maximum element, or None if empty.
 
@@ -2013,7 +2013,7 @@ public func min(): Option<T>
 
 Function: Filters the minimum element. This method consumes all elements in the iterator.
 
-Return value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - Returns the minimum element, or None if empty.
 
@@ -2061,7 +2061,7 @@ Parameters:
 
 - element: T - The element to search for.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the specified element is contained.
 
@@ -2147,7 +2147,7 @@ public func next(): Option<T>
 
 Function: Gets the next value in the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) iterator.
 
-Return value:
+Returns:
 
 - [Option](core_package_enums.md#enum-optiont)\<T> - The next member in the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) iterator, encapsulated in [Option](core_package_enums.md#enum-optiont). Returns `None` when iteration reaches the end.
 
@@ -2405,7 +2405,7 @@ public func toString(): String
 
 Function: Gets the string representation of the [StackTraceElement](core_package_classes.md#class-stacktraceelement) object.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
@@ -2446,7 +2446,7 @@ public class StringBuilder <: ToString {
 }
 ```
 
-Functionality: This class is primarily used for string construction.
+Function: This class is primarily used for string construction.
 
 [StringBuilder](core_package_classes.md#class-stringbuilder) is more efficient than [String](core_package_structs.md#struct-string) for string construction:
 
@@ -2467,7 +2467,7 @@ Parent Type:
 public prop capacity: Int64
 ```
 
-Functionality: Gets the current capacity of the [StringBuilder](core_package_classes.md#class-stringbuilder) instance to hold strings. This value increases as expansion occurs.
+Function: Gets the current capacity of the [StringBuilder](core_package_classes.md#class-stringbuilder) instance to hold strings. This value increases as expansion occurs.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
@@ -2507,7 +2507,7 @@ Current capacity: 32
 public prop size: Int64
 ```
 
-Functionality: Gets the length of the string in the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
+Function: Gets the length of the string in the [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
@@ -2547,7 +2547,7 @@ Current size: 5
 public init()
 ```
 
-Functionality: Constructs an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with an initial capacity of 32.
+Function: Constructs an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with an initial capacity of 32.
 
 Example:
 
@@ -2580,7 +2580,7 @@ Initial content: ''
 public init(value: Array<Rune>)
 ```
 
-Functionality: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the character array specified by parameter `value`. The instance's initial capacity is the size of `value`, and its initial content is the characters contained in `value`.
+Function: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the character array specified by parameter `value`. The instance's initial capacity is the size of `value`, and its initial content is the characters contained in `value`.
 
 Parameters:
 
@@ -2620,7 +2620,7 @@ Content: 'Hello'
 public init(capacity: Int64)
 ```
 
-Functionality: Initializes an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the capacity specified by parameter `capacity`. The instance's initial capacity is the size of `value`, and its initial content consists of several `\0` characters.
+Function: Initializes an empty [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the capacity specified by parameter `capacity`. The instance's initial capacity is the size of `value`, and its initial content consists of several `\0` characters.
 
 Parameters:
 
@@ -2668,7 +2668,7 @@ After append - Content: 'Hello, World!'
 public init(r: Rune, n: Int64)
 ```
 
-Functionality: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with `n` instances of character `r`. The instance's initial capacity is `n`, and its initial content consists of `n` instances of character `r`.
+Function: Initializes a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with `n` instances of character `r`. The instance's initial capacity is `n`, and its initial content consists of `n` instances of character `r`.
 
 Parameters:
 
@@ -2717,7 +2717,7 @@ After append - Content: '*****Hello'
 public init(str: String)
 ```
 
-Functionality: Constructs a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the specified initial string. The instance's initial capacity is the size of the specified string, and its initial content is the specified string.
+Function: Constructs a [StringBuilder](core_package_classes.md#class-stringbuilder) instance with the specified initial string. The instance's initial capacity is the size of the specified string, and its initial content is the specified string.
 
 Parameters:
 
@@ -2761,7 +2761,7 @@ After append - Content: 'Hello, World! Welcome!'
 public func append(runeArr: Array<Rune>): Unit
 ```
 
-Functionality: Appends all characters from a `Rune` array to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
+Function: Appends all characters from a `Rune` array to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder).
 
 Parameters:
 
@@ -2802,7 +2802,7 @@ Size: 11
 public func append<T>(val: Array<T>): Unit where T <: ToString
 ```
 
-Functionality: Appends the string representation of the [Array](core_package_structs.md#struct-arrayt)\<T> specified by parameter `val` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
+Function: Appends the string representation of the [Array](core_package_structs.md#struct-arrayt)\<T> specified by parameter `val` to the end of the [StringBuilder](core_package_classes.md#class-stringbuilder). Type `T` must implement the [ToString](core_package_interfaces.md#interface-tostring) interface.
 
 Parameters:
 
@@ -3688,7 +3688,7 @@ Function: Retrieves the string from this [StringBuilder](core_package_classes.md
 > 
 > This function does not copy the string data.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The string contained in this [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
 
@@ -3727,7 +3727,7 @@ Type check: true
 public class Thread
 ```
 
-Functionality: Retrieves thread ID and name, checks for thread cancellation requests, registers uncaught exception handlers, etc.
+Function: Retrieves thread ID and name, checks for thread cancellation requests, registers uncaught exception handlers, etc.
 
 Instances of this type cannot be constructed directly. They can only be obtained through the `thread` property of a [Future](core_package_classes.md#class-futuret) object or the `currentThread` static property of the [Thread](core_package_classes.md#class-thread) class.
 
@@ -3737,7 +3737,7 @@ Instances of this type cannot be constructed directly. They can only be obtained
 public static prop currentThread: Thread
 ```
 
-Functionality: Gets the [Thread](core_package_classes.md#class-thread) object representing the currently executing thread.
+Function: Gets the [Thread](core_package_classes.md#class-thread) object representing the currently executing thread.
 
 Type: [Thread](core_package_classes.md#class-thread)
 
@@ -3770,7 +3770,7 @@ Current thread name: ''
 public prop hasPendingCancellation: Bool
 ```
 
-Functionality: Determines whether the current thread has received a cancellation request, i.e., whether another thread has sent a cancellation request via future.cancel(). Common usage: [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
+Function: Determines whether the current thread has received a cancellation request, i.e., whether another thread has sent a cancellation request via future.cancel(). Common usage: [Thread](core_package_classes.md#class-thread).currentThread.hasPendingCancellation.
 
 Type: [Bool](core_package_intrinsics.md#bool)
 
@@ -3817,7 +3817,7 @@ Has pending cancellation: true
 public prop id: Int64
 ```
 
-Functionality: Gets the identifier of the currently executing thread as an [Int64](core_package_intrinsics.md#int64). All live threads have unique identifiers, but there's no guarantee that a thread's identifier won't be reused after it terminates.
+Function: Gets the identifier of the currently executing thread as an [Int64](core_package_intrinsics.md#int64). All live threads have unique identifiers, but there's no guarantee that a thread's identifier won't be reused after it terminates.
 
 Type: [Int64](core_package_intrinsics.md#int64)
 
@@ -3850,7 +3850,7 @@ Current thread ID: 1
 public mut prop name: String
 ```
 
-Functionality: Gets or sets the thread name atomically.
+Function: Gets or sets the thread name atomically.
 
 Type: [String](core_package_structs.md#struct-string)
 
@@ -3890,7 +3890,7 @@ New thread name: 'MyCustomThread'
 public prop state: ThreadState
 ```
 
-Functionality: Gets the thread's state.
+Function: Gets the thread's state.
 
 Type: [ThreadState](core_package_enums.md#enum-threadstate)
 
@@ -3921,7 +3921,7 @@ Current thread state: 'Running'
 public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit
 ```
 
-Functionality: Registers a handler for uncaught thread exceptions.
+Function: Registers a handler for uncaught thread exceptions.
 
 When a thread terminates prematurely due to an exception, if a global uncaught exception handler is registered, it will be invoked before thread termination. If the handler itself throws an exception, a warning message will be printed to the terminal (without stack trace). If no handler is registered, the exception stack trace will be printed by default.
 
@@ -3976,7 +3976,7 @@ Caught exception: This is a thread exception.
 public class ThreadLocal<T>
 ```
 
-Functionality: Represents Cangjie thread-local variables.
+Function: Represents Cangjie thread-local variables.
 
 Unlike regular variables, thread-local variables have different access semantics. When multiple threads share the same thread-local variable, each thread maintains its own copy. Threads access their local copies without affecting other threads' values.
 
@@ -3986,9 +3986,9 @@ Unlike regular variables, thread-local variables have different access semantics
 public func get(): ?T
 ```
 
-Functionality: Gets the value of the Cangjie thread-local variable.
+Function: Gets the value of the Cangjie thread-local variable.
 
-Return value:
+Returns:
 
 - ?T - Returns the value if the thread-local variable is non-null, otherwise returns `None`.
 
@@ -4053,7 +4053,7 @@ User ID: 1002
 public func set(value: ?T): Unit
 ```
 
-Functionality: Sets the value of the Cangjie thread-local variable. If `None` is passed, the value is removed and becomes inaccessible to the thread.
+Function: Sets the value of the Cangjie thread-local variable. If `None` is passed, the value is removed and becomes inaccessible to the thread.
 
 Parameters:
 
@@ -4128,7 +4128,7 @@ public class ThreadSnapshot <: ToString {
 }
 ```
 
-Functionality: Retrieves information about current or all threads, including name, ID, state, and call stack.
+Function: Retrieves information about current or all threads, including name, ID, state, and call stack.
 
 Instances of this type cannot be constructed directly. They can only be obtained through the static functions [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread) and [dumpAllThreads](core_package_classes.md#func-dumpallthreads) of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) class.
 
@@ -4184,7 +4184,7 @@ public static func dumpAllThreads(): Array<ThreadSnapshot>
 
 Function: Gets information about all threads in the current process.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - Returns an array of [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) containing information about all threads in the current process.
 
@@ -4237,7 +4237,7 @@ public static func dumpCurrentThread(): ThreadSnapshot
 
 Function: Gets information about the current thread.
 
-Return Value:
+Returns:
 
 - [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - Returns a [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object containing information about the current thread.
 
@@ -4272,6 +4272,6 @@ public func toString(): String
 
 Function: Gets the string representation of the [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) object.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.

@@ -22,7 +22,7 @@ Parameters:
 - r: T - Maximum value.
 - body: () -> T - The generator closure to be called.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -38,7 +38,7 @@ Parameters:
 
 - body: () -> T - The generator closure to be called.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -55,7 +55,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - collection: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The array from which values are selected.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -71,7 +71,7 @@ Parameters:
 
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -88,7 +88,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - body: (T) -> R - Generates values of type R.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<R> - The generator.
 
@@ -105,7 +105,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - body: (T1, T2) -> R - Generates values of type R.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<R> - The generator.
 
@@ -123,7 +123,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - body: (T1, T2,T3) -> R - Generates values of type R.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<R> - The generator.
 
@@ -141,7 +141,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - body: (T1, T2,T3,T4) -> R - Generates values of type R.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<R> - The generator.
 
@@ -158,7 +158,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - variants: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T>> - Array of generators.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -174,7 +174,7 @@ Parameters:
 
 - value: T - The value returned by the generator.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -191,7 +191,7 @@ Parameters:
 - random: [RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 - variants: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<(UInt64, Generator\<T>)> - Array of (weight, generator) pairs.
 
-Return Value:
+Returns:
 
 - [Generator](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<T> - The generator.
 
@@ -233,7 +233,7 @@ public override func provide(): Iterable<T>
 
 Function: Provides randomly generated data.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - An infinite iterator created from the arbitrary instance of T.
 
@@ -273,7 +273,7 @@ override func provide(): Iterable<T>
 
 Function: Provides randomly generated data.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -301,7 +301,7 @@ Parameters:
 
 - value: T - Parameter value.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - If the parameter implements the [Shrink](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt) interface, returns an iterator of shrunk values; otherwise, returns an empty array.
 
@@ -325,7 +325,7 @@ public override func shrink(value: T): Iterable<T>
 
 Function: Shrinks the value into a set of possible "smaller" values.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -363,7 +363,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
 
-Return Value:
+Returns:
 
 - [RandomDataProvider](#class-randomdataprovidert)\<T> - Random data provider.
 
@@ -379,7 +379,7 @@ Parameters:
 
 - _: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
 
-Return Value:
+Returns:
 
 - [RandomDataShrinker](#class-randomdatashrinkert)\<T> - Random data shrinker.
 
@@ -407,7 +407,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
 
-Return Value:
+Returns:
 
 - [RandomDataProviderRange](unittest_prop_test_package_classes.md#class-randomdataproviderranget)\<T> - Random number provider.
 
@@ -423,7 +423,7 @@ Parameters:
 
 - _: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration parameters.
 
-Return Value:
+Returns:
 
 - [RandomDataShrinkerRange](#class-randomdatashrinkerranget)\<T> - Random data shrinker.
 
@@ -485,7 +485,7 @@ Parameters:
 
 - element: T - Element to append.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Sequence after appending the element.
 
@@ -501,7 +501,7 @@ Parameters:
 
 - other: [LazySeq](#class-lazyseqt)\<T> - Sequence to concatenate.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting sequence after concatenation.
 
@@ -513,7 +513,7 @@ public func iterator(): Iterator<T>
 
 Function: Implements the sequence iterator.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Sequence iterator.
 
@@ -529,7 +529,7 @@ Parameters:
 
 - body: (T) -> U - Closure to apply to each element.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<U> - Transformed sequence.
 
@@ -547,7 +547,7 @@ Parameters:
 
 - other: [LazySeq](#class-lazyseqt)\<T> - Sequence to interleave.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting interleaved sequence.
 
@@ -563,7 +563,7 @@ Parameters:
 
 - other: [LazySeq](#class-lazyseqt)\<T> - Sequence to prepend.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting sequence after prepending.
 
@@ -582,7 +582,7 @@ Parameters:
 - l1: [LazySeq](#class-lazyseqt)\<T> - First sequence to interleave.
 - l2: [LazySeq](#class-lazyseqt)\<T> - Second sequence to interleave.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting interleaved sequence.
 
@@ -600,7 +600,7 @@ Parameters:
 - l2: [LazySeq](#class-lazyseqt)\<T> - Second sequence to interleave.
 - l3: [LazySeq](#class-lazyseqt)\<T> - Third sequence to interleave.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting interleaved sequence.
 
@@ -619,7 +619,7 @@ Parameters:
 - l3: [LazySeq](#class-lazyseqt)\<T> - Third sequence to interleave.
 - l4: [LazySeq](#class-lazyseqt)\<T> - Fourth sequence to interleave.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting interleaved sequence.
 
@@ -639,7 +639,7 @@ Parameters:
 - l4: [LazySeq](#class-lazyseqt)\<T> - Fourth sequence to interleave.
 - l5: [LazySeq](#class-lazyseqt)\<T> - Fifth sequence to interleave.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting interleaved sequence.
 
@@ -655,7 +655,7 @@ Parameters:
 
 - iterable: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Iterable to process.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting sequence.
 
@@ -671,7 +671,7 @@ Parameters:
 
 - array: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Array to process.
 
-Return Value:
+Returns:
 
 - [LazySeq](#class-lazyseqt)\<T> - Resulting sequence.
 
@@ -701,7 +701,7 @@ Parameters:
 - t0: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T0> - Shrink iterator for the first tuple element.
 - t1: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T1> - Shrink iterator for the second tuple element.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1)> - Tuple shrink iterator.
 
@@ -725,7 +725,7 @@ Parameters:
 - t1: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T1> - Shrink iterator for the second tuple element.
 - t2: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T2> - Shrink iterator for the third tuple element.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1, T2)> - Tuple shrink iterator.
 
@@ -751,7 +751,7 @@ Parameters:
 - t2: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T2> - Shrink iterator for the third tuple element.
 - t3: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T3> - Shrink iterator for the fourth tuple element.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1, T2,T3)> - Tuple shrink iterator.
 
@@ -779,7 +779,7 @@ Parameters:
 - t3: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T3> - Shrink iterator for the fourth tuple element.
 - t4: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T4> - Shrink iterator for the fifth tuple element.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<(T0, T1, T2,T3,T4)> - Tuple shrink iterator.
 
@@ -795,6 +795,6 @@ Parameters:
 
 - iterables: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>> - The list of iterables to be mixed.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - The mixed iterator.

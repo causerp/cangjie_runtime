@@ -119,7 +119,7 @@ Parameters:
 - element: E - Element to be added.
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Waiting duration.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if element was successfully added, false if timeout was reached.
 
@@ -172,7 +172,7 @@ Function: Blocking dequeue operation that retrieves and removes the head element
 >
 > Will be deprecated in future versions. Use [remove()](#func-remove) instead.
 
-Return value:
+Returns:
 
 - E - The head element.
 
@@ -192,7 +192,7 @@ Parameters:
 
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Waiting duration.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns head element if successful, None if timeout was reached.
 
@@ -229,7 +229,7 @@ Parameters:
 - element: E - Element to be added.
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Waiting duration.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if element was successfully added, false if timeout was reached.
 
@@ -247,7 +247,7 @@ This is a non-blocking operation.
 >
 > Will be deprecated in future versions. Use [peek()](#func-peek) instead.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns head element if present, None if queue is empty.
 
@@ -259,7 +259,7 @@ public func peek(): Option<E>
 
 Function: Non-blocking retrieval of the head element.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns head element if present, None if queue is empty.
 
@@ -291,7 +291,7 @@ public func remove(): E
 
 Function: Blocking dequeue operation that retrieves and removes the head element. Blocks if the queue is empty.
 
-Return value:
+Returns:
 
 - E - The head element.
 
@@ -329,7 +329,7 @@ Parameters:
 
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The waiting duration.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element. If the operation times out before successfully retrieving the head element, returns None.
 
@@ -380,7 +380,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element was successfully added; returns false if the queue is full.
 
@@ -416,7 +416,7 @@ Function: Non-blocking dequeue operation that retrieves and removes the head ele
 >
 > This method will be deprecated in future versions. Use [tryRemove()](#func-tryremove) instead.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -436,7 +436,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element was successfully added; returns false if the queue is full.
 
@@ -448,7 +448,7 @@ public func tryRemove(): Option<E>
 
 Function: Non-blocking dequeue operation that retrieves and removes the head element of the queue.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -623,7 +623,7 @@ Parameters:
 - element: E - The element to be added.
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The waiting duration.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is successfully added. Returns false if the operation times out before successful addition.
 
@@ -676,7 +676,7 @@ Function: Blocking dequeue operation that retrieves and removes the head element
 >
 > This method will be deprecated in future versions. Use [remove()](#func-remove-1) instead.
 
-Return Value:
+Returns:
 
 - E - Returns the head element.
 
@@ -696,7 +696,7 @@ Parameters:
 
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The waiting duration.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element. Returns None if the operation times out before successful retrieval.
 
@@ -733,7 +733,7 @@ Parameters:
 - element: E - The element to be added.
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The waiting duration.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is successfully added. Returns false if the operation times out before successful addition.
 
@@ -750,7 +750,7 @@ Function: Retrieves the head element.
 > - This is a non-blocking function.
 > - This method will be deprecated in future versions. Use [peek()](#func-peek-1) instead.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -766,7 +766,7 @@ Function: Retrieves the head element.
 >
 > This is a non-blocking function.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -798,7 +798,7 @@ public func remove(): E
 
 Function: Blocking dequeue operation that retrieves and removes the head element.
 
-Return Value:
+Returns:
 
 - E - Returns the head element.
 
@@ -836,7 +836,7 @@ Parameters:
 
 - timeout: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The waiting duration.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the operation times out before successful retrieval.
 
@@ -887,7 +887,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the addition is successful; returns false if the queue is full.
 
@@ -923,7 +923,7 @@ Function: Non-blocking dequeue operation that retrieves and removes the head ele
 >
 > Will be deprecated in future versions. Use [tryRemove()](#func-tryremove-1) instead.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -943,7 +943,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if successfully added; returns false if the queue is full.
 
@@ -955,7 +955,7 @@ public func tryRemove(): Option<E>
 
 Function: Non-blocking dequeue operation that retrieves and removes the head element.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element, or None if the queue is empty.
 
@@ -1021,7 +1021,7 @@ public func next(): Option<(K, V)>
 
 Function: Returns the next element in the iteration.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)> - An [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K,V)> type.
 
@@ -1172,7 +1172,7 @@ Parameters:
 - key: K - The key to be placed.
 - value: V - The value to be associated.
 
-Return Value:
+Returns:
 
 - ?V - Returns the old value Some(V) if the key existed before assignment; returns None if the key did not exist before assignment.
 
@@ -1222,7 +1222,7 @@ Parameters:
 - `key`: K - The key to be placed.
 - `value`: V - The value to be assigned.
 
-Return Value:
+Returns:
 
 - `?V` - If the key `key` existed before assignment, returns the current value `Some(V)` associated with the key without performing the assignment; returns `None` if the key did not exist before assignment.
 
@@ -1271,7 +1271,7 @@ Parameters:
 
 - `key`: K - The key to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the map contains a mapping for the specified key `key`. Returns `true` if it does, otherwise `false`.
 
@@ -1330,7 +1330,7 @@ Parameters:
 - `key`: K - The key for which the corresponding view is to be retrieved.
 - `fn`: ([MapEntryView](../../collection/collection_package_api/collection_package_interface.md#interface-mapentryviewk-v)\<K, V>) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - Custom operations to be performed on the specified view, which can be used to add, delete, or modify key-value pairs in the map.
 
-Return Value:
+Returns:
 
 - `?V` - The value associated with the key `key` in the current map after the function `fn` is called. Returns `None` if the key does not exist.
 
@@ -1389,7 +1389,7 @@ Parameters:
 
 - `key`: K - The key whose associated value is to be retrieved.
 
-Return Value:
+Returns:
 
 - `?V` - The value associated with the key `key` in this map.
 
@@ -1405,7 +1405,7 @@ Function: Determines whether the [ConcurrentHashMap](#class-concurrenthashmapk-v
 >
 > This method does not guarantee atomicity in concurrent scenarios. It is recommended to call this method only when no other threads are concurrently modifying the [ConcurrentHashMap](#class-concurrenthashmapk-v-where-k--hashable--equatablek).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the map is empty, otherwise `false`.
 
@@ -1417,7 +1417,7 @@ public func iterator(): ConcurrentHashMapIterator<K, V>
 
 Function: Retrieves the iterator for the [ConcurrentHashMap](#class-concurrenthashmapk-v-where-k--hashable--equatablek).
 
-Return Value:
+Returns:
 
 - [ConcurrentHashMapIterator](collection_concurrent_class.md#class-concurrenthashmapiteratork-v-where-k--hashable--equatablek)\<K, V> - The iterator for the [ConcurrentHashMap](#class-concurrenthashmapk-v-where-k--hashable--equatablek).
 
@@ -1464,7 +1464,7 @@ Parameters:
 - `key`: K - The key to be placed.
 - `value`: V - The value to be associated.
 
-Return Value:
+Returns:
 
 - `?V` - If the key `key` existed before assignment, returns the old value `Some(V)`; returns `None` if the key did not exist before assignment.
 
@@ -1485,7 +1485,7 @@ Parameters:
 - `key`: K - The key to be placed.
 - `value`: V - The value to be assigned.
 
-Return Value:
+Returns:
 
 - `?V` - If the key `key` existed before assignment, returns the current value `Some(V)` associated with the key without performing the assignment; returns `None` if the key did not exist before assignment.
 
@@ -1504,7 +1504,7 @@ Parameters:
 - key: K - The key to be removed.
 - predicate: (V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression for evaluation.
 
-Return Value:
+Returns:
 
 - ?V - Returns the old value associated with the key if it exists in the map; returns None when the key does not exist or its associated value fails the predicate.
 
@@ -1520,7 +1520,7 @@ Parameters:
 
 - key: K - The key to be removed.
 
-Return Value:
+Returns:
 
 - ?V - Returns Some(V) with the value associated with the key before removal if the key existed; returns None if the key was absent during removal.
 
@@ -1570,7 +1570,7 @@ Parameters:
 - predicate: (V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - A lambda expression for evaluation.
 - eval: (V) -> V - The function to compute the new replacement value.
 
-Return Value:
+Returns:
 
 - ?V - Returns Some(V) with the old value associated with the key if it exists; returns None if the key does not exist or its associated value fails the predicate.
 
@@ -1591,7 +1591,7 @@ Parameters:
 - key: K - The key whose associated value is to be replaced.
 - eval: (V) -> V - The function to compute the new replacement value.
 
-Return Value:
+Returns:
 
 - ?V - Returns Some(V) with the old value associated with the key if it exists; returns None if the key does not exist.
 
@@ -1608,7 +1608,7 @@ Parameters:
 - key: K - The key whose associated value is to be replaced.
 - value: V - The new value to replace with.
 
-Return Value:
+Returns:
 
 - ?V - Returns Some(V) with the old value associated with the key if it exists; returns None if the key does not exist.
 
@@ -1653,7 +1653,7 @@ Parameters:
 
 - key: K - The key to look up.
 
-Return Value:
+Returns:
 
 - V - The value associated with the key.
 
@@ -1751,7 +1751,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true upon successful addition.
 
@@ -1767,7 +1767,7 @@ Function: Retrieves and removes the head element of the queue.
 >
 > **Deprecated in future versions**, use [remove()](#func-remove-2) instead.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns Some(E) with the head element if successfully removed; returns None if the queue is empty.
 
@@ -1788,7 +1788,7 @@ Parameters:
 
 - element: E - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true upon successful addition.
 
@@ -1804,7 +1804,7 @@ Function: Retrieves the head element of the queue without removing it.
 >
 > This method will be deprecated in future versions. Use [peek()](#func-peek-2) instead.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element if successfully retrieved, or None if the queue is empty.
 
@@ -1816,7 +1816,7 @@ public func isEmpty(): Bool
 
 Function: Checks whether the current queue is empty.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the current queue is empty, otherwise returns false.
 
@@ -1833,7 +1833,7 @@ Function: Retrieves an iterator for the current queue, used for traversing the q
 > The traversal operation does not remove elements from the queue.
 > The traversal operation does not guarantee atomicity. If other threads concurrently modify the current queue, the elements obtained during traversal may not represent a static snapshot of the queue at any given moment.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<E> - The iterator for the current queue.
 
@@ -1845,7 +1845,7 @@ public func peek(): Option<E>
 
 Function: Retrieves the head element of the queue without removing it.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element if successfully retrieved, or None if the queue is empty.
 
@@ -1857,7 +1857,7 @@ public func remove(): Option<E>
 
 Function: Retrieves and removes the head element of the queue.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<E> - Returns the head element if successfully removed, or None if the queue is empty.
 
@@ -1874,6 +1874,6 @@ Function: Stores all elements of the current queue into an array in sequential o
 > This operation does not remove elements from the queue.
 > This operation does not guarantee atomicity. If other threads concurrently modify the current queue, the resulting array may not represent a static snapshot of the queue at any given moment.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<E> - The resulting array containing the elements of the current queue.

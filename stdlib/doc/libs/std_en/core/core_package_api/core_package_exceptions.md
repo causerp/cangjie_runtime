@@ -85,7 +85,7 @@ protected open override func getClassName(): String
 
 Function: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Class name string.
 
@@ -169,7 +169,7 @@ protected open func getClassName(): String
 
 Function: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Class name.
 
@@ -201,7 +201,7 @@ public func getStackTrace(): Array<StackTraceElement>
 
 Function: Gets stack trace information, where each stack trace is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace array.
 
@@ -227,7 +227,7 @@ public open func getStackTraceMessage(): String
 
 Function: Gets stack trace information.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Stack trace message.
 
@@ -275,7 +275,7 @@ public open func toString(): String
 
 Function: Gets string representation of current [Error](core_package_exceptions.md#class-error) instance, including class name and error message.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Error message string.
 
@@ -408,7 +408,7 @@ protected open func getClassName(): String
 
 Function: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Class name.
 
@@ -452,7 +452,7 @@ public func getStackTrace(): Array<StackTraceElement>
 
 Function: Gets stack trace information, where each stack trace is represented by a [StackTraceElement](core_package_classes.md#class-stacktraceelement) instance, returning an array of [StackTraceElement](core_package_classes.md#class-stacktraceelement).
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)> - Stack trace array.
 
@@ -527,7 +527,7 @@ public open func toString(): String
 
 Function: Gets string representation of current [Exception](core_package_exceptions.md#class-exception) instance, including class name and exception message.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Exception string.
 
@@ -633,7 +633,7 @@ protected override open func getClassName(): String
 
 Purpose: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Class name.
 
@@ -750,7 +750,7 @@ protected override func getClassName(): String
 
 Purpose: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name.
 
@@ -1244,7 +1244,7 @@ protected override func getClassName(): String
 
 Function: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The class name.
 
@@ -1456,7 +1456,7 @@ protected override func getClassName(): String
 
 Function: Retrieves the class name.
 
-Return Value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - The class name.
 

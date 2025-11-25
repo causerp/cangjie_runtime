@@ -52,7 +52,7 @@ public func getAllocatedHeapSize(): Int64
 
 Function: Gets the allocated heap size of Cangjie in bytes.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The allocated heap size of Cangjie in bytes.
 
@@ -64,7 +64,7 @@ public func getBlockingThreadCount(): Int64
 
 Function: Gets the count of blocked Cangjie threads.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of blocked Cangjie threads.
 
@@ -76,7 +76,7 @@ public func getGCCount(): Int64
 
 Function: Gets the count of triggered GC operations.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of triggered GC operations.
 
@@ -88,7 +88,7 @@ public func getGCFreedSize(): Int64
 
 Function: Gets the size of memory successfully reclaimed after GC in bytes.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of memory successfully reclaimed after GC in bytes.
 
@@ -100,7 +100,7 @@ public func getGCTime(): Int64
 
 Function: Gets the total time consumed by GC operations in microseconds.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The total time consumed by GC operations in microseconds.
 
@@ -112,7 +112,7 @@ public func getMaxHeapSize(): Int64
 
 Function: Gets the maximum available heap size for Cangjie in bytes.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum available heap size for Cangjie in bytes.
 
@@ -124,7 +124,7 @@ public func getNativeThreadCount(): Int64
 
 Function: Gets the count of physical threads.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of physical threads.
 
@@ -136,7 +136,7 @@ public func getProcessorCount(): Int64
 
 Function: Gets the count of processors.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The count of processors.
 
@@ -148,7 +148,7 @@ public func getThreadCount(): Int64
 
 Function: Gets the current count of Cangjie threads.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The current count of Cangjie threads.
 
@@ -160,7 +160,7 @@ public func getUsedHeapSize(): Int64
 
 Function: On Linux platforms, gets the actual physical memory size occupied by the Cangjie heap in bytes. On Windows and macOS platforms, gets the actual physical memory size occupied by the Cangjie process in bytes.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The actual physical memory size occupied by the Cangjie heap or process in bytes.
 

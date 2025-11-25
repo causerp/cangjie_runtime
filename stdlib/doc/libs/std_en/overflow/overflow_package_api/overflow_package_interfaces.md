@@ -31,7 +31,7 @@ Parameters:
 
 - y: T - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether addition resulted in truncation and the computation result.
 
@@ -43,7 +43,7 @@ func carryingDec(): (Bool, T)
 
 Function: Returns a tuple where the first element indicates whether decrement operation resulted in truncation (`true` if truncated), and the second element is the computation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether decrement resulted in truncation and the computation result.
 
@@ -59,7 +59,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether division resulted in truncation and the computation result.
 
@@ -71,7 +71,7 @@ func carryingInc(): (Bool, T)
 
 Function: Returns a tuple where the first element indicates whether increment operation resulted in truncation (`true` if truncated), and the second element is the computation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether increment resulted in truncation and the computation result.
 
@@ -87,7 +87,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether modulo resulted in truncation and the computation result.
 
@@ -103,7 +103,7 @@ Parameters:
 
 - y: T - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether multiplication resulted in truncation and the computation result.
 
@@ -115,7 +115,7 @@ func carryingNeg(): (Bool, T)
 
 Function: Returns a tuple where the first element indicates whether negation operation resulted in truncation (`true` if truncated), and the second element is the computation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether negation resulted in truncation and the computation result.
 
@@ -131,7 +131,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether left shift resulted in truncation and the computation result.
 
@@ -147,7 +147,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:- ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether right shift operation resulted in truncation and the operation result.
+Returns:- ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether right shift operation resulted in truncation and the operation result.
 
 ### func carryingSub(T)
 
@@ -161,7 +161,7 @@ Parameters:
 
 - y: T - The subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), T) - Whether subtraction resulted in truncation and the operation result.
 
@@ -191,7 +191,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -205,7 +205,7 @@ Function: Performs decrement operation using [wrapping](./overflow_package_inter
 
 Returns `true` and the result if overflow occurs, otherwise returns `false` and the result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -223,7 +223,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -237,7 +237,7 @@ Function: Performs increment operation using [wrapping](./overflow_package_inter
 
 Returns `true` and the result if overflow occurs, otherwise returns `false` and the result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -255,7 +255,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -273,7 +273,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -287,7 +287,7 @@ Function: Performs negation using [wrapping](./overflow_package_interfaces.md#in
 
 Returns `true` and the result if overflow occurs, otherwise returns `false` and the result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - A tuple where the first element indicates truncation (`true` if occurred), and the second element is the operation result.
 
@@ -305,7 +305,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -323,7 +323,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -341,7 +341,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -371,7 +371,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -385,7 +385,7 @@ Function: Decrement operation using the [wrapping](./overflow_package_interfaces
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -403,7 +403,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -417,7 +417,7 @@ Function: Increment operation using the [wrapping](./overflow_package_interfaces
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -435,7 +435,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -451,7 +451,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -465,7 +465,7 @@ Function: Performs negation operation using the [wrapping](./overflow_package_in
 
 Returns `true` and the operation result when overflow occurs; otherwise, returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -483,7 +483,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -501,7 +501,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -519,7 +519,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -550,7 +550,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -564,7 +564,7 @@ Function: Decrement operation using the [wrapping](./overflow_package_interfaces
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -582,7 +582,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -596,7 +596,7 @@ Function: Increment operation using the [wrapping](./overflow_package_interfaces
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -614,7 +614,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -632,7 +632,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -646,7 +646,7 @@ Function: Negation operation using the [wrapping](./overflow_package_interfaces.
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -664,7 +664,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The exponent.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -682,7 +682,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.#### func carryingShr(UInt64)
 
@@ -700,7 +700,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -718,7 +718,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -748,7 +748,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -762,7 +762,7 @@ Function: Decrement operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -780,7 +780,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -794,7 +794,7 @@ Function: Increment operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -812,7 +812,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -830,7 +830,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -844,7 +844,7 @@ Function: Performs negation operation using the [wrapping](./overflow_package_in
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -862,7 +862,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -880,7 +880,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -898,7 +898,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Subtrahend.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int8](../../core/core_package_api/core_package_intrinsics.md#int8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -928,7 +928,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Addend.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -942,7 +942,7 @@ Function: Performs decrement operation using the [wrapping](./overflow_package_i
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -960,7 +960,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Divisor.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -974,7 +974,7 @@ Function: Performs increment operation using the [wrapping](./overflow_package_i
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -990,7 +990,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -1008,7 +1008,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -1022,7 +1022,7 @@ Function: Performs negation operation using the [wrapping](./overflow_package_in
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1040,7 +1040,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1058,7 +1058,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1076,7 +1076,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1106,7 +1106,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1120,7 +1120,7 @@ Function: Performs decrement operation using the [wrapping](./overflow_package_i
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1138,7 +1138,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1152,7 +1152,7 @@ Function: Performs increment operation using the [wrapping](./overflow_package_i
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation happened), and the second element is the operation result.
 
@@ -1170,7 +1170,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1188,7 +1188,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1202,7 +1202,7 @@ Function: Negation operation using [wrapping](./overflow_package_interfaces.md#i
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1220,7 +1220,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1238,7 +1238,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1256,7 +1256,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1286,7 +1286,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1300,7 +1300,7 @@ Function: Decrement operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1316,7 +1316,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1330,7 +1330,7 @@ Function: Increment operation using [wrapping](./overflow_package_interfaces.md#
 
 Returns `true` and the operation result when overflow occurs; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1348,7 +1348,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1366,7 +1366,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1380,7 +1380,7 @@ Function: Negation operation using [wrapping](./overflow_package_interfaces.md#i
 
 Returns `true` and the operation result when overflow occurs; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1398,7 +1398,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1416,7 +1416,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1434,7 +1434,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1462,7 +1462,7 @@ Returns `true` and the operation result when overflow occurs; otherwise returns 
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -1476,7 +1476,7 @@ Function: Decrement operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -1494,7 +1494,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the result of the operation.
 
@@ -1508,7 +1508,7 @@ Function: Increment operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1526,7 +1526,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1544,7 +1544,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1558,7 +1558,7 @@ Function: Negation operation using [wrapping](./overflow_package_interfaces.md#i
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1576,7 +1576,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1594,7 +1594,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1612,7 +1612,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1642,7 +1642,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1656,7 +1656,7 @@ Function: Decrement operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1674,7 +1674,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1688,7 +1688,7 @@ Function: Increment operation using [wrapping](./overflow_package_interfaces.md#
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1706,7 +1706,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1724,7 +1724,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1738,7 +1738,7 @@ Function: Negation operation using [wrapping](./overflow_package_interfaces.md#i
 
 When overflow occurs during the operation, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1756,7 +1756,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1774,7 +1774,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1792,7 +1792,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1822,7 +1822,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The addend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1836,7 +1836,7 @@ Function: Performs decrement using the [wrapping](./overflow_package_interfaces.
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1854,7 +1854,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1868,7 +1868,7 @@ Function: Performs increment using the [wrapping](./overflow_package_interfaces.
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1886,7 +1886,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1904,7 +1904,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1918,7 +1918,7 @@ Function: Performs negation using the [wrapping](./overflow_package_interfaces.m
 
 When overflow occurs, returns `true` and the operation result; otherwise returns `false` and the operation result.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1936,7 +1936,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred (`true` if truncated), and the second element is the operation result.
 
@@ -1952,7 +1952,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1970,7 +1970,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -1998,7 +1998,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return Value:
+Returns:
 
 - ([Bool](../../core/core_package_api/core_package_intrinsics.md#bool), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - Returns a tuple where the first element indicates whether truncation occurred during the operation (`true` if truncation occurred), and the second element is the operation result.
 
@@ -2018,7 +2018,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?T - Left shift operation result.
 
@@ -2036,7 +2036,7 @@ Parameters:
 
 - y: T - Subtrahend.
 
-Return value:
+Returns:
 
 - ?T - Subtraction operation result.- ?T - Left shift operation result.
 
@@ -2054,7 +2054,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?T - Right shift operation result.
 
@@ -2072,7 +2072,7 @@ Parameters:
 
 - y: T - Subtrahend.
 
-Return value:
+Returns:
 
 - ?T - Subtraction operation result.
 
@@ -2102,7 +2102,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Addend.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Addition operation result.
 
@@ -2116,7 +2116,7 @@ Function: Decrement operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16).None when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Decrement operation result.
 
@@ -2134,7 +2134,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Divisor.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Division operation result.
 
@@ -2148,7 +2148,7 @@ Function: Increment operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16).None when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Increment operation result.
 
@@ -2166,7 +2166,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Divisor.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Modulo operation result.
 
@@ -2184,7 +2184,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Multiplier.
 
-Return value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Multiplication operation result.#### func checkedNeg()
 
@@ -2196,7 +2196,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16).None when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the negation operation.
 
@@ -2214,7 +2214,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the left shift operation.
 
@@ -2232,7 +2232,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the right shift operation.
 
@@ -2250,7 +2250,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ?[Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the subtraction operation.
 
@@ -2280,7 +2280,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Addend.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the addition operation.
 
@@ -2294,7 +2294,7 @@ Function: Performs decrement operation using the [Option](../../core/core_packag
 
 Returns ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32).None when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the decrement operation.
 
@@ -2312,7 +2312,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the division operation.
 
@@ -2326,7 +2326,7 @@ Function: Performs increment operation using the [Option](../../core/core_packag
 
 Returns ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32).None when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the increment operation.
 
@@ -2344,7 +2344,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the remainder operation.
 
@@ -2362,7 +2362,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Multiplier.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the multiplication operation.
 
@@ -2376,7 +2376,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32).None if overflow occurs during operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the negation operation.
 
@@ -2394,7 +2394,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the left shift operation.
 
@@ -2412,7 +2412,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Right shift operation result.
 
@@ -2430,7 +2430,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Subtrahend.
 
-Return value:
+Returns:
 
 - ?[Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Subtraction operation result.
 
@@ -2461,7 +2461,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Addend.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Addition operation result.
 
@@ -2475,7 +2475,7 @@ Function: Decrement operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64).None when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Decrement operation result.
 
@@ -2493,7 +2493,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Division operation result.
 
@@ -2507,7 +2507,7 @@ Function: Increment operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64).None when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Increment operation result.
 
@@ -2525,7 +2525,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Modulo operation result.
 
@@ -2543,7 +2543,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Multiplier.
 
-Return value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Multiplication operation result.#### func checkedNeg()
 
@@ -2555,7 +2555,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64).None when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the negation operation.
 
@@ -2573,7 +2573,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the exponentiation operation.
 
@@ -2591,7 +2591,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the left shift operation.
 
@@ -2609,7 +2609,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the right shift operation.
 
@@ -2627,7 +2627,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the subtraction operation.
 
@@ -2657,7 +2657,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Addend.
 
-Return Value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the addition operation.
 
@@ -2671,7 +2671,7 @@ Function: Performs decrement operation using the [Option](../../core/core_packag
 
 Returns ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8).None when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the decrement operation.
 
@@ -2689,7 +2689,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return Value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the division operation.
 
@@ -2703,7 +2703,7 @@ Function: Performs increment operation using the [Option](../../core/core_packag
 
 Returns ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of increment operation.
 
@@ -2721,7 +2721,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of modulus operation.
 
@@ -2739,7 +2739,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Multiplier.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of multiplication operation.
 
@@ -2753,7 +2753,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of negation operation.
 
@@ -2771,7 +2771,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of left shift operation.
 
@@ -2789,7 +2789,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of right shift operation.
 
@@ -2807,7 +2807,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Subtrahend.
 
-Return value:
+Returns:
 
 - ?[Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of subtraction operation.
 
@@ -2837,7 +2837,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Addend.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of addition operation.
 
@@ -2851,7 +2851,7 @@ Function: Performs a decrement operation using the [Option](../../core/core_pack
 
 When overflow occurs during the operation, returns ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).None; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the decrement operation.
 
@@ -2869,7 +2869,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the division operation.
 
@@ -2883,7 +2883,7 @@ Function: Performs an increment operation using the [Option](../../core/core_pac
 
 When overflow occurs during the operation, returns ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).None; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the increment operation.
 
@@ -2901,7 +2901,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the modulo operation.
 
@@ -2919,7 +2919,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The multiplier.
 
-Return value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the multiplication operation.
 
@@ -2933,7 +2933,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the negation operation.
 
@@ -2951,7 +2951,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the left shift operation.
 
@@ -2969,7 +2969,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the right shift operation.
 
@@ -2987,7 +2987,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - ?[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the subtraction operation.
 
@@ -3017,7 +3017,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Addend.
 
-Return Value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the addition operation.
 
@@ -3031,7 +3031,7 @@ Function: Performs decrement operation using the [Option](../../core/core_packag
 
 Returns ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the decrement operation.
 
@@ -3049,7 +3049,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Divisor.
 
-Return Value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the division operation.
 
@@ -3063,7 +3063,7 @@ Function: Performs increment operation using the [Option](../../core/core_packag
 
 Returns ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the increment operation.
 
@@ -3079,7 +3079,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Divisor.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Modulo operation result.
 
@@ -3097,7 +3097,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Multiplier.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Multiplication operation result.
 
@@ -3111,7 +3111,7 @@ Function: Performs negation using the [Option](../../core/core_package_api/core_
 
 Returns ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Negation operation result.
 
@@ -3129,7 +3129,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Left shift operation result.
 
@@ -3147,7 +3147,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Right shift operation result.
 
@@ -3165,7 +3165,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtrahend.
 
-Return value:
+Returns:
 
 - ?[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtraction operation result.
 
@@ -3195,7 +3195,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Addend.
 
-Return value:
+Returns:
 
 - ?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Addition operation result.
 
@@ -3209,7 +3209,7 @@ Function: Performs decrement using the [Option](../../core/core_package_api/core
 
 Returns ?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Decrement operation result.
 
@@ -3225,7 +3225,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The divisor.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The division operation result.
 
@@ -3239,7 +3239,7 @@ Function: Increment operation using the `[Option](../../core/core_package_api/co
 
 Returns `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).None` if overflow occurs during the operation, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The increment operation result.
 
@@ -3257,7 +3257,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The divisor.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The modulo operation result.
 
@@ -3275,7 +3275,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The multiplier.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The multiplication operation result.
 
@@ -3289,7 +3289,7 @@ Function: Negation operation using the `[Option](../../core/core_package_api/cor
 
 Returns `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).None` if overflow occurs during the operation, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The negation operation result.
 
@@ -3307,7 +3307,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The left shift operation result.
 
@@ -3325,7 +3325,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The right shift operation result.
 
@@ -3343,7 +3343,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The subtrahend.
 
-Return Value:
+Returns:
 
 - `?[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)` - The subtraction operation result.
 
@@ -3371,7 +3371,7 @@ Returns `?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The addend.
 
-Return Value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the addition operation.
 
@@ -3385,7 +3385,7 @@ Function: Decrement operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the decrement operation.
 
@@ -3403,7 +3403,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Divisor.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the division operation.
 
@@ -3417,7 +3417,7 @@ Function: Increment operation using the [Option](../../core/core_package_api/cor
 
 Returns ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the increment operation.
 
@@ -3435,7 +3435,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Divisor.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the modulo operation.
 
@@ -3453,7 +3453,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Multiplier.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the multiplication operation.
 
@@ -3467,7 +3467,7 @@ Function: Negation operation using the [Option](../../core/core_package_api/core
 
 Returns ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).None on overflow, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the negation operation.
 
@@ -3485,7 +3485,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the left shift operation.
 
@@ -3503,7 +3503,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the right shift operation.
 
@@ -3521,7 +3521,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Subtrahend.
 
-Return value:
+Returns:
 
 - ?[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the subtraction operation.### extend UInt8 <: CheckedOp\<UInt8>
 
@@ -3549,7 +3549,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The addend.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The addition operation result.
 
@@ -3563,7 +3563,7 @@ Function: Performs decrement operation using the [Option](../../core/core_packag
 
 Returns ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The decrement operation result.
 
@@ -3581,7 +3581,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The divisor.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The division operation result.
 
@@ -3595,7 +3595,7 @@ Function: Performs increment operation using the [Option](../../core/core_packag
 
 Returns ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The increment operation result.
 
@@ -3613,7 +3613,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The divisor.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The modulus operation result.
 
@@ -3631,7 +3631,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The multiplier.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The multiplication operation result.
 
@@ -3645,7 +3645,7 @@ Function: Performs negation operation using the [Option](../../core/core_package
 
 Returns ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).None on overflow, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The negation operation result.
 
@@ -3663,7 +3663,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The left shift operation result.
 
@@ -3681,7 +3681,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The result of the right shift operation.
 
@@ -3699,7 +3699,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The subtrahend.
 
-Return Value:
+Returns:
 
 - ?[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The result of the subtraction operation.
 
@@ -3729,7 +3729,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The addend.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the addition operation.
 
@@ -3743,7 +3743,7 @@ Function: Performs decrement operation using the [Option](../../core/core_packag
 
 Returns ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).None if overflow occurs; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the decrement operation.
 
@@ -3761,7 +3761,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the division operation.
 
@@ -3775,7 +3775,7 @@ Function: Performs increment operation using the [Option](../../core/core_packag
 
 Returns ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).None if overflow occurs; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the increment operation.
 
@@ -3793,7 +3793,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the modulus operation.
 
@@ -3811,7 +3811,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the multiplication operation.
 
@@ -3823,7 +3823,7 @@ public func checkedNeg(): ?UIntNative
 
 Function: Performs negation operation using the [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) return strategy.Returns `?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).None` when arithmetic overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - `?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)` - The result of the negation operation.
 
@@ -3841,7 +3841,7 @@ Parameters:
 
 - `y`: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - `?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)` - The result of the left shift operation.
 
@@ -3859,7 +3859,7 @@ Parameters:
 
 - `y`: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - `?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)` - The result of the right shift operation.
 
@@ -3877,7 +3877,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The subtrahend.
 
-Return Value:
+Returns:
 
 - ?[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The subtraction operation result.
 
@@ -3905,7 +3905,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The exponent.
 
-Return Value:
+Returns:
 
 - ?[Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The exponentiation result.
 
@@ -3942,7 +3942,7 @@ Parameters:
 
 - y: T - The addend.
 
-Return Value:
+Returns:
 
 - T - The addition operation result.
 
@@ -3956,7 +3956,7 @@ Function: Decrement operation using saturation strategy.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - T - The decrement operation result.
 
@@ -3974,7 +3974,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - T - The division operation result.
 
@@ -3988,7 +3988,7 @@ Function: Increment operation using saturation strategy.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - T - The increment operation result.
 
@@ -4006,7 +4006,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - T - The modulus operation result.
 
@@ -4024,7 +4024,7 @@ Parameters:
 
 - y: T - Multiplier.
 
-Return value:
+Returns:
 
 - T - Result of the multiplication operation.
 
@@ -4038,7 +4038,7 @@ Function: Saturation-based negation operation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - T - Result of the negation operation.
 
@@ -4056,7 +4056,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - T - Result of the left shift operation.
 
@@ -4074,7 +4074,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - T - Result of the right shift operation.
 
@@ -4092,7 +4092,7 @@ Parameters:
 
 - y: T - Subtrahend.
 
-Return value:
+Returns:
 
 - T - Result of the subtraction operation.
 
@@ -4122,7 +4122,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Addend.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the addition operation.
 
@@ -4136,7 +4136,7 @@ Function: Saturation-based decrement operation.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the decrement operation.
 
@@ -4154,7 +4154,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Divisor.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the division operation.
 
@@ -4168,7 +4168,7 @@ Function: Saturating Increment Operation.
 
 When an overflow occurs during the operation, returns the maximum value of the operand type; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the increment operation.
 
@@ -4186,7 +4186,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the modulo operation.
 
@@ -4204,7 +4204,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Multiplier.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the multiplication operation.
 
@@ -4218,7 +4218,7 @@ Function: Saturating Negation Operation.
 
 When an overflow occurs during the operation, returns the maximum value of the operand type; when an underflow occurs, returns the minimum value of the operand type; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the negation operation.
 
@@ -4236,7 +4236,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the left shift operation.
 
@@ -4254,7 +4254,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the right shift operation.
 
@@ -4272,7 +4272,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the subtraction operation.
 
@@ -4302,7 +4302,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Addend.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the addition operation.
 
@@ -4316,7 +4316,7 @@ Function: Saturating Decrement Operation.
 
 When underflow occurs during the operation, returns the minimum value of the operand type; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the decrement operation.
 
@@ -4334,7 +4334,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the division operation.
 
@@ -4348,7 +4348,7 @@ Function: Saturating Increment Operation.
 
 When overflow occurs during the operation, returns the maximum value of the operand type; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the increment operation.
 
@@ -4366,7 +4366,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the modulo operation.
 
@@ -4384,7 +4384,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Multiplier.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the multiplication operation.
 
@@ -4398,7 +4398,7 @@ Function: Saturation arithmetic negation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the negation operation.
 
@@ -4416,7 +4416,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the left shift operation.
 
@@ -4434,7 +4434,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the right shift operation.
 
@@ -4452,7 +4452,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the subtraction operation.
 
@@ -4483,7 +4483,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Addend.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the addition operation.
 
@@ -4497,7 +4497,7 @@ Function: Saturation arithmetic decrement.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the decrement operation.
 
@@ -4515,7 +4515,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the division operation.#### func saturatingInc()
 
@@ -4527,7 +4527,7 @@ Function: Saturating increment operation.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the increment operation.
 
@@ -4545,7 +4545,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the modulus operation.
 
@@ -4563,7 +4563,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Multiplier.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the multiplication operation.
 
@@ -4577,7 +4577,7 @@ Function: Saturating negation operation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the negation operation.
 
@@ -4595,7 +4595,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the exponentiation operation.
 
@@ -4613,7 +4613,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the left shift operation.
 
@@ -4631,7 +4631,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the right shift operation.
 
@@ -4649,7 +4649,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Subtrahend.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the subtraction operation.
 
@@ -4679,7 +4679,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The addend.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the addition operation.
 
@@ -4693,7 +4693,7 @@ Function: Saturating decrement operation.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the decrement operation.
 
@@ -4711,7 +4711,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The divisor.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the division operation.
 
@@ -4725,7 +4725,7 @@ Function: Saturating increment operation.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the increment operation.
 
@@ -4743,7 +4743,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The divisor.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the modulus operation.
 
@@ -4761,7 +4761,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The multiplier.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the multiplication operation.
 
@@ -4775,7 +4775,7 @@ Function: Saturating negation operation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the negation operation.
 
@@ -4793,7 +4793,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the left shift operation.
 
@@ -4811,7 +4811,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the right shift operation.
 
@@ -4829,7 +4829,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The subtrahend.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the subtraction operation.
 
@@ -4859,7 +4859,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The addend.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the addition operation.
 
@@ -4873,7 +4873,7 @@ Function: Saturating decrement operation.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the decrement operation.
 
@@ -4891,7 +4891,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Divisor.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the division operation.
 
@@ -4905,7 +4905,7 @@ Function: Saturating increment operation.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the increment operation.
 
@@ -4923,7 +4923,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Divisor.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the modulus operation.
 
@@ -4941,7 +4941,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Multiplier.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the multiplication operation.
 
@@ -4955,7 +4955,7 @@ Function: Saturating negation operation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the computation result.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the negation operation.
 
@@ -4973,7 +4973,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the left shift operation.
 
@@ -4991,7 +4991,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the right shift operation.
 
@@ -5009,7 +5009,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Subtrahend.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Result of the subtraction operation.### extend UInt16 <: SaturatingOp\<UInt16>
 
@@ -5037,7 +5037,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the addition operation.
 
@@ -5051,7 +5051,7 @@ Function: Performs saturation arithmetic decrement.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the decrement operation.
 
@@ -5069,7 +5069,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the division operation.
 
@@ -5083,7 +5083,7 @@ Function: Performs saturation arithmetic increment.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the increment operation.
 
@@ -5101,7 +5101,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the modulus operation.
 
@@ -5119,7 +5119,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the multiplication operation.
 
@@ -5133,7 +5133,7 @@ Function: Performs saturation arithmetic negation.
 
 When overflow occurs, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the negation operation.
 
@@ -5151,7 +5151,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the left shift operation.
 
@@ -5169,7 +5169,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of right shift operation.
 
@@ -5187,7 +5187,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtrahend.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of subtraction operation.
 
@@ -5217,7 +5217,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Addend.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of addition operation.
 
@@ -5231,7 +5231,7 @@ Function: Decrement operation using saturation strategy.
 
 Returns the minimum value of the operand type when underflow occurs, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of decrement operation.
 
@@ -5249,7 +5249,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of division operation.
 
@@ -5263,7 +5263,7 @@ Function: Increment operation using saturation strategy.
 
 Returns the maximum value of the operand type when overflow occurs, otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of increment operation.
 
@@ -5281,7 +5281,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of modulo operation.
 
@@ -5299,7 +5299,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Multiplier.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of multiplication operation.
 
@@ -5311,7 +5311,7 @@ public func saturatingNeg(): UInt32
 
 Function: Negation operation using saturation strategy.When an operation overflows, return the maximum value of the operand type; when an operation underflows, return the minimum value of the operand type; otherwise, return the operation result.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the negation operation.
 
@@ -5329,7 +5329,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the left shift operation.
 
@@ -5347,7 +5347,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the right shift operation.
 
@@ -5365,7 +5365,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the subtraction operation.
 
@@ -5395,7 +5395,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the addition operation.
 
@@ -5409,7 +5409,7 @@ Function: Performs saturating decrement.
 
 On underflow, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the decrement operation.
 
@@ -5427,7 +5427,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the division operation.
 
@@ -5441,7 +5441,7 @@ Function: Performs saturating increment.
 
 On overflow, returns the maximum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the increment operation.
 
@@ -5459,7 +5459,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the modulus operation.
 
@@ -5477,7 +5477,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the multiplication operation.
 
@@ -5491,7 +5491,7 @@ Function: Performs saturating negation.
 
 On overflow, returns the maximum value of the operand type; on underflow, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the negation operation.
 
@@ -5509,7 +5509,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the left shift operation.
 
@@ -5527,7 +5527,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the right shift operation.
 
@@ -5545,7 +5545,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Subtrahend.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the subtraction operation.
 
@@ -5575,7 +5575,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Addend.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the addition operation.
 
@@ -5589,7 +5589,7 @@ Function: Decrement operation using saturation strategy.
 
 When underflow occurs, returns the minimum value of the operand type; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the decrement operation.
 
@@ -5607,7 +5607,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the division operation.
 
@@ -5621,7 +5621,7 @@ Function: Increment operation using saturation strategy.
 
 When overflow occurs, returns the maximum value of the operand type; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the increment operation.
 
@@ -5639,7 +5639,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the modulo operation.
 
@@ -5657,7 +5657,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Multiplier.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the multiplication operation.
 
@@ -5669,7 +5669,7 @@ public func saturatingNeg(): UInt8
 
 Function: Negation operation using saturation strategy.When an operation overflows, return the maximum value of the operand type; when an operation underflows, return the minimum value of the operand type; otherwise, return the operation result.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the negation operation.
 
@@ -5687,7 +5687,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the left shift operation.
 
@@ -5705,7 +5705,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the right shift operation.
 
@@ -5723,7 +5723,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Subtrahend.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the subtraction operation.
 
@@ -5753,7 +5753,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Addend.
 
-Return value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the addition operation.
 
@@ -5767,7 +5767,7 @@ Function: Decrement operation using saturation strategy.
 
 When an operation underflows, return the minimum value of the operand type; otherwise, return the operation result.
 
-Return value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the decrement operation.
 
@@ -5785,7 +5785,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Divisor.
 
-Return value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the division operation.
 
@@ -5799,7 +5799,7 @@ Function: Increment operation using saturation strategy.
 
 When an operation overflows, return the maximum value of the operand type; otherwise, return the operation result.
 
-Return value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the increment operation.
 
@@ -5815,7 +5815,7 @@ When an operation overflows, return the maximum value of the operand type; other
 
 Parameters:
 
-- y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Divisor.Return Value:
+- y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Divisor.Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the modulo operation.
 
@@ -5833,7 +5833,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the multiplication operation.
 
@@ -5847,7 +5847,7 @@ Function: Negation operation using saturation strategy.
 
 When overflow occurs during the operation, returns the maximum value of the operand type; when underflow occurs, returns the minimum value of the operand type; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the negation operation.
 
@@ -5865,7 +5865,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of left shift operation.
 
@@ -5883,7 +5883,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of right shift operation.
 
@@ -5901,7 +5901,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of subtraction operation.
 
@@ -5929,7 +5929,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of power operation.
 
@@ -5966,7 +5966,7 @@ Parameters:
 
 - y: T - Addend.
 
-Return Value:
+Returns:
 
 - T - Result of addition operation.
 
@@ -5984,7 +5984,7 @@ Function: Decrement operation using exception-throwing strategy.
 
 Throws an exception when overflow occurs; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - T - Result of decrement operation.
 
@@ -6004,7 +6004,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - T - The result of the division operation.
 
@@ -6022,7 +6022,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - T - The result of the increment operation.
 
@@ -6044,7 +6044,7 @@ Parameters:
 
 - y: T - The divisor.
 
-Return Value:
+Returns:
 
 - T - The result of the modulo operation.
 
@@ -6066,7 +6066,7 @@ Parameters:
 
 - y: T - The multiplier.
 
-Return Value:
+Returns:
 
 - T - The result of the multiplication operation.
 
@@ -6084,7 +6084,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation; otherwise, returns the operation result.
 
-Return Value:
+Returns:
 
 - T - The result of the negation operation.
 
@@ -6106,7 +6106,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - T - The result of the left shift operation.
 
@@ -6128,7 +6128,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - T - The result of the right shift operation.
 
@@ -6148,7 +6148,7 @@ Throws an exception when overflow occurs during the operation; otherwise, return
 
 Parameters:- y: T - The subtrahend.
 
-Return Value:
+Returns:
 
 - T - The result of the subtraction operation.
 
@@ -6182,7 +6182,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The addend.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the addition operation.
 
@@ -6200,7 +6200,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the decrement operation.
 
@@ -6222,7 +6222,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the division operation.
 
@@ -6240,7 +6240,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the increment operation.
 
@@ -6262,7 +6262,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the modulo operation.
 
@@ -6284,7 +6284,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The multiplier.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the multiplication operation.
 
@@ -6302,7 +6302,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation; otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the negation operation.
 
@@ -6324,7 +6324,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the left shift operation.
 
@@ -6346,7 +6346,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of the right shift operation.
 
@@ -6368,7 +6368,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the subtraction operation.
 
@@ -6402,7 +6402,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The addend.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the addition operation.
 
@@ -6420,7 +6420,7 @@ Function: Decrement operation with exception throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the decrement operation.
 
@@ -6442,7 +6442,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the division operation.
 
@@ -6460,7 +6460,7 @@ Function: Increment operation with exception throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the increment operation.
 
@@ -6482,7 +6482,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the modulo operation.
 
@@ -6502,7 +6502,7 @@ Throws an exception when overflow occurs during the operation, otherwise returns
 
 Parameters:
 
-- y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The multiplier.Return Value:
+- y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The multiplier.Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the multiplication operation.
 
@@ -6520,7 +6520,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the negation operation.
 
@@ -6542,7 +6542,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the left shift operation.
 
@@ -6564,7 +6564,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the right shift operation.
 
@@ -6586,7 +6586,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Result of the subtraction operation.
 
@@ -6621,7 +6621,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Addend.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the addition operation.
 
@@ -6639,7 +6639,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the decrement operation.
 
@@ -6661,7 +6661,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the division operation.
 
@@ -6679,7 +6679,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the increment operation.
 
@@ -6701,7 +6701,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the modulo operation.
 
@@ -6723,7 +6723,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Multiplier.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the multiplication operation.
 
@@ -6741,7 +6741,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the negation operation.
 
@@ -6763,7 +6763,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the exponentiation operation.
 
@@ -6785,7 +6785,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the left shift operation.
 
@@ -6805,7 +6805,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The result of the right shift operation.
 
@@ -6827,7 +6827,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The result of the subtraction operation.
 
@@ -6861,7 +6861,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The addend.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the addition operation.
 
@@ -6879,7 +6879,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the decrement operation.
 
@@ -6901,7 +6901,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the division operation.
 
@@ -6919,7 +6919,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the increment operation.
 
@@ -6941,7 +6941,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the modulo operation.
 
@@ -6963,7 +6963,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The multiplier.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the multiplication operation.
 
@@ -6981,7 +6981,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The result of the negation operation.
 
@@ -7001,7 +7001,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Left shift operation result.
 
@@ -7023,7 +7023,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Right shift operation result.
 
@@ -7045,7 +7045,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Subtrahend.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Subtraction operation result.
 
@@ -7079,7 +7079,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Addend.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Addition operation result.
 
@@ -7097,7 +7097,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Decrement operation result.
 
@@ -7119,7 +7119,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Divisor.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Division operation result.
 
@@ -7137,7 +7137,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - Increment operation result.
 
@@ -7157,7 +7157,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the modulo operation.
 
@@ -7179,7 +7179,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the multiplication operation.
 
@@ -7197,7 +7197,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the negation operation.
 
@@ -7219,7 +7219,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the left shift operation.
 
@@ -7241,7 +7241,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of bits to shift.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the right shift operation.
 
@@ -7263,7 +7263,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the subtraction operation.
 
@@ -7295,7 +7295,7 @@ Throws an exception when overflow occurs during the operation, otherwise returns
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the addition operation.
 
@@ -7313,7 +7313,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the decrement operation.
 
@@ -7335,7 +7335,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the division operation.
 
@@ -7353,7 +7353,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation; otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the increment operation.
 
@@ -7375,7 +7375,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the modulo operation.
 
@@ -7397,7 +7397,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Multiplier.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the multiplication operation.
 
@@ -7415,7 +7415,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation; otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the negation operation.
 
@@ -7437,7 +7437,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the left shift operation.
 
@@ -7459,7 +7459,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the right shift operation.
 
@@ -7481,7 +7481,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the subtraction operation.
 
@@ -7515,7 +7515,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the addition operation.
 
@@ -7533,7 +7533,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the decrement operation.
 
@@ -7555,7 +7555,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the division operation.
 
@@ -7573,7 +7573,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the increment operation.
 
@@ -7595,7 +7595,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the modulo operation.
 
@@ -7617,7 +7617,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the multiplication operation.
 
@@ -7635,7 +7635,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the negation operation.
 
@@ -7657,7 +7657,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of left shift operation.
 
@@ -7679,7 +7679,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of right shift operation.
 
@@ -7701,7 +7701,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of subtraction operation.
 
@@ -7735,7 +7735,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Addend.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of addition operation.
 
@@ -7753,7 +7753,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs; otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of decrement operation.
 
@@ -7775,7 +7775,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Divisor.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of division operation.
 
@@ -7791,7 +7791,7 @@ public func throwingInc(): UInt64
 
 Function: Increment operation with exception-throwing strategy.
 
-Throws an exception when overflow occurs; otherwise returns the operation result.Return Value:
+Throws an exception when overflow occurs; otherwise returns the operation result.Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the increment operation.
 
@@ -7813,7 +7813,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the modulo operation.
 
@@ -7835,7 +7835,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the multiplication operation.
 
@@ -7853,7 +7853,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the negation operation.
 
@@ -7875,7 +7875,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the left shift operation.
 
@@ -7897,7 +7897,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the right shift operation.
 
@@ -7919,7 +7919,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of the subtraction operation.
 
@@ -7953,7 +7953,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Addend.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the addition operation.
 
@@ -7971,7 +7971,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs during the operation, otherwise returns the computation result.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the decrement operation.
 
@@ -7991,7 +7991,7 @@ Throws an exception when overflow occurs during the operation, otherwise returns
 
 Parameters:
 
-- y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.Return Value:
+- y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the division operation.
 
@@ -8009,7 +8009,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the increment operation.
 
@@ -8031,7 +8031,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the modulo operation.
 
@@ -8053,7 +8053,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Multiplier.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the multiplication operation.
 
@@ -8071,7 +8071,7 @@ Function: Negation operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the negation operation.
 
@@ -8093,7 +8093,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the left shift operation.
 
@@ -8115,7 +8115,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the right shift operation.
 
@@ -8137,7 +8137,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the subtraction operation.Exceptions:
 
@@ -8169,7 +8169,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The addend.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the addition operation.
 
@@ -8187,7 +8187,7 @@ Function: Decrement operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the decrement operation.
 
@@ -8209,7 +8209,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the division operation.
 
@@ -8227,7 +8227,7 @@ Function: Increment operation with exception-throwing strategy.
 
 Throws an exception when overflow occurs, otherwise returns the operation result.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the increment operation.
 
@@ -8249,7 +8249,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The divisor.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the modulus operation.
 
@@ -8271,7 +8271,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The result of the multiplication operation.
 
@@ -8287,7 +8287,7 @@ public func throwingNeg(): UIntNative
 
 Function: Negation operation with exception-throwing strategy.
 
-Throws an exception when overflow occurs, otherwise returns the operation result.Return Value:
+Throws an exception when overflow occurs, otherwise returns the operation result.Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the negation operation.
 
@@ -8309,7 +8309,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the left shift operation.
 
@@ -8331,7 +8331,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Number of bits to shift.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the right shift operation.
 
@@ -8353,7 +8353,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of subtraction operation.
 
@@ -8385,7 +8385,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of exponentiation operation.
 
@@ -8426,7 +8426,7 @@ Parameters:
 
 - y: T - Addend.
 
-Return Value:
+Returns:
 
 - T - Result of addition operation.
 
@@ -8440,7 +8440,7 @@ Function: Decrement operation with high-order truncation strategy.
 
 Returns the operation result with high-order truncation when overflow occurs.
 
-Return Value:
+Returns:
 
 - T - Result of decrement operation.
 
@@ -8458,7 +8458,7 @@ Parameters:
 
 - y: T - Divisor.
 
-Return Value:
+Returns:
 
 - T - Result of division operation.
 
@@ -8472,7 +8472,7 @@ Function: Increment operation with high-order truncation strategy.
 
 Returns the operation result with high-order truncation when overflow occurs.
 
-Return Value:
+Returns:
 
 - T - Result of increment operation.
 
@@ -8490,7 +8490,7 @@ Parameters:
 
 - y: T - Divisor.
 
-Return Value:
+Returns:
 
 - T - Result of modulo operation.
 
@@ -8508,7 +8508,7 @@ Parameters:
 
 - y: T - Multiplier.
 
-Return Value:
+Returns:
 
 - T - Result of multiplication operation.
 
@@ -8522,7 +8522,7 @@ Function: Negation operation with high-order truncation strategy.
 
 Returns the operation result with high-order truncation when overflow occurs.
 
-Return Value:
+Returns:
 
 - T - Result of negation operation.
 
@@ -8540,7 +8540,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - T - Result of left shift operation.
 
@@ -8558,7 +8558,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - T - Result of right shift operation.
 
@@ -8576,7 +8576,7 @@ Parameters:
 
 - y: T - Subtrahend.
 
-Return Value:
+Returns:
 
 - T - Result of subtraction operation.
 
@@ -8606,7 +8606,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Addend.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of addition operation.
 
@@ -8620,7 +8620,7 @@ Function: Decrement operation with high-order truncation strategy.
 
 Returns the operation result with high-order truncation when overflow occurs.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of decrement operation.
 
@@ -8638,9 +8638,9 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Divisor.
 
-Return Value:
+Returns:
 
-- [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of division operation.Return Value:
+- [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - Result of division operation.Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the division operation.
 
@@ -8654,7 +8654,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the increment operation.
 
@@ -8672,7 +8672,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the modulo operation.
 
@@ -8690,7 +8690,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The multiplier.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the multiplication operation.
 
@@ -8704,7 +8704,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the negation operation.
 
@@ -8722,7 +8722,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the left shift operation.
 
@@ -8740,7 +8740,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the right shift operation.
 
@@ -8758,7 +8758,7 @@ Parameters:
 
 - y: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The result of the subtraction operation.
 
@@ -8788,7 +8788,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The addend.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the addition operation.
 
@@ -8802,7 +8802,7 @@ Function: Decrement operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the decrement operation.
 
@@ -8820,7 +8820,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the division operation.
 
@@ -8834,7 +8834,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the increment operation.
 
@@ -8852,7 +8852,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The divisor.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the modulo operation.
 
@@ -8870,7 +8870,7 @@ Parameters:
 
 - y: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The multiplier.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the multiplication operation.
 
@@ -8884,7 +8884,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The result of the negation operation.
 ### extend Int64 <: WrappingOp\<Int64> & WrappingPow
@@ -8914,7 +8914,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Addend.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of addition operation.
 
@@ -8928,7 +8928,7 @@ Function: Decrement operation using high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of decrement operation.
 
@@ -8946,7 +8946,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of division operation.
 
@@ -8960,7 +8960,7 @@ Function: Increment operation using high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of increment operation.
 
@@ -8978,7 +8978,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Divisor.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of modulo operation.#### func wrappingMul(Int64)
 
@@ -8994,7 +8994,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Multiplier.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the multiplication operation.
 
@@ -9008,7 +9008,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the negation operation.
 
@@ -9026,7 +9026,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Exponent.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the exponentiation operation.
 
@@ -9044,7 +9044,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the left shift operation.
 
@@ -9062,7 +9062,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the right shift operation.
 
@@ -9080,7 +9080,7 @@ Parameters:
 
 - y: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Subtrahend.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Result of the subtraction operation.
 
@@ -9110,7 +9110,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Addend.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the addition operation.
 
@@ -9124,7 +9124,7 @@ Function: Decrement operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the decrement operation.
 
@@ -9142,7 +9142,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the division operation.
 
@@ -9156,7 +9156,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during computation, high bits are truncated; otherwise, the computation result is returned.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the increment operation.
 
@@ -9174,7 +9174,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Divisor.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the modulo operation.
 
@@ -9192,7 +9192,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Multiplier.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the multiplication operation.
 
@@ -9206,7 +9206,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during computation, high bits are truncated; otherwise, the computation result is returned.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the negation operation.
 
@@ -9224,7 +9224,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the left shift operation.
 
@@ -9242,7 +9242,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the right shift operation.
 
@@ -9260,7 +9260,7 @@ Parameters:
 
 - y: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - Result of the subtraction operation.
 
@@ -9290,7 +9290,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The addend.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the addition operation.
 
@@ -9304,7 +9304,7 @@ Function: Decrement operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the decrement operation.
 
@@ -9322,7 +9322,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the division operation.
 
@@ -9336,7 +9336,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the increment operation.
 
@@ -9354,7 +9354,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The divisor.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the modulo operation.
 
@@ -9372,7 +9372,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The multiplier.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the multiplication operation.
 
@@ -9386,7 +9386,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the negation operation.
 
@@ -9404,7 +9404,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the left shift operation.
 
@@ -9422,7 +9422,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the right shift operation.#### func wrappingSub(IntNative)
 
@@ -9438,7 +9438,7 @@ Parameters:
 
 - y: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The result of the subtraction operation.
 
@@ -9468,7 +9468,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the addition operation.
 
@@ -9482,7 +9482,7 @@ Function: Decrement operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the decrement operation.
 
@@ -9500,7 +9500,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the division operation.
 
@@ -9514,7 +9514,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the increment operation.
 
@@ -9532,7 +9532,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the modulo operation.
 
@@ -9550,7 +9550,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the multiplication operation.
 
@@ -9564,7 +9564,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The result of the negation operation.
 
@@ -9582,7 +9582,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the left shift operation.
 
@@ -9600,7 +9600,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the right shift operation.
 
@@ -9618,7 +9618,7 @@ Parameters:
 
 - y: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Subtrahend.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - Result of the subtraction operation.
 
@@ -9648,7 +9648,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Addend.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the addition operation.
 
@@ -9662,7 +9662,7 @@ Function: Decrement operation using high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the decrement operation.
 
@@ -9680,7 +9680,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the division operation.
 
@@ -9694,7 +9694,7 @@ Function: Increment operation using high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the increment operation.
 
@@ -9712,7 +9712,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of the modulo operation.
 
@@ -9728,7 +9728,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the multiplication operation.
 
@@ -9742,7 +9742,7 @@ Function: Negation operation using high-order bit truncation strategy.
 
 When an arithmetic overflow occurs, the high-order bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The result of the negation operation.
 
@@ -9760,7 +9760,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of left shift operation.
 
@@ -9778,7 +9778,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of right shift operation.
 
@@ -9796,7 +9796,7 @@ Parameters:
 
 - y: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Subtrahend.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - Result of subtraction operation.
 
@@ -9826,7 +9826,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Addend.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of addition operation.
 
@@ -9840,7 +9840,7 @@ Function: Decrement operation using high-bit truncation strategy.
 
 When overflow occurs, high bits are truncated; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of decrement operation.
 
@@ -9858,7 +9858,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of division operation.
 
@@ -9872,7 +9872,7 @@ Function: Increment operation using high-bit truncation strategy.
 
 When overflow occurs, high bits are truncated; otherwise returns the operation result.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of increment operation.
 
@@ -9890,7 +9890,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Divisor.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Result of modulo operation.
 
@@ -9908,7 +9908,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The multiplier.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the multiplication operation.
 
@@ -9922,7 +9922,7 @@ Function: Negation operation with high-order truncation strategy.
 
 When overflow occurs during the operation, the high-order bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the negation operation.
 
@@ -9940,7 +9940,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the left shift operation.
 
@@ -9958,7 +9958,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The shift count.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the right shift operation.
 
@@ -9976,7 +9976,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The result of the subtraction operation.
 
@@ -10006,7 +10006,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The addend.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The result of the addition operation.
 
@@ -10020,7 +10020,7 @@ Function: Decrement operation with high-order truncation strategy.
 
 When overflow occurs during the operation, the high-order bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The result of the decrement operation.
 
@@ -10038,7 +10038,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The divisor.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The result of the division operation.
 
@@ -10052,7 +10052,7 @@ Function: Increment operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the increment operation.
 
@@ -10070,7 +10070,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Divisor.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the modulo operation.
 
@@ -10088,7 +10088,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Multiplier.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the multiplication operation.
 
@@ -10102,7 +10102,7 @@ Function: Negation operation with high-bit truncation strategy.
 
 When overflow occurs during the operation, high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the negation operation.
 
@@ -10120,7 +10120,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the left shift operation.
 
@@ -10138,7 +10138,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the right shift operation.
 
@@ -10156,7 +10156,7 @@ Parameters:
 
 - y: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - Result of the subtraction operation.
 
@@ -10186,7 +10186,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Addend.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the addition operation.
 
@@ -10200,7 +10200,7 @@ Function: Decrement operation using high-bit truncation strategy.
 
 When overflow occurs during the operation, the high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the decrement operation.
 
@@ -10218,7 +10218,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Divisor.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the division operation.
 
@@ -10232,7 +10232,7 @@ Function: Increment operation using high-bit truncation strategy.
 
 When overflow occurs during the operation, the high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the increment operation.
 
@@ -10250,7 +10250,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Divisor.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the modulo operation.
 
@@ -10268,7 +10268,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Multiplier.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the multiplication operation.
 
@@ -10282,7 +10282,7 @@ Function: Negation operation using high-bit truncation strategy.
 
 When overflow occurs during the operation, the high bits are truncated; otherwise, the operation result is returned.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the negation operation.
 
@@ -10300,7 +10300,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the left shift operation.
 
@@ -10318,7 +10318,7 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - Shift count.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the right shift operation.
 
@@ -10336,7 +10336,7 @@ Parameters:
 
 - y: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Subtrahend.
 
-Return Value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - Result of the subtraction operation.
 
@@ -10363,6 +10363,6 @@ Parameters:
 
 - y: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The exponent.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The result of the exponentiation operation.

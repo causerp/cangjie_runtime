@@ -38,7 +38,7 @@ Parameters:
 
 - idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
-Return Value:
+Returns:
 
 - T - The element value.
 
@@ -95,7 +95,7 @@ Parameters:
 
 - idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
-Return Value:
+Returns:
 
 - T - The element value.
 
@@ -162,7 +162,7 @@ public func measure(): Float64
 
 Function: Returns the number of CPU cycles executed.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The computed data for statistical analysis.
 
@@ -213,7 +213,7 @@ Parameters:
 
 - idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
-Return Value:
+Returns:
 
 - T - The element value.
 
@@ -267,7 +267,7 @@ Parameters:
 
 - idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
-Return Value:
+Returns:
 
 - T - The element value.
 
@@ -284,7 +284,7 @@ Parameters:
 - arg: T - The parameter to be copied by the provider.
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - An additional parameter for implementing overloading.
 
-Return Value:
+Returns:
 
 - ImmutableInputProvider\<T> - The input provider.
 
@@ -300,7 +300,7 @@ Parameters:
 
 - arg: T - The parameter to be copied by the provider.
 
-Return Value:
+Returns:
 
 - U - The input provider.
 
@@ -1590,7 +1590,7 @@ public func measure(): Float64
 
 Function: Returns the value of the specified CPU counter.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The computed data for statistical analysis.
 
@@ -1741,6 +1741,6 @@ public func measure(): Float64
 
 Function: Obtains the current time for statistical analysis.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The calculated data for statistical analysis.

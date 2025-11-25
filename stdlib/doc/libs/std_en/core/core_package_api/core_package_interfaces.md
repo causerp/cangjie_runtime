@@ -24,7 +24,7 @@ public func isAscii(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII range, otherwise returns false.
 
@@ -57,7 +57,7 @@ public func isAsciiControl(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII control character range. The valid range is the union of [00, 1F] and {7F}.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII control character range, otherwise returns false.
 
@@ -93,7 +93,7 @@ public func isAsciiGraphic(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII graphic character range. The valid range is [21, 7E].
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII graphic character range, otherwise returns false.
 
@@ -129,7 +129,7 @@ public func isAsciiHex(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII hexadecimal digit range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII hexadecimal digit range, otherwise returns false.
 
@@ -165,7 +165,7 @@ public func isAsciiLetter(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII Latin letter range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII Latin letter range, otherwise returns false.
 
@@ -201,7 +201,7 @@ public func isAsciiLowerCase(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII lowercase Latin letter range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII lowercase Latin letter range, otherwise returns false.
 
@@ -237,7 +237,7 @@ public func isAsciiNumber(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit range, otherwise returns false.
 
@@ -273,7 +273,7 @@ public func isAsciiNumberOrLetter(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit or Latin letter range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII decimal digit or Latin letter range, otherwise returns false.
 
@@ -309,7 +309,7 @@ public func isAsciiOct(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII octal digit range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII octal digit range, otherwise returns false.
 
@@ -345,7 +345,7 @@ public func isAsciiPunctuation(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation range. The valid range is the union of [21, 2F], [3A, 40], [5B, 60], and [7B, 7E].
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII punctuation range, otherwise returns false.
 
@@ -381,7 +381,7 @@ public func isAsciiUpperCase(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII uppercase Latin letter range.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII uppercase Latin letter range, otherwise returns false.
 
@@ -417,7 +417,7 @@ public func isAsciiWhiteSpace(): Bool
 
 Function: Determines whether the [Byte](core_package_types.md#type-byte) is within the ASCII whitespace character range. The valid range is the union of [09, 0D] and {20}.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if the [Byte](core_package_types.md#type-byte) is within the ASCII whitespace character range, otherwise returns false.
 
@@ -453,7 +453,7 @@ public func toAsciiLowerCase(): Byte
 
 Function: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII lowercase character [Byte](core_package_types.md#type-byte). If conversion is not## interface CType
 
-Return Value:
+Returns:
 
 - [Byte](core_package_types.md#type-byte) - The converted [Byte](core_package_types.md#type-byte), or the original [Byte](core_package_types.md#type-byte) if conversion is not possible.
 
@@ -493,7 +493,7 @@ public func toAsciiUpperCase(): Byte
 
 Function: Converts the [Byte](core_package_types.md#type-byte) to its corresponding ASCII uppercase character [Byte](core_package_types.md#type-byte), or leaves it unchanged if conversion is not possible.
 
-Return Value:
+Returns:
 
 - [Byte](core_package_types.md#type-byte) - The converted [Byte](core_package_types.md#type-byte), or the original [Byte](core_package_types.md#type-byte) if conversion is not possible.
 
@@ -595,7 +595,7 @@ func isEmpty(): Bool
 
 Function: Determines whether the current collection is empty.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if empty, otherwise `false`.
 
@@ -607,7 +607,7 @@ func toArray(): Array<T>
 
 Function: Converts the current collection to an array type.
 
-Return Value:
+Returns:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - The resulting array after conversion.
 
@@ -648,7 +648,7 @@ Parameters:
 
 - that: T - Another instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Ordering](core_package_enums.md#enum-ordering) - Returns [Ordering](core_package_enums.md#enum-ordering).GT if greater, [Ordering](core_package_enums.md#enum-ordering).EQ if equal, and [Ordering](core_package_enums.md#enum-ordering).LT if less.
 
@@ -664,7 +664,7 @@ Parameters:
 
 - rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if less, otherwise `false`.
 
@@ -680,7 +680,7 @@ Parameters:
 
 - rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if less than or equal, otherwise `false`.
 
@@ -696,7 +696,7 @@ Parameters:
 
 - rhs: T - Another instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -712,7 +712,7 @@ Parameters:
 
 - rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if greater, otherwise `false`.
 
@@ -728,7 +728,7 @@ Parameters:
 
 - rhs: T - Another instance to compare with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if greater than or equal, otherwise `false`.
 
@@ -757,7 +757,7 @@ Parameters:
 
 - right: [Int64](core_package_intrinsics.md#int64) - The number of positions to count to the right.
 
-Return Value:
+Returns:
 
 - T - The instance of type `T` at the position obtained by moving `right` positions to the right.
 
@@ -769,7 +769,7 @@ func position(): Int64
 
 Function: Gets the position information of the current countable instance, i.e., converts the current instance to an [Int64](core_package_intrinsics.md#int64) type.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The converted [Int64](core_package_intrinsics.md#int64) value.
 
@@ -793,7 +793,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - A [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) instance.
 
-Return Value:
+Returns:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The product of the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) instance and `r`.
 
@@ -848,7 +848,7 @@ Parameters:
 
 - r: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The right operand of the multiplication.
 
-Return Value:
+Returns:
 
 - [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The product of the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) instance and `r`.
 
@@ -908,7 +908,7 @@ Parameters:
 
 - rhs: T - Another instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -943,7 +943,7 @@ Parameters:
 
 - rhs: T - Another instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.## interface GreaterOrEqual\<T>
 
@@ -967,7 +967,7 @@ Parameters:
 
 - rhs: T - Another instance to be compared with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if greater than or equal, otherwise returns false.
 
@@ -993,7 +993,7 @@ Parameters:
 
 - rhs: T - Another instance to be compared with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if greater, otherwise returns false.
 
@@ -1017,7 +1017,7 @@ func hashCode(): Int64
 
 Function: Obtains the hash value of the instance type.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - Returns the hash value of the instance type.
 
@@ -1056,7 +1056,7 @@ func finish(): Int64
 
 Function: Obtains the result of the hash operation.
 
-Return Value:
+Returns:
 
 - [Int64](core_package_intrinsics.md#int64) - The computed hash value.
 
@@ -1256,7 +1256,7 @@ func iterator(): Iterator<E>
 
 Function: Obtains the iterator.
 
-Return Value:
+Returns:
 
 - [Iterator](core_package_classes.md#class-iteratort)\<E> - The iterator.
 
@@ -1282,7 +1282,7 @@ Parameters:
 
 - rhs: T - Another instance to be compared with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if less than or equal, otherwise returns false.
 
@@ -1308,7 +1308,7 @@ Parameters:
 
 - rhs: T - Another instance to be compared with the current instance.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if less, otherwise returns false.
 
@@ -1334,7 +1334,7 @@ Parameters:
 
 - rhs: T - Another instance to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if not equal, otherwise returns false.
 
@@ -1359,7 +1359,7 @@ func isClosed(): Bool
 
 Function: Determines whether the resource has been closed.
 
-Return Value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if already closed, otherwise returns false.
 
@@ -1401,7 +1401,7 @@ func hasEnded(): Bool
 
 Function: Check method, used to verify whether the current context has terminated.
 
-Return value:
+Returns:
 
 - [Bool](core_package_intrinsics.md#bool) - Returns true if terminated, otherwise returns false.
 
@@ -1423,6 +1423,6 @@ func toString(): String
 
 Function: Obtains the string representation of an instance type.
 
-Return value:
+Returns:
 
 - [String](core_package_structs.md#struct-string) - Returns the string representation of the instance type.

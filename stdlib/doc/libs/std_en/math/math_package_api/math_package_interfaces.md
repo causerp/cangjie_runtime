@@ -16,7 +16,7 @@ public interface FloatingPoint<T> <: Number<T> {
 }
 ```
 
-Functionality: This interface provides methods related to floating-point numbers.
+Function: This interface provides methods related to floating-point numbers.
 
 Parent Types:
 
@@ -28,9 +28,9 @@ Parent Types:
 static func getE(): T
 ```
 
-Functionality: Gets the natural constant of type T.
+Function: Gets the natural constant of type T.
 
-Return Value:
+Returns:
 
 - T - The natural constant of type T.
 
@@ -40,9 +40,9 @@ Return Value:
 static func getInf(): T
 ```
 
-Functionality: Gets the infinity value of floating-point numbers.
+Function: Gets the infinity value of floating-point numbers.
 
-Return Value:
+Returns:
 
 - T - The infinity value of type T.
 
@@ -52,9 +52,9 @@ Return Value:
 static func getPI(): T
 ```
 
-Functionality: Gets the pi constant of type T.
+Function: Gets the pi constant of type T.
 
-Return Value:
+Returns:
 
 - T - The pi constant of type T.
 
@@ -64,9 +64,9 @@ Return Value:
 static func getMinDenormal(): T
 ```
 
-Functionality: Gets the minimum denormal number of single-precision floating-point numbers.
+Function: Gets the minimum denormal number of single-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - T - The minimum denormal number of type T.
 
@@ -76,9 +76,9 @@ Return Value:
 static func getMinNormal(): T
 ```
 
-Functionality: Gets the minimum normal number of single-precision floating-point numbers.
+Function: Gets the minimum normal number of single-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - T - The minimum normal number of type T.
 
@@ -88,9 +88,9 @@ Return Value:
 static func getNaN(): T
 ```
 
-Functionality: Gets the Not-a-Number (NaN) value of floating-point numbers.
+Function: Gets the Not-a-Number (NaN) value of floating-point numbers.
 
-Return Value:
+Returns:
 
 - T - The NaN value of type T.
 
@@ -100,9 +100,9 @@ Return Value:
 func isInf(): Bool
 ```
 
-Functionality: Determines whether the floating-point number is infinite.
+Function: Determines whether the floating-point number is infinite.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the floating-point value is positive or negative infinity; otherwise, returns `false`.
 
@@ -112,9 +112,9 @@ Return Value:
 func isNaN(): Bool
 ```
 
-Functionality: Determines whether the floating-point number is Not-a-Number (NaN).
+Function: Determines whether the floating-point number is Not-a-Number (NaN).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the floating-point value is NaN; otherwise, returns `false`.
 
@@ -124,9 +124,9 @@ Return Value:
 func isNormal(): Bool
 ```
 
-Functionality: Determines whether the floating-point number is normal.
+Function: Determines whether the floating-point number is normal.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the floating-point number is normal; otherwise, returns `false`.
 
@@ -136,7 +136,7 @@ Return Value:
 extend Float16 <: FloatingPoint<Float16>
 ```
 
-Functionality: Extends the [FloatingPoint\<Float16>](#interface-floatingpointt) interface for the [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
+Function: Extends the [FloatingPoint\<Float16>](#interface-floatingpointt) interface for the [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
 
 Parent Types:
 
@@ -148,9 +148,9 @@ Parent Types:
 public static func getE(): Float16
 ```
 
-Functionality: Gets the natural constant of the half-precision floating-point type.
+Function: Gets the natural constant of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The natural constant of the half-precision floating-point type.
 
@@ -160,9 +160,9 @@ Return Value:
 public static func getInf(): Float16
 ```
 
-Functionality: Gets the infinity value of the half-precision floating-point type.
+Function: Gets the infinity value of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The infinity value of the half-precision floating-point type.
 
@@ -172,9 +172,9 @@ Return Value:
 public static func getPI(): Float16
 ```
 
-Functionality: Gets the pi constant of the half-precision floating-point type.
+Function: Gets the pi constant of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The pi constant of the half-precision floating-point type.
 
@@ -184,9 +184,9 @@ Return Value:
 public static func getMinDenormal(): Float16
 ```
 
-Functionality: Gets the minimum denormal number of the half-precision floating-point type.
+Function: Gets the minimum denormal number of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The minimum denormal number of the half-precision floating-point type.
 
@@ -196,9 +196,9 @@ Return Value:
 public static func getMinNormal(): Float16
 ```
 
-Functionality: Gets the minimum normal number of the half-precision floating-point type.
+Function: Gets the minimum normal number of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The minimum normal number of the half-precision floating-point type.
 
@@ -208,9 +208,9 @@ Return Value:
 public static func getNaN(): Float16
 ```
 
-Functionality: Gets the Not-a-Number (NaN) value of the half-precision floating-point type.
+Function: Gets the Not-a-Number (NaN) value of the half-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The NaN value of the half-precision floating-point type.
 
@@ -220,7 +220,7 @@ Return Value:
 extend Float32 <: FloatingPoint<Float32>
 ```
 
-Functionality: Extends the [FloatingPoint\<Float32>](#interface-floatingpointt) interface for the [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
+Function: Extends the [FloatingPoint\<Float32>](#interface-floatingpointt) interface for the [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
 
 Parent Types:
 
@@ -232,9 +232,9 @@ Parent Types:
 public static func getE(): Float32
 ```
 
-Functionality: Gets the natural constant of the single-precision floating-point type.
+Function: Gets the natural constant of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The natural constant of the single-precision floating-point type.
 
@@ -244,9 +244,9 @@ Return Value:
 public static func getInf(): Float32
 ```
 
-Functionality: Gets the infinity value of the single-precision floating-point type.
+Function: Gets the infinity value of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The infinity value of the single-precision floating-point type.
 
@@ -256,9 +256,9 @@ Return Value:
 public static func getPI(): Float32
 ```
 
-Functionality: Gets the pi constant of the single-precision floating-point type.
+Function: Gets the pi constant of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The pi constant of the single-precision floating-point type.
 
@@ -268,9 +268,9 @@ Return Value:
 public static func getMinDenormal(): Float32
 ```
 
-Functionality: Gets the minimum denormal number of the single-precision floating-point type.
+Function: Gets the minimum denormal number of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The minimum denormal number of the single-precision floating-point type.
 
@@ -280,9 +280,9 @@ Return Value:
 public static func getMinNormal(): Float32
 ```
 
-Functionality: Gets the minimum normal number of the single-precision floating-point type.
+Function: Gets the minimum normal number of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The minimum normal number of the single-precision floating-point type.
 
@@ -292,9 +292,9 @@ Return Value:
 public static func getNaN(): Float32
 ```
 
-Functionality: Gets the Not-a-Number (NaN) value of the single-precision floating-point type.
+Function: Gets the Not-a-Number (NaN) value of the single-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The NaN value of the single-precision floating-point type.
 
@@ -304,7 +304,7 @@ Return Value:
 extend Float64 <: FloatingPoint<Float64>
 ```
 
-Functionality: Extends the [FloatingPoint\<Float64>](#interface-floatingpointt) interface for the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
+Function: Extends the [FloatingPoint\<Float64>](#interface-floatingpointt) interface for the [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
 
 Parent Types:
 
@@ -316,9 +316,9 @@ Parent Types:
 public static func getE(): Float64
 ```
 
-Functionality: Gets the natural constant of the double-precision floating-point type.
+Function: Gets the natural constant of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The natural constant of the double-precision floating-point type.
 
@@ -328,9 +328,9 @@ Return Value:
 public static func getInf(): Float64
 ```
 
-Functionality: Gets the infinity value of the double-precision floating-point type.
+Function: Gets the infinity value of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The infinity value of the double-precision floating-point type.
 
@@ -340,9 +340,9 @@ Return Value:
 public static func getPI(): Float64
 ```
 
-Functionality: Gets the pi constant of the double-precision floating-point type.
+Function: Gets the pi constant of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The pi constant of the double-precision floating-point type.
 
@@ -352,9 +352,9 @@ Return Value:
 public static func getMinDenormal(): Float64
 ```
 
-Functionality: Gets the minimum denormal number of the double-precision floating-point type.
+Function: Gets the minimum denormal number of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The minimum denormal number of the double-precision floating-point type.
 
@@ -364,9 +364,9 @@ Return Value:
 public static func getMinNormal(): Float64
 ```
 
-Functionality: Gets the minimum normal number of the double-precision floating-point type.
+Function: Gets the minimum normal number of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The minimum normal number of the double-precision floating-point type.
 
@@ -376,9 +376,9 @@ Return Value:
 public static func getNaN(): Float64
 ```
 
-Functionality: Gets the Not-a-Number (NaN) value of the double-precision floating-point type.
+Function: Gets the Not-a-Number (NaN) value of the double-precision floating-point type.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The NaN value of the double-precision floating-point type.
 
@@ -397,7 +397,7 @@ public interface Integer<T> <: Number<T> {
 }
 ```
 
-Functionality: This interface provides methods related to integer types.
+Function: This interface provides methods related to integer types.
 
 Parent Types:
 
@@ -409,7 +409,7 @@ static func isSigned(): Bool
 
 Function: Determines whether the type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is signed; otherwise returns `false`.
 
@@ -425,7 +425,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand, representing the divisor.
 
-Return Value:
+Returns:
 
 - T - The calculated remainder.
 
@@ -441,7 +441,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -457,7 +457,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -473,7 +473,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -485,7 +485,7 @@ operator func !(): T
 
 Function: Bitwise NOT operator.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -501,7 +501,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The right-hand side operand, representing the number of bits to shift right.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -517,7 +517,7 @@ Parameters:
 
 - n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The right-hand side operand, representing the number of bits to shift left.
 
-Return Value:
+Returns:
 
 - T - The computed result.
 
@@ -541,7 +541,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -565,7 +565,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -589,7 +589,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -613,7 +613,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -637,7 +637,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `true`.
 
@@ -661,7 +661,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `false`.
 
@@ -685,7 +685,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `false`.
 
@@ -709,7 +709,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `false`.
 
@@ -733,7 +733,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `false`.
 
@@ -757,7 +757,7 @@ public static func isSigned(): Bool
 
 Function: Determines whether the [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) type is signed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Always returns `false`.
 
@@ -784,7 +784,7 @@ static func GetPI(): T
 
 Function: Retrieves the π constant for type T.
 
-Return Value:
+Returns:
 
 - T - The π constant of type T.
 
@@ -796,7 +796,7 @@ static func GetE(): T
 
 Function: Retrieves the natural constant e for type T.
 
-Return Value:
+Returns:
 
 - T - The natural constant e of type T.
 
@@ -820,7 +820,7 @@ public static func GetPI(): Float16
 
 Function: Retrieves the π constant for half-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The π constant of type Float16.
 
@@ -832,7 +832,7 @@ public static func GetE(): Float16
 
 Function: Retrieves the natural constant e for half-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The natural constant e of type Float16.
 
@@ -856,7 +856,7 @@ public static func GetPI(): Float32
 
 Function: Retrieves the π constant for single-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The π constant of type Float32.
 
@@ -868,7 +868,7 @@ public static func GetE(): Float32
 
 Function: Retrieves the natural constant e for single-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The natural constant e of type Float32.
 
@@ -892,7 +892,7 @@ public static func GetPI(): Float64
 
 Function: Retrieves the π constant for double-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The π constant of type Float64.
 
@@ -904,7 +904,7 @@ public static func GetE(): Float64
 
 Function: Retrieves the natural constant e for double-precision floating-point numbers.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The natural constant e of type Float64.## interface MaxMinValue\<T>
 
@@ -925,7 +925,7 @@ static func getMax(): T
 
 Function: Gets the maximum value.
 
-Return value:
+Returns:
 
 - T - The maximum value.
 
@@ -937,7 +937,7 @@ static func getMin(): T
 
 Function: Gets the minimum value.
 
-Return value:
+Returns:
 
 - T - The minimum value.
 
@@ -961,7 +961,7 @@ public static func getMax(): Float16
 
 Function: Gets the maximum value of [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The maximum value of half-precision floating-point type.
 
@@ -973,7 +973,7 @@ public static func getMin(): Float16
 
 Function: Gets the minimum value of [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type.
 
-Return value:
+Returns:
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The minimum value of half-precision floating-point type.
 
@@ -997,7 +997,7 @@ public static func getMax(): Float32
 
 Function: Gets the maximum value of [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The maximum value of single-precision floating-point type.
 
@@ -1009,7 +1009,7 @@ public static func getMin(): Float32
 
 Function: Gets the minimum value of [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type.
 
-Return value:
+Returns:
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The minimum value of single-precision floating-point type.
 
@@ -1033,7 +1033,7 @@ public static func getMax(): Float64
 
 Function: Gets the maximum value of [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The maximum value of double-precision floating-point type.
 
@@ -1045,7 +1045,7 @@ public static func getMin(): Float64
 
 Function: Gets the minimum value of [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type.
 
-Return value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The minimum value of double-precision floating-point type.
 
@@ -1069,7 +1069,7 @@ public static func getMax(): Int16
 
 Function: Gets the maximum value of [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The maximum value of [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type.
 
@@ -1081,7 +1081,7 @@ public static func getMin(): Int16
 
 Function: Gets the minimum value of [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type.
 
-Return value:
+Returns:
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The minimum value of [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type.
 
@@ -1105,7 +1105,7 @@ public static func getMax(): Int32
 
 Function: Gets the maximum value of [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The maximum value of [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type.
 
@@ -1117,7 +1117,7 @@ public static func getMin(): Int32
 
 Function: Gets the minimum value of [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type.
 
-Return value:
+Returns:
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The minimum value of [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type.
 
@@ -1141,7 +1141,7 @@ public static func getMax(): Int64
 
 Function: Gets the maximum value of [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum value of [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type.
 
@@ -1153,7 +1153,7 @@ public static func getMin(): Int64
 
 Function: Gets the minimum value of [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The minimum value of [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type.
 
@@ -1177,7 +1177,7 @@ public static func getMax(): Int8
 
 Function: Gets the maximum value of [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The maximum value of [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type.
 
@@ -1189,7 +1189,7 @@ public static func getMin(): Int8
 
 Function: Gets the minimum value of [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type.
 
-Return value:
+Returns:
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The minimum value of [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type.
 
@@ -1213,7 +1213,7 @@ public static func getMax(): IntNative
 
 Function: Gets the maximum value of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) type.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The maximum value of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) type.
 
@@ -1225,7 +1225,7 @@ public static func getMin(): IntNative
 
 Function: Gets the minimum value of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) type.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The minimum value of [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) type.
 
@@ -1249,7 +1249,7 @@ public static func getMax(): UInt16
 
 Function: Gets the maximum value of [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The maximum value of [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type.
 
@@ -1261,7 +1261,7 @@ public static func getMin(): UInt16
 
 Function: Gets the minimum value of [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type.
 
-Return value:
+Returns:
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The minimum value of [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type.
 
@@ -1285,7 +1285,7 @@ public static func getMax(): UInt32
 
 Function: Gets the maximum value of [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The maximum value of [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type.
 
@@ -1297,7 +1297,7 @@ public static func getMin(): UInt32
 
 Function: Gets the minimum value of [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type.
 
-Return value:
+Returns:
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The minimum value of [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type.
 
@@ -1321,7 +1321,7 @@ public static func getMax(): UInt64
 
 Function: Gets the maximum value of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The maximum value of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type.
 
@@ -1333,7 +1333,7 @@ public static func getMin(): UInt64
 
 Function: Gets the minimum value of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type.
 
-Return value:
+Returns:
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The minimum value of [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type.
 
@@ -1357,7 +1357,7 @@ public static func getMax(): UInt8
 
 Function: Gets the maximum value of [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The maximum value of [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type.
 
@@ -1369,7 +1369,7 @@ public static func getMin(): UInt8
 
 Function: Gets the minimum value of [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type.
 
-Return value:
+Returns:
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The minimum value of [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type.
 
@@ -1393,7 +1393,7 @@ public static func getMax(): UIntNative
 
 Function: Gets the maximum value of [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) type.
 
-Return value:
+Returns:
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - The maximum value of [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) type.
 
@@ -1431,7 +1431,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand, representing another addend.
 
-Return Value:
+Returns:
 
 - T - The computed sum.
 
@@ -1447,7 +1447,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand, representing the subtrahend.
 
-Return Value:
+Returns:
 
 - T - The computed difference.
 
@@ -1463,7 +1463,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand, representing another multiplier.
 
-Return Value:
+Returns:
 
 - T - The computed product.
 
@@ -1479,7 +1479,7 @@ Parameters:
 
 - rhs: T - The right-hand side operand, representing the divisor.
 
-Return Value:
+Returns:
 
 - T - The computed quotient.
 
@@ -1491,7 +1491,7 @@ operator func -(): T
 
 Function: Arithmetic operator for negation.
 
-Return Value:
+Returns:
 
 - T - The negated value.
 

@@ -121,7 +121,7 @@ func createTransaction(): Transaction
 
 Function: Creates a transaction object.
 
-Return value:
+Returns:
 
 - [Transaction](database_sql_package_interfaces.md#interface-transaction) - Transaction object.
 
@@ -137,7 +137,7 @@ func getMetaData(): Map<String, String>
 
 Function: Returns metadata of the connected data source.
 
-Return value:
+Returns:
 
 - [Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - Data source metadata.
 
@@ -153,7 +153,7 @@ Parameters:
 
 - sql: [String](../../core/core_package_api/core_package_structs.md#struct-string) - SQL statement to pre-execute, where parameters only support `?` placeholder symbols.
 
-Return value:
+Returns:
 
 - [Statement](database_sql_package_interfaces.md#interface-statement) - An instance object capable of executing SQL statements.
 
@@ -186,7 +186,7 @@ func connect(): Connection
 
 Function: Returns an available connection.
 
-Return value:
+Returns:
 
 - [Connection](database_sql_package_interfaces.md#interface-connection) - Database connection instance.
 
@@ -263,7 +263,7 @@ Parameters:
 - connectionString: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Database connection string.
 - opts: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string))> - Array of key-value tuples for data source opening options.
 
-Return value:
+Returns:
 
 - [Datasource](database_sql_package_interfaces.md#interface-datasource) - Data source instance.
 
@@ -309,7 +309,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
 
-Return value:
+Returns:
 
 - T - Instance of type `T`.
 
@@ -325,7 +325,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Specified column.
 
-Return value:
+Returns:
 
 - ?T - Instance of type `T`, returns None if null.
 
@@ -341,7 +341,7 @@ func next(): Bool
 
 Function: Moves to the next row. Must call `next()` once to move to the first row, second call moves to the second row, and so on. When returning `true`, the driver fills the current row of the result set with data; when returning `false`, it ends without modifying the current row's content.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if next row has data, otherwise `false`.
 
@@ -361,7 +361,7 @@ Parameters:
 
 - values: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)> - List of SQL data type values.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if next row has data, otherwise `false`.
 
@@ -458,7 +458,7 @@ func query(): QueryResult
 
 Function: Executes the SQL statement and returns the query result.
 
-Return Value:
+Returns:
 
 - [QueryResult](database_sql_package_interfaces.md#interface-queryresult) - The query result.
 
@@ -482,7 +482,7 @@ Parameters:
 
 - params: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)> - A list of SQL data type values used to replace `?` placeholders in the SQL statement.
 
-Return Value:
+Returns:
 
 - [QueryResult](database_sql_package_interfaces.md#interface-queryresult) - The query result.
 
@@ -544,7 +544,7 @@ Parameters:
 
 - params: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)> - A list of SQL data type values used to replace `?` placeholders in the SQL statement.
 
-Return Value:
+Returns:
 
 - [UpdateResult](database_sql_package_interfaces.md#interface-updateresult) - The update result.
 
@@ -560,7 +560,7 @@ func update(): UpdateResult
 
 Function: Executes the SQL statement and returns the update result.
 
-Return Value:
+Returns:
 
 - [UpdateResult](database_sql_package_interfaces.md#interface-updateresult) - The update result.
 

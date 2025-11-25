@@ -104,7 +104,7 @@ The Cangjie programming language’s standard library (std) is an officially pro
 The Cangjie Standard Library has three key characteristics and goals:
 
 - Convenience: The standard library is distributed with the compiler and toolchain, requiring no additional downloads from users, making it ready to use right out of the box.
-- Universal Functionality: The standard library provides the most commonly used library capabilities for developers, aiming to solve most basic problems.
+- Universal Function: The standard library provides the most commonly used library capabilities for developers, aiming to solve most basic problems.
 - Quality Benchmark: The standard library strives to set an example and benchmark for other Cangjie libraries in terms of performance, code style, etc.
 
 

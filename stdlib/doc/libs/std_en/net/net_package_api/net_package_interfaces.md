@@ -95,7 +95,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer space for storing packet content. `buffer` should have an appropriate size; otherwise, the packet may be truncated, and the returned packet size may exceed the buffer size.
 
-Return Value:
+Returns:
 
 - ([SocketAddress](net_package_classes.md#class-socketaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The sender's address and the size of the received packet (may be 0 or larger than the `buffer` size).
 
@@ -157,7 +157,7 @@ func accept(): StreamingSocket
 
 Description: Accepts a client socket connection request, blocking until a connection is established.
 
-Return Value:
+Returns:
 
 - [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) - The successfully connected client socket.
 
@@ -173,7 +173,7 @@ Parameters:
 
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The timeout duration for waiting.
 
-Return Value:
+Returns:
 
 - [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) - The successfully connected client socket.
 

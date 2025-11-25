@@ -61,7 +61,7 @@ Parameters:
 
 - rhs: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - The data source connection state to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `false` if the input connection state matches the current state, otherwise returns `true`.
 
@@ -77,7 +77,7 @@ Parameters:
 
 - rhs: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - The data source connection state to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the input connection state matches the current state, otherwise returns `false`.
 
@@ -131,7 +131,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of the transaction access mode.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the transaction access mode.
 
@@ -149,7 +149,7 @@ Function: Returns the string representation of the transaction access mode. The 
 | ReadWrite    | "Read Write"  |
 | Unspecified  | "Unspecified" |
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the transaction access mode.
 
@@ -165,7 +165,7 @@ Parameters:
 
 - rhs: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - The input enum value to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if unequal, otherwise returns `false`.
 
@@ -181,7 +181,7 @@ Parameters:
 
 - rhs: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - The input enum value to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise returns `false`.
 
@@ -239,7 +239,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of the transaction deferrable mode.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the transaction deferrable mode.
 
@@ -257,7 +257,7 @@ Function: Returns the string representation of the transaction deferrable mode. 
 | NotDeferrable  | "Not Deferrable" |
 | Unspecified    | "Unspecified"    |
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the transaction deferrable mode.
 
@@ -273,7 +273,7 @@ Parameters:
 
 - rhs: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - The input enum value to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if unequal, otherwise returns `false`.
 
@@ -289,7 +289,7 @@ Parameters:
 
 - rhs: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - The input enum value to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise returns `false`.
 
@@ -396,7 +396,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of the transaction isolation level.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the transaction isolation level.
 
@@ -419,7 +419,7 @@ Function: Returns the string representation of the transaction isolation level. 
 | Snapshot         | "Snapshot"          |
 | Unspecified      | "Unspecified"       |
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the transaction isolation level.
 
@@ -435,7 +435,7 @@ Parameters:
 
 - rhs: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - The input [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise returns `false`.
 
@@ -451,6 +451,6 @@ Parameters:
 
 - rhs: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - The input [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise returns `false`.

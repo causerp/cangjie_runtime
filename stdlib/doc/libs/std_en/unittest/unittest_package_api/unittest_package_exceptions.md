@@ -78,7 +78,7 @@ public func getOriginalStackTrace(): String
 
 Function: Gets the original stack trace.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Stack trace information.
 
@@ -114,6 +114,6 @@ protected override open func getClassName(): String
 
 Function: Gets the class name.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name string.

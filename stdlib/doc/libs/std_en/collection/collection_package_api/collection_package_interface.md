@@ -13,7 +13,7 @@ public interface Deque<T> <: Collection<T> {
 }
 ```
 
-Functionality: Deque (double-ended queue) is a data structure that combines features of both queues and stacks, allowing insertion and deletion of elements from both ends. The main functionalities of the Deque interface include:
+Function: Deque (double-ended queue) is a data structure that combines features of both queues and stacks, allowing insertion and deletion of elements from both ends. The main functionalities of the Deque interface include:
 
 - Insertion operations: Elements can be inserted at either the front or rear of the deque. Use `addFirst` to insert at the head, and `addLast` to insert at the tail.
 - Access operations: Elements at either end can be accessed without removal. Use `first` to access the head element and `last` to access the tail element.
@@ -30,7 +30,7 @@ Parent type:
 prop first: ?T
 ```
 
-Functionality: Accesses the head element of the deque without removing it.
+Function: Accesses the head element of the deque without removing it.
 
 Type: ?T
 
@@ -40,7 +40,7 @@ Type: ?T
 prop last: ?T
 ```
 
-Functionality: Accesses the tail element of the deque without removing it.
+Function: Accesses the tail element of the deque without removing it.
 
 Type: ?T
 
@@ -50,7 +50,7 @@ Type: ?T
 func addFirst(element: T): Unit
 ```
 
-Functionality: Inserts the specified element at the head of the deque.
+Function: Inserts the specified element at the head of the deque.
 
 Parameter:
 
@@ -62,7 +62,7 @@ Parameter:
 func addLast(element: T): Unit
 ```
 
-Functionality: Inserts the specified element at the tail of the deque.
+Function: Inserts the specified element at the tail of the deque.
 
 Parameter:
 
@@ -74,9 +74,9 @@ Parameter:
 func removeFirst(): ?T
 ```
 
-Functionality: Removes and returns the head element of the deque.
+Function: Removes and returns the head element of the deque.
 
-Return value:
+Returns:
 
 - ?T - The value of the removed element wrapped in Option. Returns None if the deque is empty.
 
@@ -86,9 +86,9 @@ Return value:
 func removeLast(): ?T
 ```
 
-Functionality: Removes and returns the tail element of the deque.
+Function: Removes and returns the tail element of the deque.
 
-Return value:
+Returns:
 
 - ?T - The value of the removed element wrapped in Option. Returns None if the deque is empty.
 
@@ -101,7 +101,7 @@ public interface EquatableCollection<T> <: Collection<T> {
 }
 ```
 
-Functionality: Defines collection types that support comparison operations.
+Function: Defines collection types that support comparison operations.
 
 Parent type:
 
@@ -113,13 +113,13 @@ Parent type:
 func contains(element: T): Bool
 ```
 
-Functionality: Determines whether the collection contains the specified element.
+Function: Determines whether the collection contains the specified element.
 
 Parameter:
 
 - element: T - The element to check for presence in the collection.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the element is present, otherwise false.
 
@@ -129,13 +129,13 @@ Return value:
 func contains(all!: Collection<T>): Bool
 ```
 
-Functionality: Determines whether the collection contains all elements of the specified collection.
+Function: Determines whether the collection contains all elements of the specified collection.
 
 Parameter:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection whose elements are to be checked for presence.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements are present, otherwise false.
 
@@ -156,7 +156,7 @@ public interface List<T> <: ReadOnlyList<T> {
 }
 ```
 
-Functionality: Defines a list type that provides index-friendly operations.
+Function: Defines a list type that provides index-friendly operations.
 
 Parent type:
 
@@ -168,7 +168,7 @@ Parent type:
 func add(element: T): Unit
 ```
 
-Functionality: Appends the specified element to the end of this list.
+Function: Appends the specified element to the end of this list.
 
 Parameter:
 
@@ -180,7 +180,7 @@ Parameter:
 func add(all!: Collection<T>): Unit
 ```
 
-Functionality: Appends all elements from the specified collection to the end of this list.
+Function: Appends all elements from the specified collection to the end of this list.
 
 Parameter:
 
@@ -192,7 +192,7 @@ Parameter:
 func add(element: T, at!: Int64): Unit
 ```
 
-Functionality: Inserts the specified element at the specified position in this list.
+Function: Inserts the specified element at the specified position in this list.
 
 Parameters:
 
@@ -205,7 +205,7 @@ Parameters:
 func add(all!: Collection<T>, at!: Int64): Unit
 ```
 
-Functionality: Inserts all elements from the specified collection into this list starting from the specified position.
+Function: Inserts all elements from the specified collection into this list starting from the specified position.
 
 Parameters:
 
@@ -218,7 +218,7 @@ Parameters:
 func clear(): Unit
 ```
 
-Functionality: Removes all elements from this list.
+Function: Removes all elements from this list.
 
 ### func remove(Int64)
 
@@ -226,13 +226,13 @@ Functionality: Removes all elements from this list.
 func remove(at!: Int64): T
 ```
 
-Functionality: Removes the element at the specified position in this list.
+Function: Removes the element at the specified position in this list.
 
 Parameter:
 
 - at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to be removed.
 
-Return value:
+Returns:
 
 - T - The removed element.
 
@@ -242,7 +242,7 @@ Return value:
 func remove(range: Range<Int64>): Unit
 ```
 
-Functionality: Removes all elements in this list that fall within the specified [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet).
+Function: Removes all elements in this list that fall within the specified [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet).
 
 Parameter:
 
@@ -254,7 +254,7 @@ Parameter:
 func removeIf(predicate: (T) -> Bool): Unit
 ```
 
-Functionality: Removes all elements from this list that satisfy the given lambda expression or function.
+Function: Removes all elements from this list that satisfy the given lambda expression or function.
 
 Parameter:
 
@@ -266,7 +266,7 @@ Parameter:
 operator func [](index: Int64, value!: T): Unit
 ```
 
-Functionality: Operator overload - set, replaces the element at the specified position in this list with the specified element using the subscript operator.
+Function: Operator overload - set, replaces the element at the specified position in this list with the specified element using the subscript operator.
 
 Parameters:
 
@@ -290,7 +290,7 @@ public interface Map<K, V> <: ReadOnlyMap<K, V> {
 }
 ```
 
-Functionality: The [Map](collection_package_interface.md#interface-mapk-v) interface provides a way to map keys to values. It allows lookup of values using keys, enabling storage and manipulation of key-value pairs.
+Function: The [Map](collection_package_interface.md#interface-mapk-v) interface provides a way to map keys to values. It allows lookup of values using keys, enabling storage and manipulation of key-value pairs.
 
 A [Map](collection_package_interface.md#interface-mapk-v) cannot contain duplicate keys; each key maps to at most one value.
 
@@ -304,14 +304,14 @@ Parent type:
 func add(key: K, value: V): ?V
 ```
 
-Functionality: Places the specified key-value pair into this [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with the new value.
+Function: Places the specified key-value pair into this [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with the new value.
 
 Parameters:
 
 - key: K - The key to place.
 - value: V - The value to assign.
 
-Return value:
+Returns:
 
 - ?V - Returns the old value if the key previously existed, otherwise returns None.
 
@@ -321,7 +321,7 @@ Return value:
 func add(all!: Collection<(K, V)>): Unit
 ```
 
-Functionality: Places new key-value pairs into the [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with new values.
+Function: Places new key-value pairs into the [Map](collection_package_interface.md#interface-mapk-v). For existing keys in the map, their mapped values will be replaced with new values.
 
 Parameter:
 
@@ -333,14 +333,14 @@ Parameter:
 func addIfAbsent(key: K, value: V): ?V
 ```
 
-Functionality: Adds the specified key-value pair if the key is not already present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
+Function: Adds the specified key-value pair if the key is not already present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
 
 Parameters:
 
 - key: K - The key of the key-value pair to be added.
 - value: V - The value of the key-value pair to be added.
 
-Return value:
+Returns:
 
 - ?V - Returns the old value if the key was already present in the map, otherwise returns None.
 
@@ -350,7 +350,7 @@ Return value:
 func clear(): Unit
 ```
 
-Functionality: Clears all key-value pairs.
+Function: Clears all key-value pairs.
 
 ### func entryView(K)
 
@@ -358,13 +358,13 @@ Functionality: Clears all key-value pairs.
 func entryView(k: K): MapEntryView<K, V>
 ```
 
-Functionality: Gets the view corresponding to the specified key k.
+Function: Gets the view corresponding to the specified key k.
 
 Parameter:
 
 - k: K - The key whose view is to be obtained.
 
-Return value:
+Returns:
 
 - [MapEntryView](#interface-mapentryviewk-v)\<K, V> - The view corresponding to key k.
 
@@ -374,13 +374,13 @@ Return value:
 func remove(key: K): Option<V>
 ```
 
-Functionality: Removes the mapping for the specified key from this [Map](collection_package_interface.md#interface-mapk-v) if present.
+Function: Removes the mapping for the specified key from this [Map](collection_package_interface.md#interface-mapk-v) if present.
 
 Parameter:
 
 - key: K - The key whose mapping is to be removed.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - The value associated with the removed key, wrapped in Option.
 
@@ -390,7 +390,7 @@ Return value:
 func remove(all!: Collection<K>): Unit
 ```
 
-Functionality: Removes mappings for all keys in the specified collection from this map if present.
+Function: Removes mappings for all keys in the specified collection from this map if present.
 
 Parameter:
 
@@ -402,7 +402,7 @@ Parameter:
 func removeIf(predicate: (K, V) -> Bool): Unit
 ```
 
-Functionality: Removes all key-value pairs that satisfy the given lambda expression.
+Function: Removes all key-value pairs that satisfy the given lambda expression.
 
 Parameter:
 
@@ -414,14 +414,14 @@ Parameter:
 func replace(key: K, value: V): ?V
 ```
 
-Functionality: Replaces the value for the specified key with the new value if the key is present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
+Function: Replaces the value for the specified key with the new value if the key is present in the current [Map](collection_package_interface.md#interface-mapk-v). Otherwise, makes no modifications.
 
 Parameters:
 
 - key: K - The key of the key-value pair to be modified.
 - value: V - The new value for the key-value pair.
 
-Return value:
+Returns:
 
 - ?V - Returns the old value if the key was present in the map, otherwise returns None.
 
@@ -431,7 +431,7 @@ Return value:
 operator func [](key: K, value!: V): Unit
 ```
 
-Functionality: Operator overload collection. If the key exists, the new value overwrites the old value. If the key doesn't exist, adds this key-value pair.
+Function: Operator overload collection. If the key exists, the new value overwrites the old value. If the key doesn't exist, adds this key-value pair.
 
 Parameters:
 
@@ -519,7 +519,7 @@ public func removeFirst(): ?(K, V)
 
 Function: Removes the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
-Return Value:
+Returns:
 
 - ?(K, V) - If the current [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
@@ -531,7 +531,7 @@ public func removeLast(): ?(K, V)
 
 Function: Removes the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
 
-Return Value:
+Returns:
 
 - ?(K, V) - If the current [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) is not empty, returns the removed key-value pair encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
@@ -548,7 +548,7 @@ Parameters:
 - mark: K - The key used to determine the starting point.
 - inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the first element in the iterator, specifies whether to include `mark` as the starting point.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator.
 
@@ -565,7 +565,7 @@ Parameters:
 - mark: K - The key used to determine the starting point.
 - inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the key of the first element in the iterator, specifies whether to include `mark` as the starting point.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - The iterator.
 
@@ -619,7 +619,7 @@ public func removeFirst(): ?T
 
 Function: Removes the first element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
-Return Value:
+Returns:
 
 - ?T - If the current [OrderedSet](collection_package_interface.md#interface-orderedsett) is not empty, returns the removed element encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
@@ -631,7 +631,7 @@ public func removeLast(): ?T
 
 Function: Removes the last element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
 
-Return Value:
+Returns:
 
 - ?T - If the current [OrderedSet](collection_package_interface.md#interface-orderedsett) is not empty, returns the removed element encapsulated in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise, returns `None`.
 
@@ -648,7 +648,7 @@ Parameters:
 - mark: T - The element used to determine the starting point.
 - inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element in the iterator, specifies whether to include `mark` as the starting point.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator.
 
@@ -665,7 +665,7 @@ Parameters:
 - mark: T - The element used to determine the starting point.
 - inclusive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - When `mark` is the first element in the iterator, specifies whether to include `mark` as the starting point.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator.
 
@@ -710,7 +710,7 @@ func peek(): ?T
 
 Function: Accesses the front element of the queue without removing it.
 
-Return Value:
+Returns:
 
 - ?T - The value of the front element encapsulated in Option. If the queue is empty, returns `None`.
 
@@ -722,7 +722,7 @@ func remove(): ?T
 
 Function: Removes the front element of the queue and returns its value.
 
-Return Value:
+Returns:
 
 - ?T - The value of the removed element encapsulated in Option. If the queue is empty, returns `None`.
 
@@ -775,7 +775,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index of the element to return.
 
-Return Value:
+Returns:
 
 - ?T - The element at the specified position. If the index is less than 0 or greater than or equal to the number of elements in this list, returns None.
 
@@ -791,7 +791,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index for the get operation.
 
-Return Value:
+Returns:
 
 - T - The value of the element at the specified index.
 
@@ -829,7 +829,7 @@ Parameters:
 
 - key: K - The key used to look up the value.
 
-Return Value:
+Returns:
 
 - ?V - The value corresponding to the key in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v).
 
@@ -845,7 +845,7 @@ Parameters:
 
 - key: K - The key to check.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the key exists; otherwise, returns false.
 
@@ -861,7 +861,7 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - The collection of keys to check.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all keys exist; otherwise, returns false.
 
@@ -873,7 +873,7 @@ func keys(): EquatableCollection<K>
 
 Function: Returns all keys in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in an [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> container.
 
-Return Value:
+Returns:
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - Contains all returned keys.
 
@@ -885,7 +885,7 @@ func values(): Collection<V>
 
 Function: Returns all values in the [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v), stored in a [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> container.
 
-Return Value:
+Returns:
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - Contains all returned values.
 
@@ -901,7 +901,7 @@ Parameters:
 
 - key: K - The key to look up.
 
-Return Value:
+Returns:
 
 - V - The value corresponding to the key.
 
@@ -933,7 +933,7 @@ Parameters:
 
 - element: T - The element to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if contained; otherwise, returns false.
 
@@ -949,7 +949,7 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - Another collection.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this set contains the specified collection; otherwise, returns false.
 
@@ -965,7 +965,7 @@ Parameters:
 
 - other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - Another set.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this set is a subset of the specified set; otherwise, returns false.
 
@@ -1003,7 +1003,7 @@ Parameters:
 
 - element: T - The element to be added.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if added successfully; otherwise, returns false.
 
@@ -1031,7 +1031,7 @@ Parameters:
 
 - element: T - The element to be removed.
 
-Return Value:
+Returns:
 
 - Bool - Returns `true` if the element existed and was removed successfully; otherwise, returns `false`.
 
@@ -1117,7 +1117,7 @@ func peek(): ?T
 
 Description: Views the top element without removing it.
 
-Return Value:
+Returns:
 
 - ?T - The top element of the stack. Returns `None` if the stack is empty.
 
@@ -1129,7 +1129,7 @@ func remove(): ?T
 
 Description: Removes and returns the top element of the stack.
 
-Return Value:
+Returns:
 
 - ?T - The removed top element. Returns `None` if the stack is empty.
 ```

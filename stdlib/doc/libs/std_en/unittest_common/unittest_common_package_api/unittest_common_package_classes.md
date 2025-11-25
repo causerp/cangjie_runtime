@@ -30,7 +30,7 @@ public func clone(): Configuration
 
 Function: Creates a copy of the Configuration object.
 
-Return Value:
+Returns:
 
 - [Configuration](#class-configuration) - The copied object.
 
@@ -48,7 +48,7 @@ Parameters:
 
 - key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - The key of the configuration item.
 
-Return Value:
+Returns:
 
 - ?T - Returns None if not found, or Some\<T>(v) if a value matching the type and name is found.
 
@@ -66,7 +66,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The key name.
 
-Return value:
+Returns:
 
 - ?T - Returns `None` when not found, returns `Some<T>(v)` when a value of the corresponding type and name is found.
 
@@ -82,7 +82,7 @@ Parameters:
 
 - key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - The key of the configuration item.
 
-Return Value:
+Returns:
 
 - ?T - Returns the value if it exists, or None if it does not.
 
@@ -98,7 +98,7 @@ Parameters:
 
 - key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The key name.
 
-Return Value:
+Returns:
 
 - ?T - Returns the value if it exists, or None if it does not.
 
@@ -136,7 +136,7 @@ public func toString(): String
 
 Function: Converts the object to a string. If the internal object does not implement the [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) interface, it outputs '\<not printable>'.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string.
 
@@ -153,7 +153,7 @@ Parameters:
 - parent: [Configuration](#class-configuration) - The configuration to be merged.
 - child: [Configuration](#class-configuration) - The configuration to be merged.
 
-Return Value:
+Returns:
 
 - [Configuration](#class-configuration) - The merged configuration.
 
@@ -178,7 +178,7 @@ public override func hashCode(): Int64
 
 Function: Retrieves the hashCode value.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hashCode value.
   
@@ -204,7 +204,7 @@ Parameters:
 
 - that: [ConfigurationKey](#class-configurationkey) - The data to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether they are equal.
 
@@ -220,7 +220,7 @@ Parameters:
 
 - that: [ConfigurationKey](#class-configurationkey) - The data to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether they are not equal.
 
@@ -240,7 +240,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the configuration key.
 
-Return Value:
+Returns:
 
 - [ConfigurationKey](#class-configurationkey) - The created configuration key.
 
@@ -289,7 +289,7 @@ Parameters:
 
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to append.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -305,7 +305,7 @@ Parameters:
 
 - value: PP - An object implementing [PrettyPrintable](./unittest_common_package_interfaces.md#interface-prettyprintable).
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -322,7 +322,7 @@ Parameters:
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to append.
 - space: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of spaces for alignment.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -339,7 +339,7 @@ Parameters:
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to append.
 - space: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of spaces for alignment.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -355,7 +355,7 @@ Parameters:
 
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to append.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -371,7 +371,7 @@ Parameters:
 
 - value: PP - An object implementing [PrettyPrintable](./unittest_common_package_interfaces.md#interface-prettyprintable).
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -388,7 +388,7 @@ Parameters:
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to append.
 - space: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of spaces for alignment.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -416,7 +416,7 @@ Parameters:
 - color: [Color](./unittest_common_package_enums.md#enum-color) - The specified color.
 - body: () -> Unit - The closure for adding strings.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -433,7 +433,7 @@ Parameters:
 - spaceSize: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The specified size.
 - body: () -\> body - The filling method.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -450,7 +450,7 @@ Parameters:
 - color: [Color](./unittest_common_package_enums.md#enum-color) - The specified color.
 - text: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to add.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -478,7 +478,7 @@ Parameters:
 - symbols: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of additional indents.
 - body: () -> Unit - The closure for adding strings.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -505,7 +505,7 @@ Parameters:
 
 - body: () -> Unit - The closure for adding strings.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -533,7 +533,7 @@ Parameters:
 - indents: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The number of additional indents.
 - body: () -> Unit - The closure for adding strings.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -545,7 +545,7 @@ public func newLine(): PrettyPrinter
 
 Function: Adds a new line.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -628,7 +628,7 @@ public func isEmpty(): Bool
 
 Function: Returns whether the current builder is empty (i.e., no values have been passed to the builder).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` when no content has been passed, otherwise returns `false`.
 
@@ -644,7 +644,7 @@ Parameters:
 
 - to: [PrettyPrinter](#class-prettyprinter) - The printer.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](#class-prettyprinter) - The printer.
 
@@ -656,7 +656,7 @@ public func toString(): String
 
 Function: Prints text to a string.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string containing the printed text.
 
@@ -672,6 +672,6 @@ Parameters:
 
 - pp: PP - A type that implements [PrettyPrintable](./unittest_common_package_interfaces.md#interface-prettyprintable).
 
-Return Value:
+Returns:
 
 - [PrettyText](#class-prettytext) - The printed text object.

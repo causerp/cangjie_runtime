@@ -35,7 +35,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Buffer for storing data read from the input stream.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes read.
 
@@ -125,6 +125,6 @@ Parameters:
 
 - sp: [SeekPosition](io_package_enums.md#enum-seekposition) - Specifies the target position after cursor movement.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the offset (in bytes) from the start of the stream data to the new position.

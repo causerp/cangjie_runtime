@@ -40,7 +40,7 @@ public operator func () (): R
 
 Function: Call operator function. Converts the closure into a struct's call operator function.
 
-Return value:
+Returns:
 
 - R - Same as the closure's return value.
 
@@ -64,7 +64,7 @@ public static func arbitrary(random: RandomSource): Generator<Function0Wrapper<R
 
 Function: Gets a generator for random values of type [Function0Wrapper](#struct-function0wrapperr)\<R>.
 
-Return value:
+Returns:
 
 - [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[Function0Wrapper](../unittest_prop_test_package_api/unittest_prop_test_package_structs.md#struct-function0wrapperr)\<R>> - The generator.
 
@@ -140,7 +140,7 @@ Parameters:
 
 - f: (T0, T1) -> R - The closure to be executed.
 
-Return value:
+Returns:
 
 - R - Execution result of the closure.
 
@@ -188,7 +188,7 @@ Parameters:
 
 - other: [TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1> - The tuple to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -204,7 +204,7 @@ Parameters:
 
 - other: [TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1> - The tuple to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.
 
@@ -232,7 +232,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
 
-Return value:
+Returns:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value inside the tuple. Returns `None` if the index is invalid.
 
@@ -256,7 +256,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 Function: Gets a generator for random values of type [TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1>.
 
-Return value:
+Returns:
 
 - [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1>> - The generator.
 
@@ -278,7 +278,7 @@ override func shrink(): Iterable<TupleWrapper2<T0, T1>>
 
 Function: Shrinks the tuple.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2<T0, T1> - Data iterator.
 
@@ -326,7 +326,7 @@ Parameters:
 
 - f: (T0, T1,T2) -> R - The closure to be executed.
 
-Return value:
+Returns:
 
 - R - Execution result of the closure.
 
@@ -374,7 +374,7 @@ Parameters:
 
 - other: [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2> - The tuple to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -390,7 +390,7 @@ Parameters:
 
 - other: [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2> - The tuple to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.
 
@@ -418,7 +418,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
 
-Return value:
+Returns:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value inside the tuple. Returns `None` if the index is invalid.
 
@@ -442,7 +442,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper3<T0, 
 
 Function: Gets a generator for random values of type [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>.
 
-Return value:
+Returns:
 
 - [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>> - The generator.
 
@@ -465,7 +465,7 @@ override func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
 
 Function: Shrinks the tuple.
 
-Return value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> - Data iterator.## struct TupleWrapper4\<T0, T1, T2, T3>
 
@@ -511,7 +511,7 @@ Parameters:
 
 - f: (T0, T1, T2, T3) -> R - The closure to be executed.
 
-Return Value:
+Returns:
 
 - R - The execution result of the closure.
 
@@ -559,7 +559,7 @@ Parameters:
 
 - other: TupleWrapper4\<T0, T1, T2, T3> - The tuple to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -575,7 +575,7 @@ Parameters:
 
 - other: [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3> - The tuple to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.
 
@@ -603,7 +603,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
 
-Return Value:
+Returns:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The retrieved value inside the tuple. Returns `None` if the index is invalid.
 
@@ -627,7 +627,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, 
 
 Function: Gets a generator for random values of type [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>.
 
-Return Value:
+Returns:
 
 - [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>> - The generator.
 
@@ -651,7 +651,7 @@ override func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
 
 Function: Shrinks the tuple.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper4<T0, T1, T2, T3>> - The data iterator.
 
@@ -699,7 +699,7 @@ Parameters:
 
 - f: (T0, T1, T2, T3, T4) -> R - The closure to be executed.
 
-Return Value:
+Returns:
 
 - R - The execution result of the closure.
 
@@ -747,7 +747,7 @@ Parameters:
 
 - other: [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3> - The tuple to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -763,7 +763,7 @@ Parameters:
 
 - other: [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4> - The tuple to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal, otherwise `false`.
 
@@ -791,7 +791,7 @@ Parameters:
 
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value.
 
-Return Value:
+Returns:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The retrieved value inside the tuple. Returns `None` if the index is invalid.
 
@@ -815,7 +815,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, 
 
 Function: Gets a generator for random values of type [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>.
 
-Return Value:
+Returns:
 
 - [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - The generator.
 
@@ -840,6 +840,6 @@ override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
 
 Function: Shrinks the tuple.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee
