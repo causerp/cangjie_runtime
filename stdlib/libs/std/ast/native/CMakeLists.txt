@@ -40,6 +40,12 @@ add_custom_command(
             ${CMAKE_SOURCE_DIR}/libs/std/ast/
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${FLATBUFFER_DEPEND_CJ_DIR}/decode.cj
             ${CMAKE_SOURCE_DIR}/libs/std/ast/
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${FLATBUFFER_DEPEND_CJ_DIR}/builder.cj
+            ${CMAKE_SOURCE_DIR}/libs/std/ast/
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${FLATBUFFER_DEPEND_CJ_DIR}/constants.cj
+            ${CMAKE_SOURCE_DIR}/libs/std/ast/
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different ${FLATBUFFER_DEPEND_CJ_DIR}/exception.cj
+            ${CMAKE_SOURCE_DIR}/libs/std/ast/flatc_exception.cj
     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${CMAKE_BINARY_DIR}/${FILENAME}_generated.cj
         ${CMAKE_SOURCE_DIR}/libs/std/ast/${FILENAME}_generated.cj
     COMMENT "Copy cangjie library files to libs")
