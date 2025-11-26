@@ -1,5 +1,21 @@
 # 函数
 
+## func blackBox\<T>(T)
+ 
+```cangjie
+public func blackBox<T>(input: T): T
+```
+ 
+功能：指示编译器传入的变量进入优化黑盒，无法进行死代码消除等优化。
+ 
+参数：
+ 
+- input: T - 进入优化黑洞的变量。
+ 
+返回值：
+ 
+- T - 若变量仍需被使用，则可使用该返回值进行调用。
+ 
 ## func dumpHeapData(Path)
 
 ```cangjie
