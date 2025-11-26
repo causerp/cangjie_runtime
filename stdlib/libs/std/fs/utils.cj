@@ -59,7 +59,8 @@ func isAbsolutePath(path: String): Bool {
 
 @When[os != "Windows"]
 func toAbsolutePath(path: Path): Path {
-    path.checkPath()
+    PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
     let raw = path.toString()
     if (isAbsolutePath(raw)) {
         return path
@@ -138,7 +139,8 @@ func isAbsolutePath(path: String): Bool {
 
 @When[os == "Windows"]
 func toAbsolutePath(path: Path): Path {
-    path.checkPath()
+    PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
     let raw = path.toString()
     if (isAbsolutePath(raw) || raw.size == 2 && raw[1] == b':') {
         return path
@@ -379,7 +381,7 @@ func callNativeFunc(path: String, nativeFunc: CFunc<(CString) -> CPointer<FsErro
         if (result.rtnCode < 0) {
             try {
                 let errMessage = result.msg.toString()
-                throw FSException("${errMsgPrefix} input path is `${path}`: \"${errMessage.trimAscii()}\", return ${result.rtnCode}.")
+                throw FSException("${errMsgPrefix} return ${result.rtnCode}: \"${errMessage.trimAscii()}\".")
             } finally {
                 LibC.free(result.msg)
             }

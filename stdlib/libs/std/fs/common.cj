@@ -11,26 +11,12 @@
  */
 package std.fs
 
-private func checkCopy(sourcePath: Path, to: Path): Unit {
-    if (sourcePath._rawPath.isEmpty()) {
-        throw IllegalArgumentException("The path 'sourcePath' is empty.")
-    }
-    if (to._rawPath.isEmpty()) {
-        throw IllegalArgumentException("The path 'to' is empty.")
-    }
-    if (sourcePath._rawPath.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path 'sourcePath' value ${unsafe { sourcePath._rawPath.rawData() }} contains null character.")
-    }
-    if (to._rawPath.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path 'to' value ${unsafe { to._rawPath.rawData() }} contains null character.")
-    }
-    if (sourcePath == to) {
-        throw FSException("The 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
-    }
-}
-
 public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
-    checkCopy(sourcePath, to)
+    PathValidator.throwIfEmptyOrContainsNullByte("sourcePath", sourcePath, true)
+    PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
+    if (sourcePath == to) {
+        throw FSException("The input path 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
+    }
 
     let fileInfo = FileInfo(sourcePath)
     let destInfo = if (exists(to)) {
@@ -44,7 +30,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
             if (!overwrite) {
                 throw FSException("Destination path `${to}` is already exists.")
             } else if (!info.isRegular()) {
-                throw FSException("Source path `${sourcePath}` is file but destination path `${to}` is exists and is not file.")
+                throw FSException("Source path `${sourcePath}` is file but destination path `${to}` is already exists and is not file.")
             }
         }
         return File.copy(sourcePath._rawPath, to._rawPath, overwrite)
@@ -53,7 +39,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
             if (!overwrite) {
                 throw FSException("Destination path `${to}` is already exists.")
             } else if (!info.isDirectory()) {
-                throw FSException("Source path `${sourcePath}` is directory but destination path `${to}` is exists and is not directory.")
+                throw FSException("Source path `${sourcePath}` is directory but destination path `${to}` is already exists and is not directory.")
             }
         }
         return Directory.copy(sourcePath._rawPath, to._rawPath, overwrite)
@@ -62,7 +48,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit {
             if (!overwrite) {
                 throw FSException("Destination path `${to}` is already exists.")
             } else if (!info.isSymbolicLink()) {
-                throw FSException("Source path `${sourcePath}` is symbolic link but destination path `${to}` is exists and is not symbolic link.")
+                throw FSException("Source path `${sourcePath}` is symbolic link but destination path `${to}` is already exists and is not symbolic link.")
             } else {
                 remove(to)
             }
@@ -82,17 +68,9 @@ public func remove(path: Path, recursive!: Bool = false): Unit {
     remove(path._rawPath, recursive: recursive)
 }
 
-private func checkRemove(path: String): Unit {
-    if (path.isEmpty()) {
-        throw IllegalArgumentException("The input path is empty.")
-    }
-    if (path.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The input path value ${unsafe { path.rawData() }} contains null character.")
-    }
-}
-
 public func remove(path: String, recursive!: Bool = false): Unit {
-    checkRemove(path)
+    PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
     unsafe {
         try (cpath = LibC.mallocCString(path).asResource()) {
             let pret = CJ_FS_Remove(cpath.value, recursive)
@@ -106,7 +84,7 @@ public func remove(path: String, recursive!: Bool = false): Unit {
             }
             try {
                 let errMessage = ret.msg.toString()
-                throw FSException("Failed to remove `${path}` because `${errMessage.trimAscii()}`.")
+                throw FSException("Failed to remove `${path}` return ${ret.rtnCode}: \"${errMessage.trimAscii()}\".")
             } finally {
                 LibC.free(ret.msg)
             }
@@ -119,12 +97,8 @@ public func exists(path: Path): Bool {
 }
 
 public func exists(path: String): Bool {
-    if (path.isEmpty()) {
-        throw IllegalArgumentException("The input path is empty.")
-    }
-    if (let Some(n) <- path.indexOf(NULL_BYTE)) {
-        throw IllegalArgumentException("The input path ${unsafe { path.rawData() }} contains null character.")
-    }
+    PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
     unsafe {
         let cPath = LibC.mallocCString(path)
         var ret: Int8 = CJ_FS_Exists(cPath)
@@ -134,23 +108,11 @@ public func exists(path: String): Bool {
 }
 
 public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): Unit {
-    if (sourcePath.isEmpty()) {
-        throw IllegalArgumentException("The path 'sourcePath' is empty!")
-    }
-    if (to.isEmpty()) {
-        throw IllegalArgumentException("The path 'to' is empty!")
-    }
-    if (sourcePath.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path 'sourcePath' value ${unsafe { sourcePath.rawData() }} contains null character.")
-    }
-    if (to.contains(NULL_BYTE)) {
-        throw IllegalArgumentException("The path 'to' value ${unsafe { to.rawData() }} contains null character.")
-    }
-
+    PathValidator.throwIfEmptyOrContainsNullByte("sourcePath", sourcePath, true)
+    PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
     if (Path(sourcePath) == Path(to)) {
-        throw FSException("The 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
+        throw FSException("The input path 'sourcePath' `${sourcePath}` and 'to' `${to}` are the same path.")
     }
-
     if (exists(to) && !overwrite) {
         throw FSException("Destination path 'to' `${to}` is already exists and overwrite is false.")
     }
@@ -168,7 +130,7 @@ public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): U
         }
         try {
             let errMessage = result.msg.toString()
-            throw FSException("Failed to rename `${sourcePath}` to `${to}` because `${errMessage.trimAscii()}`.")
+            throw FSException("Failed to rename `${sourcePath}` to `${to}` return ${result.rtnCode}:\"${errMessage.trimAscii()}\".")
         } finally {
             unsafe { LibC.free(result.msg) }
         }

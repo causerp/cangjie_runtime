@@ -95,16 +95,12 @@ public class File <: Resource & IOStream & Seekable {
      * or other reasons caused fail to open file.
      */
     public init(path: String, mode: OpenMode) {
-        if (path.isEmpty()) {
-            throw IllegalArgumentException("The file path is empty.")
-        }
-        if (path.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The file path value ${unsafe { path.rawData() }} contains null character.")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
+
         let filePath: Path = Path(path)
         let parent = filePath.parent
         if (!parent.isEmpty() && !exists(parent)) {
-            throw FSException("The path `${parent}` does not exist.")
+            throw FSException("The input path 'parent' `${parent}` does not exist.")
         }
         // Because `filePath` may not exist before `openFile` is executed, `FileInfo` does not check whether the path exists.
         _fileInfo = FileInfo(filePath, false)
@@ -311,7 +307,7 @@ public class File <: Resource & IOStream & Seekable {
      */
     public static func create(path: String): File {
         if (exists(path)) {
-            throw FSException("The file `${path}` is already exists!")
+            throw FSException("The file `${path}` is already exists.")
         }
         return File(path, Write)
     }
@@ -486,9 +482,9 @@ public class File <: Resource & IOStream & Seekable {
             _fileDescriptor._fileHandle = fsInfo.fd
         }
         if (!isHandleValid(_fileDescriptor._fileHandle)) {
-            var errMsg = "Failed to open the file `${pathStr}."
+            var errMsg = "Failed to open the file `${pathStr}`."
             if (fsInfoErrMsg != "") {
-                errMsg += fsInfoErrMsg
+                errMsg += " ${fsInfoErrMsg}."
             }
             throw FSException(errMsg)
         }

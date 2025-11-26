@@ -25,7 +25,7 @@ public class Directory {
     public static func create(path: String, recursive!: Bool = false): Unit {
         let normalPath = removeTralingSlashChar(path)
         if (exists(normalPath)) {
-            throw FSException("The path `${path}` is already exists.")
+            throw FSException("The input path `${path}` is already exists.")
         }
         if (recursive) {
             Directory.createRecursive(normalPath)
@@ -125,25 +125,8 @@ public class Directory {
         walk(Path(path), f)
     }
 
-    private static func copyCheck(sourceDirPath: String, destinationDirPath: String, overwrite: Bool): Unit {
-        if (sourceDirPath.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The 'sourceDirPath' value ${unsafe { sourceDirPath.rawData() }} contains null character.")
-        }
-        if (destinationDirPath.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path 'destinationDirPath' value ${unsafe { destinationDirPath.rawData() }} contains null character.")
-        }
-        if (!exists(sourceDirPath)) {
-            throw FSException("The 'sourceDirPath' `${sourceDirPath}` does not exist.")
-        }
-        if (!overwrite && exists(destinationDirPath)) {
-            throw FSException("The 'destinationDirPath' `${destinationDirPath}` is already exists and overwrite is false.")
-        }
-    }
-
     private static func createSubDirectory(parent: String, name: String): String {
-        if (name.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The name value ${unsafe { name.rawData() }} contains null character.")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("name", name, false)
         if (containsSlash(name)) {
             throw FSException("The name `${name}` contains path information.")
         }
@@ -151,7 +134,7 @@ public class Directory {
         if (exists(pathStr)) {
             throw FSException("The name `${name}` of directory `${pathStr}` is already exists.")
         }
-        callNativeFunc(pathStr, CJ_FS_DirCreate, "Failed to create directory `${pathStr}`.")
+        callNativeFunc(pathStr, CJ_FS_DirCreate, "Failed to create directory `${pathStr}`")
         return pathStr
     }
 
@@ -221,7 +204,15 @@ public class Directory {
      * @throws IllegalArgumentException while path contains null character.
      */
     static func copy(sourceDirPath: String, destinationDirPath: String, overwrite: Bool): Unit {
-        copyCheck(sourceDirPath, destinationDirPath, overwrite)
+        PathValidator.throwIfEmptyOrContainsNullByte("sourceDirPath", sourceDirPath, true)
+        PathValidator.throwIfEmptyOrContainsNullByte("destinationDirPath", destinationDirPath, true)
+        if (!exists(sourceDirPath)) {
+            throw FSException("The input path 'sourceDirPath' `${sourceDirPath}` does not exist.")
+        }
+        if (!overwrite && exists(destinationDirPath)) {
+            throw FSException("The input path 'destinationDirPath' `${destinationDirPath}` is already exists and overwrite is false.")
+        }
+
         if (!exists(destinationDirPath)) {
             Directory.create(destinationDirPath, recursive: true)
         }
@@ -284,7 +275,7 @@ public class Directory {
         if (!parent.isEmpty() && !exists(parent)) {
             throw FSException("Failed to create directory `${path}`, parent directory `${parent}` does not exist.")
         }
-        callNativeFunc(path, CJ_FS_DirCreate, "Failed to create directory `${path}`.")
+        callNativeFunc(path, CJ_FS_DirCreate, "Failed to create directory `${path}`")
     }
 
     /*
@@ -312,14 +303,14 @@ public class Directory {
      * @throws FSException if system create directory failed
      */
     private static func createRecursive(path: String): Unit {
-        callNativeFunc(path, CJ_FS_DirCreateRecursive, "Failed to recursive create directory")
+        callNativeFunc(path, CJ_FS_DirCreateRecursive, "Failed to recursive create directory `${path}`")
     }
 }
 
 func checkDirectoryPath(path: Path): Path {
     let info = FileInfo(path)
     if (!info.isDirectory()) {
-        throw FSException("The path `${path}` is not a directory!")
+        throw FSException("The input path `${path}` is not a directory.")
     }
     return info.path
 }
