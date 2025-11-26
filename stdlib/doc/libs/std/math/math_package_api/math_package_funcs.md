@@ -141,7 +141,7 @@ main() {
 23
 ```
 
-以下示例抛出异常：
+示例：
 <!-- verify -->
 ```cangjie
 import std.math.abs
@@ -1791,6 +1791,24 @@ public func countOne(x: Int16): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
 
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: Int16 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
 ## func countOnes(Int16)
 
 ```cangjie
@@ -1844,6 +1862,24 @@ public func countOne(x: Int32): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: Int32 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
 
 ## func countOnes(Int32)
 
@@ -1899,6 +1935,24 @@ public func countOne(x: Int64): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
 
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: Int64 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
 ## func countOnes(Int64)
 
 ```cangjie
@@ -1952,6 +2006,24 @@ public func countOne(x: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: Int8 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
 
 ## func countOnes(Int8)
 
@@ -2007,6 +2079,24 @@ public func countOne(x: UInt16): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
 
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: UInt16 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
 ## func countOnes(UInt16)
 
 ```cangjie
@@ -2060,6 +2150,24 @@ public func countOne(x: UInt32): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: UInt32 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
 
 ## func countOnes(UInt32)
 
@@ -2115,6 +2223,24 @@ public func countOne(x: UInt64): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
 
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: UInt64 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
 ## func countOnes(UInt64)
 
 ```cangjie
@@ -2168,6 +2294,24 @@ public func countOne(x: UInt8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOne
+
+main() {
+    let n: UInt8 = 15
+    let countOne = countOne(n)
+    println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
 
 ## func countOnes(UInt8)
 
@@ -4163,7 +4307,7 @@ main() {
 9.000000
 ```
 
-以下示例将抛出相应异常：
+示例：
 <!-- verify -->
 ```cangjie
 import std.math.logBase

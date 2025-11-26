@@ -1629,8 +1629,8 @@ main() {
 运行结果：
 
 ```text
-SqlDate value: 2012-01-01T00:00:00+08:00
-Modified SqlDate value: 2012-01-11T00:00:00+08:00
+SqlDate value: 2012-01-01T00:00:00Z
+Modified SqlDate value: 2012-01-11T00:00:00Z
 ```
 
 ### init(DateTime)
@@ -1666,7 +1666,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlDate with value: 2012-01-01T00:00:00+08:00
+Created SqlDate with value: 2012-01-01T00:00:00Z
 SqlDate name: SqlDate
 ```
 
@@ -3153,7 +3153,7 @@ main() {
 运行结果：
 
 ```text
-SqlNullableDate value: Some(2012-01-01T00:00:00+08:00)
+SqlNullableDate value: Some(2012-01-01T00:00:00Z)
 Modified SqlNullableDate value: None
 ```
 
@@ -4022,7 +4022,7 @@ main() {
 运行结果：
 
 ```text
-SqlNullableTime value: Some(2012-01-01T00:00:00+08:00)
+SqlNullableTime value: Some(2012-01-01T00:00:00Z)
 SqlNullableTime value: None
 ```
 
@@ -4062,7 +4062,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlNullableTime with value: Some(2012-01-01T00:00:00+08:00)
+Created SqlNullableTime with value: Some(2012-01-01T00:00:00Z)
 Created SqlNullableTime with value: None
 ```
 
@@ -4153,7 +4153,7 @@ main() {
 运行结果：
 
 ```text
-SqlNullableTimeTz value: Some(2012-01-01T00:00:00+08:00)
+SqlNullableTimeTz value: Some(2012-01-01T00:00:00Z)
 SqlNullableTimeTz value: None
 ```
 
@@ -4193,7 +4193,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlNullableTimeTz with value: Some(2012-01-01T00:00:00+08:00)
+Created SqlNullableTimeTz with value: Some(2012-01-01T00:00:00Z)
 Created SqlNullableTimeTz with value: None
 ```
 
@@ -4284,7 +4284,7 @@ main() {
 运行结果：
 
 ```text
-SqlNullableTimestamp value: Some(2012-01-01T00:00:00+08:00)
+SqlNullableTimestamp value: Some(2012-01-01T00:00:00Z)
 SqlNullableTimestamp value: None
 ```
 
@@ -4324,7 +4324,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlNullableTimestamp with value: Some(2012-01-01T00:00:00+08:00)
+Created SqlNullableTimestamp with value: Some(2012-01-01T00:00:00Z)
 Created SqlNullableTimestamp with value: None
 ```
 
@@ -5609,7 +5609,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlTime with value: 2012-01-01T00:00:00+08:00
+Created SqlTime with value: 2012-01-01T00:00:00Z
 SqlTime name: SqlTime
 ```
 
@@ -5645,7 +5645,7 @@ main() {
 运行结果：
 
 ```text
-SqlTime value: 2012-01-01T00:00:00+08:00
+SqlTime value: 2012-01-01T00:00:00Z
 ```
 
 ### init(DateTime)
@@ -5680,7 +5680,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlTime with value: 2012-01-01T00:00:00+08:00
+Created SqlTime with value: 2012-01-01T00:00:00Z
 ```
 
 
@@ -5766,7 +5766,7 @@ main() {
 运行结果：
 
 ```text
-SqlTimeTz value: 2012-01-01T00:00:00+08:00
+SqlTimeTz value: 2012-01-01T00:00:00Z
 ```
 
 ### init(DateTime)
@@ -5801,7 +5801,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlTimeTz with value: 2012-01-01T00:00:00+08:00
+Created SqlTimeTz with value: 2012-01-01T00:00:00Z
 ```
 
 ## class SqlTimestamp <sup>(deprecated)</sup>
@@ -5886,7 +5886,7 @@ main() {
 运行结果：
 
 ```text
-SqlTimestamp value: 2012-01-01T00:00:00+08:00
+SqlTimestamp value: 2012-01-01T00:00:00Z
 ```
 
 ### init(DateTime)
@@ -5921,7 +5921,7 @@ main() {
 运行结果：
 
 ```text
-Created SqlTimestamp with value: 2012-01-01T00:00:00+08:00
+Created SqlTimestamp with value: 2012-01-01T00:00:00Z
 ```
 
 ## class SqlVarBinary <sup>(deprecated)</sup>

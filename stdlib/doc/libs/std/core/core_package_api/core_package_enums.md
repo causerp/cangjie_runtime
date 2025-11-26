@@ -962,19 +962,19 @@ main() {
     
     // 测试GT与EQ的比较
     var result1 = gt.compare(eq)
-    println("GT.compare(EQ): ${result1.toString()}")
+    println("GT.compare(EQ): ${result1}")
     
     // 测试EQ与LT的比较
     var result2 = eq.compare(lt)
-    println("EQ.compare(LT): ${result2.toString()}")
+    println("EQ.compare(LT): ${result2}")
     
     // 测试LT与GT的比较
     var result3 = lt.compare(gt)
-    println("LT.compare(GT): ${result3.toString()}")
+    println("LT.compare(GT): ${result3}")
     
     // 测试相等的情况
     var result4 = gt.compare(gt)
-    println("GT.compare(GT): ${result4.toString()}")
+    println("GT.compare(GT): ${result4}")
 }
 ```
 

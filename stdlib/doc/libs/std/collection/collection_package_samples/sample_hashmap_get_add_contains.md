@@ -16,7 +16,7 @@ main() {
     var a = map.get("a")
     var bool = map.contains("a")
     print("a=${a.getOrThrow()} ")
-    print("bool=${bool.toString()}")
+    print("bool=${bool}")
     return 0
 }
 ```

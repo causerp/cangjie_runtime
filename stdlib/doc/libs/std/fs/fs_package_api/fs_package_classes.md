@@ -443,6 +443,10 @@ walk 函数退出条件为遍历结束或回调函数 f 返回 false。遍历顺
 - [FSException](./fs_package_exceptions.md#class-fsexception) - 当指定路径不存在、指定路径不是目录或获取目录的成员信息失败时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当指定路径为空或包含空字符时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
 import std.fs.*
 
 main(): Unit {

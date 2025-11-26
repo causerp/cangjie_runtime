@@ -1470,7 +1470,7 @@ public static func parse(data: String): Int8
 示例：
 
 <!-- verify -->
-``cangjie
+```cangjie
 import std.convert.*
 
 main() {
@@ -2270,7 +2270,7 @@ public func toString(radix!: Int64): String
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
 
 <!-- verify -->
-``cangjie
+```cangjie
 import std.convert.*
 
 main(): Int64 {
@@ -2905,7 +2905,7 @@ public func toString(radix!: Int64): String
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
 
 <!-- verify -->
-``cangjie
+```cangjie
 import std.convert.*
 
 main(): Int64 {

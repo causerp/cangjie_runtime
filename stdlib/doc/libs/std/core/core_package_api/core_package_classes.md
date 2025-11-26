@@ -33,7 +33,7 @@ public init(data: Array<T>)
 main() {
     var arr: Array<Int64> = [1, 2, 3]
     // 初始化迭代器
-    ArrayIterator(arr)
+    let ai = ArrayIterator(arr)
     println("迭代器初始化成功")
     return 0
 }
@@ -199,7 +199,6 @@ public func compare(that: Box<T>): Ordering
 示例：
 
 <!-- verify -->
-
 ```cangjie
 struct Data <: Comparable<Data> {
     var a: Int64 = 0
@@ -1169,9 +1168,7 @@ main(): Int64 {
     while (true) {
         match (iter1.next()) {
             case Some(i) =>
-                print(i[0].toString() + ' ')
-                print(i[1])
-                println()
+                println("${i[0]} ${i[1]}")
             case None => break
         }
     }
@@ -4191,7 +4188,7 @@ public static func dumpAllThreads(): Array<ThreadSnapshot>
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 
 ```cangjie
 main(): Unit {
@@ -4215,7 +4212,7 @@ main(): Unit {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
@@ -4244,7 +4241,7 @@ public static func dumpCurrentThread(): ThreadSnapshot
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 
 ```cangjie
 main(): Unit {
@@ -4260,9 +4257,8 @@ main(): Unit {
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
 stack trace:
-         at std.core.ThreadSnapshot::dumpAllThreads()(thread.cj:161)
-         at default.test6()(hello.cj:74)
-         at default.main()(hello.cj:148)
+	 at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:205)
+	 at default.main()(code.cj:3)
 ```
 
 ### func  toString()

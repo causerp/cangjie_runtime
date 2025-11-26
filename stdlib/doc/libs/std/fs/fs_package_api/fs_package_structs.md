@@ -307,13 +307,13 @@ public prop path: Path
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.fs.*
 
 main(): Unit {
     // 创建前先删除，以防创建失败
-    removeIfExists("./test_init_path.txt", recursive: true)
+    removeIfExists("./test_info_file.txt", recursive: true)
 
     // 创建一个文件
     let file = File.create("./test_info_file.txt")
@@ -324,14 +324,14 @@ main(): Unit {
     println("File path: ${fileInfo.path}")  // 输出文件路径
     
     // 删除文件
-    removeIfExists("./test_init_path.txt", recursive: true)
+    removeIfExists("./test_info_file.txt", recursive: true)
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-File path: /home/renyi/code/test_md/gitsave/./test_info_file.txt
+File path: /home/user/test_info_file.txt
 ```
 
 ### prop size
