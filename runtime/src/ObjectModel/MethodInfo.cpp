@@ -55,6 +55,9 @@ void ParameterInfo::SetName(const char* paraName)
 
 void* MethodInfo::MemoryAlloc(size_t cnt, size_t size)
 {
+    if (size == 0) {
+        return nullptr;
+    }
     void* mem = calloc(cnt, size);
     PRINT_FATAL_IF(mem == nullptr, "MethodInfo::MemoryAlloc failed");
     return mem;
