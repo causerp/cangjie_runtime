@@ -2507,7 +2507,7 @@ public unsafe static func fromUtf8Unchecked(utf8Data: Array<UInt8>): String
 
 Functionality: Constructs a string from a byte array.
 
-Unlike the `fromUtf8` function, this does not perform UTF-8 rule checks on the byte array, so the constructed string is not guaranteed to be valid and may result in unexpected exceptions. Unless performance is a critical concern, prefer using the safer `fromUtf8` function.
+Compared to the [fromUtf8](core_package_structs.md#static-func-fromutf8arrayuint8) function, fromUtf8Unchecked does not perform UTF-8 rule checks on the byte array, so the constructed string is not guaranteed to be valid and may result in unexpected exceptions. Unless performance is a critical concern, prefer using the safe fromUtf8 function.
 
 Parameters:
 
@@ -2520,6 +2520,22 @@ Return Value:
 Exceptions:
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when attempting to construct a string whose length exceeds [the maximum value of UInt32](./core_package_intrinsics.md#uint32).
+
+### static func checkUtf8Encoding(Array\<UInt8>)
+
+```cangjie
+public static func checkUtf8Encoding(data: Array<UInt8>): Bool
+```
+
+Function: Checks whether a Byte array conforms to UTF-8 encoding.
+
+Parameters:
+
+- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
+
+Returns:
+
+- [Bool](core_package_intrinsics.md#bool) - Returns true if the Byte array conforms to UTF-8 encoding; otherwise, returns false.
 
 ### static func join(Array\<String>, String)
 
@@ -2558,6 +2574,39 @@ Output:
 ```text
 I like Cangjie
 ```
+
+### static func withRawData(Array\<UInt8>)
+
+```cangjie
+public static unsafe func withRawData(rawData: Array<UInt8>): String
+```
+
+Function: Constructs a string from a byte array.
+
+Compared to the [fromUtf8Unchecked](core_package_structs.md#static-func-fromutf8uncheckedarrayuint8) function, withRawData does not copy the array but directly uses the input array to construct the string.
+
+> **Note:**
+>
+> Users should ensure:
+>
+> 1. rawData is never modified after string construction.
+> 2. rawData conforms to UTF-8 encoding.
+>
+> Otherwise, the program behavior is undefined.
+>
+> Unless performance is a critical concern, prefer using the safe fromUtf8 function.
+
+Parameters:
+
+- rawData: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - The byte array used to construct the string.
+
+Returns:
+
+- [String](core_package_structs.md#struct-string) - The constructed string.
+
+Exceptions:
+
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown when attempting to construct a string whose length exceeds [the maximum value of UInt32](./core_package_intrinsics.md#uint32).
 
 ### func clone()
 
