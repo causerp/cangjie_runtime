@@ -130,7 +130,7 @@ execute_process(
 if(NOT ("${archive_ret}" STREQUAL "0"))
     message("${archive_stdout}")
     message("${archive_stderr}")
-    message(FATAL_ERROR "Generate merged archive failed! Error code=${ERR_CODE}")
+    message(FATAL_ERROR "Generate merged archive failed! Error code=${archive_ret}")
 endif()
 
 # Clean up temp files

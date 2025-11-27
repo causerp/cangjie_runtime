@@ -77,6 +77,8 @@ def generate_cmake_defs(args):
             toolchain_file = "mingw_x86_64_toolchain.cmake"
         elif args.target == "arm64-apple-ios11-simulator":
             toolchain_file = "ios_simulator_arm64_toolchain.cmake"
+        elif args.target == "x86_64-apple-ios11-simulator":
+            toolchain_file = "ios_simulator_x86_64_toolchain.cmake"
         elif args.target == "arm64-apple-ios11":
             toolchain_file = "ios_arm64_toolchain.cmake"
         elif "aarch64-linux-android" in args.target:
