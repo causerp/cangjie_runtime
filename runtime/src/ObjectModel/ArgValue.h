@@ -13,7 +13,7 @@ namespace MapleRuntime {
 constexpr U32 kXregSize = 6;
 constexpr U32 kDregSize = 8;
 #elif defined(__aarch64__)
-constexpr U32 kXregSize = 4;
+constexpr U32 kXregSize = 8;
 constexpr U32 kDregSize = 8;
 #elif defined(__arm__)
 constexpr U32 kXregSize = 4;
