@@ -636,6 +636,7 @@ extern int64_t CJ_FS_DirGetNumber(const char* path)
 
 extern int8_t CJ_FS_ISDirEmpty(const char* path)
 {
+    SetLastError(0);
     wchar_t* conv = (wchar_t*)GetWPathEndWithStar(path);
     if (conv == NULL) {
         return -1;

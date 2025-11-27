@@ -318,7 +318,7 @@ public class ArrayList<T> <: List<T> {
         if (cSize <= 0) {
             return
         }
-        
+        var oldData = myData
         if (mySize + cSize > myData.size) {
             var newCapacity: Int64 = max(mySize + (mySize >> 1), mySize + cSize)
             let newArray: Array<T> = Array<T>(newCapacity, repeat: unsafe { zeroValue<T>() })
@@ -331,7 +331,12 @@ public class ArrayList<T> <: List<T> {
 
         match (all) {
             case arr: Array<T> => arr.copyTo(myData, 0, at, cSize)
-            case arr: ArrayList<T> => arr.myData.copyTo(myData, 0, at, cSize)
+            case arr: ArrayList<T> =>
+                if (refEq(arr, this)) {
+                    oldData.copyTo(myData, 0, at, cSize)
+                } else {
+                    arr.myData.copyTo(myData, 0, at, cSize)
+                }
             case _ =>
                 let arr = all.toArray()
                 arr.copyTo(myData, 0, at, cSize)
