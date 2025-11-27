@@ -357,7 +357,7 @@ TypeInfo* CJFileLoader::FindTypeInfoFromLoadedFiles(const char* typeInfoName)
     }
     CString pkgName;
     CString typeInfoNameStr = CString(typeInfoName);
-    int idx = typeInfoNameStr.Find(':');
+    int idx = typeInfoNameStr.RFind(":");
     if (idx < 0) {
         pkgName = "std.core";
     } else {
@@ -384,7 +384,7 @@ TypeTemplate* CJFileLoader::FindTypeTemplateFromLoadedFiles(const char* typeTemp
     }
     CString pkgName;
     CString typeTemplateNameStr = CString(typeTemplateName);
-    int idx = typeTemplateNameStr.Find(':');
+    int idx = typeTemplateNameStr.RFind(":");
     if (idx < 0) {
         pkgName = "std.core";
     } else {
