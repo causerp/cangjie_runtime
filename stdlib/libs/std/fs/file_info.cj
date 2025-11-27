@@ -31,7 +31,7 @@ public struct FileInfo <: Equatable<FileInfo> {
      */
     init(path: Path, isCheckPath: Bool) {
         if (isCheckPath && !exists(path)) {
-            throw FSException("The path `${path}` does not exist.")
+            throw FSException("The input path `${path}` does not exist.")
         }
         _path = toAbsolutePath(path)
     }
