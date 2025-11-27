@@ -124,7 +124,7 @@ public class Regex {
         }
     }
 
-    @Deprecated[message: "Use member funtion `public Regex(let pattern: String, flags: Array<RegexFlag>)` instead."]
+    @Deprecated[message: "Use member function `public Regex(let pattern: String, flags: Array<RegexFlag>)` instead."]
     public init(pattern: String, option: RegexOption) {
         this(pattern, option.toFlags())
     }

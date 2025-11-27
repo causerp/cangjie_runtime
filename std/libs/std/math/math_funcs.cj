@@ -1133,42 +1133,42 @@ public func countOnes(x: Int64): Int64 {
     }
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: Int8): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: Int8): Int64` instead."]
 public func countOne(x: Int8): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: Int16): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: Int16): Int64` instead."]
 public func countOne(x: Int16): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: Int32): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: Int32): Int64` instead."]
 public func countOne(x: Int32): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: Int64): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: Int64): Int64` instead."]
 public func countOne(x: Int64): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: UInt8): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: UInt8): Int64` instead."]
 public func countOne(x: UInt8): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: UInt16): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: UInt16): Int64` instead."]
 public func countOne(x: UInt16): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: UInt32): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: UInt32): Int64` instead."]
 public func countOne(x: UInt32): Int8 {
     Int8(countOnes(x))
 }
 
-@Deprecated[message: "Use global funtion `public func countOnes(x: UInt64): Int64` instead."]
+@Deprecated[message: "Use global function `public func countOnes(x: UInt64): Int64` instead."]
 public func countOne(x: UInt64): Int8 {
     Int8(countOnes(x))
 }
