@@ -1763,7 +1763,7 @@ public func next(): Option<T>
 ## class StackTraceElement
 
 ```cangjie
-public open class StackTraceElement {
+public open class StackTraceElement <: ToString {
     public let declaringClass: String
     public let methodName: String
     public let fileName: String
@@ -1773,6 +1773,10 @@ public open class StackTraceElement {
 ```
 
 功能：表示一个异常堆栈的具体信息，包括异常发生的类名、函数名、文件名、行号。
+
+父类型：
+
+- [ToString](core_package_interfaces.md#interface-tostring)
 
 ### let declaringClass
 
@@ -1828,6 +1832,18 @@ public init(declaringClass: String, methodName: String, fileName: String, lineNu
 - methodName: [String](core_package_structs.md#struct-string) - 函数名。
 - fileName: [String](core_package_structs.md#struct-string) - 文件名。
 - lineNumber: [Int64](core_package_intrinsics.md#int64) - 行号。
+
+### func  toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：获取 [StackTraceElement](core_package_classes.md#class-stacktraceelement) 对象的字符串表示。
+
+返回值：
+
+- [String](core_package_structs.md#struct-string) - 转换后的字符串。
 
 ## class StringBuilder
 
@@ -2297,6 +2313,17 @@ public mut prop name: String
 
 类型：[String](core_package_structs.md#struct-string)
 
+### prop state
+
+```cangjie
+public prop state: ThreadState
+```
+
+功能：获取线程的状态。
+
+类型：[ThreadState](core_package_enums.md#enum-threadstate)
+
+
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
 ```cangjie
@@ -2350,3 +2377,164 @@ public func set(value: ?T): Unit
 参数：
 
 - value: ?T - 需要设置的局部变量的值。
+
+## class ThreadSnapshot
+
+```cangjie
+public class ThreadSnapshot <: ToString {
+    public let id: Int64
+    public let name: String
+    public let stackTrace: Array<StackTraceElement>
+    public let state: ThreadState
+    public static func dumpAllThreads(): Array<ThreadSnapshot>
+    public static func dumpCurrentThread(): ThreadSnapshot
+    public func toString(): String
+}
+```
+
+功能：获取当前线程或者所有线程的信息，包含名称、id、状态、调用栈。
+
+该类型实例无法通过构造得到，仅能通过 [class ThreadSnapshot ](core_package_classes.md#class-threadsnapshot)类的 [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread)和[dumpAllThreads](core_package_classes.md#func-dumpallthreads) 静态函数获取。
+
+父类型：
+
+* [ToString](core_package_interfaces.md#interface-tostring)
+
+### let id
+
+```cangjie
+public let id: Int64
+```
+
+功能：获取线程的id。
+
+类型：[Int64](core_package_intrinsics.md#int64)
+
+### let name
+
+```cangjie
+public let name: String
+```
+
+功能：获取线程的名称。
+
+类型：[String](core_package_structs.md#struct-string)
+
+### let stackTrace
+
+```cangjie
+public let stackTrace: Array<StackTraceElement>
+```
+
+功能：获取线程的调用栈信息。
+
+类型：[Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)>
+
+### let state
+
+```cangjie
+public let state: ThreadState
+```
+
+功能：获取线程的状态。
+
+类型：[ThreadState](core_package_enums.md#enum-threadstate)
+
+### func dumpAllThreads()
+
+```cangjie
+public static func dumpAllThreads(): Array<ThreadSnapshot>
+```
+
+功能：获取当前进程中所有线程的信息。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)> - 返回一个包含当前进程所有线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)数组。
+
+示例：
+
+<!-- verify -->
+
+```cangjie
+main(): Unit {
+    /* 创建一个线程 */
+    let future =spawn {
+        while(true) {
+            sleep(1 * Duration.second)
+            if (Thread.currentThread.hasPendingCancellation){
+                return
+            }
+        }
+    }
+    /* 获取所有线程的信息 */
+    let threadInfoArray: Array<ThreadSnapshot> = ThreadSnapshot.dumpAllThreads()
+    /* 循环打印线程信息 */
+    let size = threadInfoArray.size
+    for (i in 0..size) {
+        let threadInfoData = threadInfoArray[i]
+        println(threadInfoData)
+    }
+}
+```
+
+运行结果：
+
+```text
+ThreadSnapshot(id=1, name=, state=Running)
+stack trace:
+         at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:176)
+         at default.test4()(hello.cj:46)
+         at default.main()(hello.cj:146)
+ThreadSnapshot(id=2, name=, state=Pending)
+stack trace:
+         at std.core.sleep(std.core::Duration)(sleep.cj:36)
+         at default.test6::lambda.0()(hello.cj:66)
+         at std.core.Future<...>::execute()(future.cj:161)
+```
+
+### func dumpCurrentThread()
+
+```cangjie
+public static func dumpCurrentThread(): ThreadSnapshot
+```
+
+功能：获取当前线程的信息。
+
+返回值：
+
+- [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) - 返回一个包含当前线程信息的[ThreadSnapshot](core_package_classes.md#class-threadsnapshot)对象。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Unit {
+    /* 获取当前线程信息 */
+    let threadInfo: ThreadSnapshot = ThreadSnapshot.dumpCurrentThread()
+    /* 打印信息 */
+    println(threadInfo)
+}
+```
+
+运行结果：
+
+```text
+ThreadSnapshot(id=1, name=, state=Running)
+stack trace:
+         at std.core.ThreadSnapshot::dumpAllThreads()(thread.cj:161)
+         at default.test6()(hello.cj:74)
+         at default.main()(hello.cj:148)
+```
+
+### func  toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：获取 [ThreadSnapshot](core_package_classes.md#class-threadsnapshot) 对象的字符串表示。
+
+返回值：
+
+- [String](core_package_structs.md#struct-string) - 转换后的字符串。

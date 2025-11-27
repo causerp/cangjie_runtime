@@ -212,6 +212,11 @@ public:
         return name;
     }
 
+    int GetCJThreadState()
+    {
+        return CJThreadGetState(cjthread);
+    }
+
     __attribute__((always_inline)) inline bool FinishedTransition() const
     {
         return transitionState == FINISH_TRANSITION;

@@ -669,6 +669,17 @@ int64_t MRT_GetCJThreadId(void* handle)
     return static_cast<int64_t>(ret);
 }
 
+int64_t MRT_GetCJThreadState(void* handle)
+{
+    int state = CJThreadGetState(handle);
+    if (state == 0) {  // 0: IDLE
+        return -1;
+    }
+    // 4: syscall which we treat as 2: running
+    state = state == 4 ? 2 : state;
+    return static_cast<int64_t>(state);
+}
+
 void* MRT_GetCurrentCJThread()
 {
     return CJThreadGetHandle();

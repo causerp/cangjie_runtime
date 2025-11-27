@@ -1433,6 +1433,15 @@ char* CJThreadGetName(void* cjthreadPtr)
     return cjthread->name;
 }
 
+int CJThreadGetState(void* cjthreadPtr)
+{
+    struct CJThread *cjthread = reinterpret_cast<struct CJThread *>(cjthreadPtr);
+    if (cjthread == nullptr) {
+        return -1;
+    }
+    return cjthread->state.load();
+}
+
 unsigned long long int CJThreadGetId(CJThreadHandle handle)
 {
     struct CJThread *cjthread = (struct CJThread*)(handle);

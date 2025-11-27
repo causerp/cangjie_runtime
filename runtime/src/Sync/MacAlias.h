@@ -52,6 +52,8 @@ MRT_EXPORT void CJ_MRT_SetCJThreadName(void* handle, uint8_t* name, size_t len);
 __asm__(".global _CJ_MRT_SetCJThreadName\n\t.set _CJ_MRT_SetCJThreadName, _MRT_SetCJThreadName");
 MRT_EXPORT int64_t CJ_MRT_GetCJThreadId(void* handle);
 __asm__(".global _CJ_MRT_GetCJThreadId\n\t.set _CJ_MRT_GetCJThreadId, _MRT_GetCJThreadId");
+MRT_EXPORT int64_t CJ_MRT_GetCJThreadState(void* handle);
+__asm__(".global _CJ_MRT_GetCJThreadState\n\t.set _CJ_MRT_GetCJThreadState, _MRT_GetCJThreadState");
 MRT_EXPORT void* CJ_MRT_GetCurrentCJThread();
 __asm__(".global _CJ_MRT_GetCurrentCJThread\n\t.set _CJ_MRT_GetCurrentCJThread, _MRT_GetCurrentCJThread");
 

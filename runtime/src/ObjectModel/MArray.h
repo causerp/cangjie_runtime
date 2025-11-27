@@ -20,7 +20,8 @@ public:
     static constexpr MOffset GetContentOffset(); // in Bytes
 
     // inlined static functions to create arrays
-    inline static MArray* NewArray(MIndex nElems, TypeInfo& arrayClass);
+    inline static MArray* NewArray(MIndex nElems, TypeInfo& arrayClass,
+                                   AllocType allocType = AllocType::MOVEABLE_OBJECT);
     inline static MArray* NewRefArray(MIndex nElems, TypeInfo& arrayClass,
                                       AllocType allocType = AllocType::MOVEABLE_OBJECT);
     inline static MArray* NewKnownWidthArray(MIndex nElems, TypeInfo& arrayClass, const U32 elemBytes,

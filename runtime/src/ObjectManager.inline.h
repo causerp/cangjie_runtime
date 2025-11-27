@@ -54,10 +54,10 @@ inline ObjRef ObjectManager::NewFinalizer(const TypeInfo* ti, MSize size)
 inline GCTib ObjectManager::GetGCInfo(const TypeInfo* ti) { return ti->GetGCTib(); }
 
 // general array creation
-inline ArrayRef ObjectManager::NewArray(MIndex nElems, const TypeInfo* arrayTi)
+inline ArrayRef ObjectManager::NewArray(MIndex nElems, const TypeInfo* arrayTi, AllocType allocType)
 {
     CHECK_DETAIL(arrayTi != nullptr, "arrayTi is nullptr");
-    return MArray::NewArray(nElems, *const_cast<TypeInfo*>(arrayTi));
+    return MArray::NewArray(nElems, *const_cast<TypeInfo*>(arrayTi), allocType);
 }
 
 inline ArrayRef ObjectManager::NewObjArray(MIndex nElems, const TypeInfo* arrayTi, AllocType allocType)

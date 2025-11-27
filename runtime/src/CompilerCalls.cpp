@@ -507,6 +507,174 @@ extern "C" StackTraceData MCC_DecodeStackTraceImpl(const uint64_t ip, const uint
     return std;
 }
 
+// Warning: Caller MUST call `CommitRawPointerRegions` to make sure that
+// the new object will be correctly tracked by gc.
+static ArrayRef CreateCharArrayFromCString(const TypeInfo* charArray, CString name)
+{
+    ArrayRef array = ObjectManager::NewKnownWidthArray(
+        name.Length(), charArray, ObjectManager::ArrayElemBits::ELEM_8B, AllocType::RAW_POINTER_OBJECT);
+    if (array == nullptr) {
+        ExceptionManager::CheckAndThrowPendingException("CreateCharArrayFromCString: nullptr array");
+    }
+    for (MIndex i = 0; i < name.Length(); ++i) {
+        array->SetPrimitiveElement(i, static_cast<int8_t>(name[i]));
+    }
+    return array;
+}
+
+// Warning: Caller MUST call `CommitRawPointerRegions` to make sure that
+// the new object will be correctly tracked by gc.
+static ArrayRef CreateStackTrace(const TypeInfo* arrayStackTrace, const TypeInfo* charArray,
+                                 const std::vector<FrameInfo*> &srcSracks)
+{
+    // fix size after discard native frame
+    MSize size = 0;
+    for (auto frame : srcSracks) {
+        // skip native frame
+        if (frame->GetFrameType() == FrameType::NATIVE) {
+            continue;
+        }
+        size++;
+    }
+
+    ArrayRef trace = ObjectManager::NewArray(size, arrayStackTrace, AllocType::RAW_POINTER_OBJECT);
+    if (trace == nullptr) {
+        ExceptionManager::CheckAndThrowPendingException("CreateStackTrace: nullptr array");
+    }
+    int stackIndex = 0;
+    for (auto frame : srcSracks) {
+        // skip native frame
+        if (frame->GetFrameType() == FrameType::NATIVE) {
+            continue;
+        }
+
+        CString className = frame->GetPackClassName();
+        CString fileName = frame->GetFileNameForTrace();
+        CString methodName = frame->GetMethodName();
+        uint32_t lineNumber = frame->GetLineNum();
+
+        StackTraceData frameData;
+        // fill frame
+        frameData.className = CreateCharArrayFromCString(charArray, className);
+        frameData.fileName = CreateCharArrayFromCString(charArray, fileName);
+        frameData.methodName = CreateCharArrayFromCString(charArray, methodName);
+        frameData.lineNumber = lineNumber;
+
+        // push frame to stack array
+        MSize elementSize = trace->GetElementSize();
+        MAddress dstAddr = reinterpret_cast<Uptr>(trace) + MArray::GetContentOffset() + elementSize * stackIndex;
+        Heap::GetBarrier().WriteStruct(trace, dstAddr, elementSize,
+                                       reinterpret_cast<MAddress>(&frameData), elementSize);
+        stackIndex++;
+    }
+    return trace;
+}
+
+static ArrayRef GetAllThreadSnapshot(const TypeInfo* arraySnapshot, const TypeInfo* arrayStackTrace,
+                                     const TypeInfo* charArray)
+{
+    std::vector<std::unique_ptr<RecordStackInfo>> records;
+    MutatorManager::Instance().VisitAllMutators([&records](Mutator &mutator) {
+        if (!mutator.IsVaildCJThread()) {
+            return;
+        }
+        int state = mutator.GetCJThreadState();
+        if (state == 0) {  // 0: IDLE
+            return;
+        }
+
+        // 4: syscall which we treat as 2:running
+        state = state == 4 ? 2 : state;
+        uint32_t threadId = static_cast<uint32_t>(mutator.GetCJThreadId());
+        CString threadName;
+        if (mutator.GetCJThreadName() != nullptr) {
+            threadName = CString(mutator.GetCJThreadName());
+        }
+
+        auto record = std::make_unique<RecordStackInfo>(
+            RecordStackInfo(&(mutator.GetUnwindContext()), threadId, threadName, state));
+        record->FillInStackTrace();
+        records.emplace_back(std::move(record));
+    });
+
+    ArrayRef allRecords = ObjectManager::NewArray(records.size(), arraySnapshot, AllocType::RAW_POINTER_OBJECT);
+    if (allRecords == nullptr) {
+        ExceptionManager::CheckAndThrowPendingException("GetAllThreadSnapshot: nullptr array");
+    }
+    int recordIndex = 0;
+    for (const auto &record : records) {
+        ThreadSnapshot snapshot;
+        // fill thread snapshot
+        snapshot.name = CreateCharArrayFromCString(charArray, record->GetThreadName());
+        snapshot.id = record->GetStackTid();
+        snapshot.stackTrace = CreateStackTrace(arrayStackTrace, charArray, record->stacks);
+        snapshot.state = record->GetThreadState();
+
+        // push snapshot to record array
+        MSize elementSize = allRecords->GetElementSize();
+        MAddress dstAddr =
+            reinterpret_cast<Uptr>(allRecords) + MArray::GetContentOffset() + elementSize * recordIndex;
+        Heap::GetBarrier().WriteStruct(allRecords, dstAddr, elementSize,
+                                       reinterpret_cast<MAddress>(&snapshot), elementSize);
+        recordIndex++;
+    }
+
+    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
+    if (buffer != nullptr) {
+        buffer->CommitRawPointerRegions();
+    }
+    return allRecords;
+}
+
+extern "C" ArrayRef MCC_GetAllThreadSnapshotImpl(const TypeInfo* arraySnapshot, const TypeInfo* arrayStackTrace,
+                                                const TypeInfo* charArray)
+{
+    ScopedEnterSaferegion enterSaferegion(false);
+    ArrayRef allRecords = nullptr;
+    if (MutatorManager::Instance().WorldStopped()) {
+        allRecords = GetAllThreadSnapshot(arraySnapshot, arrayStackTrace, charArray);
+    } else {
+        ScopedStopTheWorld stw("dump all thread");
+        allRecords = GetAllThreadSnapshot(arraySnapshot, arrayStackTrace, charArray);
+    }
+    return allRecords;
+}
+
+extern "C" ThreadSnapshot MCC_GetCurrentThreadSnapshotImpl(const TypeInfo* arrayStackTrace, const TypeInfo* charArray)
+{
+    Mutator* mutator = Mutator::GetMutator();
+    CHECK_DETAIL(mutator != nullptr, "Can not get mutator");
+    CHECK_DETAIL(mutator->IsVaildCJThread(), "Get invalid mutator");
+    mutator->EnterSaferegion(true);
+
+    uint32_t threadId = static_cast<uint32_t>(mutator->GetCJThreadId());
+    CString threadName;
+    if (mutator->GetCJThreadName() != nullptr) {
+        threadName = CString(mutator->GetCJThreadName());
+    }
+    int state = mutator->GetCJThreadState();
+    CHECK_DETAIL(state != 0, "Get invalid thread state idle");
+    // 4: syscall which we treat as 2:running
+    state = state == 4 ? 2 : state;
+
+    RecordStackInfo record(&(mutator->GetUnwindContext()), threadId, threadName, state);
+    record.FillInStackTrace();
+
+    ThreadSnapshot snapshot;
+    // fill thread snapshot
+    snapshot.name = CreateCharArrayFromCString(charArray, record.GetThreadName());
+    snapshot.id = record.GetStackTid();
+    snapshot.stackTrace = CreateStackTrace(arrayStackTrace, charArray, record.stacks);
+    snapshot.state = record.GetThreadState();
+
+    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
+    if (buffer != nullptr) {
+        buffer->CommitRawPointerRegions();
+    }
+    mutator->LeaveSaferegion();
+    return snapshot;
+}
+
 static ArrayRef PinArray(const ArrayRef array)
 {
     Mutator* mutator = Mutator::GetMutator();
