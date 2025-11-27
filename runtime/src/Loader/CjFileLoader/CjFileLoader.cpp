@@ -140,8 +140,8 @@ void CJFileLoader::VisitExtensionData(
     TypeInfo* ti, const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const
 {
     ti->TryInitMTable();
-    std::lock_guard<std::recursive_mutex> lock(ti->GetMTableDesc()->mTableMutex);
     auto mtDesc = ti->GetMTableDesc();
+    std::lock_guard<std::recursive_mutex> lock(mtDesc->mTableMutex);
     if (mtDesc->waitedExtensionDatas.empty()) {
         return;
     }
