@@ -34,7 +34,7 @@ main(): Int64 {
         throw SocketException()
     } catch (e: SocketException) {
         println("Caught SocketException: ${e.message}")
-        println("Exception type: ${e.toString()}")
+        println("Exception type: ${e}")
     }
     return 0
 }
@@ -70,7 +70,7 @@ main(): Int64 {
         throw SocketException("Connection failed")
     } catch (e: SocketException) {
         println("Caught SocketException: ${e.message}")
-        println("Exception type: ${e.toString()}")
+        println("Exception type: ${e}")
     }
     return 0
 }
@@ -117,7 +117,7 @@ main(): Int64 {
         throw SocketTimeoutException()
     } catch (e: SocketTimeoutException) {
         println("Caught SocketTimeoutException: ${e.message}")
-        println("Exception type: ${e.toString()}")
+        println("Exception type: ${e}")
     }
     return 0
 }
@@ -153,7 +153,7 @@ main(): Int64 {
         throw SocketTimeoutException("Operation timed out")
     } catch (e: SocketTimeoutException) {
         println("Caught SocketTimeoutException: ${e.message}")
-        println("Exception type: ${e.toString()}")
+        println("Exception type: ${e}")
     }
     return 0
 }
