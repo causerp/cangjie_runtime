@@ -26,6 +26,12 @@ namespace MapleRuntime {
 
 class ThreadSafeOuterTypeInfoCache {
 public:
+    static ThreadSafeOuterTypeInfoCache& GetInstance()
+    { 
+        static ThreadSafeOuterTypeInfoCache instance; 
+        return instance; 
+    }
+
     void Insert(U32 objTypeUUID, U32 introTypeUUID, U64 methodIdx, TypeInfo* methodOuterTypeInfo)
     {
         U64 kk = ((U64)objTypeUUID << 31) | introTypeUUID;
@@ -54,8 +60,6 @@ private:
     std::unordered_map<U64, std::unordered_map<U64, TypeInfo*>> cacheMap;
     RwLock rwLock;
 };
-
-ThreadSafeOuterTypeInfoCache cache;
 
 typedef void *(*GenericiFn)(U32 size, TypeInfo* args[]);
 TypeInfo* ExtensionData::GetInterfaceTypeInfo(U32 argsNum, TypeInfo** args) const
@@ -222,14 +226,19 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
         return;
     }
     /* change to check module name */
+    auto thisName = GetName();
+    auto itfName = itf->GetName();
     U32 pos = 0U;
-    char ch = GetName()[pos];
-    while (ch == itf->GetName()[pos]) {
+    char ch = thisName[pos];
+    while (ch == itfName[pos]) {
         if (ch == '.' | ch == ':') {
             return;
         }
         ++pos;
-        ch = GetName()[pos];
+        ch = thisName[pos];
+        if ((ch == ':' && itfName[pos] == '.') || (ch == '.' && itfName[pos] == ':')) {
+            return;
+        }
     }
 
     auto itfExtData = itf->FindExtensionData(itf);
@@ -243,7 +252,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
             for (auto superTypePair : mTableDesc->mTable) {
                 auto superTi = superTypePair.second.second;
                 // make sure super is the subtype of itf, and super is the direct super type of this type.
-                if (superTypePair.second.first->flag != 0b10000000) {
+                if (!superTypePair.second.first->IsDirect()) {
                     continue;
                 }
                 auto edOfSuper = superTi->FindExtensionData(itf);
@@ -373,12 +382,16 @@ static void ResolveInnerExtensionDefs(
         return;
     }
     U16 initIndex = resolveTi->GetValidInheritNum();
-    // update mtable
-    U16 cnt = 0;
-    while (cnt < initIndex) {
-        ResolveExtensionData(ti, resolveTi, *vExtensionPtr, true, getInterface);
-        ++vExtensionPtr;
-        ++cnt;
+    if (ti == resolveTi) {
+        // update mtable
+        U16 cnt = 0;
+        while (cnt < initIndex) {
+            ResolveExtensionData(ti, resolveTi, *vExtensionPtr, true, getInterface);
+            ++vExtensionPtr;
+            ++cnt;
+        }
+    } else {
+        vExtensionPtr += initIndex;
     }
     MTableBitmap& bitmap = resolveTi->GetMTableDesc()->mTableBitmap;
     if (bitmap.tag != 0) {
@@ -473,14 +486,19 @@ ExtensionData* TypeInfo::FindExtensionDataRecursively(TypeInfo* itf)
 	if (this->GetUUID() == itf->GetUUID()) {
 		return nullptr;
 	}
+    auto thisName = GetName();
+    auto itfName = itf->GetName();
 	U32 pos = 0U;
-	char ch = GetName()[pos];
-	while (ch == itf->GetName()[pos]) {
+	char ch = thisName[pos];
+	while (ch == itfName[pos]) {
 		if (ch == '.' || ch == ':') {
 			return nullptr;
 		}
 		++pos;
-		ch = GetName()[pos];
+		ch = thisName[pos];
+		if ((ch == ':' && itfName[pos] == '.') || (ch == '.' && itfName[pos] == ':')) {
+			return nullptr;
+		}
 	}
 
 	std::lock_guard<std::recursive_mutex> lock(mTableDesc->mTableMutex);
@@ -558,6 +576,11 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 	if (IsTempEnum() && GetSuperTypeInfo()) {
 		return GetSuperTypeInfo()->GetMethodOuterTI(itf, index);
 	}
+    auto& cache = ThreadSafeOuterTypeInfoCache::GetInstance();
+    auto res = cache.Get(GetUUID(), itf->GetUUID(), index);
+    if (res != nullptr) {
+        return res;
+    }
 	auto extensionData = FindExtensionData(itf);
 	if (extensionData == nullptr) {
 		LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
@@ -581,7 +604,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 			auto res = superTi->GetMethodOuterTI(itf, index);
 			cache.Insert(GetUUID(), itf->GetUUID(), index, res);
 			return res;
-		} else if (edOfSuper->flag == 0b10000000) {
+		} else if (edOfSuper->IsDirect()) {
 			break;
 		}
 	}

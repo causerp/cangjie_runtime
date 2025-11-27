@@ -27,9 +27,9 @@ public:
     FuncPtr* GetFuncTable() const { return funcTable; }
     void UpdateFuncTable(U16 ftSize, FuncPtr* newFt) { funcTableSize  = ftSize; funcTable = newFt; }
     U16 GetFuncTableSize() const { return funcTableSize; }
+    bool IsDirect() const { return flag & 0b10000000; }
 
-//private: // temporary solution
-public:
+private:
     U32 argNum;
     U8 isInterfaceTypeInfo;
     // optimization: use 1 byte to speed up the search of mtable.
