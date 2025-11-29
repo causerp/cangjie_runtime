@@ -151,6 +151,27 @@ public override func toString(): String
 >
 > 字符串形式的修饰符信息即为修饰符关键字的标识符。
 
+### operator func !=(ModifierInfo)
+
+```cangjie
+public override operator func !=(that: ModifierInfo): Bool
+```
+
+功能：判断该修饰符信息与给定的另一个修饰符信息是否不等。
+
+> **注意：**
+>
+> - 不支持平台：macOS、iOS。
+> - 修饰符信息的相等性的语义等价于 `enum` 类型实例的相等性的语义。
+
+参数：
+
+- that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与 `that` 不等则返回 `true`，否则返回 `false`。
+
 ### operator func ==(ModifierInfo)
 
 ```cangjie
@@ -174,24 +195,3 @@ public override operator func ==(that: ModifierInfo): Bool
 > **注意：**
 >
 > 修饰符信息的相等性的语义等价于 `enum` 类型实例的相等性的语义。
-
-### operator func !=(ModifierInfo)
-
-```cangjie
-public override operator func !=(that: ModifierInfo): Bool
-```
-
-功能：判断该修饰符信息与给定的另一个修饰符信息是否不等。
-
-> **注意：**
->
-> - 不支持平台：macOS、iOS。
-> - 修饰符信息的相等性的语义等价于 `enum` 类型实例的相等性的语义。
-
-参数：
-
-- that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与 `that` 不等则返回 `true`，否则返回 `false`。

@@ -681,53 +681,6 @@ main(): Unit {
 Is directory: true
 ```
 
-### func isRegular()
-
-```cangjie
-public func isRegular(): Bool
-```
-
-功能：判断当前文件是否是普通文件。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示是文件；false 表示不是文件。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.fs.*
-
-main(): Unit {
-    // 创建前先删除，以防创建失败
-    removeIfExists("./test_is_regular.txt", recursive: true)
-
-    // 创建一个文件
-    let file = File.create("./test_is_regular.txt")
-    
-    // 获取文件信息
-    let fileInfo = file.info
-    
-    // 检查是否为普通文件
-    let isRegular = fileInfo.isRegular()
-    println("Is regular file: ${isRegular}")
-    
-    // 删除文件
-    removeIfExists("./test_is_regular.txt", recursive: true)
-}
-```
-
-运行结果：
-
-```text
-Is regular file: true
-```
-
 ### func isHidden()
 
 ```cangjie
@@ -819,6 +772,53 @@ main(): Unit {
 
 ```text
 File is read-only: false
+```
+
+### func isRegular()
+
+```cangjie
+public func isRegular(): Bool
+```
+
+功能：判断当前文件是否是普通文件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示是文件；false 表示不是文件。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_is_regular.txt", recursive: true)
+
+    // 创建一个文件
+    let file = File.create("./test_is_regular.txt")
+    
+    // 获取文件信息
+    let fileInfo = file.info
+    
+    // 检查是否为普通文件
+    let isRegular = fileInfo.isRegular()
+    println("Is regular file: ${isRegular}")
+    
+    // 删除文件
+    removeIfExists("./test_is_regular.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Is regular file: true
 ```
 
 ### func isSymbolicLink()

@@ -22,8 +22,18 @@ public class Signal <: ToString {
 
 > **注意：**
 >
-> 目前不支持 Windows 平台。
+> 不支持平台：Windows。
 
+
+### static const SIGALRM
+
+```cangjie
+public static const SIGALRM = Signal(0xe, "alarm clock")
+```
+
+功能：SIGALRM 信号，定时器超时。
+
+类型：[Signal](./runtime_package_class#class-signal)
 
 ### static const SIGHUP
 
@@ -52,26 +62,6 @@ public static const SIGQUIT = Signal(0x3, "quit")
 ```
 
 功能：SIGQUIT 信号，表示用户退出。
-
-类型：[Signal](./runtime_package_class#class-signal)
-
-### static const SIGTRAP
-
-```cangjie
-public static const SIGTRAP = Signal(0x5, "trace/breakpoint trap")
-```
-
-功能：SIGTRAP 信号，调试断点触发。
-
-类型：[Signal](./runtime_package_class#class-signal)
-
-### static const SIGALRM
-
-```cangjie
-public static const SIGALRM = Signal(0xe, "alarm clock")
-```
-
-功能：SIGALRM 信号，定时器超时。
 
 类型：[Signal](./runtime_package_class#class-signal)
 
@@ -105,6 +95,16 @@ public const init(value: Int32, comment: String)
 
 - value: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 信号值。
 - comment: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 信号描述。
+
+### static const SIGTRAP
+
+```cangjie
+public static const SIGTRAP = Signal(0x5, "trace/breakpoint trap")
+```
+
+功能：SIGTRAP 信号，调试断点触发。
+
+类型：[Signal](./runtime_package_class#class-signal)
 
 ### func toString()
 

@@ -352,60 +352,6 @@ UNSPEC toString: UNSPEC
 CUSTOM toString: CUSTOM
 ```
 
-### operator func ==(AddressFamily)
-
-```cangjie
-public operator func ==(rhs: AddressFamily): Bool
-```
-
-功能：比较地址族值是否相等。
-
-参数：
-
-- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
-
-返回值：
-
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main(): Int64 {
-    // 创建不同的AddressFamily实例
-    let inet1 = AddressFamily.INET
-    let inet2 = AddressFamily.INET
-    let unix = AddressFamily.UNIX
-    let custom1 = AddressFamily("CUSTOM", 100u16)
-    let custom2 = AddressFamily("CUSTOM", 100u16)
-    
-    // 使用==操作符比较它们
-    let inetEqual = inet1 == inet2
-    let unixEqual = unix == unix
-    let customEqual = custom1 == custom2
-    let inetUnixEqual = inet1 == unix
-    
-    println("INET1 == INET2: ${inetEqual}")
-    println("UNIX == UNIX: ${unixEqual}")
-    println("CUSTOM1 == CUSTOM2: ${customEqual}")
-    println("INET == UNIX: ${inetUnixEqual}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-INET1 == INET2: true
-UNIX == UNIX: true
-CUSTOM1 == CUSTOM2: true
-INET == UNIX: false
-```
-
 ### operator func !=(AddressFamily)
 
 ```cangjie
@@ -458,6 +404,60 @@ INET1 != INET2: false
 UNIX != UNIX: false
 CUSTOM1 != CUSTOM2: false
 INET != UNIX: true
+```
+
+### operator func ==(AddressFamily)
+
+```cangjie
+public operator func ==(rhs: AddressFamily): Bool
+```
+
+功能：比较地址族值是否相等。
+
+参数：
+
+- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
+
+返回值：
+
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    // 创建不同的AddressFamily实例
+    let inet1 = AddressFamily.INET
+    let inet2 = AddressFamily.INET
+    let unix = AddressFamily.UNIX
+    let custom1 = AddressFamily("CUSTOM", 100u16)
+    let custom2 = AddressFamily("CUSTOM", 100u16)
+    
+    // 使用==操作符比较它们
+    let inetEqual = inet1 == inet2
+    let unixEqual = unix == unix
+    let customEqual = custom1 == custom2
+    let inetUnixEqual = inet1 == unix
+    
+    println("INET1 == INET2: ${inetEqual}")
+    println("UNIX == UNIX: ${unixEqual}")
+    println("CUSTOM1 == CUSTOM2: ${customEqual}")
+    println("INET == UNIX: ${inetUnixEqual}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+INET1 == INET2: true
+UNIX == UNIX: true
+CUSTOM1 == CUSTOM2: true
+INET == UNIX: false
 ```
 
 ## struct OptionLevel
@@ -2658,43 +2658,6 @@ main(): Int64 {
 IPPROTO_UDP: 17
 ```
 
-### static const SOL_SOCKET <sup>(deprecated)</sup>
-
-```cangjie
-public static const SOL_SOCKET: Int32
-```
-
-功能：常数，用于将套接字选项的 `level` 层级设为 `SOL_SOCKET`。不同系统下的值分别为：
-
-- macOS: 0xFFFF
-- Windows: 0xFFFF
-- 其他情况：1
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用 [OptionLevel.SOCKET](#static-const-socket) 替代。
-
-类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main(): Int64 {
-    println("SOL_SOCKET: ${SocketOptions.SOL_SOCKET}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-SOL_SOCKET: 1
-```
-
 ### static const SO_BINDTODEVICE
 
 ```cangjie
@@ -2924,6 +2887,43 @@ main(): Int64 {
 
 ```text
 SO_SNDBUF: 7
+```
+
+### static const SOL_SOCKET <sup>(deprecated)</sup>
+
+```cangjie
+public static const SOL_SOCKET: Int32
+```
+
+功能：常数，用于将套接字选项的 `level` 层级设为 `SOL_SOCKET`。不同系统下的值分别为：
+
+- macOS: 0xFFFF
+- Windows: 0xFFFF
+- 其他情况：1
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用 [OptionLevel.SOCKET](#static-const-socket) 替代。
+
+类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    println("SOL_SOCKET: ${SocketOptions.SOL_SOCKET}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+SOL_SOCKET: 1
 ```
 
 ### static const TCP_NODELAY

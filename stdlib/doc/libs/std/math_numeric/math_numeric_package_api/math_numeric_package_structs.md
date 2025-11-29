@@ -2562,49 +2562,6 @@ main() {
 15
 ```
 
-### extend BigInt <: Integer\<BigInt>
-
-```cangjie
-extend BigInt <: Integer<BigInt>
-```
-
-功能：为 [BigInt](#struct-bigint) 类型扩展 [Integer\<T>](../../math/math_package_api/math_package_interfaces.md#interface-integert) 接口。
-
-父类型：
-
-- [Integer](../../math/math_package_api/math_package_interfaces.md#interface-integert)\<[BigInt](#struct-bigint)>
-
-#### static func isSigned()
-
-```cangjie
-public static func isSigned(): Bool
-```
-
-功能：判断 [BigInt](#struct-bigint) 类型是否是有符号类型。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.math.numeric.*
-
-main() {
-    /* 判断 BigInt 类型是否是有符号类型 */
-    let signed = BigInt.isSigned()
-    println(signed)
-}
-```
-
-运行结果：
-
-```text
-true
-```
-
 ### extend BigInt <: Formattable
 
 ```cangjie
@@ -2655,6 +2612,49 @@ main() {
 
 ```text
 3039
+```
+
+### extend BigInt <: Integer\<BigInt>
+
+```cangjie
+extend BigInt <: Integer<BigInt>
+```
+
+功能：为 [BigInt](#struct-bigint) 类型扩展 [Integer\<T>](../../math/math_package_api/math_package_interfaces.md#interface-integert) 接口。
+
+父类型：
+
+- [Integer](../../math/math_package_api/math_package_interfaces.md#interface-integert)\<[BigInt](#struct-bigint)>
+
+#### static func isSigned()
+
+```cangjie
+public static func isSigned(): Bool
+```
+
+功能：判断 [BigInt](#struct-bigint) 类型是否是有符号类型。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.*
+
+main() {
+    /* 判断 BigInt 类型是否是有符号类型 */
+    let signed = BigInt.isSigned()
+    println(signed)
+}
+```
+
+运行结果：
+
+```text
+true
 ```
 
 ### extend BigInt <: Number\<BigInt>
@@ -3731,23 +3731,21 @@ main(): Unit {
 Ordering.LT
 ```
 
-### func divWithPrecision(Decimal, Int64, RoundingMode)
+### func divAndMod(Decimal)
 
 ```cangjie
-public func divWithPrecision(d: Decimal, precision: Int64, roundingMode!: RoundingMode = HalfEven): Decimal
+public func divAndMod(d: Decimal): (BigInt, Decimal)
 ```
 
-功能：除法运算，支持自定义运算精度和舍入方式，除以入参 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，返回结果值，如果结果精度超过 `precision` 指定精度，则根据指定的精度对除法运算结果进行舍入。
+功能：除法取商和余数运算，除以入参 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，返回整数商值和余数值。结果保留实际精度值。
 
 参数：
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - [Decimal](math_numeric_package_structs.md#struct-decimal) 除数对象。
-- precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 精度值。
-- roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - 舍入规则。
 
 返回值：
 
-- [Decimal](math_numeric_package_structs.md#struct-decimal) - 生成一个新的 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，用于存储除法运算结果值。
+- ([BigInt](math_numeric_package_structs.md#struct-bigint), [Decimal](math_numeric_package_structs.md#struct-decimal)) - 生成一个元组对象，分别用于存储整数商值结果和余数结果值。
 
 异常：
 
@@ -3758,20 +3756,20 @@ public func divWithPrecision(d: Decimal, precision: Int64, roundingMode!: Roundi
 
 <!-- verify -->
 ```cangjie
-import std.math.numeric.Decimal
+import std.math.numeric.*
 
 main(): Unit {
-    let A = Decimal(2)
+    let A = Decimal(10)
     let B = Decimal(3)
-    let C = A.divWithPrecision(B, 0)
-    println("C = ${C}")
+    let result = A.divAndMod(B)
+    println("商: ${result[0]}, 余数: ${result[1]}")
 }
 ```
 
 运行结果：
 
 ```text
-C = 0.6666666666666666666666666666666667
+商: 3, 余数: 1
 ```
 
 ### func divAndRem(Decimal) <sup>(deprecated)<sup>
@@ -3819,21 +3817,23 @@ main(): Unit {
 商: 3, 余数: 1
 ```
 
-### func divAndMod(Decimal)
+### func divWithPrecision(Decimal, Int64, RoundingMode)
 
 ```cangjie
-public func divAndMod(d: Decimal): (BigInt, Decimal)
+public func divWithPrecision(d: Decimal, precision: Int64, roundingMode!: RoundingMode = HalfEven): Decimal
 ```
 
-功能：除法取商和余数运算，除以入参 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，返回整数商值和余数值。结果保留实际精度值。
+功能：除法运算，支持自定义运算精度和舍入方式，除以入参 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，返回结果值，如果结果精度超过 `precision` 指定精度，则根据指定的精度对除法运算结果进行舍入。
 
 参数：
 
 - d: [Decimal](math_numeric_package_structs.md#struct-decimal) - [Decimal](math_numeric_package_structs.md#struct-decimal) 除数对象。
+- precision: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 精度值。
+- roundingMode!: [RoundingMode](../../math/math_package_api/math_package_enums.md#enum-roundingmode) - 舍入规则。
 
 返回值：
 
-- ([BigInt](math_numeric_package_structs.md#struct-bigint), [Decimal](math_numeric_package_structs.md#struct-decimal)) - 生成一个元组对象，分别用于存储整数商值结果和余数结果值。
+- [Decimal](math_numeric_package_structs.md#struct-decimal) - 生成一个新的 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，用于存储除法运算结果值。
 
 异常：
 
@@ -3844,20 +3844,20 @@ public func divAndMod(d: Decimal): (BigInt, Decimal)
 
 <!-- verify -->
 ```cangjie
-import std.math.numeric.*
+import std.math.numeric.Decimal
 
 main(): Unit {
-    let A = Decimal(10)
+    let A = Decimal(2)
     let B = Decimal(3)
-    let result = A.divAndMod(B)
-    println("商: ${result[0]}, 余数: ${result[1]}")
+    let C = A.divWithPrecision(B, 0)
+    println("C = ${C}")
 }
 ```
 
 运行结果：
 
 ```text
-商: 3, 余数: 1
+C = 0.6666666666666666666666666666666667
 ```
 
 ### func hashCode()
@@ -3962,6 +3962,36 @@ main(): Unit {
 A.powWithPrecision(3, 0) = 15.625
 ```
 
+### func removeTrailingZeros()
+
+```cangjie
+public func removeTrailingZeros(): Decimal
+```
+
+功能：对当前 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象移除尾部零，不改变对象数值。
+
+返回值：
+
+- [Decimal](math_numeric_package_structs.md#struct-decimal) - 新的无尾部零的 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.Decimal
+
+main(): Unit {
+    let A = Decimal(1.00)
+    println("A.removeTrailingZeros() = ${A.removeTrailingZeros()}")
+}
+```
+
+运行结果：
+
+```text
+A.removeTrailingZeros() = 1
+```
+
 ### func reScale(Int32, RoundingMode)
 
 ```cangjie
@@ -3995,36 +4025,6 @@ main(): Unit {
 
 ```text
 A.reScale(3) = 1.235
-```
-
-### func removeTrailingZeros()
-
-```cangjie
-public func removeTrailingZeros(): Decimal
-```
-
-功能：对当前 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象移除尾部零，不改变对象数值。
-
-返回值：
-
-- [Decimal](math_numeric_package_structs.md#struct-decimal) - 新的无尾部零的 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.math.numeric.Decimal
-
-main(): Unit {
-    let A = Decimal(1.00)
-    println("A.removeTrailingZeros() = ${A.removeTrailingZeros()}")
-}
-```
-
-运行结果：
-
-```text
-A.removeTrailingZeros() = 1
 ```
 
 ### func roundWithPrecision(Int64, RoundingMode)
@@ -4235,46 +4235,6 @@ main() {
 
 ```text
 123.456789000000004307366907596588134765625E3
-```
-
-### func toSciString()
-
-```cangjie
-public func toSciString(): String
-```
-
-功能：以科学计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 科学计数法形式的 [Decimal](math_numeric_package_structs.md#struct-decimal) 字符串。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.math.numeric.Decimal
-
-main(): Unit {
-    let A = Decimal(6.25)
-    println("A.toFloat16() = ${A.toFloat16()}")
-    println("A.toFloat32() = ${A.toFloat32()}")
-    println("A.toFloat64() = ${A.toFloat64()}")
-    println("A.toBigInt() = ${A.toBigInt()}")
-    println("A.toEngString() = ${A.toEngString()}")
-    println("A.toSciString() = ${A.toSciString()}")
-}
-```
-
-运行结果：
-
-```text
-A.toFloat16() = 6.250000
-A.toFloat32() = 6.250000
-A.toFloat64() = 6.250000
-A.toBigInt() = 6
-A.toEngString() = 6.25E0
-A.toSciString() = 6.25E0
 ```
 
 ### func toFloat16()
@@ -4589,6 +4549,46 @@ A.toInt16() = 6
 A.toInt32() = 6
 A.toInt64() = 6
 A.toIntNative() = 6
+```
+
+### func toSciString()
+
+```cangjie
+public func toSciString(): String
+```
+
+功能：以科学计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 科学计数法形式的 [Decimal](math_numeric_package_structs.md#struct-decimal) 字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.numeric.Decimal
+
+main(): Unit {
+    let A = Decimal(6.25)
+    println("A.toFloat16() = ${A.toFloat16()}")
+    println("A.toFloat32() = ${A.toFloat32()}")
+    println("A.toFloat64() = ${A.toFloat64()}")
+    println("A.toBigInt() = ${A.toBigInt()}")
+    println("A.toEngString() = ${A.toEngString()}")
+    println("A.toSciString() = ${A.toSciString()}")
+}
+```
+
+运行结果：
+
+```text
+A.toFloat16() = 6.250000
+A.toFloat32() = 6.250000
+A.toFloat64() = 6.250000
+A.toBigInt() = 6
+A.toEngString() = 6.25E0
+A.toSciString() = 6.25E0
 ```
 
 ### func toString()

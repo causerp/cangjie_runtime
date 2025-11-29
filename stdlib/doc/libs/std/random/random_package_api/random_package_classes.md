@@ -258,6 +258,121 @@ main() {
 n=true
 ```
 
+### func nextBytes(Array\<Byte>)
+
+```cangjie
+public func nextBytes(bytes: Array<Byte>): Unit
+```
+
+功能：生成随机数替换入参数组中的每个元素。
+
+参数：
+
+- bytes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 被替换的数组。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 先创建一个字节数组
+    let bytes = random.nextBytes(5)
+    
+    println("调用nextBytes前:")
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+    
+    // 使用nextBytes重新填充数组
+    random.nextBytes(bytes)
+    
+    println("调用nextBytes后:")
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+调用nextBytes前:
+bytes[0] = 200
+bytes[1] = 46
+bytes[2] = 141
+bytes[3] = 211
+bytes[4] = 109
+调用nextBytes后:
+bytes[0] = 164
+bytes[1] = 187
+bytes[2] = 173
+bytes[3] = 16
+bytes[4] = 229
+```
+
+### func nextBytes(Int32)
+
+```cangjie
+public func nextBytes(length: Int32): Array<Byte>
+```
+
+功能：生成指定长度的随机数数组。
+
+参数：
+
+- length: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 生成的随机数数组长度，`length` 大于 0。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 生成的随机数数组。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `length` 小于等于 0 时，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+    
+    // 生成长度为5的随机字节数组
+    let bytes = random.nextBytes(5)
+    println("生成的数组长度: ${bytes.size}")
+    
+    // 打印生成的随机字节
+    for (i in 0..bytes.size) {
+        println("bytes[${i}] = ${bytes[i]}")
+    }
+    
+    // 测试异常情况
+    try {
+        let emptyBytes = random.nextBytes(-1)
+    } catch (e: IllegalArgumentException) {
+        println("捕获到异常: ${e.message}")
+    }
+}
+```
+
+可能的运行结果：
+
+```text
+生成的数组长度: 5
+bytes[0] = 22
+bytes[1] = 242
+bytes[2] = 63
+bytes[3] = 116
+bytes[4] = 89
+捕获到异常: Length must be positive.
+```
+
 ### func nextFloat16()
 
 ```cangjie
@@ -1144,118 +1259,3 @@ public func nextUInt8s(array: Array<UInt8>): Array<UInt8>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回替换后的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)。
-
-### func nextBytes(Array\<Byte>)
-
-```cangjie
-public func nextBytes(bytes: Array<Byte>): Unit
-```
-
-功能：生成随机数替换入参数组中的每个元素。
-
-参数：
-
-- bytes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 被替换的数组。
-
-示例：
-
-<!-- run -->
-```cangjie
-import std.random.*
-
-main(): Unit {
-    let random = Random()
-    
-    // 先创建一个字节数组
-    let bytes = random.nextBytes(5)
-    
-    println("调用nextBytes前:")
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
-    
-    // 使用nextBytes重新填充数组
-    random.nextBytes(bytes)
-    
-    println("调用nextBytes后:")
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
-}
-```
-
-可能的运行结果：
-
-```text
-调用nextBytes前:
-bytes[0] = 200
-bytes[1] = 46
-bytes[2] = 141
-bytes[3] = 211
-bytes[4] = 109
-调用nextBytes后:
-bytes[0] = 164
-bytes[1] = 187
-bytes[2] = 173
-bytes[3] = 16
-bytes[4] = 229
-```
-
-### func nextBytes(Int32)
-
-```cangjie
-public func nextBytes(length: Int32): Array<Byte>
-```
-
-功能：生成指定长度的随机数数组。
-
-参数：
-
-- length: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 生成的随机数数组长度，`length` 大于 0。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 生成的随机数数组。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `length` 小于等于 0 时，抛出异常。
-
-示例：
-
-<!-- run -->
-```cangjie
-import std.random.*
-
-main(): Unit {
-    let random = Random()
-    
-    // 生成长度为5的随机字节数组
-    let bytes = random.nextBytes(5)
-    println("生成的数组长度: ${bytes.size}")
-    
-    // 打印生成的随机字节
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
-    
-    // 测试异常情况
-    try {
-        let emptyBytes = random.nextBytes(-1)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
-}
-```
-
-可能的运行结果：
-
-```text
-生成的数组长度: 5
-bytes[0] = 22
-bytes[1] = 242
-bytes[2] = 63
-bytes[3] = 116
-bytes[4] = 89
-捕获到异常: Length must be positive.
-```

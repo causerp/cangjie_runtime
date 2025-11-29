@@ -1504,51 +1504,6 @@ Float16.Inf.isNormal() 的结果: false
 Float16.NaN.isNormal() 的结果: false
 ```
 
-### extend Float16 <: Comparable\<Float16>
-
-```cangjie
-extend Float16 <: Comparable<Float16>
-```
-
-功能：为 [Float16](core_package_intrinsics.md#float16) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float16](core_package_intrinsics.md#float16)> 接口，支持比较操作。
-
-父类型：
-
-- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float16](#float16)>
-
-#### func compare(Float16)
-
-```cangjie
-public func compare(rhs: Float16): Ordering
-```
-
-功能：判断当前 [Float16](core_package_intrinsics.md#float16) 值与指定 [Float16](core_package_intrinsics.md#float16) 值的大小关系。
-
-参数：
-
-- rhs: [Float16](core_package_intrinsics.md#float16) - 待比较的另一个 [Float16](core_package_intrinsics.md#float16) 值。
-
-返回值：
-
-- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    var num1: Float16 = 0.12
-    var num2: Float16 = 0.234
-    println(num1.compare(num2))
-}
-```
-
-运行结果：
-
-```text
-Ordering.LT
-```
-
 ### extend Float16
 
 ```cangjie
@@ -1614,6 +1569,51 @@ main() {
 
 ```text
 19008
+```
+
+### extend Float16 <: Comparable\<Float16>
+
+```cangjie
+extend Float16 <: Comparable<Float16>
+```
+
+功能：为 [Float16](core_package_intrinsics.md#float16) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float16](core_package_intrinsics.md#float16)> 接口，支持比较操作。
+
+父类型：
+
+- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float16](#float16)>
+
+#### func compare(Float16)
+
+```cangjie
+public func compare(rhs: Float16): Ordering
+```
+
+功能：判断当前 [Float16](core_package_intrinsics.md#float16) 值与指定 [Float16](core_package_intrinsics.md#float16) 值的大小关系。
+
+参数：
+
+- rhs: [Float16](core_package_intrinsics.md#float16) - 待比较的另一个 [Float16](core_package_intrinsics.md#float16) 值。
+
+返回值：
+
+- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num1: Float16 = 0.12
+    var num2: Float16 = 0.234
+    println(num1.compare(num2))
+}
+```
+
+运行结果：
+
+```text
+Ordering.LT
 ```
 
 ### extend Float16 <: Hashable
@@ -2141,51 +2141,6 @@ Float32.Inf.isNormal() 的结果: false
 Float32.NaN.isNormal() 的结果: false
 ```
 
-### extend Float32 <: Comparable\<Float32>
-
-```cangjie
-extend Float32 <: Comparable<Float32>
-```
-
-功能：为 [Float32](core_package_intrinsics.md#float32) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float32](core_package_intrinsics.md#float32)> 接口，支持比较操作。
-
-父类型：
-
-- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float32](#float32)>
-
-#### func compare(Float32)
-
-```cangjie
-public func compare(rhs: Float32): Ordering
-```
-
-功能：判断当前 [Float32](core_package_intrinsics.md#float32) 值与指定 [Float32](core_package_intrinsics.md#float32) 值的大小关系。
-
-参数：
-
-- rhs: [Float32](core_package_intrinsics.md#float32) - 待比较的另一个 [Float32](core_package_intrinsics.md#float32) 值。
-
-返回值：
-
-- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    var num1: Float32 = 0.12
-    var num2: Float32 = 0.234
-    println(num1.compare(num2))
-}
-```
-
-运行结果：
-
-```text
-Ordering.LT
-```
-
 ### extend Float32
 
 ```cangjie
@@ -2251,6 +2206,51 @@ main() {
 
 ```text
 1096684667
+```
+
+### extend Float32 <: Comparable\<Float32>
+
+```cangjie
+extend Float32 <: Comparable<Float32>
+```
+
+功能：为 [Float32](core_package_intrinsics.md#float32) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float32](core_package_intrinsics.md#float32)> 接口，支持比较操作。
+
+父类型：
+
+- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float32](#float32)>
+
+#### func compare(Float32)
+
+```cangjie
+public func compare(rhs: Float32): Ordering
+```
+
+功能：判断当前 [Float32](core_package_intrinsics.md#float32) 值与指定 [Float32](core_package_intrinsics.md#float32) 值的大小关系。
+
+参数：
+
+- rhs: [Float32](core_package_intrinsics.md#float32) - 待比较的另一个 [Float32](core_package_intrinsics.md#float32) 值。
+
+返回值：
+
+- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num1: Float32 = 0.12
+    var num2: Float32 = 0.234
+    println(num1.compare(num2))
+}
+```
+
+运行结果：
+
+```text
+Ordering.LT
 ```
 
 ### extend Float32 <: Hashable
@@ -2778,51 +2778,6 @@ Float64.Inf.isNormal() 的结果: false
 Float64.NaN.isNormal() 的结果: false
 ```
 
-### extend Float64 <: Comparable\<Float64>
-
-```cangjie
-extend Float64 <: Comparable<Float64>
-```
-
-功能：为 [Float64](core_package_intrinsics.md#float64) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float64](core_package_intrinsics.md#float64)> 接口，支持比较操作。
-
-父类型：
-
-- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float64](#float64)>
-
-#### func compare(Float64)
-
-```cangjie
-public func compare(rhs: Float64): Ordering
-```
-
-功能：判断当前 [Float64](core_package_intrinsics.md#float64) 值与指定 [Float64](core_package_intrinsics.md#float64) 值的大小关系。
-
-参数：
-
-- rhs: [Float64](core_package_intrinsics.md#float64) - 待比较的另一个 [Float64](core_package_intrinsics.md#float64) 值。
-
-返回值：
-
-- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    var num1: Float64 = 0.12
-    var num2: Float64 = 0.234
-    println(num1.compare(num2))
-}
-```
-
-运行结果：
-
-```text
-Ordering.LT
-```
-
 ### extend Float64
 
 ```cangjie
@@ -2888,6 +2843,51 @@ main() {
 
 ```text
 4624003363408246211
+```
+
+### extend Float64 <: Comparable\<Float64>
+
+```cangjie
+extend Float64 <: Comparable<Float64>
+```
+
+功能：为 [Float64](core_package_intrinsics.md#float64) 类型扩展 [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float64](core_package_intrinsics.md#float64)> 接口，支持比较操作。
+
+父类型：
+
+- [Comparable](core_package_interfaces.md#interface-comparablet)\<[Float64](#float64)>
+
+#### func compare(Float64)
+
+```cangjie
+public func compare(rhs: Float64): Ordering
+```
+
+功能：判断当前 [Float64](core_package_intrinsics.md#float64) 值与指定 [Float64](core_package_intrinsics.md#float64) 值的大小关系。
+
+参数：
+
+- rhs: [Float64](core_package_intrinsics.md#float64) - 待比较的另一个 [Float64](core_package_intrinsics.md#float64) 值。
+
+返回值：
+
+- [Ordering](core_package_enums.md#enum-ordering) - 如果大于，返回 [Ordering](core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](core_package_enums.md#enum-ordering).LT。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var num1: Float64 = 0.12
+    var num2: Float64 = 0.234
+    println(num1.compare(num2))
+}
+```
+
+运行结果：
+
+```text
+Ordering.LT
 ```
 
 ### extend Float64 <: Hashable

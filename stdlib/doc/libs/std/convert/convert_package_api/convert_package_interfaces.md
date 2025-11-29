@@ -2033,134 +2033,6 @@ func toString(radix!: Int64): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定进制形式字符串。
 
-### extend Int8 <: RadixConvertible\<Int8>
-
-```cangjie
-extend Int8 <: RadixConvertible<Int8>
-```
-
-功能：此扩展主要用于实现将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值的相关操作函数。
-
-父类型：
-
-- [RadixConvertible](#interface-radixconvertiblet)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
-
-#### static func parse(String, Int64)
-
-```cangjie
-public static func parse(value: String, radix!: Int64): Int8
-```
-
-功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
-
-参数：
-
-- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 要转换的字符串。
-- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
-
-返回值：
-
-- [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回转换后 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，进制超出范围，转换后超出 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 范围或字符串中含有无效的 UTF-8 字符，转换失败时，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.convert.*
-
-main() {
-    var strInt8: String = "A"
-    var res = Int8.parse(strInt8, radix: 16)
-    
-    println("After the conversion of parse, \"A\" became ${res}")
-}
-```
-
-运行结果：
-
-```text
-After the conversion of parse, "A" became 10
-```
-
-#### static func tryParse(String, Int64)
-
-```cangjie
-public static func tryParse(value: String, radix!: Int64): Option<Int8>
-```
-
-功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值。
-
-参数：
-
-- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 要转换的字符串。
-- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
-
-返回值：
-
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None。
-
-<!-- verify -->
-```cangjie
-import std.convert.*
-
-main(): Int64 {
-    var strInt: String = "7a"
-    var res = Int8.tryParse(strInt, radix: 16)
-    
-    println("After the conversion of tryParse, \"7a\" in hexadecimal became ${res}")
-    return 0
-}
-```
-
-运行结果：
-
-```text
-After the conversion of tryParse, "7a" in hexadecimal became Some(122)
-```
-
-#### func toString(Int64)
-
-```cangjie
-public func toString(radix!: Int64): String
-```
-
-功能：返回指定进制形式字符串。
-
-参数：
-
-- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定进制形式字符串。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
-
-<!-- verify -->
-```cangjie
-import std.convert.*
-
-main(): Int64 {
-    var value: Int8 = 122
-    var res = value.toString(radix: 16)
-    
-    println("After the conversion of toString, 122 in hexadecimal became \"${res}\"")
-    return 0
-}
-```
-
-运行结果：
-
-```text
-After the conversion of toString, 122 in hexadecimal became "7a"
-```
-
 ### extend Int16 <: RadixConvertible\<Int16>
 
 ```cangjie
@@ -2542,25 +2414,25 @@ main(): Int64 {
 After the conversion of toString, 9223372036854775807 in hexadecimal became "7fffffffffffffff"
 ```
 
-### extend UInt8 <: RadixConvertible\<UInt8>
+### extend Int8 <: RadixConvertible\<Int8>
 
 ```cangjie
-extend UInt8 <: RadixConvertible<UInt8>
+extend Int8 <: RadixConvertible<Int8>
 ```
 
-功能：此扩展主要用于实现将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值的相关操作函数。
+功能：此扩展主要用于实现将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值的相关操作函数。
 
 父类型：
 
-- [RadixConvertible](#interface-radixconvertiblet)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
+- [RadixConvertible](#interface-radixconvertiblet)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
 
 #### static func parse(String, Int64)
 
 ```cangjie
-public static func parse(value: String, radix!: Int64): UInt8
+public static func parse(value: String, radix!: Int64): Int8
 ```
 
-功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
+功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
 
 参数：
 
@@ -2569,38 +2441,39 @@ public static func parse(value: String, radix!: Int64): UInt8
 
 返回值：
 
-- [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 返回转换后 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
+- [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 返回转换后 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空，进制超出范围，转换后超出 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 范围或字符串中含有无效的 UTF-8 字符，转换失败时，抛出异常。
+
+示例：
 
 <!-- verify -->
 ```cangjie
 import std.convert.*
 
-main(): Int64 {
-    var strInt: String = "ff"
-    var res = UInt8.parse(strInt, radix: 16)
+main() {
+    var strInt8: String = "A"
+    var res = Int8.parse(strInt8, radix: 16)
     
-    println("After the conversion of parse, \"ff\" in hexadecimal became ${res}")
-    return 0
+    println("After the conversion of parse, \"A\" became ${res}")
 }
 ```
 
 运行结果：
 
 ```text
-After the conversion of parse, "ff" in hexadecimal became 255
+After the conversion of parse, "A" became 10
 ```
 
 #### static func tryParse(String, Int64)
 
 ```cangjie
-public static func tryParse(value: String, radix!: Int64): Option<UInt8>
+public static func tryParse(value: String, radix!: Int64): Option<Int8>
 ```
 
-功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值。
+功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型字面量的字符串转换为 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值。
 
 参数：
 
@@ -2609,17 +2482,17 @@ public static func tryParse(value: String, radix!: Int64): Option<UInt8>
 
 返回值：
 
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>.None。
 
 <!-- verify -->
 ```cangjie
 import std.convert.*
 
 main(): Int64 {
-    var strInt: String = "1z"
-    var res = UInt8.tryParse(strInt, radix: 36)
+    var strInt: String = "7a"
+    var res = Int8.tryParse(strInt, radix: 16)
     
-    println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
+    println("After the conversion of tryParse, \"7a\" in hexadecimal became ${res}")
     return 0
 }
 ```
@@ -2627,7 +2500,7 @@ main(): Int64 {
 运行结果：
 
 ```text
-After the conversion of tryParse, "1z" in base-36 became Some(71)
+After the conversion of tryParse, "7a" in hexadecimal became Some(122)
 ```
 
 #### func toString(Int64)
@@ -2655,10 +2528,10 @@ public func toString(radix!: Int64): String
 import std.convert.*
 
 main(): Int64 {
-    var value: UInt8 = 71
-    var res = value.toString(radix: 36)
+    var value: Int8 = 122
+    var res = value.toString(radix: 16)
     
-    println("After the conversion of toString, 71 in base-36 became \"${res}\"")
+    println("After the conversion of toString, 122 in hexadecimal became \"${res}\"")
     return 0
 }
 ```
@@ -2666,7 +2539,7 @@ main(): Int64 {
 运行结果：
 
 ```text
-After the conversion of toString, 71 in base-36 became "1z"
+After the conversion of toString, 122 in hexadecimal became "7a"
 ```
 
 ### extend UInt16 <: RadixConvertible\<UInt16>
@@ -3048,4 +2921,130 @@ main(): Int64 {
 
 ```text
 After the conversion of toString, 18446744073709551615 in hexadecimal became "ffffffffffffffff"
+```
+### extend UInt8 <: RadixConvertible\<UInt8>
+
+```cangjie
+extend UInt8 <: RadixConvertible<UInt8>
+```
+
+功能：此扩展主要用于实现将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值的相关操作函数。
+
+父类型：
+
+- [RadixConvertible](#interface-radixconvertiblet)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
+
+#### static func parse(String, Int64)
+
+```cangjie
+public static func parse(value: String, radix!: Int64): UInt8
+```
+
+功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
+
+参数：
+
+- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 要转换的字符串。
+- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
+
+返回值：
+
+- [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 返回转换后 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当字符串为空、进制超出范围、首位为 `-`、转换后超出 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 范围、字符串中含有无效的 UTF-8 字符时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "ff"
+    var res = UInt8.parse(strInt, radix: 16)
+    
+    println("After the conversion of parse, \"ff\" in hexadecimal became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of parse, "ff" in hexadecimal became 255
+```
+
+#### static func tryParse(String, Int64)
+
+```cangjie
+public static func tryParse(value: String, radix!: Int64): Option<UInt8>
+```
+
+功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型字面量的字符串转换为 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值。
+
+参数：
+
+- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 要转换的字符串。
+- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回转换后 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> 值，转换失败返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>.None。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var strInt: String = "1z"
+    var res = UInt8.tryParse(strInt, radix: 36)
+    
+    println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of tryParse, "1z" in base-36 became Some(71)
+```
+
+#### func toString(Int64)
+
+```cangjie
+public func toString(radix!: Int64): String
+```
+
+功能：返回指定进制形式字符串。
+
+参数：
+
+- radix!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 指定的进制。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定进制形式字符串。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当进制不合规时，抛出异常。
+
+<!-- verify -->
+```cangjie
+import std.convert.*
+
+main(): Int64 {
+    var value: UInt8 = 71
+    var res = value.toString(radix: 36)
+    
+    println("After the conversion of toString, 71 in base-36 became \"${res}\"")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+After the conversion of toString, 71 in base-36 became "1z"
 ```

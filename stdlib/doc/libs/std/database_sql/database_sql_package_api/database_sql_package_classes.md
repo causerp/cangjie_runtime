@@ -4067,136 +4067,6 @@ Created SqlNullableTime with value: None
 ```
 
 
-## class SqlNullableTimeTz <sup>(deprecated)</sup>
-
-```cangjie
-public class SqlNullableTimeTz <: SqlNullableDbType {
-    public init(v: ?DateTime)
-}
-```
-
-功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型，可为数据库 `Null` 值。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
-
-父类型：
-
-- [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated)
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated)。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-
-main() {
-    // 使用SqlNullableTimeTz的构造函数
-    let sqlNullableTimeTz = SqlNullableTimeTz(None)
-    // 访问name属性
-    println("SqlNullableTimeTz name: ${sqlNullableTimeTz.name}")
-}
-```
-
-运行结果：
-
-```text
-SqlNullableTimeTz name: SqlNullableTimeTz
-```
-
-### prop value
-
-```cangjie
-public mut prop value: ?DateTime
-```
-
-功能：该数据的值。
-
-类型：?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-import std.time.*
-
-main() {
-    // 创建一个DateTime实例
-    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
-    // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
-    let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
-    // 访问value属性
-    let value1 = sqlNullableTimeTzWithValue.value
-    println("SqlNullableTimeTz value: ${value1}")
-    
-    // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
-    let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
-    // 访问value属性
-    let value2 = sqlNullableTimeTzWithoutValue.value
-    println("SqlNullableTimeTz value: ${value2}")
-}
-```
-
-运行结果：
-
-```text
-SqlNullableTimeTz value: Some(2012-01-01T00:00:00Z)
-SqlNullableTimeTz value: None
-```
-
-### init(?DateTime)
-
-```cangjie
-public init(v: ?DateTime)
-```
-
-功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated) 实例。
-
-参数：
-
-- v: ?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-import std.time.*
-
-main() {
-    // 创建一个DateTime实例
-    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
-    // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
-    let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
-    println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithValue.value}")
-    
-    // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
-    let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
-    println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithoutValue.value}")
-}
-```
-
-运行结果：
-
-```text
-Created SqlNullableTimeTz with value: Some(2012-01-01T00:00:00Z)
-Created SqlNullableTimeTz with value: None
-```
-
 ## class SqlNullableTimestamp <sup>(deprecated)</sup>
 
 ```cangjie
@@ -4326,6 +4196,136 @@ main() {
 ```text
 Created SqlNullableTimestamp with value: Some(2012-01-01T00:00:00Z)
 Created SqlNullableTimestamp with value: None
+```
+
+## class SqlNullableTimeTz <sup>(deprecated)</sup>
+
+```cangjie
+public class SqlNullableTimeTz <: SqlNullableDbType {
+    public init(v: ?DateTime)
+}
+```
+
+功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型，可为数据库 `Null` 值。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+
+父类型：
+
+- [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated)。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+
+main() {
+    // 使用SqlNullableTimeTz的构造函数
+    let sqlNullableTimeTz = SqlNullableTimeTz(None)
+    // 访问name属性
+    println("SqlNullableTimeTz name: ${sqlNullableTimeTz.name}")
+}
+```
+
+运行结果：
+
+```text
+SqlNullableTimeTz name: SqlNullableTimeTz
+```
+
+### prop value
+
+```cangjie
+public mut prop value: ?DateTime
+```
+
+功能：该数据的值。
+
+类型：?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+import std.time.*
+
+main() {
+    // 创建一个DateTime实例
+    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
+    
+    // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
+    let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
+    // 访问value属性
+    let value1 = sqlNullableTimeTzWithValue.value
+    println("SqlNullableTimeTz value: ${value1}")
+    
+    // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
+    let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
+    // 访问value属性
+    let value2 = sqlNullableTimeTzWithoutValue.value
+    println("SqlNullableTimeTz value: ${value2}")
+}
+```
+
+运行结果：
+
+```text
+SqlNullableTimeTz value: Some(2012-01-01T00:00:00Z)
+SqlNullableTimeTz value: None
+```
+
+### init(?DateTime)
+
+```cangjie
+public init(v: ?DateTime)
+```
+
+功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimetz-deprecated) 实例。
+
+参数：
+
+- v: ?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+import std.time.*
+
+main() {
+    // 创建一个DateTime实例
+    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
+    
+    // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
+    let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
+    println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithValue.value}")
+    
+    // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
+    let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
+    println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithoutValue.value}")
+}
+```
+
+运行结果：
+
+```text
+Created SqlNullableTimeTz with value: Some(2012-01-01T00:00:00Z)
+Created SqlNullableTimeTz with value: None
 ```
 
 ## class SqlNullableVarBinary <sup>(deprecated)</sup>
@@ -5231,6 +5231,34 @@ main() {
 TLS Version key: tls.version
 ```
 
+### static const UpdateTimeout
+
+```cangjie
+public static const UpdateTimeout: String = "update_timeout"
+```
+
+功能：获取 update 操作的超时时间，单位 ms。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+
+main() {
+    // 使用SqlOption类的UpdateTimeout静态常量
+    println("Update timeout key: ${SqlOption.UpdateTimeout}")
+}
+```
+
+运行结果：
+
+```text
+Update timeout key: update_timeout
+```
+
 ### static const URL
 
 ```cangjie
@@ -5258,34 +5286,6 @@ main() {
 
 ```text
 URL key: url
-```
-
-### static const UpdateTimeout
-
-```cangjie
-public static const UpdateTimeout: String = "update_timeout"
-```
-
-功能：获取 update 操作的超时时间，单位 ms。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-
-main() {
-    // 使用SqlOption类的UpdateTimeout静态常量
-    println("Update timeout key: ${SqlOption.UpdateTimeout}")
-}
-```
-
-运行结果：
-
-```text
-Update timeout key: update_timeout
 ```
 
 ### static const Username
@@ -5684,126 +5684,6 @@ Created SqlTime with value: 2012-01-01T00:00:00Z
 ```
 
 
-## class SqlTimeTz <sup>(deprecated)</sup>
-
-```cangjie
-public class SqlTimeTz <: SqlDbType {
-    public init(v: DateTime)
-}
-```
-
-功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
-
-父类型：
-
-- [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-功能：类型名称，即 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated)。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-import std.time.*
-
-main() {
-    // 使用SqlTimeTz的构造函数
-    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    let sqlTimeTz = SqlTimeTz(dateTime)
-    // 访问name属性
-    println("SqlTimeTz name: ${sqlTimeTz.name}")
-}
-```
-
-运行结果：
-
-```text
-SqlTimeTz name: SqlTimeTz
-```
-
-### prop value
-
-```cangjie
-public mut prop value: DateTime
-```
-
-功能：该数据的值。
-
-类型：[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-import std.time.*
-
-main() {
-    // 创建一个DateTime实例
-    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
-    // 使用SqlTimeTz的构造函数创建一个实例
-    let sqlTimeTzWithValue = SqlTimeTz(dateTime)
-    // 访问value属性
-    let value1 = sqlTimeTzWithValue.value
-    println("SqlTimeTz value: ${value1}")
-}
-```
-
-运行结果：
-
-```text
-SqlTimeTz value: 2012-01-01T00:00:00Z
-```
-
-### init(DateTime)
-
-```cangjie
-public init(v: DateTime)
-```
-
-功能：根据传入参数 v 构造一个 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated) 实例。
-
-参数：
-
-- v: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.database.sql.*
-import std.time.*
-
-main() {
-    // 创建一个DateTime实例
-    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
-    // 使用SqlTimeTz的构造函数创建一个实例
-    let sqlTimeTzWithValue = SqlTimeTz(dateTime)
-    println("Created SqlTimeTz with value: ${sqlTimeTzWithValue.value}")
-}
-```
-
-运行结果：
-
-```text
-Created SqlTimeTz with value: 2012-01-01T00:00:00Z
-```
-
 ## class SqlTimestamp <sup>(deprecated)</sup>
 
 ```cangjie
@@ -5922,6 +5802,126 @@ main() {
 
 ```text
 Created SqlTimestamp with value: 2012-01-01T00:00:00Z
+```
+
+## class SqlTimeTz <sup>(deprecated)</sup>
+
+```cangjie
+public class SqlTimeTz <: SqlDbType {
+    public init(v: DateTime)
+}
+```
+
+功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+
+父类型：
+
+- [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：类型名称，即 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated)。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+import std.time.*
+
+main() {
+    // 使用SqlTimeTz的构造函数
+    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
+    let sqlTimeTz = SqlTimeTz(dateTime)
+    // 访问name属性
+    println("SqlTimeTz name: ${sqlTimeTz.name}")
+}
+```
+
+运行结果：
+
+```text
+SqlTimeTz name: SqlTimeTz
+```
+
+### prop value
+
+```cangjie
+public mut prop value: DateTime
+```
+
+功能：该数据的值。
+
+类型：[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+import std.time.*
+
+main() {
+    // 创建一个DateTime实例
+    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
+    
+    // 使用SqlTimeTz的构造函数创建一个实例
+    let sqlTimeTzWithValue = SqlTimeTz(dateTime)
+    // 访问value属性
+    let value1 = sqlTimeTzWithValue.value
+    println("SqlTimeTz value: ${value1}")
+}
+```
+
+运行结果：
+
+```text
+SqlTimeTz value: 2012-01-01T00:00:00Z
+```
+
+### init(DateTime)
+
+```cangjie
+public init(v: DateTime)
+```
+
+功能：根据传入参数 v 构造一个 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated) 实例。
+
+参数：
+
+- v: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.database.sql.*
+import std.time.*
+
+main() {
+    // 创建一个DateTime实例
+    let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
+    
+    // 使用SqlTimeTz的构造函数创建一个实例
+    let sqlTimeTzWithValue = SqlTimeTz(dateTime)
+    println("Created SqlTimeTz with value: ${sqlTimeTzWithValue.value}")
+}
+```
+
+运行结果：
+
+```text
+Created SqlTimeTz with value: 2012-01-01T00:00:00Z
 ```
 
 ## class SqlVarBinary <sup>(deprecated)</sup>

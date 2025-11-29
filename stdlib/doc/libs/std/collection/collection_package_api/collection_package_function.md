@@ -155,49 +155,6 @@ main() {
 位置2没有元素
 ```
 
-## func collectArrayList\<T>(Iterable\<T>)
-
-```cangjie
-public func collectArrayList<T>(it: Iterable<T>): ArrayList<T>
-```
-
-功能：将一个迭代器转换成 [ArrayList](collection_package_class.md#class-arraylistt) 类型。
-
-参数：
-
-- it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 给定的迭代器。
-
-返回值：
-
-- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建一个数组
-    let hashSet = [1, 2, 3, 4, 5]
-    let iterator = hashSet.iterator()
-    
-    // 将迭代器转换为ArrayList
-    let arrayList = collectArrayList<Int64>(iterator)
-    println("ArrayList大小: ${arrayList.size}")
-    println("ArrayList内容: ${arrayList}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-ArrayList大小: 5
-ArrayList内容: [1, 2, 3, 4, 5]
-```
-
 ## func collectArray\<T>(Iterable\<T>)
 
 ```cangjie
@@ -239,6 +196,49 @@ main() {
 ```text
 数组大小: 5
 数组内容: [1, 2, 3, 4, 5]
+```
+
+## func collectArrayList\<T>(Iterable\<T>)
+
+```cangjie
+public func collectArrayList<T>(it: Iterable<T>): ArrayList<T>
+```
+
+功能：将一个迭代器转换成 [ArrayList](collection_package_class.md#class-arraylistt) 类型。
+
+参数：
+
+- it: [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 给定的迭代器。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建一个数组
+    let hashSet = [1, 2, 3, 4, 5]
+    let iterator = hashSet.iterator()
+    
+    // 将迭代器转换为ArrayList
+    let arrayList = collectArrayList<Int64>(iterator)
+    println("ArrayList大小: ${arrayList.size}")
+    println("ArrayList内容: ${arrayList}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+ArrayList大小: 5
+ArrayList内容: [1, 2, 3, 4, 5]
 ```
 
 ## func collectHashMap\<K, V>(Iterable\<(K, V)>) where K <: Hashable & Equatable\<K>

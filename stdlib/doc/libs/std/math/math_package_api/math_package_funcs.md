@@ -1809,40 +1809,6 @@ main() {
 4
 ```
 
-## func countOnes(Int16)
-
-```cangjie
-public func countOnes(x: Int16): Int64
-```
-
-功能：求 16 位整型的二进制表达中 1 的个数。
-
-参数：
-
-- x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 传入的 16 位有符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: Int16 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
 ## func countOne(Int32) <sup>(deprecated)<sup>
 
 ```cangjie
@@ -1872,40 +1838,6 @@ main() {
     let n: Int32 = 15
     let countOne = countOne(n)
     println(countOne)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
-## func countOnes(Int32)
-
-```cangjie
-public func countOnes(x: Int32): Int64
-```
-
-功能：求 32 位整型的二进制表达中 1 的个数。
-
-参数：
-
-- x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 传入的 32 位有符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: Int32 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
 }
 ```
 
@@ -1953,40 +1885,6 @@ main() {
 4
 ```
 
-## func countOnes(Int64)
-
-```cangjie
-public func countOnes(x: Int64): Int64
-```
-
-功能：求 64 位整型的二进制表达中 1 的个数。
-
-参数：
-
-- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 传入的 64 位有符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: Int64 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
 ## func countOne(Int8) <sup>(deprecated)<sup>
 
 ```cangjie
@@ -2016,40 +1914,6 @@ main() {
     let n: Int8 = 15
     let countOne = countOne(n)
     println(countOne)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
-## func countOnes(Int8)
-
-```cangjie
-public func countOnes(x: Int8): Int64
-```
-
-功能：求 8 位整型的二进制表达中 1 的个数。
-
-参数：
-
-- x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 传入的 8 位有符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: Int8 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
 }
 ```
 
@@ -2097,40 +1961,6 @@ main() {
 4
 ```
 
-## func countOnes(UInt16)
-
-```cangjie
-public func countOnes(x: UInt16): Int64
-```
-
-功能：求 16 位无符号整型的二进制表达中的 1 的位的个数。
-
-参数：
-
-- x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 传入的 16 位无符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: UInt16 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
 ## func countOne(UInt32) <sup>(deprecated)<sup>
 
 ```cangjie
@@ -2160,40 +1990,6 @@ main() {
     let n: UInt32 = 15
     let countOne = countOne(n)
     println(countOne)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
-## func countOnes(UInt32)
-
-```cangjie
-public func countOnes(x: UInt32): Int64
-```
-
-功能：求 32 位无符号整型的二进制表达中的 1 的位的个数。
-
-参数：
-
-- x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 传入的 32 位无符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: UInt32 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
 }
 ```
 
@@ -2241,40 +2037,6 @@ main() {
 4
 ```
 
-## func countOnes(UInt64)
-
-```cangjie
-public func countOnes(x: UInt64): Int64
-```
-
-功能：求 64 位无符号整型的二进制表达中的 1 的位的个数。
-
-参数：
-
-- x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 传入的 64 位无符号整数。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
-
-示例：
-<!-- verify -->
-```cangjie
-import std.math.countOnes
-
-main() {
-    let n: UInt64 = 15
-    let countOnes = countOnes(n)
-    println(countOnes)
-}
-```
-
-运行结果：
-
-```text
-4
-```
-
 ## func countOne(UInt8) <sup>(deprecated)<sup>
 
 ```cangjie
@@ -2304,6 +2066,244 @@ main() {
     let n: UInt8 = 15
     let countOne = countOne(n)
     println(countOne)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(Int16)
+
+```cangjie
+public func countOnes(x: Int16): Int64
+```
+
+功能：求 16 位整型的二进制表达中 1 的个数。
+
+参数：
+
+- x: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 传入的 16 位有符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: Int16 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(Int32)
+
+```cangjie
+public func countOnes(x: Int32): Int64
+```
+
+功能：求 32 位整型的二进制表达中 1 的个数。
+
+参数：
+
+- x: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 传入的 32 位有符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: Int32 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(Int64)
+
+```cangjie
+public func countOnes(x: Int64): Int64
+```
+
+功能：求 64 位整型的二进制表达中 1 的个数。
+
+参数：
+
+- x: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 传入的 64 位有符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: Int64 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(Int8)
+
+```cangjie
+public func countOnes(x: Int8): Int64
+```
+
+功能：求 8 位整型的二进制表达中 1 的个数。
+
+参数：
+
+- x: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 传入的 8 位有符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: Int8 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(UInt16)
+
+```cangjie
+public func countOnes(x: UInt16): Int64
+```
+
+功能：求 16 位无符号整型的二进制表达中的 1 的位的个数。
+
+参数：
+
+- x: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 传入的 16 位无符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: UInt16 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(UInt32)
+
+```cangjie
+public func countOnes(x: UInt32): Int64
+```
+
+功能：求 32 位无符号整型的二进制表达中的 1 的位的个数。
+
+参数：
+
+- x: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 传入的 32 位无符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: UInt32 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
+}
+```
+
+运行结果：
+
+```text
+4
+```
+
+## func countOnes(UInt64)
+
+```cangjie
+public func countOnes(x: UInt64): Int64
+```
+
+功能：求 64 位无符号整型的二进制表达中的 1 的位的个数。
+
+参数：
+
+- x: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 传入的 64 位无符号整数。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回传入参数的二进制表达中的 1 的位的个数。
+
+示例：
+<!-- verify -->
+```cangjie
+import std.math.countOnes
+
+main() {
+    let n: UInt64 = 15
+    let countOnes = countOnes(n)
+    println(countOnes)
 }
 ```
 

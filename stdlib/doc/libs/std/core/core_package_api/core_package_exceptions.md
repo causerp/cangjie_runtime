@@ -1229,28 +1229,6 @@ public class StackOverflowError <: Error
 
 - [Error](#class-error)
 
-### func printStackTrace()
-
-```cangjie
-public override func printStackTrace(): Unit
-```
-
-功能：向控制台打印堆栈信息。
-
-示例：
-
-<!-- compile -->
-```cangjie
-// 此示例只做展示，假设抛出 StackOverflowError
-main() {
-    try {
-        // 假设出现栈溢出错误
-    } catch (e: StackOverflowError) {
-        println(e.printStackTrace())
-    }
-}
-```
-
 ### func getClassName()
 
 ```cangjie
@@ -1279,6 +1257,28 @@ main() {
 extend Error {
     public func printlnClassName(): Unit {
         println(getClassName())
+    }
+}
+```
+
+### func printStackTrace()
+
+```cangjie
+public override func printStackTrace(): Unit
+```
+
+功能：向控制台打印堆栈信息。
+
+示例：
+
+<!-- compile -->
+```cangjie
+// 此示例只做展示，假设抛出 StackOverflowError
+main() {
+    try {
+        // 假设出现栈溢出错误
+    } catch (e: StackOverflowError) {
+        println(e.printStackTrace())
     }
 }
 ```

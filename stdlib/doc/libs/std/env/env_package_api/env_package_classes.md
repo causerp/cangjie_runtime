@@ -108,6 +108,44 @@ main() {
 buffer 中的内容是 [97, 98, 99, 100, 101]
 ```
 
+### func readln()
+
+```cangjie
+public func readln(): ?String
+```
+
+功能：从标准输入中读取一行字符串。
+
+读取到字符，返回 ?[String](../../core/core_package_api/core_package_structs.md#struct-string)，结果不包含末尾换行符。该接口不会抛出异常，即使输入不符合`UTF-8`编码的字符串，也会构造出一个 [String](../../core/core_package_api/core_package_structs.md#struct-string) 并返回，其行为等同于 [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>)。
+
+返回值：
+
+- ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 读取到的行数据，读取失败返回 `None`。
+
+示例：
+
+<!-- compile -->
+```cangjie
+import std.env.*
+
+main() {
+    getStdOut().write("请输入信息：")
+    var c = getStdIn().readln() // 输入：abc
+    var r = c.getOrThrow()
+    getStdOut().write("输入的信息为：")
+    getStdOut().writeln(r)
+
+    return
+}
+```
+
+运行结果：
+
+```text
+请输入信息：abc
+输入的信息为：abc
+```
+
 ### func readToEnd()
 
 ```cangjie
@@ -232,44 +270,6 @@ main() {
 ```text
 请输入信息：abc
 输入的信息为：ab
-```
-
-### func readln()
-
-```cangjie
-public func readln(): ?String
-```
-
-功能：从标准输入中读取一行字符串。
-
-读取到字符，返回 ?[String](../../core/core_package_api/core_package_structs.md#struct-string)，结果不包含末尾换行符。该接口不会抛出异常，即使输入不符合`UTF-8`编码的字符串，也会构造出一个 [String](../../core/core_package_api/core_package_structs.md#struct-string) 并返回，其行为等同于 [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>)。
-
-返回值：
-
-- ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 读取到的行数据，读取失败返回 `None`。
-
-示例：
-
-<!-- compile -->
-```cangjie
-import std.env.*
-
-main() {
-    getStdOut().write("请输入信息：")
-    var c = getStdIn().readln() // 输入：abc
-    var r = c.getOrThrow()
-    getStdOut().write("输入的信息为：")
-    getStdOut().writeln(r)
-
-    return
-}
-```
-
-运行结果：
-
-```text
-请输入信息：abc
-输入的信息为：abc
 ```
 
 ## class ConsoleWriter

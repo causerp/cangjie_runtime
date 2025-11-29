@@ -36,14 +36,6 @@ Extension
 
 功能：扩展声明。
 
-### Init
-
-```cangjie
-Init
-```
-
-功能：构造函数声明。
-
 ### GlobalFunction
 
 ```cangjie
@@ -59,6 +51,14 @@ GlobalVariable
 ```
 
 功能：全局变量声明。
+
+### Init
+
+```cangjie
+Init
+```
+
+功能：构造函数声明。
 
 ### MemberFunction
 
@@ -559,6 +559,69 @@ main() {
 对None值使用map: None
 ```
 
+### extend\<T> Option\<Option\<T>>
+
+```cangjie
+extend<T> Option<Option<T>>
+```
+
+功能：为 Option\<Option\<T>> 类型扩展实现某些功能。
+
+#### func flatten()
+
+```cangjie
+public func flatten(): Option<T>
+```
+
+功能：将 [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开，如果当前实例是 [Some](#somet)([Option](core_package_enums.md#enum-optiont)\<T>.[Some](#somet)(v)), 展开后的结果为 [Some](#somet)(v)。
+
+返回值：
+
+- [Option](core_package_enums.md#enum-optiont)\<T> - [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开后的结果。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Option<Option<Int64>>类型的Some(Some(42))值
+    var nestedSome: Option<Option<Int64>> = Some(Some(42))
+    
+    // 展开嵌套的Option
+    var flattened1 = nestedSome.flatten()
+    println("Some(Some(42))展开后: ${flattened1}")
+    
+    // 创建Option<Option<Int64>>类型的Some(None)值
+    var someNone: Option<Option<Int64>> = Some(None)
+    
+    // 展开嵌套的Option
+    var flattened2 = someNone.flatten()
+    println("Some(None)展开后: ${flattened2}")
+    
+    // 创建Option<Option<Int64>>类型的None值
+    var noneValue: Option<Option<Int64>> = None
+    
+    // 展开嵌套的Option
+    var flattened3 = noneValue.flatten()
+    println("None展开后: ${flattened3}")
+    
+    // 演示链式调用
+    var chainedValue: Option<Option<Option<String>>> = Some(Some(Some("Hello")))
+    var flattenedChained = chainedValue.flatten().flatten()
+    println("链式展开Some(Some(Some(\"Hello\"))): ${flattenedChained}")
+}
+```
+
+运行结果：
+
+```text
+Some(Some(42))展开后: Some(42)
+Some(None)展开后: None
+None展开后: None
+链式展开Some(Some(Some("Hello"))): Some(Hello)
+```
+
+
 ### extend\<T> Option\<T> <: Equatable\<Option\<T>> where T <: Equatable\<T>
 
 ```cangjie
@@ -821,69 +884,6 @@ None转换为字符串: None
 Some("Hello")转换为字符串: Some(Hello)
 ```
 
-### extend\<T> Option\<Option\<T>>
-
-```cangjie
-extend<T> Option<Option<T>>
-```
-
-功能：为 Option\<Option\<T>> 类型扩展实现某些功能。
-
-#### func flatten()
-
-```cangjie
-public func flatten(): Option<T>
-```
-
-功能：将 [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开，如果当前实例是 [Some](#somet)([Option](core_package_enums.md#enum-optiont)\<T>.[Some](#somet)(v)), 展开后的结果为 [Some](#somet)(v)。
-
-返回值：
-
-- [Option](core_package_enums.md#enum-optiont)\<T> - [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开后的结果。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    // 创建Option<Option<Int64>>类型的Some(Some(42))值
-    var nestedSome: Option<Option<Int64>> = Some(Some(42))
-    
-    // 展开嵌套的Option
-    var flattened1 = nestedSome.flatten()
-    println("Some(Some(42))展开后: ${flattened1}")
-    
-    // 创建Option<Option<Int64>>类型的Some(None)值
-    var someNone: Option<Option<Int64>> = Some(None)
-    
-    // 展开嵌套的Option
-    var flattened2 = someNone.flatten()
-    println("Some(None)展开后: ${flattened2}")
-    
-    // 创建Option<Option<Int64>>类型的None值
-    var noneValue: Option<Option<Int64>> = None
-    
-    // 展开嵌套的Option
-    var flattened3 = noneValue.flatten()
-    println("None展开后: ${flattened3}")
-    
-    // 演示链式调用
-    var chainedValue: Option<Option<Option<String>>> = Some(Some(Some("Hello")))
-    var flattenedChained = chainedValue.flatten().flatten()
-    println("链式展开Some(Some(Some(\"Hello\"))): ${flattenedChained}")
-}
-```
-
-运行结果：
-
-```text
-Some(Some(42))展开后: Some(42)
-Some(None)展开后: None
-None展开后: None
-链式展开Some(Some(Some("Hello"))): Some(Hello)
-```
-
-
 ## enum Ordering
 
 ```cangjie
@@ -1117,6 +1117,14 @@ public enum ThreadState <: ToString {
 
 - [ToString](core_package_interfaces.md#interface-tostring)
 
+### Pending
+
+```cangjie
+Pending
+```
+
+功能：表示线程正被挂起。
+
 ### Ready
 
 ```cangjie
@@ -1132,14 +1140,6 @@ Running
 ```
 
 功能：表示线程正在执行。
-
-### Pending
-
-```cangjie
-Pending
-```
-
-功能：表示线程正被挂起。
 
 ### Terminated
 
@@ -1168,23 +1168,7 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
-### func ==(ThreadState)
-
-```cangjie
-public operator func ==(rhs: ThreadState): Bool
-```
-
-功能：用于比较两个[ThreadState](core_package_enums.md#enum-threadstate)枚举值是否相等。
-
-参数：
-
-- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - 要与当前对象进行比较的另一个[ThreadState](core_package_enums.md#enum-threadstate)枚举值。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举相同则返回true，否则返回false。
-
-### func !=(ThreadState)
+### operator func !=(ThreadState)
 
 ```cangjie
 public operator func !=(rhs: ThreadState): Bool
@@ -1199,3 +1183,19 @@ public operator func !=(rhs: ThreadState): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举不相同则返回true，否则返回false。
+
+### operator func ==(ThreadState)
+
+```cangjie
+public operator func ==(rhs: ThreadState): Bool
+```
+
+功能：用于比较两个[ThreadState](core_package_enums.md#enum-threadstate)枚举值是否相等。
+
+参数：
+
+- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - 要与当前对象进行比较的另一个[ThreadState](core_package_enums.md#enum-threadstate)枚举值。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举相同则返回true，否则返回false。
