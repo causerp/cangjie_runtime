@@ -13,14 +13,6 @@ public enum CasingOption {
 
 功能：大小写转换时根据不同语言所需要的枚举类。
 
-### TR
-
-```cangjie
-TR
-```
-
-功能：土耳其语。
-
 ### AZ
 
 ```cangjie
@@ -44,3 +36,10 @@ Other
 ```
 
 功能：其他语。
+### TR
+
+```cangjie
+TR
+```
+
+功能：土耳其语。

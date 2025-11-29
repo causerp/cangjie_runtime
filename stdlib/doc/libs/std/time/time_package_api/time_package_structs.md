@@ -39,6 +39,16 @@ public static prop UnixEpoch: DateTime
 
 类型：[DateTime](time_package_structs.md#struct-datetime)
 
+### prop date
+
+```cangjie
+public prop date: (Int64, Month, Int64)
+```
+
+功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例的年份、月份和当前月第几日。
+
+类型：([Int64](../../core/core_package_api/core_package_intrinsics.md#int64),[Month](time_package_enums.md#enum-month), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64))
+
 ### prop dayOfMonth
 
 ```cangjie
@@ -68,16 +78,6 @@ public prop dayOfYear: Int64
 功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例基于当前年份的第几日。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-### prop date
-
-```cangjie
-public prop date: (Int64, Month, Int64)
-```
-
-功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例的年份、月份和当前月第几日。
-
-类型：([Int64](../../core/core_package_api/core_package_intrinsics.md#int64),[Month](time_package_enums.md#enum-month), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64))
 
 ### prop hour
 
@@ -153,16 +153,6 @@ public prop second: Int64
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
-### prop year
-
-```cangjie
-public prop year: Int64
-```
-
-功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例的年份。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
 ### prop time
 
 ```cangjie
@@ -172,6 +162,16 @@ public prop time: (Int64, Int64, Int64)
 功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例的时、分、秒。
 
 类型：([Int64](../../core/core_package_api/core_package_intrinsics.md#int64),[Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64))
+
+### prop year
+
+```cangjie
+public prop year: Int64
+```
+
+功能：获取 [DateTime](time_package_structs.md#struct-datetime) 实例的年份。
+
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop zone
 
@@ -433,28 +433,6 @@ public static func parse(str: String): DateTime
 
 - [TimeParseException](time_package_exceptions.md#class-timeparseexception) - 无法正常解析时，抛出异常。
 
-### static func parse(String, String)
-
-```cangjie
-public static func parse(str: String, format: String): DateTime
-```
-
-功能：根据 `format` 指定的时间格式，从字符串 `str` 中解析得到时间，解析成功时返回 [DateTime](time_package_structs.md#struct-datetime) 实例。
-
-参数：
-
-- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，例如："2023/04/10 08:00:00 +08:00"。
-- format: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串的格式，例如："yyyy/MM/dd HH:mm:ss OOOO"。格式说明详见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
-
-返回值：
-
-- [DateTime](time_package_structs.md#struct-datetime) - 根据参数 `format` 指定的时间格式，从参数 `str` 中解析出的 [DateTime](time_package_structs.md#struct-datetime) 实例。
-
-异常：
-
-- [TimeParseException](time_package_exceptions.md#class-timeparseexception) - 当无法正常解析时，或存在同一 `format` 的多次取值时，抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `format` 格式不正确时，抛出异常。
-
 ### static func parse(String, DateTimeFormat) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -471,6 +449,28 @@ public static func parse(str: String, format: DateTimeFormat): DateTime
 
 - str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，例如："2023/04/10 08:00:00 +08:00"。
 - format: [DateTimeFormat](./time_package_classes.md#class-datetimeformat) - 时间格式，例如："yyyy/MM/dd HH:mm:ss OOOO"对应的时间格式。格式说明详见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
+
+返回值：
+
+- [DateTime](time_package_structs.md#struct-datetime) - 根据参数 `format` 指定的时间格式，从参数 `str` 中解析出的 [DateTime](time_package_structs.md#struct-datetime) 实例。
+
+异常：
+
+- [TimeParseException](time_package_exceptions.md#class-timeparseexception) - 当无法正常解析时，或存在同一 `format` 的多次取值时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `format` 格式不正确时，抛出异常。
+
+### static func parse(String, String)
+
+```cangjie
+public static func parse(str: String, format: String): DateTime
+```
+
+功能：根据 `format` 指定的时间格式，从字符串 `str` 中解析得到时间，解析成功时返回 [DateTime](time_package_structs.md#struct-datetime) 实例。
+
+参数：
+
+- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，例如："2023/04/10 08:00:00 +08:00"。
+- format: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串的格式，例如："yyyy/MM/dd HH:mm:ss OOOO"。格式说明详见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
 
 返回值：
 
@@ -681,6 +681,26 @@ public func compare(rhs: DateTime): Ordering
 
 - [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - [DateTime](time_package_structs.md#struct-datetime) 实例与 `rhs` 大小关系。
 
+### func format(String)
+
+```cangjie
+public func format(fmt: String): String
+```
+
+功能：返回一个表示 [DateTime](time_package_structs.md#struct-datetime) 实例的字符串，其格式由参数 `fmt` 指定。格式说明详见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
+
+参数：
+
+- fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 返回字符串的格式，其格式可为 "yyyy/MM/dd HH:mm:ss OOOO"。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - [DateTime](time_package_structs.md#struct-datetime) 实例在 `fmt` 指定格式下的字符串，如果无法解析则原样返回 `fmt` 指定格式。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `fmt` 格式不符合[时间字符串格式](../time_package_overview.md#时间字符串格式)，则抛出异常。
+
 ### func hashCode()
 
 ```cangjie
@@ -756,26 +776,6 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - [DateTime](time_package_structs.md#struct-datetime) 实例的字符串表示。
-
-### func format(String)
-
-```cangjie
-public func format(fmt: String): String
-```
-
-功能：返回一个表示 [DateTime](time_package_structs.md#struct-datetime) 实例的字符串，其格式由参数 `fmt` 指定。格式说明详见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
-
-参数：
-
-- fmt: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 返回字符串的格式，其格式可为 "yyyy/MM/dd HH:mm:ss OOOO"。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - [DateTime](time_package_structs.md#struct-datetime) 实例在 `fmt` 指定格式下的字符串，如果无法解析则原样返回 `fmt` 指定格式。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `fmt` 格式不符合[时间字符串格式](../time_package_overview.md#时间字符串格式)，则抛出异常。
 
 ### func toString(DateTimeFormat) <sup>(deprecated)</sup>
 

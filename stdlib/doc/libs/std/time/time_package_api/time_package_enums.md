@@ -97,18 +97,6 @@ public static func of(dayOfWeek: Int64): DayOfWeek
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `dayOfWeek` 不在 [0, 6] 范围内时，抛出异常。
 
-### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-功能：返回当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例的字符串表示，如 "Monday" 表示周一。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例的字符串表示。
-
 ### func toInteger()
 
 ```cangjie
@@ -120,6 +108,18 @@ public func toInteger(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例的整数表示。
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例的字符串表示，如 "Monday" 表示周一。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例的字符串表示。
 
 ### func value() <sup>(deprecated)</sup>
 
@@ -153,22 +153,6 @@ public operator func !=(r: DayOfWeek): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例不等于 `r` 时，返回 `true`；否则，返回 `false`。
 
-### operator func ==(DayOfWeek)
-
-```cangjie
-public operator func ==(r: DayOfWeek): Bool
-```
-
-功能：判断当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 和 `r` 是否表示一周中的同一天。
-
-参数：
-
-- r: [DayOfWeek](time_package_enums.md#enum-dayofweek) - [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例等于 `r` 时，返回 `true`；否则，返回 `false`。
-
 ### operator func +(Int64)
 
 ```cangjie
@@ -200,6 +184,22 @@ public operator func -(n: Int64): DayOfWeek
 返回值：
 
 - [DayOfWeek](time_package_enums.md#enum-dayofweek) - `n` 天前的周数值。
+
+### operator func ==(DayOfWeek)
+
+```cangjie
+public operator func ==(r: DayOfWeek): Bool
+```
+
+功能：判断当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 和 `r` 是否表示一周中的同一天。
+
+参数：
+
+- r: [DayOfWeek](time_package_enums.md#enum-dayofweek) - [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 或 `false`。当前 [DayOfWeek](time_package_enums.md#enum-dayofweek) 实例等于 `r` 时，返回 `true`；否则，返回 `false`。
 
 ## enum Month
 
@@ -343,18 +343,6 @@ public static func of(mon: Int64): Month
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `mon` 不在 [1, 12] 范围内时，抛出异常。
 
-### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-功能：返回当前 [Month](time_package_enums.md#enum-month) 实例的字符串表示，如 "January" 表示一月。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [Month](time_package_enums.md#enum-month) 实例的字符串表示。
-
 ### func toInteger()
 
 ```cangjie
@@ -366,6 +354,18 @@ public func toInteger(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前 [Month](time_package_enums.md#enum-month) 实例的整数表示。
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [Month](time_package_enums.md#enum-month) 实例的字符串表示，如 "January" 表示一月。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [Month](time_package_enums.md#enum-month) 实例的字符串表示。
 
 ### func value() <sup>(deprecated)</sup>
 

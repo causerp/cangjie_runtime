@@ -32,6 +32,18 @@ public func dumpHeapData(path: Path): Unit
 
 - MemoryInfoException - 生成堆内存快照失败时，抛出此异常。
 
+## func gc(Bool)
+
+```cangjie
+public func gc(heavy!: Bool = false): Unit
+```
+
+功能：执行 [gc](runtime_package_funcs.md#func-gcbool)。
+
+参数：
+
+- heavy!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [gc](runtime_package_funcs.md#func-gcbool) 执行程度，如果为 true，执行会慢，内存收集的多一些，默认值为 false。
+
 ## func GC(Bool) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -47,18 +59,6 @@ public func GC(heavy!: Bool = false): Unit
 参数：
 
 - heavy!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [GC](runtime_package_funcs.md#func-gcbool-deprecated) 执行程度，如果为 true，执行会慢，内存收集的多一些，默认值为 false。
-
-## func gc(Bool)
-
-```cangjie
-public func gc(heavy!: Bool = false): Unit
-```
-
-功能：执行 [gc](runtime_package_funcs.md#func-gcbool)。
-
-参数：
-
-- heavy!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [gc](runtime_package_funcs.md#func-gcbool) 执行程度，如果为 true，执行会慢，内存收集的多一些，默认值为 false。
 
 ## func getAllocatedHeapSize()
 
@@ -199,7 +199,7 @@ public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 
 > **注意：**
 >
-> - 目前不支持 Windows 平台。
+> - 不支持平台：Windows。
 > - 仅支持前 31 个可被捕获的非实时信号。
 > - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 > - handler 暂不支持成员函数和 foreign 函数。
@@ -223,10 +223,34 @@ public func resetSignalHandler(sigs: Array<Signal>): Unit
 
 > **注意：**
 >
-> - 目前不支持 Windows 平台。
+> - 不支持平台：Windows。
 > - 仅支持前 31 个可被捕获的非实时信号。
 > - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 
+
+## func setGCThreshold(UInt64)
+
+```cangjie
+public func setGCThreshold(value: UInt64): Unit
+```
+
+功能：修改用户期望触发 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值，当仓颉堆大小超过该值时，触发 [gc](runtime_package_funcs.md#func-gcbool)，单位为 KB。
+
+参数：
+
+- value: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 用户期望触发 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值。
+
+示例：
+设置用户期望的 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值为 2MB。
+
+<!-- run -->
+
+```cangjie
+import std.runtime.*
+main() {
+  setGCThreshold(2048)
+}
+```
 
 ## func SetGCThreshold(UInt64) <sup>(deprecated)</sup>
 
@@ -253,30 +277,6 @@ public func SetGCThreshold(value: UInt64): Unit
 import std.runtime.*
 main() {
   SetGCThreshold(2048)
-}
-```
-
-## func setGCThreshold(UInt64)
-
-```cangjie
-public func setGCThreshold(value: UInt64): Unit
-```
-
-功能：修改用户期望触发 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值，当仓颉堆大小超过该值时，触发 [gc](runtime_package_funcs.md#func-gcbool)，单位为 KB。
-
-参数：
-
-- value: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 用户期望触发 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值。
-
-示例：
-设置用户期望的 [gc](runtime_package_funcs.md#func-gcbool) 的内存阈值为 2MB。
-
-<!-- run -->
-
-```cangjie
-import std.runtime.*
-main() {
-  setGCThreshold(2048)
 }
 ```
 
@@ -336,7 +336,7 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 
 > **注意：**
 >
-> - 目前不支持 Windows 平台。
+> - 不支持平台：Windows。
 > - 仅支持前 31 个可被捕获的非实时信号。
 > - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 > - handler 暂不支持成员函数和 foreign 函数。

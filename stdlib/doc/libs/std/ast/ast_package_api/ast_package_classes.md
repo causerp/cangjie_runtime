@@ -1046,16 +1046,6 @@ public class CommandTypePattern <: Pattern {
 
 - [Pattern](ast_package_classes.md#class-pattern)
 
-### prop pattern
-
-```cangjie
-public mut prop pattern: Pattern
-```
-
-功能：获取或设置冒号（`:`）之前的命令模式。
-
-类型：[Pattern](ast_package_classes.md#class-pattern)
-
 ### prop colon
 
 ```cangjie
@@ -1069,6 +1059,16 @@ public mut prop colon: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 如果提供的标记不是冒号，则抛出异常。
+
+### prop pattern
+
+```cangjie
+public mut prop pattern: Pattern
+```
+
+功能：获取或设置冒号（`:`）之前的命令模式。
+
+类型：[Pattern](ast_package_classes.md#class-pattern)
 
 ### prop types
 
@@ -2810,6 +2810,16 @@ public mut prop lParen: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "(" 时，抛出异常。
 
+### prop returnType
+
+```cangjie
+public mut prop returnType: TypeNode
+```
+
+功能：获取或设置 [FuncType](ast_package_classes.md#class-functype) 返回类型节点。
+
+类型：[TypeNode](ast_package_classes.md#class-typenode)
+
 ### prop rParen
 
 ```cangjie
@@ -2823,16 +2833,6 @@ public mut prop rParen: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 ")" 时，抛出异常。
-
-### prop returnType
-
-```cangjie
-public mut prop returnType: TypeNode
-```
-
-功能：获取或设置 [FuncType](ast_package_classes.md#class-functype) 返回类型节点。
-
-类型：[TypeNode](ast_package_classes.md#class-typenode)
 
 ### prop types
 
@@ -3384,16 +3384,6 @@ public mut prop orgSeparator: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或orgName内容为空字符串时抛出异常。
 
-### prop prefixPaths
-
-```cangjie
-public mut prop prefixPaths: Tokens
-```
-
-功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中完整包名的前缀部分的词法单元序列，可能为空。如 `import a.b.c` 中的 `a` 和 `b`。
-
-类型：[Tokens](ast_package_classes.md#class-tokens)
-
 ### prop prefixDots
 
 ```cangjie
@@ -3407,6 +3397,16 @@ public mut prop prefixDots: Tokens
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是 "." 词法单元序列时，抛出异常。
+
+### prop prefixPaths
+
+```cangjie
+public mut prop prefixPaths: Tokens
+```
+
+功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中完整包名的前缀部分的词法单元序列，可能为空。如 `import a.b.c` 中的 `a` 和 `b`。
+
+类型：[Tokens](ast_package_classes.md#class-tokens)
 
 ### prop rBrace
 
@@ -5968,15 +5968,15 @@ public mut prop orgSeparator: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或orgName内容为空字符串时抛出异常。
 
-### prop prefixPaths
+### prop packageIdentifier
 
 ```cangjie
-public mut prop prefixPaths: Tokens
+public mut prop packageIdentifier: Token
 ```
 
-功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中完整包名的前缀部分的词法单元序列，可能为空。如 `package a.b.c` 中的 `a` 和 `b`。
+功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中当前包的名字，如果当前包为 root 包，即为完整包名，若当前包为子包，则为最后一个 "." 后的名字。
 
-类型：[Tokens](ast_package_classes.md#class-tokens)
+类型：[Token](ast_package_structs.md#struct-token)
 
 ### prop prefixDots
 
@@ -5992,15 +5992,15 @@ public mut prop prefixDots: Tokens
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是 "." 词法单元序列时，抛出异常。
 
-### prop packageIdentifier
+### prop prefixPaths
 
 ```cangjie
-public mut prop packageIdentifier: Token
+public mut prop prefixPaths: Tokens
 ```
 
-功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中当前包的名字，如果当前包为 root 包，即为完整包名，若当前包为子包，则为最后一个 "." 后的名字。
+功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中完整包名的前缀部分的词法单元序列，可能为空。如 `package a.b.c` 中的 `a` 和 `b`。
 
-类型：[Token](ast_package_structs.md#struct-token)
+类型：[Tokens](ast_package_classes.md#class-tokens)
 
 ### init()
 
@@ -7718,30 +7718,6 @@ public mut prop keywordR: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 [Token](ast_package_structs.md#struct-token) 不是 `resume` 关键字时抛出。
 
-### prop keywordW
-
-```cangjie
-public mut prop keywordW: Option<Token>
-```
-
-功能：获取或设置 `with` 关键字的词法单元（如果存在）。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Token](ast_package_structs.md#struct-token)>
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 [Token](ast_package_structs.md#struct-token) 不是 `with` 关键字时抛出。
-
-### prop withExpr
-
-```cangjie
-public mut prop withExpr: Option<Expr>
-```
-
-功能：获取或设置 `with` 关键字之后的表达式。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
-
 ### prop keywordT
 
 ```cangjie
@@ -7756,6 +7732,20 @@ public mut prop keywordT: Option<Token>
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 [Token](ast_package_structs.md#struct-token) 不是 `throwing` 关键字时抛出。
 
+### prop keywordW
+
+```cangjie
+public mut prop keywordW: Option<Token>
+```
+
+功能：获取或设置 `with` 关键字的词法单元（如果存在）。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Token](ast_package_structs.md#struct-token)>
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 [Token](ast_package_structs.md#struct-token) 不是 `with` 关键字时抛出。
+
 ### prop throwingExpr
 
 ```cangjie
@@ -7763,6 +7753,16 @@ public mut prop throwingExpr: Option<Expr>
 ```
 
 功能：获取或设置 `throwing` 关键字之后的表达式。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
+
+### prop withExpr
+
+```cangjie
+public mut prop withExpr: Option<Expr>
+```
+
+功能：获取或设置 `with` 关键字之后的表达式。
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
 
@@ -7807,16 +7807,6 @@ public class ResumptionTypePattern <: Pattern {
 
 - [Pattern](ast_package_classes.md#class-pattern)
 
-### prop pattern
-
-```cangjie
-public mut prop pattern: Pattern
-```
-
-功能：获取或设置冒号（`:`）之前的基础模式。
-
-类型： [Pattern](ast_package_classes.md#class-pattern)
-
 ### prop colon
 
 ```cangjie
@@ -7830,6 +7820,16 @@ public mut prop colon: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 token 不是冒号时抛出。
+
+### prop pattern
+
+```cangjie
+public mut prop pattern: Pattern
+```
+
+功能：获取或设置冒号（`:`）之前的基础模式。
+
+类型： [Pattern](ast_package_classes.md#class-pattern)
 
 ### prop types
 
@@ -7989,6 +7989,16 @@ public mut prop keyword: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `spawn` 关键字时，抛出异常。
 
+### prop lambdaExpr
+
+```cangjie
+public mut prop lambdaExpr: LambdaExpr
+```
+
+功能：获取或设置 [SpawnExpr](ast_package_classes.md#class-spawnexpr) 中的不含形参的闭包。
+
+类型：[LambdaExpr](ast_package_classes.md#class-lambdaexpr)
+
 ### prop lParen
 
 ```cangjie
@@ -8002,16 +8012,6 @@ public mut prop lParen: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "(" 时，抛出异常。
-
-### prop lambdaExpr
-
-```cangjie
-public mut prop lambdaExpr: LambdaExpr
-```
-
-功能：获取或设置 [SpawnExpr](ast_package_classes.md#class-spawnexpr) 中的不含形参的闭包。
-
-类型：[LambdaExpr](ast_package_classes.md#class-lambdaexpr)
 
 ### prop rParen
 
@@ -9117,20 +9117,6 @@ public mut prop keywordF: Token
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `finally` 关键字时，抛出异常。
 
-### prop keywordT
-
-```cangjie
-public mut prop keywordT: Token
-```
-
-功能：获取或设置 [TryExpr](ast_package_classes.md#class-tryexpr) 中的 `try` 关键字。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `try` 关键字时，抛出异常。
-
 ### prop keywordsC
 
 ```cangjie
@@ -9144,6 +9130,20 @@ public mut prop keywordsC: Tokens
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `catch` 关键字时，抛出异常。
+
+### prop keywordT
+
+```cangjie
+public mut prop keywordT: Token
+```
+
+功能：获取或设置 [TryExpr](ast_package_classes.md#class-tryexpr) 中的 `try` 关键字。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `try` 关键字时，抛出异常。
 
 ### prop resourceSpec
 
@@ -9778,6 +9778,22 @@ public mut prop typeParameterName: Token
 
 类型：[Token](ast_package_structs.md#struct-token)
 
+### func dump(UInt16)
+
+```cangjie
+protected open func dump(indent: UInt16): String
+```
+
+功能：将当前语法树节点转化为树形结构的形态并进行打印。
+
+参数：
+
+- indent: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 格式化输出的缩进空格数量。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 格式化输出内容。
+
 ### func toTokens()
 
 ```cangjie
@@ -9801,22 +9817,6 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
-
-### func dump(UInt16)
-
-```cangjie
-protected open func dump(indent: UInt16): String
-```
-
-功能：将当前语法树节点转化为树形结构的形态并进行打印。
-
-参数：
-
-- indent: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 格式化输出的缩进空格数量。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 格式化输出内容。
 
 ## class TypePattern
 
@@ -9975,256 +9975,6 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [UnaryExpr](ast_package_classes.md#class-unaryexpr) 节点时，抛出异常。
-
-### func toTokens()
-
-```cangjie
-public func toTokens(): Tokens
-```
-
-功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
-
-返回值：
-
-- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
-
-### func traverse(Visitor)
-
-```cangjie
-public func traverse(v: Visitor): Unit
-```
-
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
-
-参数：
-
-- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
-
-## class VArrayExpr
-
-```cangjie
-public class VArrayExpr <: Expr {
-    public init()
-    public init(inputs: Tokens)
-}
-```
-
-功能：表示 `VArray` 的实例节点。
-
-一个 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 节点：`let arr: VArray<Int64, $5> = VArray<Int64, $5>({ i => i })` 中的 `VArray<Int64, $5>({ i => i })`。
-
-父类型：
-
-- [Expr](#class-expr)
-
-### prop arguments
-
-```cangjie
-public mut prop arguments: ArrayList<Argument>
-```
-
-功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的中的初始化参数序列。
-
-类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Argument](ast_package_classes.md#class-argument)>
-
-### prop lParen
-
-```cangjie
-public mut prop lParen: Token
-```
-
-功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的 "("。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "(" 时，抛出异常。
-
-### prop rParen
-
-```cangjie
-public mut prop rParen: Token
-```
-
-功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的 ")"。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 ")" 时，抛出异常。
-
-### prop vArrayType
-
-```cangjie
-public mut prop vArrayType: VArrayType
-```
-
-功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 的 VArray 类型节点。
-
-类型：[VArrayType](ast_package_classes.md#class-varraytype)
-
-### init()
-
-```cangjie
-public init()
-```
-
-功能：构造一个默认的 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 对象。
-
-### init(Tokens)
-
-```cangjie
-public init(inputs: Tokens)
-```
-
-功能：构造一个 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 对象。
-
-参数：
-
-- inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 节点时，抛出异常。
-
-### func toTokens()
-
-```cangjie
-public func toTokens(): Tokens
-```
-
-功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
-
-返回值：
-
-- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
-
-### func traverse(Visitor)
-
-```cangjie
-public func traverse(v: Visitor): Unit
-```
-
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
-
-参数：
-
-- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
-
-## class VArrayType
-
-```cangjie
-public class VArrayType <: TypeNode {
-    public init()
-    public init(inputs: Tokens)
-}
-```
-
-功能：表示 `VArray` 类型节点。
-
-使用泛型 `VArray<T, size: Int64>` 表示 `VArray` 类型。
-
-父类型：
-
-- [TypeNode](#class-typenode)
-
-### prop dollar
-
-```cangjie
-public mut prop dollar: Token
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中的操作符 `$` 的词法单元。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `$` 词法单元时，抛出异常。
-
-### prop elementTy
-
-```cangjie
-public mut prop elementTy: TypeNode
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中的类型变元节点，如 `VArray<Int16, $0>` 中的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)。
-
-类型：[TypeNode](ast_package_classes.md#class-typenode)
-
-### prop keyword
-
-```cangjie
-public mut prop keyword: Token
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点的关键字 `VArray` 的词法单元。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-### prop lAngle
-
-```cangjie
-public mut prop lAngle: Token
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点左尖括号的词法单元。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是左尖括号时，抛出异常。
-
-### prop rAngle
-
-```cangjie
-public mut prop rAngle: Token
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点右尖括号的词法单元。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是右尖括号时，抛出异常。
-
-### prop size
-
-```cangjie
-public mut prop size: Token
-```
-
-功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中类型长度的词法单元。
-
-类型：[Token](ast_package_structs.md#struct-token)
-
-### init()
-
-```cangjie
-public init()
-```
-
-功能：构造一个默认的 [VArrayType](ast_package_classes.md#class-varraytype) 对象。
-
-### init(Tokens)
-
-```cangjie
-public init(inputs: Tokens)
-```
-
-功能：构造一个 [VArrayType](ast_package_classes.md#class-varraytype) 对象。
-
-参数：
-
-- inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [VArrayType](ast_package_classes.md#class-varraytype) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayType](ast_package_classes.md#class-varraytype) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -10526,6 +10276,256 @@ public init(identifier: Token)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VarPattern](ast_package_classes.md#class-varpattern) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+## class VArrayExpr
+
+```cangjie
+public class VArrayExpr <: Expr {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+功能：表示 `VArray` 的实例节点。
+
+一个 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 节点：`let arr: VArray<Int64, $5> = VArray<Int64, $5>({ i => i })` 中的 `VArray<Int64, $5>({ i => i })`。
+
+父类型：
+
+- [Expr](#class-expr)
+
+### prop arguments
+
+```cangjie
+public mut prop arguments: ArrayList<Argument>
+```
+
+功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的中的初始化参数序列。
+
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Argument](ast_package_classes.md#class-argument)>
+
+### prop lParen
+
+```cangjie
+public mut prop lParen: Token
+```
+
+功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的 "("。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "(" 时，抛出异常。
+
+### prop rParen
+
+```cangjie
+public mut prop rParen: Token
+```
+
+功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 中的 ")"。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 ")" 时，抛出异常。
+
+### prop vArrayType
+
+```cangjie
+public mut prop vArrayType: VArrayType
+```
+
+功能：获取或设置 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 的 VArray 类型节点。
+
+类型：[VArrayType](ast_package_classes.md#class-varraytype)
+
+### init()
+
+```cangjie
+public init()
+```
+
+功能：构造一个默认的 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 对象。
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+功能：构造一个 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 对象。
+
+参数：
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayExpr](ast_package_classes.md#class-varrayexpr) 节点时，抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+## class VArrayType
+
+```cangjie
+public class VArrayType <: TypeNode {
+    public init()
+    public init(inputs: Tokens)
+}
+```
+
+功能：表示 `VArray` 类型节点。
+
+使用泛型 `VArray<T, size: Int64>` 表示 `VArray` 类型。
+
+父类型：
+
+- [TypeNode](#class-typenode)
+
+### prop dollar
+
+```cangjie
+public mut prop dollar: Token
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中的操作符 `$` 的词法单元。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 `$` 词法单元时，抛出异常。
+
+### prop elementTy
+
+```cangjie
+public mut prop elementTy: TypeNode
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中的类型变元节点，如 `VArray<Int16, $0>` 中的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16)。
+
+类型：[TypeNode](ast_package_classes.md#class-typenode)
+
+### prop keyword
+
+```cangjie
+public mut prop keyword: Token
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点的关键字 `VArray` 的词法单元。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+### prop lAngle
+
+```cangjie
+public mut prop lAngle: Token
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点左尖括号的词法单元。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是左尖括号时，抛出异常。
+
+### prop rAngle
+
+```cangjie
+public mut prop rAngle: Token
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点右尖括号的词法单元。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是右尖括号时，抛出异常。
+
+### prop size
+
+```cangjie
+public mut prop size: Token
+```
+
+功能：获取或设置 [VArrayType](ast_package_classes.md#class-varraytype) 节点中类型长度的词法单元。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+### init()
+
+```cangjie
+public init()
+```
+
+功能：构造一个默认的 [VArrayType](ast_package_classes.md#class-varraytype) 对象。
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+功能：构造一个 [VArrayType](ast_package_classes.md#class-varraytype) 对象。
+
+参数：
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [VArrayType](ast_package_classes.md#class-varraytype) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [VArrayType](ast_package_classes.md#class-varraytype) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -11508,30 +11508,6 @@ protected open func visit(_: UnaryExpr): Unit
 
 - _: [UnaryExpr](ast_package_classes.md#class-unaryexpr) - [UnaryExpr](ast_package_classes.md#class-unaryexpr) 类型的被遍历节点。
 
-### func visit(VArrayExpr)
-
-```cangjie
-protected open func visit(_: VArrayExpr): Unit
-```
-
-功能：定义访问节点时的操作，需要重写。
-
-参数：
-
-- _: [VArrayExpr](ast_package_classes.md#class-varrayexpr) - [VArrayExpr](ast_package_classes.md#class-varrayexpr) 类型的被遍历节点。
-
-### func visit(VArrayType)
-
-```cangjie
-protected open func visit(_: VArrayType): Unit
-```
-
-功能：定义访问节点时的操作，需要重写。
-
-参数：
-
-- _: [VArrayType](ast_package_classes.md#class-varraytype) - [VArrayType](ast_package_classes.md#class-varraytype) 类型的被遍历节点。
-
 ### func visit(VarDecl)
 
 ```cangjie
@@ -11567,6 +11543,30 @@ protected open func visit(_: VarPattern): Unit
 参数：
 
 - _: [VarPattern](ast_package_classes.md#class-varpattern) - [VarPattern](ast_package_classes.md#class-varpattern) 类型的被遍历节点。
+
+### func visit(VArrayExpr)
+
+```cangjie
+protected open func visit(_: VArrayExpr): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [VArrayExpr](ast_package_classes.md#class-varrayexpr) - [VArrayExpr](ast_package_classes.md#class-varrayexpr) 类型的被遍历节点。
+
+### func visit(VArrayType)
+
+```cangjie
+protected open func visit(_: VArrayType): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [VArrayType](ast_package_classes.md#class-varraytype) - [VArrayType](ast_package_classes.md#class-varraytype) 类型的被遍历节点。
 
 ### func visit(WhileExpr)
 

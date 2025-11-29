@@ -528,6 +528,22 @@ func setOption(key: String, value: String): Unit
 - key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项名称。
 - value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 连接选项的值。
 
+### func update()
+
+```cangjie
+func update(): UpdateResult
+```
+
+功能：执行 sql 语句，得到更新结果。
+
+返回值：
+
+- [UpdateResult](database_sql_package_interfaces.md#interface-updateresult) - 更新结果。
+
+异常：
+
+- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当执行过程中发生了异常情况，比如网络中断，服务器超时，参数个数不正确时，抛出异常。
+
 ### func update(Array\<SqlDbType>) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -551,22 +567,6 @@ func update(params: Array<SqlDbType>): UpdateResult
 异常：
 
 - [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当执行过程中发生了异常情况，比如网络中断、服务器超时，参数个数不正确时，抛出异常。
-
-### func update()
-
-```cangjie
-func update(): UpdateResult
-```
-
-功能：执行 sql 语句，得到更新结果。
-
-返回值：
-
-- [UpdateResult](database_sql_package_interfaces.md#interface-updateresult) - 更新结果。
-
-异常：
-
-- [SqlException](database_sql_package_exceptions.md#class-sqlexception) - 当执行过程中发生了异常情况，比如网络中断，服务器超时，参数个数不正确时，抛出异常。
 
 ## interface Transaction
 

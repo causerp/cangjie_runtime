@@ -2001,6 +2001,39 @@ World
 Error: Can't move the position before the beginning of the stream.
 ```
 
+#### prop length
+
+```cangjie
+public prop length: Int64
+```
+
+功能：返回当前流中的总数据量（以字节为单位）。
+
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.io.ByteBuffer
+
+main(): Unit {
+    let buffer = ByteBuffer("Hello World".toArray())
+    println("Initial length: ${buffer.length}")
+    
+    // 写入更多数据
+    buffer.write(" More Data".toArray())
+    println("Length after writing: ${buffer.length}")
+}
+```
+
+运行结果：
+
+```text
+Initial length: 11
+Length after writing: 21
+```
+
 #### prop position
 
 ```cangjie
@@ -2033,39 +2066,6 @@ main(): Unit {
 ```text
 Initial position: 0
 Position after reading 5 bytes: 5
-```
-
-#### prop length
-
-```cangjie
-public prop length: Int64
-```
-
-功能：返回当前流中的总数据量（以字节为单位）。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.io.ByteBuffer
-
-main(): Unit {
-    let buffer = ByteBuffer("Hello World".toArray())
-    println("Initial length: ${buffer.length}")
-    
-    // 写入更多数据
-    buffer.write(" More Data".toArray())
-    println("Length after writing: ${buffer.length}")
-}
-```
-
-运行结果：
-
-```text
-Initial length: 11
-Length after writing: 21
 ```
 
 #### prop remainLength
@@ -2647,6 +2647,58 @@ main(): Unit {
 Hello
 ```
 
+### func readln()
+
+```cangjie
+public func readln(): Option<String>
+```
+
+功能：按行读取流中的数据。
+
+> **说明：**
+>
+> - 读取的数据会去掉原换行符。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str)，str 为该次读出的字符串；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None。
+
+异常：
+
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当读取到非法字符时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.io.*
+
+main(): Unit {
+    // 创建一个包含多行文本的ByteBuffer作为输入流
+    let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
+    
+    // 创建StringReader
+    let stringReader = StringReader(buffer)
+    
+    // 使用readln()方法逐行读取
+    while (true) {
+        let line = stringReader.readln()
+        if (line == None) {
+            break
+        }
+        println(line.getOrThrow())
+    }
+}
+```
+
+运行结果：
+
+```text
+Hello
+World
+Cangjie
+```
+
 ### func readToEnd()
 
 ```cangjie
@@ -2775,58 +2827,6 @@ main(): Unit {
 
 ```text
 Hello,
-```
-
-### func readln()
-
-```cangjie
-public func readln(): Option<String>
-```
-
-功能：按行读取流中的数据。
-
-> **说明：**
->
-> - 读取的数据会去掉原换行符。
-
-返回值：
-
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str)，str 为该次读出的字符串；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None。
-
-异常：
-
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当读取到非法字符时，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.io.*
-
-main(): Unit {
-    // 创建一个包含多行文本的ByteBuffer作为输入流
-    let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
-    
-    // 创建StringReader
-    let stringReader = StringReader(buffer)
-    
-    // 使用readln()方法逐行读取
-    while (true) {
-        let line = stringReader.readln()
-        if (line == None) {
-            break
-        }
-        println(line.getOrThrow())
-    }
-}
-```
-
-运行结果：
-
-```text
-Hello
-World
-Cangjie
 ```
 
 ### func runes()

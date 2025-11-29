@@ -2793,47 +2793,6 @@ Content: 'Hello World'
 Size: 11
 ```
 
-### func append\<T>(Array\<T>) where T <: ToString
-
-```cangjie
-public func append<T>(val: Array<T>): Unit where T <: ToString
-```
-
-功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `val` 指定的 [Array](core_package_structs.md#struct-arrayt)\<T> 的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
-
-参数：
-
-- val: [Array](core_package_structs.md#struct-arrayt)\<T> - 插入的 [Array](core_package_structs.md#struct-arrayt)\<T> 类型实例。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main(): Int64 {
-    // 创建一个StringBuilder实例
-    var sb = StringBuilder("Numbers: ")
-    
-    // 创建一个整数数组
-    let numbers: Array<Int64> = [1, 2, 3, 4, 5]
-    
-    // 将整数数组追加到StringBuilder
-    sb.append(numbers)
-    
-    // 验证结果
-    println("Content: '${sb}'")
-    println("Size: ${sb.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-Content: 'Numbers: 12345'
-Size: 14
-```
-
 ### func append(Bool)
 
 ```cangjie
@@ -3297,44 +3256,6 @@ Content: 'Hello, World!'
 Size: 13
 ```
 
-### func append\<T>(T) where T <: ToString
-
-```cangjie
-public func append<T>(v: T): Unit where T <: ToString
-```
-
-功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `v` 指定 `T` 类型的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
-
-参数：
-
-- v: T - 插入的 `T` 类型实例。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main(): Int64 {
-    // 创建一个StringBuilder实例
-    var sb = StringBuilder("The answer is: ")
-    
-    // 追加一个整数（实现了ToString接口）
-    sb.append(42)
-    
-    // 验证结果
-    println("Content: '${sb}'")
-    println("Size: ${sb.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-Content: 'The answer is: 42'
-Size: 17
-```
-
 ### func append(UInt16)
 
 ```cangjie
@@ -3485,6 +3406,85 @@ main(): Int64 {
 ```text
 Content: 'UInt8 value: 123'
 Size: 16
+```
+
+### func append\<T>(Array\<T>) where T <: ToString
+
+```cangjie
+public func append<T>(val: Array<T>): Unit where T <: ToString
+```
+
+功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `val` 指定的 [Array](core_package_structs.md#struct-arrayt)\<T> 的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
+
+参数：
+
+- val: [Array](core_package_structs.md#struct-arrayt)\<T> - 插入的 [Array](core_package_structs.md#struct-arrayt)\<T> 类型实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // 创建一个StringBuilder实例
+    var sb = StringBuilder("Numbers: ")
+    
+    // 创建一个整数数组
+    let numbers: Array<Int64> = [1, 2, 3, 4, 5]
+    
+    // 将整数数组追加到StringBuilder
+    sb.append(numbers)
+    
+    // 验证结果
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Content: 'Numbers: 12345'
+Size: 14
+```
+
+### func append\<T>(T) where T <: ToString
+
+```cangjie
+public func append<T>(v: T): Unit where T <: ToString
+```
+
+功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `v` 指定 `T` 类型的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
+
+参数：
+
+- v: T - 插入的 `T` 类型实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // 创建一个StringBuilder实例
+    var sb = StringBuilder("The answer is: ")
+    
+    // 追加一个整数（实现了ToString接口）
+    sb.append(42)
+    
+    // 验证结果
+    println("Content: '${sb}'")
+    println("Size: ${sb.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Content: 'The answer is: 42'
+Size: 17
 ```
 
 ### func appendFromUtf8(Array\<Byte>)
@@ -4261,7 +4261,7 @@ stack trace:
 	 at default.main()(code.cj:3)
 ```
 
-### func  toString()
+### func toString()
 
 ```cangjie
 public func toString(): String
@@ -4272,5 +4272,3 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转换后的字符串。
-
-

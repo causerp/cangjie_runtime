@@ -342,136 +342,6 @@ File exists before creation: false
 File exists after creation: true
 ```
 
-## func rename(Path, Path, Bool)
-
-```cangjie
-public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
-```
-
-功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，否则会抛出异常。
-
-> **注意：**
->
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
-
-参数：
-
-- sourcePath: [Path](./fs_package_structs.md#struct-path) - 待重命名的地址。
-- to!: [Path](./fs_package_structs.md#struct-path) - 目标地址。
-- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.fs.*
-
-main(): Unit {
-    // 创建前先删除，以防创建失败
-    removeIfExists("./test_rename_source.txt", recursive: true)
-    removeIfExists("./test_rename_target.txt", recursive: true)
-
-    // 创建源文件
-    var data: Array<Byte> = [82, 101, 110, 97, 109, 101]  // "Rename"
-    File.writeTo("./test_rename_source.txt", data)
-    
-    // 重命名文件
-    rename(Path("./test_rename_source.txt"), to: Path("./test_rename_target.txt"), overwrite: false)
-    
-    // 验证重命名结果
-    let sourceExists = exists("./test_rename_source.txt")
-    let targetExists = exists("./test_rename_target.txt")
-    println("Source file exists after rename: ${sourceExists}")
-    println("Target file exists after rename: ${targetExists}")
-    
-    if (targetExists) {
-        let content = File.readFrom("./test_rename_target.txt")
-        println("Renamed file content: ${content}")
-    }
-    
-    // 清理测试文件
-    removeIfExists("./test_rename_target.txt", recursive: true)
-}
-```
-
-运行结果：
-
-```text
-Source file exists after rename: false
-Target file exists after rename: true
-Renamed file content: [82, 101, 110, 97, 109, 101]
-```
-
-## func rename(String, String, Bool)
-
-```cangjie
-public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): Unit
-```
-
-功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，`overwrite` 为 `false` 会抛出异常。
-
-> **注意：**
->
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
-
-参数：
-
-- sourcePath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待重命名的地址。
-- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目标地址。
-- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.fs.*
-
-main(): Unit {
-    // 创建前先删除，以防创建失败
-    removeIfExists("./test_rename_source.txt", recursive: true)
-    removeIfExists("./test_rename_target.txt", recursive: true)
-
-    // 创建源文件
-    var data: Array<Byte> = [82, 101, 110, 97, 109, 101]  // "Rename"
-    File.writeTo("./test_rename_source.txt", data)
-    
-    // 重命名文件
-    rename("./test_rename_source.txt", to: "./test_rename_target.txt", overwrite: false)
-    
-    // 验证重命名结果
-    let sourceExists = exists("./test_rename_source.txt")
-    let targetExists = exists("./test_rename_target.txt")
-    println("Source file exists after rename: ${sourceExists}")
-    println("Target file exists after rename: ${targetExists}")
-    
-    if (targetExists) {
-        let content = File.readFrom("./test_rename_target.txt")
-        println("Renamed file content: ${content}")
-    }
-    
-    // 清理测试文件
-    removeIfExists("./test_rename_target.txt", recursive: true)
-}
-```
-
-运行结果：
-
-```text
-Source file exists after rename: false
-Target file exists after rename: true
-Renamed file content: [82, 101, 110, 97, 109, 101]
-```
-
 ## func remove(Path, Bool)
 
 ```cangjie
@@ -694,4 +564,134 @@ main(): Unit {
 File exists before removeIfExists: true
 removeIfExists result for existing file: true
 removeIfExists result for non-existing file: false
+```
+
+## func rename(Path, Path, Bool)
+
+```cangjie
+public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
+```
+
+功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，否则会抛出异常。
+
+> **注意：**
+>
+> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+
+参数：
+
+- sourcePath: [Path](./fs_package_structs.md#struct-path) - 待重命名的地址。
+- to!: [Path](./fs_package_structs.md#struct-path) - 目标地址。
+- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_rename_source.txt", recursive: true)
+    removeIfExists("./test_rename_target.txt", recursive: true)
+
+    // 创建源文件
+    var data: Array<Byte> = [82, 101, 110, 97, 109, 101]  // "Rename"
+    File.writeTo("./test_rename_source.txt", data)
+    
+    // 重命名文件
+    rename(Path("./test_rename_source.txt"), to: Path("./test_rename_target.txt"), overwrite: false)
+    
+    // 验证重命名结果
+    let sourceExists = exists("./test_rename_source.txt")
+    let targetExists = exists("./test_rename_target.txt")
+    println("Source file exists after rename: ${sourceExists}")
+    println("Target file exists after rename: ${targetExists}")
+    
+    if (targetExists) {
+        let content = File.readFrom("./test_rename_target.txt")
+        println("Renamed file content: ${content}")
+    }
+    
+    // 清理测试文件
+    removeIfExists("./test_rename_target.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Source file exists after rename: false
+Target file exists after rename: true
+Renamed file content: [82, 101, 110, 97, 109, 101]
+```
+
+## func rename(String, String, Bool)
+
+```cangjie
+public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): Unit
+```
+
+功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，`overwrite` 为 `false` 会抛出异常。
+
+> **注意：**
+>
+> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+
+参数：
+
+- sourcePath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待重命名的地址。
+- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目标地址。
+- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.fs.*
+
+main(): Unit {
+    // 创建前先删除，以防创建失败
+    removeIfExists("./test_rename_source.txt", recursive: true)
+    removeIfExists("./test_rename_target.txt", recursive: true)
+
+    // 创建源文件
+    var data: Array<Byte> = [82, 101, 110, 97, 109, 101]  // "Rename"
+    File.writeTo("./test_rename_source.txt", data)
+    
+    // 重命名文件
+    rename("./test_rename_source.txt", to: "./test_rename_target.txt", overwrite: false)
+    
+    // 验证重命名结果
+    let sourceExists = exists("./test_rename_source.txt")
+    let targetExists = exists("./test_rename_target.txt")
+    println("Source file exists after rename: ${sourceExists}")
+    println("Target file exists after rename: ${targetExists}")
+    
+    if (targetExists) {
+        let content = File.readFrom("./test_rename_target.txt")
+        println("Renamed file content: ${content}")
+    }
+    
+    // 清理测试文件
+    removeIfExists("./test_rename_target.txt", recursive: true)
+}
+```
+
+运行结果：
+
+```text
+Source file exists after rename: false
+Target file exists after rename: true
+Renamed file content: [82, 101, 110, 97, 109, 101]
 ```

@@ -165,6 +165,193 @@ public prop superClass: Option<ClassTypeInfo>
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)>
 
+### static func get(String)
+
+```cangjie
+public redef static func get(qualifiedName: String): ClassTypeInfo
+```
+
+功能：获取给定限定名称所对应类型的 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
+
+返回值：
+
+- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - 类型的限定名称 `qualifiedName` 所对应的类型的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获取与给定类型的限定名称 `qualifiedName` 匹配的类型所对应的类型信息，则抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.reflect.*
+
+public class Rectangular {}
+
+main(): Unit {
+    let ty = ClassTypeInfo.get("default.Rectangular")
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+default.Rectangular
+```
+
+### static func of(Any)
+
+```cangjie
+public redef static func of(a: Any): ClassTypeInfo
+```
+
+功能：获取给定的任意类型的实例的运行时类型所对应的类型信息。
+
+运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
+
+返回值：
+
+- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - 实例 `a` 的运行时类型所对应的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的类型信息，则抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public class Rectangular {}
+
+main(): Unit {
+    var r = Rectangular()
+    let ty = ClassTypeInfo.of(r)
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.Rectangular
+```
+
+### static func of(Object)
+
+```cangjie
+public static func of(a: Object): ClassTypeInfo
+```
+
+功能：获取给定的 `class` 类型的实例的运行时类型所对应的 `class` 类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- a: [Object](../../core/core_package_api/core_package_classes.md#class-object) - `class` 类型的实例。
+
+返回值：
+
+- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - `class` 类型的实例 `a` 的运行时类型所对应的 `class` 类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的 `class` 类型信息，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public class Rectangular {}
+
+main(): Unit {
+    var r = Rectangular()
+    let ty = ClassTypeInfo.of(r)
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.Rectangular
+```
+
+### static func of\<T>()
+
+```cangjie
+public redef static func of<T>(): ClassTypeInfo
+```
+
+功能：获取给定类型 `T` 对应的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - `T` 类型对应的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得类型 T 所对应的类型信息，抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.reflect.*
+
+public class Rectangular {}
+
+main(): Unit {
+    let ty = ClassTypeInfo.of<Rectangular>()
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+default.Rectangular
+```
+
 ### func construct(Array\<Any>)
 
 ```cangjie
@@ -453,193 +640,6 @@ public func isSealed(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型拥有 `sealed` 语义则返回 `true`，否则返回 `false`。
-
-### static func get(String)
-
-```cangjie
-public redef static func get(qualifiedName: String): ClassTypeInfo
-```
-
-功能：获取给定限定名称所对应类型的 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
-
-返回值：
-
-- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - 类型的限定名称 `qualifiedName` 所对应的类型的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获取与给定类型的限定名称 `qualifiedName` 匹配的类型所对应的类型信息，则抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.reflect.*
-
-public class Rectangular {}
-
-main(): Unit {
-    let ty = ClassTypeInfo.get("default.Rectangular")
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-default.Rectangular
-```
-
-### static func of(Any)
-
-```cangjie
-public redef static func of(a: Any): ClassTypeInfo
-```
-
-功能：获取给定的任意类型的实例的运行时类型所对应的类型信息。
-
-运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
-
-返回值：
-
-- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - 实例 `a` 的运行时类型所对应的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的类型信息，则抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public class Rectangular {}
-
-main(): Unit {
-    var r = Rectangular()
-    let ty = ClassTypeInfo.of(r)
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-test.Rectangular
-```
-
-### static func of(Object)
-
-```cangjie
-public static func of(a: Object): ClassTypeInfo
-```
-
-功能：获取给定的 `class` 类型的实例的运行时类型所对应的 `class` 类型信息。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- a: [Object](../../core/core_package_api/core_package_classes.md#class-object) - `class` 类型的实例。
-
-返回值：
-
-- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - `class` 类型的实例 `a` 的运行时类型所对应的 `class` 类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的 `class` 类型信息，则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public class Rectangular {}
-
-main(): Unit {
-    var r = Rectangular()
-    let ty = ClassTypeInfo.of(r)
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-test.Rectangular
-```
-
-### static func of\<T>()
-
-```cangjie
-public redef static func of<T>(): ClassTypeInfo
-```
-
-功能：获取给定类型 `T` 对应的类型信息。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - `T` 类型对应的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得类型 T 所对应的类型信息，抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.reflect.*
-
-public class Rectangular {}
-
-main(): Unit {
-    let ty = ClassTypeInfo.of<Rectangular>()
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-default.Rectangular
-```
 
 ## class ConstructorInfo
 
@@ -1155,26 +1155,6 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该全局函数信息。
 
-### operator func ==(GlobalFunctionInfo)
-
-```cangjie
-public operator func ==(that: GlobalFunctionInfo): Bool
-```
-
-功能：判断该全局函数信息与给定的另一个全局函数信息是否相等。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
-
 ### operator func !=(GlobalFunctionInfo)
 
 ```cangjie
@@ -1194,6 +1174,26 @@ public operator func !=(that: GlobalFunctionInfo): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与 `that` 不等则返回 `true`，否则返回 `false`。
+
+### operator func ==(GlobalFunctionInfo)
+
+```cangjie
+public operator func ==(that: GlobalFunctionInfo): Bool
+```
+
+功能：判断该全局函数信息与给定的另一个全局函数信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
 
 ## class GlobalVariableInfo
 
@@ -1289,22 +1289,6 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
-### func getValue()
-
-```cangjie
-public func getValue(): Any
-```
-
-功能：获取该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的值。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该全局变量的值。
-
 ### func getAllAnnotations()
 
 ```cangjie
@@ -1320,6 +1304,22 @@ public func getAllAnnotations(): Array<Annotation>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
+
+### func getValue()
+
+```cangjie
+public func getValue(): Any
+```
+
+功能：获取该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该全局变量的值。
 
 ### func hashCode()
 
@@ -1392,26 +1392,6 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该全局变量信息。
 
-### operator func ==(GlobalVariableInfo)
-
-```cangjie
-public operator func ==(that: GlobalVariableInfo): Bool
-```
-
-功能：判断该全局变量信息与给定的另一个全局变量信息是否相等。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
-
 ### operator func !=(GlobalVariableInfo)
 
 ```cangjie
@@ -1431,6 +1411,26 @@ public operator func !=(that: GlobalVariableInfo): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与 `that` 不等则返回 `true`，否则返回 `false`。
+
+### operator func ==(GlobalVariableInfo)
+
+```cangjie
+public operator func ==(that: GlobalVariableInfo): Bool
+```
+
+功能：判断该全局变量信息与给定的另一个全局变量信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
 
 ## class InstanceFunctionInfo
 
@@ -1764,26 +1764,6 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该实例成员函数信息。
 
-### operator func ==(InstanceFunctionInfo)
-
-```cangjie
-public operator func ==(that: InstanceFunctionInfo): Bool
-```
-
-功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否相等。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
-
 ### operator func !=(InstanceFunctionInfo)
 
 ```cangjie
@@ -1803,6 +1783,26 @@ public operator func !=(that: InstanceFunctionInfo): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与 `that` 不等则返回 `true`，否则返回 `false`。
+
+### operator func ==(InstanceFunctionInfo)
+
+```cangjie
+public operator func ==(that: InstanceFunctionInfo): Bool
+```
+
+功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
 
 ## class InstancePropertyInfo
 
@@ -2022,22 +2022,6 @@ public func isAbstract(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是抽象的，则返回 `true`，否则返回 `false`。
 
-### func isOpen()
-
-```cangjie
-public func isOpen(): Bool
-```
-
-功能：判断该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是否拥有 `open` 语义。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性拥有 `open` 语义则返回 `true`，否则返回 `false`。
-
 ### func isMutable()
 
 ```cangjie
@@ -2054,6 +2038,22 @@ public func isMutable(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息所对应的实例成员属性可被修改则返回 `true` ，否则返回 `false`。
+
+### func isOpen()
+
+```cangjie
+public func isOpen(): Bool
+```
+
+功能：判断该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是否拥有 `open` 语义。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性拥有 `open` 语义则返回 `true`，否则返回 `false`。
 
 ### func setValue(Any, Any)
 
@@ -2388,26 +2388,6 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该实例成员变量信息。
 
-### operator func ==(InstanceVariableInfo)
-
-```cangjie
-public operator func ==(that: InstanceVariableInfo): Bool
-```
-
-功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否相等。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
-
 ### operator func !=(InstanceVariableInfo)
 
 ```cangjie
@@ -2427,6 +2407,26 @@ public operator func !=(that: InstanceVariableInfo): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与 `that` 不等则返回 `true`，否则返回 `false`。
+
+### operator func ==(InstanceVariableInfo)
+
+```cangjie
+public operator func ==(that: InstanceVariableInfo): Bool
+```
+
+功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
 
 ## class InterfaceTypeInfo
 
@@ -2459,22 +2459,6 @@ public prop sealedSubtypes: Collection<TypeInfo>
 > - 如果该 `interface` 类型拥有 `sealed` 语义，那么获得的集合必不可能是空集合，因为该 `interface` 类型本身就是自己的子类型。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)>
-
-### func isSealed()
-
-```cangjie
-public func isSealed(): Bool
-```
-
-功能：判断该 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) 所对应的 `interface` 类型是否拥有 `sealed` 语义。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 `interface` 类型拥有 `sealed` 语义则返回 `true`，否则返回 `false`。
 
 ### static func get(String)
 
@@ -2570,6 +2554,22 @@ public redef static func of<T>(): InterfaceTypeInfo
 - [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得类型 T 所对应的类型信息，抛出异常。
 - [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo)， 则抛出异常。
 
+### func isSealed()
+
+```cangjie
+public func isSealed(): Bool
+```
+
+功能：判断该 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) 所对应的 `interface` 类型是否拥有 `sealed` 语义。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 `interface` 类型拥有 `sealed` 语义则返回 `true`，否则返回 `false`。
+
 ## class PackageInfo
 
 ```cangjie
@@ -2587,6 +2587,20 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[PackageInfo](#class-packageinfo)>
 - [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+### prop variables
+
+```cangjie
+public prop variables: Collection<GlobalVariableInfo>
+```
+
+功能：获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中所有 `public` 全局变量的信息所组成的列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo)>
 
 ### prop functions
 
@@ -2713,20 +2727,6 @@ public prop typeInfos: Collection<TypeInfo>
 > - 目前该列表不包含所有反射尚未支持的类型。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)>
-
-### prop variables
-
-```cangjie
-public prop variables: Collection<GlobalVariableInfo>
-```
-
-功能：获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中所有 `public` 全局变量的信息所组成的列表。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo)>
 
 ### prop version
 
@@ -4399,6 +4399,146 @@ public prop staticVariables: Collection<StaticVariableInfo>
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo)>
 
+### static func get(String)
+
+```cangjie
+public static redef func get(qualifiedName: String): StructTypeInfo
+```
+
+功能：获取给定 `qualifiedName` 所对应的类型的 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
+
+返回值：
+
+- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - 类型的限定名称 `qualifiedName` 所对应的 `Struct` 类型的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获取与给定类型的限定名称 `qualifiedName` 匹配的类型所对应的类型信息，则抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.reflect.*
+import std.reflect.*
+
+public struct Rectangular {}
+
+main(): Unit {
+    let ty = StructTypeInfo.get("default.Rectangular")
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+default.Rectangular
+```
+
+### static func of(Any)
+
+```cangjie
+public static redef func of(a: Any): StructTypeInfo
+```
+
+功能：获取给定的任意类型实例的运行时类型所对应的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
+
+参数：
+
+- a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
+
+返回值：
+
+- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - 实例 `a` 的运行时类型所对应的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的类型信息，则抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public struct Rectangular {}
+
+main(): Unit {
+    var r = Rectangular()
+    let ty = StructTypeInfo.of(r)
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.Rectangular
+```
+
+### static func of\<T>()
+
+```cangjie
+public static redef func of<T>(): StructTypeInfo
+```
+
+功能：获取给定 `T` 类型对应的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - `T` 类型对应的类型信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得类型 T 所对应的类型信息，抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.reflect.*
+
+public struct Rectangular {}
+
+main(): Unit {
+    let ty = StructTypeInfo.of<Rectangular>()
+    println(ty)
+    return
+}
+```
+
+运行结果：
+
+```text
+default.Rectangular
+```
+
 ### func construct(Array\<Any>)
 
 ```cangjie
@@ -4587,146 +4727,6 @@ main(): Unit {
 
 ```text
 static area: Int64
-```
-
-### static func get(String)
-
-```cangjie
-public static redef func get(qualifiedName: String): StructTypeInfo
-```
-
-功能：获取给定 `qualifiedName` 所对应的类型的 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-参数：
-
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
-
-返回值：
-
-- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - 类型的限定名称 `qualifiedName` 所对应的 `Struct` 类型的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获取与给定类型的限定名称 `qualifiedName` 匹配的类型所对应的类型信息，则抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.reflect.*
-import std.reflect.*
-
-public struct Rectangular {}
-
-main(): Unit {
-    let ty = StructTypeInfo.get("default.Rectangular")
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-default.Rectangular
-```
-
-### static func of(Any)
-
-```cangjie
-public static redef func of(a: Any): StructTypeInfo
-```
-
-功能：获取给定的任意类型实例的运行时类型所对应的类型信息。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
-
-参数：
-
-- a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
-
-返回值：
-
-- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - 实例 `a` 的运行时类型所对应的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的类型信息，则抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public struct Rectangular {}
-
-main(): Unit {
-    var r = Rectangular()
-    let ty = StructTypeInfo.of(r)
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-test.Rectangular
-```
-
-### static func of\<T>()
-
-```cangjie
-public static redef func of<T>(): StructTypeInfo
-```
-
-功能：获取给定 `T` 类型对应的类型信息。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - `T` 类型对应的类型信息。
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得类型 T 所对应的类型信息，抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)， 则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.reflect.*
-
-public struct Rectangular {}
-
-main(): Unit {
-    let ty = StructTypeInfo.of<Rectangular>()
-    println(ty)
-    return
-}
-```
-
-运行结果：
-
-```text
-default.Rectangular
 ```
 
 ## class TypeInfo

@@ -703,54 +703,6 @@ true
 true
 ```
 
-### operator func ==(IPAddress)
-
-```cangjie
-public operator func ==(rhs: IPAddress): Bool
-```
-
-功能：判断两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象是否相等。
-
-参数：
-
-- rhs: [IPAddress](net_package_classes.md#class-ipaddress) - 参与比较的 [IPAddress](net_package_classes.md#class-ipaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-<!-- verify -->
-
-```cangjie
-import std.net.*
-
-main() {
-    let ip1: IPAddress = IPAddress.parse("192.168.1.2")
-    let ip2: IPAddress = IPAddress.parse("192.168.1.2")
-    let ip3: IPAddress = IPAddress.parse("192.168.1.3")
-    
-    println("ip1 == ip2: ${ip1 == ip2}")
-    println("ip1 == ip3: ${ip1 == ip3}")
-    
-    let ipv6_1: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
-    let ipv6_2: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
-    let ipv6_3: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c11")
-    
-    println("ipv6_1 == ipv6_2: ${ipv6_1 == ipv6_2}")
-    println("ipv6_1 == ipv6_3: ${ipv6_1 == ipv6_3}")
-}
-```
-
-运行结果：
-
-```text
-ip1 == ip2: true
-ip1 == ip3: false
-ipv6_1 == ipv6_2: true
-ipv6_1 == ipv6_3: false
-```
-
 ### operator func !=(IPAddress)
 
 ```cangjie
@@ -797,6 +749,54 @@ ip1 != ip2: false
 ip1 != ip3: true
 ipv6_1 != ipv6_2: false
 ipv6_1 != ipv6_3: true
+```
+
+### operator func ==(IPAddress)
+
+```cangjie
+public operator func ==(rhs: IPAddress): Bool
+```
+
+功能：判断两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象是否相等。
+
+参数：
+
+- rhs: [IPAddress](net_package_classes.md#class-ipaddress) - 参与比较的 [IPAddress](net_package_classes.md#class-ipaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+<!-- verify -->
+
+```cangjie
+import std.net.*
+
+main() {
+    let ip1: IPAddress = IPAddress.parse("192.168.1.2")
+    let ip2: IPAddress = IPAddress.parse("192.168.1.2")
+    let ip3: IPAddress = IPAddress.parse("192.168.1.3")
+    
+    println("ip1 == ip2: ${ip1 == ip2}")
+    println("ip1 == ip3: ${ip1 == ip3}")
+    
+    let ipv6_1: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
+    let ipv6_2: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
+    let ipv6_3: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c11")
+    
+    println("ipv6_1 == ipv6_2: ${ipv6_1 == ipv6_2}")
+    println("ipv6_1 == ipv6_3: ${ipv6_1 == ipv6_3}")
+}
+```
+
+运行结果：
+
+```text
+ip1 == ip2: true
+ip1 == ip3: false
+ipv6_1 == ipv6_2: true
+ipv6_1 == ipv6_3: false
 ```
 
 ## class IPPrefix
@@ -1262,45 +1262,6 @@ IPv4前缀: 192.168.1.2/24
 IPv6前缀: 2001:250:1006:dff0:4913:2aa5:8075:7c10/32
 ```
 
-### operator func ==(IPPrefix)
-
-```cangjie
-public operator func ==(rhs: IPPrefix): Bool
-```
-
-功能：判断两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象是否相等。
-
-参数：
-
-- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - 参与比较的 [IPPrefix](net_package_classes.md#class-ipprefix) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    let prefix1: IPPrefix = IPPrefix.parse("192.168.1.0/24")
-    let prefix2: IPPrefix = IPPrefix.parse("192.168.1.0/24")
-    let prefix3: IPPrefix = IPPrefix.parse("192.168.2.0/24")
-    
-    println("prefix1 == prefix2: ${prefix1 == prefix2}")
-    println("prefix1 == prefix3: ${prefix1 == prefix3}")
-}
-```
-
-运行结果：
-
-```text
-prefix1 == prefix2: true
-prefix1 == prefix3: false
-```
-
 ### operator func !=(IPPrefix)
 
 ```cangjie
@@ -1338,6 +1299,45 @@ main() {
 ```text
 prefix1 != prefix2: false
 prefix1 != prefix3: true
+```
+
+### operator func ==(IPPrefix)
+
+```cangjie
+public operator func ==(rhs: IPPrefix): Bool
+```
+
+功能：判断两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象是否相等。
+
+参数：
+
+- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - 参与比较的 [IPPrefix](net_package_classes.md#class-ipprefix) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    let prefix1: IPPrefix = IPPrefix.parse("192.168.1.0/24")
+    let prefix2: IPPrefix = IPPrefix.parse("192.168.1.0/24")
+    let prefix3: IPPrefix = IPPrefix.parse("192.168.2.0/24")
+    
+    println("prefix1 == prefix2: ${prefix1 == prefix2}")
+    println("prefix1 == prefix3: ${prefix1 == prefix3}")
+}
+```
+
+运行结果：
+
+```text
+prefix1 == prefix2: true
+prefix1 == prefix3: false
 ```
 
 ## class IPSocketAddress
@@ -1530,55 +1530,6 @@ IP地址: 192.168.1.2
 端口: 8080
 ```
 
-### init(String, UInt16)
-
-```cangjie
-public init(address: String, port: UInt16)
-```
-
-功能：根据字符串表示的 IP 地址和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
-
-参数：
-
-- address: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
-
-异常：
-
-- [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - 如果传入的 IP 地址不合法，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 使用字符串IP地址和端口创建IPSocketAddress
-    let socketAddrV4 = IPSocketAddress("192.168.1.2", 8080u16)
-    let socketAddrV6 = IPSocketAddress("2001:0250:1006:dff0:4913:2aa5:8075:7c10", 8080u16)
-    
-    println("IPv4 Socket地址: ${socketAddrV4}")
-    println("IPv4地址: ${socketAddrV4.address}")
-    println("IPv4端口: ${socketAddrV4.port}")
-    
-    println("IPv6 Socket地址: ${socketAddrV6}")
-    println("IPv6地址: ${socketAddrV6.address}")
-    println("IPv6端口: ${socketAddrV6.port}")
-}
-```
-
-运行结果：
-
-```text
-IPv4 Socket地址: 192.168.1.2:8080
-IPv4地址: 192.168.1.2
-IPv4端口: 8080
-IPv6 Socket地址: [2001:250:1006:dff0:4913:2aa5:8075:7c10]:8080
-IPv6地址: 2001:250:1006:dff0:4913:2aa5:8075:7c10
-IPv6端口: 8080
-```
-
 ### init(IPAddress, UInt16)
 
 ```cangjie
@@ -1606,6 +1557,55 @@ main() {
     // 使用IPAddress对象和端口创建IPSocketAddress
     let socketAddrV4 = IPSocketAddress(ipv4Address, 8080u16)
     let socketAddrV6 = IPSocketAddress(ipv6Address, 8080u16)
+    
+    println("IPv4 Socket地址: ${socketAddrV4}")
+    println("IPv4地址: ${socketAddrV4.address}")
+    println("IPv4端口: ${socketAddrV4.port}")
+    
+    println("IPv6 Socket地址: ${socketAddrV6}")
+    println("IPv6地址: ${socketAddrV6.address}")
+    println("IPv6端口: ${socketAddrV6.port}")
+}
+```
+
+运行结果：
+
+```text
+IPv4 Socket地址: 192.168.1.2:8080
+IPv4地址: 192.168.1.2
+IPv4端口: 8080
+IPv6 Socket地址: [2001:250:1006:dff0:4913:2aa5:8075:7c10]:8080
+IPv6地址: 2001:250:1006:dff0:4913:2aa5:8075:7c10
+IPv6端口: 8080
+```
+
+### init(String, UInt16)
+
+```cangjie
+public init(address: String, port: UInt16)
+```
+
+功能：根据字符串表示的 IP 地址和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
+
+参数：
+
+- address: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
+- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
+
+异常：
+
+- [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - 如果传入的 IP 地址不合法，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 使用字符串IP地址和端口创建IPSocketAddress
+    let socketAddrV4 = IPSocketAddress("192.168.1.2", 8080u16)
+    let socketAddrV6 = IPSocketAddress("2001:0250:1006:dff0:4913:2aa5:8075:7c10", 8080u16)
     
     println("IPv4 Socket地址: ${socketAddrV4}")
     println("IPv4地址: ${socketAddrV4.address}")
@@ -1903,50 +1903,6 @@ v4: 192.168.1.2:8080
 v6: [2001:250:1006:dff0:4913:2aa5:8075:7c10]:8080
 ```
 
-### operator func ==(IPSocketAddress)
-
-```cangjie
-public operator func ==(rhs: IPSocketAddress): Bool
-```
-
-功能：判断两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - 参与比较的 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 创建IPSocketAddress对象
-    let socketAddr1 = IPSocketAddress.parse("192.168.1.2:8080")
-    let socketAddr2 = IPSocketAddress.parse("192.168.1.2:8080")
-    let socketAddr3 = IPSocketAddress.parse("192.168.1.3:8080")
-    
-    // 比较IPSocketAddress对象是否相等
-    let isEqual1 = socketAddr1 == socketAddr2
-    let isEqual2 = socketAddr1 == socketAddr3
-    
-    println("socketAddr1 == socketAddr2: ${isEqual1}")
-    println("socketAddr1 == socketAddr3: ${isEqual2}")
-}
-```
-
-运行结果：
-
-```text
-socketAddr1 == socketAddr2: true
-socketAddr1 == socketAddr3: false
-```
-
 ### operator func !=(IPSocketAddress)
 
 ```cangjie
@@ -1989,6 +1945,50 @@ main() {
 ```text
 socketAddr1 != socketAddr2: false
 socketAddr1 != socketAddr3: true
+```
+
+### operator func ==(IPSocketAddress)
+
+```cangjie
+public operator func ==(rhs: IPSocketAddress): Bool
+```
+
+功能：判断两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - 参与比较的 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 创建IPSocketAddress对象
+    let socketAddr1 = IPSocketAddress.parse("192.168.1.2:8080")
+    let socketAddr2 = IPSocketAddress.parse("192.168.1.2:8080")
+    let socketAddr3 = IPSocketAddress.parse("192.168.1.3:8080")
+    
+    // 比较IPSocketAddress对象是否相等
+    let isEqual1 = socketAddr1 == socketAddr2
+    let isEqual2 = socketAddr1 == socketAddr3
+    
+    println("socketAddr1 == socketAddr2: ${isEqual1}")
+    println("socketAddr1 == socketAddr3: ${isEqual2}")
+}
+```
+
+运行结果：
+
+```text
+socketAddr1 == socketAddr2: true
+socketAddr1 == socketAddr3: false
 ```
 
 ## class IPv4Address
@@ -2096,38 +2096,6 @@ main() {
 unspecified: 0.0.0.0
 ```
 
-### init(UInt32)
-
-```cangjie
-public init(bits: UInt32)
-```
-
-功能：根据本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
-
-参数：
-
-- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 使用UInt32值创建IPv4Address对象
-    let ipv4Addr = IPv4Address(0xC0A80102u32)  // 192.168.1.2
-    
-    println("IPv4地址: ${ipv4Addr}")
-}
-```
-
-运行结果：
-
-```text
-IPv4地址: 192.168.1.2
-```
-
 ### init(Byte, Byte, Byte, Byte)
 
 ```cangjie
@@ -2152,6 +2120,38 @@ import std.net.*
 main() {
     // 使用4个字节创建IPv4Address对象
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
+    
+    println("IPv4地址: ${ipv4Addr}")
+}
+```
+
+运行结果：
+
+```text
+IPv4地址: 192.168.1.2
+```
+
+### init(UInt32)
+
+```cangjie
+public init(bits: UInt32)
+```
+
+功能：根据本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
+
+参数：
+
+- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 使用UInt32值创建IPv4Address对象
+    let ipv4Addr = IPv4Address(0xC0A80102u32)  // 192.168.1.2
     
     println("IPv4地址: ${ipv4Addr}")
 }
@@ -2649,6 +2649,43 @@ IPv4地址: 192.168.1.2
 IPv6映射地址: ::ffff:192.168.1.2
 ```
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [IPv4Address](net_package_classes.md#class-ipv4address)  的文本表示字符串。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv4Address](net_package_classes.md#class-ipv4address) 的文本表示字符串，比如 `a.b.c.d`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 创建一个IPv4地址
+    let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
+    
+    // 获取IPv4地址的字符串表示
+    let addrString = ipv4Addr.toString()
+    
+    println("IPv4地址对象: ${ipv4Addr}")
+    println("字符串表示: ${addrString}")
+}
+```
+
+运行结果：
+
+```text
+IPv4地址对象: 192.168.1.2
+字符串表示: 192.168.1.2
+```
+
 ### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
@@ -2699,17 +2736,21 @@ IPv4地址: 192.168.1.2
 字节数组内容: [192, 168, 1, 2]
 ```
 
-### func toString()
+### operator func !=(IPv4Address)
 
 ```cangjie
-public func toString(): String
+public operator func !=(rhs: IPv4Address): Bool
 ```
 
-功能：返回当前 [IPv4Address](net_package_classes.md#class-ipv4address)  的文本表示字符串。
+功能：判断两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象是否不等。
+
+参数：
+
+- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - 参与比较的 [IPv4Address](net_package_classes.md#class-ipv4address) 对象。
 
 返回值：
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv4Address](net_package_classes.md#class-ipv4address) 的文本表示字符串，比如 `a.b.c.d`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -2718,22 +2759,27 @@ public func toString(): String
 import std.net.*
 
 main() {
-    // 创建一个IPv4地址
-    let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
+    // 创建两个相同的IPv4地址
+    let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8)
+    let addr2 = IPv4Address(192u8, 168u8, 1u8, 2u8)
     
-    // 获取IPv4地址的字符串表示
-    let addrString = ipv4Addr.toString()
+    // 创建一个不同的IPv4地址
+    let addr3 = IPv4Address(192u8, 168u8, 1u8, 3u8)
     
-    println("IPv4地址对象: ${ipv4Addr}")
-    println("字符串表示: ${addrString}")
+    // 比较IPv4地址是否不等
+    let result1 = addr1 != addr2
+    let result2 = addr1 != addr3
+    
+    println("${addr1} != ${addr2}: ${result1}")
+    println("${addr1} != ${addr3}: ${result2}")
 }
 ```
 
 运行结果：
 
 ```text
-IPv4地址对象: 192.168.1.2
-字符串表示: 192.168.1.2
+192.168.1.2 != 192.168.1.2: false
+192.168.1.2 != 192.168.1.3: true
 ```
 
 ### operator func <=(IPv4Address)
@@ -2827,52 +2873,6 @@ main() {
 ```text
 192.168.1.2 == 192.168.1.2: true
 192.168.1.2 == 192.168.1.3: false
-```
-
-### operator func !=(IPv4Address)
-
-```cangjie
-public operator func !=(rhs: IPv4Address): Bool
-```
-
-功能：判断两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象是否不等。
-
-参数：
-
-- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - 参与比较的 [IPv4Address](net_package_classes.md#class-ipv4address) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象不等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 创建两个相同的IPv4地址
-    let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    let addr2 = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
-    // 创建一个不同的IPv4地址
-    let addr3 = IPv4Address(192u8, 168u8, 1u8, 3u8)
-    
-    // 比较IPv4地址是否不等
-    let result1 = addr1 != addr2
-    let result2 = addr1 != addr3
-    
-    println("${addr1} != ${addr2}: ${result1}")
-    println("${addr1} != ${addr3}: ${result2}")
-}
-```
-
-运行结果：
-
-```text
-192.168.1.2 != 192.168.1.2: false
-192.168.1.2 != 192.168.1.3: true
 ```
 
 ## class IPv6Address
@@ -3622,6 +3622,43 @@ IPv6映射地址: ::ffff:192.168.1.2
 转换后的IPv4映射地址: None
 ```
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [IPv6Address](net_package_classes.md#class-ipv6address)  的文本表示字符串。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv6Address](net_package_classes.md#class-ipv6address) 的文本表示字符串，比如 `2001:db8:1:2:ffff:ffff:ffff:ffff`。
+
+示例：
+<!-- verify -->
+
+```cangjie
+import std.net.*
+
+main() {
+    // 创建一个IPv6地址
+    let ipv6Addr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
+    
+    // 获取IPv6地址的字符串表示
+    let addrString = ipv6Addr.toString()
+    
+    println("IPv6地址对象: ${ipv6Addr}")
+    println("字符串表示: ${addrString}")
+}
+```
+
+运行结果：
+
+```text
+IPv6地址对象: 2001:db8:1:2:ffff:ffff:ffff:ffff
+字符串表示: 2001:db8:1:2:ffff:ffff:ffff:ffff
+```
+
 ### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
@@ -3672,17 +3709,21 @@ IPv6地址: 2001:db8:1:2:ffff:ffff:ffff:ffff
 字节数组内容: [32, 1, 13, 184, 0, 1, 0, 2, 255, 255, 255, 255, 255, 255, 255, 255]
 ```
 
-### func toString()
+### operator func !=(IPv6Address)
 
 ```cangjie
-public func toString(): String
+public operator func !=(rhs: IPv6Address): Bool
 ```
 
-功能：返回当前 [IPv6Address](net_package_classes.md#class-ipv6address)  的文本表示字符串。
+功能：判断两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象是否不等。
+
+参数：
+
+- rhs: [IPv6Address](net_package_classes.md#class-ipv6address) - 参与比较的 [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
 
 返回值：
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv6Address](net_package_classes.md#class-ipv6address) 的文本表示字符串，比如 `2001:db8:1:2:ffff:ffff:ffff:ffff`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 示例：
 <!-- verify -->
@@ -3691,22 +3732,27 @@ public func toString(): String
 import std.net.*
 
 main() {
-    // 创建一个IPv6地址
-    let ipv6Addr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
+    // 创建两个相同的IPv6地址
+    let addr1 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
+    let addr2 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
     
-    // 获取IPv6地址的字符串表示
-    let addrString = ipv6Addr.toString()
+    // 创建一个不同的IPv6地址
+    let addr3 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xfffeu16)
     
-    println("IPv6地址对象: ${ipv6Addr}")
-    println("字符串表示: ${addrString}")
+    // 比较IPv6地址是否不等
+    let result1 = addr1 != addr2
+    let result2 = addr1 != addr3
+    
+    println("${addr1} != ${addr2}: ${result1}")
+    println("${addr1} != ${addr3}: ${result2}")
 }
 ```
 
 运行结果：
 
 ```text
-IPv6地址对象: 2001:db8:1:2:ffff:ffff:ffff:ffff
-字符串表示: 2001:db8:1:2:ffff:ffff:ffff:ffff
+2001:db8:1:2:ffff:ffff:ffff:ffff != 2001:db8:1:2:ffff:ffff:ffff:ffff: false
+2001:db8:1:2:ffff:ffff:ffff:ffff != 2001:db8:1:2:ffff:ffff:ffff:fffe: true
 ```
 
 ### operator func <=(IPv6Address)
@@ -3800,52 +3846,6 @@ main() {
 ```text
 2001:db8:1:2:ffff:ffff:ffff:ffff == 2001:db8:1:2:ffff:ffff:ffff:ffff: true
 2001:db8:1:2:ffff:ffff:ffff:ffff == 2001:db8:1:2:ffff:ffff:ffff:fffe: false
-```
-
-### operator func !=(IPv6Address)
-
-```cangjie
-public operator func !=(rhs: IPv6Address): Bool
-```
-
-功能：判断两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象是否不等。
-
-参数：
-
-- rhs: [IPv6Address](net_package_classes.md#class-ipv6address) - 参与比较的 [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象不等，则返回 `true`；否则，返回 `false`。
-
-示例：
-<!-- verify -->
-
-```cangjie
-import std.net.*
-
-main() {
-    // 创建两个相同的IPv6地址
-    let addr1 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    let addr2 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
-    // 创建一个不同的IPv6地址
-    let addr3 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xfffeu16)
-    
-    // 比较IPv6地址是否不等
-    let result1 = addr1 != addr2
-    let result2 = addr1 != addr3
-    
-    println("${addr1} != ${addr2}: ${result1}")
-    println("${addr1} != ${addr3}: ${result2}")
-}
-```
-
-运行结果：
-
-```text
-2001:db8:1:2:ffff:ffff:ffff:ffff != 2001:db8:1:2:ffff:ffff:ffff:ffff: false
-2001:db8:1:2:ffff:ffff:ffff:ffff != 2001:db8:1:2:ffff:ffff:ffff:fffe: true
 ```
 
 ## class RawSocket
@@ -4984,39 +4984,6 @@ sealed abstract class SocketAddress <: ToString & Equatable<SocketAddress> & Has
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[SocketAddress](#class-socketaddress)>
 - [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
 
-### prop size
-
-```cangjie
-public prop size: Int64
-```
-
-功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始字节长度。
-
-类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 抽象类不可实例化，选择子类进行实例化
-    let socketAddrV4: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
-    let socketAddrV6: SocketAddress = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
-    println("IPv4 Socket地址大小: ${socketAddrV4.size}")
-    println("IPv6 Socket地址大小: ${socketAddrV6.size}")
-}
-```
-
-运行结果：
-
-```text
-IPv4 Socket地址大小: 16
-IPv6 Socket地址大小: 28
-```
-
 ### prop family
 
 ```cangjie
@@ -5048,6 +5015,39 @@ main() {
 ```text
 IPv4地址族: INET
 IPv6地址族: INET6
+```
+
+### prop size
+
+```cangjie
+public prop size: Int64
+```
+
+功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始字节长度。
+
+类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 抽象类不可实例化，选择子类进行实例化
+    let socketAddrV4: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
+    let socketAddrV6: SocketAddress = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
+    
+    println("IPv4 Socket地址大小: ${socketAddrV4.size}")
+    println("IPv6 Socket地址大小: ${socketAddrV6.size}")
+}
+```
+
+运行结果：
+
+```text
+IPv4 Socket地址大小: 16
+IPv6 Socket地址大小: 28
 ```
 
 ### func getAddressBytes()
@@ -5087,50 +5087,6 @@ main() {
 ```text
 IPv4地址字节: [2, 0, 31, 144, 192, 168, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0]
 IPv6地址字节: [10, 0, 31, 144, 0, 0, 0, 0, 32, 1, 2, 80, 16, 6, 223, 240, 73, 19, 42, 165, 128, 117, 124, 16, 0, 0, 0, 0]
-```
-
-### operator func ==(SocketAddress)
-
-```cangjie
-public operator func ==(rhs: SocketAddress): Bool
-```
-
-功能：判断两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [SocketAddress](net_package_classes.md#class-socketaddress) - 参与比较的 [SocketAddress](net_package_classes.md#class-socketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main() {
-    // 抽象类不可实例化，选择子类进行实例化
-    let socketAddr1: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
-    let socketAddr2: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
-    let socketAddr3: SocketAddress = IPSocketAddress.parse("192.168.1.3:8080")
-    
-    // 比较IPSocketAddress对象是否相等
-    let isEqual1 = socketAddr1 == socketAddr2
-    let isEqual2 = socketAddr1 == socketAddr3
-    
-    println("socketAddr1 == socketAddr2: ${isEqual1}")
-    println("socketAddr1 == socketAddr3: ${isEqual2}")
-}
-```
-
-运行结果：
-
-```text
-socketAddr1 == socketAddr2: true
-socketAddr1 == socketAddr3: false
 ```
 
 ### operator func !=(SocketAddress)
@@ -5175,6 +5131,50 @@ main() {
 ```text
 socketAddr1 != socketAddr2: false
 socketAddr1 != socketAddr3: true
+```
+
+### operator func ==(SocketAddress)
+
+```cangjie
+public operator func ==(rhs: SocketAddress): Bool
+```
+
+功能：判断两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [SocketAddress](net_package_classes.md#class-socketaddress) - 参与比较的 [SocketAddress](net_package_classes.md#class-socketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main() {
+    // 抽象类不可实例化，选择子类进行实例化
+    let socketAddr1: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
+    let socketAddr2: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
+    let socketAddr3: SocketAddress = IPSocketAddress.parse("192.168.1.3:8080")
+    
+    // 比较IPSocketAddress对象是否相等
+    let isEqual1 = socketAddr1 == socketAddr2
+    let isEqual2 = socketAddr1 == socketAddr3
+    
+    println("socketAddr1 == socketAddr2: ${isEqual1}")
+    println("socketAddr1 == socketAddr3: ${isEqual2}")
+}
+```
+
+运行结果：
+
+```text
+socketAddr1 == socketAddr2: true
+socketAddr1 == socketAddr3: false
 ```
 
 ## class TcpServerSocket
@@ -9924,6 +9924,73 @@ main(): Int64 {
 SO_REUSEADDR值: 0
 ```
 
+### func getSocketOptionBool(Int32, Int32)
+
+```cangjie
+public func getSocketOptionBool(
+    level: Int32,
+    option: Int32
+): Bool
+```
+
+功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+> **注意：**
+>
+> 不支持平台：Windows。
+
+参数：
+
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [套接字选项级别](./net_package_structs.md#struct-optionlevel)。
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [套接字选项名](./net_package_structs.md#struct-optionname)。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回指定的套接字参数值。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+异常：
+
+- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+import std.fs.*
+import std.random.*
+import std.env.*
+
+// 创建临时套接字路径
+func createTempSocketPath(): String {
+    let tempDir: Path = getTempDirectory()
+    let randomSuffix: String = Random().nextUInt64().toString()
+    return tempDir.join("tmp_socket_${randomSuffix}").toString()
+}
+
+main(): Int64 {
+    let socketPath = createTempSocketPath()
+    
+    try (socket = UnixDatagramSocket(bindAt: socketPath)) {
+        socket.bind()
+        
+        // 获取SO_REUSEADDR选项布尔值
+        let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
+        println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
+        socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
+        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+SO_REUSEADDR value before setting: false
+SO_REUSEADDR value after setting: true
+```
+
 ### func getSocketOptionIntNative(Int32, Int32)
 
 ```cangjie
@@ -10640,73 +10707,6 @@ main(): Int64 {
 ```text
 SO_REUSEADDR value before setting: 0
 SO_REUSEADDR value after setting: 1
-```
-
-### func getSocketOptionBool(Int32, Int32)
-
-```cangjie
-public func getSocketOptionBool(
-    level: Int32,
-    option: Int32
-): Bool
-```
-
-功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
-
-> **注意：**
->
-> 不支持平台：Windows。
-
-参数：
-
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [套接字选项级别](./net_package_structs.md#struct-optionlevel)。
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [套接字选项名](./net_package_structs.md#struct-optionname)。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回指定的套接字参数值。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
-
-异常：
-
-- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-import std.fs.*
-import std.random.*
-import std.env.*
-
-// 创建临时套接字路径
-func createTempSocketPath(): String {
-    let tempDir: Path = getTempDirectory()
-    let randomSuffix: String = Random().nextUInt64().toString()
-    return tempDir.join("tmp_socket_${randomSuffix}").toString()
-}
-
-main(): Int64 {
-    let socketPath = createTempSocketPath()
-    
-    try (socket = UnixDatagramSocket(bindAt: socketPath)) {
-        socket.bind()
-        
-        // 获取SO_REUSEADDR选项布尔值
-        let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
-        println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
-        socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
-    }
-    return 0
-}
-```
-
-运行结果：
-
-```text
-SO_REUSEADDR value before setting: false
-SO_REUSEADDR value after setting: true
 ```
 
 ### func toString()
@@ -13409,55 +13409,6 @@ Address1 equals Address2: true
 Exception caught: Unix domain socket path must not contain interior null bytes: [47, 116, 109, 112, 47, 115, 101, 114, 118, 101, 114, 49, 0, 46, 115, 111, 99, 107]
 ```
 
-### operator func ==(UnixSocketAddress)
-
-```cangjie
-public operator func ==(rhs: UnixSocketAddress): Bool
-```
-
-功能：判断两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - 参与比较的 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.net.*
-
-main(): Int64 {
-    // 创建两个相同的UnixSocketAddress实例
-    let address1 = UnixSocketAddress("/tmp/test.sock")
-    let address2 = UnixSocketAddress("/tmp/test.sock")
-    
-    // 使用==操作符比较它们
-    let areEqual = address1 == address2
-    println("Address1 == Address2: ${areEqual}")
-    
-    // 创建一个不同的UnixSocketAddress实例
-    let address3 = UnixSocketAddress("/tmp/different.sock")
-    
-    // 使用==操作符比较不同的地址
-    let areDifferent = address1 == address3
-    println("Address1 == Address3: ${areDifferent}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-Address1 == Address2: true
-Address1 == Address3: false
-```
-
 ### operator func !=(UnixSocketAddress)
 
 ```cangjie
@@ -13505,4 +13456,53 @@ main(): Int64 {
 ```text
 Address1 != Address2: false
 Address1 != Address3: true
+```
+
+### operator func ==(UnixSocketAddress)
+
+```cangjie
+public operator func ==(rhs: UnixSocketAddress): Bool
+```
+
+功能：判断两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - 参与比较的 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.net.*
+
+main(): Int64 {
+    // 创建两个相同的UnixSocketAddress实例
+    let address1 = UnixSocketAddress("/tmp/test.sock")
+    let address2 = UnixSocketAddress("/tmp/test.sock")
+    
+    // 使用==操作符比较它们
+    let areEqual = address1 == address2
+    println("Address1 == Address2: ${areEqual}")
+    
+    // 创建一个不同的UnixSocketAddress实例
+    let address3 = UnixSocketAddress("/tmp/different.sock")
+    
+    // 使用==操作符比较不同的地址
+    let areDifferent = address1 == address3
+    println("Address1 == Address3: ${areDifferent}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Address1 == Address2: true
+Address1 == Address3: false
 ```

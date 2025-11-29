@@ -348,6 +348,42 @@ main() {
 队列是否为空: true
 ```
 
+### func isEmpty()
+
+```cangjie
+public func isEmpty(): Bool
+```
+
+功能：判断此双端队列是否为空。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果为空，则返回 `true`，否则，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let deque1 = ArrayDeque<Int64>()
+    let deque2 = ArrayDeque<Int64>()
+    deque2.addLast(1)
+    
+    println("deque1是否为空: ${deque1.isEmpty()}")  // true
+    println("deque2是否为空: ${deque2.isEmpty()}")  // false
+    return 0
+}
+```
+
+运行结果：
+
+```text
+deque1是否为空: true
+deque2是否为空: false
+```
+
 ### func iterator()
 
 ```cangjie
@@ -386,42 +422,6 @@ main() {
 1
 2
 3
-```
-
-### func isEmpty()
-
-```cangjie
-public func isEmpty(): Bool
-```
-
-功能：判断此双端队列是否为空。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果为空，则返回 `true`，否则，返回 `false`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let deque1 = ArrayDeque<Int64>()
-    let deque2 = ArrayDeque<Int64>()
-    deque2.addLast(1)
-    
-    println("deque1是否为空: ${deque1.isEmpty()}")  // true
-    println("deque2是否为空: ${deque2.isEmpty()}")  // false
-    return 0
-}
-```
-
-运行结果：
-
-```text
-deque1是否为空: true
-deque2是否为空: false
 ```
 
 ### func removeFirst()
@@ -667,41 +667,6 @@ public class ArrayList<T> <: List<T> {
 
 - [List](./collection_package_interface.md#interface-listt)\<T>
 
-### prop size
-
-```cangjie
-public prop size: Int64
-```
-
-功能：返回此 [ArrayList](collection_package_class.md#class-arraylistt) 中的元素个数。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = ArrayList<Int64>()
-    println("初始大小: ${list.size}")  // 0
-    
-    list.add(1)
-    list.add(2)
-    println("添加2个元素后大小: ${list.size}")  // 2
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-初始大小: 0
-添加2个元素后大小: 2
-```
-
 ### prop capacity
 
 ```cangjie
@@ -815,6 +780,41 @@ main() {
 ```text
 最后一个元素: Some(2)
 空列表最后一个元素: None
+```
+
+### prop size
+
+```cangjie
+public prop size: Int64
+```
+
+功能：返回此 [ArrayList](collection_package_class.md#class-arraylistt) 中的元素个数。
+
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = ArrayList<Int64>()
+    println("初始大小: ${list.size}")  // 0
+    
+    list.add(1)
+    list.add(2)
+    println("添加2个元素后大小: ${list.size}")  // 2
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始大小: 0
+添加2个元素后大小: 2
 ```
 
 ### init()
@@ -1014,44 +1014,6 @@ main() {
 列表大小: 5
 ```
 
-### func add(T)
-
-```cangjie
-public func add(element: T): Unit
-```
-
-功能：将指定的元素附加到此 [ArrayList](collection_package_class.md#class-arraylistt) 的末尾。
-
-参数：
-
-- element: T - 插入的元素，类型为 T。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = ArrayList<Int64>()
-    list.add(1)
-    list.add(2)
-    list.add(3)
-    
-    println("列表内容: ${list}")  // [1, 2, 3]
-    println("列表大小: ${list.size}")  // 3
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-列表内容: [1, 2, 3]
-列表大小: 3
-```
-
 ### func add(Collection\<T>)
 
 ```cangjie
@@ -1098,51 +1060,6 @@ main() {
 ```text
 列表内容: [1, 2, 3, 4, 5]
 列表大小: 5
-```
-
-### func add(T, Int64)
-
-```cangjie
-public func add(element: T, at!: Int64): Unit
-```
-
-功能：在此 [ArrayList](collection_package_class.md#class-arraylistt) 中的指定位置插入指定元素。
-
-参数：
-
-- element: T - 要插入的 T 类型元素。
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入元素的目标索引。
-
-异常：
-
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 at 超出范围时，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = ArrayList<Int64>()
-    list.add(1)
-    list.add(3)
-    
-    // 在索引1处插入元素2
-    list.add(2, at: 1)
-    
-    println("列表内容: ${list}")  // [1, 2, 3]
-    println("列表大小: ${list.size}")  // 3
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-列表内容: [1, 2, 3]
-列表大小: 3
 ```
 
 ### func add(Collection\<T>, Int64)
@@ -1194,6 +1111,89 @@ main() {
 ```text
 列表内容: [1, 2, 3, 4, 5]
 列表大小: 5
+```
+
+### func add(T)
+
+```cangjie
+public func add(element: T): Unit
+```
+
+功能：将指定的元素附加到此 [ArrayList](collection_package_class.md#class-arraylistt) 的末尾。
+
+参数：
+
+- element: T - 插入的元素，类型为 T。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = ArrayList<Int64>()
+    list.add(1)
+    list.add(2)
+    list.add(3)
+    
+    println("列表内容: ${list}")  // [1, 2, 3]
+    println("列表大小: ${list.size}")  // 3
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+列表内容: [1, 2, 3]
+列表大小: 3
+```
+
+### func add(T, Int64)
+
+```cangjie
+public func add(element: T, at!: Int64): Unit
+```
+
+功能：在此 [ArrayList](collection_package_class.md#class-arraylistt) 中的指定位置插入指定元素。
+
+参数：
+
+- element: T - 要插入的 T 类型元素。
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入元素的目标索引。
+
+异常：
+
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 at 超出范围时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = ArrayList<Int64>()
+    list.add(1)
+    list.add(3)
+    
+    // 在索引1处插入元素2
+    list.add(2, at: 1)
+    
+    println("列表内容: ${list}")  // [1, 2, 3]
+    println("列表大小: ${list.size}")  // 3
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+列表内容: [1, 2, 3]
+列表大小: 3
 ```
 
 ### func all((T) -> Bool)
@@ -1905,6 +1905,28 @@ main() {
 反转后: [3, 2, 1, 0]
 ```
 
+### func skip(Int64)
+
+```cangjie
+public func skip(count: Int64): ArrayList<T>
+```
+
+功能： 跳过特定个数元素并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源 [ArrayList](collection_package_class.md#class-arraylistt) 所有元素的新 [ArrayList](collection_package_class.md#class-arraylistt) 。当 count 大于 0 小于源 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，跳过前 count 个元素，返回包含剩下的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。当 count 大于等于 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，返回空 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+参数：
+
+- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+
+返回值：
+
+- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个跳过指定数量元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
 ### func slice(Range\<Int64>)
 
 ```cangjie
@@ -1965,28 +1987,6 @@ main() {
 切片列表: [1, 2, 3]
 切片列表大小: 3
 ```
-
-### func skip(Int64)
-
-```cangjie
-public func skip(count: Int64): ArrayList<T>
-```
-
-功能： 跳过特定个数元素并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源 [ArrayList](collection_package_class.md#class-arraylistt) 所有元素的新 [ArrayList](collection_package_class.md#class-arraylistt) 。当 count 大于 0 小于源 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，跳过前 count 个元素，返回包含剩下的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。当 count 大于等于 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，返回空 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-参数：
-
-- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
-
-返回值：
-
-- [ArrayList](collection_package_class.md#class-arraylistt)\<T> - 返回一个跳过指定数量元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
 
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -2401,23 +2401,21 @@ extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T>
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](#class-arraylistt)\<T>>
 
-#### operator func ==(ArrayList\<T>)
+#### func contains(T)
 
 ```cangjie
-public operator func ==(that: ArrayList<T>): Bool
+public func contains(element: T): Bool
 ```
 
-功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否相等。
-
-两个数组相等指的是两者对应位置的元素分别相等。
+功能：判断当前数组中是否含有指定元素 `element`。
 
 参数：
 
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
+- element: T - 待寻找的元素。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组中包含指定元素，返回 true，否则返回 false。
 
 示例：
 
@@ -2426,22 +2424,13 @@ public operator func ==(that: ArrayList<T>): Bool
 import std.collection.*
 
 main() {
-    let list1 = ArrayList<Int64>()
-    list1.add(1)
-    list1.add(2)
-    list1.add(3)
+    let list = ArrayList<Int64>()
+    list.add(1)
+    list.add(2)
+    list.add(3)
     
-    let list2 = ArrayList<Int64>()
-    list2.add(1)
-    list2.add(2)
-    list2.add(3)
-    
-    let list3 = ArrayList<Int64>()
-    list3.add(1)
-    list3.add(2)
-    
-    println("list1 == list2: ${list1 == list2}")  // true
-    println("list1 == list3: ${list1 == list3}")  // false
+    println("列表包含元素2: ${list.contains(2)}")  // true
+    println("列表包含元素5: ${list.contains(5)}")  // false
     
     return 0
 }
@@ -2450,8 +2439,8 @@ main() {
 运行结果：
 
 ```text
-list1 == list2: true
-list1 == list3: false
+列表包含元素2: true
+列表包含元素5: false
 ```
 
 #### operator func !=(ArrayList\<T>)
@@ -2505,21 +2494,23 @@ list1 != list2: true
 list1 != list3: false
 ```
 
-#### func contains(T)
+#### operator func ==(ArrayList\<T>)
 
 ```cangjie
-public func contains(element: T): Bool
+public operator func ==(that: ArrayList<T>): Bool
 ```
 
-功能：判断当前数组中是否含有指定元素 `element`。
+功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否相等。
+
+两个数组相等指的是两者对应位置的元素分别相等。
 
 参数：
 
-- element: T - 待寻找的元素。
+- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组中包含指定元素，返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
 
 示例：
 
@@ -2528,13 +2519,22 @@ public func contains(element: T): Bool
 import std.collection.*
 
 main() {
-    let list = ArrayList<Int64>()
-    list.add(1)
-    list.add(2)
-    list.add(3)
+    let list1 = ArrayList<Int64>()
+    list1.add(1)
+    list1.add(2)
+    list1.add(3)
     
-    println("列表包含元素2: ${list.contains(2)}")  // true
-    println("列表包含元素5: ${list.contains(5)}")  // false
+    let list2 = ArrayList<Int64>()
+    list2.add(1)
+    list2.add(2)
+    list2.add(3)
+    
+    let list3 = ArrayList<Int64>()
+    list3.add(1)
+    list3.add(2)
+    
+    println("list1 == list2: ${list1 == list2}")  // true
+    println("list1 == list3: ${list1 == list3}")  // false
     
     return 0
 }
@@ -2543,8 +2543,8 @@ main() {
 运行结果：
 
 ```text
-列表包含元素2: true
-列表包含元素5: false
+list1 == list2: true
+list1 == list3: false
 ```
 
 ### extend\<T> ArrayList\<T> <: SortExtension where T <: Comparable\<T> <sup>(deprecated)</sup>
@@ -3060,50 +3060,6 @@ main() {
 清空后是否为空: true
 ```
 
-### func iterator()
-
-```cangjie
-public func iterator(): Iterator<T>
-```
-
-功能：获取此队列中元素的迭代器，其顺序为从前到后的顺序。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let queue = ArrayQueue<Int64>()
-    
-    // 添加元素
-    queue.add(1)
-    queue.add(2)
-    queue.add(3)
-    
-    // 使用迭代器遍历队列
-    let iter = queue.iterator()
-    println(iter.next())
-    println(iter.next())
-    println(iter.next())
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-Some(1)
-Some(2)
-Some(3)
-```
-
 ### func isEmpty()
 
 ```cangjie
@@ -3146,6 +3102,50 @@ main() {
 空队列是否为空: true
 添加元素后是否为空: false
 移除元素后是否为空: true
+```
+
+### func iterator()
+
+```cangjie
+public func iterator(): Iterator<T>
+```
+
+功能：获取此队列中元素的迭代器，其顺序为从前到后的顺序。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let queue = ArrayQueue<Int64>()
+    
+    // 添加元素
+    queue.add(1)
+    queue.add(2)
+    queue.add(3)
+    
+    // 使用迭代器遍历队列
+    let iter = queue.iterator()
+    println(iter.next())
+    println(iter.next())
+    println(iter.next())
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Some(1)
+Some(2)
+Some(3)
 ```
 
 ### func peek()
@@ -3994,150 +3994,6 @@ main() {
 ```
 
 
-## class HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>
-
-```cangjie
-public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equatable<K> {
-    public init(map: HashMap<K, V>)
-}
-```
-
-功能：此类主要实现 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的迭代器功能。
-
-父类型：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)>
-
-### init(HashMap\<K, V>)
-
-```cangjie
-public init(map: HashMap<K, V>)
-```
-
-功能：创建 [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> 实例。
-
-参数：
-
-- map: [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
-
-示例：
-
-<!-- run -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建一个HashMap
-    let map = HashMap<String, Int64>()
-    map["one"] = 1
-    map["two"] = 2
-    map["three"] = 3
-    
-    // 使用HashMap创建HashMapIterator
-    let iterator = HashMapIterator<String, Int64>(map)
-    return 0
-}
-```
-
-### func next()
-
-```cangjie
-public func next(): ?(K, V)
-```
-
-功能：返回迭代器中的下一个元素。
-
-返回值：
-
-- ?(K, V) - 迭代器中的下一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装。
-
-异常：
-
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建一个HashMap
-    let map = HashMap<String, Int64>()
-    map["one"] = 1
-    map["two"] = 2
-    map["three"] = 3
-    
-    // 创建迭代器并获取第一个元素
-    let iterator = HashMapIterator<String, Int64>(map)
-    let firstElement = iterator.next()
-    
-    if (firstElement.isSome()) {
-        println("成功获取到元素")
-    } else {
-        println("没有元素")
-    }
-    return 0
-}
-```
-
-运行结果：
-
-```text
-成功获取到元素
-```
-
-### func remove()
-
-```cangjie
-public func remove(): Option<(K, V)>
-```
-
-功能：删除此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 迭代器的 next 函数返回的元素，此函数只能在 next 函数调用时调用一次。
-
-返回值：
-
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)> - 返回被删除的元素。
-
-异常：
-
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建一个HashMap
-    let map = HashMap<String, Int64>()
-    map["one"] = 1
-    map["two"] = 2
-    
-    // 创建迭代器，获取并删除元素
-    let iterator = HashMapIterator<String, Int64>(map)
-    let element = iterator.next()  // 先调用next获取元素
-    let removed = iterator.remove()  // 然后调用remove删除元素
-    
-    if (element.isSome()) {
-        println("成功获取到元素")
-    }
-    
-    if (removed.isSome()) {
-        println("成功删除元素")
-    }
-    return 0
-}
-```
-
-运行结果：
-
-```text
-成功获取到元素
-成功删除元素
-```
-
 ## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
 
 ```cangjie
@@ -4457,6 +4313,56 @@ HashMap大小: 3
 键 'second' 对应的值: 10
 ```
 
+### func add(Collection\<(K, V)>)
+
+```cangjie
+public func add(all!: Collection<(K, V)>): Unit
+```
+
+功能：按照 elements 的迭代器顺序将新的键值对集合放入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中。
+
+对于 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有的键，该键的值将被新值替换。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的键值对集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashMap
+    let map = HashMap<String, Int64>()
+    map["a"] = 1
+    
+    // 创建要添加的键值对集合
+    let newElements = ArrayList<(String, Int64)>([("b", 2), ("c", 3), ("a", 10)])
+    
+    println("添加集合前大小: ${map.size}")  // 1
+    println("添加集合前 'a' 的值: ${map["a"]}")  // 1
+    
+    // 添加键值对集合
+    map.add(all: newElements)
+    
+    println("添加集合后大小: ${map.size}")  // 3
+    println("添加集合后 'a' 的值: ${map["a"]}")  // 10
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+添加集合前大小: 1
+添加集合前 'a' 的值: 1
+添加集合后大小: 3
+添加集合后 'a' 的值: 10
+```
+
 ### func add(K, V)
 
 ```cangjie
@@ -4508,56 +4414,6 @@ main() {
 添加新键 'first' 的返回值: false
 替换键 'first' 的旧值: 100
 当前 'first' 的值: 200
-```
-
-### func add(Collection\<(K, V)>)
-
-```cangjie
-public func add(all!: Collection<(K, V)>): Unit
-```
-
-功能：按照 elements 的迭代器顺序将新的键值对集合放入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中。
-
-对于 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有的键，该键的值将被新值替换。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的键值对集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashMap
-    let map = HashMap<String, Int64>()
-    map["a"] = 1
-    
-    // 创建要添加的键值对集合
-    let newElements = ArrayList<(String, Int64)>([("b", 2), ("c", 3), ("a", 10)])
-    
-    println("添加集合前大小: ${map.size}")  // 1
-    println("添加集合前 'a' 的值: ${map["a"]}")  // 1
-    
-    // 添加键值对集合
-    map.add(all: newElements)
-    
-    println("添加集合后大小: ${map.size}")  // 3
-    println("添加集合后 'a' 的值: ${map["a"]}")  // 10
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-添加集合前大小: 1
-添加集合前 'a' 的值: 1
-添加集合后大小: 3
-添加集合后 'a' 的值: 10
 ```
 
 ### func all((K, V) -> Bool)
@@ -4683,52 +4539,6 @@ main() {
 修改后克隆HashMap大小: 3
 ```
 
-### func contains(K)
-
-```cangjie
-public func contains(key: K): Bool
-```
-
-功能：判断是否包含指定键的映射。
-
-参数：
-
-- key: K - 传递要判断的 key。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashMap
-    let map = HashMap<String, Int64>()
-    map["apple"] = 1
-    map["banana"] = 2
-    
-    // 检查是否包含指定键
-    let hasApple = map.contains("apple")
-    let hasOrange = map.contains("orange")
-    
-    println("是否包含键 'apple': ${hasApple}")  // true
-    println("是否包含键 'orange': ${hasOrange}")  // false
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-是否包含键 'apple': true
-是否包含键 'orange': false
-```
-
 ### func contains(Collection\<K>)
 
 ```cangjie
@@ -4776,6 +4586,52 @@ main() {
 ```text
 是否包含键[a, b]: true
 是否包含键[a, d]: false
+```
+
+### func contains(K)
+
+```cangjie
+public func contains(key: K): Bool
+```
+
+功能：判断是否包含指定键的映射。
+
+参数：
+
+- key: K - 传递要判断的 key。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashMap
+    let map = HashMap<String, Int64>()
+    map["apple"] = 1
+    map["banana"] = 2
+    
+    // 检查是否包含指定键
+    let hasApple = map.contains("apple")
+    let hasOrange = map.contains("orange")
+    
+    println("是否包含键 'apple': ${hasApple}")  // true
+    println("是否包含键 'orange': ${hasOrange}")  // false
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+是否包含键 'apple': true
+是否包含键 'orange': false
 ```
 
 ### func entryView(K)
@@ -5446,53 +5302,6 @@ main() {
 30
 ```
 
-### operator func \[](K, V)
-
-```cangjie
-public operator func [](key: K, value!: V): Unit
-```
-
-功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
-
-参数：
-
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashMap
-    let map = HashMap<String, Int64>()
-    
-    // 使用[]运算符设置键值对
-    map["first"] = 100
-    map["second"] = 200
-    
-    println("设置后大小: ${map.size}")  // 2
-    
-    // 覆盖已存在的键
-    map["first"] = 150
-    
-    println("覆盖后 'first' 的值: ${map["first"]}")  // 150
-    println("'second' 的值: ${map["second"]}")  // 200
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-设置后大小: 2
-覆盖后 'first' 的值: 150
-'second' 的值: 200
-```
-
 ### operator func \[](K)
 
 ```cangjie
@@ -5543,6 +5352,53 @@ main() {
 键 'data2' 的值: 200
 ```
 
+### operator func \[](K, V)
+
+```cangjie
+public operator func [](key: K, value!: V): Unit
+```
+
+功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+
+参数：
+
+- key: K - 传递值进行判断。
+- value!: V - 传递要设置的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashMap
+    let map = HashMap<String, Int64>()
+    
+    // 使用[]运算符设置键值对
+    map["first"] = 100
+    map["second"] = 200
+    
+    println("设置后大小: ${map.size}")  // 2
+    
+    // 覆盖已存在的键
+    map["first"] = 150
+    
+    println("覆盖后 'first' 的值: ${map["first"]}")  // 150
+    println("'second' 的值: ${map["second"]}")  // 200
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+设置后大小: 2
+覆盖后 'first' 的值: 150
+'second' 的值: 200
+```
+
 ### extend\<K, V> HashMap\<K, V> <: Equatable\<HashMap\<K, V>> where V <: Equatable\<V>
 
 ```cangjie
@@ -5554,6 +5410,59 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>>
+
+#### operator func !=(HashMap\<K, V>)
+
+```cangjie
+public operator func !=(right: HashMap<K, V>): Bool
+```
+
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否不等。
+
+参数：
+
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建两个HashMap
+    let map1 = HashMap<String, Int64>()
+    map1["x"] = 10
+    map1["y"] = 20
+    
+    let map2 = HashMap<String, Int64>()
+    map2["x"] = 10
+    map2["y"] = 30
+    
+    let map3 = HashMap<String, Int64>()
+    map3["y"] = 20
+    map3["x"] = 10
+    
+    // 比较不相等的HashMap
+    println("map1 != map2: ${map1 != map2}")  // true
+    
+    // 比较相等的HashMap
+    println("map1 != map3: ${map1 != map3}")  // false
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+map1 != map2: true
+map1 != map3: false
+```
 
 #### operator func ==(HashMap\<K, V>)
 
@@ -5608,59 +5517,6 @@ main() {
 ```text
 map1 == map2: true
 map1 == map3: false
-```
-
-#### operator func !=(HashMap\<K, V>)
-
-```cangjie
-public operator func !=(right: HashMap<K, V>): Bool
-```
-
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否不等。
-
-参数：
-
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建两个HashMap
-    let map1 = HashMap<String, Int64>()
-    map1["x"] = 10
-    map1["y"] = 20
-    
-    let map2 = HashMap<String, Int64>()
-    map2["x"] = 10
-    map2["y"] = 30
-    
-    let map3 = HashMap<String, Int64>()
-    map3["y"] = 20
-    map3["x"] = 10
-    
-    // 比较不相等的HashMap
-    println("map1 != map2: ${map1 != map2}")  // true
-    
-    // 比较相等的HashMap
-    println("map1 != map3: ${map1 != map3}")  // false
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-map1 != map2: true
-map1 != map3: false
 ```
 
 ### extend\<K, V> HashMap\<K, V> <: ToString where V <: ToString, K <: ToString
@@ -5719,6 +5575,150 @@ main() {
 HashMap的字符串表示: [(apple, 5), (banana, 3), (orange, 8)]
 ```
 
+## class HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>
+
+```cangjie
+public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equatable<K> {
+    public init(map: HashMap<K, V>)
+}
+```
+
+功能：此类主要实现 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的迭代器功能。
+
+父类型：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)>
+
+### init(HashMap\<K, V>)
+
+```cangjie
+public init(map: HashMap<K, V>)
+```
+
+功能：创建 [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> 实例。
+
+参数：
+
+- map: [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建一个HashMap
+    let map = HashMap<String, Int64>()
+    map["one"] = 1
+    map["two"] = 2
+    map["three"] = 3
+    
+    // 使用HashMap创建HashMapIterator
+    let iterator = HashMapIterator<String, Int64>(map)
+    return 0
+}
+```
+
+### func next()
+
+```cangjie
+public func next(): ?(K, V)
+```
+
+功能：返回迭代器中的下一个元素。
+
+返回值：
+
+- ?(K, V) - 迭代器中的下一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装。
+
+异常：
+
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建一个HashMap
+    let map = HashMap<String, Int64>()
+    map["one"] = 1
+    map["two"] = 2
+    map["three"] = 3
+    
+    // 创建迭代器并获取第一个元素
+    let iterator = HashMapIterator<String, Int64>(map)
+    let firstElement = iterator.next()
+    
+    if (firstElement.isSome()) {
+        println("成功获取到元素")
+    } else {
+        println("没有元素")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+成功获取到元素
+```
+
+### func remove()
+
+```cangjie
+public func remove(): Option<(K, V)>
+```
+
+功能：删除此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 迭代器的 next 函数返回的元素，此函数只能在 next 函数调用时调用一次。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)> - 返回被删除的元素。
+
+异常：
+
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建一个HashMap
+    let map = HashMap<String, Int64>()
+    map["one"] = 1
+    map["two"] = 2
+    
+    // 创建迭代器，获取并删除元素
+    let iterator = HashMapIterator<String, Int64>(map)
+    let element = iterator.next()  // 先调用next获取元素
+    let removed = iterator.remove()  // 然后调用remove删除元素
+    
+    if (element.isSome()) {
+        println("成功获取到元素")
+    }
+    
+    if (removed.isSome()) {
+        println("成功删除元素")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+成功获取到元素
+成功删除元素
+```
+
 ## class HashSet\<T> where T <: Hashable & Equatable\<T>
 
 ```cangjie
@@ -5742,6 +5742,51 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 父类型：
 
 - [Set](collection_package_interface.md#interface-sett)\<T>
+
+### prop capacity
+
+```cangjie
+public prop capacity: Int64
+```
+
+功能：返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
+
+> **注意：**
+>
+> 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
+
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建默认HashSet
+    let set = HashSet<String>()
+    println("默认容量: ${set.capacity}")  // 16
+    
+    // 创建指定容量的HashSet
+    let set2 = HashSet<String>(32)
+    println("指定容量: ${set2.capacity}")  // 32
+    
+    // 添加元素后容量不变
+    set.add("test")
+    println("添加元素后容量: ${set.capacity}")  // 16
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+默认容量: 16
+指定容量: 32
+添加元素后容量: 16
+```
 
 ### prop size
 
@@ -5781,54 +5826,6 @@ main() {
 ```text
 初始大小: 0
 添加元素后大小: 2
-```
-
-### init(Int64, (Int64) -> T)
-
-```cangjie
-public init(size: Int64, initElement: (Int64) -> T)
-```
-
-功能：通过传入的函数元素个数 size 和函数规则来构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。构造出的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量受 size 大小影响。
-
-参数：
-
-- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 初始化函数中元素的个数。
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - 初始化函数规则。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0，抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 使用size和函数规则创建HashSet
-    let set = HashSet<String>(3, {index => 
-        let fruits = ["apple", "banana", "orange"]
-        return fruits[index]
-    })
-    
-    println("HashSet大小: ${set.size}")  // 3
-    
-    // 检查元素是否存在
-    if (set.contains("banana")) {
-        println("包含 'banana'")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-HashSet大小: 3
-包含 'banana'
 ```
 
 ### init()
@@ -6012,6 +6009,98 @@ main() {
 默认容量HashSet: 16
 ```
 
+### init(Int64, (Int64) -> T)
+
+```cangjie
+public init(size: Int64, initElement: (Int64) -> T)
+```
+
+功能：通过传入的函数元素个数 size 和函数规则来构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。构造出的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量受 size 大小影响。
+
+参数：
+
+- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 初始化函数中元素的个数。
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - 初始化函数规则。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 使用size和函数规则创建HashSet
+    let set = HashSet<String>(3, {index => 
+        let fruits = ["apple", "banana", "orange"]
+        return fruits[index]
+    })
+    
+    println("HashSet大小: ${set.size}")  // 3
+    
+    // 检查元素是否存在
+    if (set.contains("banana")) {
+        println("包含 'banana'")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+HashSet大小: 3
+包含 'banana'
+```
+
+### func add(Collection\<T>)
+
+```cangjie
+public func add(all!: Collection<T>): Unit
+```
+
+功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，如果元素存在，则不添加。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashSet
+    let set = HashSet<String>()
+    set.add("existing")
+    
+    // 创建要添加的元素集合
+    let newElements = ArrayList<String>(["apple", "banana", "existing", "orange"])
+    
+    println("添加集合前大小: ${set.size}")  // 1
+    
+    // 添加元素集合
+    set.add(all: newElements)
+    
+    println("添加集合后大小: ${set.size}")  // 4
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+添加集合前大小: 1
+添加集合后大小: 4
+```
+
 ### func add(T)
 
 ```cangjie
@@ -6060,50 +6149,6 @@ main() {
 集合大小: 1
 ```
 
-### func add(Collection\<T>)
-
-```cangjie
-public func add(all!: Collection<T>): Unit
-```
-
-功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，如果元素存在，则不添加。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashSet
-    let set = HashSet<String>()
-    set.add("existing")
-    
-    // 创建要添加的元素集合
-    let newElements = ArrayList<String>(["apple", "banana", "existing", "orange"])
-    
-    println("添加集合前大小: ${set.size}")  // 1
-    
-    // 添加元素集合
-    set.add(all: newElements)
-    
-    println("添加集合后大小: ${set.size}")  // 4
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-添加集合前大小: 1
-添加集合后大小: 4
-```
-
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -6135,51 +6180,6 @@ public func any(predicate: (T) -> Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
-
-### prop capacity
-
-```cangjie
-public prop capacity: Int64
-```
-
-功能：返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
-
-> **注意：**
->
-> 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建默认HashSet
-    let set = HashSet<String>()
-    println("默认容量: ${set.capacity}")  // 16
-    
-    // 创建指定容量的HashSet
-    let set2 = HashSet<String>(32)
-    println("指定容量: ${set2.capacity}")  // 32
-    
-    // 添加元素后容量不变
-    set.add("test")
-    println("添加元素后容量: ${set.capacity}")  // 16
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-默认容量: 16
-指定容量: 32
-添加元素后容量: 16
-```
 
 ### func clear()
 
@@ -6272,66 +6272,6 @@ main() {
 修改后克隆HashSet大小: 3
 ```
 
-### func contains(T)
-
-```cangjie
-public func contains(element: T): Bool
-```
-
-功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否包含指定元素。
-
-参数：
-
-- element: T - 指定的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashSet并添加元素
-    let set = HashSet<String>()
-    set.add("apple")
-    set.add("banana")
-    set.add("orange")
-    
-    // 检查存在的元素
-    if (set.contains("apple")) {
-        println("包含 'apple'")
-    }
-    
-    // 检查不存在的元素
-    if (!set.contains("grape")) {
-        println("不包含 'grape'")
-    }
-    
-    // 使用contains检查多个元素
-    let elements = ["apple", "grape", "banana"]
-    for (element in elements) {
-        let exists = set.contains(element)
-        println("'${element}': ${exists}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-包含 'apple'
-不包含 'grape'
-'apple': true
-'grape': false
-'banana': true
-```
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -6399,6 +6339,66 @@ main() {
 不包含所有元素: [apple, cantaloupe]
 包含空集合
 包含其他HashSet的所有元素
+```
+
+### func contains(T)
+
+```cangjie
+public func contains(element: T): Bool
+```
+
+功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否包含指定元素。
+
+参数：
+
+- element: T - 指定的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashSet并添加元素
+    let set = HashSet<String>()
+    set.add("apple")
+    set.add("banana")
+    set.add("orange")
+    
+    // 检查存在的元素
+    if (set.contains("apple")) {
+        println("包含 'apple'")
+    }
+    
+    // 检查不存在的元素
+    if (!set.contains("grape")) {
+        println("不包含 'grape'")
+    }
+    
+    // 使用contains检查多个元素
+    let elements = ["apple", "grape", "banana"]
+    for (element in elements) {
+        let exists = set.contains(element)
+        println("'${element}': ${exists}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+包含 'apple'
+不包含 'grape'
+'apple': true
+'grape': false
+'banana': true
 ```
 
 ### func filter((T) -> Bool)
@@ -6620,70 +6620,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
-### func remove(T)
-
-```cangjie
-public func remove(element: T): Bool
-```
-
-功能：如果指定元素存在于此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，则将其移除。
-
-参数：
-
-- element: T - 需要被移除的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，表示移除成功；false，表示移除失败。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建HashSet并添加元素
-    let set = HashSet<String>()
-    set.add("apple")
-    set.add("banana")
-    set.add("orange")
-    
-    println("初始大小: ${set.size}")
-    
-    // 移除存在的元素
-    let result1 = set.remove("banana")
-    println("移除 'banana' 的结果: ${result1}")
-    println("移除后大小: ${set.size}")
-    
-    // 移除不存在的元素
-    let result2 = set.remove("grape")
-    println("移除 'grape' 的结果: ${result2}")
-    println("最终大小: ${set.size}")
-    
-    // 检查剩余元素
-    println("剩余元素:")
-    for (element in set) {
-        println("- ${element}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-初始大小: 3
-移除 'banana' 的结果: true
-移除后大小: 2
-移除 'grape' 的结果: false
-最终大小: 2
-剩余元素:
-- apple
-- orange
-```
-
 ### func remove(Collection\<T>)
 
 ```cangjie
@@ -6767,6 +6703,70 @@ main() {
 继续移除 [banana, cantaloupe] 后:
 最终大小: 1
 最终元素:
+- orange
+```
+
+### func remove(T)
+
+```cangjie
+public func remove(element: T): Bool
+```
+
+功能：如果指定元素存在于此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，则将其移除。
+
+参数：
+
+- element: T - 需要被移除的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，表示移除成功；false，表示移除失败。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建HashSet并添加元素
+    let set = HashSet<String>()
+    set.add("apple")
+    set.add("banana")
+    set.add("orange")
+    
+    println("初始大小: ${set.size}")
+    
+    // 移除存在的元素
+    let result1 = set.remove("banana")
+    println("移除 'banana' 的结果: ${result1}")
+    println("移除后大小: ${set.size}")
+    
+    // 移除不存在的元素
+    let result2 = set.remove("grape")
+    println("移除 'grape' 的结果: ${result2}")
+    println("最终大小: ${set.size}")
+    
+    // 检查剩余元素
+    println("剩余元素:")
+    for (element in set) {
+        println("- ${element}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始大小: 3
+移除 'banana' 的结果: true
+移除后大小: 2
+移除 'grape' 的结果: false
+最终大小: 2
+剩余元素:
+- apple
 - orange
 ```
 
@@ -7222,6 +7222,86 @@ main() {
 自身交集大小: 3
 ```
 
+### operator func -(ReadOnlySet\<T>)
+
+```cangjie
+public operator func -(other: ReadOnlySet<T>): HashSet<T>
+```
+
+功能：返回包含两个集合差集的元素的新集合。
+
+参数：
+
+- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - 传入集合。
+
+返回值：
+
+- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - T 类型集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建两个有重叠的集合
+    let set1 = HashSet<String>()
+    set1.add("apple")
+    set1.add("banana")
+    set1.add("orange")
+    
+    let set2 = HashSet<String>()
+    set2.add("banana")
+    set2.add("grape")
+    set2.add("cantaloupe")
+    
+    println("集合1: ${set1}")
+    println("集合2: ${set2}")
+    
+    // 计算差集 (set1 - set2)
+    let difference = set1 - set2
+    println("差集 (set1 - set2): ${difference}")
+    println("差集大小: ${difference.size}")
+    
+    // 计算反向差集 (set2 - set1)
+    let reverseDifference = set2 - set1
+    println("\n反向差集 (set2 - set1): ${reverseDifference}")
+    println("反向差集大小: ${reverseDifference.size}")
+    
+    // 与空集合的差集
+    let emptySet = HashSet<String>()
+    let diffWithEmpty = set1 - emptySet
+    println("\n与空集合的差集 (set1 - empty): ${diffWithEmpty}")
+    println("与空集合的差集大小: ${diffWithEmpty.size}")
+    
+    // 自身与自身的差集
+    let selfDiff = set1 - set1
+    println("\n自身差集 (set1 - set1): ${selfDiff}")
+    println("自身差集大小: ${selfDiff.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+集合1: [apple, banana, orange]
+集合2: [banana, grape, cantaloupe]
+差集 (set1 - set2): [apple, orange]
+差集大小: 2
+
+反向差集 (set2 - set1): [grape, cantaloupe]
+反向差集大小: 2
+
+与空集合的差集 (set1 - empty): [apple, banana, orange]
+与空集合的差集大小: 3
+
+自身差集 (set1 - set1): []
+自身差集大小: 0
+```
+
 ### operator func |(ReadOnlySet\<T>)
 
 ```cangjie
@@ -7309,86 +7389,6 @@ main() {
 不相交集合的并集大小: 4
 ```
 
-### operator func -(ReadOnlySet\<T>)
-
-```cangjie
-public operator func -(other: ReadOnlySet<T>): HashSet<T>
-```
-
-功能：返回包含两个集合差集的元素的新集合。
-
-参数：
-
-- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - 传入集合。
-
-返回值：
-
-- [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - T 类型集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建两个有重叠的集合
-    let set1 = HashSet<String>()
-    set1.add("apple")
-    set1.add("banana")
-    set1.add("orange")
-    
-    let set2 = HashSet<String>()
-    set2.add("banana")
-    set2.add("grape")
-    set2.add("cantaloupe")
-    
-    println("集合1: ${set1}")
-    println("集合2: ${set2}")
-    
-    // 计算差集 (set1 - set2)
-    let difference = set1 - set2
-    println("差集 (set1 - set2): ${difference}")
-    println("差集大小: ${difference.size}")
-    
-    // 计算反向差集 (set2 - set1)
-    let reverseDifference = set2 - set1
-    println("\n反向差集 (set2 - set1): ${reverseDifference}")
-    println("反向差集大小: ${reverseDifference.size}")
-    
-    // 与空集合的差集
-    let emptySet = HashSet<String>()
-    let diffWithEmpty = set1 - emptySet
-    println("\n与空集合的差集 (set1 - empty): ${diffWithEmpty}")
-    println("与空集合的差集大小: ${diffWithEmpty.size}")
-    
-    // 自身与自身的差集
-    let selfDiff = set1 - set1
-    println("\n自身差集 (set1 - set1): ${selfDiff}")
-    println("自身差集大小: ${selfDiff.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-集合1: [apple, banana, orange]
-集合2: [banana, grape, cantaloupe]
-差集 (set1 - set2): [apple, orange]
-差集大小: 2
-
-反向差集 (set2 - set1): [grape, cantaloupe]
-反向差集大小: 2
-
-与空集合的差集 (set1 - empty): [apple, banana, orange]
-与空集合的差集大小: 3
-
-自身差集 (set1 - set1): []
-自身差集大小: 0
-```
-
 ### extend\<T> HashSet\<T> <: Equatable\<HashSet\<T>>
 
 ```cangjie
@@ -7400,6 +7400,77 @@ extend<T> HashSet<T> <: Equatable<HashSet<T>>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>>
+
+#### operator func !=(HashSet\<T>)
+
+```cangjie
+public operator func !=(that: HashSet<T>): Bool
+```
+
+功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否不等。
+
+参数：
+
+- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建两个不同的HashSet
+    let set1 = HashSet<String>()
+    set1.add("apple")
+    set1.add("banana")
+    
+    let set2 = HashSet<String>()
+    set2.add("apple")
+    set2.add("orange")  // 不同的元素
+    
+    println("集合1: [apple, banana]")
+    println("集合2: [apple, orange]")
+    println("集合1 != 集合2: ${set1 != set2}")
+    
+    // 测试相同的集合
+    let set3 = HashSet<String>()
+    set3.add("apple")
+    set3.add("banana")
+    
+    println("\n集合3: [apple, banana]")
+    println("集合1 != 集合3: ${set1 != set3}")
+    
+    // 测试空集合和非空集合
+    let emptySet = HashSet<String>()
+    
+    println("\n空集合 != 非空集合: ${emptySet != set1}")
+    
+    // 测试两个空集合
+    let anotherEmptySet = HashSet<String>()
+    println("空集合1 != 空集合2: ${emptySet != anotherEmptySet}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+集合1: [apple, banana]
+集合2: [apple, orange]
+集合1 != 集合2: true
+
+集合3: [apple, banana]
+集合1 != 集合3: false
+
+空集合 != 非空集合: true
+空集合1 != 空集合2: false
+```
 
 #### operator func ==(HashSet\<T>)
 
@@ -7475,77 +7546,6 @@ main() {
 空集合 == 非空集合: false
 ```
 
-#### operator func !=(HashSet\<T>)
-
-```cangjie
-public operator func !=(that: HashSet<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否不等。
-
-参数：
-
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建两个不同的HashSet
-    let set1 = HashSet<String>()
-    set1.add("apple")
-    set1.add("banana")
-    
-    let set2 = HashSet<String>()
-    set2.add("apple")
-    set2.add("orange")  // 不同的元素
-    
-    println("集合1: [apple, banana]")
-    println("集合2: [apple, orange]")
-    println("集合1 != 集合2: ${set1 != set2}")
-    
-    // 测试相同的集合
-    let set3 = HashSet<String>()
-    set3.add("apple")
-    set3.add("banana")
-    
-    println("\n集合3: [apple, banana]")
-    println("集合1 != 集合3: ${set1 != set3}")
-    
-    // 测试空集合和非空集合
-    let emptySet = HashSet<String>()
-    
-    println("\n空集合 != 非空集合: ${emptySet != set1}")
-    
-    // 测试两个空集合
-    let anotherEmptySet = HashSet<String>()
-    println("空集合1 != 空集合2: ${emptySet != anotherEmptySet}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-集合1: [apple, banana]
-集合2: [apple, orange]
-集合1 != 集合2: true
-
-集合3: [apple, banana]
-集合1 != 集合3: false
-
-空集合 != 非空集合: true
-空集合1 != 空集合2: false
-```
-
 ### extend\<T> HashSet\<T> <: ToString where T <: ToString
 
 ```cangjie
@@ -7619,205 +7619,6 @@ main() {
 多元素集合: [apple, banana, orange]
 数字集合: [1, 2, 3]
 自动调用toString: [apple, banana, orange]
-```
-
-## class LinkedListNode\<T>
-
-```cangjie
-public class LinkedListNode<T>
-```
-
-功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。
-
-可以通过 [LinkedListNode](collection_package_class.md#class-linkedlistnodet) 对 [LinkedList](collection_package_class.md#class-linkedlistt) 进行前向后向遍历操作，也可以访问和修改元素的值。
-
-[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 只能通过对应 [LinkedList](collection_package_class.md#class-linkedlistt) 的 'nodeAt'、'firstNode'、'lastNode' 获得，当 [LinkedList](collection_package_class.md#class-linkedlistt) 删除掉对应的节点时，会造成一个悬空的节点，对悬空的节点进行任何操作都会抛 '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)' 异常。
-
-### prop next
-
-```cangjie
-public prop next: Option<LinkedListNode<T>>
-```
-
-功能：获取当前节点的下一个节点，如果没有则返回 None。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<Int64>()
-    
-    // 添加元素
-    list.addLast(10)
-    list.addLast(20)
-    list.addLast(30)
-    
-    // 获取第一个节点并检查其next属性
-    let firstNode = list.firstNode
-    if (let Some(node) <- firstNode) {
-        let nextNode = node.next
-        if (let Some(next) <- nextNode) {
-            println("下一个节点值: ${next.value}")
-        } else {
-            println("没有下一个节点")
-        }
-    } else {
-        println("链表为空")
-    }
-    
-    // 获取最后一个节点并检查其next属性
-    let lastNode = list.lastNode
-    if (let Some(node) <- lastNode) {
-        let nextNode = node.next
-        if (let Some(next) <- nextNode) {
-            println("下一个节点值: ${next.value}")
-        } else {
-            println("没有下一个节点")
-        }
-    } else {
-        println("链表为空")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-下一个节点值: 20
-没有下一个节点
-```
-
-### prop prev
-
-```cangjie
-public prop prev: Option<LinkedListNode<T>>
-```
-
-功能：获取当前节点的前一个节点，如果没有则返回 None。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<Int64>()
-    
-    // 添加元素
-    list.addLast(10)
-    list.addLast(20)
-    list.addLast(30)
-    
-    // 获取最后一个节点并检查其prev属性
-    let lastNode = list.lastNode
-    if (let Some(node) <- lastNode) {
-        let prevNode = node.prev
-        if (let Some(prev) <- prevNode) {
-            println("前一个节点值: ${prev.value}")
-        } else {
-            println("没有前一个节点")
-        }
-    } else {
-        println("链表为空")
-    }
-    
-    // 获取第一个节点并检查其prev属性
-    let firstNode = list.firstNode
-    if (let Some(node) <- firstNode) {
-        let prevNode = node.prev
-        if (let Some(prev) <- prevNode) {
-            println("前一个节点值: ${prev.value}")
-        } else {
-            println("没有前一个节点")
-        }
-    } else {
-        println("链表为空")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-前一个节点值: 20
-没有前一个节点
-```
-
-### prop value
-
-```cangjie
-public mut prop value: T
-```
-
-功能：获取或者修改元素的值。
-
-类型：T
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<Int64>()
-    
-    // 添加元素
-    list.addLast(10)
-    list.addLast(20)
-    list.addLast(30)
-    
-    // 获取第一个节点并访问其value属性
-    let firstNode = list.firstNode
-    if (let Some(node) <- firstNode) {
-        println("第一个节点值: ${node.value}")
-        
-        // 修改节点的值
-        node.value = 100
-        println("修改后第一个节点值: ${node.value}")
-    } else {
-        println("链表为空")
-    }
-    
-    // 再次确认第一个节点的值已被修改
-    if (let Some(node) <- list.firstNode) {
-        println("确认第一个节点值: ${node.value}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-第一个节点值: 10
-修改后第一个节点值: 100
-确认第一个节点值: 100
 ```
 
 ## class LinkedList\<T>
@@ -8319,287 +8120,6 @@ main() {
 链表中的所有元素: 0 10 20 30 40 
 ```
 
-### func addLast(T)
-
-```cangjie
-public func addLast(element: T): LinkedListNode<T>
-```
-
-功能：在链表的尾部位置添加一个元素，并且返回该元素的节点。
-
-参数：
-
-- element: T - 要添加到链表中的元素。
-
-返回值：
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<String>()
-    
-    // 向空链表添加元素
-    let node1 = list.addLast("第一个")
-    println("添加第一个元素后链表大小: ${list.size}")
-    println("返回的节点值: ${node1.value}")
-    
-    // 继续添加更多元素
-    list.addLast("第二个")
-    list.addLast("第三个")
-    
-    println("添加三个元素后链表大小: ${list.size}")
-    
-    // 验证元素顺序
-    print("链表中的所有元素: ")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    
-    // 验证最后一个节点
-    let lastValue = list.last
-    if (let Some(value) <- lastValue) {
-        println("最后一个元素: ${value}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-添加第一个元素后链表大小: 1
-返回的节点值: 第一个
-添加三个元素后链表大小: 3
-链表中的所有元素: 第一个 第二个 第三个 
-最后一个元素: 第三个
-```
-
-### func backward(LinkedListNode\<T>)
-
-```cangjie
-public func backward(mark: LinkedListNode<T>): Iterator<T>
-```
-
-功能：获取一个从 mark 节点开始，到所对应链表的头部节点的所有元素的迭代器。
-
-参数：
-
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<Int64>()
-    
-    // 添加元素
-    list.addLast(10)
-    list.addLast(20)
-    list.addLast(30)
-    list.addLast(40)
-    list.addLast(50)
-    
-    // 获取中间的一个节点（索引为2的节点，值为30）
-    let middleNode = list.nodeAt(2)
-    if (let Some(node) <- middleNode) {
-        println("从节点值 ${node.value} 开始向后遍历:")
-        
-        // 使用backward方法从中间节点向前遍历到头部
-        let iterator = list.backward(node)
-        for (element in iterator) {
-            print("${element} ")
-        }
-        println()
-    }
-    
-    // 从最后一个节点开始向前遍历
-    let lastNode = list.lastNode
-    if (let Some(node) <- lastNode) {
-        println("从最后一个节点值 ${node.value} 开始向后遍历:")
-        
-        let iterator = list.backward(node)
-        for (element in iterator) {
-            print("${element} ")
-        }
-        println()
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-从节点值 30 开始向后遍历:
-30 20 10 
-从最后一个节点值 50 开始向后遍历:
-50 40 30 20 10 
-```
-
-### func clear()
-
-```cangjie
-public func clear(): Unit
-```
-
-功能：删除链表中的所有元素。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<String>()
-    
-    // 添加一些元素
-    list.addLast("元素1")
-    list.addLast("元素2")
-    list.addLast("元素3")
-    list.addLast("元素4")
-    
-    println("清除前链表大小: ${list.size}")
-    println("清除前是否为空: ${list.isEmpty()}")
-    
-    // 显示清除前的元素
-    print("清除前的元素: ")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    
-    // 清除所有元素
-    list.clear()
-    
-    println("清除后链表大小: ${list.size}")
-    println("清除后是否为空: ${list.isEmpty()}")
-    
-    // 验证第一个和最后一个元素都为空
-    let firstValue = list.first
-    if (let Some(value) <- firstValue) {
-        println("第一个元素: ${value}")
-    } else {
-        println("没有第一个元素")
-    }
-    
-    let lastValue = list.last
-    if (let Some(value) <- lastValue) {
-        println("最后一个元素: ${value}")
-    } else {
-        println("没有最后一个元素")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-清除前链表大小: 4
-清除前是否为空: false
-清除前的元素: 元素1 元素2 元素3 元素4 
-清除后链表大小: 0
-清除后是否为空: true
-没有第一个元素
-没有最后一个元素
-```
-
-### func forward(LinkedListNode\<T>)
-
-```cangjie
-public func forward(mark: LinkedListNode<T>): Iterator<T>
-```
-
-功能：获取一个从 mark 节点开始，到所对应链表的尾部节点的所有元素的迭代器。
-
-参数：
-
-- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<Int64>()
-    
-    // 添加元素
-    list.addLast(10)
-    list.addLast(20)
-    list.addLast(30)
-    list.addLast(40)
-    list.addLast(50)
-    
-    // 获取第一个节点并从它开始向前遍历
-    let firstNode = list.firstNode
-    if (let Some(node) <- firstNode) {
-        println("从第一个节点值 ${node.value} 开始向前遍历:")
-        
-        let iterator = list.forward(node)
-        for (element in iterator) {
-            print("${element} ")
-        }
-        println()
-    }
-    
-    // 获取中间的一个节点（索引为2的节点，值为30）
-    let middleNode = list.nodeAt(2)
-    if (let Some(node) <- middleNode) {
-        println("从节点值 ${node.value} 开始向前遍历:")
-        
-        // 使用forward方法从中间节点向后遍历到尾部
-        let iterator = list.forward(node)
-        for (element in iterator) {
-            print("${element} ")
-        }
-        println()
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-从第一个节点值 10 开始向前遍历:
-10 20 30 40 50 
-从节点值 30 开始向前遍历:
-30 40 50 
-```
-
 ### func addAfter(LinkedListNode\<T>,T)
 
 ```cangjie
@@ -8766,6 +8286,139 @@ public func addFirst(element: T): LinkedListNode<T>
 
 - [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
 
+### func addFirst(T)
+
+```cangjie
+public func addFirst(element: T): LinkedListNode<T>
+```
+
+功能：在链表的头部位置插入一个元素，并且返回该元素的节点。
+
+参数：
+
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<String>()
+    
+    // 向空链表头部添加元素
+    let node1 = list.addFirst("第三个")
+    println("添加第一个元素后链表大小: ${list.size}")
+    println("返回的节点值: ${node1.value}")
+    
+    // 继续在头部添加更多元素
+    list.addFirst("第二个")
+    list.addFirst("第一个")
+    
+    println("添加三个元素后链表大小: ${list.size}")
+    
+    // 验证元素顺序（最后添加的在最前面）
+    print("链表中的所有元素: ")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    
+    // 验证第一个节点
+    let firstValue = list.first
+    if (let Some(value) <- firstValue) {
+        println("第一个元素: ${value}")
+    }
+    
+    // 验证最后一个节点
+    let lastValue = list.last
+    if (let Some(value) <- lastValue) {
+        println("最后一个元素: ${value}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+添加第一个元素后链表大小: 1
+返回的节点值: 第三个
+添加三个元素后链表大小: 3
+链表中的所有元素: 第一个 第二个 第三个 
+第一个元素: 第一个
+最后一个元素: 第三个
+```
+
+### func addLast(T)
+
+```cangjie
+public func addLast(element: T): LinkedListNode<T>
+```
+
+功能：在链表的尾部位置添加一个元素，并且返回该元素的节点。
+
+参数：
+
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<String>()
+    
+    // 向空链表添加元素
+    let node1 = list.addLast("第一个")
+    println("添加第一个元素后链表大小: ${list.size}")
+    println("返回的节点值: ${node1.value}")
+    
+    // 继续添加更多元素
+    list.addLast("第二个")
+    list.addLast("第三个")
+    
+    println("添加三个元素后链表大小: ${list.size}")
+    
+    // 验证元素顺序
+    print("链表中的所有元素: ")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    
+    // 验证最后一个节点
+    let lastValue = list.last
+    if (let Some(value) <- lastValue) {
+        println("最后一个元素: ${value}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+添加第一个元素后链表大小: 1
+返回的节点值: 第一个
+添加三个元素后链表大小: 3
+链表中的所有元素: 第一个 第二个 第三个 
+最后一个元素: 第三个
+```
+
 ### func addLast(T)
 
 ```cangjie
@@ -8833,6 +8486,150 @@ public func backward(mark: LinkedListNode<T>): Iterator<T>
 异常：
 
 - [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<Int64>()
+    
+    // 添加元素
+    list.addLast(10)
+    list.addLast(20)
+    list.addLast(30)
+    list.addLast(40)
+    list.addLast(50)
+    
+    // 获取中间的一个节点（索引为2的节点，值为30）
+    let middleNode = list.nodeAt(2)
+    if (let Some(node) <- middleNode) {
+        println("从节点值 ${node.value} 开始向后遍历:")
+        
+        // 使用backward方法从中间节点向前遍历到头部
+        let iterator = list.backward(node)
+        for (element in iterator) {
+            print("${element} ")
+        }
+        println()
+    }
+    
+    // 从最后一个节点开始向前遍历
+    let lastNode = list.lastNode
+    if (let Some(node) <- lastNode) {
+        println("从最后一个节点值 ${node.value} 开始向后遍历:")
+        
+        let iterator = list.backward(node)
+        for (element in iterator) {
+            print("${element} ")
+        }
+        println()
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+从节点值 30 开始向后遍历:
+30 20 10 
+从最后一个节点值 50 开始向后遍历:
+50 40 30 20 10 
+```
+
+### func backward(LinkedListNode\<T>)
+
+```cangjie
+public func backward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+功能：获取一个从 mark 节点开始，到所对应链表的头部节点的所有元素的迭代器。
+
+参数：
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+### func clear()
+
+```cangjie
+public func clear(): Unit
+```
+
+功能：删除链表中的所有元素。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<String>()
+    
+    // 添加一些元素
+    list.addLast("元素1")
+    list.addLast("元素2")
+    list.addLast("元素3")
+    list.addLast("元素4")
+    
+    println("清除前链表大小: ${list.size}")
+    println("清除前是否为空: ${list.isEmpty()}")
+    
+    // 显示清除前的元素
+    print("清除前的元素: ")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    
+    // 清除所有元素
+    list.clear()
+    
+    println("清除后链表大小: ${list.size}")
+    println("清除后是否为空: ${list.isEmpty()}")
+    
+    // 验证第一个和最后一个元素都为空
+    let firstValue = list.first
+    if (let Some(value) <- firstValue) {
+        println("第一个元素: ${value}")
+    } else {
+        println("没有第一个元素")
+    }
+    
+    let lastValue = list.last
+    if (let Some(value) <- lastValue) {
+        println("最后一个元素: ${value}")
+    } else {
+        println("没有最后一个元素")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+清除前链表大小: 4
+清除前是否为空: false
+清除前的元素: 元素1 元素2 元素3 元素4 
+清除后链表大小: 0
+清除后是否为空: true
+没有第一个元素
+没有最后一个元素
+```
 
 ### func clear()
 
@@ -8917,6 +8714,80 @@ public func forEach(action: (T) -> Unit): Unit
 参数：
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
+### func forward(LinkedListNode\<T>)
+
+```cangjie
+public func forward(mark: LinkedListNode<T>): Iterator<T>
+```
+
+功能：获取一个从 mark 节点开始，到所对应链表的尾部节点的所有元素的迭代器。
+
+参数：
+
+- mark: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 开始的元素节点。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 对应元素的迭代器。
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<Int64>()
+    
+    // 添加元素
+    list.addLast(10)
+    list.addLast(20)
+    list.addLast(30)
+    list.addLast(40)
+    list.addLast(50)
+    
+    // 获取第一个节点并从它开始向前遍历
+    let firstNode = list.firstNode
+    if (let Some(node) <- firstNode) {
+        println("从第一个节点值 ${node.value} 开始向前遍历:")
+        
+        let iterator = list.forward(node)
+        for (element in iterator) {
+            print("${element} ")
+        }
+        println()
+    }
+    
+    // 获取中间的一个节点（索引为2的节点，值为30）
+    let middleNode = list.nodeAt(2)
+    if (let Some(node) <- middleNode) {
+        println("从节点值 ${node.value} 开始向前遍历:")
+        
+        // 使用forward方法从中间节点向后遍历到尾部
+        let iterator = list.forward(node)
+        for (element in iterator) {
+            print("${element} ")
+        }
+        println()
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+从第一个节点值 10 开始向前遍历:
+10 20 30 40 50 
+从节点值 30 开始向前遍历:
+30 40 50 
+```
 
 ### func forward(LinkedListNode\<T>)
 
@@ -9212,254 +9083,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
-### func removeFirst()
-
-```cangjie
-public func removeFirst(): ?T
-```
-
-功能：移除链表的第一个元素，并返回该元素的值。
-
-返回值：
-
-- ?T - 被删除的元素的值，若链表为空则返回 None。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<String>()
-    
-    // 尝试从空链表中移除元素
-    let removedFromEmpty = list.removeFirst()
-    if (let Some(value) <- removedFromEmpty) {
-        println("从空链表移除的元素: ${value}")
-    } else {
-        println("空链表无法移除元素")
-    }
-    
-    // 添加一些元素
-    list.addLast("第一个")
-    list.addLast("第二个")
-    list.addLast("第三个")
-    list.addLast("第四个")
-    
-    println("移除前的链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("移除前链表大小: ${list.size}")
-    
-    // 移除第一个元素
-    let removed1 = list.removeFirst()
-    if (let Some(value) <- removed1) {
-        println("移除的第一个元素: ${value}")
-    }
-    
-    println("移除一次后的链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("移除后链表大小: ${list.size}")
-    
-    // 再次移除第一个元素
-    let removed2 = list.removeFirst()
-    if (let Some(value) <- removed2) {
-        println("再次移除的第一个元素: ${value}")
-    }
-    
-    println("最终链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("最终链表大小: ${list.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-空链表无法移除元素
-移除前的链表:
-第一个 第二个 第三个 第四个 
-移除前链表大小: 4
-移除的第一个元素: 第一个
-移除一次后的链表:
-第二个 第三个 第四个 
-移除后链表大小: 3
-再次移除的第一个元素: 第二个
-最终链表:
-第三个 第四个 
-最终链表大小: 2
-```
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?T
-```
-
-功能：移除链表的最后一个元素，并返回该元素的值。
-
-返回值：
-
-- ?T - 被删除的元素的值，若链表为空则返回 None。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<String>()
-    
-    // 尝试从空链表中移除元素
-    let removedFromEmpty = list.removeLast()
-    if (let Some(value) <- removedFromEmpty) {
-        println("从空链表移除的元素: ${value}")
-    } else {
-        println("空链表无法移除元素")
-    }
-    
-    // 添加一些元素
-    list.addLast("第一个")
-    list.addLast("第二个")
-    list.addLast("第三个")
-    list.addLast("第四个")
-    
-    println("移除前的链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("移除前链表大小: ${list.size}")
-    
-    // 移除最后一个元素
-    let removed1 = list.removeLast()
-    if (let Some(value) <- removed1) {
-        println("移除的最后一个元素: ${value}")
-    }
-    
-    println("移除一次后的链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("移除后链表大小: ${list.size}")
-    
-    // 再次移除最后一个元素
-    let removed2 = list.removeLast()
-    if (let Some(value) <- removed2) {
-        println("再次移除的最后一个元素: ${value}")
-    }
-    
-    println("最终链表:")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    println("最终链表大小: ${list.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-空链表无法移除元素
-移除前的链表:
-第一个 第二个 第三个 第四个 
-移除前链表大小: 4
-移除的最后一个元素: 第四个
-移除一次后的链表:
-第一个 第二个 第三个 
-移除后链表大小: 3
-再次移除的最后一个元素: 第三个
-最终链表:
-第一个 第二个 
-最终链表大小: 2
-```
-
-### func addFirst(T)
-
-```cangjie
-public func addFirst(element: T): LinkedListNode<T>
-```
-
-功能：在链表的头部位置插入一个元素，并且返回该元素的节点。
-
-参数：
-
-- element: T - 要添加到链表中的元素。
-
-返回值：
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list = LinkedList<String>()
-    
-    // 向空链表头部添加元素
-    let node1 = list.addFirst("第三个")
-    println("添加第一个元素后链表大小: ${list.size}")
-    println("返回的节点值: ${node1.value}")
-    
-    // 继续在头部添加更多元素
-    list.addFirst("第二个")
-    list.addFirst("第一个")
-    
-    println("添加三个元素后链表大小: ${list.size}")
-    
-    // 验证元素顺序（最后添加的在最前面）
-    print("链表中的所有元素: ")
-    for (element in list) {
-        print("${element} ")
-    }
-    println()
-    
-    // 验证第一个节点
-    let firstValue = list.first
-    if (let Some(value) <- firstValue) {
-        println("第一个元素: ${value}")
-    }
-    
-    // 验证最后一个节点
-    let lastValue = list.last
-    if (let Some(value) <- lastValue) {
-        println("最后一个元素: ${value}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-添加第一个元素后链表大小: 1
-返回的节点值: 第三个
-添加三个元素后链表大小: 3
-链表中的所有元素: 第一个 第二个 第三个 
-第一个元素: 第一个
-最后一个元素: 第三个
-```
-
 ### func remove(LinkedListNode\<T>)
 
 ```cangjie
@@ -9554,6 +9177,95 @@ main() {
 最终链表大小: 2
 ```
 
+### func removeFirst()
+
+```cangjie
+public func removeFirst(): ?T
+```
+
+功能：移除链表的第一个元素，并返回该元素的值。
+
+返回值：
+
+- ?T - 被删除的元素的值，若链表为空则返回 None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<String>()
+    
+    // 尝试从空链表中移除元素
+    let removedFromEmpty = list.removeFirst()
+    if (let Some(value) <- removedFromEmpty) {
+        println("从空链表移除的元素: ${value}")
+    } else {
+        println("空链表无法移除元素")
+    }
+    
+    // 添加一些元素
+    list.addLast("第一个")
+    list.addLast("第二个")
+    list.addLast("第三个")
+    list.addLast("第四个")
+    
+    println("移除前的链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("移除前链表大小: ${list.size}")
+    
+    // 移除第一个元素
+    let removed1 = list.removeFirst()
+    if (let Some(value) <- removed1) {
+        println("移除的第一个元素: ${value}")
+    }
+    
+    println("移除一次后的链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("移除后链表大小: ${list.size}")
+    
+    // 再次移除第一个元素
+    let removed2 = list.removeFirst()
+    if (let Some(value) <- removed2) {
+        println("再次移除的第一个元素: ${value}")
+    }
+    
+    println("最终链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("最终链表大小: ${list.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+空链表无法移除元素
+移除前的链表:
+第一个 第二个 第三个 第四个 
+移除前链表大小: 4
+移除的第一个元素: 第一个
+移除一次后的链表:
+第二个 第三个 第四个 
+移除后链表大小: 3
+再次移除的第一个元素: 第二个
+最终链表:
+第三个 第四个 
+最终链表大小: 2
+```
+
 ### func removeIf((T)-> Bool)
 
 ```cangjie
@@ -9631,6 +9343,95 @@ main() {
 删除后链表大小: 4
 删除大于3的元素后的链表:
 1 3 
+最终链表大小: 2
+```
+
+### func removeLast()
+
+```cangjie
+public func removeLast(): ?T
+```
+
+功能：移除链表的最后一个元素，并返回该元素的值。
+
+返回值：
+
+- ?T - 被删除的元素的值，若链表为空则返回 None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<String>()
+    
+    // 尝试从空链表中移除元素
+    let removedFromEmpty = list.removeLast()
+    if (let Some(value) <- removedFromEmpty) {
+        println("从空链表移除的元素: ${value}")
+    } else {
+        println("空链表无法移除元素")
+    }
+    
+    // 添加一些元素
+    list.addLast("第一个")
+    list.addLast("第二个")
+    list.addLast("第三个")
+    list.addLast("第四个")
+    
+    println("移除前的链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("移除前链表大小: ${list.size}")
+    
+    // 移除最后一个元素
+    let removed1 = list.removeLast()
+    if (let Some(value) <- removed1) {
+        println("移除的最后一个元素: ${value}")
+    }
+    
+    println("移除一次后的链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("移除后链表大小: ${list.size}")
+    
+    // 再次移除最后一个元素
+    let removed2 = list.removeLast()
+    if (let Some(value) <- removed2) {
+        println("再次移除的最后一个元素: ${value}")
+    }
+    
+    println("最终链表:")
+    for (element in list) {
+        print("${element} ")
+    }
+    println()
+    println("最终链表大小: ${list.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+空链表无法移除元素
+移除前的链表:
+第一个 第二个 第三个 第四个 
+移除前链表大小: 4
+移除的最后一个元素: 第四个
+移除一次后的链表:
+第一个 第二个 第三个 
+移除后链表大小: 3
+再次移除的最后一个元素: 第三个
+最终链表:
+第一个 第二个 
 最终链表大小: 2
 ```
 
@@ -9959,6 +9760,42 @@ main() {
 链表最后一个元素: 草莓
 ```
 
+### extend\<T> LinkedList\<T>
+
+```cangjie
+extend<T> LinkedList<T>
+```
+
+功能：为 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 类型进行拓展
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): LinkedList<(Int64, T)>
+```
+
+功能：用于获取带索引的链表。
+
+返回值：
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新 [LinkedList](./collection_package_class.md#class-linkedlistt)。
+
+#### func zip\<R>(LinkedList\<R>)
+
+```cangjie
+public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
+```
+
+功能：将两个 [LinkedList](./collection_package_class.md#class-linkedlistt) 合并成一个新 [LinkedList](./collection_package_class.md#class-linkedlistt)（长度取决于短的那个链表）。
+
+参数：
+
+- other: [LinkedList](./collection_package_class.md#class-linkedlistt)\<R> - 要合并的其中一个链表。
+
+返回值：
+
+- [LinkedList](./collection_package_class.md#class-linkedlistt)\<(T, R)> - 返回一个新链表。
+
 ### extend\<T> LinkedList\<T> <: Equatable\<LinkedList\<T>> where T <: Equatable\<T>
 
 ```cangjie
@@ -9970,100 +9807,6 @@ extend<T> LinkedList<T> <: Equatable<LinkedList<T>> where T <: Equatable<T>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[LinkedList](#class-linkedlistt)\<T>>
-
-#### operator func ==(LinkedList\<T>)
-
-```cangjie
-public operator func ==(right: LinkedList<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 实例是否相等。
-
-两个 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 相等指的是其中包含的元素完全相等。
-
-参数：
-
-- right: [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let list1 = LinkedList<Int64>()
-    let list2 = LinkedList<Int64>()
-    let list3 = LinkedList<Int64>()
-    
-    // 测试空链表的相等性
-    println("两个空链表相等: ${list1 == list2}")
-    
-    // 向list1和list2添加相同的元素
-    list1.addLast(1)
-    list1.addLast(2)
-    list1.addLast(3)
-    
-    list2.addLast(1)
-    list2.addLast(2)
-    list2.addLast(3)
-    
-    println("具有相同元素的链表相等: ${list1 == list2}")
-    
-    // 向list3添加不同的元素
-    list3.addLast(1)
-    list3.addLast(2)
-    list3.addLast(4) // 不同的元素
-    
-    println("具有不同元素的链表不相等: ${list1 == list3}")
-    
-    // 测试不同大小的链表
-    let list4 = LinkedList<Int64>()
-    list4.addLast(1)
-    list4.addLast(2)
-    
-    println("不同大小的链表不相等: ${list1 == list4}")
-    
-    // 测试相同元素但不同顺序
-    let list5 = LinkedList<Int64>()
-    list5.addLast(3)
-    list5.addLast(2)
-    list5.addLast(1)
-    
-    println("相同元素但不同顺序的链表不相等: ${list1 == list5}")
-    
-    // 显示链表内容以供验证
-    print("list1: ")
-    for (element in list1) {
-        print("${element} ")
-    }
-    println()
-    
-    print("list5: ")
-    for (element in list5) {
-        print("${element} ")
-    }
-    println()
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-两个空链表相等: true
-具有相同元素的链表相等: true
-具有不同元素的链表不相等: false
-不同大小的链表不相等: false
-相同元素但不同顺序的链表不相等: false
-list1: 1 2 3 
-list5: 3 2 1 
-```
 
 #### operator func !=(LinkedList\<T>)
 
@@ -10164,41 +9907,99 @@ list3: 第一个 第三个
 list4: 第二个 第一个 
 ```
 
-### extend\<T> LinkedList\<T>
+#### operator func ==(LinkedList\<T>)
 
 ```cangjie
-extend<T> LinkedList<T>
+public operator func ==(right: LinkedList<T>): Bool
 ```
 
-功能：为 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 类型进行拓展
+功能：判断当前实例与参数指向的 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 实例是否相等。
 
-#### func enumerate()
-
-```cangjie
-public func enumerate(): LinkedList<(Int64, T)>
-```
-
-功能：用于获取带索引的链表。
-
-返回值：
-
-- [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新 [LinkedList](./collection_package_class.md#class-linkedlistt)。
-
-#### func zip\<R>(LinkedList\<R>)
-
-```cangjie
-public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
-```
-
-功能：将两个 [LinkedList](./collection_package_class.md#class-linkedlistt) 合并成一个新 [LinkedList](./collection_package_class.md#class-linkedlistt)（长度取决于短的那个链表）。
+两个 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 相等指的是其中包含的元素完全相等。
 
 参数：
 
-- other: [LinkedList](./collection_package_class.md#class-linkedlistt)\<R> - 要合并的其中一个链表。
+- right: [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - 被比较的对象。
 
 返回值：
 
-- [LinkedList](./collection_package_class.md#class-linkedlistt)\<(T, R)> - 返回一个新链表。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list1 = LinkedList<Int64>()
+    let list2 = LinkedList<Int64>()
+    let list3 = LinkedList<Int64>()
+    
+    // 测试空链表的相等性
+    println("两个空链表相等: ${list1 == list2}")
+    
+    // 向list1和list2添加相同的元素
+    list1.addLast(1)
+    list1.addLast(2)
+    list1.addLast(3)
+    
+    list2.addLast(1)
+    list2.addLast(2)
+    list2.addLast(3)
+    
+    println("具有相同元素的链表相等: ${list1 == list2}")
+    
+    // 向list3添加不同的元素
+    list3.addLast(1)
+    list3.addLast(2)
+    list3.addLast(4) // 不同的元素
+    
+    println("具有不同元素的链表不相等: ${list1 == list3}")
+    
+    // 测试不同大小的链表
+    let list4 = LinkedList<Int64>()
+    list4.addLast(1)
+    list4.addLast(2)
+    
+    println("不同大小的链表不相等: ${list1 == list4}")
+    
+    // 测试相同元素但不同顺序
+    let list5 = LinkedList<Int64>()
+    list5.addLast(3)
+    list5.addLast(2)
+    list5.addLast(1)
+    
+    println("相同元素但不同顺序的链表不相等: ${list1 == list5}")
+    
+    // 显示链表内容以供验证
+    print("list1: ")
+    for (element in list1) {
+        print("${element} ")
+    }
+    println()
+    
+    print("list5: ")
+    for (element in list5) {
+        print("${element} ")
+    }
+    println()
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+两个空链表相等: true
+具有相同元素的链表相等: true
+具有不同元素的链表不相等: false
+不同大小的链表不相等: false
+相同元素但不同顺序的链表不相等: false
+list1: 1 2 3 
+list5: 3 2 1 
+```
 
 ### extend\<T> LinkedList\<T> <: ToString where T <: ToString
 
@@ -10287,6 +10088,205 @@ main() {
 字符串链表的toString: [苹果, 香蕉, 橙子]
 手动遍历数字链表: [10, 20, 30, 40]
 修改后的数字链表toString: [5, 10, 20, 30, 40, 50]
+```
+
+## class LinkedListNode\<T>
+
+```cangjie
+public class LinkedListNode<T>
+```
+
+功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。
+
+可以通过 [LinkedListNode](collection_package_class.md#class-linkedlistnodet) 对 [LinkedList](collection_package_class.md#class-linkedlistt) 进行前向后向遍历操作，也可以访问和修改元素的值。
+
+[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 只能通过对应 [LinkedList](collection_package_class.md#class-linkedlistt) 的 'nodeAt'、'firstNode'、'lastNode' 获得，当 [LinkedList](collection_package_class.md#class-linkedlistt) 删除掉对应的节点时，会造成一个悬空的节点，对悬空的节点进行任何操作都会抛 '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)' 异常。
+
+### prop next
+
+```cangjie
+public prop next: Option<LinkedListNode<T>>
+```
+
+功能：获取当前节点的下一个节点，如果没有则返回 None。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<Int64>()
+    
+    // 添加元素
+    list.addLast(10)
+    list.addLast(20)
+    list.addLast(30)
+    
+    // 获取第一个节点并检查其next属性
+    let firstNode = list.firstNode
+    if (let Some(node) <- firstNode) {
+        let nextNode = node.next
+        if (let Some(next) <- nextNode) {
+            println("下一个节点值: ${next.value}")
+        } else {
+            println("没有下一个节点")
+        }
+    } else {
+        println("链表为空")
+    }
+    
+    // 获取最后一个节点并检查其next属性
+    let lastNode = list.lastNode
+    if (let Some(node) <- lastNode) {
+        let nextNode = node.next
+        if (let Some(next) <- nextNode) {
+            println("下一个节点值: ${next.value}")
+        } else {
+            println("没有下一个节点")
+        }
+    } else {
+        println("链表为空")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+下一个节点值: 20
+没有下一个节点
+```
+
+### prop prev
+
+```cangjie
+public prop prev: Option<LinkedListNode<T>>
+```
+
+功能：获取当前节点的前一个节点，如果没有则返回 None。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<Int64>()
+    
+    // 添加元素
+    list.addLast(10)
+    list.addLast(20)
+    list.addLast(30)
+    
+    // 获取最后一个节点并检查其prev属性
+    let lastNode = list.lastNode
+    if (let Some(node) <- lastNode) {
+        let prevNode = node.prev
+        if (let Some(prev) <- prevNode) {
+            println("前一个节点值: ${prev.value}")
+        } else {
+            println("没有前一个节点")
+        }
+    } else {
+        println("链表为空")
+    }
+    
+    // 获取第一个节点并检查其prev属性
+    let firstNode = list.firstNode
+    if (let Some(node) <- firstNode) {
+        let prevNode = node.prev
+        if (let Some(prev) <- prevNode) {
+            println("前一个节点值: ${prev.value}")
+        } else {
+            println("没有前一个节点")
+        }
+    } else {
+        println("链表为空")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+前一个节点值: 20
+没有前一个节点
+```
+
+### prop value
+
+```cangjie
+public mut prop value: T
+```
+
+功能：获取或者修改元素的值。
+
+类型：T
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let list = LinkedList<Int64>()
+    
+    // 添加元素
+    list.addLast(10)
+    list.addLast(20)
+    list.addLast(30)
+    
+    // 获取第一个节点并访问其value属性
+    let firstNode = list.firstNode
+    if (let Some(node) <- firstNode) {
+        println("第一个节点值: ${node.value}")
+        
+        // 修改节点的值
+        node.value = 100
+        println("修改后第一个节点值: ${node.value}")
+    } else {
+        println("链表为空")
+    }
+    
+    // 再次确认第一个节点的值已被修改
+    if (let Some(node) <- list.firstNode) {
+        println("确认第一个节点值: ${node.value}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+第一个节点值: 10
+修改后第一个节点值: 100
+确认第一个节点值: 100
 ```
 
 ## class TreeMap\<K, V> where K <: Comparable\<K>
@@ -10687,6 +10687,72 @@ C: 9
 D: 16
 ```
 
+### func add(Collection\<(K, V)>)
+
+```cangjie
+public func add(all!: Collection<(K, V)>): Unit
+```
+
+功能：将新的键值对集合放入 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中。对于 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中已有的键，该键的值将被新值替换。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的键值对集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let map = TreeMap<String, Int64>()
+    
+    // 初始添加一个元素
+    map.add("a", 1)
+    println("初始状态: 大小=${map.size}")
+    
+    // 使用ArrayList添加多个键值对
+    let list = ArrayList<(String, Int64)>()
+    list.add(("b", 2))
+    list.add(("c", 3))
+    list.add(("d", 4))
+    
+    map.add(all: list)
+    println("添加ArrayList后: 大小=${map.size}")
+    
+    // 使用另一个TreeMap添加元素
+    let anotherMap = TreeMap<String, Int64>()
+    anotherMap.add("a", 10)  // 覆盖现有键
+    anotherMap.add("e", 5)   // 新键
+    
+    map.add(all: anotherMap)
+    println("添加TreeMap后: 大小=${map.size}")
+    
+    println("\n最终的TreeMap:")
+    for ((key, value) in map) {
+        println("${key}: ${value}")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始状态: 大小=1
+添加ArrayList后: 大小=4
+添加TreeMap后: 大小=5
+
+最终的TreeMap:
+a: 10
+b: 2
+c: 3
+d: 4
+e: 5
+```
+
 ### func add(K, V)
 
 ```cangjie
@@ -10755,72 +10821,6 @@ main() {
 最终的TreeMap:
 apple: 15
 banana: 20
-```
-
-### func add(Collection\<(K, V)>)
-
-```cangjie
-public func add(all!: Collection<(K, V)>): Unit
-```
-
-功能：将新的键值对集合放入 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中。对于 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中已有的键，该键的值将被新值替换。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的键值对集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let map = TreeMap<String, Int64>()
-    
-    // 初始添加一个元素
-    map.add("a", 1)
-    println("初始状态: 大小=${map.size}")
-    
-    // 使用ArrayList添加多个键值对
-    let list = ArrayList<(String, Int64)>()
-    list.add(("b", 2))
-    list.add(("c", 3))
-    list.add(("d", 4))
-    
-    map.add(all: list)
-    println("添加ArrayList后: 大小=${map.size}")
-    
-    // 使用另一个TreeMap添加元素
-    let anotherMap = TreeMap<String, Int64>()
-    anotherMap.add("a", 10)  // 覆盖现有键
-    anotherMap.add("e", 5)   // 新键
-    
-    map.add(all: anotherMap)
-    println("添加TreeMap后: 大小=${map.size}")
-    
-    println("\n最终的TreeMap:")
-    for ((key, value) in map) {
-        println("${key}: ${value}")
-    }
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-初始状态: 大小=1
-添加ArrayList后: 大小=4
-添加TreeMap后: 大小=5
-
-最终的TreeMap:
-a: 10
-b: 2
-c: 3
-d: 4
-e: 5
 ```
 
 ### func all((K, V) -> Bool)
@@ -11072,55 +11072,6 @@ cherry: 30
 date: 40
 ```
 
-### func contains(K)
-
-```cangjie
-public func contains(key: K): Bool
-```
-
-功能：判断是否包含指定键的映射。
-
-参数：
-
-- key: K - 传递要判断的 key。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let map = TreeMap<String, Int64>()
-    map.add("apple", 10)
-    map.add("banana", 20)
-    map.add("cherry", 30)
-    
-    // 检查存在的键
-    println("contains 'apple': ${map.contains("apple")}")
-    println("contains 'banana': ${map.contains("banana")}")
-    
-    // 检查不存在的键
-    println("contains 'grape': ${map.contains("grape")}")
-    println("contains 'orange': ${map.contains("orange")}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-contains 'apple': true
-contains 'banana': true
-contains 'grape': false
-contains 'orange': false
-```
-
 ### func contains(Collection\<K>)
 
 ```cangjie
@@ -11209,6 +11160,55 @@ TreeMap内容: [(apple, 10), (banana, 20), (cherry, 30), (date, 40), (elderberry
 
 检查空集合: []
 是否包含所有键: true
+```
+
+### func contains(K)
+
+```cangjie
+public func contains(key: K): Bool
+```
+
+功能：判断是否包含指定键的映射。
+
+参数：
+
+- key: K - 传递要判断的 key。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let map = TreeMap<String, Int64>()
+    map.add("apple", 10)
+    map.add("banana", 20)
+    map.add("cherry", 30)
+    
+    // 检查存在的键
+    println("contains 'apple': ${map.contains("apple")}")
+    println("contains 'banana': ${map.contains("banana")}")
+    
+    // 检查不存在的键
+    println("contains 'grape': ${map.contains("grape")}")
+    println("contains 'orange': ${map.contains("orange")}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+contains 'apple': true
+contains 'banana': true
+contains 'grape': false
+contains 'orange': false
 ```
 
 ### func entryView(K)
@@ -11707,17 +11707,17 @@ public func reduce(operation: (V, V) -> V): Option<V>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 返回计算结果。
 
-### func removeFirst()
+### func remove(Collection\<K>)
 
 ```cangjie
-public func removeFirst(): ?(K, V)
+public func remove(all!: Collection<K>): Unit
 ```
 
-功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
+功能：从此映射中删除指定集合的映射（如果存在）。
 
-返回值：
+参数：
 
-- ?(K, V) - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的键的集合。
 
 示例：
 
@@ -11728,39 +11728,49 @@ import std.collection.*
 main() {
     let map = TreeMap<String, Int64>()
     
-    // 空TreeMap删除第一个元素
-    let result1 = map.removeFirst()
-    if (let Some((key, value)) <- result1) {
-        println("删除了第一个元素: (${key}, ${value})")
-    } else {
-        println("TreeMap为空，无法删除")
-    }
-    
     // 添加一些元素
-    map.add("cherry", 30)
     map.add("apple", 10)
     map.add("banana", 20)
+    map.add("cherry", 30)
     map.add("date", 40)
+    map.add("elderberry", 50)
     
-    println("\n删除前的TreeMap: ${map}")
+    println("删除前的TreeMap: ${map}")
     println("删除前的大小: ${map.size}")
     
-    // 删除第一个元素（按字典序排列的第一个）
-    let result2 = map.removeFirst()
-    if (let Some((key, value)) <- result2) {
-        println("删除了第一个元素: (${key}, ${value})")
+    // 使用ArrayList创建要删除的键集合
+    let keysToRemove = ArrayList<String>()
+    keysToRemove.add("banana")
+    keysToRemove.add("date")
+    keysToRemove.add("nonexistent")  // 不存在的键
+    
+    println("\n要删除的键:")
+    for (key in keysToRemove) {
+        println("  ${key}")
     }
     
-    println("删除后的TreeMap: ${map}")
+    // 删除集合中的键
+    map.remove(all: keysToRemove)
+    
+    println("\n删除后的TreeMap: ${map}")
     println("删除后的大小: ${map.size}")
     
-    // 再次删除第一个元素
-    let result3 = map.removeFirst()
-    if (let Some((key, value)) <- result3) {
-        println("再次删除了第一个元素: (${key}, ${value})")
+    // 使用另一个TreeMap的键来删除
+    let anotherMap = TreeMap<String, Int64>()
+    anotherMap.add("apple", 100)
+    anotherMap.add("cherry", 300)
+    anotherMap.add("grape", 600)  // 这个键在原map中不存在
+    
+    let keysFromAnotherMap = anotherMap.keys()
+    println("\n从另一个TreeMap获取的键:")
+    for (key in keysFromAnotherMap) {
+        println("  ${key}")
     }
     
-    println("最终的TreeMap: ${map}")
+    map.remove(all: keysFromAnotherMap)
+    
+    println("\n最终的TreeMap: ${map}")
+    println("最终的大小: ${map.size}")
     
     return 0
 }
@@ -11769,88 +11779,24 @@ main() {
 运行结果：
 
 ```text
-TreeMap为空，无法删除
+删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40), (elderberry, 50)]
+删除前的大小: 5
 
-删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40)]
-删除前的大小: 4
-删除了第一个元素: (apple, 10)
-删除后的TreeMap: [(banana, 20), (cherry, 30), (date, 40)]
+要删除的键:
+  banana
+  date
+  nonexistent
+
+删除后的TreeMap: [(apple, 10), (cherry, 30), (elderberry, 50)]
 删除后的大小: 3
-再次删除了第一个元素: (banana, 20)
-最终的TreeMap: [(cherry, 30), (date, 40)]
-```
 
-### func removeLast()
+从另一个TreeMap获取的键:
+  apple
+  cherry
+  grape
 
-```cangjie
-public func removeLast(): ?(K, V)
-```
-
-功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
-
-返回值：
-
-- ?(K, V) - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let map = TreeMap<String, Int64>()
-    
-    // 空TreeMap删除最后一个元素
-    let result1 = map.removeLast()
-    if (let Some((key, value)) <- result1) {
-        println("删除了最后一个元素: (${key}, ${value})")
-    } else {
-        println("TreeMap为空，无法删除")
-    }
-    
-    // 添加一些元素
-    map.add("cherry", 30)
-    map.add("apple", 10)
-    map.add("banana", 20)
-    map.add("date", 40)
-    
-    println("\n删除前的TreeMap: ${map}")
-    println("删除前的大小: ${map.size}")
-    
-    // 删除最后一个元素（按字典序排列的最后一个）
-    let result2 = map.removeLast()
-    if (let Some((key, value)) <- result2) {
-        println("删除了最后一个元素: (${key}, ${value})")
-    }
-    
-    println("删除后的TreeMap: ${map}")
-    println("删除后的大小: ${map.size}")
-    
-    // 再次删除最后一个元素
-    let result3 = map.removeLast()
-    if (let Some((key, value)) <- result3) {
-        println("再次删除了最后一个元素: (${key}, ${value})")
-    }
-    
-    println("最终的TreeMap: ${map}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-TreeMap为空，无法删除
-
-删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40)]
-删除前的大小: 4
-删除了最后一个元素: (date, 40)
-删除后的TreeMap: [(apple, 10), (banana, 20), (cherry, 30)]
-删除后的大小: 3
-再次删除了最后一个元素: (cherry, 30)
-最终的TreeMap: [(apple, 10), (banana, 20)]
+最终的TreeMap: [(elderberry, 50)]
+最终的大小: 1
 ```
 
 ### func remove(K)
@@ -11943,17 +11889,17 @@ main() {
 最终的大小: 2
 ```
 
-### func remove(Collection\<K>)
+### func removeFirst()
 
 ```cangjie
-public func remove(all!: Collection<K>): Unit
+public func removeFirst(): ?(K, V)
 ```
 
-功能：从此映射中删除指定集合的映射（如果存在）。
+功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
 
-参数：
+返回值：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的键的集合。
+- ?(K, V) - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
 
 示例：
 
@@ -11964,49 +11910,39 @@ import std.collection.*
 main() {
     let map = TreeMap<String, Int64>()
     
+    // 空TreeMap删除第一个元素
+    let result1 = map.removeFirst()
+    if (let Some((key, value)) <- result1) {
+        println("删除了第一个元素: (${key}, ${value})")
+    } else {
+        println("TreeMap为空，无法删除")
+    }
+    
     // 添加一些元素
+    map.add("cherry", 30)
     map.add("apple", 10)
     map.add("banana", 20)
-    map.add("cherry", 30)
     map.add("date", 40)
-    map.add("elderberry", 50)
     
-    println("删除前的TreeMap: ${map}")
+    println("\n删除前的TreeMap: ${map}")
     println("删除前的大小: ${map.size}")
     
-    // 使用ArrayList创建要删除的键集合
-    let keysToRemove = ArrayList<String>()
-    keysToRemove.add("banana")
-    keysToRemove.add("date")
-    keysToRemove.add("nonexistent")  // 不存在的键
-    
-    println("\n要删除的键:")
-    for (key in keysToRemove) {
-        println("  ${key}")
+    // 删除第一个元素（按字典序排列的第一个）
+    let result2 = map.removeFirst()
+    if (let Some((key, value)) <- result2) {
+        println("删除了第一个元素: (${key}, ${value})")
     }
     
-    // 删除集合中的键
-    map.remove(all: keysToRemove)
-    
-    println("\n删除后的TreeMap: ${map}")
+    println("删除后的TreeMap: ${map}")
     println("删除后的大小: ${map.size}")
     
-    // 使用另一个TreeMap的键来删除
-    let anotherMap = TreeMap<String, Int64>()
-    anotherMap.add("apple", 100)
-    anotherMap.add("cherry", 300)
-    anotherMap.add("grape", 600)  // 这个键在原map中不存在
-    
-    let keysFromAnotherMap = anotherMap.keys()
-    println("\n从另一个TreeMap获取的键:")
-    for (key in keysFromAnotherMap) {
-        println("  ${key}")
+    // 再次删除第一个元素
+    let result3 = map.removeFirst()
+    if (let Some((key, value)) <- result3) {
+        println("再次删除了第一个元素: (${key}, ${value})")
     }
     
-    map.remove(all: keysFromAnotherMap)
-    
-    println("\n最终的TreeMap: ${map}")
-    println("最终的大小: ${map.size}")
+    println("最终的TreeMap: ${map}")
     
     return 0
 }
@@ -12015,24 +11951,15 @@ main() {
 运行结果：
 
 ```text
-删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40), (elderberry, 50)]
-删除前的大小: 5
+TreeMap为空，无法删除
 
-要删除的键:
-  banana
-  date
-  nonexistent
-
-删除后的TreeMap: [(apple, 10), (cherry, 30), (elderberry, 50)]
+删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40)]
+删除前的大小: 4
+删除了第一个元素: (apple, 10)
+删除后的TreeMap: [(banana, 20), (cherry, 30), (date, 40)]
 删除后的大小: 3
-
-从另一个TreeMap获取的键:
-  apple
-  cherry
-  grape
-
-最终的TreeMap: [(elderberry, 50)]
-最终的大小: 1
+再次删除了第一个元素: (banana, 20)
+最终的TreeMap: [(cherry, 30), (date, 40)]
 ```
 
 ### func removeIf((K, V) -> Bool)
@@ -12128,6 +12055,79 @@ TreeMap: [(avocado, 15), (cherry, 30), (coconut, 35)]
 大小: 3
 ```
 
+### func removeLast()
+
+```cangjie
+public func removeLast(): ?(K, V)
+```
+
+功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
+
+返回值：
+
+- ?(K, V) - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let map = TreeMap<String, Int64>()
+    
+    // 空TreeMap删除最后一个元素
+    let result1 = map.removeLast()
+    if (let Some((key, value)) <- result1) {
+        println("删除了最后一个元素: (${key}, ${value})")
+    } else {
+        println("TreeMap为空，无法删除")
+    }
+    
+    // 添加一些元素
+    map.add("cherry", 30)
+    map.add("apple", 10)
+    map.add("banana", 20)
+    map.add("date", 40)
+    
+    println("\n删除前的TreeMap: ${map}")
+    println("删除前的大小: ${map.size}")
+    
+    // 删除最后一个元素（按字典序排列的最后一个）
+    let result2 = map.removeLast()
+    if (let Some((key, value)) <- result2) {
+        println("删除了最后一个元素: (${key}, ${value})")
+    }
+    
+    println("删除后的TreeMap: ${map}")
+    println("删除后的大小: ${map.size}")
+    
+    // 再次删除最后一个元素
+    let result3 = map.removeLast()
+    if (let Some((key, value)) <- result3) {
+        println("再次删除了最后一个元素: (${key}, ${value})")
+    }
+    
+    println("最终的TreeMap: ${map}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+TreeMap为空，无法删除
+
+删除前的TreeMap: [(apple, 10), (banana, 20), (cherry, 30), (date, 40)]
+删除前的大小: 4
+删除了最后一个元素: (date, 40)
+删除后的TreeMap: [(apple, 10), (banana, 20), (cherry, 30)]
+删除后的大小: 3
+再次删除了最后一个元素: (cherry, 30)
+最终的TreeMap: [(apple, 10), (banana, 20)]
+```
+
 ### func values()
 
 ```cangjie
@@ -12180,78 +12180,6 @@ Value: 40
 
 值的数量: 4
 TreeMap的大小: 4
-```
-
-### operator func \[](K, V)
-
-```cangjie
-public operator func [](key: K, value!: V): Unit
-```
-
-功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
-
-参数：
-
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let map = TreeMap<String, Int64>()
-    
-    // 使用运算符重载设置键值对
-    map["apple"] = 10
-    map["banana"] = 20
-    map["cherry"] = 30
-    
-    println("设置后的TreeMap: ${map}")
-    println("大小: ${map.size}")
-    
-    // 覆盖现有键的值
-    map["apple"] = 15  // 覆盖原来的值10
-    
-    println("\n覆盖apple的值后:")
-    println("TreeMap: ${map}")
-    
-    // 添加新的键值对
-    map["date"] = 40
-    map["elderberry"] = 50
-    
-    println("\n添加更多键值对后:")
-    println("TreeMap: ${map}")
-    println("大小: ${map.size}")
-    
-    // 再次覆盖
-    map["banana"] = 25
-    map["cherry"] = 35
-    
-    println("\n再次修改值后:")
-    println("TreeMap: ${map}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-设置后的TreeMap: [(apple, 10), (banana, 20), (cherry, 30)]
-大小: 3
-
-覆盖apple的值后:
-TreeMap: [(apple, 15), (banana, 20), (cherry, 30)]
-
-添加更多键值对后:
-TreeMap: [(apple, 15), (banana, 20), (cherry, 30), (date, 40), (elderberry, 50)]
-大小: 5
-
-再次修改值后:
-TreeMap: [(apple, 15), (banana, 25), (cherry, 35), (date, 40), (elderberry, 50)]
 ```
 
 ### operator func \[](K)
@@ -12334,6 +12262,78 @@ cherry的值: 30
 捕获异常: NoneValueException: Value does not exist!
 ```
 
+### operator func \[](K, V)
+
+```cangjie
+public operator func [](key: K, value!: V): Unit
+```
+
+功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+
+参数：
+
+- key: K - 传递值进行判断。
+- value!: V - 传递要设置的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let map = TreeMap<String, Int64>()
+    
+    // 使用运算符重载设置键值对
+    map["apple"] = 10
+    map["banana"] = 20
+    map["cherry"] = 30
+    
+    println("设置后的TreeMap: ${map}")
+    println("大小: ${map.size}")
+    
+    // 覆盖现有键的值
+    map["apple"] = 15  // 覆盖原来的值10
+    
+    println("\n覆盖apple的值后:")
+    println("TreeMap: ${map}")
+    
+    // 添加新的键值对
+    map["date"] = 40
+    map["elderberry"] = 50
+    
+    println("\n添加更多键值对后:")
+    println("TreeMap: ${map}")
+    println("大小: ${map.size}")
+    
+    // 再次覆盖
+    map["banana"] = 25
+    map["cherry"] = 35
+    
+    println("\n再次修改值后:")
+    println("TreeMap: ${map}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+设置后的TreeMap: [(apple, 10), (banana, 20), (cherry, 30)]
+大小: 3
+
+覆盖apple的值后:
+TreeMap: [(apple, 15), (banana, 20), (cherry, 30)]
+
+添加更多键值对后:
+TreeMap: [(apple, 15), (banana, 20), (cherry, 30), (date, 40), (elderberry, 50)]
+大小: 5
+
+再次修改值后:
+TreeMap: [(apple, 15), (banana, 25), (cherry, 35), (date, 40), (elderberry, 50)]
+```
+
 ### extend\<K, V> TreeMap\<K, V> <: Equatable\<TreeMap\<K, V>> where V <: Equatable\<V>
 
 ```cangjie
@@ -12345,6 +12345,93 @@ extend<K, V> TreeMap<K, V> <: Equatable<TreeMap<K, V>> where V <: Equatable<V>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>>
+
+#### operator func !=(TreeMap\<K, V>)
+
+```cangjie
+public operator func !=(right: TreeMap<K, V>): Bool
+```
+
+功能：判断当前实例与参数指向的 [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> 实例是否不等。
+
+参数：
+
+- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    // 创建两个相同的TreeMap
+    let map1 = TreeMap<String, Int64>()
+    map1.add("apple", 10)
+    map1.add("banana", 20)
+    map1.add("cherry", 30)
+    
+    let map2 = TreeMap<String, Int64>()
+    map2.add("apple", 10)
+    map2.add("banana", 20)
+    map2.add("cherry", 30)
+    
+    println("map1: ${map1}")
+    println("map2: ${map2}")
+    println("map1 != map2: ${map1 != map2}")
+    
+    // 创建一个不同的TreeMap
+    let map3 = TreeMap<String, Int64>()
+    map3.add("apple", 10)
+    map3.add("banana", 20)
+    map3.add("date", 40)  // 不同的键值对
+    
+    println("\nmap3: ${map3}")
+    println("map1 != map3: ${map1 != map3}")
+    
+    // 创建一个键相同但值不同的TreeMap
+    let map4 = TreeMap<String, Int64>()
+    map4.add("apple", 15)  // 不同的值
+    map4.add("banana", 20)
+    map4.add("cherry", 30)
+    
+    println("\nmap4: ${map4}")
+    println("map1 != map4: ${map1 != map4}")
+    
+    // 空映射与非空映射的比較
+    let emptyMap = TreeMap<String, Int64>()
+    println("\nemptyMap: ${emptyMap}")
+    println("map1 != emptyMap: ${map1 != emptyMap}")
+    
+    // 两个空映射的比较
+    let anotherEmptyMap = TreeMap<String, Int64>()
+    println("emptyMap != anotherEmptyMap: ${emptyMap != anotherEmptyMap}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+map1: [(apple, 10), (banana, 20), (cherry, 30)]
+map2: [(apple, 10), (banana, 20), (cherry, 30)]
+map1 != map2: false
+
+map3: [(apple, 10), (banana, 20), (date, 40)]
+map1 != map3: true
+
+map4: [(apple, 15), (banana, 20), (cherry, 30)]
+map1 != map4: true
+
+emptyMap: []
+map1 != emptyMap: true
+emptyMap != anotherEmptyMap: false
+```
 
 #### operator func ==(TreeMap\<K, V>)
 
@@ -12434,93 +12521,6 @@ emptyMap1: []
 emptyMap2: []
 emptyMap1 == emptyMap2: true
 map1 == emptyMap1: false
-```
-
-#### operator func !=(TreeMap\<K, V>)
-
-```cangjie
-public operator func !=(right: TreeMap<K, V>): Bool
-```
-
-功能：判断当前实例与参数指向的 [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> 实例是否不等。
-
-参数：
-
-- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    // 创建两个相同的TreeMap
-    let map1 = TreeMap<String, Int64>()
-    map1.add("apple", 10)
-    map1.add("banana", 20)
-    map1.add("cherry", 30)
-    
-    let map2 = TreeMap<String, Int64>()
-    map2.add("apple", 10)
-    map2.add("banana", 20)
-    map2.add("cherry", 30)
-    
-    println("map1: ${map1}")
-    println("map2: ${map2}")
-    println("map1 != map2: ${map1 != map2}")
-    
-    // 创建一个不同的TreeMap
-    let map3 = TreeMap<String, Int64>()
-    map3.add("apple", 10)
-    map3.add("banana", 20)
-    map3.add("date", 40)  // 不同的键值对
-    
-    println("\nmap3: ${map3}")
-    println("map1 != map3: ${map1 != map3}")
-    
-    // 创建一个键相同但值不同的TreeMap
-    let map4 = TreeMap<String, Int64>()
-    map4.add("apple", 15)  // 不同的值
-    map4.add("banana", 20)
-    map4.add("cherry", 30)
-    
-    println("\nmap4: ${map4}")
-    println("map1 != map4: ${map1 != map4}")
-    
-    // 空映射与非空映射的比較
-    let emptyMap = TreeMap<String, Int64>()
-    println("\nemptyMap: ${emptyMap}")
-    println("map1 != emptyMap: ${map1 != emptyMap}")
-    
-    // 两个空映射的比较
-    let anotherEmptyMap = TreeMap<String, Int64>()
-    println("emptyMap != anotherEmptyMap: ${emptyMap != anotherEmptyMap}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-map1: [(apple, 10), (banana, 20), (cherry, 30)]
-map2: [(apple, 10), (banana, 20), (cherry, 30)]
-map1 != map2: false
-
-map3: [(apple, 10), (banana, 20), (date, 40)]
-map1 != map3: true
-
-map4: [(apple, 15), (banana, 20), (cherry, 30)]
-map1 != map4: true
-
-emptyMap: []
-map1 != emptyMap: true
-emptyMap != anotherEmptyMap: false
 ```
 
 ### extend\<K, V> TreeMap\<K, V> <: ToString where V <: ToString, K <: ToString & Comparable\<K>
@@ -12887,6 +12887,48 @@ main() {
 集合的内容: [apple, banana, cherry]
 ```
 
+### func add(Collection\<T>)
+
+```cangjie
+public func add(all!: Collection<T>): Unit
+```
+
+功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中，如果元素存在，则不添加。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let set = TreeSet<String>()
+    set.add("apple")
+    println("初始集合: ${set}")
+    
+    // 创建一个要添加的集合
+    let toAdd = ["banana", "cherry", "apple", "date"]
+    set.add(all: toAdd)
+    
+    println("添加集合后: ${set}")
+    println("集合大小: ${set.size}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始集合: [apple]
+添加集合后: [apple, banana, cherry, date]
+集合大小: 4
+```
+
 ### func add(T)
 
 ```cangjie
@@ -12939,48 +12981,6 @@ main() {
 再次添加'apple': false
 当前集合: [apple]
 最终集合: [apple, banana, cherry]
-```
-
-### func add(Collection\<T>)
-
-```cangjie
-public func add(all!: Collection<T>): Unit
-```
-
-功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中，如果元素存在，则不添加。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let set = TreeSet<String>()
-    set.add("apple")
-    println("初始集合: ${set}")
-    
-    // 创建一个要添加的集合
-    let toAdd = ["banana", "cherry", "apple", "date"]
-    set.add(all: toAdd)
-    
-    println("添加集合后: ${set}")
-    println("集合大小: ${set.size}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-初始集合: [apple]
-添加集合后: [apple, banana, cherry, date]
-集合大小: 4
 ```
 
 ### func all((T) -> Bool)
@@ -13171,58 +13171,6 @@ main() {
 修改后的克隆集合: [apple, banana, cherry, elderberry]
 ```
 
-### func contains(T)
-
-```cangjie
-public func contains(element: T): Bool
-```
-
-功能：判断是否包含指定元素。
-
-参数：
-
-- element: T - 指定的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let set = TreeSet<String>()
-    set.add("apple")
-    set.add("banana") 
-    set.add("cherry")
-    
-    println("集合内容: ${set}")
-    
-    // 检查存在的元素
-    println("包含'apple': ${set.contains("apple")}")
-    println("包含'banana': ${set.contains("banana")}")
-    
-    // 检查不存在的元素
-    println("包含'date': ${set.contains("date")}")
-    println("包含'elderberry': ${set.contains("elderberry")}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-集合内容: [apple, banana, cherry]
-包含'apple': true
-包含'banana': true
-包含'date': false
-包含'elderberry': false
-```
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -13274,6 +13222,58 @@ main() {
 包含所有['apple', 'banana']: true
 包含所有['apple', 'elderberry']: false
 包含所有['fig', 'grape']: false
+```
+
+### func contains(T)
+
+```cangjie
+public func contains(element: T): Bool
+```
+
+功能：判断是否包含指定元素。
+
+参数：
+
+- element: T - 指定的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let set = TreeSet<String>()
+    set.add("apple")
+    set.add("banana") 
+    set.add("cherry")
+    
+    println("集合内容: ${set}")
+    
+    // 检查存在的元素
+    println("包含'apple': ${set.contains("apple")}")
+    println("包含'banana': ${set.contains("banana")}")
+    
+    // 检查不存在的元素
+    println("包含'date': ${set.contains("date")}")
+    println("包含'elderberry': ${set.contains("elderberry")}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+集合内容: [apple, banana, cherry]
+包含'apple': true
+包含'banana': true
+包含'date': false
+包含'elderberry': false
 ```
 
 ### func filter((T) -> Bool)
@@ -13538,17 +13538,17 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
 
-### func removeFirst()
+### func remove(Collection\<T>)
 
 ```cangjie
-public func removeFirst(): ?T
+public func remove(all!: Collection<T>): Unit
 ```
 
-功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的第一个元素。
+功能：移除此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
 
-返回值：
+参数：
 
-- ?T - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中移除的元素的集合。
 
 示例：
 
@@ -13558,22 +13558,21 @@ import std.collection.*
 
 main() {
     let set = TreeSet<String>()
-    set.add("cherry")
-    set.add("apple") 
+    set.add("apple")
     set.add("banana")
+    set.add("cherry")
     set.add("date")
+    set.add("elderberry")
     
-    println("原始集合: ${set}")
+    println("初始集合: ${set}")
     
-    // 删除第一个元素
-    let first = set.removeFirst()
-    println("删除的第一个元素: ${first}")
-    println("删除后的集合: ${set}")
+    // 创建要删除的元素集合
+    let toRemove = ["banana", "date", "fig"] // "fig"不存在于原集合中
     
-    // 再次删除第一个元素
-    let second = set.removeFirst()
-    println("删除的第二个元素: ${second}")
-    println("再次删除后的集合: ${set}")
+    // 删除集合中的元素
+    set.remove(all: toRemove)
+    
+    println("删除元素后的集合: ${set}")
     
     return 0
 }
@@ -13582,62 +13581,8 @@ main() {
 运行结果：
 
 ```text
-原始集合: [apple, banana, cherry, date]
-删除的第一个元素: Some(apple)
-删除后的集合: [banana, cherry, date]
-删除的第二个元素: Some(banana)
-再次删除后的集合: [cherry, date]
-```
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?T
-```
-
-功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的最后一个元素。
-
-返回值：
-
-- ?T - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let set = TreeSet<String>()
-    set.add("cherry")
-    set.add("apple") 
-    set.add("banana")
-    set.add("date")
-    
-    println("原始集合: ${set}")
-    
-    // 删除最后一个元素
-    let last = set.removeLast()
-    println("删除的最后一个元素: ${last}")
-    println("删除后的集合: ${set}")
-    
-    // 再次删除最后一个元素
-    let secondLast = set.removeLast()
-    println("删除的倒数第二个元素: ${secondLast}")
-    println("再次删除后的集合: ${set}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-原始集合: [apple, banana, cherry, date]
-删除的最后一个元素: Some(date)
-删除后的集合: [apple, banana, cherry]
-删除的倒数第二个元素: Some(cherry)
-再次删除后的集合: [apple, banana]
+初始集合: [apple, banana, cherry, date, elderberry]
+删除元素后的集合: [apple, cherry, elderberry]
 ```
 
 ### func remove(T)
@@ -13694,17 +13639,17 @@ main() {
 删除后的集合: [apple, cherry]
 ```
 
-### func remove(Collection\<T>)
+### func removeFirst()
 
 ```cangjie
-public func remove(all!: Collection<T>): Unit
+public func removeFirst(): ?T
 ```
 
-功能：移除此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
+功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的第一个元素。
 
-参数：
+返回值：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中移除的元素的集合。
+- ?T - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
 
 示例：
 
@@ -13714,21 +13659,22 @@ import std.collection.*
 
 main() {
     let set = TreeSet<String>()
-    set.add("apple")
-    set.add("banana")
     set.add("cherry")
+    set.add("apple") 
+    set.add("banana")
     set.add("date")
-    set.add("elderberry")
     
-    println("初始集合: ${set}")
+    println("原始集合: ${set}")
     
-    // 创建要删除的元素集合
-    let toRemove = ["banana", "date", "fig"] // "fig"不存在于原集合中
+    // 删除第一个元素
+    let first = set.removeFirst()
+    println("删除的第一个元素: ${first}")
+    println("删除后的集合: ${set}")
     
-    // 删除集合中的元素
-    set.remove(all: toRemove)
-    
-    println("删除元素后的集合: ${set}")
+    // 再次删除第一个元素
+    let second = set.removeFirst()
+    println("删除的第二个元素: ${second}")
+    println("再次删除后的集合: ${set}")
     
     return 0
 }
@@ -13737,8 +13683,11 @@ main() {
 运行结果：
 
 ```text
-初始集合: [apple, banana, cherry, date, elderberry]
-删除元素后的集合: [apple, cherry, elderberry]
+原始集合: [apple, banana, cherry, date]
+删除的第一个元素: Some(apple)
+删除后的集合: [banana, cherry, date]
+删除的第二个元素: Some(banana)
+再次删除后的集合: [cherry, date]
 ```
 
 ### func removeIf((T) -> Bool)
@@ -13787,6 +13736,57 @@ main() {
 ```text
 初始集合: [apple, banana, cherry, date, elderberry]
 删除长度大于5的元素后: [apple, date]
+```
+
+### func removeLast()
+
+```cangjie
+public func removeLast(): ?T
+```
+
+功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的最后一个元素。
+
+返回值：
+
+- ?T - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let set = TreeSet<String>()
+    set.add("cherry")
+    set.add("apple") 
+    set.add("banana")
+    set.add("date")
+    
+    println("原始集合: ${set}")
+    
+    // 删除最后一个元素
+    let last = set.removeLast()
+    println("删除的最后一个元素: ${last}")
+    println("删除后的集合: ${set}")
+    
+    // 再次删除最后一个元素
+    let secondLast = set.removeLast()
+    println("删除的倒数第二个元素: ${secondLast}")
+    println("再次删除后的集合: ${set}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原始集合: [apple, banana, cherry, date]
+删除的最后一个元素: Some(date)
+删除后的集合: [apple, banana, cherry]
+删除的倒数第二个元素: Some(cherry)
+再次删除后的集合: [apple, banana]
 ```
 
 ### func retain(Set\<T>)
@@ -14009,60 +14009,6 @@ main() {
 交集结果: [banana, cherry]
 ```
 
-### operator func |(ReadOnlySet\<T>)
-
-```cangjie
-public operator func |(other: ReadOnlySet<T>): TreeSet<T>
-```
-
-功能：返回包含两个集合并集的元素的新集合。
-
-参数：
-
-- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - 传入集合。
-
-返回值：
-
-- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - T 类型集合。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let set1 = TreeSet<String>()
-    set1.add("apple")
-    set1.add("banana")
-    set1.add("cherry")
-    
-    let set2 = TreeSet<String>()
-    set2.add("banana")
-    set2.add("cherry")
-    set2.add("date")
-    set2.add("elderberry")
-    
-    println("集合1: ${set1}")
-    println("集合2: ${set2}")
-    
-    // 计算两个集合的并集
-    let union = set1 | set2
-    
-    println("并集结果: ${union}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-集合1: [apple, banana, cherry]
-集合2: [banana, cherry, date, elderberry]
-并集结果: [apple, banana, cherry, date, elderberry]
-```
-
 ### operator func -(ReadOnlySet\<T>)
 
 ```cangjie
@@ -14123,6 +14069,60 @@ main() {
 差集结果 (set2 - set1): [date, elderberry]
 ```
 
+### operator func |(ReadOnlySet\<T>)
+
+```cangjie
+public operator func |(other: ReadOnlySet<T>): TreeSet<T>
+```
+
+功能：返回包含两个集合并集的元素的新集合。
+
+参数：
+
+- other: [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T> - 传入集合。
+
+返回值：
+
+- [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - T 类型集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let set1 = TreeSet<String>()
+    set1.add("apple")
+    set1.add("banana")
+    set1.add("cherry")
+    
+    let set2 = TreeSet<String>()
+    set2.add("banana")
+    set2.add("cherry")
+    set2.add("date")
+    set2.add("elderberry")
+    
+    println("集合1: ${set1}")
+    println("集合2: ${set2}")
+    
+    // 计算两个集合的并集
+    let union = set1 | set2
+    
+    println("并集结果: ${union}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+集合1: [apple, banana, cherry]
+集合2: [banana, cherry, date, elderberry]
+并集结果: [apple, banana, cherry, date, elderberry]
+```
+
 ### extend\<T> TreeSet\<T> <: Equatable\<TreeSet\<T>>
 
 ```cangjie
@@ -14134,6 +14134,75 @@ extend<T> TreeSet<T> <: Equatable<TreeSet<T>>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>>
+
+#### operator func !=(TreeSet\<T>)
+
+```cangjie
+public operator func !=(that: TreeSet<T>): Bool
+```
+
+功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否不等。
+
+参数：
+
+- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.collection.*
+
+main() {
+    let set1 = TreeSet<String>()
+    set1.add("apple")
+    set1.add("banana")
+    set1.add("cherry")
+    
+    let set2 = TreeSet<String>()
+    set2.add("apple")
+    set2.add("banana")
+    set2.add("cherry")
+    
+    let set3 = TreeSet<String>()
+    set3.add("apple")
+    set3.add("banana")
+    set3.add("date")
+    
+    println("集合1: ${set1}")
+    println("集合2: ${set2}")
+    println("集合3: ${set3}")
+    
+    // 比较不相等的集合
+    let result1 = set1 != set3
+    println("set1 != set3: ${result1}")
+    
+    // 比较相等的集合
+    let result2 = set1 != set2
+    println("set1 != set2: ${result2}")
+    
+    // 比较自身
+    let result3 = set1 != set1
+    println("set1 != set1: ${result3}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+集合1: [apple, banana, cherry]
+集合2: [apple, banana, cherry]
+集合3: [apple, banana, date]
+set1 != set3: true
+set1 != set2: false
+set1 != set1: false
+```
 
 #### operator func ==(TreeSet\<T>)
 
@@ -14204,75 +14273,6 @@ main() {
 set1 == set2: true
 set1 == set3: false
 set1 == set1: true
-```
-
-#### operator func !=(TreeSet\<T>)
-
-```cangjie
-public operator func !=(that: TreeSet<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否不等。
-
-参数：
-
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.collection.*
-
-main() {
-    let set1 = TreeSet<String>()
-    set1.add("apple")
-    set1.add("banana")
-    set1.add("cherry")
-    
-    let set2 = TreeSet<String>()
-    set2.add("apple")
-    set2.add("banana")
-    set2.add("cherry")
-    
-    let set3 = TreeSet<String>()
-    set3.add("apple")
-    set3.add("banana")
-    set3.add("date")
-    
-    println("集合1: ${set1}")
-    println("集合2: ${set2}")
-    println("集合3: ${set3}")
-    
-    // 比较不相等的集合
-    let result1 = set1 != set3
-    println("set1 != set3: ${result1}")
-    
-    // 比较相等的集合
-    let result2 = set1 != set2
-    println("set1 != set2: ${result2}")
-    
-    // 比较自身
-    let result3 = set1 != set1
-    println("set1 != set1: ${result3}")
-    
-    return 0
-}
-```
-
-运行结果：
-
-```text
-集合1: [apple, banana, cherry]
-集合2: [apple, banana, cherry]
-集合3: [apple, banana, date]
-set1 != set3: true
-set1 != set2: false
-set1 != set1: false
 ```
 
 ### extend\<T> TreeSet\<T> <: ToString where T <: ToString

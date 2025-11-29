@@ -345,18 +345,6 @@ public prop workingDirectory: Path
 
 - [ProcessException](process_package_exceptions.md#class-processexception) - 当进程不存在或对应进程为僵尸进程，或在 `Windows` 平台的不支持的场景下无法获取进程工作路径时，抛出异常。
 
-### func isAlive()
-
-```cangjie
-public func isAlive(): Bool
-```
-
-功能：返回进程是否存活。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 进程存活则为`true`，否则为`false`。
-
 ### static func of(Int64) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -505,6 +493,18 @@ public static func start(
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当入参 `command` 包含空字符，或者 `arguments` 数组中字符串中包含空字符，或者 `workingDirectory` 不是存在的目录或为空路径或包含空字符，或者 `environment` 表中 `key` 字符串中包含空字符或 `'='`，或 `value` 字符串中包含空字符，或者 `stdIn`、`stdOut`、`stdErr` 输入为文件模式，输入的文件已被关闭或删除时，抛出异常。
 - [ProcessException](process_package_exceptions.md#class-processexception) - 当内存分配失败或 `command` 对应的命令不存在时，抛出异常。
+
+### func isAlive()
+
+```cangjie
+public func isAlive(): Bool
+```
+
+功能：返回进程是否存活。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 进程存活则为`true`，否则为`false`。
 
 ### func terminate(Bool)
 

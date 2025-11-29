@@ -1190,6 +1190,45 @@ main() {
 [0, 10, 11, 3, 4, 5]
 ```
 
+### extend\<T> Array\<Array\<T>>
+
+```cangjie
+extend<T> Array<Array<T>>
+```
+
+功能：为二维数组进行扩展，提供将其展开为一维数组的方法。
+
+#### func flatten()
+
+```cangjie
+public func flatten(): Array<T>
+```
+
+功能：将当前二维数组展开为一维数组。
+
+例如将 [[1, 2], [3, 4]] 展开为 [1, 2, 3, 4]。
+
+返回值：
+
+- [Array](./core_package_structs.md#struct-arrayt)\<T> - 展开后的一维数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    let arr = [[1, 2], [3, 4]].flatten()
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[1, 2, 3, 4]
+```
+
 ### extend\<T> Array\<T>
 
 ```cangjie
@@ -1989,39 +2028,6 @@ main(): Int64 {
 [1, 2, 3]
 ```
 
-#### func trimEnd(Array\<T>)
-
-```cangjie
-public func trimEnd(set: Array<T>): Array<T>
-```
-
-功能：修剪当前数组，从尾开始删除在指定集合 set 中的元素，直到第一个不在 set 中的元素为止，并返回当前数组的切片。
-
-参数：
-
-- set: [Array](core_package_structs.md#struct-arrayt)\<T> - 待删除的元素的集合。
-
-返回值：
-
-- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main(): Int64 {
-    let arr = [2, 1, 2, 2, 3].trimEnd([2, 3])
-    println(arr)
-    return 0
-}
-```
-
-运行结果：
-
-```text
-[2, 1]
-```
-
 #### func trimEnd((T)->Bool)
 
 ```cangjie
@@ -2072,13 +2078,13 @@ String array: [a, b, c, d, c, b, a]
 String array after trimming elements not equal to "c" from the end: [a, b, c, d, c]
 ```
 
-#### func trimStart(Array\<T>)
+#### func trimEnd(Array\<T>)
 
 ```cangjie
-public func trimStart(set: Array<T>): Array<T>
+public func trimEnd(set: Array<T>): Array<T>
 ```
 
-功能：修剪当前数组，从头开始删除在指定集合 set 中的元素，直到第一个不在 set 中的元素为止，并返回当前数组的切片。
+功能：修剪当前数组，从尾开始删除在指定集合 set 中的元素，直到第一个不在 set 中的元素为止，并返回当前数组的切片。
 
 参数：
 
@@ -2093,7 +2099,7 @@ public func trimStart(set: Array<T>): Array<T>
 <!-- verify -->
 ```cangjie
 main(): Int64 {
-    let arr = [1, 2, 1, 3, 1].trimStart([1, 2])
+    let arr = [2, 1, 2, 2, 3].trimEnd([2, 3])
     println(arr)
     return 0
 }
@@ -2102,7 +2108,7 @@ main(): Int64 {
 运行结果：
 
 ```text
-[3, 1]
+[2, 1]
 ```
 
 #### func trimStart((T)->Bool)
@@ -2153,6 +2159,39 @@ Array after trimming elements less than 4 from the start: [4, 5, 4, 3, 2, 1]
 
 String array: [a, b, c, d, c, b, a]
 String array after trimming elements not equal to "c" from the start: [c, d, c, b, a]
+```
+
+#### func trimStart(Array\<T>)
+
+```cangjie
+public func trimStart(set: Array<T>): Array<T>
+```
+
+功能：修剪当前数组，从头开始删除在指定集合 set 中的元素，直到第一个不在 set 中的元素为止，并返回当前数组的切片。
+
+参数：
+
+- set: [Array](core_package_structs.md#struct-arrayt)\<T> - 待删除的元素的集合。
+
+返回值：
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - 修剪后的数组切片。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    let arr = [1, 2, 1, 3, 1].trimStart([1, 2])
+    println(arr)
+    return 0
+}
+```
+
+运行结果：
+
+```text
+[3, 1]
 ```
 
 #### operator func !=(Array\<T>)
@@ -2373,45 +2412,6 @@ toString() result: [Hello, World, Cangjie]
 
 2D array: [[1, 2], [3, 4], [5, 6]]
 toString() result: [[1, 2], [3, 4], [5, 6]]
-```
-
-### extend\<T> Array\<Array\<T>>
-
-```cangjie
-extend<T> Array<Array<T>>
-```
-
-功能：为二维数组进行扩展，提供将其展开为一维数组的方法。
-
-#### func flatten()
-
-```cangjie
-public func flatten(): Array<T>
-```
-
-功能：将当前二维数组展开为一维数组。
-
-例如将 [[1, 2], [3, 4]] 展开为 [1, 2, 3, 4]。
-
-返回值：
-
-- [Array](./core_package_structs.md#struct-arrayt)\<T> - 展开后的一维数组。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main(): Int64 {
-    let arr = [[1, 2], [3, 4]].flatten()
-    println(arr)
-    return 0
-}
-```
-
-运行结果：
-
-```text
-[1, 2, 3, 4]
 ```
 
 ## struct CPointerHandle\<T> where T <: CType
@@ -3491,87 +3491,6 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
 - [Hashable](core_package_interfaces.md#interface-hashable)
 - [Comparable](core_package_interfaces.md#interface-comparablet)\<[Duration](#struct-duration)>
 
-### static const Max
-
-```cangjie
-public static const Max: Duration = Duration(0x7FFF_FFFF_FFFF_FFFF, 999999999)
-```
-
-功能：表示最大时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
-
-类型：[Duration](core_package_structs.md#struct-duration)
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    // 使用Duration.Max静态常量
-    let maxDuration = Duration.Max
-    println("Maximum duration: ${maxDuration}")
-}
-```
-
-运行结果：
-
-```text
-Maximum duration: 106751991167300d15h30m7s999ms999us999ns
-```
-
-### static const Min
-
-```cangjie
-public static const Min: Duration = Duration(-0x8000_0000_0000_0000, 0)
-```
-
-功能：表示最小时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
-
-类型：[Duration](core_package_structs.md#struct-duration)
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    // 使用Duration.Min静态常量
-    let minDuration = Duration.Min
-    println("Minimum duration: ${minDuration}")
-}
-```
-
-运行结果：
-
-```text
-Minimum duration: -106751991167300d15h30m8s
-```
-
-### static const Zero
-
-```cangjie
-public static const Zero: Duration = Duration(0, 0)
-```
-
-功能：表示 0 纳秒时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
-
-类型：[Duration](core_package_structs.md#struct-duration)
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    // 使用Duration.Zero静态常量
-    let zeroDuration = Duration.Zero
-    println("Zero duration: ${zeroDuration}")
-}
-```
-
-运行结果：
-
-```text
-Zero duration: 0s
-```
-
 ### static const day
 
 ```cangjie
@@ -3636,6 +3555,33 @@ One hour duration: 1h
 Hours in a day: 24.000000
 ```
 
+### static const Max
+
+```cangjie
+public static const Max: Duration = Duration(0x7FFF_FFFF_FFFF_FFFF, 999999999)
+```
+
+功能：表示最大时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
+
+类型：[Duration](core_package_structs.md#struct-duration)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用Duration.Max静态常量
+    let maxDuration = Duration.Max
+    println("Maximum duration: ${maxDuration}")
+}
+```
+
+运行结果：
+
+```text
+Maximum duration: 106751991167300d15h30m7s999ms999us999ns
+```
+
 ### static const microsecond
 
 ```cangjie
@@ -3698,6 +3644,33 @@ main() {
 ```text
 One millisecond duration: 1ms
 Milliseconds in a second: 1000.000000
+```
+
+### static const Min
+
+```cangjie
+public static const Min: Duration = Duration(-0x8000_0000_0000_0000, 0)
+```
+
+功能：表示最小时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
+
+类型：[Duration](core_package_structs.md#struct-duration)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用Duration.Min静态常量
+    let minDuration = Duration.Min
+    println("Minimum duration: ${minDuration}")
+}
+```
+
+运行结果：
+
+```text
+Minimum duration: -106751991167300d15h30m8s
 ```
 
 ### static const minute
@@ -3794,6 +3767,33 @@ main() {
 ```text
 One second duration: 1s
 Seconds in a minute: 60.000000
+```
+
+### static const Zero
+
+```cangjie
+public static const Zero: Duration = Duration(0, 0)
+```
+
+功能：表示 0 纳秒时间间隔的 [Duration](core_package_structs.md#struct-duration) 实例。
+
+类型：[Duration](core_package_structs.md#struct-duration)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 使用Duration.Zero静态常量
+    let zeroDuration = Duration.Zero
+    println("Zero duration: ${zeroDuration}")
+}
+```
+
+运行结果：
+
+```text
+Zero duration: 0s
 ```
 
 ### func abs()
@@ -5017,37 +5017,6 @@ public struct LibC
 
 功能：提供了仓颉中较为高频使用的 C 接口，如申请、释放堆上 [CType](core_package_interfaces.md#interface-ctype) 实例。
 
-### static func free\<T>(CPointer\<T>) where T <: CType
-
-```cangjie
-public unsafe static  func free<T>(p: CPointer<T>): Unit where T <: CType
-```
-
-功能：释放指针 p 指向的堆内存。
-
-参数：
-
-- p: [CPointer](core_package_intrinsics.md#cpointert)\<T> - 表示需要被释放的内存地址。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    var p = unsafe { LibC.malloc<Int64>(count: 1) }
-    unsafe { p.write(8) }
-    let value: Int64 = unsafe { p.read() }
-    println(value)
-    unsafe { LibC.free<Int64>(p) }
-}
-```
-
-运行结果：
-
-```text
-8
-```
-
 ### static func free(CString)
 
 ```cangjie
@@ -5077,43 +5046,35 @@ main() {
 I like Cangjie
 ```
 
-### static func mallocCString(String)
+### static func free\<T>(CPointer\<T>) where T <: CType
 
 ```cangjie
-public unsafe static  func mallocCString(str: String): CString
+public unsafe static  func free<T>(p: CPointer<T>): Unit where T <: CType
 ```
 
-功能：通过 [String](core_package_structs.md#struct-string) 申请与之字符内容相同的 C 风格字符串。
-
-构造的 C 风格字符串将以 '\0' 结束。当异常场景如系统内存不足时，返回字符串指针可能为空，故使用前需要进行空指针检查。
+功能：释放指针 p 指向的堆内存。
 
 参数：
 
-- str: [String](core_package_structs.md#struct-string) - 根据该仓颉字符串构造 C 字符串。
-
-返回值：
-
-- [CString](core_package_intrinsics.md#cstring) - 新构造的 C 风格字符串。
-
-异常：
-
-- [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) - 内存不足时，抛出异常。
+- p: [CPointer](core_package_intrinsics.md#cpointert)\<T> - 表示需要被释放的内存地址。
 
 示例：
 
 <!-- verify -->
 ```cangjie
 main() {
-    var str = unsafe { LibC.mallocCString("I like Cangjie") }
-    println(str)
-    unsafe { LibC.free(str) }
+    var p = unsafe { LibC.malloc<Int64>(count: 1) }
+    unsafe { p.write(8) }
+    let value: Int64 = unsafe { p.read() }
+    println(value)
+    unsafe { LibC.free<Int64>(p) }
 }
 ```
 
 运行结果：
 
 ```text
-I like Cangjie
+8
 ```
 
 ### static func malloc\<T>(Int64) where T <: CType
@@ -5155,6 +5116,45 @@ main() {
 
 ```text
 8
+```
+
+### static func mallocCString(String)
+
+```cangjie
+public unsafe static  func mallocCString(str: String): CString
+```
+
+功能：通过 [String](core_package_structs.md#struct-string) 申请与之字符内容相同的 C 风格字符串。
+
+构造的 C 风格字符串将以 '\0' 结束。当异常场景如系统内存不足时，返回字符串指针可能为空，故使用前需要进行空指针检查。
+
+参数：
+
+- str: [String](core_package_structs.md#struct-string) - 根据该仓颉字符串构造 C 字符串。
+
+返回值：
+
+- [CString](core_package_intrinsics.md#cstring) - 新构造的 C 风格字符串。
+
+异常：
+
+- [IllegalMemoryException](core_package_exceptions.md#class-illegalmemoryexception) - 内存不足时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    var str = unsafe { LibC.mallocCString("I like Cangjie") }
+    println(str)
+    unsafe { LibC.free(str) }
+}
+```
+
+运行结果：
+
+```text
+I like Cangjie
 ```
 
 ## struct Range\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>
