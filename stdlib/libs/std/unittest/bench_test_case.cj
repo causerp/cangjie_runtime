@@ -130,7 +130,7 @@ struct WarmupInfo {
             // Now, with blackBox it almost never happen, but there are cases where due to CPU speculative execution
             // for sufficiently small benchmark, actually executing code can take same time as not executing it.
             if (estimation <= 0.0001) {
-                if (n > 1000000000 ) {
+                if (n > 1000000000) {
                     break
                 }
 
@@ -145,11 +145,11 @@ struct WarmupInfo {
         finishWarmup()
     }
 
-    mut func warmupFixed(warmupCount: Int64, maxMeasureBatch: Int64) {
+    mut func warmupFixed(warmupCount: Int64, minMeasureBatch: Int64, maxMeasureBatch: Int64) {
         beforeWarmup()
 
-        let batches = max(warmupCount / maxMeasureBatch, 1)
-        ema = Ema(batches / 2)
+        let batches = min(max(warmupCount / minMeasureBatch, 1), MEASUREMENTS_LIMIT)
+        ema = Ema(batches / 2 + 1)
         for (i in 0..batches) {
             if (let Auto <- warmupGC && i > batches / 2) {
                 chooseWarmupGC()
@@ -217,7 +217,7 @@ class BenchRunner {
             warmupInfo.executedBatches = 1
         } else {
             progress.println { "    Warming up for ${warmupCount} iterations." }
-            warmupInfo.warmupFixed(warmupCount, this.batchSize.start)
+            warmupInfo.warmupFixed(warmupCount, batchSize.start, batchSize.end)
         }
     }
 
