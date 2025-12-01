@@ -30,10 +30,17 @@ public:
         MAX_COUNT = 4, // implicit exception count
     };
 
+#ifdef __APPLE__
+    static void DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj);
+#endif
+
     // runtime required lifecycle interfaces
     void Init()
     {
         uncaughtExceptionHandler.hapPath = nullptr;
+#ifdef __APPLE__
+        uncaughtExceptionHandler.uncaughtTask = DefaultUncaughtTask;
+#endif
     };
     void Fini() const {};
 
