@@ -256,10 +256,10 @@ inline U16 TypeInfo::GetValidInheritNum() const { return validInheritNum; }
 inline U32 TypeInfo::GetUUID()
 {
     if (IsInitialUUID()) {
-        TypeInfoManager *manager = TypeInfoManager::GetInstance();
-        std::lock_guard<std::recursive_mutex> lock(manager->tiMutex);
+        TypeInfoManager& manager = TypeInfoManager::GetTypeInfoManager();
+        std::lock_guard<std::recursive_mutex> lock(manager.tiMutex);
         if (IsInitialUUID()) {
-            manager->AddTypeInfo(this);
+            manager.AddTypeInfo(this);
         }
         CHECK(!IsInitialUUID());
     }
