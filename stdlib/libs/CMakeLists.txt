@@ -18,7 +18,6 @@ if(CANGJIE_BUILD_STDLIB_WITH_COVERAGE)
 endif()
 
 add_subdirectory(std)
-add_subdirectory(dynamicLoader)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 # The cj codes are used only when building libs(.so, .a, .cjo etc.),
@@ -64,7 +63,6 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos" AND
     target_link_libraries(${libname} cangjie-std-objectpoolFFI-objs)
     target_link_libraries(${libname} cangjie-std-runtimeFFI-objs)
     target_link_libraries(${libname} cangjie-std-regexFFI)
-    target_link_libraries(${libname} cangjie-dynamicLoader-opensslFFI)
     target_link_libraries(${libname} ${pcre2_lib})
     add_dependencies(${libname} modify_typetemplate_object)
     target_link_libraries(${libname} m)
