@@ -166,7 +166,7 @@ void TypeInfo::TryInitMTable()
     }
 }
 
-MTableDesc::MTableDesc(U64 bitmap_)
+MTableDesc::MTableDesc(BIT_TYPE bitmap_)
 {
     mTableBitmap.tag = bitmap_;
     LoaderManager::GetInstance()->GetLoader()->VisitExtensionData(
@@ -181,7 +181,7 @@ void TypeInfo::TryInitMTableNoLock()
         auto tim = TypeInfoManager::GetInstance();
         auto desc = tim->GetMTableDesc(tiUUID);
         if (desc == nullptr) {
-            U64 bitmap = GetResolveBitmapFromMTableDesc();
+            BIT_TYPE bitmap = GetResolveBitmapFromMTableDesc();
             desc = new (std::nothrow) MTableDesc(bitmap);
             CHECK_DETAIL(desc != nullptr, "fail to allocate MTableDesc");
             tim->RecordMTableDesc(tiUUID, desc);
