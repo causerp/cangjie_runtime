@@ -483,8 +483,9 @@ struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAtt
 /* CJThreadMexit */
 void *CJThreadMexit(struct CJThread *delCJThread)
 {
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, delCJThread->id);
-    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, delCJThread->id);
+    unsigned long long cjthreadId = delCJThread->id;
+    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXEC, cjthreadId);
+    OHOS_HITRACE_START_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, cjthreadId);
     struct Schedule *schedule = delCJThread->schedule;
     struct ScheduleCJThread *scheduleCJThread = &schedule->schdCJThread;
 #ifdef CANGJIE_ASAN_SUPPORT
@@ -500,7 +501,7 @@ void *CJThreadMexit(struct CJThread *delCJThread)
     if (schedule->scheduleType != SCHEDULE_DEFAULT) {
         atomic_fetch_sub(&scheduleCJThread->cjthreadNum, 1ULL);
     }
-    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, delCJThread->id);
+    OHOS_HITRACE_FINISH_ASYNC(OHOS_HITRACE_CJTHREAD_EXIT, cjthreadId);
     // The special stackid of the event is set through hardcode.
     if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_END)) {
         ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_END, -1, nullptr, 1, SpecialStackId::CJTHREAD_EXIT);
