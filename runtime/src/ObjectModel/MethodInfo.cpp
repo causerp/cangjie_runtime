@@ -241,7 +241,7 @@ TypeInfo* MethodInfo::GetActualTypeFromGenericTypeImpl(GenericTypeInfo* genericT
             args[idx] = ti;
         }
     }
-    TypeInfo* actualTi = TypeInfoManager::GetInstance()->GetOrCreateTypeInfo(tt, argsCnt, args);
+    TypeInfo* actualTi = TypeInfoManager::GetTypeInfoManager().GetOrCreateTypeInfo(tt, argsCnt, args);
     free(tmp);
     return actualTi;
 }

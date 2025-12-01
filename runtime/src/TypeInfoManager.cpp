@@ -78,14 +78,14 @@ U32 TypeInfoManager::GenericTiDesc::computeHash()
     };
     U32 ttUUID = tt->GetUUID();
     if (tt->GetUUID() == 0) {
-        ttUUID = TypeInfoManager::GetInstance()->GetTypeTemplateUUID(tt);
+        ttUUID = TypeInfoManager::GetTypeInfoManager().GetTypeTemplateUUID(tt);
     }
     update(ttUUID);
 
     for (U32 idx = 0; idx < argSize; idx++) {
         TypeInfo* ti = args[idx];
         if (ti->IsInitialUUID()) {
-            TypeInfoManager::GetInstance()->AddTypeInfo(ti);
+            TypeInfoManager::GetTypeInfoManager().AddTypeInfo(ti);
         }
         CHECK(!ti->IsInitialUUID());
         update(ti->uuid);
@@ -103,11 +103,11 @@ bool TypeInfoManager::GenericTiDesc::operator==(const GenericTiDesc &other) cons
     U16 otherTtUUID = other.tt->GetUUID();
 
     if (ttUUID == 0) {
-        ttUUID = TypeInfoManager::GetInstance()->GetTypeTemplateUUID(tt);
+        ttUUID = TypeInfoManager::GetTypeInfoManager().GetTypeTemplateUUID(tt);
     }
 
     if (otherTtUUID == 0) {
-        otherTtUUID = TypeInfoManager::GetInstance()->GetTypeTemplateUUID(other.tt);
+        otherTtUUID = TypeInfoManager::GetTypeInfoManager().GetTypeTemplateUUID(other.tt);
     }
     if (ttUUID != otherTtUUID) {
         return false;
@@ -122,13 +122,13 @@ bool TypeInfoManager::GenericTiDesc::operator==(const GenericTiDesc &other) cons
         TypeInfo* otherTi = other.args[idx];
         U32 tiUUID = ti->GetUUID();
         if (ti->IsInitialUUID()) {
-            TypeInfoManager::GetInstance()->AddTypeInfo(ti);
+            TypeInfoManager::GetTypeInfoManager().AddTypeInfo(ti);
             tiUUID = ti->GetUUID();
         }
 
         U32 otherTiUUID = otherTi->GetUUID();
         if (otherTi->IsInitialUUID()) {
-            TypeInfoManager::GetInstance()->AddTypeInfo(otherTi);
+            TypeInfoManager::GetTypeInfoManager().AddTypeInfo(otherTi);
             otherTiUUID = otherTi->GetUUID();
         }
         if (tiUUID != otherTiUUID) {
@@ -138,8 +138,8 @@ bool TypeInfoManager::GenericTiDesc::operator==(const GenericTiDesc &other) cons
     return true;
 }
 
-TypeInfoManager TypeInfoManager::typeInfoManager;
-TypeInfoManager* TypeInfoManager::GetInstance() { return &typeInfoManager; }
+static ImmortalWrapper<TypeInfoManager> typeInfoManager;
+TypeInfoManager& TypeInfoManager::GetTypeInfoManager() { return *typeInfoManager; }
 
 void TypeInfoManager::Init()
 {
