@@ -143,7 +143,7 @@ public class ArrayList<T> <: List<T> {
 
     @Frozen
     private init(elements: Array<T>) {
-            myData = elements.clone()
+        myData = elements.clone()
         mySize = elements.size
     }
 
@@ -469,24 +469,24 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList containing all elements extracted from the source ArrayList at intervals.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @Frozen
     public func step(count: Int64): ArrayList<T> {
         if (count <= 0) {
             throw IllegalArgumentException("Step count must be greater than 0!")
         }
 
-        if (mySize > 0) {
-            let newSize: Int64 = (mySize + count - 1) / count
-            var newData: Array<T> = Array<T>(newSize, repeat: unsafe { zeroValue<T>() })
-            let oldLastIndex: Int64 = (newSize - 1) * count
-            var j: Int64 = newSize - 1
-            for (i in oldLastIndex..=0 : -count) {
-                newData[j] = myData[i]
-                j--
-            }
-            return ArrayList<T>(newData)
+        if (mySize <= 0) {
+            return ArrayList<T>()
         }
-        return ArrayList<T>()
+
+        let newSize: Int64 = (mySize + count - 1) / count
+        var newData: Array<T> = Array<T>(newSize, repeat: unsafe { zeroValue<T>() })
+        let oldLastIndex: Int64 = (newSize - 1) * count
+        var j: Int64 = newSize - 1
+        for (i in oldLastIndex..=0 : -count) {
+            newData[j] = myData[i]
+            j--
+        }
+        return ArrayList<T>(newData)
     }
 
     /**
@@ -496,7 +496,6 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList with the specified number of elements taken.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @Frozen
     public func take(count: Int64): ArrayList<T> {
         if (count == 0) {
             return ArrayList<T>()
@@ -505,7 +504,7 @@ public class ArrayList<T> <: List<T> {
         if (count < 0) {
             throw IllegalArgumentException("take count must be greater than 0!")
         }
-        var newSize = min(count, mySize)
+        let newSize = min(count, mySize)
 
         var newData: Array<T> = Array<T>(newSize, repeat: unsafe { zeroValue<T>() })
         myData.copyTo(newData, 0, 0, newSize)
@@ -519,7 +518,6 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList with the specified number of elements skipped.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @Frozen
     public func skip(count: Int64): ArrayList<T> {
         if (count < 0) {
             throw IllegalArgumentException("skip count must be greater than 0!")
@@ -543,7 +541,6 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns a new collection containing elements that satisfy the filtering condition.
      */
-    @Frozen
     public func filter(predicate: (T) -> Bool): ArrayList<T> {
         if (mySize == 0) {
             return ArrayList<T>()
@@ -565,7 +562,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns a new ArrayList.
      */
-    @Frozen
     public func map<R>(transform: (T) -> R): ArrayList<R> {
         if (mySize == 0) {
             return ArrayList<R>()
@@ -583,7 +579,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns a new ArrayList after filtering and mapping.
      */
-    @Frozen
     public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R> {
         var newList :ArrayList<R> = ArrayList<R>()
         for(i in 0..mySize){
@@ -600,7 +595,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns the new ArrayList after being "mapped" and "flattened".
      */
-    @Frozen
     public func filterMap<R>(transform: (T) -> ?R): ArrayList<R> {
         if (mySize == 0) {
             return ArrayList<R>()
@@ -624,13 +618,12 @@ public class ArrayList<T> <: List<T> {
      * @param separator the given element.
      * @returns a new ArrayList.
      */
-    @Frozen
     public func intersperse(separator: T): ArrayList<T> {
         if (mySize < 2) {
             var newData: Array<T> = myData.clone()
             return ArrayList<T>(newData)
         }
-        var newSize: Int64 = 2 * mySize - 1
+        let newSize: Int64 = 2 * mySize - 1
         var newData: Array<T> = Array<T>(newSize, repeat: unsafe { zeroValue<T>() })
         for (i in 0..mySize - 1) {
             newData[2 * i] = myData[i]
@@ -645,7 +638,6 @@ public class ArrayList<T> <: List<T> {
      * 
      * @param action the given operation function.
      */
-    @Frozen
     public func forEach(action: (T) -> Unit): Unit {
         for (i in 0..mySize) {
             action(myData[i])
@@ -658,12 +650,9 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns true if all elements in the ArrayList satisfy the condition, otherwise returns false.
      */
-    @Frozen
     public func all(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
-            if (predicate(myData[i])) {
-                continue
-            } else {
+            if (!predicate(myData[i])) {
                 return false
             }
         }
@@ -676,13 +665,10 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @Frozen
     public func any(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
             if (predicate(myData[i])) {
                 return true
-            } else {
-                continue
             }
         }
         return false
@@ -694,13 +680,10 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current ArrayList do not satisfy the condition.
      */
-    @Frozen
     public func none(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
             if (predicate(myData[i])) {
                 return false
-            } else {
-                continue
             }
         }
         return true
@@ -713,7 +696,6 @@ public class ArrayList<T> <: List<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
         for (i in 0..mySize) {
@@ -728,7 +710,6 @@ public class ArrayList<T> <: List<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @Frozen
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (mySize == 0) {
             return None<T>
@@ -1124,9 +1105,8 @@ extend<T> ArrayList<T> {
      * @param other one of the ArrayList to be merged.
      * @returns a new ArrayList.
      */
-    @Frozen
     public func zip<R>(other: ArrayList<R>): ArrayList<(T, R)> {
-        var newSize: Int64 = min(mySize, other.size)
+        let newSize: Int64 = min(mySize, other.size)
         if (newSize == 0) {
             return ArrayList<(T, R)>()
         }
@@ -1142,7 +1122,6 @@ extend<T> ArrayList<T> {
      * 
      * @returns a new ArrayList with indices.
      */
-    @Frozen
     public func enumerate(): ArrayList<(Int64, T)> {
         if (mySize == 0) {
             return ArrayList<(Int64, T)>()
