@@ -768,7 +768,7 @@ extern "C" TypeInfo* MCC_GetOrCreateTypeInfoForReflect(TypeTemplate* tt, void* a
     for (U64 idx = 0; idx < len; ++idx) {
         typeInfos[idx] = *reinterpret_cast<TypeInfo**>(base + idx * sizeof(TypeInfo*));
     }
-    TypeInfo* ti = TypeInfoManager::GetInstance()->GetOrCreateTypeInfo(tt, len, typeInfos);
+    TypeInfo* ti = TypeInfoManager::GetTypeInfoManager().GetOrCreateTypeInfo(tt, len, typeInfos);
     free(mem);
     return ti;
 }
@@ -944,7 +944,7 @@ extern "C" void* MCC_GetTypeInfoAnnotations(TypeInfo* cls, TypeInfo* arrayTi) { 
 // for generic
 extern "C" TypeInfo* CJ_MCC_GetOrCreateTypeInfo(TypeTemplate* typeTemplate, U32 argSize, TypeInfo* typeArgs[])
 {
-    return TypeInfoManager::GetInstance()->GetOrCreateTypeInfo(typeTemplate, argSize, typeArgs);
+    return TypeInfoManager::GetTypeInfoManager().GetOrCreateTypeInfo(typeTemplate, argSize, typeArgs);
 }
 
 extern "C" bool CJ_MCC_IsSubType(TypeInfo* typeInfo, TypeInfo* superTypeInfo)
