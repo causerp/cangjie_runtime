@@ -244,7 +244,7 @@ void TypeInfoManager::AddTypeInfo(TypeInfo* ti)
                 ti->SetFieldNum(fieldNum);
                 U32* offsets = reinterpret_cast<U32*>(Allocate(fieldNum * sizeof(U32)));
                 ti->SetOffsets(offsets);
-                ti->SetFieldAddr(reinterpret_cast<TypeInfo**>(Allocate(fieldNum * sizeof(TypeInfo*))));
+                ti->SetFieldAddr(reinterpret_cast<TypeInfo**>(Allocate(fieldNum * TYPEINFO_PTR_SIZE)));
                 FillOffsets(ti, tt, ti->GetTypeArgNum(), ti->GetTypeArgs());
                 CalculateGCTib(ti);
             }
