@@ -101,6 +101,7 @@ func generateDeclAST(declNode: Option<NodeFormat_Decl>): Decl {
         case "prop_decl" => createPropDecl(decl)
         case "macro_expand_decl" => createMacroExpandDecl(decl)
         case "func_param" => createFuncParam(decl)
+        case "macro_expand_param" => createMacroExpandParam(decl)
         case _ => throw ParseASTException("Unsupported parse the decl node: ${astKind}.\n")
     }
     addPositionInfo(astNode, nodeBase)
@@ -347,6 +348,21 @@ func createFuncDecl(decl: NodeFormat_Decl, declBase: NodeFormat_DeclBase): Decl 
 
 func createFuncParam(decl: NodeFormat_Decl): Decl {
     return createFuncParam(decl.GetDeclAsFuncParam(), 0, 1)
+}
+
+func createMacroExpandParam(decl: NodeFormat_Decl): Decl {
+    let pm = match (decl.GetDeclAsMacroExpandParam()) {
+        case Some(v) => v
+        case None => throw ParseASTException()
+    }
+    let fp =  match (pm.GetBase()) {
+        case Some(v) => v
+        case None => throw ParseASTException()
+    }
+    return match (createMacroExpand(pm.GetInvocation(), isDecl: false, isFuncParam: true) as FuncParam) {
+        case Some(v) => v
+        case None => throw ParseASTException("Failed to create MacroExpandParam Node")
+    }
 }
 
 func createFuncParam(param: Option<NodeFormat_FuncParam>, index: Int64, length: Int64): FuncParam {
