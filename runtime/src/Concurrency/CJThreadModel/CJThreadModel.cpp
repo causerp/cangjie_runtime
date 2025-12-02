@@ -117,7 +117,7 @@ void CJThreadModel::Init(const ConcurrencyParam param, ScheduleType scheduleType
     constexpr uint32_t reservedStackSize = 8 * KB;
     CJThreadStackReversedSet(reservedStackSize);
     scheduler = ScheduleNew(scheduleType, &attr);
-    CHECK_E((Cki::CreateCKI() != 0), "CreateCKI fail");
+    Cki::CreateCKI();
 
 #if defined(CANGJIE_TSAN_SUPPORT)
     Sanitizer::TsanInitialize();
