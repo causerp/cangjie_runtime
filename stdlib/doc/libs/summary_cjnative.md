@@ -164,7 +164,6 @@
         - [文件内容相关操作](std/posix/posix_samples/posix_get_file_content_samples.md)
         - [文件信息相关操作](std/posix/posix_samples/posix_get_file_info_samples.md)
         - [获取各类系统信息](std/posix/posix_samples/posix_get_os_envinfo_samples.md)
-        - [进程相关信息操作](std/posix/posix_samples/posix_process_samples.md)
 - [std.process](std/process/process_package_overview.md)
     - [函数](std/process/process_package_api/process_package_funcs.md)
     - [类](std/process/process_package_api/process_package_classes.md)

@@ -340,7 +340,7 @@ main() {
     var p = unsafe { malloc(sizeofInt64) }
     var p1 = unsafe { CPointer<Int64>(p) }
     unsafe { p1.write(8) }
-    println(p1.toUIntNative())
+    println("toUIntNative: ${p1.toUIntNative()}")
     unsafe { free(p) }
 }
 ```
@@ -348,7 +348,7 @@ main() {
 运行结果：
 
 ```text
-93954490863648
+toUIntNative: 94019473199456
 ```
 
 #### func write(Int64, T)

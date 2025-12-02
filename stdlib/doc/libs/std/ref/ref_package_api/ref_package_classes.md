@@ -24,6 +24,41 @@ public prop cleanupPolicy: CleanupPolicy
 
 类型：[CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.{WeakRef, CleanupPolicy}
+
+class Data {
+    public var number: Int64
+    
+    init(n: Int64) {
+        number = n
+    }
+}
+
+main(): Int64 {
+    // 创建一个Data对象
+    let data = Data(123)
+    
+    // 为Data对象创建弱引用，并指定清理策略
+    let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
+    
+    // 获取弱引用的清理策略
+    let policy = weakRef.cleanupPolicy
+    println("已获取弱引用的清理策略")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+已获取弱引用的清理策略
+```
+
 ### prop value
 
 ```cangjie
@@ -33,6 +68,45 @@ public prop value: Option<T>
 功能：读取弱引用指向的对象。如果弱引用为空或弱引用中的对象已被清理则返回 `None`。
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.{WeakRef, CleanupPolicy}
+import std.core.Option
+
+class Data {
+    public var number: Int64
+    
+    init(n: Int64) {
+        number = n
+    }
+}
+
+main(): Int64 {
+    // 创建一个Data对象
+    let data = Data(123)
+    
+    // 为Data对象创建弱引用
+    let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
+    
+    // 获取弱引用指向的对象
+    let value = weakRef.value
+    match (value) {
+        case Some(x) => println("弱引用指向的对象值: ${x.number}")
+        case None => println("弱引用为空")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+弱引用指向的对象值: 123
+```
 
 ### init(T, CleanupPolicy)
 
@@ -47,6 +121,39 @@ public init(value: T, cleanupPolicy: CleanupPolicy)
 - value: T - 弱引用指向的对象。
 - cleanupPolicy: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - `value` 对象的清理策略。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.{WeakRef, CleanupPolicy}
+
+class Data {
+    public var number: Int64
+    
+    init(n: Int64) {
+        number = n
+    }
+}
+
+main(): Int64 {
+    // 创建一个Data对象
+    let data = Data(123)
+    
+    // 为Data对象创建弱引用，并指定清理策略
+    let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
+    
+    println("已创建弱引用")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+已创建弱引用
+```
+
 ### func clear()
 
 ```cangjie
@@ -55,6 +162,55 @@ public func clear(): Unit
 
 功能：强制清理弱引用指向的对象，后续对 `value` 的访问将返回 `None`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.{WeakRef, CleanupPolicy}
+
+class Data {
+    public var number: Int64
+    
+    init(n: Int64) {
+        number = n
+    }
+}
+
+main(): Int64 {
+    // 创建一个Data对象
+    let data = Data(123)
+    
+    // 为Data对象创建弱引用
+    let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
+    
+    // 获取弱引用指向的对象
+    let value = weakRef.value
+    match (value) {
+        case Some(x) => println("清除前，弱引用指向的对象值: ${x.number}")
+        case None => println("清除前，弱引用为空")
+    }
+    
+    // 强制清理弱引用指向的对象
+    weakRef.clear()
+    
+    // 再次获取弱引用指向的对象
+    let valueAfter = weakRef.value
+    match (valueAfter) {
+        case Some(x) => println("清除后，弱引用指向的对象值: ${x.number}")
+        case None => println("清除后，弱引用为空")
+    }
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+清除前，弱引用指向的对象值: 123
+清除后，弱引用为空
+```
+
 ## class WeakRefBase
 
 ```cangjie
@@ -62,3 +218,5 @@ sealed abstract class WeakRefBase
 ```
 
 功能：此类不包含任何公开成员和公开函数，也不允许被继承、扩展， 仅作为 [WeakRef](ref_package_classes.md#class-weakreft-where-t--object) 的基类。
+
+<!-- verify -->

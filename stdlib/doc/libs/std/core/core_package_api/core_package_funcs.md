@@ -1721,7 +1721,7 @@ class Student <: ToString {
 }
 ```
 
-示例结果：
+运行结果：
 
 ```text
 student

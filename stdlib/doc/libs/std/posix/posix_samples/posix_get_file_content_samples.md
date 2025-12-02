@@ -33,6 +33,7 @@ main(): Int64 {
     unsafe { LibC.free(str2) }
     println("writeNum ==> ${writeNum}")
     close(fd4)
+    unlink("textcase.txt")
     return 0
 }
 ```

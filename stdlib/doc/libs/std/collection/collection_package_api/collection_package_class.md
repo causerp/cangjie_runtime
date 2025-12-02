@@ -1917,7 +1917,7 @@ public func skip(count: Int64): ArrayList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要跳过的个数。
 
 返回值：
 
@@ -2114,7 +2114,7 @@ public func step(count: Int64): ArrayList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 选取的间隔
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 选取的间隔
 
 返回值：
 
@@ -2135,7 +2135,7 @@ public func take(count: Int64): ArrayList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 要取出的个数。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要取出的个数。
 
 返回值：
 
@@ -9528,7 +9528,7 @@ public func skip(count: Int64): LinkedList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 要跳过的个数。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要跳过的个数。
 
 返回值：
 
@@ -9649,7 +9649,7 @@ public func step(count: Int64): LinkedList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 选取的间隔
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 选取的间隔
 
 返回值：
 
@@ -9670,7 +9670,7 @@ public func take(count: Int64): LinkedList<T>
 
 参数：
 
-- count: [Int64](core_package_intrinsics.md#int64) - 要取出的个数。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要取出的个数。
 
 返回值：
 

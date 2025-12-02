@@ -49,6 +49,36 @@ public operator func !=(that: CleanupPolicy): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与 `that` 回收策略不同时返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.CleanupPolicy
+
+main(): Int64 {
+    // 创建两个不同的清理策略
+    let policy1 = CleanupPolicy.EAGER
+    let policy2 = CleanupPolicy.DEFERRED
+    
+    // 使用!=操作符比较两个策略
+    let result = policy1 != policy2
+    println("EAGER != DEFERRED: ${result}")
+    
+    // 比较相同的策略
+    let result2 = policy1 != policy1
+    println("EAGER != EAGER: ${result2}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+EAGER != DEFERRED: true
+EAGER != EAGER: false
+```
+
 ### operator func ==(CleanupPolicy)
 
 ```cangjie
@@ -64,3 +94,35 @@ public operator func ==(that: CleanupPolicy): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与 `that` 回收策略相同时返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ref.CleanupPolicy
+
+main(): Int64 {
+    // 创建两个相同的清理策略
+    let policy1 = CleanupPolicy.EAGER
+    let policy2 = CleanupPolicy.EAGER
+    
+    // 使用==操作符比较两个策略
+    let result = policy1 == policy2
+    println("EAGER == EAGER: ${result}")
+    
+    // 比较不同的策略
+    let policy3 = CleanupPolicy.DEFERRED
+    let result2 = policy1 == policy3
+    println("EAGER == DEFERRED: ${result2}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+EAGER == EAGER: true
+EAGER == DEFERRED: false
+```
+
