@@ -57,6 +57,7 @@ public open class Exception <: ToString {
     private var detailMessage: String = String.empty
     private var pcArray: RawArray<UInt64> = RawArray<UInt64>(1, repeat: 0)
     private var traceElementArray: Array<StackTraceElement> = []
+    private var innerCause: ?Exception = None
 
     public init() {
         pcArray = fillInStackTrace(RawArray<UInt64>(1, repeat: 0), detailMessage.toArray().rawptr)
