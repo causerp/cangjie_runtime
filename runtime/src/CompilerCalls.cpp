@@ -1171,6 +1171,16 @@ extern "C" FuncPtr* CJ_MCC_GetMTable(TypeInfo* ti, TypeInfo* itf)
     return ti->GetMTable(itf);
 }
 
+extern "C" TypeInfo* CJ_MCC_GetMethodOuterTI(TypeInfo* ti, TypeInfo* itf, U64 index)
+{
+    return ti->GetMethodOuterTI(itf, index);
+}
+
+extern "C" void CJ_MCC_UpdateVMT(TypeInfo* ti, TypeInfo* itf, ExtensionData* extensionData)
+{
+    return ti->TryUpdateExtensionData(itf, extensionData);
+}
+
 extern "C" ObjRef MCC_NewGenericObject(const TypeInfo* klass, MSize size)
 {
     ObjRef obj = ObjectManager::NewObject(klass, size);

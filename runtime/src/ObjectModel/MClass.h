@@ -21,6 +21,7 @@
 
 namespace MapleRuntime {
 class ExtensionData;
+class BaseFile;
 constexpr U8 BITS_FOR_REF = 1;
 constexpr U8 REF_BIT_MASK = 1;
 constexpr U64 SIGN_BIT_64 = (U64)1 << 63;
@@ -72,12 +73,16 @@ union MTableBitmap {
 };
 
 struct MTableDesc {
-    std::unordered_map<U32, FuncPtr*> mTable;
+    std::unordered_map<U32, std::pair<ExtensionData*, TypeInfo*>> mTable;
+    std::vector<BaseFile*> waitedExtensionDatas;
     MTableBitmap mTableBitmap;
     std::recursive_mutex mTableMutex;
     bool pending = false;
-    explicit MTableDesc(BIT_TYPE bitmap_) { mTableBitmap.tag = bitmap_; }
+    bool needsResolveInner = true;
+    explicit MTableDesc(BIT_TYPE bitmap_);
     MTableDesc() = delete;
+    bool IsFullyHandled() const { return !NeedResolveInner() && waitedExtensionDatas.empty(); };
+    inline bool NeedResolveInner() const { return needsResolveInner; }
 };
 
 typedef TypeInfo* (*GenericFunc)(TypeInfo**);
@@ -345,6 +350,7 @@ public:
     inline bool IsRef() const;
     inline bool HasRefField() const;
     inline bool HasFinalizer() const;
+    inline bool HasExtPart() const;
     inline const char* GetName() const;
     inline I8 GetType() const { return type; }
     inline I8 GetFlag() const { return flag; }
@@ -371,7 +377,7 @@ private:
     ~TypeTemplate() = delete;
     const char* name;
     I8 type;
-    I8 flag; // hasRefField, hasFinalize, monitor, waitQueue，use 0-3 bit
+    I8 flag; // hasRefField, hasFinalize, future, mutex, monitor, waitQueue, reflection, use 0-6 bit
     U16 fieldNum;
     U16 typeArgsNum;
     // The member does not exist in the IR, use the alignment bits to record the UUID in runtime.
@@ -433,13 +439,13 @@ public:
     inline bool IsReflectUnsupportedType() const;
     inline bool HasRefField() const;
     inline bool HasFinalizer() const;
+    inline bool IsInitialUUID() const;
     inline I8 GetFlags() const;
     inline I8 GetType() const;
     inline U16 GetAlign() const;
     inline U16 GetFieldNum() const;
     inline U32* GetFieldOffsets() const;
     inline U16 GetValidInheritNum() const;
-    inline bool IsInheritNumValid() { return validInheritNum != INVALID_INHERIT_NUM; }
 
     inline TypeInfo* GetFieldType(U16 idx) const;
     inline TypeInfo* GetComponentTypeInfo() const;
@@ -447,13 +453,14 @@ public:
     inline U32 GetFieldOffsets(U16 idx) const { return fieldOffsets[idx]; }
     inline TypeInfo* GetFieldTypeInfo(U16 idx) const { return fields[idx]; }
     inline TypeInfo** GetTypeArgs() const { return typeArgs; }
-    inline TypeTemplate* GetSourceGeneric() const { return sourceGeneric; }
-    inline ExtensionData** GetvExtensionDataStart() const { return vExtensionDataStart; }
+    inline TypeTemplate* GetSourceGeneric() const;
+    inline ExtensionData** GetvExtensionDataStart() const;
 
     inline bool IsFutureClass() const;
     inline bool IsMonitorClass() const;
     inline bool IsMutexClass() const;
     inline bool IsWaitQueueClass() const;
+    inline bool HasExtPart() const;
     inline bool IsBoxClass();
     U32 GetModifier();
     bool ReflectIsEnable() const;
@@ -504,8 +511,9 @@ public:
     void SetvExtensionDataStart(ExtensionData **ptr) { this->vExtensionDataStart = ptr; }
     void SetEnumInfo(EnumInfo* ei) { this->enumInfo = ei; }
     MTableDesc* GetMTableDesc() const { return mTableDesc; }
-    void AddMTable(TypeInfo* ti, FuncPtr* funcTable);
+    void AddMTable(TypeInfo* ti, ExtensionData* extensionData);
     FuncPtr* GetMTable(TypeInfo* itf);
+    TypeInfo* GetMethodOuterTI(TypeInfo* itf, U64 index);
     U32 GetUUID();
     inline U32 GetClassSize() const;
     inline TypeInfo* GetSuperTypeInfo() const;                     // it can be null
@@ -517,12 +525,17 @@ public:
     void TryInitMTable();
     void TryInitMTableNoLock();
     void GetInterfaces(std::vector<TypeInfo*> &itfs);
+    bool NeedRefresh();
+    void TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionData);
 private:
     TypeInfo() = delete;
     ~TypeInfo() = delete;
 
     void TraverseInnerExtensionDefs(const std::function<void(TypeInfo*)> getInterface = nullptr);
-    void TraverseOuterExtensionDefs(std::function<void(TypeInfo*)> getInterface = nullptr);
+    void TraverseOuterExtensionDefs(const std::function<void(TypeInfo*)> getInterface = nullptr);
+    // find ExtensionData of this TypeInfo and itf
+    ExtensionData* FindExtensionData(TypeInfo* itf, bool searchRecursively = false);
+    ExtensionData* FindExtensionDataRecursively(TypeInfo* itf);
     // 0: functable, 1: is_sub_type
     std::pair<FuncPtr*, bool> FindMTable(U32 itfUUID);
 
