@@ -750,7 +750,7 @@ install(TARGETS cangjie-std-deriving.builtins DESTINATION lib/${output_triple_na
 
 
 
-if(NOT CMAKE_CROSSCOMPILING OR MINGW)
+if(NOT CMAKE_CROSSCOMPILING OR MINGW OR OHOS)
     make_cangjie_lib(
         std-unittest.testmacro IS_SHARED
         DEPENDS cangjie${BACKEND_TYPE}UnittestTestmacro
