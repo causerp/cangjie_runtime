@@ -1102,6 +1102,42 @@ extern "C" TypeTemplate* MCC_GetTypeTemplate(char* name)
     return LoaderManager::GetInstance()->FindTypeTemplateFromLoadedFiles(name);
 }
 
+static TypeInfo* GetActualTypeFromGenericType(GenericTypeInfo* genericTi, void* args, GenericTypeInfo* genericArgs)
+{
+    CJArray* cjArray = static_cast<CJArray*>(args);
+    TypeInfo** actualTypeInfos = reinterpret_cast<TypeInfo**>(&(cjArray->rawPtr->data));
+    U64 len = genericTi->GetGenericArgsNum();
+    void* mem = calloc(len, TYPEINFO_PTR_SIZE);
+    CHECK_DETAIL(mem != nullptr, "GetActualTypeFromGenericType calloc failed");
+    TypeInfo** typeInfos = static_cast<TypeInfo**>(mem);
+    for (U64 idx = 0; idx < len; ++idx) {
+        void* genericArg = genericTi->GetGenericArg(idx);
+        for (U64 argIdx = 0; argIdx < cjArray->rawPtr->len; ++argIdx) {
+            if (genericArg == genericArgs->GetGenericArg(argIdx)) {
+                typeInfos[idx] = actualTypeInfos[argIdx];
+            }
+        }
+    }
+    TypeInfo* ti = TypeInfoManager::GetInstance()->GetOrCreateTypeInfo(genericTi->GetSourceGeneric(), len, typeInfos);
+    free(mem);
+    return ti;
+}
+
+static bool CheckGenericConstraint(GenericTypeInfo* genericTi, TypeInfo* ti, void* args, GenericTypeInfo* genericArgs)
+{
+    for (U64 constraintIdx = 0; constraintIdx < genericTi->GetGenericConstraintNum(); ++constraintIdx) {
+        TypeInfo* constraintTi = genericTi->GetGenericConstraint(constraintIdx);
+        if (constraintTi->IsGeneric()) {
+            constraintTi =
+                GetActualTypeFromGenericType(reinterpret_cast<GenericTypeInfo*>(constraintTi), args, genericArgs);
+        }
+        if (!ti->IsSubType(constraintTi)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 extern "C" TypeInfo* MCC_GetOrCreateTypeInfoForReflect(TypeTemplate* tt, void* args)
 {
     if (tt == nullptr || args == nullptr) {
@@ -1123,8 +1159,15 @@ extern "C" TypeInfo* MCC_GetOrCreateTypeInfoForReflect(TypeTemplate* tt, void* a
     Uptr base = reinterpret_cast<Uptr>(&(cjArray->rawPtr->data));
     void* mem = calloc(len, TYPEINFO_PTR_SIZE);
     TypeInfo** typeInfos = static_cast<TypeInfo**>(mem);
+    GenericTypeInfo* genericArgs = reinterpret_cast<GenericTypeInfo*>(
+        tt->GetReflectInfo()->GetDeclaringGenericTypeInfo());
     for (U64 idx = 0; idx < len; ++idx) {
         typeInfos[idx] = *reinterpret_cast<TypeInfo**>(base + idx * TYPEINFO_PTR_SIZE);
+        GenericTypeInfo* genericArg = static_cast<GenericTypeInfo*>(genericArgs->GetGenericArg(idx));
+        if (!CheckGenericConstraint(genericArg, typeInfos[idx], args, genericArgs)) {
+            free(mem);
+            return nullptr;
+        }
     }
     TypeInfo* ti = TypeInfoManager::GetInstance()->GetOrCreateTypeInfo(tt, len, typeInfos);
     free(mem);
