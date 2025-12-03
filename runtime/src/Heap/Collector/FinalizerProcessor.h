@@ -19,8 +19,13 @@
 #include "Heap/Collector/Collector.h"
 
 namespace MapleRuntime {
+#ifdef __APPLE__
+template<typename T>
+using ManagedList = std::list<T>;
+#else
 template<typename T>
 using ManagedList = std::list<T, StdContainerAllocator<T, FINALIZER_PROCESSOR>>;
+#endif
 
 class FinalizerProcessor {
 public:
