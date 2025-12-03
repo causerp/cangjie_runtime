@@ -114,7 +114,11 @@ void CJThreadModel::Init(const ConcurrencyParam param, ScheduleType scheduleType
 
     // should not use system page size to calculate reserved stack size,
     // because the page size could be different in different system.
+#ifdef _WIN64
+    constexpr uint32_t reservedStackSize = 24 * KB;
+#else
     constexpr uint32_t reservedStackSize = 8 * KB;
+#endif
     CJThreadStackReversedSet(reservedStackSize);
     scheduler = ScheduleNew(scheduleType, &attr);
     Cki::CreateCKI();
