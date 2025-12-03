@@ -14,6 +14,9 @@
 
 package std.time
 
+import std.binary.*
+import std.io.*
+
 // -1: failed, (>= 0): file size
 foreign func CJ_TIME_GetFileSize(path: CPointer<Byte>, pathLen: Int64): Int64
 // -1: failed, (>= 0): number of read bytes
@@ -64,6 +67,68 @@ func loadTZifData(path: String): Array<UInt8> {
             throw InvalidDataException("An error occurred when reading data from file `${path}`!")
         }
         arr.slice(0, fileSize)
+    }
+}
+
+func loadTimeZoneFromTzData(name: String, source: String): TimeZone {
+    return TimeZone.loadFromTZData(name, loadTZData(name, source))
+}
+
+func loadTZData(name: String, path: String): Array<UInt8> {
+    unsafe {
+        let cPath: CPointerHandle<UInt8> = acquireArrayRawData(path.rawData())
+        let pathLen: Int64 = path.size
+        let fileSize = CJ_TIME_GetFileSize(cPath.pointer, pathLen)
+        releaseArrayRawData(cPath)
+        if (fileSize < 0) {
+            throw InvalidDataException("An error occurred when accessing file `${path}`!")
+        }
+        let bufLen: Int64 = fileSize + 1
+        var arr: Array<UInt8> = Array<UInt8>(fileSize + 1, repeat: 0)
+
+        let cPath2: CPointerHandle<UInt8> = acquireArrayRawData(path.rawData())
+        var arrPtr: CPointerHandle<UInt8> = acquireArrayRawData(arr)
+        var readNum = CJ_TIME_ReadAllBytesFromFile(cPath2.pointer, pathLen, arrPtr.pointer, bufLen)
+        releaseArrayRawData(arrPtr)
+        releaseArrayRawData(cPath2)
+        if (readNum != fileSize) {
+            throw InvalidDataException("An error occurred when reading data from file `${path}`!")
+        }
+        var buffer = ByteBuffer(arr)
+        // do not need the first 12 bytes,so move the buffer's read position forward by 12 bytes to skip them
+        buffer.seek(Begin(12))
+        // next 4 bytes is the byte offset where the timezone index starts
+        var indexOffsetArr = Array<Byte>(4, repeat: 0)
+        // next 4 bytes is the byte offset where the actual, concatenated TZif data block begins
+        var dataOffsetArr = Array<Byte>(4, repeat: 0)
+        buffer.read(indexOffsetArr)
+        buffer.read(dataOffsetArr)
+        var indexOffset = Int32.readBigEndian(indexOffsetArr)
+        var dataOffset = Int32.readBigEndian(dataOffsetArr)
+        buffer.seek(Begin(Int64(indexOffset)))
+
+        while (buffer.position < Int64(dataOffset)) {
+            // Each timezone ID in the index is stored in a fixed-size 40-byte field
+            var tempArr = Array<Byte>(40, repeat: 0)
+            buffer.read(tempArr)
+            var currentId = String.fromUtf8(tempArr).trimEnd([r"\u{0000}"])
+            // next 4 bytes is the offset of this specific timezone's data relative to the start of the main data block
+            var zoneDataOffsetArr = Array<Byte>(4, repeat: 0)
+            // next 4 bytes is the length of this specific timezone's TZif data.
+            var zoneDataLengthArr = Array<Byte>(4, repeat: 0)
+            buffer.read(zoneDataOffsetArr)
+            buffer.read(zoneDataLengthArr)
+            // unused 4 bytes,skip
+            buffer.seek(Current(4))
+            var zoneDataOffset = Int32.readBigEndian(zoneDataOffsetArr)
+            var zoneDataLength = Int32.readBigEndian(zoneDataLengthArr)
+            if (currentId == name) {
+                var zoneData = Array<Byte>(Int64(zoneDataLength), repeat: 0)
+                arr.copyTo(zoneData, Int64(dataOffset + zoneDataOffset), 0, Int64(zoneDataLength))
+                return zoneData
+            }
+        }
+        throw InvalidDataException("An error occurred when accessing file `${path}`!")
     }
 }
 

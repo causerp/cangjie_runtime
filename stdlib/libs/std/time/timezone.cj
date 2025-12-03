@@ -27,7 +27,9 @@ const SEPARATOR = ":"
 @When[os != "Windows"]
 const SLASH_CHAR = "/"
 
-let TZIF_SOURCE: Array<String> = ["/usr/share/zoneinfo", "/system/etc/zoneinfo"]
+let TZIF_SOURCE: Array<String> = ["/usr/share/zoneinfo", "/system/etc/zoneinfo", "/system/usr/share/zoneinfo/"]
+
+let ANDROID_TZDATA = "/system/usr/share/zoneinfo/tzdata"
 
 const TZIF_SOUTCE_LINUX = "/usr/share/zoneinfo/"
 
@@ -299,6 +301,15 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
                     continue
                 }
                 return loadTimeZone(id, tzpath)
+            }
+        }
+        unsafe {
+            let cPath: CPointerHandle<UInt8> = acquireArrayRawData(ANDROID_TZDATA.rawData())
+            let pathLen: Int64 = ANDROID_TZDATA.size
+            let fileSize = CJ_TIME_GetFileSize(cPath.pointer, pathLen)
+            releaseArrayRawData(cPath)
+            if (fileSize > 0) {
+                return loadTimeZoneFromTzData(id, ANDROID_TZDATA)
             }
         }
         throw InvalidDataException("No valid timezone file is found.")
