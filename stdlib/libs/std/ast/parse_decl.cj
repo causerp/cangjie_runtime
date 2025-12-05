@@ -371,6 +371,21 @@ func createFuncParam(decl: NodeFormat_Decl): Decl {
     return createFuncParam(decl.GetDeclAsFuncParam(), 0, 1)
 }
 
+func createMacroExpandParam(decl: NodeFormat_Decl): Decl {
+    let pm = match (decl.GetDeclAsMacroExpandParam()) {
+        case Some(v) => v
+        case None => throw ParseASTException()
+    }
+    let fp =  match (pm.GetBase()) {
+        case Some(v) => v
+        case None => throw ParseASTException()
+    }
+    return match (createMacroExpand(pm.GetInvocation(), isDecl: false, isFuncParam: true) as FuncParam) {
+        case Some(v) => v
+        case None => throw ParseASTException("Failed to create MacroExpandParam Node")
+    }
+}
+
 func createFuncParam(param: Option<NodeFormat_FuncParam>, index: Int64, length: Int64): FuncParam {
     var pm = match (param) {
         case Some(v) => v
@@ -701,23 +716,5 @@ func createMacroExpandDecl(decl: NodeFormat_Decl) {
         case Some(v) => v.annotations.add(all: annos, at: 0)
                         v
         case None => throw ParseASTException("Failed to create MacroExpandDecl Node")
-    }
-}
-
-func createMacroExpandParam(decl: NodeFormat_Decl) {
-    var annos: ArrayList<Annotation> = ArrayList<Annotation>()
- 
-    var declBase = decl.GetBase().getOrThrow()
-    for (anno in declBase.GetAnnotations()) {
-       annos.add(createAnnotation(anno))
-    }
-    var me = match (decl.GetDeclAsMacroExpandParam()) {
-        case Some(v) => v
-        case None => throw ParseASTException("Failed to get MacroExpand Node")
-    }
-    return match (createMacroExpand(me.GetInvocation(), isDecl: false, isFuncParam: true) as Decl) {
-        case Some(v) => v.annotations.add(all: annos, at: 0)
-                        v
-        case None => throw ParseASTException("Failed to create MacroExpandParam Node")
     }
 }
