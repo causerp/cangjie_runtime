@@ -131,7 +131,11 @@ private:
     U32 slotFormat;
     constexpr static uint32_t BIT_SIZE = 32;
     constexpr static SlotBits LOWEST_BIT = 0x1;
+#ifdef __arm__
+    constexpr static int32_t BYTES_PER_SLOT = -4;
+#else
     constexpr static int32_t BYTES_PER_SLOT = -8;
+#endif
     constexpr static int32_t BIAS_COEF = 1;
 };
 } // namespace MapleRuntime

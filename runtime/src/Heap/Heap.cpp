@@ -31,10 +31,6 @@ MAddress Heap::heapCurrentEnd = 0;
 
 static bool InitEnabledGCParam()
 {
-#ifdef __arm__
-    // unsupport gc temporary for arm32
-    return false;
-#endif
     auto enableGC = std::getenv("cjEnableGC");
     if (enableGC == nullptr) {
         return true;

@@ -61,7 +61,7 @@ void GCStats::Dump() const
     // display to std-output. take care to modify.
     LOG(RTLOG_INFO,
         "GC for %s: %s collected objects: %zu->%s, %.2f%% utilization (%zu->%s/%zu->%s), "
-        "total GC time: %lu->%s",
+        "total GC time: %llu->%s",
         g_gcRequests[reason].name, (async ? "async:" : "sync:"),
         collectedBytes, PrettyOrderInfo(collectedBytes, "B").Str(),
         utilization, liveSize, PrettyOrderInfo(liveSize, "B").Str(),
