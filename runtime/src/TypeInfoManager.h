@@ -16,6 +16,7 @@
 #include <sys/mman.h>
 #endif
 #include "Base/HashUtils.h"
+#include <Base/ImmortalWrapper.h>
 
 namespace MapleRuntime {
 class TypeGCInfo {
@@ -36,7 +37,7 @@ public:
     void Fini();
     void NewMMap(size_t size);
     void FreeMMap(uintptr_t address, size_t size);
-    static TypeInfoManager* GetInstance();
+    static TypeInfoManager& GetTypeInfoManager();
 
     TypeInfo* GetOrCreateTypeInfo(TypeTemplate* tt, U32 argSize, TypeInfo* args[]);
     void AddTypeInfo(TypeInfo* ti);
@@ -139,7 +140,6 @@ private:
     std::unordered_map<const char*, TypeInfo*, HashString, EqualString> genericTypeInfos;
     std::unordered_map<const char*, TypeTemplate*, HashString, EqualString> typeTemplates;
     GenericTiDescHashMap genericTypeInfoDescMap;
-    static TypeInfoManager typeInfoManager;
     uintptr_t startAddress;
     uintptr_t endAddress;
     std::atomic<U32> tiUUID { 1 };
