@@ -42,7 +42,7 @@ struct WarmupInfo {
     WarmupInfo(var warmupGC: ExplicitGcType) {}
 
     prop allocatedPerIteration: Float64 { get () {
-        Float64(overallAllocated - batchMemoryOverhead*Float64(executedBatches)) / Float64(aggregateRuns)
+        Float64(overallAllocated - batchMemoryOverhead * Float64(executedBatches)) / Float64(aggregateRuns)
     }}
 
     var ema = Ema(0)
@@ -53,7 +53,7 @@ struct WarmupInfo {
         let baseLoopOnly = benchmark.timeLoopOnce(0, times, maxMeasureBatch)
         let base = benchmark.timeLoopOnce(0, 0, maxMeasureBatch)
 
-        aggregateLoopOverheap += baseLoopOnly-base
+        aggregateLoopOverheap += baseLoopOnly - base
         aggregateStartBatchOverhead += base
         aggregateRuns += times
         executedBatches += 1
@@ -62,8 +62,8 @@ struct WarmupInfo {
     }
 
     func avgIterTime(): Float64 {
-        let overheadPerIteration = max(aggregateLoopOverheap/Float64(aggregateRuns), 0.0)
-        estimation + overheadPerIteration*2.0
+        let overheadPerIteration = max(aggregateLoopOverheap / Float64(aggregateRuns), 0.0)
+        estimation + overheadPerIteration * 2.0
     }
 
     private func memory(): Float64 {
@@ -93,6 +93,8 @@ struct WarmupInfo {
         overallAllocated -= batchMemoryOverhead * Float64(executedBatches * 3) // there are three calls for each batch
     }
 
+    // for small allocation heavy benchmarks it is essential that we finish warmup
+    // with same GC strategy that will be active during benchmark
     private mut func chooseWarmupGC() {
         let allocatedSoFar = memory() - overallAllocated - batchMemoryOverhead * Float64(executedBatches * 3)
         if (Float64(allocatedSoFar) / Float64(aggregateRuns) > MIN_OBJECT_SIZE) {
@@ -114,9 +116,10 @@ struct WarmupInfo {
         var elapsed = 0.0
         do {
             n = n * 12 / 10 + 1  // ~20% increase
+
             if (let Auto <- warmupGC && aggregateTime > Float64(warmupTime.toNanoseconds()) / 2.0) {
-                // for small allocation heavy benchmarks it is essential that we finish warmup
-                // with same GC strategy that will be active during benchmark
+                // select GC strategy for second half of warmup, 
+                // based on information of the first half
                 chooseWarmupGC()
             }
             let warmupGC = warmupGC
