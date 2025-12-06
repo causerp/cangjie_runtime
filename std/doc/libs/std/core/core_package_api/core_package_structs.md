@@ -2480,6 +2480,22 @@ public init(value: Collection<Rune>)
 异常：
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当试图构造长度超过 [UInt32 的最大值](./core_package_intrinsics.md#uint32) 的字符串时，抛出异常。
+  
+### static func checkUtf8Encoding(Array\<UInt8>)
+
+```cangjie
+public static func checkUtf8Encoding(data: Array<UInt8>): Bool
+```
+
+功能：检查一个 Byte 数组是否符合 UTF-8 编码。
+
+参数：
+
+- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果 Byte 数组符合 UTF-8 编码，返回 true，否则返回 false。
 
 ### static func fromUtf8(Array\<UInt8>)
 
@@ -2522,22 +2538,6 @@ public unsafe static  func fromUtf8Unchecked(utf8Data: Array<UInt8>): String
 异常：
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当试图构造长度超过 [UInt32 的最大值](./core_package_intrinsics.md#uint32) 的字符串时，抛出异常。
-
-### static func checkUtf8Encoding(Array\<UInt8>)
-
-```cangjie
-public static func checkUtf8Encoding(data: Array<UInt8>): Bool
-```
-
-功能：检查一个 Byte 数组是否符合 UTF-8 编码。
-
-参数：
-
-- data: [Array](core_package_structs.md#struct-arrayt)\<[UInt8](core_package_intrinsics.md#uint8)> - 根据该字节数组构造字符串。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果 Byte 数组符合 UTF-8 编码，返回 true，否则返回 false。
 
 ### static func join(Array\<String>, String)
 
