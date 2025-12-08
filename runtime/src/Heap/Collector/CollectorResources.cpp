@@ -203,7 +203,12 @@ void CollectorResources::WaitForGCFinish()
         return (!IsGcStarted() || (curWaitGcIndex != finishedGcIndex) ||
                 (finishedGcIndex == GCTask::TASK_INDEX_FOR_EXIT));
     };
+#ifdef __OHOS__
+    std::chrono::seconds waitTime(2); // 2 seconds
+    gcFinishedCondVar.wait_for(lock, waitTime, pred);
+#else
     gcFinishedCondVar.wait(lock, pred);
+#endif
     uint64_t stopTime = TimeUtil::MicroSeconds();
     uint64_t diffTime = stopTime - startTime;
     VLOG(REPORT, "WaitForGCFinish cost %zu us", diffTime);
