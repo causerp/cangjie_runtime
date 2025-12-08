@@ -268,14 +268,6 @@ class Sample {
     }
 }
 
-/* coefficient corresponding to 95% confidence interval for median */
-let MEDIAN_CI_95_COEFF: Float64 = 1.96
-/* coefficient corresponding to 99% confidence interval for median */
-let MEDIAN_CI_99_COEFF: Float64 = 2.58
-let MEDIAN_CI_999_COEFF: Float64 = 3.291
-// simple epsilon to compare floats
-let EPSILON: Float64 = 0.0001
-
 class Measurements {
     Measurements(
         private let data: Array<(Float64,Float64)>
