@@ -30,10 +30,10 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 include(Flatbuffer)
 
 if(NOT EXISTS ${CANGJIE_PCRE2_SOURCE_DIR})
-    set(REPOSITORY_PATH https://gitee.com/openharmony/third_party_pcre2.git)
+    set(REPOSITORY_PATH https://gitcode.com/openharmony/third_party_pcre2.git)
     message(STATUS "Set pcre2 REPOSITORY_PATH: ${REPOSITORY_PATH}")
     execute_process(
-        COMMAND git clone --branch OpenHarmony-v6.0-Beta1 ${REPOSITORY_PATH} ${CANGJIE_PCRE2_SOURCE_DIR}
+        COMMAND git clone --branch master ${REPOSITORY_PATH} ${CANGJIE_PCRE2_SOURCE_DIR}
     )
 endif()
 include(Pcre2)
