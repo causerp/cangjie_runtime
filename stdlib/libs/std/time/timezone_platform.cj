@@ -132,11 +132,7 @@ func initLocal(): TimeZone {
         }
     }
     // try get ohos timezone first
-    if (let Some(tz) <- initOhosDefault()) {
-        tz
-    } else {
-        initLocalDefault()
-    }
+    initOhosDefault() ?? initLocalDefault()
 }
 
 @When[os == "iOS"]

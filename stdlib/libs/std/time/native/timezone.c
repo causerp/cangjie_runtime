@@ -32,13 +32,13 @@ char* CJ_TIME_GetLocalTimeZoneProperty()
         return strdup(buf); // Need to free
     }
     pclose(fp);
-#endif
-#ifdef __ohos__
+    return NULL;
+#elif defined __ohos__
     void* timeNdk = dlopen(TIMESERVICE_NDK, RTLD_LAZY);
     if (timeNdk == NULL) {
         return NULL;
     }
-    int (*getZoneFunc) (char*, int64_t) = dlsym(timeNdk, NDK_NAME);
+    int (*getZoneFunc) (char*, uint32_t) = dlsym(timeNdk, NDK_NAME);
     if (getZoneFunc == NULL) {
         dlclose(timeNdk);
         return NULL;
@@ -50,6 +50,7 @@ char* CJ_TIME_GetLocalTimeZoneProperty()
         return NULL;
     }
     return strdup(buf);
-#endif
+#else
     return NULL;
+#endif
 }

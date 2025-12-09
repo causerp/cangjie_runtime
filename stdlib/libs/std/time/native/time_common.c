@@ -25,6 +25,10 @@
 #ifdef __ohos__
 #include <sys/types.h>
 #include <fcntl.h>
+
+#define OH_TZ_PATH "/system/etc/zoneinfo/tzdata"
+#define TZ_HEADER_BYTES 24
+#define TZ_ZONE_BYTES 48
 #endif
 
 #define MAX_PATH_LEN 4096
@@ -227,26 +231,23 @@ extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
     if (id == NULL || len == NULL) {
         return NULL;
     }
-    const char* tzPath = "/system/etc/zoneinfo/tzdata";
-    const size_t headerBytes = 24;
-    const size_t zoneBytes = 48;
-    int fd = open(tzPath, O_RDONLY);
+    int fd = open(OH_TZ_PATH, O_RDONLY);
     if (fd < 0) {
         return NULL;
     }
 
-    uint8_t headerBuf[headerBytes];
-    if (read(fd, headerBuf, headerBytes) != headerBytes) {
+    uint8_t headerBuf[TZ_HEADER_BYTES];
+    if (read(fd, headerBuf, TZ_HEADER_BYTES) != TZ_HEADER_BYTES) {
         close(fd);
         return NULL;
     }
     int dataStartIdx = readInt(headerBuf + 16);
 
     size_t idLen = strlen(id);
-    uint8_t buf[zoneBytes];
+    uint8_t buf[TZ_ZONE_BYTES];
 
     while(1) {
-        if (read(fd, buf, zoneBytes) != zoneBytes) {
+        if (read(fd, buf, TZ_ZONE_BYTES) != TZ_ZONE_BYTES) {
             close(fd);
             return NULL;
         }
@@ -257,7 +258,7 @@ extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
             return NULL;
         }
 
-        if (memcmp(buf, id, idLen) == 0) {
+        if (strcmp(buf, id) == 0) {
             break;
         }
     }
@@ -282,6 +283,7 @@ extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
     close(fd);
     *len = (int64_t)length;
     return tzData;
-#endif
+#else
     return NULL;
+#endif
 }
