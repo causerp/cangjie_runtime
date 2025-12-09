@@ -83,7 +83,7 @@ third_party/llvm-project
 third_party/runtime
 third_party/ylong
 third_party/binary
-third_party/pcre2-10.46
+third_party/pcre2
 third_party/stdx/
 tests/HLT
 # flatc generated file
