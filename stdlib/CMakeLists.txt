@@ -67,7 +67,7 @@ if(CMAKE_BUILD_TYPE AND NOT ("${uppercase_CMAKE_BUILD_TYPE}" MATCHES "^(DEBUG|RE
 endif()
 
 if(NOT DEFINED CANGJIE_PCRE2_SOURCE_DIR)
-    set(CANGJIE_PCRE2_SOURCE_DIR ${CMAKE_SOURCE_DIR}/third_party/pcre2-10.46)
+    set(CANGJIE_PCRE2_SOURCE_DIR ${CMAKE_SOURCE_DIR}/third_party/pcre2)
 endif()
 set(BOUNDSCHECK ${CMAKE_SOURCE_DIR}/third_party/boundscheck-v1.1.16)
 # Provide secure functions.
