@@ -246,7 +246,7 @@ public class TimeZone <: ToString & Equatable<TimeZone> {
             return Local
         }
         if (id.contains("..") || id.contains("\0") || id[0] == b'/' || id[0] == b'\\') {
-            throw IllegalArgumentException("Invalid timezone id.")
+            throw IllegalArgumentException("Invalid timezone id: ${id}.")
         }
         if (let Some(tzdata) <- getOhosTzDataById(id)) {
             return TimeZone.loadFromTZData(id, tzdata)
