@@ -335,7 +335,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
                 case Some(res) => res
                 case None =>
                     let name = getQualifiedName(_info)
-                    _qualifiedName = name.replace(":", ".")
+                    _qualifiedName = name
                     name
             }
         }
@@ -346,7 +346,19 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         let namePointer = getTypeName(pointer)
         return if (let qualifiedName <- CString(namePointer).toString()) {
             var formatted = ArrayList<Byte>()
-            for (ch in qualifiedName.toArray()) {
+            for (idx in 0 .. qualifiedName.size - 1) {
+                let ch = qualifiedName[idx]
+                let nextCh = qualifiedName[idx + 1]
+                let prefixCh = qualifiedName.get(idx-1) ?? b' '
+
+                let isOrgPrefix = (ch == b':' && nextCh == b':')
+                let isOrgSuffix = (idx > 1 && ch == b':' && prefixCh == b':')
+
+                if (isOrgPrefix || isOrgSuffix) {
+                    formatted.add(b':')
+                    continue
+                }
+
                 formatted.add(if (ch == b':') {
                     b'.'
                 } else {
@@ -356,6 +368,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
                     formatted.add(b' ')
                 }
             }
+            formatted.add(qualifiedName[qualifiedName.size - 1])
             String.fromUtf8(formatted.toArray()).replace("std.core.", "")
         } else {
             throw ReflectException("Unexpected empty qualifiedName.")
