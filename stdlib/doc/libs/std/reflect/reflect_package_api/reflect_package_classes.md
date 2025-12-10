@@ -483,7 +483,7 @@ public redef static func of(a: Any): ClassTypeInfo
 异常：
 
 - [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果无法获得实例 `a` 的运行时类型所对应的类型信息，则抛出异常。
-- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-ClassTypeInfo)， 则抛出异常。
+- [IllegalTypeException](./reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)， 则抛出异常。
 
 示例：
 
@@ -706,7 +706,7 @@ public func apply(args: Array<Any>): Any
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -965,7 +965,7 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1106,7 +1106,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1439,7 +1439,7 @@ Some(20)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1624,7 +1624,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1895,7 +1895,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -2608,7 +2608,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3030,7 +3030,7 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3187,7 +3187,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3470,7 +3470,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -4374,7 +4374,7 @@ default.Rectangular
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。

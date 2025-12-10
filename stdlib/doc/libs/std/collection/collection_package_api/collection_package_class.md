@@ -1285,7 +1285,7 @@ public init(map: HashMap<K, V>)
 
 参数：
 
-- [map](collection_package_function.md#func-mapt-rt---r): [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
+- map: [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
 
 ### func next()
 
@@ -1349,9 +1349,7 @@ public prop capacity: Int64
 
 功能：返回 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop size
 
@@ -1738,11 +1736,11 @@ public operator func [](key: K): V
 extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 ```
 
-功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 类型扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>> 接口，支持判等操作。
+功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 类型扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>> 接口，支持判等操作。
 
 父类型：
 
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>>
 
 #### operator func ==(HashMap\<K, V>)
 
@@ -1750,13 +1748,13 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 public operator func ==(right: HashMap<K, V>): Bool
 ```
 
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否相等。
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否相等。
 
-两个 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 相等指的是其中包含的键值对完全相等。
+两个 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 相等指的是其中包含的键值对完全相等。
 
 参数：
 
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
 
 返回值：
 
@@ -1768,11 +1766,11 @@ public operator func ==(right: HashMap<K, V>): Bool
 public operator func !=(right: HashMap<K, V>): Bool
 ```
 
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否不等。
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否不等。
 
 参数：
 
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
 
 返回值：
 
@@ -1784,7 +1782,7 @@ public operator func !=(right: HashMap<K, V>): Bool
 extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
 ```
 
-功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 扩展 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
+功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 扩展 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
 
 父类型：
 
@@ -1796,9 +1794,9 @@ extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
 public func toString(): String
 ```
 
-功能：将当前 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例转换为字符串。
+功能：将当前 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例转换为字符串。
 
-该字符串包含 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 内每个键值对的字符串表示，形如："[(k1, v1), (k2, v2), (k3, v3)]"。
+该字符串包含 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 内每个键值对的字符串表示，形如："[(k1, v1), (k2, v2), (k3, v3)]"。
 
 返回值：
 
@@ -1947,9 +1945,7 @@ public prop capacity: Int64
 >
 > 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### func clear()
 
@@ -2580,7 +2576,7 @@ public func nodeAt(index: Int64): Option<LinkedListNode<T>>
 ### func removeFirst()
 
 ```cangjie
-public func removeFirst() : ?T
+public func removeFirst(): ?T
 ```
 
 功能：移除链表的第一个元素，并返回该元素的值。
@@ -2592,7 +2588,7 @@ public func removeFirst() : ?T
 ### func removeLast()
 
 ```cangjie
-public func removeLast() : ?T
+public func removeLast(): ?T
 ```
 
 功能：移除链表的最后一个元素，并返回该元素的值。
@@ -2792,11 +2788,9 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
 public prop first: ?(K, V)
 ```
 
-功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
+功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个键值对。
 
-返回值：
-
-- ?(K, V) - 如果存在第一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+类型：?(K, V)
 
 ### prop last
 
@@ -2804,11 +2798,9 @@ public prop first: ?(K, V)
 public prop last: ?(K, V)
 ```
 
-功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
+功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个键值对。
 
-返回值：
-
-- ?(K, V) - 如果存在最后一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+类型：?(K, V)
 
 ### prop size
 
@@ -3269,7 +3261,7 @@ public prop first: ?T
 
 功能：获取 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的第一个元素。
 
-类型：?T - 如果存在第一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
+类型：?T
 
 ### prop last
 
@@ -3279,7 +3271,7 @@ public prop last: ?T
 
 功能：获取 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的最后一个元素。
 
-类型：?T - 如果存在最后一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
+类型：?T
 
 ### prop size
 

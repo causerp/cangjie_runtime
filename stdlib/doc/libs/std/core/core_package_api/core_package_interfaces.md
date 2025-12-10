@@ -852,7 +852,7 @@ public interface Iterable<E> {
 
 功能：该接口表示可迭代，实现了该接口的类型（通常为容器类型）可以在 `for-in` 语句中实现迭代，也可以获取其对应的迭代器类型实例，调用 `next` 函数实现迭代。
 
-本包已经为 [Array](core_package_structs.md#struct-arrayt)、[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)、[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v) 等基础容器类型实现了该接口，用户可以为其他类型实现该接口，使之支持迭代遍历的功能。
+本包已经为 [Array](core_package_structs.md#struct-arrayt)、[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)、[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 等基础容器类型实现了该接口，用户可以为其他类型实现该接口，使之支持迭代遍历的功能。
 
 ### func iterator()
 

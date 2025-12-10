@@ -32,9 +32,7 @@ prop first: ?T
 
 功能：访问双端队列头部元素，该操作不会删除头部元素。
 
-返回值：
-
-- ?T - Option 封装的头部元素的值，如果双端队列为空，返回None。
+类型：?T
 
 ### prop last
 
@@ -44,9 +42,7 @@ prop last: ?T
 
 功能：访问双端队列尾部元素，该操作不会删除尾部元素。
 
-返回值：
-
-- ?T - Option 封装的尾部元素的值，如果双端队列为空，返回None。
+类型：?T
 
 ### func addFirst(T)
 
@@ -473,7 +469,7 @@ public mut prop value: ?V
 设置非空的 value 时，如果该视图的 value 不存在，则在该视图对应的原始映射中新增元素。
 设置为 `None` 时，则会删除当前 Entry，删除完之后仍然能继续使用该视图。
 
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)(V)
+类型：?V
 
 ## interface OrderedMap\<K, V>
 

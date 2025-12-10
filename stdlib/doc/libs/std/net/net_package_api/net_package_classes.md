@@ -1118,7 +1118,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
 ### static let broadcast
 
 ```cangjie
-public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
+public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
 ```
 
 功能：返回 [IPv4Address](net_package_classes.md#class-ipv4address) 的广播地址：`255.255.255.255`。
@@ -1128,7 +1128,7 @@ public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
 ### static let localhost
 
 ```cangjie
-public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
+public static let localhost: IPv4Address = IPv4Address(0x7F, 0, 0, 0x01)
 ```
 
 功能：返回 [IPv4Address](net_package_classes.md#class-ipv4address) 的 `localhost` 地址：`127.0.0.1`。
@@ -1138,7 +1138,7 @@ public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
 ### static let unspecified
 
 ```cangjie
-public static let unspecified = IPv4Address(0, 0, 0, 0)
+public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
 ```
 
 功能：返回表示未指定的 [IPv4Address](net_package_classes.md#class-ipv4address) 地址：`0.0.0.0`，这对应于其他语言中的常量 `INADDR_ANY`。
@@ -1318,7 +1318,7 @@ public func toIPv6Compatible(): IPv6Address
 
 返回值：
 
-- [IPv6Address](net_package_classes.md#class-ipv4address) - [IPv6Address](net_package_classes.md#class-ipv4address) 对象。
+- [IPv6Address](net_package_classes.md#class-ipv6address) - [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
 
 ### func toIPv6Mapped()
 
@@ -1330,7 +1330,7 @@ public func toIPv6Mapped(): IPv6Address
 
 返回值：
 
-- [IPv6Address](net_package_classes.md#class-ipv4address) - [IPv6Address](net_package_classes.md#class-ipv4address) 对象。
+- [IPv6Address](net_package_classes.md#class-ipv6address) - [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
 
 ### func writeBigEndian(Array\<Byte>)
 
@@ -1435,7 +1435,7 @@ public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & Less
 ### static let localhost
 
 ```cangjie
-public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
+public static let localhost: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
 ```
 
 功能：返回 [IPv6Address](net_package_classes.md#class-ipv6address) 的 `localhost` 地址：`::1`。
@@ -1445,7 +1445,7 @@ public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
 ### static let unspecified
 
 ```cangjie
-public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
+public static let unspecified: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
 ```
 
 功能：返回表示未指定的 [IPv6Address](net_package_classes.md#class-ipv6address) 地址：`::`，这对应于其他语言中的常量 `INADDR_ANY`。
@@ -3594,7 +3594,7 @@ public init(bindAt!: SocketAddress)
 
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 参数：
 
@@ -3612,7 +3612,7 @@ public init(bindAt!: String)
 
 功能：创建一个未连接的 [UnixDatagramSocket](net_package_classes.md#class-unixdatagramsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated)() 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 参数：
 
@@ -3631,7 +3631,7 @@ public func bind(): Unit
 
 功能：绑定一个 `Unix datagram` 套接字，并创建监听队列。
 
-此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
+此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
 异常：
 
@@ -4027,7 +4027,7 @@ public init(bindAt!: String)
 
 功能：创建一个未连接的 [UnixServerSocket](net_package_classes.md#class-unixserversocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 参数：
 
@@ -4078,7 +4078,7 @@ public override func bind(): Unit
 
 功能：绑定一个 `Unix domain` 套接字，并创建监听队列。
 
-此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 接口判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
+此接口自动在本地地址中创建一个套接字文件，如该文件已存在则会绑定失败。此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 接口判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除，失败后需要 `close` 套接字，不支持多次重试。
 
 异常：
 
@@ -4388,7 +4388,7 @@ public init(path: String, localPath!: ?String = None)
 
 功能：创建一个未连接的 [UnixSocket](net_package_classes.md#class-unixsocket) 实例。
 
-此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring)() 接口删除。
+此文件类型可通过 [isSock](../../posix/posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) 判断是否存在，可通过 [unlink](../../posix/posix_package_api/posix_package_funcs.md#func-unlinkstring-deprecated)() 接口删除。
 
 参数：
 
