@@ -188,7 +188,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
 
         // 1. primitive type should use mangled name to find type
         // 2. qualifiedName in std.core should omits prefix, but runtime need it, must complete qualifiedName here
-        let stripedName = qualifiedName.replace(" ", "")
+        let replacedName = qualifiedName.replace("::", "/")
+        let stripedName = replacedName.replace(" ", "")
         match ((isPrimitive, hasPrefix, isGeneric)) {
             case (true, _, _) => unsafe { stripedName }
             case (_, _, true) => unsafe { parseGeneric(stripedName) }
