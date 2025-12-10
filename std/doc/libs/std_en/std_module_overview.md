@@ -1,4 +1,4 @@
-# Cangjie Programming Language Standard Library API
+# Cangjie Programming Language Standard Library Overview
 
 The Cangjie Programming Language Standard Library (std) is a default library included with the Cangjie SDK installation. The standard library predefines a set of functions, classes, structures, etc., designed to provide commonly used functionalities and utilities, enabling developers to write programs more quickly and efficiently.
 
