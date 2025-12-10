@@ -294,8 +294,13 @@ elseif (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
         -fstack-protector-strong -fPIC -Werror -Wunused-variable ${ANDROID_INCLUDE}"
     )
 elseif (IOS_SIMULATOR_FLAG MATCHES 1)
-    set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-        -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target arm64-apple-ios11-simulator")
+    if (CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64")
+        set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target x86_64-apple-ios11-simulator")
+    else()
+        set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target arm64-apple-ios11-simulator")
+    endif()
 elseif (IOS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
         -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target arm64-apple-ios11")
