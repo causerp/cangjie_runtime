@@ -4,7 +4,7 @@
 #
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-# toolchain for linux12_x86_64
+# toolchain for ios_simulator_x86_64
 
 # Platform
 set(PLATFORM_NAME "ios_simulator_x86_64_cangjie")
