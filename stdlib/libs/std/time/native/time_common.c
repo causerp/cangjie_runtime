@@ -22,6 +22,15 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#ifdef __ohos__
+#include <sys/types.h>
+#include <fcntl.h>
+
+#define OH_TZ_PATH "/system/etc/zoneinfo/tzdata"
+#define TZ_HEADER_BYTES 24
+#define TZ_ZONE_BYTES 48
+#endif
+
 #define MAX_PATH_LEN 4096
 
 #ifdef __MINGW64__
@@ -203,3 +212,78 @@ extern const int64_t CJ_TIME_GetLocalTimeOffset()
     return tmInfo->tm_gmtoff / 60; // one minute contains 60 seconds
 }
 #endif
+
+#ifdef __ohos__
+// convert 4 bytes to int
+static int readInt(const uint8_t src[4])
+{
+    int result = (src[0] << 24) |
+        ((int)src[1] << 16) |
+        ((int)src[2] << 8) |
+        (int)src[3];
+    return result;
+}
+#endif
+
+extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
+{
+#ifdef __ohos__
+    if (id == NULL || len == NULL) {
+        return NULL;
+    }
+    int fd = open(OH_TZ_PATH, O_RDONLY);
+    if (fd < 0) {
+        return NULL;
+    }
+
+    uint8_t headerBuf[TZ_HEADER_BYTES];
+    if (read(fd, headerBuf, TZ_HEADER_BYTES) != TZ_HEADER_BYTES) {
+        close(fd);
+        return NULL;
+    }
+    int dataStartIdx = readInt(headerBuf + 16);
+
+    size_t idLen = strlen(id);
+    uint8_t buf[TZ_ZONE_BYTES];
+
+    while(1) {
+        if (read(fd, buf, TZ_ZONE_BYTES) != TZ_ZONE_BYTES) {
+            close(fd);
+            return NULL;
+        }
+
+        off_t curPos = lseek(fd, 0, SEEK_CUR);
+        if (curPos >= dataStartIdx) {
+            close(fd);
+            return NULL;
+        }
+
+        if (strcmp(buf, id) == 0) {
+            break;
+        }
+    }
+
+    int offset = readInt(buf + 40);
+    int length = readInt(buf + 44);
+    int realOffset = offset + dataStartIdx;
+
+    uint8_t* tzData = malloc(length);
+    if (!tzData) {
+        close(fd);
+        return NULL;
+    }
+
+    lseek(fd, realOffset, SEEK_SET);
+    if (read(fd, tzData, length) != length) {
+        free(tzData);
+        close(fd);
+        return NULL;
+    }
+
+    close(fd);
+    *len = (int64_t)length;
+    return tzData;
+#else
+    return NULL;
+#endif
+}
