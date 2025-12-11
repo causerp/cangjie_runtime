@@ -252,6 +252,88 @@ bool Logger::CheckLogLevel(RTLogLevel level)
 }
 #endif
 
+#if (defined(__OHOS__) && (__OHOS__ == 1))
+static inline void WriteLogOnOhos(RTLogLevel level, const char* buf, bool printTerminal)
+{
+    switch (level) {
+        case RTLOG_ERROR: {
+            if (printTerminal) {
+                printf("%s\n", buf); // Print error messages to the terminal
+            }
+            PRINT_ERROR("%{public}s\n", buf);
+            break;
+        }
+        case RTLOG_FAIL:
+        case RTLOG_FATAL:
+            PRINT_FATAL("%{public}s\n", buf);
+            break;
+        case RTLOG_DEBUG:
+            PRINT_DEBUG("%{public}s\n", buf);
+            break;
+        case RTLOG_WARNING:
+            PRINT_WARN("%{public}s\n", buf);
+            break;
+        case RTLOG_REPORT:
+            VLOG(REPORT, "%{public}s\n", buf)
+        default:
+            PRINT_INFO("%{public}s\n", buf);
+    }
+}
+#endif
+
+#if defined(__ANDROID__)
+static inline void WriteLogOnAndroid(RTLogLevel level, const char* buf)
+{
+    switch (level) {
+        case RTLOG_DEBUG:
+            PRINT_DEBUG("%s\n", buf);
+            break;
+        case RTLOG_WARNING:
+            PRINT_WARN("%s\n", buf);
+            break;
+        case RTLOG_ERROR: {
+            PRINT_ERROR("%s\n", buf);
+            break;
+        }
+        case RTLOG_FAIL:
+        case RTLOG_FATAL:
+            PRINT_FATAL("%s\n", buf);
+            break;
+        case RTLOG_REPORT:
+            VLOG(REPORT, "%{public}s\n", buf)
+        default:
+            PRINT_INFO("%s\n", buf);
+    }
+}
+#endif
+
+#if defined(__IOS__)
+static inline void WriteLogOnIos(RTLogLevel level, const char* buf)
+{
+    switch (level) {
+        case RTLOG_DEBUG:
+            PRINT_DEBUG("%{public}s", buf);
+            break;
+        case RTLOG_WARNING:
+            PRINT_WARN("%{public}s", buf);
+            break;
+        case RTLOG_ERROR: {
+            PRINT_ERROR("%{public}s", buf);
+            break;
+        }
+        case RTLOG_FAIL:
+        case RTLOG_FATAL: {
+            PRINT_FATAL("%{public}s", buf);
+            break;
+        }
+        case RTLOG_REPORT:
+            VLOG(REPORT, "%{public}s\n", buf)
+        default:
+            PRINT_INFO("%{public}s", buf);
+    }
+}
+#endif
+
 void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* format, ...) noexcept
 {
     if (!CheckLogLevel(level)) {
@@ -282,70 +364,11 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
     index += ret;
     va_end(args);
 #if (defined(__OHOS__) && (__OHOS__ == 1))
-    switch (level) {
-        case RTLOG_ERROR: {
-            printf("%s\n", buf); // Print error messages to the terminal
-            PRINT_ERROR("%{public}s\n", buf);
-            break;
-        }
-        case RTLOG_FAIL:
-        case RTLOG_FATAL:
-            PRINT_FATAL("%{public}s\n", buf);
-            break;
-        case RTLOG_DEBUG:
-            PRINT_DEBUG("%{public}s\n", buf);
-            break;
-        case RTLOG_WARNING:
-            PRINT_WARN("%{public}s\n", buf);
-            break;
-        case RTLOG_REPORT:
-            VLOG(REPORT, "%{public}s\n", buf)
-        default:
-            PRINT_INFO("%{public}s\n", buf);
-    }
+    WriteLogOnOhos(level, buf, true);
 #elif defined(__ANDROID__)
-    switch (level) {
-        case RTLOG_DEBUG:
-            PRINT_DEBUG("%s\n", buf);
-            break;
-        case RTLOG_WARNING:
-            PRINT_WARN("%s\n", buf);
-            break;
-        case RTLOG_ERROR: {
-            PRINT_ERROR("%s\n", buf);
-            break;
-        }
-        case RTLOG_FAIL:
-        case RTLOG_FATAL:
-            PRINT_FATAL("%s\n", buf);
-            break;
-        case RTLOG_REPORT:
-            VLOG(REPORT, "%{public}s\n", buf)
-        default:
-            PRINT_INFO("%s\n", buf);
-    }
+    WriteLogOnAndroid(level, buf);
 #elif defined (__IOS__)
-    switch (level) {
-        case RTLOG_DEBUG:
-            PRINT_DEBUG("%{public}s", buf);
-            break;
-        case RTLOG_WARNING:
-            PRINT_WARN("%{public}s", buf);
-            break;
-        case RTLOG_ERROR: {
-            PRINT_ERROR("%{public}s", buf);
-            break;
-        }
-        case RTLOG_FAIL:
-        case RTLOG_FATAL: {
-            PRINT_FATAL("%{public}s", buf);
-            break;
-        }
-        case RTLOG_REPORT:
-            VLOG(REPORT, "%{public}s\n", buf)
-        default:
-            PRINT_INFO("%{public}s", buf);
-    }
+    WriteLogOnIos(level, buf);
 #else
     if (filePath.IsEmpty()) {
         std::lock_guard<std::recursive_mutex> lock(logMutex);
@@ -382,6 +405,31 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
             fflush(fd);
         }
     }
+#endif
+    if (level == RTLOG_FATAL) {
+        std::abort();
+    }
+}
+
+void HiLogForCJThread(RTLogLevel level, const char* format, va_list args)
+{
+    if (!Logger::GetLogger().CheckLogLevel(level)) {
+        return;
+    }
+    char buf[LOG_BUFFER_SIZE / 2];  // 2 means cjthread may do not need that much space
+    int ret = vsprintf_s(buf, sizeof(buf), format, args);
+    if (ret == -1) {
+        char errMsg[ERROR_MSG_SIZE];
+        (void)sprintf_s(errMsg, ERROR_MSG_SIZE, "FormatLog vsprintf_s failed. msg: %s\n", strerror(errno));
+        WriteStr(STDOUT_FILENO, errMsg, true);
+        return;
+    }
+#if (defined(__OHOS__) && (__OHOS__ == 1))
+    WriteLogOnOhos(level, buf, false);
+#elif defined(__ANDROID__)
+    WriteLogOnAndroid(level, buf);
+#elif defined (__IOS__)
+    WriteLogOnIos(level, buf);
 #endif
     if (level == RTLOG_FATAL) {
         std::abort();

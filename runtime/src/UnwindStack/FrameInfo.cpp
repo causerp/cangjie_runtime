@@ -65,7 +65,7 @@ void FrameInfo::PrintFrameInfo(uint32_t frameIdx) const
     LOG(RTLOG_ERROR, outputStr.Str());
 }
 
-#if defined(__IOS__) || defined(MRT_IOS)
+#if defined(__IOS__)
 CString FrameInfo::GetFrameInfo(uint32_t frameIdx) const
 {
     if (frameIdx > 0 && fType == FrameType::NATIVE) {

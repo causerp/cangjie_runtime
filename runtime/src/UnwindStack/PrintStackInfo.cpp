@@ -44,7 +44,7 @@ void PrintStackInfo::PrintStackTrace() const
 #endif
 }
 
-#if defined(__IOS__) || defined(MRT_IOS)
+#if defined(__IOS__)
 CString PrintStackInfo::GetStackTraceString()
 {
     UnwindContext uwContext;

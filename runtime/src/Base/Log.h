@@ -32,6 +32,8 @@ namespace MapleRuntime {
 #define LOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, true, format)
 #define FLOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, false, format)
 
+void HiLogForCJThread(RTLogLevel level, const char* format, va_list args);
+
 void ATraceBeginAsync(const char* name, int32_t taskId);
 
 void ATraceEndAsync(const char* name, int32_t taskId);
