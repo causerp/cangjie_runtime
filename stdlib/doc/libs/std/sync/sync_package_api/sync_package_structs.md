@@ -1,6 +1,6 @@
 # 结构体
 
-## struct ConditionID <sup>(deprecated)<sup>
+## struct ConditionID <sup>(deprecated)</sup>
 
 ```cangjie
 public struct ConditionID

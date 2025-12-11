@@ -28,7 +28,7 @@ func provide(): Iterable<T>
 extend<T> Array<T> <: DataProvider<T>
 ```
 
-功能：对 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)<T> 进行扩展。
+功能：对 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> 进行扩展。
 
 #### func provide()
 
@@ -48,7 +48,7 @@ public func provide(): Iterable<T>
 extend<T> Range<T> <: DataProvider<T>
 ```
 
-功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)<T> 进行扩展。
+功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T> 进行扩展。
 
 #### func provide()
 
@@ -148,7 +148,7 @@ func shrinker(configuration: Configuration): DataShrinker<T>
 extend<T> Array<T> <: DataStrategy<T>
 ```
 
-功能：对 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)<T> 进行扩展。
+功能：对 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> 进行扩展。
 
 #### prop isInfinite
 
@@ -198,7 +198,7 @@ func shrinker(configuration: Configuration): DataShrinker<T>
 extend<T> Range<T> <: DataStrategy<T>
 ```
 
-功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)<T> 进行扩展。
+功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T> 进行扩展。
 
 #### prop isInfinite
 
@@ -298,7 +298,7 @@ public func pprint(to: PrettyPrinter): PrettyPrinter
 extend<T> ArrayList<T>  <: PrettyPrintable where T <: PrettyPrintable
 ```
 
-功能：对 [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)<T> 扩展实现 [PrettyPrintable](#interface-prettyprintable)。
+功能：对 [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<T> 扩展实现 [PrettyPrintable](#interface-prettyprintable)。
 
 #### func pprint(PrettyPrinter)
 

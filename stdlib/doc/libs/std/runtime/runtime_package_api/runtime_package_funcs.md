@@ -204,7 +204,7 @@ public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 > - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
 > - handler 暂不支持成员函数和 foreign 函数。
 
-## func resetSignalHandler(Array<Signal>)
+## func resetSignalHandler(Array\<Signal>)
 
 ```cangjie
 public func resetSignalHandler(sigs: Array<Signal>): Unit
