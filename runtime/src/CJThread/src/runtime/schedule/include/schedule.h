@@ -242,6 +242,16 @@ extern "C" {
 #define ERRNO_SCHD_WRONG_TYPE ((MID_SCHEDULE) | 0x504)
 
 /**
+* @brief 0x10040505 something wrong with ui thread
+*/
+#define ERRNO_SCHD_UITHREAD_ERROR ((MID_SCHEDULE) | 0x505)
+
+/**
+* @brief 0x10040506 cjthread park failed
+*/
+#define ERRNO_SCHD_CJTHREAD_PARK_FAILED ((MID_SCHEDULE) | 0x506)
+
+/**
 * @brief The flag bit is set to - 1 when preemption is triggered.
 */
 #define PREEMPT_DO_FLAG ((uintptr_t)-1)
@@ -885,13 +895,13 @@ int CJThreadStateHookRegister(SchdCJThreadStateHookFunc func, CJThreadStateHook 
 
 #ifdef __OHOS__
 /**
- * @brief Add C2N count in single model cjthread, in order to decide wheater do park in this cjthrad.
+ * @brief Add C2N count in single model cjthread, in order to decide wheater do park in this cjthread.
  * @attention Only use in OHOS, and only for the spawn(Main) to Native func
  */
 void AddSingleModelC2NCount();
 
 /**
- * @brief Dec C2N count in single model cjthread, in order to decide wheater do park in this cjthrad.
+ * @brief Dec C2N count in single model cjthread, in order to decide wheater do park in this cjthread.
  * @attention Only use in OHOS, and only for the spawn(Main) to Native func
  */
 void DecSingleModelC2NCount();
@@ -1485,7 +1495,7 @@ unsigned long long CJ_MRT_GetCJThreadNumberUnsafe(void);
  */
 int CJ_MRT_GetAllCJThreadInfo(void *cjthreadBufPtr, unsigned int num);
 
-#ifdef MRT_IOS
+#ifdef __IOS__
 /**
  * @brief Maximum length of a cjthread stack string.
  */

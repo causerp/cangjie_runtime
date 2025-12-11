@@ -759,9 +759,6 @@ void ProcessorSchedule(void)
             ProcessorStopBoundCJThread();
             // Because the binding thread is switched, preemption flag needs to be reset.
             ProtectAddrSet((uintptr_t)nextCJThread->stack.stackGuard);
-#ifdef MRT_TEST
-            CJThreadExecute(nextCJThread, CJThreadAddr());
-#else
             MapleRuntime::Mutator* mutator = nextCJThread->mutator;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
             tlData->mutator = mutator;
@@ -786,7 +783,6 @@ void ProcessorSchedule(void)
             }
 #endif
             CJThreadExecute(nextCJThread, (void**)&tlData->cjthread);
-#endif
             continue;
         }
         // Finds a dispatchable cjthread and switches its state to RUNNING.
@@ -796,9 +792,6 @@ void ProcessorSchedule(void)
         if (nextCJThread->boundThread != nullptr) {
             ProcessorStartBoundCJThread(nextCJThread);
         } else {
-#ifdef MRT_TEST
-            CJThreadExecute(nextCJThread, CJThreadAddr());
-#else
             MapleRuntime::Mutator* mutator = nextCJThread->mutator;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
             tlData->mutator = mutator;
@@ -825,7 +818,6 @@ void ProcessorSchedule(void)
             // The execution context of ProcessorWake must be in cjthread0. Do not need to
             // change the status of the current cjthread and directly switch to nextCJThread.
             CJThreadExecute(nextCJThread, (void**)&tlData->cjthread);
-#endif
             return;
         }
     } while (true);

@@ -121,7 +121,6 @@ add_compile_definitions(
    "VOS_BYTE_ORDER=VOS_LITTLE_ENDIAN"
    "VOS_BUILD_RELEASE"
    "MRT_LINUX"
-   "MRT_TEST"
 )
 
 # link flags

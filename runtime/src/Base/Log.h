@@ -29,6 +29,8 @@ namespace MapleRuntime {
 #define LOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, true, format)
 #define FLOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, false, format)
 
+void HiLogForCJThread(RTLogLevel level, const char* format, va_list args);
+
 #if defined(__ANDROID__)
 class ATraceWrapper {
 public:
