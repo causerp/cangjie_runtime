@@ -243,7 +243,6 @@ extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
     }
     int dataStartIdx = readInt(headerBuf + 16);
 
-    size_t idLen = strlen(id);
     uint8_t buf[TZ_ZONE_BYTES];
 
     while(1) {
@@ -258,7 +257,7 @@ extern uint8_t* CJ_TIME_GetTzDataById(const char* id, int64_t* len)
             return NULL;
         }
 
-        if (strcmp(buf, id) == 0) {
+        if (strcmp((const char *)buf, id) == 0) {
             break;
         }
     }
