@@ -144,7 +144,6 @@ Exceptions:
 Example:
 
 <!-- verify -->
-
 ```cangjie
 main() {
     let e = Endian.Platform
@@ -321,7 +320,6 @@ Returns:
 Example:
 
 <!-- verify -->
-
 ```cangjie
 main() {
     var value1: Option<Int64> = Some(2)
@@ -1167,34 +1165,4 @@ Returns:
 
 - [String](core_package_structs.md#struct-string) - The converted string.
 
-### func ==(ThreadState)
 
-```cangjie
-public operator func ==(rhs: ThreadState): Bool
-```
-
-Function: Compares two [ThreadState](core_package_enums.md#enum-threadstate) enum values for equality.
-
-Parameters:
-
-- rhs: [ThreadState](core_package_enums.md#enum-threadstate) - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
-
-Returns:
-
-- [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are identical, otherwise false.
-
-### func !=(ThreadState)
-
-```cangjie
-public operator func !=(rhs: ThreadState): Bool
-```
-
-Function: Compares two [ThreadState](core_package_enums.md#enum-threadstate) enum values for inequality.
-
-Parameters:
-
-- rhs: [ThreadState](core_package_enums.md#enum-threadstate) - Another [ThreadState](core_package_enums.md#enum-threadstate) enum value to compare with the current object.
-
-Returns:
-
-- [Bool](core_package_intrinsics.md#bool) - Returns true if the two [ThreadState](core_package_enums.md#enum-threadstate) enums are different, otherwise false.
