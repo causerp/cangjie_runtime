@@ -3381,7 +3381,7 @@ public func wait(timeout!: Duration = Duration.Max): Unit
 
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 阻塞时等待的最大时长，其默认值为 [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)。
 
-## class Monitor <sup>(deprecated)<sup>
+## class Monitor <sup>(deprecated)</sup>
 
 ```cangjie
 public class Monitor <: ReentrantMutex {
@@ -3459,7 +3459,7 @@ public func wait(timeout!: Duration = Duration.Max): Bool
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `timeout` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)，抛出异常。
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
-## class MultiConditionMonitor <sup>(deprecated)<sup>
+## class MultiConditionMonitor <sup>(deprecated)</sup>
 
 ```cangjie
 public class MultiConditionMonitor <: ReentrantMutex {
@@ -3717,7 +3717,7 @@ public func isFair(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 表示 “公平” 模式，否则表示 “非公平” 模式。
 
-## class ReentrantMutex <sup>(deprecated)<sup>
+## class ReentrantMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public open class ReentrantMutex <: Lock {
@@ -3787,7 +3787,7 @@ public open func unlock(): Unit
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
-## class ReentrantReadMutex <sup>(deprecated)<sup>
+## class ReentrantReadMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantReadMutex <: ReentrantMutex
@@ -3841,7 +3841,7 @@ public func unlock(): Unit
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当前线程未持有读锁，那么将抛出异常。
 
-## class ReentrantReadWriteMutex <sup>(deprecated)<sup>
+## class ReentrantReadWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantReadWriteMutex {
@@ -3902,7 +3902,7 @@ public init(mode!: ReadWriteMutexMode = ReadWriteMutexMode.Unfair)
 
 - mode!: [ReadWriteMutexMode <sup>(deprecated)</sup>](sync_package_enums.md#enum-readwritemutexmode-deprecated) - 读写锁模式，默认值为 `Unfair`，即构造“非公平”的读写锁。
 
-## class ReentrantWriteMutex <sup>(deprecated)<sup>
+## class ReentrantWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantWriteMutex <: ReentrantMutex
