@@ -234,7 +234,7 @@ Verify.ordered {
 另外，`Verify` 类还提供了以下工具。
 
 * that(statement: VerifyStatement) 为 Verify.unordered(Paritial, statement) 的别名，用于检查单个语句，不需要列出对应 mock/spy 对象的所有调用。
-* noInteractions(mocks: Array<Object>) 用于检查没有进行调用的 mock/spy 对象。
+* noInteractions(mocks: Array\<Object>) 用于检查没有进行调用的 mock/spy 对象。
 * `clearInvocationLog()` 将日志重置为空状态。这会影响后面的所有验证块，但并不影响桩预期。
 
 示例：
