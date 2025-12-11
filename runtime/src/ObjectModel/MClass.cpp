@@ -604,7 +604,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 			auto res = superTi->GetMethodOuterTI(itf, index);
 			cache.Insert(GetUUID(), itf->GetUUID(), index, res);
 			return res;
-		} else if (edOfSuper->IsDirect()) {
+		} else if (superTypePair.second.first->IsDirect()) {
 			break;
 		}
 	}
