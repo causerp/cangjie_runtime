@@ -16,8 +16,6 @@ package std.io
 
 let BLOCK_SIZE = 4096
 
-@FastNative
-foreign func CJ_IO_IsBigEndian(): Bool
 /**
  * SeekPosition  is the position of the cursor in the file.
  */
