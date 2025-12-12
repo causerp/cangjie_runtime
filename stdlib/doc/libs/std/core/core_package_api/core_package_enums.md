@@ -144,7 +144,6 @@ public static prop Platform: Endian
 示例：
 
 <!-- verify -->
-
 ```cangjie
 main() {
     let e = Endian.Platform
@@ -321,7 +320,6 @@ public func getOrDefault(other: () -> T): T
 示例：
 
 <!-- verify -->
-
 ```cangjie
 main() {
     var value1: Option<Int64> = Some(2)
@@ -620,7 +618,6 @@ Some(None)展开后: None
 None展开后: None
 链式展开Some(Some(Some("Hello"))): Some(Hello)
 ```
-
 
 ### extend\<T> Option\<T> <: Equatable\<Option\<T>> where T <: Equatable\<T>
 
@@ -1168,34 +1165,4 @@ public func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
 
-### operator func !=(ThreadState)
 
-```cangjie
-public operator func !=(rhs: ThreadState): Bool
-```
-
-功能：用于比较两个[ThreadState](core_package_enums.md#enum-threadstate)枚举值是否不相等。
-
-参数：
-
-- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - 要与当前对象进行比较的另一个[ThreadState](core_package_enums.md#enum-threadstate)枚举值。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举不相同则返回true，否则返回false。
-
-### operator func ==(ThreadState)
-
-```cangjie
-public operator func ==(rhs: ThreadState): Bool
-```
-
-功能：用于比较两个[ThreadState](core_package_enums.md#enum-threadstate)枚举值是否相等。
-
-参数：
-
-- rhs:  [ThreadState](core_package_enums.md#enum-threadstate)  - 要与当前对象进行比较的另一个[ThreadState](core_package_enums.md#enum-threadstate)枚举值。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果两个[ThreadState](core_package_enums.md#enum-threadstate)枚举相同则返回true，否则返回false。

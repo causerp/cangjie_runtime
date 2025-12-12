@@ -60,30 +60,6 @@ public enum ThreadState <: ToString {
     }
 
     /**
-     * Overloads the equality operator to compare two ThreadState enum values for equality
-     * @param rhs Another ThreadState enum value to compare with the current instance
-     * @return Bool indicating whether the two ThreadState values are equal
-     */
-    public operator func ==(rhs: ThreadState): Bool {
-        match ((this, rhs)) {
-            case (Ready, Ready) => return true
-            case (Running, Running) => return true
-            case (Pending, Pending) => return true
-            case (Terminated, Terminated) => return true
-            case _ => return false
-        }
-    }
-
-    /**
-     * Overloads the inequality operator to compare two ThreadState enum values for inequality
-     * @param rhs Another ThreadState enum value to compare with the current instance
-     * @return Bool indicating whether the two ThreadState values are not equal
-     */
-    public operator func !=(rhs: ThreadState): Bool {
-        return !(this == rhs)
-    }
-
-    /**
      * Parses an integer value into a ThreadState enum.
      * @param value Integer value representing the thread state
      * @return Corresponding ThreadState enum value
