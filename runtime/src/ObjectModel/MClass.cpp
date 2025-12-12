@@ -164,8 +164,8 @@ void TypeInfo::SetMTableDesc(MTableDesc* desc)
 void TypeInfo::TryInitMTable()
 {
     if (IsMTableDescUnInitialized()) {
-        TypeInfoManager* manager = TypeInfoManager::GetInstance();
-        std::lock_guard<std::recursive_mutex> lock(manager->tiMutex);
+        TypeInfoManager& manager = TypeInfoManager::GetTypeInfoManager();
+        std::lock_guard<std::recursive_mutex> lock(manager.tiMutex);
         TryInitMTableNoLock();
     }
 }
@@ -182,13 +182,13 @@ void TypeInfo::TryInitMTableNoLock()
 {
     if (IsMTableDescUnInitialized()) {
         auto tiUUID = GetUUID();
-        auto tim = TypeInfoManager::GetInstance();
-        auto desc = tim->GetMTableDesc(tiUUID);
+        auto& tim = TypeInfoManager::GetTypeInfoManager();
+        auto desc = tim.GetMTableDesc(tiUUID);
         if (desc == nullptr) {
             BIT_TYPE bitmap = GetResolveBitmapFromMTableDesc();
             desc = new (std::nothrow) MTableDesc(bitmap);
             CHECK_DETAIL(desc != nullptr, "fail to allocate MTableDesc");
-            tim->RecordMTableDesc(tiUUID, desc);
+            tim.RecordMTableDesc(tiUUID, desc);
         }
         SetMTableDesc(desc);
     }
@@ -261,7 +261,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                         superTi->TryUpdateExtensionData(itf, edOfSuper);
                     }
                     FuncPtr* newFt = reinterpret_cast<FuncPtr*>(
-                        TypeInfoManager::GetInstance()->Allocate(itfFtSize * sizeof(FuncPtr)));
+                        TypeInfoManager::GetTypeInfoManager().Allocate(itfFtSize * sizeof(FuncPtr)));
                     if (ftSize > 0) {
                         CHECK(memcpy_s(reinterpret_cast<void*>(newFt),
                                             sizeof(FuncPtr) * ftSize,
@@ -313,7 +313,7 @@ static bool ResolveExtensionData(
         }
         void* targetType = extensionData->GetTargetType();
         // We've traversed all related EDs.
-        auto manager = TypeInfoManager::GetInstance();
+        auto& manager = TypeInfoManager::GetTypeInfoManager();
         auto rSourceGeneric = resolveTi->GetSourceGeneric();
         if (extensionData->TargetIsTypeInfo()) {
             auto tSourceGeneric = reinterpret_cast<TypeInfo*>(targetType)->GetSourceGeneric();
@@ -323,8 +323,8 @@ static bool ResolveExtensionData(
             if (tSourceGeneric != nullptr) {
                 if (rSourceGeneric == nullptr) {
                     return false;
-                } else if (manager->GetTypeTemplateUUID(tSourceGeneric) !=
-                           manager->GetTypeTemplateUUID(rSourceGeneric)) {
+                } else if (manager.GetTypeTemplateUUID(tSourceGeneric) !=
+                           manager.GetTypeTemplateUUID(rSourceGeneric)) {
                     return false;
                 } else if (reinterpret_cast<TypeInfo*>(targetType)->GetUUID() != thisID) {
                     return true;
@@ -332,8 +332,8 @@ static bool ResolveExtensionData(
             }
         } else {
             if (rSourceGeneric == nullptr ||
-                manager->GetTypeTemplateUUID(reinterpret_cast<TypeTemplate*>(targetType)) !=
-                manager->GetTypeTemplateUUID(rSourceGeneric)) {
+                manager.GetTypeTemplateUUID(reinterpret_cast<TypeTemplate*>(targetType)) !=
+                manager.GetTypeTemplateUUID(rSourceGeneric)) {
                 return false;
             }
         }
@@ -458,7 +458,7 @@ void TypeInfo::TraverseOuterExtensionDefs(const std::function<void(TypeInfo*)> g
                 if (getInterface != nullptr) {
                     getInterface(extItf);
                 }
-                TypeInfoManager::GetInstance()->AddTypeInfo(extItf);
+                TypeInfoManager::GetTypeInfoManager().AddTypeInfo(extItf);
                 this->AddMTable(extItf, extensionData);
             }
             return false;
@@ -665,7 +665,7 @@ bool TypeInfo::IsSubType(TypeInfo* typeInfo)
         if (super != nullptr && super->IsFunc()) {
             return false;
         }
-        TypeInfo* objectTi = TypeInfoManager::GetInstance()->GetObjectTypeInfo();
+        TypeInfo* objectTi = TypeInfoManager::GetTypeInfoManager().GetObjectTypeInfo();
 		CHECK(objectTi != nullptr);
         if (typeInfo == objectTi) {
             return true;
@@ -682,7 +682,7 @@ bool TypeInfo::IsSubType(TypeInfo* typeInfo)
             return GetSuperTypeInfo()->IsSubType(typeInfo);
         }
         // All types are subtypes of the Any type.
-        if (typeInfo == TypeInfoManager::GetInstance()->GetAnyTypeInfo()) {
+        if (typeInfo == TypeInfoManager::GetTypeInfoManager().GetAnyTypeInfo()) {
             return true;
         }
         bool isSubType = FindExtensionData(typeInfo, true) != nullptr;

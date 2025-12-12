@@ -169,7 +169,7 @@ void CangjieRuntime::Init()
     signalManager = NewAndInit<SignalManager>();
 #endif
     heapManager = NewAndInit<HeapManager>(param.heapParam);
-    typeInfoManager = TypeInfoManager::GetInstance();
+    typeInfoManager = &TypeInfoManager::GetTypeInfoManager();
     typeInfoManager->Init();
     loaderManager = LoaderManager::GetInstance();
     loaderManager->Init();
