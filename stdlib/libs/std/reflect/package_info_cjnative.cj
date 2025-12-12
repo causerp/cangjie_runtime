@@ -115,8 +115,9 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
                 case Some(res) => res
                 case None =>
                     let name = CString(getPackageName(_packageInfo)).toString()
-                    _qualifiedName = name
-                    name
+                    let replacedName = name.replace("/", "::")
+                    _qualifiedName = replacedName
+                    replacedName
             }
         }
     }
