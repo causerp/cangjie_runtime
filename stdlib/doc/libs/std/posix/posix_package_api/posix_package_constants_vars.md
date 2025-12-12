@@ -15,6 +15,24 @@ public const AT_EMPTY_PATH: Int32 = 0x1000
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${AT_EMPTY_PATH}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4096
+```
+
 ## const AT_FDCWD <sup>(deprecated)</sup>
 
 ```cangjie
@@ -32,6 +50,24 @@ public const AT_FDCWD: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${AT_FDCWD}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: -100
+```
+
 ## const AT_REMOVEDIR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -45,6 +81,24 @@ public const AT_REMOVEDIR: Int32 = 0x200
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${AT_REMOVEDIR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 512
+```
 
 ## const AT_SYMLINK_FOLLOW <sup>(deprecated)</sup>
 
@@ -63,6 +117,24 @@ public const AT_SYMLINK_FOLLOW: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${AT_SYMLINK_FOLLOW}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1024
+```
+
 ## const F_OK <sup>(deprecated)</sup>
 
 ```cangjie
@@ -76,6 +148,24 @@ public const F_OK: Int32 = 0x0
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${F_OK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 0
+```
 
 ## const O_APPEND <sup>(deprecated)</sup>
 
@@ -95,6 +185,24 @@ public const O_APPEND: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_APPEND}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1024
+```
+
 ## const O_CLOEXEC <sup>(deprecated)</sup>
 
 ```cangjie
@@ -112,6 +220,24 @@ public const O_CLOEXEC: Int32
 > - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_CLOEXEC}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 524288
+```
 
 ## const O_CREAT <sup>(deprecated)</sup>
 
@@ -131,6 +257,24 @@ public const O_CREAT: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_CREAT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 64
+```
+
 ## const O_DIRECTORY <sup>(deprecated)</sup>
 
 ```cangjie
@@ -140,7 +284,7 @@ public const O_DIRECTORY: Int32
 功能：如果 `pathname` 指定的文件不是目录，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x00100000
-- 其他情况：0x80000
+- 其他情况：0x10000
 
 > **注意：**
 >
@@ -148,6 +292,24 @@ public const O_DIRECTORY: Int32
 > - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_DIRECTORY}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 65536
+```
 
 ## const O_DSYNC <sup>(deprecated)</sup>
 
@@ -167,6 +329,24 @@ public const O_DSYNC: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_DSYNC}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4096
+```
+
 ## const O_EXCL <sup>(deprecated)</sup>
 
 ```cangjie
@@ -184,6 +364,24 @@ public const O_EXCL: Int32
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_EXCL}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 128
+```
 
 ## const O_NOCTTY <sup>(deprecated)</sup>
 
@@ -203,6 +401,24 @@ public const O_NOCTTY: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_NOCTTY}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 256
+```
+
 ## const O_NOFOLLOW <sup>(deprecated)</sup>
 
 ```cangjie
@@ -220,6 +436,24 @@ public const O_NOFOLLOW: Int32
 > - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_NOFOLLOW}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 131072
+```
 
 ## const O_NONBLOCK <sup>(deprecated)</sup>
 
@@ -239,6 +473,24 @@ public const O_NONBLOCK: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_NONBLOCK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2048
+```
+
 ## const O_RDONLY <sup>(deprecated)</sup>
 
 ```cangjie
@@ -252,6 +504,24 @@ public const O_RDONLY: Int32 = 0x0
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_RDONLY}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 0
+```
 
 ## const O_RDWR <sup>(deprecated)</sup>
 
@@ -267,6 +537,24 @@ public const O_RDWR: Int32 = 0x2
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_RDWR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2
+```
+
 ## const O_RSYNC <sup>(deprecated)</sup>
 
 ```cangjie
@@ -281,6 +569,24 @@ public const O_RSYNC: Int32 = 0x101000
 > - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_RSYNC}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1052672
+```
 
 ## const O_SYNC <sup>(deprecated)</sup>
 
@@ -300,6 +606,24 @@ public const O_SYNC: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_SYNC}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1052672
+```
+
 ## const O_TRUNC <sup>(deprecated)</sup>
 
 ```cangjie
@@ -317,6 +641,24 @@ public const O_TRUNC: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_TRUNC}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 512
+```
+
 ## const O_WRONLY <sup>(deprecated)</sup>
 
 ```cangjie
@@ -330,6 +672,24 @@ public const O_WRONLY: Int32 = 0x1
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${O_WRONLY}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1
+```
 
 ## const R_OK <sup>(deprecated)</sup>
 
@@ -345,6 +705,623 @@ public const R_OK: Int32 = 0x4
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${R_OK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4
+```
+
+## const S_IFBLK <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFBLK: UInt32 = 0x6000
+```
+
+功能：文件类型为块设备，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFBLK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 24576
+```
+
+## const S_IFCHR <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFCHR: UInt32 = 0x2000
+```
+
+功能：文件类型为字符设备，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFCHR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 8192
+```
+
+## const S_IFDIR <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFDIR: UInt32 = 0x4000
+```
+
+功能：文件类型为目录，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFDIR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 16384
+```
+
+## const S_IFIFO <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFIFO: UInt32 = 0x1000
+```
+
+功能：文件类型为 `FIFO` 文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFIFO}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4096
+```
+
+## const S_IFLNK <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFLNK: UInt32 = 0xA000
+```
+
+功能：文件类型为软连接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFLNK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 40960
+```
+
+## const S_IFREG <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFREG: UInt32 = 0x8000
+```
+
+功能：文件类型为一般文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFREG}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 32768
+```
+
+## const S_IFSOCK <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IFSOCK: UInt32 = 0xC000
+```
+
+功能：文件类型为套接字文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IFSOCK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 49152
+```
+## const S_IRGRP <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IRGRP: UInt32 = 0x20
+```
+
+功能：表示文件用户组具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IRGRP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 32
+```
+
+## const S_IROTH <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IROTH: UInt32 = 0x4
+```
+
+功能：表示其他用户对文件具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IROTH}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4
+```
+
+## const S_IRUSR <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IRUSR: UInt32 = 0x100
+```
+
+功能：表示文件所有者具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IRUSR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 256
+```
+
+## const S_IRWXG <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IRWXG: UInt32 = 0x38
+```
+
+功能：表示文件用户组具有读、写、执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IRWXG}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 56
+```
+
+## const S_IRWXO <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IRWXO: UInt32 = 0x7
+```
+
+功能：表示其他用户对文件具有读、写和执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IRWXO}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 7
+```
+## const S_IRWXU <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IRWXU: UInt32 = 0x1C0
+```
+
+功能：表示文件所有者具有读、写和执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IRWXU}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 448
+```
+## const S_IWGRP <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IWGRP: UInt32 = 0x10
+```
+
+功能：表示文件用户组具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IWGRP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 16
+```
+## const S_IWOTH <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IWOTH: UInt32 = 0x2
+```
+
+功能：表示其他用户对文件具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IWOTH}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2
+```
+## const S_IWUSR <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IWUSR: UInt32 = 0x80
+```
+
+功能：表示文件所有者具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IWUSR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 128
+```
+## const S_IXGRP <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IXGRP: UInt32 = 0x8
+```
+
+功能：表示文件用户组具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IXGRP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 8
+```
+## const S_IXOTH <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IXOTH: UInt32 = 0x1
+```
+
+功能：表示其他用户对文件具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IXOTH}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1
+```
+## const S_IXUSR <sup>(deprecated)</sup>
+
+```cangjie
+public const S_IXUSR: UInt32 = 0x40
+```
+
+功能：表示文件所有者具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${S_IXUSR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 64
+```
 ## const SEEK_CUR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -358,6 +1335,24 @@ public const SEEK_CUR: Int32 = 0x1
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SEEK_CUR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1
+```
 
 ## const SEEK_END <sup>(deprecated)</sup>
 
@@ -373,6 +1368,24 @@ public const SEEK_END: Int32 = 0x2
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SEEK_END}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2
+```
+
 ## const SEEK_SET <sup>(deprecated)</sup>
 
 ```cangjie
@@ -386,6 +1399,24 @@ public const SEEK_SET: Int32 = 0x0
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SEEK_SET}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 0
+```
 
 ## const SIGABRT <sup>(deprecated)</sup>
 
@@ -401,6 +1432,24 @@ public const SIGABRT: Int32 = 0x6
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGABRT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 6
+```
+
 ## const SIGALRM <sup>(deprecated)</sup>
 
 ```cangjie
@@ -414,6 +1463,24 @@ public const SIGALRM: Int32 = 0xE
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGALRM}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 14
+```
 
 ## const SIGBUS <sup>(deprecated)</sup>
 
@@ -432,6 +1499,24 @@ public const SIGBUS: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGBUS}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 7
+```
+
 ## const SIGCHLD <sup>(deprecated)</sup>
 
 ```cangjie
@@ -448,6 +1533,24 @@ public const SIGCHLD: Int32
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGCHLD}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 17
+```
 
 ## const SIGCONT <sup>(deprecated)</sup>
 
@@ -466,6 +1569,24 @@ public const SIGCONT: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGCONT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 18
+```
+
 ## const SIGFPE <sup>(deprecated)</sup>
 
 ```cangjie
@@ -479,6 +1600,24 @@ public const SIGFPE: Int32 = 0x8
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGFPE}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 8
+```
 
 ## const SIGHUP <sup>(deprecated)</sup>
 
@@ -494,6 +1633,24 @@ public const SIGHUP: Int32 = 0x1
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGHUP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1
+```
+
 ## const SIGILL <sup>(deprecated)</sup>
 
 ```cangjie
@@ -508,6 +1665,24 @@ public const SIGILL: Int32 = 0x4
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGILL}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 4
+```
+
 ## const SIGINT <sup>(deprecated)</sup>
 
 ```cangjie
@@ -521,6 +1696,24 @@ public const SIGINT: Int32 =  0x2
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGINT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2
+```
 
 ## const SIGIO <sup>(deprecated)</sup>
 
@@ -539,6 +1732,24 @@ public const SIGIO: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGIO}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 29
+```
+
 ## const SIGIOT <sup>(deprecated)</sup>
 
 ```cangjie
@@ -552,6 +1763,24 @@ public const SIGIOT: Int32 = 0x6
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGIOT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 6
+```
 
 ## const SIGKILL <sup>(deprecated)</sup>
 
@@ -567,6 +1796,24 @@ public const SIGKILL: Int32 = 0x9
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGKILL}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 9
+```
+
 ## const SIGPIPE <sup>(deprecated)</sup>
 
 ```cangjie
@@ -581,6 +1828,24 @@ public const SIGPIPE: Int32 = 0xD
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGPIPE}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 13
+```
+
 ## const SIGPROF <sup>(deprecated)</sup>
 
 ```cangjie
@@ -594,6 +1859,24 @@ public const SIGPROF: Int32 = 0x1B
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGPROF}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 27
+```
 
 ## const SIGPWR <sup>(deprecated)</sup>
 
@@ -610,6 +1893,24 @@ public const SIGPWR: Int32 = 0x1E
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGPWR}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 30
+```
+
 ## const SIGQUIT <sup>(deprecated)</sup>
 
 ```cangjie
@@ -623,6 +1924,24 @@ public const SIGQUIT: Int32 = 0x3
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGQUIT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 3
+```
 
 ## const SIGSEGV <sup>(deprecated)</sup>
 
@@ -638,6 +1957,24 @@ public const SIGSEGV: Int32 = 0xB
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGSEGV}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 11
+```
+
 ## const SIGSTKFLT <sup>(deprecated)</sup>
 
 ```cangjie
@@ -652,6 +1989,24 @@ public const SIGSTKFLT: Int32 = 0x10
 > - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGSTKFLT}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 16
+```
 
 ## const SIGSTOP <sup>(deprecated)</sup>
 
@@ -670,6 +2025,24 @@ public const SIGSTOP: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGSTOP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 19
+```
+
 ## const SIGSYS <sup>(deprecated)</sup>
 
 ```cangjie
@@ -687,6 +2060,24 @@ public const SIGSYS: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGSYS}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 31
+```
+
 ## const SIGTERM <sup>(deprecated)</sup>
 
 ```cangjie
@@ -701,6 +2092,24 @@ public const SIGTERM: Int32 = 0xF
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGTERM}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 15
+```
+
 ## const SIGTRAP <sup>(deprecated)</sup>
 
 ```cangjie
@@ -714,6 +2123,24 @@ public const SIGTRAP: Int32 = 0x5
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGTRAP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 5
+```
 
 ## const SIGTSTP <sup>(deprecated)</sup>
 
@@ -732,6 +2159,24 @@ public const SIGTSTP: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGTSTP}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 20
+```
+
 ## const SIGTTIN <sup>(deprecated)</sup>
 
 ```cangjie
@@ -746,6 +2191,24 @@ public const SIGTTIN: Int32 = 0x15
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGTTIN}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 21
+```
+
 ## const SIGTTOU <sup>(deprecated)</sup>
 
 ```cangjie
@@ -759,6 +2222,24 @@ public const SIGTTOU: Int32 = 0x16
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGTTOU}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 22
+```
 
 ## const SIGURG <sup>(deprecated)</sup>
 
@@ -777,6 +2258,24 @@ public const SIGURG: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGURG}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 23
+```
+
 ## const SIGUSR1 <sup>(deprecated)</sup>
 
 ```cangjie
@@ -793,6 +2292,24 @@ public const SIGUSR1: Int32
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGUSR1}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 10
+```
 
 ## const SIGUSR2 <sup>(deprecated)</sup>
 
@@ -811,6 +2328,24 @@ public const SIGUSR2: Int32
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGUSR2}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 12
+```
+
 ## const SIGVTALRM <sup>(deprecated)</sup>
 
 ```cangjie
@@ -824,6 +2359,24 @@ public const SIGVTALRM: Int32 = 0x1A
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGVTALRM}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 26
+```
 
 ## const SIGWINCH <sup>(deprecated)</sup>
 
@@ -839,6 +2392,24 @@ public const SIGWINCH: Int32 = 0x1C
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGWINCH}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 28
+```
+
 ## const SIGXCPU <sup>(deprecated)</sup>
 
 ```cangjie
@@ -852,6 +2423,24 @@ public const SIGXCPU: Int32 = 0x18
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGXCPU}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 24
+```
 
 ## const SIGXFSZ <sup>(deprecated)</sup>
 
@@ -867,271 +2456,23 @@ public const SIGXFSZ: Int32 = 0x19
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-## const S_IFBLK <sup>(deprecated)</sup>
+示例：
 
+<!-- verify -->
 ```cangjie
-public const S_IFBLK: UInt32 = 0x6000
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${SIGXFSZ}")
+    return 0
+}
 ```
 
-功能：文件类型为块设备，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+运行结果：
 
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFCHR <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFCHR: UInt32 = 0x2000
+```text
+value: 25
 ```
-
-功能：文件类型为字符设备，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFDIR <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFDIR: UInt32 = 0x4000
-```
-
-功能：文件类型为目录，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFIFO <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFIFO: UInt32 = 0x1000
-```
-
-功能：文件类型为 `FIFO` 文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFLNK <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFLNK: UInt32 = 0xA000
-```
-
-功能：文件类型为软连接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFREG <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFREG: UInt32 = 0x8000
-```
-
-功能：文件类型为一般文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IFSOCK <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IFSOCK: UInt32 = 0xC000
-```
-
-功能：文件类型为套接字文件，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IRGRP <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IRGRP: UInt32 = 0x20
-```
-
-功能：表示文件用户组具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IROTH <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IROTH: UInt32 = 0x4
-```
-
-功能：表示其他用户对文件具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IRUSR <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IRUSR: UInt32 = 0x100
-```
-
-功能：表示文件所有者具有读权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IRWXG <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IRWXG: UInt32 = 0x38
-```
-
-功能：表示文件用户组具有读、写、执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IRWXO <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IRWXO: UInt32 = 0x7
-```
-
-功能：表示其他用户对文件具有读、写和执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IRWXU <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IRWXU: UInt32 = 0x1C0
-```
-
-功能：表示文件所有者具有读、写和执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IWGRP <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IWGRP: UInt32 = 0x10
-```
-
-功能：表示文件用户组具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IWOTH <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IWOTH: UInt32 = 0x2
-```
-
-功能：表示其他用户对文件具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IWUSR <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IWUSR: UInt32 = 0x80
-```
-
-功能：表示文件所有者具有写权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IXGRP <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IXGRP: UInt32 = 0x8
-```
-
-功能：表示文件用户组具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IXOTH <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IXOTH: UInt32 = 0x1
-```
-
-功能：表示其他用户对文件具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
-
-## const S_IXUSR <sup>(deprecated)</sup>
-
-```cangjie
-public const S_IXUSR: UInt32 = 0x40
-```
-
-功能：表示文件所有者具有执行权限，适用函数 open，open64，openat，openat64，[chmod](posix_package_funcs.md#func-chmodstring-uint32-deprecated)(mode)，[fchmod](posix_package_funcs.md#func-fchmodint32-uint32-deprecated)(mode)，[fchmodat](posix_package_funcs.md#func-fchmodatint32-string-uint32-int32-deprecated)(mode)，[creat](posix_package_funcs.md#func-creatstring-uint32-deprecated)， 所属函数参数 `flag`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-类型：[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)
 
 ## const W_OK <sup>(deprecated)</sup>
 
@@ -1147,6 +2488,23 @@ public const W_OK: Int32 = 0x2
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${W_OK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 2
+```
 ## const X_OK <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1160,3 +2518,21 @@ public const X_OK: Int32 = 0x1
 > 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.posix.*
+
+main(): Int32 {
+    println("value: ${X_OK}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+value: 1
+```

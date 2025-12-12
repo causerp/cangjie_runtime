@@ -192,9 +192,14 @@ import std.net.*
 
 main() {
     let iplist: Array<IPAddress> = IPAddress.resolve(AddressFamily.UNSPEC, "localhost")
-    println(iplist)
+    println("may output: ${iplist}")
 }
-// may output: [127.0.0.1, ::1]
+```
+
+可能的运行结果：
+
+```text
+may output: [127.0.0.1]
 ```
 
 ### static func resolve(String)
@@ -221,9 +226,14 @@ import std.net.*
 
 main() {
     let iplist: Array<IPAddress> = IPAddress.resolve("localhost")
-    println(iplist)
+    println("may output: ${iplist}")
 }
-// may output: [127.0.0.1, ::1]
+```
+
+可能的运行结果：
+
+```text
+may output: [127.0.0.1]
 ```
 
 ### static func tryParse(String)

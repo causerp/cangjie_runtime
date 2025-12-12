@@ -50,6 +50,27 @@ public func execute(
 
 - [ProcessException](process_package_exceptions.md#class-processexception) - 当内存分配失败或 `command` 对应的命令不存在或等待超时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.process.*
+
+main(): Int64 {
+    // 执行简单命令并获取退出码
+    let exitCode = execute("echo", ["Hello, World!"])
+    println("退出码: ${exitCode}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Hello, World!
+退出码: 0
+```
+
 ## func executeWithOutput(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect)
 
 ```cangjie
@@ -99,6 +120,33 @@ public func executeWithOutput(
     - 或者子进程不存在
     - 或者标准流读取异常时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.process.*
+
+main(): Int64 {
+    // 执行命令并捕获其输出
+    let (exitCode, stdout, stderr) = executeWithOutput("echo", ["Hello, World!"])
+    let stdoutStr = String.fromUtf8(stdout)
+    let stderrStr = String.fromUtf8(stderr)
+    println("退出码: ${exitCode}")
+    println("标准输出: ${stdoutStr}")
+    println("标准错误: ${stderrStr}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+退出码: 0
+标准输出: Hello, World!
+
+标准错误: 
+```
+
 ## func findProcess(Int64)
 
 ```cangjie
@@ -123,6 +171,35 @@ public func findProcess(pid: Int64): Process
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入进程 `id` 大于 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 最大值或小于 `0`时，抛出异常。
 - [ProcessException](process_package_exceptions.md#class-processexception) - 当内存分配失败或 `pid` 对应的进程不存在时，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.process.*
+
+main(): Int64 {
+    // 获取当前进程ID
+    let currentPid = Process.current.pid
+    println("当前进程PID: ${currentPid}")
+    
+    // 根据PID查找进程
+    let process = findProcess(currentPid)
+    println("找到的进程PID: ${process.pid}")
+    println("进程名称: ${process.name}")
+    println("进程命令: ${process.command}")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+当前进程PID: 72451
+找到的进程PID: 72451
+进程名称: main
+进程命令: ./main
+```
 
 ## func launch(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect)
 
@@ -168,3 +245,32 @@ public func launch(
     - 或者 `value` 字符串中包含空字符
     - 或者 `stdIn`、`stdOut`、`stdErr` 输入为文件模式，输入的文件已被关闭或删除时，抛出异常。
 - [ProcessException](process_package_exceptions.md#class-processexception) - 当内存分配失败或 `command` 对应的命令不存在时，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.process.*
+
+main(): Int64 {
+    // 启动一个子进程
+    let subprocess = launch("sleep", ["2s"])
+    println("启动的进程PID: ${subprocess.pid}")
+    println("进程名称: ${subprocess.name}")
+    println("进程命令: ${subprocess.command}")
+    
+    // 等待进程完成
+    let exitCode = subprocess.wait()
+    println("进程退出码: ${exitCode}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+启动的进程PID: 72451
+进程名称: sleep
+进程命令: sleep
+进程退出码: 0
+```

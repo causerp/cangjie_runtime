@@ -18,7 +18,7 @@ public class Signal <: ToString {
 
 父类型：
 
-- [ToString](core_package_interfaces.md#interface-tostring)
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
 > **注意：**
 >
@@ -33,7 +33,7 @@ public static const SIGALRM = Signal(0xe, "alarm clock")
 
 功能：SIGALRM 信号，定时器超时。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 ### static const SIGHUP
 
@@ -43,7 +43,7 @@ public static const SIGHUP = Signal(0x1, "hangup")
 
 功能：SIGHUP 信号，终端挂起或进程父进程退出。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 ### static const SIGINT
 
@@ -53,7 +53,7 @@ public static const SIGINT = Signal(0x2, "interrupt")
 
 功能：SIGINT 信号，表示用户中断。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 ### static const SIGQUIT
 
@@ -63,7 +63,7 @@ public static const SIGQUIT = Signal(0x3, "quit")
 
 功能：SIGQUIT 信号，表示用户退出。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 ### static const SIGTERM
 
@@ -73,7 +73,7 @@ public static const SIGTERM = Signal(0xf, "terminated")
 
 功能：SIGTERM 信号，终止请求。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 #### prop value
 
@@ -104,7 +104,7 @@ public static const SIGTRAP = Signal(0x5, "trace/breakpoint trap")
 
 功能：SIGTRAP 信号，调试断点触发。
 
-类型：[Signal](./runtime_package_class#class-signal)
+类型：[Signal](./runtime_package_class.md#class-signal)
 
 ### func toString()
 
