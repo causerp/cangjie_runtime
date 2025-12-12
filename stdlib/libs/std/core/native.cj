@@ -57,21 +57,12 @@ foreign func CJ_CORE_StringSize(str: CPointer<UInt8>, len: Int64): Int64
 foreign func CJ_CORE_Float64ToCPointer(num: Float64): CPointer<UInt8>
 
 @FastNative
-foreign func CJ_CORE_IndexOfChar(orgStr: CPointer<UInt8>, patC: UInt32, orgSize: Int64, start: Int64): Int64
-
-@FastNative
-foreign func CJ_CORE_LastIndexOfChar(orgStr: CPointer<UInt8>, patC: UInt32, orgSize: Int64, start: Int64): Int64
-
-@FastNative
 foreign func CJ_CORE_IndexOfString(orgStr: CPointer<UInt8>, subStr: CPointer<UInt8>, orgSize: Int64, subSize: Int64,
     start: Int64): Int64
 
 @FastNative
 foreign func CJ_CORE_LastIndexOfString(orgStr: CPointer<UInt8>, subStr: CPointer<UInt8>, orgSize: Int64, subSize: Int64,
     start: Int64): Int64
-
-@FastNative
-foreign func CJ_CORE_CountChar(orgStr: CPointer<UInt8>, patC: UInt32, orgSize: Int64): Int64
 
 @FastNative
 foreign func CJ_CORE_CountString(orgStr: CPointer<UInt8>, subStr: CPointer<UInt8>, orgSize: Int64, subSize: Int64): Int64
