@@ -1,3 +1,4 @@
 CMakebuild/
 build/cjthread_build
 output/
+third_party/third_party_bounds_checking_function
