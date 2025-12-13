@@ -1578,9 +1578,9 @@ public func getTokenKind(no: UInt16): TokenKind {
     let index = Int64(no)
     if (index >= maxSize) {
         /* Return ILLEGAL Token. */
-        return PATTERNS[maxSize - 1][0]
+        return TokenKind.ILLEGAL
     }
-    return PATTERNS[index][0];
+    return PATTERNS[index][0]
 }
 
 @When[os == "Windows"]

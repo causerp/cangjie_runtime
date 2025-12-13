@@ -934,10 +934,19 @@ table FeatureId {
   dotPoses: [Position];
 }
 
-table FeaturesDirective {
+table FeaturesSet {
   base: NodeBase;
+  lCurlPos: Position;
   content: [FeatureId];
   commaPoses: [Position];
+  rCurlPos: Position;
+}
+
+table FeaturesDirective {
+  base: NodeBase;
+  annotations: [Annotation];
+  featuresSet: FeaturesSet;
+  featuresPos: Position;
 }
 
 enum AccessibleKind:uint8 {
