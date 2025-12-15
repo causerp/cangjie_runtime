@@ -239,7 +239,8 @@ inline bool IsSameRootPackage(TypeInfo* itf1, TypeInfo* itf2)
  */
 void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionData)
 {
-    if (this->GetUUID() == itf->GetUUID()) {
+    auto itfUUID = itf->GetUUID();
+    if (this->GetUUID() == itfUUID) {
         return;
     }
     auto itfVExtensionDataStart = itf->GetvExtensionDataStart();
@@ -252,10 +253,11 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
     if (incrementalSize > 0 && !IsSameRootPackage(this, itf)) {
         TryInitMTable();
         TraverseInnerExtensionDefs();
-        for (auto superTypePair : mTableDesc->mTable) {
-            auto superTi = superTypePair.second.second;
+        auto& mTable = mTableDesc->mTable;
+        for (auto& superTypePair : mTable) {
+            auto superTi = superTypePair.second.GetSuperTi();
             // make sure super is the subtype of itf, and super is the direct super type of this type.
-            if (superTypePair.second.first->flag != 0b10000000) {
+            if (superTypePair.second.GetExtensionData()->flag != 0b10000000) {
                 continue;
             }
             auto edOfSuper = superTi->FindExtensionData(itf);
@@ -279,6 +281,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                 break;
             }
         }
+        mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
     }
 }
 
@@ -291,7 +294,7 @@ void TypeInfo::AddMTable(TypeInfo* itf, ExtensionData* extensionData)
     auto& mTable = GetMTableDesc()->mTable;
     auto it = mTable.find(itfUUID);
     if (it == mTable.end()) {
-        mTable.emplace(itfUUID, std::make_pair(extensionData, itf));
+        mTable.emplace(itfUUID, InheritFuncTable(extensionData, itf, extensionData->GetFuncTableSize()));
     }
 }
 
@@ -475,8 +478,8 @@ void TypeInfo::GetInterfaces(std::vector<TypeInfo*> &itfs)
 	if (IsGenericTypeInfo()) {
 		TraverseOuterExtensionDefs();
 	}
-    for (auto pair : mTableDesc->mTable) {
-		auto super = pair.second.second;
+    for (auto& pair : mTableDesc->mTable) {
+		auto super = pair.second.GetSuperTi();
 		if (super->IsInterface()) {
 			itfs.emplace_back(super);
 		}
@@ -490,16 +493,16 @@ ExtensionData* TypeInfo::FindExtensionDataRecursively(TypeInfo* itf)
     }
 
     std::lock_guard<std::recursive_mutex> lock(mTableDesc->mTableMutex);
-    for (auto pair : mTableDesc->mTable) {
+    for (auto& pair : mTableDesc->mTable) {
         if (pair.first == GetUUID()) {
             // Avoid infinite recursion. The mTAble may contain itself.
             continue;
         }
-        auto super = pair.second.second;
+        auto super = pair.second.GetSuperTi();
         auto found = super->FindExtensionData(itf, true);
         if (found) {
             // This won't cause the issue of iterator invalidation since the function will exit immediately.
-            mTableDesc->mTable.emplace(itf->GetUUID(), std::make_pair(found, itf));
+            mTableDesc->mTable.emplace(itf->GetUUID(), InheritFuncTable(found, itf, found->GetFuncTableSize()));
             return found;
         }
     }
@@ -524,7 +527,7 @@ ExtensionData* TypeInfo::FindExtensionData(TypeInfo* itf, bool searchRecursively
             if (mTableDesc->pending) {
                 auto it = mTableDesc->mTable.find(itfUUID);
                 if (it != mTableDesc->mTable.end()) {
-                    return it->second.first;
+                    return it->second.GetExtensionData();
                 } else {
                     return itf->IsInterface() && searchRecursively ? FindExtensionDataRecursively(itf) : nullptr;
                 }
@@ -536,7 +539,7 @@ ExtensionData* TypeInfo::FindExtensionData(TypeInfo* itf, bool searchRecursively
     auto& mTable = mTableDesc->mTable;
     auto it = mTable.find(itfUUID);
     if (it != mTable.end()) {
-        return it->second.first;
+        return it->second.GetExtensionData();
     }
     return itf->IsInterface() && searchRecursively ? FindExtensionDataRecursively(itf) : nullptr;
 }
@@ -556,46 +559,70 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
     return funcTable;
 }
 
+TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
+{
+    // mTableDesc is not initialized yet.
+    if (UNLIKELY(IsMTableDescUnInitialized())) {
+        return nullptr;
+    }
+
+    // mTableDesc is initialized, but mTable is not fully handled yet.
+    if (UNLIKELY(!mTableDesc->IsFullyHandled())) {
+        return nullptr;
+    }
+    auto& mTable = mTableDesc->mTable;
+    auto it = mTable.find(itf->GetUUID());
+    if (it != mTable.end()) {
+        return it->second.GetCachedTypeInfo(index);
+    } else {
+        LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
+        return nullptr;
+    }
+}
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
 	if (this == itf || this->GetUUID() == itf->GetUUID()) {
 		return this;
 	}
-	if (IsTempEnum() && GetSuperTypeInfo()) {
-		return GetSuperTypeInfo()->GetMethodOuterTI(itf, index);
+    TypeInfo* superTi = GetSuperTypeInfo();
+	if (UNLIKELY(IsTempEnum() && superTi != nullptr)) {
+		return superTi->GetMethodOuterTI(itf, index);
 	}
-    auto res = cache.Get(GetUUID(), itf->GetUUID(), index);
-    if (res != nullptr) {
-        return res;
+    auto* outerTiFromCache = GetMethodOuterTIWithCache(itf, index);
+    if (LIKELY(outerTiFromCache != nullptr)) {
+        return outerTiFromCache;
     }
 	auto extensionData = FindExtensionData(itf);
 	if (extensionData == nullptr) {
-		LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
+        LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
 	}
+    auto& mTable = mTableDesc->mTable;
+    auto it = mTable.find(itf->GetUUID());
 	FuncPtr* funcTable = extensionData->GetFuncTable();
 	auto funcPtr = funcTable[index];
-	for (auto superTypePair : mTableDesc->mTable) {
-		auto superTi = superTypePair.second.second;
+	for (auto& superTypePair : mTableDesc->mTable) {
+        auto superTi = superTypePair.second.GetSuperTi();
+        // Avoid infinite recursion. The mTAble may contain itself.
 		if (superTi == this || superTi->GetUUID() == GetUUID()) {
-			continue;
+            continue;
 		}
 		auto edOfSuper = superTi->FindExtensionData(itf);
-		if (!edOfSuper) {
-			continue;
+		if (edOfSuper == nullptr) {
+            continue;
 		}
         auto funcPtrInSuper = edOfSuper->GetFuncTable()[index];
         if (funcPtrInSuper == nullptr) {
             continue;
         }
 		if (funcPtrInSuper == funcPtr) {
-			auto res = superTi->GetMethodOuterTI(itf, index);
-			cache.Insert(GetUUID(), itf->GetUUID(), index, res);
+            auto res = superTi->GetMethodOuterTI(itf, index);
+			it->second.SetCachedTypeInfo(index, res);
 			return res;
-		} else if (superTypePair.second.first->flag == 0b10000000) {
+		} else if (superTypePair.second.GetExtensionData()->flag == 0b10000000) {
 			break;
 		}
 	}
-	cache.Insert(GetUUID(), itf->GetUUID(), index, this);
+	it->second.SetCachedTypeInfo(index, this);
 	return this;
 }
 
