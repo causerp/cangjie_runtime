@@ -43,9 +43,11 @@ extern char* CJ_SOCKET_GetErrMessage(int n)
     if (buf == NULL) {
         return NULL;
     }
-#if defined(_GNU_SOURCE)
+#if defined(_GNU_SOURCE) && defined(__GLIBC__)
+    // GNU version of strerror_r returns char*, can be NULL on error
     if (strerror_r(n, buf, BUF_SIZE) == NULL) {
 #else
+    // POSIX version of strerror_r returns int (0 on success, error code on failure)
     if (strerror_r(n, buf, BUF_SIZE) != 0) {
 #endif
         free(buf);
