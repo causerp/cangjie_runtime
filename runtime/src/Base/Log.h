@@ -21,12 +21,41 @@
 #if defined(__OHOS__) && (__OHOS__ == 1)
 #include "hitrace/trace.h"
 #elif defined(__ANDROID__)
+#include <dlfcn.h>
 #include "android/trace.h"
 #endif
 
 namespace MapleRuntime {
 #define LOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, true, format)
 #define FLOG(level, format...) ::MapleRuntime::Logger::GetLogger().FormatLog(level, false, format)
+
+#if defined(__ANDROID__)
+class ATraceWrapper {
+public:
+    static ATraceWrapper& GetInstance();
+
+    void BeginAsyncSection(const char* name, int32_t taskId);
+    void EndAsyncSection(const char* name, int32_t taskId);
+    void SetCounter(const char* name, int64_t count);
+
+private:
+    ATraceWrapper();
+    ~ATraceWrapper();
+
+    ATraceWrapper(const ATraceWrapper&) = delete;
+    ATraceWrapper& operator=(const ATraceWrapper&) = delete;
+
+    using ATraceBeginAsyncSectionFunc = void(*)(const char*, int32_t);
+    using ATraceEndAsyncSectionFunc = void(*)(const char*, int32_t);
+    using ATraceSetCounterFunc = void(*)(const char*, int64_t);
+
+    ATraceBeginAsyncSectionFunc beginAsyncFunc = nullptr;
+    ATraceEndAsyncSectionFunc endAsyncFunc = nullptr;
+    ATraceSetCounterFunc setCounterFunc = nullptr;
+
+    void* libHandle = nullptr;
+};
+#endif
 
 #if defined(__OHOS__) && (__OHOS__ == 1)
     /**
@@ -56,9 +85,12 @@ namespace MapleRuntime {
 #elif defined(__ANDROID__)
     #define TRACE_START(name)                    ATrace_beginSection(name)
     #define TRACE_FINISH()                       ATrace_endSection()
-    #define TRACE_START_ASYNC(name, taskId)      ATrace_beginAsyncSection(name, static_cast<int32_t>(taskId))
-    #define TRACE_FINISH_ASYNC(name, taskId)     ATrace_endAsyncSection(name, static_cast<int32_t>(taskId))
-    #define TRACE_COUNT(name, count)             ATrace_setCounter(name, static_cast<int64_t>(count))
+    #define TRACE_START_ASYNC(name, taskId)      \
+        MapleRuntime::ATraceWrapper::GetInstance().BeginAsyncSection(name, static_cast<int32_t>(taskId))
+    #define TRACE_FINISH_ASYNC(name, taskId)     \
+        MapleRuntime::ATraceWrapper::GetInstance().EndAsyncSection(name, static_cast<int32_t>(taskId))
+    #define TRACE_COUNT(name, count)             \
+        MapleRuntime::ATraceWrapper::GetInstance().SetCounter(name, static_cast<int64_t>(count))
 #else
     #define TRACE_START(name)
     #define TRACE_FINISH()

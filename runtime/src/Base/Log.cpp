@@ -363,4 +363,59 @@ const char* TraceInfoFormat(const char* name, unsigned long long id, unsigned in
     return nameStr.Str();
 }
 #endif
+
+#if defined(__ANDROID__)
+ATraceWrapper::ATraceWrapper() {
+    libHandle = dlopen("libandroid.so", RTLD_LAZY);
+    if (!libHandle) {
+        PRINT_ERROR("Failed to dlopen libandroid.so: %s\n", dlerror());
+        return;
+    }
+
+    beginAsyncFunc = reinterpret_cast<ATraceBeginAsyncSectionFunc>(dlsym(libHandle, "ATrace_beginAsyncSection"));
+    endAsyncFunc = reinterpret_cast<ATraceEndAsyncSectionFunc>(dlsym(libHandle, "ATrace_endAsyncSection"));
+    setCounterFunc = reinterpret_cast<ATraceSetCounterFunc>(dlsym(libHandle, "ATrace_setCounter"));
+
+    if (beginAsyncFunc && endAsyncFunc && setCounterFunc) {
+        PRINT_ERROR("ATrace functions all loaded successfully \n");
+    } else {
+        PRINT_ERROR("Failed to load some ATrace functions: begin=%p, end=%p, counter=%p \n",
+                    beginAsyncFunc, endAsyncFunc, setCounterFunc);
+    }
+}
+
+ATraceWrapper::~ATraceWrapper() {
+    if (libHandle) {
+        dlclose(libHandle);
+        libHandle = nullptr;
+    }
+
+    beginAsyncFunc = nullptr;
+    endAsyncFunc = nullptr;
+    setCounterFunc = nullptr;
+}
+
+ATraceWrapper& ATraceWrapper::GetInstance() {
+    static ATraceWrapper instance;
+    return instance;
+}
+
+void ATraceWrapper::BeginAsyncSection(const char* name, int32_t taskId) {
+    if (beginAsyncFunc) {
+        beginAsyncFunc(name, taskId);
+    }
+}
+
+void ATraceWrapper::EndAsyncSection(const char* name, int32_t taskId) {
+    if (endAsyncFunc) {
+        endAsyncFunc(name, taskId);
+    }
+}
+
+void ATraceWrapper::SetCounter(const char* name, int64_t count) {
+    if (setCounterFunc) {
+        setCounterFunc(name, count);
+    }
+}
+#endif
 } // namespace MapleRuntime
