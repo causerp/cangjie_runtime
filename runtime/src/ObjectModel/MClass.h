@@ -72,8 +72,164 @@ union MTableBitmap {
     }
 };
 
+class InheritFuncTable {
+public:
+    InheritFuncTable() = delete;
+    InheritFuncTable(const InheritFuncTable& other)
+        : superExtensionData(other.superExtensionData),
+          superTypeInfo(other.superTypeInfo),
+          cachedTypeInfos(other.cachedTypeInfos)
+    {}
+    InheritFuncTable& operator=(const InheritFuncTable& other)
+    {
+        superExtensionData = other.superExtensionData;
+        superTypeInfo = other.superTypeInfo;
+        cachedTypeInfos = other.cachedTypeInfos;
+        return *this;
+    }
+
+    InheritFuncTable(InheritFuncTable&& other)
+    {
+        superExtensionData = other.superExtensionData;
+        superTypeInfo = other.superTypeInfo;
+        cachedTypeInfos = std::move(other.cachedTypeInfos);
+    }
+    InheritFuncTable& operator=(InheritFuncTable&& other)
+    {
+        superExtensionData = other.superExtensionData;
+        superTypeInfo = other.superTypeInfo;
+        cachedTypeInfos = std::move(other.cachedTypeInfos);
+        return *this;
+    }
+    InheritFuncTable(ExtensionData* ed, TypeInfo* super, size_t sz) : superExtensionData(ed), superTypeInfo(super), cachedTypeInfos(sz) {}
+    ExtensionData* GetExtensionData() const { return superExtensionData; }
+    TypeInfo* GetSuperTi() const { return superTypeInfo; }
+    void ResetAtomicInfoArray(size_t size) { cachedTypeInfos.Reset(size); }
+    TypeInfo* GetCachedTypeInfo(size_t index) const { return cachedTypeInfos.Get(index); }
+    void SetCachedTypeInfo(size_t index, TypeInfo* ti) { cachedTypeInfos.Set(index, ti); }
+private:
+    class AtomicTypeInfoArray {
+    public:
+        AtomicTypeInfoArray() = default;
+        AtomicTypeInfoArray(const AtomicTypeInfoArray& other) : cacheSize(other.cacheSize)
+        {
+            if (cacheSize == 0) {
+                typeInfos = nullptr;
+                return;
+            }
+            typeInfos = new (std::nothrow) std::atomic<TypeInfo*>[cacheSize];
+            if (UNLIKELY(typeInfos == nullptr)) {
+                LOG(RTLOG_FATAL, "copy construct func table memory failed, size %zu", cacheSize);
+            }
+            for (size_t i = 0; i < cacheSize; ++i) {
+                TypeInfo* ti = other.typeInfos[i].load(std::memory_order_relaxed);
+                typeInfos[i].store(ti, std::memory_order_relaxed);
+            }
+        }
+
+        AtomicTypeInfoArray& operator=(const AtomicTypeInfoArray& other)
+        {
+            if (this == &other) {
+                return *this;
+            }
+            cacheSize = other.cacheSize;
+            if (cacheSize == 0) {
+                typeInfos = nullptr;
+                return *this;
+            }
+            typeInfos = new (std::nothrow) std::atomic<TypeInfo*>[cacheSize];
+            if (UNLIKELY(typeInfos == nullptr)) {
+                LOG(RTLOG_FATAL, "copy assign func table memory failed, size %zu", cacheSize);
+            }
+            for (size_t i = 0; i < cacheSize; ++i) {
+                TypeInfo* ti = other.typeInfos[i].load(std::memory_order_relaxed);
+                typeInfos[i].store(ti, std::memory_order_relaxed);
+            }
+            return *this;
+        }
+
+        AtomicTypeInfoArray(AtomicTypeInfoArray&& other)
+        {
+            cacheSize = other.cacheSize;
+            typeInfos = other.typeInfos;
+            other.cacheSize = 0;
+            other.typeInfos = nullptr;
+        }
+
+        AtomicTypeInfoArray& operator=(AtomicTypeInfoArray&& other)
+        {
+            if (this == &other) {
+                return *this;
+            }
+            cacheSize = other.cacheSize;
+            typeInfos = other.typeInfos;
+            other.cacheSize = 0;
+            other.typeInfos = nullptr;
+            return *this;
+        }
+
+        explicit AtomicTypeInfoArray(size_t size) : cacheSize(size)
+        {
+            if (size == 0) {
+                typeInfos = nullptr;
+                return;
+            }
+            typeInfos = new (std::nothrow) std::atomic<TypeInfo*>[size];
+            if (UNLIKELY(typeInfos == nullptr)) {
+                LOG(RTLOG_FATAL, "allocation func table memory failed, cache size %zu", size);
+            }
+            for (size_t i = 0; i < size; ++i) {
+                typeInfos[i].store(nullptr, std::memory_order_relaxed);
+            }
+        }
+
+        ~AtomicTypeInfoArray()
+        {
+            if (typeInfos != nullptr) {
+                delete[] typeInfos;
+            }
+        }
+        TypeInfo* Get(size_t index) const
+        {
+            return typeInfos[index].load(std::memory_order_acquire);
+        }
+        void Set(size_t index, TypeInfo* ti)
+        {
+            typeInfos[index].store(ti, std::memory_order_release);
+        }
+        void Reset(size_t size)
+        {
+            CHECK_DETAIL(size > cacheSize, "update func table with wrong size %zu->%zu", cacheSize, size);
+            auto* newTypeInfos = new (std::nothrow) std::atomic<TypeInfo*>[size];
+            if (UNLIKELY(newTypeInfos == nullptr)) {
+                LOG(RTLOG_FATAL, "reset func table memory allocation failed, cache size %zu", size);
+            }
+            if (typeInfos != nullptr && cacheSize > 0) {
+                for (size_t i = 0; i < cacheSize; ++i) {
+                    TypeInfo* ti = typeInfos[i].load(std::memory_order_relaxed);
+                    newTypeInfos[i].store(ti, std::memory_order_relaxed);
+                }
+                delete[] typeInfos;
+                for (size_t i = cacheSize; i < size; ++i) {
+                    newTypeInfos[i].store(nullptr, std::memory_order_relaxed);
+                }
+            }
+            typeInfos = newTypeInfos;
+            cacheSize = size;
+        }
+    private:
+        size_t cacheSize{ 0 };
+        std::atomic<TypeInfo*>* typeInfos{ nullptr };
+    };
+
+    ExtensionData* superExtensionData { nullptr };
+    TypeInfo* superTypeInfo { nullptr };
+    // The size of this array is the same as the virtual function size of virtual function count in this extenstion
+    // data.
+    AtomicTypeInfoArray cachedTypeInfos;
+};
 struct MTableDesc {
-    std::unordered_map<U32, std::pair<ExtensionData*, TypeInfo*>> mTable;
+    std::unordered_map<U32, InheritFuncTable> mTable;
     std::vector<BaseFile*> waitedExtensionDatas;
     MTableBitmap mTableBitmap;
     std::recursive_mutex mTableMutex;
@@ -510,6 +666,7 @@ public:
     void AddMTable(TypeInfo* ti, ExtensionData* extensionData);
     FuncPtr* GetMTable(TypeInfo* itf);
     TypeInfo* GetMethodOuterTI(TypeInfo* itf, U64 index);
+    TypeInfo* GetMethodOuterTIWithCache(TypeInfo* itf, U64 index);
     U32 GetUUID();
     inline U32 GetClassSize() const;
     inline TypeInfo* GetSuperTypeInfo() const;                     // it can be null
