@@ -300,6 +300,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
             }
             mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
         }
+        mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
     }
 }
 
