@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * This source file is part of the Cangjie project, licensed under Apache-2.0
+ * with Runtime Library Exception.
+ *
+ * See https://cangjie-lang.cn/pages/LICENSE for license information.
+ */
 package std.unittest
 
 import std.sort.*
@@ -273,7 +280,7 @@ public struct CpuCycles <: Measurement {
 }
 
 @When[os=="Linux"]
-foreign func InitPerf(counter: IntNative): IntNative
+foreign func InitPerf(counter: Int32): Int32
 
 @When[os=="Linux"]
 foreign func ReadPerf(): UInt64
@@ -353,7 +360,7 @@ public enum PerfCounter <: ToString {
     | SW_EMULATION_FAULTS
 
 
-    func asRaw(): IntNative {
+    func asRaw(): Int32 {
         match (this) {
             case HW_CPU_CYCLES => 0
             case HW_INSTRUCTIONS => 1 

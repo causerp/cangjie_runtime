@@ -820,13 +820,13 @@ extern bool CJ_FS_CreateTempDir(char* path)
 }
 
 /* Copy symbolic link */
-extern int CJ_FS_CopyLink(char* linkName1, char* linkName2)
+extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     return -1;
 }
 
 /* Copy file */
-extern int CJ_FS_CopyREF(char* dir1, char* dir2)
+extern int8_t CJ_FS_CopyREF(char* dir1, char* dir2)
 {
     wchar_t* source = (wchar_t*)Char2Widechar(dir1);
     if (source == NULL) {

@@ -578,7 +578,7 @@ extern bool CJ_FS_CreateTempDir(char* path)
 }
 
 /* Copy symbolic link */
-extern int CJ_FS_CopyLink(char* linkName1, char* linkName2)
+extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     char buf[MAX_PATH_LEN] = "";
     if (readlink(linkName1, buf, sizeof(buf)) == -1) {
@@ -591,7 +591,7 @@ extern int CJ_FS_CopyLink(char* linkName1, char* linkName2)
 }
 
 /* Copy file */
-extern int CJ_FS_CopyREF(char* dir1, char* dir2)
+extern int8_t CJ_FS_CopyREF(char* dir1, char* dir2)
 {
     char buf[BUF_SIZE];
 

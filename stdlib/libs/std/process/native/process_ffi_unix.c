@@ -428,7 +428,7 @@ extern ProcessRtnData* CJ_OS_StartProcess(ProcessStartInfo* info)
 }
 
 /* Waiting for the process to end. */
-extern int32_t CJ_OS_WaitSubProcessExit(int32_t pid)
+extern int64_t CJ_OS_WaitSubProcessExit(int32_t pid)
 {
     errno = 0;
     int status;

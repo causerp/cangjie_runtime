@@ -13,7 +13,7 @@ import std.process.Process
 
 foreign func EnableANSITerminal(): Bool
 
-foreign func DisableANSITerminal(): Bool
+foreign func DisableANSITerminal(): Unit
 
 var isConsoleUtf8: Bool = true
 
@@ -259,7 +259,7 @@ open class TerminalPrettyPrinter <: PrettyPrinter {
 func setUtf8OutputCP(): Bool { true }
 
 @When[os == "Windows"]
-foreign func SetConsoleOutputCP(cp: UInt32): UInt32
+foreign func SetConsoleOutputCP(cp: UInt32): Int32
 
 @When[os == "Windows"]
 func setUtf8OutputCP(): Bool {
