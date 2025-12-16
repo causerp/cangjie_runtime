@@ -2259,20 +2259,6 @@ public class FeatureId <: Node {
 
 - [Node](#class-node)
 
-### prop identifiers
-
-```cangjie
-public mut prop identifiers: Tokens
-```
-
-功能：获取或设置 [FeatureId](ast_package_classes.md#class-featureid) 节点的标识符。
-
-类型：[Tokens](ast_package_classes.md#class-tokens)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是一组标识符。
-
 ### prop dots
 
 ```cangjie
@@ -2286,6 +2272,20 @@ public mut prop dots: Tokens
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是一组 `.`。
+
+### prop identifiers
+
+```cangjie
+public mut prop identifiers: Tokens
+```
+
+功能：获取或设置 [FeatureId](ast_package_classes.md#class-featureid) 节点的标识符。
+
+类型：[Tokens](ast_package_classes.md#class-tokens)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是一组标识符。
 
 ### init()
 
@@ -2348,6 +2348,16 @@ public mut prop annotations: ArrayList<Annotation>
 
 类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Annotation](ast_package_classes.md#class-annotation)>
 
+### prop featuresSet
+
+```cangjie
+public mut prop featuresSet: FeaturesSet
+```
+
+功能：获取或设置 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 节点里的 features 名称。
+
+类型：[FeaturesSet](ast_package_classes.md#class-featuresset)
+
 ### prop keyword
 
 ```cangjie
@@ -2361,16 +2371,6 @@ public mut prop keyword: Token
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 在配置的不是关键字时抛出异常。
-
-### prop featuresSet
-
-```cangjie
-public mut prop featuresSet: FeaturesSet
-```
-
-功能：获取或设置 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 节点里的 features 名称。
-
-类型：[FeaturesSet](ast_package_classes.md#class-featuresset)
 
 ### init()
 
@@ -2439,19 +2439,19 @@ public class FeaturesSet <: Node {
 
 - [Node](#class-node)
 
-### prop lCurl
+### prop commas
 
 ```cangjie
-public mut prop lCurl: Token
+public mut prop commas: Tokens 
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的 `{` 。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的一组 `,`。
 
-类型：[Token](ast_package_structs.md#struct-token)
+类型：[Tokens](ast_package_classes.md#class-tokens)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是 `{` 时抛出异常。
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是一组 `,` 时抛出异常。
 
 ### prop content
 
@@ -2467,19 +2467,19 @@ public mut prop content: ArrayList<FeatureId>
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是一组 feature id 时抛出异常。
 
-### prop commas
+### prop lCurl
 
 ```cangjie
-public mut prop commas: Tokens 
+public mut prop lCurl: Token
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的一组 `,`。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的 `{` 。
 
-类型：[Tokens](ast_package_classes.md#class-tokens)
+类型：[Token](ast_package_structs.md#struct-token)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是一组 `,` 时抛出异常。
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是 `{` 时抛出异常。
 
 ### prop rCurl
 
