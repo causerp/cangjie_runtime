@@ -580,7 +580,7 @@ public struct CpuCycles <: Measurement {
 }
 
 @When[os == "Linux"]
-foreign func InitPerf(counter: IntNative): IntNative
+foreign func InitPerf(counter: Int32): Int32
 
 @When[os == "Linux"]
 foreign func ReadPerf(): UInt64
@@ -660,7 +660,7 @@ public enum PerfCounter <: ToString {
     | SW_PAGE_FAULTS_MAJ
     | SW_EMULATION_FAULTS
 
-    func asRaw(): IntNative {
+    func asRaw(): Int32 {
         match (this) {
             case HW_CPU_CYCLES => 0
             case HW_INSTRUCTIONS => 1

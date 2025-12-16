@@ -767,7 +767,7 @@ extern bool CJ_OS_FileWrite(HANDLE fd, const char* buffer, size_t maxLen)
 }
 
 // To ensure compatibility with Cangjie.IntNative, intptr_t is used here.
-extern intptr_t CJ_OS_GetStdHandle(int32_t fd)
+extern intptr_t CJ_OS_GetStdHandle(ssize_t fd)
 {
     switch (fd) {
         case STDIN:

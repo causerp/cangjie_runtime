@@ -391,7 +391,7 @@ class DopraTcpSocketImpl <: DopraSocketImpl<DopraTcpSocketImpl> {
         unsafe {
             let handleTmp = handle
             let bufCp = acquireArrayRawData(buffer)
-            let written = CJ_MRT_SockSendNonBlock(handleTmp, bufCp.pointer + offset, batchSize, 0)
+            let written = CJ_MRT_SockSendNonBlock(handleTmp, bufCp.pointer + offset, UInt32(batchSize), 0)
             releaseArrayRawData(bufCp)
 
             match {
@@ -447,7 +447,7 @@ class DopraTcpSocketImpl <: DopraSocketImpl<DopraTcpSocketImpl> {
             }
 
             let bufCp = acquireArrayRawData(buffer)
-            let result = CJ_MRT_SockRecvNonBlock(handleTmp, bufCp.pointer, size, 0)
+            let result = CJ_MRT_SockRecvNonBlock(handleTmp, bufCp.pointer, UInt32(size), 0)
             releaseArrayRawData(bufCp)
 
             match {

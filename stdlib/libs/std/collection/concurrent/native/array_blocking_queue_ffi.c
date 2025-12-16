@@ -42,7 +42,7 @@ extern void CjStdSyncStateStore(uint8_t* ptr, int64_t index, uint8_t state)
     atomic_store_explicit(atmPtr, state, memory_order_release);
 }
 
-extern bool CjStdSyncStateCas(uint8_t* ptr, int index, uint8_t expected, uint8_t desired)
+extern bool CjStdSyncStateCas(uint8_t* ptr, int64_t index, uint8_t expected, uint8_t desired)
 {
     _Atomic uint8_t* atmPtr = (_Atomic uint8_t*)ptr + index;
     return atomic_compare_exchange_strong_explicit(

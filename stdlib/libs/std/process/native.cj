@@ -61,7 +61,7 @@ foreign {
 }
 
 @When[backend == "cjnative"]
-foreign func FiniCJRuntime(): Int64
+foreign func FiniCJRuntime(): Int32
 
 @When[os != "Windows"]
 foreign {
