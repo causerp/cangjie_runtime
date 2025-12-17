@@ -1902,6 +1902,81 @@ Function: Get the state of the thread.
 
 Type: [ThreadState](core_package_enums.md#enum-threadstate)
 
+<!--Del-->
+### static func handleUncaughtErrorBy((Error) -> Unit)
+
+```cangjie
+public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit
+```
+
+Function: Registers a handler for uncaught thread errors.
+
+When a thread terminates prematurely due to an error:
+
+- if a global uncaught error handler is registered, it will be invoked before thread termination. If the handler throws an exception or error, a simple warning message will be printed to the terminal, and the thread (if an exception is thrown) or the process (if an error is thrown) will be terminated.
+- If no handler is registered, the error message will be printed to the terminal by default.
+
+Multiple registrations will overwrite previous handlers.
+
+When multiple threads terminate due to exceptions concurrently, the handler will be executed concurrently for each thread, so thread safety must be ensured in the handler.
+
+The handler's parameter is the uncaught [Error](core_package_exceptions.md#class-error).
+
+Parameters:
+
+- erHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
+
+Example:
+
+<!-- verify -->
+```cangjie
+// Define error handler
+func handleError(err: Error): Unit {
+    println("Unhandled error in thread ${Thread.currentThread.name}: ${err}")
+}
+
+// Will throw OutOfMemoryError
+func consumeMemory() {
+  let array = Array(1024*1024*1024*1024, repeat: 1024)
+  for (i in 0..array.size) {
+    array[i] = 0
+  }
+}
+
+main(): Int64 {
+    // Register uncaught exception handler
+    Thread.handleUncaughtErrorBy(handleError)
+    
+    // Create a thread that throws an errir
+    let future = spawn {
+        consumeMemory()
+    }
+
+    try {
+        // Wait for thread result
+        future.get()
+    } catch (e: Exception) {
+        println("Caught exception: ${e.message}")
+    }
+    return 0
+}
+```
+
+Output：
+
+```text
+An exception has occurred:
+    Out of memory
+Unhandled error in thread : OutOfMemoryError
+An exception has occurred:
+    Out of memory
+```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
 ```cangjie
@@ -1910,7 +1985,10 @@ public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> U
 
 Function: Register a handler function for uncaught exceptions in threads.
 
-When a thread terminates prematurely due to an exception, if the global uncaught exception function is registered, the function will be called and the thread will end. When an exception is thrown in the function, a prompt message will be printed to the terminal and the thread will end, but the exception call stack information will not be printed; if the global exception handler function is not registered, the default will print the exception call stack information to the terminal.
+When a thread terminates prematurely due to an exception:
+
+- If a global uncaught exception handler is registered, it will be invoked before thread termination.
+- If the handler itself throws an exception, a warning message will be printed to the terminal (without stack trace). If no handler is registered, the exception stack trace will be printed by default.
 
 When registering handler functions multiple times, subsequent registration functions will overwrite the previous handler functions.
 

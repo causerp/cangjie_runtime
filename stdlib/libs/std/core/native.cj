@@ -84,3 +84,6 @@ struct StructureString {
     let buffer: CPointer<UInt8> = CPointer<UInt8>()
     let length: UIntNative = 0
 }
+
+@FastNative
+foreign func CJ_CORE_Abort(): Unit
