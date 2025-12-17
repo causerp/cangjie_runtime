@@ -43,8 +43,6 @@ public:
     virtual U32 GetStaticGISize() = 0;
     virtual Uptr GetTypeInfoBase() = 0;
     virtual U32 GetTypeInfoTotalSize() = 0;
-    virtual Uptr GetTypeExtBase() = 0;
-    virtual U32 GetTypeExtTotalSize() = 0;
     virtual CString GetSDKVersion() const = 0;
 
     virtual const CString& GetRealPath() const;

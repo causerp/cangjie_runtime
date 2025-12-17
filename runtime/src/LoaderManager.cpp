@@ -99,6 +99,7 @@ void LoaderManager::LoadFile(Uptr address)
     // MRT_LibraryOnLoad can be invoked before runtime init
     if (GetInitStatus()) {
         RegisterLoadFile(address);
+        GenerateMTableForStaticGI();
     } else {
         AddPreLoadedImageMetaAddr(address);
     }
@@ -146,6 +147,7 @@ void LoaderManager::LoadPreLoadedImages()
     std::lock_guard<std::mutex> lck(loadedImgsMtx);
     for (auto it = preLoadedImages.rbegin(); it != preLoadedImages.rend(); it++) {
         RegisterLoadFile(*it);
+        GenerateMTableForStaticGI();
     }
     preLoadedImages.clear();
 }
@@ -155,6 +157,8 @@ void LoaderManager::RegisterLoadFile(Uptr address) const { loader->RegisterLoadF
 void LoaderManager::UnregisterLoadFile(Uptr address) const { loader->UnregisterLoadFile(address); }
 
 void LoaderManager::AddPreLoadedImageMetaAddr(Uptr address) { preLoadedImages.push_back(address); }
+
+void LoaderManager::GenerateMTableForStaticGI() { loader->GenerateMTableForStaticGI(); }
 
 void LoaderManager::RemovePreLoadedImageMetaAddr(Uptr address)
 {
