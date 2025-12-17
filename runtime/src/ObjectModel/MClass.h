@@ -541,7 +541,7 @@ private:
 
     inline bool IsMTableDescUnInitialized() { return validInheritNum >> 15 == 1; }
     // This function must be called before mTableDesc is overwritten.
-    inline BIT_TYPE GetResolveBitmapFromMTableDesc()
+    inline U64 GetResolveBitmapFromMTableDesc()
     {
         return reinterpret_cast<uintptr_t>(mTableDesc);
     }
