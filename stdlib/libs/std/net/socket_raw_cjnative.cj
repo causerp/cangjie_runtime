@@ -396,7 +396,7 @@ class RawSocketImpl {
                 sentSize = CJ_MRT_SockSendtoNonBlock(
                     this.sockFd,
                     bufCp.pointer + totalSent,
-                    Int32(sizeToSend),
+                    UInt32(sizeToSend),
                     flags,
                     addrPtr
                 )
@@ -425,7 +425,7 @@ class RawSocketImpl {
                 sentSize = CJ_MRT_SockSendNonBlock(
                     sockFd,
                     bufCp.pointer + totalSent,
-                    Int32(sizeToSend),
+                    UInt32(sizeToSend),
                     flags
                 )
                 releaseArrayRawData(bufCp)
@@ -448,7 +448,7 @@ class RawSocketImpl {
             unsafe {
                 let (handle, addrPtr) = getAddrPointer(addrArr)
                 let bufCp = acquireArrayRawData(buffer)
-                recvSize = CJ_MRT_SockRecvfromNonBlock(sockFd, bufCp.pointer, Int32(buffer.size), flags, addrPtr)
+                recvSize = CJ_MRT_SockRecvfromNonBlock(sockFd, bufCp.pointer, UInt32(buffer.size), flags, addrPtr)
                 releaseArrayRawData(bufCp)
                 releaseAddrPointer(handle, addrPtr)
                 if (recvSize > 0) {
@@ -468,7 +468,7 @@ class RawSocketImpl {
         while (true) {
             unsafe {
                 let bufCp = acquireArrayRawData(buffer)
-                recvSize = CJ_MRT_SockRecvNonBlock(sockFd, bufCp.pointer, Int32(buffer.size), flags)
+                recvSize = CJ_MRT_SockRecvNonBlock(sockFd, bufCp.pointer, UInt32(buffer.size), flags)
                 releaseArrayRawData(bufCp)
                 if (recvSize > 0) {
                     break

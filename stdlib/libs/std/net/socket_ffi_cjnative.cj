@@ -114,13 +114,13 @@ foreign {
 
     func CJ_MRT_SockSendTimeout(sock: Int64, buf: CPointer<UInt8>, length: UInt32, flags: Int32, timeout: UInt64): Int32
 
-    func CJ_MRT_SockSendNonBlock(handle: Int64, buf: CPointer<UInt8>, len: Int32, flags: Int32): Int32
+    func CJ_MRT_SockSendNonBlock(handle: Int64, buf: CPointer<UInt8>, len: UInt32, flags: Int32): Int32
 
     func CJ_MRT_SockRecv(sock: Int64, buf: CPointer<UInt8>, length: UInt32, flags: Int32): Int32
 
     func CJ_MRT_SockRecvTimeout(sock: Int64, buf: CPointer<UInt8>, length: UInt32, flags: Int32, timeout: UInt64): Int32
 
-    func CJ_MRT_SockRecvNonBlock(handle: Int64, buf: CPointer<UInt8>, len: Int32, flags: Int32): Int32
+    func CJ_MRT_SockRecvNonBlock(handle: Int64, buf: CPointer<UInt8>, len: UInt32, flags: Int32): Int32
 
     func CJ_MRT_SockRecvfromTimeout(sock: Int64, buf: CPointer<UInt8>, length: UInt32, flags: Int32,
         addr: CPointer<SockAddr>, timeout: UInt64): Int32
@@ -135,10 +135,10 @@ foreign {
     // raw socket
     func CJ_MRT_SockListen(sockfd: Int64, backlog: Int32): Int64
 
-    func CJ_MRT_SockSendtoNonBlock(sockfd: Int64, buf: CPointer<UInt8>, size: Int32, flags: Int32,
+    func CJ_MRT_SockSendtoNonBlock(sockfd: Int64, buf: CPointer<UInt8>, size: UInt32, flags: Int32,
         sockaddr: CPointer<SockAddr>): Int32
 
-    func CJ_MRT_SockRecvfromNonBlock(sockfd: Int64, buf: CPointer<UInt8>, size: Int32, flags: Int32,
+    func CJ_MRT_SockRecvfromNonBlock(sockfd: Int64, buf: CPointer<UInt8>, size: UInt32, flags: Int32,
         sockaddr: CPointer<SockAddr>): Int32
 
     func CJ_MRT_SockLocalAddrGet(sock: Int64, addr: CPointer<SockAddr>): Int32

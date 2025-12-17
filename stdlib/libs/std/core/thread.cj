@@ -25,7 +25,7 @@ func dumpAllThreadsInfo(): RawArray<ThreadSnapshotInfo>
 func dumpCurrentThreadInfo(): ThreadSnapshotInfo
 
 @FastNative
-foreign func CJ_MRT_SetCJThreadName(handle: CPointer<Unit>, name: CPointer<UInt8>, len: Int64): Unit
+foreign func CJ_MRT_SetCJThreadName(handle: CPointer<Unit>, name: CPointer<UInt8>, len: UIntNative): Unit
 
 @FastNative
 foreign func CJ_MRT_GetCJThreadId(handle: CPointer<Unit>): Int64
@@ -321,7 +321,7 @@ public class Thread {
             let rtCJThreadHandle = acquireCJThreadHandle()
             if (!rtCJThreadHandle.isNull()) {
                 unsafe {
-                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, name.size)
+                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, UIntNative(name.size))
                 }
                 releaseCJThreadHandle()
             }

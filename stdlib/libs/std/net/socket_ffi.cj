@@ -265,9 +265,9 @@ foreign {
 
     func CJ_SetOptionInt(sock: Int64, level: Int32, optname: Int32, optval: Int32): Int32
     // raw socket
-    func CJ_RawAddressCreate(arr: CPointer<Byte>, size: Int32): CPointer<SockAddr>
+    func CJ_RawAddressCreate(arr: CPointer<Byte>, size: UInt32): CPointer<SockAddr>
 
-    func CJ_RawAddressLenGet(addrPtr: CPointer<SockAddr>): UIntNative
+    func CJ_RawAddressLenGet(addrPtr: CPointer<SockAddr>): UInt32
 
     func CJ_RawAddressDestroy(addrPtr: CPointer<SockAddr>): Unit
 }
@@ -275,7 +275,7 @@ foreign {
 func getAddrPointer(addr: Array<Byte>): (CPointerHandle<Byte>, CPointer<SockAddr>) {
     unsafe {
         let handle = acquireArrayRawData(addr)
-        let addrPtr = CJ_RawAddressCreate(handle.pointer, Int32(addr.size))
+        let addrPtr = CJ_RawAddressCreate(handle.pointer, UInt32(addr.size))
         if (addrPtr.isNull()) {
             releaseArrayRawData(handle)
             throw SocketException("Failed to allocate memory.")
