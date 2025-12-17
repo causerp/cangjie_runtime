@@ -36,8 +36,6 @@ public:
     U32 GetStaticGISize() override;
     Uptr GetTypeInfoBase() override;
     U32 GetTypeInfoTotalSize() override;
-    Uptr GetTypeExtBase() override;
-    U32 GetTypeExtTotalSize() override;
     CString GetSDKVersion() const override;
 
     void GetGlobalInitFunc(std::vector<Uptr> &globalInitFuncs) const override;

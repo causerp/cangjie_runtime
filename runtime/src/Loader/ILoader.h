@@ -12,7 +12,6 @@
 #include "Base/CString.h"
 #include "Common/TypeDef.h"
 #include "ObjectModel/ExtensionData.h"
-#include "ObjectModel/TypeExt.h"
 #include "BinaryFile/BaseFile.h"
 
 namespace MapleRuntime {
@@ -33,22 +32,21 @@ public:
     virtual bool FileHasLoaded(const char* path) = 0;
     virtual bool FileHasMultiPackage(const char* path) = 0;
     virtual void GetSubPackages(PackageInfo* packageInfo, std::vector<PackageInfo*> &subPackages) = 0;
+    virtual void GenerateMTableForStaticGI() = 0;
 
     virtual bool LibInit(const char*) = 0;
     virtual void* LoadCJLibrary(const char*) = 0;
     virtual int UnloadLibrary(const char*) = 0;
     virtual Uptr FindSymbol(const CString libName, const CString symName) const = 0;
     virtual BaseFile* GetBaseFile(CString fileName) const = 0;
-    virtual void VisitExtensionData(
-        TypeInfo* ti, const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const = 0;
-    virtual void VisitExtensionData(const std::function<void(BaseFile*)>& f) const = 0;
+    virtual void VisitExtenionData(const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const = 0;
     virtual bool CheckPackageCompatibility(BaseFile* file) = 0;
     virtual void TryThrowException(Uptr fileMetaAddr) = 0;
     virtual BaseFile* CreateFileRefFromAddr(Uptr address) = 0;
+    virtual bool IsLazyStaticGI(U32 uuid) = 0;
+    virtual void EraseLazyStaticGI(U32 uuid) = 0;
     virtual U32 GetNumOfInterface(TypeInfo* typeInfo) = 0;
     virtual TypeInfo* GetInterface(TypeInfo* typeInfo, U32 idx) = 0;
-    virtual TypeExt* GetTypeExt(void* type) = 0;
-    virtual void RegisterTypeExt(BaseFile* baseFile) = 0;
 #ifdef __OHOS__
     virtual void RegisterLoadFunc(void* loadFunc) = 0;
 #endif

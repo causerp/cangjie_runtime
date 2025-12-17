@@ -16,6 +16,7 @@
 #include "Base/Types.h"
 #include "ILoader.h"
 #include "os/Loader.h"
+#include "ObjectModel/ExtensionData.h"
 #include "CjSemanticVersion/CjSemanticVersion.h"
 #include "RuntimeConfig.h"
 namespace MapleRuntime {
@@ -45,6 +46,7 @@ public:
     void AddPackageInfos(BaseFile* baseFile);
     void RemoveLoadedFiles(BaseFile* baseFile);
     void ClearLoadedFiles();
+    void GenerateMTableForStaticGI() override;
     void VisitBaseFile(const std::function<bool(BaseFile*)>& f) const override;
     bool LibInit(const char* libName) override;
     void* LoadCJLibrary(const char* libName) override;
@@ -62,17 +64,15 @@ public:
     bool FileHasLoaded(const char* path) override;
     bool FileHasMultiPackage(const char* path) override;
     void GetSubPackages(PackageInfo* packageInfo, std::vector<PackageInfo*> &subPackages) override;
-    void VisitExtensionData(
-        TypeInfo* ti, const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const override;
-    void VisitExtensionData(const std::function<void(BaseFile*)>& f) const override;
+    void VisitExtenionData(const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const override;
     bool CheckPackageCompatibility(BaseFile* file) override;
     void TryThrowException(Uptr fileMetaAddr) override;
     BaseFile* GetBaseFileByMetaAddr(Uptr fileMetaAddr);
     BaseFile* CreateFileRefFromAddr(Uptr address) override;
+    bool IsLazyStaticGI(U32 uuid) override;
+    void EraseLazyStaticGI(U32 uuid) override;
     U32 GetNumOfInterface(TypeInfo* typeInfo) override;
     TypeInfo* GetInterface(TypeInfo* typeInfo, U32 idx) override;
-    TypeExt* GetTypeExt(void* type) override;
-    void RegisterTypeExt(BaseFile* baseFile) override;
 #ifdef __OHOS__
     void RegisterLoadFunc(void* loadFunc) override;
 #endif
@@ -101,14 +101,12 @@ private:
     // typeTemplate : extensionData1
     //              : ExtensionData2
     //              : ...
-    std::unordered_map<BaseFile*, std::unordered_multimap<TypeTemplate*, ExtensionData*>> extensionDatas;
-    std::unordered_map<void*, TypeExt*> typeExts;
+    std::unordered_multimap<TypeTemplate*, ExtensionData*> extensionDatas;
     // These mutexes are used for lazy initialization.
     std::unordered_set<U32> lazyInitStaticGIs;
     std::mutex lazyStaticGIMutex;
     std::vector<TypeInfo*> staticGIs;
     CjSemanticVersion compatibility;
-    bool lastIsFinished = true;
 };
 } // namespace MapleRuntime
 #endif // MRT_CJ_FILE_LOADER_H

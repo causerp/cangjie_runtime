@@ -82,8 +82,6 @@ __CJ_Fini_End:                        # @__CJ_Fini_End
     .quad __CJReflectGVSize
     .quad __CJReflectGI
     .quad __CJReflectGISize
-    .quad __CJTypeExt
-    .quad __CJTypeExtSize
 
     .section __DATA,__mod_init_func,mod_init_funcs
     .p2align 3
