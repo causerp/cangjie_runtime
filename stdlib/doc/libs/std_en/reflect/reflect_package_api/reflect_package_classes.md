@@ -795,6 +795,1177 @@ Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this constructor information is equal to `that`; otherwise, returns `false`.
 
+## class EnumConstructorInfo
+
+```cangjie
+public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
+```
+
+Function: Describes enum constructor (case) information. Use it to inspect constructor parameter types and annotations, or to construct/destruct enum instances by constructor.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parent Types:
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
+- [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+### prop annotations
+
+```cangjie
+public prop annotations: Collection<Annotation>
+```
+
+Function: Retrieves the annotations applied to this enum constructor.
+
+Type: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    let annos = ctor.annotations.toArray()
+    println(annos.size)
+    return
+}
+```
+
+Execution Result:
+
+```text
+0
+```
+
+### prop enumTypeInfo
+
+```cangjie
+public prop enumTypeInfo: EnumTypeInfo
+```
+
+Function: Retrieves the [EnumTypeInfo](#class-enumtypeinfo) of the enum that owns this constructor.
+
+Type: [EnumTypeInfo](#class-enumtypeinfo)
+
+Exceptions:
+
+- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - Thrown if the declaring type is not an enum type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.enumTypeInfo.qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E
+```
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+Function: Retrieves the constructor name (without the package prefix).
+
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+M2
+```
+
+### prop qualifiedName
+
+```cangjie
+public prop qualifiedName: String
+```
+
+Function: Retrieves the qualified name of this enum constructor.
+
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E.M2<Int64>
+```
+
+### prop parameters
+
+```cangjie
+public prop parameters: ReadOnlyList<TypeInfo>
+```
+
+Function: Retrieves the declared parameter type list of this enum constructor, in declaration order.
+
+Type: [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M3", argsCount: 2)
+    let params = ctor.parameters
+    println(params.size)
+    println(params[0].name)
+    println(params[1].name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+2
+Int64
+String
+```
+
+### static func get(String)
+
+```cangjie
+public static func get(qualifiedName: String): EnumConstructorInfo
+```
+
+Function: Retrieves the [EnumConstructorInfo](#class-enumconstructorinfo) corresponding to the given qualified name.
+
+Parameters:
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the enum constructor, for example `default.E.M2<Int64>`.
+
+Returns:
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - The enum constructor information matching `qualifiedName`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `qualifiedName` does not refer to an enum type or the definition does not exist.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumConstructorInfo.get("test.E.M2<Int64>")
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E.M2<Int64>
+```
+
+### static func of(Any)
+
+```cangjie
+public static func of(instance: Any): EnumConstructorInfo
+```
+
+Function: Retrieves the constructor information of the given enum instance.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Enum instance.
+
+Returns:
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - The constructor information the instance belongs to.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `instance` is not an instance of this enum.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+### func apply(Array<Any>)
+
+```cangjie
+public func apply(args: Array<Any>): Any
+```
+
+Function: Invokes this enum constructor with the given arguments and returns the constructed enum instance.
+
+Parameters:
+
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Argument list matching the constructor parameters in declaration order.
+
+Returns:
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The enum instance created by this constructor.
+
+Exceptions:
+
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown when the argument count differs from the constructor parameter count, or when any argument's runtime type does not match the corresponding parameter type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let ctor = EnumConstructorInfo.get("test.E.M3<Int64, String>")
+    let inst = (ctor.apply([7, "hi"]) as E).getOrThrow()
+    match (inst) {
+        case E.M3(v1, v2) => println("${v1}, ${v2}")
+        case _ => println("unexpected")
+    }
+    return
+}
+```
+
+Execution Result:
+
+```text
+7, hi
+```
+
+### func getAssociatedvalues(Any)
+
+```cangjie
+public func getAssociatedvalues(instance: Any): ReadOnlyList<Any>
+```
+
+Function: Retrieves the associated value list of the given enum instance.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Enum instance.
+
+Returns:
+
+- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Associated values in declaration order.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `instance` is not an instance created by this constructor.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    let values = ctor.getAssociatedvalues(E.M2(7))
+    println(values.size)
+    println(values[0] as Int64)
+    return
+}
+```
+
+Execution Result:
+
+```text
+1
+Some(7)
+```
+
+### func findAllAnnotations<T>() where T <: Annotation
+
+```cangjie
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
+```
+
+Function: Retrieves all annotations of type `T` applied to this constructor.
+
+Returns:
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The annotation list.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    let annos = ctor.findAllAnnotations<A1>()
+    println(annos.size)
+    return
+}
+```
+
+Execution Result:
+
+```text
+0
+```
+
+### func findAllAnnotation<T>() where T <: Annotation
+
+```cangjie
+public func findAllAnnotation<T>(): ?T where T <: Annotation
+```
+
+Function: Retrieves any one annotation of type `T` applied to this constructor.
+
+Returns:
+
+- ?T - The annotation instance or `None`.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.findAllAnnotation<A1>().isNone())
+    return
+}
+```
+
+Execution Result:
+
+```text
+true
+```
+
+### func getAllAnnotations()
+
+```cangjie
+public func getAllAnnotations(): Array<Annotation>
+```
+
+Function: Retrieves all annotations applied to this constructor.
+
+Returns:
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - Annotation array.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.getAllAnnotations().size)
+    return
+}
+```
+
+Execution Result:
+
+```text
+0
+```
+
+### func hashCode()
+
+```cangjie
+public func hashCode(): Int64
+```
+
+Function: Retrieves the hash value of this constructor information.
+
+Returns:
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Hash value.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.hashCode() == ctor.hashCode())
+    return
+}
+```
+
+Execution Result:
+
+```text
+true
+```
+
+### operator func ==(EnumConstructorInfo)
+
+```cangjie
+public operator func ==(other: EnumConstructorInfo): Bool
+```
+
+Function: Determines whether this constructor information is equal to another constructor information.
+
+Parameters:
+
+- other: [EnumConstructorInfo](#class-enumconstructorinfo) - The other constructor information.
+
+Returns:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let c1 = e.getConstructor("M1")
+    let c2 = e.getConstructor("M2", argsCount: 1)
+    println(c1 == c1)
+    println(c1 == c2)
+    return
+}
+```
+
+Execution Result:
+
+```text
+true
+false
+```
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+Function: Retrieves the string representation of this constructor information (same as `qualifiedName`).
+
+Returns:
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.toString())
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E.M1
+```
+
+## class EnumTypeInfo
+
+```cangjie
+public class EnumTypeInfo <: TypeInfo
+```
+
+Function: Type information for `enum` types.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parent Type:
+
+- [TypeInfo](#class-typeinfo)
+
+### prop constructors
+
+```cangjie
+public prop constructors: Collection<EnumConstructorInfo>
+```
+
+Function: Retrieves all constructor information for the enum corresponding to this [EnumTypeInfo](#class-enumtypeinfo).
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Type: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let ctors = e.constructors.toArray()
+    println(ctors.size)
+    return
+}
+```
+
+Execution Result:
+
+```text
+2
+```
+
+### static func get(String)
+
+```cangjie
+public redef static func get(qualifiedName: String): EnumTypeInfo
+```
+
+Function: Retrieves the [EnumTypeInfo](#class-enumtypeinfo) for the type specified by `qualifiedName`.
+
+> **Explanation:**
+>
+> `qualifiedName` can be an enum type name or a constructor-qualified name, e.g.:
+>
+> - `default.E`
+> - `default.E.M1`
+> - `default.E.M2<Int64>`
+> - `default.E.M3<Int64, String>`
+
+Parameters:
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Qualified name of the type.
+
+Returns:
+
+- [EnumTypeInfo](#class-enumtypeinfo) - Enum type information matching `qualifiedName`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `qualifiedName` does not refer to an enum type or the definition does not exist.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e1 = EnumTypeInfo.get("test.E")
+    println(e1.qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E
+```
+
+### static func of(Any)
+
+```cangjie
+public static redef func of(instance: Any): EnumTypeInfo
+```
+
+Function: Retrieves the [EnumTypeInfo](#class-enumtypeinfo) for the enum that the given instance belongs to.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Enum instance.
+
+Returns:
+
+- [EnumTypeInfo](#class-enumtypeinfo) - Type information of the enum that `instance` belongs to.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `instance` is not an enum instance.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let info = EnumTypeInfo.of(E.M1)
+    println(info.qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E
+```
+
+### static func of<T>()
+
+```cangjie
+public static redef func of<T>(): EnumTypeInfo
+```
+
+Function: Retrieves the [EnumTypeInfo](#class-enumtypeinfo) for the enum type `T`.
+
+Returns:
+
+- [EnumTypeInfo](#class-enumtypeinfo) - Type information of enum type `T`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if `T` is not an enum type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let info = EnumTypeInfo.of<E>()
+    println(info.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+E
+```
+
+### func construct(String, Array<Any>)
+
+```cangjie
+public func construct(constructor: String, args: Array<Any>): Any
+```
+
+Function: Constructs an enum instance using the given constructor signature and arguments.
+
+Parameters:
+
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Constructor signature.
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Argument list for the constructor.
+
+Returns:
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The constructed enum instance.
+
+Exceptions:
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if the constructor signature cannot be found.
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if `args` count or types do not match the constructor parameters.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let inst = (e.construct("M3<Int64, String>", [42, "abc"]) as E).getOrThrow()
+    match (inst) {
+        case E.M3(v1, v2) => println("${v1}, ${v2}")
+        case _ => println("unexpected")
+    }
+    return
+}
+```
+
+Execution Result:
+
+```text
+42, abc
+```
+
+### func destruct(Any)
+
+```cangjie
+public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
+```
+
+Function: Deconstructs the given enum instance, returning its constructor info and associated values.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Enum instance.
+
+Returns:
+
+- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - Constructor info and associated values.
+
+Exceptions:
+
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - Thrown if `instance` is not an instance of this enum.
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if no matching constructor signature can be found.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let (ctor, values) = e.destruct(E.M2(7))
+    println(ctor.qualifiedName)
+    println(values.size)
+    println(values[0] as Int64)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E.M2<Int64>
+1
+Some(7)
+```
+
+### func getConstructor(String, Int64)
+
+```cangjie
+public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumConstructorInfo
+```
+
+Function: Looks up constructor information by constructor name and parameter count.
+
+Parameters:
+
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Constructor name (without parameter signature), e.g. `M2`.
+- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Parameter count; `0` means no restriction.
+
+Returns:
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - The matched constructor information.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Exceptions:
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - Thrown if no matching constructor is found.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+    | M2(Int64, Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    println(e.getConstructor("M1").qualifiedName)
+    println(e.getConstructor("M2", argsCount: 1).qualifiedName)
+    println(e.getConstructor("M2", argsCount: 2).qualifiedName)
+    return
+}
+```
+
+Execution Result:
+
+```text
+test.E.M1
+test.E.M2<Int64>
+test.E.M2<Int64, Int64>
+```
+
+## class FunctionTypeInfo
+
+```cangjie
+public class FunctionTypeInfo <: TypeInfo
+```
+
+Function: Describes function type (function value/closure) information. Use it to get parameter and return type information.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parent Type:
+
+- [TypeInfo](#class-typeinfo)
+
+### prop parameters
+
+```cangjie
+public prop parameters: ReadOnlyList<TypeInfo>
+```
+
+Function: Retrieves the parameter type list of the function type, in declaration order.
+
+Type: [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let f = { x: Int64, y: UInt8 => x + Int64(y) }
+    let info = FunctionTypeInfo.of(f)
+    println(info.parameters.size)
+    println(info.parameters[0].name)
+    println(info.parameters[1].name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+2
+Int64
+UInt8
+```
+
+### prop returnType
+
+```cangjie
+public prop returnType: TypeInfo
+```
+
+Function: Retrieves the return type information of the function type.
+
+Type: [TypeInfo](#class-typeinfo)
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let f = { x: Int64, y: Int64 => x + y }
+    let info = FunctionTypeInfo.of(f)
+    println(info.returnType.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+Int64
+```
+
+### static func of(Any)
+
+```cangjie
+public redef static func of(instance: Any): FunctionTypeInfo
+```
+
+Function: Retrieves the [FunctionTypeInfo](#class-functiontypeinfo) corresponding to the runtime type of the given instance.
+
+The runtime type is determined through dynamic binding during program execution and is bound to the instance. In inheritance scenarios, the runtime type may differ from the static type.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Instance whose runtime type is a function type.
+
+Returns:
+
+- [FunctionTypeInfo](#class-functiontypeinfo) - The type information corresponding to the runtime type of `instance`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the retrieved type information is not a function type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+func add(a: Int64, b: Int64): Int64 {
+    a + b
+}
+
+main(): Unit {
+    let f: (Int64, Int64) -> Int64 = add
+    let info = FunctionTypeInfo.of(f)
+    println(info.parameters.size)
+    println(info.returnType.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+2
+Int64
+```
+
+### static func of<T>()
+
+```cangjie
+public static redef func of<T>(): FunctionTypeInfo
+```
+
+Function: Retrieves the [FunctionTypeInfo](#class-functiontypeinfo) corresponding to the function type `T`.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Returns:
+
+- [FunctionTypeInfo](#class-functiontypeinfo) - Function type information corresponding to type `T`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the retrieved type information is not a function type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = FunctionTypeInfo.of<(Int64, String) -> Bool>()
+    println(info.parameters.size)
+    println(info.parameters[1].name)
+    println(info.returnType.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+2
+String
+Bool
+```
+
 ## class GenericTypeInfo
 
 ```cangjie
@@ -4057,6 +5228,282 @@ Execution result:
 
 ```text
 default.Rectangular
+```
+
+## class TupleTypeInfo
+
+```cangjie
+public class TupleTypeInfo <: TypeInfo
+```
+
+Function: Describes type information for tuple types.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parent Type:
+
+- [TypeInfo](#class-typeinfo)
+
+### prop elements
+
+```cangjie
+public prop elements: ReadOnlyList<TypeInfo>
+```
+
+Function: Retrieves the type information list for each element of the tuple corresponding to this [TupleTypeInfo](#class-tupletypeinfo), in tuple declaration order.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Type: [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of((1, "abc", true))
+    println(info.elements.size)
+    println(info.elements[0].name)
+    println(info.elements[1].name)
+    println(info.elements[2].name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+3
+Int64
+String
+Bool
+```
+
+### static func of(Any)
+
+```cangjie
+public redef static func of(instance: Any): TupleTypeInfo
+```
+
+Function: Retrieves the [TupleTypeInfo](#class-tupletypeinfo) corresponding to the runtime type of the given instance.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Instance whose runtime type is a tuple.
+
+Returns:
+
+- [TupleTypeInfo](#class-tupletypeinfo) - The type information corresponding to the runtime type of `instance`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the retrieved type information is not [TupleTypeInfo](#class-tupletypeinfo).
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of((1, "a"))
+    println(info.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+Tuple<Int64, String>
+```
+
+### static func of<T>()
+
+```cangjie
+public static redef func of<T>(): TupleTypeInfo
+```
+
+Function: Retrieves the [TupleTypeInfo](#class-tupletypeinfo) corresponding to tuple type `T`.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Returns:
+
+- [TupleTypeInfo](#class-tupletypeinfo) - Tuple type information for type `T`.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the retrieved type information is not [TupleTypeInfo](#class-tupletypeinfo).
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of<(Int64, Bool)>()
+    println(info.name)
+    return
+}
+```
+
+Execution Result:
+
+```text
+Tuple<Int64, Bool>
+```
+
+### func construct(Array<Any>)
+
+```cangjie
+public func construct(args: Array<Any>): Any
+```
+
+Function: Constructs the tuple instance corresponding to this [TupleTypeInfo](#class-tupletypeinfo) by passing argument values in element order, and returns the constructed tuple.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Values for each tuple element, in the same order as the tuple declaration.
+
+Returns:
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The constructed tuple instance.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `args` count differs from the tuple element count.
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if any element type in `args` does not match the corresponding tuple element type.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+class C {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+struct S {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+main(): Unit {
+    let tp = (1, S(0), C(1))
+    let info = TupleTypeInfo.of(tp)
+    let constructed = (info.construct([42, S(99), C(100)]) as (Int64, S, C)).getOrThrow()
+    println(constructed[0])
+    println(constructed[1].v)
+    println(constructed[2].v)
+    return
+}
+```
+
+Execution Result:
+
+```text
+42
+99
+100
+```
+
+### func destruct(Any)
+
+```cangjie
+public func destruct(instance: Any): ReadOnlyList<Any>
+```
+
+Function: Deconstructs the specified tuple instance into a read-only list of its elements.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Instance of the type represented by this [TupleTypeInfo](#class-tupletypeinfo).
+
+Returns:
+
+- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Tuple element values in declaration order.
+
+Exceptions:
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of `instance` does not match this [TupleTypeInfo](#class-tupletypeinfo).
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+class C {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+struct S {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+main(): Unit {
+    let tp = (1, S(0), C(1))
+    let info = TupleTypeInfo.of(tp)
+    let destructed = info.destruct(tp)
+    println(destructed.size)
+    println(destructed[0] as Int64)
+    println((destructed[1] as S)?.v)
+    println((destructed[2] as C)?.v)
+    return
+}
+```
+
+Execution Result:
+
+```text
+3
+Some(1)
+Some(0)
+Some(1)
 ```
 
 ## class TypeInfo

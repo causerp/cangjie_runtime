@@ -114,6 +114,18 @@ func checkArgsSizeAndType(parameters: ReadOnlyList<ParameterInfo>, args: Array<A
     }
 }
 
+func checkArgsSizeAndType(parameters: ReadOnlyList<TypeInfo>, args: Array<Any>): Unit {
+    if (parameters.size != args.size) {
+        throw IllegalArgumentException("The input parameter item does not comply with the required quantity.")
+    }
+    for (i in 0..args.size) {
+        if (!TypeInfo.of(args[i]).isSubtypeOf(parameters[i])) {
+            throw IllegalTypeException(
+                "The input parameter does not match the type of the input parameter required by the function.")
+        }
+    }
+}
+
 
 func checkValueType(newValue: Any, typeInfo: TypeInfo): Unit {
     let valueTypeInfo = TypeInfo.of(newValue)
