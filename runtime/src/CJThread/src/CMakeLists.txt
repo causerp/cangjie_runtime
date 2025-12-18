@@ -60,11 +60,11 @@ $<TARGET_OBJECTS:external>
 if(${PLATFORM_NAME} STREQUAL "linux_aarch64_cangjie" OR ${PLATFORM_NAME} STREQUAL "linux_aarch64" OR
     ${PLATFORM_NAME} STREQUAL "linux12_x86_64_cangjie" OR ${PLATFORM_NAME} STREQUAL "linux12_x86_64_fuzz" OR
     ${PLATFORM_NAME} STREQUAL "linux12_x86_64_gcov" OR ${PLATFORM_NAME} STREQUAL "linux12_x86_64")
-install(TARGETS cangjie-thread ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH})
+install(TARGETS cangjie-thread ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
 set(OBJCOPY_PROGRAM objcopy)
  
 install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} -D --rename-section .text=.text_thread \
-            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}/libcangjie-thread.a)"
+            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-thread.a)"
         COMPONENT cangjie-thread)
 endif()
 
