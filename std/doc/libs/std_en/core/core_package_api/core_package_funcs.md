@@ -1418,7 +1418,7 @@ Execution Result:
 32
 ```
 
-## func println<T>(T) where T <: ToString
+## func println\<T>(T) where T <: ToString
 
 ```cangjie
 public func println<T>(arg: T): Unit where T <: ToString

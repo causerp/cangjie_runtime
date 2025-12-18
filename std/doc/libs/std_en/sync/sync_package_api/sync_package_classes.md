@@ -2025,7 +2025,7 @@ Parameters:
 
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum duration to block, with a default value of [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
-## class Monitor <sup>(deprecated)<sup>
+## class Monitor <sup>(deprecated)</sup>
 
 ```cangjie
 public class Monitor <: ReentrantMutex {
@@ -2045,7 +2045,7 @@ Parent Type:
 
 - [ReentrantMutex <sup>(deprecated)</sup>](#class-reentrantmutex-deprecated)
 
-##### class MultiConditionMonitor <sup>(deprecated)<sup>
+##### class MultiConditionMonitor <sup>(deprecated)</sup>
 
 ```cangjie
 public class MultiConditionMonitor <: ReentrantMutex {
@@ -2302,7 +2302,7 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` indicates fair mode; otherwise, indicates non-fair mode.
 
-## class ReentrantMutex <sup>(deprecated)<sup>
+## class ReentrantMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public open class ReentrantMutex <: Lock {
@@ -2371,7 +2371,7 @@ Exceptions:
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - Thrown if the current thread does not hold the mutex.
 
-## class ReentrantReadMutex <sup>(deprecated)<sup>
+## class ReentrantReadMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantReadMutex <: ReentrantMutex
@@ -2425,7 +2425,7 @@ Exceptions:
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - Thrown if the current thread does not hold the read lock.
 
-## class ReentrantReadWriteMutex <sup>(deprecated)<sup>
+## class ReentrantReadWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantReadWriteMutex {
@@ -2474,7 +2474,7 @@ Function: Gets the write lock.
 
 Type: [ReentrantWriteMutex <sup>(deprecated)</sup>](sync_package_classes.md#class-reentrantwritemutex-deprecated)
 
-## class ReentrantWriteMutex <sup>(deprecated)<sup>
+## class ReentrantWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public class ReentrantWriteMutex <: ReentrantMutex

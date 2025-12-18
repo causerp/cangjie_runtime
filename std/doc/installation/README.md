@@ -54,7 +54,8 @@ After extraction, you will see a directory named `cangjie` in your current worki
 source cangjie/envsetup.sh
 ```
 
-To verify whether the installation was successful, you can execute the following command:```bash
+To verify whether the installation was successful, you can execute the following command:
+```bash
 cjc -v
 ```
 
