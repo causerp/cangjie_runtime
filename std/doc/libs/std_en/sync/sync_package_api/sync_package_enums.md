@@ -85,7 +85,7 @@ SeqCst
 
 Function: Represents sequentially consistent ordering, which prohibits instruction reordering and ensures all atomic operations before this operation complete before any atomic operations after it.
 
-## enum ReadWriteMutexMode <sup>(deprecated)<sup>
+## enum ReadWriteMutexMode <sup>(deprecated)</sup>
 
 ```cangjie
 public enum ReadWriteMutexMode {
