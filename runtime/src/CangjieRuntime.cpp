@@ -66,13 +66,10 @@ extern "C" MRT_EXPORT void MRT_LibraryUnLoad(uint64_t address)
 void DumpAllStackTrace0()
 {
     LOG(RTLOG_INFO, "---------------------------Dump all cjthread stack trace--------------------------- \n");
-    MutatorManager::Instance().VisitAllMutators([&](Mutator& mutator) {
-        // don't print finalizerProcessorThread
-        if (mutator.GetTid() != Heap::GetHeap().GetFinalizerProcessor().GetTid()) {
-            LOG(RTLOG_INFO, "cjthread thread:%d mutator:%p :\n", mutator.GetCJThreadId(), &mutator);
-            StackManager::PrintStackTrace(&(mutator.GetUnwindContext()));
-            LOG(RTLOG_INFO, "\n");
-        }
+    MutatorManager::Instance().VisitAllMutatorsExceptFinalizer([&](Mutator& mutator) {
+        LOG(RTLOG_INFO, "cjthread thread:%d mutator:%p :\n", mutator.GetCJThreadId(), &mutator);
+        StackManager::PrintStackTrace(&(mutator.GetUnwindContext()));
+        LOG(RTLOG_INFO, "\n");
     });
 }
 

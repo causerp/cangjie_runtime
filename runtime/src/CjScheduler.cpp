@@ -375,7 +375,7 @@ void* MCC_NewCJThread(void* execute, void* future, void* scheduler)
     return handle;
 }
 
-bool MRT_TryNewAndRunCJThread()
+bool MRT_NewForeignCJThread()
 {
     if (ThreadLocal::IsCJProcessor() || ThreadLocal::GetMutator() != nullptr) {
         return false;
@@ -420,7 +420,7 @@ bool MRT_TryNewAndRunCJThread()
     return true;
 }
 
-bool MRT_EndCJThread()
+bool MRT_EndForeignCJThread()
 {
     if (ThreadLocal::IsCJProcessor()) {
         return false;
@@ -473,6 +473,99 @@ void* MCC_NewExclusiveCJThread(void* executeClosure, void* closurePtr, void* fut
     RefField<>* objRootField = reinterpret_cast<RefField<>*>(&data.execute);
     Heap::GetBarrier().WriteStaticRef(*objRootField, reinterpret_cast<BaseObject*>(executeClosure));
     return ExclusiveCJThreadNew(WrapperExclusiveClosure, &data, sizeof(LWTData));
+}
+
+static void ResetFinalizerThreadLocal()
+{
+    ThreadLocal::SetCJThread(nullptr);
+    ThreadLocal::SetForeignCJThread(nullptr);
+    ThreadLocal::SetSchedule(nullptr);
+    ThreadLocal::SetAllocBuffer(nullptr);
+    ThreadLocal::SetMutator(nullptr);
+    ThreadLocal::SetProtectAddr(nullptr);
+    ThreadLocal::SetCJProcessorFlag(false);
+    ThreadLocal::SetThreadType(ThreadType::CJ_PROCESSOR);
+}
+
+static void FiniAndFreeFinalizerScheduler(ScheduleHandle scheduler)
+{
+    if (scheduler == nullptr) {
+        return;
+    }
+    auto runtime = reinterpret_cast<MapleRuntime::CangjieRuntime*>(&MapleRuntime::Runtime::Current());
+    if (!runtime->FiniSubScheduler(scheduler)) {
+        LOG(RTLOG_ERROR, "failed to fini finalizer sub scheduler");
+    }
+    SetSchedulerState(5); // 5: state is SCHEDULE_EXITED.
+    ScheduleNonDefaultFree(scheduler);
+}
+
+void* NewFinalizerCJThread()
+{
+    // prepare foreign scheduler
+    ScheduleHandle scheduler = nullptr;
+    auto runtime = reinterpret_cast<MapleRuntime::CangjieRuntime*>(&MapleRuntime::Runtime::Current());
+    scheduler = runtime->CreateSubSchedulerAndInit(SCHEDULE_FOREIGN_THREAD);
+    if (scheduler == nullptr) {
+        LOG(RTLOG_ERROR, "failed to create finalizer scheduler");
+        return nullptr;
+    }
+
+    // Init finalizer cjthread
+    CJThreadAttr attr;
+    CJThreadAttrInit(&attr);
+    CJThreadAttrNameSet(&attr, "cangjie");
+    LWTData data = {};
+    CJThreadHandle cjthread = CJThreadNewToSchedule(scheduler, (const struct CJThreadAttr*)(&attr),
+                                                    WrapperTask, &data, sizeof(LWTData),
+                                                    CJTHREAD_CREATE_SOURCE_FINALIZER);
+    if (cjthread == nullptr) {
+        LOG(RTLOG_ERROR, "failed to create finalizer cjthread");
+        FiniAndFreeFinalizerScheduler(scheduler);
+        return nullptr;
+    }
+
+    // Init finalizer thread local
+    ThreadLocal::SetThreadType(ThreadType::FP_THREAD);
+    ThreadLocal::SetCJProcessorFlag(true);
+    ThreadLocal::SetCJThread(cjthread);
+    CJThreadPreemptOffCntAdd();
+    RebindCJThread(cjthread);
+    ThreadLocal::SetForeignCJThread(cjthread);
+    ThreadLocal::SetSchedule(scheduler);
+    ThreadLocal::SetProtectAddr(reinterpret_cast<uint8_t*>(0));
+    ScheduleNetpollInit(); // Initializes netpool only on the first execution.
+
+    // Init finalizer mutator
+    Mutator* mutator = reinterpret_cast<Mutator*>(CJThreadGetMutator());
+    CHECK_DETAIL(mutator != nullptr, "create is null when create finalizer cjthread");
+    MutatorManager::Instance().MutatorManagementRLock();
+    mutator->InitTid();
+    mutator->SetManagedContext(false);
+    MutatorManager::Instance().BindMutator(*mutator);
+    ThreadLocal::SetMutator(mutator);
+    ThreadLocalData* threadData = reinterpret_cast<ThreadLocalData*>(MRT_GetThreadLocalData());
+    MRT_PreRunManagedCode(mutator, 2, threadData); // 2 layers
+    MutatorManager::Instance().MutatorManagementRUnlock();
+
+    SetSchedulerState(1);
+    return cjthread;
+}
+
+void EndFinalizerCJThread()
+{
+    auto* schedule = reinterpret_cast<ScheduleHandle>(ThreadLocal::GetSchedule());
+    Mutator* mutator = ThreadLocal::GetMutator();
+    CHECK_DETAIL(mutator != nullptr, "EndFinalizerCJThread with null mutator");
+    MutatorManager::Instance().MutatorManagementRLock();
+    (void)mutator->LeaveSaferegion();
+    mutator->ResetMutator();
+    MutatorManager::Instance().UnbindMutator(*mutator);
+    MutatorManager::Instance().MutatorManagementRUnlock();
+
+    // Free finalizer scheduler, cjthread and mutator
+    FiniAndFreeFinalizerScheduler(schedule);
+    ResetFinalizerThreadLocal();
 }
 
 /**

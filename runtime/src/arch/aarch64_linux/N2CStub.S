@@ -180,7 +180,7 @@ CJ_MCC_N2CStub:
 
     // store whether new CJThread result in sp+#SafeStateOffset+0x8
     // and use it after calling Cangjie function.
-    bl MRT_TryNewAndRunCJThread
+    bl MRT_NewForeignCJThread
     str  x0, [sp, #SafeStateOffset+0x8]
   
     // mutator mustn't be in safe region before setting context.
@@ -301,7 +301,7 @@ unwindPCForN2CStub:
     ldr x0, [x29, #SafeStateOffset+0x8]
     cmp x0,  #0
     beq .L_no_need_end
-    bl MRT_EndCJThread
+    bl MRT_EndForeignCJThread
     cmp x0,  #1
     beq .L_none_enter
 .L_no_need_end:

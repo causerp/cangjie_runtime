@@ -732,7 +732,7 @@ static ArrayRef GetAllThreadSnapshot(const TypeInfo* arraySnapshot, const TypeIn
                                      const TypeInfo* charArray)
 {
     std::vector<std::unique_ptr<RecordStackInfo>> records;
-    MutatorManager::Instance().VisitAllMutators([&records](Mutator &mutator) {
+    MutatorManager::Instance().VisitAllMutatorsExceptFinalizer([&records](Mutator &mutator) {
         if (!mutator.IsVaildCJThread()) {
             return;
         }
@@ -803,6 +803,10 @@ extern "C" ThreadSnapshot MCC_GetCurrentThreadSnapshotImpl(const TypeInfo* array
     Mutator* mutator = Mutator::GetMutator();
     CHECK_DETAIL(mutator != nullptr, "Can not get mutator");
     CHECK_DETAIL(mutator->IsVaildCJThread(), "Get invalid mutator");
+    if (mutator->GetTid() == Heap::GetHeap().GetFinalizerProcessor().GetTid()) {
+        LOG(RTLOG_WARNING, "Current thread is an internal finalizer thread, not a user thread. "
+                           "Thread snapshot output may be difficult to interpret.");
+    }
     mutator->EnterSaferegion(true);
 
     uint32_t threadId = static_cast<uint32_t>(mutator->GetCJThreadId());

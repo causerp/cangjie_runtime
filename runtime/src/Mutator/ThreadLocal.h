@@ -81,6 +81,11 @@ public:
         GetThreadLocalData()->cjthread = reinterpret_cast<uint8_t*>(cjthread);
     }
 
+    static void* GetSchedule()
+    {
+        return GetThreadLocalData()->schedule;
+    }
+
     static void SetSchedule(void* schedule)
     {
         GetThreadLocalData()->schedule = reinterpret_cast<uint8_t*>(schedule);
