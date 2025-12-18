@@ -43,7 +43,7 @@ Execution result:
 count = 1000
 ```
 
-## Usage of Monitor <sup>(deprecated)<sup>
+## Usage of Monitor <sup>(deprecated)</sup>
 
 > **Note:**
 >
