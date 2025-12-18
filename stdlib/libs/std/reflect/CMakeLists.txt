@@ -6,6 +6,9 @@
 
 if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
     set(REFLECT_SRCS
+        tuple_type_info_cjnative.cj
+        function_type_info_cjnative.cj
+        enum_type_info_cjnative.cj
         class_type_info_cjnative.cj
         constants.cj
         exception.cj
