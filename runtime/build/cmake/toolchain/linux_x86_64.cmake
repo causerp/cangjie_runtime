@@ -123,7 +123,6 @@ add_compile_definitions(
    "$<$<CONFIG:Debug>:VOS_BUILD_DEBUG=1>"
    "$<$<CONFIG:Release>:VOS_BUILD_RELEASE=1>"
    "MRT_LINUX"
-   "MRT_TEST"
 )
 
 # link flags

@@ -127,7 +127,7 @@ add_compile_definitions(
     "TLS_COMMON_DYNAMIC"
     "CANGJIE"
     "OPENSSL_X86_64_PLATFORM"
-    "OHOS"
+    "__OHOS__"
     "MRT_LINUX"
 )
 
