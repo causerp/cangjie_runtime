@@ -48,7 +48,7 @@ public func provide(): Iterable<T>
 extend<T> Range<T> <: DataProvider<T>
 ```
 
-功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)<T> 进行扩展。
+功能：对 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T> 进行扩展。
 
 #### func provide()
 

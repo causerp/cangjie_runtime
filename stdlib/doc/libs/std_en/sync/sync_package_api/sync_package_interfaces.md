@@ -130,7 +130,7 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `timeout` is less than or equal to [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero).
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - Thrown if the current thread does not hold the mutex.
 
-## interface IReentrantMutex <sup>(deprecated)<sup>
+## interface IReentrantMutex <sup>(deprecated)</sup>
 
 ```cangjie
 public interface IReentrantMutex {

@@ -1,6 +1,6 @@
 # Struct
 
-## struct ConditionID <sup>(deprecated)<sup>
+## struct ConditionID <sup>(deprecated)</sup>
 
 ```cangjie
 public struct ConditionID
