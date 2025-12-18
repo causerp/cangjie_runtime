@@ -6134,7 +6134,7 @@ Parameters:
 
 Returns:
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements satisfy the condition; otherwise, returns false.```markdown
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements satisfy the condition; otherwise, returns false.
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -13305,7 +13305,7 @@ Returns:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - A new set containing filtered elements.
 
-### func filterMap\<R>((T) -> Option<R>)
+### func filterMap\<R>((T) -> Option\<R>)
 
 ```cangjie
 public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Comparable<R>
@@ -13315,7 +13315,7 @@ Function: Performs both filtering and mapping operations, returning a new [TreeS
 
 Parameters:
 
-- transform: (T) -> Option<R> - The mapping function. A return value of Some corresponds to a predicate of true, while None corresponds to false.
+- transform: (T) -> Option\<R> - The mapping function. A return value of Some corresponds to a predicate of true, while None corresponds to false.
 
 Returns:
 
@@ -13412,7 +13412,7 @@ Forward traversal from cherry (exclusive):
   elderberry
 ```Here is the professional translation of the provided Markdown content from Chinese to English, maintaining all structural and formatting elements:
 
-```markdown
+
 ### func isEmpty()
 
 ```cangjie
