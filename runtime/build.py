@@ -264,7 +264,15 @@ def do_build(args):
             sys.exit(1)
         os.environ["PATH"] = os.path.join(args.target_toolchain, "bin") + ":" + os.environ["PATH"]
         ios_flag = "1" if target_args == "ios-aarch64" else "0"
-        ios_simulator_flag = "1" if target_args in ["ios-simulator-aarch64", "ios-simulator-x86_64"] else "0"
+        if target_args == "ios-simulator-aarch64":
+            target_arch = "aarch64"
+            ios_simulator_flag = "1"
+        elif target_args == "ios-simulator-x86_64":
+            target_arch = "x86_64"
+            ios_simulator_flag = "2"
+        else:
+            ios_simulator_flag = "0"
+
         cmake_command = [
             "cmake",
             "-DCMAKE_INSTALL_PREFIX={}_{}".format(install_prefix, target_arch),

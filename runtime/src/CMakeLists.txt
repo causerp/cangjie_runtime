@@ -57,7 +57,7 @@ if (BUILD_RUNTIME)
         "os/Linux/Loader.cpp"
         "os/Linux/Path.cpp"
     )
-elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1))
+elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64" AND IOS_FLAG MATCHES 1) OR IOS_SIMULATOR_FLAG MATCHES 2)
     set(SRC_LIST
         "CompilerCalls.cpp"
         "ExceptionManager.cpp"
