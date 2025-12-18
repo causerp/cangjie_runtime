@@ -28,7 +28,7 @@ Returns:
 extend<T> Array<T> <: DataProvider<T>
 ```
 
-Function: Extends [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)<T>.
+Function: Extends [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T>.
 
 #### func provide()
 
@@ -48,7 +48,7 @@ Returns:
 extend<T> Range<T> <: DataProvider<T>
 ```
 
-Function: Extends [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)<T>.
+Function: Extends [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T>.
 
 #### func provide()
 
@@ -148,7 +148,7 @@ Returns:
 extend<T> Array<T> <: DataStrategy<T>
 ```
 
-Function: Extends [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)<T>.
+Function: Extends [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T>.
 
 #### prop isInfinite
 
@@ -198,7 +198,7 @@ Returns:
 extend<T> Range<T> <: DataStrategy<T>
 ```
 
-Function: Extends [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)<T>.
+Function: Extends [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T>.
 
 #### prop isInfinite
 
@@ -298,7 +298,7 @@ Returns:
 extend<T> ArrayList<T>  <: PrettyPrintable where T <: PrettyPrintable
 ```
 
-Function: Extends [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)<T> to implement [PrettyPrintable](#interface-prettyprintable).
+Function: Extends [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<T> to implement [PrettyPrintable](#interface-prettyprintable).
 
 #### func pprint(PrettyPrinter)
 

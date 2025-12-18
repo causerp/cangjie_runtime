@@ -1771,7 +1771,7 @@ main() {
 1.000000
 ```
 
-## func countOne(Int16) <sup>(deprecated)<sup>
+## func countOne(Int16) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: Int16): Int8
@@ -1809,7 +1809,7 @@ main() {
 4
 ```
 
-## func countOne(Int32) <sup>(deprecated)<sup>
+## func countOne(Int32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: Int32): Int8
@@ -1847,7 +1847,7 @@ main() {
 4
 ```
 
-## func countOne(Int64) <sup>(deprecated)<sup>
+## func countOne(Int64) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: Int64): Int8
@@ -1885,7 +1885,7 @@ main() {
 4
 ```
 
-## func countOne(Int8) <sup>(deprecated)<sup>
+## func countOne(Int8) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: Int8): Int8
@@ -1923,7 +1923,7 @@ main() {
 4
 ```
 
-## func countOne(UInt16) <sup>(deprecated)<sup>
+## func countOne(UInt16) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: UInt16): Int8
@@ -1961,7 +1961,7 @@ main() {
 4
 ```
 
-## func countOne(UInt32) <sup>(deprecated)<sup>
+## func countOne(UInt32) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: UInt32): Int8
@@ -1999,7 +1999,7 @@ main() {
 4
 ```
 
-## func countOne(UInt64) <sup>(deprecated)<sup>
+## func countOne(UInt64) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: UInt64): Int8
@@ -2037,7 +2037,7 @@ main() {
 4
 ```
 
-## func countOne(UInt8) <sup>(deprecated)<sup>
+## func countOne(UInt8) <sup>(deprecated)</sup>
 
 ```cangjie
 public func countOne(x: UInt8): Int8

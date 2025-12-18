@@ -262,7 +262,7 @@ Returns:
 
 - [GetterActionSelector](#class-getteractionselectortret)\<TRet> - The operator object for inserting stub code for property Getter methods.
 
-### static func stubFunction\<TRet>(() -> TRet, Array<ArgumentMatcher>, Option<String>, String, String, Int64)
+### static func stubFunction\<TRet>(() -> TRet, Array\<ArgumentMatcher>, Option\<String>, String, String, Int64)
 
 ```cangjie
 public static func stubFunction<TRet>(
@@ -771,7 +771,7 @@ Parameters:
 
 Returns:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
 ### func throws(Exception)
 
@@ -787,7 +787,7 @@ Parameters:
 
 Returns:
 
-- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
+- [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<[MethodActionSelector](unittest_mock_package_classes.md#class-methodactionselectortret)\<TRet>> - An instance of [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> that defines the behavior of throwing exceptions for stub signatures.
 
 ## class MockFramework
 

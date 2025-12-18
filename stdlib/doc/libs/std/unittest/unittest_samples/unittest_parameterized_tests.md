@@ -279,7 +279,7 @@ func testRandomArrays(array: Array<Int64>) {
 
 测试是广泛适用的，可以看到元素类型不限于 `Int64` ，也可以是任何类型 `T` ，例如：
 
-比较：需要实现 Comparable<T>。
+比较：需要实现 Comparable\<T>。
 
 将这个测试改写为一个泛型函数：
 

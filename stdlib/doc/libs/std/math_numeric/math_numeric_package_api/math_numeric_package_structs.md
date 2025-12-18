@@ -489,7 +489,7 @@ main() {
 24
 ```
 
-### init(String, Int64) <sup>(deprecated)<sup>
+### init(String, Int64) <sup>(deprecated)</sup>
 
 ```cangjie
 public init(s: String, base!: Int64 = 10)
@@ -977,7 +977,7 @@ main() {
 false
 ```
 
-### func lowestOneBit() <sup>(deprecated)<sup>
+### func lowestOneBit() <sup>(deprecated)</sup>
 
 ```cangjie
 public func lowestOneBit(): Int64
@@ -1098,7 +1098,7 @@ main() {
 1024
 ```
 
-### func quo(BigInt) <sup>(deprecated)<sup>
+### func quo(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
 public func quo(that: BigInt): BigInt
@@ -1144,7 +1144,7 @@ main() {
 2
 ```
 
-### func quoAndRem(BigInt) <sup>(deprecated)<sup>
+### func quoAndRem(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
 public func quoAndRem(that: BigInt): (BigInt, BigInt)
@@ -1192,7 +1192,7 @@ main() {
 1
 ```
 
-### func rem(BigInt) <sup>(deprecated)<sup>
+### func rem(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
 public func rem(that: BigInt): BigInt
@@ -3481,7 +3481,7 @@ main() {
 24
 ```
 
-### init(String) <sup>(deprecated)<sup>
+### init(String) <sup>(deprecated)</sup>
 
 ```cangjie
 public init(val: String)
@@ -3772,7 +3772,7 @@ main(): Unit {
 商: 3, 余数: 1
 ```
 
-### func divAndRem(Decimal) <sup>(deprecated)<sup>
+### func divAndRem(Decimal) <sup>(deprecated)</sup>
 
 ```cangjie
 public func divAndRem(d: Decimal): (BigInt, Decimal)
