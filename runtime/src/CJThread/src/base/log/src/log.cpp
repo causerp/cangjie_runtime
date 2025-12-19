@@ -107,9 +107,16 @@ void HiLogWrite(RTLogLevel level, const char *fmt, ...)
     va_start(args, fmt);
     MapleRuntime::HiLogForCJThread(level, fmt, args);
     va_end(args);
+    return;
 #else
-    (void)level;
-    (void)fmt;
+    if (level == RTLogLevel::RTLOG_FATAL) {
+        va_list alist;
+        char output[LOG_BUF_SIZE];
+        va_start(alist, fmt);
+        (void)vsnprintf_s(output, LOG_BUF_SIZE, LOG_BUF_SIZE - 1, fmt, alist);
+        va_end(alist);
+        printf("%s\r\n", output);
+    }
 #endif
 }
 
