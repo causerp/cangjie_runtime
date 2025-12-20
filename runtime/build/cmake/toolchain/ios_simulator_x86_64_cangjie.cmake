@@ -161,3 +161,4 @@ set(CMAKE_IOS_SDK_ROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPh
 set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator17.5.sdk")
 # The macos minimum version
 set(CMAKE_OSX_DEPLOYMENT_TARGET "")
+set(CMAKE_OSX_ARCHITECTURES "x86_64")
