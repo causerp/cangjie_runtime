@@ -43,7 +43,6 @@ static int64_t FileTime(const char* path, enum FILE_TIME_TYPE ty);
 static int64_t FileSize(const wchar_t* path);
 static int64_t GetDirectorySize(const wchar_t* path);
 static int64_t IsFileExecutable(const char* path);
-static int64_t GetSubDatas(const char* path, uint8_t* buffer, int64_t bufferLen);
 static inline bool IsSlash(char c);
 
 static int8_t IsDirectory(const wchar_t* path)
@@ -334,48 +333,6 @@ static uint8_t FileType(DWORD fileType)
     return FT_UNKNOWN;
 }
 
-static int64_t GetSubDatas(const char* path, uint8_t* buffer, int64_t bufferLen)
-{
-    wchar_t* conv = (wchar_t*)GetWPath(path);
-    if (conv == NULL) {
-        return -1;
-    }
-    WIN32_FIND_DATAW fileData;
-    wchar_t dirPath[MAX_PATH_LEN];
-    if (swprintf_s(dirPath, MAX_PATH_LEN, L"%s\\*.*", conv) < 0) {
-        free((void*)conv);
-        return -1;
-    }
-    free((void*)conv);
-    HANDLE hFind = FindFirstFileW(dirPath, &fileData);
-    int64_t index = 0;
-
-    if (hFind == INVALID_HANDLE_VALUE) {
-        return -1;
-    }
-    do {
-        if (wcscmp(fileData.cFileName, L".") == 0 || wcscmp(fileData.cFileName, L"..") == 0) {
-            continue;
-        }
-        wchar_t* name = fileData.cFileName;
-        buffer[index] = WideCharToMultiByte(
-            CP_UTF8, 0, name, wcslen(name), buffer + index + PATH_OFFSET, bufferLen - index - PATH_OFFSET, NULL, NULL);
-        if (buffer[index] == 0) {
-            (void)FindClose(hFind);
-            return -1;
-        }
-        buffer[index + TYPE_OFFSET] = FileType(fileData.dwFileAttributes);
-        index += buffer[index] + PATH_OFFSET;
-    } while (FindNextFileW(hFind, &fileData));
-
-    int errCode = GetLastError();
-    if (errCode != ERROR_NO_MORE_FILES && errCode != 0) {
-        index = -1;
-    }
-    (void)FindClose(hFind);
-    return index;
-}
-
 extern int8_t CJ_FS_Exists(const char* path)
 {
     WIN32_FILE_ATTRIBUTE_DATA wfad;
@@ -603,36 +560,6 @@ extern int8_t CJ_FS_SetWritable(const char* path, bool writable)
     return Chmod(path, m);
 }
 
-extern int64_t CJ_FS_DirGetNumber(const char* path)
-{
-    wchar_t* conv = (wchar_t*)GetWPathEndWithStar(path);
-    if (conv == NULL) {
-        return -1;
-    }
-
-    WIN32_FIND_DATAW fileData;
-    HANDLE hFind = FindFirstFileW(conv, &fileData);
-    free((void*)conv);
-    if (hFind == INVALID_HANDLE_VALUE) {
-        return -1;
-    }
-
-    int64_t cnt = 0;
-    do {
-        if (wcscmp(fileData.cFileName, L".") == 0 || wcscmp(fileData.cFileName, L"..") == 0) {
-            continue;
-        }
-        cnt++;
-    } while (FindNextFileW(hFind, &fileData));
-
-    int errCode = GetLastError();
-    if (errCode != ERROR_NO_MORE_FILES && errCode != 0) {
-        (void)FindClose(hFind);
-        return -1;
-    }
-    (void)FindClose(hFind);
-    return cnt;
-}
 
 extern int8_t CJ_FS_ISDirEmpty(const char* path)
 {
@@ -667,9 +594,50 @@ extern int8_t CJ_FS_ISDirEmpty(const char* path)
     return res;
 }
 
-extern int64_t CJ_FS_DirGetData(const char* path, uint8_t* buffer, int64_t bufferLen)
+extern char* CJ_FS_GetDirHandleAndFirstFile(const char* path, uintptr_t* hd)
 {
-    return GetSubDatas(path, buffer, bufferLen);
+    wchar_t* conv = GetWPath(path);
+    if (conv == NULL || hd == NULL) {
+        return NULL;
+    }
+    WIN32_FIND_DATAW fileData;
+    wchar_t dirPath[MAX_PATH_LEN];
+    if (swprintf_s(dirPath, MAX_PATH_LEN, L"%s\\*.*", conv) < 0) {
+        free((void*)conv);
+        return NULL;
+    }
+    free((void*)conv);
+    HANDLE hFind = FindFirstFileW(dirPath, &fileData);
+    if (hFind == INVALID_HANDLE_VALUE) {
+        return NULL;
+    }
+    *hd = (uintptr_t)hFind;
+    if (wcscmp(fileData.cFileName, L".") == 0 || wcscmp(fileData.cFileName, L"..") == 0) {
+        return NULL;
+    }
+    return Wchar2Char(fileData.cFileName);
+}
+
+extern char* CJ_FS_ReadDirHandle(uintptr_t handle)
+{
+    if (handle == 0) {
+        return NULL;
+    }
+    WIN32_FIND_DATAW fileData;
+    if (FindNextFileW((HANDLE)handle, &fileData)) {
+        if (wcscmp(fileData.cFileName, L".") == 0 || wcscmp(fileData.cFileName, L"..") == 0) {
+            return CJ_FS_ReadDirHandle(handle);
+        }
+        return Wchar2Char(fileData.cFileName);
+    }
+    return NULL;
+}
+
+extern void CJ_FS_CloseDirHandle(uintptr_t handle)
+{
+    if (handle != 0) {
+        (void)FindClose((HANDLE)handle);
+    }
 }
 
 extern FsError* CJ_FS_DirCreate(const char* path)
