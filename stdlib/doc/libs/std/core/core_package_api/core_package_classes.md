@@ -3915,7 +3915,7 @@ Current thread state: 'Running'
 ### static func handleUncaughtErrorBy((Error) -> Unit)
 
 ```cangjie
-public static func handleUncaughtErrorBy(exHandler: (Error) -> Unit): Unit
+public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit
 ```
 
 功能：注册线程未处理错误的处理函数。
@@ -3933,7 +3933,7 @@ public static func handleUncaughtErrorBy(exHandler: (Error) -> Unit): Unit
 
 参数：
 
-- exHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - 注册的处理函数。
+- erHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - 注册的处理函数。
 
 示例：
 

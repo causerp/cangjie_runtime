@@ -3918,7 +3918,7 @@ Current thread state: 'Running'
 ### static func handleUncaughtErrorBy((Error) -> Unit)
 
 ```cangjie
-public static func handleUncaughtErrorBy(exHandler: (Error) -> Unit): Unit
+public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit
 ```
 
 Function: Registers a handler for uncaught thread errors.
@@ -3932,11 +3932,11 @@ Multiple registrations will overwrite previous handlers.
 
 When multiple threads terminate due to exceptions concurrently, the handler will be executed concurrently for each thread, so thread safety must be ensured in the handler.
 
-The handler's first parameter is the uncaught [Error](core_package_exceptions.md#class-error).
+The handler's parameter is the uncaught [Error](core_package_exceptions.md#class-error).
 
 Parameters:
 
-- exHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
+- erHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
 
 Example:
 
