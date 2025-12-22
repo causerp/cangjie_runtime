@@ -35,14 +35,15 @@ foreign {
     func CJ_FS_SetWritable(path: CString, writable: Bool): Int8 // -2: Operation not permitted, -1: Other Errors, 0: false, 1: true
 
     // Directory
-    func CJ_FS_DirGetNumber(path: CString): Int64 // -1: failed, (>= 0): file number in dir
     func CJ_FS_ISDirEmpty(path: CString): Int8 // -1: error, 0: false, 1: true
-    func CJ_FS_DirGetData(path: CString, buffer: CPointer<Byte>, bufferLen: Int64): Int64 // -1: failed, (>= 0): data length of buffer
     func CJ_FS_DirCreate(path: CString): CPointer<FsError> // false: errCode < 0, true: errCode == 0
     func CJ_FS_DirCreateRecursive(path: CString): CPointer<FsError> // false: errCode < 0, true: errCode == 0
     func CJ_FS_CreateTempDir(path: CPointer<Byte>): Bool // false: Failed, true: Success
     func CJ_FS_CopyREF(srcPath: CString, destPath: CString): Int8 // -1: failed, 0: success
     func CJ_FS_CopyLink(srcPath: CString, destPath: CString): Int8 // -1: failed, 0: success
+    func CJ_FS_GetDirHandleAndFirstFile(path: CString, hd: CPointer<UIntNative>): CString
+    func CJ_FS_ReadDirHandle(hd: UIntNative): CString
+    func CJ_FS_CloseDirHandle(hd: UIntNative): Unit
 
     // File
     func CJ_FS_OpenFile(path: CString, openMode: Int32): CPointer<FsInfo>

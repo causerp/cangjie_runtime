@@ -9,6 +9,7 @@
 #include <limits.h>
 #include <sys/types.h>
 #include "file_system.h"
+#include <string.h>
 
 static int64_t BuildSubPath(char* dirPath, const int64_t pathLen, const char* subName);
 static FsError* GetErrnoResult(void);
@@ -364,27 +365,6 @@ extern int8_t CJ_FS_SetWritable(const char* path, bool writable)
     return Chmod(path, m);
 }
 
-/*
- * Directory
- */
-extern int64_t CJ_FS_DirGetNumber(const char* path)
-{
-    DIR* dirPtr = opendir(path);
-    if (dirPtr == NULL) {
-        return -1;
-    }
-    int64_t cnt = 0;
-    struct dirent* dirInfo = NULL;
-    while ((dirInfo = readdir(dirPtr)) != NULL) {
-        if ((strcmp(".", dirInfo->d_name) == 0) || (strcmp("..", dirInfo->d_name) == 0)) {
-            continue;
-        }
-        cnt += 1;
-    }
-    (void)closedir(dirPtr);
-    return cnt;
-}
-
 extern int8_t CJ_FS_ISDirEmpty(const char* path)
 {
     DIR* dirPtr = opendir(path);
@@ -422,32 +402,40 @@ extern int8_t CJ_FS_ISDirEmpty(const char* path)
     return res;
 }
 
-extern int64_t CJ_FS_DirGetData(const char* path, uint8_t* buffer, int64_t bufferLen)
+extern char* CJ_FS_GetDirHandleAndFirstFile(const char* path, uintptr_t* hd)
 {
+    if (path == NULL || hd == NULL) {
+        return NULL;
+    }
     DIR* dirPtr = opendir(path);
     if (dirPtr == NULL) {
-        return -1;
+        return NULL;
     }
-    int64_t index = 0;
-    struct dirent* dirInfo = NULL;
-    while ((dirInfo = readdir(dirPtr)) != NULL) {
-        if ((strcmp(".", dirInfo->d_name) == 0) || (strcmp("..", dirInfo->d_name) == 0)) {
-            continue;
-        }
-        uint8_t nameLen = (uint8_t)strlen(dirInfo->d_name);
+    *hd = (uintptr_t)dirPtr;
+    return NULL;
+}
 
-        buffer[index] = nameLen;             // set name length
-        buffer[index + 1] = dirInfo->d_type; // set file d_type
-        index += 2;                          // set 2 value
-        errno_t rc = memcpy_s(buffer + index, (size_t)(bufferLen - index), dirInfo->d_name, (size_t)nameLen);
-        if (rc != 0) {
-            (void)closedir(dirPtr);
-            return -1;
-        }
-        index += (int64_t)nameLen;
+extern char* CJ_FS_ReadDirHandle(uintptr_t handle)
+{
+    if (handle == 0) {
+        return NULL;
     }
-    (void)closedir(dirPtr);
-    return index;
+    struct dirent* dirInfo = readdir((DIR*)handle);
+    if (dirInfo == NULL) {
+        return NULL;
+    }
+    if ((strcmp(".", dirInfo->d_name) == 0) || (strcmp("..", dirInfo->d_name) == 0)) {
+        return CJ_FS_ReadDirHandle(handle);
+    }
+
+    return strdup(dirInfo->d_name);
+}
+
+extern void CJ_FS_CloseDirHandle(uintptr_t handle)
+{
+    if (handle != 0) {
+        (void)closedir((DIR*)handle);
+    }
 }
 
 extern FsError* CJ_FS_DirCreateRecursive(char* path)
