@@ -3923,7 +3923,10 @@ public static func handleUncaughtErrorBy(exHandler: (Error) -> Unit): Unit
 
 Function: Registers a handler for uncaught thread errors.
 
-When a thread terminates prematurely due to an error, if a global uncaught error handler is registered, it will be invoked before thread termination. If the handler throws an exception or error, a simple warning message will be printed to the terminal, and the thread (if an exception is thrown) or the process (if an error is thrown) will be terminated. If no handler is registered, the error message will be printed to the terminal by default.
+When a thread terminates prematurely due to an error:
+
+- if a global uncaught error handler is registered, it will be invoked before thread termination. If the handler throws an exception or error, a simple warning message will be printed to the terminal, and the thread (if an exception is thrown) or the process (if an error is thrown) will be terminated.
+- If no handler is registered, the error message will be printed to the terminal by default.
 
 Multiple registrations will overwrite previous handlers.
 
@@ -3989,7 +3992,10 @@ public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> U
 
 Function: Registers a handler for uncaught thread exceptions.
 
-When a thread terminates prematurely due to an exception, if a global uncaught exception handler is registered, it will be invoked before thread termination. If the handler itself throws an exception, a warning message will be printed to the terminal (without stack trace). If no handler is registered, the exception stack trace will be printed by default.
+When a thread terminates prematurely due to an exception:
+
+- if a global uncaught exception handler is registered, it will be invoked before thread termination.
+- If the handler itself throws an exception, a warning message will be printed to the terminal (without stack trace). If no handler is registered, the exception stack trace will be printed by default.
 
 Multiple registrations will overwrite previous handlers.
 
