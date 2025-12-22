@@ -325,7 +325,3 @@ extern "C" MRT_EXPORT void CJ_MRT_PreInitializePackage(uint64_t address)
     __attribute__((alias("MRT_PreInitializePackage")));
 #endif
 } // namespace MapleRuntime
-
-namespace __gnu_cxx {
-void __verbose_terminate_handler() { LOG(RTLOG_FATAL, "__verbose_terminate_handler can't be used."); }
-} // namespace __gnu_cxx
