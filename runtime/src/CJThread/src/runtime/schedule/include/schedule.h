@@ -247,6 +247,11 @@ extern "C" {
 #define ERRNO_SCHD_UITHREAD_ERROR ((MID_SCHEDULE) | 0x505)
 
 /**
+* @brief 0x10040506 cjthread park failed
+*/
+#define ERRNO_SCHD_CJTHREAD_PARK_FAILED ((MID_SCHEDULE) | 0x506)
+
+/**
 * @brief The flag bit is set to - 1 when preemption is triggered.
 */
 #define PREEMPT_DO_FLAG ((uintptr_t)-1)
