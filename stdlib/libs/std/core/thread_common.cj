@@ -34,13 +34,26 @@ func handleException(ex: Exception): Unit {
  * Make sure no new error/exception are thrown.
  */
 func handleError(er: Error): Unit {
+    let errorHandler = Thread.errorHandler.load()
     try {
-        match (er) {
-            // No memory left for printing the stack trace, just print the error message.
-            case _: OutOfMemoryError =>
-                eprintln("An exception has occurred:")
-                eprintln("OutOfMemoryError")
-            case _ => er.printStackTrace()
+        match (errorHandler) {
+            case Some(handler) => try {
+                handler(er)
+            } catch (e: Exception) {
+                eprintln("Thread id: ${Thread.currentThread.id} throws an exception in the exception handler: ${e}")
+            } catch (e: Error) {
+                eprintln("Thread id: ${Thread.currentThread.id} throws an error in the error handler: ${e}")
+                unsafe {
+                    FiniCJRuntime()
+                }
+            }
+            case None => match (er) {
+                // No memory left for printing the stack trace, just print the error message.
+                case _: OutOfMemoryError =>
+                    eprintln("An exception has occurred:")
+                    eprintln("OutOfMemoryError")
+                case _ => er.printStackTrace()
+            }
         }
     } catch (e: Exception) {
         eprintln("While handling the uncaught error, another exception occurs.")

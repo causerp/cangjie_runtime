@@ -3915,6 +3915,72 @@ Output:
 Current thread state: 'Running'
 ```
 
+### static func handleUncaughtErrorBy((Error) -> Unit)
+
+```cangjie
+public static func handleUncaughtErrorBy(exHandler: (Error) -> Unit): Unit
+```
+
+Function: Registers a handler for uncaught thread errors.
+
+When a thread terminates prematurely due to an error, if a global uncaught error handler is registered, it will be invoked before thread termination. If the handler throws an exception or error, a simple warning message will be printed to the terminal, and the thread (if an exception is thrown) or the process (if an error is thrown) will be terminated. If no handler is registered, the error message will be printed to the terminal by default.
+
+Multiple registrations will overwrite previous handlers.
+
+When multiple threads terminate due to exceptions concurrently, the handler will be executed concurrently for each thread, so thread safety must be ensured in the handler.
+
+The handler's first parameter is the uncaught [Error](core_package_exceptions.md#class-error).
+
+Parameters:
+
+- exHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.
+
+Example:
+
+<!-- verify -->
+```cangjie
+// Define error handler
+func handleError(err: Error): Unit {
+    println("Unhandled error in thread ${Thread.currentThread.name}: ${err}")
+}
+
+// Will throw OutOfMemoryError
+func consumeMemory() {
+  let array = Array(1024*1024*1024*1024, repeat: 1024)
+  for (i in 0..array.size) {
+    array[i] = 0
+  }
+}
+
+main(): Int64 {
+    // Register uncaught exception handler
+    Thread.handleUncaughtErrorBy(handleError)
+    
+    // Create a thread that throws an errir
+    let future = spawn {
+        consumeMemory()
+    }
+
+    try {
+        // Wait for thread result
+        future.get()
+    } catch (e: Exception) {
+        println("Caught exception: ${e.message}")
+    }
+    return 0
+}
+```
+
+Output：
+
+```text
+An exception has occurred:
+    Out of memory
+Unhandled error in thread : OutOfMemoryError
+An exception has occurred:
+    Out of memory
+```
+
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
 ```cangjie

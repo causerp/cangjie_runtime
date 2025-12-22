@@ -186,6 +186,7 @@ public class ThreadSnapshot <: ToString {
 
 public class Thread {
     static let exceptionHandler = AtomicBox<Option<(Thread, Exception) -> Unit>>(None)
+    static let errorHandler = AtomicBox<Option<(Error) -> Unit>>(None)
 
     private let _name = AtomicBox<String>("")
     private let _hasCancellation = AtomicBool(false)
@@ -345,6 +346,10 @@ public class Thread {
 
     public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> Unit): Unit {
         Thread.exceptionHandler.store(exHandler)
+    }
+
+    public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit {
+        Thread.errorHandler.store(erHandler)
     }
     
     /**

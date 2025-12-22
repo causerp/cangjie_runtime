@@ -83,3 +83,6 @@ struct StructureString {
     let buffer: CPointer<UInt8> = CPointer<UInt8>()
     let length: UIntNative = 0
 }
+
+@When[backend == "cjnative"]
+foreign func FiniCJRuntime(): Int64
