@@ -1477,7 +1477,7 @@ unsigned long long CJ_MRT_GetCJThreadNumberUnsafe(void);
  */
 int CJ_MRT_GetAllCJThreadInfo(void *cjthreadBufPtr, unsigned int num);
 
-#ifdef MRT_IOS
+#ifdef __IOS__
 /**
  * @brief Maximum length of a cjthread stack string.
  */

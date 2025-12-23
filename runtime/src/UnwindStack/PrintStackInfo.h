@@ -29,7 +29,7 @@ public:
     ~PrintStackInfo() override = default;
     void FillInStackTrace() override;
     virtual void PrintStackTrace() const;
-#if defined(__IOS__) || defined(MRT_IOS)
+#if defined(__IOS__)
     CString GetStackTraceString();
 #endif
 };

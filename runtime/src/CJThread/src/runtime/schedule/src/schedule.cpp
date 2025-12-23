@@ -22,7 +22,7 @@
 #if defined (MRT_LINUX) || defined (MRT_MACOS)
 #include "schdpoll.h"
 #endif
-#ifdef MRT_IOS
+#ifdef __IOS__
 #include "Mutator/MutatorManager.h"
 #include "UnwindStack/PrintStackInfo.h"
 #endif
@@ -1465,9 +1465,15 @@ void ScheduleAllThreadListAdd(struct Thread *thread, struct Schedule *schedule)
 
 int ScheduleAllCJThreadListAdd(struct CJThread *cjthread)
 {
-    if (cjthread->schedule->state != SCHEDULE_RUNNING &&
-        cjthread->schedule->state != SCHEDULE_INIT &&
-        cjthread->schedule->state != SCHEDULE_EXITING) {
+    ScheduleState scheduleState = cjthread->schedule->state.load();
+    if (scheduleState != SCHEDULE_RUNNING &&
+        scheduleState != SCHEDULE_INIT &&
+        scheduleState != SCHEDULE_EXITING) {
+        LOG_ERROR(ERRNO_SCHD_INVALID,
+                  "can't add cjthread to the target scheduler, schedule type %d, schedule state %d",
+                  cjthread->schedule->scheduleType, scheduleState);
+        LOG(RTLOG_ERROR, "can't add cjthread to the target scheduler, schedule type %d, schedule state %d",
+            cjthread->schedule->scheduleType, scheduleState);
         return -1;
     }
 #ifndef MRT_TEST
@@ -1484,13 +1490,12 @@ int ScheduleAllCJThreadListAdd(struct CJThread *cjthread)
 int AddToCJSingleModeThreadList(struct CJThread *cjthread)
 {
     if (cjthread == nullptr) {
-        LOG_ERROR(ERRNO_SCHD_CJTHREAD_NULL, "cjthread is nullptr");
+        LOG(RTLOG_ERROR, "cjthread is nullptr");
         return -1;
     }
     PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;
     if (PostTask == nullptr) {
-        LOG_ERROR(ERRNO_SCHD_EVENT_HANDLER_FUNC_NULL,
-                  "The event handler function is nullptr when add to cjSingleModeThreadList.");
+        LOG(RTLOG_ERROR, "The event handler function is nullptr when add to cjSingleModeThreadList.");
         return -1;
     }
 
@@ -2198,7 +2203,7 @@ void CJForeignThreadExit(CJThreadHandle foreignThread)
 #endif
 }
 
-#ifdef MRT_IOS
+#ifdef __IOS__
 MapleRuntime::CString GetThreadStateString(void *cjthreadPtr)
 {
     if (cjthreadPtr == nullptr) {
