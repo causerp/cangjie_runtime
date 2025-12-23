@@ -151,7 +151,7 @@ static void WriteLogImpl(bool addPrefix, LogType type, const char* format, va_li
     LogFile::LogFileLock(type);
 #if defined(__OHOS__) && (__OHOS__ == 1)
     auto env = CString(std::getenv("MRT_REPORT"));
-    if (env.Str() == nullptr) {
+    if (env.Str() == nullptr && type == LogType::REPORT) {
         if (Logger::GetLogger().GetMinimumLogLevel() == RTLOG_INFO) {
             PRINT_INFO("%{public}s\n", buf);
         }

@@ -25,6 +25,9 @@ extern "C" {
 #define VOSFILENAME  __FILE__
 #endif
 
+// Log Enable is from MRT_LOG_CJTHREAD. Default value is false.
+extern bool g_logEnable;
+
 /**
  * @brief Hook function for writing log.
  */
@@ -97,6 +100,51 @@ enum ThreadLogLevel {
     } while (0)
 
 /**
+ * @brief Function for recording error log on the file or system log.
+ * @param  errorCode    [IN]  error code
+ * @param  fmt          [IN]  log format
+ * @param  args         [IN]  args
+ */
+#define HILOG_WARN(errorCode, fmt, args...) \
+    do { \
+        if (g_logEnable) { \
+            LogWrite(ThreadLogLevel::LOG_LEVEL_WARNING, (errorCode), VOSFILENAME, __LINE__, fmt, ##args); \
+            break; \
+        } \
+        HiLogWrite(RTLogLevel::RTLOG_WARNING, fmt, ##args); \
+    } while (0)
+
+/**
+ * @brief Function for recording error log on the file or system log.
+ * @param  errorCode    [IN]  error code
+ * @param  fmt          [IN]  log format
+ * @param  args         [IN]  args
+ */
+#define HILOG_ERROR(errorCode, fmt, args...) \
+    do { \
+        if (g_logEnable) { \
+            LogWrite(ThreadLogLevel::LOG_LEVEL_ERROR, (errorCode), VOSFILENAME, __LINE__, fmt, ##args); \
+            break; \
+        } \
+        HiLogWrite(RTLogLevel::RTLOG_ERROR, fmt, ##args); \
+    } while (0)
+
+/**
+ * @brief Function for recording fatal log on the file or system log.
+ * @param  errorCode    [IN]  error code
+ * @param  fmt          [IN]  log format
+ * @param  args         [IN]  args
+ */
+#define HILOG_FATAL(errorCode, fmt, args...) \
+    do { \
+        if (g_logEnable) { \
+            LogWrite(ThreadLogLevel::LOG_LEVEL_FATAL, (errorCode), VOSFILENAME, __LINE__, fmt, ##args); \
+            break; \
+        } \
+        HiLogWrite(RTLogLevel::RTLOG_FATAL, fmt, ##args); \
+    } while (0)
+
+/**
  * @brief Write log information to the file.
  * @attention
  * @param  level        [IN]  level
@@ -112,6 +160,15 @@ void LogWrite(ThreadLogLevel level,
               unsigned short line,
               const char *fmt,
               ...);
+
+/**
+ * @brief Write log information to system log.
+ * @attention
+ * @param  level        [IN]  level
+ * @param  fmt          [IN]  format
+ * @retval void
+ */
+void HiLogWrite(RTLogLevel level, const char *fmt, ...);
 
 /**
  * @brief Registering the Log Hook Function. If func is nullptr, use printf to write log.
