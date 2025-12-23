@@ -144,6 +144,7 @@ add_compile_definitions(
    "MRT_MACOS"
    "_XOPEN_SOURCE=600"
    "_DARWIN_C_SOURCE"
+   "__IOS__"
 )
 
 # The link flags
