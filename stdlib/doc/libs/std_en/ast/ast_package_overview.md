@@ -122,7 +122,6 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [RefExpr](./ast_package_api/ast_package_classes.md#class-refexpr) | Represents expression nodes related to custom type nodes. |
 | [RefType](./ast_package_api/ast_package_classes.md#class-reftype) | Represents user-defined type nodes. |
 | [ResumeExpr](./ast_package_api/ast_package_classes.md#class-resumeexpr) | Represents a `resume` expression node. |
-| [ResumptionTypePattern](./ast_package_api/ast_package_classes.md#class-resumptiontypepattern) | Represents a resumption pattern with type annotation. |
 | [ReturnExpr](./ast_package_api/ast_package_classes.md#class-returnexpr) | Represents `return` expression nodes. |
 | [SpawnExpr](./ast_package_api/ast_package_classes.md#class-spawnexpr) | Represents `Spawn` expressions. |
 | [StructDecl](./ast_package_api/ast_package_classes.md#class-structdecl) | Represents `Struct` nodes. |
