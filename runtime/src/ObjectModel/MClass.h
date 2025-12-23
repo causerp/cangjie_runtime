@@ -104,7 +104,7 @@ public:
     InheritFuncTable(ExtensionData* ed, TypeInfo* super, size_t sz) : superExtensionData(ed), superTypeInfo(super), cachedTypeInfos(sz) {}
     ExtensionData* GetExtensionData() const { return superExtensionData; }
     TypeInfo* GetSuperTi() const { return superTypeInfo; }
-    void ResetAtomicInfoArray(size_t size) { cachedTypeInfos.Reset(size); }
+    void ResetAtomicInfoArray(size_t size) { cachedTypeInfos = AtomicTypeInfoArray(size); }
     TypeInfo* GetCachedTypeInfo(size_t index) const { return cachedTypeInfos.Get(index); }
     void SetCachedTypeInfo(size_t index, TypeInfo* ti) { cachedTypeInfos.Set(index, ti); }
 private:
@@ -196,26 +196,6 @@ private:
         void Set(size_t index, TypeInfo* ti)
         {
             typeInfos[index].store(ti, std::memory_order_release);
-        }
-        void Reset(size_t size)
-        {
-            CHECK_DETAIL(size > cacheSize, "update func table with wrong size %zu->%zu", cacheSize, size);
-            auto* newTypeInfos = new (std::nothrow) std::atomic<TypeInfo*>[size];
-            if (UNLIKELY(newTypeInfos == nullptr)) {
-                LOG(RTLOG_FATAL, "reset func table memory allocation failed, cache size %zu", size);
-            }
-            if (typeInfos != nullptr && cacheSize > 0) {
-                for (size_t i = 0; i < cacheSize; ++i) {
-                    TypeInfo* ti = typeInfos[i].load(std::memory_order_relaxed);
-                    newTypeInfos[i].store(ti, std::memory_order_relaxed);
-                }
-                delete[] typeInfos;
-                for (size_t i = cacheSize; i < size; ++i) {
-                    newTypeInfos[i].store(nullptr, std::memory_order_relaxed);
-                }
-            }
-            typeInfos = newTypeInfos;
-            cacheSize = size;
         }
     private:
         size_t cacheSize{ 0 };
