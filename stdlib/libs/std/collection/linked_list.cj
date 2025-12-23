@@ -304,7 +304,7 @@ public class LinkedList<T> <: Collection<T> {
         var result: LinkedList<T> = LinkedList<T>()
         let newSize = min(count, _size)
         var node = _head
-        for (i in 0..newSize) {
+        for (_ in 0..newSize) {
             result.addLast(node.getOrThrow().value)
             node = node.getOrThrow().next
         }
@@ -327,10 +327,10 @@ public class LinkedList<T> <: Collection<T> {
         }
         var result: LinkedList<T> = LinkedList<T>()
         var node = _head
-        for (i in 0..count) {
+        for (_ in 0..count) {
             node = node.getOrThrow().next
         }
-        for (i in count..size) {
+        for (_ in count..size) {
             result.addLast(node.getOrThrow().value)
             node = node.getOrThrow().next
         }
@@ -436,7 +436,7 @@ public class LinkedList<T> <: Collection<T> {
         }
         var result = LinkedList<T>()
         var node = _head.getOrThrow()
-        for(i in 0..size - 1){
+        for(_ in 0..size - 1){
             result.addLast(node.value)
             result.addLast(separator)
             node = node.next.getOrThrow()

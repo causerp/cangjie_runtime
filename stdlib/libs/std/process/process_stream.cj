@@ -181,12 +181,6 @@ class NullProcessStream <: IOStream & Resource {
         return -1
     }
 
-    prop length: Int64 {
-        get() {
-            return 0
-        }
-    }
-
     public func write(_: Array<Byte>): Unit {
         throw ProcessException("Invaild outputStream.")
     }

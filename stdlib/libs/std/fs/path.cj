@@ -359,18 +359,10 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
 class PathValidator {
     private init() {} // static class
 
-    static func throwIfEmpty(name: String, path: Path, isInput: Bool): Unit {
-        throwIfEmpty(name, path.toString(), isInput)
-    }
-
     static func throwIfEmpty(name: String, path: String, isInput: Bool): Unit {
         if (path.isEmpty()) {
             throw IllegalArgumentException(generateExceptionMessage(name, "is empty", isInput))
         }
-    }
-
-    static func throwIfContainsNullByte(name: String, path: Path, isInput: Bool): Unit {
-        throwIfContainsNullByte(name, path.toString(), isInput)
     }
 
     static func throwIfContainsNullByte(name: String, path: String, isInput: Bool): Unit {

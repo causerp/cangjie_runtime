@@ -11,10 +11,6 @@
  */
 package std.fs
 
-import std.collection.*
-import std.io.*
-import std.time.*
-
 const NULL_BYTE = "\0"
 const DOT_CHAR = r'.'
 const CURRENT_PATH_STRING = "."
@@ -406,6 +402,7 @@ func callNativeFunc(
 }
 
 extend Array<Byte> {
+    @When[os == "Windows"]
     func equalsIgnoreCaseAndSlash(that: String): Bool {
         // size is the same, and not 0
         var (b1, b2): (Byte, Byte)

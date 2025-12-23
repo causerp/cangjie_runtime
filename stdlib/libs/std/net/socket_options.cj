@@ -9,9 +9,6 @@
 package std.net
 
 public struct SocketOptions {
-    private init() {
-    }
-
     @Deprecated[message: "Use `public static const SOCKET: Int32` in `public struct OptionLevel` instead."]
     public static const SOL_SOCKET: Int32 = SOL_SOCKET
 
