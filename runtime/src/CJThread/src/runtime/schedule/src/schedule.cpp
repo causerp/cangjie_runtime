@@ -1461,9 +1461,10 @@ void ScheduleAllThreadListAdd(struct Thread *thread, struct Schedule *schedule)
 
 int ScheduleAllCJThreadListAdd(struct CJThread *cjthread)
 {
-    if (cjthread->schedule->state != SCHEDULE_RUNNING &&
-        cjthread->schedule->state != SCHEDULE_INIT &&
-        cjthread->schedule->state != SCHEDULE_EXITING) {
+    ScheduleState scheduleState = cjthread->schedule->state.load();
+    if (scheduleState != SCHEDULE_RUNNING &&
+        scheduleState != SCHEDULE_INIT &&
+        scheduleState != SCHEDULE_EXITING) {
         return -1;
     }
 #ifndef MRT_TEST
