@@ -91,6 +91,9 @@ uintptr_t __CJReflectGI;
 unsigned long __CJTypeExtSize;
 uintptr_t __CJTypeExt;
 
+uintptr_t g_runtimeStaticStart;
+uintptr_t g_runtimeStaticEnd;
+
 __attribute__((constructor(0))) __declspec(dllexport) void InitData()
 {
     HMODULE hModule = NULL;
@@ -202,6 +205,11 @@ __attribute__((constructor(0))) __declspec(dllexport) void InitData()
             __CJTypeExt = reinterpret_cast<uintptr_t>(hModule) +
                              sectionHeader->VirtualAddress;
             __CJTypeExtSize = sectionHeader->Misc.VirtualSize;
+        } else if (strncmp(secName, ".text_rt", sizeof(".text_rt") - 1) == 0) {
+            g_runtimeStaticStart = reinterpret_cast<uintptr_t>(hModule) +
+                                   sectionHeader->VirtualAddress;
+            g_runtimeStaticEnd =
+                g_runtimeStaticStart + sectionHeader->Misc.VirtualSize;
         }
         ++sectionHeader;
     }
