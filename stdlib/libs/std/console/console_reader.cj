@@ -42,7 +42,7 @@ const defaultCapacity: Int64 = 32
  */
 @Deprecated[message: "This class migrate to the std.env."]
 public class ConsoleReader <: InputStream {
-    private static let mutex: ReentrantMutex = ReentrantMutex()
+    private static let MUTEX: Mutex = Mutex()
     private var buffer: Array<Byte> = Array<Byte>(defaultCapacity, repeat: 0) /* stdin read buffer */
     private var endIndex: Int64 = 0
     private var startIndex: Int64 = 0
@@ -54,7 +54,7 @@ public class ConsoleReader <: InputStream {
      */
     @OverflowWrapping
     public func read(): ?Rune {
-        synchronized(mutex) {
+        synchronized(MUTEX) {
             if (endIndex == startIndex) {
                 if (!readFromConsole()) {
                     return Option<Rune>.None
@@ -99,7 +99,7 @@ public class ConsoleReader <: InputStream {
      */
     public func readUntil(predicate: (Rune) -> Bool): ?String {
         let result: StringBuilder = StringBuilder()
-        synchronized(mutex) {
+        synchronized(MUTEX) {
             while (true) {
                 if (startIndex >= endIndex && !readFromConsole()) {
                     break
@@ -128,7 +128,7 @@ public class ConsoleReader <: InputStream {
      */
     public func read(arr: Array<Byte>): Int64 {
         let arraySize = arr.size
-        synchronized(mutex) {
+        synchronized(MUTEX) {
             while (arraySize > endIndex - startIndex) {
                 if (!readFromConsole()) {
                     buffer.copyTo(arr, startIndex, 0, endIndex - startIndex)

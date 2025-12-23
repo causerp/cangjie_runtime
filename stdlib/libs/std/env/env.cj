@@ -10,7 +10,6 @@ package std.env
 
 import std.collection.*
 import std.fs.*
-import std.io.*
 import std.sync.*
 
 const STDIN_FD: IntNative = 0

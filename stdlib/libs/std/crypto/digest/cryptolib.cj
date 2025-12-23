@@ -8,7 +8,7 @@
 
 package std.crypto.digest
 
-import std.io.{InputStream, OutputStream}
+import std.io.InputStream
 
 /**
  * The Digest interface
