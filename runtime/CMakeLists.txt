@@ -659,19 +659,24 @@ if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MAT
             VERBATIM
         )
     endif()
-install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
-set_target_properties(cangjie-runtime-static PROPERTIES OUTPUT_NAME "cangjie-runtime")
+    install(TARGETS cangjie-runtime-static ARCHIVE DESTINATION lib/${TARGET_ARCH}${SANITIZER_SUBPATH})
+    set_target_properties(cangjie-runtime-static PROPERTIES OUTPUT_NAME "cangjie-runtime")
 
-set(OBJCOPY_PROGRAM objcopy)
-set(STRIP_PROGRAM strip)
-
-install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} --rename-section .text=.text_runtime \
-            ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
-        COMPONENT cangjie-runtime)
-if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
-    install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
-        COMPONENT cangjie-runtime)
-endif()
+    set(OBJCOPY_PROGRAM objcopy)
+    set(STRIP_PROGRAM strip)
+    if (WINDOWS_FLAG MATCHES 1)
+        install(CODE "execute_process(COMMAND bash ${CMAKE_SOURCE_DIR}/build/windows_rename_section.sh \
+                ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
+            COMPONENT cangjie-runtime)
+    else()
+        install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} --rename-section .text=.text_runtime \
+                    ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
+                COMPONENT cangjie-runtime)
+    endif()
+    if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
+        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
+            COMPONENT cangjie-runtime)
+    endif()
 endif()
 
 endif() # BUILD_RUNTIME
