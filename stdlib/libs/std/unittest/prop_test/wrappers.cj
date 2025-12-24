@@ -94,44 +94,44 @@ extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: ToString
  * Equatable implementations, behave exactly the same as equals() for tuples
  */
 extend<T0, T1> TupleWrapper2<T0, T1> <: Equatable<TupleWrapper2<T0, T1>> where T0 <: Equatable<T0>, T1 <: Equatable<T1> {
-    public operator func ==(other: TupleWrapper2<T0, T1>) {
+    public operator func ==(other: TupleWrapper2<T0, T1>): Bool {
         return this.tuple == other.tuple
     }
 
-    public operator func !=(other: TupleWrapper2<T0, T1>) {
+    public operator func !=(other: TupleWrapper2<T0, T1>): Bool {
         return this.tuple != other.tuple
     }
 }
 
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, T2>>
         where T0 <: Equatable<T0>, T1 <: Equatable<T1>, T2 <: Equatable<T2> {
-    public operator func ==(other: TupleWrapper3<T0, T1, T2>) {
+    public operator func ==(other: TupleWrapper3<T0, T1, T2>): Bool {
         return this.tuple == other.tuple
     }
 
-    public operator func !=(other: TupleWrapper3<T0, T1, T2>) {
+    public operator func !=(other: TupleWrapper3<T0, T1, T2>): Bool {
         return this.tuple != other.tuple
     }
 }
 
 extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3> <: Equatable<TupleWrapper4<T0, T1, T2, T3>>
         where T0 <: Equatable<T0>, T1 <: Equatable<T1>, T2 <: Equatable<T2>, T3 <: Equatable<T3> {
-    public operator func ==(other: TupleWrapper4<T0, T1, T2, T3>) {
+    public operator func ==(other: TupleWrapper4<T0, T1, T2, T3>): Bool {
         return this.tuple == other.tuple
     }
 
-    public operator func !=(other: TupleWrapper4<T0, T1, T2, T3>) {
+    public operator func !=(other: TupleWrapper4<T0, T1, T2, T3>): Bool {
         return this.tuple != other.tuple
     }
 }
 
 extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Equatable<TupleWrapper5<T0, T1, T2, T3, T4>>
         where T0 <: Equatable<T0>, T1 <: Equatable<T1>, T2 <: Equatable<T2>, T3 <: Equatable<T3>, T4 <: Equatable<T4> {
-    public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>) {
+    public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool {
         return this.tuple == other.tuple
     }
 
-    public operator func !=(other: TupleWrapper5<T0, T1, T2, T3, T4>) {
+    public operator func !=(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool {
         return this.tuple != other.tuple
     }
 }

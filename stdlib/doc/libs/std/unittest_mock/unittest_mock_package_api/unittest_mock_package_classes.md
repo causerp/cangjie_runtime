@@ -319,7 +319,7 @@ public static func stubSetter<TArg>(
 
 返回值：
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - 针对普通成员方法插入桩代码的操作器对象。
+- [SetterActionSelector](#class-setteractionselectortarg)\<TArg> - 针对普通成员方法插入桩代码的操作器对象。
 
 ## class Continuation\<A>
 

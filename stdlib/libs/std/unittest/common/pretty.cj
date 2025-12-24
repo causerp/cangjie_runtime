@@ -34,7 +34,7 @@ public enum Color <: Equatable<Color> {
             case DEFAULT_COLOR => if (let DEFAULT_COLOR <- that) { true } else { false }
         }
     }
-    public operator func !=(that: Color) { !(this == that) }
+    public operator func !=(that: Color): Bool { !(this == that) }
 }
 
 /**
@@ -341,7 +341,7 @@ public class PrettyText <: PrettyPrinter & PrettyPrintable & ToString {
      * Utility factory function: create a PrettyText from a PrettyPrintable by printing it.
      * This is static only because generic constructors are not allowed.
      */
-    public static func of<PP>(pp: PP) where PP <: PrettyPrintable {
+    public static func of<PP>(pp: PP): PrettyText where PP <: PrettyPrintable {
         let result = PrettyText()
         pp.pprint(result)
         result

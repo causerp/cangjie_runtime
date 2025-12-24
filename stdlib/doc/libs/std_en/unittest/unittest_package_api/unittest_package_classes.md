@@ -585,7 +585,7 @@ public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
     name: String,
     x!: Int64 = 0
-): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
+): DataStrategyProcessor<U>
 ```
 
 Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
@@ -702,7 +702,7 @@ Parameters:
 
 Return Value:
 
-- | [MapProcessor\<(T, Unit),R>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - Processor.
+- [MapProcessor\<(T, Unit),T>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - Processor.
 
 ## class FlatMapProcessor\<T,R>
 
