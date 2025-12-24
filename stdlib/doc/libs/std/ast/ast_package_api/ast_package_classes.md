@@ -2280,6 +2280,194 @@ public func traverse(v: Visitor): Unit
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
+## class FeatureId
+
+```cangjie
+public class FeatureId <: Node {
+    public init()
+}
+```
+
+功能：表示一个 feature id。
+
+> **注意:**
+>
+> 必须以关键字开头`features`，其次是 feature id 列表，必须出现在源文件的包名声明之前。
+> feature id 由标识符组成，标识符之间用点号分隔。feature id 不能用反引号转义。
+
+父类型:
+
+- [Node](#class-node)
+
+### prop dots
+
+```cangjie
+public mut prop dots: Tokens
+```
+
+功能：获取或设置 feature 的点号。例如：`features user.define.sample`。
+
+类型：[Tokens](ast_package_classes.md#class-tokens)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是一组 `.`。
+
+### prop identifiers
+
+```cangjie
+public mut prop identifiers: Tokens
+```
+
+功能：获取或设置 [FeatureId](ast_package_classes.md#class-featureid) 节点的标识符。
+
+类型：[Tokens](ast_package_classes.md#class-tokens)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Tokens](ast_package_classes.md#class-tokens) 不是一组标识符。
+
+### init()
+
+```cangjie
+public init()
+```
+
+功能：构造一个 [FeatureId](ast_package_classes.md#class-featureid) 对象。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：转换当前的抽象语法树节点为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转换出来的 [Tokens](ast_package_classes.md#class-tokens) 对象。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。要提前终止子节点遍历，请重写 `visit` 函数并调用 `breakTraverse` 函数来终止遍历行为。参见 [自定义访问函数遍历 AST 对象](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - 一个 [Visitor](ast_package_classes.md#class-visitor) 类型实例。
+
+## class FeaturesDirective
+
+```cangjie
+public class FeaturesDirective <: Node {
+    public init()
+    public init(input: Tokens)
+}
+```
+
+功能：feature directive 节点对象。
+
+> **注意：**
+>
+> Features 声明必须以关键字 `features` 开头，并且必须出现在源文件的包头之前。
+
+父类型：
+
+- [Node](#class-node)
+
+### prop commas
+
+```cangjie
+public mut prop commas: Tokens 
+```
+
+功能：获取或设置一组 `,`。
+
+类型：[Tokens](ast_package_classes.md#class-tokens)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是一组 `,` 时抛出异常。
+
+### prop content
+
+```cangjie
+public mut prop content: ArrayList<FeatureId> 
+```
+
+功能：获取或设置一组 feature id。
+
+类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[featuresId](ast_package_classes.md#class-featureid)>
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当配置的不是一组 feature id 时抛出异常。
+
+### prop keyword
+
+```cangjie
+public mut prop keyword: Token
+```
+
+功能：获取或设置 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 节点里的 `features` 关键字。
+
+类型：[Token](ast_package_structs.md#struct-token)
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 在配置的不是关键字时抛出异常。
+
+### init()
+
+```cangjie
+public init()
+```
+
+功能：构造一个默认的 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 对象。
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+功能：构造一个 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 对象。
+
+参数：
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - 用于构造 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 节点的词法单元集合。
+
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法构造 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 的时候抛出异常。
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：转换一个语法树节点为 [Tokens](ast_package_classes.md#class-tokens)。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转换好的 [Tokens](ast_package_classes.md#class-tokens) 类型对象。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。要提前终止子节点遍历，请重写 `visit` 函数并调用 `breakTraverse` 函数来终止遍历行为。参见 [自定义访问函数遍历 AST 对象](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - 一个 [Visitor](ast_package_classes.md#class-visitor) 类型实例。
+
 ## class ForInExpr
 
 ```cangjie
