@@ -124,7 +124,6 @@ ast 包主要包含了仓颉源码的语法解析器和仓颉语法树节点，�
 | [RefExpr](./ast_package_api/ast_package_classes.md#class-refexpr) | 表示一个使用自定义类型节点相关的表达式节点。 |
 | [RefType](./ast_package_api/ast_package_classes.md#class-reftype) | 表示一个用户自定义类型节点。 |
 | [ResumeExpr](./ast_package_api/ast_package_classes.md#class-resumeexpr) | 表示一个 `resume` 表达式节点。 |
-| [ResumptionTypePattern](./ast_package_api/ast_package_classes.md#class-resumptiontypepattern) | 表示带有类型注解的恢复模式。 |
 | [ReturnExpr](./ast_package_api/ast_package_classes.md#class-returnexpr) | 表示 `return` 表达式节点。 |
 | [SpawnExpr](./ast_package_api/ast_package_classes.md#class-spawnexpr) | 表示 `Spawn` 表达式。 |
 | [StructDecl](./ast_package_api/ast_package_classes.md#class-structdecl) | 表示一个 `Struct` 节点。 |
