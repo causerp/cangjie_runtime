@@ -319,7 +319,7 @@ Parameters:
 
 Return Value:
 
-- [MethodActionSelector](#class-methodactionselectortret)\<TRet> - The operator object for inserting stub code for ordinary member methods.
+- [SetterActionSelector](#class-setteractionselectortret)\<TArg> - The operator object for inserting stub code for ordinary member methods.
 
 ## class Continuation\<A>
 

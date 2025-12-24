@@ -468,7 +468,7 @@ public static func start<U>(
 
 返回值：
 
-- [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 数据策略处理器。
+- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 数据策略处理器。
 
 ### static func start(() -> DataStrategy\<T>, String, Int64)
 
@@ -516,7 +516,7 @@ public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
     name: String,
     x!: Int64 = 0
-): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
+): DataStrategyProcessor<U>
 ```
 
 功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
@@ -529,7 +529,7 @@ public static func start<U>(
 
 返回值：
 
-- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> where U <: [BenchInputProvider](./unittest_package_interfaces.md#interface-benchinputprovidert)\<T> - 数据策略处理器。
+- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 数据策略处理器。
 
 ### extend \<T> DataStrategyProcessor\<T>
 
@@ -633,7 +633,7 @@ public func productWithUnit<P>(p: P): MapProcessor<(T, Unit), T> where P <: Data
 
 返回值：
 
-- | [MapProcessor\<(T, Unit),R>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
+- [MapProcessor\<(T, Unit),T>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
 
 ## class FlatMapProcessor\<T,R>
 

@@ -280,7 +280,7 @@ override func shrink(): Iterable<TupleWrapper2<T0, T1>>
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2<T0, T1> - 数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2\<T0, T1>> - 数据迭代器。
 
 ## struct TupleWrapper3\<T0, T1, T2>
 
@@ -467,7 +467,7 @@ override func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> -  数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3\<T0, T1, T2>> -  数据迭代器。
 
 ## struct TupleWrapper4\<T0, T1, T2, T3>
 
@@ -705,7 +705,7 @@ public func apply<R>(f: (T0, T1, T2, T3, T4) -> R): R
 
 - R - 闭包的执行结果。
 
-### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: ToString
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> \<: ToString
 
 ```cangjie
 extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: ToString
@@ -819,7 +819,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, 
 
 返回值：
 
-- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - 生成器。
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - 生成器。
 
 ### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Shrink\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>, T4 <: Shrink\<T4>
 
@@ -844,4 +844,4 @@ override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper5<T0, T1, T2, T3, T4>> -  数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper5\<T0, T1, T2, T3, T4>> -  数据迭代器。
