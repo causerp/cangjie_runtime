@@ -117,3 +117,16 @@ protected override open func getClassName(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名字符串。
+
+## class UnittestTimeoutException
+
+```cangjie
+public class UnittestTimeoutException <: Exception {
+}
+```
+
+功能：运行超时时抛出的异常。仅可被框架使用。
+
+父类型：
+
+- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)

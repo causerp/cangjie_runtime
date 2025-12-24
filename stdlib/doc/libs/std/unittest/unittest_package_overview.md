@@ -116,6 +116,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [TestSuiteBuilder](./unittest_package_api/unittest_package_classes.md#class-testsuitebuilder) | 提供配置测试套方法的测试套构造器。 |
 | [UnitTestCase](./unittest_package_api/unittest_package_classes.md#class-unittestcase) | 提供创建和执行单元测试用例的方法的类。 |
 | [XmlReporter](./unittest_package_api/unittest_package_classes.md#class-xmlreporter) | 打印单元测试用例结果数据到 Xml 文件上。 |
+| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperrpackagereporte) | 打印单元测试用例结果数据到 Xml 文件上。 |
 
 ### 枚举
 
