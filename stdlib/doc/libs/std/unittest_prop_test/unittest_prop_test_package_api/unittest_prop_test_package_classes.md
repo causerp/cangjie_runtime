@@ -207,7 +207,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 
 父类型：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T>
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T>
 
 ### RandomDataProvider(Configuration)
 
@@ -249,7 +249,7 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)
+- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)
 
 ### RandomDataProviderRange(Configuration, T, T)
 
@@ -335,11 +335,11 @@ public override func shrink(value: T): Iterable<T>
 public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T>{}
 ```
 
-功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 接口的实现。
+功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 接口的实现。
 
 父类型：
 
-- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>
+- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T>
 
 ### prop isInfinite
 
@@ -393,7 +393,7 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
+- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)
 
 ### func provider(Configuration)
 

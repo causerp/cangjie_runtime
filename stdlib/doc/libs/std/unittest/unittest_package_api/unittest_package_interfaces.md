@@ -1,6 +1,6 @@
 # 接口
 
-## interface BenchInputProvider
+## interface BenchInputProvider\<T>
 
 ```cangjie
 public interface BenchInputProvider<T> <: BenchmarkInputMarker  {
@@ -9,7 +9,7 @@ public interface BenchInputProvider<T> <: BenchmarkInputMarker  {
 }
 ```
 
-功能：当某些代码需要在性能测试执行前执行，或当输入变化就需要重新执行一段代码时，可实现本接口。同时 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的实现类型应返回此接口的实现类型。
+功能：当某些代码需要在性能测试执行前执行，或当输入变化就需要重新执行一段代码时，可实现本接口。同时 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的实现类型应返回此接口的实现类型。
 
 用户一般不需要自行实现该接口，可直接使用 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏。
 
@@ -505,7 +505,7 @@ public func isNear(obj: Float64, delta!: RelativeDelta<Float64>): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - delta 值不能为负数，且不是 NaN，否则将抛出该异常。
 
-## interface Reporter
+## interface Reporter\<TReport, TReturn>
 
 ```cangjie
 sealed interface Reporter <TReport, TReturn>

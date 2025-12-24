@@ -12,7 +12,7 @@ Function: An input provider that generates the entire batch of benchmark inputs 
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### BatchInputProvider(() -> T)
 
@@ -69,7 +69,7 @@ Should be used when `GenerateEachInputProvider` yields poor quality results. Thi
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### BatchSizeOneInputProvider(() -> T)
 
@@ -187,7 +187,7 @@ Generation time is included in benchmark measurements but later excluded from fi
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### GenerateEachInputProvider(() -> T)
 
@@ -241,7 +241,7 @@ Function: The simplest input provider that simply copies data for each benchmark
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### ImmutableInputProvider(T)
 
@@ -322,7 +322,7 @@ conf.set(KeyBaseline.baseline, "baseline")
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop baseline
 
@@ -350,7 +350,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop baselinePath
 
@@ -378,7 +378,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop batchSize
 
@@ -406,7 +406,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop bench
 
@@ -432,7 +432,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop captureOutput
 
@@ -460,7 +460,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuided
 
@@ -488,7 +488,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedBaselineScore
 
@@ -516,7 +516,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedInitialSeeds
 
@@ -544,7 +544,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedMaxCandidates
 
@@ -572,7 +572,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedNewCoverageBonus
 
@@ -600,7 +600,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedNewCoverageScore
 
@@ -628,7 +628,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop deathAware
 
@@ -656,7 +656,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop dryRun
 
@@ -684,7 +684,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop excludeTags
 
@@ -712,7 +712,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop explicitGC
 
@@ -740,7 +740,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop filter
 
@@ -768,7 +768,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop fromTopLevel
 
@@ -796,7 +796,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop generationSteps
 
@@ -824,7 +824,7 @@ Function: Used in configuration information to specify whether to print help inf
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop help
 
@@ -852,7 +852,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop includeTags
 
@@ -880,7 +880,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop internalTestrunnerInputPath
 
@@ -908,7 +908,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop measurement
 
@@ -936,7 +936,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop measurementInfo
 
@@ -964,7 +964,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop minBatches
 
@@ -992,7 +992,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop minDuration
 
@@ -1020,7 +1020,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop noCaptureOutput
 
@@ -1048,40 +1048,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop noColor
 
 ```cangjie
 public static prop noColor: NoColor
-```
-
-Function: The key value of the configuration item.
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-Function: The name of the configuration item's key value.
-
-## struct KeyOptimizeMocksForBench
-
-```cangjie
-public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
-```
-
-Function: Used as the key for corresponding configuration items in [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration)
-
-Parent Types:
-
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
-
-### prop optimizeMocksForBench
-
-```cangjie
-public static prop optimizeMocksForBench: OptimizeMocksForBench
 ```
 
 Function: The key value of the configuration item.
@@ -1104,7 +1076,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop parallel
 
@@ -1132,7 +1104,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop randomSeed
 
@@ -1160,7 +1132,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reductionSteps
 
@@ -1188,7 +1160,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reportFormat
 
@@ -1216,7 +1188,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reportPath
 
@@ -1244,7 +1216,7 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop showAllOutput
 
@@ -1271,7 +1243,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop showTags
 
@@ -1299,7 +1271,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop skip
 
@@ -1327,7 +1299,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeout
 
@@ -1355,7 +1327,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeoutEach
 
@@ -1391,7 +1363,7 @@ conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeoutHandler
 
@@ -1423,7 +1395,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop verbose
 
@@ -1451,7 +1423,7 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop warmup
 

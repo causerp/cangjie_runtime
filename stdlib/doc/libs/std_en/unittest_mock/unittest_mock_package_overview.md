@@ -53,7 +53,7 @@ Users can follow the [Quick Start Guide](./unittest_mock_samples/mock_framework_
 | [MockFramework](./unittest_mock_package_api/unittest_mock_package_classes.md#class-mockframework) | Provides functions for framework setup and teardown during test execution. |
 | [NoneMatcher](./unittest_mock_package_api/unittest_mock_package_classes.md#class-nonematcher) | Matches parameters with value `None`. |
 | [OrderedVerifier](./unittest_mock_package_api/unittest_mock_package_classes.md#class-orderedverifier) | Collects "verification statements" for dynamic verification behaviors in `ordered` functions. |
-| [SetterActionSelector\<TRet>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-setteractionselectortret) | Provides methods to specify an [Action API](../unittest_mock/unittest_mock_samples/mock_framework_basics.md#action-api) for property `Setter` functions, supporting method chaining. |
+| [SetterActionSelector\<TRet>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-setteractionselectortarg) | Provides methods to specify an [Action API](../unittest_mock/unittest_mock_samples/mock_framework_basics.md#action-api) for property `Setter` functions, supporting method chaining. |
 | [SyntheticField\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-syntheticfieldt) | Synthetic field. |
 | [TypedMatcher\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-typedmatchert) | Matches parameters by type. |
 | [UnorderedVerifier](./unittest_mock_package_api/unittest_mock_package_classes.md#class-unorderedverifier) | Collects "verification statements" for dynamic verification behaviors in `unordered` functions. |

@@ -16,9 +16,9 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 
 |              接口名          |           功能           |
 | --------------------------- | ------------------------ |
-| [DataProvider](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) | DataStrategy 的组件，用于提供测试数据， T 指定提供者提供的数据类型。 |
+| [DataProvider\<T>](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert) | DataStrategy 的组件，用于提供测试数据， T 指定提供者提供的数据类型。 |
 | [DataShrinker](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert) | DataStrategy 的组件，用于在测试期间缩减数据，T 指定该收缩器处理的数据类型。 |
-| [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) | 为参数化测试提供数据的策略，T 指定该策略操作的数据类型。 |
+| [DataStrategy\<T>](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) | 为参数化测试提供数据的策略，T 指定该策略操作的数据类型。 |
 
 #### 类
 
@@ -80,7 +80,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 
 |              接口名          |           功能           |
 | --------------------------- | ------------------------ |
-| [BenchInputProvider](./unittest_package_api/unittest_package_interfaces.md#interface-benchinputprovider) | 用于处理性能测试的接口，其中需要在每次性能测试调用之前执行一些代码或者性能测试的输入发生了变化，并且每次都必须从头开始生成。|
+| [BenchInputProvider\<T>](./unittest_package_api/unittest_package_interfaces.md#interface-benchinputprovidert) | 用于处理性能测试的接口，其中需要在每次性能测试调用之前执行一些代码或者性能测试的输入发生了变化，并且每次都必须从头开始生成。|
 | [BenchmarkConfig](./unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig) | 空接口，区分部分 [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 函数为性能相关配置。|
 | [BenchmarkInputMarker](./unittest_package_api/unittest_package_interfaces.md#interface-benchmarkinputmarker) | 当我们不知道 `T` 时，该接口能够检测 `BenchInputProvider<T>` 。|
 | [Measurement](./unittest_package_api/unittest_package_interfaces.md#interface-measurement) | 在性能测试过程中可以收集和分析各种数据的接口。性能测试期间使用的 `Measurement` 的具体实例在 `@Measure` 宏中指定（例如在类声明中）。|
@@ -98,7 +98,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [ConsoleReporter](./unittest_package_api/unittest_package_classes.md#class-consolereporter) | 打印单元测试用例结果或者性能测试用例结果到控制台。 |
 | [CsvReporter](./unittest_package_api/unittest_package_classes.md#class-csvreporter) | 打印性能测试用例结果数据到 CSV 文件上。 |
 | [CsvRawReporter](./unittest_package_api/unittest_package_classes.md#class-csvrawreporter) | 打印性能测试用例结果数据，该数据只有批次的原始测量值，到 CSV 文件上。 |
-|[DataStrategyProcessor\<T>](./unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)| 所有 [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 组件的基类。该类的实例由 [@Strategy](../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。|
+|[DataStrategyProcessor\<T>](./unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)| 所有 [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 组件的基类。该类的实例由 [@Strategy](../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。|
 |[FlatMapProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。 |
 |[FlatMapStrategyProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapstrategyprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。 |
 | [InputParameter](./unittest_package_api/unittest_package_classes.md#class-inputparameter) | 入参对象类型。 |
@@ -162,7 +162,6 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [KeyMinDuration](./unittest_package_api/unittest_package_structs.md#struct-KeyMinDuration) | 作为在配置信息中配置值的键值。 |
 | [KeyNoCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-KeyNoCaptureOutput) | 作为在配置信息中配置值的键值。 |
 | [KeyNoColor](./unittest_package_api/unittest_package_structs.md#struct-KeyNoColor) | 作为在配置信息中配置值的键值。 |
-| [KeyOptimizeMocksForBench](./unittest_package_api/unittest_package_structs.md#struct-KeyOptimizeMocksForBench) | 作为在配置信息中配置值的键值。 |
 | [KeyParallel](./unittest_package_api/unittest_package_structs.md#struct-KeyParallel) | 作为在配置信息中配置值的键值。 |
 | [KeyRandomSeed](./unittest_package_api/unittest_package_structs.md#struct-KeyRandomSeed) | 作为在配置信息中配置值的键值。 |
 | [KeyReductionSteps](./unittest_package_api/unittest_package_structs.md#struct-KeyRandomSeed) | 作为在配置信息中配置值的键值。 |

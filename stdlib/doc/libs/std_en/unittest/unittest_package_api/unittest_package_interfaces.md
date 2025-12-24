@@ -9,7 +9,7 @@ public interface BenchInputProvider<T> <: BenchmarkInputMarker {
 }
 ```
 
-Purpose: This interface should be implemented when certain code needs to execute before benchmark execution, or when a code segment needs to re-execute upon input changes. The implementation type of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) should return an implementation of this interface.
+Purpose: This interface should be implemented when certain code needs to execute before benchmark execution, or when a code segment needs to re-execute upon input changes. The implementation type of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) should return an implementation of this interface.
 
 Users generally don't need to implement this interface directly, as they can use the [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-macro) macro.
 

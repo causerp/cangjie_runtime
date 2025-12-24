@@ -1,6 +1,6 @@
 # 接口
 
-## interface DataProvider
+## interface DataProvider\<T>
 
 ```cangjie
 public interface DataProvider<T> {
@@ -8,7 +8,7 @@ public interface DataProvider<T> {
 }
 ```
 
-功能：[DataStrategy](#interface-datastrategy) 的组件，用于提供测试数据，T 指定提供者提供的数据类型。
+功能：[DataStrategy](#interface-datastrategyt) 的组件，用于提供测试数据，T 指定提供者提供的数据类型。
 
 ### func provide()
 
@@ -70,7 +70,7 @@ public interface DataShrinker<T> {
 }
 ```
 
-功能：[DataStrategy](#interface-datastrategy) 的组件，用于在测试期间缩减数据，T 指定该收缩器处理的数据类型。
+功能：[DataStrategy](#interface-datastrategyt) 的组件，用于在测试期间缩减数据，T 指定该收缩器处理的数据类型。
 
 ### func shrink(T)
 
@@ -88,7 +88,7 @@ func shrink(value: T): Iterable<T>
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 较小值的集合，当数据无法再被缩减时返回空集合。
 
-## interface DataStrategy
+## interface DataStrategy\<T>
 
 ```cangjie
 public interface DataStrategy<T> {
@@ -124,7 +124,7 @@ func provider(configuration: Configuration): DataProvider<T>
 
 返回值：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - 提供测试数据的组件对象。
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - 提供测试数据的组件对象。
 
 ### func shrinker(Configuration)
 
@@ -174,7 +174,7 @@ public func provider(configuration: Configuration): DataProvider<T>
 
 返回值：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - 提供测试数据的组件对象。
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - 提供测试数据的组件对象。
 
 #### func shrinker(Configuration)
 
@@ -224,7 +224,7 @@ public func provider(configuration: Configuration): DataProvider<T>
 
 返回值：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - 提供测试数据的组件对象。
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - 提供测试数据的组件对象。
 
 #### func shrinker(Configuration)
 
@@ -316,7 +316,7 @@ public func pprint(to: PrettyPrinter): PrettyPrinter
 
 - [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - 打印器。
 
-## interface KeyFor
+## interface KeyFor\<T>
 
 ```cangjie
 public interface KeyFor<T> {

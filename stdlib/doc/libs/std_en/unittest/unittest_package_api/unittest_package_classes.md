@@ -185,7 +185,7 @@ Function: Creates a parameterized performance test case object.
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The test case name.
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - The parameter data strategy.
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) - The parameter data strategy.
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - The test case configuration information.
 - measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - The measurement method information.
 - body: () -> Unit - The test case execution body.
@@ -287,8 +287,8 @@ Function: Prints unit test case results or performance test case results to the 
 
 Parent Types:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 ### ConsoleReporter(Bool)
 
@@ -314,8 +314,8 @@ Function: Prints unit test case results or performance test results to a subclas
 
 Parent Types:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), PP>
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), PP>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), PP>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), PP>
 
 ### TextReporter(PP)
 
@@ -341,7 +341,7 @@ Function: Prints performance test case result data to a CSV file.
 
 Parent Type:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 ### CsvReporter(Path)
 
@@ -367,7 +367,7 @@ Function: Prints performance test case result data containing only raw measureme
 
 Parent Type:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 ### CsvRawReporter(Path)
 
@@ -387,7 +387,7 @@ Parameters:
 abstract sealed class DataStrategyProcessor<T> {}
 ```
 
-Function: Base class for all [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) components. Instances of this class are created by the [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) macro or member functions.
+Function: Base class for all [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) components. Instances of this class are created by the [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) macro or member functions.
 
 ### prop isInfinite
 
@@ -508,11 +508,11 @@ Return Value:
 public static func start(s: DataStrategy<T>, name: String): SimpleProcessor<T>
 ```
 
-Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy).
+Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
 
 Parameters:
 
-- s: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - Data strategy.
+- s: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - Data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
 Return Value:
@@ -528,11 +528,11 @@ public static func start<U>(
 ): DataStrategyProcessor<U> where U <: BenchInputProvider < T >
 ```
 
-Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy).
+Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
 
 Parameters:
 
-- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<U> - Closure that generates a data strategy.
+- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<U> - Closure that generates a data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
 Return Value:
@@ -549,11 +549,11 @@ public static func start(
 ): SimpleProcessor<T>
 ```
 
-Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy).
+Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
 
 Parameters:
 
-- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - Closure that generates a data strategy.
+- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - Closure that generates a data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Additional parameter added for refactoring to achieve different return values.
 
@@ -567,7 +567,7 @@ Return Value:
 public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataStrategyProcessor<T>
 ```
 
-Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy).
+Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
 
 Parameters:
 
@@ -588,7 +588,7 @@ public static func start<U>(
 ): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
 ```
 
-Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy).
+Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
 
 Parameters:
 
@@ -598,7 +598,7 @@ Parameters:
 
 Return Value:
 
-- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> where U <: [BenchInputProvider](./unittest_package_interfaces.md#interface-benchinputprovider)\<T> - Data strategy processor.
+- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> where U <: [BenchInputProvider](./unittest_package_interfaces.md#interface-benchinputprovidert)\<T> - Data strategy processor.
 
 ### extend \<T> DataStrategyProcessor\<T>
 
@@ -648,13 +648,13 @@ Function: Simply applies `f` to each item of the original data strategy, then fl
 
 Parameters:
 
-- f: (T) -> [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<R> - Additional processing logic function to be applied.
+- f: (T) -> [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<R> - Additional processing logic function to be applied.
 
 Return Value:
 
 - [FlatMapProcessor\<T, R>](#class-flatmapprocessortr) - Processor after applying `f`.
 
-#### func flatMapStrategy((T) -> DataStrategy\<R>)
+#### func flatMapStrategy\<R>((T) -> DataStrategy\<R>)
 
 ```cangjie
 public func flatMapStrategy<R>(f: (T) -> DataStrategy<R>): FlatMapStrategyProcessor<T, R>
@@ -664,13 +664,13 @@ Function: Simply applies `f` to each item of the original data strategy, then fl
 
 Parameters:
 
-- f: (T) -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<R> - Additional processing logic function to be applied.
+- f: (T) -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<R> - Additional processing logic function to be applied.
 
 Return Value:
 
 - [FlatMapStrategyProcessor\<T, R>](#class-flatmapstrategyprocessortr) - Processor after applying `f`.
 
-#### func product(DataStrategyProcessor\<R>)
+#### func product\<R>(DataStrategyProcessor\<R>)
 
 ```cangjie
 public func product<R>(p: DataStrategyProcessor<R>): CartesianProductProcessor<T, R>
@@ -962,7 +962,7 @@ Function: Raw performance test data reporter. For internal framework use only.
 
 Parent Types:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), ([Float64](../../core/core_package_api/core_package_intrinsics.md#float64), [Float64](../../core/core_package_api/core_package_intrinsics.md#float64))>>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), ([Float64](../../core/core_package_api/core_package_intrinsics.md#float64), [Float64](../../core/core_package_api/core_package_intrinsics.md#float64))>>
 
 ### RawStatsReporter()
 
@@ -996,7 +996,7 @@ Function: SimpleProcessor constructor.
 
 Parameters:
 
-- buildDelegate: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - Closure for generating data strategy.
+- buildDelegate: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - Closure for generating data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Processor name.
 
 ## class TestGroup
@@ -1262,14 +1262,6 @@ Function: Registers a benchmark case.
 Parameters:
 
 - bench: () -> [Benchmark](#class-benchmark) - Benchmark case generation closure.
-
-### func enableOptimizedMockForBench()
-
-```cangjie
-public func enableOptimizedMockForBench(): Unit
-```
-
-Function: Enables optimization to use both mocks and benchmarks in tests.
 
 ## class TestReport
 
@@ -1667,7 +1659,7 @@ Purpose: Creates a parameterized unit test case.
 Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) - Parameter data strategy.
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) - Parameter data strategy.
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Test case configuration.
 - body!: () -> Unit - Test case execution body.
 
@@ -1709,7 +1701,7 @@ Function: Outputs unit test case result data to XML files.
 
 Parent Types:
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 ### XmlReporter(Path)
 

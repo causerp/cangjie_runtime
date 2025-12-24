@@ -963,10 +963,10 @@ public func checkThat(statement: VerifyStatement): OrderedVerifier
 
 - [OrderedVerifier](unittest_mock_package_classes.md#class-orderedverifier) - 返回对象自身。
 
-## class SetterActionSelector\<TRet>
+## class SetterActionSelector\<TArg>
 
 ```cangjie
-public class SetterActionSelector<TRet> <: ActionSelector {}
+public class SetterActionSelector<TArg> <: ActionSelector {}
 ```
 
 功能：此类提供了为属性 `Setter` 函数指定一个[操作 API](../unittest_mock_samples/mock_framework_basics.md#操作-api) ，并允许链式调用的方法。
@@ -986,7 +986,7 @@ public func doesNothing(): CardinalitySelector<SetterActionSelector<TArg>>
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - 预期执行次数的操作器。
 
 ### func setsOriginal()
 
@@ -998,7 +998,7 @@ public func setsOriginal(): CardinalitySelector<SetterActionSelector<TArg>>
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - 预期执行次数的操作器。
 
 ### func setsField(SyntheticField\<TArg>)
 
@@ -1014,7 +1014,7 @@ public func setsField(field: SyntheticField<TArg>): CardinalitySelector<SetterAc
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - 预期执行次数的操作器。
 
 ### func throws(Exception)
 
@@ -1030,7 +1030,7 @@ public func throws(exception: Exception): CardinalitySelector<SetterActionSelect
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - 预期执行次数的操作器。
 
 ### func throws(() -> Exception)
 
@@ -1046,7 +1046,7 @@ public func throws(exceptionFactory: () -> Exception): CardinalitySelector<Sette
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - 预期执行次数的操作器。
 
 ## class SyntheticField\<T>
 
