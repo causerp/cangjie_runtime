@@ -922,7 +922,7 @@ Purpose: Specifies that the property or field should perform no action.
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - An operator for expected execution counts.
 
 ### func setsOriginal()
 
@@ -934,7 +934,7 @@ Purpose: Sets the original property or retrieves the field value from the origin
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - An operator for expected execution counts.
 
 ### func setsField(SyntheticField\<TArg>)
 
@@ -950,7 +950,7 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - An operator for expected execution counts.
 
 ### func throws(Exception)
 
@@ -966,7 +966,7 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - An operator for expected execution counts.
 
 ### func throws(() -> Exception)
 
@@ -982,7 +982,7 @@ Parameters:
 
 Return Value:
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortret)\<TArg>> - An operator for expected execution counts.
+- [CardinalitySelector](#class-cardinalityselectora)\<[SetterActionSelector](#class-setteractionselectortarg)\<TArg>> - An operator for expected execution counts.
 
 ## class SyntheticField\<T>
 

@@ -1,6 +1,6 @@
 # 接口
 
-## interface AssertPrintable
+## interface AssertPrintable\<T>
 
 ```cangjie
 public interface AssertPrintable<T> {

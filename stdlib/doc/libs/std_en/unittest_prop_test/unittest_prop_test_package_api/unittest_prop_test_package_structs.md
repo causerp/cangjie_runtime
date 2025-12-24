@@ -78,7 +78,7 @@ Function: Used to create key-value pairs in [Configuration](../../unittest_commo
 
 Parent type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)<[RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)<[RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource)>
 
 ### prop random
 
