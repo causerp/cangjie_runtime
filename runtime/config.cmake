@@ -91,7 +91,7 @@ endif ()
 # If other sanitizer is enabled, disable gwpasan (see below).
 if (NOT DEFINED GWPASAN_SUPPORT_FLAG)
     if (WINDOWS_FLAG MATCHES 0 AND MACOS_FLAG MATCHES 0 AND
-        ANDROID_FLAG MATCHES 0 AND IOS_FLAG MATCHES 0 AND 
+        ANDROID_FLAG MATCHES 0 AND IOS_FLAG MATCHES 0 AND
         IOS_SIMULATOR_FLAG MATCHES 0)
         set(GWPASAN_SUPPORT_FLAG 1)
     else ()
@@ -104,7 +104,7 @@ else()
         set(GWPASAN_SUPPORT_FLAG 0)
     endif ()
 endif()
- 
+
 set(ASAN_SUPPORT_FLAG 0)
 set(TSAN_SUPPORT_FLAG 0)
 set(HWASAN_SUPPORT_FLAG 0)
@@ -197,6 +197,7 @@ elseif (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1)
     set(CMAKE_ASM_COMPILER "clang")
     set(CMAKE_CXX_COMPILER "clang++")
     add_definitions(-D__IOS__)
+    add_definitions(-D__ENVIRONMENT_OS_VERSION_MIN_REQUIRED__=110000)
 else()
     message(STATUS "HOST_SYSTEM_NAME is not set. Use pre-installed clang.")
     message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")

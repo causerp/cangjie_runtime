@@ -277,6 +277,33 @@ static inline void WriteLogOnAndroid(RTLogLevel level, const char* buf)
 }
 #endif
 
+#if defined(__IOS__)
+static inline void WriteLogOnIOS(RTLogLevel level, const char* buf)
+{
+    switch (level) {
+        case RTLOG_DEBUG:
+            PRINT_DEBUG("%{public}s", buf);
+            break;
+        case RTLOG_WARNING:
+            PRINT_WARN("%{public}s", buf);
+            break;
+        case RTLOG_ERROR: {
+            PRINT_ERROR("%{public}s", buf);
+            break;
+        }
+        case RTLOG_FAIL:
+        case RTLOG_FATAL: {
+            PRINT_FATAL("%{public}s", buf);
+            break;
+        }
+        case RTLOG_REPORT:
+            VLOG(REPORT, "%{public}s\n", buf)
+        default:
+            PRINT_INFO("%{public}s", buf);
+    }
+}
+#endif
+
 void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* format, ...) noexcept
 {
     if (!CheckLogLevel(level)) {
@@ -310,6 +337,8 @@ void Logger::FormatLog(RTLogLevel level, bool notInSigHandler, const char* forma
     WriteLogOnOhos(level, buf, true);
 #elif defined(__ANDROID__)
     WriteLogOnAndroid(level, buf);
+#elif defined (__IOS__)
+    WriteLogOnIOS(level, buf);
 #else
     if (filePath.IsEmpty()) {
         std::lock_guard<std::recursive_mutex> lock(logMutex);
