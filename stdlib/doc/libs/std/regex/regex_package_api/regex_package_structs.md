@@ -29,11 +29,8 @@ import std.regex.*
 main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
-    while (true) {
-        match (iter.next()) {
-            case Some(md) => println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
-            case None => break
-        }
+    for (md in iter) {
+        println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
     }
 }
 ```
@@ -41,8 +38,8 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
-# found: `2025-01-01` and groupCount: 3
+found: `2024-10-24` and groupCount: 3
+found: `2025-01-01` and groupCount: 3
 ```
 
 ### func groupNumber() <sup>(deprecated)</sup>
@@ -60,6 +57,28 @@ public func groupNumber(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 捕获组的个数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
+    let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
+    for (md in iter) {
+        println("found: `${md.matchString()}` and groupNumber: ${md.groupNumber()}")
+    }
+}
+```
+
+运行结果：
+
+```text
+found: `2024-10-24` and groupNumber: 3
+found: `2025-01-01` and groupNumber: 3
+```
 
 ### func matchPosition()
 
@@ -82,14 +101,10 @@ import std.regex.*
 main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
-    while (true) {
-        match (iter.next()) {
-            case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
-                let pos = md.matchPosition(0)
-                println("pos: [${pos.start}, ${pos.end}]")
-            case None => break
-        }
+    for (md in iter) {
+        println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+        let pos = md.matchPosition()
+        println("pos: [${pos.start}, ${pos.end}]")
     }
 }
 ```
@@ -97,9 +112,9 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
+found: 2024-10-24 and groupCount: 3
 pos: [0, 10]
-# found: 2025-01-01 and groupCount: 3
+found: 2025-01-01 and groupCount: 3
 pos: [11, 21]
 ```
 
@@ -132,15 +147,11 @@ import std.regex.*
 main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
-    while (true) {
-        match (iter.next()) {
-            case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
-                /* 月份的捕获组索引为 2 */
-                let pos = md.matchPosition(2)
-                println("# month: [${pos.start}, ${pos.end}]")
-            case None => break
-        }
+    for (md in iter) {
+        println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+        /* 月份的捕获组索引为 2 */
+        let pos = md.matchPosition(2)
+        println("month: [${pos.start}, ${pos.end}]")
     }
 }
 ```
@@ -148,10 +159,10 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
-# month: [5, 7]
-# found: 2025-01-01 and groupCount: 3
-# month: [16, 18]
+found: 2024-10-24 and groupCount: 3
+month: [5, 7]
+found: 2025-01-01 and groupCount: 3
+month: [16, 18]
 ```
 
 ### func matchPosition(String)
@@ -183,14 +194,10 @@ import std.regex.*
 main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
-    while (true) {
-        match (iter.next()) {
-            case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
-                let pos = md.matchPosition("year")
-                println("year: [${pos.start}, ${pos.end}]")
-            case None => break
-        }
+    for (md in iter) {
+        println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+        let pos = md.matchPosition("year")
+        println("year: [${pos.start}, ${pos.end}]")
     }
 }
 ```
@@ -198,9 +205,9 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
+found: 2024-10-24 and groupCount: 3
 year: [0, 4]
-# found: 2025-01-01 and groupCount: 3
+found: 2025-01-01 and groupCount: 3
 year: [11, 15]
 ```
 
@@ -223,15 +230,11 @@ public func matchString(): String
 import std.regex.*
 
 main(): Unit {
-    let r1 = Regex("ab")
-    let r2 = Regex("ab", IgnoreCase)
-    match (r1.find("aB")) {
-        case Some(r) => println(r.matchString())
-        case None => println("None")
-    }
-    match (r2.find("aB")) {
-        case Some(r) => println(r.matchString())
-        case None => println("None")
+    let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
+    let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
+    for (md in iter) {
+        let matchString = md.matchString()
+        println("matchString: ${matchString}")
     }
 }
 ```
@@ -239,8 +242,8 @@ main(): Unit {
 运行结果：
 
 ```text
-None
-aB
+matchString: 2024-10-24
+matchString: 2025-01-01
 ```
 
 ### func matchString(Int64)
@@ -265,6 +268,35 @@ public func matchString(group: Int64): String
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当未开启捕获组提取，或 group 小于 0 或者大于 groupCount 时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
+    let result = r.find("Today is 2024-10-24", group: true)
+    match (result) {
+        case Some(md) => 
+            println("完整匹配: ${md.matchString(0)}")
+            println("第1个捕获组(年份): ${md.matchString(1)}")
+            println("第2个捕获组(月份): ${md.matchString(2)}")
+            println("第3个捕获组(日期): ${md.matchString(3)}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+完整匹配: 2024-10-24
+第1个捕获组(年份): 2024
+第2个捕获组(月份): 10
+第3个捕获组(日期): 24
+```
+
 ### func matchString(String)
 
 ```cangjie
@@ -284,6 +316,35 @@ public func matchString(group: String): String
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当未开启捕获组提取，或捕获组名称不存在，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
+    let result = r.find("Today is 2024-10-24", group: true)
+    match (result) {
+        case Some(md) => 
+            println("完整匹配: ${md.matchString()}")
+            println("年份组: ${md.matchString("year")}")
+            println("月份组: ${md.matchString("month")}")
+            println("日期组: ${md.matchString("day")}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+完整匹配: 2024-10-24
+年份组: 2024
+月份组: 10
+日期组: 24
+```
 
 ## struct Position
 
@@ -306,6 +367,34 @@ public let end: Int64
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
+    let result = r.find("Today is 2024-10-24", group: true)
+    match (result) {
+        case Some(md) => 
+            let pos = md.matchPosition(0)  // 获取完整匹配的位置信息
+            println("匹配的字符串: ${md.matchString()}")
+            println("开始位置: ${pos.start}")
+            println("结束位置: ${pos.end}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+匹配的字符串: 2024-10-24
+开始位置: 9
+结束位置: 19
+```
+
 ### let start
 
 ```cangjie
@@ -315,3 +404,31 @@ public let start: Int64
 功能：区间开始位置。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
+    let result = r.find("Today is 2024-10-24", group: true)
+    match (result) {
+        case Some(md) => 
+            let pos = md.matchPosition(0)  // 获取完整匹配的位置信息
+            println("匹配的字符串: ${md.matchString()}")
+            println("开始位置: ${pos.start}")
+            println("结束位置: ${pos.end}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+匹配的字符串: 2024-10-24
+开始位置: 9
+结束位置: 19
+```
