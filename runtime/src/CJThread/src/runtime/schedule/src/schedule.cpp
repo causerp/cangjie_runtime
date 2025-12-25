@@ -1465,6 +1465,11 @@ int ScheduleAllCJThreadListAdd(struct CJThread *cjthread)
     if (scheduleState != SCHEDULE_RUNNING &&
         scheduleState != SCHEDULE_INIT &&
         scheduleState != SCHEDULE_EXITING) {
+        LOG_ERROR(ERRNO_SCHD_INVALID,
+                  "can't add cjthread to the target scheduler, schedule type %d, schedule state %d",
+                  cjthread->schedule->scheduleType, scheduleState);
+        LOG(RTLOG_ERROR, "can't add cjthread to the target scheduler, schedule type %d, schedule state %d",
+            cjthread->schedule->scheduleType, scheduleState);
         return -1;
     }
 #ifndef MRT_TEST
@@ -1481,13 +1486,12 @@ int ScheduleAllCJThreadListAdd(struct CJThread *cjthread)
 int AddToCJSingleModeThreadList(struct CJThread *cjthread)
 {
     if (cjthread == nullptr) {
-        LOG_ERROR(ERRNO_SCHD_CJTHREAD_NULL, "cjthread is nullptr");
+        LOG(RTLOG_ERROR, "cjthread is nullptr");
         return -1;
     }
     PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;
     if (PostTask == nullptr) {
-        LOG_ERROR(ERRNO_SCHD_EVENT_HANDLER_FUNC_NULL,
-                  "The event handler function is nullptr when add to cjSingleModeThreadList.");
+        LOG(RTLOG_ERROR, "The event handler function is nullptr when add to cjSingleModeThreadList.");
         return -1;
     }
 
