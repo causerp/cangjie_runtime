@@ -106,16 +106,39 @@ public class Directory {
         readFrom(Path(path))
     }
 
+    /*
+     * @throws FSException if the input path is not a directory.
+     * @throws FSException if get handle of the directory failed.
+     */
     public static func walk(path: Path, f: (FileInfo) -> Bool): Unit {
         let absPath = checkDirectoryPath(path)
-        let (subData, subSize) = getSubData(absPath.toString())
-        var pos = 0
-        while (pos < subSize) {
-            let len = Int64(subData[pos])
-            let name = String.fromUtf8(subData.slice(pos + 2, len))
-            pos = pos + len + 2
-            let fullPathName = String.join([absPath.toString(), name], delimiter: SLASH_STRING)
-            if (!f(FileInfo(Path(fullPathName), false))) {
+        let absPathStr = absPath.toString()
+
+        func walkFuncWrapper(cstr: CString): Bool {
+            let fileName = cstr.toString()
+            unsafe { LibC.free(cstr) }
+            let fullPathName = String.join([absPathStr, fileName], delimiter: SLASH_STRING)
+            f(FileInfo(Path(fullPathName), false))
+        }
+
+        var dirHandle: UIntNative = 0
+        let cPath = unsafe { LibC.mallocCString(absPathStr) }
+        let firstFile = unsafe { CJ_FS_GetDirHandleAndFirstFile(cPath, inout dirHandle) }
+        unsafe { LibC.free(cPath) }
+        if (dirHandle == 0) {
+            throw FSException("Failed to obtain members in the directory `${path}`.")
+        }
+
+        // firstFile only has value on windows
+        if (!firstFile.isNull() && !walkFuncWrapper(firstFile)) {
+            unsafe { CJ_FS_CloseDirHandle(dirHandle) }
+            return
+        }
+    
+        while (true) {
+            let cstr = unsafe { CJ_FS_ReadDirHandle(dirHandle) }
+            if (cstr.isNull() || !walkFuncWrapper(cstr)) {
+                unsafe { CJ_FS_CloseDirHandle(dirHandle) }
                 return
             }
         }
@@ -226,43 +249,6 @@ public class Directory {
         }
         if (copyDirectory(srcFullPath, destFullPath) == -1) {
             throw FSException("Failed to copy sourceDirPath `${sourceDirPath}` to destinationDirPath `${destinationDirPath}`.")
-        }
-    }
-
-    /*
-     * private functions
-     * @throws FSException if get number of obtain members in the directory failed
-     */
-    private static func getSubData(path: String): (Array<Byte>, Int64) {
-        let arr = Array<Byte>((256 + 2) * size(path), repeat: 0) // UInt8 name_size + UInt8 file_type + UInt8[256]
-        unsafe {
-            let cPath = LibC.mallocCString(path)
-            let arrPtr: CPointerHandle<Byte> = acquireArrayRawData(arr)
-            let ret: Int64 = CJ_FS_DirGetData(cPath, arrPtr.pointer, arr.size)
-            releaseArrayRawData(arrPtr)
-            LibC.free(cPath)
-            if (ret < 0) {
-                throw FSException("Failed to obtain members in the directory `${path}`.")
-            } else if (ret == 0) {
-                return (Array<Byte>(), 0)
-            } else {
-                return (arr, ret)
-            }
-        }
-    }
-
-    /*
-     * @throws FSException if get number of subFiles in directory failed
-     */
-    private static func size(pathStr: String): Int64 {
-        unsafe {
-            let cPath: CString = LibC.mallocCString(pathStr)
-            let ret: Int64 = CJ_FS_DirGetNumber(cPath)
-            LibC.free(cPath)
-            if (ret < 0) {
-                throw FSException("Failed to get number of subFiles in directory `${pathStr}`.")
-            }
-            return ret
         }
     }
 
