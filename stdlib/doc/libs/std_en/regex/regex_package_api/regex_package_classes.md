@@ -4,7 +4,7 @@
 
 ```cangjie
 public class Matcher {
-    public init(re: Regex, input: String)
+    public init(regex: Regex, input: String)
 }
 ```
 
@@ -17,14 +17,14 @@ Function: A regular expression matcher used for scanning input sequences and per
 ### init(Regex, String)
 
 ```cangjie
-public init(re: Regex, input: String)
+public init(regex: Regex, input: String)
 ```
 
 Function: Creates a [Matcher](#class-matcher-deprecated) instance with the provided regular expression and input sequence.
 
 Parameters:
 
-- re: [Regex](regex_package_classes.md#class-regex) - The regular expression.
+- regex: [Regex](regex_package_classes.md#class-regex) - The regular expression.
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The input sequence.
 
 ### func allCount()

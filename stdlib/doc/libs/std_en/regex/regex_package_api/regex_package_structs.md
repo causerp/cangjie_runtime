@@ -289,8 +289,8 @@ Exceptions:
 
 ```cangjie
 public struct Position {
-    public let end: Int64
     public let start: Int64
+    public let end: Int64
 }
 ```
 

@@ -3,7 +3,7 @@
 ## struct MemoryInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct MemoryInfo
+public struct MemoryInfo {}
 ```
 
 Function: Provides interfaces for obtaining heap memory statistics.
@@ -60,7 +60,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 ## struct ProcessorInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ProcessorInfo
+public struct ProcessorInfo {}
 ```
 
 Function: Provides interfaces for obtaining processor information.
@@ -82,7 +82,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 ## struct ThreadInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ThreadInfo
+public struct ThreadInfo {}
 ```
 
 Function: Provides interfaces for obtaining Cangjie thread statistics.

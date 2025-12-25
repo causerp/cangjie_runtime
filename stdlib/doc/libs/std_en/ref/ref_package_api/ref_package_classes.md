@@ -58,7 +58,7 @@ Functionality: Forces cleanup of the object referenced by the weak reference. Su
 ## class WeakRefBase
 
 ```cangjie
-sealed abstract class WeakRefBase
+sealed abstract class WeakRefBase {}
 ```
 
 Functionality: This class contains no public members or functions, and cannot be inherited or extended. It serves solely as the base class for [WeakRef](ref_package_classes#class-weakreft-where-t--object).

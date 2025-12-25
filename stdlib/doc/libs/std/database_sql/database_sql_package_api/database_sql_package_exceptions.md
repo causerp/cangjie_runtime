@@ -5,8 +5,8 @@
 ```cangjie
 public open class SqlException <: Exception {
     public init()
-    public init(message: String)
     public init(message: String, sqlState: String, errorCode: Int64)
+    public init(message: String)
 }
 ```
 
@@ -83,7 +83,7 @@ public init(message: String, sqlState: String, errorCode: Int64)
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected override func getClassName(): String
 ```
 
 功能：获得类名。

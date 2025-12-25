@@ -3,7 +3,7 @@
 ## struct FileDescriptor
 
 ```cangjie
-public struct FileDescriptor
+public struct FileDescriptor {}
 ```
 
 功能：用于获取文件句柄信息。

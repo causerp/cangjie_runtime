@@ -50,7 +50,7 @@ Return Value:
 ## class Error
 
 ```cangjie
-public open class Error <: ToString
+public open class Error <: ToString {}
 ```
 
 Purpose: [Error](core_package_exceptions.md#class-error) is the base class for all error classes. This class cannot be inherited or initialized, but can be caught.
@@ -254,7 +254,7 @@ Parameters:
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 Purpose: Gets the class name.
@@ -523,7 +523,7 @@ Parameters:
 ## class OutOfMemoryError
 
 ```cangjie
-public class OutOfMemoryError <: Error
+public class OutOfMemoryError <: Error {}
 ```
 
 Function: Represents an error class for out-of-memory conditions. This class cannot be inherited or instantiated but can be caught.
@@ -605,7 +605,7 @@ Parameters:
 ## class StackOverflowError
 
 ```cangjie
-public class StackOverflowError <: Error
+public class StackOverflowError <: Error {}
 ```
 
 Function: Represents an error class for stack overflow conditions. This class cannot be inherited or instantiated but can be caught.

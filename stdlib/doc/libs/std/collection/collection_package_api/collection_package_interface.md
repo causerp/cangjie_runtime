@@ -32,9 +32,7 @@ prop first: ?T
 
 功能：访问双端队列头部元素，该操作不会删除头部元素。
 
-返回值：
-
-- ?T - Option 封装的头部元素的值，如果双端队列为空，返回None。
+类型：?T
 
 ### prop last
 
@@ -44,9 +42,7 @@ prop last: ?T
 
 功能：访问双端队列尾部元素，该操作不会删除尾部元素。
 
-返回值：
-
-- ?T - Option 封装的尾部元素的值，如果双端队列为空，返回None。
+类型：?T
 
 ### func addFirst(T)
 
@@ -283,14 +279,14 @@ operator func [](index: Int64, value!: T): Unit
 public interface Map<K, V> <: ReadOnlyMap<K, V> {
     func add(key: K, value: V): ?V
     func add(all!: Collection<(K, V)>): Unit
-    func addIfAbsent(key: K, value: V): ?V
-    func clear(): Unit
-    func entryView(k: K): MapEntryView<K, V>
     func remove(key: K): Option<V>
     func remove(all!: Collection<K>): Unit
     func removeIf(predicate: (K, V) -> Bool): Unit
-    func replace(key: K, value: V): ?V
+    func clear(): Unit
     operator func [](key: K, value!: V): Unit
+    func entryView(k: K): MapEntryView<K, V>
+    func addIfAbsent(key: K, value: V): ?V
+    func replace(key: K, value: V): ?V
 }
 ```
 
@@ -446,8 +442,8 @@ operator func [](key: K, value!: V): Unit
 
 ```cangjie
 public interface MapEntryView<K, V> {
-    public prop key: K
-    public mut prop value: ?V
+    prop key: K
+    mut prop value: ?V
 }
 ```
 
@@ -456,7 +452,7 @@ public interface MapEntryView<K, V> {
 ### prop key
 
 ```cangjie
-public prop key: K
+prop key: K
 ```
 
 功能：返回视图中的 key，如果视图的 key 不在原始映射中，则返回一个该 key 的空视图。
@@ -466,7 +462,7 @@ public prop key: K
 ### prop value
 
 ```cangjie
-public mut prop value: ?V
+mut prop value: ?V
 ```
 
 功能：读取或修改视图对应原始映射的 value。
@@ -479,13 +475,12 @@ public mut prop value: ?V
 
 ```cangjie
 public interface OrderedMap<K, V> <: Map<K, V> {
-    public prop first: ?(K, V)
-    public prop last: ?(K, V)
-    public func removeFirst(): ?(K, V)
-    public func removeLast(): ?(K, V)
-
-    public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
-    public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    prop first: ?(K, V)
+    prop last: ?(K, V)
+    func removeFirst(): ?(K, V)
+    func removeLast(): ?(K, V)
+    func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 }
 ```
 
@@ -500,7 +495,7 @@ public interface OrderedMap<K, V> <: Map<K, V> {
 ### prop first
 
 ```cangjie
-public prop first: ?(K, V)
+prop first: ?(K, V)
 ```
 
 功能：获取 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 第一个元素。
@@ -510,7 +505,7 @@ public prop first: ?(K, V)
 ### prop last
 
 ```cangjie
-public prop last: ?(K, V)
+prop last: ?(K, V)
 ```
 
 功能：获取 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 最后一个元素。
@@ -520,7 +515,7 @@ public prop last: ?(K, V)
 ### func removeFirst()
 
 ```cangjie
-public func removeFirst(): ?(K, V)
+func removeFirst(): ?(K, V)
 ```
 
 功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的第一个元素。
@@ -532,7 +527,7 @@ public func removeFirst(): ?(K, V)
 ### func removeLast()
 
 ```cangjie
-public func removeLast(): ?(K, V)
+func removeLast(): ?(K, V)
 ```
 
 功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的最后一个元素。
@@ -544,7 +539,7 @@ public func removeLast(): ?(K, V)
 ### func backward(K, Bool)
 
 ```cangjie
-public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 功能：获取从第一个键小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
@@ -561,7 +556,7 @@ public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ### func forward(K, Bool)
 
 ```cangjie
-public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 功能：获取从第一个键大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
@@ -579,13 +574,12 @@ public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 
 ```cangjie
 public interface OrderedSet<T> <: Set<T> {
-    public prop first: ?T
-    public prop last: ?T
-    public func removeFirst(): ?T
-    public func removeLast(): ?T
-
-    public func backward(mark: T, inclusive!: Bool): Iterator<T>
-    public func forward(mark: T, inclusive!: Bool): Iterator<T>
+    prop first: ?T
+    prop last: ?T
+    func removeFirst(): ?T
+    func removeLast(): ?T
+    func backward(mark: T, inclusive!: Bool): Iterator<T>
+    func forward(mark: T, inclusive!: Bool): Iterator<T>
 }
 ```
 
@@ -600,7 +594,7 @@ public interface OrderedSet<T> <: Set<T> {
 ### prop first
 
 ```cangjie
-public prop first: ?T
+prop first: ?T
 ```
 
 功能：获取 [OrderedSet](collection_package_interface.md#interface-orderedsett) 第一个元素。
@@ -610,7 +604,7 @@ public prop first: ?T
 ### prop last
 
 ```cangjie
-public prop last: ?T
+prop last: ?T
 ```
 
 功能：获取 [OrderedSet](collection_package_interface.md#interface-orderedsett) 最后一个元素。
@@ -620,7 +614,7 @@ public prop last: ?T
 ### func removeFirst()
 
 ```cangjie
-public func removeFirst(): ?T
+func removeFirst(): ?T
 ```
 
 功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的第一个元素。
@@ -632,7 +626,7 @@ public func removeFirst(): ?T
 ### func removeLast()
 
 ```cangjie
-public func removeLast(): ?T
+func removeLast(): ?T
 ```
 
 功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的最后一个元素。
@@ -644,7 +638,7 @@ public func removeLast(): ?T
 ### func backward(T, Bool)
 
 ```cangjie
-public func backward(mark: T, inclusive!: Bool): Iterator<T>
+func backward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 功能：获取从第一个元素小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
@@ -661,7 +655,7 @@ public func backward(mark: T, inclusive!: Bool): Iterator<T>
 ### func forward(T, Bool)
 
 ```cangjie
-public func forward(mark: T, inclusive!: Bool): Iterator<T>
+func forward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 功能：获取从第一个元素大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
@@ -1089,9 +1083,9 @@ func retain(all!: Set<T>): Unit
 
 ```cangjie
 public interface Stack<T> <: Collection<T> {
-    func add(element: T): Unit
     func peek(): ?T
     func remove(): ?T
+    func add(element: T): Unit
 }
 ```
 
