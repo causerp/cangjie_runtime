@@ -3790,7 +3790,7 @@ public open func unlock(): Unit
 ## class ReentrantReadMutex <sup>(deprecated)</sup>
 
 ```cangjie
-public class ReentrantReadMutex <: ReentrantMutex
+public class ReentrantReadMutex <: ReentrantMutex {}
 ```
 
 功能：提供可重入读写锁中的读锁类型。
@@ -3905,7 +3905,7 @@ public init(mode!: ReadWriteMutexMode = ReadWriteMutexMode.Unfair)
 ## class ReentrantWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
-public class ReentrantWriteMutex <: ReentrantMutex
+public class ReentrantWriteMutex <: ReentrantMutex {}
 ```
 
 功能：提供可重入读写锁中的写锁类型。
@@ -4119,7 +4119,7 @@ public func waitUntilZero(timeout!: Duration = Duration.Max): Unit
 ## class Timer
 
 ```cangjie
-public class Timer <: Equatable<Timer> & Hashable
+public class Timer <: Equatable<Timer> & Hashable {}
 ```
 
 功能：提供定时器功能。

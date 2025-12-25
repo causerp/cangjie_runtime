@@ -3,7 +3,7 @@
 ## interface Any
 
 ```cangjie
-public interface Any
+public interface Any {}
 ```
 
 功能：[Any](core_package_interfaces.md#interface-any) 是所有类型的父类型，所有 `interface` 都默认继承它，所有非 `interface` 类型都默认实现它。
@@ -187,7 +187,7 @@ public func toAsciiUpperCase(): Byte
 ## interface CType
 
 ```cangjie
-sealed interface CType
+sealed interface CType {}
 ```
 
 功能：表示支持与 C 语言互操作的接口。
@@ -275,10 +275,10 @@ func toArray(): Array<T>
 ```cangjie
 public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEqual<T> & GreaterOrEqual<T> {
     func compare(that: T): Ordering
-    operator func <(rhs: T): Bool
-    operator func <=(rhs: T): Bool
     operator func ==(rhs: T): Bool
+    operator func <(rhs: T): Bool
     operator func >(rhs: T): Bool
+    operator func <=(rhs: T): Bool
     operator func >=(rhs: T): Bool
 }
 ```
@@ -948,8 +948,8 @@ operator func !=(rhs: T): Bool
 
 ```cangjie
 public interface Resource {
-    func close(): Unit
     func isClosed(): Bool
+    func close(): Unit
 }
 ```
 

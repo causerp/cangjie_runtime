@@ -3,7 +3,7 @@
 ## class ConsoleReader
 
 ```cangjie
-public class ConsoleReader <: InputStream
+public class ConsoleReader <: InputStream {}
 ```
 
 功能：提供从控制台读出数据并转换成字符或字符串的功能。
@@ -245,7 +245,7 @@ main() {
 ## class ConsoleWriter
 
 ```cangjie
-public class ConsoleWriter <: OutputStream
+public class ConsoleWriter <: OutputStream {}
 ```
 
 功能：此类提供保证线程安全的标准输出功能。

@@ -3,7 +3,7 @@
 ## class Console <sup>(deprecated)</sup>
 
 ```cangjie
-public class Console
+public class Console {}
 ```
 
 Functionality: This class provides interfaces for obtaining standard input, standard output, and standard error streams.
@@ -45,7 +45,7 @@ Type: [ConsoleWriter](console_package_class.md#class-consolewriter-deprecated)
 ## class ConsoleReader <sup>(deprecated)</sup>
 
 ```cangjie
-public class ConsoleReader <: InputStream
+public class ConsoleReader <: InputStream {}
 ```
 
 Functionality: Provides functionality to read data from the console and convert it into characters or strings.
@@ -170,7 +170,7 @@ Return Value:
 ## class ConsoleWriter <sup>(deprecated)</sup>
 
 ```cangjie
-public class ConsoleWriter <: OutputStream
+public class ConsoleWriter <: OutputStream {}
 ```
 
 Functionality: This class provides thread-safe standard output functionality.

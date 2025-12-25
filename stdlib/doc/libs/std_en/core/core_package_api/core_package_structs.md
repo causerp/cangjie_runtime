@@ -1213,8 +1213,8 @@ Execution Result:
 
 ```cangjie
 public struct CPointerHandle<T> where T <: CType {
-    public let array: Array<T>
     public let pointer: CPointer<T>
+    public let array: Array<T>
     public init()
     public init(ptr: CPointer<T>, arr: Array<T>)
 }
@@ -1579,16 +1579,16 @@ Parameters:
 
 ```cangjie
 public struct Duration <: ToString & Hashable & Comparable<Duration> {
-    public static const Max: Duration = Duration(0x7FFF_FFFF_FFFF_FFFF, 999999999)
-    public static const Min: Duration = Duration(-0x8000_0000_0000_0000, 0)
-    public static const Zero: Duration = Duration(0, 0)
-    public static const day: Duration = Duration(24 * 60 * 60, 0)
-    public static const hour: Duration = Duration(60 * 60, 0)
+    public static const nanosecond: Duration = Duration(0, 1)
     public static const microsecond: Duration = Duration(0, 1000u32)
     public static const millisecond: Duration = Duration(0, 1000000u32)
-    public static const minute: Duration = Duration(60, 0)
-    public static const nanosecond: Duration = Duration(0, 1)
     public static const second: Duration = Duration(1, 0)
+    public static const minute: Duration = Duration(60, 0)
+    public static const hour: Duration = Duration(60 * 60, 0)
+    public static const day: Duration = Duration(24 * 60 * 60, 0)
+    public static const Zero: Duration = Duration(0, 0)
+    public static const Max: Duration = Duration(0x7FFF_FFFF_FFFF_FFFF, 999999999)
+    public static const Min: Duration = Duration(-0x8000_0000_0000_0000, 0)
 }
 ```
 
@@ -2096,7 +2096,7 @@ Return value:
 ## struct LibC
 
 ```cangjie
-public struct LibC
+public struct LibC {}
 ```
 
 Function: Provides commonly used C interfaces in Cangjie, such as allocating and freeing heap-allocated [CType](core_package_interfaces.md#interface-ctype) instances.
@@ -2209,12 +2209,12 @@ Execution Result:
 
 ```cangjie
 public struct Range<T> <: Iterable<T> where T <: Countable<T> & Comparable<T> & Equatable<T> {
-    public let end: T
-    public let hasEnd: Bool
-    public let hasStart: Bool
-    public let isClosed: Bool
     public let start: T
+    public let end: T
     public let step: Int64
+    public let hasStart: Bool
+    public let hasEnd: Bool
+    public let isClosed: Bool
     public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, isClosed: Bool)
 }
 ```

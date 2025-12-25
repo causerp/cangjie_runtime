@@ -2019,15 +2019,15 @@ func carryingPow(y: UInt64): (Bool, Int64)
 ```cangjie
 public interface CheckedOp<T> {
     func checkedAdd(y: T): ?T
-    func checkedDec(): ?T
-    func checkedDiv(y: T): ?T
-    func checkedInc(): ?T
-    func checkedMod(y: T): ?T
+    func checkedSub(y: T): ?T
     func checkedMul(y: T): ?T
+    func checkedDiv(y: T): ?T
+    func checkedMod(y: T): ?T
+    func checkedInc(): ?T
+    func checkedDec(): ?T
     func checkedNeg(): ?T
     func checkedShl(y: UInt64): ?T
     func checkedShr(y: UInt64): ?T
-    func checkedSub(y: T): ?T
 }
 ```
 
@@ -4053,15 +4053,15 @@ func checkedPow(y: UInt64): ?Int64
 ```cangjie
 public interface SaturatingOp<T> {
     func saturatingAdd(y: T): T
-    func saturatingDec(): T
-    func saturatingDiv(y: T): T
-    func saturatingInc(): T
-    func saturatingMod(y: T): T
+    func saturatingSub(y: T): T
     func saturatingMul(y: T): T
+    func saturatingDiv(y: T): T
+    func saturatingMod(y: T): T
+    func saturatingInc(): T
+    func saturatingDec(): T
     func saturatingNeg(): T
     func saturatingShl(y: UInt64): T
     func saturatingShr(y: UInt64): T
-    func saturatingSub(y: T): T
 }
 ```
 
@@ -8569,15 +8569,15 @@ func throwingPow(y: UInt64): Int64
 ```cangjie
 public interface WrappingOp<T> {
     func wrappingAdd(y: T): T
-    func wrappingDec(): T
-    func wrappingDiv(y: T): T
-    func wrappingInc(): T
-    func wrappingMod(y: T): T
+    func wrappingSub(y: T): T
     func wrappingMul(y: T): T
+    func wrappingDiv(y: T): T
+    func wrappingMod(y: T): T
+    func wrappingInc(): T
+    func wrappingDec(): T
     func wrappingNeg(): T
     func wrappingShl(y: UInt64): T
     func wrappingShr(y: UInt64): T
-    func wrappingSub(y: T): T
 }
 ```
 

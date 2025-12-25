@@ -50,7 +50,7 @@ protected open override func getClassName(): String
 ## class Error
 
 ```cangjie
-public open class Error <: ToString
+public open class Error <: ToString {}
 ```
 
 功能：[Error](core_package_exceptions.md#class-error) 是所有错误类的基类。该类不可被继承，不可初始化，但是可以被捕获到。
@@ -254,7 +254,7 @@ public init(message: String)
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 功能：获得类名。
@@ -523,7 +523,7 @@ public init(message: String)
 ## class OutOfMemoryError
 
 ```cangjie
-public class OutOfMemoryError <: Error
+public class OutOfMemoryError <: Error {}
 ```
 
 功能：表示内存不足错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。
@@ -605,7 +605,7 @@ public init(message: String)
 ## class StackOverflowError
 
 ```cangjie
-public class StackOverflowError <: Error
+public class StackOverflowError <: Error {}
 ```
 
 功能：表示堆栈溢出错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。

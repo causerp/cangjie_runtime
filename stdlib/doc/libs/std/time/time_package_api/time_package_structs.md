@@ -3,7 +3,7 @@
 ## struct DateTime
 
 ```cangjie
-public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattable & Parsable<DateTime>
+public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattable & Parsable<DateTime> {}
 ```
 
 功能：[DateTime](time_package_structs.md#struct-datetime) 表示日期时间，是一个描述某一时间点的时间类型，提供了基于时区的日期时间读取、计算、比较、转换，以及序列化和反序列化等功能。
@@ -968,7 +968,7 @@ public operator func >=(r: DateTime): Bool
 ## struct MonoTime
 
 ```cangjie
-public struct MonoTime <: Hashable & Comparable<MonoTime>
+public struct MonoTime <: Hashable & Comparable<MonoTime> {}
 ```
 
 功能：[MonoTime](time_package_structs.md#struct-monotime) 表示单调时间，是一个用来衡量经过时间的时间类型，类似于一直运行的秒表，提供了获取当前时间，计算和比较等功能。

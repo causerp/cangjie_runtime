@@ -74,10 +74,10 @@ func write(buffer: Array<Byte>): Unit
 
 ```cangjie
 public interface Seekable {
-    prop length: Int64
+    func seek(sp: SeekPosition): Int64
     prop position: Int64
     prop remainLength: Int64
-    func seek(sp: SeekPosition): Int64
+    prop length: Int64
 }
 ```
 

@@ -3,7 +3,7 @@
 ## class ClassTypeInfo
 
 ```cangjie
-public class ClassTypeInfo <: TypeInfo
+public class ClassTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `class` 类型的类型信息。
@@ -594,7 +594,7 @@ default.Rectangular
 ## class ConstructorInfo
 
 ```cangjie
-public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
+public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString {}
 ```
 
 功能：描述构造函数信息。
@@ -706,7 +706,7 @@ public func apply(args: Array<Any>): Any
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -798,7 +798,7 @@ public operator func ==(that: ConstructorInfo): Bool
 ## class GenericTypeInfo
 
 ```cangjie
-public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
+public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo> {}
 ```
 
 功能：描述泛型类型信息。
@@ -827,7 +827,7 @@ public operator func ==(that: GenericTypeInfo): Bool
 ## class GlobalFunctionInfo
 
 ```cangjie
-public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString
+public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局函数信息。
@@ -965,7 +965,7 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1057,7 +1057,7 @@ public operator func !=(that: GlobalFunctionInfo): Bool
 ## class GlobalVariableInfo
 
 ```cangjie
-public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString
+public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局变量信息。
@@ -1106,7 +1106,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1244,7 +1244,7 @@ public operator func !=(that: GlobalVariableInfo): Bool
 ## class InstanceFunctionInfo
 
 ```cangjie
-public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString
+public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员函数信息。
@@ -1439,7 +1439,7 @@ Some(20)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1559,7 +1559,7 @@ public operator func !=(that: InstanceFunctionInfo): Bool
 ## class InstancePropertyInfo
 
 ```cangjie
-public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString
+public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员属性信息。
@@ -1624,7 +1624,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -1830,7 +1830,7 @@ public operator func ==(that: InstancePropertyInfo): Bool
 ## class InstanceVariableInfo
 
 ```cangjie
-public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString
+public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员变量信息。
@@ -1895,7 +1895,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -2073,7 +2073,7 @@ public operator func !=(that: InstanceVariableInfo): Bool
 ## class InterfaceTypeInfo
 
 ```cangjie
-public class InterfaceTypeInfo <: TypeInfo
+public class InterfaceTypeInfo <: TypeInfo {}
 ```
 
 功能：`interface` 类型的类型信息。
@@ -2194,7 +2194,7 @@ public redef static func of<T>(): InterfaceTypeInfo
 ## class PackageInfo
 
 ```cangjie
-public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
+public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {}
 ```
 
 功能：描述包信息。
@@ -2545,7 +2545,7 @@ public operator func ==(that: PackageInfo): Bool
 ## class ParameterInfo
 
 ```cangjie
-public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString
+public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {}
 ```
 
 功能：描述函数形参信息。
@@ -2608,7 +2608,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -2700,7 +2700,7 @@ public operator func ==(that: ParameterInfo): Bool
 ## class PrimitiveTypeInfo
 
 ```cangjie
-public class PrimitiveTypeInfo <: TypeInfo
+public class PrimitiveTypeInfo <: TypeInfo {}
 ```
 
 功能：描述原始数据类型的类型信息。
@@ -2837,7 +2837,7 @@ Int64
 ## class StaticFunctionInfo
 
 ```cangjie
-public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString
+public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员函数信息。
@@ -3030,7 +3030,7 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3122,7 +3122,7 @@ public operator func ==(that: StaticFunctionInfo): Bool
 ## class StaticPropertyInfo
 
 ```cangjie
-public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString
+public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员属性信息。
@@ -3187,7 +3187,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3405,7 +3405,7 @@ public operator func ==(that: StaticPropertyInfo): Bool
 ## class StaticVariableInfo
 
 ```cangjie
-public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString
+public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员变量信息。
@@ -3470,7 +3470,7 @@ public prop typeInfo: TypeInfo
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
@@ -3670,7 +3670,7 @@ public operator func ==(that: StaticVariableInfo): Bool
 ## class StructTypeInfo
 
 ```cangjie
-public class StructTypeInfo <: TypeInfo
+public class StructTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `struct` 类型的类型信息。
@@ -4374,7 +4374,7 @@ default.Rectangular
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。

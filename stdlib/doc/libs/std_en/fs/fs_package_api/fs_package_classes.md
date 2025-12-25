@@ -420,7 +420,7 @@ Functionality: Creates a temporary file under the specified directory.
 ## class HardLink
 
 ```cangjie
-public class HardLink
+public class HardLink {}
 ```
 
 Function: Provides interfaces for handling filesystem hard links.
@@ -464,7 +464,7 @@ Exceptions:
 ## class SymbolicLink
 
 ```cangjie
-public class SymbolicLink
+public class SymbolicLink {}
 ```
 
 Function: Provides interfaces for handling filesystem symbolic links.

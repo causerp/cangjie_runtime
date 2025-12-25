@@ -3,7 +3,7 @@
 ## class DriverManager
 
 ```cangjie
-public class DriverManager
+public class DriverManager {}
 ```
 
 Function: Provides runtime capability to retrieve database driver instances by name.
@@ -1744,31 +1744,31 @@ Parameters:
 
 ```cangjie
 public class SqlOption {
-    public static const URL = "url"
-    public static const Host = "host"
-    public static const Username = "username"
-    public static const Password = "password"
-    public static const Driver = "driver"
-    public static const Database = "database"
-    public static const Encoding = "encoding"
-    public static const ConnectionTimeout = "connection_timeout"
-    public static const UpdateTimeout = "update_timeout"
-    public static const QueryTimeout = "query_timeout"
-    public static const FetchRows = "fetch_rows"
-    public static const SSLMode = "ssl.mode"
-    public static const SSLModePreferred = "ssl.mode.preferred"
-    public static const SSLModeDisabled = "ssl.mode.disabled"
-    public static const SSLModeRequired = "ssl.mode.required"
-    public static const SSLModeVerifyCA = "ssl.mode.verify_ca"
-    public static const SSLModeVerifyFull = "ssl.mode.verify_full"
-    public static const SSLCA = "ssl.ca"
-    public static const SSLCert = "ssl.cert"
-    public static const SSLKey = "ssl.key"
-    public static const SSLKeyPassword = "ssl.key.password"
-    public static const SSLSni = "ssl.sni"
-    public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
-    public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
-    public static const TlsVersion = "tls.version"
+    public static const URL: String = "url"
+    public static const Host: String = "host"
+    public static const Username: String = "username"
+    public static const Password: String = "password"
+    public static const Driver: String = "driver"
+    public static const Database: String = "database"
+    public static const Encoding: String = "encoding"
+    public static const ConnectionTimeout: String = "connection_timeout"
+    public static const UpdateTimeout: String = "update_timeout"
+    public static const QueryTimeout: String = "query_timeout"
+    public static const FetchRows: String = "fetch_rows"
+    public static const SSLMode: String = "ssl.mode"
+    public static const SSLModePreferred: String = "ssl.mode.preferred"
+    public static const SSLModeDisabled: String = "ssl.mode.disabled"
+    public static const SSLModeRequired: String = "ssl.mode.required"
+    public static const SSLModeVerifyCA: String = "ssl.mode.verify_ca"
+    public static const SSLModeVerifyFull: String = "ssl.mode.verify_full"
+    public static const SSLCA: String = "ssl.ca"
+    public static const SSLCert: String = "ssl.cert"
+    public static const SSLKey: String = "ssl.key"
+    public static const SSLKeyPassword: String = "ssl.key.password"
+    public static const SSLSni: String = "ssl.sni"
+    public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
+    public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
+    public static const TlsVersion: String = "tls.version"
 }
 ```
 
@@ -1777,7 +1777,7 @@ Function: Predefined SQL option names and values. If extending, avoid conflicts 
 ### static const ConnectionTimeout
 
 ```cangjie
-public static const ConnectionTimeout = "connection_timeout"
+public static const ConnectionTimeout: String = "connection_timeout"
 ```
 
 Function: Gets the timeout duration for connect operations, in milliseconds.
@@ -1787,7 +1787,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Database
 
 ```cangjie
-public static const Database = "database"
+public static const Database: String = "database"
 ```
 
 Function: Get the database name.
@@ -1797,7 +1797,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Driver
 
 ```cangjie
-public static const Driver = "driver"
+public static const Driver: String = "driver"
 ```
 
 Function: Gets the database driver name, such as postgres, opengauss.
@@ -1807,7 +1807,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Encoding
 
 ```cangjie
-public static const Encoding = "encoding"
+public static const Encoding: String = "encoding"
 ```
 
 Function: Gets the database character set encoding type.
@@ -1817,7 +1817,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const FetchRows
 
 ```cangjie
-public static const FetchRows = "fetch_rows"
+public static const FetchRows: String = "fetch_rows"
 ```
 
 Function: Gets the number of rows fetched from the database each time additional data is retrieved.
@@ -1827,7 +1827,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Host
 
 ```cangjie
-public static const Host = "host"
+public static const Host: String = "host"
 ```
 
 Function: Gets the database server hostname or [IP]() address.
@@ -1837,7 +1837,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Password
 
 ```cangjie
-public static const Password = "password"
+public static const Password: String = "password"
 ```
 
 Function: Gets the password for connecting to the database.
@@ -1847,7 +1847,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const QueryTimeout
 
 ```cangjie
-public static const QueryTimeout = "query_timeout"
+public static const QueryTimeout: String = "query_timeout"
 ```
 
 Function: Gets the timeout duration for query operations, in milliseconds.
@@ -1857,7 +1857,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLCA
 
 ```cangjie
-public static const SSLCA = "ssl.ca"
+public static const SSLCA: String = "ssl.ca"
 ```
 
 Function: The pathname of the Certificate Authority (CA) certificate file.
@@ -1867,7 +1867,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLCert
 
 ```cangjie
-public static const SSLCert = "ssl.cert"
+public static const SSLCert: String = "ssl.cert"
 ```
 
 Function: The pathname of the client SSL public key certificate file.
@@ -1877,7 +1877,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLKey
 
 ```cangjie
-public static const SSLKey = "ssl.key"
+public static const SSLKey: String = "ssl.key"
 ```
 
 Function: The pathname of the client SSL private key file.
@@ -1887,7 +1887,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLKeyPassword
 
 ```cangjie
-public static const SSLKeyPassword = "ssl.key.password"
+public static const SSLKeyPassword: String = "ssl.key.password"
 ```
 
 Function: The password for the client SSL private key file.
@@ -1897,7 +1897,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLMode
 
 ```cangjie
-public static const SSLMode = "ssl.mode"
+public static const SSLMode: String = "ssl.mode"
 ```
 
 Function: Gets the SSLMode transport layer encryption mode.
@@ -1907,7 +1907,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLModeDisabled
 
 ```cangjie
-public static const SSLModeDisabled = "ssl.mode.disabled"
+public static const SSLModeDisabled: String = "ssl.mode.disabled"
 ```
 
 Function: Establishes an unencrypted connection.
@@ -1917,7 +1917,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLModePreferred
 
 ```cangjie
-public static const SSLModePreferred = "ssl.mode.preferred"
+public static const SSLModePreferred: String = "ssl.mode.preferred"
 ```
 
 Function: Establishes an encrypted connection if the server supports it; falls back to an unencrypted connection if an encrypted connection cannot be established. This is the default value for SSLMode.
@@ -1927,7 +1927,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLModeRequired
 
 ```cangjie
-public static const SSLModeRequired = "ssl.mode.required"
+public static const SSLModeRequired: String = "ssl.mode.required"
 ```
 
 Function: Establishes an encrypted connection if the server supports it. If an encrypted connection cannot be established, the connection fails.
@@ -1937,7 +1937,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLModeVerifyCA
 
 ```cangjie
-public static const SSLModeVerifyCA = "ssl.mode.verify_ca"
+public static const SSLModeVerifyCA: String = "ssl.mode.verify_ca"
 ```
 
 Function: Similar to SSLModeRequired, but additionally verifies the server certificate. If verification fails, the connection fails.
@@ -1947,7 +1947,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLModeVerifyFull
 
 ```cangjie
-public static const SSLModeVerifyFull = "ssl.mode.verify_full"
+public static const SSLModeVerifyFull: String = "ssl.mode.verify_full"
 ```
 
 Function: Similar to SSLModeVerifyCA, but performs hostname verification by checking if the identifier in the server certificate matches the hostname the client is connecting to.
@@ -1957,7 +1957,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const SSLSni
 
 ```cangjie
-public static const SSLSni = "ssl.sni"
+public static const SSLSni: String = "ssl.sni"
 ```
 
 Function: The hostname the client attempts to connect to at the start of the handshake process.
@@ -1967,7 +1967,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Tls12Ciphersuites
 
 ```cangjie
-public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
+public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
 ```
 
 Function: This option specifies which cipher suites the client allows for encrypted connections using TLSv1.2 and below.
@@ -1978,7 +1978,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Tls13Ciphersuites
 
 ```cangjie
-public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
+public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
 ```
 
 Function: This option specifies which cipher suites the client allows for encrypted connections using TLSv1.3.
@@ -1989,7 +1989,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const TlsVersion
 
 ```cangjie
-public static const TlsVersion = "tls.version"
+public static const TlsVersion: String = "tls.version"
 ```
 
 Function: Supported TLS version numbers, as a comma-separated string, e.g., "TLSv1.2,TLSv1.3".
@@ -1999,7 +1999,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const URL
 
 ```cangjie
-public static const URL = "url"
+public static const URL: String = "url"
 ```
 
 Function: Gets the database connection [URL]() string.
@@ -2009,7 +2009,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const UpdateTimeout
 
 ```cangjie
-public static const UpdateTimeout = "update_timeout"
+public static const UpdateTimeout: String = "update_timeout"
 ```
 
 Function: Gets the timeout duration for update operations, in milliseconds.
@@ -2019,7 +2019,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### static const Username
 
 ```cangjie
-public static const Username = "username"
+public static const Username: String = "username"
 ```
 
 Function: Gets the username for connecting to the database.

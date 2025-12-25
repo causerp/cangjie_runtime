@@ -1098,9 +1098,9 @@ public operator func !=(rhs: IPSocketAddress): Bool
 
 ```cangjie
 public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & LessOrEqual<IPv4Address> {
-    public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
-    public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
-    public static let unspecified = IPv4Address(0, 0, 0, 0)
+    public static let localhost: IPv4Address = IPv4Address(0x7F, 0, 0, 0x01)
+    public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
+    public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
     public init(bits: UInt32)
     public init(a: Byte, b: Byte, c: Byte, d: Byte)
 }
@@ -1118,7 +1118,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
 ### static let broadcast
 
 ```cangjie
-public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
+public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
 ```
 
 功能：返回 [IPv4Address](net_package_classes.md#class-ipv4address) 的广播地址：`255.255.255.255`。
@@ -1416,8 +1416,8 @@ public operator func !=(rhs: IPv4Address): Bool
 
 ```cangjie
 public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & LessOrEqual<IPv6Address> {
-    public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
-    public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
+    public static let localhost: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
+    public static let unspecified: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
     public init(octets: Array<Byte>, scopeId!: ?UInt32 = None)
     public init(a: UInt16, b: UInt16, c: UInt16, d: UInt16, e: UInt16, f: UInt16, g: UInt16, h: UInt16, scopeId!: ?UInt32 = None)
 }
@@ -1435,7 +1435,7 @@ public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & Less
 ### static let localhost
 
 ```cangjie
-public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
+public static let localhost: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
 ```
 
 功能：返回 [IPv6Address](net_package_classes.md#class-ipv6address) 的 `localhost` 地址：`::1`。
@@ -1445,7 +1445,7 @@ public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
 ### static let unspecified
 
 ```cangjie
-public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
+public static let unspecified: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
 ```
 
 功能：返回表示未指定的 [IPv6Address](net_package_classes.md#class-ipv6address) 地址：`::`，这对应于其他语言中的常量 `INADDR_ANY`。
@@ -2164,8 +2164,8 @@ public operator func !=(rhs: SocketAddress): Bool
 
 ```cangjie
 public class TcpServerSocket <: ServerSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: UInt16)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -2629,7 +2629,7 @@ public mut prop quickAcknowledge: Bool
 ### prop readTimeout
 
 ```cangjie
-public override mut prop readTimeout: ?Duration
+public mut override prop readTimeout: ?Duration
 ```
 
 功能：设置和读取读操作超时时间。
@@ -2689,7 +2689,7 @@ public mut prop sendBufferSize: Int64
 ### prop writeTimeout
 
 ```cangjie
-public override mut prop writeTimeout: ?Duration
+public mut override prop writeTimeout: ?Duration
 ```
 
 功能：设置和读取写操作超时时间。
@@ -3001,7 +3001,7 @@ public override func write(payload: Array<Byte>): Unit
 ### operator func !=(TcpSocket)
 
 ```cangjie
-public override operator func !=(other: TcpSocket): Bool
+public operator override func !=(other: TcpSocket): Bool
 ```
 
 功能：判断两个 [TcpSocket](net_package_classes.md#class-tcpsocket) 实例是否不等。
@@ -3017,7 +3017,7 @@ public override operator func !=(other: TcpSocket): Bool
 ### operator func ==(TcpSocket)
 
 ```cangjie
-public override operator func ==(other: TcpSocket): Bool
+public operator override func ==(other: TcpSocket): Bool
 ```
 
 功能：判断两个 [TcpSocket](net_package_classes.md#class-tcpsocket) 实例是否相等。
@@ -3034,8 +3034,8 @@ public override operator func ==(other: TcpSocket): Bool
 
 ```cangjie
 public class UdpSocket <: DatagramSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: UInt16)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -3080,7 +3080,7 @@ public mut prop receiveBufferSize: Int64
 ### prop receiveTimeout
 
 ```cangjie
-public override mut prop receiveTimeout: ?Duration
+public mut override prop receiveTimeout: ?Duration
 ```
 
 功能：设置和读取 `receive/receiveFrom` 操作超时时间。
@@ -3477,8 +3477,8 @@ public override func toString(): String
 
 ```cangjie
 public class UnixDatagramSocket <: DatagramSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: String)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -3528,7 +3528,7 @@ public mut prop receiveBufferSize: Int64
 ### prop receiveTimeout
 
 ```cangjie
-public override mut prop receiveTimeout: ?Duration
+public mut override prop receiveTimeout: ?Duration
 ```
 
 功能：设置和读取 `receive/receiveFrom` 操作超时时间。
@@ -4260,8 +4260,8 @@ public override func toString(): String
 
 ```cangjie
 public class UnixSocket <: StreamingSocket {
-    public init(address: SocketAddress, localAddress!: ?SocketAddress = None)
     public init(path: String, localPath!: ?String = None)
+    public init(address: SocketAddress, localAddress!: ?SocketAddress = None)
 }
 ```
 
@@ -4294,7 +4294,7 @@ public override prop localAddress: SocketAddress
 ### prop readTimeout
 
 ```cangjie
-public override mut prop readTimeout: ?Duration
+public mut override prop readTimeout: ?Duration
 ```
 
 功能：设置和读取读操作超时时间。
@@ -4354,7 +4354,7 @@ public mut prop sendBufferSize: Int64
 ### prop writeTimeout
 
 ```cangjie
-public override mut prop writeTimeout: ?Duration
+public mut override prop writeTimeout: ?Duration
 ```
 
 功能：设置和读取写操作超时时间。

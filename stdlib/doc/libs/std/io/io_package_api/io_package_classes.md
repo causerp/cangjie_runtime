@@ -5,8 +5,8 @@
 ```cangjie
 public class BufferedInputStream<T> <: InputStream where T <: InputStream {
     public init(input: T)
-    public init(input: T, buffer: Array<Byte>)
     public init(input: T, capacity: Int64)
+    public init(input: T, buffer: Array<Byte>)
 }
 ```
 
@@ -1122,9 +1122,7 @@ public prop capacity: Int64
 
 功能：获取当前缓冲区容量。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前缓冲区容量。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init()
 
@@ -1303,7 +1301,7 @@ main(): Unit {
 ```text
 11
 Hello World
-buffer after clear: 
+buffer after clear:
 capacity after clear: 11
 ```
 
@@ -1450,23 +1448,23 @@ nextByte: None
 ### func reserve(Int64)
 
 ```cangjie
-public func reserve(additional: Int64): Unit
+public func reserve(addition: Int64): Unit
 ```
 
 功能：将缓冲区扩容指定大小。
 
 > **说明：**
 >
-> - 当缓冲区剩余字节数大于等于 `additional` 时不发生扩容。
-> - 当缓冲区剩余字节数量小于 `additional` 时，取（`additional` + `capacity`）与（`capacity`的1.5倍向下取整）两个值中的最大值进行扩容。
+> - 当缓冲区剩余字节数大于等于 `addition` 时不发生扩容。
+> - 当缓冲区剩余字节数量小于 `addition` 时，取（`addition` + `capacity`）与（`capacity`的1.5倍向下取整）两个值中的最大值进行扩容。
 
 参数：
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 将要扩容的大小。
+- addition: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 将要扩容的大小。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 additional 小于 0 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 addition 小于 0 时，抛出异常。
 - [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当扩容后的缓冲区大小超过 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 的最大值时，抛出异常。
 
 示例：
@@ -1488,7 +1486,7 @@ main(): Unit {
     buffer.reserve(2)
     println("reserve 2: " + buffer.capacity.toString())
 
-    /* 尝试扩容，additional为负数 */
+    /* 尝试扩容，addition为负数 */
     try {
         buffer.reserve(-1)
     } catch (e: IllegalArgumentException) {
@@ -1510,7 +1508,7 @@ main(): Unit {
 initial capacity: 11
 reserve 5: 16
 reserve 2: 16
-Error: The additional must be greater than or equal to 0.
+Error: The addition must be greater than or equal to 0.
 Error: The maximum value for capacity expansion cannot exceed the maximum value of Int64.
 ```
 

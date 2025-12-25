@@ -32,9 +32,7 @@ prop first: ?T
 
 Functionality: Accesses the head element of the deque without removing it.
 
-Return value:
-
-- ?T - The value of the head element wrapped in Option. Returns None if the deque is empty.
+Type: ?T
 
 ### prop last
 
@@ -44,9 +42,7 @@ prop last: ?T
 
 Functionality: Accesses the tail element of the deque without removing it.
 
-Return value:
-
-- ?T - The value of the tail element wrapped in Option. Returns None if the deque is empty.
+Type: ?T
 
 ### func addFirst(T)
 
@@ -283,14 +279,14 @@ Parameters:
 public interface Map<K, V> <: ReadOnlyMap<K, V> {
     func add(key: K, value: V): ?V
     func add(all!: Collection<(K, V)>): Unit
-    func addIfAbsent(key: K, value: V): ?V
-    func clear(): Unit
-    func entryView(k: K): MapEntryView<K, V>
     func remove(key: K): Option<V>
     func remove(all!: Collection<K>): Unit
     func removeIf(predicate: (K, V) -> Bool): Unit
-    func replace(key: K, value: V): ?V
+    func clear(): Unit
     operator func [](key: K, value!: V): Unit
+    func entryView(k: K): MapEntryView<K, V>
+    func addIfAbsent(key: K, value: V): ?V
+    func replace(key: K, value: V): ?V
 }
 ```
 
@@ -444,8 +440,8 @@ Parameters:
 
 ```cangjie
 public interface MapEntryView<K, V> {
-    public prop key: K
-    public mut prop value: ?V
+    prop key: K
+    mut prop value: ?V
 }
 ```
 
@@ -454,7 +450,7 @@ Function: Provides a view of the key-value mapping in a map.
 ### prop key
 
 ```cangjie
-public prop key: K
+prop key: K
 ```
 
 Function: Returns the key in the view. If the view's key does not exist in the original map, returns an empty view of that key.
@@ -464,7 +460,7 @@ Type: K
 ### prop value
 
 ```cangjie
-public mut prop value: ?V
+mut prop value: ?V
 ```
 
 Function: Reads or modifies the value corresponding to the view in the original map.  
@@ -477,13 +473,12 @@ Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)(V
 
 ```cangjie
 public interface OrderedMap<K, V> <: Map<K, V> {
-    public prop first: ?(K, V)
-    public prop last: ?(K, V)
-    public func removeFirst(): ?(K, V)
-    public func removeLast(): ?(K, V)
-
-    public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
-    public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    prop first: ?(K, V)
+    prop last: ?(K, V)
+    func removeFirst(): ?(K, V)
+    func removeLast(): ?(K, V)
+    func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 }
 ```
 
@@ -498,7 +493,7 @@ Parent Types:
 ### prop first
 
 ```cangjie
-public prop first: ?(K, V)
+prop first: ?(K, V)
 ```
 
 Function: Gets the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
@@ -508,7 +503,7 @@ Type: ?(K, V)
 ### prop last
 
 ```cangjie
-public prop last: ?(K, V)
+prop last: ?(K, V)
 ```
 
 Function: Gets the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
@@ -518,7 +513,7 @@ Type: ?(K, V)
 ### func removeFirst()
 
 ```cangjie
-public func removeFirst(): ?(K, V)
+func removeFirst(): ?(K, V)
 ```
 
 Function: Removes the first element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
@@ -530,7 +525,7 @@ Return Value:
 ### func removeLast()
 
 ```cangjie
-public func removeLast(): ?(K, V)
+func removeLast(): ?(K, V)
 ```
 
 Function: Removes the last element of the [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v).
@@ -542,7 +537,7 @@ Return Value:
 ### func backward(K, Bool)
 
 ```cangjie
-public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 Function: Gets an iterator that traverses from the first node with a key less than or equal to `mark` in descending order to [first](./collection_package_interface.md#prop-first). If the node's key equals `mark`, the inclusion of that node is determined by `inclusive!`.
@@ -559,7 +554,7 @@ Return Value:
 ### func forward(K, Bool)
 
 ```cangjie
-public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 Function: Gets an iterator that traverses from the first node with a key greater than or equal to `mark` in ascending order to [last](./collection_package_interface.md#prop-last). If the node's key equals `mark`, the inclusion of that node is determined by `inclusive!`.
@@ -577,13 +572,12 @@ Return Value:
 
 ```cangjie
 public interface OrderedSet<T> <: Set<T> {
-    public prop first: ?T
-    public prop last: ?T
-    public func removeFirst(): ?T
-    public func removeLast(): ?T
-
-    public func backward(mark: T, inclusive!: Bool): Iterator<T>
-    public func forward(mark: T, inclusive!: Bool): Iterator<T>
+    prop first: ?T
+    prop last: ?T
+    func removeFirst(): ?T
+    func removeLast(): ?T
+    func backward(mark: T, inclusive!: Bool): Iterator<T>
+    func forward(mark: T, inclusive!: Bool): Iterator<T>
 }
 ```
 
@@ -598,7 +592,7 @@ Parent Types:
 ### prop first
 
 ```cangjie
-public prop first: ?T
+prop first: ?T
 ```
 
 Function: Gets the first element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
@@ -608,7 +602,7 @@ Type: ?T
 ### prop last
 
 ```cangjie
-public prop last: ?T
+prop last: ?T
 ```
 
 Function: Gets the last element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
@@ -618,7 +612,7 @@ Type: ?T
 ### func removeFirst()
 
 ```cangjie
-public func removeFirst(): ?T
+func removeFirst(): ?T
 ```
 
 Function: Removes the first element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
@@ -630,7 +624,7 @@ Return Value:
 ### func removeLast()
 
 ```cangjie
-public func removeLast(): ?T
+func removeLast(): ?T
 ```
 
 Function: Removes the last element of the [OrderedSet](collection_package_interface.md#interface-orderedsett).
@@ -642,7 +636,7 @@ Return Value:
 ### func backward(T, Bool)
 
 ```cangjie
-public func backward(mark: T, inclusive!: Bool): Iterator<T>
+func backward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 Function: Gets an iterator that traverses from the first node with an element less than or equal to `mark` in descending order to [first](./collection_package_interface.md#prop-first). If the node's element equals `mark`, the inclusion of that node is determined by `inclusive!`.
@@ -659,7 +653,7 @@ Return Value:
 ### func forward(T, Bool)
 
 ```cangjie
-public func forward(mark: T, inclusive!: Bool): Iterator<T>
+func forward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 Function: Gets an iterator that traverses from the first node with an element greater than or equal to `mark` in ascending order to [last](./collection_package_interface.md#prop-last). If the node's element equals `mark`, the inclusion of that node is determined by `inclusive!`.
@@ -1087,9 +1081,9 @@ Parameters:
 
 ```cangjie
 public interface Stack<T> <: Collection<T> {
-    func add(element: T): Unit
     func peek(): ?T
     func remove(): ?T
+    func add(element: T): Unit
 }
 ```
 
