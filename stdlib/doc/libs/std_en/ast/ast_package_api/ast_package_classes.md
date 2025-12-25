@@ -2279,6 +2279,182 @@ Function: Traverses the current syntax tree node and its child nodes. To termina
 Parameters:
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+## class FeatureId
+
+```cangjie
+public class FeatureId <: Node {
+    public init()
+}
+```
+
+Function: Represents a feature name node.
+
+> **Note:**
+>
+> Feature identifier consists of usual identifiers which separe by dots. Feature name can not be escaped by backticks.
+
+Parent Type:
+
+- [Node](#class-node)
+
+### prop dots
+
+Function: Gets or sets the lexical unit sequence of the dots separating identifiers in the feature name in the [FeatureId](ast_package_classes.md#class-featureid) node. For example, the two "." in `features { user.define.sample }`.
+
+Type: [Tokens](ast_package_classes.md#class-tokens)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Tokens](ast_package_classes.md#class-tokens) is not a sequence of "." lexical units.
+
+### prop identifiers
+
+Function: Gets of sets the identifiers of the [FeatureId](ast_package_classes.md#class-featureid) node.
+
+Type: [Tokens](ast_package_classes.md#class-tokens)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Tokens](ast_package_classes.md#class-tokens) is not a sequence of "IDENTIFIER" lexical units.
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [FeaturesSet](ast_package_classes.md#class-featuresset) object.
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+Function: Converts the current syntax tree node into a [Tokens](ast_package_classes.md#class-tokens) type.
+
+Returns:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens) type node.
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate child node traversal early, override the `visit` function and call the `breakTraverse` function to terminate traversal behavior. See [Custom Visitor Function for Traversing AST Objects Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
+
+## class FeaturesDirective
+
+```cangjie
+public class FeaturesDirective <: Node {
+    public init()
+    public init(input: Tokens)
+}
+```
+
+Function: Represents a features directive node.
+
+A [FeaturesDirective](ast_package_classes.md#class-featuresdirective) node: `feature define`.
+
+> **Node:**
+>
+> Features directive declaration must start with keyword `features`, followed by the [features set](), and must appear before the package header of the source file.
+
+Parent Type:
+
+- [Node](#class-node)
+
+### prop commas
+
+```cangjie
+public mut prop commas: Tokens 
+```
+
+Function: Gets or sets the sequence of `,` lexical units in the [MemberAccess](ast_package_classes.md#class-memberaccess) node, which may be empty.
+
+Type: [Tokens](ast_package_classes.md#class-tokens)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Tokens](ast_package_classes.md#class-tokens) is not a sequence of "," lexical units.
+
+### prop content
+
+```cangjie
+public mut prop content: ArrayList<FeatureId> 
+```
+
+Function: Gets of sets the content of the node.
+
+Type: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[featuresId](ast_package_classes.md#class-featureid)>
+
+### prop keyword
+
+```cangjie
+public mut prop keyword: Token
+```
+
+Function: Gets or sets the `features` keyword lexical unit in the [FeaturesDirective](ast_package_classes.md#class-featuresdirective) node.
+
+Type: [Token](ast_package_structs.md#struct-token)
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the set [Token](ast_package_structs.md#struct-token) is not the `features` keyword.
+
+### init()
+
+```cangjie
+public init()
+```
+
+Function: Constructs a default [FeaturesDirective](ast_package_classes.md#class-featuresdirective) object.
+
+### init(Tokens)
+
+```cangjie
+public init(inputs: Tokens)
+```
+
+Function: Constructs a [FeaturesDirective](ast_package_classes.md#class-featuresdirective) object.
+
+Parameters:
+
+- inputs: [Tokens](ast_package_classes.md#class-tokens) - The lexical unit collection ([Tokens](ast_package_classes.md#class-tokens)) sequence used to construct the [PackageHeader](ast_package_classes.md#class-featuresdirective) type.
+
+Exceptions:
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the input [Tokens](ast_package_classes.md#class-tokens) type cannot be constructed as a [PackageHeader](ast_package_classes.md#class-featuresdirective) node.
+
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+Function: Converts the current syntax tree node to the [Tokens](ast_package_classes.md#class-tokens) type.
+
+Return Value:
+
+- [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens) type node.
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+Function: Traverses the current syntax tree node and its child nodes. To terminate child node traversal early, override the `visit` function and call the `breakTraverse` function to terminate traversal prematurely. See [Custom Visitor Function for Traversing AST Objects Example](../ast_samples/traverse.md).
+
+Parameters:
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - An instance of the [Visitor](ast_package_classes.md#class-visitor) type.
 
 ## class ForInExpr
 
