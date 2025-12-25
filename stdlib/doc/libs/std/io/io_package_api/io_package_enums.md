@@ -4,8 +4,8 @@
 
 ```cangjie
 public enum SeekPosition {
-    | Begin(Int64)
     | Current(Int64)
+    | Begin(Int64)
     | End(Int64)
 }
 ```

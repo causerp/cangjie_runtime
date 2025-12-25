@@ -318,7 +318,7 @@ Return Value:
 ## class Future\<T>
 
 ```cangjie
-public class Future<T>
+public class Future<T> {}
 ```
 
 Function: A [Future](core_package_classes.md#class-futuret)\<T> instance represents a Cangjie thread task, used to obtain computation results from Cangjie threads and send cancellation signals.
@@ -495,7 +495,9 @@ Some(1)
 ## class Iterator\<T>
 
 ```cangjie
-public abstract class Iterator<T> <: Iterable<T>
+public abstract class Iterator<T> <: Iterable<T> {
+    public init()
+}
 ```
 
 Function: This class represents an iterator, providing the `next` method to support iterative traversal of container elements.
@@ -1377,7 +1379,7 @@ Function: Constructs an `object` instance.
 ## class RangeIterator\<T> <: Iterator\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>
 
 ```cangjie
-public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T>
+public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T> {}
 ```
 
 Function: Iterator for the [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) type. For iteration functionality details, refer to the [Iterable](core_package_interfaces.md#interface-iterablee) and [Iterator](core_package_classes.md#class-iteratort) interface descriptions.
@@ -1758,7 +1760,7 @@ Function: Appends the string representation of the `T` type instance specified b
 Parameters## class Thread
 
 ```cangjie
-public class Thread
+public class Thread {}
 ```
 
 Function: Obtains thread ID and name, checks for cancellation requests, registers unhandled exception handlers, etc.
@@ -1829,7 +1831,7 @@ Parameters:
 ## class ThreadLocal\<T>
 
 ```cangjie
-public class ThreadLocal<T>
+public class ThreadLocal<T> {}
 ```
 
 Function: This class represents Cangjie thread-local variables.

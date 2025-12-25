@@ -3,7 +3,7 @@
 ## class DriverManager
 
 ```cangjie
-public class DriverManager
+public class DriverManager {}
 ```
 
 功能：支持运行时根据驱动名获取数据库驱动实例。
@@ -1754,31 +1754,31 @@ public init(v: ?String)
 
 ```cangjie
 public class SqlOption {
-    public static const URL = "url"
-    public static const Host = "host"
-    public static const Username = "username"
-    public static const Password = "password"
-    public static const Driver = "driver"
-    public static const Database = "database"
-    public static const Encoding = "encoding"
-    public static const ConnectionTimeout = "connection_timeout"
-    public static const UpdateTimeout = "update_timeout"
-    public static const QueryTimeout = "query_timeout"
-    public static const FetchRows = "fetch_rows"
-    public static const SSLMode = "ssl.mode"
-    public static const SSLModePreferred = "ssl.mode.preferred"
-    public static const SSLModeDisabled = "ssl.mode.disabled"
-    public static const SSLModeRequired = "ssl.mode.required"
-    public static const SSLModeVerifyCA = "ssl.mode.verify_ca"
-    public static const SSLModeVerifyFull = "ssl.mode.verify_full"
-    public static const SSLCA = "ssl.ca"
-    public static const SSLCert = "ssl.cert"
-    public static const SSLKey = "ssl.key"
-    public static const SSLKeyPassword = "ssl.key.password"
-    public static const SSLSni = "ssl.sni"
-    public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
-    public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
-    public static const TlsVersion = "tls.version"
+    public static const URL: String = "url"
+    public static const Host: String = "host"
+    public static const Username: String = "username"
+    public static const Password: String = "password"
+    public static const Driver: String = "driver"
+    public static const Database: String = "database"
+    public static const Encoding: String = "encoding"
+    public static const ConnectionTimeout: String = "connection_timeout"
+    public static const UpdateTimeout: String = "update_timeout"
+    public static const QueryTimeout: String = "query_timeout"
+    public static const FetchRows: String = "fetch_rows"
+    public static const SSLMode: String = "ssl.mode"
+    public static const SSLModePreferred: String = "ssl.mode.preferred"
+    public static const SSLModeDisabled: String = "ssl.mode.disabled"
+    public static const SSLModeRequired: String = "ssl.mode.required"
+    public static const SSLModeVerifyCA: String = "ssl.mode.verify_ca"
+    public static const SSLModeVerifyFull: String = "ssl.mode.verify_full"
+    public static const SSLCA: String = "ssl.ca"
+    public static const SSLCert: String = "ssl.cert"
+    public static const SSLKey: String = "ssl.key"
+    public static const SSLKeyPassword: String = "ssl.key.password"
+    public static const SSLSni: String = "ssl.sni"
+    public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
+    public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
+    public static const TlsVersion: String = "tls.version"
 }
 ```
 
@@ -1787,7 +1787,7 @@ public class SqlOption {
 ### static const ConnectionTimeout
 
 ```cangjie
-public static const ConnectionTimeout = "connection_timeout"
+public static const ConnectionTimeout: String = "connection_timeout"
 ```
 
 功能：获取 connect 操作的超时时间，单位 ms。
@@ -1797,7 +1797,7 @@ public static const ConnectionTimeout = "connection_timeout"
 ### static const Database
 
 ```cangjie
-public static const Database = "database"
+public static const Database: String = "database"
 ```
 
 功能：获取数据库名称。
@@ -1807,7 +1807,7 @@ public static const Database = "database"
 ### static const Driver
 
 ```cangjie
-public static const Driver = "driver"
+public static const Driver: String = "driver"
 ```
 
 功能：获取数据库驱动名称，比如 postgres，opengauss。
@@ -1817,7 +1817,7 @@ public static const Driver = "driver"
 ### static const Encoding
 
 ```cangjie
-public static const Encoding = "encoding"
+public static const Encoding: String = "encoding"
 ```
 
 功能：获取数据库字符集编码类型。
@@ -1827,7 +1827,7 @@ public static const Encoding = "encoding"
 ### static const FetchRows
 
 ```cangjie
-public static const FetchRows = "fetch_rows"
+public static const FetchRows: String = "fetch_rows"
 ```
 
 功能：获取每次获取额外数据时从数据库中提取的行数。
@@ -1837,7 +1837,7 @@ public static const FetchRows = "fetch_rows"
 ### static const Host
 
 ```cangjie
-public static const Host = "host"
+public static const Host: String = "host"
 ```
 
 功能：获取数据库服务器主机名或者 [IP]() 地址。
@@ -1847,7 +1847,7 @@ public static const Host = "host"
 ### static const Password
 
 ```cangjie
-public static const Password = "password"
+public static const Password: String = "password"
 ```
 
 功能：获取连接数据库的密码。
@@ -1857,7 +1857,7 @@ public static const Password = "password"
 ### static const QueryTimeout
 
 ```cangjie
-public static const QueryTimeout = "query_timeout"
+public static const QueryTimeout: String = "query_timeout"
 ```
 
 功能：获取 query 操作的超时时间，单位 ms。
@@ -1867,7 +1867,7 @@ public static const QueryTimeout = "query_timeout"
 ### static const SSLCA
 
 ```cangjie
-public static const SSLCA = "ssl.ca"
+public static const SSLCA: String = "ssl.ca"
 ```
 
 功能：证书颁发机构（ CA ）证书文件的路径名。
@@ -1877,7 +1877,7 @@ public static const SSLCA = "ssl.ca"
 ### static const SSLCert
 
 ```cangjie
-public static const SSLCert = "ssl.cert"
+public static const SSLCert: String = "ssl.cert"
 ```
 
 功能：客户端 SSL 公钥证书文件的路径名。
@@ -1887,7 +1887,7 @@ public static const SSLCert = "ssl.cert"
 ### static const SSLKey
 
 ```cangjie
-public static const SSLKey = "ssl.key"
+public static const SSLKey: String = "ssl.key"
 ```
 
 功能：客户端 SSL 私钥文件的路径名。
@@ -1897,7 +1897,7 @@ public static const SSLKey = "ssl.key"
 ### static const SSLKeyPassword
 
 ```cangjie
-public static const SSLKeyPassword = "ssl.key.password"
+public static const SSLKeyPassword: String = "ssl.key.password"
 ```
 
 功能：客户端 SSL 私钥文件的密码。
@@ -1907,7 +1907,7 @@ public static const SSLKeyPassword = "ssl.key.password"
 ### static const SSLMode
 
 ```cangjie
-public static const SSLMode = "ssl.mode"
+public static const SSLMode: String = "ssl.mode"
 ```
 
 功能：获取 SSLMode 传输层加密模式。
@@ -1917,7 +1917,7 @@ public static const SSLMode = "ssl.mode"
 ### static const SSLModeDisabled
 
 ```cangjie
-public static const SSLModeDisabled = "ssl.mode.disabled"
+public static const SSLModeDisabled: String = "ssl.mode.disabled"
 ```
 
 功能：建立未加密的连接。
@@ -1927,7 +1927,7 @@ public static const SSLModeDisabled = "ssl.mode.disabled"
 ### static const SSLModePreferred
 
 ```cangjie
-public static const SSLModePreferred = "ssl.mode.preferred"
+public static const SSLModePreferred: String = "ssl.mode.preferred"
 ```
 
 功能：如果服务器支持加密连接，则建立加密连接; 如果无法建立加密连接，则回退到未加密连接，这是 SSLMode 的默认值。
@@ -1937,7 +1937,7 @@ public static const SSLModePreferred = "ssl.mode.preferred"
 ### static const SSLModeRequired
 
 ```cangjie
-public static const SSLModeRequired = "ssl.mode.required"
+public static const SSLModeRequired: String = "ssl.mode.required"
 ```
 
 功能：如果服务器支持加密连接，则建立加密连接。如果无法建立加密连接，则连接失败。
@@ -1947,7 +1947,7 @@ public static const SSLModeRequired = "ssl.mode.required"
 ### static const SSLModeVerifyCA
 
 ```cangjie
-public static const SSLModeVerifyCA = "ssl.mode.verify_ca"
+public static const SSLModeVerifyCA: String = "ssl.mode.verify_ca"
 ```
 
 功能：SSLModeVerifyCA 和 SSLModeRequired 类似，但是增加了校验服务器证书，如果校验失败，则连接失败。
@@ -1957,7 +1957,7 @@ public static const SSLModeVerifyCA = "ssl.mode.verify_ca"
 ### static const SSLModeVerifyFull
 
 ```cangjie
-public static const SSLModeVerifyFull = "ssl.mode.verify_full"
+public static const SSLModeVerifyFull: String = "ssl.mode.verify_full"
 ```
 
 功能：SSLModeVerifyFull 和 SSLModeVerifyCA 类似，但通过验证服务器证书中的标识与客户端连接的主机名是否匹配，来执行主机名身份验证。
@@ -1967,7 +1967,7 @@ public static const SSLModeVerifyFull = "ssl.mode.verify_full"
 ### static const SSLSni
 
 ```cangjie
-public static const SSLSni = "ssl.sni"
+public static const SSLSni: String = "ssl.sni"
 ```
 
 功能：客户端通过该标识在握手过程开始时试图连接到哪个主机名。
@@ -1977,7 +1977,7 @@ public static const SSLSni = "ssl.sni"
 ### static const Tls12Ciphersuites
 
 ```cangjie
-public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
+public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.2 及以下的加密连接使用哪些密码套件。
@@ -1988,7 +1988,7 @@ public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
 ### static const Tls13Ciphersuites
 
 ```cangjie
-public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
+public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.3 的加密连接使用哪些密码套件。
@@ -1999,7 +1999,7 @@ public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
 ### static const TlsVersion
 
 ```cangjie
-public static const TlsVersion = "tls.version"
+public static const TlsVersion: String = "tls.version"
 ```
 
 功能：支持的 TLS 版本号，值为逗号分隔的字符串，比如 "TLSv1.2,TLSv1.3"。
@@ -2009,7 +2009,7 @@ public static const TlsVersion = "tls.version"
 ### static const URL
 
 ```cangjie
-public static const URL = "url"
+public static const URL: String = "url"
 ```
 
 功能：获取数据库连接 [URL]() 字符串。
@@ -2019,7 +2019,7 @@ public static const URL = "url"
 ### static const UpdateTimeout
 
 ```cangjie
-public static const UpdateTimeout = "update_timeout"
+public static const UpdateTimeout: String = "update_timeout"
 ```
 
 功能：获取 update 操作的超时时间，单位 ms。
@@ -2029,7 +2029,7 @@ public static const UpdateTimeout = "update_timeout"
 ### static const Username
 
 ```cangjie
-public static const Username = "username"
+public static const Username: String = "username"
 ```
 
 功能：获取连接数据库的用户名。

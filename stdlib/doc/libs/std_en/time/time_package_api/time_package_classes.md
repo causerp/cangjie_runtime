@@ -97,8 +97,8 @@ Exceptions:
 
 ```cangjie
 public class TimeZone <: ToString & Equatable<TimeZone> {
+    public static let UTC: TimeZone = TimeZone("UTC", 0)
     public static let Local: TimeZone
-    public static let UTC: TimeZone
     public init(id: String, offset: Duration)
 }
 ```
@@ -132,7 +132,7 @@ Type: [TimeZone](time_package_classes.md#class-timezone)
 ### static let UTC
 
 ```cangjie
-public static let UTC: TimeZone
+public static let UTC: TimeZone = TimeZone("UTC", 0)
 ```
 
 Function: Gets the UTC time zone.

@@ -2374,7 +2374,7 @@ Exceptions:
 ## class ReentrantReadMutex <sup>(deprecated)</sup>
 
 ```cangjie
-public class ReentrantReadMutex <: ReentrantMutex
+public class ReentrantReadMutex <: ReentrantMutex {}
 ```
 
 Function: Provides the read lock type for reentrant read-write locks.
@@ -2477,7 +2477,7 @@ Type: [ReentrantWriteMutex <sup>(deprecated)</sup>](sync_package_classes.md#clas
 ## class ReentrantWriteMutex <sup>(deprecated)</sup>
 
 ```cangjie
-public class ReentrantWriteMutex <: ReentrantMutex
+public class ReentrantWriteMutex <: ReentrantMutex {}
 ```
 
 Function: Provides the write lock type in a reentrant read-write lock.
@@ -2691,7 +2691,7 @@ Parameters:
 ## class Timer
 
 ```cangjie
-public class Timer <: Equatable<Timer> & Hashable
+public class Timer <: Equatable<Timer> & Hashable {}
 ```
 
 Function: Provides timer functionality.

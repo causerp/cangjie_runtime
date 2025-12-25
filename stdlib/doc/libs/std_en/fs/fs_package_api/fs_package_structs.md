@@ -3,7 +3,7 @@
 ## struct FileDescriptor
 
 ```cangjie
-public struct FileDescriptor
+public struct FileDescriptor {}
 ```
 
 Function: Used to obtain file handle information.

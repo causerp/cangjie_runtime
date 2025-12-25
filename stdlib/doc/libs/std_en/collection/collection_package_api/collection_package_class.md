@@ -1324,8 +1324,8 @@ Exceptions:
 ```cangjie
 public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     public init()
-    public init(elements: Array<(K, V)>)
     public init(elements: Collection<(K, V)>)
+    public init(elements: Array<(K, V)>)
     public init(capacity: Int64)
     public init(size: Int64, initElement: (Int64) -> (K, V))
 }
@@ -1349,7 +1349,7 @@ public prop capacity: Int64
 
 Functionality: Returns the capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
-Return Value:
+Type:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The capacity of the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
@@ -1947,7 +1947,7 @@ Function: Returns the internal array capacity of this [HashSet](collection_packa
 >
 > The capacity size may not equal the size of the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
-Return Value:
+Type:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The internal array capacity of this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
@@ -2258,7 +2258,7 @@ Return Value:
 ## class LinkedListNode\<T>
 
 ```cangjie
-public class LinkedListNode<T>
+public class LinkedListNode<T> {}
 ```
 
 Function: [LinkedListNode](collection_package_class.md#class-linkedlistnodet) is a node on [LinkedList](collection_package_class.md#class-linkedlistt).

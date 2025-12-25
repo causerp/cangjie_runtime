@@ -4,11 +4,11 @@
 
 ```cangjie
 public struct AddressFamily <: ToString & Equatable<AddressFamily> {
-    public static const INET = AddressFamily("INET", 2)
-    public static const INET6: AddressFamily
-    public static const NETLINK: AddressFamily
-    public static const UNIX = AddressFamily("UNIX", 1)
-    public static const UNSPEC = AddressFamily("UNSPEC", 0)
+    public static const UNSPEC: AddressFamily = AddressFamily("UNSPEC", 0)
+    public static const UNIX: AddressFamily = AddressFamily("UNIX", 1)
+    public static const INET: AddressFamily = AddressFamily("INET", 2)
+    public static const INET6: AddressFamily: AddressFamily
+    public static const NETLINK: AddressFamily: AddressFamily
     public let name: String
     public let value: UInt16
     public const init(name: String, value: UInt16)
@@ -25,7 +25,7 @@ Parent Types:
 ### static const INET
 
 ```cangjie
-public static const INET = AddressFamily("INET", 2)
+public static const INET: AddressFamily = AddressFamily("INET", 2)
 ```
 
 Functionality: IPv4 address family.
@@ -61,7 +61,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 ### static const UNIX
 
 ```cangjie
-public static const UNIX = AddressFamily("UNIX", 1)
+public static const UNIX: AddressFamily = AddressFamily("UNIX", 1)
 ```
 
 Functionality: Unix domain socket address family.
@@ -71,7 +71,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 ### static const UNSPEC
 
 ```cangjie
-public static const UNSPEC = AddressFamily("UNSPEC", 0)
+public static const UNSPEC: AddressFamily = AddressFamily("UNSPEC", 0)
 ```
 
 Functionality: Unspecified address family.
@@ -159,12 +159,12 @@ Return Value:
 
 ```cangjie
 public struct OptionLevel {
-    public static const ICMP: Int32 = 1
     public static const IP: Int32 = 0
-    public static const RAW: Int32 = 255
-    public static const SOCKET: Int32
     public static const TCP: Int32 = 6
     public static const UDP: Int32 = 17
+    public static const ICMP: Int32 = 1
+    public static const RAW: Int32 = 255
+    public static const SOCKET: Int32
 }
 ```
 
@@ -241,23 +241,23 @@ public struct OptionName {
     public static const IP_HDRINCL: Int32
     public static const IP_TOS: Int32
     public static const IP_TTL: Int32
-    public static const SO_ACCEPTCONN: Int32
-    public static const SO_BROADCAST: Int32
-    public static const SO_DEBUG: Int32 = 0x0001
-    public static const SO_DONTROUTE: Int32
-    public static const SO_ERROR: Int32
-    public static const SO_KEEPALIVE: Int32
-    public static const SO_LINGER: Int32
-    public static const SO_OOBINLINE: Int32
-    public static const SO_RCVBUF: Int32
-    public static const SO_RCVTIMEO: Int32
-    public static const SO_REUSEADDR: Int32
-    public static const SO_SNDBUF: Int32
-    public static const SO_SNDTIMEO: Int32
     public static const TCP_KEEPCNT: Int32
     public static const TCP_KEEPIDLE: Int32
     public static const TCP_KEEPINTVL: Int32
     public static const TCP_NODELAY: Int32 = 0x0001
+    public static const SO_DEBUG: Int32 = 0x0001
+    public static const SO_ACCEPTCONN: Int32
+    public static const SO_REUSEADDR: Int32
+    public static const SO_KEEPALIVE: Int32
+    public static const SO_DONTROUTE: Int32
+    public static const SO_BROADCAST: Int32
+    public static const SO_LINGER: Int32
+    public static const SO_OOBINLINE: Int32
+    public static const SO_SNDBUF: Int32
+    public static const SO_RCVBUF: Int32
+    public static const SO_SNDTIMEO: Int32
+    public static const SO_RCVTIMEO: Int32
+    public static const SO_ERROR: Int32
 }
 ```
 
@@ -537,13 +537,13 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
 ```cangjie
 public struct ProtocolType <: Equatable<ProtocolType> & ToString & Hashable {
-    public static let ICMP: ProtocolType = ProtocolType(1)
+    public static let Unspecified: ProtocolType = ProtocolType(0)
     public static let IPV4: ProtocolType = ProtocolType(4)
     public static let IPV6: ProtocolType = ProtocolType(41)
-    public static let RAW: ProtocolType = ProtocolType(255)
+    public static let ICMP: ProtocolType = ProtocolType(1)
     public static let TCP: ProtocolType = ProtocolType(6)
     public static let UDP: ProtocolType = ProtocolType(17)
-    public static let Unspecified: ProtocolType = ProtocolType(0)
+    public static let RAW: ProtocolType = ProtocolType(255)
     public init(protocol: Int32)
 }
 ```
@@ -730,9 +730,9 @@ Parameters:
 public struct SocketDomain <: Equatable<SocketDomain> & ToString & Hashable {
     public static let IPV4: SocketDomain = SocketDomain(2)
     public static let IPV6: SocketDomain
+    public static let UNIX: SocketDomain
     public static let NETLINK: SocketDomain = SocketDomain(16)
     public static let PACKET: SocketDomain = SocketDomain(17)
-    public static let UNIX: SocketDomain
     public init(domain: Int32)
 }
 ```
@@ -882,9 +882,9 @@ Return Value:
 
 ```cangjie
 public struct SocketKeepAliveConfig <: ToString & Equatable<SocketKeepAliveConfig> {
-    public let count: UInt32
     public let idle: Duration
     public let interval: Duration
+    public let count: UInt32
     public init(idle!: Duration = Duration.second * 45, interval!: Duration = Duration.second * 5, count!: UInt32 = 5)
 }
 ```
@@ -958,7 +958,7 @@ Return Value:
 ### operator func !=(SocketKeepAliveConfig)
 
 ```cangjie
-public override operator func !=(other: SocketKeepAliveConfig): Bool
+public operator override func !=(other: SocketKeepAliveConfig): Bool
 ```
 
 Function: Determines if two [SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig) instances are unequal.
@@ -974,7 +974,7 @@ Return Value:
 ### operator func ==(SocketKeepAliveConfig)
 
 ```cangjie
-public override operator func ==(other: SocketKeepAliveConfig): Bool
+public operator override func ==(other: SocketKeepAliveConfig): Bool
 ```
 
 Function: Determines if two [SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig) instances are equal.
@@ -991,18 +991,18 @@ Return Value:
 
 ```cangjie
 public struct SocketOptions {
+    public static const SOL_SOCKET: Int32
     public static const IPPROTO_TCP: Int32 = 6
     public static const IPPROTO_UDP: Int32 = 17
-    public static const SOL_SOCKET: Int32
-    public static const SO_BINDTODEVICE: Int32
     public static const SO_KEEPALIVE: Int32
+    public static const TCP_NODELAY: Int32 = 0x0001
+    public static const TCP_QUICKACK: Int32
     public static const SO_LINGER: Int32
+    public static const SO_SNDBUF: Int32
     public static const SO_RCVBUF: Int32
     public static const SO_REUSEADDR: Int32
     public static const SO_REUSEPORT: Int32
-    public static const SO_SNDBUF: Int32
-    public static const TCP_NODELAY: Int32 = 0x0001
-    public static const TCP_QUICKACK: Int32
+    public static const SO_BINDTODEVICE: Int32
 }
 ```
 
@@ -1180,10 +1180,10 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
 ```cangjie
 public struct SocketType <: Equatable<SocketType> & ToString & Hashable {
+    public static let STREAM: SocketType = SocketType(1)
     public static let DATAGRAM: SocketType = SocketType(2)
     public static let RAW: SocketType = SocketType(3)
     public static let SEQPACKET: SocketType = SocketType(5)
-    public static let STREAM: SocketType = SocketType(1)
     public init(`type`: Int32)
 }
 ```

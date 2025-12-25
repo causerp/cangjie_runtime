@@ -3,7 +3,7 @@
 ## struct ConditionID <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ConditionID
+public struct ConditionID {}
 ```
 
 功能：用于表示互斥锁的条件变量，详见 [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated)。

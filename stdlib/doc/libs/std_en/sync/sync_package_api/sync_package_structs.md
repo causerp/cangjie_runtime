@@ -3,7 +3,7 @@
 ## struct ConditionID <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ConditionID
+public struct ConditionID {}
 ```
 
 Function: Used to represent a condition variable for mutex locks. See [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated) for details.

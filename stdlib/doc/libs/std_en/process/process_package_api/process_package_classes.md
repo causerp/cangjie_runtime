@@ -3,7 +3,7 @@
 ## class CurrentProcess <sup>(deprecated)</sup>
 
 ```cangjie
-public class CurrentProcess <: Process
+public class CurrentProcess <: Process {}
 ```
 
 Functionality: This class represents the current process, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to the current process.
@@ -117,14 +117,14 @@ Parameters:
 ### func getEnv(String)
 
 ```cangjie
-public func getEnv(k: String): Option<String>
+public func getEnv(key: String): Option<String>
 ```
 
 Functionality: Gets the value of the specified environment variable.
 
 Parameters:
 
-- k: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the environment variable.
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the environment variable.
 
 Returns:
 
@@ -132,7 +132,7 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameter `k` contains a null character.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameter `key` contains a null character.
 
 ### func removeEnv(String)
 
@@ -174,7 +174,7 @@ Exceptions:
 ## class Process
 
 ```cangjie
-public open class Process
+public open class Process {}
 ```
 
 Functionality: This class represents a process, providing process-related operations.
@@ -482,10 +482,12 @@ Functionality: Terminates the process.
 
 Parameters:
 
-- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md## class SubProcess
+- force!: [Bool](../../core/core_package_api/core_package_intrinsics.md)
+
+## class SubProcess
 
 ```cangjie
-public class SubProcess <: Process
+public class SubProcess <: Process {}
 ```
 
 Functionality: This class represents a subprocess, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to subprocess management.

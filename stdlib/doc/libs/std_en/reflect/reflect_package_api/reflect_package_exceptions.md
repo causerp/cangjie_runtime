@@ -213,7 +213,7 @@ Parameters:
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 Function: Retrieves the class name.

@@ -3,7 +3,7 @@
 ## struct MemoryInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct MemoryInfo
+public struct MemoryInfo {}
 ```
 
 功能：提供获取一些堆内存统计数据的接口。
@@ -60,7 +60,7 @@ main() {
 ## struct ProcessorInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ProcessorInfo
+public struct ProcessorInfo {}
 ```
 
 功能：提供获取一些处理器信息的接口。
@@ -82,7 +82,7 @@ public static prop processorCount: Int64
 ## struct ThreadInfo <sup>(deprecated)</sup>
 
 ```cangjie
-public struct ThreadInfo
+public struct ThreadInfo {}
 ```
 
 功能：提供获取一些仓颉线程统计数据的接口。
