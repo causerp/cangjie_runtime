@@ -3,7 +3,7 @@
 ## class CurrentProcess <sup>(deprecated)</sup>
 
 ```cangjie
-public class CurrentProcess <: Process
+public class CurrentProcess <: Process {}
 ```
 
 功能：此类为当前进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对当前进程操作相关功能。
@@ -117,14 +117,14 @@ public func exit(code: Int64): Nothing
 ### func getEnv(String)
 
 ```cangjie
-public func getEnv(k: String): Option<String>
+public func getEnv(key: String): Option<String>
 ```
 
 功能：获取指定名称的环境变量值。
 
 参数：
 
-- k: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
 
 返回值：
 
@@ -132,7 +132,7 @@ public func getEnv(k: String): Option<String>
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 `k` 包含空字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 `key` 包含空字符时，抛出异常。
 
 ### func removeEnv(String)
 
@@ -174,7 +174,7 @@ public func setEnv(k: String, v: String): Unit
 ## class Process
 
 ```cangjie
-public open class Process
+public open class Process {}
 ```
 
 功能：此类为进程类，提供进程操作相关功能。
@@ -540,7 +540,7 @@ protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
 ## class SubProcess
 
 ```cangjie
-public class SubProcess <: Process
+public class SubProcess <: Process {}
 ```
 
 功能：此类为子进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对子进程操作相关功能。

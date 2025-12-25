@@ -4,12 +4,12 @@
 
 ```cangjie
 public interface Condition {
-    func notify(): Unit
-    func notifyAll(): Unit
     func wait(): Unit
     func wait(timeout!: Duration): Bool
-    func waitUntil(predicate: ()->Bool): Unit
-    func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
+    func waitUntil(predicate: () -> Bool): Unit
+    func waitUntil(predicate: () -> Bool, timeout!: Duration): Bool
+    func notify(): Unit
+    func notifyAll(): Unit
 }
 ```
 

@@ -1324,8 +1324,8 @@ public func remove(): Option<(K, V)>
 ```cangjie
 public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     public init()
-    public init(elements: Array<(K, V)>)
     public init(elements: Collection<(K, V)>)
+    public init(elements: Array<(K, V)>)
     public init(capacity: Int64)
     public init(size: Int64, initElement: (Int64) -> (K, V))
 }
@@ -1349,9 +1349,7 @@ public prop capacity: Int64
 
 功能：返回 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的容量。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop size
 
@@ -1947,9 +1945,7 @@ public prop capacity: Int64
 >
 > 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
 
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### func clear()
 
@@ -2258,7 +2254,7 @@ public func toString(): String
 ## class LinkedListNode\<T>
 
 ```cangjie
-public class LinkedListNode<T>
+public class LinkedListNode<T> {}
 ```
 
 功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。

@@ -85,9 +85,9 @@ Return Value:
 
 ```cangjie
 public enum TransactionAccessMode <: ToString & Hashable & Equatable<TransactionAccessMode> {
-    | ReadOnly
-    | ReadWrite
     | Unspecified
+    | ReadWrite
+    | ReadOnly
 }
 ```
 
@@ -189,9 +189,9 @@ Return Value:
 
 ```cangjie
 public enum TransactionDeferrableMode <: ToString & Hashable & Equatable<TransactionDeferrableMode> {
+    | Unspecified
     | Deferrable
     | NotDeferrable
-    | Unspecified
 }
 ```
 
@@ -297,14 +297,14 @@ Return Value:
 
 ```cangjie
 public enum TransactionIsoLevel <: ToString & Hashable & Equatable<TransactionIsoLevel> {
-    | Chaos
-    | Linearizable
+    | Unspecified
     | ReadCommitted
     | ReadUncommitted
     | RepeatableRead
-    | Serializable
     | Snapshot
-    | Unspecified
+    | Serializable
+    | Linearizable
+    | Chaos
 }
 ```
 

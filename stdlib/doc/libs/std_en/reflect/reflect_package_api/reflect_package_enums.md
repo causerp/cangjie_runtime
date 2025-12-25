@@ -117,7 +117,7 @@ Return Value:
 ### operator func ==(ModifierInfo)
 
 ```cangjie
-public override operator func ==(that: ModifierInfo): Bool
+public override operator func == (that: ModifierInfo): Bool
 ```
 
 Function: Determines whether this modifier information is equal to another given modifier information.
@@ -137,7 +137,7 @@ Return Value:
 ### operator func !=(ModifierInfo)
 
 ```cangjie
-public override operator func !=(that: ModifierInfo): Bool
+public override operator func != (that: ModifierInfo): Bool
 ```
 
 Function: Determines whether this modifier information is not equal to another given modifier information.

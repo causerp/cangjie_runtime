@@ -3,7 +3,7 @@
 ## interface Any
 
 ```cangjie
-public interface Any
+public interface Any {}
 ```
 
 Function: [Any](core_package_interfaces.md#interface-any) is the parent type of all types. All `interface` types implicitly inherit from it, and all non-`interface` types implicitly implement it.
@@ -187,7 +187,7 @@ Return value:
 ## interface CType
 
 ```cangjie
-sealed interface CType
+sealed interface CType {}
 ```
 
 Function: Represents an interface that supports interoperability with the C language.
@@ -275,10 +275,10 @@ Return value:
 ```cangjie
 public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEqual<T> & GreaterOrEqual<T> {
     func compare(that: T): Ordering
-    operator func <(rhs: T): Bool
-    operator func <=(rhs: T): Bool
     operator func ==(rhs: T): Bool
+    operator func <(rhs: T): Bool
     operator func >(rhs: T): Bool
+    operator func <=(rhs: T): Bool
     operator func >=(rhs: T): Bool
 }
 ```
@@ -940,8 +940,8 @@ Return Value:
 
 ```cangjie
 public interface Resource {
-    func close(): Unit
     func isClosed(): Bool
+    func close(): Unit
 }
 ```
 

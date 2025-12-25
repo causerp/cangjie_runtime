@@ -3,7 +3,7 @@
 ## class ClassTypeInfo
 
 ```cangjie
-public class ClassTypeInfo <: TypeInfo
+public class ClassTypeInfo <: TypeInfo {}
 ```
 
 Function: Describes type information for `class` types.
@@ -594,7 +594,7 @@ default.Rectangular
 ## class ConstructorInfo
 
 ```cangjie
-public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
+public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString {}
 ```
 
 Function: Describes constructor information.
@@ -706,7 +706,7 @@ Exceptions:
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -798,7 +798,7 @@ Return Value:
 ## class GenericTypeInfo
 
 ```cangjie
-public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
+public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo> {}
 ```
 
 Function: Describes generic type information.
@@ -827,7 +827,7 @@ Return Value:
 ## class GlobalFunctionInfo
 
 ```cangjie
-public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString
+public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString {}
 ```
 
 Function: Describes global function information.
@@ -965,7 +965,7 @@ Exceptions:
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -1057,7 +1057,7 @@ Return Value:
 ## class GlobalVariableInfo
 
 ```cangjie
-public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString
+public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString {}
 ```
 
 Function: Describes global variable information.
@@ -1106,7 +1106,7 @@ Type: [TypeInfo](reflect_package_classes.md#class-typeinfo)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -1244,7 +1244,7 @@ Return Value:
 ## class InstanceFunctionInfo
 
 ```cangjie
-public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString
+public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString {}
 ```
 
 Function: Describes instance member function information.
@@ -1439,7 +1439,7 @@ Some(20)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -1559,7 +1559,7 @@ Return Value:
 ## class InstancePropertyInfo
 
 ```cangjie
-public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString
+public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString {}
 ```
 
 Function: Describes instance member property information.
@@ -1624,7 +1624,7 @@ Type: [TypeInfo](reflect_package_classes.md#class-typeinfo)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -1830,7 +1830,7 @@ Return Value:
 ## class InstanceVariableInfo
 
 ```cangjie
-public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString
+public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString {}
 ```
 
 Function: Describes instance member variable information.
@@ -2073,7 +2073,7 @@ Return Value:
 ## class InterfaceTypeInfo
 
 ```cangjie
-public class InterfaceTypeInfo <: TypeInfo
+public class InterfaceTypeInfo <: TypeInfo {}
 ```
 
 Function: Type information for `interface` types.
@@ -2194,7 +2194,7 @@ Exceptions:
 ## class PackageInfo
 
 ```cangjie
-public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
+public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {}
 ```
 
 Function: Describes package information.
@@ -2545,7 +2545,7 @@ Return Value:
 ## class ParameterInfo
 
 ```cangjie
-public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString
+public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {}
 ```
 
 Function: Describes function parameter information.
@@ -2608,7 +2608,7 @@ Type: [TypeInfo](reflect_package_classes.md#class-typeinfo)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -2700,7 +2700,7 @@ Return Value:
 ## class PrimitiveTypeInfo
 
 ```cangjie
-public class PrimitiveTypeInfo <: TypeInfo
+public class PrimitiveTypeInfo <: TypeInfo {}
 ```
 
 Function: Describes type information for primitive data types.
@@ -2837,7 +2837,7 @@ Int64
 ## class StaticFunctionInfo
 
 ```cangjie
-public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString
+public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString {}
 ```
 
 Function: Describes static member function information.
@@ -3030,7 +3030,7 @@ Exceptions:
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -3122,7 +3122,7 @@ Return Value:
 ## class StaticPropertyInfo
 
 ```cangjie
-public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString
+public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString {}
 ```
 
 Function: Describes static member property information.
@@ -3187,7 +3187,7 @@ Type: [TypeInfo](reflect_package_classes.md#class-typeinfo)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -3405,7 +3405,7 @@ Return Value:
 ## class StaticVariableInfo
 
 ```cangjie
-public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString
+public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString {}
 ```
 
 Function: Describes static member variable information.
@@ -3470,7 +3470,7 @@ Type: [TypeInfo](reflect_package_classes.md#class-typeinfo)
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.
@@ -3670,7 +3670,7 @@ Return value:
 ## class StructTypeInfo
 
 ```cangjie
-public class StructTypeInfo <: TypeInfo
+public class StructTypeInfo <: TypeInfo {}
 ```
 
 Function: Describes the type information of a `struct` type.
@@ -4371,7 +4371,7 @@ default.Rectangular
 ### func findAllAnnotations\<T>() where T <: Annotation
 
 ```cangjie
-public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 Function: Retrieves all annotations with the given qualified name.

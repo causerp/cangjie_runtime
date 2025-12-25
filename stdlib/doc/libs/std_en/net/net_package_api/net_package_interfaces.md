@@ -122,9 +122,9 @@ Parameters:
 ```cangjie
 public interface ServerSocket <: Resource & ToString {
     prop localAddress: SocketAddress
-    func accept(): StreamingSocket
-    func accept(timeout!: ?Duration): StreamingSocket
     func bind(): Unit
+    func accept(timeout!: ?Duration): StreamingSocket
+    func accept(): StreamingSocket
 }
 ```
 

@@ -3,7 +3,7 @@
 ## struct DateTime
 
 ```cangjie
-public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattable & Parsable<DateTime>
+public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattable & Parsable<DateTime> {}
 ```
 
 Description: [DateTime](time_package_structs.md#struct-datetime) represents date and time, a temporal type describing a specific point in time. It provides timezone-based date-time reading, calculation, comparison, conversion, as well as serialization and deserialization functionalities.
@@ -965,7 +965,7 @@ Return Value:
 ## struct MonoTime
 
 ```cangjie
-public struct MonoTime <: Hashable & Comparable<MonoTime>
+public struct MonoTime <: Hashable & Comparable<MonoTime> {}
 ```
 
 Function: [MonoTime](time_package_structs.md#struct-monotime) represents monotonic time, a time type used to measure elapsed time, similar to a continuously running stopwatch. It provides functionalities such as obtaining the current time, calculation, and comparison.

@@ -213,7 +213,7 @@ public init(message: String)
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 功能：获得类名。

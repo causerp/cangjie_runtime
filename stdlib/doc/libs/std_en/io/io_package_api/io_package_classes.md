@@ -5,8 +5,8 @@
 ```cangjie
 public class BufferedInputStream<T> <: InputStream where T <: InputStream {
     public init(input: T)
-    public init(input: T, buffer: Array<Byte>)
     public init(input: T, capacity: Int64)
+    public init(input: T, buffer: Array<Byte>)
 }
 ```
 
@@ -1118,9 +1118,7 @@ public prop capacity: Int64
 
 Functionality: Gets the current buffer capacity.
 
-Return Value:
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The current buffer capacity.
+Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init()
 
@@ -1444,23 +1442,23 @@ nextByte: None
 ### func reserve(Int64)
 
 ```cangjie
-public func reserve(additional: Int64): Unit
+public func reserve(addition: Int64): Unit
 ```
 
 Function: Expands the buffer by the specified size.
 
 > **Note:**
 >
-> - No expansion occurs when the remaining bytes in the buffer are greater than or equal to `additional`.
-> - When the remaining bytes in the buffer are less than `additional`, the buffer is expanded to the maximum value between (`additional` + `capacity`) and (1.5 times `capacity` rounded down).
+> - No expansion occurs when the remaining bytes in the buffer are greater than or equal to `addition`.
+> - When the remaining bytes in the buffer are less than `addition`, the buffer is expanded to the maximum value between (`addition` + `capacity`) and (1.5 times `capacity` rounded down).
 
 Parameters:
 
-- additional: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand.
+- addition: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size to expand.
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `additional` is less than 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when `addition` is less than 0.
 - [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - Thrown when the expanded buffer size exceeds the maximum value of [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
 
 Example:
@@ -1474,15 +1472,15 @@ main(): Unit {
     println("initial capacity: " + buffer.capacity.toString())
     buffer.write("Hello World".toArray())
 
-    /* Attempt to expand; required additional capacity exceeds remaining space, expansion occurs */
+    /* Attempt to expand; required addition capacity exceeds remaining space, expansion occurs */
     buffer.reserve(5)
     println("reserve 5: " + buffer.capacity.toString())
 
-    /* Attempt to expand; required additional capacity is less than remaining space, no expansion occurs */
+    /* Attempt to expand; required addition capacity is less than remaining space, no expansion occurs */
     buffer.reserve(2)
     println("reserve 2: " + buffer.capacity.toString())
 
-    /* Attempt to expand with negative additional value */
+    /* Attempt to expand with negative addition value */
     try {
         buffer.reserve(-1)
     } catch (e: IllegalArgumentException) {
@@ -1504,7 +1502,7 @@ Execution Result:
 initial capacity: 11
 reserve 5: 16
 reserve 2: 16
-Error: The additional must be greater than or equal to 0.
+Error: The addition must be greater than or equal to 0.
 Error:The maximum value for capacity expansion cannot exceed the maximum value of Int64.
 ```
 

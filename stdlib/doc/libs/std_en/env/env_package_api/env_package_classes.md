@@ -3,12 +3,12 @@
 ## class ConsoleReader
 
 ```cangjie
-public class ConsoleReader <: InputStream
+public class ConsoleReader <: InputStream {}
 ```
 
 Functionality: Provides the capability to read data from the console and convert it into characters or strings.
 
-This type cannot be instantiated directly; instances can only be obtained via [getStdIn()](./env_package_funcs.md#func-getStdIn).  
+This type cannot be instantiated directly; instances can only be obtained via [getStdIn()](./env_package_funcs.md#func-getStdIn).
 Read operations are synchronous, with an internal buffer storing console input content. When the end of the console input stream is reached, console reading functions will return `None`.
 
 > **Note:**
@@ -245,12 +245,12 @@ Input received: abc
 ## class ConsoleWriter
 
 ```cangjie
-public class ConsoleWriter <: OutputStream
+public class ConsoleWriter <: OutputStream {}
 ```
 
 Functionality: This class provides thread-safe standard output functionality.
 
-Each `write` call produces complete output to the console, and results from different `write` function calls will not be interleaved.  
+Each `write` call produces complete output to the console, and results from different `write` function calls will not be interleaved.
 This type cannot be instantiated directly; instances can only be obtained via [getStdOut()](./env_package_funcs.md#func-getStdOut) for standard output or [getStdErr()](./env_package_funcs.md#func-getStdErr) for standard error.
 
 Parent Type:
