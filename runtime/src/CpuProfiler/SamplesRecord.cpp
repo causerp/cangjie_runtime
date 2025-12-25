@@ -12,13 +12,13 @@
 #include "Base/TimeUtils.h"
 
 namespace MapleRuntime {
-const int USEC_PER_SEC = 1000 * 1000;
-const int NSEC_PER_USEC = 1000;
+constexpr int TIME_USEC_PER_SEC = 1000 * 1000;
+constexpr int TIME_NSEC_PER_USEC = 1000;
 uint64_t SamplesRecord::GetMicrosecondsTimeStamp()
 {
     struct timespec time;
     clock_gettime(CLOCK_MONOTONIC, &time);
-    return time.tv_sec * USEC_PER_SEC + time.tv_nsec / NSEC_PER_USEC;
+    return time.tv_sec * TIME_USEC_PER_SEC + time.tv_nsec / TIME_NSEC_PER_USEC;
 }
 
 SamplesRecord::~SamplesRecord()
