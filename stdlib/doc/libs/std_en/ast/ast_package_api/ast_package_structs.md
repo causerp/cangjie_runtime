@@ -4,9 +4,9 @@
 
 ```cangjie
 public struct Position <: ToBytes {
-    public let column: Int32
     public let fileID: UInt32
     public let line: Int32
+    public let column: Int32
     public init()
     public init(fileID: UInt32, line: Int32, column: Int32)
 }
@@ -139,8 +139,8 @@ Return Value:
 ```cangjie
 public struct Token <: ToBytes {
     public let kind: TokenKind
-    public let pos: Position
     public let value: String
+    public let pos: Position
     public var delimiterNum: UInt16 = 1
     public init()
     public init(kind: TokenKind)
