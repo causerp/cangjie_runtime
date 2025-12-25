@@ -254,7 +254,7 @@ Parent Type:
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ```
 
 Function: Constructor.
@@ -268,7 +268,7 @@ Parameters:
 ### func provide()
 
 ```cangjie
-override func provide(): Iterable<T>
+public override func provide(): Iterable<T>
 ```
 
 Function: Provides randomly generated data.
@@ -430,7 +430,7 @@ Return Value:
 ### prop isInfinite
 
 ```cangjie
-public prop isInfinite: Bool 
+public override prop isInfinite: Bool 
 ```
 
 Function: Returns true if this strategy is infinite, otherwise false.

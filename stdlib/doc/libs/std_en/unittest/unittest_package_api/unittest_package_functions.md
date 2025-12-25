@@ -50,7 +50,7 @@ public func assertEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    isDelta!: Bool = false,
+    isDelta!: Bool,
     optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
@@ -188,7 +188,7 @@ Parameters:
 
 ```cangjie
 public func invokeCustomAssert<T>(
-    passerdArgs: Array<String>,
+    passedArgs: Array<String>,
     caller: String,
     assert: (AssertionCtx) -> T,
     optParentCtx!: ?AssertionCtx = None
@@ -212,7 +212,7 @@ Return value:
 
 ```cangjie
 public func invokeCustomExpect(
-    passerdArgs: Array<String>,
+    passedArgs: Array<String>,
     caller: String,
     expect: (AssertionCtx) -> Any,
     optParentCtx!: ?AssertionCtx = None

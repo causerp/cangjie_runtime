@@ -163,14 +163,14 @@ public prop isInfinite: Bool
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 功能：获取提供测试数据组件。
 
 参数：
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - 配置信息。
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - 配置信息。
 
 返回值：
 
@@ -213,14 +213,14 @@ public prop isInfinite: Bool
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 功能：获取提供测试数据组件。
 
 参数：
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - 配置信息。
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - 配置信息。
 
 返回值：
 

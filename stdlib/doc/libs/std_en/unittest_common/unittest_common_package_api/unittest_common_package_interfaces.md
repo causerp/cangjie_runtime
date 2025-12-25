@@ -163,14 +163,14 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 Function: Retrieves the component for providing test data.
 
 Parameters:
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
 Return Value:
 
@@ -213,14 +213,14 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 Function: Retrieves the component for providing test data.
 
 Parameters:
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
 Return Value:
 

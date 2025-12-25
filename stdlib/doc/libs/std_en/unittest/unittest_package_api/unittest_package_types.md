@@ -3,7 +3,7 @@
 ## type MeasurementUnitTable
 
 ```cangjie
-type MeasurementUnitTable = Array<(Float64, String)>
+public type MeasurementUnitTable = Array<(Float64, String)>
 ```
 
 Function: Serves as an alias for the "boundary-unit" pair array used in the unit conversion table of performance test results in [Measurement](unittest_package_interfaces.md#interface-measurement).

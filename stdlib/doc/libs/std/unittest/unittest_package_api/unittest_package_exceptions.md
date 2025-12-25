@@ -85,7 +85,7 @@ public func getOriginalStackTrace(): String
 ## class UnittestCliOptionsFormatException
 
 ```cangjie
-public class UnittestCliOptionsFormatException <: UnittestException
+public class UnittestCliOptionsFormatException <: UnittestException {}
 ```
 
 功能：控制台选项格式错误抛出的异常。
@@ -97,7 +97,7 @@ public class UnittestCliOptionsFormatException <: UnittestException
 ## class UnittestException
 
 ```cangjie
-public open class UnittestException <: Exception
+public open class UnittestException <: Exception {}
 ```
 
 功能：框架通用异常。
@@ -109,7 +109,7 @@ public open class UnittestException <: Exception
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 功能：获得类名。

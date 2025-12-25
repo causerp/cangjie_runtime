@@ -254,7 +254,7 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ```
 
 功能：构造器。
@@ -268,7 +268,7 @@ RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ### func provide()
 
 ```cangjie
-override func provide(): Iterable<T>
+public override func provide(): Iterable<T>
 ```
 
 功能：提供随机化生成的数据。
@@ -430,7 +430,7 @@ public override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
 ### prop isInfinite
 
 ```cangjie
-public prop isInfinite: Bool 
+public override prop isInfinite: Bool 
 ```
 
 功能：当该策略为无穷尽时，值为 true, 否则为 false。
