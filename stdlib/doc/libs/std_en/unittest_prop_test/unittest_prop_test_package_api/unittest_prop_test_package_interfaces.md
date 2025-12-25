@@ -15,7 +15,7 @@ Function: Provides methods for generating values within a specified range for di
 ### func arbitraryRange(RandomSource, T, T)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
+static func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
 ```
 
 Function: Returns values generated within the specified range.
@@ -33,7 +33,7 @@ Return Value:
 ### func max()
 
 ```cangjie
-func max(): T
+static func max(): T
 ```
 
 Function: Returns the maximum value.
@@ -45,7 +45,7 @@ Return Value:
 ### func min()
 
 ```cangjie
-func min(): T
+static func min(): T
 ```
 
 Function: Returns the minimum value.
@@ -795,7 +795,7 @@ Parent Types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Bool>
+public static func arbitrary(random: RandomSource): Generator<Bool>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -823,7 +823,7 @@ Parent Types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float16>
+public static func arbitrary(random: RandomSource): Generator<Float16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -849,7 +849,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float32>
+public static func arbitrary(random: RandomSource): Generator<Float32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -877,7 +877,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float64>
+public static func arbitrary(random: RandomSource): Generator<Float64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -905,7 +905,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int16>
+public static func arbitrary(random: RandomSource): Generator<Int16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -933,7 +933,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int32>
+public static func arbitrary(random: RandomSource): Generator<Int32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -961,7 +961,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int64>
+public static func arbitrary(random: RandomSource): Generator<Int64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -989,7 +989,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int8>
+public static func arbitrary(random: RandomSource): Generator<Int8>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1017,7 +1017,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<IntNative>
+public static func arbitrary(random: RandomSource): Generator<IntNative>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1045,7 +1045,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Ordering>
+public static func arbitrary(random: RandomSource): Generator<Ordering>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1073,7 +1073,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Rune>
+public static func arbitrary(random: RandomSource): Generator<Rune>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1101,7 +1101,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<String>
+public static func arbitrary(random: RandomSource): Generator<String>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1129,7 +1129,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt16>
+public static func arbitrary(random: RandomSource): Generator<UInt16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1157,7 +1157,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt32>
+public static func arbitrary(random: RandomSource): Generator<UInt32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1185,7 +1185,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt64>
+public static func arbitrary(random: RandomSource): Generator<UInt64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1213,7 +1213,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt8>
+public static func arbitrary(random: RandomSource): Generator<UInt8>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1241,7 +1241,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UIntNative>
+public static func arbitrary(random: RandomSource): Generator<UIntNative>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1269,14 +1269,14 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Unit>
+public static func arbitrary(_: RandomSource): Generator<Unit>
 ```
 
 Function: Obtains a generator for random values of type T.
 
 Parameters:
 
-- random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
+- _: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
 Return value:
 
@@ -1297,7 +1297,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Array<T## interface Generator\<T>
+public static func arbitrary(random: RandomSource): Generator<Array<T## interface Generator\<T>
 
 ```cangjie
 public interface Generator<T> {
@@ -1865,7 +1865,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Bool>
+public func shrink(): Iterable<Bool>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -1889,7 +1889,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int16>
+public func shrink(): Iterable<Int16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -1913,7 +1913,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int32
+public func shrink(): Iterable<Int32
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -1937,7 +1937,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int64>
+public func shrink(): Iterable<Int64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -1961,7 +1961,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int8>
+public func shrink(): Iterable<Int8>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -1985,7 +1985,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<IntNative>
+public func shrink(): Iterable<IntNative>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2009,7 +2009,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Rune>
+public func shrink(): Iterable<Rune>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2033,7 +2033,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<String>
+public func shrink(): Iterable<String>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2057,7 +2057,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt16>
+public func shrink(): Iterable<UInt16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2081,7 +2081,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt32>
+public func shrink(): Iterable<UInt32>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2105,7 +2105,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt64>
+public func shrink(): Iterable<UInt64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2129,7 +2129,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt8>
+public func shrink(): Iterable<UInt8>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2153,7 +2153,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UIntNative>
+public func shrink(): Iterable<UIntNative>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2177,7 +2177,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Unit>
+public func shrink(): Iterable<Unit>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2201,7 +2201,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float16>
+public func shrink(): Iterable<Float16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2225,7 +2225,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float32>
+public func shrink(): Iterable<Float32>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2249,7 +2249,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float64>
+public func shrink(): Iterable<Float64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2271,7 +2271,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Array<T>>
+public func shrink(): Iterable<Array<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2295,7 +2295,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Option<T>>
+public func shrink(): Iterable<Option<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2319,7 +2319,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<ArrayList<T>>
+public func shrink(): Iterable<ArrayList<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2343,7 +2343,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashSet<T>>
+public func shrink(): Iterable<HashSet<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2367,7 +2367,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashMap<K, V>>
+public func shrink(): Iterable<HashMap<K, V>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.

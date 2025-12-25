@@ -244,22 +244,17 @@ public func warmup(x: Duration)
 ## interface BenchmarkInputMarker
 
 ```cangjie
-public interface BenchmarkInputMarker
+public interface BenchmarkInputMarker {}
 ```
 
 功能：当我们不知道 `T` 时，该接口能够检测 `BenchInputProvider<T>` 。
-
 
 ## interface Measurement
 
 ```cangjie
 public interface Measurement {
-    prop conversionTable: MeasurementUnitTable
-    prop name: String
-    prop textDescription: String
     func setup(): Unit
     func measure(): Float64
-    prop info: MeasurementInfo
 }
 ```
 
@@ -324,6 +319,10 @@ func setup()
 
 ### prop info
 
+```cangjie
+prop info: Measure
+```
+
 功能：具体测量的汇总信息。
 
 类型: [MeasurementInfo](../unittest_package_api/unittest_package_structs.md#struct-measurementinfo)
@@ -341,7 +340,7 @@ public interface NearEquatable<CT, D> {
 ### func isNear(CT, D)
 
 ```cangjie
-public func isNear(obj: CT, delta!: D): Bool
+func isNear(obj: CT, delta!: D): Bool
 ```
 
 功能：判断某个对象是否基于这个 delta 近似相等。

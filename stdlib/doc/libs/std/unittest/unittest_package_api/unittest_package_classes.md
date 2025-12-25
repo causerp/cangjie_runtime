@@ -495,7 +495,7 @@ public static func start(
 ### static func start(() -> DataStrategyProcessor\<T>, String)
 
 ```cangjie
-public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataStrategyProcessor<T>
+public static func start(f: () -> DataStrategyProcessor<T>, _: String): DataStrategyProcessor<T>
 ```
 
 功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
@@ -503,7 +503,7 @@ public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataS
 参数：
 
 - s: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 生成数据策略处理器的闭包。
-- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- _: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 
 返回值：
 
@@ -514,7 +514,7 @@ public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataS
 ```cangjie
 public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
-    name: String,
+    _: String,
     x!: Int64 = 0
 ): DataStrategyProcessor<U>
 ```
@@ -828,7 +828,7 @@ public func w(passed: Bool): Unit
 ## class Report
 
 ```cangjie
-sealed abstract class Report {}
+abstract sealed class Report {}
 ```
 
 功能：打印测试用例结果报告的基类。
@@ -965,7 +965,7 @@ public func runBenchmarks(): BenchReport
 ### func runBenchmarks(Configuration)
 
 ```cangjie
-public func runBenchmarks(Configuration): BenchReport
+public func runBenchmarks(configuration: Configuration): BenchReport
 ```
 
 功能：带运行配置得执行所有性能测试用例。

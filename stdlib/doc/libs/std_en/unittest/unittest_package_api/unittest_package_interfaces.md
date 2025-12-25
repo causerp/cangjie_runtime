@@ -244,7 +244,7 @@ Parameters:
 ## interface BenchmarkInputMarker
 
 ```cangjie
-public interface BenchmarkInputMarker
+public interface BenchmarkInputMarker {}
 ```
 
 Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is unknown.
@@ -253,12 +253,8 @@ Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is
 
 ```cangjie
 public interface Measurement {
-    prop conversionTable: MeasurementUnitTable
-    prop name: String
-    prop textDescription: String
     func setup(): Unit
     func measure(): Float64
-    prop info: MeasurementInfo
 }
 ```
 
@@ -323,6 +319,10 @@ Purpose: Initialization routine for this measurement. Called before each benchma
 
 ### prop info
 
+```cangjie
+prop info: Measure
+```
+
 Purpose: Summary information for specific measurements.
 
 Type: [MeasurementInfo](../unittest_package_api/unittest_package_structs.md#struct-measurementinfo)
@@ -340,7 +340,7 @@ Purpose: Determines whether an object is approximately equal based on a given de
 ### func isNear(CT, D)
 
 ```cangjie
-public func isNear(obj: CT, delta!: D): Bool
+func isNear(obj: CT, delta!: D): Bool
 ```
 
 Purpose: Determines whether an object is approximately equal based on a given delta.

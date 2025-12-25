@@ -15,7 +15,7 @@ public interface ArbitraryRange<T> where T <: Arbitrary<T> & Comparable<T> {
 ### func arbitraryRange(RandomSource, T, T)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
+static func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
 ```
 
 功能：返回在范围内生成的值。
@@ -33,7 +33,7 @@ func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
 ### func max()
 
 ```cangjie
-func max(): T
+static func max(): T
 ```
 
 功能：返回最大值。
@@ -45,7 +45,7 @@ func max(): T
 ### func min()
 
 ```cangjie
-func min(): T
+static func min(): T
 ```
 
 功能：返回最小值。
@@ -69,7 +69,7 @@ extend Float16 <: ArbitraryRange<Float16> {
 #### func arbitraryRange(RandomSource, Float16, Float16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
+public static func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
 ```
 
 功能：返回在范围内生成的值。
@@ -87,7 +87,7 @@ func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator
 #### func max()
 
 ```cangjie
-func max(): Float16
+public static func max(): Float16
 ```
 
 功能：返回最大值。
@@ -99,7 +99,7 @@ func max(): Float16
 #### func min()
 
 ```cangjie
-func min(): Float16
+public static func min(): Float16
 ```
 
 功能：返回最小值。
@@ -123,7 +123,7 @@ extend Float32 <: ArbitraryRange<Float32> {
 #### func arbitraryRange(RandomSource, Float32, Float32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32>
+public static func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32>
 ```
 
 功能：返回在范围内生成的值。
@@ -141,7 +141,7 @@ func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32
 #### func max()
 
 ```cangjie
-func max(): Float32
+public static func max(): Float32
 ```
 
 功能：返回最大值。
@@ -153,7 +153,7 @@ func max(): Float32
 #### func min()
 
 ```cangjie
-func min(): Float32
+public static func min(): Float32
 ```
 
 功能：返回最小值。
@@ -177,7 +177,7 @@ extend Float64 <: ArbitraryRange<Float64> {
 #### func arbitraryRange(RandomSource, Float64, Float64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
+public static func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
 ```
 
 功能：返回在范围内生成的值。
@@ -195,7 +195,7 @@ func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator
 #### func max()
 
 ```cangjie
-func max(): Float64
+public static func max(): Float64
 ```
 
 功能：返回最大值。
@@ -207,7 +207,7 @@ func max(): Float64
 #### func min()
 
 ```cangjie
-func min(): Float64
+public static func min(): Float64
 ```
 
 功能：返回最小值。
@@ -231,7 +231,7 @@ extend Int16 <: ArbitraryRange<Int16> {
 #### func arbitraryRange(RandomSource, Int16, Int16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
+public static func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
 ```
 
 功能：返回在范围内生成的值。
@@ -249,7 +249,7 @@ func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int
 #### func max()
 
 ```cangjie
-func max(): Int16
+public static func max(): Int16
 ```
 
 功能：返回最大值。
@@ -261,7 +261,7 @@ func max(): Int16
 #### func min()
 
 ```cangjie
-func min(): Int16
+public static func min(): Int16
 ```
 
 功能：返回最小值。
@@ -285,7 +285,7 @@ extend Int32 <: ArbitraryRange<Int32> {
 #### func arbitraryRange(RandomSource, Int32, Int32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
+public static func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
 ```
 
 功能：返回在范围内生成的值。
@@ -303,7 +303,7 @@ func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int
 #### func max()
 
 ```cangjie
-func max(): Int32
+public static func max(): Int32
 ```
 
 功能：返回最大值。
@@ -315,7 +315,7 @@ func max(): Int32
 #### func min()
 
 ```cangjie
-func min(): Int32
+public static func min(): Int32
 ```
 
 功能：返回最小值。
@@ -339,7 +339,7 @@ extend Int64 <: ArbitraryRange<Int64> {
 #### func arbitraryRange(RandomSource, Int64, Int64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int64>
+public static func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int64>
 ```
 
 功能：返回在范围内生成的值。
@@ -357,7 +357,7 @@ func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int
 #### func max()
 
 ```cangjie
-func max(): Int64
+public staticfunc max(): Int64
 ```
 
 功能：返回最大值。
@@ -369,7 +369,7 @@ func max(): Int64
 #### func min()
 
 ```cangjie
-func min(): Int64
+public staticfunc min(): Int64
 ```
 
 功能：返回最小值。
@@ -393,7 +393,7 @@ extend Int8 <: ArbitraryRange<Int8> {
 #### func arbitraryRange(RandomSource, Int8, Int8)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
+public static func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
 ```
 
 功能：返回在范围内生成的值。
@@ -411,7 +411,7 @@ func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
 #### func max()
 
 ```cangjie
-func max(): Int8
+public staticfunc max(): Int8
 ```
 
 功能：返回最大值。
@@ -423,7 +423,7 @@ func max(): Int8
 #### func min()
 
 ```cangjie
-func min(): Int8
+public staticfunc min(): Int8
 ```
 
 功能：返回最小值。
@@ -447,7 +447,7 @@ extend IntNative <: ArbitraryRange<IntNative> {
 #### func arbitraryRange(RandomSource, IntNative, IntNative)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
+public static func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
 ```
 
 功能：返回在范围内生成的值。
@@ -465,7 +465,7 @@ func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Gener
 #### func max()
 
 ```cangjie
-func max(): IntNative
+public staticfunc max(): IntNative
 ```
 
 功能：返回最大值。
@@ -477,7 +477,7 @@ func max(): IntNative
 #### func min()
 
 ```cangjie
-func min(): IntNative
+public staticfunc min(): IntNative
 ```
 
 功能：返回最小值。
@@ -501,7 +501,7 @@ extend UInt16 <: ArbitraryRange<UInt16> {
 #### func arbitraryRange(RandomSource, UInt16, UInt16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
+public static func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
 ```
 
 功能：返回在范围内生成的值。
@@ -519,7 +519,7 @@ func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<U
 #### func max()
 
 ```cangjie
-func max(): UInt16
+public staticfunc max(): UInt16
 ```
 
 功能：返回最大值。
@@ -531,7 +531,7 @@ func max(): UInt16
 #### func min()
 
 ```cangjie
-func min(): UInt16
+public staticfunc min(): UInt16
 ```
 
 功能：返回最小值。
@@ -555,7 +555,7 @@ extend UInt32 <: ArbitraryRange<UInt32> {
 #### func arbitraryRange(RandomSource, UInt32, UInt32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
+public static func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
 ```
 
 功能：返回在范围内生成的值。
@@ -573,7 +573,7 @@ func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<U
 #### func max()
 
 ```cangjie
-func max(): UInt32
+public staticfunc max(): UInt32
 ```
 
 功能：返回最大值。
@@ -585,7 +585,7 @@ func max(): UInt32
 #### func min()
 
 ```cangjie
-func min(): UInt32
+public staticfunc min(): UInt32
 ```
 
 功能：返回最小值。
@@ -609,7 +609,7 @@ extend UInt64 <: ArbitraryRange<UInt64> {
 #### func arbitraryRange(RandomSource, UInt64, UInt64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
+public static func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
 ```
 
 功能：返回在范围内生成的值。
@@ -627,7 +627,7 @@ func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<U
 #### func max()
 
 ```cangjie
-func max(): UInt64
+public staticfunc max(): UInt64
 ```
 
 功能：返回最大值。
@@ -639,7 +639,7 @@ func max(): UInt64
 #### func min()
 
 ```cangjie
-func min(): UInt64
+public staticfunc min(): UInt64
 ```
 
 功能：返回最小值。
@@ -663,7 +663,7 @@ extend UInt8 <: ArbitraryRange<UInt8> {
 #### func arbitraryRange(RandomSource, UInt8, UInt8)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
+public static func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
 ```
 
 功能：返回在范围内生成的值。
@@ -681,7 +681,7 @@ func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UIn
 #### func max()
 
 ```cangjie
-func max(): UInt8
+public staticfunc max(): UInt8
 ```
 
 功能：返回最大值。
@@ -693,7 +693,7 @@ func max(): UInt8
 #### func min()
 
 ```cangjie
-func min(): UInt8
+public staticfunc min(): UInt8
 ```
 
 功能：返回最小值。
@@ -717,7 +717,7 @@ extend UIntNative <: ArbitraryRange<UIntNative> {
 #### func arbitraryRange(RandomSource, UIntNative, UIntNative)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
+public static func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
 ```
 
 功能：返回在范围内生成的值。
@@ -735,7 +735,7 @@ func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Gen
 #### func max()
 
 ```cangjie
-func max(): UIntNative
+public staticfunc max(): UIntNative
 ```
 
 功能：返回最大值。
@@ -747,7 +747,7 @@ func max(): UIntNative
 #### func min()
 
 ```cangjie
-func min(): UIntNative
+public staticfunc min(): UIntNative
 ```
 
 功能：返回最小值。
@@ -797,7 +797,7 @@ extend Bool <: Arbitrary<Bool>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Bool>
+public static func arbitrary(random: RandomSource): Generator<Bool>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -825,7 +825,7 @@ extend Float16 <: Arbitrary<Float16>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float16>
+public static func arbitrary(random: RandomSource): Generator<Float16>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -853,7 +853,7 @@ extend Float32 <: Arbitrary<Float32>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float32>
+public static func arbitrary(random: RandomSource): Generator<Float32>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -881,7 +881,7 @@ extend Float64 <: Arbitrary<Float64>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float64>
+public static func arbitrary(random: RandomSource): Generator<Float64>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -909,7 +909,7 @@ extend Int16 <: Arbitrary<Int16>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int16>
+public static func arbitrary(random: RandomSource): Generator<Int16>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -937,7 +937,7 @@ extend Int32 <: Arbitrary<Int32>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int32>
+public static func arbitrary(random: RandomSource): Generator<Int32>
 ```
 
 功能：获取生成 T 类型随机值生成器。
@@ -965,7 +965,7 @@ extend Int64 <: Arbitrary<Int64>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int64>
+public static func arbitrary(random: RandomSource): Generator<Int64>
 ```
 
 功能：获取生成 Int64 类型随机值生成器。
@@ -993,7 +993,7 @@ extend Int8 <: Arbitrary<Int8>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int8>
+public static func arbitrary(random: RandomSource): Generator<Int8>
 ```
 
 功能：获取生成 Int8 类型随机值生成器。
@@ -1021,7 +1021,7 @@ extend IntNative <: Arbitrary<IntNative>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<IntNative>
+public static func arbitrary(random: RandomSource): Generator<IntNative>
 ```
 
 功能：获取生成 IntNative 类型随机值生成器。
@@ -1049,7 +1049,7 @@ extend Ordering <: Arbitrary<Ordering>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Ordering>
+public static func arbitrary(random: RandomSource): Generator<Ordering>
 ```
 
 功能：获取生成 Ordering 类型随机值生成器。
@@ -1077,7 +1077,7 @@ extend Rune <: Arbitrary<Rune>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Rune>
+public static func arbitrary(random: RandomSource): Generator<Rune>
 ```
 
 功能：获取生成 Rune 类型随机值生成器。
@@ -1105,7 +1105,7 @@ extend String <: Arbitrary<String>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<String>
+public static func arbitrary(random: RandomSource): Generator<String>
 ```
 
 功能：获取生成 String 类型随机值生成器。
@@ -1133,7 +1133,7 @@ extend UInt16 <: Arbitrary<UInt16>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt16>
+public static func arbitrary(random: RandomSource): Generator<UInt16>
 ```
 
 功能：获取生成 UInt16 类型随机值生成器。
@@ -1161,7 +1161,7 @@ extend UInt32 <: Arbitrary<UInt32>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt32>
+public static func arbitrary(random: RandomSource): Generator<UInt32>
 ```
 
 功能：获取生成 UInt32 类型随机值生成器。
@@ -1189,7 +1189,7 @@ extend UInt64 <: Arbitrary<UInt64>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt64>
+public static func arbitrary(random: RandomSource): Generator<UInt64>
 ```
 
 功能：获取生成 UInt64 类型随机值生成器。
@@ -1217,7 +1217,7 @@ extend UInt8 <: Arbitrary<UInt8>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt8>
+public static func arbitrary(random: RandomSource): Generator<UInt8>
 ```
 
 功能：获取生成 UInt8 类型随机值生成器。
@@ -1245,7 +1245,7 @@ extend UIntNative <: Arbitrary<UIntNative>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UIntNative>
+public static func arbitrary(random: RandomSource): Generator<UIntNative>
 ```
 
 功能：获取生成 UIntNative 类型随机值生成器。
@@ -1273,14 +1273,14 @@ extend Unit <: Arbitrary<Unit>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Unit>
+public static func arbitrary(_: RandomSource): Generator<Unit>
 ```
 
 功能：获取生成 Unit 类型随机值生成器。
 
 参数：
 
-- random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数。
+- _: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - 随机数。
 
 返回值：
 
@@ -1301,7 +1301,7 @@ extend<T> Array<T> <: Arbitrary<Array<T>> where T <: Arbitrary<T>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Array<T>>
+public static func arbitrary(random: RandomSource): Generator<Array<T>>
 ```
 
 功能：获取生成 Array\<T> 类型随机值生成器。
@@ -1329,7 +1329,7 @@ extend<T> option<T> <: Arbitrary<Option<T>> where T <: Arbitrary<T>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Option<T>>
+public static func arbitrary(random: RandomSource): Generator<Option<T>>
 ```
 
 功能：获取生成 option\<T> 类型随机值生成器。
@@ -1357,7 +1357,7 @@ extend<T> ArrayList<T> <: Arbitrary<ArrayList<T>> where T <: Arbitrary<T>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<ArrayList<T>>
+public static func arbitrary(random: RandomSource): Generator<ArrayList<T>>
 ```
 
 功能：获取生成 ArrayList\<T> 类型随机值生成器。
@@ -1385,7 +1385,7 @@ extend<T> HashSet<T> <: Arbitrary<HashSet<T>> where T <: Arbitrary<T>
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<HashSet<T>>
+public static func arbitrary(random: RandomSource): Generator<HashSet<T>>
 ```
 
 功能：获取生成 HashSet\<T> 类型随机值生成器。
@@ -1413,7 +1413,7 @@ extend<K, V> HashMap<K, V> <: Arbitrary<HashMap<K, V>> where K <: Arbitrary<K>, 
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<HashMap<K, V>>
+public static func arbitrary(random: RandomSource): Generator<HashMap<K, V>>
 ```
 
 功能：获取生成 HashMap\<K, V> 类型随机值生成器。
@@ -1539,7 +1539,7 @@ public interface RandomSource {
 ### func nextBool()
 
 ```cangjie
-public open func nextBool(): Bool
+func nextBool(): Bool
 ```
 
 功能：获取一个布尔类型的伪随机值。
@@ -1551,7 +1551,7 @@ public open func nextBool(): Bool
 ### func nextFloat16()
 
 ```cangjie
-public open func nextFloat16(): Float16
+func nextFloat16(): Float16
 ```
 
 功能：获取一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1563,7 +1563,7 @@ public open func nextFloat16(): Float16
 ### func nextFloat32()
 
 ```cangjie
-public open func nextFloat32(): Float32
+func nextFloat32(): Float32
 ```
 
 功能：获取一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1575,7 +1575,7 @@ public open func nextFloat32(): Float32
 ### func nextFloat64()
 
 ```cangjie
-public open func nextFloat64(): Float64
+func nextFloat64(): Float64
 ```
 
 功能：获取一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1606,7 +1606,7 @@ public func nextGaussianFloat64(mean!: Float64 = 0.0, sigma!: Float64 = 1.0): Fl
 ### func nextInt16()
 
 ```cangjie
-public open func nextInt16(): Int16
+func nextInt16(): Int16
 ```
 
 功能：获取一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
@@ -1618,7 +1618,7 @@ public open func nextInt16(): Int16
 ### func nextInt16(Int16)
 
 ```cangjie
-public open func nextInt16(upper: Int16): Int16
+func nextInt16(upper: Int16): Int16
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
@@ -1638,7 +1638,7 @@ public open func nextInt16(upper: Int16): Int16
 ### func nextInt32()
 
 ```cangjie
-public open func nextInt32(): Int32
+func nextInt32(): Int32
 ```
 
 功能：获取一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
@@ -1650,7 +1650,7 @@ public open func nextInt32(): Int32
 ### func nextInt32(Int32)
 
 ```cangjie
-public open func nextInt32(upper: Int32): Int32
+func nextInt32(upper: Int32): Int32
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
@@ -1670,7 +1670,7 @@ public open func nextInt32(upper: Int32): Int32
 ### func nextInt64()
 
 ```cangjie
-public open func nextInt64(): Int64
+func nextInt64(): Int64
 ```
 
 功能：获取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
@@ -1682,7 +1682,7 @@ public open func nextInt64(): Int64
 ### func nextInt64(Int64)
 
 ```cangjie
-public open func nextInt64(upper: Int64): Int64
+func nextInt64(upper: Int64): Int64
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
@@ -1702,7 +1702,7 @@ public open func nextInt64(upper: Int64): Int64
 ### func nextInt8()
 
 ```cangjie
-public open func nextInt8(): Int8
+func nextInt8(): Int8
 ```
 
 功能：获取一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
@@ -1714,7 +1714,7 @@ public open func nextInt8(): Int8
 ### func nextInt8(Int8)
 
 ```cangjie
-public open func nextInt8(upper: Int8): Int8
+func nextInt8(upper: Int8): Int8
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
@@ -1746,7 +1746,7 @@ public func nextIntNative(): IntNative
 ### func nextUInt16()
 
 ```cangjie
-public open func nextUInt16(): UInt16
+func nextUInt16(): UInt16
 ```
 
 功能：获取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
@@ -1758,7 +1758,7 @@ public open func nextUInt16(): UInt16
 ### func nextUInt16(UInt16)
 
 ```cangjie
-public open func nextUInt16(upper: UInt16): UInt16
+func nextUInt16(upper: UInt16): UInt16
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
@@ -1778,7 +1778,7 @@ public open func nextUInt16(upper: UInt16): UInt16
 ### func nextUInt32()
 
 ```cangjie
-public open func nextUInt32(): UInt32
+func nextUInt32(): UInt32
 ```
 
 功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
@@ -1790,7 +1790,7 @@ public open func nextUInt32(): UInt32
 ### func nextUInt32(UInt32)
 
 ```cangjie
-public open func nextUInt32(upper: UInt32): UInt32
+func nextUInt32(upper: UInt32): UInt32
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
@@ -1810,7 +1810,7 @@ public open func nextUInt32(upper: UInt32): UInt32
 ### func nextUInt64()
 
 ```cangjie
-public open func nextUInt64(): UInt64
+func nextUInt64(): UInt64
 ```
 
 功能：获取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
@@ -1822,7 +1822,7 @@ public open func nextUInt64(): UInt64
 ### func nextUInt64(UInt64)
 
 ```cangjie
-public open func nextUInt64(upper: UInt64): UInt64
+func nextUInt64(upper: UInt64): UInt64
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
@@ -1842,7 +1842,7 @@ public open func nextUInt64(upper: UInt64): UInt64
 ### func nextUInt8()
 
 ```cangjie
-public open func nextUInt8(): UInt8
+func nextUInt8(): UInt8
 ```
 
 功能：获取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
@@ -1854,7 +1854,7 @@ public open func nextUInt8(): UInt8
 ### func nextUInt8(UInt8)
 
 ```cangjie
-public open func nextUInt8(upper: UInt8): UInt8
+func nextUInt8(upper: UInt8): UInt8
 ```
 
 功能：获取一个范围在 [0, `upper`) 的 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
@@ -1886,7 +1886,7 @@ public func nextUIntNative(): UIntNative
 ### func suggestBool()
 
 ```cangjie
-public open func suggestBool(): Bool
+func suggestBool(): Bool
 ```
 
 功能：获取一个布尔类型的伪随机值。
@@ -1898,7 +1898,7 @@ public open func suggestBool(): Bool
 ### func suggestRune()
 
 ```cangjie
-public open func suggestRune(): Rune
+func suggestRune(): Rune
 ```
 
 功能：获取一个 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的伪随机值。
@@ -1910,7 +1910,7 @@ public open func suggestRune(): Rune
 ### func suggestFloat16()
 
 ```cangjie
-public open func suggestFloat16(): Float16
+func suggestFloat16(): Float16
 ```
 
 功能：获取一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1922,7 +1922,7 @@ public open func suggestFloat16(): Float16
 ### func suggestFloat32()
 
 ```cangjie
-public open func suggestFloat32(): Float32
+func suggestFloat32(): Float32
 ```
 
 功能：获取一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1934,7 +1934,7 @@ public open func suggestFloat32(): Float32
 ### func suggestFloat64()
 
 ```cangjie
-public open func suggestFloat64(): Float64
+func suggestFloat64(): Float64
 ```
 
 功能：获取一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的伪随机数，其范围为 [0.0, 1.0)。
@@ -1946,7 +1946,7 @@ public open func suggestFloat64(): Float64
 ### func suggestInt16()
 
 ```cangjie
-public open func suggestInt16(): Int16
+func suggestInt16(): Int16
 ```
 
 功能：获取一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
@@ -1958,7 +1958,7 @@ public open func suggestInt16(): Int16
 ### func suggestInt32()
 
 ```cangjie
-public open func suggestInt32(): Int32
+func suggestInt32(): Int32
 ```
 
 功能：获取一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
@@ -1970,7 +1970,7 @@ public open func suggestInt32(): Int32
 ### func suggestInt64()
 
 ```cangjie
-public open func suggestInt64(): Int64
+func suggestInt64(): Int64
 ```
 
 功能：获取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
@@ -1982,7 +1982,7 @@ public open func suggestInt64(): Int64
 ### func suggestInt8()
 
 ```cangjie
-public open func suggestInt8(): Int8
+func suggestInt8(): Int8
 ```
 
 功能：获取一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
@@ -2006,7 +2006,7 @@ public func suggestIntNative(): IntNative
 ### func suggestUInt16()
 
 ```cangjie
-public open func suggestUInt16(): UInt16
+func suggestUInt16(): UInt16
 ```
 
 功能：获取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
@@ -2018,7 +2018,7 @@ public open func suggestUInt16(): UInt16
 ### func suggestUInt32()
 
 ```cangjie
-public open func suggestUInt32(): UInt32
+func suggestUInt32(): UInt32
 ```
 
 功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
@@ -2030,7 +2030,7 @@ public open func suggestUInt32(): UInt32
 ### func suggestUInt64()
 
 ```cangjie
-public open func suggestUInt64(): UInt64
+func suggestUInt64(): UInt64
 ```
 
 功能：获取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
@@ -2042,7 +2042,7 @@ public open func suggestUInt64(): UInt64
 ### func suggestUInt8()
 
 ```cangjie
-public open func suggestUInt8(): UInt8
+func suggestUInt8(): UInt8
 ```
 
 功能：获取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
@@ -2321,7 +2321,7 @@ extend Bool <: Shrink<Bool>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Bool>
+public func shrink(): Iterable<Bool>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2345,7 +2345,7 @@ extend Int16 <: Shrink<Int16>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int16>
+public func shrink(): Iterable<Int16>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2369,7 +2369,7 @@ extend Int32 <: Shrink<Int32>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int32>
+public func shrink(): Iterable<Int32>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2393,7 +2393,7 @@ extend Int64 <: Shrink<Int64>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int64>
+public func shrink(): Iterable<Int64>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2417,7 +2417,7 @@ extend Int8 <: Shrink<Int8>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int8>
+public func shrink(): Iterable<Int8>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2441,7 +2441,7 @@ extend IntNative <: Shrink<IntNative>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<IntNative>
+public func shrink(): Iterable<IntNative>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2465,7 +2465,7 @@ extend Rune <: Shrink<Rune>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Rune>
+public func shrink(): Iterable<Rune>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2489,7 +2489,7 @@ extend String <: Shrink<String>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<String>
+public func shrink(): Iterable<String>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2513,7 +2513,7 @@ extend UInt16 <: Shrink<UInt16>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt16>
+public func shrink(): Iterable<UInt16>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2537,7 +2537,7 @@ extend UInt32 <: Shrink<UInt32>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt32>
+public func shrink(): Iterable<UInt32>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2561,7 +2561,7 @@ extend UInt64 <: Shrink<UInt64>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt64>
+public func shrink(): Iterable<UInt64>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2585,7 +2585,7 @@ extend UInt8 <: Shrink<UInt8>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt8>
+public func shrink(): Iterable<UInt8>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2609,7 +2609,7 @@ extend UIntNative <: Shrink<UIntNative>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UIntNative>
+public func shrink(): Iterable<UIntNative>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2633,7 +2633,7 @@ extend Unit <: Shrink<Unit>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Unit>
+public func shrink(): Iterable<Unit>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2657,7 +2657,7 @@ extend Float16 <: Shrink<Float16>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float16>
+public func shrink(): Iterable<Float16>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2681,7 +2681,7 @@ extend Float32 <: Shrink<Float32>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float32>
+public func shrink(): Iterable<Float32>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2705,7 +2705,7 @@ extend Float64 <: Shrink<Float64>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float64>
+public func shrink(): Iterable<Float64>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2729,7 +2729,7 @@ extend<T> Array<T> <: Shrink<Array<T>>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Array<T>>
+public func shrink(): Iterable<Array<T>>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2753,7 +2753,7 @@ extend<T> Option<T> <: Shrink<Option<T>>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Option<T>>
+public func shrink(): Iterable<Option<T>>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2777,7 +2777,7 @@ extend<T> ArrayList<T> <: Shrink<ArrayList<T>>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<ArrayList<T>>
+public func shrink(): Iterable<ArrayList<T>>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2801,7 +2801,7 @@ extend<T> HashSet<T> <: Shrink<HashSet<T>>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashSet<T>>
+public func shrink(): Iterable<HashSet<T>>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。
@@ -2825,7 +2825,7 @@ extend<K, V> HashMap<K, V> <: Shrink<HashMap<K, V>>
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashMap<K, V>>
+public func shrink(): Iterable<HashMap<K, V>>
 ```
 
 功能：将该值缩小为一组可能的“较小”值。

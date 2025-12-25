@@ -86,7 +86,7 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
@@ -126,7 +126,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides a unit conversion table for the current time.
@@ -137,7 +137,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides a unique display name for the current time unit, e.g.: `CpuCycles`.
@@ -147,7 +147,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: Simple text description of this measurement that will appear in certain reports.
@@ -204,7 +204,7 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
@@ -220,14 +220,14 @@ Return Value:
 ### func reset(Int64)
 
 ```cangjie
-public mut func reset(max: Int64)
+public mut func reset(_: Int64)
 ```
 
 Function: Called before benchmark measurements. After calling this function, subsequent `get(i)` calls must successfully retrieve `i` within [0, max).
 
 Parameters:
 
-- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum value.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum value.
 
 ## struct ImmutableInputProvider\<T>
 
@@ -258,7 +258,7 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
@@ -327,7 +327,7 @@ Parent Types:
 ### prop baseline
 
 ```cangjie
-public static prop baseline: Baseline
+public static prop baseline: KeyBaseline
 ```
 
 Function: The key value for configuration items.
@@ -355,7 +355,7 @@ Parent Types:
 ### prop baselinePath
 
 ```cangjie
-public static prop baselinePath: BaselinePath
+public static prop baselinePath: KeyBaselinePath
 ```
 
 Function: The key value for configuration items.
@@ -383,7 +383,7 @@ Parent Types:
 ### prop batchSize
 
 ```cangjie
-public static prop batchSize: BatchSize
+public static prop batchSize: KeyBatchSize
 ```
 
 Function: The key value for configuration items.
@@ -411,7 +411,7 @@ Parent Types:
 ### prop bench
 
 ```cangjie
-public static prop bench: Bench
+public static prop bench: KeyBench
 ```
 
 Function: The key value for configuration items.
@@ -437,7 +437,7 @@ Parent Type:
 ### prop captureOutput
 
 ```cangjie
-public static prop captureOutput: CaptureOutput
+public static prop captureOutput: KeyCaptureOutput
 ```
 
 Function: The key value for the configuration item.
@@ -465,7 +465,7 @@ Parent Type:
 ### prop coverageGuided
 
 ```cangjie
-public static prop coverageGuided: CoverageGuided
+public static prop coverageGuided: KeyCoverageGuided
 ```
 
 Function: The key value for the configuration item.
@@ -493,7 +493,7 @@ Parent Type:
 ### prop coverageGuidedBaselineScore
 
 ```cangjie
-public static prop coverageGuidedBaselineScore: CoverageGuidedBaselineScore
+public static prop coverageGuidedBaselineScore: KeyCoverageGuidedBaselineScore
 ```
 
 Function: The key value for the configuration item.
@@ -521,7 +521,7 @@ Parent Type:
 ### prop coverageGuidedInitialSeeds
 
 ```cangjie
-public static prop coverageGuidedInitialSeeds: CoverageGuidedInitialSeeds
+public static prop coverageGuidedInitialSeeds: KeyCoverageGuidedInitialSeeds
 ```
 
 Function: The key value for the configuration item.
@@ -549,7 +549,7 @@ Parent Type:
 ### prop coverageGuidedMaxCandidates
 
 ```cangjie
-public static prop coverageGuidedMaxCandidates: CoverageGuidedMaxCandidates
+public static prop coverageGuidedMaxCandidates: KeyCoverageGuidedMaxCandidates
 ```
 
 Function: The key value for the configuration item.
@@ -577,7 +577,7 @@ Parent Type:
 ### prop coverageGuidedNewCoverageBonus
 
 ```cangjie
-public static prop coverageGuidedNewCoverageBonus: CoverageGuidedNewCoverageBonus
+public static prop coverageGuidedNewCoverageBonus: KeyCoverageGuidedNewCoverageBonus
 ```
 
 Function: The key value for the configuration item.
@@ -605,7 +605,7 @@ Parent Type:
 ### prop coverageGuidedNewCoverageScore
 
 ```cangjie
-public static prop coverageGuidedNewCoverageScore: CoverageGuidedNewCoverageScore
+public static prop coverageGuidedNewCoverageScore: KeyCoverageGuidedNewCoverageScore
 ```
 
 Function: The key value for the configuration item.
@@ -633,7 +633,7 @@ Parent Type:
 ### prop deathAware
 
 ```cangjie
-public static prop deathAware: DeathAware
+public static prop deathAware: KeyDeathAware
 ```
 
 Function: The key value for the configuration item.
@@ -661,7 +661,7 @@ Parent Type:
 ### prop dryRun
 
 ```cangjie
-public static prop dryRun: DryRun
+public static prop dryRun: KeyDryRun
 ```
 
 Function: The key value for the configuration item.
@@ -689,7 +689,7 @@ Parent Type:
 ### prop excludeTags
 
 ```cangjie
-public static prop excludeTags: ExcludeTags
+public static prop excludeTags: KeyExcludeTags
 ```
 
 Function: The key value for the configuration item.
@@ -717,7 +717,7 @@ Parent Type:
 ### prop explicitGC
 
 ```cangjie
-public static prop explicitGC: ExplicitGC
+public static prop explicitGC: KeyExplicitGC
 ```
 
 Function: The key value for the configuration item.
@@ -745,7 +745,7 @@ Parent Type:
 ### prop filter
 
 ```cangjie
-public static prop filter: Filter
+public static prop filter: KeyFilter
 ```
 
 Function: The key value for the configuration item.
@@ -773,7 +773,7 @@ Parent Type:
 ### prop fromTopLevel
 
 ```cangjie
-public static prop fromTopLevel: FromTopLevel
+public static prop fromTopLevel: KeyFromTopLevel
 ```
 
 Function: The key value for the configuration item.
@@ -801,7 +801,7 @@ Parent Type:
 ### prop generationSteps
 
 ```cangjie
-public static prop generationSteps: GenerationSteps
+public static prop generationSteps: KeyGenerationSteps
 ```
 
 Function: The key value for the configuration item.
@@ -857,7 +857,7 @@ Parent Types:
 ### prop includeTags
 
 ```cangjie
-public static prop includeTags: IncludeTags
+public static prop includeTags: KeyIncludeTags
 ```
 
 Function: The key value of the configuration item.
@@ -885,7 +885,7 @@ Parent Types:
 ### prop internalTestrunnerInputPath
 
 ```cangjie
-public static prop internalTestrunnerInputPath: InternalTestrunnerInputPath
+public static prop internalTestrunnerInputPath: KeyInternalTestrunnerInputPath
 ```
 
 Function: The key value of the configuration item.
@@ -913,7 +913,7 @@ Parent Types:
 ### prop measurement
 
 ```cangjie
-public static prop measurement: Measurement
+public static prop measurement: KeyMeasurement
 ```
 
 Function: The key value of the configuration item.
@@ -941,7 +941,7 @@ Parent Types:
 ### prop measurementInfo
 
 ```cangjie
-public static prop measurementInfo: MeasurementInfo
+public static prop measurementInfo: KeyMeasurementInfo
 ```
 
 Function: The key value of the configuration item.
@@ -969,7 +969,7 @@ Parent Types:
 ### prop minBatches
 
 ```cangjie
-public static prop minBatches: MinBatches
+public static prop minBatches: KeyMinBatches
 ```
 
 Function: The key value of the configuration item.
@@ -997,7 +997,7 @@ Parent Types:
 ### prop minDuration
 
 ```cangjie
-public static prop minDuration: MinDuration
+public static prop minDuration: KeyMinDuration
 ```
 
 Function: The key value of the configuration item.
@@ -1025,7 +1025,7 @@ Parent Types:
 ### prop noCaptureOutput
 
 ```cangjie
-public static prop noCaptureOutput: NoCaptureOutput
+public static prop noCaptureOutput: KeyNoCaptureOutput
 ```
 
 Function: The key value of the configuration item.
@@ -1053,7 +1053,7 @@ Parent Types:
 ### prop noColor
 
 ```cangjie
-public static prop noColor: NoColor
+public static prop noColor: KeyNoColor
 ```
 
 Function: The key value of the configuration item.
@@ -1081,7 +1081,7 @@ Parent Types:
 ### prop parallel
 
 ```cangjie
-public static prop parallel: Parallel
+public static prop parallel: KeyParallel
 ```
 
 Function: The key value of the configuration item.
@@ -1109,7 +1109,7 @@ Parent Types:
 ### prop randomSeed
 
 ```cangjie
-public static prop randomSeed: RandomSeed
+public static prop randomSeed: KeyRandomSeed
 ```
 
 Function: The key value of the configuration item.
@@ -1137,7 +1137,7 @@ Parent Types:
 ### prop reductionSteps
 
 ```cangjie
-public static prop reductionSteps: ReductionSteps
+public static prop reductionSteps: KeyReductionSteps
 ```
 
 Function: The key value of the configuration item.
@@ -1165,7 +1165,7 @@ Parent Types:
 ### prop reportFormat
 
 ```cangjie
-public static prop reportFormat: ReportFormat
+public static prop reportFormat: KeyReportFormat
 ```
 
 Function: The key value of the configuration item.
@@ -1193,7 +1193,7 @@ Parent Types:
 ### prop reportPath
 
 ```cangjie
-public static prop reportPath: ReportPath
+public static prop reportPath: KeyReportPath
 ```
 
 Function: The key value of the configuration item.
@@ -1221,7 +1221,7 @@ Parent Types:
 ### prop showAllOutput
 
 ```cangjie
-public static prop showAllOutput: ShowAllOutput
+public static prop showAllOutput: KeyShowAllOutput
 ```
 
 Function: The key value of the configuration item.
@@ -1248,7 +1248,7 @@ Parent Types:
 ### prop showTags
 
 ```cangjie
-public static prop showTags: ShowTags
+public static prop showTags: KeyShowTags
 ```
 
 Function: The key value of the configuration item.
@@ -1276,7 +1276,7 @@ Parent Types:
 ### prop skip
 
 ```cangjie
-public static prop skip: Skip
+public static prop skip: KeySkip
 ```
 
 Function: The key value of the configuration item.
@@ -1304,7 +1304,7 @@ Parent Types:
 ### prop timeout
 
 ```cangjie
-public static prop timeout: Timeout
+public static prop timeout: KeyTimeout
 ```
 
 Function: The key value of the configuration item.
@@ -1332,7 +1332,7 @@ Parent Types:
 ### prop timeoutEach
 
 ```cangjie
-public static prop timeoutEach: TimeoutEach
+public static prop timeoutEach: KeyTimeoutEach
 ```
 
 Function: The key value of the configuration item.
@@ -1400,7 +1400,7 @@ Parent Types:
 ### prop verbose
 
 ```cangjie
-public static prop verbose: Verbose
+public static prop verbose: KeyVerbose
 ```
 
 Function: The key value of the configuration item.
@@ -1428,7 +1428,7 @@ Parent Types:
 ### prop warmup
 
 ```cangjie
-public static prop warmup: Warmup
+public static prop warmup: KeyWarmup
 ```
 
 Function: The key value of the configuration item.
@@ -1453,10 +1453,10 @@ public struct MeasurementInfo {
 
 Function: A structure for storing measurement information.
 
-### prop conversionTable
+### let conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public let  conversionTable: MeasurementUnitTable
 ```
 
 Function: Used to construct representations of measured values in performance test reports.
@@ -1467,10 +1467,10 @@ Default value is `[(1.0, "")]`.
 
 Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable).
 
-### prop name
+### let name
 
 ```cangjie
-prop name: String
+public let  name: String
 ```
 
 Function: The unique display name for the current `Measurement` type.
@@ -1479,10 +1479,10 @@ Default value is `Measurement`.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string).
 
-### prop textDescription
+### let textDescription
 
 ```cangjie
-prop textDescription: String
+public let textDescription: String
 ```
 
 Function: A simple text description of this measurement that will be displayed in certain reports.
@@ -1494,7 +1494,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ```cangjie
 public struct Perf <: Measurement {
     public init()
-    public Perf(counter: PerfCounter)
+    public Perf(var counter: PerfCounter)
 }
 ```
 
@@ -1507,7 +1507,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides the conversion table for corresponding CPU counters.
@@ -1517,7 +1517,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides a unique display name for the current CPU counter, e.g., `Perf(cycles)`.
@@ -1527,7 +1527,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: A simple text description of this measurement that will be displayed in certain reports.
@@ -1545,7 +1545,7 @@ Function: Default constructor using CPU cycle counters.
 ### Perf(PerfCounter)
 
 ```cangjie
-public Perf(counter: PerfCounter)
+public Perf(var counter: PerfCounter)
 ```
 
 Function: Constructor specifying the CPU counter to measure.
@@ -1569,7 +1569,7 @@ Return Value:
 ### func setup()
 
 ```cangjie
-func setup()
+public func setup()
 ```
 
 Function: Initialization routine for this CPU counter. Called before each benchmark step.
@@ -1657,7 +1657,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides the unit conversion table for current time.
@@ -1668,7 +1668,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides the unique display name for current time unit, e.g.: `Duration(ns)` or `Duration(s)`.
@@ -1678,7 +1678,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: A brief text description of this measurement that will be displayed in certain reports.

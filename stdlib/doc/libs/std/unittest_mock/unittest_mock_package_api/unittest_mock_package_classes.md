@@ -13,7 +13,7 @@ public sealed abstract class ActionSelector {}
 ### func fails()
 
 ```cangjie
-func fails(): Unit
+public func fails(): Unit
 ```
 
 功能：定义调用桩签名将导致测试失败，执行至桩签名即抛出 [AssertionException](../../unittest/unittest_package_api/unittest_package_exceptions.md#class-assertexception) 异常的行为。
@@ -109,7 +109,7 @@ public func forParameter(name: String): ArgumentMatcher
 ### func matchesAny(Any)
 
 ```cangjie
-public func matchesAny(arg: Any)
+public func matchesAny(arg: Any): Bool
 ```
 
 功能：匹配任意类型的任意值。
@@ -139,7 +139,7 @@ public class CardinalitySelector<A> where A <: ActionSelector {}
 ### func anyTimes()
 
 ```cangjie
-func anyTimes(): Unit
+public func anyTimes(): Unit
 ```
 
 功能：定义“桩行为”可以执行任意次数。此函数对桩签名的调用次数不做任何校验。
@@ -147,7 +147,7 @@ func anyTimes(): Unit
 ### func atLeastOnce()
 
 ```cangjie
-func atLeastOnce(): Unit
+public func atLeastOnce(): Unit
 ```
 
 功能：定义“桩行为”最少被执行一次。验证不到一次时，抛出异常。
@@ -159,7 +159,7 @@ func atLeastOnce(): Unit
 ### func atLeastTimes(Int64)
 
 ```cangjie
-func atLeastTimes(minTimesExpected: Int64): Unit
+public func atLeastTimes(minTimesExpected: Int64): Unit
 ```
 
 功能：定义“桩行为”最少被执行指定次数的行为。验证实际执行次数低于最少指定次数时，抛出异常。
@@ -176,7 +176,7 @@ func atLeastTimes(minTimesExpected: Int64): Unit
 ### func once()
 
 ```cangjie
-func once(): Continuation<A>
+public func once(): Continuation<A>
 ```
 
 功能：定义“桩行为”仅被执行一次。此函数将在验证桩签名执行次数超出一次时，抛出异常。
@@ -192,7 +192,7 @@ func once(): Continuation<A>
 ### func times(Int64)
 
 ```cangjie
-func times(expectedTimes: Int64): Continuation<A>
+public func times(expectedTimes: Int64): Continuation<A>
 ```
 
 功能：定义“桩行为”被执行指定次数。验证不是指定次数时，抛出异常。
@@ -213,7 +213,7 @@ func times(expectedTimes: Int64): Continuation<A>
 ### func times(Int64, Int64)
 
 ```cangjie
-func times(min!: Int64, max!: Int64): Unit
+public func times(min!: Int64, max!: Int64): Unit
 ```
 
 功能：定义“桩行为”执行指定次数范围。验证超出指定次数范围时，抛出异常。
@@ -731,7 +731,7 @@ public class MethodActionSelector<TRet> <: ActionSelector {}
 ### func callsOriginal()
 
 ```cangjie
-func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
+public func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名执行原始代码逻辑的行为。
@@ -743,7 +743,7 @@ func callsOriginal(): CardinalitySelector<MethodActionSelector<TRet>>
 ### func returns(() -> TRet)
 
 ```cangjie
-func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector<TRet>>
+public func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名返回指定的值的行为，该值由传入的闭包生成。
@@ -759,7 +759,7 @@ func returns(valueFactory: () -> TRet): CardinalitySelector<MethodActionSelector
 ### func returns(TRet)
 
 ```cangjie
-func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
+public func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
 功能：定义[桩签名](../unittest_mock_samples/mock_framework_basics.md#桩签名)返回指定值的行为。
@@ -775,7 +775,7 @@ func returns(value: TRet): CardinalitySelector<MethodActionSelector<TRet>>
 ### func returnsConsecutively(Array\<TRet>)
 
 ```cangjie
-func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelector<TRet>>
+public func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名按列表顺序返回指定的值的行为。桩签名将被调用多次，次数与数组内值的个数相同。
@@ -795,7 +795,7 @@ func returnsConsecutively(values: Array<TRet>): Continuation<MethodActionSelecto
 ### func returnsConsecutively(ArrayList\<TRet>)
 
 ```cangjie
-func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSelector<TRet>>
+public func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名按列表顺序返回指定的值的行为。桩签名将被连续调用多次，次数与数组列表内值的个数相同。
@@ -815,7 +815,7 @@ func returnsConsecutively(values: ArrayList<TRet>): Continuation<MethodActionSel
 ### func throws(() -> Exception)
 
 ```cangjie
-func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodActionSelector<TRet>>
+public func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名抛出异常的行为，异常由参数闭包函数生成。
@@ -838,7 +838,7 @@ func throws(exceptionFactory: () -> Exception): CardinalitySelector<MethodAction
 ### func throws(Exception)
 
 ```cangjie
-func throws(exception: Exception): CardinalitySelector<MethodActionSelector<TRet>>
+public func throws(exception: Exception): CardinalitySelector<MethodActionSelector<TRet>>
 ```
 
 功能：定义桩签名抛出异常的行为。
@@ -1103,7 +1103,7 @@ public func matches(arg: T): Bool
 ### func matchesAny(Any)
 
 ```cangjie
-public func matchesAny(arg: Any): Bool
+public override func matchesAny(arg: Any): Bool
 ```
 
 功能：检查入参类型是否与预期相符。
@@ -1124,10 +1124,10 @@ extend<T> TypedMatcher<T> {}
 
 功能：扩展 [TypedMatcher](#class-typedmatchert) 。
 
-#### func value\<T>()
+#### func value()
 
 ```cangjie
-public func value<T>(): T
+public func value(): T
 ```
 
 功能：框架需要调用的参数匹配器的返回值。
@@ -1211,14 +1211,14 @@ public static func clearInvocationLog(): Unit
 ### static func noInteractions(Array\<Object>)
 
 ```cangjie
-public static func noInteractions(mocks: Array<Object>): Unit
+public static func noInteractions(mockObjects: Array<Object>): Unit
 ```
 
 功能：在验证范围内，对象没有任何执行动作时，验证通过。
 
 参数：
 
-- mocks: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Object](../../core/core_package_api/core_package_classes.md#class-object)> - 被验证的对象列表。
+- mockObjects: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Object](../../core/core_package_api/core_package_classes.md#class-object)> - 被验证的对象列表。
 
 异常：
 
@@ -1532,7 +1532,7 @@ public static func fromStub<R>(
     objName: Option<String>,
     declarationName: String,
     callDescription: String,
-    _: Int64
+    lineNumber: Int64
 ): VerifyStatement
 ```
 
@@ -1545,7 +1545,7 @@ public static func fromStub<R>(
 - objName: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 被插桩的对象的名称。
 - declarationName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 声明的名称。
 - callDescription: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 桩签名对应的调用表达式的字符串表达。
-- _: Int64 - 行号。
+- lineNumber: Int64 - 行号。
 
 返回值：
 

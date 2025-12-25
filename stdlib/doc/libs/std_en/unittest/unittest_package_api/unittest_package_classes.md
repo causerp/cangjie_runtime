@@ -564,7 +564,7 @@ Return Value:
 ### static func start(() -> DataStrategyProcessor\<T>, String)
 
 ```cangjie
-public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataStrategyProcessor<T>
+public static func start(f: () -> DataStrategyProcessor<T>, _: String): DataStrategyProcessor<T>
 ```
 
 Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
@@ -572,7 +572,7 @@ Function: Starting point for composition and mapping of [DataStrategy](../../uni
 Parameters:
 
 - s: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - Closure that generates a data strategy processor.
-- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
+- _: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
 Return Value:
 
@@ -583,7 +583,7 @@ Return Value:
 ```cangjie
 public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
-    name: String,
+    _: String,
     x!: Int64 = 0
 ): DataStrategyProcessor<U>
 ```
@@ -895,7 +895,7 @@ Parameters:
 - passed: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the test case passed.## class Report
 
 ```cangjie
-sealed abstract class Report {}
+abstract sealed class Report {}
 ```
 
 Function: Base class for printing test case result reports.
@@ -1032,7 +1032,7 @@ Return Value:
 ### func runBenchmarks(Configuration)
 
 ```cangjie
-public func runBenchmarks(Configuration): BenchReport
+public func runBenchmarks(configuration: Configuration): BenchReport
 ```
 
 Function: Executes all benchmark test cases with runtime configuration.

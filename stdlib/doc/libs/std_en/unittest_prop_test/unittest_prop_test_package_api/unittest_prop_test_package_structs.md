@@ -273,7 +273,7 @@ extend<T0, T1> TupleWrapper2<T0, T1> <: Shrink<TupleWrapper2<T0, T1>>
 #### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper2<T0, T1>>
+public func shrink(): Iterable<TupleWrapper2<T0, T1>>
 ```
 
 Function: Shrinks the tuple.
@@ -460,7 +460,7 @@ extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Shrink<TupleWrapper3<T0, T1, T2>
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
+public func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
 ```
 
 Function: Shrinks the tuple.
@@ -622,7 +622,7 @@ Parent Type:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, T1, T2, T3>>
+public static func arbitrary(random: RandomSource): Generator<TupleWrapper4<T0, T1, T2, T3>>
 ```
 
 Function: Gets a generator for random values of type [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>.
@@ -646,7 +646,7 @@ extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3> <: Shrink<TupleWrapper4<T0,
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
+public func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
 ```
 
 Function: Shrinks the tuple.
@@ -835,7 +835,7 @@ extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Shrink<TupleWrap
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+public func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
 ```
 
 Function: Shrinks the tuple.

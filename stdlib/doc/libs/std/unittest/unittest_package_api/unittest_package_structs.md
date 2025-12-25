@@ -86,7 +86,7 @@ public BatchSizeOneInputProvider(let builder: () -> T)
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 功能：获取元素，该函数的执行时间包含在基准测量中，然后作为框架开销计算的一部分从结果中排除。
@@ -126,7 +126,7 @@ public struct CpuCycles <: Measurement {}
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 功能：提供当前时间的单位换算表。
@@ -137,7 +137,7 @@ prop conversionTable: MeasurementUnitTable
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 功能：提供当前时间单位唯一的显示名称，例如：`CpuCycles`。
@@ -147,7 +147,7 @@ prop name: String
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 功能：描述此测量的简单文本将显示在某些报告中。
@@ -204,7 +204,7 @@ public GenerateEachInputProvider(let builder: () -> T)
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 功能：获取元素，该函数的执行时间包含在基准测量中，然后作为框架开销计算的一部分从结果中排除。
@@ -220,14 +220,14 @@ public mut func get(idx: Int64): T
 ### func reset(Int64)
 
 ```cangjie
-public mut func reset(max: Int64)
+public mut func reset(_: Int64)
 ```
 
 功能：在基准测量之前调用。调用此函数后，后续的 `get(i)` 调用必须成功获取 [0, max) 中的 `i` 。
 
 参数：
 
-- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 最大值。
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 最大值。
 
 ## struct ImmutableInputProvider\<T>
 
@@ -258,7 +258,7 @@ public ImmutableInputProvider(let data: T)
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 功能：获取元素，该函数的执行时间包含在基准测量中，然后作为框架开销计算的一部分从结果中排除。
@@ -327,7 +327,7 @@ conf.set(KeyBaseline.baseline, "baseline")
 ### prop baseline
 
 ```cangjie
-public static prop baseline: Baseline
+public static prop baseline: KeyBaseline
 ```
 
 功能：配置项的键值。
@@ -355,7 +355,7 @@ public struct KeyBaselinePath <: KeyFor<String> {}
 ### prop baselinePath
 
 ```cangjie
-public static prop baselinePath: BaselinePath
+public static prop baselinePath: KeyBaselinePath
 ```
 
 功能：配置项的键值。
@@ -383,7 +383,7 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 ### prop batchSize
 
 ```cangjie
-public static prop batchSize: BatchSize
+public static prop batchSize: KeyBatchSize
 ```
 
 功能：配置项的键值。
@@ -411,7 +411,7 @@ public struct KeyBench <: KeyFor<Bool> {}
 ### prop bench
 
 ```cangjie
-public static prop bench: Bench
+public static prop bench: KeyBench
 ```
 
 功能：配置项的键值。
@@ -439,7 +439,7 @@ public struct KeyCaptureOutput <: KeyFor<Bool> {}
 ### prop captureOutput
 
 ```cangjie
-public static prop captureOutput: CaptureOutput
+public static prop captureOutput: KeyCaptureOutput
 ```
 
 功能：配置项的键值。
@@ -467,7 +467,7 @@ public struct KeyCoverageGuided <: KeyFor<Bool> {}
 ### prop coverageGuided
 
 ```cangjie
-public static prop coverageGuided: CoverageGuided
+public static prop coverageGuided: KeyCoverageGuided
 ```
 
 功能：配置项的键值。
@@ -495,7 +495,7 @@ public struct KeyCoverageGuidedBaselineScore <: KeyFor<Int64> {}
 ### prop coverageGuidedBaselineScore
 
 ```cangjie
-public static prop coverageGuidedBaselineScore: CoverageGuidedBaselineScore
+public static prop coverageGuidedBaselineScore: KeyCoverageGuidedBaselineScore
 ```
 
 功能：配置项的键值。
@@ -523,7 +523,7 @@ public struct KeyCoverageGuidedInitialSeeds <: KeyFor<Int64> {}
 ### prop coverageGuidedInitialSeeds
 
 ```cangjie
-public static prop coverageGuidedInitialSeeds: CoverageGuidedInitialSeeds
+public static prop coverageGuidedInitialSeeds: KeyCoverageGuidedInitialSeeds
 ```
 
 功能：配置项的键值。
@@ -551,7 +551,7 @@ public struct KeyCoverageGuidedMaxCandidates <: KeyFor<Int64> {}
 ### prop coverageGuidedMaxCandidates
 
 ```cangjie
-public static prop coverageGuidedMaxCandidates: CoverageGuidedMaxCandidates
+public static prop coverageGuidedMaxCandidates: KeyCoverageGuidedMaxCandidates
 ```
 
 功能：配置项的键值。
@@ -579,7 +579,7 @@ public struct KeyCoverageGuidedNewCoverageBonus <: KeyFor<Int64> {}
 ### prop coverageGuidedNewCoverageBonus
 
 ```cangjie
-public static prop coverageGuidedNewCoverageBonus: CoverageGuidedNewCoverageBonus
+public static prop coverageGuidedNewCoverageBonus: KeyCoverageGuidedNewCoverageBonus
 ```
 
 功能：配置项的键值。
@@ -607,7 +607,7 @@ public struct KeyCoverageGuidedNewCoverageScore <: KeyFor<Int64> {}
 ### prop coverageGuidedNewCoverageScore
 
 ```cangjie
-public static prop coverageGuidedNewCoverageScore: CoverageGuidedNewCoverageScore
+public static prop coverageGuidedNewCoverageScore: KeyCoverageGuidedNewCoverageScore
 ```
 
 功能：配置项的键值。
@@ -635,7 +635,7 @@ public struct KeyDeathAware <: KeyFor<Bool> {}
 ### prop deathAware
 
 ```cangjie
-public static prop deathAware: DeathAware
+public static prop deathAware: KeyDeathAware
 ```
 
 功能：配置项的键值。
@@ -663,7 +663,7 @@ public struct KeyDryRun <: KeyFor<Bool> {}
 ### prop dryRun
 
 ```cangjie
-public static prop dryRun: DryRun
+public static prop dryRun: KeyDryRun
 ```
 
 功能：配置项的键值。
@@ -691,7 +691,7 @@ public struct KeyExcludeTags <: KeyFor<String> {}
 ### prop excludeTags
 
 ```cangjie
-public static prop excludeTags: ExcludeTags
+public static prop excludeTags: KeyExcludeTags
 ```
 
 功能：配置项的键值。
@@ -719,7 +719,7 @@ public struct KeyExplicitGC <: KeyFor<ExplicitGcType> {}
 ### prop explicitGC
 
 ```cangjie
-public static prop explicitGC: ExplicitGC
+public static prop explicitGC: KeyExplicitGC
 ```
 
 功能：配置项的键值。
@@ -747,7 +747,7 @@ public struct KeyFilter <: KeyFor<String> {}
 ### prop filter
 
 ```cangjie
-public static prop filter: Filter
+public static prop filter: KeyFilter
 ```
 
 功能：配置项的键值。
@@ -775,7 +775,7 @@ public struct KeyFromTopLevel <: KeyFor<Bool> {}
 ### prop fromTopLevel
 
 ```cangjie
-public static prop fromTopLevel: FromTopLevel
+public static prop fromTopLevel: KeyFromTopLevel
 ```
 
 功能：配置项的键值。
@@ -803,7 +803,7 @@ public struct KeyGenerationSteps <: KeyFor<Int64> {}
 ### prop generationSteps
 
 ```cangjie
-public static prop generationSteps: GenerationSteps
+public static prop generationSteps: KeyGenerationSteps
 ```
 
 功能：配置项的键值。
@@ -859,7 +859,7 @@ public struct KeyIncludeTags <: KeyFor<String> {}
 ### prop includeTags
 
 ```cangjie
-public static prop includeTags: IncludeTags
+public static prop includeTags: KeyIncludeTags
 ```
 
 功能：配置项的键值。
@@ -887,7 +887,7 @@ public struct KeyInternalTestrunnerInputPath <: KeyFor<String> {}
 ### prop internalTestrunnerInputPath
 
 ```cangjie
-public static prop internalTestrunnerInputPath: InternalTestrunnerInputPath
+public static prop internalTestrunnerInputPath: KeyInternalTestrunnerInputPath
 ```
 
 功能：配置项的键值。
@@ -915,7 +915,7 @@ public struct KeyMeasurement <: KeyFor<Measurement> {}
 ### prop measurement
 
 ```cangjie
-public static prop measurement: Measurement
+public static prop measurement: KeyMeasurement
 ```
 
 功能：配置项的键值。
@@ -943,7 +943,7 @@ public struct KeyMeasurementInfo <: KeyFor<MeasurementInfo> {}
 ### prop measurementInfo
 
 ```cangjie
-public static prop measurementInfo: MeasurementInfo
+public static prop measurementInfo: KeyMeasurementInfo
 ```
 
 功能：配置项的键值。
@@ -971,7 +971,7 @@ public struct KeyMinBatches <: KeyFor<Int64> {}
 ### prop minBatches
 
 ```cangjie
-public static prop minBatches: MinBatches
+public static prop minBatches: KeyMinBatches
 ```
 
 功能：配置项的键值。
@@ -999,7 +999,7 @@ public struct KeyMinDuration <: KeyFor<Duration> {}
 ### prop minDuration
 
 ```cangjie
-public static prop minDuration: MinDuration
+public static prop minDuration: KeyMinDuration
 ```
 
 功能：配置项的键值。
@@ -1027,7 +1027,7 @@ public struct KeyNoCaptureOutput <: KeyFor<Bool> {}
 ### prop noCaptureOutput
 
 ```cangjie
-public static prop noCaptureOutput: NoCaptureOutput
+public static prop noCaptureOutput: KeyNoCaptureOutput
 ```
 
 功能：配置项的键值。
@@ -1055,7 +1055,7 @@ public struct KeyNoColor <: KeyFor<Bool> {}
 ### prop noColor
 
 ```cangjie
-public static prop noColor: NoColor
+public static prop noColor: KeyNoColor
 ```
 
 功能：配置项的键值。
@@ -1083,7 +1083,7 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 ### prop parallel
 
 ```cangjie
-public static prop parallel: Parallel
+public static prop parallel: KeyParallel
 ```
 
 功能：配置项的键值。
@@ -1111,7 +1111,7 @@ public struct KeyRandomSeed <: KeyFor<Int64> {}
 ### prop randomSeed
 
 ```cangjie
-public static prop randomSeed: RandomSeed
+public static prop randomSeed: KeyRandomSeed
 ```
 
 功能：配置项的键值。
@@ -1139,7 +1139,7 @@ public struct KeyReductionSteps <: KeyFor<Int64> {}
 ### prop reductionSteps
 
 ```cangjie
-public static prop reductionSteps: ReductionSteps
+public static prop reductionSteps: KeyReductionSteps
 ```
 
 功能：配置项的键值。
@@ -1167,7 +1167,7 @@ public struct KeyReportFormat <: KeyFor<String> {}
 ### prop reportFormat
 
 ```cangjie
-public static prop reportFormat: ReportFormat
+public static prop reportFormat: KeyReportFormat
 ```
 
 功能：配置项的键值。
@@ -1195,7 +1195,7 @@ public struct KeyReportPath <: KeyFor<String> {}
 ### prop reportPath
 
 ```cangjie
-public static prop reportPath: ReportPath
+public static prop reportPath: KeyReportPath
 ```
 
 功能：配置项的键值。
@@ -1223,7 +1223,7 @@ public struct KeyShowAllOutput <: KeyFor<Bool> {}
 ### prop showAllOutput
 
 ```cangjie
-public static prop showAllOutput: ShowAllOutput
+public static prop showAllOutput: KeyShowAllOutput
 ```
 
 功能：配置项的键值。
@@ -1251,7 +1251,7 @@ public struct KeyShowTags <: KeyFor<Bool> {}
 ### prop showTags
 
 ```cangjie
-public static prop showTags: ShowTags
+public static prop showTags: KeyShowTags
 ```
 
 功能：配置项的键值。
@@ -1279,7 +1279,7 @@ public struct KeySkip <: KeyFor<Bool> {}
 ### prop skip
 
 ```cangjie
-public static prop skip: Skip
+public static prop skip: KeySkip
 ```
 
 功能：配置项的键值。
@@ -1307,7 +1307,7 @@ public struct KeyTimeout <: KeyFor<Duration> {}
 ### prop timeout
 
 ```cangjie
-public static prop timeout: Timeout
+public static prop timeout: KeyTimeout
 ```
 
 功能：配置项的键值。
@@ -1335,7 +1335,7 @@ public struct KeyTimeoutEach <: KeyFor<String> {}
 ### prop timeoutEach
 
 ```cangjie
-public static prop timeoutEach: TimeoutEach
+public static prop timeoutEach: KeyTimeoutEach
 ```
 
 功能：配置项的键值。
@@ -1403,7 +1403,7 @@ public struct KeyVerbose <: KeyFor<Bool> {}
 ### prop verbose
 
 ```cangjie
-public static prop verbose: Verbose
+public static prop verbose: KeyVerbose
 ```
 
 功能：配置项的键值。
@@ -1431,7 +1431,7 @@ public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 ### prop warmup
 
 ```cangjie
-public static prop warmup: Warmup
+public static prop warmup: KeyWarmup
 ```
 
 功能：配置项的键值。
@@ -1497,7 +1497,7 @@ let textDescription: String
 ```cangjie
 public struct Perf <: Measurement {
     public init()
-    public Perf(counter: PerfCounter)
+    public Perf(var counter: PerfCounter)
 }
 ```
 
@@ -1510,7 +1510,7 @@ public struct Perf <: Measurement {
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 功能：提供对应 CPU 计数器的换算表。
@@ -1520,7 +1520,7 @@ prop conversionTable: MeasurementUnitTable
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 功能：为当前 CPU 计数器提供唯一的显示名称，例如：`Perf(cycles)`。
@@ -1530,7 +1530,7 @@ prop name: String
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 功能：描述此测量的简单文本将显示在某些报告中。
@@ -1548,7 +1548,7 @@ public init()
 ### Perf(PerfCounter)
 
 ```cangjie
-public Perf(counter: PerfCounter)
+public Perf(var counter: PerfCounter)
 ```
 
 功能：指定要测量的 CPU 计数器的构造函数。
@@ -1572,7 +1572,7 @@ public func measure(): Float64
 ### func setup()
 
 ```cangjie
-func setup()
+public func setup()
 ```
 
 功能：此 CPU 计数器的初始化例程。在每个基准步骤之前调用。
@@ -1662,7 +1662,7 @@ public struct TimeNow <: Measurement {
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 功能：提供当前时间的单位换算表。
@@ -1673,7 +1673,7 @@ prop conversionTable: MeasurementUnitTable
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 功能：提供当前时间单位唯一的显示名称，例如：`Duration(ns)` 或 `Duration(s)`。
@@ -1683,7 +1683,7 @@ prop name: String
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 功能：描述此测量的简单文本将显示在某些报告中。

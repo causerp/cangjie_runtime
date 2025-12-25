@@ -89,7 +89,7 @@ Return Value:
 ### func removeByName\<T>(String)
 
 ```cangjie
-public func removeByName<T>(name: String): ?T
+public func removeByName<T>(key: String): ?T
 ```
 
 Function: Removes the value associated with the specified key name and type.
@@ -105,7 +105,7 @@ Return Value:
 ### func set\<T>(KeyFor\<T>, T)
 
 ```cangjie
-public func set<T>(key: KeyFor<T>, value: T)
+public func set<T>(key: KeyFor<T>, value: T): Unit
 ```
 
 Function: Sets the value for the specified key name and type.
@@ -208,7 +208,7 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether they are equal.
 
-### operator func !=(that: ConfigurationKey)
+### operator func !=(ConfigurationKey)
 
 ```cangjie
 public override operator func !=(that: ConfigurationKey): Bool
@@ -423,7 +423,7 @@ Return Value:
 ### func fillLimitedSpace(Int64, () -\> Unit)
 
 ```cangjie
-public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): c
+public open func fillLimitedSpace(spaceSize: Int64, body: () -> Unit): PrettyPrinter
 ```
 
 Function: Fills a code block with the specified size.
