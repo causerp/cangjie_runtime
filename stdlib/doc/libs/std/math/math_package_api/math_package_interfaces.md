@@ -163,7 +163,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的自然常数 */
     let e = Float16.getE()
-    
+
     /* 打印自然常数 */
     println("Float16的自然常数E: ${e}")
 }
@@ -196,7 +196,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的无穷数值 */
     let inf = Float16.getInf()
-    
+
     /* 打印无穷数值 */
     println("Float16的无穷大值: ${inf}")
 }
@@ -229,7 +229,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的最小次正规数 */
     let minDenormal = Float16.getMinDenormal()
-    
+
     /* 打印最小次正规数 */
     println("Float16的最小次正规数: ${minDenormal}")
 }
@@ -262,7 +262,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的最小正规数 */
     let minNormal = Float16.getMinNormal()
-    
+
     /* 打印最小正规数 */
     println("Float16的最小正规数: ${minNormal}")
 }
@@ -295,10 +295,10 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的非数 */
     let nan = Float16.getNaN()
-    
+
     /* 打印非数 */
     println("Float16的非数: ${nan}")
-    
+
     /* 检查是否为非数 */
     println("是否为非数: ${nan.isNaN()}")
 }
@@ -332,7 +332,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数类型的圆周率常数 */
     let pi = Float16.getPI()
-    
+
     /* 打印圆周率 */
     println("Float16的圆周率PI: ${pi}")
 }
@@ -377,7 +377,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的自然常数 */
     let e = Float32.getE()
-    
+
     /* 打印自然常数 */
     println("Float32的自然常数E: ${e}")
 }
@@ -410,7 +410,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的无穷数值 */
     let inf = Float32.getInf()
-    
+
     /* 打印无穷数值 */
     println("Float32的无穷大值: ${inf}")
 }
@@ -443,7 +443,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的最小次正规数 */
     let minDenormal = Float32.getMinDenormal()
-    
+
     /* 打印最小次正规数 */
     println("Float32的最小次正规数: ${minDenormal}")
 }
@@ -476,7 +476,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的最小正规数 */
     let minNormal = Float32.getMinNormal()
-    
+
     /* 打印最小正规数 */
     println("Float32的最小正规数: ${minNormal}")
 }
@@ -509,10 +509,10 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的非数 */
     let nan = Float32.getNaN()
-    
+
     /* 打印非数 */
     println("Float32的非数: ${nan}")
-    
+
     /* 检查是否为非数 */
     println("是否为非数: ${nan.isNaN()}")
 }
@@ -546,7 +546,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数类型的圆周率常数 */
     let pi = Float32.getPI()
-    
+
     /* 打印圆周率 */
     println("Float32的圆周率PI: ${pi}")
 }
@@ -591,7 +591,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的自然常数 */
     let e = Float64.getE()
-    
+
     /* 打印自然常数 */
     println("Float64的自然常数E: ${e}")
 }
@@ -624,7 +624,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的无穷数值 */
     let inf = Float64.getInf()
-    
+
     /* 打印无穷数值 */
     println("Float64的无穷大值: ${inf}")
 }
@@ -657,7 +657,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的最小次正规数 */
     let minDenormal = Float64.getMinDenormal()
-    
+
     /* 打印最小次正规数 */
     println("Float64的最小次正规数: ${minDenormal}")
 }
@@ -690,7 +690,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的最小正规数 */
     let minNormal = Float64.getMinNormal()
-    
+
     /* 打印最小正规数 */
     println("Float64的最小正规数: ${minNormal}")
 }
@@ -723,10 +723,10 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的非数 */
     let nan = Float64.getNaN()
-    
+
     /* 打印非数 */
     println("Float64的非数: ${nan}")
-    
+
     /* 检查是否为非数 */
     println("是否为非数: ${nan.isNaN()}")
 }
@@ -760,7 +760,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数类型的圆周率常数 */
     let pi = Float64.getPI()
-    
+
     /* 打印圆周率 */
     println("Float64的圆周率PI: ${pi}")
 }
@@ -946,7 +946,7 @@ import std.math.*
 main(): Unit {
     /* 判断 Int16 类型是否是有符号类型 */
     let signed = Int16.isSigned()
-    
+
     /* 打印结果 */
     println("Int16 是有符号类型: ${signed}")
 }
@@ -991,7 +991,7 @@ import std.math.*
 main(): Unit {
     /* 判断 Int32 类型是否是有符号类型 */
     let signed = Int32.isSigned()
-    
+
     /* 打印结果 */
     println("Int32 是有符号类型: ${signed}")
 }
@@ -1036,7 +1036,7 @@ import std.math.*
 main(): Unit {
     /* 判断 Int64 类型是否是有符号类型 */
     let signed = Int64.isSigned()
-    
+
     /* 打印结果 */
     println("Int64 是有符号类型: ${signed}")
 }
@@ -1081,7 +1081,7 @@ import std.math.*
 main(): Unit {
     /* 判断 Int8 类型是否是有符号类型 */
     let signed = Int8.isSigned()
-    
+
     /* 打印结果 */
     println("Int8 是有符号类型: ${signed}")
 }
@@ -1126,7 +1126,7 @@ import std.math.*
 main(): Unit {
     /* 判断 IntNative 类型是否是有符号类型 */
     let signed = IntNative.isSigned()
-    
+
     /* 打印结果 */
     println("IntNative 是有符号类型: ${signed}")
 }
@@ -1171,7 +1171,7 @@ import std.math.*
 main(): Unit {
     /* 判断 UInt16 类型是否是有符号类型 */
     let signed = UInt16.isSigned()
-    
+
     /* 打印结果 */
     println("UInt16 是有符号类型: ${signed}")
 }
@@ -1216,7 +1216,7 @@ import std.math.*
 main(): Unit {
     /* 判断 UInt32 类型是否是有符号类型 */
     let signed = UInt32.isSigned()
-    
+
     /* 打印结果 */
     println("UInt32 是有符号类型: ${signed}")
 }
@@ -1261,7 +1261,7 @@ import std.math.*
 main(): Unit {
     /* 判断 UInt64 类型是否是有符号类型 */
     let signed = UInt64.isSigned()
-    
+
     /* 打印结果 */
     println("UInt64 是有符号类型: ${signed}")
 }
@@ -1306,7 +1306,7 @@ import std.math.*
 main(): Unit {
     /* 判断 UInt8 类型是否是有符号类型 */
     let signed = UInt8.isSigned()
-    
+
     /* 打印结果 */
     println("UInt8 是有符号类型: ${signed}")
 }
@@ -1351,7 +1351,7 @@ import std.math.*
 main(): Unit {
     /* 判断 UIntNative 类型是否是有符号类型 */
     let signed = UIntNative.isSigned()
-    
+
     /* 打印结果 */
     println("UIntNative 是有符号类型: ${signed}")
 }
@@ -1435,7 +1435,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数的自然常数 */
     let e = Float16.GetE()
-    
+
     /* 打印自然常数 */
     println("Float16的自然常数: ${e}")
 }
@@ -1468,7 +1468,7 @@ import std.math.*
 main(): Unit {
     /* 获取半精度浮点数的圆周率常数 */
     let pi = Float16.GetPI()
-    
+
     /* 打印圆周率 */
     println("Float16的圆周率: ${pi}")
 }
@@ -1513,7 +1513,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数的自然常数 */
     let e = Float32.GetE()
-    
+
     /* 打印自然常数 */
     println("Float32的自然常数: ${e}")
 }
@@ -1546,7 +1546,7 @@ import std.math.*
 main(): Unit {
     /* 获取单精度浮点数的圆周率常数 */
     let pi = Float32.GetPI()
-    
+
     /* 打印圆周率 */
     println("Float32的圆周率: ${pi}")
 }
@@ -1591,7 +1591,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数的自然常数 */
     let e = Float64.GetE()
-    
+
     /* 打印自然常数 */
     println("Float64的自然常数: ${e}")
 }
@@ -1624,7 +1624,7 @@ import std.math.*
 main(): Unit {
     /* 获取双精度浮点数的圆周率常数 */
     let pi = Float64.GetPI()
-    
+
     /* 打印圆周率 */
     println("Float64的圆周率: ${pi}")
 }
@@ -1704,7 +1704,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float16 类型的最大值 */
     let max = Float16.getMax()
-    
+
     /* 打印最大值 */
     println("Float16的最大值: ${max}")
 }
@@ -1737,7 +1737,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float16 类型的最小值 */
     let min = Float16.getMin()
-    
+
     /* 打印最小值 */
     println("Float16的最小值: ${min}")
 }
@@ -1782,7 +1782,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float32 类型的最大值 */
     let max = Float32.getMax()
-    
+
     /* 打印最大值 */
     println("Float32的最大值: ${max}")
 }
@@ -1815,7 +1815,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float32 类型的最小值 */
     let min = Float32.getMin()
-    
+
     /* 打印最小值 */
     println("Float32的最小值: ${min}")
 }
@@ -1860,7 +1860,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float64 类型的最大值 */
     let max = Float64.getMax()
-    
+
     /* 打印最大值 */
     println("Float64的最大值: ${max}")
 }
@@ -1893,7 +1893,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Float64 类型的最小值 */
     let min = Float64.getMin()
-    
+
     /* 打印最小值 */
     println("Float64的最小值: ${min}")
 }
@@ -1938,7 +1938,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int16 类型的最大值 */
     let max = Int16.getMax()
-    
+
     /* 打印最大值 */
     println("Int16的最大值: ${max}")
 }
@@ -1971,7 +1971,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int16 类型的最小值 */
     let min = Int16.getMin()
-    
+
     /* 打印最小值 */
     println("Int16的最小值: ${min}")
 }
@@ -2016,7 +2016,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int32 类型的最大值 */
     let max = Int32.getMax()
-    
+
     /* 打印最大值 */
     println("Int32的最大值: ${max}")
 }
@@ -2049,7 +2049,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int32 类型的最小值 */
     let min = Int32.getMin()
-    
+
     /* 打印最小值 */
     println("Int32的最小值: ${min}")
 }
@@ -2094,7 +2094,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int64 类型的最大值 */
     let max = Int64.getMax()
-    
+
     /* 打印最大值 */
     println("Int64的最大值: ${max}")
 }
@@ -2127,7 +2127,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int64 类型的最小值 */
     let min = Int64.getMin()
-    
+
     /* 打印最小值 */
     println("Int64的最小值: ${min}")
 }
@@ -2172,7 +2172,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int8 类型的最大值 */
     let max = Int8.getMax()
-    
+
     /* 打印最大值 */
     println("Int8的最大值: ${max}")
 }
@@ -2205,7 +2205,7 @@ import std.math.*
 main(): Unit {
     /* 获取 Int8 类型的最小值 */
     let min = Int8.getMin()
-    
+
     /* 打印最小值 */
     println("Int8的最小值: ${min}")
 }
@@ -2250,7 +2250,7 @@ import std.math.*
 main(): Unit {
     /* 获取 IntNative 类型的最大值 */
     let max = IntNative.getMax()
-    
+
     /* 打印最大值 */
     println("IntNative的最大值: ${max}")
 }
@@ -2283,7 +2283,7 @@ import std.math.*
 main(): Unit {
     /* 获取 IntNative 类型的最小值 */
     let min = IntNative.getMin()
-    
+
     /* 打印最小值 */
     println("IntNative的最小值: ${min}")
 }
@@ -2328,7 +2328,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt16 类型的最大值 */
     let max = UInt16.getMax()
-    
+
     /* 打印最大值 */
     println("UInt16的最大值: ${max}")
 }
@@ -2361,7 +2361,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt16 类型的最小值 */
     let min = UInt16.getMin()
-    
+
     /* 打印最小值 */
     println("UInt16的最小值: ${min}")
 }
@@ -2406,7 +2406,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt32 类型的最大值 */
     let max = UInt32.getMax()
-    
+
     /* 打印最大值 */
     println("UInt32的最大值: ${max}")
 }
@@ -2439,7 +2439,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt32 类型的最小值 */
     let min = UInt32.getMin()
-    
+
     /* 打印最小值 */
     println("UInt32的最小值: ${min}")
 }
@@ -2484,7 +2484,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt64 类型的最大值 */
     let max = UInt64.getMax()
-    
+
     /* 打印最大值 */
     println("UInt64的最大值: ${max}")
 }
@@ -2517,7 +2517,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt64 类型的最小值 */
     let min = UInt64.getMin()
-    
+
     /* 打印最小值 */
     println("UInt64的最小值: ${min}")
 }
@@ -2562,7 +2562,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt8 类型的最大值 */
     let max = UInt8.getMax()
-    
+
     /* 打印最大值 */
     println("UInt8的最大值: ${max}")
 }
@@ -2595,7 +2595,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UInt8 类型的最小值 */
     let min = UInt8.getMin()
-    
+
     /* 打印最小值 */
     println("UInt8的最小值: ${min}")
 }
@@ -2640,7 +2640,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UIntNative 类型的最大值 */
     let max = UIntNative.getMax()
-    
+
     /* 打印最大值 */
     println("UIntNative的最大值: ${max}")
 }
@@ -2673,7 +2673,7 @@ import std.math.*
 main(): Unit {
     /* 获取 UIntNative 类型的最小值 */
     let min = UIntNative.getMin()
-    
+
     /* 打印最小值 */
     println("UIntNative的最小值: ${min}")
 }

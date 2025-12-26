@@ -98,10 +98,10 @@ main() {
     let e1 = OverflowStrategy.Saturating
     let e2 = OverflowStrategy.Saturating
     let e3 = OverflowStrategy.Throwing
-    
+
     let equal = (e1 == e2)
     let notEqual = (e1 == e3)
-    
+
     println("e1 == e2: ${equal}")
     println("e1 == e3: ${notEqual}")
 }

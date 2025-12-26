@@ -36,7 +36,7 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("hello")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
 }
@@ -65,10 +65,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 获取匹配结果总数
     let count = matcher.allCount()
     println("匹配结果总数: ${count}")
@@ -108,10 +108,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 查找第一个匹配到的子序列
     let result = matcher.find()
     match (result) {
@@ -157,10 +157,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 从指定位置开始查找匹配到的子序列
     let result = matcher.find(5)
     match (result) {
@@ -201,10 +201,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 查找所有匹配到的子序列
     let result = matcher.findAll()
     match (result) {
@@ -245,10 +245,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("hello world")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 对整个输入序列进行匹配
     let result = matcher.fullMatch()
     match (result) {
@@ -296,10 +296,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("hello")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 获取匹配序列
     let str = matcher.getString()
     println("匹配序列: ${str}")
@@ -337,10 +337,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("hello")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 对输入序列的头部进行匹配
     let result = matcher.matchStart()
     match (result) {
@@ -377,10 +377,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("hello")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 返回匹配器的区域设置
     let position = matcher.region()
 }
@@ -411,10 +411,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("world")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 将匹配到的第一个子序列替换为目标字符串
     let result = matcher.replace("there")
     println("替换后结果: ${result}")
@@ -457,10 +457,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 从指定位置开始匹配正则，将匹配到的第一个子序列替换为目标字符串
     let result = matcher.replace("x", 3)
     println("替换后结果: ${result}")
@@ -498,10 +498,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式(找到后面紧跟o的l)
     let regex = Regex("l(?=o)")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 将输入序列中所有与正则匹配的子序列替换为给定的目标字符串
     let result = matcher.replaceAll("x")
     println("替换后结果: ${result}")
@@ -540,10 +540,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("l")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 将输入序列中与正则匹配的前 limit 个子序列替换为给定的替换字符串
     let result = matcher.replaceAll("x", 2)
     println("替换后结果: ${result}")
@@ -577,10 +577,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("world")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world, cangjie, hello world")
-    
+
     // 将匹配到的第一个子序列替换为目标字符串
     let result = matcher.replace("there")
     println("替换后结果: ${result}")
@@ -624,10 +624,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("world")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     let result = matcher.replace("there")
     println("替换后结果: ${result}")
 
@@ -675,10 +675,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("l")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 设置匹配器可搜索区域的位置信息
     let newMatcher = matcher.setRegion(8, 10)
     // 仅在可搜索区域内进行匹配
@@ -714,10 +714,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("l")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 将给定的输入序列根据正则尽可能的分割成多个子序列
     let result = matcher.split()
     println("分割后的子序列数量: ${result.size}")
@@ -762,10 +762,10 @@ import std.regex.*
 main(): Unit {
     // 创建正则表达式
     let regex = Regex("l")
-    
+
     // 使用正则表达式和输入序列创建Matcher实例
     let matcher = Matcher(regex, "hello world")
-    
+
     // 将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)
     let result = matcher.split(3)
     println("分割后的子序列数量: ${result.size}")
@@ -823,7 +823,7 @@ import std.regex.*
 main(): Unit {
     // 使用指定的模式和标志创建一个 Regex 实例
     let regex = Regex("hello", [IgnoreCase])
-    
+
     // 使用正则表达式进行匹配
     let result = regex.find("Hello World")
     match (result) {
@@ -869,10 +869,10 @@ import std.regex.*
 main(): Unit {
     // 创建一个 RegexOption 实例
     let option = RegexOption().ignoreCase()
-    
+
     // 使用指定的模式和选项创建一个 Regex 实例
     let regex = Regex("hello", option)
-    
+
     // 使用正则表达式进行匹配
     let result = regex.find("Hello World")
     match (result) {
@@ -1110,10 +1110,10 @@ import std.regex.*
 main(): Unit {
     // 创建一个 Regex 实例
     let regex = Regex("hello")
-    
+
     // 创建匹配器
     let matcher = regex.matcher("hello world")
-    
+
     // 使用匹配器查找匹配项
     let result = matcher.find()
     match (result) {
@@ -1373,10 +1373,10 @@ import std.regex.*
 main(): Unit {
     // 创建一个 Regex 实例
     let regex = Regex("&")
-    
+
     // 将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)
     let result = regex.split("2019-4-5&2024-10-24&2025-01-01", 2)
-    
+
     for (subStr in result) {
         println(subStr)
     }
@@ -1411,10 +1411,10 @@ import std.regex.*
 main(): Unit {
     // 创建一个 Regex 实例
     let regex = Regex("hello")
-    
+
     // 获取正则的输入序列
     let pattern = regex.string()
-    
+
     println("正则表达式: ${pattern}")
 }
 ```
@@ -1484,7 +1484,7 @@ import std.regex.*
 main(): Unit {
     // 创建一个 RegexOption 实例
     let regexOption = RegexOption()
-    
+
     // 修改匹配模式为忽略大小写（IGNORECASE）
     let newRegexOption = regexOption.ignoreCase()
 }
@@ -1511,7 +1511,7 @@ import std.regex.*
 main(): Unit {
     // 创建一个 RegexOption 实例
     let regexOption = RegexOption()
-    
+
     // 修改匹配模式为多行文本模式（MULTILINE）
     let newRegexOption = regexOption.multiLine()
 }
@@ -1538,10 +1538,10 @@ import std.regex.*
 main(): Unit {
     // 创建一个 RegexOption 实例
     let regexOption = RegexOption()
-    
+
     // 获取 RegexOption 当前表示的正则匹配模式
     let mode = regexOption.toString()
-    
+
     println("当前匹配模式: ${mode}")
 }
 ```

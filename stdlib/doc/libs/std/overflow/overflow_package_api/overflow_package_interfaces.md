@@ -207,13 +207,13 @@ main(): Int64 {
     // 创建两个Int16值
     let a = 30000i16
     let b = 10000i16
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -248,13 +248,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16最小值
     let a = -32768i16
-    
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -294,13 +294,13 @@ main(): Int64 {
     // 创建两个Int16值
     let a = -32768i16
     let b = -1i16
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -335,13 +335,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16最大值
     let a = 32767i16
-    
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -381,13 +381,13 @@ main(): Int64 {
     // 创建两个Int16值
     let a = -32768i16
     let b = -1i16
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -427,13 +427,13 @@ main(): Int64 {
     // 创建两个Int16值
     let a = 200i16
     let b = 200i16
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -468,13 +468,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16最小值
     let a = -32768i16
-    
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -513,13 +513,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值
     let a = 10000i16
-    
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(5u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -558,13 +558,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值
     let a = -32768i16
-    
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(5u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -604,13 +604,13 @@ main(): Int64 {
     // 创建两个Int16值
     let a = -32768i16
     let b = 1i16
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -662,13 +662,13 @@ main(): Int64 {
     // 创建两个Int32值
     let a = 2000000000i32
     let b = 2000000000i32
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -703,13 +703,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32最小值
     let a = -2147483648i32
-    
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -749,13 +749,13 @@ main(): Int64 {
     // 创建两个Int32值
     let a = -2147483648i32
     let b = -1i32
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -790,13 +790,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32最大值
     let a = 2147483647i32
-    
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -836,13 +836,13 @@ main(): Int64 {
     // 创建两个Int32值
     let a = -2147483648i32
     let b = -1i32
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -882,13 +882,13 @@ main(): Int64 {
     // 创建两个Int32值
     let a = 1000000i32
     let b = 1000000i32
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -923,13 +923,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32最小值
     let a = -2147483648i32
-    
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -968,13 +968,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值
     let a = 1000000000i32
-    
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(5u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1013,13 +1013,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值
     let a = -2147483648i32
-    
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(5u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1059,13 +1059,13 @@ main(): Int64 {
     // 创建两个Int32值
     let a = -2147483648i32
     let b = 1i32
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1118,13 +1118,13 @@ main(): Int64 {
     // 创建两个Int64值
     let a = 8000000000000000000i64
     let b = 2000000000000000000i64
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1159,13 +1159,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64最小值
     let a = -9223372036854775808i64
-    
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1205,13 +1205,13 @@ main(): Int64 {
     // 创建两个Int64值
     let a = -9223372036854775808i64
     let b = -1i64
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1246,13 +1246,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64最大值
     let a = 9223372036854775807i64
-    
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1292,13 +1292,13 @@ main(): Int64 {
     // 创建两个Int64值
     let a = -9223372036854775808i64
     let b = -1i64
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1338,10 +1338,10 @@ main(): Int64 {
     // 创建两个Int64值
     let a = 3000000000i64
     let b = 30000000000i64
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
     return 0
@@ -1378,13 +1378,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64最小值
     let a = -9223372036854775808i64
-    
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1424,13 +1424,13 @@ main(): Int64 {
     // 创建一个Int64值和一个UInt64指数
     let a = 2i64
     let b = 64u64
-    
+
     // 使用carryingPow进行幂运算
     let (overflow, result) = a.carryingPow(b)
-    
+
     println("Carrying pow result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1469,13 +1469,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值
     let a = 1000000000000000000i64
-    
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(5u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1514,13 +1514,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值
     let a = -9223372036854775808i64
-    
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(5u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1560,13 +1560,13 @@ main(): Int64 {
     // 创建两个Int64值
     let a = -9223372036854775808i64
     let b = 1i64
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1618,13 +1618,13 @@ main(): Int64 {
     // 创建两个Int8值
     let a = 100i8
     let b = 50i8
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1659,13 +1659,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8最小值
     let a = -128i8
-    
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1705,13 +1705,13 @@ main(): Int64 {
     // 创建两个Int8值
     let a = -128i8
     let b = -1i8
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1746,13 +1746,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8最大值
     let a = 127i8
-    
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1792,13 +1792,13 @@ main(): Int64 {
     // 创建两个Int8值
     let a = -128i8
     let b = -1i8
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1838,13 +1838,13 @@ main(): Int64 {
     // 创建两个Int8值
     let a = 10i8
     let b = 20i8
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1879,13 +1879,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8最小值
     let a = -128i8
-    
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1924,13 +1924,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值
     let a = 100i8
-    
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(3u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -1969,13 +1969,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值
     let a = -128i8
-    
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(3u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2015,13 +2015,13 @@ main(): Int64 {
     // 创建两个Int8值
     let a = -128i8
     let b = 1i8
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2071,15 +2071,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值
-    let a: IntNative = 9223372036854775807  // IntNative的最大值，假设为64位系统
+    let a: IntNative = 9223372036854775807 // IntNative的最大值，假设为64位系统
     let b: IntNative = 1000000000000000000
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2113,14 +2113,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative最小值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
-    
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2158,15 +2158,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
     let b: IntNative = -1
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2200,14 +2200,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative最大值
-    let a: IntNative = 9223372036854775807  // IntNative的最大值，假设为64位系统
-    
+    let a: IntNative = 9223372036854775807 // IntNative的最大值，假设为64位系统
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2245,15 +2245,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
     let b: IntNative = -1
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2293,13 +2293,13 @@ main(): Int64 {
     // 创建两个IntNative值
     let a: IntNative = 3000000000
     let b: IntNative = 30000000000
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2333,14 +2333,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative最小值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
-    
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2379,13 +2379,13 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个IntNative值
     let a: IntNative = 1000000000000000000
-    
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(5u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2423,14 +2423,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
-    
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(5u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2468,15 +2468,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值
-    let a: IntNative = -9223372036854775808  // IntNative的最小值，假设为64位系统
+    let a: IntNative = -9223372036854775808 // IntNative的最小值，假设为64位系统
     let b: IntNative = 1
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2526,15 +2526,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值
-    let a = 65535u16  // UInt16的最大值
+    let a = 65535u16 // UInt16的最大值
     let b = 1u16
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2568,14 +2568,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值
-    let a = 0u16  // UInt16的最小值
-    
+    let a = 0u16 // UInt16的最小值
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2613,15 +2613,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值
-    let a = 65535u16  // UInt16的最大值
+    let a = 65535u16 // UInt16的最大值
     let b = 2u16
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2655,14 +2655,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值
-    let a = 65535u16  // UInt16的最大值
-    
+    let a = 65535u16 // UInt16的最大值
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2700,15 +2700,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值
-    let a = 65535u16  // UInt16的最大值
+    let a = 65535u16 // UInt16的最大值
     let b = 2u16
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2746,15 +2746,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值
-    let a = 65535u16  // UInt16的最大值
+    let a = 65535u16 // UInt16的最大值
     let b = 2u16
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2788,14 +2788,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值
-    let a = 65535u16  // UInt16的最大值
-    
+    let a = 65535u16 // UInt16的最大值
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2833,14 +2833,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值
-    let a = 32768u16  // 2^15
-    
+    let a = 32768u16 // 2^15
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(2u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2878,14 +2878,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值
-    let a = 65535u16  // UInt16的最大值
-    
+    let a = 65535u16 // UInt16的最大值
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(2u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2925,13 +2925,13 @@ main(): Int64 {
     // 创建两个UInt16值
     let a = 0u16
     let b = 1u16
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -2981,15 +2981,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
+    let a = 4294967295u32 // UInt32的最大值
     let b = 1u32
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3023,14 +3023,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值
-    let a = 0u32  // UInt32的最小值
-    
+    let a = 0u32 // UInt32的最小值
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3068,15 +3068,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
+    let a = 4294967295u32 // UInt32的最大值
     let b = 2u32
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3110,14 +3110,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
-    
+    let a = 4294967295u32 // UInt32的最大值
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3155,15 +3155,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
+    let a = 4294967295u32 // UInt32的最大值
     let b = 2u32
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3201,15 +3201,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
+    let a = 4294967295u32 // UInt32的最大值
     let b = 2u32
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3243,14 +3243,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
-    
+    let a = 4294967295u32 // UInt32的最大值
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3288,14 +3288,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值
-    let a = 2147483648u32  // 2^31
-    
+    let a = 2147483648u32 // 2^31
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(2u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3333,14 +3333,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值
-    let a = 4294967295u32  // UInt32的最大值
-    
+    let a = 4294967295u32 // UInt32的最大值
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(2u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3380,13 +3380,13 @@ main(): Int64 {
     // 创建两个UInt32值
     let a = 0u32
     let b = 1u32
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3436,15 +3436,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
+    let a = 18446744073709551615u64 // UInt64的最大值
     let b = 1u64
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3478,14 +3478,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值
-    let a = 0u64  // UInt64的最小值
-    
+    let a = 0u64 // UInt64的最小值
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3523,15 +3523,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
+    let a = 18446744073709551615u64 // UInt64的最大值
     let b = 2u64
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3565,14 +3565,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
-    
+    let a = 18446744073709551615u64 // UInt64的最大值
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3610,15 +3610,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
+    let a = 18446744073709551615u64 // UInt64的最大值
     let b = 2u64
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3656,15 +3656,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
+    let a = 18446744073709551615u64 // UInt64的最大值
     let b = 2u64
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3698,14 +3698,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
-    
+    let a = 18446744073709551615u64 // UInt64的最大值
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3743,14 +3743,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值
-    let a = 9223372036854775808u64  // 2^63
-    
+    let a = 9223372036854775808u64 // 2^63
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(2u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3788,14 +3788,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值
-    let a = 18446744073709551615u64  // UInt64的最大值
-    
+    let a = 18446744073709551615u64 // UInt64的最大值
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(2u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3835,13 +3835,13 @@ main(): Int64 {
     // 创建两个UInt64值
     let a = 0u64
     let b = 1u64
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3891,15 +3891,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值
-    let a = 255u8  // UInt8的最大值
+    let a = 255u8 // UInt8的最大值
     let b = 1u8
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3933,14 +3933,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值
-    let a = 0u8  // UInt8的最小值
-    
+    let a = 0u8 // UInt8的最小值
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -3978,15 +3978,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值
-    let a = 255u8  // UInt8的最大值
+    let a = 255u8 // UInt8的最大值
     let b = 2u8
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4020,14 +4020,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值
-    let a = 255u8  // UInt8的最大值
-    
+    let a = 255u8 // UInt8的最大值
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4065,15 +4065,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值
-    let a = 255u8  // UInt8的最大值
+    let a = 255u8 // UInt8的最大值
     let b = 2u8
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4111,15 +4111,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值
-    let a = 255u8  // UInt8的最大值
+    let a = 255u8 // UInt8的最大值
     let b = 2u8
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4153,14 +4153,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值
-    let a = 255u8  // UInt8的最大值
-    
+    let a = 255u8 // UInt8的最大值
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4198,14 +4198,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值
-    let a = 128u8  // 2^7
-    
+    let a = 128u8 // 2^7
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(2u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4243,14 +4243,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值
-    let a = 255u8  // UInt8的最大值
-    
+    let a = 255u8 // UInt8的最大值
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(2u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4290,13 +4290,13 @@ main(): Int64 {
     // 创建两个UInt8值
     let a = 0u8
     let b = 1u8
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4346,15 +4346,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
     let b = 1u64
-    
+
     // 使用carryingAdd进行加法运算
     let (overflow, result) = a.carryingAdd(b)
-    
+
     println("Carrying add result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4388,14 +4388,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值
-    let a = 0u64  // UIntNative的最小值 (假设为64位)
-    
+    let a = 0u64 // UIntNative的最小值 (假设为64位)
+
     // 使用carryingDec进行自减运算
     let (overflow, result) = a.carryingDec()
-    
+
     println("Carrying dec result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4433,15 +4433,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
     let b = 2u64
-    
+
     // 使用carryingDiv进行除法运算
     let (overflow, result) = a.carryingDiv(b)
-    
+
     println("Carrying div result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4475,14 +4475,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
-    
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
+
     // 使用carryingInc进行自增运算
     let (overflow, result) = a.carryingInc()
-    
+
     println("Carrying inc result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4520,15 +4520,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
     let b = 2u64
-    
+
     // 使用carryingMod进行取余运算
     let (overflow, result) = a.carryingMod(b)
-    
+
     println("Carrying mod result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4566,15 +4566,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
     let b = 2u64
-    
+
     // 使用carryingMul进行乘法运算
     let (overflow, result) = a.carryingMul(b)
-    
+
     println("Carrying mul result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4608,14 +4608,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
-    
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
+
     // 使用carryingNeg进行负号运算
     let (overflow, result) = a.carryingNeg()
-    
+
     println("Carrying neg result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4653,14 +4653,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值
-    let a = 9223372036854775808u64  // 2^63 (假设为64位)
-    
+    let a = 9223372036854775808u64 // 2^63 (假设为64位)
+
     // 使用carryingShl进行左移运算
     let (overflow, result) = a.carryingShl(2u64)
-    
+
     println("Carrying shl result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4698,14 +4698,14 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值
-    let a = 18446744073709551615u64  // UIntNative的最大值 (假设为64位)
-    
+    let a = 18446744073709551615u64 // UIntNative的最大值 (假设为64位)
+
     // 使用carryingShr进行右移运算
     let (overflow, result) = a.carryingShr(2u64)
-    
+
     println("Carrying shr result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -4743,15 +4743,15 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值
-    let a = 0u64  // UIntNative的最小值 (假设为64位)
+    let a = 0u64 // UIntNative的最小值 (假设为64位)
     let b = 1u64
-    
+
     // 使用carryingSub进行减法运算
     let (overflow, result) = a.carryingSub(b)
-    
+
     println("Carrying sub result: ${result}")
     println("Overflow occurred: ${overflow}")
-    
+
     return 0
 }
 ```
@@ -5016,25 +5016,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使它们相加会发生溢出
-    let a1 = 32767i16  // Int16的最大值
+    let a1 = 32767i16 // Int16的最大值
     let b1 = 1i16
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个Int16值，使它们相加不会发生溢出
     let a2 = 100i16
     let b2 = 200i16
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5068,23 +5068,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自减会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个Int16值，使其自减不会发生溢出
     let a2 = 100i16
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5122,25 +5122,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使除法运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    let b1 = -1i16      // 除数
-    
+    let a1 = -32768i16 // Int16的最小值
+    let b1 = -1i16 // 除数
+
     // 使用checkedDiv进行除法运算（溢出情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked div result: ${result1}")
-    
+
     // 创建两个Int16值，使除法运算不会发生溢出
     let a2 = 100i16
     let b2 = 2i16
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5174,23 +5174,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自增会发生溢出
-    let a1 = 32767i16  // Int16的最大值
-    
+    let a1 = 32767i16 // Int16的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个Int16值，使其自增不会发生溢出
     let a2 = 100i16
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5228,25 +5228,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使取余运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    let b1 = -1i16      // 除数
-    
+    let a1 = -32768i16 // Int16的最小值
+    let b1 = -1i16 // 除数
+
     // 使用checkedMod进行取余运算（溢出情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mod result: ${result1}")
-    
+
     // 创建两个Int16值，使取余运算不会发生溢出
     let a2 = 100i16
     let b2 = 3i16
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5284,25 +5284,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使乘法运算会发生溢出
-    let a1 = 32767i16   // Int16的最大值
-    let b1 = 2i16       // 乘数
-    
+    let a1 = 32767i16 // Int16的最大值
+    let b1 = 2i16 // 乘数
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个Int16值，使乘法运算不会发生溢出
     let a2 = 100i16
     let b2 = 3i16
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5336,23 +5336,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其负号运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     // 使用checkedNeg进行负号运算（溢出情况）
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Checked neg result: ${result1}")
-    
+
     // 创建一个Int16值，使其负号运算不会发生溢出
     let a2 = 100i16
-    
+
     // 使用checkedNeg进行负号运算（正常情况）
     let result2 = a2.checkedNeg()
-    
+
     // 直接打印结果
     println("Normal case - Checked neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5391,24 +5391,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和移位位数，使左移运算会发生溢出
     let a1 = 1i16
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个Int16值和移位位数，使左移运算不会发生溢出
     let a2 = 1i16
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5447,24 +5447,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和移位位数，使右移运算会发生溢出
     let a1 = 1i16
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个Int16值和移位位数，使右移运算不会发生溢出
     let a2 = 8i16
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5502,25 +5502,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使减法运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    let b1 = 1i16       // 减数
-    
+    let a1 = -32768i16 // Int16的最小值
+    let b1 = 1i16 // 减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个Int16值，使减法运算不会发生溢出
     let a2 = 100i16
     let b2 = 50i16
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5570,25 +5570,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使它们相加会发生溢出
-    let a1 = 2147483647i32  // Int32的最大值
+    let a1 = 2147483647i32 // Int32的最大值
     let b1 = 1i32
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个Int32值，使它们相加不会发生溢出
     let a2 = 100i32
     let b2 = 200i32
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5622,23 +5622,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自减会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个Int32值，使其自减不会发生溢出
     let a2 = 100i32
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5676,25 +5676,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使除法运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    let b1 = -1i32           // 除数
-    
+    let a1 = -2147483648i32 // Int32的最小值
+    let b1 = -1i32 // 除数
+
     // 使用checkedDiv进行除法运算（溢出情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked div result: ${result1}")
-    
+
     // 创建两个Int32值，使除法运算不会发生溢出
     let a2 = 100i32
     let b2 = 2i32
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5728,23 +5728,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自增会发生溢出
-    let a1 = 2147483647i32  // Int32的最大值
-    
+    let a1 = 2147483647i32 // Int32的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个Int32值，使其自增不会发生溢出
     let a2 = 100i32
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5782,25 +5782,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使取余运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    let b1 = -1i32           // 除数
-    
+    let a1 = -2147483648i32 // Int32的最小值
+    let b1 = -1i32 // 除数
+
     // 使用checkedMod进行取余运算（溢出情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mod result: ${result1}")
-    
+
     // 创建两个Int32值，使取余运算不会发生溢出
     let a2 = 100i32
     let b2 = 3i32
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5838,25 +5838,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使乘法运算会发生溢出
-    let a1 = 2147483647i32   // Int32的最大值
-    let b1 = 2i32            // 乘数
-    
+    let a1 = 2147483647i32 // Int32的最大值
+    let b1 = 2i32 // 乘数
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个Int32值，使乘法运算不会发生溢出
     let a2 = 100i32
     let b2 = 3i32
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5890,23 +5890,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其负号运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     // 使用checkedNeg进行负号运算（溢出情况）
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Checked neg result: ${result1}")
-    
+
     // 创建一个Int32值，使其负号运算不会发生溢出
     let a2 = 100i32
-    
+
     // 使用checkedNeg进行负号运算（正常情况）
     let result2 = a2.checkedNeg()
-    
+
     // 直接打印结果
     println("Normal case - Checked neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -5945,24 +5945,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和移位位数，使左移运算会发生溢出
     let a1 = 1i32
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个Int32值和移位位数，使左移运算不会发生溢出
     let a2 = 1i32
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6001,24 +6001,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和移位位数，使右移运算会发生溢出
     let a1 = 1i32
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个Int32值和移位位数，使右移运算不会发生溢出
     let a2 = 8i32
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6056,25 +6056,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使减法运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    let b1 = 1i32            // 减数
-    
+    let a1 = -2147483648i32 // Int32的最小值
+    let b1 = 1i32 // 减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个Int32值，使减法运算不会发生溢出
     let a2 = 100i32
     let b2 = 50i32
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6125,25 +6125,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使它们相加会发生溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
+    let a1 = 9223372036854775807i64 // Int64的最大值
     let b1 = 1i64
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个Int64值，使它们相加不会发生溢出
     let a2 = 100i64
     let b2 = 200i64
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6177,23 +6177,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自减会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个Int64值，使其自减不会发生溢出
     let a2 = 100i64
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6231,25 +6231,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使除法运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    let b1 = -1i64                    // 除数
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+    let b1 = -1i64 // 除数
+
     // 使用checkedDiv进行除法运算（溢出情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked div result: ${result1}")
-    
+
     // 创建两个Int64值，使除法运算不会发生溢出
     let a2 = 100i64
     let b2 = 2i64
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6283,23 +6283,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自增会发生溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
-    
+    let a1 = 9223372036854775807i64 // Int64的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个Int64值，使其自增不会发生溢出
     let a2 = 100i64
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6337,25 +6337,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使取余运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    let b1 = -1i64                    // 除数
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+    let b1 = -1i64 // 除数
+
     // 使用checkedMod进行取余运算（溢出情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mod result: ${result1}")
-    
+
     // 创建两个Int64值，使取余运算不会发生溢出
     let a2 = 100i64
     let b2 = 3i64
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6393,25 +6393,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使乘法运算会发生溢出
-    let a1 = 9223372036854775807i64   // Int64的最大值
-    let b1 = 2i64                      // 乘数
-    
+    let a1 = 9223372036854775807i64 // Int64的最大值
+    let b1 = 2i64 // 乘数
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个Int64值，使乘法运算不会发生溢出
     let a2 = 100i64
     let b2 = 3i64
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6445,23 +6445,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其负号运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     // 使用checkedNeg进行负号运算（溢出情况）
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Checked neg result: ${result1}")
-    
+
     // 创建一个Int64值，使其负号运算不会发生溢出
     let a2 = 100i64
-    
+
     // 使用checkedNeg进行负号运算（正常情况）
     let result2 = a2.checkedNeg()
-    
+
     // 直接打印结果
     println("Normal case - Checked neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6500,24 +6500,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和指数，使幂运算会发生溢出
     let a1 = 10i64
-    let b1 = 64u64  // 指数过大导致溢出
-    
+    let b1 = 64u64 // 指数过大导致溢出
+
     // 使用checkedPow进行幂运算（溢出情况）
     let result1 = a1.checkedPow(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked pow result: ${result1}")
-    
+
     // 创建一个Int64值和指数，使幂运算不会发生溢出
     let a2 = 10i64
-    let b2 = 2u64   // 指数较小不会溢出
-    
+    let b2 = 2u64 // 指数较小不会溢出
+
     // 使用checkedPow进行幂运算（正常情况）
     let result2 = a2.checkedPow(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked pow result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6556,24 +6556,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和移位位数，使左移运算会发生溢出
     let a1 = 1i64
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个Int64值和移位位数，使左移运算不会发生溢出
     let a2 = 1i64
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6612,24 +6612,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和移位位数，使右移运算会发生溢出
     let a1 = 1i64
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个Int64值和移位位数，使右移运算不会发生溢出
     let a2 = 8i64
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6667,25 +6667,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使减法运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    let b1 = 1i64                     // 减数
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+    let b1 = 1i64 // 减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个Int64值，使减法运算不会发生溢出
     let a2 = 100i64
     let b2 = 50i64
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6735,25 +6735,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使它们相加会发生溢出
-    let a1 = 127i8  // Int8的最大值
+    let a1 = 127i8 // Int8的最大值
     let b1 = 1i8
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个Int8值，使它们相加不会发生溢出
     let a2 = 10i8
     let b2 = 20i8
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6787,23 +6787,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自减会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个Int8值，使其自减不会发生溢出
     let a2 = 10i8
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6841,25 +6841,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使除法运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    let b1 = -1i8    // 除数
-    
+    let a1 = -128i8 // Int8的最小值
+    let b1 = -1i8 // 除数
+
     // 使用checkedDiv进行除法运算（溢出情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked div result: ${result1}")
-    
+
     // 创建两个Int8值，使除法运算不会发生溢出
     let a2 = 10i8
     let b2 = 2i8
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6893,23 +6893,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自增会发生溢出
-    let a1 = 127i8  // Int8的最大值
-    
+    let a1 = 127i8 // Int8的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个Int8值，使其自增不会发生溢出
     let a2 = 10i8
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -6947,25 +6947,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使取余运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    let b1 = -1i8    // 除数
-    
+    let a1 = -128i8 // Int8的最小值
+    let b1 = -1i8 // 除数
+
     // 使用checkedMod进行取余运算（溢出情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mod result: ${result1}")
-    
+
     // 创建两个Int8值，使取余运算不会发生溢出
     let a2 = 10i8
     let b2 = 3i8
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7003,25 +7003,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使乘法运算会发生溢出
-    let a1 = 127i8   // Int8的最大值
-    let b1 = 2i8     // 乘数
-    
+    let a1 = 127i8 // Int8的最大值
+    let b1 = 2i8 // 乘数
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个Int8值，使乘法运算不会发生溢出
     let a2 = 10i8
     let b2 = 3i8
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7055,23 +7055,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其负号运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     // 使用checkedNeg进行负号运算（溢出情况）
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Checked neg result: ${result1}")
-    
+
     // 创建一个Int8值，使其负号运算不会发生溢出
     let a2 = 10i8
-    
+
     // 使用checkedNeg进行负号运算（正常情况）
     let result2 = a2.checkedNeg()
-    
+
     // 直接打印结果
     println("Normal case - Checked neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7110,24 +7110,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和移位位数，使左移运算会发生溢出
     let a1 = 1i8
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个Int8值和移位位数，使左移运算不会发生溢出
     let a2 = 1i8
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7166,24 +7166,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和移位位数，使右移运算会发生溢出
     let a1 = 1i8
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个Int8值和移位位数，使右移运算不会发生溢出
     let a2 = 8i8
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7221,25 +7221,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使减法运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    let b1 = 1i8     // 减数
-    
+    let a1 = -128i8 // Int8的最小值
+    let b1 = 1i8 // 减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个Int8值，使减法运算不会发生溢出
     let a2 = 10i8
     let b2 = 5i8
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7289,25 +7289,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使它们相加会发生溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
     let b1: IntNative = 1
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个IntNative值，使它们相加不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 200
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7341,23 +7341,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其自减会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自减不会发生溢出
     let a2: IntNative = 100
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7395,25 +7395,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使除法运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    let b1: IntNative = -1    // 除数
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+    let b1: IntNative = -1 // 除数
+
     // 使用checkedDiv进行除法运算（溢出情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked div result: ${result1}")
-    
+
     // 创建两个IntNative值，使除法运算不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 2
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7447,23 +7447,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其自增会发生溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
-    
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自增不会发生溢出
     let a2: IntNative = 100
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7501,25 +7501,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使取余运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    let b1: IntNative = -1    // 除数
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+    let b1: IntNative = -1 // 除数
+
     // 使用checkedMod进行取余运算（溢出情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mod result: ${result1}")
-    
+
     // 创建两个IntNative值，使取余运算不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 3
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7557,25 +7557,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使乘法运算会发生溢出
-    let a1: IntNative = 9223372036854775807   // IntNative的最大值
-    let b1: IntNative = 2     // 乘数
-    
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
+    let b1: IntNative = 2 // 乘数
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个IntNative值，使乘法运算不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 3
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7609,23 +7609,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其负号运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     // 使用checkedNeg进行负号运算（溢出情况）
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Checked neg result: ${result1}")
-    
+
     // 创建一个IntNative值，使其负号运算不会发生溢出
     let a2: IntNative = 100
-    
+
     // 使用checkedNeg进行负号运算（正常情况）
     let result2 = a2.checkedNeg()
-    
+
     // 直接打印结果
     println("Normal case - Checked neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7664,24 +7664,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个IntNative值和移位位数，使左移运算会发生溢出
     let a1: IntNative = 1
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个IntNative值和移位位数，使左移运算不会发生溢出
     let a2: IntNative = 1
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7720,24 +7720,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个IntNative值和移位位数，使右移运算会发生溢出
     let a1: IntNative = 1
-    let b1 = 64u64  // 移位位数大于等于操作数位数
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个IntNative值和移位位数，使右移运算不会发生溢出
     let a2: IntNative = 8
-    let b2 = 2u64   // 移位位数小于操作数位数
-    
+    let b2 = 2u64 // 移位位数小于操作数位数
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7775,25 +7775,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使减法运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    let b1: IntNative = 1     // 减数
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+    let b1: IntNative = 1 // 减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个IntNative值，使减法运算不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 50
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7843,25 +7843,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相加会发生溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 1u16
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相加不会发生溢出
     let a2 = 100u16
     let b2 = 200u16
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7895,23 +7895,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自减会发生溢出
-    let a1 = 0u16  // UInt16的最小值
-    
+    let a1 = 0u16 // UInt16的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自减不会发生溢出
     let a2 = 100u16
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -7951,13 +7951,13 @@ main(): Int64 {
     // 创建两个UInt16值，使除法运算不会发生溢出
     let a = 100u16
     let b = 2u16
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result = a.checkedDiv(b)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result}")
-    
+
     return 0
 }
 ```
@@ -7990,23 +7990,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自增会发生溢出
-    let a1 = 65535u16  // UInt16的最大值
-    
+    let a1 = 65535u16 // UInt16的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自增不会发生溢出
     let a2 = 100u16
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8046,13 +8046,13 @@ main(): Int64 {
     // 创建两个UInt16值，使取余运算不会发生溢出
     let a = 100u16
     let b = 3u16
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result = a.checkedMod(b)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result}")
-    
+
     return 0
 }
 ```
@@ -8089,25 +8089,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相乘会发生溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 2u16
-    
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相乘不会发生溢出
     let a2 = 100u16
     let b2 = 200u16
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8143,13 +8143,13 @@ main(): Int64 {
     // 创建一个UInt16值，尝试进行取负运算
     // 注意：对于UInt16类型，取负操作可能会导致溢出
     let a1 = 100u16
-    
+
     // 使用checkedNeg进行取负运算
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Checked neg result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -8187,24 +8187,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个UInt16值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u16
     let b2 = 2u64
-    
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8243,24 +8243,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个UInt16值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u16
     let b2 = 2u64
-    
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8299,24 +8299,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建两个UInt16值，使减法运算会发生溢出
     let a1 = 100u16
-    let b1 = 200u16  // 减数大于被减数
-    
+    let b1 = 200u16 // 减数大于被减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个UInt16值，使减法运算不会发生溢出
     let a2 = 200u16
     let b2 = 100u16
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8366,25 +8366,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相加会发生溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 1u32
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相加不会发生溢出
     let a2 = 100u32
     let b2 = 200u32
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8418,23 +8418,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自减会发生溢出
-    let a1 = 0u32  // UInt32的最小值
-    
+    let a1 = 0u32 // UInt32的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自减不会发生溢出
     let a2 = 100u32
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8474,23 +8474,23 @@ main(): Int64 {
     // 创建两个UInt32值，使除法运算不会发生溢出
     let a1 = 100u32
     let b1 = 2u32
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result1}")
-    
+
     // 创建另一个UInt32值对进行除法运算
     let a2 = 1000u32
     let b2 = 5u32
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8524,23 +8524,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自增会发生溢出
-    let a1 = 4294967295u32  // UInt32的最大值
-    
+    let a1 = 4294967295u32 // UInt32的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自增不会发生溢出
     let a2 = 100u32
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8580,23 +8580,23 @@ main(): Int64 {
     // 创建两个UInt32值，使取余运算不会发生溢出
     let a1 = 100u32
     let b1 = 3u32
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result1}")
-    
+
     // 创建另一个UInt32值对进行取余运算
     let a2 = 1000u32
     let b2 = 7u32
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8634,25 +8634,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相乘会发生溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 2u32
-    
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相乘不会发生溢出
     let a2 = 100u32
     let b2 = 200u32
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8688,13 +8688,13 @@ main(): Int64 {
     // 创建一个UInt32值，尝试进行取负运算
     // 注意：对于UInt32类型，取负操作可能会导致溢出
     let a1 = 100u32
-    
+
     // 使用checkedNeg进行取负运算
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Checked neg result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -8732,24 +8732,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个UInt32值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u32
     let b2 = 2u64
-    
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8788,24 +8788,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个UInt32值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u32
     let b2 = 2u64
-    
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8844,24 +8844,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建两个UInt32值，使减法运算会发生溢出
     let a1 = 100u32
-    let b1 = 200u32  // 减数大于被减数
-    
+    let b1 = 200u32 // 减数大于被减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个UInt32值，使减法运算不会发生溢出
     let a2 = 200u32
     let b2 = 100u32
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8911,25 +8911,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值，使它们相加会发生溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
+    let a1 = 18446744073709551615u64 // UInt64的最大值
     let b1 = 1u64
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个UInt64值，使它们相加不会发生溢出
     let a2 = 100u64
     let b2 = 200u64
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -8963,23 +8963,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，使其自减会发生溢出
-    let a1 = 0u64  // UInt64的最小值
-    
+    let a1 = 0u64 // UInt64的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个UInt64值，使其自减不会发生溢出
     let a2 = 100u64
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9019,23 +9019,23 @@ main(): Int64 {
     // 创建两个UInt64值，使除法运算不会发生溢出
     let a1 = 100u64
     let b1 = 2u64
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result1}")
-    
+
     // 创建另一个UInt64值对进行除法运算
     let a2 = 1000u64
     let b2 = 5u64
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9069,23 +9069,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，使其自增会发生溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
-    
+    let a1 = 18446744073709551615u64 // UInt64的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个UInt64值，使其自增不会发生溢出
     let a2 = 100u64
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9125,23 +9125,23 @@ main(): Int64 {
     // 创建两个UInt64值，使取余运算不会发生溢出
     let a1 = 100u64
     let b1 = 3u64
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result1}")
-    
+
     // 创建另一个UInt64值对进行取余运算
     let a2 = 1000u64
     let b2 = 7u64
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9179,25 +9179,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值，使它们相乘会发生溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
+    let a1 = 18446744073709551615u64 // UInt64的最大值
     let b1 = 2u64
-    
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个UInt64值，使它们相乘不会发生溢出
     let a2 = 100u64
     let b2 = 200u64
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9233,13 +9233,13 @@ main(): Int64 {
     // 创建一个UInt64值，尝试进行取负运算
     // 注意：对于UInt64类型，取负操作可能会导致溢出
     let a1 = 100u64
-    
+
     // 使用checkedNeg进行取负运算
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Checked neg result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -9277,24 +9277,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个UInt64值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u64
     let b2 = 2u64
-    
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9333,24 +9333,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个UInt64值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u64
     let b2 = 2u64
-    
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9389,24 +9389,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建两个UInt64值，使减法运算会发生溢出
     let a1 = 100u64
-    let b1 = 200u64  // 减数大于被减数
-    
+    let b1 = 200u64 // 减数大于被减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个UInt64值，使减法运算不会发生溢出
     let a2 = 200u64
     let b2 = 100u64
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9456,25 +9456,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值，使它们相加会发生溢出
-    let a1 = 255u8  // UInt8的最大值
+    let a1 = 255u8 // UInt8的最大值
     let b1 = 1u8
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个UInt8值，使它们相加不会发生溢出
     let a2 = 100u8
     let b2 = 50u8
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9508,23 +9508,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，使其自减会发生溢出
-    let a1 = 0u8  // UInt8的最小值
-    
+    let a1 = 0u8 // UInt8的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个UInt8值，使其自减不会发生溢出
     let a2 = 100u8
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9564,23 +9564,23 @@ main(): Int64 {
     // 创建两个UInt8值，使除法运算不会发生溢出
     let a1 = 100u8
     let b1 = 2u8
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result1}")
-    
+
     // 创建另一个UInt8值对进行除法运算
     let a2 = 200u8
     let b2 = 5u8
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9614,23 +9614,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，使其自增会发生溢出
-    let a1 = 255u8  // UInt8的最大值
-    
+    let a1 = 255u8 // UInt8的最大值
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个UInt8值，使其自增不会发生溢出
     let a2 = 100u8
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9670,23 +9670,23 @@ main(): Int64 {
     // 创建两个UInt8值，使取余运算不会发生溢出
     let a1 = 100u8
     let b1 = 3u8
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result1}")
-    
+
     // 创建另一个UInt8值对进行取余运算
     let a2 = 200u8
     let b2 = 7u8
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9724,25 +9724,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值，使它们相乘会发生溢出
-    let a1 = 255u8  // UInt8的最大值
+    let a1 = 255u8 // UInt8的最大值
     let b1 = 2u8
-    
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个UInt8值，使它们相乘不会发生溢出
     let a2 = 100u8
     let b2 = 2u8
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9778,13 +9778,13 @@ main(): Int64 {
     // 创建一个UInt8值，尝试进行取负运算
     // 注意：对于UInt8类型，取负操作可能会导致溢出
     let a1 = 100u8
-    
+
     // 使用checkedNeg进行取负运算
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Checked neg result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -9822,24 +9822,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u8
-    let b1 = 8u64  // 移位位数大于等于操作数位数(8)
-    
+    let b1 = 8u64 // 移位位数大于等于操作数位数(8)
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个UInt8值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u8
     let b2 = 2u64
-    
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9878,24 +9878,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u8
-    let b1 = 8u64  // 移位位数大于等于操作数位数(8)
-    
+    let b1 = 8u64 // 移位位数大于等于操作数位数(8)
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个UInt8值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u8
     let b2 = 2u64
-    
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -9934,24 +9934,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建两个UInt8值，使减法运算会发生溢出
     let a1 = 100u8
-    let b1 = 200u8  // 减数大于被减数
-    
+    let b1 = 200u8 // 减数大于被减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个UInt8值，使减法运算不会发生溢出
     let a2 = 200u8
     let b2 = 100u8
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10001,25 +10001,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值，使它们相加会发生溢出
-    let a1 = 18446744073709551615u64  // UIntNative的最大值（假设为64位）
+    let a1 = 18446744073709551615u64 // UIntNative的最大值（假设为64位）
     let b1 = 1u64
-    
+
     // 使用checkedAdd进行加法运算（溢出情况）
     let result1 = a1.checkedAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked add result: ${result1}")
-    
+
     // 创建两个UIntNative值，使它们相加不会发生溢出
     let a2 = 100u64
     let b2 = 200u64
-    
+
     // 使用checkedAdd进行加法运算（正常情况）
     let result2 = a2.checkedAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10053,23 +10053,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，使其自减会发生溢出
-    let a1 = 0u64  // UIntNative的最小值
-    
+    let a1 = 0u64 // UIntNative的最小值
+
     // 使用checkedDec进行自减运算（溢出情况）
     let result1 = a1.checkedDec()
-    
+
     // 直接打印结果
     println("Overflow case - Checked dec result: ${result1}")
-    
+
     // 创建一个UIntNative值，使其自减不会发生溢出
     let a2 = 100u64
-    
+
     // 使用checkedDec进行自减运算（正常情况）
     let result2 = a2.checkedDec()
-    
+
     // 直接打印结果
     println("Normal case - Checked dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10109,23 +10109,23 @@ main(): Int64 {
     // 创建两个UIntNative值，使除法运算不会发生溢出
     let a1 = 100u64
     let b1 = 2u64
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result1 = a1.checkedDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result1}")
-    
+
     // 创建另一个UIntNative值对进行除法运算
     let a2 = 1000u64
     let b2 = 5u64
-    
+
     // 使用checkedDiv进行除法运算（正常情况）
     let result2 = a2.checkedDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10159,23 +10159,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，使其自增会发生溢出
-    let a1 = 18446744073709551615u64  // UIntNative的最大值（假设为64位）
-    
+    let a1 = 18446744073709551615u64 // UIntNative的最大值（假设为64位）
+
     // 使用checkedInc进行自增运算（溢出情况）
     let result1 = a1.checkedInc()
-    
+
     // 直接打印结果
     println("Overflow case - Checked inc result: ${result1}")
-    
+
     // 创建一个UIntNative值，使其自增不会发生溢出
     let a2 = 100u64
-    
+
     // 使用checkedInc进行自增运算（正常情况）
     let result2 = a2.checkedInc()
-    
+
     // 直接打印结果
     println("Normal case - Checked inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10215,23 +10215,23 @@ main(): Int64 {
     // 创建两个UIntNative值，使取余运算不会发生溢出
     let a1 = 100u64
     let b1 = 3u64
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result1 = a1.checkedMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result1}")
-    
+
     // 创建另一个UIntNative值对进行取余运算
     let a2 = 1000u64
     let b2 = 7u64
-    
+
     // 使用checkedMod进行取余运算（正常情况）
     let result2 = a2.checkedMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10269,25 +10269,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值，使它们相乘会发生溢出
-    let a1 = 18446744073709551615u64  // UIntNative的最大值（假设为64位）
+    let a1 = 18446744073709551615u64 // UIntNative的最大值（假设为64位）
     let b1 = 2u64
-    
+
     // 使用checkedMul进行乘法运算（溢出情况）
     let result1 = a1.checkedMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked mul result: ${result1}")
-    
+
     // 创建两个UIntNative值，使它们相乘不会发生溢出
     let a2 = 100u64
     let b2 = 200u64
-    
+
     // 使用checkedMul进行乘法运算（正常情况）
     let result2 = a2.checkedMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10323,13 +10323,13 @@ main(): Int64 {
     // 创建一个UIntNative值，尝试进行取负运算
     // 注意：对于UIntNative类型，取负操作可能会导致溢出
     let a1 = 100u64
-    
+
     // 使用checkedNeg进行取负运算
     let result1 = a1.checkedNeg()
-    
+
     // 直接打印结果
     println("Checked neg result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -10367,24 +10367,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用checkedShl进行左移运算（溢出情况）
     let result1 = a1.checkedShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shl result: ${result1}")
-    
+
     // 创建一个UIntNative值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u64
     let b2 = 2u64
-    
+
     // 使用checkedShl进行左移运算（正常情况）
     let result2 = a2.checkedShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10423,24 +10423,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用checkedShr进行右移运算（溢出情况）
     let result1 = a1.checkedShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked shr result: ${result1}")
-    
+
     // 创建一个UIntNative值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u64
     let b2 = 2u64
-    
+
     // 使用checkedShr进行右移运算（正常情况）
     let result2 = a2.checkedShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10479,24 +10479,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建两个UIntNative值，使减法运算会发生溢出
     let a1 = 100u64
-    let b1 = 200u64  // 减数大于被减数
-    
+    let b1 = 200u64 // 减数大于被减数
+
     // 使用checkedSub进行减法运算（溢出情况）
     let result1 = a1.checkedSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Checked sub result: ${result1}")
-    
+
     // 创建两个UIntNative值，使减法运算不会发生溢出
     let a2 = 200u64
     let b2 = 100u64
-    
+
     // 使用checkedSub进行减法运算（正常情况）
     let result2 = a2.checkedSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Checked sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10761,35 +10761,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使它们相加会发生上溢出
-    let a1 = 32767i16  // Int16的最大值
+    let a1 = 32767i16 // Int16的最大值
     let b1 = 1i16
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个Int16值，使它们相加会发生下溢出
-    let a2 = -32768i16  // Int16的最小值
+    let a2 = -32768i16 // Int16的最小值
     let b2 = -1i16
-    
+
     // 使用saturatingAdd进行加法运算（下溢出情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating add result: ${result2}")
-    
+
     // 创建两个Int16值，使它们相加不会发生溢出
     let a3 = 100i16
     let b3 = 200i16
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result3 = a3.saturatingAdd(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -10824,23 +10824,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自减会发生下溢出
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个Int16值，使其自减不会发生溢出
     let a2 = 100i16
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10878,25 +10878,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使除法运算会发生上溢出
-    let a1 = -32768i16  // Int16的最小值
+    let a1 = -32768i16 // Int16的最小值
     let b1 = -1i16
-    
+
     // 使用saturatingDiv进行除法运算（上溢出情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating div result: ${result1}")
-    
+
     // 创建两个Int16值，使除法运算不会发生溢出
     let a2 = 100i16
     let b2 = 2i16
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10930,23 +10930,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自增会发生上溢出
-    let a1 = 32767i16  // Int16的最大值
-    
+    let a1 = 32767i16 // Int16的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个Int16值，使其自增不会发生溢出
     let a2 = 100i16
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -10984,25 +10984,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使取余运算会发生上溢出
-    let a1 = -32768i16  // Int16的最小值
+    let a1 = -32768i16 // Int16的最小值
     let b1 = -1i16
-    
+
     // 使用saturatingMod进行取余运算（上溢出情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mod result: ${result1}")
-    
+
     // 创建两个Int16值，使取余运算不会发生溢出
     let a2 = 100i16
     let b2 = 3i16
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11040,35 +11040,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使它们相乘会发生上溢出
-    let a1 = 32767i16  // Int16的最大值
+    let a1 = 32767i16 // Int16的最大值
     let b1 = 2i16
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个Int16值，使它们相乘会发生下溢出
-    let a2 = -32768i16  // Int16的最小值
+    let a2 = -32768i16 // Int16的最小值
     let b2 = 2i16
-    
+
     // 使用saturatingMul进行乘法运算（下溢出情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating mul result: ${result2}")
-    
+
     // 创建两个Int16值，使它们相乘不会发生溢出
     let a3 = 100i16
     let b3 = 200i16
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result3 = a3.saturatingMul(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11103,32 +11103,32 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其取负会发生上溢出
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     // 使用saturatingNeg进行取负运算（上溢出情况）
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating neg result: ${result1}")
-    
+
     // 创建一个Int16值，使其取负会发生下溢出
-    let a2 = 32767i16  // Int16的最大值
-    
+    let a2 = 32767i16 // Int16的最大值
+
     // 使用saturatingNeg进行取负运算（下溢出情况）
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating neg result: ${result2}")
-    
+
     // 创建一个Int16值，使其取负不会发生溢出
     let a3 = 100i16
-    
+
     // 使用saturatingNeg进行取负运算（正常情况）
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11168,24 +11168,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和一个移位位数，使左移运算会发生溢出
     let a1 = 100i16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个Int16值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100i16
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11224,24 +11224,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和一个移位位数，使右移运算会发生溢出
     let a1 = 100i16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个Int16值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100i16
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11279,35 +11279,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使它们相减会发生上溢出
-    let a1 = 32767i16  // Int16的最大值
+    let a1 = 32767i16 // Int16的最大值
     let b1 = -1i16
-    
+
     // 使用saturatingSub进行减法运算（上溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个Int16值，使它们相减会发生下溢出
-    let a2 = -32768i16  // Int16的最小值
+    let a2 = -32768i16 // Int16的最小值
     let b2 = 1i16
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     // 创建两个Int16值，使它们相减不会发生溢出
     let a3 = 100i16
     let b3 = 50i16
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result3 = a3.saturatingSub(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11358,35 +11358,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使它们相加会发生上溢出
-    let a1 = 2147483647i32  // Int32的最大值
+    let a1 = 2147483647i32 // Int32的最大值
     let b1 = 1i32
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个Int32值，使它们相加会发生下溢出
-    let a2 = -2147483648i32  // Int32的最小值
+    let a2 = -2147483648i32 // Int32的最小值
     let b2 = -1i32
-    
+
     // 使用saturatingAdd进行加法运算（下溢出情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating add result: ${result2}")
-    
+
     // 创建两个Int32值，使它们相加不会发生溢出
     let a3 = 100i32
     let b3 = 200i32
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result3 = a3.saturatingAdd(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11421,23 +11421,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自减会发生下溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个Int32值，使其自减不会发生溢出
     let a2 = 100i32
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11475,25 +11475,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使除法运算会发生上溢出
-    let a1 = -2147483648i32  // Int32的最小值
+    let a1 = -2147483648i32 // Int32的最小值
     let b1 = -1i32
-    
+
     // 使用saturatingDiv进行除法运算（上溢出情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating div result: ${result1}")
-    
+
     // 创建两个Int32值，使除法运算不会发生溢出
     let a2 = 100i32
     let b2 = 2i32
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11527,23 +11527,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自增会发生上溢出
-    let a1 = 2147483647i32  // Int32的最大值
-    
+    let a1 = 2147483647i32 // Int32的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个Int32值，使其自增不会发生溢出
     let a2 = 100i32
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11581,25 +11581,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使取余运算会发生上溢出
-    let a1 = -2147483648i32  // Int32的最小值
+    let a1 = -2147483648i32 // Int32的最小值
     let b1 = -1i32
-    
+
     // 使用saturatingMod进行取余运算（上溢出情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mod result: ${result1}")
-    
+
     // 创建两个Int32值，使取余运算不会发生溢出
     let a2 = 100i32
     let b2 = 3i32
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11637,35 +11637,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使它们相乘会发生上溢出
-    let a1 = 2147483647i32  // Int32的最大值
+    let a1 = 2147483647i32 // Int32的最大值
     let b1 = 2i32
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个Int32值，使它们相乘会发生下溢出
-    let a2 = -2147483648i32  // Int32的最小值
+    let a2 = -2147483648i32 // Int32的最小值
     let b2 = 2i32
-    
+
     // 使用saturatingMul进行乘法运算（下溢出情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating mul result: ${result2}")
-    
+
     // 创建两个Int32值，使它们相乘不会发生溢出
     let a3 = 100i32
     let b3 = 200i32
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result3 = a3.saturatingMul(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11700,32 +11700,32 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其取负会发生上溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     // 使用saturatingNeg进行取负运算（上溢出情况）
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating neg result: ${result1}")
-    
+
     // 创建一个Int32值，使其取负会发生下溢出
-    let a2 = 2147483647i32  // Int32的最大值
-    
+    let a2 = 2147483647i32 // Int32的最大值
+
     // 使用saturatingNeg进行取负运算（下溢出情况）
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating neg result: ${result2}")
-    
+
     // 创建一个Int32值，使其取负不会发生溢出
     let a3 = 100i32
-    
+
     // 使用saturatingNeg进行取负运算（正常情况）
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11765,24 +11765,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和一个移位位数，使左移运算会发生溢出
     let a1 = 100i32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个Int32值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100i32
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11821,24 +11821,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和一个移位位数，使右移运算会发生溢出
     let a1 = 100i32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个Int32值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100i32
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -11876,35 +11876,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使它们相减会发生上溢出
-    let a1 = 2147483647i32  // Int32的最大值
+    let a1 = 2147483647i32 // Int32的最大值
     let b1 = -1i32
-    
+
     // 使用saturatingSub进行减法运算（上溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个Int32值，使它们相减会发生下溢出
-    let a2 = -2147483648i32  // Int32的最小值
+    let a2 = -2147483648i32 // Int32的最小值
     let b2 = 1i32
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     // 创建两个Int32值，使它们相减不会发生溢出
     let a3 = 100i32
     let b3 = 50i32
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result3 = a3.saturatingSub(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -11956,35 +11956,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使它们相加会发生上溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
+    let a1 = 9223372036854775807i64 // Int64的最大值
     let b1 = 1i64
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个Int64值，使它们相加会发生下溢出
-    let a2 = -9223372036854775808i64  // Int64的最小值
+    let a2 = -9223372036854775808i64 // Int64的最小值
     let b2 = -1i64
-    
+
     // 使用saturatingAdd进行加法运算（下溢出情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating add result: ${result2}")
-    
+
     // 创建两个Int64值，使它们相加不会发生溢出
     let a3 = 100i64
     let b3 = 200i64
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result3 = a3.saturatingAdd(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12019,23 +12019,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自减会发生下溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个Int64值，使其自减不会发生溢出
     let a2 = 100i64
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12073,25 +12073,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使除法运算会发生上溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
+    let a1 = -9223372036854775808i64 // Int64的最小值
     let b1 = -1i64
-    
+
     // 使用saturatingDiv进行除法运算（上溢出情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating div result: ${result1}")
-    
+
     // 创建两个Int64值，使除法运算不会发生溢出
     let a2 = 100i64
     let b2 = 2i64
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12125,23 +12125,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自增会发生上溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
-    
+    let a1 = 9223372036854775807i64 // Int64的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个Int64值，使其自增不会发生溢出
     let a2 = 100i64
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12179,25 +12179,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使取余运算会发生上溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
+    let a1 = -9223372036854775808i64 // Int64的最小值
     let b1 = -1i64
-    
+
     // 使用saturatingMod进行取余运算（上溢出情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mod result: ${result1}")
-    
+
     // 创建两个Int64值，使取余运算不会发生溢出
     let a2 = 100i64
     let b2 = 3i64
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12235,35 +12235,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使它们相乘会发生上溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
+    let a1 = 9223372036854775807i64 // Int64的最大值
     let b1 = 2i64
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个Int64值，使它们相乘会发生下溢出
-    let a2 = -9223372036854775808i64  // Int64的最小值
+    let a2 = -9223372036854775808i64 // Int64的最小值
     let b2 = 2i64
-    
+
     // 使用saturatingMul进行乘法运算（下溢出情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating mul result: ${result2}")
-    
+
     // 创建两个Int64值，使它们相乘不会发生溢出
     let a3 = 100i64
     let b3 = 200i64
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result3 = a3.saturatingMul(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12298,32 +12298,32 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其取负会发生上溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     // 使用saturatingNeg进行取负运算（上溢出情况）
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating neg result: ${result1}")
-    
+
     // 创建一个Int64值，使其取负会发生下溢出
-    let a2 = 9223372036854775807i64  // Int64的最大值
-    
+    let a2 = 9223372036854775807i64 // Int64的最大值
+
     // 使用saturatingNeg进行取负运算（下溢出情况）
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating neg result: ${result2}")
-    
+
     // 创建一个Int64值，使其取负不会发生溢出
     let a3 = 100i64
-    
+
     // 使用saturatingNeg进行取负运算（正常情况）
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12362,35 +12362,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值和一个指数，使幂运算会发生上溢出
-    let a1 = 10000000000i64  // 较大的Int64值
-    let b1 = 10u64  // 较大的指数
-    
+    let a1 = 10000000000i64 // 较大的Int64值
+    let b1 = 10u64 // 较大的指数
+
     // 使用saturatingPow进行幂运算（上溢出情况）
     let result1 = a1.saturatingPow(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating pow result: ${result1}")
-    
+
     // 创建一个Int64值和一个指数，使幂运算会发生下溢出
-    let a2 = -10000000000i64  // 较大的负Int64值
-    let b2 = 10u64  // 较大的指数
-    
+    let a2 = -10000000000i64 // 较大的负Int64值
+    let b2 = 10u64 // 较大的指数
+
     // 使用saturatingPow进行幂运算（下溢出情况）
     let result2 = a2.saturatingPow(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating pow result: ${result2}")
-    
+
     // 创建一个Int64值和一个指数，使幂运算不会发生溢出
     let a3 = 10i64
     let b3 = 2u64
-    
+
     // 使用saturatingPow进行幂运算（正常情况）
     let result3 = a3.saturatingPow(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating pow result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12430,24 +12430,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和一个移位位数，使左移运算会发生溢出
     let a1 = 100i64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个Int64值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100i64
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12486,24 +12486,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和一个移位位数，使右移运算会发生溢出
     let a1 = 100i64
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个Int64值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100i64
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12541,35 +12541,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使它们相减会发生上溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
+    let a1 = 9223372036854775807i64 // Int64的最大值
     let b1 = -1i64
-    
+
     // 使用saturatingSub进行减法运算（上溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个Int64值，使它们相减会发生下溢出
-    let a2 = -9223372036854775808i64  // Int64的最小值
+    let a2 = -9223372036854775808i64 // Int64的最小值
     let b2 = 1i64
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     // 创建两个Int64值，使它们相减不会发生溢出
     let a3 = 100i64
     let b3 = 50i64
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result3 = a3.saturatingSub(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12620,35 +12620,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使它们相加会发生上溢出
-    let a1 = 127i8  // Int8的最大值
+    let a1 = 127i8 // Int8的最大值
     let b1 = 1i8
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个Int8值，使它们相加会发生下溢出
-    let a2 = -128i8  // Int8的最小值
+    let a2 = -128i8 // Int8的最小值
     let b2 = -1i8
-    
+
     // 使用saturatingAdd进行加法运算（下溢出情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating add result: ${result2}")
-    
+
     // 创建两个Int8值，使它们相加不会发生溢出
     let a3 = 10i8
     let b3 = 20i8
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result3 = a3.saturatingAdd(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12683,23 +12683,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自减会发生下溢出
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个Int8值，使其自减不会发生溢出
     let a2 = 10i8
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12737,25 +12737,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使除法运算会发生上溢出
-    let a1 = -128i8  // Int8的最小值
+    let a1 = -128i8 // Int8的最小值
     let b1 = -1i8
-    
+
     // 使用saturatingDiv进行除法运算（上溢出情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating div result: ${result1}")
-    
+
     // 创建两个Int8值，使除法运算不会发生溢出
     let a2 = 10i8
     let b2 = 2i8
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12789,23 +12789,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自增会发生上溢出
-    let a1 = 127i8  // Int8的最大值
-    
+    let a1 = 127i8 // Int8的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个Int8值，使其自增不会发生溢出
     let a2 = 10i8
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12843,25 +12843,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使取余运算会发生上溢出
-    let a1 = -128i8  // Int8的最小值
+    let a1 = -128i8 // Int8的最小值
     let b1 = -1i8
-    
+
     // 使用saturatingMod进行取余运算（上溢出情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mod result: ${result1}")
-    
+
     // 创建两个Int8值，使取余运算不会发生溢出
     let a2 = 10i8
     let b2 = 3i8
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -12899,35 +12899,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使它们相乘会发生上溢出
-    let a1 = 127i8  // Int8的最大值
+    let a1 = 127i8 // Int8的最大值
     let b1 = 2i8
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个Int8值，使它们相乘会发生下溢出
-    let a2 = -128i8  // Int8的最小值
+    let a2 = -128i8 // Int8的最小值
     let b2 = 2i8
-    
+
     // 使用saturatingMul进行乘法运算（下溢出情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating mul result: ${result2}")
-    
+
     // 创建两个Int8值，使它们相乘不会发生溢出
     let a3 = 10i8
     let b3 = 2i8
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result3 = a3.saturatingMul(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -12962,32 +12962,32 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其取负会发生上溢出
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     // 使用saturatingNeg进行取负运算（上溢出情况）
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating neg result: ${result1}")
-    
+
     // 创建一个Int8值，使其取负会发生下溢出
-    let a2 = 127i8  // Int8的最大值
-    
+    let a2 = 127i8 // Int8的最大值
+
     // 使用saturatingNeg进行取负运算（下溢出情况）
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating neg result: ${result2}")
-    
+
     // 创建一个Int8值，使其取负不会发生溢出
     let a3 = 10i8
-    
+
     // 使用saturatingNeg进行取负运算（正常情况）
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13027,24 +13027,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和一个移位位数，使左移运算会发生溢出
     let a1 = 10i8
-    let b1 = 8u64  // 移位位数大于等于操作数位数(8)
-    
+    let b1 = 8u64 // 移位位数大于等于操作数位数(8)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个Int8值和一个移位位数，使左移运算不会发生溢出
     let a2 = 10i8
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13083,24 +13083,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和一个移位位数，使右移运算会发生溢出
     let a1 = 10i8
-    let b1 = 8u64  // 移位位数大于等于操作数位数(8)
-    
+    let b1 = 8u64 // 移位位数大于等于操作数位数(8)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个Int8值和一个移位位数，使右移运算不会发生溢出
     let a2 = 10i8
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13138,35 +13138,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使它们相减会发生上溢出
-    let a1 = 127i8  // Int8的最大值
+    let a1 = 127i8 // Int8的最大值
     let b1 = -1i8
-    
+
     // 使用saturatingSub进行减法运算（上溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个Int8值，使它们相减会发生下溢出
-    let a2 = -128i8  // Int8的最小值
+    let a2 = -128i8 // Int8的最小值
     let b2 = 1i8
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     // 创建两个Int8值，使它们相减不会发生溢出
     let a3 = 10i8
     let b3 = 5i8
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result3 = a3.saturatingSub(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13217,35 +13217,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使它们相加会发生上溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
     let b1: IntNative = 1
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个IntNative值，使它们相加会发生下溢出
-    let a2: IntNative = -9223372036854775808  // IntNative的最小值
+    let a2: IntNative = -9223372036854775808 // IntNative的最小值
     let b2: IntNative = -1
-    
+
     // 使用saturatingAdd进行加法运算（下溢出情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating add result: ${result2}")
-    
+
     // 创建两个IntNative值，使它们相加不会发生溢出
     let a3 = 1000000
     let b3 = 2000000
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result3 = a3.saturatingAdd(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13280,23 +13280,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其自减会发生下溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自减不会发生溢出
     let a2: IntNative = 1000000
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13334,25 +13334,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使除法运算会发生上溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
     let b1: IntNative = -1
-    
+
     // 使用saturatingDiv进行除法运算（上溢出情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating div result: ${result1}")
-    
+
     // 创建两个IntNative值，使除法运算不会发生溢出
     let a2: IntNative = 1000000
     let b2: IntNative = 2
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13386,23 +13386,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其自增会发生上溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
-    
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自增不会发生溢出
     let a2: IntNative = 1000000
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13440,25 +13440,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使取余运算会发生上溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
     let b1: IntNative = -1
-    
+
     // 使用saturatingMod进行取余运算（上溢出情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mod result: ${result1}")
-    
+
     // 创建两个IntNative值，使取余运算不会发生溢出
     let a2: IntNative = 1000000
     let b2: IntNative = 3
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13496,35 +13496,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使它们相乘会发生上溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
     let b1: IntNative = 2
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个IntNative值，使它们相乘会发生下溢出
-    let a2: IntNative = -9223372036854775808  // IntNative的最小值
+    let a2: IntNative = -9223372036854775808 // IntNative的最小值
     let b2: IntNative = 2
-    
+
     // 使用saturatingMul进行乘法运算（下溢出情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating mul result: ${result2}")
-    
+
     // 创建两个IntNative值，使它们相乘不会发生溢出
     let a3 = 1000000
     let b3 = 2000000
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result3 = a3.saturatingMul(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13559,32 +13559,32 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个IntNative值，使其取负会发生上溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     // 使用saturatingNeg进行取负运算（上溢出情况）
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating neg result: ${result1}")
-    
+
     // 创建一个IntNative值，使其取负会发生下溢出
-    let a2: IntNative = 9223372036854775807  // IntNative的最大值
-    
+    let a2: IntNative = 9223372036854775807 // IntNative的最大值
+
     // 使用saturatingNeg进行取负运算（下溢出情况）
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating neg result: ${result2}")
-    
+
     // 创建一个IntNative值，使其取负不会发生溢出
     let a3 = 1000000
-    
+
     // 使用saturatingNeg进行取负运算（正常情况）
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13624,24 +13624,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个IntNative值和一个移位位数，使左移运算会发生溢出
     let a1: IntNative = 1000000
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个IntNative值和一个移位位数，使左移运算不会发生溢出
     let a2: IntNative = 1000000
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13680,24 +13680,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个IntNative值和一个移位位数，使右移运算会发生溢出
     let a1: IntNative = 1000000
-    let b1 = 64u64  // 移位位数大于等于操作数位数(64)
-    
+    let b1 = 64u64 // 移位位数大于等于操作数位数(64)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个IntNative值和一个移位位数，使右移运算不会发生溢出
     let a2: IntNative = 1000000
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13735,35 +13735,35 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个IntNative值，使它们相减会发生上溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
     let b1: IntNative = -1
-    
+
     // 使用saturatingSub进行减法运算（上溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个IntNative值，使它们相减会发生下溢出
-    let a2: IntNative = -9223372036854775808  // IntNative的最小值
+    let a2: IntNative = -9223372036854775808 // IntNative的最小值
     let b2: IntNative = 1
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     // 创建两个IntNative值，使它们相减不会发生溢出
     let a3 = 1000000
     let b3 = 500000
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result3 = a3.saturatingSub(b3)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -13814,25 +13814,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相加会发生上溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 1u16
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相加不会发生溢出
     let a2 = 100u16
     let b2 = 200u16
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13866,23 +13866,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自减会发生下溢出
-    let a1 = 0u16  // UInt16的最小值
-    
+    let a1 = 0u16 // UInt16的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自减不会发生溢出
     let a2 = 100u16
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13922,23 +13922,23 @@ main(): Int64 {
     // 创建两个UInt16值，使除法运算不会发生溢出
     let a1 = 100u16
     let b1 = 2u16
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result1}")
-    
+
     // 创建另一个UInt16值进行除法运算
     let a2 = 65535u16
     let b2 = 1u16
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case 2 - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -13972,23 +13972,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自增会发生上溢出
-    let a1 = 65535u16  // UInt16的最大值
-    
+    let a1 = 65535u16 // UInt16的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自增不会发生溢出
     let a2 = 100u16
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14028,23 +14028,23 @@ main(): Int64 {
     // 创建两个UInt16值，使取余运算不会发生溢出
     let a1 = 100u16
     let b1 = 3u16
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result1}")
-    
+
     // 创建另一个UInt16值进行取余运算
     let a2 = 65535u16
     let b2 = 1u16
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case 2 - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14082,25 +14082,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相乘会发生上溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 2u16
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相乘不会发生溢出
     let a2 = 100u16
     let b2 = 200u16
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14137,17 +14137,17 @@ main(): Int64 {
     let a1 = 0u16
     let a2 = 100u16
     let a3 = 65535u16
-    
+
     // 使用saturatingNeg进行取负运算
     let result1 = a1.saturatingNeg()
     let result2 = a2.saturatingNeg()
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("0u16 saturatingNeg result: ${result1}")
     println("100u16 saturatingNeg result: ${result2}")
     println("65535u16 saturatingNeg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -14187,24 +14187,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个移位位数，使左移运算会发生溢出
     let a1 = 100u16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个UInt16值和一个移位位数，使左移运算不会发生溢出
     let a2 = 100u16
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14243,24 +14243,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个移位位数，使右移运算会发生溢出
     let a1 = 100u16
-    let b1 = 16u64  // 移位位数大于等于操作数位数(16)
-    
+    let b1 = 16u64 // 移位位数大于等于操作数位数(16)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个UInt16值和一个移位位数，使右移运算不会发生溢出
     let a2 = 100u16
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14298,25 +14298,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相减会发生下溢出
-    let a1 = 0u16  // UInt16的最小值
+    let a1 = 0u16 // UInt16的最小值
     let b1 = 1u16
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相减不会发生溢出
     let a2 = 100u16
     let b2 = 50u16
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14366,25 +14366,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相加会发生上溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 1u32
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相加不会发生溢出
     let a2 = 1000000u32
     let b2 = 2000000u32
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14418,23 +14418,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自减会发生下溢出
-    let a1 = 0u32  // UInt32的最小值
-    
+    let a1 = 0u32 // UInt32的最小值
+
     // 使用saturatingDec进行自减运算（下溢出情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自减不会发生溢出
     let a2 = 1000000u32
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14474,23 +14474,23 @@ main(): Int64 {
     // 创建两个UInt32值，使除法运算不会发生溢出
     let a1 = 1000000u32
     let b1 = 2u32
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result1}")
-    
+
     // 创建另一个UInt32值进行除法运算
     let a2 = 4294967295u32
     let b2 = 1u32
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Normal case 2 - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14524,23 +14524,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自增会发生上溢出
-    let a1 = 4294967295u32  // UInt32的最大值
-    
+    let a1 = 4294967295u32 // UInt32的最大值
+
     // 使用saturatingInc进行自增运算（上溢出情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自增不会发生溢出
     let a2 = 1000000u32
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14580,23 +14580,23 @@ main(): Int64 {
     // 创建两个UInt32值，使取余运算不会发生溢出
     let a1 = 1000000u32
     let b1 = 3u32
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result1}")
-    
+
     // 创建另一个UInt32值进行取余运算
     let a2 = 4294967295u32
     let b2 = 1u32
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Normal case 2 - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14634,25 +14634,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相乘会发生上溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 2u32
-    
+
     // 使用saturatingMul进行乘法运算（上溢出情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相乘不会发生溢出
     let a2 = 1000000u32
     let b2 = 2000000u32
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14689,17 +14689,17 @@ main(): Int64 {
     let a1 = 0u32
     let a2 = 1000000u32
     let a3 = 4294967295u32
-    
+
     // 使用saturatingNeg进行取负运算
     let result1 = a1.saturatingNeg()
     let result2 = a2.saturatingNeg()
     let result3 = a3.saturatingNeg()
-    
+
     // 直接打印结果
     println("0u32 saturatingNeg result: ${result1}")
     println("1000000u32 saturatingNeg result: ${result2}")
     println("4294967295u32 saturatingNeg result: ${result3}")
-    
+
     return 0
 }
 ```
@@ -14739,24 +14739,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个移位位数，使左移运算会发生溢出
     let a1 = 1000000u32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用saturatingShl进行左移运算（溢出情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shl result: ${result1}")
-    
+
     // 创建一个UInt32值和一个移位位数，使左移运算不会发生溢出
     let a2 = 1000000u32
     let b2 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14795,24 +14795,24 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个移位位数，使右移运算会发生溢出
     let a1 = 1000000u32
-    let b1 = 32u64  // 移位位数大于等于操作数位数(32)
-    
+    let b1 = 32u64 // 移位位数大于等于操作数位数(32)
+
     // 使用saturatingShr进行右移运算（溢出情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating shr result: ${result1}")
-    
+
     // 创建一个UInt32值和一个移位位数，使右移运算不会发生溢出
     let a2 = 1000000u32
     let b2 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14850,25 +14850,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相减会发生下溢出
-    let a1 = 0u32  // UInt32的最小值
+    let a1 = 0u32 // UInt32的最小值
     let b1 = 1u32
-    
+
     // 使用saturatingSub进行减法运算（下溢出情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相减不会发生溢出
     let a2 = 1000000u32
     let b2 = 500000u32
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14918,25 +14918,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值，使它们相加会发生上溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
+    let a1 = 18446744073709551615u64 // UInt64的最大值
     let b1 = 1u64
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个UInt64值，使它们相加不会发生溢出
     let a2 = 1000000000000u64
     let b2 = 2000000000000u64
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -14971,22 +14971,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值，测试下溢情况（0减1应该饱和为0）
     let a1 = 0u64
-    
+
     // 使用saturatingDec进行自减运算（下溢情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个UInt64值，测试正常情况
     let a2 = 100u64
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15026,23 +15026,23 @@ main(): Int64 {
     // 创建两个UInt64值，测试正常除法情况
     let a1 = 1000000000000u64
     let b1 = 1000u64
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result1}")
-    
+
     // 创建两个UInt64值，测试大数除法情况
-    let a2 = 18446744073709551615u64  // UInt64的最大值
+    let a2 = 18446744073709551615u64 // UInt64的最大值
     let b2 = 1000000u64
-    
+
     // 使用saturatingDiv进行除法运算（大数情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15076,23 +15076,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，测试上溢情况（最大值加1应该饱和为最大值）
-    let a1 = 18446744073709551615u64  // UInt64的最大值
-    
+    let a1 = 18446744073709551615u64 // UInt64的最大值
+
     // 使用saturatingInc进行自增运算（上溢情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个UInt64值，测试正常情况
     let a2 = 100u64
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15132,23 +15132,23 @@ main(): Int64 {
     // 创建两个UInt64值，测试正常取余情况
     let a1 = 1000000000005u64
     let b1 = 1000u64
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result1}")
-    
+
     // 创建两个UInt64值，测试大数取余情况
-    let a2 = 18446744073709551615u64  // UInt64的最大值
+    let a2 = 18446744073709551615u64 // UInt64的最大值
     let b2 = 1000000u64
-    
+
     // 使用saturatingMod进行取余运算（大数情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15188,23 +15188,23 @@ main(): Int64 {
     // 创建两个UInt64值，测试正常乘法情况
     let a1 = 1000000u64
     let b1 = 2000000u64
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result1}")
-    
+
     // 创建两个UInt64值，测试上溢情况
-    let a2 = 18446744073709551615u64  // UInt64的最大值
+    let a2 = 18446744073709551615u64 // UInt64的最大值
     let b2 = 2u64
-    
+
     // 使用saturatingMul进行乘法运算（上溢情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15239,22 +15239,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值，测试负号运算
     let a1 = 1000000u64
-    
+
     // 使用saturatingNeg进行负号运算
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result1}")
-    
+
     // 创建一个UInt64值0，测试边界情况
     let a2 = 0u64
-    
+
     // 使用saturatingNeg进行负号运算
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Zero case - Saturating neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15294,23 +15294,23 @@ main(): Int64 {
     // 创建一个UInt64值和移位位数，测试正常左移情况
     let a1 = 1000000u64
     let b1 = 10u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result1}")
-    
+
     // 创建一个UInt64值和较大的移位位数，测试边界情况
     let a2 = 1000000u64
-    let b2 = 100u64  // 大于64的移位位数
-    
+    let b2 = 100u64 // 大于64的移位位数
+
     // 使用saturatingShl进行左移运算（边界情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15350,23 +15350,23 @@ main(): Int64 {
     // 创建一个UInt64值和移位位数，测试正常右移情况
     let a1 = 1000000000000u64
     let b1 = 10u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result1}")
-    
+
     // 创建一个UInt64值和较大的移位位数，测试边界情况
     let a2 = 1000000000000u64
-    let b2 = 100u64  // 大于64的移位位数
-    
+    let b2 = 100u64 // 大于64的移位位数
+
     // 使用saturatingShr进行右移运算（边界情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15406,23 +15406,23 @@ main(): Int64 {
     // 创建两个UInt64值，测试正常减法情况
     let a1 = 1000000000000u64
     let b1 = 500000000000u64
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result1}")
-    
+
     // 创建两个UInt64值，测试下溢情况（小数减大数应该饱和为0）
     let a2 = 100u64
     let b2 = 1000u64
-    
+
     // 使用saturatingSub进行减法运算（下溢情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15472,25 +15472,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值，使它们相加会发生上溢出
-    let a1 = 255u8  // UInt8的最大值
+    let a1 = 255u8 // UInt8的最大值
     let b1 = 1u8
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个UInt8值，使它们相加不会发生溢出
     let a2 = 100u8
     let b2 = 50u8
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15525,22 +15525,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值，测试下溢情况（0减1应该饱和为0）
     let a1 = 0u8
-    
+
     // 使用saturatingDec进行自减运算（下溢情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个UInt8值，测试正常情况
     let a2 = 100u8
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15580,23 +15580,23 @@ main(): Int64 {
     // 创建两个UInt8值，测试正常除法情况
     let a1 = 200u8
     let b1 = 10u8
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result1}")
-    
+
     // 创建两个UInt8值，测试大数除法情况
-    let a2 = 255u8  // UInt8的最大值
+    let a2 = 255u8 // UInt8的最大值
     let b2 = 5u8
-    
+
     // 使用saturatingDiv进行除法运算（大数情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15630,23 +15630,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，测试上溢情况（最大值加1应该饱和为最大值）
-    let a1 = 255u8  // UInt8的最大值
-    
+    let a1 = 255u8 // UInt8的最大值
+
     // 使用saturatingInc进行自增运算（上溢情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个UInt8值，测试正常情况
     let a2 = 100u8
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15686,23 +15686,23 @@ main(): Int64 {
     // 创建两个UInt8值，测试正常取余情况
     let a1 = 205u8
     let b1 = 10u8
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result1}")
-    
+
     // 创建两个UInt8值，测试大数取余情况
-    let a2 = 255u8  // UInt8的最大值
+    let a2 = 255u8 // UInt8的最大值
     let b2 = 50u8
-    
+
     // 使用saturatingMod进行取余运算（大数情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15742,23 +15742,23 @@ main(): Int64 {
     // 创建两个UInt8值，测试正常乘法情况
     let a1 = 100u8
     let b1 = 20u8
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result1}")
-    
+
     // 创建两个UInt8值，测试上溢情况
     let a2 = 200u8
     let b2 = 2u8
-    
+
     // 使用saturatingMul进行乘法运算（上溢情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15793,22 +15793,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值，测试负号运算
     let a1 = 100u8
-    
+
     // 使用saturatingNeg进行负号运算
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result1}")
-    
+
     // 创建一个UInt8值0，测试边界情况
     let a2 = 0u8
-    
+
     // 使用saturatingNeg进行负号运算
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Zero case - Saturating neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15848,23 +15848,23 @@ main(): Int64 {
     // 创建一个UInt8值和移位位数，测试正常左移情况
     let a1 = 100u8
     let b1 = 2u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result1}")
-    
+
     // 创建一个UInt8值和较大的移位位数，测试边界情况
     let a2 = 100u8
-    let b2 = 100u64  // 大于8的移位位数
-    
+    let b2 = 100u64 // 大于8的移位位数
+
     // 使用saturatingShl进行左移运算（边界情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15904,23 +15904,23 @@ main(): Int64 {
     // 创建一个UInt8值和移位位数，测试正常右移情况
     let a1 = 200u8
     let b1 = 2u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result1}")
-    
+
     // 创建一个UInt8值和较大的移位位数，测试边界情况
     let a2 = 200u8
-    let b2 = 100u64  // 大于8的移位位数
-    
+    let b2 = 100u64 // 大于8的移位位数
+
     // 使用saturatingShr进行右移运算（边界情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -15960,23 +15960,23 @@ main(): Int64 {
     // 创建两个UInt8值，测试正常减法情况
     let a1 = 200u8
     let b1 = 50u8
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result1}")
-    
+
     // 创建两个UInt8值，测试下溢情况（小数减大数应该饱和为0）
     let a2 = 10u8
     let b2 = 100u8
-    
+
     // 使用saturatingSub进行减法运算（下溢情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16026,25 +16026,25 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值，使它们相加会发生上溢出
-    let a1 = 18446744073709551615u64  // UIntNative的最大值（在64位系统上）
+    let a1 = 18446744073709551615u64 // UIntNative的最大值（在64位系统上）
     let b1 = 1u64
-    
+
     // 使用saturatingAdd进行加法运算（上溢出情况）
     let result1 = a1.saturatingAdd(b1)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating add result: ${result1}")
-    
+
     // 创建两个UIntNative值，使它们相加不会发生溢出
     let a2 = 1000000000000u64
     let b2 = 2000000000000u64
-    
+
     // 使用saturatingAdd进行加法运算（正常情况）
     let result2 = a2.saturatingAdd(b2)
-    
+
     // 直接打印结果
     println("Normal case - Saturating add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16079,22 +16079,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值，测试下溢情况（0减1应该饱和为0）
     let a1 = 0u64
-    
+
     // 使用saturatingDec进行自减运算（下溢情况）
     let result1 = a1.saturatingDec()
-    
+
     // 直接打印结果
     println("Underflow case - Saturating dec result: ${result1}")
-    
+
     // 创建一个UIntNative值，测试正常情况
     let a2 = 100u64
-    
+
     // 使用saturatingDec进行自减运算（正常情况）
     let result2 = a2.saturatingDec()
-    
+
     // 直接打印结果
     println("Normal case - Saturating dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16134,23 +16134,23 @@ main(): Int64 {
     // 创建两个UIntNative值，测试正常除法情况
     let a1 = 1000000000000u64
     let b1 = 1000u64
-    
+
     // 使用saturatingDiv进行除法运算（正常情况）
     let result1 = a1.saturatingDiv(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating div result: ${result1}")
-    
+
     // 创建两个UIntNative值，测试大数除法情况
-    let a2 = 18446744073709551615u64  // UIntNative的最大值
+    let a2 = 18446744073709551615u64 // UIntNative的最大值
     let b2 = 1000000u64
-    
+
     // 使用saturatingDiv进行除法运算（大数情况）
     let result2 = a2.saturatingDiv(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16184,23 +16184,23 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，测试上溢情况（最大值加1应该饱和为最大值）
-    let a1 = 18446744073709551615u64  // UIntNative的最大值
-    
+    let a1 = 18446744073709551615u64 // UIntNative的最大值
+
     // 使用saturatingInc进行自增运算（上溢情况）
     let result1 = a1.saturatingInc()
-    
+
     // 直接打印结果
     println("Overflow case - Saturating inc result: ${result1}")
-    
+
     // 创建一个UIntNative值，测试正常情况
     let a2 = 100u64
-    
+
     // 使用saturatingInc进行自增运算（正常情况）
     let result2 = a2.saturatingInc()
-    
+
     // 直接打印结果
     println("Normal case - Saturating inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16240,23 +16240,23 @@ main(): Int64 {
     // 创建两个UIntNative值，测试正常取余情况
     let a1 = 1000000000005u64
     let b1 = 1000u64
-    
+
     // 使用saturatingMod进行取余运算（正常情况）
     let result1 = a1.saturatingMod(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mod result: ${result1}")
-    
+
     // 创建两个UIntNative值，测试大数取余情况
-    let a2 = 18446744073709551615u64  // UIntNative的最大值
+    let a2 = 18446744073709551615u64 // UIntNative的最大值
     let b2 = 1000000u64
-    
+
     // 使用saturatingMod进行取余运算（大数情况）
     let result2 = a2.saturatingMod(b2)
-    
+
     // 直接打印结果
     println("Large number case - Saturating mod result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16296,23 +16296,23 @@ main(): Int64 {
     // 创建两个UIntNative值，测试正常乘法情况
     let a1 = 1000000u64
     let b1 = 2000000u64
-    
+
     // 使用saturatingMul进行乘法运算（正常情况）
     let result1 = a1.saturatingMul(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating mul result: ${result1}")
-    
+
     // 创建两个UIntNative值，测试上溢情况
-    let a2 = 18446744073709551615u64  // UIntNative的最大值
+    let a2 = 18446744073709551615u64 // UIntNative的最大值
     let b2 = 2u64
-    
+
     // 使用saturatingMul进行乘法运算（上溢情况）
     let result2 = a2.saturatingMul(b2)
-    
+
     // 直接打印结果
     println("Overflow case - Saturating mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16347,22 +16347,22 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值，测试负号运算
     let a1 = 1000000u64
-    
+
     // 使用saturatingNeg进行负号运算
     let result1 = a1.saturatingNeg()
-    
+
     // 直接打印结果
     println("Normal case - Saturating neg result: ${result1}")
-    
+
     // 创建一个UIntNative值0，测试边界情况
     let a2 = 0u64
-    
+
     // 使用saturatingNeg进行负号运算
     let result2 = a2.saturatingNeg()
-    
+
     // 直接打印结果
     println("Zero case - Saturating neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16402,23 +16402,23 @@ main(): Int64 {
     // 创建一个UIntNative值和移位位数，测试正常左移情况
     let a1 = 1000000u64
     let b1 = 10u64
-    
+
     // 使用saturatingShl进行左移运算（正常情况）
     let result1 = a1.saturatingShl(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shl result: ${result1}")
-    
+
     // 创建一个UIntNative值和较大的移位位数，测试边界情况
     let a2 = 1000000u64
-    let b2 = 100u64  // 大于64的移位位数
-    
+    let b2 = 100u64 // 大于64的移位位数
+
     // 使用saturatingShl进行左移运算（边界情况）
     let result2 = a2.saturatingShl(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16458,23 +16458,23 @@ main(): Int64 {
     // 创建一个UIntNative值和移位位数，测试正常右移情况
     let a1 = 1000000000000u64
     let b1 = 10u64
-    
+
     // 使用saturatingShr进行右移运算（正常情况）
     let result1 = a1.saturatingShr(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating shr result: ${result1}")
-    
+
     // 创建一个UIntNative值和较大的移位位数，测试边界情况
     let a2 = 1000000000000u64
-    let b2 = 100u64  // 大于64的移位位数
-    
+    let b2 = 100u64 // 大于64的移位位数
+
     // 使用saturatingShr进行右移运算（边界情况）
     let result2 = a2.saturatingShr(b2)
-    
+
     // 直接打印结果
     println("Large shift case - Saturating shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16514,23 +16514,23 @@ main(): Int64 {
     // 创建两个UIntNative值，测试正常减法情况
     let a1 = 1000000000000u64
     let b1 = 500000000000u64
-    
+
     // 使用saturatingSub进行减法运算（正常情况）
     let result1 = a1.saturatingSub(b1)
-    
+
     // 直接打印结果
     println("Normal case - Saturating sub result: ${result1}")
-    
+
     // 创建两个UIntNative值，测试下溢情况（小数减大数应该饱和为0）
     let a2 = 100u64
     let b2 = 1000u64
-    
+
     // 使用saturatingSub进行减法运算（下溢情况）
     let result2 = a2.saturatingSub(b2)
-    
+
     // 直接打印结果
     println("Underflow case - Saturating sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -16841,7 +16841,7 @@ main(): Int64 {
     // 创建两个Int16值进行加法运算
     let a = 1000i16
     let b = 2000i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -16849,7 +16849,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -16887,7 +16887,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值进行自减运算
     let a = 1000i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -16895,7 +16895,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -16938,7 +16938,7 @@ main(): Int64 {
     // 创建两个Int16值进行除法运算
     let a = 1000i16
     let b = 10i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -16946,7 +16946,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -16984,7 +16984,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值进行自增运算
     let a = 1000i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -16992,7 +16992,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17035,7 +17035,7 @@ main(): Int64 {
     // 创建两个Int16值进行取余运算
     let a = 1005i16
     let b = 100i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -17043,7 +17043,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17086,7 +17086,7 @@ main(): Int64 {
     // 创建两个Int16值进行乘法运算
     let a = 100i16
     let b = 200i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -17094,7 +17094,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17132,7 +17132,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值进行负号运算
     let a = 1000i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -17140,7 +17140,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17183,7 +17183,7 @@ main(): Int64 {
     // 创建一个Int16值和移位位数进行左移运算
     let a = 1000i16
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -17191,7 +17191,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17234,7 +17234,7 @@ main(): Int64 {
     // 创建一个Int16值和移位位数进行右移运算
     let a = 1000i16
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -17242,7 +17242,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17285,7 +17285,7 @@ main(): Int64 {
     // 创建两个Int16值进行减法运算
     let a = 1000i16
     let b = 500i16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -17293,7 +17293,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17348,7 +17348,7 @@ main(): Int64 {
     // 创建两个Int32值进行加法运算
     let a = 1000000i32
     let b = 2000000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -17356,7 +17356,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17394,7 +17394,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值进行自减运算
     let a = 1000000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -17402,7 +17402,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17445,7 +17445,7 @@ main(): Int64 {
     // 创建两个Int32值进行除法运算
     let a = 1000000i32
     let b = 10i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -17453,7 +17453,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17491,7 +17491,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值进行自增运算
     let a = 1000000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -17499,7 +17499,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17542,7 +17542,7 @@ main(): Int64 {
     // 创建两个Int32值进行取余运算
     let a = 1000005i32
     let b = 1000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -17550,7 +17550,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17593,7 +17593,7 @@ main(): Int64 {
     // 创建两个Int32值进行乘法运算
     let a = 1000i32
     let b = 2000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -17601,7 +17601,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17639,7 +17639,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值进行负号运算
     let a = 1000000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -17647,7 +17647,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17690,7 +17690,7 @@ main(): Int64 {
     // 创建一个Int32值和移位位数进行左移运算
     let a = 1000000i32
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -17698,7 +17698,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17741,7 +17741,7 @@ main(): Int64 {
     // 创建一个Int32值和移位位数进行右移运算
     let a = 1000000i32
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -17749,7 +17749,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17792,7 +17792,7 @@ main(): Int64 {
     // 创建两个Int32值进行减法运算
     let a = 1000000i32
     let b = 500000i32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -17800,7 +17800,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17856,7 +17856,7 @@ main(): Int64 {
     // 创建两个Int64值进行加法运算
     let a = 1000000000i64
     let b = 2000000000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -17864,7 +17864,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17902,7 +17902,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值进行自减运算
     let a = 1000000000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -17910,7 +17910,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17953,7 +17953,7 @@ main(): Int64 {
     // 创建两个Int64值进行除法运算
     let a = 1000000000i64
     let b = 10i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -17961,7 +17961,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -17999,7 +17999,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值进行自增运算
     let a = 1000000000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -18007,7 +18007,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18050,7 +18050,7 @@ main(): Int64 {
     // 创建两个Int64值进行取余运算
     let a = 1000000005i64
     let b = 1000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -18058,7 +18058,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18101,7 +18101,7 @@ main(): Int64 {
     // 创建两个Int64值进行乘法运算
     let a = 1000i64
     let b = 2000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -18109,7 +18109,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18147,7 +18147,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值进行负号运算
     let a = 1000000000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -18155,7 +18155,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18198,7 +18198,7 @@ main(): Int64 {
     // 创建一个Int64值和指数进行幂运算
     let a = 1000i64
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingPow(b)
@@ -18206,7 +18206,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing pow exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18249,7 +18249,7 @@ main(): Int64 {
     // 创建一个Int64值和移位位数进行左移运算
     let a = 1000000i64
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -18257,7 +18257,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18300,7 +18300,7 @@ main(): Int64 {
     // 创建一个Int64值和移位位数进行右移运算
     let a = 1000000i64
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -18308,7 +18308,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18351,7 +18351,7 @@ main(): Int64 {
     // 创建两个Int64值进行减法运算
     let a = 1000000000i64
     let b = 500000000i64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -18359,7 +18359,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18414,7 +18414,7 @@ main(): Int64 {
     // 创建两个Int8值进行加法运算
     let a = 100i8
     let b = 20i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -18422,7 +18422,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18460,7 +18460,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值进行自减运算
     let a = 100i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -18468,7 +18468,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18511,7 +18511,7 @@ main(): Int64 {
     // 创建两个Int8值进行除法运算
     let a = 100i8
     let b = 10i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -18519,7 +18519,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18557,7 +18557,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值进行自增运算
     let a = 100i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -18565,7 +18565,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18608,7 +18608,7 @@ main(): Int64 {
     // 创建两个Int8值进行取余运算
     let a = 105i8
     let b = 10i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -18616,7 +18616,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18659,7 +18659,7 @@ main(): Int64 {
     // 创建两个Int8值进行乘法运算
     let a = 5i8
     let b = 10i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -18667,7 +18667,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18705,7 +18705,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值进行负号运算
     let a = 100i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -18713,7 +18713,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18756,7 +18756,7 @@ main(): Int64 {
     // 创建一个Int8值和移位位数进行左移运算
     let a = 100i8
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -18764,7 +18764,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18807,7 +18807,7 @@ main(): Int64 {
     // 创建一个Int8值和移位位数进行右移运算
     let a = 100i8
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -18815,7 +18815,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18858,7 +18858,7 @@ main(): Int64 {
     // 创建两个Int8值进行减法运算
     let a = 100i8
     let b = 50i8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -18866,7 +18866,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18921,7 +18921,7 @@ main(): IntNative {
     // 创建两个IntNative值进行加法运算
     let a: IntNative = 1000000000
     let b: IntNative = 2000000000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -18929,7 +18929,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -18967,7 +18967,7 @@ import std.overflow.*
 main(): IntNative {
     // 创建一个IntNative值进行自减运算
     let a: IntNative = 1000000000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -18975,7 +18975,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19018,7 +19018,7 @@ main(): IntNative {
     // 创建两个IntNative值进行除法运算
     let a: IntNative = 1000000000
     let b: IntNative = 10
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -19026,7 +19026,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19064,7 +19064,7 @@ import std.overflow.*
 main(): IntNative {
     // 创建一个IntNative值进行自增运算
     let a: IntNative = 1000000000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -19072,7 +19072,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19115,7 +19115,7 @@ main(): IntNative {
     // 创建两个IntNative值进行取余运算
     let a: IntNative = 1000000005
     let b: IntNative = 1000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -19123,7 +19123,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19166,7 +19166,7 @@ main(): IntNative {
     // 创建两个IntNative值进行乘法运算
     let a: IntNative = 1000
     let b: IntNative = 2000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -19174,7 +19174,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19212,7 +19212,7 @@ import std.overflow.*
 main(): IntNative {
     // 创建一个IntNative值进行负号运算
     let a: IntNative = 1000000000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -19220,7 +19220,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19263,7 +19263,7 @@ main(): IntNative {
     // 创建一个IntNative值和移位位数进行左移运算
     let a: IntNative = 1000000
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -19271,7 +19271,7 @@ main(): IntNative {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19314,7 +19314,7 @@ main(): IntNative {
     // 创建一个IntNative值和移位位数进行右移运算
     let a: IntNative = 1000000
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -19322,7 +19322,7 @@ main(): IntNative {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19365,7 +19365,7 @@ main(): IntNative {
     // 创建两个IntNative值进行减法运算
     let a: IntNative = 1000000000
     let b: IntNative = 500000000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -19373,7 +19373,7 @@ main(): IntNative {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19428,7 +19428,7 @@ main(): Int64 {
     // 创建两个UInt16值进行加法运算
     let a = 1000u16
     let b = 2000u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -19436,7 +19436,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19474,7 +19474,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值进行自减运算
     let a = 1000u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -19482,7 +19482,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19525,7 +19525,7 @@ main(): Int64 {
     // 创建两个UInt16值进行除法运算
     let a = 1000u16
     let b = 10u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -19533,7 +19533,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19571,7 +19571,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值进行自增运算
     let a = 1000u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -19579,7 +19579,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19622,7 +19622,7 @@ main(): Int64 {
     // 创建两个UInt16值进行取余运算
     let a = 1005u16
     let b = 100u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -19630,7 +19630,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19673,7 +19673,7 @@ main(): Int64 {
     // 创建两个UInt16值进行乘法运算
     let a = 100u16
     let b = 200u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -19681,7 +19681,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19719,7 +19719,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值进行负号运算
     let a = 1000u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -19727,7 +19727,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19770,7 +19770,7 @@ main(): Int64 {
     // 创建一个UInt16值和移位位数进行左移运算
     let a = 1000u16
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -19778,7 +19778,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19821,7 +19821,7 @@ main(): Int64 {
     // 创建一个UInt16值和移位位数进行右移运算
     let a = 1000u16
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -19829,7 +19829,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19872,7 +19872,7 @@ main(): Int64 {
     // 创建两个UInt16值进行减法运算
     let a = 1000u16
     let b = 500u16
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -19880,7 +19880,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19935,7 +19935,7 @@ main(): Int64 {
     // 创建两个UInt32值进行加法运算
     let a = 1000u32
     let b = 2000u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -19943,7 +19943,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -19981,7 +19981,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值进行自减运算
     let a = 1000u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -19989,7 +19989,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20032,7 +20032,7 @@ main(): Int64 {
     // 创建两个UInt32值进行除法运算
     let a = 1000u32
     let b = 10u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -20040,7 +20040,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20078,7 +20078,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值进行自增运算
     let a = 1000u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -20086,7 +20086,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20129,7 +20129,7 @@ main(): Int64 {
     // 创建两个UInt32值进行取余运算
     let a = 1005u32
     let b = 100u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -20137,7 +20137,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20180,7 +20180,7 @@ main(): Int64 {
     // 创建两个UInt32值进行乘法运算
     let a = 100u32
     let b = 200u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -20188,7 +20188,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20226,7 +20226,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值进行负号运算
     let a = 1000u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -20234,7 +20234,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20277,7 +20277,7 @@ main(): Int64 {
     // 创建一个UInt32值和移位位数进行左移运算
     let a = 1000u32
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -20285,7 +20285,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20328,7 +20328,7 @@ main(): Int64 {
     // 创建一个UInt32值和移位位数进行右移运算
     let a = 1000u32
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -20336,7 +20336,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20379,7 +20379,7 @@ main(): Int64 {
     // 创建两个UInt32值进行减法运算
     let a = 1000u32
     let b = 500u32
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -20387,7 +20387,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20442,7 +20442,7 @@ main(): Int64 {
     // 创建两个UInt64值进行加法运算
     let a = 1000u64
     let b = 2000u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -20450,7 +20450,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20488,7 +20488,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值进行自减运算
     let a = 1000u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -20496,7 +20496,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20539,7 +20539,7 @@ main(): Int64 {
     // 创建两个UInt64值进行除法运算
     let a = 1000u64
     let b = 10u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -20547,7 +20547,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20585,7 +20585,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值进行自增运算
     let a = 1000u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -20593,7 +20593,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20636,7 +20636,7 @@ main(): Int64 {
     // 创建两个UInt64值进行取余运算
     let a = 1005u64
     let b = 100u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -20644,7 +20644,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20687,7 +20687,7 @@ main(): Int64 {
     // 创建两个UInt64值进行乘法运算
     let a = 100u64
     let b = 200u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -20695,7 +20695,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20733,7 +20733,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值进行负号运算
     let a = 1000u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -20741,7 +20741,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20784,7 +20784,7 @@ main(): Int64 {
     // 创建一个UInt64值和移位位数进行左移运算
     let a = 1000u64
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -20792,7 +20792,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20835,7 +20835,7 @@ main(): Int64 {
     // 创建一个UInt64值和移位位数进行右移运算
     let a = 1000u64
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -20843,7 +20843,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20886,7 +20886,7 @@ main(): Int64 {
     // 创建两个UInt64值进行减法运算
     let a = 1000u64
     let b = 500u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -20894,7 +20894,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20949,7 +20949,7 @@ main(): Int64 {
     // 创建两个UInt8值进行加法运算
     let a = 100u8
     let b = 20u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -20957,7 +20957,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -20995,7 +20995,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值进行自减运算
     let a = 100u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -21003,7 +21003,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21046,7 +21046,7 @@ main(): Int64 {
     // 创建两个UInt8值进行除法运算
     let a = 100u8
     let b = 10u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -21054,7 +21054,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21092,7 +21092,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值进行自增运算
     let a = 100u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -21100,7 +21100,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21143,7 +21143,7 @@ main(): Int64 {
     // 创建两个UInt8值进行取余运算
     let a = 105u8
     let b = 10u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -21151,7 +21151,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21194,7 +21194,7 @@ main(): Int64 {
     // 创建两个UInt8值进行乘法运算
     let a = 5u8
     let b = 10u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -21202,7 +21202,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21240,7 +21240,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值进行负号运算
     let a = 100u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -21248,7 +21248,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21291,7 +21291,7 @@ main(): Int64 {
     // 创建一个UInt8值和移位位数进行左移运算
     let a = 100u8
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -21299,7 +21299,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21342,7 +21342,7 @@ main(): Int64 {
     // 创建一个UInt8值和移位位数进行右移运算
     let a = 100u8
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -21350,7 +21350,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21393,7 +21393,7 @@ main(): Int64 {
     // 创建两个UInt8值进行减法运算
     let a = 100u8
     let b = 50u8
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -21401,7 +21401,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21456,7 +21456,7 @@ main(): Int64 {
     // 创建两个UIntNative值进行加法运算
     let a: UIntNative = 1000
     let b: UIntNative = 2000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingAdd(b)
@@ -21464,7 +21464,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing add exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21502,7 +21502,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值进行自减运算
     let a: UIntNative = 1000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDec()
@@ -21510,7 +21510,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing dec exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21553,7 +21553,7 @@ main(): Int64 {
     // 创建两个UIntNative值进行除法运算
     let a: UIntNative = 1000
     let b: UIntNative = 10
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingDiv(b)
@@ -21561,7 +21561,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing div exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21599,7 +21599,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值进行自增运算
     let a: UIntNative = 1000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingInc()
@@ -21607,7 +21607,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing inc exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21650,7 +21650,7 @@ main(): Int64 {
     // 创建两个UIntNative值进行取余运算
     let a: UIntNative = 1005
     let b: UIntNative = 100
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMod(b)
@@ -21658,7 +21658,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mod exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21701,7 +21701,7 @@ main(): Int64 {
     // 创建两个UIntNative值进行乘法运算
     let a: UIntNative = 100
     let b: UIntNative = 200
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingMul(b)
@@ -21709,7 +21709,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing mul exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21747,7 +21747,7 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值进行负号运算
     let a: UIntNative = 1000
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingNeg()
@@ -21755,7 +21755,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing neg exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21798,7 +21798,7 @@ main(): Int64 {
     // 创建一个UIntNative值和移位位数进行左移运算
     let a: UIntNative = 1000
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShl(b)
@@ -21806,7 +21806,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shl exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21849,7 +21849,7 @@ main(): Int64 {
     // 创建一个UIntNative值和移位位数进行右移运算
     let a: UIntNative = 1000
     let b = 2u64
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingShr(b)
@@ -21857,7 +21857,7 @@ main(): Int64 {
     } catch (e: OvershiftException) {
         println("Throwing shr exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -21900,7 +21900,7 @@ main(): Int64 {
     // 创建两个UIntNative值进行减法运算
     let a: UIntNative = 1000
     let b: UIntNative = 500
-    
+
     // 使用try-catch处理可能的异常
     try {
         let result = a.throwingSub(b)
@@ -21908,7 +21908,7 @@ main(): Int64 {
     } catch (e: OverflowException) {
         println("Throwing sub exception: ${e}")
     }
-    
+
     return 0
 }
 ```
@@ -22176,19 +22176,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使它们相加会发生溢出
-    let a1 = 32767i16  // Int16的最大值
+    let a1 = 32767i16 // Int16的最大值
     let b1 = 1i16
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个Int16值，使它们相加不会发生溢出
     let a2 = 10000i16
     let b2 = 20000i16
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22222,17 +22222,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自减会发生下溢
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个Int16值，使其自减不会发生溢出
     let a2 = 1000i16
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22270,19 +22270,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使除法运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
+    let a1 = -32768i16 // Int16的最小值
     let b1 = -1i16
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Overflow case - Wrapping div result: ${result1}")
-    
+
     // 创建两个Int16值，使除法运算不会发生溢出
     let a2 = 10000i16
     let b2 = 10i16
-    
+
     let result2 = a2.wrappingDiv(b2)
     println("Normal case - Wrapping div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22316,17 +22316,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其自增会发生上溢
-    let a1 = 32767i16  // Int16的最大值
-    
+    let a1 = 32767i16 // Int16的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个Int16值，使其自增不会发生溢出
     let a2 = 1000i16
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22366,10 +22366,10 @@ main(): Int64 {
     // 创建两个Int16值进行取余运算
     let a1 = 1000i16
     let b1 = 3i16
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Normal case - Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -22408,17 +22408,17 @@ main(): Int64 {
     // 创建两个Int16值，使乘法运算会发生溢出
     let a1 = 20000i16
     let b1 = 20000i16
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个Int16值，使乘法运算不会发生溢出
     let a2 = 100i16
     let b2 = 200i16
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22452,17 +22452,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int16值，使其负号运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
-    
+    let a1 = -32768i16 // Int16的最小值
+
     let result1 = a1.wrappingNeg()
     println("Overflow case - Wrapping neg result: ${result1}")
-    
+
     // 创建一个Int16值，使其负号运算不会发生溢出
     let a2 = 1000i16
-    
+
     let result2 = a2.wrappingNeg()
     println("Normal case - Wrapping neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22501,18 +22501,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和移位位数，使左移运算会发生截断
     let a1 = 1000i16
-    let b1 = 20u64  // 大于16的移位位数会被截断
-    
+    let b1 = 20u64 // 大于16的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个Int16值和移位位数，使左移运算不会发生截断
     let a2 = 1000i16
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22551,18 +22551,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int16值和移位位数，使右移运算会发生截断
     let a1 = 1000i16
-    let b1 = 20u64  // 大于16的移位位数会被截断
-    
+    let b1 = 20u64 // 大于16的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个Int16值和移位位数，使右移运算不会发生截断
     let a2 = 1000i16
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22600,19 +22600,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int16值，使减法运算会发生溢出
-    let a1 = -32768i16  // Int16的最小值
+    let a1 = -32768i16 // Int16的最小值
     let b1 = 1i16
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Overflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个Int16值，使减法运算不会发生溢出
     let a2 = 1000i16
     let b2 = 500i16
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22662,19 +22662,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使它们相加会发生溢出
-    let a1 = 2147483647i32  // Int32的最大值
+    let a1 = 2147483647i32 // Int32的最大值
     let b1 = 1i32
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个Int32值，使它们相加不会发生溢出
     let a2 = 1000000000i32
     let b2 = 2000000000i32
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22708,17 +22708,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自减会发生下溢
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个Int32值，使其自减不会发生溢出
     let a2 = 1000i32
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22756,19 +22756,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使除法运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
+    let a1 = -2147483648i32 // Int32的最小值
     let b1 = -1i32
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Overflow case - Wrapping div result: ${result1}")
-    
+
     // 创建两个Int32值，使除法运算不会发生溢出
     let a2 = 1000000000i32
     let b2 = 10i32
-    
+
     let result2 = a2.wrappingDiv(b2)
     println("Normal case - Wrapping div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22802,17 +22802,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其自增会发生上溢
-    let a1 = 2147483647i32  // Int32的最大值
-    
+    let a1 = 2147483647i32 // Int32的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个Int32值，使其自增不会发生溢出
     let a2 = 1000i32
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22852,10 +22852,10 @@ main(): Int64 {
     // 创建两个Int32值进行取余运算
     let a1 = 1000000i32
     let b1 = 3i32
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -22894,17 +22894,17 @@ main(): Int64 {
     // 创建两个Int32值，使乘法运算会发生溢出
     let a1 = 1000000i32
     let b1 = 1000000i32
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个Int32值，使乘法运算不会发生溢出
     let a2 = 100i32
     let b2 = 200i32
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22938,17 +22938,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int32值，使其负号运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
-    
+    let a1 = -2147483648i32 // Int32的最小值
+
     let result1 = a1.wrappingNeg()
     println("Overflow case - Wrapping neg result: ${result1}")
-    
+
     // 创建一个Int32值，使其负号运算不会发生溢出
     let a2 = 1000i32
-    
+
     let result2 = a2.wrappingNeg()
     println("Normal case - Wrapping neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -22987,18 +22987,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和移位位数，使左移运算会发生截断
     let a1 = 1000000i32
-    let b1 = 35u64  // 大于32的移位位数会被截断
-    
+    let b1 = 35u64 // 大于32的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个Int32值和移位位数，使左移运算不会发生截断
     let a2 = 1000000i32
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23037,18 +23037,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int32值和移位位数，使右移运算会发生截断
     let a1 = 1000000i32
-    let b1 = 35u64  // 大于32的移位位数会被截断
-    
+    let b1 = 35u64 // 大于32的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个Int32值和移位位数，使右移运算不会发生截断
     let a2 = 1000000i32
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23086,19 +23086,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int32值，使减法运算会发生溢出
-    let a1 = -2147483648i32  // Int32的最小值
+    let a1 = -2147483648i32 // Int32的最小值
     let b1 = 1i32
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Overflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个Int32值，使减法运算不会发生溢出
     let a2 = 1000i32
     let b2 = 500i32
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23149,19 +23149,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使它们相加会发生溢出
-    let a1 = 9223372036854775807i64  // Int64的最大值
+    let a1 = 9223372036854775807i64 // Int64的最大值
     let b1 = 1i64
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个Int64值，使它们相加不会发生溢出
     let a2 = 1000000000000000000i64
     let b2 = 2000000000000000000i64
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23195,17 +23195,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自减会发生下溢
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个Int64值，使其自减不会发生溢出
     let a2 = 1000i64
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23243,19 +23243,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使除法运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
+    let a1 = -9223372036854775808i64 // Int64的最小值
     let b1 = -1i64
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Overflow case - Wrapping div result: ${result1}")
-    
+
     // 创建两个Int64值，使除法运算不会发生溢出
     let a2 = 1000000000000000000i64
     let b2 = 10i64
-    
+
     let result2 = a2.wrappingDiv(b2)
     println("Normal case - Wrapping div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23289,17 +23289,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其自增会发生上溢
-    let a1 = 9223372036854775807i64  // Int64的最大值
-    
+    let a1 = 9223372036854775807i64 // Int64的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个Int64值，使其自增不会发生溢出
     let a2 = 1000i64
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23339,17 +23339,17 @@ main(): Int64 {
     // 创建两个Int64值进行取余运算
     let a1 = 1000000000000000000i64
     let b1 = 3i64
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     // 创建另一个普通情况
     let a2 = 9000000000000000000i64
     let b2 = 7i64
-    
+
     let result2 = a2.wrappingMod(b2)
     println("Wrapping mod result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23389,17 +23389,17 @@ main(): Int64 {
     // 创建两个Int64值，使乘法运算会发生溢出
     let a1 = 1000000000000000000i64
     let b1 = 1000000000000000000i64
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个Int64值，使乘法运算不会发生溢出
     let a2 = 100i64
     let b2 = 200i64
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23433,17 +23433,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int64值，使其负号运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
-    
+    let a1 = -9223372036854775808i64 // Int64的最小值
+
     let result1 = a1.wrappingNeg()
     println("Overflow case - Wrapping neg result: ${result1}")
-    
+
     // 创建一个Int64值，使其负号运算不会发生溢出
     let a2 = 1000i64
-    
+
     let result2 = a2.wrappingNeg()
     println("Normal case - Wrapping neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23483,17 +23483,17 @@ main(): Int64 {
     // 创建一个Int64值和指数，使幂运算会发生溢出
     let a1 = 1000000000000000000i64
     let b1 = 10u64
-    
+
     let result1 = a1.wrappingPow(b1)
     println("Overflow case - Wrapping pow result: ${result1}")
-    
+
     // 创建一个Int64值和指数，使幂运算不会发生溢出
     let a2 = 10i64
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingPow(b2)
     println("Normal case - Wrapping pow result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23532,18 +23532,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和移位位数，使左移运算会发生截断
     let a1 = 1000000000000000000i64
-    let b1 = 65u64  // 大于64的移位位数会被截断
-    
+    let b1 = 65u64 // 大于64的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个Int64值和移位位数，使左移运算不会发生截断
     let a2 = 1000000000000000000i64
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23582,18 +23582,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int64值和移位位数，使右移运算会发生截断
     let a1 = 1000000000000000000i64
-    let b1 = 65u64  // 大于64的移位位数会被截断
-    
+    let b1 = 65u64 // 大于64的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个Int64值和移位位数，使右移运算不会发生截断
     let a2 = 1000000000000000000i64
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23631,19 +23631,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int64值，使减法运算会发生溢出
-    let a1 = -9223372036854775808i64  // Int64的最小值
+    let a1 = -9223372036854775808i64 // Int64的最小值
     let b1 = 1i64
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Overflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个Int64值，使减法运算不会发生溢出
     let a2 = 1000i64
     let b2 = 500i64
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23693,19 +23693,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使它们相加会发生溢出
-    let a1 = 127i8  // Int8的最大值
+    let a1 = 127i8 // Int8的最大值
     let b1 = 1i8
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个Int8值，使它们相加不会发生溢出
     let a2 = 50i8
     let b2 = 60i8
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23739,17 +23739,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自减会发生下溢
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个Int8值，使其自减不会发生溢出
     let a2 = 100i8
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23787,19 +23787,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使除法运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
+    let a1 = -128i8 // Int8的最小值
     let b1 = -1i8
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Overflow case - Wrapping div result: ${result1}")
-    
+
     // 创建两个Int8值，使除法运算不会发生溢出
     let a2 = 100i8
     let b2 = 10i8
-    
+
     let result2 = a2.wrappingDiv(b2)
     println("Normal case - Wrapping div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23833,17 +23833,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其自增会发生上溢
-    let a1 = 127i8  // Int8的最大值
-    
+    let a1 = 127i8 // Int8的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个Int8值，使其自增不会发生溢出
     let a2 = 100i8
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23883,17 +23883,17 @@ main(): Int64 {
     // 创建两个Int8值进行取余运算
     let a1 = 100i8
     let b1 = 3i8
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     // 创建另一个普通情况
     let a2 = 120i8
     let b2 = 7i8
-    
+
     let result2 = a2.wrappingMod(b2)
     println("Wrapping mod result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23933,17 +23933,17 @@ main(): Int64 {
     // 创建两个Int8值，使乘法运算会发生溢出
     let a1 = 50i8
     let b1 = 50i8
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个Int8值，使乘法运算不会发生溢出
     let a2 = 10i8
     let b2 = 20i8
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -23977,17 +23977,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个Int8值，使其负号运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
-    
+    let a1 = -128i8 // Int8的最小值
+
     let result1 = a1.wrappingNeg()
     println("Overflow case - Wrapping neg result: ${result1}")
-    
+
     // 创建一个Int8值，使其负号运算不会发生溢出
     let a2 = 100i8
-    
+
     let result2 = a2.wrappingNeg()
     println("Normal case - Wrapping neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24026,18 +24026,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和移位位数，使左移运算会发生截断
     let a1 = 100i8
-    let b1 = 10u64  // 大于8的移位位数会被截断
-    
+    let b1 = 10u64 // 大于8的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个Int8值和移位位数，使左移运算不会发生截断
     let a2 = 100i8
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24076,18 +24076,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个Int8值和移位位数，使右移运算会发生截断
     let a1 = 100i8
-    let b1 = 10u64  // 大于8的移位位数会被截断
-    
+    let b1 = 10u64 // 大于8的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个Int8值和移位位数，使右移运算不会发生截断
     let a2 = 100i8
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24125,19 +24125,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个Int8值，使减法运算会发生溢出
-    let a1 = -128i8  // Int8的最小值
+    let a1 = -128i8 // Int8的最小值
     let b1 = 1i8
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Overflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个Int8值，使减法运算不会发生溢出
     let a2 = 100i8
     let b2 = 50i8
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24187,19 +24187,19 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建两个IntNative值，使它们相加会发生溢出
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
     let b1: IntNative = 1
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个IntNative值，使它们相加不会发生溢出
     let a2: IntNative = 1000000000000000000
     let b2: IntNative = 2000000000000000000
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24233,17 +24233,17 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建一个IntNative值，使其自减会发生下溢
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自减不会发生溢出
     let a2: IntNative = 1000
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24281,19 +24281,19 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建两个IntNative值，使除法运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
     let b1: IntNative = -1
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Overflow case - Wrapping div result: ${result1}")
-    
+
     // 创建两个IntNative值，使除法运算不会发生溢出
     let a2: IntNative = 1000000000000000000
     let b2: IntNative = 10
-    
+
     let result2 = a2.wrappingDiv(b2)
     println("Normal case - Wrapping div result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24327,17 +24327,17 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建一个IntNative值，使其自增会发生上溢
-    let a1: IntNative = 9223372036854775807  // IntNative的最大值
-    
+    let a1: IntNative = 9223372036854775807 // IntNative的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个IntNative值，使其自增不会发生溢出
     let a2: IntNative = 1000
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24377,17 +24377,17 @@ main(): IntNative {
     // 创建两个IntNative值进行取余运算
     let a1: IntNative = 1000000000000000000
     let b1: IntNative = 3
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     // 创建另一个普通情况
     let a2: IntNative = 9000000000000000000
     let b2: IntNative = 7
-    
+
     let result2 = a2.wrappingMod(b2)
     println("Wrapping mod result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24427,17 +24427,17 @@ main(): IntNative {
     // 创建两个IntNative值，使乘法运算会发生溢出
     let a1: IntNative = 1000000000000000000
     let b1: IntNative = 1000000000000000000
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个IntNative值，使乘法运算不会发生溢出
     let a2: IntNative = 100
     let b2: IntNative = 200
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24471,17 +24471,17 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建一个IntNative值，使其负号运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
-    
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
+
     let result1 = a1.wrappingNeg()
     println("Overflow case - Wrapping neg result: ${result1}")
-    
+
     // 创建一个IntNative值，使其负号运算不会发生溢出
     let a2: IntNative = 1000
-    
+
     let result2 = a2.wrappingNeg()
     println("Normal case - Wrapping neg result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24520,18 +24520,18 @@ import std.overflow.*
 main(): IntNative {
     // 创建一个IntNative值和移位位数，使左移运算会发生截断
     let a1: IntNative = 1000000000000000000
-    let b1 = 65u64  // 大于64的移位位数会被截断
-    
+    let b1 = 65u64 // 大于64的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个IntNative值和移位位数，使左移运算不会发生截断
     let a2: IntNative = 1000000000000000000
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24570,18 +24570,18 @@ import std.overflow.*
 main(): IntNative {
     // 创建一个IntNative值和移位位数，使右移运算会发生截断
     let a1: IntNative = 1000000000000000000
-    let b1 = 65u64  // 大于64的移位位数会被截断
-    
+    let b1 = 65u64 // 大于64的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个IntNative值和移位位数，使右移运算不会发生截断
     let a2: IntNative = 1000000000000000000
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24619,19 +24619,19 @@ import std.overflow.*
 
 main(): IntNative {
     // 创建两个IntNative值，使减法运算会发生溢出
-    let a1: IntNative = -9223372036854775808  // IntNative的最小值
+    let a1: IntNative = -9223372036854775808 // IntNative的最小值
     let b1: IntNative = 1
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Overflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个IntNative值，使减法运算不会发生溢出
     let a2: IntNative = 1000
     let b2: IntNative = 500
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24681,19 +24681,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相加会发生溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 1u16
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相加不会发生溢出
     let a2 = 50000u16
     let b2 = 10000u16
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24727,17 +24727,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自减会发生下溢
-    let a1 = 0u16  // UInt16的最小值
-    
+    let a1 = 0u16 // UInt16的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自减不会发生溢出
     let a2 = 100u16
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24777,10 +24777,10 @@ main(): Int64 {
     // 对于UInt16的除法运算，通常不会发生溢出，所以只提供正常情况的示例
     let a1 = 10000u16
     let b1 = 10u16
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Normal case - Wrapping div result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -24813,17 +24813,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，使其自增会发生上溢
-    let a1 = 65535u16  // UInt16的最大值
-    
+    let a1 = 65535u16 // UInt16的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个UInt16值，使其自增不会发生溢出
     let a2 = 100u16
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24863,10 +24863,10 @@ main(): Int64 {
     // 创建两个UInt16值进行取余运算
     let a1 = 10000u16
     let b1 = 3u16
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -24903,19 +24903,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt16值，使它们相乘会发生溢出
-    let a1 = 65535u16  // UInt16的最大值
+    let a1 = 65535u16 // UInt16的最大值
     let b1 = 2u16
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个UInt16值，使它们相乘不会发生溢出
     let a2 = 100u16
     let b2 = 200u16
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24950,16 +24950,16 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值进行负号运算
     let a1 = 100u16
-    
+
     let result1 = a1.wrappingNeg()
     println("Wrapping neg result: ${result1}")
-    
+
     // 创建另一个值进行负号运算
     let a2 = 65535u16
-    
+
     let result2 = a2.wrappingNeg()
     println("Wrapping neg result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -24998,18 +24998,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个较大的移位位数，会发生溢出
     let a1 = 1000u16
-    let b1 = 20u64  // 大于16的移位位数
-    
+    let b1 = 20u64 // 大于16的移位位数
+
     let result1 = a1.wrappingShl(b1)
     println("Overflow case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个UInt16值和一个正常的移位位数
     let a2 = 1000u16
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25048,18 +25048,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt16值和一个较大的移位位数，会发生截断
     let a1 = 1000u16
-    let b1 = 20u64  // 大于16的移位位数
-    
+    let b1 = 20u64 // 大于16的移位位数
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个UInt16值和一个正常的移位位数
     let a2 = 1000u16
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25099,17 +25099,17 @@ main(): Int64 {
     // 创建两个UInt16值，使减法运算会发生下溢
     let a1 = 0u16
     let b1 = 1u16
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Underflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个UInt16值，使减法运算不会发生溢出
     let a2 = 1000u16
     let b2 = 100u16
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25159,19 +25159,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相加会发生溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 1u32
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相加不会发生溢出
     let a2 = 1000000000u32
     let b2 = 2000000000u32
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25205,17 +25205,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自减会发生下溢
-    let a1 = 0u32  // UInt32的最小值
-    
+    let a1 = 0u32 // UInt32的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自减不会发生溢出
     let a2 = 1000000000u32
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25255,10 +25255,10 @@ main(): Int64 {
     // 对于UInt32的除法运算，通常不会发生溢出，所以只提供正常情况的示例
     let a1 = 1000000000u32
     let b1 = 10u32
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Normal case - Wrapping div result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -25291,17 +25291,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，使其自增会发生上溢
-    let a1 = 4294967295u32  // UInt32的最大值
-    
+    let a1 = 4294967295u32 // UInt32的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个UInt32值，使其自增不会发生溢出
     let a2 = 1000000000u32
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25341,10 +25341,10 @@ main(): Int64 {
     // 创建两个UInt32值进行取余运算
     let a1 = 1000000000u32
     let b1 = 3u32
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -25381,19 +25381,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt32值，使它们相乘会发生溢出
-    let a1 = 4294967295u32  // UInt32的最大值
+    let a1 = 4294967295u32 // UInt32的最大值
     let b1 = 2u32
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个UInt32值，使它们相乘不会发生溢出
     let a2 = 100000u32
     let b2 = 200000u32
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25428,16 +25428,16 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值进行负号运算
     let a1 = 1000000000u32
-    
+
     let result1 = a1.wrappingNeg()
     println("Wrapping neg result: ${result1}")
-    
+
     // 创建另一个值进行负号运算
     let a2 = 4294967295u32
-    
+
     let result2 = a2.wrappingNeg()
     println("Wrapping neg result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25476,18 +25476,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个较大的移位位数，会发生截断
     let a1 = 1000000000u32
-    let b1 = 40u64  // 大于32的移位位数
-    
+    let b1 = 40u64 // 大于32的移位位数
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个UInt32值和一个正常的移位位数
     let a2 = 1000000000u32
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25526,18 +25526,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt32值和一个较大的移位位数，会发生截断
     let a1 = 1000000000u32
-    let b1 = 40u64  // 大于32的移位位数
-    
+    let b1 = 40u64 // 大于32的移位位数
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个UInt32值和一个正常的移位位数
     let a2 = 1000000000u32
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25577,17 +25577,17 @@ main(): Int64 {
     // 创建两个UInt32值，使减法运算会发生下溢
     let a1 = 0u32
     let b1 = 1u32
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Underflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个UInt32值，使减法运算不会发生溢出
     let a2 = 1000000000u32
     let b2 = 100000000u32
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25637,19 +25637,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值，使它们相加会发生溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
+    let a1 = 18446744073709551615u64 // UInt64的最大值
     let b1 = 1u64
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个UInt64值，使它们相加不会发生溢出
     let a2 = 1000000000000000000u64
     let b2 = 2000000000000000000u64
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25683,17 +25683,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，使其自减会发生下溢
-    let a1 = 0u64  // UInt64的最小值
-    
+    let a1 = 0u64 // UInt64的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个UInt64值，使其自减不会发生溢出
     let a2 = 1000000000000000000u64
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25733,7 +25733,7 @@ main(): Int64 {
     // 对于UInt64的除法运算，通常不会发生溢出，所以只提供正常情况的示例
     let a1 = 1000000000000000000u64
     let b1 = 10u64
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Normal case - Wrapping div result: ${result1}")
 
@@ -25769,17 +25769,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，使其自增会发生上溢
-    let a1 = 18446744073709551615u64  // UInt64的最大值
-    
+    let a1 = 18446744073709551615u64 // UInt64的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个UInt64值，使其自增不会发生溢出
     let a2 = 1000000000000000000u64
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25819,10 +25819,10 @@ main(): Int64 {
     // 创建两个UInt64值进行取余运算
     let a1 = 1000000000000000000u64
     let b1 = 3u64
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -25859,19 +25859,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt64值，使它们相乘会发生溢出
-    let a1 = 18446744073709551615u64  // UInt64的最大值
+    let a1 = 18446744073709551615u64 // UInt64的最大值
     let b1 = 2u64
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个UInt64值，使它们相乘不会发生溢出
     let a2 = 1000000000000000000u64
     let b2 = 2000000000000000000u64
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25906,16 +25906,16 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值进行负号运算
     let a1 = 1000000000000000000u64
-    
+
     let result1 = a1.wrappingNeg()
     println("Wrapping neg result: ${result1}")
-    
+
     // 创建另一个值进行负号运算
     let a2 = 18446744073709551615u64
-    
+
     let result2 = a2.wrappingNeg()
     println("Wrapping neg result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -25954,18 +25954,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值和一个较大的移位位数，会发生截断
     let a1 = 1000000000000000000u64
-    let b1 = 70u64  // 大于64的移位位数
-    
+    let b1 = 70u64 // 大于64的移位位数
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个UInt64值和一个正常的移位位数
     let a2 = 1000000000000000000u64
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26004,18 +26004,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt64值和一个较大的移位位数，会发生截断
     let a1 = 1000000000000000000u64
-    let b1 = 70u64  // 大于64的移位位数
-    
+    let b1 = 70u64 // 大于64的移位位数
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个UInt64值和一个正常的移位位数
     let a2 = 1000000000000000000u64
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26055,17 +26055,17 @@ main(): Int64 {
     // 创建两个UInt64值，使减法运算会发生下溢
     let a1 = 0u64
     let b1 = 1u64
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Underflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个UInt64值，使减法运算不会发生溢出
     let a2 = 1000000000000000000u64
     let b2 = 100000000000000000u64
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26115,19 +26115,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值，使它们相加会发生溢出
-    let a1 = 255u8  // UInt8的最大值
+    let a1 = 255u8 // UInt8的最大值
     let b1 = 1u8
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个UInt8值，使它们相加不会发生溢出
     let a2 = 100u8
     let b2 = 50u8
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26161,17 +26161,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，使其自减会发生下溢
-    let a1 = 0u8  // UInt8的最小值
-    
+    let a1 = 0u8 // UInt8的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个UInt8值，使其自减不会发生溢出
     let a2 = 100u8
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26211,10 +26211,10 @@ main(): Int64 {
     // 对于UInt8的除法运算，通常不会发生溢出，所以只提供正常情况的示例
     let a1 = 100u8
     let b1 = 10u8
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Normal case - Wrapping div result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -26247,17 +26247,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，使其自增会发生上溢
-    let a1 = 255u8  // UInt8的最大值
-    
+    let a1 = 255u8 // UInt8的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个UInt8值，使其自增不会发生溢出
     let a2 = 100u8
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26297,10 +26297,10 @@ main(): Int64 {
     // 创建两个UInt8值进行取余运算
     let a1 = 100u8
     let b1 = 3u8
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -26337,19 +26337,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UInt8值，使它们相乘会发生溢出
-    let a1 = 255u8  // UInt8的最大值
+    let a1 = 255u8 // UInt8的最大值
     let b1 = 2u8
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个UInt8值，使它们相乘不会发生溢出
     let a2 = 10u8
     let b2 = 20u8
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26384,16 +26384,16 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值进行负号运算
     let a1 = 100u8
-    
+
     let result1 = a1.wrappingNeg()
     println("Wrapping neg result: ${result1}")
-    
+
     // 创建另一个值进行负号运算
     let a2 = 255u8
-    
+
     let result2 = a2.wrappingNeg()
     println("Wrapping neg result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26432,18 +26432,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值和一个较大的移位位数，会发生截断
     let a1 = 100u8
-    let b1 = 10u64  // 大于8的移位位数会被截断
-    
+    let b1 = 10u64 // 大于8的移位位数会被截断
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个UInt8值和一个正常的移位位数
     let a2 = 100u8
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26482,18 +26482,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UInt8值和一个较大的移位位数，会发生截断
     let a1 = 100u8
-    let b1 = 10u64  // 大于8的移位位数会被截断
-    
+    let b1 = 10u64 // 大于8的移位位数会被截断
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个UInt8值和一个正常的移位位数
     let a2 = 100u8
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26533,17 +26533,17 @@ main(): Int64 {
     // 创建两个UInt8值，使减法运算会发生下溢
     let a1 = 0u8
     let b1 = 1u8
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Underflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个UInt8值，使减法运算不会发生溢出
     let a2 = 100u8
     let b2 = 50u8
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26593,19 +26593,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值，使它们相加会发生溢出
-    let a1: UIntNative = 18446744073709551615  // UIntNative的最大值
+    let a1: UIntNative = 18446744073709551615 // UIntNative的最大值
     let b1: UIntNative = 1
-    
+
     let result1 = a1.wrappingAdd(b1)
     println("Overflow case - Wrapping add result: ${result1}")
-    
+
     // 创建两个UIntNative值，使它们相加不会发生溢出
     let a2: UIntNative = 1000000000000000000
     let b2: UIntNative = 2000000000000000000
-    
+
     let result2 = a2.wrappingAdd(b2)
     println("Normal case - Wrapping add result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26639,17 +26639,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，使其自减会发生下溢
-    let a1: UIntNative = 0  // UIntNative的最小值
-    
+    let a1: UIntNative = 0 // UIntNative的最小值
+
     let result1 = a1.wrappingDec()
     println("Underflow case - Wrapping dec result: ${result1}")
-    
+
     // 创建一个UIntNative值，使其自减不会发生溢出
     let a2: UIntNative = 1000000000000000000
-    
+
     let result2 = a2.wrappingDec()
     println("Normal case - Wrapping dec result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26689,7 +26689,7 @@ main(): Int64 {
     // 对于UIntNative的除法运算，通常不会发生溢出，所以只提供正常情况的示例
     let a1: UIntNative = 1000000000000000000
     let b1: UIntNative = 10
-    
+
     let result1 = a1.wrappingDiv(b1)
     println("Normal case - Wrapping div result: ${result1}")
 
@@ -26725,17 +26725,17 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，使其自增会发生上溢
-    let a1: UIntNative = 18446744073709551615  // UIntNative的最大值
-    
+    let a1: UIntNative = 18446744073709551615 // UIntNative的最大值
+
     let result1 = a1.wrappingInc()
     println("Overflow case - Wrapping inc result: ${result1}")
-    
+
     // 创建一个UIntNative值，使其自增不会发生溢出
     let a2: UIntNative = 1000000000000000000
-    
+
     let result2 = a2.wrappingInc()
     println("Normal case - Wrapping inc result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26775,10 +26775,10 @@ main(): Int64 {
     // 创建两个UIntNative值进行取余运算
     let a1: UIntNative = 1000000000000000000
     let b1: UIntNative = 3
-    
+
     let result1 = a1.wrappingMod(b1)
     println("Wrapping mod result: ${result1}")
-    
+
     return 0
 }
 ```
@@ -26815,19 +26815,19 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建两个UIntNative值，使它们相乘会发生溢出
-    let a1: UIntNative = 18446744073709551615  // UIntNative的最大值
+    let a1: UIntNative = 18446744073709551615 // UIntNative的最大值
     let b1: UIntNative = 2
-    
+
     let result1 = a1.wrappingMul(b1)
     println("Overflow case - Wrapping mul result: ${result1}")
-    
+
     // 创建两个UIntNative值，使它们相乘不会发生溢出
     let a2: UIntNative = 1000000000000000000
     let b2: UIntNative = 2000000000000000000
-    
+
     let result2 = a2.wrappingMul(b2)
     println("Normal case - Wrapping mul result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26862,16 +26862,16 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值进行负号运算
     let a1: UIntNative = 1000000000000000000
-    
+
     let result1 = a1.wrappingNeg()
     println("Wrapping neg result: ${result1}")
-    
+
     // 创建另一个值进行负号运算
     let a2: UIntNative = 18446744073709551615
-    
+
     let result2 = a2.wrappingNeg()
     println("Wrapping neg result 2: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26910,18 +26910,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值和一个较大的移位位数，会发生截断
     let a1: UIntNative = 1000000000000000000
-    let b1 = 70u64  // 大于64的移位位数
-    
+    let b1 = 70u64 // 大于64的移位位数
+
     let result1 = a1.wrappingShl(b1)
     println("Truncation case - Wrapping shl result: ${result1}")
-    
+
     // 创建一个UIntNative值和一个正常的移位位数
     let a2: UIntNative = 1000000000000000000
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShl(b2)
     println("Normal case - Wrapping shl result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -26960,18 +26960,18 @@ import std.overflow.*
 main(): Int64 {
     // 创建一个UIntNative值和一个较大的移位位数，会发生截断
     let a1: UIntNative = 1000000000000000000
-    let b1 = 70u64  // 大于64的移位位数
-    
+    let b1 = 70u64 // 大于64的移位位数
+
     let result1 = a1.wrappingShr(b1)
     println("Truncation case - Wrapping shr result: ${result1}")
-    
+
     // 创建一个UIntNative值和一个正常的移位位数
     let a2: UIntNative = 1000000000000000000
     let b2 = 3u64
-    
+
     let result2 = a2.wrappingShr(b2)
     println("Normal case - Wrapping shr result: ${result2}")
-    
+
     return 0
 }
 ```
@@ -27011,17 +27011,17 @@ main(): Int64 {
     // 创建两个UIntNative值，使减法运算会发生下溢
     let a1: UIntNative = 0
     let b1: UIntNative = 1
-    
+
     let result1 = a1.wrappingSub(b1)
     println("Underflow case - Wrapping sub result: ${result1}")
-    
+
     // 创建两个UIntNative值，使减法运算不会发生溢出
     let a2: UIntNative = 1000000000000000000
     let b2: UIntNative = 100000000000000000
-    
+
     let result2 = a2.wrappingSub(b2)
     println("Normal case - Wrapping sub result: ${result2}")
-    
+
     return 0
 }
 ```

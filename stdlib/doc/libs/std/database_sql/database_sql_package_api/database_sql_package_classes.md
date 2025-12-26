@@ -30,12 +30,12 @@ main() {
     // 使用一个假设已注册的驱动名称来演示取消注册功能
     // 注意：在实际使用中，需要先注册驱动才能取消注册
     let driverName = "exampleDriver"
-    
+
     // 尝试取消注册驱动（如果存在）
     DriverManager.deregister(driverName)
-    
+
     println("Attempted to deregister driver: ${driverName}")
-    
+
     // 显示当前已注册的驱动列表
     let drivers = DriverManager.drivers()
     println("Currently registered drivers: ${drivers}")
@@ -70,7 +70,7 @@ import std.database.sql.*
 main() {
     // 获取当前已注册的驱动列表
     let driverList = DriverManager.drivers()
-    
+
     println("Currently registered drivers:")
     if (driverList.size == 0) {
         println("  No drivers registered")
@@ -79,7 +79,7 @@ main() {
             println("  - ${driverName}")
         }
     }
-    
+
     // 注册一个示例驱动（仅用于演示）
     // 注意：实际使用中需要提供真正的Driver实现
     println("\nAfter registering a driver:")
@@ -123,14 +123,14 @@ main() {
     // 尝试获取一个驱动实例
     let driverName = "nonExistentDriver"
     let driverOption = DriverManager.getDriver(driverName)
-    
+
     // 检查驱动是否存在
     if (driverOption.isNone()) {
         println("Driver '${driverName}' not found")
     } else {
         println("Driver '${driverName}' found")
     }
-    
+
     // 显示如何正确处理Option类型
     match (driverOption) {
         case None => println("No driver returned for '${driverName}'")
@@ -175,7 +175,7 @@ main() {
     println("To register a database driver:")
     println("1. Create a class that implements the Driver interface")
     println("2. Call DriverManager.register(driverName, driverInstance)")
-    
+
     // 显示注册驱动时可能抛出的异常
     println("\nNote: DriverManager.register() may throw SqlException")
     println("if a driver with the same name is already registered.")
@@ -232,13 +232,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.connectionTimeout property:")
     println("To set the connection timeout:")
     println("  pooledDatasource.connectionTimeout = Duration.hour")
     println("To get the connection timeout:")
     println("  let timeout = pooledDatasource.connectionTimeout")
-    println("  println(\"Connection timeout: \${timeout}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Connection timeout: \${timeout}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -272,13 +272,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.idleTimeout property:")
     println("To set the idle timeout:")
     println("  pooledDatasource.idleTimeout = Duration.hour")
     println("To get the idle timeout:")
     println("  let timeout = pooledDatasource.idleTimeout")
-    println("  println(\"Idle timeout: \${timeout}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Idle timeout: \${timeout}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -312,13 +312,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.keepaliveTime property:")
     println("To set the keepalive time:")
     println("  pooledDatasource.keepaliveTime = Duration.hour")
     println("To get the keepalive time:")
     println("  let time = pooledDatasource.keepaliveTime")
-    println("  println(\"Keepalive time: \${time}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Keepalive time: \${time}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -352,13 +352,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.maxIdleSize property:")
     println("To set the maximum idle size:")
     println("  pooledDatasource.maxIdleSize = 10")
     println("To get the maximum idle size:")
     println("  let size = pooledDatasource.maxIdleSize")
-    println("  println(\"Max idle size: \${size}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Max idle size: \${size}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -392,13 +392,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.maxLifeTime property:")
     println("To set the maximum lifetime:")
     println("  pooledDatasource.maxLifeTime = Duration.hour")
     println("To get the maximum lifetime:")
     println("  let time = pooledDatasource.maxLifeTime")
-    println("  println(\"Max lifetime: \${time}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Max lifetime: \${time}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -432,13 +432,13 @@ import std.database.sql.*
 main() {
     // 创建一个PooledDatasource实例（需要提供一个Datasource实现）
     // 这里我们使用一个简化的示例
-    
+
     println("Example for PooledDatasource.maxSize property:")
     println("To set the maximum size:")
     println("  pooledDatasource.maxSize = 20")
     println("To get the maximum size:")
     println("  let size = pooledDatasource.maxSize")
-    println("  println(\"Max size: \${size}\")")  // 使用转义字符避免变量替换
+    println("  println(\"Max size: \${size}\")") // 使用转义字符避免变量替换
 }
 ```
 
@@ -682,7 +682,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlBigInt实例
     let sqlBigInt = SqlBigInt(1234567890)
-    
+
     // 访问name属性
     let name = sqlBigInt.name
     println("SqlBigInt name: ${name}")
@@ -714,11 +714,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlBigInt实例
     let sqlBigInt = SqlBigInt(1234567890)
-    
+
     // 访问value属性
     let value = sqlBigInt.value
     println("SqlBigInt value: ${value}")
-    
+
     // 修改value属性
     sqlBigInt.value = 987654321
     println("Modified SqlBigInt value: ${sqlBigInt.value}")
@@ -754,7 +754,7 @@ main() {
     // 使用SqlBigInt的构造函数
     let sqlBigInt = SqlBigInt(1234567890)
     println("Created SqlBigInt with value: ${sqlBigInt.value}")
-    
+
     // 访问name属性
     println("SqlBigInt name: ${sqlBigInt.name}")
 }
@@ -805,7 +805,7 @@ main() {
     // 创建一个SqlBinary实例
     let bytes: Array<Byte> = [1, 2, 3, 4, 5]
     let sqlBinary = SqlBinary(bytes)
-    
+
     // 访问name属性
     let name = sqlBinary.name
     println("SqlBinary name: ${name}")
@@ -838,14 +838,14 @@ main() {
     // 创建一个SqlBinary实例
     let bytes: Array<Byte> = [1, 2, 3, 4, 5]
     let sqlBinary = SqlBinary(bytes)
-    
+
     // 访问value属性
     let value = sqlBinary.value
     println("SqlBinary value size: ${value.size}")
     for (i in 0..value.size) {
         println("  Byte ${i}: ${value[i]}")
     }
-    
+
     // 修改value属性
     let newBytes: Array<Byte> = [10, 20, 30]
     sqlBinary.value = newBytes
@@ -888,7 +888,7 @@ main() {
     let bytes: Array<Byte> = [1, 2, 3, 4, 5]
     let sqlBinary = SqlBinary(bytes)
     println("Created SqlBinary with ${sqlBinary.value.size} bytes")
-    
+
     // 访问name属性
     println("SqlBinary name: ${sqlBinary.name}")
 }
@@ -942,7 +942,7 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlBlob = SqlBlob(inputStream)
-    
+
     // 访问name属性
     let name = sqlBlob.name
     println("SqlBlob name: ${name}")
@@ -978,11 +978,11 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlBlob = SqlBlob(inputStream)
-    
+
     // 访问value属性
     let value = sqlBlob.value
     println("SqlBlob value: InputStream")
-    
+
     // 修改value属性
     let newData: Array<Byte> = [10, 20, 30]
     let newByteBuffer = ByteBuffer(newData)
@@ -1025,7 +1025,7 @@ main() {
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlBlob = SqlBlob(inputStream)
     println("Created SqlBlob with InputStream")
-    
+
     // 访问name属性
     println("SqlBlob name: ${sqlBlob.name}")
 }
@@ -1075,7 +1075,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlBool实例
     let sqlBool = SqlBool(true)
-    
+
     // 访问name属性
     let name = sqlBool.name
     println("SqlBool name: ${name}")
@@ -1107,11 +1107,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlBool实例
     let sqlBool = SqlBool(true)
-    
+
     // 访问value属性
     let value = sqlBool.value
     println("SqlBool value: ${value}")
-    
+
     // 修改value属性
     sqlBool.value = false
     println("Modified SqlBool value: ${sqlBool.value}")
@@ -1147,7 +1147,7 @@ main() {
     // 使用SqlBool的构造函数
     let sqlBool = SqlBool(true)
     println("Created SqlBool with value: ${sqlBool.value}")
-    
+
     // 访问name属性
     println("SqlBool name: ${sqlBool.name}")
 }
@@ -1197,7 +1197,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlByte实例
     let sqlByte = SqlByte(65)
-    
+
     // 访问name属性
     let name = sqlByte.name
     println("SqlByte name: ${name}")
@@ -1229,11 +1229,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlByte实例
     let sqlByte = SqlByte(65)
-    
+
     // 访问value属性
     let value = sqlByte.value
     println("SqlByte value: ${value}")
-    
+
     // 修改value属性
     sqlByte.value = 90
     println("Modified SqlByte value: ${sqlByte.value}")
@@ -1269,7 +1269,7 @@ main() {
     // 使用SqlByte的构造函数
     let sqlByte = SqlByte(65)
     println("Created SqlByte with value: ${sqlByte.value}")
-    
+
     // 访问name属性
     println("SqlByte name: ${sqlByte.name}")
 }
@@ -1319,7 +1319,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlChar实例
     let sqlChar = SqlChar("A")
-    
+
     // 访问name属性
     let name = sqlChar.name
     println("SqlChar name: ${name}")
@@ -1351,11 +1351,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlChar实例
     let sqlChar = SqlChar("Hello")
-    
+
     // 访问value属性
     let value = sqlChar.value
     println("SqlChar value: ${value}")
-    
+
     // 修改value属性
     sqlChar.value = "World"
     println("Modified SqlChar value: ${sqlChar.value}")
@@ -1391,7 +1391,7 @@ main() {
     // 使用SqlChar的构造函数
     let sqlChar = SqlChar("Hello")
     println("Created SqlChar with value: ${sqlChar.value}")
-    
+
     // 访问name属性
     println("SqlChar name: ${sqlChar.name}")
 }
@@ -1445,7 +1445,7 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlClob = SqlClob(inputStream)
-    
+
     // 访问name属性
     let name = sqlClob.name
     println("SqlClob name: ${name}")
@@ -1481,11 +1481,11 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlClob = SqlClob(inputStream)
-    
+
     // 访问value属性
     let value = sqlClob.value
     println("SqlClob value: InputStream")
-    
+
     // 修改value属性
     let newData: Array<Byte> = [87, 111, 114, 108, 100] // "World"的ASCII码
     let newByteBuffer = ByteBuffer(newData)
@@ -1528,7 +1528,7 @@ main() {
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlClob = SqlClob(inputStream)
     println("Created SqlClob with InputStream")
-    
+
     // 访问name属性
     println("SqlClob name: ${sqlClob.name}")
 }
@@ -1580,7 +1580,7 @@ main() {
     // 创建一个SqlDate实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlDate = SqlDate(dateTime)
-    
+
     // 访问name属性
     let name = sqlDate.name
     println("SqlDate name: ${name}")
@@ -1605,7 +1605,7 @@ public mut prop value: DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -1614,11 +1614,11 @@ main() {
     // 创建一个SqlDate实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlDate = SqlDate(dateTime)
-    
+
     // 访问value属性
     let value = sqlDate.value
     println("SqlDate value: ${value}")
-    
+
     // 修改value属性
     let newDateTime = dateTime.addDays(10)
     sqlDate.value = newDateTime
@@ -1626,7 +1626,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlDate value: 2012-01-01T00:00:00Z
@@ -1647,7 +1647,7 @@ public init(v: DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -1657,13 +1657,13 @@ main() {
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlDate = SqlDate(dateTime)
     println("Created SqlDate with value: ${sqlDate.value}")
-    
+
     // 访问name属性
     println("SqlDate name: ${sqlDate.name}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlDate with value: 2012-01-01T00:00:00Z
@@ -1710,7 +1710,7 @@ main() {
     // 创建一个SqlDecimal实例
     let decimal = Decimal(123.456)
     let sqlDecimal = SqlDecimal(decimal)
-    
+
     // 访问name属性
     let name = sqlDecimal.name
     println("SqlDecimal name: ${name}")
@@ -1744,11 +1744,11 @@ main() {
     // 创建一个SqlDecimal实例
     let decimal = Decimal(123.456)
     let sqlDecimal = SqlDecimal(decimal)
-    
+
     // 访问value属性
     let value = sqlDecimal.value
     println("SqlDecimal value: ${value}")
-    
+
     // 修改value属性
     let newDecimal = Decimal(789.012)
     sqlDecimal.value = newDecimal
@@ -1787,7 +1787,7 @@ main() {
     let decimal = Decimal(123.456)
     let sqlDecimal = SqlDecimal(decimal)
     println("Created SqlDecimal with value: ${sqlDecimal.value}")
-    
+
     // 访问name属性
     println("SqlDecimal name: ${sqlDecimal.name}")
 }
@@ -1837,7 +1837,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlDouble实例
     let sqlDouble = SqlDouble(123.456)
-    
+
     // 访问name属性
     let name = sqlDouble.name
     println("SqlDouble name: ${name}")
@@ -1869,11 +1869,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlDouble实例
     let sqlDouble = SqlDouble(123.456)
-    
+
     // 访问value属性
     let value = sqlDouble.value
     println("SqlDouble value: ${value}")
-    
+
     // 修改value属性
     sqlDouble.value = 789.012
     println("Modified SqlDouble value: ${sqlDouble.value}")
@@ -1909,7 +1909,7 @@ main() {
     // 使用SqlDouble的构造函数
     let sqlDouble = SqlDouble(123.456)
     println("Created SqlDouble with value: ${sqlDouble.value}")
-    
+
     // 访问name属性
     println("SqlDouble name: ${sqlDouble.name}")
 }
@@ -1959,7 +1959,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlInteger实例
     let sqlInteger = SqlInteger(123456)
-    
+
     // 访问name属性
     let name = sqlInteger.name
     println("SqlInteger name: ${name}")
@@ -1991,11 +1991,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlInteger实例
     let sqlInteger = SqlInteger(123456)
-    
+
     // 访问value属性
     let value = sqlInteger.value
     println("SqlInteger value: ${value}")
-    
+
     // 修改value属性
     sqlInteger.value = 789012
     println("Modified SqlInteger value: ${sqlInteger.value}")
@@ -2031,7 +2031,7 @@ main() {
     // 使用SqlInteger的构造函数
     let sqlInteger = SqlInteger(123456)
     println("Created SqlInteger with value: ${sqlInteger.value}")
-    
+
     // 访问name属性
     println("SqlInteger name: ${sqlInteger.name}")
 }
@@ -2083,7 +2083,7 @@ main() {
     // 创建一个SqlInterval实例
     let duration = 123456789 * Duration.millisecond
     let sqlInterval = SqlInterval(duration)
-    
+
     // 访问name属性
     let name = sqlInterval.name
     println("SqlInterval name: ${name}")
@@ -2117,11 +2117,11 @@ main() {
     // 创建一个SqlInterval实例
     let duration = 123456789 * Duration.millisecond
     let sqlInterval = SqlInterval(duration)
-    
+
     // 访问value属性
     let value = sqlInterval.value
     println("SqlInterval value: ${value}")
-    
+
     // 修改value属性
     let newDuration = 987654321 * Duration.millisecond
     sqlInterval.value = newDuration
@@ -2160,7 +2160,7 @@ main() {
     let duration = 123456789 * Duration.millisecond
     let sqlInterval = SqlInterval(duration)
     println("Created SqlInterval with value: ${sqlInterval.value}")
-    
+
     // 访问name属性
     println("SqlInterval name: ${sqlInterval.name}")
 }
@@ -2210,7 +2210,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableBigInt实例
     let sqlNullableBigInt = SqlNullableBigInt(Some(123456i64))
-    
+
     // 访问name属性
     let name = sqlNullableBigInt.name
     println("SqlNullableBigInt name: ${name}")
@@ -2242,11 +2242,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableBigInt实例
     let sqlNullableBigInt = SqlNullableBigInt(Some(123456i64))
-    
+
     // 访问value属性
     let value = sqlNullableBigInt.value
     println("SqlNullableBigInt value: ${value}")
-    
+
     // 修改value属性
     sqlNullableBigInt.value = Some(789012i64)
     println("Modified SqlNullableBigInt value: ${sqlNullableBigInt.value}")
@@ -2282,7 +2282,7 @@ main() {
     // 使用SqlNullableBigInt的构造函数
     let sqlNullableBigInt = SqlNullableBigInt(Some(123456i64))
     println("Created SqlNullableBigInt with value: ${sqlNullableBigInt.value}")
-    
+
     // 访问name属性
     println("SqlNullableBigInt name: ${sqlNullableBigInt.name}")
 }
@@ -2333,7 +2333,7 @@ main() {
     // 创建一个SqlNullableBinary实例
     let bytes = [1u8, 2u8, 3u8, 4u8]
     let sqlNullableBinary = SqlNullableBinary(Some(bytes))
-    
+
     // 访问name属性
     let name = sqlNullableBinary.name
     println("SqlNullableBinary name: ${name}")
@@ -2366,11 +2366,11 @@ main() {
     // 创建一个SqlNullableBinary实例
     let bytes = [1u8, 2u8, 3u8, 4u8]
     let sqlNullableBinary = SqlNullableBinary(Some(bytes))
-    
+
     // 访问value属性
     let value = sqlNullableBinary.value
     println("SqlNullableBinary value: ${value}")
-    
+
     // 修改value属性
     let newBytes = [5u8, 6u8, 7u8, 8u8]
     sqlNullableBinary.value = Some(newBytes)
@@ -2408,7 +2408,7 @@ main() {
     let bytes = [1u8, 2u8, 3u8, 4u8]
     let sqlNullableBinary = SqlNullableBinary(Some(bytes))
     println("Created SqlNullableBinary with value: ${sqlNullableBinary.value}")
-    
+
     // 访问name属性
     println("SqlNullableBinary name: ${sqlNullableBinary.name}")
 }
@@ -2462,7 +2462,7 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullableBlob = SqlNullableBlob(Some(inputStream))
-    
+
     // 访问name属性
     let name = sqlNullableBlob.name
     println("SqlNullableBlob name: ${name}")
@@ -2498,14 +2498,14 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullableBlob = SqlNullableBlob(Some(inputStream))
-    
+
     // 访问value属性
     let value = sqlNullableBlob.value
     match (value) {
         case None => println("SqlNullableBlob value is None")
         case Some(_) => println("SqlNullableBlob value is Some(InputStream)")
     }
-    
+
     // 修改value属性
     sqlNullableBlob.value = None
     match (sqlNullableBlob.value) {
@@ -2547,7 +2547,7 @@ main() {
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullBlob = SqlNullableBlob(Some(inputStream))
-    
+
     // 访问name属性
     let name = sqlNullBlob.name
     println("SqlNullableBlob name: ${name}")
@@ -2597,7 +2597,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableBool实例
     let sqlNullableBool = SqlNullableBool(Some(true))
-    
+
     // 访问name属性
     let name = sqlNullableBool.name
     println("SqlNullableBool name: ${name}")
@@ -2629,11 +2629,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableBool实例
     let sqlNullableBool = SqlNullableBool(Some(true))
-    
+
     // 访问value属性
     let value = sqlNullableBool.value
     println("SqlNullableBool value: ${value}")
-    
+
     // 修改value属性
     sqlNullableBool.value = Some(false)
     println("Modified SqlNullableBool value: ${sqlNullableBool.value}")
@@ -2669,7 +2669,7 @@ main() {
     // 使用SqlNullableBool的构造函数
     let sqlNullableBool = SqlNullableBool(Some(true))
     println("Created SqlNullableBool with value: ${sqlNullableBool.value}")
-    
+
     // 访问name属性
     println("SqlNullableBool name: ${sqlNullableBool.name}")
 }
@@ -2719,7 +2719,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableByte实例
     let sqlNullableByte = SqlNullableByte(Some(123i8))
-    
+
     // 访问name属性
     let name = sqlNullableByte.name
     println("SqlNullableByte name: ${name}")
@@ -2751,11 +2751,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableByte实例
     let sqlNullableByte = SqlNullableByte(Some(123i8))
-    
+
     // 访问value属性
     let value = sqlNullableByte.value
     println("SqlNullableByte value: ${value}")
-    
+
     // 修改value属性
     sqlNullableByte.value = Some(45i8)
     println("Modified SqlNullableByte value: ${sqlNullableByte.value}")
@@ -2791,7 +2791,7 @@ main() {
     // 使用SqlNullableByte的构造函数
     let sqlNullableByte = SqlNullableByte(Some(123i8))
     println("Created SqlNullableByte with value: ${sqlNullableByte.value}")
-    
+
     // 访问name属性
     println("SqlNullableByte name: ${sqlNullableByte.name}")
 }
@@ -2841,7 +2841,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableChar实例
     let sqlNullableChar = SqlNullableChar(Some("Hello"))
-    
+
     // 访问name属性
     let name = sqlNullableChar.name
     println("SqlNullableChar name: ${name}")
@@ -2873,11 +2873,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableChar实例
     let sqlNullableChar = SqlNullableChar(Some("Hello"))
-    
+
     // 访问value属性
     let value = sqlNullableChar.value
     println("SqlNullableChar value: ${value}")
-    
+
     // 修改value属性
     sqlNullableChar.value = Some("World")
     println("Modified SqlNullableChar value: ${sqlNullableChar.value}")
@@ -2913,7 +2913,7 @@ main() {
     // 使用SqlNullableChar的构造函数
     let sqlNullableChar = SqlNullableChar(Some("Hello"))
     println("Created SqlNullableChar with value: ${sqlNullableChar.value}")
-    
+
     // 访问name属性
     println("SqlNullableChar name: ${sqlNullableChar.name}")
 }
@@ -2963,11 +2963,11 @@ import std.io.*
 
 main() {
     // 创建一个SqlNullableClob实例
-    let data: Array<Byte> = [72, 101, 108, 108, 111]  // "Hello"的ASCII码
+    let data: Array<Byte> = [72, 101, 108, 108, 111] // "Hello"的ASCII码
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullableClob = SqlNullableClob(Some(inputStream))
-    
+
     // 访问name属性
     let name = sqlNullableClob.name
     println("SqlNullableClob name: ${name}")
@@ -2999,18 +2999,18 @@ import std.io.*
 
 main() {
     // 创建一个SqlNullableClob实例
-    let data: Array<Byte> = [72, 101, 108, 108, 111]  // "Hello"的ASCII码
+    let data: Array<Byte> = [72, 101, 108, 108, 111] // "Hello"的ASCII码
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullableClob = SqlNullableClob(Some(inputStream))
-    
+
     // 访问value属性
     let value = sqlNullableClob.value
     match (value) {
         case None => println("SqlNullableClob value is None")
         case Some(_) => println("SqlNullableClob value is Some(InputStream)")
     }
-    
+
     // 修改value属性
     sqlNullableClob.value = None
     match (sqlNullableClob.value) {
@@ -3048,12 +3048,12 @@ import std.io.*
 
 main() {
     // 使用SqlNullableClob的构造函数
-    let data: Array<Byte> = [72, 101, 108, 108, 111]  // "Hello"的ASCII码
+    let data: Array<Byte> = [72, 101, 108, 108, 111] // "Hello"的ASCII码
     let byteBuffer = ByteBuffer(data)
     let inputStream = BufferedInputStream(byteBuffer)
     let sqlNullableClob = SqlNullableClob(Some(inputStream))
     println("Created SqlNullableClob with value: Some(InputStream)")
-    
+
     // 访问name属性
     println("SqlNullableClob name: ${sqlNullableClob.name}")
 }
@@ -3105,7 +3105,7 @@ main() {
     // 创建一个SqlNullableDate实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlNullableDate = SqlNullableDate(Some(dateTime))
-    
+
     // 访问name属性
     let name = sqlNullableDate.name
     println("SqlNullableDate name: ${name}")
@@ -3130,7 +3130,7 @@ public mut prop value: ?DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -3139,18 +3139,18 @@ main() {
     // 创建一个SqlNullableDate实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlNullableDate = SqlNullableDate(Some(dateTime))
-    
+
     // 访问value属性
     let value = sqlNullableDate.value
     println("SqlNullableDate value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableDate.value = None
     println("Modified SqlNullableDate value: ${sqlNullableDate.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlNullableDate value: Some(2012-01-01T00:00:00Z)
@@ -3180,7 +3180,7 @@ main() {
     // 创建一个SqlNullableDate实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
     let sqlNullableDate = SqlNullableDate(Some(dateTime))
-    
+
     // 访问name属性
     let name = sqlNullableDate.name
     println("SqlNullableDate name: ${name}")
@@ -3232,7 +3232,7 @@ main() {
     // 创建一个SqlNullableDecimal实例
     let decimalValue = Decimal(123.45)
     let sqlNullableDecimal = SqlNullableDecimal(Some(decimalValue))
-    
+
     // 访问name属性
     let name = sqlNullableDecimal.name
     println("SqlNullableDecimal name: ${name}")
@@ -3266,11 +3266,11 @@ main() {
     // 创建一个SqlNullableDecimal实例
     let decimalValue = Decimal(123.45)
     let sqlNullableDecimal = SqlNullableDecimal(Some(decimalValue))
-    
+
     // 访问value属性
     let value = sqlNullableDecimal.value
     println("SqlNullableDecimal value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableDecimal.value = None
     println("Modified SqlNullableDecimal value: ${sqlNullableDecimal.value}")
@@ -3308,7 +3308,7 @@ main() {
     let decimalValue = Decimal(123.45)
     let sqlNullableDecimal = SqlNullableDecimal(Some(decimalValue))
     println("Created SqlNullableDecimal with value: ${sqlNullableDecimal.value}")
-    
+
     // 访问name属性
     println("SqlNullableDecimal name: ${sqlNullableDecimal.name}")
 }
@@ -3358,7 +3358,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableDouble实例
     let sqlNullableDouble = SqlNullableDouble(Some(123.45f64))
-    
+
     // 访问name属性
     let name = sqlNullableDouble.name
     println("SqlNullableDouble name: ${name}")
@@ -3390,11 +3390,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableDouble实例
     let sqlNullableDouble = SqlNullableDouble(Some(123.45f64))
-    
+
     // 访问value属性
     let value = sqlNullableDouble.value
     println("SqlNullableDouble value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableDouble.value = None
     println("Modified SqlNullableDouble value: ${sqlNullableDouble.value}")
@@ -3430,7 +3430,7 @@ main() {
     // 使用SqlNullableDouble的构造函数
     let sqlNullableDouble = SqlNullableDouble(Some(123.45f64))
     println("Created SqlNullableDouble with value: ${sqlNullableDouble.value}")
-    
+
     // 访问name属性
     println("SqlNullableDouble name: ${sqlNullableDouble.name}")
 }
@@ -3480,7 +3480,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableInteger实例
     let sqlNullableInteger = SqlNullableInteger(Some(123i32))
-    
+
     // 访问name属性
     let name = sqlNullableInteger.name
     println("SqlNullableInteger name: ${name}")
@@ -3512,11 +3512,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableInteger实例
     let sqlNullableInteger = SqlNullableInteger(Some(123i32))
-    
+
     // 访问value属性
     let value = sqlNullableInteger.value
     println("SqlNullableInteger value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableInteger.value = None
     println("Modified SqlNullableInteger value: ${sqlNullableInteger.value}")
@@ -3552,7 +3552,7 @@ main() {
     // 使用SqlNullableInteger的构造函数
     let sqlNullableInteger = SqlNullableInteger(Some(123i32))
     println("Created SqlNullableInteger with value: ${sqlNullableInteger.value}")
-    
+
     // 访问name属性
     println("SqlNullableInteger name: ${sqlNullableInteger.name}")
 }
@@ -3603,7 +3603,7 @@ main() {
     // 创建一个SqlNullableInterval实例
     let duration = 123456789 * Duration.millisecond
     let sqlNullableInterval = SqlNullableInterval(Some(duration))
-    
+
     // 访问name属性
     let name = sqlNullableInterval.name
     println("SqlNullableInterval name: ${name}")
@@ -3636,11 +3636,11 @@ main() {
     // 创建一个SqlNullableInterval实例
     let duration = 123456789 * Duration.millisecond
     let sqlNullableInterval = SqlNullableInterval(Some(duration))
-    
+
     // 访问value属性
     let value = sqlNullableInterval.value
     println("SqlNullableInterval value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableInterval.value = None
     println("Modified SqlNullableInterval value: ${sqlNullableInterval.value}")
@@ -3676,7 +3676,7 @@ main() {
     // 使用SqlNullableInterval的构造函数
     let sqlNullableInterval = SqlNullableInterval(None)
     println("Created SqlNullableInterval with value: ${sqlNullableInterval.value}")
-    
+
     // 访问name属性
     println("SqlNullableInterval name: ${sqlNullableInterval.name}")
 }
@@ -3726,7 +3726,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableReal实例
     let sqlNullableReal = SqlNullableReal(Some(123.45f32))
-    
+
     // 访问name属性
     let name = sqlNullableReal.name
     println("SqlNullableReal name: ${name}")
@@ -3758,11 +3758,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableReal实例
     let sqlNullableReal = SqlNullableReal(Some(123.45f32))
-    
+
     // 访问value属性
     let value = sqlNullableReal.value
     println("SqlNullableReal value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableReal.value = None
     println("Modified SqlNullableReal value: ${sqlNullableReal.value}")
@@ -3798,7 +3798,7 @@ main() {
     // 使用SqlNullableReal的构造函数
     let sqlNullableReal = SqlNullableReal(Some(123.45f32))
     println("Created SqlNullableReal with value: ${sqlNullableReal.value}")
-    
+
     // 访问name属性
     println("SqlNullableReal name: ${sqlNullableReal.name}")
 }
@@ -3848,7 +3848,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableSmallInt实例
     let sqlNullableSmallInt = SqlNullableSmallInt(Some(123i16))
-    
+
     // 访问name属性
     let name = sqlNullableSmallInt.name
     println("SqlNullableSmallInt name: ${name}")
@@ -3880,11 +3880,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlNullableSmallInt实例
     let sqlNullableSmallInt = SqlNullableSmallInt(Some(123i16))
-    
+
     // 访问value属性
     let value = sqlNullableSmallInt.value
     println("SqlNullableSmallInt value: ${value}")
-    
+
     // 修改value属性为None
     sqlNullableSmallInt.value = None
     println("Modified SqlNullableSmallInt value: ${sqlNullableSmallInt.value}")
@@ -3920,7 +3920,7 @@ main() {
     // 使用SqlNullableSmallInt的构造函数
     let sqlNullableSmallInt = SqlNullableSmallInt(Some(123i16))
     println("Created SqlNullableSmallInt with value: ${sqlNullableSmallInt.value}")
-    
+
     // 访问name属性
     println("SqlNullableSmallInt name: ${sqlNullableSmallInt.name}")
 }
@@ -3971,7 +3971,7 @@ main() {
     // 使用SqlNullableTime的构造函数
     let sqlNullableTime = SqlNullableTime(None)
     println("Created SqlNullableTime with value: ${sqlNullableTime.value}")
-    
+
     // 访问name属性
     println("SqlNullableTime name: ${sqlNullableTime.name}")
 }
@@ -3996,7 +3996,7 @@ public mut prop value: ?DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4004,13 +4004,13 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTime的构造函数创建一个有值的实例
     let sqlNullableTimeWithValue = SqlNullableTime(Some(dateTime))
     // 访问value属性
     let value1 = sqlNullableTimeWithValue.value
     println("SqlNullableTime value: ${value1}")
-    
+
     // 使用SqlNullableTime的构造函数创建一个无值的实例
     let sqlNullableTimeWithoutValue = SqlNullableTime(None)
     // 访问value属性
@@ -4019,7 +4019,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlNullableTime value: Some(2012-01-01T00:00:00Z)
@@ -4040,7 +4040,7 @@ public init(v: ?DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4048,18 +4048,18 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTime的构造函数创建一个有值的实例
     let sqlNullableTimeWithValue = SqlNullableTime(Some(dateTime))
     println("Created SqlNullableTime with value: ${sqlNullableTimeWithValue.value}")
-    
+
     // 使用SqlNullableTime的构造函数创建一个无值的实例
     let sqlNullableTimeWithoutValue = SqlNullableTime(None)
     println("Created SqlNullableTime with value: ${sqlNullableTimeWithoutValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlNullableTime with value: Some(2012-01-01T00:00:00Z)
@@ -4127,7 +4127,7 @@ public mut prop value: ?DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4135,14 +4135,13 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTimestamp的构造函数创建一个有值的实例
     let sqlNullableTimestampWithValue = SqlNullableTimestamp(Some(dateTime))
     // 访问value属性
     let value1 = sqlNullableTimestampWithValue.value
     println("SqlNullableTimestamp value: ${value1}")
 
-    
     // 使用SqlNullableTimestamp的构造函数创建一个无值的实例
     let sqlNullableTimestampWithoutValue = SqlNullableTimestamp(None)
     // 访问value属性
@@ -4151,7 +4150,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlNullableTimestamp value: Some(2012-01-01T00:00:00Z)
@@ -4172,7 +4171,7 @@ public init(v: ?DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4180,18 +4179,18 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTimestamp的构造函数创建一个有值的实例
     let sqlNullableTimestampWithValue = SqlNullableTimestamp(Some(dateTime))
     println("Created SqlNullableTimestamp with value: ${sqlNullableTimestampWithValue.value}")
-    
+
     // 使用SqlNullableTimestamp的构造函数创建一个无值的实例
     let sqlNullableTimestampWithoutValue = SqlNullableTimestamp(None)
     println("Created SqlNullableTimestamp with value: ${sqlNullableTimestampWithoutValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlNullableTimestamp with value: Some(2012-01-01T00:00:00Z)
@@ -4258,7 +4257,7 @@ public mut prop value: ?DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4266,13 +4265,13 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
     let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
     // 访问value属性
     let value1 = sqlNullableTimeTzWithValue.value
     println("SqlNullableTimeTz value: ${value1}")
-    
+
     // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
     let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
     // 访问value属性
@@ -4281,7 +4280,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlNullableTimeTz value: Some(2012-01-01T00:00:00Z)
@@ -4302,7 +4301,7 @@ public init(v: ?DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -4310,18 +4309,18 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlNullableTimeTz的构造函数创建一个有值的实例
     let sqlNullableTimeTzWithValue = SqlNullableTimeTz(Some(dateTime))
     println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithValue.value}")
-    
+
     // 使用SqlNullableTimeTz的构造函数创建一个无值的实例
     let sqlNullableTimeTzWithoutValue = SqlNullableTimeTz(None)
     println("Created SqlNullableTimeTz with value: ${sqlNullableTimeTzWithoutValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlNullableTimeTz with value: Some(2012-01-01T00:00:00Z)
@@ -4396,13 +4395,13 @@ import std.core.*
 main() {
     // 创建一个Byte数组
     let bytes: Array<Byte> = [1, 2, 3, 4]
-    
+
     // 使用SqlNullableVarBinary的构造函数创建一个有值的实例
     let sqlNullableVarBinaryWithValue = SqlNullableVarBinary(Some(bytes))
     // 访问value属性
     let value1 = sqlNullableVarBinaryWithValue.value
     println("SqlNullableVarBinary value: ${value1}")
-    
+
     // 使用SqlNullableVarBinary的构造函数创建一个无值的实例
     let sqlNullableVarBinaryWithoutValue = SqlNullableVarBinary(None)
     // 访问value属性
@@ -4440,11 +4439,11 @@ import std.core.*
 main() {
     // 创建一个Byte数组
     let bytes: Array<Byte> = [5, 6, 7, 8]
-    
+
     // 使用SqlNullableVarBinary的构造函数创建一个有值的实例
     let sqlNullableVarBinaryWithValue = SqlNullableVarBinary(Some(bytes))
     println("Created SqlNullableVarBinary with value: ${sqlNullableVarBinaryWithValue.value}")
-    
+
     // 使用SqlNullableVarBinary的构造函数创建一个无值的实例
     let sqlNullableVarBinaryWithoutValue = SqlNullableVarBinary(None)
     println("Created SqlNullableVarBinary with value: ${sqlNullableVarBinaryWithoutValue.value}")
@@ -4527,7 +4526,7 @@ main() {
     // 访问value属性
     let value1 = sqlNullableVarcharWithValue.value
     println("SqlNullableVarchar value: ${value1}")
-    
+
     // 使用SqlNullableVarchar的构造函数创建一个无值的实例
     let sqlNullableVarcharWithoutValue = SqlNullableVarchar(None)
     // 访问value属性
@@ -4565,7 +4564,7 @@ main() {
     // 使用SqlNullableVarchar的构造函数创建一个有值的实例
     let sqlNullableVarcharWithValue = SqlNullableVarchar(Some("World"))
     println("Created SqlNullableVarchar with value: ${sqlNullableVarcharWithValue.value}")
-    
+
     // 使用SqlNullableVarchar的构造函数创建一个无值的实例
     let sqlNullableVarcharWithoutValue = SqlNullableVarchar(None)
     println("Created SqlNullableVarchar with value: ${sqlNullableVarcharWithoutValue.value}")
@@ -5353,7 +5352,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlReal实例
     let sqlReal = SqlReal(123.45f32)
-    
+
     // 访问name属性
     let name = sqlReal.name
     println("SqlReal name: ${name}")
@@ -5385,11 +5384,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlReal实例
     let sqlReal = SqlReal(123.45f32)
-    
+
     // 访问value属性
     let value = sqlReal.value
     println("SqlReal value: ${value}")
-    
+
     // 修改value属性
     sqlReal.value = 54.321f32
     println("Modified SqlReal value: ${sqlReal.value}")
@@ -5425,7 +5424,7 @@ main() {
     // 使用SqlReal的构造函数
     let sqlReal = SqlReal(123.45f32)
     println("Created SqlReal with value: ${sqlReal.value}")
-    
+
     // 访问name属性
     println("SqlReal name: ${sqlReal.name}")
 }
@@ -5475,7 +5474,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlSmallInt实例
     let sqlSmallInt = SqlSmallInt(123i16)
-    
+
     // 访问name属性
     let name = sqlSmallInt.name
     println("SqlSmallInt name: ${name}")
@@ -5507,11 +5506,11 @@ import std.database.sql.*
 main() {
     // 创建一个SqlSmallInt实例
     let sqlSmallInt = SqlSmallInt(123i16)
-    
+
     // 访问value属性
     let value = sqlSmallInt.value
     println("SqlSmallInt value: ${value}")
-    
+
     // 修改value属性
     sqlSmallInt.value = 321i16
     println("Modified SqlSmallInt value: ${sqlSmallInt.value}")
@@ -5547,7 +5546,7 @@ main() {
     // 使用SqlSmallInt的构造函数
     let sqlSmallInt = SqlSmallInt(123i16)
     println("Created SqlSmallInt with value: ${sqlSmallInt.value}")
-    
+
     // 访问name属性
     println("SqlSmallInt name: ${sqlSmallInt.name}")
 }
@@ -5590,7 +5589,7 @@ public prop name: String
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5600,13 +5599,13 @@ main() {
     // 使用SqlTime的构造函数
     let sqlTime = SqlTime(dateTime)
     println("Created SqlTime with value: ${sqlTime.value}")
-    
+
     // 访问name属性
     println("SqlTime name: ${sqlTime.name}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlTime with value: 2012-01-01T00:00:00Z
@@ -5625,7 +5624,7 @@ public mut prop value: DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5633,7 +5632,7 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTime的构造函数创建一个实例
     let sqlTimeWithValue = SqlTime(dateTime)
     // 访问value属性
@@ -5642,7 +5641,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlTime value: 2012-01-01T00:00:00Z
@@ -5662,7 +5661,7 @@ public init(v: DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5670,14 +5669,14 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTime的构造函数创建一个实例
     let sqlTimeWithValue = SqlTime(dateTime)
     println("Created SqlTime with value: ${sqlTimeWithValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlTime with value: 2012-01-01T00:00:00Z
@@ -5746,7 +5745,7 @@ public mut prop value: DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5754,7 +5753,7 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTimestamp的构造函数创建一个实例
     let sqlTimestampWithValue = SqlTimestamp(dateTime)
     // 访问value属性
@@ -5763,7 +5762,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlTimestamp value: 2012-01-01T00:00:00Z
@@ -5783,7 +5782,7 @@ public init(v: DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5791,14 +5790,14 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTimestamp的构造函数创建一个实例
     let sqlTimestampWithValue = SqlTimestamp(dateTime)
     println("Created SqlTimestamp with value: ${sqlTimestampWithValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlTimestamp with value: 2012-01-01T00:00:00Z
@@ -5866,7 +5865,7 @@ public mut prop value: DateTime
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5874,7 +5873,7 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTimeTz的构造函数创建一个实例
     let sqlTimeTzWithValue = SqlTimeTz(dateTime)
     // 访问value属性
@@ -5883,7 +5882,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 SqlTimeTz value: 2012-01-01T00:00:00Z
@@ -5903,7 +5902,7 @@ public init(v: DateTime)
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.database.sql.*
 import std.time.*
@@ -5911,14 +5910,14 @@ import std.time.*
 main() {
     // 创建一个DateTime实例
     let dateTime = DateTime.of(year: 2012, month: 1, dayOfMonth: 1, hour: 0, minute: 0, second: 0)
-    
+
     // 使用SqlTimeTz的构造函数创建一个实例
     let sqlTimeTzWithValue = SqlTimeTz(dateTime)
     println("Created SqlTimeTz with value: ${sqlTimeTzWithValue.value}")
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Created SqlTimeTz with value: 2012-01-01T00:00:00Z
@@ -5994,7 +5993,7 @@ import std.database.sql.*
 main() {
     // 创建一个Byte数组
     let bytes: Array<Byte> = [1, 2, 3, 4]
-    
+
     // 使用SqlVarBinary的构造函数创建一个实例
     let sqlVarBinaryWithValue = SqlVarBinary(bytes)
     // 访问value属性
@@ -6030,7 +6029,7 @@ import std.database.sql.*
 main() {
     // 创建一个Byte数组
     let bytes: Array<Byte> = [5, 6, 7, 8]
-    
+
     // 使用SqlVarBinary的构造函数创建一个实例
     let sqlVarBinaryWithValue = SqlVarBinary(bytes)
     println("Created SqlVarBinary with value: ${sqlVarBinaryWithValue.value}")

@@ -35,7 +35,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlException实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
-    
+
     // 访问errorCode属性
     let errorCode = exception.errorCode
     println("Error code: ${errorCode}")
@@ -67,7 +67,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlException实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
-    
+
     // 访问message属性
     let message = exception.message
     println("Error message: ${message}")
@@ -99,7 +99,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlException实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
-    
+
     // 访问sqlState属性
     let sqlState = exception.sqlState
     println("SQL state: ${sqlState}")
@@ -129,7 +129,7 @@ import std.database.sql.*
 main() {
     // 使用无参构造函数创建SqlException实例
     let exception = SqlException()
-    
+
     // 打印异常信息
     println("Exception message: ${exception.message}")
     println("SQL state: ${exception.sqlState}")
@@ -166,7 +166,7 @@ import std.database.sql.*
 main() {
     // 使用带消息参数的构造函数创建SqlException实例
     let exception = SqlException("Database connection failed")
-    
+
     // 打印异常信息
     println("Exception message: ${exception.message}")
     println("SQL state: ${exception.sqlState}")
@@ -205,7 +205,7 @@ import std.database.sql.*
 main() {
     // 使用带所有参数的构造函数创建SqlException实例
     let exception = SqlException("Database connection failed", "SQLST", 12345i64)
-    
+
     // 打印异常信息
     println("Exception message: ${exception.message}")
     println("SQL state: ${exception.sqlState}")
@@ -242,7 +242,7 @@ import std.database.sql.*
 main() {
     // 创建一个SqlException实例
     let exception = MyException()
-    
+
     // 调用getClassName函数获取类名
     let className = exception.myGetClassName()
     println("Class name: ${className}")

@@ -108,14 +108,14 @@ main() {
     let monday = DayOfWeek.of(1)
     let friday = DayOfWeek.of(5)
     let sunday = DayOfWeek.of(0)
-    
+
     println("周一: ${monday}")
     println("周五: ${friday}")
     println("周日: ${sunday}")
-    
+
     // 尝试创建一个无效的值（会抛出异常）
     try {
-        DayOfWeek.of(7)  // 这会抛出 IllegalArgumentException
+        DayOfWeek.of(7) // 这会抛出 IllegalArgumentException
     } catch (e: IllegalArgumentException) {
         println("异常: ${e.message}")
     }
@@ -155,12 +155,12 @@ main() {
     let monday = DayOfWeek.Monday
     let friday = DayOfWeek.Friday
     let sunday = DayOfWeek.Sunday
-    
+
     // 使用 toInteger 函数获取整数表示
     let monInt = monday.toInteger()
     let friInt = friday.toInteger()
     let sunInt = sunday.toInteger()
-    
+
     println("周一的整数表示: ${monInt}")
     println("周五的整数表示: ${friInt}")
     println("周日的整数表示: ${sunInt}")
@@ -198,12 +198,12 @@ main() {
     let monday = DayOfWeek.Monday
     let friday = DayOfWeek.Friday
     let sunday = DayOfWeek.Sunday
-    
+
     // 使用 toString 函数获取字符串表示
     let monStr = monday.toString()
     let friStr = friday.toString()
     let sunStr = sunday.toString()
-    
+
     println("周一的字符串表示: ${monStr}")
     println("周五的字符串表示: ${friStr}")
     println("周日的字符串表示: ${sunStr}")
@@ -245,16 +245,16 @@ main() {
     let monday = DayOfWeek.Monday
     let friday = DayOfWeek.Friday
     let sunday = DayOfWeek.Sunday
-    
+
     // 使用已废弃的 value 函数获取整数表示
     let monInt = monday.value()
     let friInt = friday.value()
     let sunInt = sunday.value()
-    
+
     println("周一的整数表示: ${monInt}")
     println("周五的整数表示: ${friInt}")
     println("周日的整数表示: ${sunInt}")
-    
+
     // 推荐使用 toInteger() 替代
     println("推荐使用 toInteger() 替代 value()")
 }
@@ -296,14 +296,14 @@ main() {
     let monday = DayOfWeek.Monday
     let friday = DayOfWeek.Friday
     let anotherMonday = DayOfWeek.Monday
-    
+
     // 使用 != 操作符比较两个 DayOfWeek 实例
     if (monday != friday) {
         println("周一不等于周五")
     } else {
         println("周一等于周五")
     }
-    
+
     if (monday != anotherMonday) {
         println("两个周一实例不相等")
     } else {
@@ -344,19 +344,19 @@ import std.time.*
 main() {
     // 创建一个 DayOfWeek 实例
     let monday = DayOfWeek.Monday
-    
+
     // 使用 + 操作符计算几天后的星期几
-    let wednesday = monday + 2  // 周一 + 2天 = 周三
-    let sunday = monday + 6     // 周一 + 6天 = 周日
+    let wednesday = monday + 2 // 周一 + 2天 = 周三
+    let sunday = monday + 6 // 周一 + 6天 = 周日
     let nextMonday = monday + 7 // 周一 + 7天 = 下周一（还是周一）
-    
+
     println("周一: ${monday}")
     println("周一 + 2天 = ${wednesday}")
     println("周一 + 6天 = ${sunday}")
     println("周一 + 7天 = ${nextMonday}")
-    
+
     // 计算负数天数
-    let saturday = monday + (-2)  // 周一 - 2天 = 周六
+    let saturday = monday + (-2) // 周一 - 2天 = 周六
     println("周一 - 2天 = ${saturday}")
 }
 ```
@@ -396,17 +396,17 @@ import std.time.*
 main() {
     // 创建一个 DayOfWeek 实例
     let monday = DayOfWeek.Monday
-    
+
     // 使用 - 操作符计算几天前的星期几
-    let saturday = monday - 2  // 周一 - 2天 = 周六
-    let wednesday = monday - (-2)  // 周一 - (-2天) = 周三
-    
+    let saturday = monday - 2 // 周一 - 2天 = 周六
+    let wednesday = monday - (-2) // 周一 - (-2天) = 周三
+
     println("周一: ${monday}")
     println("周一 - 2天 = ${saturday}")
     println("周一 - (-2天) = ${wednesday}")
-    
+
     // 计算跨越一周的情况
-    let previousFriday = monday - 3  // 周一 - 3天 = 上周五
+    let previousFriday = monday - 3 // 周一 - 3天 = 上周五
     println("周一 - 3天 = ${previousFriday}")
 }
 ```
@@ -447,14 +447,14 @@ main() {
     let monday = DayOfWeek.Monday
     let friday = DayOfWeek.Friday
     let anotherMonday = DayOfWeek.Monday
-    
+
     // 使用 == 操作符比较两个 DayOfWeek 实例
     if (monday == friday) {
         println("周一等于周五")
     } else {
         println("周一不等于周五")
     }
-    
+
     if (monday == anotherMonday) {
         println("两个周一实例相等")
     } else {
@@ -623,14 +623,14 @@ main() {
     let january = Month.of(1)
     let june = Month.of(6)
     let december = Month.of(12)
-    
+
     println("一月: ${january}")
     println("六月: ${june}")
     println("十二月: ${december}")
-    
+
     // 尝试创建一个无效的值（会抛出异常）
     try {
-        Month.of(13)  // 这会抛出 IllegalArgumentException
+        Month.of(13) // 这会抛出 IllegalArgumentException
     } catch (e: IllegalArgumentException) {
         println("异常: ${e.message}")
     }
@@ -670,12 +670,12 @@ main() {
     let january = Month.January
     let june = Month.June
     let december = Month.December
-    
+
     // 使用 toInteger 函数获取整数表示
     let janInt = january.toInteger()
     let junInt = june.toInteger()
     let decInt = december.toInteger()
-    
+
     println("一月的整数表示: ${janInt}")
     println("六月的整数表示: ${junInt}")
     println("十二月的整数表示: ${decInt}")
@@ -713,12 +713,12 @@ main() {
     let january = Month.January
     let june = Month.June
     let december = Month.December
-    
+
     // 使用 toString 函数获取字符串表示
     let janStr = january.toString()
     let junStr = june.toString()
     let decStr = december.toString()
-    
+
     println("一月的字符串表示: ${janStr}")
     println("六月的字符串表示: ${junStr}")
     println("十二月的字符串表示: ${decStr}")
@@ -760,16 +760,16 @@ main() {
     let january = Month.January
     let june = Month.June
     let december = Month.December
-    
+
     // 使用已废弃的 value 函数获取整数表示
     let janInt = january.value()
     let junInt = june.value()
     let decInt = december.value()
-    
+
     println("一月的整数表示: ${janInt}")
     println("六月的整数表示: ${junInt}")
     println("十二月的整数表示: ${decInt}")
-    
+
     // 推荐使用 toInteger() 替代
     println("推荐使用 toInteger() 替代 value()")
 }
@@ -811,14 +811,14 @@ main() {
     let january = Month.January
     let june = Month.June
     let anotherJanuary = Month.January
-    
+
     // 使用 != 操作符比较两个 Month 实例
     if (january != june) {
         println("一月不等于六月")
     } else {
         println("一月等于六月")
     }
-    
+
     if (january != anotherJanuary) {
         println("两个一月实例不相等")
     } else {
@@ -859,19 +859,19 @@ import std.time.*
 main() {
     // 创建一个 Month 实例
     let january = Month.January
-    
+
     // 使用 + 操作符计算几个月后的月份
-    let march = january + 2  // 一月 + 2个月 = 三月
-    let july = january + 6   // 一月 + 6个月 = 七月
+    let march = january + 2 // 一月 + 2个月 = 三月
+    let july = january + 6 // 一月 + 6个月 = 七月
     let nextJanuary = january + 12 // 一月 + 12个月 = 下一年的一月
-    
+
     println("一月: ${january}")
     println("一月 + 2个月 = ${march}")
     println("一月 + 6个月 = ${july}")
     println("一月 + 12个月 = ${nextJanuary}")
-    
+
     // 计算负数月数
-    let november = january + (-2)  // 一月 - 2个月 = 十一月
+    let november = january + (-2) // 一月 - 2个月 = 十一月
     println("一月 - 2个月 = ${november}")
 }
 ```
@@ -911,17 +911,17 @@ import std.time.*
 main() {
     // 创建一个 Month 实例
     let january = Month.January
-    
+
     // 使用 - 操作符计算几个月前的月份
-    let november = january - 2  // 一月 - 2个月 = 十一月
-    let july = january - (-6)   // 一月 - (-6个月) = 七月
-    
+    let november = january - 2 // 一月 - 2个月 = 十一月
+    let july = january - (-6) // 一月 - (-6个月) = 七月
+
     println("一月: ${january}")
     println("一月 - 2个月 = ${november}")
     println("一月 - (-6个月) = ${july}")
-    
+
     // 计算跨越年的月份
-    let previousJuly = january - 6  // 一月 - 6个月 = 上一年的七月
+    let previousJuly = january - 6 // 一月 - 6个月 = 上一年的七月
     println("一月 - 6个月 = ${previousJuly}")
 }
 ```
@@ -962,14 +962,14 @@ main() {
     let january = Month.January
     let june = Month.June
     let anotherJanuary = Month.January
-    
+
     // 使用 == 操作符比较两个 Month 实例
     if (january == june) {
         println("一月等于六月")
     } else {
         println("一月不等于六月")
     }
-    
+
     if (january == anotherJanuary) {
         println("两个一月实例相等")
     } else {

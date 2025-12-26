@@ -90,7 +90,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取日期信息
     let (year, month, day) = datetime.date
     println("日期信息: ${year}年 ${month} ${day}日")
@@ -127,7 +127,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取日期信息
     println("DateTime 实例: ${datetime}")
     println("当前月的第几天: ${datetime.dayOfMonth}")
@@ -165,7 +165,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取星期信息
     println("DateTime 实例: ${datetime}")
     println("当前周的第几天: ${datetime.dayOfWeek}")
@@ -205,7 +205,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取年内天数信息
     println("DateTime 实例: ${datetime}")
     println("当前年的第几天: ${datetime.dayOfYear}")
@@ -245,7 +245,7 @@ main() {
         minute: 34,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取小时信息
     println("DateTime 实例: ${datetime}")
     println("小时: ${datetime.hour}")
@@ -283,7 +283,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取ISO周信息
     let (isoYear, isoWeek) = datetime.isoWeek
     println("DateTime 实例: ${datetime}")
@@ -326,7 +326,7 @@ main() {
         minute: 34,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取分钟信息
     println("DateTime 实例: ${datetime}")
     println("分钟: ${datetime.minute}")
@@ -364,7 +364,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取月份信息
     println("DateTime 实例: ${datetime}")
     println("月份: ${datetime.month}")
@@ -408,11 +408,11 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取月份信息（已废弃的属性）
     println("DateTime 实例: ${datetime}")
     println("月份(整数表示，已废弃): ${datetime.monthValue}")
-    
+
     // 推荐使用 month.toInteger() 替代
     println("推荐使用 month.toInteger() 替代 monthValue")
     println("月份(整数表示，推荐方式): ${datetime.month.toInteger()}")
@@ -456,7 +456,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取纳秒信息
     println("DateTime 实例: ${datetime}")
     println("纳秒: ${datetime.nanosecond}")
@@ -497,7 +497,7 @@ main() {
         second: 56,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取秒信息
     println("DateTime 实例: ${datetime}")
     println("秒: ${datetime.second}")
@@ -538,7 +538,7 @@ main() {
         second: 56,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取时间信息
     let (hour, minute, second) = datetime.time
     println("DateTime 实例: ${datetime}")
@@ -577,7 +577,7 @@ main() {
         dayOfMonth: 22,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取年份信息
     println("DateTime 实例: ${datetime}")
     println("年份: ${datetime.year}")
@@ -619,7 +619,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取时区信息
     println("DateTime 实例: ${datetime}")
     println("时区: ${datetime.zone}")
@@ -665,7 +665,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取时区ID信息
     println("DateTime 实例: ${datetime}")
     println("时区ID: ${datetime.zoneId}")
@@ -707,7 +707,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     // 获取时区偏移信息
     println("DateTime 实例: ${datetime}")
     println("时区偏移: ${datetime.zoneOffset}")
@@ -749,11 +749,11 @@ import std.time.*
 
 main() {
     // 创建一个 Duration 实例，表示从 Unix 纪元开始的时间间隔
-    let duration = 1000 * Duration.second  // 1000秒
-    
+    let duration = 1000 * Duration.second // 1000秒
+
     // 使用 fromUnixTimeStamp 函数创建 DateTime 实例
     let datetime = DateTime.fromUnixTimeStamp(duration)
-    
+
     println("时间间隔: ${duration}")
     println("对应的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
@@ -804,11 +804,11 @@ main() {
     // 获取本地时区的当前时间
     let localTime = DateTime.now()
     println("本地时区当前时间: ${localTime}")
-    
+
     // 获取 UTC 时区的当前时间
     let utcTime = DateTime.now(timeZone: TimeZone.UTC)
     println("UTC时区当前时间: ${utcTime}")
-    
+
     // 获取本地时区时间
     let localTimeExplicit = DateTime.now(timeZone: TimeZone.Local)
     println("显式指定本地时区时间: ${localTimeExplicit}")
@@ -845,7 +845,7 @@ main() {
     // 获取 UTC 时区的当前时间
     let utcTime = DateTime.nowUTC()
     println("UTC时区当前时间: ${utcTime}")
-    
+
     // 显示详细信息
     println("年份: ${utcTime.year}")
     println("月份: ${utcTime.month}")
@@ -918,7 +918,7 @@ main() {
     // 使用整数参数创建 DateTime 实例
     let datetime = DateTime.of(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
@@ -926,7 +926,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     println("创建的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
     println("月份: ${datetime.month}")
@@ -999,7 +999,7 @@ main() {
     // 使用 Month 枚举参数创建 DateTime 实例
     let datetime = DateTime.of(
         year: 2024,
-        month: May,  // 使用 Month 枚举
+        month: May, // 使用 Month 枚举
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
@@ -1007,7 +1007,7 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.UTC
     )
-    
+
     println("创建的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
     println("月份: ${datetime.month}")
@@ -1065,10 +1065,10 @@ import std.time.*
 main() {
     // 使用 Unix 时间戳创建 DateTime 实例
     let datetime = DateTime.ofEpoch(
-        second: 1000,  // 1000秒
-        nanosecond: 500000000  // 0.5秒
+        second: 1000, // 1000秒
+        nanosecond: 500000000 // 0.5秒
     )
-    
+
     println("创建的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
     println("月份: ${datetime.month}")
@@ -1139,14 +1139,14 @@ main() {
     // 使用整数参数创建 UTC 时区的 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("创建的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
     println("月份: ${datetime.month}")
@@ -1217,14 +1217,14 @@ main() {
     // 使用 Month 枚举参数创建 UTC 时区的 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: May,  // 使用 Month 枚举
+        month: May, // 使用 Month 枚举
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("创建的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
     println("月份: ${datetime.month}")
@@ -1281,7 +1281,7 @@ main() {
     // 从 RFC3339 格式的字符串解析 DateTime
     let datetimeStr = "2024-05-22T12:34:56.789Z"
     let datetime = DateTime.parse(datetimeStr)
-    
+
     println("解析的字符串: ${datetimeStr}")
     println("解析的 DateTime: ${datetime}")
     println("年份: ${datetime.year}")
@@ -1402,7 +1402,7 @@ main() {
     let datetimeStr = "2024/05/22 12:34:56 +00:00"
     let format = "yyyy/MM/dd HH:mm:ss OOOO"
     let datetime = DateTime.parse(datetimeStr, format)
-    
+
     println("解析的字符串: ${datetimeStr}")
     println("使用的格式: ${format}")
     println("解析的 DateTime: ${datetime}")
@@ -1459,9 +1459,9 @@ main() {
     // 尝试从 RFC3339 格式的字符串解析 DateTime
     let datetimeStr = "2024-05-22T12:34:56.789Z"
     let result = DateTime.tryParse(datetimeStr)
-    
+
     println("解析的字符串: ${datetimeStr}")
-    match(result) {
+    match (result) {
         case Some(datetime) => println("解析成功: ${datetime}")
         case None => println("解析失败")
     }
@@ -1505,19 +1505,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 10 天
     let newDatetime = datetime.addDays(10)
-    
+
     println("添加 10 天后: ${newDatetime}")
     println("年份: ${newDatetime.year}")
     println("月份: ${newDatetime.month}")
@@ -1565,19 +1565,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 5 小时
     let newDatetime = datetime.addHours(5)
-    
+
     println("添加 5 小时后: ${newDatetime}")
     println("小时: ${newDatetime.hour}")
     println("分钟: ${newDatetime.minute}")
@@ -1623,19 +1623,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 30 分钟
     let newDatetime = datetime.addMinutes(30)
-    
+
     println("添加 30 分钟后: ${newDatetime}")
     println("小时: ${newDatetime.hour}")
     println("分钟: ${newDatetime.minute}")
@@ -1685,19 +1685,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 3 个月
     let newDatetime = datetime.addMonths(3)
-    
+
     println("添加 3 个月后: ${newDatetime}")
     println("年份: ${newDatetime.year}")
     println("月份: ${newDatetime.month}")
@@ -1745,19 +1745,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 500000000 纳秒 (0.5 秒)
     let newDatetime = datetime.addNanoseconds(500000000)
-    
+
     println("添加 500000000 纳秒后: ${newDatetime}")
     println("秒: ${newDatetime.second}")
     println("纳秒: ${newDatetime.nanosecond}")
@@ -1803,19 +1803,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 30 秒
     let newDatetime = datetime.addSeconds(30)
-    
+
     println("添加 30 秒后: ${newDatetime}")
     println("分钟: ${newDatetime.minute}")
     println("秒: ${newDatetime.second}")
@@ -1861,19 +1861,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 2 周
     let newDatetime = datetime.addWeeks(2)
-    
+
     println("添加 2 周后: ${newDatetime}")
     println("年份: ${newDatetime.year}")
     println("月份: ${newDatetime.month}")
@@ -1925,19 +1925,19 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 添加 2 年
     let newDatetime = datetime.addYears(2)
-    
+
     println("添加 2 年后: ${newDatetime}")
     println("年份: ${newDatetime.year}")
     println("月份: ${newDatetime.month}")
@@ -1981,46 +1981,46 @@ main() {
     // 创建三个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime3 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
     println("datetime3: ${datetime3}")
-    
+
     // 比较 datetime1 和 datetime2
     let result1 = datetime1.compare(datetime2)
     println("datetime1.compare(datetime2): ${result1}")
-    
+
     // 比较 datetime1 和 datetime3
     let result2 = datetime1.compare(datetime3)
     println("datetime1.compare(datetime3): ${result2}")
-    
+
     // 比较 datetime3 和 datetime1
     let result3 = datetime3.compare(datetime1)
     println("datetime3.compare(datetime1): ${result3}")
@@ -2068,21 +2068,21 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 使用不同的格式字符串格式化
     let format1 = "yyyy/MM/dd HH:mm:ss"
     let formatted1 = datetime.format(format1)
     println("格式 '${format1}': ${formatted1}")
-    
+
     let format2 = "yyyy-MM-dd HH:mm:ss.SSS OOOO"
     let formatted2 = datetime.format(format2)
     println("格式 '${format2}': ${formatted2}")
@@ -2119,16 +2119,16 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("DateTime: ${datetime}")
-    
+
     // 获取哈希值
     let hash = datetime.hashCode()
     println("哈希值: ${hash}")
@@ -2168,20 +2168,20 @@ main() {
     // 创建一个 UTC 时区的 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("UTC 时间: ${datetime}")
     println("时区ID: ${datetime.zoneId}")
-    
+
     // 转换为本地时区时间
     let localDatetime = datetime.inLocal()
-    
+
     println("本地时间: ${localDatetime}")
     println("本地时区ID: ${localDatetime.zoneId}")
 }
@@ -2226,23 +2226,23 @@ main() {
     // 创建一个 UTC 时区的 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("UTC 时间: ${datetime}")
     println("时区ID: ${datetime.zoneId}")
-    
+
     // 创建一个纽约时区
     let nyTimeZone = TimeZone.load("America/New_York")
-    
+
     // 转换为纽约时区时间
     let nyDatetime = datetime.inTimeZone(nyTimeZone)
-    
+
     println("纽约时间: ${nyDatetime}")
     println("纽约时区ID: ${nyDatetime.zoneId}")
 }
@@ -2283,7 +2283,7 @@ main() {
     // 创建一个本地时区的 DateTime 实例
     let datetime = DateTime.of(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
@@ -2291,13 +2291,13 @@ main() {
         nanosecond: 789000000,
         timeZone: TimeZone.Local
     )
-    
+
     println("本地时间: ${datetime}")
     println("时区ID: ${datetime.zoneId}")
-    
+
     // 转换为 UTC 时区时间
     let utcDatetime = datetime.inUTC()
-    
+
     println("UTC 时间: ${utcDatetime}")
     println("UTC 时区ID: ${utcDatetime.zoneId}")
 }
@@ -2334,16 +2334,16 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("DateTime: ${datetime}")
-    
+
     // 转换为字符串
     let str = datetime.toString()
     println("字符串表示: ${str}")
@@ -2391,7 +2391,7 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
@@ -2434,16 +2434,16 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("DateTime: ${datetime}")
-    
+
     // 转换为 Unix 时间戳
     let duration = datetime.toUnixTimeStamp()
     println("Unix 时间戳: ${duration}")
@@ -2485,43 +2485,43 @@ main() {
     // 创建两个相同的 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     // 创建一个不同的 DateTime 实例
     let datetime3 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
     println("datetime3: ${datetime3}")
-    
+
     // 比较 datetime1 和 datetime2 (相同)
     let result1 = datetime1 != datetime2
     println("datetime1 != datetime2: ${result1}")
-    
+
     // 比较 datetime1 和 datetime3 (不同)
     let result2 = datetime1 != datetime3
     println("datetime1 != datetime3: ${result2}")
@@ -2568,22 +2568,22 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 创建一个 Duration 实例 (1天2小时30分钟)
     let duration = 1 * Duration.day + 2 * Duration.hour + 30 * Duration.minute
-    
+
     // 使用 + 操作符将 Duration 加到 DateTime 上
     let newDatetime = datetime + duration
-    
+
     println("增加的时间: ${duration}")
     println("新的 DateTime: ${newDatetime}")
 }
@@ -2623,30 +2623,30 @@ main() {
     // 创建两个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 20,  // 20日
+        month: 5, // 5月
+        dayOfMonth: 20, // 20日
         hour: 10,
         minute: 30,
         second: 30,
         nanosecond: 123000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
-    
+
     // 使用 - 操作符计算两个 DateTime 之间的时间差
     let duration = datetime1 - datetime2
-    
+
     println("时间差: ${duration}")
 }
 ```
@@ -2689,22 +2689,22 @@ main() {
     // 创建一个 DateTime 实例
     let datetime = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("原始 DateTime: ${datetime}")
-    
+
     // 创建一个 Duration 实例 (1天2小时30分钟)
     let duration = 1 * Duration.day + 2 * Duration.hour + 30 * Duration.minute
-    
+
     // 使用 - 操作符从 DateTime 中减去 Duration
     let newDatetime = datetime - duration
-    
+
     println("减少的时间: ${duration}")
     println("新的 DateTime: ${newDatetime}")
 }
@@ -2744,31 +2744,31 @@ main() {
     // 创建两个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
-    
+
     // 使用 < 操作符比较两个 DateTime
     let result1 = datetime1 < datetime2
     println("datetime1 < datetime2: ${result1}")
-    
+
     let result2 = datetime2 < datetime1
     println("datetime2 < datetime1: ${result2}")
 }
@@ -2809,45 +2809,45 @@ main() {
     // 创建三个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime3 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
     println("datetime3: ${datetime3}")
-    
+
     // 使用 <= 操作符比较两个 DateTime
     let result1 = datetime1 <= datetime2
     println("datetime1 <= datetime2: ${result1}")
-    
+
     let result2 = datetime2 <= datetime1
     println("datetime2 <= datetime1: ${result2}")
-    
+
     let result3 = datetime1 <= datetime3
     println("datetime1 <= datetime3: ${result3}")
 }
@@ -2892,43 +2892,43 @@ main() {
     // 创建两个相同的 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     // 创建一个不同的 DateTime 实例
     let datetime3 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
     println("datetime3: ${datetime3}")
-    
+
     // 使用 == 操作符比较两个 DateTime
     let result1 = datetime1 == datetime2
     println("datetime1 == datetime2: ${result1}")
-    
+
     let result2 = datetime1 == datetime3
     println("datetime1 == datetime3: ${result2}")
 }
@@ -2970,31 +2970,31 @@ main() {
     // 创建两个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
-    
+
     // 使用 > 操作符比较两个 DateTime
     let result1 = datetime1 > datetime2
     println("datetime1 > datetime2: ${result1}")
-    
+
     let result2 = datetime2 > datetime1
     println("datetime2 > datetime1: ${result2}")
 }
@@ -3035,45 +3035,45 @@ main() {
     // 创建三个 DateTime 实例
     let datetime1 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime2 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
-        dayOfMonth: 23,  // 23日
+        month: 5, // 5月
+        dayOfMonth: 23, // 23日
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     let datetime3 = DateTime.ofUTC(
         year: 2024,
-        month: 5,  // 5月
+        month: 5, // 5月
         dayOfMonth: 22,
         hour: 12,
         minute: 34,
         second: 56,
         nanosecond: 789000000
     )
-    
+
     println("datetime1: ${datetime1}")
     println("datetime2: ${datetime2}")
     println("datetime3: ${datetime3}")
-    
+
     // 使用 >= 操作符比较两个 DateTime
     let result1 = datetime1 >= datetime2
     println("datetime1 >= datetime2: ${result1}")
-    
+
     let result2 = datetime2 >= datetime1
     println("datetime2 >= datetime1: ${result2}")
-    
+
     let result3 = datetime1 >= datetime3
     println("datetime1 >= datetime3: ${result3}")
 }
@@ -3132,14 +3132,14 @@ import std.time.*
 
 main() {
     let currentTime = MonoTime.now()
-    
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    
+
     let laterTime = MonoTime.now()
-    
+
     // 验证时间顺序
     println("较早时间 < 较晚时间: ${currentTime < laterTime}")
 }
@@ -3175,17 +3175,17 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    
+
     let time2 = MonoTime.now()
-    
+
     // 使用 compare 方法比较两个时间
     let ordering = time1.compare(time2)
-    
+
     if (ordering == Ordering.LT) {
         println("time1 比 time2 早")
     }
@@ -3218,10 +3218,10 @@ import std.time.*
 
 main() {
     let time = MonoTime.now()
-    
+
     // 获取哈希值
     let hash = time.hashCode()
-    
+
     println("MonoTime 的哈希值: ${hash}")
 }
 ```
@@ -3261,13 +3261,13 @@ main() {
         let _ = i
     }
     let time2 = MonoTime.now()
-    
+
     // 不同时间的比较
     let notEqual = time1 != time2
     println("不同时间不相等: ${notEqual}")
-    
+
     // 相同时间的比较
-    let time3 = time1  // 引用同一个实例
+    let time3 = time1 // 引用同一个实例
     let stillNotEqual = time1 != time3
     println("相同实例不等于自身: ${stillNotEqual}")
 }
@@ -3308,21 +3308,21 @@ import std.time.*
 
 main() {
     let startTime = MonoTime.now()
-    
+
     // 定义一个时间间隔
-    let interval = 100 * Duration.millisecond  // 100毫秒
-    
+    let interval = 100 * Duration.millisecond // 100毫秒
+
     // 执行加法运算
     let futureTime = startTime + interval
-    
+
     println("增加100毫秒")
-    
+
     // 验证时间差
     let actualInterval = futureTime - startTime
     println("实际间隔: ${actualInterval.toNanoseconds()} 纳秒")
     println("预期间隔: ${interval.toNanoseconds()} 纳秒")
     println("间隔匹配: ${actualInterval == interval}")
-    
+
     // 验证时间顺序
     println("未来时间在起始时间之后: ${futureTime > startTime}")
 }
@@ -3366,15 +3366,15 @@ import std.time.*
 
 main() {
     let currentTime = MonoTime.now()
-    
+
     // 定义一个时间间隔
-    let interval = 50 * Duration.millisecond  // 50毫秒
-    
+    let interval = 50 * Duration.millisecond // 50毫秒
+
     // 执行减法运算，得到过去的时间点
     let pastTime = currentTime - interval
-    
+
     println("减去50毫秒")
-    
+
     // 验证时间差
     let actualInterval = currentTime - pastTime
     println("实际间隔: ${actualInterval.toNanoseconds()} 纳秒")
@@ -3416,17 +3416,17 @@ import std.time.*
 
 main() {
     let startTime = MonoTime.now()
-    
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    
+
     let endTime = MonoTime.now()
-    
+
     // 计算时间差
     let duration = endTime - startTime
-    
+
     println("经过时间: ${duration.toNanoseconds()} 纳秒")
 }
 ```
@@ -3461,17 +3461,17 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    
+
     let time2 = MonoTime.now()
-    
+
     // 使用 < 操作符比较
     let isEarlier = time1 < time2
-    
+
     println("Time1 早于 Time2: ${isEarlier}")
 }
 ```
@@ -3506,18 +3506,19 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    let time2 = time1  // 同一个实例
+    let time2 = time1 // 同一个实例
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    let time3 = MonoTime.now()  // 稍晚的时间
-    
+    let time3 = MonoTime.now() // 稍晚的时间
+
     // 测试 <= 操作符
-    let earlierOrEqual1 = time1 <= time2  // 相等的情况
-    let earlierOrEqual2 = time1 <= time3  // 早于的情况
-    let earlierOrEqual3 = time3 <= time1  // 晚于的情况
-    
+    let earlierOrEqual1 = time1 <= time2 // 相等的情况
+    let earlierOrEqual2 = time1 <= time3 // 早于的情况
+    let earlierOrEqual3 = time3 <= time1 // 晚于的情况
+
     println("Time1 和 Time2 是相同实例")
     println("Time1 <= Time2: ${earlierOrEqual1}")
     println("Time1 <= Time3: ${earlierOrEqual2}")
@@ -3558,17 +3559,18 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    let time2 = time1  // 同一个实例的引用
+    let time2 = time1 // 同一个实例的引用
+
     // 经过一段时间
     for (i in 0..100000) {
         let _ = i
     }
-    let time3 = MonoTime.now()  // 不同的实例
-    
+    let time3 = MonoTime.now() // 不同的实例
+
     // 测试 == 操作符
-    let isEqual1 = time1 == time2  // 相同引用
-    let isEqual2 = time1 == time3  // 不同实例
-    
+    let isEqual1 = time1 == time2 // 相同引用
+    let isEqual2 = time1 == time3 // 不同实例
+
     println("Time1 和 Time2 引用了同一实例")
     println("Time1 == Time2 (相同引用): ${isEqual1}")
     println("Time1 == Time3 (不同实例): ${isEqual2}")
@@ -3607,17 +3609,17 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    
+
     let time2 = MonoTime.now()
-    
+
     // 使用 > 操作符比较
     let isLater = time2 > time1
-    
+
     println("Time2 晚于 Time1: ${isLater}")
 }
 ```
@@ -3652,18 +3654,19 @@ import std.time.*
 
 main() {
     let time1 = MonoTime.now()
-    let time2 = time1  // 同一个实例
+    let time2 = time1 // 同一个实例
+
     // 等待一小段时间
     for (i in 0..1000000) {
         let _ = i
     }
-    let time3 = MonoTime.now()  // 稍晚的时间
-    
+    let time3 = MonoTime.now() // 稍晚的时间
+
     // 测试 >= 操作符
-    let laterOrEqual1 = time2 >= time1  // 相等的情况
-    let laterOrEqual2 = time3 >= time1  // 晚于的情况
-    let laterOrEqual3 = time1 >= time3  // 早于的情况
-    
+    let laterOrEqual1 = time2 >= time1 // 相等的情况
+    let laterOrEqual2 = time3 >= time1 // 晚于的情况
+    let laterOrEqual3 = time1 >= time3 // 早于的情况
+
     println("Time1 和 Time2 是相同实例")
     println("Time2 >= Time1: ${laterOrEqual1}")
     println("Time3 >= Time1: ${laterOrEqual2}")

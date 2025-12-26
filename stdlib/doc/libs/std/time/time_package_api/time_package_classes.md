@@ -180,11 +180,11 @@ import std.time.*
 main() {
     // 创建一个 DateTimeFormat 实例
     let formatter = DateTimeFormat.of("yyyy-MM-dd HH:mm:ss")
-    
+
     // 访问 format 属性（虽然已废弃，但仍可使用）
     let formatStr = formatter.format
     println("格式字符串: ${formatStr}")
-    
+
     // 使用这个格式创建一个 DateTime 并格式化
     let datetime = DateTime.parse("2025-12-16T15:18:25+08:00", DateTimeFormat.RFC3339)
     let formatted = datetime.format(formatStr)
@@ -234,12 +234,12 @@ import std.time.*
 main() {
     // 使用已废弃的 of 方法创建 DateTimeFormat 实例
     let formatter = DateTimeFormat.of("yyyy/MM/dd HH:mm:ss z")
-    
+
     // 解析一个时间字符串
     let timeStr = "2024/12/25 15:30:45 UTC"
     let parsed = DateTime.parse(timeStr, formatter.format)
     println("解析的时间: ${parsed}")
-    
+
     // 使用这个格式化器格式化一个固定时间
     let datetime = parsed
     let formatted = datetime.format(formatter.format)
@@ -361,7 +361,7 @@ import std.time.*
 main() {
     // 获取本地时区
     let localTZ = TimeZone.Local
-    
+
     // 获取时区ID
     let tzId = localTZ.id
     println("时区ID: ${tzId}")
@@ -449,7 +449,7 @@ main() {
     let shanghaiTZ = TimeZone.load("Asia/Shanghai")
     println("上海时区: ${shanghaiTZ}")
     println("上海时区ID: ${shanghaiTZ.id}")
-    
+
     // 加载UTC时区
     let utcTZ = TimeZone.load("UTC")
     println("UTC时区: ${utcTZ}")
@@ -499,7 +499,7 @@ import std.time.*
 main(): Int64 {
     // 创建时区文件路径数组
     let tzPaths = ["/usr/share/zoneinfo", "/etc/zoneinfo"]
-    
+
     // 注意：实际使用时需要确保路径存在且包含有效的时区文件
     println("时区文件搜索路径:")
     for (path in tzPaths) {
@@ -585,11 +585,11 @@ import std.time.*
 main() {
     // 获取本地时区
     let localTZ = TimeZone.Local
-    
+
     // 获取时区的字符串表示
     let tzStr = localTZ.toString()
     println("时区的字符串表示: ${tzStr}")
-    
+
     // 获取UTC时区的字符串表示
     let utcTZ = TimeZone.UTC
     let utcStr = utcTZ.toString()
@@ -629,17 +629,17 @@ import std.time.*
 main() {
     // 获取本地时区
     let localTZ = TimeZone.Local
-    
+
     // 获取UTC时区
     let utcTZ = TimeZone.UTC
-    
+
     // 使用 != 操作符比较两个时区是否不相等
     if (localTZ != utcTZ) {
         println("本地时区与UTC时区不相等")
     } else {
         println("本地时区与UTC时区相等")
     }
-    
+
     // 创建另一个本地时区引用进行比较
     let localTZ2 = TimeZone.Local
     if (localTZ != localTZ2) {
@@ -682,17 +682,17 @@ import std.time.*
 main() {
     // 获取本地时区
     let localTZ = TimeZone.Local
-    
+
     // 获取UTC时区
     let utcTZ = TimeZone.UTC
-    
+
     // 使用 == 操作符比较两个时区是否相等
     if (localTZ == utcTZ) {
         println("本地时区与UTC时区相等")
     } else {
         println("本地时区与UTC时区不相等")
     }
-    
+
     // 创建另一个本地时区引用进行比较
     let localTZ2 = TimeZone.Local
     if (localTZ == localTZ2) {

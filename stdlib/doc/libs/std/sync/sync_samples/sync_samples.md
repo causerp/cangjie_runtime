@@ -110,7 +110,9 @@ New thread: after wait
 import std.sync.*
 
 var mt = Mutex()
-var con = synchronized(mt) { mt.condition() }
+var con = synchronized(mt) {
+    mt.condition()
+}
 var flag: Bool = true
 
 main(): Int64 {
@@ -217,8 +219,8 @@ main(): Int64 {
 
     Timer.once(50 * Duration.millisecond) {
         =>
-        println("run only once")
-        count.fetchAdd(1)
+            println("run only once")
+            count.fetchAdd(1)
     }
 
     let timer = Timer.repeat(
@@ -226,8 +228,8 @@ main(): Int64 {
         200 * Duration.millisecond,
         {
             =>
-            println("run repetitively")
-            count.fetchAdd(10)
+                println("run repetitively")
+                count.fetchAdd(10)
         }
     )
 

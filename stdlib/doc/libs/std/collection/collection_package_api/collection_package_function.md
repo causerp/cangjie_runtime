@@ -29,17 +29,17 @@ func isPositive(x: Int64): Bool {
 main() {
     // 创建一个判断所有元素是否都大于0的函数
     let allPositive = all<Int64>(isPositive)
-    
+
     // 测试所有元素都大于0的情况
     let list1 = ArrayList.of([1, 2, 3, 4, 5])
     let result1 = allPositive(list1)
     println("所有元素都大于0: ${result1}")
-    
+
     // 测试有元素不大于0的情况
     let list2 = ArrayList.of([1, -2, 3, 4, 5])
     let result2 = allPositive(list2)
     println("所有元素都大于0: ${result2}")
-    
+
     return 0
 }
 ```
@@ -80,17 +80,17 @@ func isNegative(x: Int64): Bool {
 main() {
     // 创建一个判断是否存在负数的函数
     let hasNegative = any<Int64>(isNegative)
-    
+
     // 测试不存在负数的情况
     let list1 = ArrayList.of([1, 2, 3, 4, 5])
     let result1 = hasNegative(list1)
     println("存在负数: ${result1}")
-    
+
     // 测试存在负数的情况
     let list2 = ArrayList.of([1, -2, 3, 4, 5])
     let result2 = hasNegative(list2)
     println("存在负数: ${result2}")
-    
+
     return 0
 }
 ```
@@ -127,7 +127,7 @@ import std.collection.*
 main() {
     // 创建一个获取指定位置元素的函数
     let getElementAt = at<Int64>(2)
-    
+
     // 测试获取存在的元素
     let list1 = ArrayList.of([10, 20, 30, 40, 50])
     let result1 = getElementAt(list1)
@@ -135,7 +135,7 @@ main() {
         case Some(value) => println("位置2的元素: ${value}")
         case None => println("位置2没有元素")
     }
-    
+
     // 测试获取不存在的元素（超出范围）
     let list2 = ArrayList.of([10, 20])
     let result2 = getElementAt(list2)
@@ -143,7 +143,7 @@ main() {
         case Some(value) => println("位置2的元素: ${value}")
         case None => println("位置2没有元素")
     }
-    
+
     return 0
 }
 ```
@@ -181,12 +181,12 @@ main() {
     // 创建一个ArrayList
     let hashSet = [1, 2, 3, 4, 5]
     let iterator = hashSet.iterator()
-    
+
     // 将迭代器转换为数组
     let array = collectArray<Int64>(iterator)
     println("数组大小: ${array.size}")
     println("数组内容: ${array}")
-    
+
     return 0
 }
 ```
@@ -224,12 +224,12 @@ main() {
     // 创建一个数组
     let hashSet = [1, 2, 3, 4, 5]
     let iterator = hashSet.iterator()
-    
+
     // 将迭代器转换为ArrayList
     let arrayList = collectArrayList<Int64>(iterator)
     println("ArrayList大小: ${arrayList.size}")
     println("ArrayList内容: ${arrayList}")
-    
+
     return 0
 }
 ```
@@ -267,12 +267,12 @@ main() {
     // 创建一个包含键值对的数组
     let pairs = [(1, "one"), (2, "two"), (3, "three")]
     let iterator = pairs.iterator()
-    
+
     // 将迭代器转换为HashMap
     let hashMap = collectHashMap<Int64, String>(iterator)
     println("HashMap大小: ${hashMap.size}")
     println("HashMap内容: ${hashMap}")
-    
+
     return 0
 }
 ```
@@ -310,12 +310,12 @@ main() {
     // 创建一个包含重复元素的数组
     let array = [1, 2, 2, 3, 3, 4, 5, 5]
     let iterator = array.iterator()
-    
+
     // 将迭代器转换为HashSet（自动去重）
     let hashSet = collectHashSet<Int64>(iterator)
     println("HashSet大小: ${hashSet.size}")
     println("HashSet内容: ${hashSet}")
-    
+
     return 0
 }
 ```
@@ -352,24 +352,24 @@ import std.collection.*
 main() {
     // 创建一个将元素用逗号连接的函数
     let joinWithComma = collectString<Int64>(delimiter: ", ")
-    
+
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
     let iterator = array.iterator()
-    
+
     // 将迭代器转换为字符串
     let result = joinWithComma(iterator)
     println("连接结果: ${result}")
-    
+
     // 创建另一个数组用于无分隔符连接
     let array2 = [1, 2, 3, 4, 5]
     let iterator2 = array2.iterator()
-    
+
     // 创建一个无分隔符的连接函数
     let joinWithoutDelimiter = collectString<Int64>()
     let result2 = joinWithoutDelimiter(iterator2)
     println("无分隔符连接结果: ${result2}")
-    
+
     return 0
 }
 ```
@@ -407,23 +407,23 @@ main() {
     // 创建两个数组
     let array1 = [1, 2, 3]
     let array2 = [4, 5, 6]
-    
+
     // 获取第一个数组的迭代器
     let iterator1 = array1.iterator()
-    
+
     // 创建一个串联函数
     let concatFunc = concat<Int64>(array2)
-    
+
     // 串联两个迭代器
     let concatenated = concatFunc(iterator1)
-    
+
     // 遍历串联后的迭代器
     var result = ""
     for (value in concatenated) {
         result = result + "${value} "
     }
     println("串联结果: ${result}")
-    
+
     return 0
 }
 ```
@@ -501,18 +501,18 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
-    
+
     // 统计数组元素数量
     let countResult = count<Int64>(array)
     println("数组元素数量: ${countResult}")
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 统计空数组元素数量
     let emptyCount = count<Int64>(emptyArray)
     println("空数组元素数量: ${emptyCount}")
-    
+
     return 0
 }
 ```
@@ -549,16 +549,16 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = ["a", "b", "c", "d"]
-    
+
     // 获取带索引的迭代器
     let enumIterator = enumerate<String>(array)
-    
+
     // 遍历带索引的迭代器
     println("带索引的元素:")
     for ((index, value) in enumIterator) {
         println("索引: ${index}, 值: ${value}")
     }
-    
+
     return 0
 }
 ```
@@ -603,20 +603,20 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     let iterator = array.iterator()
-    
+
     // 创建一个筛选偶数的函数
     let filterEven = filter<Int64>(isEven)
-    
+
     // 筛选出偶数
     let evenIterator = filterEven(iterator)
-    
+
     // 遍历筛选后的结果
     var result = "偶数: "
     for (value in evenIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -673,20 +673,20 @@ main() {
     // 创建一个字符串数组
     let array = ["1", "2", "a", "3", "b", "4", "c", "5"]
     let iterator = array.iterator()
-    
+
     // 创建一个筛选并转换的函数
     let parseAndFilter = filterMap<String, Int64>(parseInt)
-    
+
     // 筛选并转换字符串为整数
     let parsedIterator = parseAndFilter(iterator)
-    
+
     // 遍历筛选并转换后的结果
     var result = "解析的整数: "
     for (value in parsedIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -722,24 +722,24 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = [10, 20, 30, 40, 50]
-    
+
     // 获取第一个元素
     let firstElement = first<Int64>(array)
     match (firstElement) {
         case Some(value) => println("第一个元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 尝试获取空数组的第一个元素
     let emptyFirst = first<Int64>(emptyArray)
     match (emptyFirst) {
         case Some(value) => println("第一个元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     return 0
 }
 ```
@@ -814,20 +814,20 @@ func getDivisors(n: Int64): ArrayList<Int64> {
 main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5, 6]
-    
+
     // 创建一个flatMap函数
     let flatMapFunc = flatMap<Int64, Int64>(getDivisors)
-    
+
     // 应用flatMap函数
     let flatIterator = flatMapFunc(array)
-    
+
     // 遍历结果
     var result = "所有因数: "
     for (value in flatIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -863,17 +863,17 @@ import std.collection.*
 main() {
     // 创建一个嵌套数组
     let nestedArray = [[1, 2], [3, 4], [5, 6]]
-    
+
     // 展开嵌套数组
     let flattenedIterator = flatten<Array<Int64>, Int64>(nestedArray)
-    
+
     // 遍历展开后的结果
     var result = "展开后的元素: "
     for (value in flattenedIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -918,22 +918,22 @@ func concatOperation(acc: String, value: String): String {
 main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
-    
+
     // 创建一个求和的折叠函数
     let sumFold = fold<Int64, Int64>(0, sumOperation)
-    
+
     // 计算数组元素的和
     let sumResult = sumFold(array)
     println("数组元素的和: ${sumResult}")
-    
+
     // 创建一个连接字符串的折叠函数
     let stringArray = ["Hello", " ", "World", "!"]
     let concatFold = fold<String, String>("", concatOperation)
-    
+
     // 连接字符串
     let concatResult = concatFold(stringArray)
     println("连接后的字符串: ${concatResult}")
-    
+
     return 0
 }
 ```
@@ -975,14 +975,14 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
     let iterator = array.iterator()
-    
+
     // 创建一个遍历并打印元素的函数
     let printFunc = forEach<Int64>(printElement)
-    
+
     // 遍历并打印所有元素
     println("遍历数组元素:")
     printFunc(iterator)
-    
+
     return 0
 }
 ```
@@ -1031,19 +1031,19 @@ main() {
     // 创建一个数组
     let array = [10, 20, 30, 40, 50]
     let iterator = array.iterator()
-    
+
     // 创建一个检查函数
     let inspectFunc = inspect<Int64>(inspectElement)
-    
+
     // 应用检查函数
     let inspectedIterator = inspectFunc(iterator)
-    
+
     // 遍历迭代器（检查函数会在每次调用next()时执行）
     println("遍历并检查元素:")
     for (value in inspectedIterator) {
         println("处理元素: ${value}")
     }
-    
+
     return 0
 }
 ```
@@ -1089,18 +1089,18 @@ import std.collection.*
 main() {
     // 创建一个非空数组
     let array = [1, 2, 3, 4, 5]
-    
+
     // 检查数组是否为空
     let isEmptyResult = isEmpty<Int64>(array)
     println("数组是否为空: ${isEmptyResult}")
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 检查空数组是否为空
     let isEmptyEmpty = isEmpty<Int64>(emptyArray)
     println("空数组是否为空: ${isEmptyEmpty}")
-    
+
     return 0
 }
 ```
@@ -1137,24 +1137,24 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = [10, 20, 30, 40, 50]
-    
+
     // 获取最后一个元素
     let lastElement = last<Int64>(array)
     match (lastElement) {
         case Some(value) => println("最后一个元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 尝试获取空数组的最后一个元素
     let emptyLast = last<Int64>(emptyArray)
     match (emptyLast) {
         case Some(value) => println("最后一个元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     return 0
 }
 ```
@@ -1196,20 +1196,20 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
     let iterator = array.iterator()
-    
+
     // 创建一个映射函数（计算平方）
     let squareMap = map<Int64, Int64>(square)
-    
+
     // 应用映射函数
     let squaredIterator = squareMap(iterator)
-    
+
     // 遍历映射后的结果
     var result = "平方值: "
     for (value in squaredIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -1245,24 +1245,24 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
-    
+
     // 获取最大元素
     let maxElement = max<Int64>(array)
     match (maxElement) {
         case Some(value) => println("最大元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 尝试获取空数组的最大元素
     let emptyMax = max<Int64>(emptyArray)
     match (emptyMax) {
         case Some(value) => println("最大元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     return 0
 }
 ```
@@ -1299,24 +1299,24 @@ import std.collection.*
 main() {
     // 创建一个数组
     let array = [3, 1, 4, 1, 5, 9, 2, 6, 5, 3]
-    
+
     // 获取最小元素
     let minElement = min<Int64>(array)
     match (minElement) {
         case Some(value) => println("最小元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 尝试获取空数组的最小元素
     let emptyMin = min<Int64>(emptyArray)
     match (emptyMin) {
         case Some(value) => println("最小元素: ${value}")
         case None => println("数组为空")
     }
-    
+
     return 0
 }
 ```
@@ -1357,17 +1357,17 @@ func isNegative(x: Int64): Bool {
 main() {
     // 创建一个判断是否都不为负数的函数
     let allNonNegative = none<Int64>(isNegative)
-    
+
     // 测试所有元素都不为负数的情况
     let list1 = ArrayList.of([1, 2, 3, 4, 5])
     let result1 = allNonNegative(list1)
     println("所有元素都不为负数: ${result1}")
-    
+
     // 测试有负数元素的情况
     let list2 = ArrayList.of([1, -2, 3, 4, 5])
     let result2 = allNonNegative(list2)
     println("所有元素都不为负数: ${result2}")
-    
+
     return 0
 }
 ```
@@ -1408,27 +1408,27 @@ func sumOperation(x: Int64, y: Int64): Int64 {
 main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5]
-    
+
     // 创建一个求和的归并函数
     let sumReduce = reduce<Int64>(sumOperation)
-    
+
     // 计算数组元素的和
     let sumResult = sumReduce(array)
     match (sumResult) {
         case Some(value) => println("数组元素的和: ${value}")
         case None => println("数组为空")
     }
-    
+
     // 创建一个空数组
     let emptyArray: Array<Int64> = []
-    
+
     // 尝试计算空数组的和
     let emptySum = sumReduce(emptyArray)
     match (emptySum) {
         case Some(value) => println("数组元素的和: ${value}")
         case None => println("数组为空")
     }
-    
+
     return 0
 }
 ```
@@ -1472,20 +1472,20 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     let iterator = array.iterator()
-    
+
     // 创建一个跳过前3个元素的函数
     let skipFunc = skip<Int64>(3)
-    
+
     // 跳过前3个元素
     let skippedIterator = skipFunc(iterator)
-    
+
     // 遍历剩余元素
     var result = "跳过前3个元素后: "
     for (value in skippedIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -1528,20 +1528,20 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     let iterator = array.iterator()
-    
+
     // 创建一个指针移动2个元素的函数
     let stepFunc = step<Int64>(2)
-    
+
     // 应用函数
     let steppedIterator = stepFunc(iterator)
-    
+
     // 遍历步进后的元素
     var result = "隔1个元素取一个: "
     for (value in steppedIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -1584,20 +1584,20 @@ main() {
     // 创建一个数组
     let array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     let iterator = array.iterator()
-    
+
     // 创建一个取出前5个元素的函数
     let takeFunc = take<Int64>(5)
-    
+
     // 取出前5个元素
     let takenIterator = takeFunc(iterator)
-    
+
     // 遍历取出的元素
     var result = "前5个元素: "
     for (value in takenIterator) {
         result = result + "${value} "
     }
     println(result)
-    
+
     return 0
 }
 ```
@@ -1634,22 +1634,22 @@ main() {
     // 创建两个数组
     let numbers = [1, 2, 3, 4, 5]
     let letters = ["a", "b", "c", "d", "e"]
-    
+
     // 获取第一个数组的迭代器
     let numberIterator = numbers.iterator()
-    
+
     // 创建一个合并函数
     let zipFunc = zip<Int64, String>(letters)
-    
+
     // 合并两个迭代器
     let zippedIterator = zipFunc(numberIterator)
-    
+
     // 遍历合并后的元素
     println("合并后的元素:")
     for ((num, letter) in zippedIterator) {
         println("${num}: ${letter}")
     }
-    
+
     return 0
 }
 ```

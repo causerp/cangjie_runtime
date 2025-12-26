@@ -133,10 +133,10 @@ main() {
     let mode1 = RoundingMode.Ceiling
     let mode2 = RoundingMode.Ceiling
     let mode3 = RoundingMode.Down
-    
+
     let equal = (mode1 == mode2)
     let notEqual = (mode1 == mode3)
-    
+
     println("mode1 == mode2: ${equal}")
     println("mode1 == mode3: ${notEqual}")
 }

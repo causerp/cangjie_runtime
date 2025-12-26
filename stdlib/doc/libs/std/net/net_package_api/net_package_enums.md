@@ -64,12 +64,12 @@ main(): Int64 {
     let tcp = SocketNet.TCP
     let udp = SocketNet.UDP
     let unix = SocketNet.UNIX
-    
+
     // 使用toString()方法并打印结果
     println("TCP toString: ${tcp.toString()}")
     println("UDP toString: ${udp.toString()}")
     println("UNIX toString: ${unix.toString()}")
-    
+
     return 0
 }
 ```
@@ -109,20 +109,20 @@ main(): Int64 {
     let tcp = SocketNet.TCP
     let udp = SocketNet.UDP
     let unix = SocketNet.UNIX
-    
+
     // 使用!=操作符比较它们
     let tcpNotUdp = tcp != udp
     let udpNotUnix = udp != unix
     let unixNotTcp = unix != tcp
-    
+
     println("TCP != UDP: ${tcpNotUdp}")
     println("UDP != UNIX: ${udpNotUnix}")
     println("UNIX != TCP: ${unixNotTcp}")
-    
+
     // 比较相同的枚举值
     let tcpNotTcp = tcp != tcp
     println("TCP != TCP: ${tcpNotTcp}")
-    
+
     return 0
 }
 ```
@@ -163,25 +163,25 @@ main(): Int64 {
     let tcp = SocketNet.TCP
     let udp = SocketNet.UDP
     let unix = SocketNet.UNIX
-    
+
     // 使用==操作符比较它们
     let tcpEqualsUdp = tcp == udp
     let udpEqualsUnix = udp == unix
     let unixEqualsTcp = unix == tcp
-    
+
     println("TCP == UDP: ${tcpEqualsUdp}")
     println("UDP == UNIX: ${udpEqualsUnix}")
     println("UNIX == TCP: ${unixEqualsTcp}")
-    
+
     // 比较相同的枚举值
     let tcpEqualsTcp = tcp == tcp
     let udpEqualsUdp = udp == udp
     let unixEqualsUnix = unix == unix
-    
+
     println("TCP == TCP: ${tcpEqualsTcp}")
     println("UDP == UDP: ${udpEqualsUdp}")
     println("UNIX == UNIX: ${unixEqualsUnix}")
-    
+
     return 0
 }
 ```

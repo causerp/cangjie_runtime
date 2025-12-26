@@ -70,11 +70,11 @@ import std.convert.*
 
 main() {
     var f: Float16 = -0.34
-    var res1 = f.format("-20")  // 左对齐，宽度为20
-    var res2 = f.format("20")   // 右对齐，宽度为20
-    var res3 = f.format("g")    // 使用通用格式
-    var res4 = f.format("e")    // 使用科学计数法
-    
+    var res1 = f.format("-20") // 左对齐，宽度为20
+    var res2 = f.format("20") // 右对齐，宽度为20
+    var res3 = f.format("g") // 使用通用格式
+    var res4 = f.format("e") // 使用科学计数法
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -131,11 +131,11 @@ import std.convert.*
 
 main() {
     var f: Float32 = 3.14159
-    var res1 = f.format("-20")   // 左对齐，宽度为20
-    var res2 = f.format("+20")   // 右对齐，带符号，宽度为20
-    var res3 = f.format("10")    // 右对齐，宽度为10
-    var res4 = f.format("e")     // 使用科学计数法
-    
+    var res1 = f.format("-20") // 左对齐，宽度为20
+    var res2 = f.format("+20") // 右对齐，带符号，宽度为20
+    var res3 = f.format("10") // 右对齐，宽度为10
+    var res4 = f.format("e") // 使用科学计数法
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -192,11 +192,11 @@ import std.convert.*
 
 main() {
     var f: Float64 = 3.141592653589793
-    var res1 = f.format("-20")   // 左对齐，宽度为20
-    var res2 = f.format("+20")   // 右对齐，带符号，宽度为20
-    var res3 = f.format("15")    // 右对齐，宽度为15
-    var res4 = f.format("g")     // 使用通用格式
-    
+    var res1 = f.format("-20") // 左对齐，宽度为20
+    var res2 = f.format("+20") // 右对齐，带符号，宽度为20
+    var res3 = f.format("15") // 右对齐，宽度为15
+    var res4 = f.format("g") // 使用通用格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -253,11 +253,11 @@ import std.convert.*
 
 main() {
     var u: Int16 = 20
-    var res1 = u.format("-10")   // 左对齐，宽度为10
-    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = u.format("10")    // 右对齐，宽度为10
-    var res4 = u.format("b")     // 使用二进制格式
-    
+    var res1 = u.format("-10") // 左对齐，宽度为10
+    var res2 = u.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = u.format("10") // 右对齐，宽度为10
+    var res4 = u.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -314,11 +314,11 @@ import std.convert.*
 
 main() {
     var u: Int32 = 20
-    var res1 = u.format("-10")   // 左对齐，宽度为10
-    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = u.format("10")    // 右对齐，宽度为10
-    var res4 = u.format("b")     // 使用二进制格式
-    
+    var res1 = u.format("-10") // 左对齐，宽度为10
+    var res2 = u.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = u.format("10") // 右对齐，宽度为10
+    var res4 = u.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -375,11 +375,11 @@ import std.convert.*
 
 main() {
     var i: Int64 = -123456789
-    var res1 = i.format("-20")   // 左对齐，宽度为20
-    var res2 = i.format("+20")   // 右对齐，带符号，宽度为20
-    var res3 = i.format("20")    // 右对齐，宽度为20
-    var res4 = i.format("#x")    // 使用带前缀的十六进制格式
-    
+    var res1 = i.format("-20") // 左对齐，宽度为20
+    var res2 = i.format("+20") // 右对齐，带符号，宽度为20
+    var res3 = i.format("20") // 右对齐，宽度为20
+    var res4 = i.format("#x") // 使用带前缀的十六进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -436,11 +436,11 @@ import std.convert.*
 
 main() {
     var u: Int8 = 20
-    var res1 = u.format("-10")   // 左对齐，宽度为10
-    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = u.format("10")    // 右对齐，宽度为10
-    var res4 = u.format("b")     // 使用二进制格式
-    
+    var res1 = u.format("-10") // 左对齐，宽度为10
+    var res2 = u.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = u.format("10") // 右对齐，宽度为10
+    var res4 = u.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -497,9 +497,9 @@ import std.convert.*
 
 main() {
     var r: Rune = 'A'
-    var res1 = r.format("-10")   // 左对齐，宽度为10
-    var res2 = r.format("10")    // 右对齐，宽度为10
-    
+    var res1 = r.format("-10") // 左对齐，宽度为10
+    var res2 = r.format("10") // 右对齐，宽度为10
+
     println("\"${res1}\"")
     println("\"${res2}\"")
 }
@@ -552,11 +552,11 @@ import std.convert.*
 
 main() {
     var i: UInt16 = 123
-    var res1 = i.format("-10")   // 左对齐，宽度为10
-    var res2 = i.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = i.format("10")    // 右对齐，宽度为10
-    var res4 = i.format("b")     // 使用二进制格式
-    
+    var res1 = i.format("-10") // 左对齐，宽度为10
+    var res2 = i.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = i.format("10") // 右对齐，宽度为10
+    var res4 = i.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -613,11 +613,11 @@ import std.convert.*
 
 main() {
     var u: UInt32 = 200
-    var res1 = u.format("-10")   // 左对齐，宽度为10
-    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = u.format("10")    // 右对齐，宽度为10
-    var res4 = u.format("b")     // 使用二进制格式
-    
+    var res1 = u.format("-10") // 左对齐，宽度为10
+    var res2 = u.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = u.format("10") // 右对齐，宽度为10
+    var res4 = u.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -674,10 +674,10 @@ import std.convert.*
 
 main() {
     var u: UInt64 = 18446744073709551615
-    var res1 = u.format("-20")   // 左对齐，宽度为20
-    var res2 = u.format("20")    // 右对齐，宽度为20
-    var res3 = u.format("#x")    // 使用带前缀的十六进制格式
-    
+    var res1 = u.format("-20") // 左对齐，宽度为20
+    var res2 = u.format("20") // 右对齐，宽度为20
+    var res3 = u.format("#x") // 使用带前缀的十六进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -732,11 +732,11 @@ import std.convert.*
 
 main() {
     var u: UInt8 = 200
-    var res1 = u.format("-10")   // 左对齐，宽度为10
-    var res2 = u.format("+10")   // 右对齐，带符号，宽度为10
-    var res3 = u.format("10")    // 右对齐，宽度为10
-    var res4 = u.format("b")     // 使用二进制格式
-    
+    var res1 = u.format("-10") // 左对齐，宽度为10
+    var res2 = u.format("+10") // 右对齐，带符号，宽度为10
+    var res3 = u.format("10") // 右对齐，宽度为10
+    var res4 = u.format("b") // 使用二进制格式
+
     println("\"${res1}\"")
     println("\"${res2}\"")
     println("\"${res3}\"")
@@ -842,7 +842,7 @@ main() {
     var strFalse: String = "false"
     var res1 = Bool.parse(strTrue)
     var res2 = Bool.parse(strFalse)
-    
+
     println("After the conversion of parse, \"true\" became ${res1}")
     println("After the conversion of parse, \"false\" became ${res2}")
 }
@@ -882,7 +882,7 @@ main() {
     var strFalse: String = "false"
     var res1 = Bool.tryParse(strTrue)
     var res2 = Bool.tryParse(strFalse)
-    
+
     println("After the conversion of tryParse, \"true\" became ${res1}")
     println("After the conversion of tryParse, \"false\" became ${res2}")
 }
@@ -940,7 +940,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.14159"
     var res = Float16.parse(strFloat)
-    
+
     println("After the conversion of parse, \"3.14159\" became ${res}")
 }
 ```
@@ -976,7 +976,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.14159"
     var res = Float16.tryParse(strFloat)
-    
+
     println("After the conversion of tryParse, \"3.14159\" became ${res}")
 }
 ```
@@ -1032,7 +1032,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.14159"
     var res = Float32.parse(strFloat)
-    
+
     println("After the conversion of parse, \"3.14159\" became ${res}")
 }
 ```
@@ -1068,7 +1068,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.14159"
     var res = Float32.tryParse(strFloat)
-    
+
     println("After the conversion of tryParse, \"3.14159\" became ${res}")
 }
 ```
@@ -1124,7 +1124,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.141592653589793"
     var res = Float64.parse(strFloat)
-    
+
     println("After the conversion of parse, \"3.141592653589793\" became ${res}")
 }
 ```
@@ -1160,7 +1160,7 @@ import std.convert.*
 main() {
     var strFloat: String = "3.141592653589793"
     var res = Float64.tryParse(strFloat)
-    
+
     println("After the conversion of tryParse, \"3.141592653589793\" became ${res}")
 }
 ```
@@ -1212,7 +1212,7 @@ import std.convert.*
 main() {
     var strInt: String = "-32768"
     var res = Int16.parse(strInt)
-    
+
     println("After the conversion of parse, \"-32768\" became ${res}")
 }
 ```
@@ -1248,7 +1248,7 @@ import std.convert.*
 main() {
     var strInt: String = "-32768"
     var res = Int16.tryParse(strInt)
-    
+
     println("After the conversion of tryParse, \"-32768\" became ${res}")
 }
 ```
@@ -1300,7 +1300,7 @@ import std.convert.*
 main() {
     var strInt: String = "-2147483648"
     var res = Int32.parse(strInt)
-    
+
     println("After the conversion of parse, \"-2147483648\" became ${res}")
 }
 ```
@@ -1336,7 +1336,7 @@ import std.convert.*
 main() {
     var strInt: String = "-2147483648"
     var res = Int32.tryParse(strInt)
-    
+
     println("After the conversion of tryParse, \"-2147483648\" became ${res}")
 }
 ```
@@ -1388,7 +1388,7 @@ import std.convert.*
 main() {
     var strInt: String = "-9223372036854775808"
     var res = Int64.parse(strInt)
-    
+
     println("After the conversion of parse, \"-9223372036854775808\" became ${res}")
 }
 ```
@@ -1424,7 +1424,7 @@ import std.convert.*
 main() {
     var strInt: String = "-9223372036854775808"
     var res = Int64.tryParse(strInt)
-    
+
     println("After the conversion of tryParse, \"-9223372036854775808\" became ${res}")
 }
 ```
@@ -1476,7 +1476,7 @@ import std.convert.*
 main() {
     var strInt: String = "-128"
     var res = Int8.parse(strInt)
-    
+
     println("After the conversion of parse, \"-128\" became ${res}")
 }
 ```
@@ -1512,7 +1512,7 @@ import std.convert.*
 main() {
     var strInt: String = "-128"
     var res = Int8.tryParse(strInt)
-    
+
     println("After the conversion of tryParse, \"-128\" became ${res}")
 }
 ```
@@ -1564,7 +1564,7 @@ import std.convert.*
 main() {
     var strRune: String = "'A'"
     var res = Rune.parse(strRune)
-    
+
     println("After the conversion of parse, \"'A'\" became ${res}")
 }
 ```
@@ -1600,7 +1600,7 @@ import std.convert.*
 main() {
     var strRune: String = "'A'"
     var res = Rune.tryParse(strRune)
-    
+
     println("After the conversion of tryParse, \"'A'\" became ${res}")
 }
 ```
@@ -1652,7 +1652,7 @@ import std.convert.*
 main() {
     var strUInt: String = "65535"
     var res = UInt16.parse(strUInt)
-    
+
     println("After the conversion of parse, \"65535\" became ${res}")
 }
 ```
@@ -1688,7 +1688,7 @@ import std.convert.*
 main() {
     var strUInt: String = "65535"
     var res = UInt16.tryParse(strUInt)
-    
+
     println("After the conversion of tryParse, \"65535\" became ${res}")
 }
 ```
@@ -1740,7 +1740,7 @@ import std.convert.*
 main() {
     var strUInt: String = "4294967295"
     var res = UInt32.parse(strUInt)
-    
+
     println("After the conversion of parse, \"4294967295\" became ${res}")
 }
 ```
@@ -1776,7 +1776,7 @@ import std.convert.*
 main() {
     var strUInt: String = "4294967295"
     var res = UInt32.tryParse(strUInt)
-    
+
     println("After the conversion of tryParse, \"4294967295\" became ${res}")
 }
 ```
@@ -1828,7 +1828,7 @@ import std.convert.*
 main() {
     var strUInt: String = "18446744073709551615"
     var res = UInt64.parse(strUInt)
-    
+
     println("After the conversion of parse, \"18446744073709551615\" became ${res}")
 }
 ```
@@ -1864,7 +1864,7 @@ import std.convert.*
 main() {
     var strUInt: String = "18446744073709551615"
     var res = UInt64.tryParse(strUInt)
-    
+
     println("After the conversion of tryParse, \"18446744073709551615\" became ${res}")
 }
 ```
@@ -1916,7 +1916,7 @@ import std.convert.*
 main() {
     var strUInt: String = "255"
     var res = UInt8.parse(strUInt)
-    
+
     println("After the conversion of parse, \"255\" became ${res}")
 }
 ```
@@ -1952,7 +1952,7 @@ import std.convert.*
 main() {
     var strUInt: String = "255"
     var res = UInt8.tryParse(strUInt)
-    
+
     println("After the conversion of tryParse, \"255\" became ${res}")
 }
 ```
@@ -2073,7 +2073,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "7fff"
     var res = Int16.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"7fff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2109,7 +2109,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "7B"
     var res = Int16.tryParse(strInt, radix: 16)
-    
+
     println("After the conversion of tryParse, \"7B\" in hexadecimal became ${res}")
     return 0
 }
@@ -2148,7 +2148,7 @@ import std.convert.*
 main(): Int64 {
     var value: Int16 = 123
     var res = value.toString(radix: 16)
-    
+
     println("After the conversion of toString, 123 in hexadecimal became \"${res}\"")
     return 0
 }
@@ -2200,7 +2200,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "7fffffff"
     var res = Int32.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"7fffffff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2236,7 +2236,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "1z"
     var res = Int32.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
     return 0
 }
@@ -2275,7 +2275,7 @@ import std.convert.*
 main(): Int64 {
     var value: Int32 = 71
     var res = value.toString(radix: 36)
-    
+
     println("After the conversion of toString, 71 in base-36 became \"${res}\"")
     return 0
 }
@@ -2327,7 +2327,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "7fffffffffffffff"
     var res = Int64.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"7fffffffffffffff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2363,7 +2363,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "1y2p0ij32e8e7"
     var res = Int64.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"1y2p0ij32e8e7\" in base-36 became ${res}")
     return 0
 }
@@ -2402,7 +2402,7 @@ import std.convert.*
 main(): Int64 {
     var value: Int64 = 9223372036854775807
     var res = value.toString(radix: 16)
-    
+
     println("After the conversion of toString, 9223372036854775807 in hexadecimal became \"${res}\"")
     return 0
 }
@@ -2456,7 +2456,7 @@ import std.convert.*
 main() {
     var strInt8: String = "A"
     var res = Int8.parse(strInt8, radix: 16)
-    
+
     println("After the conversion of parse, \"A\" became ${res}")
 }
 ```
@@ -2491,7 +2491,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "7a"
     var res = Int8.tryParse(strInt, radix: 16)
-    
+
     println("After the conversion of tryParse, \"7a\" in hexadecimal became ${res}")
     return 0
 }
@@ -2530,7 +2530,7 @@ import std.convert.*
 main(): Int64 {
     var value: Int8 = 122
     var res = value.toString(radix: 16)
-    
+
     println("After the conversion of toString, 122 in hexadecimal became \"${res}\"")
     return 0
 }
@@ -2582,7 +2582,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "ffff"
     var res = UInt16.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"ffff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2618,7 +2618,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "1yz"
     var res = UInt16.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"1yz\" in base-36 became ${res}")
     return 0
 }
@@ -2657,7 +2657,7 @@ import std.convert.*
 main(): Int64 {
     var value: UInt16 = 2555
     var res = value.toString(radix: 36)
-    
+
     println("After the conversion of toString, 2555 in base-36 became \"${res}\"")
     return 0
 }
@@ -2709,7 +2709,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "ffffffff"
     var res = UInt32.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"ffffffff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2745,7 +2745,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "1z141z3"
     var res = UInt32.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"1z141z3\" in base-36 became ${res}")
     return 0
 }
@@ -2784,7 +2784,7 @@ import std.convert.*
 main(): Int64 {
     var value: UInt32 = 4294967295
     var res = value.toString(radix: 16)
-    
+
     println("After the conversion of toString, 4294967295 in hexadecimal became \"${res}\"")
     return 0
 }
@@ -2836,7 +2836,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "ffffffffffffffff"
     var res = UInt64.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"ffffffffffffffff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2872,7 +2872,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "3w5e11264sgsf"
     var res = UInt64.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"3w5e11264sgsf\" in base-36 became ${res}")
     return 0
 }
@@ -2911,7 +2911,7 @@ import std.convert.*
 main(): Int64 {
     var value: UInt64 = 18446744073709551615
     var res = value.toString(radix: 16)
-    
+
     println("After the conversion of toString, 18446744073709551615 in hexadecimal became \"${res}\"")
     return 0
 }
@@ -2962,7 +2962,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "ff"
     var res = UInt8.parse(strInt, radix: 16)
-    
+
     println("After the conversion of parse, \"ff\" in hexadecimal became ${res}")
     return 0
 }
@@ -2998,7 +2998,7 @@ import std.convert.*
 main(): Int64 {
     var strInt: String = "1z"
     var res = UInt8.tryParse(strInt, radix: 36)
-    
+
     println("After the conversion of tryParse, \"1z\" in base-36 became ${res}")
     return 0
 }
@@ -3037,7 +3037,7 @@ import std.convert.*
 main(): Int64 {
     var value: UInt8 = 71
     var res = value.toString(radix: 36)
-    
+
     println("After the conversion of toString, 71 in base-36 became \"${res}\"")
     return 0
 }

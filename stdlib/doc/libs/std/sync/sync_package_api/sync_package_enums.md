@@ -30,8 +30,8 @@ import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
-    Timer.repeatTimes(3, Duration.second, Duration.second, {=>
-        println("Tick at: ${MonoTime.now() - start}")
+    Timer.repeatTimes(3, Duration.second, Duration.second, {
+        => println("Tick at: ${MonoTime.now() - start}")
     }, style: Delay)
 
     sleep(Duration.second * 4)

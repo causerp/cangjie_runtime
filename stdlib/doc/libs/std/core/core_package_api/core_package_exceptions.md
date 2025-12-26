@@ -30,7 +30,7 @@ public init()
 main() {
     // 使用默认构造函数创建ArithmeticException
     let exception = ArithmeticException()
-    
+
     println("成功创建了ArithmeticException实例")
     println("ArithmeticException的init()构造函数用于创建一个默认的算术异常实例")
 }
@@ -62,7 +62,7 @@ public init(message: String)
 main() {
     // 使用带消息的构造函数创建ArithmeticException
     let exception = ArithmeticException("除零错误")
-    
+
     println("成功创建了ArithmeticException实例")
     println("异常信息: 除零错误")
     println("ArithmeticException的init(String)构造函数用于根据异常信息创建算术异常实例")
@@ -98,11 +98,11 @@ public class MyArithmeticException <: ArithmeticException {
     public init() {
         super()
     }
-    
+
     public init(message: String) {
         super(message)
     }
-    
+
     // 公共方法来调用受保护的getClassName方法
     public func getClassNamePublic(): String {
         return getClassName()
@@ -113,7 +113,7 @@ main() {
     let exception = MyArithmeticException("测试异常")
     let className = exception.getClassNamePublic()
     println("类名: ${className}")
-    
+
     println("ArithmeticException的getClassName()方法用于获取类名")
 }
 ```
@@ -154,7 +154,7 @@ public open prop message: String
 // 此示例只做展示，假设抛出 Error
 main() {
     try {
-        // 假设出现内存错误或栈溢出错误
+    // 假设出现内存错误或栈溢出错误
     } catch (e: Error) {
         println(e.message)
     }
@@ -180,7 +180,7 @@ protected open func getClassName(): String
 // 此示例只做展示，假设内部抛出 Error
 main() {
     try {
-        // 假设出现栈溢出错误
+    // 假设出现栈溢出错误
     } catch (e: StackOverflowError) {
         println(e.message)
     }
@@ -212,7 +212,7 @@ public func getStackTrace(): Array<StackTraceElement>
 // 此示例只做展示，假设内部抛出 Error
 main() {
     try {
-        // 假设出现内存错误，栈溢出错误，或者内部错误
+    // 假设出现内存错误，栈溢出错误，或者内部错误
     } catch (e: Error) {
         println(e.getStackTrace()[0].methodName)
     }
@@ -238,7 +238,7 @@ public open func getStackTraceMessage(): String
 // 此示例只做展示，假设内部抛出 Error
 main() {
     try {
-        // 假设出现内存错误，栈溢出错误，或者内部错误
+    // 假设出现内存错误，栈溢出错误，或者内部错误
     } catch (e: Error) {
         println(e.getStackTraceMessage())
     }
@@ -260,7 +260,7 @@ public open func printStackTrace(): Unit
 // 此示例只做展示，假设内部抛出 Error
 main() {
     try {
-        // 假设出现内存错误，栈溢出错误，或者内部错误
+    // 假设出现内存错误，栈溢出错误，或者内部错误
     } catch (e: Error) {
         println(e.printStackTrace())
     }
@@ -286,7 +286,7 @@ public open func toString(): String
 // 此示例只做展示，假设内部抛出 Error
 main() {
     try {
-        // 假设出现内存错误，栈溢出错误，或者内部错误
+    // 假设出现内存错误，栈溢出错误，或者内部错误
     } catch (e: Error) {
         println(e)
     }
@@ -329,7 +329,7 @@ main() {
     // 创建Exception实例并访问message属性
     let exception = Exception("这是一个异常信息")
     println("异常信息: " + exception.message)
-    
+
     // 使用默认构造函数创建Exception实例
     let defaultException = Exception()
     println("默认异常信息: '" + defaultException.message + "'")
@@ -404,11 +404,11 @@ class MyException <: Exception {
     public init() {
         super()
     }
-    
+
     public init(message: String) {
         super(message)
     }
-    
+
     // 调用protected方法getClassName()
     public func getExceptionClassName(): String {
         return this.getClassName()
@@ -521,7 +521,7 @@ main() {
     // 创建Exception实例
     let exception1 = Exception()
     let exception2 = Exception("自定义异常信息")
-    
+
     // 使用toString()方法获取异常的字符串表示
     println("默认异常的字符串表示: " + exception1.toString())
     println("带消息异常的字符串表示: " + exception2.toString())
@@ -611,11 +611,11 @@ class MyException <: IllegalArgumentException {
     public init() {
         super()
     }
-    
+
     public init(message: String) {
         super(message)
     }
-    
+
     // 调用protected方法getClassName()
     public func getExceptionClassName(): String {
         return this.getClassName()
@@ -710,11 +710,11 @@ class MyException <: IllegalFormatException {
     public init() {
         super()
     }
-    
+
     public init(message: String) {
         super(message)
     }
-    
+
     // 调用protected方法getClassName()
     public func getExceptionClassName(): String {
         return this.getClassName()
@@ -1094,7 +1094,7 @@ protected override func getClassName(): String
 // 此示例只做展示，假设抛出 OutOfMemoryError
 main() {
     try {
-        // 假设出现内存错误
+    // 假设出现内存错误
     } catch (e: OutOfMemoryError) {
         println(e.message)
     }
@@ -1248,7 +1248,7 @@ protected override func getClassName(): String
 // 此示例只做展示，假设抛出 StackOverflowError
 main() {
     try {
-        // 假设出现栈溢出错误
+    // 假设出现栈溢出错误
     } catch (e: StackOverflowError) {
         println(e.message)
     }
@@ -1276,7 +1276,7 @@ public override func printStackTrace(): Unit
 // 此示例只做展示，假设抛出 StackOverflowError
 main() {
     try {
-        // 假设出现栈溢出错误
+    // 假设出现栈溢出错误
     } catch (e: StackOverflowError) {
         println(e.printStackTrace())
     }

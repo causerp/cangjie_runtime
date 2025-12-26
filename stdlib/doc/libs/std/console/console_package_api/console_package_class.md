@@ -31,7 +31,7 @@ import std.console.*
 main() {
     // 获取标准错误输出流
     let stderr = Console.stdErr
-    
+
     // 使用标准错误流输出信息
     stderr.write("这是一条标准错误信息")
 }
@@ -84,7 +84,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 使用标准输出流输出信息
     stdout.write("这是一条标准输出信息")
 }
@@ -146,7 +146,7 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 读取下一个字符
     // 注意：在实际运行中，程序会等待用户输入一个字符，假设用户输入了一个H
     let r = stdin.read()
@@ -189,10 +189,10 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 创建一个字节数组用于读取数据
-    let buffer: Array<Byte> = [0, 0 , 0 , 0 , 0]
-    
+    let buffer: Array<Byte> = [0, 0, 0, 0, 0]
+
     // 从标准输入读取数据到数组中
     // 注意：在实际运行中，程序会等待用户输入5个Byte，假设输入abcde
     stdin.read(buffer)
@@ -229,7 +229,7 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 从标准输入读取一行字符串
     // 注意：在实际运行中，程序会等待用户输入一行文本，这里假设输入abcde后按回车
     let str = stdin.readln()
@@ -266,7 +266,7 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 从标准输入读取所有字符直到遇到EOF
     // 注意：在实际运行中，程序会等待用户输入，直到遇到EOF（Ctrl+D或Ctrl+Z）
     // 当前示例假设输入abcde之后按Ctrl+D两次
@@ -310,7 +310,7 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 从标准输入读取数据直到满足条件
     // 注意：在实际运行中，程序会等待用户输入，这里假设用户输入abcdefg后按回车
     let str = stdin.readUntil({r: Rune => r == r'e'})
@@ -351,7 +351,7 @@ import std.console.*
 main() {
     // 获取标准输入流
     let stdin = Console.stdIn
-    
+
     // 从标准输入读取数据直到遇到指定字符
     // 注意：在实际运行中，程序会等待用户输入，这里假设输入abcdefg后按回车
     let str = stdin.readUntil(r'e')
@@ -401,13 +401,13 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 向标准输出写入一些数据
     stdout.write("这是一些输出数据\n")
-    
+
     // 刷新输出流，确保数据被立即输出
     stdout.flush()
-    
+
     println("数据已刷新到输出流")
 }
 ```
@@ -440,10 +440,10 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 创建一个字节数组
-    let buffer: Array<Byte> = [72 , 101 , 108 , 108 , 111]  // "Hello"的ASCII码
-    
+    let buffer: Array<Byte> = [72, 101, 108, 108, 111] // "Hello"的ASCII码
+
     // 将字节数组写入标准输出
     // 注意：在实际使用中，这会将字节数组的内容写入标准输出
     stdout.write(buffer)
@@ -477,7 +477,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将布尔值写入标准输出
     stdout.write(true)
     stdout.write(false)
@@ -511,7 +511,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位浮点数值写入标准输出
     stdout.write(3.14f16)
 }
@@ -544,7 +544,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位浮点数值写入标准输出
     stdout.write(3.14159f32)
 }
@@ -577,7 +577,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位浮点数值写入标准输出
     stdout.write(3.141592653589793)
 }
@@ -610,7 +610,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位有符号整数值写入标准输出
     stdout.write(12345i16)
 }
@@ -643,7 +643,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位有符号整数值写入标准输出
     stdout.write(1234567890i32)
 }
@@ -676,7 +676,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位有符号整数值写入标准输出
     stdout.write(123456789012345)
 }
@@ -709,7 +709,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将8位有符号整数值写入标准输出
     stdout.write(123i8)
 }
@@ -742,7 +742,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将Unicode字符值写入标准输出
     stdout.write(r'A')
 }
@@ -775,7 +775,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将字符串值写入标准输出
     stdout.write("Hello, World!")
 }
@@ -808,7 +808,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位无符号整数值写入标准输出
     stdout.write(12345u16)
 }
@@ -841,7 +841,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位无符号整数值写入标准输出
     stdout.write(1234567890u32)
 }
@@ -874,7 +874,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位无符号整数值写入标准输出
     stdout.write(123456789012345u64)
 }
@@ -907,7 +907,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将8位无符号整数值写入标准输出
     stdout.write(123u8)
 }
@@ -940,7 +940,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将实现了ToString接口的数据类型写入标准输出
     stdout.write(MyID())
 }
@@ -979,10 +979,10 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 创建一个字节数组
-    let buffer: Array<Byte> = [72 , 101 , 108 , 108 , 111]  // "Hello"的ASCII码
-    
+    let buffer: Array<Byte> = [72, 101, 108, 108, 111] // "Hello"的ASCII码
+
     // 将字节数组写入标准输出
     stdout.writeln(buffer)
 }
@@ -1015,7 +1015,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将布尔值写入标准输出
     stdout.writeln(true)
     stdout.writeln(false)
@@ -1050,7 +1050,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位浮点数值写入标准输出
     stdout.writeln(3.14f16)
 }
@@ -1083,7 +1083,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位浮点数值写入标准输出
     stdout.writeln(3.14159f32)
 }
@@ -1116,7 +1116,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位浮点数值写入标准输出
     stdout.writeln(3.141592653589793)
 }
@@ -1149,7 +1149,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位有符号整数值写入标准输出
     stdout.writeln(12345i16)
 }
@@ -1182,7 +1182,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位有符号整数值写入标准输出
     stdout.writeln(1234567890i32)
 }
@@ -1215,7 +1215,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位有符号整数值写入标准输出
     stdout.writeln(123456789012345)
 }
@@ -1248,7 +1248,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将8位有符号整数值写入标准输出
     stdout.writeln(123i8)
 }
@@ -1281,7 +1281,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将Unicode字符值写入标准输出
     stdout.writeln(r'A')
 }
@@ -1314,7 +1314,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将字符串值写入标准输出
     stdout.writeln("Hello, World!")
 }
@@ -1347,7 +1347,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将16位无符号整数值写入标准输出
     stdout.writeln(12345u16)
 }
@@ -1380,7 +1380,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将32位无符号整数值写入标准输出
     stdout.writeln(1234567890u32)
 }
@@ -1413,7 +1413,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将64位无符号整数值写入标准输出
     stdout.writeln(123456789012345u64)
 }
@@ -1446,7 +1446,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将8位无符号整数值写入标准输出
     stdout.writeln(123u8)
 }
@@ -1479,7 +1479,7 @@ import std.console.*
 main() {
     // 获取标准输出流
     let stdout = Console.stdOut
-    
+
     // 将实现了ToString接口的数据类型写入标准输出
     stdout.writeln(MyID())
 }

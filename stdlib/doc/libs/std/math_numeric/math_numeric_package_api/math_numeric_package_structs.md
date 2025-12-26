@@ -2733,7 +2733,7 @@ main() {
     /* 将字符串解析成一个 BigInt 结构体 */
     let bigInt = BigInt.parse("12345")
     println(bigInt)
-    
+
     /* 使用十六进制前缀解析 */
     let hexBigInt = BigInt.parse("0x1000")
     println(hexBigInt)
@@ -2795,7 +2795,7 @@ main() {
     /* 尝试将字符串解析成一个 BigInt 结构体 */
     let bigInt = BigInt.tryParse("12345")
     println(bigInt)
-    
+
     /* 尝试解析无效字符串 */
     let invalid = BigInt.tryParse("invalid")
     println(invalid)
@@ -2924,7 +2924,7 @@ main() {
     /* 尝试根据指定进制将字符串解析成一个 BigInt 结构体 */
     let bigInt = BigInt.tryParse("1010", radix: 2)
     println(bigInt)
-    
+
     /* 尝试解析无效字符串 */
     let invalid = BigInt.tryParse("invalid", radix: 2)
     println(invalid)
@@ -3093,12 +3093,12 @@ main() {
     let positiveDecimal = Decimal(123.456)
     let positiveSign = positiveDecimal.sign
     println(positiveSign)
-    
+
     /* 创建一个负数 Decimal 对象并获取其符号值 */
     let negativeDecimal = Decimal(-123.456)
     let negativeSign = negativeDecimal.sign
     println(negativeSign)
-    
+
     /* 创建一个零 Decimal 对象并获取其符号值 */
     let zeroDecimal = Decimal(0)
     let zeroSign = zeroDecimal.sign

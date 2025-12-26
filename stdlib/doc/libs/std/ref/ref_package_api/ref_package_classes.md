@@ -32,7 +32,7 @@ import std.ref.{WeakRef, CleanupPolicy}
 
 class Data {
     public var number: Int64
-    
+
     init(n: Int64) {
         number = n
     }
@@ -41,14 +41,14 @@ class Data {
 main(): Int64 {
     // 创建一个Data对象
     let data = Data(123)
-    
+
     // 为Data对象创建弱引用，并指定清理策略
     let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
-    
+
     // 获取弱引用的清理策略
     let policy = weakRef.cleanupPolicy
     println("已获取弱引用的清理策略")
-    
+
     return 0
 }
 ```
@@ -78,7 +78,7 @@ import std.core.Option
 
 class Data {
     public var number: Int64
-    
+
     init(n: Int64) {
         number = n
     }
@@ -87,17 +87,17 @@ class Data {
 main(): Int64 {
     // 创建一个Data对象
     let data = Data(123)
-    
+
     // 为Data对象创建弱引用
     let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
-    
+
     // 获取弱引用指向的对象
     let value = weakRef.value
     match (value) {
         case Some(x) => println("弱引用指向的对象值: ${x.number}")
         case None => println("弱引用为空")
     }
-    
+
     return 0
 }
 ```
@@ -129,7 +129,7 @@ import std.ref.{WeakRef, CleanupPolicy}
 
 class Data {
     public var number: Int64
-    
+
     init(n: Int64) {
         number = n
     }
@@ -138,12 +138,12 @@ class Data {
 main(): Int64 {
     // 创建一个Data对象
     let data = Data(123)
-    
+
     // 为Data对象创建弱引用，并指定清理策略
     let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
-    
+
     println("已创建弱引用")
-    
+
     return 0
 }
 ```
@@ -170,7 +170,7 @@ import std.ref.{WeakRef, CleanupPolicy}
 
 class Data {
     public var number: Int64
-    
+
     init(n: Int64) {
         number = n
     }
@@ -179,27 +179,27 @@ class Data {
 main(): Int64 {
     // 创建一个Data对象
     let data = Data(123)
-    
+
     // 为Data对象创建弱引用
     let weakRef = WeakRef<Data>(data, CleanupPolicy.EAGER)
-    
+
     // 获取弱引用指向的对象
     let value = weakRef.value
     match (value) {
         case Some(x) => println("清除前，弱引用指向的对象值: ${x.number}")
         case None => println("清除前，弱引用为空")
     }
-    
+
     // 强制清理弱引用指向的对象
     weakRef.clear()
-    
+
     // 再次获取弱引用指向的对象
     let valueAfter = weakRef.value
     match (valueAfter) {
         case Some(x) => println("清除后，弱引用指向的对象值: ${x.number}")
         case None => println("清除后，弱引用为空")
     }
-    
+
     return 0
 }
 ```

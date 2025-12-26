@@ -59,15 +59,15 @@ main(): Int64 {
     // 创建两个不同的清理策略
     let policy1 = CleanupPolicy.EAGER
     let policy2 = CleanupPolicy.DEFERRED
-    
+
     // 使用!=操作符比较两个策略
     let result = policy1 != policy2
     println("EAGER != DEFERRED: ${result}")
-    
+
     // 比较相同的策略
     let result2 = policy1 != policy1
     println("EAGER != EAGER: ${result2}")
-    
+
     return 0
 }
 ```
@@ -105,16 +105,16 @@ main(): Int64 {
     // 创建两个相同的清理策略
     let policy1 = CleanupPolicy.EAGER
     let policy2 = CleanupPolicy.EAGER
-    
+
     // 使用==操作符比较两个策略
     let result = policy1 == policy2
     println("EAGER == EAGER: ${result}")
-    
+
     // 比较不同的策略
     let policy3 = CleanupPolicy.DEFERRED
     let result2 = policy1 == policy3
     println("EAGER == DEFERRED: ${result2}")
-    
+
     return 0
 }
 ```

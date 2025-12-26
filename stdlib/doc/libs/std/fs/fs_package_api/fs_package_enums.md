@@ -78,7 +78,7 @@ main(): Unit {
     let writeMode = OpenMode.Write
     let appendMode = OpenMode.Append
     let readWriteMode = OpenMode.ReadWrite
-    
+
     // 获取它们的字符串表示
     println("Read mode: ${readMode.toString()}")
     println("Write mode: ${writeMode.toString()}")
@@ -122,11 +122,11 @@ main(): Unit {
     // 创建不同的OpenMode实例
     let readMode = OpenMode.Read
     let writeMode = OpenMode.Write
-    
+
     // 比较不等的实例
     let notEqualResult = (readMode != writeMode)
     println("Read mode not equals Write mode: ${notEqualResult}")
-    
+
     // 比较相等的实例
     let equalResult = (readMode != readMode)
     println("Read mode not equals Read mode: ${equalResult}")
@@ -167,11 +167,11 @@ main(): Unit {
     let readMode1 = OpenMode.Read
     let readMode2 = OpenMode.Read
     let writeMode = OpenMode.Write
-    
+
     // 比较相等的实例
     let equalResult = (readMode1 == readMode2)
     println("Read mode 1 equals Read mode 2: ${equalResult}")
-    
+
     // 比较不等的实例
     let notEqualResult = (readMode1 == writeMode)
     println("Read mode equals Write mode: ${notEqualResult}")

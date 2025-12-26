@@ -1643,8 +1643,8 @@ import std.time.*
 main(): Int64 {
     spawn {
         =>
-        println("New thread starts")
-        println("New thread ends")
+            println("New thread starts")
+            println("New thread ends")
     }
 
     println("Main thread")
