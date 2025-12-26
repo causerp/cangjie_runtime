@@ -1032,8 +1032,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class CommandTypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -1316,7 +1316,13 @@ public func traverse(v: Visitor): Unit
 ## class Decl
 
 ```cangjie
-public open class Decl <: Node {}
+public open class Decl <: Node {
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
+    protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
+    protected var keyword_: Token = Token()
+    protected var identifier_: Token = Token()
+    protected var node: Node = Expr()
+}
 ```
 
 功能：所有声明节点的父类，继承自 [Node](ast_package_classes.md#class-node) 节点，提供了所有声明节点的通用接口。
@@ -1849,8 +1855,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class EnumPattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -1976,8 +1982,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ExceptTypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -5804,8 +5810,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class OptionalExpr <: Expr {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -6137,8 +6143,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ParenType <: TypeNode {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -6771,12 +6777,12 @@ public mut prop decls: ArrayList<Decl>
 ### prop featuresDirective
 
 ```cangjie
-public mut prop featuresDirective: Option<FeaturesDirective> 
+public mut prop featuresDirective: FeaturesDirective
 ```
 
 功能：获取或设置仓颉源码文件中 `TopLevel` 作用域内定义的 `features` 声明节点。
 
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[FeaturesDirective](ast_package_classes.md#class-featuresdirective)>
+类型：[FeaturesDirective](ast_package_classes.md#class-featuresdirective)
 
 ### prop importLists
 
@@ -8561,6 +8567,7 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public open class Tokens <: ToString & Iterable<Token> & ToBytes {
+    protected var tokens: ArrayList<Token> = ArrayList<Token>(0)
     public init()
     public init(tokArray: Array<Token>)
     public init(tokArrayList: ArrayList<Token>)
@@ -9273,8 +9280,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TuplePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -9775,8 +9782,8 @@ protected open func dump(indent: UInt16): String
 
 ```cangjie
 public class TypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
