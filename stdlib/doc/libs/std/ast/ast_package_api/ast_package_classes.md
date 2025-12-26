@@ -2292,7 +2292,7 @@ public class FeatureId <: Node {
 
 > **注意:**
 >
-> 必须以关键字开头`features`，其次是 feature id 列表，必须出现在源文件的包名声明之前。
+> Feature 声明必须以 `features`，其次是 feature id 列表，Feature 声明必须出现在源文件的包名声明之前。
 > feature id 由标识符组成，标识符之间用点号分隔。feature id 不能用反引号转义。
 
 父类型:
@@ -2372,7 +2372,7 @@ public class FeaturesDirective <: Node {
 
 > **注意：**
 >
-> Features 声明必须以关键字 `features` 开头，并且必须出现在源文件的包头之前。
+> Features 声明必须以关键字 `features` 开头，并且必须出现在源文件的包声明之前。
 
 父类型：
 

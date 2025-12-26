@@ -93,7 +93,7 @@ Function: Retrieves an element. The execution time of this function is included 
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Return Value:
 
@@ -211,7 +211,7 @@ Function: Retrieves an element. The execution time of this function is included 
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Return Value:
 
@@ -265,7 +265,7 @@ Function: Retrieves an element. The execution time of this function is included 
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Return Value:
 
