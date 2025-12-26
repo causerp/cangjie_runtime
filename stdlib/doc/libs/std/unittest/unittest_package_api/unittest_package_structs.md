@@ -93,7 +93,7 @@ public mut func get(_: Int64): T
 
 参数：
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
 
 返回值：
 
@@ -211,7 +211,7 @@ public mut func get(_: Int64): T
 
 参数：
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
 
 返回值：
 
@@ -265,7 +265,7 @@ public mut func get(_: Int64): T
 
 参数：
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 元素索引值。
 
 返回值：
 

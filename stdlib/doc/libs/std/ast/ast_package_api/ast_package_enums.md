@@ -512,6 +512,14 @@ COMMA
 
 功能：构造一个表示 `,` 的枚举实例。
 
+### COMMON
+
+```cangjie
+COMMON
+```
+
+功能：构造一个表示 `common` 关键字的枚举实例。
+
 ### COMMENT
 
 ```cangjie
@@ -687,6 +695,14 @@ FINALLY
 ```
 
 功能：构造一个表示 `finally` 的枚举实例。
+
+### FEATURES
+
+```cangjie
+FEATURES
+```
+
+功能：构造一个表示 `features` 关键字的枚举实例。
 
 ### FLOAT16
 
@@ -1167,6 +1183,14 @@ PERFORM
 ```
 
 功能：构造一个表示 `perform` 的枚举实例。
+
+### PLATFROM
+
+```cangjie
+PLATFROM
+```
+
+功能：构造一个表示 `platform` 关键字的枚举实例。
 
 ### PIPELINE
 
