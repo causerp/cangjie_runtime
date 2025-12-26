@@ -1032,8 +1032,8 @@ Parameters:
 
 ```cangjie
 public class CommandTypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -1316,7 +1316,13 @@ Parameters:
 ## class Decl
 
 ```cangjie
-public open class Decl <: Node {}
+public open class Decl <: Node {
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
+    protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
+    protected var keyword_: Token = Token()
+    protected var identifier_: Token = Token()
+    protected var node: Node = Expr()
+}
 ```
 
 Function: The parent class of all declaration nodes, inheriting from the [Node](ast_package_classes.md#class-node) class, providing common interfaces for all declaration nodes.
@@ -1849,8 +1855,8 @@ Parameters:
 
 ```cangjie
 public class EnumPattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -1976,8 +1982,8 @@ Parameters:
 
 ```cangjie
 public class ExceptTypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -5784,8 +5790,8 @@ Parameters:
 
 ```cangjie
 public class OptionalExpr <: Expr {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -6751,12 +6757,12 @@ Type: [ArrayList](../../collection/collection_package_api/collection_package_cla
 ### prop featuresDirective
 
 ```cangjie
-public mut prop featuresDirective: Option<FeaturesDirective> 
+public mut prop featuresDirective: FeaturesDirective
 ```
 
 Function: Gets or sets the features directive node defined within the TopLevel scope of the Cangjie source code file.
 
-Type: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[FeaturesDirective](ast_package_classes.md#class-featuresdirective)>
+Type: [FeaturesDirective](ast_package_classes.md#class-featuresdirective)
 
 ### prop importLists
 
@@ -8541,6 +8547,7 @@ Parameters:
 
 ```cangjie
 public open class Tokens <: ToString & Iterable<Token> & ToBytes {
+    protected var tokens: ArrayList<Token> = ArrayList<Token>(0)
     public init()
     public init(tokArray: Array<Token>)
     public init(tokArrayList: ArrayList<Token>)
@@ -9253,8 +9260,8 @@ Parameters:
 
 ```cangjie
 public class TuplePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
@@ -9755,8 +9762,8 @@ Return Value:
 
 ```cangjie
 public class TypePattern <: Pattern {
-    public init(inputs: Tokens)
     public init()
+    public init(inputs: Tokens)
 }
 ```
 
