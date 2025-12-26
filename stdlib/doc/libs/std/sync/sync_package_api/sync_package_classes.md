@@ -22,6 +22,30 @@ public init(val: Bool)
 
 - val: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("创建了一个 AtomicBool 实例，初始值为: ${atomicBool.load()}")
+    
+    // 修改值为 true
+    atomicBool.store(true)
+    println("修改后的值为: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicBool 实例，初始值为: false
+修改后的值为: true
+```
+
 ### func compareAndSwap(Bool, Bool)
 
 ```cangjie
@@ -40,6 +64,39 @@ public func compareAndSwap(old: Bool, new: Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 false，设置新值为 true
+    let result1 = atomicBool.compareAndSwap(false, true)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicBool.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 false，但实际已经是 true，所以会失败
+    let result2 = atomicBool.compareAndSwap(false, false)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+第一次 CAS 操作结果: true
+操作后值: true
+第二次 CAS 操作结果: false
+操作后值: true
+```
 
 ### func compareAndSwap(Bool, Bool, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -66,6 +123,32 @@ public func compareAndSwap(old: Bool, new: Bool, successOrder!: MemoryOrder, fai
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicBool.compareAndSwap(false, true, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: true
+```
+
 ### func load()
 
 ```cangjie
@@ -77,6 +160,30 @@ public func load(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 true
+    let atomicBool = AtomicBool(true)
+    println("AtomicBool 实例的值为: ${atomicBool.load()}")
+    
+    // 修改值
+    atomicBool.store(false)
+    println("修改后的值为: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicBool 实例的值为: true
+修改后的值为: false
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -98,6 +205,30 @@ public func load(memoryOrder!: MemoryOrder): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 true
+    let atomicBool = AtomicBool(true)
+    println("AtomicBool 实例的值为: ${atomicBool.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicBool.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicBool 实例的值为: true
+使用 deprecated 的 load 方法读取的值: true
+```
+
 ### func store(Bool)
 
 ```cangjie
@@ -109,6 +240,30 @@ public func store(val: Bool): Unit
 参数：
 
 - val: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 使用 store 方法修改值为 true
+    atomicBool.store(true)
+    println("使用 store 方法修改后的值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+使用 store 方法修改后的值: true
+```
 
 ### func store(Bool, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -127,6 +282,30 @@ public func store(val: Bool, memoryOrder!: MemoryOrder): Unit
 - val: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicBool.store(true, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+使用 deprecated 的 store 方法修改后的值: true
+```
+
 ### func swap(Bool)
 
 ```cangjie
@@ -142,6 +321,39 @@ public func swap(val: Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 使用 swap 方法交换值为 true，返回原始值
+    let oldValue = atomicBool.swap(true)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicBool.load()}")
+    
+    // 再次交换值为 false
+    let oldValue2 = atomicBool.swap(false)
+    println("再次交换前的旧值: ${oldValue2}")
+    println("再次交换后的当前值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+交换前的旧值: false
+交换后的当前值: true
+再次交换前的旧值: true
+再次交换后的当前值: false
+```
 
 ### func swap(Bool, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -163,6 +375,32 @@ public func swap(val: Bool, memoryOrder!: MemoryOrder): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicBool 实例，初始值为 false
+    let atomicBool = AtomicBool(false)
+    println("初始值: ${atomicBool.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicBool.swap(true, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicBool.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: false
+使用 deprecated 的 swap 方法交换前的旧值: false
+交换后的当前值: true
+```
 
 ## class AtomicInt16
 
@@ -186,6 +424,30 @@ public init(val: Int16)
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("创建了一个 AtomicInt16 实例，初始值为: ${atomicInt16.load()}")
+    
+    // 修改值为 20
+    atomicInt16.store(20)
+    println("修改后的值为: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicInt16 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(Int16, Int16)
 
 ```cangjie
@@ -203,7 +465,40 @@ public func compareAndSwap(old: Int16, new: Int16): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicInt16.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicInt16.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicInt16.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(Int16, Int16, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -230,6 +525,32 @@ public func compareAndSwap(old: Int16, new: Int16, successOrder!: MemoryOrder, f
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicInt16.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(Int16)
 
 ```cangjie
@@ -245,6 +566,32 @@ public func fetchAdd(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicInt16.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -267,6 +614,32 @@ public func fetchAdd(val: Int16, memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(Int16)
 
 ```cangjie
@@ -282,6 +655,32 @@ public func fetchAnd(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicInt16.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -304,6 +703,32 @@ public func fetchAnd(val: Int16, memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(Int16)
 
 ```cangjie
@@ -319,6 +744,32 @@ public func fetchOr(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicInt16.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -341,6 +792,32 @@ public func fetchOr(val: Int16, memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(Int16)
 
 ```cangjie
@@ -356,6 +833,32 @@ public func fetchSub(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 20
+    let atomicInt16 = AtomicInt16(20)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicInt16.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -378,6 +881,32 @@ public func fetchSub(val: Int16, memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 20
+    let atomicInt16 = AtomicInt16(20)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(Int16)
 
 ```cangjie
@@ -393,6 +922,32 @@ public func fetchXor(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicInt16.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -415,6 +970,32 @@ public func fetchXor(val: Int16, memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 15
+    let atomicInt16 = AtomicInt16(15)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -426,6 +1007,30 @@ public func load(): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("AtomicInt16 实例的值为: ${atomicInt16.load()}")
+    
+    // 修改值
+    atomicInt16.store(20)
+    println("修改后的值为: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt16 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -447,6 +1052,30 @@ public func load(memoryOrder!: MemoryOrder): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("AtomicInt16 实例的值为: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicInt16.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt16 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(Int16)
 
 ```cangjie
@@ -458,6 +1087,30 @@ public func store(val: Int16): Unit
 参数：
 
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicInt16.store(20)
+    println("使用 store 方法修改后的值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -476,6 +1129,30 @@ public func store(val: Int16, memoryOrder!: MemoryOrder): Unit
 - val: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicInt16.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(Int16)
 
 ```cangjie
@@ -491,6 +1168,32 @@ public func swap(val: Int16): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicInt16.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(Int16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -512,6 +1215,32 @@ public func swap(val: Int16, memoryOrder!: MemoryOrder): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt16 实例，初始值为 10
+    let atomicInt16 = AtomicInt16(10)
+    println("初始值: ${atomicInt16.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt16.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class AtomicInt32
 
@@ -535,6 +1264,30 @@ public init(val: Int32)
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("创建了一个 AtomicInt32 实例，初始值为: ${atomicInt32.load()}")
+    
+    // 修改值为 20
+    atomicInt32.store(20)
+    println("修改后的值为: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicInt32 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(Int32, Int32)
 
 ```cangjie
@@ -553,6 +1306,39 @@ public func compareAndSwap(old: Int32, new: Int32): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicInt32.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicInt32.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicInt32.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(Int32, Int32, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -579,6 +1365,32 @@ public func compareAndSwap(old: Int32, new: Int32, successOrder!: MemoryOrder, f
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicInt32.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(Int32)
 
 ```cangjie
@@ -594,6 +1406,32 @@ public func fetchAdd(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicInt32.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -616,6 +1454,32 @@ public func fetchAdd(val: Int32, memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(Int32)
 
 ```cangjie
@@ -631,6 +1495,32 @@ public func fetchAnd(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicInt32.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -653,6 +1543,32 @@ public func fetchAnd(val: Int32, memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(Int32)
 
 ```cangjie
@@ -668,6 +1584,32 @@ public func fetchOr(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicInt32.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -690,6 +1632,32 @@ public func fetchOr(val: Int32, memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(Int32)
 
 ```cangjie
@@ -705,6 +1673,32 @@ public func fetchSub(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 20
+    let atomicInt32 = AtomicInt32(20)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicInt32.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -727,6 +1721,32 @@ public func fetchSub(val: Int32, memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 20
+    let atomicInt32 = AtomicInt32(20)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(Int32)
 
 ```cangjie
@@ -742,6 +1762,32 @@ public func fetchXor(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicInt32.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -764,6 +1810,32 @@ public func fetchXor(val: Int32, memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 15
+    let atomicInt32 = AtomicInt32(15)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -775,6 +1847,30 @@ public func load(): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("AtomicInt32 实例的值为: ${atomicInt32.load()}")
+    
+    // 修改值
+    atomicInt32.store(20)
+    println("修改后的值为: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt32 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -796,6 +1892,30 @@ public func load(memoryOrder!: MemoryOrder): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("AtomicInt32 实例的值为: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicInt32.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt32 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(Int32)
 
 ```cangjie
@@ -807,6 +1927,30 @@ public func store(val: Int32): Unit
 参数：
 
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicInt32.store(20)
+    println("使用 store 方法修改后的值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -825,6 +1969,30 @@ public func store(val: Int32, memoryOrder!: MemoryOrder): Unit
 - val: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicInt32.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(Int32)
 
 ```cangjie
@@ -840,6 +2008,32 @@ public func swap(val: Int32): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicInt32.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(Int32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -861,6 +2055,32 @@ public func swap(val: Int32, memoryOrder!: MemoryOrder): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt32 实例，初始值为 10
+    let atomicInt32 = AtomicInt32(10)
+    println("初始值: ${atomicInt32.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt32.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class AtomicInt64
 
@@ -884,6 +2104,30 @@ public init(val: Int64)
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("创建了一个 AtomicInt64 实例，初始值为: ${atomicInt64.load()}")
+    
+    // 修改值为 20
+    atomicInt64.store(20)
+    println("修改后的值为: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicInt64 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(Int64, Int64)
 
 ```cangjie
@@ -902,6 +2146,39 @@ public func compareAndSwap(old: Int64, new: Int64): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicInt64.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicInt64.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicInt64.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(Int64, Int64, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -928,6 +2205,32 @@ public func compareAndSwap(old: Int64, new: Int64, successOrder!: MemoryOrder, f
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicInt64.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(Int64)
 
 ```cangjie
@@ -943,6 +2246,32 @@ public func fetchAdd(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicInt64.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -965,6 +2294,32 @@ public func fetchAdd(val: Int64, memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(Int64)
 
 ```cangjie
@@ -980,6 +2335,32 @@ public func fetchAnd(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicInt64.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1002,6 +2383,32 @@ public func fetchAnd(val: Int64, memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(Int64)
 
 ```cangjie
@@ -1017,6 +2424,32 @@ public func fetchOr(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicInt64.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1039,6 +2472,32 @@ public func fetchOr(val: Int64, memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(Int64)
 
 ```cangjie
@@ -1054,6 +2513,32 @@ public func fetchSub(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 20
+    let atomicInt64 = AtomicInt64(20)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicInt64.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1076,6 +2561,32 @@ public func fetchSub(val: Int64, memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 20
+    let atomicInt64 = AtomicInt64(20)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(Int64)
 
 ```cangjie
@@ -1091,6 +2602,32 @@ public func fetchXor(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicInt64.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1113,6 +2650,32 @@ public func fetchXor(val: Int64, memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 15
+    let atomicInt64 = AtomicInt64(15)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -1124,6 +2687,30 @@ public func load(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("AtomicInt64 实例的值为: ${atomicInt64.load()}")
+    
+    // 修改值
+    atomicInt64.store(20)
+    println("修改后的值为: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt64 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1145,6 +2732,30 @@ public func load(memoryOrder!: MemoryOrder): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("AtomicInt64 实例的值为: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicInt64.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt64 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(Int64)
 
 ```cangjie
@@ -1156,6 +2767,30 @@ public func store(val: Int64): Unit
 参数：
 
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicInt64.store(20)
+    println("使用 store 方法修改后的值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1174,6 +2809,30 @@ public func store(val: Int64, memoryOrder!: MemoryOrder): Unit
 - val: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicInt64.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(Int64)
 
 ```cangjie
@@ -1189,6 +2848,32 @@ public func swap(val: Int64): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicInt64.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(Int64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1217,40 +2902,24 @@ public func swap(val: Int64, memoryOrder!: MemoryOrder): Int64
 ```cangjie
 import std.sync.*
 
-let count = AtomicInt64(1)
-
-main(): Int64 {
-    var val1 = 0
-    if (count.compareAndSwap(1, 2)) {
-        val1 = count.load()
-        println("count1 = ${val1}")
-    }
-
-    if (count.fetchAdd(2) == val1) {
-        var val2 = count.load()
-        println("count2 = ${val2}")
-    }
-
-    count.store(6)
-    var val3 = count.load()
-    println("count3 = ${val3}")
-
-    if (count.swap(8) == val3) {
-        var val4 = count.load()
-        println("count4 = ${val4}")
-    }
-
-    return 0
+main(): Unit {
+    // 创建一个 AtomicInt64 实例，初始值为 10
+    let atomicInt64 = AtomicInt64(10)
+    println("初始值: ${atomicInt64.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt64.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt64.load()}")
 }
 ```
 
 运行结果：
 
 ```text
-count1 = 2
-count2 = 4
-count3 = 6
-count4 = 8
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
 ```
 
 ## class AtomicInt8
@@ -1275,6 +2944,30 @@ public init(val: Int8)
 
 - val: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("创建了一个 AtomicInt8 实例，初始值为: ${atomicInt8.load()}")
+    
+    // 修改值为 20
+    atomicInt8.store(20)
+    println("修改后的值为: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicInt8 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(Int8, Int8)
 
 ```cangjie
@@ -1293,6 +2986,39 @@ public func compareAndSwap(old: Int8, new: Int8): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicInt8.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicInt8.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicInt8.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(Int8, Int8, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1319,6 +3045,32 @@ public func compareAndSwap(old: Int8, new: Int8, successOrder!: MemoryOrder, fai
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicInt8.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(Int8)
 
 ```cangjie
@@ -1334,6 +3086,32 @@ public func fetchAdd(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicInt8.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1356,6 +3134,32 @@ public func fetchAdd(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(Int8)
 
 ```cangjie
@@ -1371,6 +3175,32 @@ public func fetchAnd(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicInt8.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1393,6 +3223,32 @@ public func fetchAnd(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(Int8)
 
 ```cangjie
@@ -1408,6 +3264,32 @@ public func fetchOr(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicInt8.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1430,6 +3312,32 @@ public func fetchOr(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(Int8)
 
 ```cangjie
@@ -1445,6 +3353,32 @@ public func fetchSub(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 20
+    let atomicInt8 = AtomicInt8(20)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicInt8.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1467,6 +3401,32 @@ public func fetchSub(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 20
+    let atomicInt8 = AtomicInt8(20)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(Int8)
 
 ```cangjie
@@ -1482,6 +3442,32 @@ public func fetchXor(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicInt8.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1504,6 +3490,32 @@ public func fetchXor(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 15
+    let atomicInt8 = AtomicInt8(15)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -1515,6 +3527,30 @@ public func load(): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("AtomicInt8 实例的值为: ${atomicInt8.load()}")
+    
+    // 修改值
+    atomicInt8.store(20)
+    println("修改后的值为: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt8 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1536,6 +3572,30 @@ public func load(memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("AtomicInt8 实例的值为: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicInt8.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicInt8 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(Int8)
 
 ```cangjie
@@ -1547,6 +3607,30 @@ public func store(val: Int8): Unit
 参数：
 
 - val: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicInt8.store(20)
+    println("使用 store 方法修改后的值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1565,6 +3649,30 @@ public func store(val: Int8, memoryOrder!: MemoryOrder): Unit
 - val: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicInt8.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(Int8)
 
 ```cangjie
@@ -1580,6 +3688,32 @@ public func swap(val: Int8): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicInt8.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(Int8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1602,6 +3736,32 @@ public func swap(val: Int8, memoryOrder!: MemoryOrder): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 写入前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicInt8 实例，初始值为 10
+    let atomicInt8 = AtomicInt8(10)
+    println("初始值: ${atomicInt8.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicInt8.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
+
 ## class AtomicOptionReference\<T> where T <: Object
 
 ```cangjie
@@ -1623,6 +3783,20 @@ public init()
 
 功能：构造一个空的 [AtomicOptionReference](sync_package_classes.md#class-atomicoptionreferencet-where-t--object) 实例。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+class TestClass {}
+
+main(): Unit {
+    // 创建一个空的 AtomicOptionReference 实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>()
+}
+```
+
 ### init(Option\<T>)
 
 ```cangjie
@@ -1634,6 +3808,35 @@ public init(val: Option<T>)
 参数：
 
 - val: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 原子类型的初始值。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 使用 Some 创建一个包含 TestClass 实例的 Option
+    let optionObj = Some(testObj)
+    
+    // 使用 init(Option<T>) 构造函数创建一个封装 Option 数据的 AtomicOptionReference 实例，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj)
+}
+```
 
 ### func compareAndSwap(Option\<T>, Option\<T>)
 
@@ -1653,6 +3856,50 @@ public func compareAndSwap(old: Option<T>, new: Option<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 compareAndSwap 方法尝试将 optionObj1 替换为 optionObj2
+    let result = atomicOptionRef.compareAndSwap(optionObj1, optionObj2)
+    
+    println("CAS 操作结果: ${result}")
+    println("替换后的值存在: ${atomicOptionRef.load().isSome()}")
+}
+```
+
+运行结果：
+
+```text
+CAS 操作结果: true
+替换后的值存在: true
+```
 
 ### func compareAndSwap(Option\<T>, Option\<T>, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1679,6 +3926,50 @@ public func compareAndSwap(old: Option<T>, new: Option<T>, successOrder!: Memory
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 compareAndSwap 方法尝试将 optionObj1 替换为 optionObj2
+    let result = atomicOptionRef.compareAndSwap(optionObj1, optionObj2)
+    
+    println("CAS 操作结果: ${result}")
+    println("替换后的值: ${atomicOptionRef.load().getOrThrow().value}")
+}
+```
+
+运行结果：
+
+```text
+CAS 操作结果: true
+替换后的值: 84
+```
+
 ### func load()
 
 ```cangjie
@@ -1690,6 +3981,50 @@ public func load(): Option<T>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj = Some(testObj)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj)
+    
+    // 使用 load 方法读取原子引用的值
+    let loadedValue = atomicOptionRef.load()
+    
+    // 使用 match 来处理 Option 值
+    match (loadedValue) {
+        case Some(obj) => println("加载的值: ${obj.value}")
+        case Option.None => println("没有加载到值")
+    }
+}
+```
+
+运行结果：
+
+```text
+加载的值: 42
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1711,6 +4046,50 @@ public func load(memoryOrder!: MemoryOrder): Option<T>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+
+    public init() {
+    }
+
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj = Some(testObj)
+
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj)
+
+    // 使用 deprecated 的 load 方法读取原子引用的值
+    let loadedValue = atomicOptionRef.load(memoryOrder: SeqCst)
+
+    // 使用 match 来处理 Option 值
+    match (loadedValue) {
+        case Some(obj) => println("加载的值: ${obj.value}")
+        case Option.None => println("没有加载到值")
+    }
+}
+```
+
+运行结果：
+
+```text
+加载的值: 42
+```
+
 ### func store(Option\<T>)
 
 ```cangjie
@@ -1722,6 +4101,61 @@ public func store(val: Option<T>): Unit
 参数：
 
 - val: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 load 方法读取初始值
+    let initialValue = atomicOptionRef.load()
+    match (initialValue) {
+        case Some(obj) => println("初始值: ${obj.value}")
+        case Option.None => println("没有初始值")
+    }
+    
+    // 使用 store 方法设置新的值
+    atomicOptionRef.store(optionObj2)
+    
+    // 使用 load 方法读取新值
+    let newValue = atomicOptionRef.load()
+    match (newValue) {
+        case Some(obj) => println("新值: ${obj.value}")
+        case Option.None => println("没有新值")
+    }
+}
+```
+
+运行结果：
+
+```text
+初始值: 42
+新值: 84
+```
 
 ### func store(Option\<T>, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1740,6 +4174,61 @@ public func store(val: Option<T>, memoryOrder!: MemoryOrder): Unit
 - val: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 load 方法读取初始值
+    let initialValue = atomicOptionRef.load()
+    match (initialValue) {
+        case Some(obj) => println("初始值: ${obj.value}")
+        case Option.None => println("没有初始值")
+    }
+    
+    // 使用 deprecated 的 store 方法设置新的值
+    atomicOptionRef.store(optionObj2, memoryOrder: SeqCst)
+    
+    // 使用 load 方法读取新值
+    let newValue = atomicOptionRef.load()
+    match (newValue) {
+        case Some(obj) => println("新值: ${obj.value}")
+        case Option.None => println("没有新值")
+    }
+}
+```
+
+运行结果：
+
+```text
+初始值: 42
+新值: 84
+```
+
 ### func swap(Option\<T>)
 
 ```cangjie
@@ -1755,6 +4244,67 @@ public func swap(val: Option<T>): Option<T>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 load 方法读取初始值
+    let initialValue = atomicOptionRef.load()
+    match (initialValue) {
+        case Some(obj) => println("初始值: ${obj.value}")
+        case Option.None => println("没有初始值")
+    }
+    
+    // 使用 swap 方法交换值
+    let oldValue = atomicOptionRef.swap(optionObj2)
+    
+    match (oldValue) {
+        case Some(obj) => println("交换前的旧值: ${obj.value}")
+        case Option.None => println("没有旧值")
+    }
+    
+    // 使用 load 方法读取新值
+    let newValue = atomicOptionRef.load()
+    match (newValue) {
+        case Some(obj) => println("新值: ${obj.value}")
+        case Option.None => println("没有新值")
+    }
+}
+```
+
+运行结果：
+
+```text
+初始值: 42
+交换前的旧值: 42
+新值: 84
+```
 
 ### func swap(Option\<T>, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1776,6 +4326,67 @@ public func swap(val: Option<T>, memoryOrder!: MemoryOrder): Option<T>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init() {
+    }
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 使用 Some 创建包含 TestClass 实例的 Option
+    let optionObj1 = Some(testObj1)
+    let optionObj2 = Some(testObj2)
+    
+    // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
+    let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
+    
+    // 使用 load 方法读取初始值
+    let initialValue = atomicOptionRef.load()
+    match (initialValue) {
+        case Some(obj) => println("初始值: ${obj.value}")
+        case Option.None => println("没有初始值")
+    }
+    
+    // 使用 deprecated 的 swap 方法交换值
+    let oldValue = atomicOptionRef.swap(optionObj2, memoryOrder: SeqCst)
+    
+    match (oldValue) {
+        case Some(obj) => println("交换前的旧值: ${obj.value}")
+        case Option.None => println("没有旧值")
+    }
+    
+    // 使用 load 方法读取新值
+    let newValue = atomicOptionRef.load()
+    match (newValue) {
+        case Some(obj) => println("新值: ${obj.value}")
+        case Option.None => println("没有新值")
+    }
+}
+```
+
+运行结果：
+
+```text
+初始值: 42
+交换前的旧值: 42
+新值: 84
+```
 
 ## class AtomicReference\<T> where T <: Object
 
@@ -1801,6 +4412,29 @@ public init(val: T)
 
 - val: T - 原子类型的初始值。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 使用 init(T) 构造函数创建一个封装 TestClass 实例的 AtomicReference
+    let atomicRef = AtomicReference<TestClass>(testObj)
+}
+```
+
 ### func compareAndSwap(T, T)
 
 ```cangjie
@@ -1819,6 +4453,41 @@ public func compareAndSwap(old: T, new: T): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj1
+    let atomicRef = AtomicReference<TestClass>(testObj1)
+    
+    // 使用 compareAndSwap 方法尝试将 testObj1 替换为 testObj2
+    let result = atomicRef.compareAndSwap(testObj1, testObj2)
+    
+    println("CAS 操作结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+CAS 操作结果: true
+```
 
 ### func compareAndSwap(T, T, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1845,6 +4514,41 @@ public func compareAndSwap(old: T, new: T, successOrder!: MemoryOrder, failureOr
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建两个 TestClass 实例
+    let testObj1 = TestClass(42)
+    let testObj2 = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj1
+    let atomicRef = AtomicReference<TestClass>(testObj1)
+    
+    // 使用 deprecated 的 compareAndSwap 方法尝试将 testObj1 替换为 testObj2
+    let result = atomicRef.compareAndSwap(testObj1, testObj2, successOrder: SeqCst, failureOrder: SeqCst)
+    
+    println("CAS 操作结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+CAS 操作结果: true
+```
+
 ### func load()
 
 ```cangjie
@@ -1856,6 +4560,40 @@ public func load(): T
 返回值：
 
 - T - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // 使用 load 方法读取原子引用的值
+    let loadedValue = atomicRef.load()
+    
+    println("加载的值: ${loadedValue.value}")
+}
+```
+
+运行结果：
+
+```text
+加载的值: 42
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1877,6 +4615,40 @@ public func load(memoryOrder!: MemoryOrder): T
 
 - T - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // // 使用 deprecated 的 load 方法读取原子引用的值
+    let loadedValue = atomicRef.load(memoryOrder: SeqCst)
+    
+    println("加载的值: ${loadedValue.value}")
+}
+```
+
+运行结果：
+
+```text
+加载的值: 42
+```
+
 ### func store(T)
 
 ```cangjie
@@ -1888,6 +4660,45 @@ public func store(val: T): Unit
 参数：
 
 - val: T - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建另一个 TestClass 实例
+    let newObj = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // 使用 store 方法存储新的值
+    atomicRef.store(newObj)
+    
+    // 验证存储的值
+    let loadedValue = atomicRef.load()
+    println("存储后的值: ${loadedValue.value}")
+}
+```
+
+运行结果：
+
+```text
+存储后的值: 84
+```
 
 ### func store(T, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1906,6 +4717,45 @@ public func store(val: T, memoryOrder!: MemoryOrder): Unit
 - val: T - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建另一个 TestClass 实例
+    let newObj = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // 使用 deprecated 的 store 方法存储新的值
+    atomicRef.store(newObj, memoryOrder: SeqCst)
+    
+    // 验证存储的值
+    let loadedValue = atomicRef.load()
+    println("存储后的值: ${loadedValue.value}")
+}
+```
+
+运行结果：
+
+```text
+存储后的值: 84
+```
+
 ### func swap(T)
 
 ```cangjie
@@ -1921,6 +4771,47 @@ public func swap(val: T): T
 返回值：
 
 - T - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建另一个 TestClass 实例
+    let newObj = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // 使用 swap 方法交换值
+    let oldValue = atomicRef.swap(newObj)
+    
+    // 验证交换的旧值和新值
+    println("交换前的旧值: ${oldValue.value}")
+    let newValue = atomicRef.load()
+    println("交换后的新值: ${newValue.value}")
+}
+```
+
+运行结果：
+
+```text
+交换前的旧值: 42
+交换后的新值: 84
+```
 
 ### func swap(T, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -1942,6 +4833,47 @@ public func swap(val: T, memoryOrder!: MemoryOrder): T
 返回值：
 
 - T - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+class TestClass {
+    var value: Int32 = 0
+    
+    public init(val: Int32) {
+        value = val
+    }
+}
+
+main(): Unit {
+    // 创建一个 TestClass 实例
+    let testObj = TestClass(42)
+    
+    // 创建另一个 TestClass 实例
+    let newObj = TestClass(84)
+    
+    // 创建一个 AtomicReference 实例，初始值为 testObj
+    let atomicRef = AtomicReference<TestClass>(testObj)
+    
+    // 使用 deprecated 的 swap 方法交换值
+    let oldValue = atomicRef.swap(newObj, memoryOrder: SeqCst)
+    
+    // 验证交换的旧值和新值
+    println("交换前的旧值: ${oldValue.value}")
+    let newValue = atomicRef.load()
+    println("交换后的新值: ${newValue.value}")
+}
+```
+
+运行结果：
+
+```text
+交换前的旧值: 42
+交换后的新值: 84
+```
 
 ## class AtomicUInt16
 
@@ -1965,6 +4897,30 @@ public init(val: UInt16)
 
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("创建了一个 AtomicUInt16 实例，初始值为: ${atomicUInt16.load()}")
+    
+    // 修改值为 20
+    atomicUInt16.store(20)
+    println("修改后的值为: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicUInt16 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(UInt16, UInt16)
 
 ```cangjie
@@ -1983,6 +4939,39 @@ public func compareAndSwap(old: UInt16, new: UInt16): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicUInt16.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicUInt16.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicUInt16.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(UInt16, UInt16, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2009,6 +4998,32 @@ public func compareAndSwap(old: UInt16, new: UInt16, successOrder!: MemoryOrder,
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicUInt16.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(UInt16)
 
 ```cangjie
@@ -2024,6 +5039,32 @@ public func fetchAdd(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicUInt16.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2046,6 +5087,32 @@ public func fetchAdd(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(UInt16)
 
 ```cangjie
@@ -2061,6 +5128,32 @@ public func fetchAnd(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicUInt16.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2083,6 +5176,32 @@ public func fetchAnd(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(UInt16)
 
 ```cangjie
@@ -2098,6 +5217,32 @@ public func fetchOr(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicUInt16.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2120,6 +5265,32 @@ public func fetchOr(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(UInt16)
 
 ```cangjie
@@ -2135,6 +5306,32 @@ public func fetchSub(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 20
+    let atomicUInt16 = AtomicUInt16(20)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicUInt16.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2157,6 +5354,32 @@ public func fetchSub(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 20
+    let atomicUInt16 = AtomicUInt16(20)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(UInt16)
 
 ```cangjie
@@ -2172,6 +5395,32 @@ public func fetchXor(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicUInt16.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2194,6 +5443,32 @@ public func fetchXor(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 15
+    let atomicUInt16 = AtomicUInt16(15)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -2205,6 +5480,30 @@ public func load(): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("AtomicUInt16 实例的值为: ${atomicUInt16.load()}")
+    
+    // 修改值
+    atomicUInt16.store(20)
+    println("修改后的值为: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt16 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2226,6 +5525,30 @@ public func load(memoryOrder!: MemoryOrder): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("AtomicUInt16 实例的值为: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicUInt16.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt16 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(UInt16)
 
 ```cangjie
@@ -2237,6 +5560,30 @@ public func store(val: UInt16): Unit
 参数：
 
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicUInt16.store(20)
+    println("使用 store 方法修改后的值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2255,6 +5602,30 @@ public func store(val: UInt16, memoryOrder!: MemoryOrder): Unit
 - val: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicUInt16.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(UInt16)
 
 ```cangjie
@@ -2270,6 +5641,32 @@ public func swap(val: UInt16): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicUInt16.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(UInt16, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2291,6 +5688,32 @@ public func swap(val: UInt16, memoryOrder!: MemoryOrder): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt16 实例，初始值为 10
+    let atomicUInt16 = AtomicUInt16(10)
+    println("初始值: ${atomicUInt16.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt16.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt16.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class AtomicUInt32
 
@@ -2314,6 +5737,30 @@ public init(val: UInt32)
 
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("创建了一个 AtomicUInt32 实例，初始值为: ${atomicUInt32.load()}")
+    
+    // 修改值为 20
+    atomicUInt32.store(20)
+    println("修改后的值为: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicUInt32 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(UInt32, UInt32)
 
 ```cangjie
@@ -2332,6 +5779,39 @@ public func compareAndSwap(old: UInt32, new: UInt32): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicUInt32.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicUInt32.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicUInt32.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(UInt32, UInt32, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2358,6 +5838,32 @@ public func compareAndSwap(old: UInt32, new: UInt32, successOrder!: MemoryOrder,
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicUInt32.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(UInt32)
 
 ```cangjie
@@ -2373,6 +5879,32 @@ public func fetchAdd(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicUInt32.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2395,6 +5927,32 @@ public func fetchAdd(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(UInt32)
 
 ```cangjie
@@ -2410,6 +5968,32 @@ public func fetchAnd(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicUInt32.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2432,6 +6016,32 @@ public func fetchAnd(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(UInt32)
 
 ```cangjie
@@ -2447,6 +6057,32 @@ public func fetchOr(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicUInt32.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2469,6 +6105,32 @@ public func fetchOr(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(UInt32)
 
 ```cangjie
@@ -2484,6 +6146,32 @@ public func fetchSub(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 20
+    let atomicUInt32 = AtomicUInt32(20)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicUInt32.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2506,6 +6194,32 @@ public func fetchSub(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 20
+    let atomicUInt32 = AtomicUInt32(20)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(UInt32)
 
 ```cangjie
@@ -2521,6 +6235,32 @@ public func fetchXor(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicUInt32.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2543,6 +6283,32 @@ public func fetchXor(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 15
+    let atomicUInt32 = AtomicUInt32(15)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -2554,6 +6320,30 @@ public func load(): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("AtomicUInt32 实例的值为: ${atomicUInt32.load()}")
+    
+    // 修改值
+    atomicUInt32.store(20)
+    println("修改后的值为: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt32 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2575,6 +6365,30 @@ public func load(memoryOrder!: MemoryOrder): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("AtomicUInt32 实例的值为: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicUInt32.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt32 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(UInt32)
 
 ```cangjie
@@ -2586,6 +6400,30 @@ public func store(val: UInt32): Unit
 参数：
 
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicUInt32.store(20)
+    println("使用 store 方法修改后的值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2604,6 +6442,30 @@ public func store(val: UInt32, memoryOrder!: MemoryOrder): Unit
 - val: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicUInt32.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(UInt32)
 
 ```cangjie
@@ -2619,6 +6481,32 @@ public func swap(val: UInt32): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicUInt32.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(UInt32, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2640,6 +6528,32 @@ public func swap(val: UInt32, memoryOrder!: MemoryOrder): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt32 实例，初始值为 10
+    let atomicUInt32 = AtomicUInt32(10)
+    println("初始值: ${atomicUInt32.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt32.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt32.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class AtomicUInt64
 
@@ -2663,6 +6577,30 @@ public init(val: UInt64)
 
 - val: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("创建了一个 AtomicUInt64 实例，初始值为: ${atomicUInt64.load()}")
+    
+    // 修改值为 20
+    atomicUInt64.store(20)
+    println("修改后的值为: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicUInt64 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(UInt64, UInt64)
 
 ```cangjie
@@ -2681,6 +6619,39 @@ public func compareAndSwap(old: UInt64, new: UInt64): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicUInt64.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicUInt64.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicUInt64.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(UInt64, UInt64, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2707,6 +6678,32 @@ public func compareAndSwap(old: UInt64, new: UInt64, successOrder!: MemoryOrder,
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicUInt64.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(UInt64)
 
 ```cangjie
@@ -2722,6 +6719,32 @@ public func fetchAdd(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicUInt64.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2744,6 +6767,32 @@ public func fetchAdd(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(UInt64)
 
 ```cangjie
@@ -2759,6 +6808,32 @@ public func fetchAnd(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicUInt64.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2781,6 +6856,32 @@ public func fetchAnd(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(UInt64)
 
 ```cangjie
@@ -2796,6 +6897,32 @@ public func fetchOr(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicUInt64.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2818,6 +6945,32 @@ public func fetchOr(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(UInt64)
 
 ```cangjie
@@ -2833,6 +6986,32 @@ public func fetchSub(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 20
+    let atomicUInt64 = AtomicUInt64(20)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicUInt64.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2855,6 +7034,32 @@ public func fetchSub(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 20
+    let atomicUInt64 = AtomicUInt64(20)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(UInt64)
 
 ```cangjie
@@ -2870,6 +7075,32 @@ public func fetchXor(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicUInt64.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2892,6 +7123,32 @@ public func fetchXor(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 15
+    let atomicUInt64 = AtomicUInt64(15)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -2903,6 +7160,30 @@ public func load(): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("AtomicUInt64 实例的值为: ${atomicUInt64.load()}")
+    
+    // 修改值
+    atomicUInt64.store(20)
+    println("修改后的值为: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt64 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2924,6 +7205,30 @@ public func load(memoryOrder!: MemoryOrder): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("AtomicUInt64 实例的值为: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicUInt64.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt64 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(UInt64)
 
 ```cangjie
@@ -2935,6 +7240,30 @@ public func store(val: UInt64): Unit
 参数：
 
 - val: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicUInt64.store(20)
+    println("使用 store 方法修改后的值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2953,6 +7282,30 @@ public func store(val: UInt64, memoryOrder!: MemoryOrder): Unit
 - val: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicUInt64.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(UInt64)
 
 ```cangjie
@@ -2968,6 +7321,32 @@ public func swap(val: UInt64): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicUInt64.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(UInt64, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -2989,6 +7368,32 @@ public func swap(val: UInt64, memoryOrder!: MemoryOrder): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt64 实例，初始值为 10
+    let atomicUInt64 = AtomicUInt64(10)
+    println("初始值: ${atomicUInt64.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt64.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt64.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class AtomicUInt8
 
@@ -3012,6 +7417,30 @@ public init(val: UInt8)
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 原子类型的初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("创建了一个 AtomicUInt8 实例，初始值为: ${atomicUInt8.load()}")
+    
+    // 修改值为 20
+    atomicUInt8.store(20)
+    println("修改后的值为: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+创建了一个 AtomicUInt8 实例，初始值为: 10
+修改后的值为: 20
+```
+
 ### func compareAndSwap(UInt8, UInt8)
 
 ```cangjie
@@ -3030,6 +7459,39 @@ public func compareAndSwap(old: UInt8, new: UInt8): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
+    let result1 = atomicUInt8.compareAndSwap(10, 20)
+    println("第一次 CAS 操作结果: ${result1}")
+    println("操作后值: ${atomicUInt8.load()}")
+    
+    // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
+    let result2 = atomicUInt8.compareAndSwap(10, 30)
+    println("第二次 CAS 操作结果: ${result2}")
+    println("操作后值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+第一次 CAS 操作结果: true
+操作后值: 20
+第二次 CAS 操作结果: false
+操作后值: 20
+```
 
 ### func compareAndSwap(UInt8, UInt8, MemoryOrder, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3056,6 +7518,32 @@ public func compareAndSwap(old: UInt8, new: UInt8, successOrder!: MemoryOrder, f
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 比较后交换成功返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
+    let result = atomicUInt8.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+```
+
 ### func fetchAdd(UInt8)
 
 ```cangjie
@@ -3071,6 +7559,32 @@ public func fetchAdd(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行加操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 fetchAdd 方法将值增加 5，返回增加前的值
+    let oldValue = atomicUInt8.fetchAdd(5)
+    println("增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+增加前的旧值: 10
+增加后的当前值: 15
+```
 
 ### func fetchAdd(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3093,6 +7607,32 @@ public func fetchAdd(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行加操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.fetchAdd(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
+    println("增加后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 fetchAdd 方法增加前的旧值: 10
+增加后的当前值: 15
+```
+
 ### func fetchAnd(UInt8)
 
 ```cangjie
@@ -3108,6 +7648,32 @@ public func fetchAnd(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行与操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
+    let oldValue = atomicUInt8.fetchAnd(7)
+    println("按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
 
 ### func fetchAnd(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3130,6 +7696,32 @@ public func fetchAnd(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行与操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.fetchAnd(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
+    println("按位与操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: 15
+按位与操作后的当前值: 7
+```
+
 ### func fetchOr(UInt8)
 
 ```cangjie
@@ -3145,6 +7737,32 @@ public func fetchOr(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
+    let oldValue = atomicUInt8.fetchOr(7)
+    println("按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
 
 ### func fetchOr(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3167,6 +7785,32 @@ public func fetchOr(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.fetchOr(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
+    println("按位或操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchOr 方法按位或操作前的旧值: 15
+按位或操作后的当前值: 15
+```
+
 ### func fetchSub(UInt8)
 
 ```cangjie
@@ -3182,6 +7826,32 @@ public func fetchSub(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行减操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 20
+    let atomicUInt8 = AtomicUInt8(20)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 fetchSub 方法将值减去 5，返回减操作前的值
+    let oldValue = atomicUInt8.fetchSub(5)
+    println("减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+减操作前的旧值: 20
+减操作后的当前值: 15
+```
 
 ### func fetchSub(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3204,6 +7874,32 @@ public func fetchSub(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行减操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 20
+    let atomicUInt8 = AtomicUInt8(20)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.fetchSub(5, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
+    println("减操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 20
+使用 deprecated 的 fetchSub 方法减操作前的旧值: 20
+减操作后的当前值: 15
+```
+
 ### func fetchXor(UInt8)
 
 ```cangjie
@@ -3219,6 +7915,32 @@ public func fetchXor(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行异或操作前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
+    let oldValue = atomicUInt8.fetchXor(7)
+    println("按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
 
 ### func fetchXor(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3241,6 +7963,32 @@ public func fetchXor(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 执行异或操作前的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 15
+    let atomicUInt8 = AtomicUInt8(15)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.fetchXor(7, memoryOrder: SeqCst)
+    println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
+    println("按位异或操作后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 15
+使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: 15
+按位异或操作后的当前值: 8
+```
+
 ### func load()
 
 ```cangjie
@@ -3252,6 +8000,30 @@ public func load(): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 当前原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("AtomicUInt8 实例的值为: ${atomicUInt8.load()}")
+    
+    // 修改值
+    atomicUInt8.store(20)
+    println("修改后的值为: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt8 实例的值为: 10
+修改后的值为: 20
+```
 
 ### func load(MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3273,6 +8045,30 @@ public func load(memoryOrder!: MemoryOrder): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 当前原子类型的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("AtomicUInt8 实例的值为: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
+    let value = atomicUInt8.load(memoryOrder: SeqCst)
+    println("使用 deprecated 的 load 方法读取的值: ${value}")
+}
+```
+
+运行结果：
+
+```text
+AtomicUInt8 实例的值为: 10
+使用 deprecated 的 load 方法读取的值: 10
+```
+
 ### func store(UInt8)
 
 ```cangjie
@@ -3284,6 +8080,30 @@ public func store(val: UInt8): Unit
 参数：
 
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 写入原子类型的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 store 方法修改值为 20
+    atomicUInt8.store(20)
+    println("使用 store 方法修改后的值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 store 方法修改后的值: 20
+```
 
 ### func store(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3302,6 +8122,30 @@ public func store(val: UInt8, memoryOrder!: MemoryOrder): Unit
 - val: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 写入原子类型的值。
 - memoryOrder!: [MemoryOrder <sup>(deprecated)</sup>](sync_package_enums.md#enum-memoryorder-deprecated) - 当前操作的内存排序方式。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
+    atomicUInt8.store(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 store 方法修改后的值: 20
+```
+
 ### func swap(UInt8)
 
 ```cangjie
@@ -3317,6 +8161,32 @@ public func swap(val: UInt8): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 swap 方法交换值为 20，返回原始值
+    let oldValue = atomicUInt8.swap(20)
+    println("交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ### func swap(UInt8, MemoryOrder) <sup>(deprecated)</sup>
 
@@ -3338,6 +8208,32 @@ public func swap(val: UInt8, memoryOrder!: MemoryOrder): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 写入前的值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 AtomicUInt8 实例，初始值为 10
+    let atomicUInt8 = AtomicUInt8(10)
+    println("初始值: ${atomicUInt8.load()}")
+    
+    // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
+    let oldValue = atomicUInt8.swap(20, memoryOrder: SeqCst)
+    println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
+    println("交换后的当前值: ${atomicUInt8.load()}")
+}
+```
+
+运行结果：
+
+```text
+初始值: 10
+使用 deprecated 的 swap 方法交换前的旧值: 10
+交换后的当前值: 20
+```
 
 ## class Barrier
 
@@ -3367,6 +8263,25 @@ public init(count: Int64)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 参数 [count](../../collection/collection_package_api/collection_package_function.md#func-counttiterablet) 为负数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 Barrier 对象，需要协调 3 个线程
+    let barrier = Barrier(3)
+    println("Barrier 实例创建成功，需要协调 3 个线程")
+}
+```
+
+运行结果：
+
+```text
+Barrier 实例创建成功，需要协调 3 个线程
+```
+
 ### func wait(Duration)
 
 ```cangjie
@@ -3380,6 +8295,54 @@ public func wait(timeout!: Duration = Duration.Max): Unit
 参数：
 
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 阻塞时等待的最大时长，其默认值为 [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+main(): Unit {
+    // 创建一个 Barrier 对象，需要协调 3 个线程
+    let barrier = Barrier(3)
+    let list = ArrayList<Future<Unit>>()
+    
+    // 创建 3 个线程
+    for (i in 0..3) {
+        let fut = spawn {
+            println("开始执行的线程: 线程 ${i}")
+            sleep(100 * Duration.millisecond) // 模拟一些工作
+            println("到达屏障点的线程: 线程 ${i}")
+            barrier.wait() // 等待所有线程到达屏障点
+            println("继续执行的线程: 线程 ${i}")
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有线程执行完成")
+}
+```
+
+可能的运行结果：
+
+```text
+开始执行的线程: 线程 2
+开始执行的线程: 线程 0
+开始执行的线程: 线程 1
+到达屏障点的线程: 线程 1
+到达屏障点的线程: 线程 0
+到达屏障点的线程: 线程 2
+继续执行的线程: 线程 2
+继续执行的线程: 线程 1
+继续执行的线程: 线程 0
+所有线程执行完成
+```
 
 ## class Monitor <sup>(deprecated)</sup>
 
@@ -3410,6 +8373,18 @@ public init()
 
 功能：通过默认构造函数创建 [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated)。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 Monitor 对象
+    let monitor = Monitor()
+}
+```
+
 ### func notify()
 
 ```cangjie
@@ -3422,6 +8397,56 @@ public func notify(): Unit
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+import std.time.*
+import std.collection.*
+
+var mon = Monitor()
+var flag: Bool = true
+
+main(): Int64 {
+    let fut = spawn {
+        mon.lock()
+        while (flag) {
+            println("New thread: before wait")
+            mon.wait()
+            println("New thread: after wait")
+        }
+        mon.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    mon.lock()
+    println("Main thread: set flag")
+    flag = false
+    mon.unlock()
+
+    println("Main thread: notify")
+    mon.lock()
+    mon.notify() // 唤醒一个等待的线程
+    mon.unlock()
+
+    /* 等待新线程完成 */
+    fut.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+New thread: before wait
+Main thread: set flag
+Main thread: notify
+New thread: after wait
+```
+
 ### func notifyAll()
 
 ```cangjie
@@ -3433,6 +8458,68 @@ public func notifyAll(): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+var mon = Monitor()
+var flag: Bool = true
+
+main(): Int64 {
+    // 创建两个等待线程
+    let fut1 = spawn {
+        mon.lock()
+        while (flag) {
+            println("before wait: Thread 1")
+            mon.wait()
+            println("after wait: Thread 1")
+        }
+        mon.unlock()
+    }
+    
+    let fut2 = spawn {
+        mon.lock()
+        while (flag) {
+            println("before wait: Thread 2")
+            mon.wait()
+            println("after wait: Thread 2")
+        }
+        mon.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    mon.lock()
+    println("Main thread: set flag")
+    flag = false
+    mon.unlock()
+
+    println("Main thread: notifyAll")
+    mon.lock()
+    mon.notifyAll() // 唤醒所有等待的线程
+    mon.unlock()
+
+    /* 等待新线程完成 */
+    fut1.get()
+    fut2.get()
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+before wait: Thread 1
+before wait: Thread 2
+Main thread: set flag
+Main thread: notifyAll
+after wait: Thread 2
+after wait: Thread 1
+```
 
 ### func wait(Duration)
 
@@ -3458,6 +8545,59 @@ public func wait(timeout!: Duration = Duration.Max): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `timeout` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)，抛出异常。
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var mon = Monitor()
+var flag: Bool = true
+
+main(): Int64 {
+    let fut = spawn {
+        mon.lock()
+        while (flag) {
+            println("New thread: before wait")
+            // 等待最多 1 秒钟
+            let result = mon.wait(timeout: 1 * Duration.second)
+            if (result) {
+                println("New thread: awakened by notify")
+            } else {
+                println("New thread: timeout")
+            }
+        }
+        mon.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    mon.lock()
+    println("Main thread: set flag")
+    flag = false
+    mon.unlock()
+
+    println("Main thread: notify")
+    mon.lock()
+    mon.notify() // 唤醒等待的线程
+    mon.unlock()
+
+    /* 等待新线程完成 */
+    fut.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+New thread: before wait
+Main thread: set flag
+Main thread: notify
+New thread: awakened by notify
+```
 
 ## class MultiConditionMonitor <sup>(deprecated)</sup>
 
@@ -3488,6 +8628,18 @@ public init()
 
 功能：通过默认构造函数创建 [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated)。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 MultiConditionMonitor 对象
+    let monitor = MultiConditionMonitor()
+}
+```
+
 ### func newCondition()
 
 ```cangjie
@@ -3503,6 +8655,23 @@ public func newCondition(): ConditionID
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 MultiConditionMonitor 对象
+    let monitor = MultiConditionMonitor()
+    
+    // 创建一个条件变量
+    monitor.lock()
+    let conditionID = monitor.newCondition()
+    monitor.unlock()
+}
+```
 
 ### func notify(ConditionID)
 
@@ -3520,6 +8689,59 @@ public func notify(condID: ConditionID): Unit
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，或 `condID` 不是由该 [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated) 实例通过 `newCondition` 函数创建时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var monitor = MultiConditionMonitor()
+var flag: Bool = true
+
+main(): Int64 {
+    // 创建一个条件变量
+    monitor.lock()
+    let conditionID = monitor.newCondition()
+    monitor.unlock()
+    
+    let fut = spawn {
+        monitor.lock()
+        while (flag) {
+            println("New thread: before wait")
+            monitor.wait(conditionID)
+            println("New thread: after wait")
+        }
+        monitor.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    monitor.lock()
+    println("Main thread: set flag")
+    flag = false
+    monitor.unlock()
+
+    println("Main thread: notify")
+    monitor.lock()
+    monitor.notify(conditionID) // 唤醒指定条件变量上的一个线程
+    monitor.unlock()
+
+    /* 等待新线程完成 */
+    fut.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+New thread: before wait
+Main thread: set flag
+Main thread: notify
+New thread: after wait
+```
+
 ### func notifyAll(ConditionID)
 
 ```cangjie
@@ -3535,6 +8757,73 @@ public func notifyAll(condID: ConditionID): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，或 `condID` 不是由该 [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated) 实例通过 `newCondition` 函数创建时，抛出异常。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+var monitor = MultiConditionMonitor()
+var flag: Bool = true
+
+main(): Int64 {
+    // 创建一个条件变量
+    monitor.lock()
+    let conditionID = monitor.newCondition()
+    monitor.unlock()
+    
+    // 创建两个等待线程
+    let fut1 = spawn {
+        monitor.lock()
+        while (flag) {
+            println("before wait: Thread 1")
+            monitor.wait(conditionID)
+            println("after wait: Thread 1")
+        }
+        monitor.unlock()
+    }
+    
+    let fut2 = spawn {
+        monitor.lock()
+        while (flag) {
+            println("before wait: Thread 2")
+            monitor.wait(conditionID)
+            println("after wait: Thread 2")
+        }
+        monitor.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    monitor.lock()
+    println("Main thread: set flag")
+    flag = false
+    monitor.unlock()
+
+    println("Main thread: notifyAll")
+    monitor.lock()
+    monitor.notifyAll(conditionID) // 唤醒指定条件变量上的所有线程
+    monitor.unlock()
+
+    /* 等待新线程完成 */
+    fut1.get()
+    fut2.get()
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+before wait: Thread 2
+before wait: Thread 1
+Main thread: set flag
+Main thread: notifyAll
+after wait: Thread 1
+after wait: Thread 2
+```
 
 ### func wait(ConditionID, Duration)
 
@@ -3561,6 +8850,64 @@ public func wait(condID: ConditionID, timeout!: Duration = Duration.Max): Bool
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，或者挂起时间超过 `timeout` 或 `condID` 不是由该 [MultiConditionMonitor <sup>(deprecated)</sup>](sync_package_classes.md#class-multiconditionmonitor-deprecated) 实例通过 `newCondition` 函数创建时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `timeout` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var monitor = MultiConditionMonitor()
+var flag: Bool = true
+
+main(): Int64 {
+    // 创建一个条件变量
+    monitor.lock()
+    let conditionID = monitor.newCondition()
+    monitor.unlock()
+    
+    let fut = spawn {
+        monitor.lock()
+        while (flag) {
+            println("New thread: before wait")
+            // 等待最多 1 秒钟
+            let result = monitor.wait(conditionID, timeout: 1 * Duration.second)
+            if (result) {
+                println("New thread: awakened by notify")
+            } else {
+                println("New thread: timeout")
+            }
+        }
+        monitor.unlock()
+    }
+
+    /* 睡眠 10 毫秒，以确保新线程可以执行 */
+    sleep(10 * Duration.millisecond)
+
+    monitor.lock()
+    println("Main thread: set flag")
+    flag = false
+    monitor.unlock()
+
+    println("Main thread: notify")
+    monitor.lock()
+    monitor.notify(conditionID) // 唤醒指定条件变量上的一个线程
+    monitor.unlock()
+
+    /* 等待新线程完成 */
+    fut.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+New thread: before wait
+Main thread: set flag
+Main thread: notify
+New thread: awakened by notify
+```
 
 ## class Mutex
 
@@ -3596,6 +8943,18 @@ public init()
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当出现系统错误时，抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 Mutex 对象
+    let mutex = Mutex()
+}
+```
+
 ### func condition()
 
 ```cangjie
@@ -3614,6 +8973,23 @@ public func condition(): Condition
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 Mutex 对象
+    let mutex = Mutex()
+    
+    // 创建一个条件变量
+    mutex.lock()
+    let condition = mutex.condition()
+    mutex.unlock()
+}
+```
+
 ### func lock()
 
 ```cangjie
@@ -3621,6 +8997,50 @@ public func lock(): Unit
 ```
 
 功能：锁定互斥体，如果互斥体已被锁定，则阻塞。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+var mutex = Mutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    let list = ArrayList<Future<Unit>>()
+    
+    // 创建 3 个线程并发访问共享数据
+    for (i in 0..3) {
+        let fut = spawn {
+            mutex.lock()
+            // 临界区：访问共享数据
+            sharedData = sharedData + 1
+            println("sharedData = ${sharedData}, 线程: ${i}")
+            mutex.unlock()
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+sharedData = 1, 线程: 2
+sharedData = 2, 线程: 1
+sharedData = 3, 线程: 0
+所有线程执行完成，最终 sharedData = 3
+```
 
 ### func tryLock()
 
@@ -3633,6 +9053,71 @@ public func tryLock(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果互斥体已被锁定，则返回 `false`；反之，则锁定互斥体并返回 `true`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var mutex = Mutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 先锁定互斥体
+    mutex.lock()
+    println("主线程已锁定互斥体")
+    
+    // 启动一个新线程尝试锁定互斥体
+    let fut = spawn {
+        // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
+        let result = mutex.tryLock()
+        if (result) {
+            println("子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            mutex.unlock()
+        } else {
+            println("子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待子线程完成
+    fut.get()
+    
+    // 主线程解锁
+    mutex.unlock()
+    println("主线程已解锁互斥体")
+    
+    // 再次启动一个线程尝试锁定互斥体
+    let fut2 = spawn {
+        // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
+        let result = mutex.tryLock()
+        if (result) {
+            println("第二个子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            mutex.unlock()
+        } else {
+            println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待第二个子线程完成
+    fut2.get()
+    
+    println("最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+主线程已锁定互斥体
+子线程 tryLock 失败，互斥体已被其他线程锁定
+主线程已解锁互斥体
+第二个子线程 tryLock 成功
+最终 sharedData = 1
+```
 
 ### func unlock()
 
@@ -3647,6 +9132,67 @@ public func unlock(): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var mutex = Mutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建两个线程，演示锁的获取和释放
+    let fut1 = spawn {
+        mutex.lock()
+        println("线程1: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程1: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        mutex.unlock()
+        println("线程1: 已释放锁")
+    }
+    
+    let fut2 = spawn {
+        // 等待一段时间，确保线程1先获取锁
+        sleep(10 * Duration.millisecond)
+        
+        mutex.lock()
+        println("线程2: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程2: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        mutex.unlock()
+        println("线程2: 已释放锁")
+    }
+    
+    // 等待所有线程完成
+    fut1.get()
+    fut2.get()
+    
+    println("所有线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程1: 已获取锁
+线程1: 修改 sharedData = 1
+线程1: 已释放锁
+线程2: 已获取锁
+线程2: 修改 sharedData = 2
+线程2: 已释放锁
+所有线程执行完成，最终 sharedData = 2
+```
 
 ## class ReadWriteLock
 
@@ -3683,6 +9229,56 @@ public prop readLock: Lock
 
 类型：[Lock](./sync_package_interfaces.md#interface-lock)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+var rwLock = ReadWriteLock()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    let list = ArrayList<Future<Unit>>()
+    
+    // 创建多个读线程，同时读取共享数据
+    for (i in 0..3) {
+        let fut = spawn {
+            // 获取读锁
+            let readLock = rwLock.readLock
+            readLock.lock()
+            
+            // 读取共享数据（读操作）
+            println("读取 sharedData = ${sharedData}, 线程: ${i}")
+            
+            // 模拟读操作需要一些时间，这里发现，多线程同时进行了读操作，没有发生冲突
+            sleep(2 * Duration.second)
+            
+            readLock.unlock()
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有读线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有读线程执行完成")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+读取 sharedData = 0, 线程: 2
+读取 sharedData = 0, 线程: 0
+读取 sharedData = 0, 线程: 1
+所有读线程执行完成
+```
+
 ### prop writeLock
 
 ```cangjie
@@ -3692,6 +9288,57 @@ public prop writeLock: UniqueLock
 功能：获取写锁。
 
 类型：[UniqueLock](./sync_package_interfaces.md#interface-uniquelock)
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+var rwLock = ReadWriteLock()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    let list = ArrayList<Future<Unit>>()
+    
+    // 创建多个写线程，同时写入共享数据
+    for (i in 0..3) {
+        let fut = spawn {
+            // 获取写锁
+            let writeLock = rwLock.writeLock
+            writeLock.lock()
+            
+            // 写入共享数据（写操作）
+            sharedData++
+            println("写入之后 sharedData = ${sharedData}, 线程: ${i}")
+            
+            // 模拟写操作需要一些时间，这里发现，需要前面的写操作完成之后，后面的写操作才能开始
+            sleep(1 * Duration.second)
+            
+            writeLock.unlock()
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有读线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有写线程执行完成")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+写入之后 sharedData = 1, 线程: 2
+写入之后 sharedData = 2, 线程: 1
+写入之后 sharedData = 3, 线程: 0
+所有写线程执行完成
+```
 
 ### init(Bool)
 
@@ -3705,6 +9352,21 @@ public init(fair!: Bool = false)
 
 - fair!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 读写锁是否为公平模式，默认值为 `false`，即构造 “非公平” 的读写锁。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个非公平模式的 ReadWriteLock 对象
+    let rwLock1 = ReadWriteLock()
+    
+    // 创建一个公平模式的 ReadWriteLock 对象
+    let rwLock2 = ReadWriteLock(fair: true)
+}
+```
+
 ### func isFair()
 
 ```cangjie
@@ -3716,6 +9378,30 @@ public func isFair(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - `true` 表示 “公平” 模式，否则表示 “非公平” 模式。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个非公平模式的 ReadWriteLock 对象
+    let rwLock1 = ReadWriteLock()
+    println("rwLock1 是否为公平模式: ${rwLock1.isFair()}")
+    
+    // 创建一个公平模式的 ReadWriteLock 对象
+    let rwLock2 = ReadWriteLock(fair: true)
+    println("rwLock2 是否为公平模式: ${rwLock2.isFair()}")
+}
+```
+
+运行结果：
+
+```text
+rwLock1 是否为公平模式: false
+rwLock2 是否为公平模式: true
+```
 
 ## class ReentrantMutex <sup>(deprecated)</sup>
 
@@ -3753,6 +9439,18 @@ public init()
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当出现系统错误时，抛出异常。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个可重入互斥锁
+    let reentrantMutex = ReentrantMutex()
+}
+```
+
 ### func lock()
 
 ```cangjie
@@ -3760,6 +9458,67 @@ public open func lock(): Unit
 ```
 
 功能：锁定互斥体，如果互斥体已被锁定，则阻塞。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var reentrantMutex = ReentrantMutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建两个线程，演示锁的获取和释放
+    let fut1 = spawn {
+        reentrantMutex.lock()
+        println("线程1: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程1: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        reentrantMutex.unlock()
+        println("线程1: 已释放锁")
+    }
+    
+    let fut2 = spawn {
+        // 等待一段时间，确保线程1先获取锁
+        sleep(10 * Duration.millisecond)
+        
+        reentrantMutex.lock()
+        println("线程2: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程2: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        reentrantMutex.unlock()
+        println("线程2: 已释放锁")
+    }
+    
+    // 等待所有线程完成
+    fut1.get()
+    fut2.get()
+    
+    println("所有线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程1: 已获取锁
+线程1: 修改 sharedData = 1
+线程1: 已释放锁
+线程2: 已获取锁
+线程2: 修改 sharedData = 2
+线程2: 已释放锁
+所有线程执行完成，最终 sharedData = 2
+```
 
 ### func tryLock()
 
@@ -3772,6 +9531,68 @@ public open func tryLock(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果互斥体已被锁定，则返回 `false`；反之，则锁定互斥体并返回 `true`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var reentrantMutex = ReentrantMutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 先获取锁
+    reentrantMutex.lock()
+    println("主线程: 已获取锁")
+    
+    // 创建一个线程，尝试获取已被占用的锁
+    let fut = spawn {
+        // 尝试获取锁，应该会失败
+        let result = reentrantMutex.tryLock()
+        if (result) {
+            println("子线程: 成功获取锁")
+            sharedData = sharedData + 1
+            reentrantMutex.unlock()
+        } else {
+            println("子线程: 获取锁失败，锁已被占用")
+        }
+    }
+    
+    // 等待一段时间，让子线程执行
+    sleep(10 * Duration.millisecond)
+    
+    // 释放锁
+    reentrantMutex.unlock()
+    println("主线程: 已释放锁")
+    
+    // 再次尝试获取锁，应该会成功
+    let result = reentrantMutex.tryLock()
+    if (result) {
+        println("主线程: 再次成功获取锁")
+        sharedData = sharedData + 1
+        reentrantMutex.unlock()
+    } else {
+        println("主线程: 再次获取锁失败")
+    }
+    
+    // 等待子线程完成
+    fut.get()
+    
+    println("所有线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+主线程: 已获取锁
+子线程: 获取锁失败，锁已被占用
+主线程: 已释放锁
+主线程: 再次成功获取锁
+所有线程执行完成，最终 sharedData = 1
+```
 
 ### func unlock()
 
@@ -3786,6 +9607,67 @@ public open func unlock(): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var reentrantMutex = ReentrantMutex()
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建两个线程，演示锁的获取和释放
+    let fut1 = spawn {
+        reentrantMutex.lock()
+        println("线程1: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程1: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        reentrantMutex.unlock()
+        println("线程1: 已释放锁")
+    }
+    
+    let fut2 = spawn {
+        // 等待一段时间，确保线程1先获取锁
+        sleep(10 * Duration.millisecond)
+        
+        reentrantMutex.lock()
+        println("线程2: 已获取锁")
+        
+        // 模拟一些工作
+        sharedData = sharedData + 1
+        println("线程2: 修改 sharedData = ${sharedData}")
+        
+        // 释放锁
+        reentrantMutex.unlock()
+        println("线程2: 已释放锁")
+    }
+    
+    // 等待所有线程完成
+    fut1.get()
+    fut2.get()
+    
+    println("所有线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程1: 已获取锁
+线程1: 修改 sharedData = 1
+线程1: 已释放锁
+线程2: 已获取锁
+线程2: 修改 sharedData = 2
+线程2: 已释放锁
+所有线程执行完成，最终 sharedData = 2
+```
 
 ## class ReentrantReadMutex <sup>(deprecated)</sup>
 
@@ -3817,6 +9699,58 @@ public func lock(): Unit
 > - 在非公平模式下，如果没有其他线程持有或等待写锁，则立即持有读锁；如果有其他线程持有写锁，当前线程进入等待状态；否则，线程是否能立即持有读锁不做保证。
 > - 多个线程可以同时持有读锁并且一个线程可以重复多次持有读锁；如果一个线程持有写锁，那么它仍可以持有读锁。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var readLock = ReentrantReadWriteMutex().readMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建多个读线程，演示读锁的并发性
+    let list = ArrayList<Future<Unit>>()
+    
+    for (i in 0..3) {
+        let fut = spawn {
+            readLock.lock()
+            println("读取 sharedData = ${sharedData}, 线程: ${i} 获取读锁成功")
+            
+            // 模拟读操作需要一些时间
+            sleep(10 * Duration.millisecond)
+            
+            // 释放读锁
+            readLock.unlock()
+            println("释放读锁, 线程: ${i}")
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有读线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有读线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+读取 sharedData = 0, 线程: 2 获取读锁成功
+读取 sharedData = 0, 线程: 0 获取读锁成功
+读取 sharedData = 0, 线程: 1 获取读锁成功
+释放读锁, 线程: 2
+释放读锁, 线程: 1
+释放读锁, 线程: 0
+所有读线程执行完成，最终 sharedData = 0
+```
+
 ### func tryLock()
 
 ```cangjie
@@ -3829,6 +9763,72 @@ public func tryLock(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 若成功获取读锁，返回 `true`；若未能获取读锁，返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var readLock = ReentrantReadWriteMutex().readMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 先锁定互斥体
+    readLock.lock()
+    println("主线程已锁定互斥体")
+    
+    // 启动一个新线程尝试锁定互斥体
+    let fut = spawn {
+        // 尝试锁定互斥体（应该会失败，因为主线程已锁定，但是因为读锁特性，此会成功）
+        let result = readLock.tryLock()
+        if (result) {
+            println("子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            readLock.unlock()
+        } else {
+            println("子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待子线程完成
+    fut.get()
+    
+    // 主线程解锁
+    readLock.unlock()
+    println("主线程已解锁互斥体")
+    
+    // 再次启动一个线程尝试锁定互斥体
+    let fut2 = spawn {
+        // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
+        let result = readLock.tryLock()
+        if (result) {
+            println("第二个子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            readLock.unlock()
+        } else {
+            println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待第二个子线程完成
+    fut2.get()
+    
+    println("最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+主线程已锁定互斥体
+子线程 tryLock 成功
+主线程已解锁互斥体
+第二个子线程 tryLock 成功
+最终 sharedData = 2
+```
+
 ### func unlock()
 
 ```cangjie
@@ -3840,6 +9840,72 @@ public func unlock(): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当前线程未持有读锁，那么将抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var readLock = ReentrantReadWriteMutex().readMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 先锁定互斥体
+    readLock.lock()
+    println("主线程已锁定互斥体")
+    
+    // 启动一个新线程尝试锁定互斥体
+    let fut = spawn {
+        // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
+        let result = readLock.tryLock()
+        if (result) {
+            println("子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            readLock.unlock()
+        } else {
+            println("子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待子线程完成
+    fut.get()
+    
+    // 主线程解锁
+    readLock.unlock()
+    println("主线程已解锁互斥体")
+    
+    // 再次启动一个线程尝试锁定互斥体
+    let fut2 = spawn {
+        // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
+        let result = readLock.tryLock()
+        if (result) {
+            println("第二个子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            readLock.unlock()
+        } else {
+            println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待第二个子线程完成
+    fut2.get()
+    
+    println("最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+主线程已锁定互斥体
+子线程 tryLock 成功
+主线程已解锁互斥体
+第二个子线程 tryLock 成功
+最终 sharedData = 2
+```
 
 ## class ReentrantReadWriteMutex <sup>(deprecated)</sup>
 
@@ -3880,6 +9946,21 @@ public prop readMutex: ReentrantReadMutex
 
 类型：[ReentrantReadMutex <sup>(deprecated)</sup>](sync_package_classes.md#class-reentrantreadmutex-deprecated)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 ReentrantReadWriteMutex 对象
+    var rwMutex = ReentrantReadWriteMutex()
+    
+    // 获取读锁
+    let readMutex = rwMutex.readMutex
+}
+```
+
 ### prop writeMutex
 
 ```cangjie
@@ -3889,6 +9970,21 @@ public prop writeMutex: ReentrantWriteMutex
 功能：获取写锁。
 
 类型：[ReentrantWriteMutex <sup>(deprecated)</sup>](sync_package_classes.md#class-reentrantwritemutex-deprecated)
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个 ReentrantReadWriteMutex 对象
+    var rwMutex = ReentrantReadWriteMutex()
+    
+    // 获取写锁
+    let writeMutex = rwMutex.writeMutex
+}
+```
 
 ### init(ReadWriteMutexMode)
 
@@ -3901,6 +9997,21 @@ public init(mode!: ReadWriteMutexMode = ReadWriteMutexMode.Unfair)
 参数：
 
 - mode!: [ReadWriteMutexMode <sup>(deprecated)</sup>](sync_package_enums.md#enum-readwritemutexmode-deprecated) - 读写锁模式，默认值为 `Unfair`，即构造“非公平”的读写锁。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个非公平模式的 ReentrantReadWriteMutex 对象
+    var rwMutex1 = ReentrantReadWriteMutex()
+    
+    // 创建一个公平模式的 ReentrantReadWriteMutex 对象
+    var rwMutex2 = ReentrantReadWriteMutex(mode: ReadWriteMutexMode.Fair)
+}
+```
 
 ## class ReentrantWriteMutex <sup>(deprecated)</sup>
 
@@ -3930,6 +10041,59 @@ public func lock(): Unit
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当前线程已持有读锁。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var writeLock = ReentrantReadWriteMutex().writeMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建多个读线程，演示写锁的并发性
+    let list = ArrayList<Future<Unit>>()
+    
+    for (i in 0..3) {
+        let fut = spawn {
+            writeLock.lock()
+            sharedData++
+            println("读取 sharedData = ${sharedData}, 线程: ${i} 获取写锁成功")
+            
+            // 模拟读操作需要一些时间
+            sleep(10 * Duration.millisecond)
+            
+            // 释放写锁
+            writeLock.unlock()
+            println("释放写锁, 线程: ${i}")
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有写线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有写锁线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+读取 sharedData = 1, 线程: 2 获取写锁成功
+释放写锁, 线程: 2
+读取 sharedData = 2, 线程: 1 获取写锁成功
+释放写锁, 线程: 1
+读取 sharedData = 3, 线程: 0 获取写锁成功
+释放写锁, 线程: 0
+所有写锁线程执行完成，最终 sharedData = 3
+```
+
 ### func tryLock()
 
 ```cangjie
@@ -3941,6 +10105,72 @@ public func tryLock(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 若成功获取写锁，返回 `true`；若未能获取写锁，返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var writeLock = ReentrantReadWriteMutex().writeMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 先锁定互斥体
+    writeLock.lock()
+    println("主线程已锁定互斥体")
+    
+    // 启动一个新线程尝试锁定互斥体
+    let fut = spawn {
+        // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
+        let result = writeLock.tryLock()
+        if (result) {
+            println("子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            writeLock.unlock()
+        } else {
+            println("子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待子线程完成
+    fut.get()
+    
+    // 主线程解锁
+    writeLock.unlock()
+    println("主线程已解锁互斥体")
+    
+    // 再次启动一个线程尝试锁定互斥体
+    let fut2 = spawn {
+        // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
+        let result = writeLock.tryLock()
+        if (result) {
+            println("第二个子线程 tryLock 成功")
+            sharedData = sharedData + 1
+            writeLock.unlock()
+        } else {
+            println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
+        }
+    }
+    
+    // 等待第二个子线程完成
+    fut2.get()
+    
+    println("最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+主线程已锁定互斥体
+子线程 tryLock 失败，互斥体已被其他线程锁定
+主线程已解锁互斥体
+第二个子线程 tryLock 成功
+最终 sharedData = 1
+```
 
 ### func unlock()
 
@@ -3959,6 +10189,59 @@ public func unlock(): Unit
 异常：
 
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 当前线程未持有写锁。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+// 注意：ReentrantReadWriteMutex 已废弃
+var writeLock = ReentrantReadWriteMutex().writeMutex
+var sharedData: Int32 = 0
+
+main(): Int64 {
+    // 创建多个读线程，演示写锁的并发性
+    let list = ArrayList<Future<Unit>>()
+    
+    for (i in 0..3) {
+        let fut = spawn {
+            writeLock.lock()
+            sharedData++
+            println("读取 sharedData = ${sharedData}, 线程: ${i} 获取写锁成功")
+            
+            // 模拟读操作需要一些时间
+            sleep(10 * Duration.millisecond)
+            
+            // 释放写锁
+            writeLock.unlock()
+            println("释放写锁, 线程: ${i}")
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有写线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有写锁线程执行完成，最终 sharedData = ${sharedData}")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+读取 sharedData = 1, 线程: 2 获取写锁成功
+释放写锁, 线程: 2
+读取 sharedData = 2, 线程: 1 获取写锁成功
+释放写锁, 线程: 1
+读取 sharedData = 3, 线程: 0 获取写锁成功
+释放写锁, 线程: 0
+所有写锁线程执行完成，最终 sharedData = 3
+```
 
 ## class Semaphore
 
@@ -3982,6 +10265,29 @@ public prop count: Int64
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个计数器初始值为 5 的信号量
+    var semaphore = Semaphore(5)
+    
+    // 获取当前计数器的值
+    let count = semaphore.count
+    
+    println("信号量创建成功，当前计数器值为: ${count}")
+}
+```
+
+运行结果：
+
+```text
+信号量创建成功，当前计数器值为: 5
+```
+
 ### init(Int64)
 
 ```cangjie
@@ -3997,6 +10303,32 @@ public init(count: Int64)
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 参数 [count](../../collection/collection_package_api/collection_package_function.md#func-counttiterablet) 为负数时抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Unit {
+    // 创建一个计数器初始值为 5 的信号量
+    var semaphore = Semaphore(5)
+    
+    println("信号量创建成功，初始计数器值为: ${semaphore.count}")
+    
+    // 尝试创建一个计数器初始值为 0 的信号量
+    var semaphore2 = Semaphore(0)
+    
+    println("信号量创建成功，初始计数器值为: ${semaphore2.count}")
+}
+```
+
+运行结果：
+
+```text
+信号量创建成功，初始计数器值为: 5
+信号量创建成功，初始计数器值为: 0
+```
 
 ### func acquire(Int64)
 
@@ -4016,6 +10348,65 @@ public func acquire(amount!: Int64 = 1): Unit
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 参数 `amount` 为负数，或大于初始值。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.collection.*
+
+var semaphore = Semaphore(2)  // 创建一个计数器初始值为 2 的信号量
+
+main(): Int64 {
+    let list = ArrayList<Future<Unit>>()
+    
+    // 创建多个线程，演示信号量的获取和释放
+    for (i in 0..5) {
+        let fut = spawn {
+            println("线程: ${i}, 尝试获取信号量")
+            semaphore.acquire()  // 获取信号量
+            println("线程: ${i}, 成功获取信号量，开始执行任务")
+            
+            // 模拟执行任务
+            sleep(10 * Duration.millisecond)
+            
+            println("线程: ${i}, 任务执行完成，释放信号量")
+            semaphore.release()  // 释放信号量
+        }
+        list.add(fut)
+    }
+    
+    // 等待所有线程完成
+    for (f in list) {
+        f.get()
+    }
+    
+    println("所有线程执行完成")
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+线程: 4, 尝试获取信号量
+线程: 4, 成功获取信号量，开始执行任务
+线程: 0, 尝试获取信号量
+线程: 0, 成功获取信号量，开始执行任务
+线程: 1, 尝试获取信号量
+线程: 3, 尝试获取信号量
+线程: 2, 尝试获取信号量
+线程: 4, 任务执行完成，释放信号量
+线程: 2, 成功获取信号量，开始执行任务
+线程: 0, 任务执行完成，释放信号量
+线程: 1, 成功获取信号量，开始执行任务
+线程: 2, 任务执行完成，释放信号量
+线程: 3, 成功获取信号量，开始执行任务
+线程: 1, 任务执行完成，释放信号量
+线程: 3, 任务执行完成，释放信号量
+所有线程执行完成
+```
+
 ### func release(Int64)
 
 ```cangjie
@@ -4033,6 +10424,40 @@ public func release(amount!: Int64 = 1): Unit
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 参数 `amount` 为负数，或大于初始值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var semaphore = Semaphore(1)  // 创建一个计数器初始值为 1 的信号量
+
+main(): Unit {
+    println("初始信号量计数器值: ${semaphore.count}")
+    
+    // 获取信号量
+    semaphore.acquire()
+    println("获取信号量后计数器值: ${semaphore.count}")
+    
+    // 释放信号量
+    semaphore.release()
+    println("释放信号量后计数器值: ${semaphore.count}")
+    
+    // 再次释放信号量（计数器值不会超过初始值）
+    semaphore.release()
+    println("再次释放信号量后计数器值: ${semaphore.count}")
+}
+```
+
+运行结果：
+
+```text
+初始信号量计数器值: 1
+获取信号量后计数器值: 0
+释放信号量后计数器值: 1
+再次释放信号量后计数器值: 1
+```
 
 ### func tryAcquire(Int64)
 
@@ -4056,6 +10481,45 @@ public func tryAcquire(amount!: Int64 = 1): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 参数 `amount` 为负数，或大于初始值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+var semaphore = Semaphore(1)  // 创建一个计数器初始值为 1 的信号量
+
+main(): Unit {
+    println("初始信号量计数器值: ${semaphore.count}")
+    
+    // 尝试获取信号量，应该成功
+    let result1 = semaphore.tryAcquire()
+    println("第一次尝试获取信号量结果: ${result1}, 计数器值: ${semaphore.count}")
+    
+    // 再次尝试获取信号量，应该失败
+    let result2 = semaphore.tryAcquire()
+    println("第二次尝试获取信号量结果: ${result2}, 计数器值: ${semaphore.count}")
+    
+    // 释放信号量
+    semaphore.release()
+    println("释放信号量后计数器值: ${semaphore.count}")
+    
+    // 再次尝试获取信号量，应该成功
+    let result3 = semaphore.tryAcquire()
+    println("第三次尝试获取信号量结果: ${result3}, 计数器值: ${semaphore.count}")
+}
+```
+
+运行结果：
+
+```text
+初始信号量计数器值: 1
+第一次尝试获取信号量结果: true, 计数器值: 0
+第二次尝试获取信号量结果: false, 计数器值: 0
+释放信号量后计数器值: 1
+第三次尝试获取信号量结果: true, 计数器值: 0
+```
+
 ## class SyncCounter
 
 ```cangjie
@@ -4078,6 +10542,32 @@ public prop count: Int64
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    // 创建一个初始值为10的SyncCounter
+    let counter = SyncCounter(10)
+    println("初始计数: ${counter.count}")
+    
+    // 减少计数器
+    counter.dec()
+    println("减少后的计数: ${counter.count}")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始计数: 10
+减少后的计数: 9
+```
+
 ### init(Int64)
 
 ```cangjie
@@ -4094,6 +10584,26 @@ public init(count: Int64)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果参数 [count](../../collection/collection_package_api/collection_package_function.md#func-counttiterablet) 为负数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    // 创建一个初始值为5的SyncCounter
+    let counter = SyncCounter(5)
+    println("创建SyncCounter，初始计数: ${counter.count}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+创建SyncCounter，初始计数: 5
+```
+
 ### func dec()
 
 ```cangjie
@@ -4103,6 +10613,51 @@ public func dec(): Unit
 功能：计数器减一。
 
 如果计数器变为零，那么唤醒所有等待的线程；如果计数器已经为零，那么数值保持不变。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+import std.time.*
+
+main(): Int64 {
+    // 创建一个初始值为2的SyncCounter
+    let counter = SyncCounter(2)
+    println("初始计数: ${counter.count}")
+    
+    // 创建一个线程来减少计数器
+    let future = spawn {
+        sleep(100 * Duration.millisecond)  // 等待100毫秒
+        counter.dec()
+        println("第一次减少，当前计数: ${counter.count}")
+        
+        sleep(100 * Duration.millisecond)  // 再等待100毫秒
+        counter.dec()
+        println("第二次减少，当前计数: ${counter.count}")
+        return 0
+    }
+    
+    // 主线程等待计数器变为零
+    println("等待计数器变为零...")
+    counter.waitUntilZero()
+    println("计数器已变为零！")
+    
+    // 等待子线程完成
+    future.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始计数: 2
+等待计数器变为零...
+第一次减少，当前计数: 1
+第二次减少，当前计数: 0
+计数器已变为零！
+```
 
 ### func waitUntilZero(Duration)
 
@@ -4115,6 +10670,51 @@ public func waitUntilZero(timeout!: Duration = Duration.Max): Unit
 参数：
 
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 阻塞时等待的最大时长，其默认值为 [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+import std.time.*
+
+main(): Int64 {
+    // 创建一个初始值为2的SyncCounter
+    let counter = SyncCounter(2)
+    println("初始计数: ${counter.count}")
+    
+    // 创建一个线程来减少计数器
+    let future = spawn {
+        sleep(100 * Duration.millisecond)  // 等待100毫秒
+        counter.dec()
+        println("第一次减少，当前计数: ${counter.count}")
+        
+        sleep(100 * Duration.millisecond)  // 再等待100毫秒
+        counter.dec()
+        println("第二次减少，当前计数: ${counter.count}")
+        return 0
+    }
+    
+    // 主线程等待计数器变为零
+    println("等待计数器变为零...")
+    counter.waitUntilZero()
+    println("计数器已变为零！")
+    
+    // 等待子线程完成
+    future.get()
+    return 0
+}
+```
+
+运行结果：
+
+```text
+初始计数: 2
+等待计数器变为零...
+第一次减少，当前计数: 1
+第二次减少，当前计数: 0
+计数器已变为零！
+```
 
 ## class Timer
 
@@ -4156,6 +10756,49 @@ public static func after(delay: Duration, task: () -> Option<Duration>): Timer
 返回值：
 
 - [Timer](sync_package_classes.md#class-timer) - 一个 [Timer](sync_package_classes.md#class-timer) 实例
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.sync.*
+import std.time.*
+
+main(): Int64 {
+    let startTime = MonoTime.now()
+    println("开始创建定时器...")
+    
+    // 使用 Timer.after 创建一个定时器，首次延迟100毫秒执行
+    // 任务返回 Some(200ms) 表示每隔200毫秒重复执行
+    let timer = Timer.after(100 * Duration.millisecond, {=>
+        let elapsed = MonoTime.now() - startTime
+        println("定时器触发，耗时: ${elapsed}")
+        // 返回 Some(200ms) 表示200毫秒后再次执行
+        return Option.Some(200 * Duration.millisecond)
+    })
+    
+    // 等待1秒让定时器执行几次
+    sleep(Duration.second)
+    
+    // 取消定时器
+    timer.cancel()
+    println("定时器已取消")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+开始创建定时器...
+定时器触发，耗时: 100ms447us651ns
+定时器触发，耗时: 302ms92us694ns
+定时器触发，耗时: 503ms681us331ns
+定时器触发，耗时: 707ms981us827ns
+定时器触发，耗时: 911ms38us917ns
+定时器已取消
+```
 
 ### static func once(Duration, ()->Unit)
 
@@ -4366,6 +11009,49 @@ public func cancel(): Unit
 
 如果调用该函数时关联 Task 正在执行，不会打断当前运行。该函数不会阻塞当前线程。调用该函数多次等同于只调用一次。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    println("创建一个3秒后执行的定时器...")
+    
+    // 创建一个3秒后执行的定时器
+    let timer = Timer.once(3 * Duration.second, {=>
+        println("定时器任务执行了！这不应该发生，因为我们会取消它。")
+    })
+    
+    println("定时器已创建，将在3秒后执行")
+    println("等待1秒后取消定时器...")
+    
+    // 等待1秒
+    sleep(1 * Duration.second)
+    
+    // 取消定时器
+    timer.cancel()
+    println("定时器已取消")
+    
+    println("再等待3秒以验证定时器确实被取消了...")
+    sleep(3 * Duration.second)
+    println("程序结束，定时器任务没有执行。")
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+创建一个3秒后执行的定时器...
+定时器已创建，将在3秒后执行
+等待1秒后取消定时器...
+定时器已取消
+再等待3秒以验证定时器确实被取消了...
+程序结束，定时器任务没有执行。
+```
+
 ### func hashCode()
 
 ```cangjie
@@ -4377,6 +11063,34 @@ public func hashCode(): Int64
 返回值：
 
 - [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64) - 对象的哈希值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    // 创建一个定时器
+    let timer = Timer.once(Duration.second, {=> })
+    
+    // 获取哈希值
+    let hash = timer.hashCode()
+    
+    println("timer 的哈希值: ${hash}")
+    
+    // 取消定时器
+    timer.cancel()
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+timer 的哈希值: 1
+```
 
 ### operator func !=(Timer)
 
@@ -4394,6 +11108,49 @@ public operator func !=(rhs: Timer): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 若两个 [Timer](sync_package_classes.md#class-timer) 不是同一个实例，则返回 `true`，否则返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    // 创建两个不同的定时器
+    let timer1 = Timer.once(Duration.second, {=> })
+    let timer2 = Timer.once(Duration.second, {=> })
+    
+    // 检查它们是否不是同一个实例
+    if (timer1 != timer2) {
+        println("timer1 和 timer2 不是同一个实例")
+    } else {
+        println("timer1 和 timer2 是同一个实例")
+    }
+    
+    // 创建一个指向 timer1 的引用
+    let timer3 = timer1
+    
+    // 检查 timer1 和 timer3 是否不是同一个实例
+    if (timer1 != timer3) {
+        println("timer1 和 timer3 不是同一个实例")
+    } else {
+        println("timer1 和 timer3 是同一个实例")
+    }
+    
+    // 取消定时器
+    timer1.cancel()
+    timer2.cancel()
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+timer1 和 timer2 不是同一个实例
+timer1 和 timer3 是同一个实例
+```
+
 ### operator func ==(Timer)
 
 ```cangjie
@@ -4409,3 +11166,46 @@ public operator func ==(rhs: Timer): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 若两个 [Timer](sync_package_classes.md#class-timer) 是同一个实例，则返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sync.*
+
+main(): Int64 {
+    // 创建两个不同的定时器
+    let timer1 = Timer.once(Duration.second, {=> })
+    let timer2 = Timer.once(Duration.second, {=> })
+    
+    // 检查它们是否是同一个实例
+    if (timer1 == timer2) {
+        println("timer1 和 timer2 是同一个实例")
+    } else {
+        println("timer1 和 timer2 不是同一个实例")
+    }
+    
+    // 创建一个指向 timer1 的引用
+    let timer3 = timer1
+    
+    // 检查 timer1 和 timer3 是否是同一个实例
+    if (timer1 == timer3) {
+        println("timer1 和 timer3 是同一个实例")
+    } else {
+        println("timer1 和 timer3 不是同一个实例")
+    }
+    
+    // 取消定时器
+    timer1.cancel()
+    timer2.cancel()
+    
+    return 0
+}
+```
+
+运行结果：
+
+```text
+timer1 和 timer2 不是同一个实例
+timer1 和 timer3 是同一个实例
+```

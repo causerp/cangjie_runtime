@@ -27,6 +27,21 @@ public init(re: Regex, input: String)
 - re: [Regex](regex_package_classes.md#class-regex) - 正则表达式。
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 输入序列。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("hello")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+}
+```
+
 ### func allCount()
 
 ```cangjie
@@ -40,6 +55,31 @@ public func allCount(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 匹配结果总数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 获取匹配结果总数
+    let count = matcher.allCount()
+    println("匹配结果总数: ${count}")
+}
+```
+
+运行结果：
+
+```text
+匹配结果总数: 1
+```
 
 ### func find()
 
@@ -58,6 +98,34 @@ find 调用一次，当前偏移位置为最新一次匹配到的子序列后第
 异常：
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当存在匹配但提取匹配信息失败时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 查找第一个匹配到的子序列
+    let result = matcher.find()
+    match (result) {
+        case Some(matchData) => println("找到匹配")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+找到匹配
+```
 
 ### func find(Int64)
 
@@ -80,6 +148,34 @@ public func find(index: Int64): Option<MatchData>
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 index 小于 0，或 index 大于等于输入序列的 size 时，抛出异常。
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当存在匹配但提取匹配信息失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 从指定位置开始查找匹配到的子序列
+    let result = matcher.find(5)
+    match (result) {
+        case Some(matchData) => println("找到匹配")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+未找到匹配
+```
+
 ### func findAll()
 
 ```cangjie
@@ -95,6 +191,34 @@ public func findAll(): Option<Array<MatchData>>
 异常：
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当存在匹配但提取匹配信息失败时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 查找所有匹配到的子序列
+    let result = matcher.findAll()
+    match (result) {
+        case Some(matchDataArray) => println("找到 ${matchDataArray.size} 个匹配")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+找到 1 个匹配
+```
 
 ### func fullMatch()
 
@@ -112,6 +236,45 @@ public func fullMatch(): Option<MatchData>
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当存在匹配但提取匹配信息失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("hello world")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 对整个输入序列进行匹配
+    let result = matcher.fullMatch()
+    match (result) {
+        case Some(matchData) => println("完全匹配成功")
+        case None => println("完全匹配失败")
+    }
+
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher01 = Matcher(regex, "hello worldd")
+
+    // 对整个输入序列进行匹配
+    let result01 = matcher01.fullMatch()
+    match (result01) {
+        case Some(matchData) => println("完全匹配成功")
+        case None => println("完全匹配失败")
+    }
+}
+```
+
+运行结果：
+
+```text
+完全匹配成功
+完全匹配失败
+```
+
 ### func getString()
 
 ```cangjie
@@ -123,6 +286,31 @@ public func getString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 匹配序列。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("hello")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 获取匹配序列
+    let str = matcher.getString()
+    println("匹配序列: ${str}")
+}
+```
+
+运行结果：
+
+```text
+匹配序列: hello world
+```
 
 ### func matchStart()
 
@@ -140,6 +328,34 @@ public func matchStart(): Option<MatchData>
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当存在匹配但提取匹配信息失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("hello")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 对输入序列的头部进行匹配
+    let result = matcher.matchStart()
+    match (result) {
+        case Some(matchData) => println("头部匹配成功")
+        case None => println("头部匹配失败")
+    }
+}
+```
+
+运行结果：
+
+```text
+头部匹配成功
+```
+
 ### func region()
 
 ```cangjie
@@ -151,6 +367,24 @@ public func region(): Position
 返回值：
 
 - [Position](regex_package_structs.md#struct-position) - 匹配器的区域设置。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("hello")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 返回匹配器的区域设置
+    let position = matcher.region()
+}
+```
 
 ### func replace(String)
 
@@ -167,6 +401,31 @@ public func replace(replacement: String): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 替换后字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("world")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 将匹配到的第一个子序列替换为目标字符串
+    let result = matcher.replace("there")
+    println("替换后结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: hello there
+```
 
 ### func replace(String, Int64)
 
@@ -189,6 +448,31 @@ public func replace(replacement: String, index: Int64): String
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 index 小于 0，或 index 大于等于输入序列的 size 时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 从指定位置开始匹配正则，将匹配到的第一个子序列替换为目标字符串
+    let result = matcher.replace("x", 3)
+    println("替换后结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: helxo world
+```
+
 ### func replaceAll(String)
 
 ```cangjie
@@ -204,6 +488,31 @@ public func replaceAll(replacement: String): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 替换后的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式(找到后面紧跟o的l)
+    let regex = Regex("l(?=o)")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 将输入序列中所有与正则匹配的子序列替换为给定的目标字符串
+    let result = matcher.replaceAll("x")
+    println("替换后结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: helxo world
+```
 
 ### func replaceAll(String, Int64)
 
@@ -222,6 +531,31 @@ public func replaceAll(replacement: String, limit: Int64): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 替换后字符串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("l")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 将输入序列中与正则匹配的前 limit 个子序列替换为给定的替换字符串
+    let result = matcher.replaceAll("x", 2)
+    println("替换后结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: hexxo world
+```
+
 ### func resetRegion()
 
 ```cangjie
@@ -233,6 +567,37 @@ public func resetRegion(): Matcher
 返回值：
 
 - [Matcher](#class-matcher-deprecated) - 匹配器自身。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("world")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world, cangjie, hello world")
+    
+    // 将匹配到的第一个子序列替换为目标字符串
+    let result = matcher.replace("there")
+    println("替换后结果: ${result}")
+
+    // 重置匹配器，注释此行，结果改变
+    matcher.resetRegion()
+    let result01 = matcher.replace("there")
+    println("替换后结果: ${result01}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: hello there, cangjie, hello world
+替换后结果: hello there, cangjie, hello world
+```
 
 ### func resetString(String)
 
@@ -249,6 +614,36 @@ public func resetString(input: String): Matcher
 返回值：
 
 - [Matcher](#class-matcher-deprecated) - 匹配器自身。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("world")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    let result = matcher.replace("there")
+    println("替换后结果: ${result}")
+
+    // 重置匹配器
+    let newMatcher = matcher.resetString("world! hello!")
+    let result01 = newMatcher.replace("there")
+    println("替换后结果: ${result01}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: hello there
+替换后结果: there! hello!
+```
 
 ### func setRegion(Int64, Int64)
 
@@ -271,6 +666,33 @@ public func setRegion(beginIndex: Int64, endIndex: Int64): Matcher
 
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 beginIndex 小于0，或 beginIndex 大于输入序列的 size 时，抛出异常；当 endIndex 小于0，或 endIndex 大于输入序列的 size 时，抛出异常；当 beginIndex 大于 endIndex 时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("l")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 设置匹配器可搜索区域的位置信息
+    let newMatcher = matcher.setRegion(8, 10)
+    // 仅在可搜索区域内进行匹配
+    let result = newMatcher.replace("!!")
+    println("替换后结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+替换后结果: hello wor!!d
+```
+
 ### func split()
 
 ```cangjie
@@ -282,6 +704,38 @@ public func split(): Array<String>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 子序列数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("l")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 将给定的输入序列根据正则尽可能的分割成多个子序列
+    let result = matcher.split()
+    println("分割后的子序列数量: ${result.size}")
+    for (i in 0..result.size) {
+        println("子序列[${i}]: ${result[i]}")
+    }
+}
+```
+
+运行结果：
+
+```text
+分割后的子序列数量: 4
+子序列[0]: he
+子序列[1]: 
+子序列[2]: o wor
+子序列[3]: d
+```
 
 ### func split(Int64)
 
@@ -298,6 +752,37 @@ public func split(limit: Int64): Array<String>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 如果 limit>0，返回最多 limit 个子串；如果 limit<=0，返回最大可分割数个子串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建正则表达式
+    let regex = Regex("l")
+    
+    // 使用正则表达式和输入序列创建Matcher实例
+    let matcher = Matcher(regex, "hello world")
+    
+    // 将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)
+    let result = matcher.split(3)
+    println("分割后的子序列数量: ${result.size}")
+    for (i in 0..result.size) {
+        println("子序列[${i}]: ${result[i]}")
+    }
+}
+```
+
+运行结果：
+
+```text
+分割后的子序列数量: 3
+子序列[0]: he
+子序列[1]: 
+子序列[2]: o world
+```
 
 ## class Regex
 
@@ -329,6 +814,31 @@ public init(pattern: String, flags: Array<RegexFlag>)
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当初始化失败时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 使用指定的模式和标志创建一个 Regex 实例
+    let regex = Regex("hello", [IgnoreCase])
+    
+    // 使用正则表达式进行匹配
+    let result = regex.find("Hello World")
+    match (result) {
+        case Some(matchData) => println("匹配成功: ${matchData.matchString()}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+匹配成功: Hello
+```
+
 ### init(String, RegexOption) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -349,6 +859,34 @@ public init(pattern: String, option: RegexOption)
 异常：
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当初始化失败时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 RegexOption 实例
+    let option = RegexOption().ignoreCase()
+    
+    // 使用指定的模式和选项创建一个 Regex 实例
+    let regex = Regex("hello", option)
+    
+    // 使用正则表达式进行匹配
+    let result = regex.find("Hello World")
+    match (result) {
+        case Some(matchData) => println("匹配成功: ${matchData.matchString()}")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+匹配成功: Hello
+```
 
 ### func find(String, Bool)
 
@@ -470,7 +1008,7 @@ main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let arr = r.findAll("2024-10-24&2025-01-01", group: true)
     for (md in arr) {
-        println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
+        println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
         for ((name, index) in r.getNamedGroups()) {
             println("${name} => ${index}")
         }
@@ -481,11 +1019,11 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
+found: `2024-10-24` and groupCount: 3
 day => 3
 month => 2
 year => 1
-# found: `2025-01-01` and groupCount: 3
+found: `2025-01-01` and groupCount: 3
 day => 3
 month => 2
 year => 1
@@ -520,7 +1058,7 @@ main(): Unit {
     while (true) {
         match (iter.next()) {
             case Some(md) =>
-                println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
+                println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
                 for ((name, index) in r.getNamedGroups()) {
                     println("${name} => ${index}")
                 }
@@ -533,11 +1071,11 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
+found: `2024-10-24` and groupCount: 3
 day => 3
 month => 2
 year => 1
-# found: `2025-01-01` and groupCount: 3
+found: `2025-01-01` and groupCount: 3
 day => 3
 month => 2
 year => 1
@@ -562,6 +1100,34 @@ public func matcher(input: String): Matcher
 返回值：
 
 - [Matcher](#class-matcher-deprecated) - 创建的匹配器。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 Regex 实例
+    let regex = Regex("hello")
+    
+    // 创建匹配器
+    let matcher = regex.matcher("hello world")
+    
+    // 使用匹配器查找匹配项
+    let result = matcher.find()
+    match (result) {
+        case Some(matchData) => println("匹配成功")
+        case None => println("未找到匹配")
+    }
+}
+```
+
+运行结果：
+
+```text
+匹配成功
+```
 
 ### func matches(String)
 
@@ -798,6 +1364,32 @@ public func split(input: String, limit: Int64): Array<String>
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 如果 limit>0，返回最多 limit 个子串；如果 limit<=0，返回最大可分割数个子串。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 Regex 实例
+    let regex = Regex("&")
+    
+    // 将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)
+    let result = regex.split("2019-4-5&2024-10-24&2025-01-01", 2)
+    
+    for (subStr in result) {
+        println(subStr)
+    }
+}
+```
+
+运行结果：
+
+```text
+2019-4-5
+2024-10-24&2025-01-01
+```
+
 ### func string()
 
 ```cangjie
@@ -809,6 +1401,29 @@ public func string(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 输入序列。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 Regex 实例
+    let regex = Regex("hello")
+    
+    // 获取正则的输入序列
+    let pattern = regex.string()
+    
+    println("正则表达式: ${pattern}")
+}
+```
+
+运行结果：
+
+```text
+正则表达式: hello
+```
 
 ## class RegexOption <sup>(deprecated)</sup>
 
@@ -836,6 +1451,18 @@ public init()
 
 功能：创建一个 [RegexOption](#class-regexoption-deprecated) 实例， 匹配模式为普通模式（NORMAL）。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 RegexOption 实例，匹配模式为普通模式（NORMAL）
+    let regexOption = RegexOption()
+}
+```
+
 ### func ignoreCase()
 
 ```cangjie
@@ -847,6 +1474,21 @@ public func ignoreCase(): RegexOption
 返回值：
 
 - [RegexOption](#class-regexoption-deprecated) - 修改后的 [RegexOption](#class-regexoption-deprecated)。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 RegexOption 实例
+    let regexOption = RegexOption()
+    
+    // 修改匹配模式为忽略大小写（IGNORECASE）
+    let newRegexOption = regexOption.ignoreCase()
+}
+```
 
 ### func multiLine()
 
@@ -860,6 +1502,21 @@ public func multiLine(): RegexOption
 
 - [RegexOption](#class-regexoption-deprecated) - 修改后的 [RegexOption](#class-regexoption-deprecated)。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 RegexOption 实例
+    let regexOption = RegexOption()
+    
+    // 修改匹配模式为多行文本模式（MULTILINE）
+    let newRegexOption = regexOption.multiLine()
+}
+```
+
 ### func toString()
 
 ```cangjie
@@ -871,3 +1528,26 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 正则匹配模式。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.regex.*
+
+main(): Unit {
+    // 创建一个 RegexOption 实例
+    let regexOption = RegexOption()
+    
+    // 获取 RegexOption 当前表示的正则匹配模式
+    let mode = regexOption.toString()
+    
+    println("当前匹配模式: ${mode}")
+}
+```
+
+运行结果：
+
+```text
+当前匹配模式: NORMAL
+```

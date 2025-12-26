@@ -128,7 +128,7 @@ import std.process.*
 
 main(): Int64 {
     // 执行命令并捕获其输出
-    let (exitCode, stdout, stderr) = executeWithOutput("echo", ["Hello, World!"])
+    let (exitCode, stdout, stderr) = executeWithOutput("echo", ["-n", "Hello, World!"])
     let stdoutStr = String.fromUtf8(stdout)
     let stderrStr = String.fromUtf8(stderr)
     println("退出码: ${exitCode}")
@@ -143,7 +143,6 @@ main(): Int64 {
 ```text
 退出码: 0
 标准输出: Hello, World!
-
 标准错误: 
 ```
 
