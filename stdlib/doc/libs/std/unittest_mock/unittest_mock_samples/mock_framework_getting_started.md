@@ -13,11 +13,11 @@ mock 框架本身是仓颉标准库中**单元测试**的一部分。使用 mock
 常见 mock 测试用例：
 
 * 调用[mock 构造函数](./mock_framework_basics.md#创建-mock-对象)创建 mock/spy 对象。
-* 调用[配置 API](./mock_framework_basics.md#配置-api)设置 mock 行为。
+* 调用[配置 API](./mock_framework_basics.md#配置-api) 设置 mock 行为。
 * 使用 mock 对象替代测试代码依赖。
-* （可选）调用[验证 API](./mock_framework_verification.md#mock-框架验证-api)来验证测试代码与 mock/spy 对象之间的交互。
+* （可选）调用[验证 API](./mock_framework_verification.md#mock-框架验证-api) 来验证测试代码与 mock/spy 对象之间的交互。
 
-以如下简单API为例：
+以如下简单 API 为例：
 
 <!--compile-test0-->
 ```cangjie
@@ -44,7 +44,7 @@ public class Controller {
 
 <!--compile-test0-->
 ```cangjie
-// 导入mock框架包
+// 导入 mock 框架包
 import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
@@ -55,13 +55,13 @@ class ControllerTest {
 
     @TestCase
     func testFindSuccessfully() {
-        // 只需要创建mock，不用创建真正的Repository
+        // 只需要创建 mock，不用创建真正的 Repository
         let repository = mock<Repository>()
 
-        // 使用@On宏配置testData行为
+        // 使用@On 宏配置 testData 行为
         @On(repository.requestData(testId, _)).returns(testResponse)
 
-        // 创建真正的Controller测试以便测试实际的实现
+        // 创建真正的 Controller 测试以便测试实际的实现
         let controller = Controller(repository)
 
         // 运行测试代码
@@ -75,7 +75,7 @@ class ControllerTest {
     func testTimeout() {
         let repository = mock<Repository>()
 
-        // 设置getData抛出异常
+        // 设置 getData 抛出异常
         @On(repository.requestData(testId, _)).throws(TimeoutException())
 
         let controller = Controller(repository)

@@ -16,7 +16,7 @@ public struct Function0Wrapper<R> {
 public Function0Wrapper(public let function: () -> R)
 ```
 
-功能：Function0Wrapper构造器。
+功能：Function0Wrapper 构造器。
 
 参数：
 
@@ -112,7 +112,7 @@ public struct TupleWrapper2<T0, T1> {
 public TupleWrapper2(public let tuple: (T0, T1))
 ```
 
-功能：TupleWrapper2构造器。
+功能：TupleWrapper2 构造器。
 
 参数：
 
@@ -298,7 +298,7 @@ public struct TupleWrapper3<T0, T1, T2> {
 public TupleWrapper3(public let tuple: (T0, T1, T2))
 ```
 
-功能：TupleWrapper3构造器。
+功能：TupleWrapper3 构造器。
 
 参数：
 
@@ -485,11 +485,11 @@ public struct TupleWrapper4<T0, T1, T2, T3> {
 public TupleWrapper4(public let tuple: (T0, T1, T2, T3))
 ```
 
-功能：TupleWrapper4构造器。
+功能：TupleWrapper4 构造器。
 
 参数：
 
-- tuple: (T0, T1, T2, T3) - 闭包的4个入参。
+- tuple: (T0, T1, T2, T3) - 闭包的 4 个入参。
 
 ### let tuple
 
@@ -673,11 +673,11 @@ public struct TupleWrapper5<T0, T1, T2, T3, T4> {
 public TupleWrapper5(public let tuple: (T0, T1, T2, T3, T4))
 ```
 
-功能：TupleWrapper5构造器。
+功能：TupleWrapper5 构造器。
 
 参数：
 
-- tuple: (T0, T1, T2, T3, T4) - 闭包的5个入参。
+- tuple: (T0, T1, T2, T3, T4) - 闭包的 5 个入参。
 
 ### let tuple
 
