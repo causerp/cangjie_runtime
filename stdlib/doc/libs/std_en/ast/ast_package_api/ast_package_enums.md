@@ -608,6 +608,14 @@ DOUBLE_ARROW
 
 Function: Constructs an enumeration instance representing `=>`.
 
+### DOUBLE_COLON
+
+```cangjie
+DOUBLE_COLON
+```
+
+Function: Constructs an enumeration instance representing `::`.
+
 ### ELLIPSIS
 
 ```cangjie
