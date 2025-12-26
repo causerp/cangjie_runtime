@@ -7,6 +7,7 @@
 ![](runtime/figures/runtime_std_zh.png)
 
 > 三方库的使用方式
+>
 > - `libboundscheck` 的使用主体是仓颉运行时和仓颉编程语言标准库，使用方式是源码依赖，会编译集成到二进制发布包中。
 > - `OpenSSL` 的使用主体是仓颉运行时，使用方式是动态链接系统中动态库，不依赖源码。
 > - `PCRE2` 的使用主体是标准库 `regex`，使用方式是源码依赖，会编译集成到二进制发布包中。
@@ -55,7 +56,7 @@
 
 ### 目录
 
-```
+```text
 /cangjie_runtime
 ├── runtime
 │   ├── build            # 构建脚本
@@ -84,7 +85,7 @@
 
 ### 约束
 
-当前暂不支持 Windows 环境内对仓颉运行时进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的仓颉运行时产物，详见[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见[平台支持计划](#平台支持计划)。
+当前暂不支持 Windows 环境内对仓颉运行时进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的仓颉运行时产物，详见[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见[平台支持计划](#平台支持计划)。
 
 ### 编译构建
 
@@ -92,7 +93,7 @@
 
 ### 使用说明
 
-运行时独立构建产物需要配合cjc编译器及标准库等使用，整体可在 Linux、macOS、Windows 与 OpenHarmony 系统上直接运行。具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+运行时独立构建产物需要配合 cjc 编译器及标准库等使用，整体可在 Linux、macOS、Windows 与 OpenHarmony 系统上直接运行。具体集成方式请查看[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 ## 仓颉编程语言 - 标准库（std）
 
@@ -106,7 +107,6 @@
 - 功能通用：标准库提供了开发者最常使用的一些库能力，旨在为开发者解决大部分基础问题。
 - 质量标杆：标准库追求在性能、代码风格等方面为其他仓颉库树立范例和标杆。
 
-
 标准库的详细介绍和使用可以参见[仓颉编程语言标准库 API](./stdlib/doc/libs/summary_cjnative.md)。
 
 ### 系统架构
@@ -119,7 +119,7 @@
 
 主要目录如下：
 
-```
+```text
 /cangjie_runtime
 ├── runtime
 └── stdlib
@@ -158,7 +158,7 @@
 
 ### 约束
 
-当前暂不支持 Windows 环境内对仓颉编程语言标准库进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的标准库产物，详见[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见[平台支持计划](#平台支持计划)。
+当前暂不支持 Windows 环境内对仓颉编程语言标准库进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的标准库产物，详见[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见[平台支持计划](#平台支持计划)。
 
 ### 编译构建
 
@@ -166,11 +166,12 @@
 
 ### 使用说明
 
-标准库构建产物需要配合 cjc 编译器及运行时等使用，整体可在 Linux、macOS、Windows 与 OpenHarmony 系统上直接运行。具体集成方式请查看[仓颉SDK集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+标准库构建产物需要配合 cjc 编译器及运行时等使用，整体可在 Linux、macOS、Windows 与 OpenHarmony 系统上直接运行。具体集成方式请查看[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
 
 ## 平台支持计划
-- 构建平台演进：计划于2025年底支持 Windows 构建出仓颉运行时和标准库产物。
-- 仓颉应用运行平台演进：计划 2025年10月20号支持仓颉应用在 OHOS-ARM32 平台运行，反射、动态加载特性以及部分编译器优化等高级特性计划在2025 Q4 支持。
+
+- 构建平台演进：计划于 2025 年底支持 Windows 构建出仓颉运行时和标准库产物。
+- 仓颉应用运行平台演进：计划 2025 年 10 月 20 号支持仓颉应用在 OHOS-ARM32 平台运行，反射、动态加载特性以及部分编译器优化等高级特性计划在 2025 Q4 支持。
 
 ## 相关仓
 

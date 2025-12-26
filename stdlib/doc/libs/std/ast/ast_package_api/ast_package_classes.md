@@ -10827,6 +10827,7 @@ protected open func visit(_: Body): Unit
 参数：
 
 - _: [Body](ast_package_classes.md#class-body) - [Body](ast_package_classes.md#class-body) 类型的被遍历节点。
+
 ### func visit(CallExpr)
 
 ```cangjie

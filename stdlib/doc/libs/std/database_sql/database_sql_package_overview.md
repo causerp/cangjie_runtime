@@ -35,7 +35,7 @@ SQL 数据类型和仓颉数据类型对应表如下：
 | `TIMESTAMP` | `time.DateTime`  | `SqlTimestamp` | 值支持 `YEAR`，`MONTH`，`DAY`，`HOUR`，`MINUTE`，`SECOND`，`TIME ZONE`。 |
 | `INTERVAL`  | `time.Duration`  | `SqlInterval`  | 年-月间隔或者日-时间隔。                                 |
 
-## API列表
+## API 列表
 
 ### 接口
 

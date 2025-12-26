@@ -414,7 +414,7 @@ public func get(timeout: Duration): T
 
 功能：阻塞当前线程，等待指定时长并获取当前 [Future](core_package_classes.md#class-futuret)\<T> 对象对应的线程的返回值。
 
-需指定等待的超时时间，如果相应的线程在指定时间内未完成执行，则该函数将抛出异常[TimeoutException](./core_package_exceptions.md#class-timeoutexception)。如果 timeout <= Duration.Zero，等同于 get()，即不限制等待时长。如果线程抛出异常退出执行，在 get 调用处将继续抛出该异常。
+需指定等待的超时时间，如果相应的线程在指定时间内未完成执行，则该函数将抛出异常 [TimeoutException](./core_package_exceptions.md#class-timeoutexception)。如果 timeout <= Duration.Zero，等同于 get()，即不限制等待时长。如果线程抛出异常退出执行，在 get 调用处将继续抛出该异常。
 
 参数：
 
@@ -766,7 +766,7 @@ main(): Int64 {
     let len: Int64 = iter.count()
     println(len)
 
-    /* 使用迭代器进行遍历，但是count消耗了迭代器中的元素，因此不会打印 */
+    /* 使用迭代器进行遍历，但是 count 消耗了迭代器中的元素，因此不会打印 */
     while (true) {
         match (iter.next()) {
             case Some(i) => println(i)
@@ -896,7 +896,7 @@ public func filterMap<R>(transform: (T) -> Option<R>): Iterator<R>
 main(): Int64 {
     var arr: Array<Int64> = [1, 2, 3, 4, 5]
 
-    /* 获取过滤后的迭代器对象，对元素进行过滤和映射,映射需返回Option类型 */
+    /* 获取过滤后的迭代器对象，对元素进行过滤和映射，映射需返回 Option 类型 */
     var iter = arr.iterator()
     var iter1 = iter.filterMap({
         value: Int64 => if (value > 2) {
@@ -982,7 +982,7 @@ public func flatMap<R>(transform: (T) -> Iterator<R>): Iterator<R>
 main(): Int64 {
     var arr: Array<Array<Int64>> = [[1], [2], [3], [4, 5]]
 
-    /* 获取带flatten功能的迭代器对象 */
+    /* 获取带 flatten 功能的迭代器对象 */
     var iter = arr.iterator()
     var iter1 = iter.flatMap({value => value.iterator()})
 
@@ -1105,7 +1105,7 @@ public func inspect(action: (T) -> Unit): Iterator<T>
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* 获取迭代器对象，并为next函数附加额外操作 */
+    /* 获取迭代器对象，并为 next 函数附加额外操作 */
     var iter = arr.iterator()
     var iter1 = iter.inspect({value => println("Logging: Processing ${value}")})
 
@@ -1152,7 +1152,7 @@ public func intersperse(separator: T): Iterator<T>
 main(): Int64 {
     var arr: Array<Int64> = [1, 2]
 
-    /* 获取迭代器对象，每两个元素之间插入一个0 */
+    /* 获取迭代器对象，每两个元素之间插入一个 0 */
     var iter = arr.iterator()
     var iter1 = iter.intersperse(0)
 
@@ -1326,11 +1326,11 @@ main(): Int64 {
     var iter1 = arr.iterator()
     var iter2 = arr.iterator()
 
-    /* 存在元素大于2，返回false */
+    /* 存在元素大于 2，返回 false */
     var flag1: Bool = iter1.none({value => value > 2})
     println(flag1)
 
-    /* 不存在元素大于5，返回true */
+    /* 不存在元素大于 5，返回 true */
     var flag2: Bool = iter2.none({value => value > 5})
     println(flag2)
     return 0
@@ -1389,7 +1389,7 @@ public func skip(count: Int64): Iterator<T>
 
 功能：从前往后从当前迭代器跳过特定个数。
 
-当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于0并且count小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
+当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于 0 并且 count 小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
 
 参数：
 

@@ -44,7 +44,7 @@ public class MacroContextException <: Exception {
 }
 ```
 
-功能：ast库的上下文宏异常类，在上下文宏的相关接口中发生异常时使用。
+功能：ast 库的上下文宏异常类，在上下文宏的相关接口中发生异常时使用。
 
 父类型：
 

@@ -67,7 +67,7 @@ func isTitleCase(): Bool
 
 功能：判断该类型是否是 `Unicode` 标题化字符。
 
-`Unicode` 中的标题化字符指的是一种特殊的字母形式，它们在某些语言中用于表示标题中每个单词的首字母大写的形式。这些字母由特殊的字符表示，例如U+01C5（ǅ）和U+01F1（Ǳ）。这些字符通常用于一些东欧语言，如克罗地亚语和塞尔维亚语。
+`Unicode` 中的标题化字符指的是一种特殊的字母形式，它们在某些语言中用于表示标题中每个单词的首字母大写的形式。这些字母由特殊的字符表示，例如 U+01C5（ǅ）和 U+01F1（Ǳ）。这些字符通常用于一些东欧语言，如克罗地亚语和塞尔维亚语。
 
 标题化字符包括：`0x01C5`、`0x01C8`、`0x01CB`、`0x01F2`、`0x1F88 - 0x1F8F`、`0x1F98 - 0x1F9F`、`0x1F98 - 0x1F9F`、`0x1FA8 - 0x1FAF`、`0x1FBC`、`0x1FCC`、`0x1FFC`
 
@@ -81,7 +81,7 @@ func isTitleCase(): Bool
 func isUpperCase(): Bool
 ```
 
-功能：：判断该类型是否是 `Unicode` 大写字符。
+功能：判断该类型是否是 `Unicode` 大写字符。
 
 返回值：
 
@@ -295,7 +295,7 @@ public func isTitleCase(): Bool
 
 功能：判断字符是否是 `Unicode` 标题化字符。
 
-`Unicode` 中的标题化字符指的是一种特殊的字母形式，它们在某些语言中用于表示标题中每个单词的首字母大写的形式。这些字母由特殊的字符表示，例如U+01C5（ǅ）和U+01F1（Ǳ）。这些字符通常用于一些东欧语言，如克罗地亚语和塞尔维亚语。
+`Unicode` 中的标题化字符指的是一种特殊的字母形式，它们在某些语言中用于表示标题中每个单词的首字母大写的形式。这些字母由特殊的字符表示，例如 U+01C5（ǅ）和 U+01F1（Ǳ）。这些字符通常用于一些东欧语言，如克罗地亚语和塞尔维亚语。
 
 标题化字符包括：`0x01C5`、`0x01C8`、`0x01CB`、`0x01F2`、`0x1F88 - 0x1F8F`、`0x1F98 - 0x1F9F`、`0x1F98 - 0x1F9F`、`0x1FA8 - 0x1FAF`、`0x1FBC`、`0x1FCC`、`0x1FFC`
 
@@ -325,7 +325,7 @@ true
 public func isUpperCase(): Bool
 ```
 
-功能：：判断字符是否是 `Unicode` 大写字符。
+功能：判断字符是否是 `Unicode` 大写字符。
 
 返回值：
 
@@ -726,7 +726,7 @@ func trim(): String
 func trimEnd(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 返回值：
 
@@ -762,7 +762,7 @@ func trimLeft(): String
 func trimRight(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 > **注意：**
 >
@@ -798,7 +798,7 @@ func trimStart(): String
 extend String <: UnicodeStringExtension
 ```
 
-功能：为 [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeStringExtension) 接口，支持字符集相关的操作。
+功能：为 [String](../../core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeStringExtension) 接口，支持字符集相关的操作。
 
 父类型：
 
@@ -1077,7 +1077,7 @@ main(): Unit {
 public func trimEnd(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 返回值：
 
@@ -1147,7 +1147,7 @@ main(): Unit {
 public func trimRight(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 > **注意：**
 >
