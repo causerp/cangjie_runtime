@@ -14,7 +14,7 @@ interop 包提供了开发跨语言互操作库需要的一些基类，互操作
 
 |                 类名             |                功能                 |
 | -------------------------------- | ---------------------------------- |
-| [InteropContext](./interop_package_api/interop_package_classes.md#class-interopcontext) | 此类封装了跨语言互操作场景下处理循环引用的函数。 |
 | [ExportedRef](./interop_package_api/interop_package_classes.md#class-exportedref) | 此类用来包装跨语言互操作场景下需要被外部语言使用的类或函数。 |
-| [ForeignProxy](./interop_package_api/interop_package_classes.md#class-foreignproxy) | 此类用于代理跨语言互操作场景下外部语言的对象 `handle`。 |
 | [ExportTable](./interop_package_api/interop_package_classes.md#class-exporttable) | 此类通过类型为 [UInt64](../core/core_package_api/core_package_intrinsics.md#uint64) 的 `handle` 管理 [ExportedRef](./interop_package_api/interop_package_classes.md#class-exportedref) 的实例对象的生命周期。 |
+| [ForeignProxy](./interop_package_api/interop_package_classes.md#class-foreignproxy) | 此类用于代理跨语言互操作场景下外部语言的对象 `handle`。 |
+| [InteropContext](./interop_package_api/interop_package_classes.md#class-interopcontext) | 此类封装了跨语言互操作场景下处理循环引用的函数。 |
