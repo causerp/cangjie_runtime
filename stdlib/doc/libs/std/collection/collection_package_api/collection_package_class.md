@@ -2790,9 +2790,7 @@ public prop first: ?(K, V)
 
 功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
 
-返回值：
-
-- ?(K, V) - 如果存在第一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+类型：?(K, V)
 
 ### prop last
 
@@ -2802,9 +2800,7 @@ public prop last: ?(K, V)
 
 功能：获取 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
 
-返回值：
-
-- ?(K, V) - 如果存在最后一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+类型：?(K, V)
 
 ### prop size
 
