@@ -226,9 +226,9 @@ main() {
         arr,
         lessThan: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            return r1Value < r2Value
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                return r1Value < r2Value
         },
         stable: true,
         descending: true
@@ -288,15 +288,15 @@ main() {
         arr,
         by: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            if (r1Value > r2Value) {
-                return Ordering.GT
-            } else if (r1Value == r2Value) {
-                return Ordering.EQ
-            } else {
-                return Ordering.LT
-            }
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                if (r1Value > r2Value) {
+                    return Ordering.GT
+                } else if (r1Value == r2Value) {
+                    return Ordering.EQ
+                } else {
+                    return Ordering.LT
+                }
         },
         stable: true,
         descending: true
@@ -418,9 +418,9 @@ main() {
         arr,
         lessThan: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            return r1Value < r2Value
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                return r1Value < r2Value
         },
         stable: true,
         descending: true
@@ -481,15 +481,15 @@ main() {
         arr,
         by: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            if (r1Value > r2Value) {
-                return Ordering.GT
-            } else if (r1Value == r2Value) {
-                return Ordering.EQ
-            } else {
-                return Ordering.LT
-            }
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                if (r1Value > r2Value) {
+                    return Ordering.GT
+                } else if (r1Value == r2Value) {
+                    return Ordering.EQ
+                } else {
+                    return Ordering.LT
+                }
         },
         stable: true,
         descending: true
@@ -615,9 +615,9 @@ main() {
         arrayList,
         lessThan: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            return r1Value < r2Value
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                return r1Value < r2Value
         },
         stable: true,
         descending: true
@@ -681,15 +681,15 @@ main() {
         arrayList,
         by: {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            if (r1Value > r2Value) {
-                return Ordering.GT
-            } else if (r1Value == r2Value) {
-                return Ordering.EQ
-            } else {
-                return Ordering.LT
-            }
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                if (r1Value > r2Value) {
+                    return Ordering.GT
+                } else if (r1Value == r2Value) {
+                    return Ordering.EQ
+                } else {
+                    return Ordering.LT
+                }
         },
         stable: true,
         descending: true
@@ -879,15 +879,15 @@ main() {
         arr,
         {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            if (r1Value > r2Value) {
-                return Ordering.GT
-            } else if (r1Value == r2Value) {
-                return Ordering.EQ
-            } else {
-                return Ordering.LT
-            }
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                if (r1Value > r2Value) {
+                    return Ordering.GT
+                } else if (r1Value == r2Value) {
+                    return Ordering.EQ
+                } else {
+                    return Ordering.LT
+                }
         }
     )
     println(arr)
@@ -1010,15 +1010,15 @@ main() {
         arr,
         {
             r1: Rectangle, r2: Rectangle =>
-            let r1Value: Int64 = r1.width * r1.height
-            let r2Value: Int64 = r2.width * r2.height
-            if (r1Value > r2Value) {
-                return Ordering.GT
-            } else if (r1Value == r2Value) {
-                return Ordering.EQ
-            } else {
-                return Ordering.LT
-            }
+                let r1Value: Int64 = r1.width * r1.height
+                let r2Value: Int64 = r2.width * r2.height
+                if (r1Value > r2Value) {
+                    return Ordering.GT
+                } else if (r1Value == r2Value) {
+                    return Ordering.EQ
+                } else {
+                    return Ordering.LT
+                }
         }
     )
     println(arr)

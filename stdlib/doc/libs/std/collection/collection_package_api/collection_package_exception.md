@@ -40,7 +40,7 @@ main(): Unit {
     // 使用无参构造函数创建ConcurrentModificationException实例
     let exception = ConcurrentModificationException()
     println("创建了无参的ConcurrentModificationException实例")
-    
+
     // 可以抛出并捕获该异常
     try {
         throw ConcurrentModificationException()
@@ -80,7 +80,7 @@ main(): Unit {
     let message = "并发修改异常：在遍历过程中修改了容器"
     let exception = ConcurrentModificationException(message)
     println("创建了带消息的ConcurrentModificationException实例: ${exception.message}")
-    
+
     // 可以抛出并捕获该异常
     try {
         throw ConcurrentModificationException("容器在遍历过程中被修改")

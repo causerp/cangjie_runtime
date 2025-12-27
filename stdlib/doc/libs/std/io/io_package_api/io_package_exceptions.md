@@ -177,11 +177,11 @@ public class MyIOException <: IOException {
     public init() {
         super()
     }
-    
+
     public init(message: String) {
         super(message)
     }
-    
+
     // 公共方法来调用受保护的getClassName方法
     public func getClassNamePublic(): String {
         return getClassName()

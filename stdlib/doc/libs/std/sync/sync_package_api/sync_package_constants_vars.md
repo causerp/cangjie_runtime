@@ -24,9 +24,10 @@ main(): Unit {
     // 创建一个 AtomicBool 实例
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
-    let result = atomicBool.compareAndSwap(false, true, successOrder: DefaultMemoryOrder, failureOrder: DefaultMemoryOrder)
+    let result = atomicBool.compareAndSwap(false, true, successOrder: DefaultMemoryOrder,
+        failureOrder: DefaultMemoryOrder)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
     println("操作后值: ${atomicBool.load()}")
 }

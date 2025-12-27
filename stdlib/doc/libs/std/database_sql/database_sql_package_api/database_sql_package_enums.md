@@ -75,15 +75,15 @@ main() {
     // 创建两个不同的ConnectionState枚举值
     let state1 = ConnectionState.Broken
     let state2 = ConnectionState.Closed
-    
+
     // 使用!=操作符比较两个不同的枚举值
     let result1 = state1 != state2
     println("Broken != Closed: ${result1}")
-    
+
     // 创建两个相同的ConnectionState枚举值
     let state3 = ConnectionState.Connected
     let state4 = ConnectionState.Connected
-    
+
     // 使用!=操作符比较两个相同的枚举值
     let result2 = state3 != state4
     println("Connected != Connected: ${result2}")
@@ -123,15 +123,15 @@ main() {
     // 创建两个相同的ConnectionState枚举值
     let state1 = ConnectionState.Broken
     let state2 = ConnectionState.Broken
-    
+
     // 使用==操作符比较两个相同的枚举值
     let result1 = state1 == state2
     println("Broken == Broken: ${result1}")
-    
+
     // 创建两个不同的ConnectionState枚举值
     let state3 = ConnectionState.Connecting
     let state4 = ConnectionState.Connected
-    
+
     // 使用==操作符比较两个不同的枚举值
     let result2 = state3 == state4
     println("Connecting == Connected: ${result2}")
@@ -210,12 +210,12 @@ main() {
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
     let mode3 = TransactionAccessMode.Unspecified
-    
+
     // 调用hashCode()函数获取哈希值
     let hash1 = mode1.hashCode()
     let hash2 = mode2.hashCode()
     let hash3 = mode3.hashCode()
-    
+
     println("ReadOnly hashCode: ${hash1}")
     println("ReadWrite hashCode: ${hash2}")
     println("Unspecified hashCode: ${hash3}")
@@ -259,12 +259,12 @@ main() {
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
     let mode3 = TransactionAccessMode.Unspecified
-    
+
     // 调用toString()函数获取字符串表示
     let str1 = mode1.toString()
     let str2 = mode2.toString()
     let str3 = mode3.toString()
-    
+
     println("ReadOnly toString: \"${str1}\"")
     println("ReadWrite toString: \"${str2}\"")
     println("Unspecified toString: \"${str3}\"")
@@ -305,15 +305,15 @@ main() {
     // 创建两个不同的TransactionAccessMode枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
-    
+
     // 使用!=操作符比较两个不同的枚举值
     let result1 = mode1 != mode2
     println("ReadOnly != ReadWrite: ${result1}")
-    
+
     // 创建两个相同的TransactionAccessMode枚举值
     let mode3 = TransactionAccessMode.Unspecified
     let mode4 = TransactionAccessMode.Unspecified
-    
+
     // 使用!=操作符比较两个相同的枚举值
     let result2 = mode3 != mode4
     println("Unspecified != Unspecified: ${result2}")
@@ -353,15 +353,15 @@ main() {
     // 创建两个相同的TransactionAccessMode枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadOnly
-    
+
     // 使用==操作符比较两个相同的枚举值
     let result1 = mode1 == mode2
     println("ReadOnly == ReadOnly: ${result1}")
-    
+
     // 创建两个不同的TransactionAccessMode枚举值
     let mode3 = TransactionAccessMode.ReadWrite
     let mode4 = TransactionAccessMode.Unspecified
-    
+
     // 使用==操作符比较两个不同的枚举值
     let result2 = mode3 == mode4
     println("ReadWrite == Unspecified: ${result2}")
@@ -444,12 +444,12 @@ main() {
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
     let mode3 = TransactionDeferrableMode.Unspecified
-    
+
     // 调用hashCode()函数获取哈希值
     let hash1 = mode1.hashCode()
     let hash2 = mode2.hashCode()
     let hash3 = mode3.hashCode()
-    
+
     println("Deferrable hashCode: ${hash1}")
     println("NotDeferrable hashCode: ${hash2}")
     println("Unspecified hashCode: ${hash3}")
@@ -493,12 +493,12 @@ main() {
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
     let mode3 = TransactionDeferrableMode.Unspecified
-    
+
     // 调用toString()函数获取字符串表示
     let str1 = mode1.toString()
     let str2 = mode2.toString()
     let str3 = mode3.toString()
-    
+
     println("Deferrable toString: \"${str1}\"")
     println("NotDeferrable toString: \"${str2}\"")
     println("Unspecified toString: \"${str3}\"")
@@ -539,15 +539,15 @@ main() {
     // 创建两个不同的TransactionDeferrableMode枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
-    
+
     // 使用!=操作符比较两个不同的枚举值
     let result1 = mode1 != mode2
     println("Deferrable != NotDeferrable: ${result1}")
-    
+
     // 创建两个相同的TransactionDeferrableMode枚举值
     let mode3 = TransactionDeferrableMode.Unspecified
     let mode4 = TransactionDeferrableMode.Unspecified
-    
+
     // 使用!=操作符比较两个相同的枚举值
     let result2 = mode3 != mode4
     println("Unspecified != Unspecified: ${result2}")
@@ -587,15 +587,15 @@ main() {
     // 创建两个相同的TransactionDeferrableMode枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.Deferrable
-    
+
     // 使用==操作符比较两个相同的枚举值
     let result1 = mode1 == mode2
     println("Deferrable == Deferrable: ${result1}")
-    
+
     // 创建两个不同的TransactionDeferrableMode枚举值
     let mode3 = TransactionDeferrableMode.NotDeferrable
     let mode4 = TransactionDeferrableMode.Unspecified
-    
+
     // 使用==操作符比较两个不同的枚举值
     let result2 = mode3 == mode4
     println("NotDeferrable == Unspecified: ${result2}")
@@ -727,12 +727,12 @@ main() {
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
     let level3 = TransactionIsoLevel.Unspecified
-    
+
     // 调用hashCode()函数获取哈希值
     let hash1 = level1.hashCode()
     let hash2 = level2.hashCode()
     let hash3 = level3.hashCode()
-    
+
     println("Serializable hashCode: ${hash1}")
     println("ReadCommitted hashCode: ${hash2}")
     println("Unspecified hashCode: ${hash3}")
@@ -781,12 +781,12 @@ main() {
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
     let level3 = TransactionIsoLevel.Unspecified
-    
+
     // 调用toString()函数获取字符串表示
     let str1 = level1.toString()
     let str2 = level2.toString()
     let str3 = level3.toString()
-    
+
     println("Serializable toString: \"${str1}\"")
     println("ReadCommitted toString: \"${str2}\"")
     println("Unspecified toString: \"${str3}\"")
@@ -827,15 +827,15 @@ main() {
     // 创建两个不同的TransactionIsoLevel枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
-    
+
     // 使用!=操作符比较两个不同的枚举值
     let result1 = level1 != level2
     println("Serializable != ReadCommitted: ${result1}")
-    
+
     // 创建两个相同的TransactionIsoLevel枚举值
     let level3 = TransactionIsoLevel.Unspecified
     let level4 = TransactionIsoLevel.Unspecified
-    
+
     // 使用!=操作符比较两个相同的枚举值
     let result2 = level3 != level4
     println("Unspecified != Unspecified: ${result2}")
@@ -875,15 +875,15 @@ main() {
     // 创建两个相同的TransactionIsoLevel枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.Serializable
-    
+
     // 使用==操作符比较两个相同的枚举值
     let result1 = level1 == level2
     println("Serializable == Serializable: ${result1}")
-    
+
     // 创建两个不同的TransactionIsoLevel枚举值
     let level3 = TransactionIsoLevel.ReadCommitted
     let level4 = TransactionIsoLevel.Unspecified
-    
+
     // 使用==操作符比较两个不同的枚举值
     let result2 = level3 == level4
     println("ReadCommitted == Unspecified: ${result2}")

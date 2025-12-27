@@ -115,10 +115,10 @@ public var value: T
 ```cangjie
 main() {
     var box: Box<Int64> = Box<Int64>(42)
-    
+
     // 获取被包装的值
     println("Box contains: ${box.value}")
-    
+
     // 修改被包装的值
     box.value = 100
     println("Box now contains: ${box.value}")
@@ -152,7 +152,7 @@ main() {
     // 使用整数创建Box实例
     var intBox: Box<Int64> = Box<Int64>(42)
     println("Integer box contains: ${intBox.value}")
-    
+
     // 使用字符串创建Box实例
     var stringBox: Box<String> = Box<String>("Hello, Box!")
     println("String box contains: ${stringBox.value}")
@@ -259,10 +259,10 @@ main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(42)
     var box3: Box<Int64> = Box<Int64>(100)
-    
+
     // 比较相等的Box对象
     println("box1 != box2: ${box1 != box2}")
-    
+
     // 比较不相等的Box对象
     println("box1 != box3: ${box1 != box3}")
 }
@@ -298,7 +298,7 @@ public operator func <(that: Box<T>): Bool
 main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(100)
-    
+
     // 比较Box对象的大小
     println("box1 < box2: ${box1 < box2}")
     println("box2 < box1: ${box2 < box1}")
@@ -338,7 +338,7 @@ main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(100)
     var box3: Box<Int64> = Box<Int64>(42)
-    
+
     // 比较Box对象的大小
     println("box1 <= box2: ${box1 <= box2}")
     println("box2 <= box1: ${box2 <= box1}")
@@ -378,10 +378,10 @@ main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(42)
     var box3: Box<Int64> = Box<Int64>(100)
-    
+
     // 比较相等的Box对象
     println("box1 == box2: ${box1 == box2}")
-    
+
     // 比较不相等的Box对象
     println("box1 == box3: ${box1 == box3}")
 }
@@ -417,7 +417,7 @@ public operator func >(that: Box<T>): Bool
 main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(100)
-    
+
     // 比较Box对象的大小
     println("box1 > box2: ${box1 > box2}")
     println("box2 > box1: ${box2 > box1}")
@@ -457,7 +457,7 @@ main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(100)
     var box3: Box<Int64> = Box<Int64>(42)
-    
+
     // 比较Box对象的大小
     println("box1 >= box2: ${box1 >= box2}")
     println("box2 >= box1: ${box2 >= box1}")
@@ -507,12 +507,12 @@ main() {
     var box1: Box<Int64> = Box<Int64>(42)
     var box2: Box<Int64> = Box<Int64>(42)
     var box3: Box<Int64> = Box<Int64>(100)
-    
+
     // 获取Box对象的哈希值
     println("box1 hashCode: ${box1.hashCode()}")
     println("box2 hashCode: ${box2.hashCode()}")
     println("box3 hashCode: ${box3.hashCode()}")
-    
+
     // 相同值的Box对象具有相同的哈希值
     println("box1 and box2 have same hashCode: ${box1.hashCode() == box2.hashCode()}")
 }
@@ -559,7 +559,7 @@ main() {
     var intBox: Box<Int64> = Box<Int64>(42)
     var stringBox: Box<String> = Box<String>("Hello")
     var boolBox: Box<Bool> = Box<Bool>(true)
-    
+
     // 获取Box对象的字符串表示
     println("intBox as string: ${intBox.toString()}")
     println("stringBox as string: ${stringBox.toString()}")
@@ -601,18 +601,17 @@ public prop thread: Thread
 ```cangjie
 main(): Int64 {
     let future: Future<Int64> = spawn {
-        =>
-        return 42
+        => return 42
     }
-    
+
     // 获取Future对应的线程实例
     let thread: Thread = future.thread
     println("Thread id: ${thread.id}")
-    
+
     // 等待线程完成
     let result: Int64 = future.get()
     println("Result: ${result}")
-    
+
     return 0
 }
 ```
@@ -680,8 +679,8 @@ public func get(): T
 main(): Int64 {
     let fut: Future<Int64> = spawn {
         =>
-        sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
-        return 1
+            sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
+            return 1
     }
 
     /* 等待线程完成 */
@@ -727,8 +726,8 @@ public func get(timeout: Duration): T
 main(): Int64 {
     let fut: Future<Int64> = spawn {
         =>
-        sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
-        return 1
+            sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
+            return 1
     }
 
     let result: Int64 = fut.get(2000 * Duration.millisecond)
@@ -765,8 +764,8 @@ public func tryGet(): Option<T>
 main(): Int64 {
     let fut: Future<Int64> = spawn {
         =>
-        sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
-        return 1
+            sleep(1000 * Duration.millisecond) /* 睡眠 1 秒 */
+            return 1
     }
 
     /* 主线程等待 4 秒，保证创建线程已经完成 */
@@ -850,19 +849,19 @@ main(): Int64 {
     // 创建一个数组并获取其迭代器
     var arr: Array<Int64> = [10, 20, 30]
     var iter: Iterator<Int64> = arr.iterator()
-    
+
     // 调用iterator()方法获取迭代器自身
     var iter2: Iterator<Int64> = iter.iterator()
-    
+
     // 验证两个迭代器是同一个对象
     println("Iterators are the same object")
-    
+
     // 使用两个迭代器遍历元素
     println("打印迭代器 iter 的第一个元素: ${iter.next()}")
     println("打印迭代器 iter2 的第二个元素: ${iter2.next()}")
     println("打印迭代器 iter 的第三个元素: ${iter.next()}")
     println("打印迭代器 iter2 的第四个元素: ${iter2.next()}")
-    
+
     return 0
 }
 ```
@@ -1167,8 +1166,7 @@ main(): Int64 {
     /* 使用迭代器进行遍历 */
     while (true) {
         match (iter1.next()) {
-            case Some(i) =>
-                println("${i[0]} ${i[1]}")
+            case Some(i) => println("${i[0]} ${i[1]}")
             case None => break
         }
     }
@@ -2156,7 +2154,7 @@ main(): Int64 {
     // 创建一个Range并获取其迭代器
     let range: Range<Int64> = 1..=5
     var iter = range.iterator()
-    
+
     // 使用迭代器遍历Range中的所有值
     println("Iterating through range 1..=5:")
     while (true) {
@@ -2165,7 +2163,7 @@ main(): Int64 {
             case None => break
         }
     }
-    
+
     return 0
 }
 ```
@@ -2216,16 +2214,16 @@ public let declaringClass: String
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 获取并打印类名
     let className: String = stackTraceElement.declaringClass
     println("Class name: ${className}")
-    
+
     return 0
 }
 ```
@@ -2253,16 +2251,16 @@ public let fileName: String
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 获取并打印文件名
     let fileName: String = stackTraceElement.fileName
     println("File name: ${fileName}")
-    
+
     return 0
 }
 ```
@@ -2290,16 +2288,16 @@ public let lineNumber: Int64
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 获取并打印行号
     let lineNum: Int64 = stackTraceElement.lineNumber
     println("Line number: ${lineNum}")
-    
+
     return 0
 }
 ```
@@ -2327,16 +2325,16 @@ public let methodName: String
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 获取并打印函数名
     let methodName: String = stackTraceElement.methodName
     println("Method name: ${methodName}")
-    
+
     return 0
 }
 ```
@@ -2369,18 +2367,18 @@ public init(declaringClass: String, methodName: String, fileName: String, lineNu
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 打印堆栈跟踪元素的信息
     println("Class: ${stackTraceElement.declaringClass}")
     println("Method: ${stackTraceElement.methodName}")
     println("File: ${stackTraceElement.fileName}")
     println("Line: ${stackTraceElement.lineNumber}")
-    
+
     return 0
 }
 ```
@@ -2413,12 +2411,12 @@ public func toString(): String
 main(): Int64 {
     // 创建一个StackTraceElement实例
     let stackTraceElement = StackTraceElement(
-        "MyClass", 
-        "myMethod", 
-        "MyClass.cj", 
+        "MyClass",
+        "myMethod",
+        "MyClass.cj",
         42
     )
-    
+
     // 直接打印
     println(stackTraceElement)
     return 0
@@ -2475,18 +2473,18 @@ public prop capacity: Int64
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder()
-    
+
     // 获取初始容量
     let initialCapacity: Int64 = sb.capacity
     println("Initial capacity: ${initialCapacity}")
-    
+
     // 添加一些内容
     sb.append("Hello, World!")
-    
+
     // 获取添加内容后的容量
     let currentCapacity: Int64 = sb.capacity
     println("Current capacity: ${currentCapacity}")
-    
+
     return 0
 }
 ```
@@ -2515,18 +2513,18 @@ public prop size: Int64
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder()
-    
+
     // 获取初始大小
     let initialSize: Int64 = sb.size
     println("Initial size: ${initialSize}")
-    
+
     // 添加一些内容
     sb.append("Hello")
-    
+
     // 获取添加内容后的大小
     let currentSize: Int64 = sb.size
     println("Current size: ${currentSize}")
-    
+
     return 0
 }
 ```
@@ -2553,12 +2551,12 @@ public init()
 main(): Int64 {
     // 使用默认构造函数创建一个StringBuilder实例
     var sb = StringBuilder()
-    
+
     // 验证初始状态
     println("Initial capacity: ${sb.capacity}")
     println("Initial size: ${sb.size}")
     println("Initial content: '${sb}'")
-    
+
     return 0
 }
 ```
@@ -2590,15 +2588,15 @@ public init(value: Array<Rune>)
 main(): Int64 {
     // 创建一个Rune数组
     let runes: Array<Rune> = [r'H', r'e', r'l', r'l', r'o']
-    
+
     // 使用Rune数组创建StringBuilder实例
     var sb = StringBuilder(runes)
-    
+
     // 验证初始化结果
     println("Capacity: ${sb.capacity}")
     println("Size: ${sb.size}")
     println("Content: '${sb}'")
-    
+
     return 0
 }
 ```
@@ -2634,17 +2632,17 @@ public init(capacity: Int64)
 main(): Int64 {
     // 使用指定容量创建一个StringBuilder实例
     var sb = StringBuilder(100)
-    
+
     // 验证初始化结果
     println("Capacity: ${sb.capacity}")
     println("Size: ${sb.size}")
     println("Content: '${sb}'")
-    
+
     // 添加内容
     sb.append("Hello, World!")
     println("After append - Size: ${sb.size}")
     println("After append - Content: '${sb}'")
-    
+
     return 0
 }
 ```
@@ -2683,17 +2681,17 @@ public init(r: Rune, n: Int64)
 main(): Int64 {
     // 使用5个'*'字符创建一个StringBuilder实例
     var sb = StringBuilder(r'*', 5)
-    
+
     // 验证初始化结果
     println("Capacity: ${sb.capacity}")
     println("Size: ${sb.size}")
     println("Content: '${sb}'")
-    
+
     // 添加更多内容
     sb.append("Hello")
     println("After append - Size: ${sb.size}")
     println("After append - Content: '${sb}'")
-    
+
     return 0
 }
 ```
@@ -2727,17 +2725,17 @@ public init(str: String)
 main(): Int64 {
     // 使用初始字符串创建一个StringBuilder实例
     var sb = StringBuilder("Hello, World!")
-    
+
     // 验证初始化结果
     println("Capacity: ${sb.capacity}")
     println("Size: ${sb.size}")
     println("Content: '${sb}'")
-    
+
     // 添加更多内容
     sb.append(" Welcome!")
     println("After append - Size: ${sb.size}")
     println("After append - Content: '${sb}'")
-    
+
     return 0
 }
 ```
@@ -2771,17 +2769,17 @@ public func append(runeArr: Array<Rune>): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello")
-    
+
     // 创建一个Rune数组
     let runes: Array<Rune> = [r' ', r'W', r'o', r'r', r'l', r'd']
-    
+
     // 将Rune数组追加到StringBuilder
     sb.append(runes)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -2812,16 +2810,16 @@ public func append(b: Bool): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Boolean values: ")
-    
+
     // 追加布尔值
     sb.append(true)
     sb.append(" and ")
     sb.append(false)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -2852,18 +2850,18 @@ public func append(cstr: CString): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Message: ")
-    
+
     // 创建一个CString
     let cstr: CString = unsafe { LibC.mallocCString("Hello from C string") }
-    
+
     // 追加CString
     sb.append(cstr)
-    
+
     unsafe { LibC.free(cstr) }
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -2894,14 +2892,14 @@ public func append(n: Float16): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Float16 value: ")
-    
+
     // 追加Float16值
     sb.append(3.14f16)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -2932,14 +2930,14 @@ public func append(n: Float32): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Float32 value: ")
-    
+
     // 追加Float32值
     sb.append(3.14159f32)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -2970,14 +2968,14 @@ public func append(n: Float64): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Float64 value: ")
-    
+
     // 追加Float64值
     sb.append(3.141592653589793)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3008,14 +3006,14 @@ public func append(n: Int16): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Int16 value: ")
-    
+
     // 追加Int16值
     sb.append(12345i16)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3046,14 +3044,14 @@ public func append(n: Int32): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Int32 value: ")
-    
+
     // 追加Int32值
     sb.append(1234567890i32)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3084,14 +3082,14 @@ public func append(n: Int64): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Int64 value: ")
-    
+
     // 追加Int64值
     sb.append(123456789012345)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3122,14 +3120,14 @@ public func append(n: Int8): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Int8 value: ")
-    
+
     // 追加Int8值
     sb.append(123i8)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3160,14 +3158,14 @@ public func append(r: Rune): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello")
-    
+
     // 追加一个字符
     sb.append(r'!')
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3198,14 +3196,14 @@ public func append(str: String): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello")
-    
+
     // 追加一个字符串
     sb.append(", World!")
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3237,14 +3235,14 @@ main(): Int64 {
     // 创建两个StringBuilder实例
     var sb1 = StringBuilder("Hello")
     var sb2 = StringBuilder(", World!")
-    
+
     // 将sb2的内容追加到sb1
     sb1.append(sb2)
-    
+
     // 验证结果
     println("Content: '${sb1}'")
     println("Size: ${sb1.size}")
-    
+
     return 0
 }
 ```
@@ -3275,14 +3273,14 @@ public func append(n: UInt16): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("UInt16 value: ")
-    
+
     // 追加UInt16值
     sb.append(12345u16)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3313,14 +3311,14 @@ public func append(n: UInt32): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("UInt32 value: ")
-    
+
     // 追加UInt32值
     sb.append(1234567890u32)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3351,14 +3349,14 @@ public func append(n: UInt64): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("UInt64 value: ")
-    
+
     // 追加UInt64值
     sb.append(123456789012345u64)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3389,14 +3387,14 @@ public func append(n: UInt8): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("UInt8 value: ")
-    
+
     // 追加UInt8值
     sb.append(123u8)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3427,17 +3425,17 @@ public func append<T>(val: Array<T>): Unit where T <: ToString
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Numbers: ")
-    
+
     // 创建一个整数数组
     let numbers: Array<Int64> = [1, 2, 3, 4, 5]
-    
+
     // 将整数数组追加到StringBuilder
     sb.append(numbers)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3468,14 +3466,14 @@ public func append<T>(v: T): Unit where T <: ToString
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("The answer is: ")
-    
+
     // 追加一个整数（实现了ToString接口）
     sb.append(42)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3512,17 +3510,17 @@ public func appendFromUtf8(arr: Array<Byte>): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello, ")
-    
+
     // 创建一个UTF-8编码的字节数组（"World"的UTF-8编码）
     let utf8Bytes: Array<Byte> = [87, 111, 114, 108, 100] // "World"的ASCII码
-    
+
     // 追加UTF-8字节数组
     sb.appendFromUtf8(utf8Bytes)
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3555,17 +3553,17 @@ public unsafe func appendFromUtf8Unchecked(arr: Array<Byte>): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello, ")
-    
+
     // 创建一个字节数组（"World"的ASCII码）
     let bytes: Array<Byte> = [87, 111, 114, 108, 100] // "World"的ASCII码
-    
+
     // 追加字节数组（不检查UTF-8编码）
     unsafe { sb.appendFromUtf8Unchecked(bytes) }
-    
+
     // 验证结果
     println("Content: '${sb}'")
     println("Size: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3598,18 +3596,18 @@ public func reserve(additional: Int64): Unit
 main(): Int64 {
     // 创建一个StringBuilder实例
     var sb = StringBuilder("Hello")
-    
+
     // 查看初始容量和大小
     println("Initial capacity: ${sb.capacity}")
     println("Initial size: ${sb.size}")
-    
+
     // 预留额外空间
     sb.reserve(100)
-    
+
     // 查看扩容后的容量
     println("Capacity after reserve: ${sb.capacity}")
     println("Size after reserve: ${sb.size}")
-    
+
     return 0
 }
 ```
@@ -3647,19 +3645,19 @@ main(): Int64 {
     // 创建一个StringBuilder实例并添加一些内容
     var sb = StringBuilder("Hello, World!")
     println("Before reset - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
-    
+
     // 重置StringBuilder，使用默认容量
     sb.reset()
     println("After reset - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
-    
+
     // 添加新内容
     sb.append("New content")
     println("After append - Content: '${sb}', Size: ${sb.size}")
-    
+
     // 使用指定容量重置
     sb.reset(capacity: Some(50))
     println("After reset with capacity - Content: '${sb}', Size: ${sb.size}, Capacity: ${sb.capacity}")
-    
+
     return 0
 }
 ```
@@ -3697,15 +3695,15 @@ main(): Int64 {
     // 创建一个StringBuilder实例并添加一些内容
     var sb = StringBuilder("Hello")
     sb.append(", World!")
-    
+
     // 获取字符串表示
     let result: String = sb.toString()
     println("Content: '${result}'")
     println("Size: ${sb.size}")
-    
+
     // 验证返回的是String类型
     println("Type check: ${result is String}")
-    
+
     return 0
 }
 ```
@@ -3745,11 +3743,11 @@ public static prop currentThread: Thread
 main(): Int64 {
     // 获取当前线程
     let currentThread = Thread.currentThread
-    
+
     // 打印线程信息
     println("Current thread ID: ${currentThread.id}")
     println("Current thread name: '${currentThread.name}'")
-    
+
     return 0
 }
 ```
@@ -3778,12 +3776,12 @@ public prop hasPendingCancellation: Bool
 main(): Int64 {
     // 获取当前线程
     let currentThread = Thread.currentThread
-    
+
     // 检查是否有取消请求
     let hasPendingCancellation: Bool = currentThread.hasPendingCancellation
-    
+
     println("Has pending cancellation: ${hasPendingCancellation}")
-    
+
     let future = spawn {
         while (true) {
             if (Thread.currentThread.hasPendingCancellation) {
@@ -3825,12 +3823,12 @@ public prop id: Int64
 main(): Int64 {
     // 获取当前线程
     let currentThread = Thread.currentThread
-    
+
     // 获取线程ID
     let threadId: Int64 = currentThread.id
-    
+
     println("Current thread ID: ${threadId}")
-    
+
     return 0
 }
 ```
@@ -3858,18 +3856,18 @@ public mut prop name: String
 main(): Int64 {
     // 获取当前线程
     let currentThread = Thread.currentThread
-    
+
     // 获取当前线程名称
     let originalName: String = currentThread.name
     println("Original thread name: '${originalName}'")
-    
+
     // 设置线程名称
     currentThread.name = "MyCustomThread"
-    
+
     // 获取更新后的线程名称
     let newName: String = currentThread.name
     println("New thread name: '${newName}'")
-    
+
     return 0
 }
 ```
@@ -3898,7 +3896,7 @@ public prop state: ThreadState
 main(): Int64 {
     // 获取当前线程
     let currentThread = Thread.currentThread
-    
+
     // 获取当前线程状态
     let state = currentThread.state
     println("Current thread state: '${state}'")
@@ -3937,7 +3935,7 @@ public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 // 定义异常处理函数
 func handleError(err: Error): Unit {
@@ -3946,16 +3944,16 @@ func handleError(err: Error): Unit {
 
 // 模拟大内存使用，抛出OutOfMemoryError
 func consumeMemory() {
-  let array = Array(1024*1024*1024*1024, repeat: 1024)
-  for (i in 0..array.size) {
-    array[i] = 0
-  }
+    let array = Array(1024 * 1024 * 1024 * 1024, repeat: 1024)
+    for (i in 0..array.size) {
+        array[i] = 0
+    }
 }
 
 main(): Int64 {
     // 注册未处理错误处理函数
     Thread.handleUncaughtErrorBy(handleError)
-    
+
     // 创建一个会抛出错误的线程
     let future = spawn {
         consumeMemory()
@@ -4016,7 +4014,7 @@ func handleException(thread: Thread, exception: Exception): Unit {
 main(): Int64 {
     // 注册未处理异常处理函数
     Thread.handleUncaughtExceptionBy(handleException)
-    
+
     // 创建一个会抛出异常的线程
     // 注意：在这个简单的示例中，我们直接在线程中抛出异常
     let future = spawn {
@@ -4066,7 +4064,6 @@ public func get(): ?T
 
 <!-- run -->
 ```cangjie
-
 let local = ThreadLocal<Int64>()
 
 func printUserID(): Unit {
@@ -4133,7 +4130,6 @@ public func set(value: ?T): Unit
 
 <!-- run -->
 ```cangjie
-
 let local = ThreadLocal<Int64>()
 
 func printUserID(): Unit {
@@ -4265,10 +4261,10 @@ public static func dumpAllThreads(): Array<ThreadSnapshot>
 ```cangjie
 main(): Unit {
     /* 创建一个线程 */
-    let future =spawn {
-        while(true) {
+    let future = spawn {
+        while (true) {
             sleep(1 * Duration.second)
-            if (Thread.currentThread.hasPendingCancellation){
+            if (Thread.currentThread.hasPendingCancellation) {
                 return
             }
         }

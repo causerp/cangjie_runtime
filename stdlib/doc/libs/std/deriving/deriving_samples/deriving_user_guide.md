@@ -47,7 +47,8 @@ class User {
     @DeriveExclude
     let lazyHashCode = 0 // it will not be printed because it's excluded
 }
-main(){}
+
+main() {}
 ```
 
 默认情况 Deriving 仅使能字段，对于属性则需要通过 `@DeriveInclude` 来显式使能：
@@ -129,7 +130,8 @@ struct Order {
     let price = 100
     let quantity = 200
 }
-main(){}
+
+main() {}
 ```
 
 当 Deriving 多个相交的接口时，例如，`Comparable` 还包括 `Equatable` ，则允许两者同时存在，等同于仅有范围最广的一个：
@@ -164,7 +166,8 @@ struct S {
     @DeriveExclude
     let key: String
 }
-main(){}
+
+main() {}
 ```
 
 默认情况下不处理属性，需要通过 `@DeriveInclude` 包含属性。
@@ -184,7 +187,8 @@ struct S {
         }
     }
 }
-main(){}
+
+main() {}
 ```
 
 被 Deriving 的字段和属性都不能是 `private` 的。因此，`private` 的字段或者属性应被除外或者使其为包内可见属性。
@@ -258,6 +262,7 @@ struct Floor {
         let building: Int
     ) {}
 }
+
 main() {
     let floors = [
         Floor(1, 2),
@@ -288,7 +293,8 @@ Floor(building: 2, level: 3)
 class Cell<T> {
     Cell(let value: T) {}
 }
-main(){}
+
+main() {}
 ```
 
 此时可能希望仅当单元格的值可打印时才能够打印该单元格。为了实现它，编写一个带有约束的扩展：
@@ -304,7 +310,8 @@ extend<T> Cell<T> <: ToString where T <: ToString {
         "Cell(value = ${value})"
     }
 }
-main(){}
+
+main() {}
 ```
 
 当使用 Deriving 时，它会默认尝试对所有泛型参数应用约束，因此以下内容与上面的扩展相同：
@@ -317,7 +324,8 @@ import std.deriving.*
 class Cell<T> {
     Cell(let value: T) {}
 }
-main(){}
+
+main() {}
 ```
 
 然而在某些情况下，默认行为并不符合期望。此时，可使用 `@Derive` 内部的 `where` 来覆盖默认约束：
@@ -330,7 +338,8 @@ interface PrintableCellValue <: ToString { /*...*/ }
 
 @Derive[ToString where T <: PrintableCellValue]
 class Cell<T> {}
-main(){}
+
+main() {}
 ```
 
 请注意，在上面的示例中，自定义约束仅适用于 `ToString` ，因此如果需要对所有接口进行约束，则应单独为每个接口重复此动作。
@@ -344,7 +353,8 @@ interface PrintableCellValue <: ToString { /*...*/ }
 @Derive[ToString where T <: PrintableCellValue]
 @Derive[Hashable where T <: PrintableCellValue & Hashable]
 class Cell<T> {}
-main(){}
+
+main() {}
 ```
 
 ## 性能说明

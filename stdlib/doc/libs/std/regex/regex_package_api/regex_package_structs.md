@@ -278,7 +278,7 @@ main(): Unit {
     let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
     let result = r.find("Today is 2024-10-24", group: true)
     match (result) {
-        case Some(md) => 
+        case Some(md) =>
             println("完整匹配: ${md.matchString(0)}")
             println("第1个捕获组(年份): ${md.matchString(1)}")
             println("第2个捕获组(月份): ${md.matchString(2)}")
@@ -327,7 +327,7 @@ main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let result = r.find("Today is 2024-10-24", group: true)
     match (result) {
-        case Some(md) => 
+        case Some(md) =>
             println("完整匹配: ${md.matchString()}")
             println("年份组: ${md.matchString("year")}")
             println("月份组: ${md.matchString("month")}")
@@ -377,8 +377,8 @@ main(): Unit {
     let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
     let result = r.find("Today is 2024-10-24", group: true)
     match (result) {
-        case Some(md) => 
-            let pos = md.matchPosition(0)  // 获取完整匹配的位置信息
+        case Some(md) =>
+            let pos = md.matchPosition(0) // 获取完整匹配的位置信息
             println("匹配的字符串: ${md.matchString()}")
             println("开始位置: ${pos.start}")
             println("结束位置: ${pos.end}")
@@ -415,8 +415,8 @@ main(): Unit {
     let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
     let result = r.find("Today is 2024-10-24", group: true)
     match (result) {
-        case Some(md) => 
-            let pos = md.matchPosition(0)  // 获取完整匹配的位置信息
+        case Some(md) =>
+            let pos = md.matchPosition(0) // 获取完整匹配的位置信息
             println("匹配的字符串: ${md.matchString()}")
             println("开始位置: ${pos.start}")
             println("结束位置: ${pos.end}")

@@ -32,7 +32,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("创建了一个 AtomicBool 实例，初始值为: ${atomicBool.load()}")
-    
+
     // 修改值为 true
     atomicBool.store(true)
     println("修改后的值为: ${atomicBool.load()}")
@@ -75,12 +75,12 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 false，设置新值为 true
     let result1 = atomicBool.compareAndSwap(false, true)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicBool.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 false，但实际已经是 true，所以会失败
     let result2 = atomicBool.compareAndSwap(false, false)
     println("第二次 CAS 操作结果: ${result2}")
@@ -133,7 +133,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicBool.compareAndSwap(false, true, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -171,7 +171,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 true
     let atomicBool = AtomicBool(true)
     println("AtomicBool 实例的值为: ${atomicBool.load()}")
-    
+
     // 修改值
     atomicBool.store(false)
     println("修改后的值为: ${atomicBool.load()}")
@@ -215,7 +215,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 true
     let atomicBool = AtomicBool(true)
     println("AtomicBool 实例的值为: ${atomicBool.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicBool.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -251,7 +251,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 store 方法修改值为 true
     atomicBool.store(true)
     println("使用 store 方法修改后的值: ${atomicBool.load()}")
@@ -292,7 +292,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicBool.store(true, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicBool.load()}")
@@ -332,12 +332,12 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 swap 方法交换值为 true，返回原始值
     let oldValue = atomicBool.swap(true)
     println("交换前的旧值: ${oldValue}")
     println("交换后的当前值: ${atomicBool.load()}")
-    
+
     // 再次交换值为 false
     let oldValue2 = atomicBool.swap(false)
     println("再次交换前的旧值: ${oldValue2}")
@@ -386,7 +386,7 @@ main(): Unit {
     // 创建一个 AtomicBool 实例，初始值为 false
     let atomicBool = AtomicBool(false)
     println("初始值: ${atomicBool.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicBool.swap(true, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -434,7 +434,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("创建了一个 AtomicInt16 实例，初始值为: ${atomicInt16.load()}")
-    
+
     // 修改值为 20
     atomicInt16.store(20)
     println("修改后的值为: ${atomicInt16.load()}")
@@ -477,12 +477,12 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicInt16.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicInt16.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicInt16.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -535,7 +535,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicInt16.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -577,7 +577,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicInt16.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -624,7 +624,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -666,7 +666,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicInt16.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -713,7 +713,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -755,7 +755,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicInt16.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -802,7 +802,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -844,7 +844,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 20
     let atomicInt16 = AtomicInt16(20)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicInt16.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -891,7 +891,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 20
     let atomicInt16 = AtomicInt16(20)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -933,7 +933,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicInt16.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -980,7 +980,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 15
     let atomicInt16 = AtomicInt16(15)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -1018,7 +1018,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("AtomicInt16 实例的值为: ${atomicInt16.load()}")
-    
+
     // 修改值
     atomicInt16.store(20)
     println("修改后的值为: ${atomicInt16.load()}")
@@ -1062,7 +1062,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("AtomicInt16 实例的值为: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicInt16.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -1098,7 +1098,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicInt16.store(20)
     println("使用 store 方法修改后的值: ${atomicInt16.load()}")
@@ -1139,7 +1139,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicInt16.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicInt16.load()}")
@@ -1179,7 +1179,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicInt16.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -1226,7 +1226,7 @@ main(): Unit {
     // 创建一个 AtomicInt16 实例，初始值为 10
     let atomicInt16 = AtomicInt16(10)
     println("初始值: ${atomicInt16.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt16.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -1274,7 +1274,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("创建了一个 AtomicInt32 实例，初始值为: ${atomicInt32.load()}")
-    
+
     // 修改值为 20
     atomicInt32.store(20)
     println("修改后的值为: ${atomicInt32.load()}")
@@ -1317,12 +1317,12 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicInt32.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicInt32.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicInt32.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -1375,7 +1375,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicInt32.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -1417,7 +1417,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicInt32.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -1464,7 +1464,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -1506,7 +1506,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicInt32.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -1553,7 +1553,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -1595,7 +1595,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicInt32.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -1642,7 +1642,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -1684,7 +1684,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 20
     let atomicInt32 = AtomicInt32(20)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicInt32.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -1731,7 +1731,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 20
     let atomicInt32 = AtomicInt32(20)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -1773,7 +1773,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicInt32.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -1820,7 +1820,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 15
     let atomicInt32 = AtomicInt32(15)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -1858,7 +1858,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("AtomicInt32 实例的值为: ${atomicInt32.load()}")
-    
+
     // 修改值
     atomicInt32.store(20)
     println("修改后的值为: ${atomicInt32.load()}")
@@ -1902,7 +1902,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("AtomicInt32 实例的值为: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicInt32.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -1938,7 +1938,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicInt32.store(20)
     println("使用 store 方法修改后的值: ${atomicInt32.load()}")
@@ -1979,7 +1979,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicInt32.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicInt32.load()}")
@@ -2019,7 +2019,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicInt32.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -2066,7 +2066,7 @@ main(): Unit {
     // 创建一个 AtomicInt32 实例，初始值为 10
     let atomicInt32 = AtomicInt32(10)
     println("初始值: ${atomicInt32.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt32.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -2114,7 +2114,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("创建了一个 AtomicInt64 实例，初始值为: ${atomicInt64.load()}")
-    
+
     // 修改值为 20
     atomicInt64.store(20)
     println("修改后的值为: ${atomicInt64.load()}")
@@ -2157,12 +2157,12 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicInt64.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicInt64.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicInt64.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -2215,10 +2215,15 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicInt64.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
+    println("操作后值: ${atomicInt64.load()}")
+
+    // 失败场景
+    let failedResult = atomicInt64.compareAndSwap(10, 30, successOrder: SeqCst, failureOrder: SeqCst)
+    println("使用 deprecated 的 compareAndSwap 方法失败场景结果: ${failedResult}")
     println("操作后值: ${atomicInt64.load()}")
 }
 ```
@@ -2228,6 +2233,8 @@ main(): Unit {
 ```text
 初始值: 10
 使用 deprecated 的 compareAndSwap 方法结果: true
+操作后值: 20
+使用 deprecated 的 compareAndSwap 方法失败场景结果: false
 操作后值: 20
 ```
 
@@ -2257,7 +2264,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicInt64.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -2304,7 +2311,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -2346,7 +2353,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicInt64.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -2393,7 +2400,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -2435,7 +2442,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicInt64.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -2482,7 +2489,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -2524,7 +2531,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 20
     let atomicInt64 = AtomicInt64(20)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicInt64.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -2571,7 +2578,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 20
     let atomicInt64 = AtomicInt64(20)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -2613,7 +2620,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicInt64.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -2660,7 +2667,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 15
     let atomicInt64 = AtomicInt64(15)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -2698,7 +2705,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("AtomicInt64 实例的值为: ${atomicInt64.load()}")
-    
+
     // 修改值
     atomicInt64.store(20)
     println("修改后的值为: ${atomicInt64.load()}")
@@ -2742,7 +2749,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("AtomicInt64 实例的值为: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicInt64.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -2778,7 +2785,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicInt64.store(20)
     println("使用 store 方法修改后的值: ${atomicInt64.load()}")
@@ -2819,7 +2826,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicInt64.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicInt64.load()}")
@@ -2859,7 +2866,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicInt64.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -2906,7 +2913,7 @@ main(): Unit {
     // 创建一个 AtomicInt64 实例，初始值为 10
     let atomicInt64 = AtomicInt64(10)
     println("初始值: ${atomicInt64.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt64.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -2954,7 +2961,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("创建了一个 AtomicInt8 实例，初始值为: ${atomicInt8.load()}")
-    
+
     // 修改值为 20
     atomicInt8.store(20)
     println("修改后的值为: ${atomicInt8.load()}")
@@ -2997,12 +3004,12 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicInt8.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicInt8.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicInt8.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -3055,7 +3062,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicInt8.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -3097,7 +3104,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicInt8.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -3144,7 +3151,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -3186,7 +3193,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicInt8.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -3233,7 +3240,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -3275,7 +3282,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicInt8.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -3322,7 +3329,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -3364,7 +3371,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 20
     let atomicInt8 = AtomicInt8(20)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicInt8.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -3411,7 +3418,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 20
     let atomicInt8 = AtomicInt8(20)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -3453,7 +3460,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicInt8.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -3500,7 +3507,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 15
     let atomicInt8 = AtomicInt8(15)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -3538,7 +3545,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("AtomicInt8 实例的值为: ${atomicInt8.load()}")
-    
+
     // 修改值
     atomicInt8.store(20)
     println("修改后的值为: ${atomicInt8.load()}")
@@ -3582,7 +3589,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("AtomicInt8 实例的值为: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicInt8.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -3618,7 +3625,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicInt8.store(20)
     println("使用 store 方法修改后的值: ${atomicInt8.load()}")
@@ -3659,7 +3666,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicInt8.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicInt8.load()}")
@@ -3699,7 +3706,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicInt8.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -3746,7 +3753,7 @@ main(): Unit {
     // 创建一个 AtomicInt8 实例，初始值为 10
     let atomicInt8 = AtomicInt8(10)
     println("初始值: ${atomicInt8.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicInt8.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -3817,10 +3824,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -3829,10 +3836,10 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 使用 Some 创建一个包含 TestClass 实例的 Option
     let optionObj = Some(testObj)
-    
+
     // 使用 init(Option<T>) 构造函数创建一个封装 Option 数据的 AtomicOptionReference 实例，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj)
 }
@@ -3865,10 +3872,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -3878,17 +3885,17 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 compareAndSwap 方法尝试将 optionObj1 替换为 optionObj2
     let result = atomicOptionRef.compareAndSwap(optionObj1, optionObj2)
-    
+
     println("CAS 操作结果: ${result}")
     println("替换后的值存在: ${atomicOptionRef.load().isSome()}")
 }
@@ -3934,10 +3941,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -3947,17 +3954,17 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 compareAndSwap 方法尝试将 optionObj1 替换为 optionObj2
     let result = atomicOptionRef.compareAndSwap(optionObj1, optionObj2)
-    
+
     println("CAS 操作结果: ${result}")
     println("替换后的值: ${atomicOptionRef.load().getOrThrow().value}")
 }
@@ -3990,10 +3997,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4002,16 +4009,16 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj = Some(testObj)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj)
-    
+
     // 使用 load 方法读取原子引用的值
     let loadedValue = atomicOptionRef.load()
-    
+
     // 使用 match 来处理 Option 值
     match (loadedValue) {
         case Some(obj) => println("加载的值: ${obj.value}")
@@ -4110,10 +4117,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4123,24 +4130,24 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 load 方法读取初始值
     let initialValue = atomicOptionRef.load()
     match (initialValue) {
         case Some(obj) => println("初始值: ${obj.value}")
         case Option.None => println("没有初始值")
     }
-    
+
     // 使用 store 方法设置新的值
     atomicOptionRef.store(optionObj2)
-    
+
     // 使用 load 方法读取新值
     let newValue = atomicOptionRef.load()
     match (newValue) {
@@ -4182,10 +4189,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4195,24 +4202,24 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 load 方法读取初始值
     let initialValue = atomicOptionRef.load()
     match (initialValue) {
         case Some(obj) => println("初始值: ${obj.value}")
         case Option.None => println("没有初始值")
     }
-    
+
     // 使用 deprecated 的 store 方法设置新的值
     atomicOptionRef.store(optionObj2, memoryOrder: SeqCst)
-    
+
     // 使用 load 方法读取新值
     let newValue = atomicOptionRef.load()
     match (newValue) {
@@ -4253,10 +4260,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4266,29 +4273,29 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 load 方法读取初始值
     let initialValue = atomicOptionRef.load()
     match (initialValue) {
         case Some(obj) => println("初始值: ${obj.value}")
         case Option.None => println("没有初始值")
     }
-    
+
     // 使用 swap 方法交换值
     let oldValue = atomicOptionRef.swap(optionObj2)
-    
+
     match (oldValue) {
         case Some(obj) => println("交换前的旧值: ${obj.value}")
         case Option.None => println("没有旧值")
     }
-    
+
     // 使用 load 方法读取新值
     let newValue = atomicOptionRef.load()
     match (newValue) {
@@ -4335,10 +4342,10 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init() {
     }
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4348,29 +4355,29 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 使用 Some 创建包含 TestClass 实例的 Option
     let optionObj1 = Some(testObj1)
     let optionObj2 = Some(testObj2)
-    
+
     // 创建一个 AtomicOptionReference 实例，初始值为 optionObj1，此处也可直接传入实例
     let atomicOptionRef = AtomicOptionReference<TestClass>(optionObj1)
-    
+
     // 使用 load 方法读取初始值
     let initialValue = atomicOptionRef.load()
     match (initialValue) {
         case Some(obj) => println("初始值: ${obj.value}")
         case Option.None => println("没有初始值")
     }
-    
+
     // 使用 deprecated 的 swap 方法交换值
     let oldValue = atomicOptionRef.swap(optionObj2, memoryOrder: SeqCst)
-    
+
     match (oldValue) {
         case Some(obj) => println("交换前的旧值: ${obj.value}")
         case Option.None => println("没有旧值")
     }
-    
+
     // 使用 load 方法读取新值
     let newValue = atomicOptionRef.load()
     match (newValue) {
@@ -4420,7 +4427,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4429,7 +4436,7 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 使用 init(T) 构造函数创建一个封装 TestClass 实例的 AtomicReference
     let atomicRef = AtomicReference<TestClass>(testObj)
 }
@@ -4462,7 +4469,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4472,13 +4479,13 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj1
     let atomicRef = AtomicReference<TestClass>(testObj1)
-    
+
     // 使用 compareAndSwap 方法尝试将 testObj1 替换为 testObj2
     let result = atomicRef.compareAndSwap(testObj1, testObj2)
-    
+
     println("CAS 操作结果: ${result}")
 }
 ```
@@ -4522,7 +4529,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4532,13 +4539,13 @@ main(): Unit {
     // 创建两个 TestClass 实例
     let testObj1 = TestClass(42)
     let testObj2 = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj1
     let atomicRef = AtomicReference<TestClass>(testObj1)
-    
+
     // 使用 deprecated 的 compareAndSwap 方法尝试将 testObj1 替换为 testObj2
     let result = atomicRef.compareAndSwap(testObj1, testObj2, successOrder: SeqCst, failureOrder: SeqCst)
-    
+
     println("CAS 操作结果: ${result}")
 }
 ```
@@ -4569,7 +4576,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4578,13 +4585,13 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // 使用 load 方法读取原子引用的值
     let loadedValue = atomicRef.load()
-    
+
     println("加载的值: ${loadedValue.value}")
 }
 ```
@@ -4623,7 +4630,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4632,13 +4639,13 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // // 使用 deprecated 的 load 方法读取原子引用的值
     let loadedValue = atomicRef.load(memoryOrder: SeqCst)
-    
+
     println("加载的值: ${loadedValue.value}")
 }
 ```
@@ -4669,7 +4676,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4678,16 +4685,16 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建另一个 TestClass 实例
     let newObj = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // 使用 store 方法存储新的值
     atomicRef.store(newObj)
-    
+
     // 验证存储的值
     let loadedValue = atomicRef.load()
     println("存储后的值: ${loadedValue.value}")
@@ -4725,7 +4732,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4734,16 +4741,16 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建另一个 TestClass 实例
     let newObj = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // 使用 deprecated 的 store 方法存储新的值
     atomicRef.store(newObj, memoryOrder: SeqCst)
-    
+
     // 验证存储的值
     let loadedValue = atomicRef.load()
     println("存储后的值: ${loadedValue.value}")
@@ -4780,7 +4787,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4789,16 +4796,16 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建另一个 TestClass 实例
     let newObj = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // 使用 swap 方法交换值
     let oldValue = atomicRef.swap(newObj)
-    
+
     // 验证交换的旧值和新值
     println("交换前的旧值: ${oldValue.value}")
     let newValue = atomicRef.load()
@@ -4842,7 +4849,7 @@ import std.sync.*
 
 class TestClass {
     var value: Int32 = 0
-    
+
     public init(val: Int32) {
         value = val
     }
@@ -4851,16 +4858,16 @@ class TestClass {
 main(): Unit {
     // 创建一个 TestClass 实例
     let testObj = TestClass(42)
-    
+
     // 创建另一个 TestClass 实例
     let newObj = TestClass(84)
-    
+
     // 创建一个 AtomicReference 实例，初始值为 testObj
     let atomicRef = AtomicReference<TestClass>(testObj)
-    
+
     // 使用 deprecated 的 swap 方法交换值
     let oldValue = atomicRef.swap(newObj, memoryOrder: SeqCst)
-    
+
     // 验证交换的旧值和新值
     println("交换前的旧值: ${oldValue.value}")
     let newValue = atomicRef.load()
@@ -4907,7 +4914,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("创建了一个 AtomicUInt16 实例，初始值为: ${atomicUInt16.load()}")
-    
+
     // 修改值为 20
     atomicUInt16.store(20)
     println("修改后的值为: ${atomicUInt16.load()}")
@@ -4950,12 +4957,12 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicUInt16.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicUInt16.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicUInt16.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -5008,7 +5015,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicUInt16.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -5050,7 +5057,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicUInt16.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -5097,7 +5104,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -5139,7 +5146,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicUInt16.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -5186,7 +5193,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -5228,7 +5235,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicUInt16.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -5275,7 +5282,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -5317,7 +5324,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 20
     let atomicUInt16 = AtomicUInt16(20)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicUInt16.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -5364,7 +5371,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 20
     let atomicUInt16 = AtomicUInt16(20)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -5406,7 +5413,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicUInt16.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -5453,7 +5460,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 15
     let atomicUInt16 = AtomicUInt16(15)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -5491,7 +5498,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("AtomicUInt16 实例的值为: ${atomicUInt16.load()}")
-    
+
     // 修改值
     atomicUInt16.store(20)
     println("修改后的值为: ${atomicUInt16.load()}")
@@ -5535,7 +5542,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("AtomicUInt16 实例的值为: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicUInt16.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -5571,7 +5578,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicUInt16.store(20)
     println("使用 store 方法修改后的值: ${atomicUInt16.load()}")
@@ -5612,7 +5619,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicUInt16.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt16.load()}")
@@ -5652,7 +5659,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicUInt16.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -5699,7 +5706,7 @@ main(): Unit {
     // 创建一个 AtomicUInt16 实例，初始值为 10
     let atomicUInt16 = AtomicUInt16(10)
     println("初始值: ${atomicUInt16.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt16.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -5747,7 +5754,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("创建了一个 AtomicUInt32 实例，初始值为: ${atomicUInt32.load()}")
-    
+
     // 修改值为 20
     atomicUInt32.store(20)
     println("修改后的值为: ${atomicUInt32.load()}")
@@ -5790,12 +5797,12 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicUInt32.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicUInt32.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicUInt32.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -5848,7 +5855,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicUInt32.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -5890,7 +5897,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicUInt32.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -5937,7 +5944,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -5979,7 +5986,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicUInt32.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -6026,7 +6033,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -6068,7 +6075,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicUInt32.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -6115,7 +6122,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -6157,7 +6164,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 20
     let atomicUInt32 = AtomicUInt32(20)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicUInt32.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -6204,7 +6211,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 20
     let atomicUInt32 = AtomicUInt32(20)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -6246,7 +6253,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicUInt32.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -6293,7 +6300,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 15
     let atomicUInt32 = AtomicUInt32(15)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -6331,7 +6338,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("AtomicUInt32 实例的值为: ${atomicUInt32.load()}")
-    
+
     // 修改值
     atomicUInt32.store(20)
     println("修改后的值为: ${atomicUInt32.load()}")
@@ -6375,7 +6382,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("AtomicUInt32 实例的值为: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicUInt32.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -6411,7 +6418,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicUInt32.store(20)
     println("使用 store 方法修改后的值: ${atomicUInt32.load()}")
@@ -6452,7 +6459,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicUInt32.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt32.load()}")
@@ -6492,7 +6499,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicUInt32.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -6539,7 +6546,7 @@ main(): Unit {
     // 创建一个 AtomicUInt32 实例，初始值为 10
     let atomicUInt32 = AtomicUInt32(10)
     println("初始值: ${atomicUInt32.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt32.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -6587,7 +6594,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("创建了一个 AtomicUInt64 实例，初始值为: ${atomicUInt64.load()}")
-    
+
     // 修改值为 20
     atomicUInt64.store(20)
     println("修改后的值为: ${atomicUInt64.load()}")
@@ -6630,12 +6637,12 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicUInt64.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicUInt64.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicUInt64.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -6688,7 +6695,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicUInt64.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -6730,7 +6737,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicUInt64.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -6777,7 +6784,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -6819,7 +6826,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicUInt64.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -6866,7 +6873,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -6908,7 +6915,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicUInt64.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -6955,7 +6962,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -6997,7 +7004,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 20
     let atomicUInt64 = AtomicUInt64(20)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicUInt64.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -7044,7 +7051,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 20
     let atomicUInt64 = AtomicUInt64(20)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -7086,7 +7093,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicUInt64.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -7133,7 +7140,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 15
     let atomicUInt64 = AtomicUInt64(15)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -7171,7 +7178,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("AtomicUInt64 实例的值为: ${atomicUInt64.load()}")
-    
+
     // 修改值
     atomicUInt64.store(20)
     println("修改后的值为: ${atomicUInt64.load()}")
@@ -7215,7 +7222,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("AtomicUInt64 实例的值为: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicUInt64.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -7251,7 +7258,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicUInt64.store(20)
     println("使用 store 方法修改后的值: ${atomicUInt64.load()}")
@@ -7292,7 +7299,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicUInt64.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt64.load()}")
@@ -7332,7 +7339,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicUInt64.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -7379,7 +7386,7 @@ main(): Unit {
     // 创建一个 AtomicUInt64 实例，初始值为 10
     let atomicUInt64 = AtomicUInt64(10)
     println("初始值: ${atomicUInt64.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt64.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -7427,7 +7434,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("创建了一个 AtomicUInt8 实例，初始值为: ${atomicUInt8.load()}")
-    
+
     // 修改值为 20
     atomicUInt8.store(20)
     println("修改后的值为: ${atomicUInt8.load()}")
@@ -7470,12 +7477,12 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 尝试 CAS 操作：期望当前值为 10，设置新值为 20
     let result1 = atomicUInt8.compareAndSwap(10, 20)
     println("第一次 CAS 操作结果: ${result1}")
     println("操作后值: ${atomicUInt8.load()}")
-    
+
     // 再次尝试 CAS 操作：期望当前值仍为 10，但实际已经是 20，所以会失败
     let result2 = atomicUInt8.compareAndSwap(10, 30)
     println("第二次 CAS 操作结果: ${result2}")
@@ -7528,7 +7535,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 compareAndSwap 方法（带 MemoryOrder 参数）
     let result = atomicUInt8.compareAndSwap(10, 20, successOrder: SeqCst, failureOrder: SeqCst)
     println("使用 deprecated 的 compareAndSwap 方法结果: ${result}")
@@ -7570,7 +7577,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 fetchAdd 方法将值增加 5，返回增加前的值
     let oldValue = atomicUInt8.fetchAdd(5)
     println("增加前的旧值: ${oldValue}")
@@ -7617,7 +7624,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchAdd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.fetchAdd(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAdd 方法增加前的旧值: ${oldValue}")
@@ -7659,7 +7666,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 fetchAnd 方法将值与 7 进行按位与操作，返回操作前的值
     let oldValue = atomicUInt8.fetchAnd(7)
     println("按位与操作前的旧值: ${oldValue}")
@@ -7706,7 +7713,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchAnd 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.fetchAnd(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchAnd 方法按位与操作前的旧值: ${oldValue}")
@@ -7748,7 +7755,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 fetchOr 方法将值与 7 进行按位或操作，返回操作前的值
     let oldValue = atomicUInt8.fetchOr(7)
     println("按位或操作前的旧值: ${oldValue}")
@@ -7795,7 +7802,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchOr 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.fetchOr(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchOr 方法按位或操作前的旧值: ${oldValue}")
@@ -7837,7 +7844,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 20
     let atomicUInt8 = AtomicUInt8(20)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 fetchSub 方法将值减去 5，返回减操作前的值
     let oldValue = atomicUInt8.fetchSub(5)
     println("减操作前的旧值: ${oldValue}")
@@ -7884,7 +7891,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 20
     let atomicUInt8 = AtomicUInt8(20)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchSub 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.fetchSub(5, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchSub 方法减操作前的旧值: ${oldValue}")
@@ -7926,7 +7933,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 fetchXor 方法将值与 7 进行按位异或操作，返回操作前的值
     let oldValue = atomicUInt8.fetchXor(7)
     println("按位异或操作前的旧值: ${oldValue}")
@@ -7973,7 +7980,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 15
     let atomicUInt8 = AtomicUInt8(15)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 fetchXor 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.fetchXor(7, memoryOrder: SeqCst)
     println("使用 deprecated 的 fetchXor 方法按位异或操作前的旧值: ${oldValue}")
@@ -8011,7 +8018,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("AtomicUInt8 实例的值为: ${atomicUInt8.load()}")
-    
+
     // 修改值
     atomicUInt8.store(20)
     println("修改后的值为: ${atomicUInt8.load()}")
@@ -8055,7 +8062,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("AtomicUInt8 实例的值为: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 load 方法（带 MemoryOrder 参数）
     let value = atomicUInt8.load(memoryOrder: SeqCst)
     println("使用 deprecated 的 load 方法读取的值: ${value}")
@@ -8091,7 +8098,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 store 方法修改值为 20
     atomicUInt8.store(20)
     println("使用 store 方法修改后的值: ${atomicUInt8.load()}")
@@ -8132,7 +8139,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 store 方法（带 MemoryOrder 参数）
     atomicUInt8.store(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 store 方法修改后的值: ${atomicUInt8.load()}")
@@ -8172,7 +8179,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 swap 方法交换值为 20，返回原始值
     let oldValue = atomicUInt8.swap(20)
     println("交换前的旧值: ${oldValue}")
@@ -8219,7 +8226,7 @@ main(): Unit {
     // 创建一个 AtomicUInt8 实例，初始值为 10
     let atomicUInt8 = AtomicUInt8(10)
     println("初始值: ${atomicUInt8.load()}")
-    
+
     // 使用 deprecated 的 swap 方法（带 MemoryOrder 参数）
     let oldValue = atomicUInt8.swap(20, memoryOrder: SeqCst)
     println("使用 deprecated 的 swap 方法交换前的旧值: ${oldValue}")
@@ -8307,7 +8314,7 @@ main(): Unit {
     // 创建一个 Barrier 对象，需要协调 3 个线程
     let barrier = Barrier(3)
     let list = ArrayList<Future<Unit>>()
-    
+
     // 创建 3 个线程
     for (i in 0..3) {
         let fut = spawn {
@@ -8319,12 +8326,12 @@ main(): Unit {
         }
         list.add(fut)
     }
-    
+
     // 等待所有线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有线程执行完成")
 }
 ```
@@ -8479,7 +8486,7 @@ main(): Int64 {
         }
         mon.unlock()
     }
-    
+
     let fut2 = spawn {
         mon.lock()
         while (flag) {
@@ -8665,7 +8672,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个 MultiConditionMonitor 对象
     let monitor = MultiConditionMonitor()
-    
+
     // 创建一个条件变量
     monitor.lock()
     let conditionID = monitor.newCondition()
@@ -8703,7 +8710,7 @@ main(): Int64 {
     monitor.lock()
     let conditionID = monitor.newCondition()
     monitor.unlock()
-    
+
     let fut = spawn {
         monitor.lock()
         while (flag) {
@@ -8772,7 +8779,7 @@ main(): Int64 {
     monitor.lock()
     let conditionID = monitor.newCondition()
     monitor.unlock()
-    
+
     // 创建两个等待线程
     let fut1 = spawn {
         monitor.lock()
@@ -8783,7 +8790,7 @@ main(): Int64 {
         }
         monitor.unlock()
     }
-    
+
     let fut2 = spawn {
         monitor.lock()
         while (flag) {
@@ -8865,7 +8872,7 @@ main(): Int64 {
     monitor.lock()
     let conditionID = monitor.newCondition()
     monitor.unlock()
-    
+
     let fut = spawn {
         monitor.lock()
         while (flag) {
@@ -8982,7 +8989,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个 Mutex 对象
     let mutex = Mutex()
-    
+
     // 创建一个条件变量
     mutex.lock()
     let condition = mutex.condition()
@@ -9010,7 +9017,7 @@ var sharedData: Int32 = 0
 
 main(): Int64 {
     let list = ArrayList<Future<Unit>>()
-    
+
     // 创建 3 个线程并发访问共享数据
     for (i in 0..3) {
         let fut = spawn {
@@ -9022,12 +9029,12 @@ main(): Int64 {
         }
         list.add(fut)
     }
-    
+
     // 等待所有线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9067,7 +9074,7 @@ main(): Int64 {
     // 先锁定互斥体
     mutex.lock()
     println("主线程已锁定互斥体")
-    
+
     // 启动一个新线程尝试锁定互斥体
     let fut = spawn {
         // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
@@ -9080,14 +9087,14 @@ main(): Int64 {
             println("子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待子线程完成
     fut.get()
-    
+
     // 主线程解锁
     mutex.unlock()
     println("主线程已解锁互斥体")
-    
+
     // 再次启动一个线程尝试锁定互斥体
     let fut2 = spawn {
         // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
@@ -9100,10 +9107,10 @@ main(): Int64 {
             println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待第二个子线程完成
     fut2.get()
-    
+
     println("最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9147,36 +9154,36 @@ main(): Int64 {
     let fut1 = spawn {
         mutex.lock()
         println("线程1: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程1: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         mutex.unlock()
         println("线程1: 已释放锁")
     }
-    
+
     let fut2 = spawn {
         // 等待一段时间，确保线程1先获取锁
         sleep(10 * Duration.millisecond)
-        
+
         mutex.lock()
         println("线程2: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程2: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         mutex.unlock()
         println("线程2: 已释放锁")
     }
-    
+
     // 等待所有线程完成
     fut1.get()
     fut2.get()
-    
+
     println("所有线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9241,30 +9248,30 @@ var sharedData: Int32 = 0
 
 main(): Int64 {
     let list = ArrayList<Future<Unit>>()
-    
+
     // 创建多个读线程，同时读取共享数据
     for (i in 0..3) {
         let fut = spawn {
             // 获取读锁
             let readLock = rwLock.readLock
             readLock.lock()
-            
+
             // 读取共享数据（读操作）
             println("读取 sharedData = ${sharedData}, 线程: ${i}")
-            
+
             // 模拟读操作需要一些时间，这里发现，多线程同时进行了读操作，没有发生冲突
             sleep(2 * Duration.second)
-            
+
             readLock.unlock()
         }
         list.add(fut)
     }
-    
+
     // 等待所有读线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有读线程执行完成")
     return 0
 }
@@ -9301,31 +9308,31 @@ var sharedData: Int32 = 0
 
 main(): Int64 {
     let list = ArrayList<Future<Unit>>()
-    
+
     // 创建多个写线程，同时写入共享数据
     for (i in 0..3) {
         let fut = spawn {
             // 获取写锁
             let writeLock = rwLock.writeLock
             writeLock.lock()
-            
+
             // 写入共享数据（写操作）
             sharedData++
             println("写入之后 sharedData = ${sharedData}, 线程: ${i}")
-            
+
             // 模拟写操作需要一些时间，这里发现，需要前面的写操作完成之后，后面的写操作才能开始
             sleep(1 * Duration.second)
-            
+
             writeLock.unlock()
         }
         list.add(fut)
     }
-    
+
     // 等待所有读线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有写线程执行完成")
     return 0
 }
@@ -9361,7 +9368,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个非公平模式的 ReadWriteLock 对象
     let rwLock1 = ReadWriteLock()
-    
+
     // 创建一个公平模式的 ReadWriteLock 对象
     let rwLock2 = ReadWriteLock(fair: true)
 }
@@ -9389,7 +9396,7 @@ main(): Unit {
     // 创建一个非公平模式的 ReadWriteLock 对象
     let rwLock1 = ReadWriteLock()
     println("rwLock1 是否为公平模式: ${rwLock1.isFair()}")
-    
+
     // 创建一个公平模式的 ReadWriteLock 对象
     let rwLock2 = ReadWriteLock(fair: true)
     println("rwLock2 是否为公平模式: ${rwLock2.isFair()}")
@@ -9473,36 +9480,36 @@ main(): Int64 {
     let fut1 = spawn {
         reentrantMutex.lock()
         println("线程1: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程1: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         reentrantMutex.unlock()
         println("线程1: 已释放锁")
     }
-    
+
     let fut2 = spawn {
         // 等待一段时间，确保线程1先获取锁
         sleep(10 * Duration.millisecond)
-        
+
         reentrantMutex.lock()
         println("线程2: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程2: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         reentrantMutex.unlock()
         println("线程2: 已释放锁")
     }
-    
+
     // 等待所有线程完成
     fut1.get()
     fut2.get()
-    
+
     println("所有线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9545,7 +9552,7 @@ main(): Int64 {
     // 先获取锁
     reentrantMutex.lock()
     println("主线程: 已获取锁")
-    
+
     // 创建一个线程，尝试获取已被占用的锁
     let fut = spawn {
         // 尝试获取锁，应该会失败
@@ -9558,14 +9565,14 @@ main(): Int64 {
             println("子线程: 获取锁失败，锁已被占用")
         }
     }
-    
+
     // 等待一段时间，让子线程执行
     sleep(10 * Duration.millisecond)
-    
+
     // 释放锁
     reentrantMutex.unlock()
     println("主线程: 已释放锁")
-    
+
     // 再次尝试获取锁，应该会成功
     let result = reentrantMutex.tryLock()
     if (result) {
@@ -9575,10 +9582,10 @@ main(): Int64 {
     } else {
         println("主线程: 再次获取锁失败")
     }
-    
+
     // 等待子线程完成
     fut.get()
-    
+
     println("所有线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9622,36 +9629,36 @@ main(): Int64 {
     let fut1 = spawn {
         reentrantMutex.lock()
         println("线程1: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程1: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         reentrantMutex.unlock()
         println("线程1: 已释放锁")
     }
-    
+
     let fut2 = spawn {
         // 等待一段时间，确保线程1先获取锁
         sleep(10 * Duration.millisecond)
-        
+
         reentrantMutex.lock()
         println("线程2: 已获取锁")
-        
+
         // 模拟一些工作
         sharedData = sharedData + 1
         println("线程2: 修改 sharedData = ${sharedData}")
-        
+
         // 释放锁
         reentrantMutex.unlock()
         println("线程2: 已释放锁")
     }
-    
+
     // 等待所有线程完成
     fut1.get()
     fut2.get()
-    
+
     println("所有线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9713,27 +9720,27 @@ var sharedData: Int32 = 0
 main(): Int64 {
     // 创建多个读线程，演示读锁的并发性
     let list = ArrayList<Future<Unit>>()
-    
+
     for (i in 0..3) {
         let fut = spawn {
             readLock.lock()
             println("读取 sharedData = ${sharedData}, 线程: ${i} 获取读锁成功")
-            
+
             // 模拟读操作需要一些时间
             sleep(10 * Duration.millisecond)
-            
+
             // 释放读锁
             readLock.unlock()
             println("释放读锁, 线程: ${i}")
         }
         list.add(fut)
     }
-    
+
     // 等待所有读线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有读线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9777,7 +9784,7 @@ main(): Int64 {
     // 先锁定互斥体
     readLock.lock()
     println("主线程已锁定互斥体")
-    
+
     // 启动一个新线程尝试锁定互斥体
     let fut = spawn {
         // 尝试锁定互斥体（应该会失败，因为主线程已锁定，但是因为读锁特性，此会成功）
@@ -9790,14 +9797,14 @@ main(): Int64 {
             println("子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待子线程完成
     fut.get()
-    
+
     // 主线程解锁
     readLock.unlock()
     println("主线程已解锁互斥体")
-    
+
     // 再次启动一个线程尝试锁定互斥体
     let fut2 = spawn {
         // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
@@ -9810,10 +9817,10 @@ main(): Int64 {
             println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待第二个子线程完成
     fut2.get()
-    
+
     println("最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9855,7 +9862,7 @@ main(): Int64 {
     // 先锁定互斥体
     readLock.lock()
     println("主线程已锁定互斥体")
-    
+
     // 启动一个新线程尝试锁定互斥体
     let fut = spawn {
         // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
@@ -9868,14 +9875,14 @@ main(): Int64 {
             println("子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待子线程完成
     fut.get()
-    
+
     // 主线程解锁
     readLock.unlock()
     println("主线程已解锁互斥体")
-    
+
     // 再次启动一个线程尝试锁定互斥体
     let fut2 = spawn {
         // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
@@ -9888,10 +9895,10 @@ main(): Int64 {
             println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待第二个子线程完成
     fut2.get()
-    
+
     println("最终 sharedData = ${sharedData}")
     return 0
 }
@@ -9955,7 +9962,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个 ReentrantReadWriteMutex 对象
     var rwMutex = ReentrantReadWriteMutex()
-    
+
     // 获取读锁
     let readMutex = rwMutex.readMutex
 }
@@ -9980,7 +9987,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个 ReentrantReadWriteMutex 对象
     var rwMutex = ReentrantReadWriteMutex()
-    
+
     // 获取写锁
     let writeMutex = rwMutex.writeMutex
 }
@@ -10007,7 +10014,7 @@ import std.sync.*
 main(): Unit {
     // 创建一个非公平模式的 ReentrantReadWriteMutex 对象
     var rwMutex1 = ReentrantReadWriteMutex()
-    
+
     // 创建一个公平模式的 ReentrantReadWriteMutex 对象
     var rwMutex2 = ReentrantReadWriteMutex(mode: ReadWriteMutexMode.Fair)
 }
@@ -10055,28 +10062,28 @@ var sharedData: Int32 = 0
 main(): Int64 {
     // 创建多个读线程，演示写锁的并发性
     let list = ArrayList<Future<Unit>>()
-    
+
     for (i in 0..3) {
         let fut = spawn {
             writeLock.lock()
             sharedData++
             println("读取 sharedData = ${sharedData}, 线程: ${i} 获取写锁成功")
-            
+
             // 模拟读操作需要一些时间
             sleep(10 * Duration.millisecond)
-            
+
             // 释放写锁
             writeLock.unlock()
             println("释放写锁, 线程: ${i}")
         }
         list.add(fut)
     }
-    
+
     // 等待所有写线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有写锁线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -10120,7 +10127,7 @@ main(): Int64 {
     // 先锁定互斥体
     writeLock.lock()
     println("主线程已锁定互斥体")
-    
+
     // 启动一个新线程尝试锁定互斥体
     let fut = spawn {
         // 尝试锁定互斥体（应该会失败，因为主线程已锁定）
@@ -10133,14 +10140,14 @@ main(): Int64 {
             println("子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待子线程完成
     fut.get()
-    
+
     // 主线程解锁
     writeLock.unlock()
     println("主线程已解锁互斥体")
-    
+
     // 再次启动一个线程尝试锁定互斥体
     let fut2 = spawn {
         // 尝试锁定互斥体（应该会成功，因为主线程已解锁）
@@ -10153,10 +10160,10 @@ main(): Int64 {
             println("第二个子线程 tryLock 失败，互斥体已被其他线程锁定")
         }
     }
-    
+
     // 等待第二个子线程完成
     fut2.get()
-    
+
     println("最终 sharedData = ${sharedData}")
     return 0
 }
@@ -10204,28 +10211,28 @@ var sharedData: Int32 = 0
 main(): Int64 {
     // 创建多个读线程，演示写锁的并发性
     let list = ArrayList<Future<Unit>>()
-    
+
     for (i in 0..3) {
         let fut = spawn {
             writeLock.lock()
             sharedData++
             println("读取 sharedData = ${sharedData}, 线程: ${i} 获取写锁成功")
-            
+
             // 模拟读操作需要一些时间
             sleep(10 * Duration.millisecond)
-            
+
             // 释放写锁
             writeLock.unlock()
             println("释放写锁, 线程: ${i}")
         }
         list.add(fut)
     }
-    
+
     // 等待所有写线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有写锁线程执行完成，最终 sharedData = ${sharedData}")
     return 0
 }
@@ -10274,10 +10281,10 @@ import std.sync.*
 main(): Unit {
     // 创建一个计数器初始值为 5 的信号量
     var semaphore = Semaphore(5)
-    
+
     // 获取当前计数器的值
     let count = semaphore.count
-    
+
     println("信号量创建成功，当前计数器值为: ${count}")
 }
 ```
@@ -10313,12 +10320,12 @@ import std.sync.*
 main(): Unit {
     // 创建一个计数器初始值为 5 的信号量
     var semaphore = Semaphore(5)
-    
+
     println("信号量创建成功，初始计数器值为: ${semaphore.count}")
-    
+
     // 尝试创建一个计数器初始值为 0 的信号量
     var semaphore2 = Semaphore(0)
-    
+
     println("信号量创建成功，初始计数器值为: ${semaphore2.count}")
 }
 ```
@@ -10355,32 +10362,32 @@ public func acquire(amount!: Int64 = 1): Unit
 import std.sync.*
 import std.collection.*
 
-var semaphore = Semaphore(2)  // 创建一个计数器初始值为 2 的信号量
+var semaphore = Semaphore(2) // 创建一个计数器初始值为 2 的信号量
 
 main(): Int64 {
     let list = ArrayList<Future<Unit>>()
-    
+
     // 创建多个线程，演示信号量的获取和释放
     for (i in 0..5) {
         let fut = spawn {
             println("线程: ${i}, 尝试获取信号量")
-            semaphore.acquire()  // 获取信号量
+            semaphore.acquire() // 获取信号量
             println("线程: ${i}, 成功获取信号量，开始执行任务")
-            
+
             // 模拟执行任务
             sleep(10 * Duration.millisecond)
-            
+
             println("线程: ${i}, 任务执行完成，释放信号量")
-            semaphore.release()  // 释放信号量
+            semaphore.release() // 释放信号量
         }
         list.add(fut)
     }
-    
+
     // 等待所有线程完成
     for (f in list) {
         f.get()
     }
-    
+
     println("所有线程执行完成")
     return 0
 }
@@ -10431,19 +10438,19 @@ public func release(amount!: Int64 = 1): Unit
 ```cangjie
 import std.sync.*
 
-var semaphore = Semaphore(1)  // 创建一个计数器初始值为 1 的信号量
+var semaphore = Semaphore(1) // 创建一个计数器初始值为 1 的信号量
 
 main(): Unit {
     println("初始信号量计数器值: ${semaphore.count}")
-    
+
     // 获取信号量
     semaphore.acquire()
     println("获取信号量后计数器值: ${semaphore.count}")
-    
+
     // 释放信号量
     semaphore.release()
     println("释放信号量后计数器值: ${semaphore.count}")
-    
+
     // 再次释放信号量（计数器值不会超过初始值）
     semaphore.release()
     println("再次释放信号量后计数器值: ${semaphore.count}")
@@ -10487,23 +10494,23 @@ public func tryAcquire(amount!: Int64 = 1): Bool
 ```cangjie
 import std.sync.*
 
-var semaphore = Semaphore(1)  // 创建一个计数器初始值为 1 的信号量
+var semaphore = Semaphore(1) // 创建一个计数器初始值为 1 的信号量
 
 main(): Unit {
     println("初始信号量计数器值: ${semaphore.count}")
-    
+
     // 尝试获取信号量，应该成功
     let result1 = semaphore.tryAcquire()
     println("第一次尝试获取信号量结果: ${result1}, 计数器值: ${semaphore.count}")
-    
+
     // 再次尝试获取信号量，应该失败
     let result2 = semaphore.tryAcquire()
     println("第二次尝试获取信号量结果: ${result2}, 计数器值: ${semaphore.count}")
-    
+
     // 释放信号量
     semaphore.release()
     println("释放信号量后计数器值: ${semaphore.count}")
-    
+
     // 再次尝试获取信号量，应该成功
     let result3 = semaphore.tryAcquire()
     println("第三次尝试获取信号量结果: ${result3}, 计数器值: ${semaphore.count}")
@@ -10552,11 +10559,11 @@ main(): Int64 {
     // 创建一个初始值为10的SyncCounter
     let counter = SyncCounter(10)
     println("初始计数: ${counter.count}")
-    
+
     // 减少计数器
     counter.dec()
     println("减少后的计数: ${counter.count}")
-    
+
     return 0
 }
 ```
@@ -10625,24 +10632,24 @@ main(): Int64 {
     // 创建一个初始值为2的SyncCounter
     let counter = SyncCounter(2)
     println("初始计数: ${counter.count}")
-    
+
     // 创建一个线程来减少计数器
     let future = spawn {
-        sleep(100 * Duration.millisecond)  // 等待100毫秒
+        sleep(100 * Duration.millisecond) // 等待100毫秒
         counter.dec()
         println("第一次减少，当前计数: ${counter.count}")
-        
-        sleep(100 * Duration.millisecond)  // 再等待100毫秒
+
+        sleep(100 * Duration.millisecond) // 再等待100毫秒
         counter.dec()
         println("第二次减少，当前计数: ${counter.count}")
         return 0
     }
-    
+
     // 主线程等待计数器变为零
     println("等待计数器变为零...")
     counter.waitUntilZero()
     println("计数器已变为零！")
-    
+
     // 等待子线程完成
     future.get()
     return 0
@@ -10682,24 +10689,24 @@ main(): Int64 {
     // 创建一个初始值为2的SyncCounter
     let counter = SyncCounter(2)
     println("初始计数: ${counter.count}")
-    
+
     // 创建一个线程来减少计数器
     let future = spawn {
-        sleep(100 * Duration.millisecond)  // 等待100毫秒
+        sleep(100 * Duration.millisecond) // 等待100毫秒
         counter.dec()
         println("第一次减少，当前计数: ${counter.count}")
-        
-        sleep(100 * Duration.millisecond)  // 再等待100毫秒
+
+        sleep(100 * Duration.millisecond) // 再等待100毫秒
         counter.dec()
         println("第二次减少，当前计数: ${counter.count}")
         return 0
     }
-    
+
     // 主线程等待计数器变为零
     println("等待计数器变为零...")
     counter.waitUntilZero()
     println("计数器已变为零！")
-    
+
     // 等待子线程完成
     future.get()
     return 0
@@ -10767,23 +10774,27 @@ import std.time.*
 main(): Int64 {
     let startTime = MonoTime.now()
     println("开始创建定时器...")
-    
+
     // 使用 Timer.after 创建一个定时器，首次延迟100毫秒执行
     // 任务返回 Some(200ms) 表示每隔200毫秒重复执行
-    let timer = Timer.after(100 * Duration.millisecond, {=>
-        let elapsed = MonoTime.now() - startTime
-        println("定时器触发，耗时: ${elapsed}")
-        // 返回 Some(200ms) 表示200毫秒后再次执行
-        return Option.Some(200 * Duration.millisecond)
-    })
-    
+    let timer = Timer.after(
+        100 * Duration.millisecond,
+        {
+            =>
+                let elapsed = MonoTime.now() - startTime
+                println("定时器触发，耗时: ${elapsed}")
+                // 返回 Some(200ms) 表示200毫秒后再次执行
+                return Option.Some(200 * Duration.millisecond)
+        }
+    )
+
     // 等待1秒让定时器执行几次
     sleep(Duration.second)
-    
+
     // 取消定时器
     timer.cancel()
     println("定时器已取消")
-    
+
     return 0
 }
 ```
@@ -10827,8 +10838,8 @@ import std.sync.Timer
 
 main() {
     let start = MonoTime.now()
-    Timer.once(Duration.second, {=>
-        println("Tick at: ${MonoTime.now() - start}")
+    Timer.once(Duration.second, {
+        => println("Tick at: ${MonoTime.now() - start}")
     })
 
     sleep(Duration.second * 2)
@@ -10875,8 +10886,8 @@ import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
-    let timer = Timer.repeat(Duration.second, Duration.second, {=>
-        println("Tick at: ${MonoTime.now() - start}")
+    let timer = Timer.repeat(Duration.second, Duration.second, {
+        => println("Tick at: ${MonoTime.now() - start}")
     })
 
     sleep(Duration.second * 5)
@@ -10928,8 +10939,8 @@ import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
-    Timer.repeatDuring(Duration.second * 5, Duration.second, Duration.second, {=>
-        println("Tick at: ${MonoTime.now() - start}")
+    Timer.repeatDuring(Duration.second * 5, Duration.second, Duration.second, {
+        => println("Tick at: ${MonoTime.now() - start}")
     })
 
     sleep(Duration.second * 7)
@@ -10982,8 +10993,8 @@ import std.time.MonoTime
 
 main() {
     let start = MonoTime.now()
-    Timer.repeatTimes(3, Duration.second, Duration.second, {=>
-        println("Tick at: ${MonoTime.now() - start}")
+    Timer.repeatTimes(3, Duration.second, Duration.second, {
+        => println("Tick at: ${MonoTime.now() - start}")
     })
 
     sleep(Duration.second * 4)
@@ -11017,26 +11028,26 @@ import std.sync.*
 
 main(): Int64 {
     println("创建一个3秒后执行的定时器...")
-    
+
     // 创建一个3秒后执行的定时器
-    let timer = Timer.once(3 * Duration.second, {=>
-        println("定时器任务执行了！这不应该发生，因为我们会取消它。")
+    let timer = Timer.once(3 * Duration.second, {
+        => println("定时器任务执行了！这不应该发生，因为我们会取消它。")
     })
-    
+
     println("定时器已创建，将在3秒后执行")
     println("等待1秒后取消定时器...")
-    
+
     // 等待1秒
     sleep(1 * Duration.second)
-    
+
     // 取消定时器
     timer.cancel()
     println("定时器已取消")
-    
+
     println("再等待3秒以验证定时器确实被取消了...")
     sleep(3 * Duration.second)
     println("程序结束，定时器任务没有执行。")
-    
+
     return 0
 }
 ```
@@ -11072,16 +11083,16 @@ import std.sync.*
 
 main(): Int64 {
     // 创建一个定时器
-    let timer = Timer.once(Duration.second, {=> })
-    
+    let timer = Timer.once(Duration.second, {=>})
+
     // 获取哈希值
     let hash = timer.hashCode()
-    
+
     println("timer 的哈希值: ${hash}")
-    
+
     // 取消定时器
     timer.cancel()
-    
+
     return 0
 }
 ```
@@ -11116,30 +11127,30 @@ import std.sync.*
 
 main(): Int64 {
     // 创建两个不同的定时器
-    let timer1 = Timer.once(Duration.second, {=> })
-    let timer2 = Timer.once(Duration.second, {=> })
-    
+    let timer1 = Timer.once(Duration.second, {=>})
+    let timer2 = Timer.once(Duration.second, {=>})
+
     // 检查它们是否不是同一个实例
     if (timer1 != timer2) {
         println("timer1 和 timer2 不是同一个实例")
     } else {
         println("timer1 和 timer2 是同一个实例")
     }
-    
+
     // 创建一个指向 timer1 的引用
     let timer3 = timer1
-    
+
     // 检查 timer1 和 timer3 是否不是同一个实例
     if (timer1 != timer3) {
         println("timer1 和 timer3 不是同一个实例")
     } else {
         println("timer1 和 timer3 是同一个实例")
     }
-    
+
     // 取消定时器
     timer1.cancel()
     timer2.cancel()
-    
+
     return 0
 }
 ```
@@ -11175,30 +11186,30 @@ import std.sync.*
 
 main(): Int64 {
     // 创建两个不同的定时器
-    let timer1 = Timer.once(Duration.second, {=> })
-    let timer2 = Timer.once(Duration.second, {=> })
-    
+    let timer1 = Timer.once(Duration.second, {=>})
+    let timer2 = Timer.once(Duration.second, {=>})
+
     // 检查它们是否是同一个实例
     if (timer1 == timer2) {
         println("timer1 和 timer2 是同一个实例")
     } else {
         println("timer1 和 timer2 不是同一个实例")
     }
-    
+
     // 创建一个指向 timer1 的引用
     let timer3 = timer1
-    
+
     // 检查 timer1 和 timer3 是否是同一个实例
     if (timer1 == timer3) {
         println("timer1 和 timer3 是同一个实例")
     } else {
         println("timer1 和 timer3 不是同一个实例")
     }
-    
+
     // 取消定时器
     timer1.cancel()
     timer2.cancel()
-    
+
     return 0
 }
 ```

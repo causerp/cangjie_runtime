@@ -22,11 +22,11 @@ var monitor = MultiConditionMonitor()
 var flag: Bool = true
 
 main(): Int64 {
-    // 创建一个条件变量
+    // 创建一个互斥锁的条件变量
     monitor.lock()
     let conditionID = monitor.newCondition()
     monitor.unlock()
-    
+
     let fut = spawn {
         monitor.lock()
         while (flag) {

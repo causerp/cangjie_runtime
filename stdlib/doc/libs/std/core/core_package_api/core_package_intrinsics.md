@@ -1117,7 +1117,7 @@ main() {
     // 测试 Float16.Inf 属性
     let infValue = Float16.Inf
     println("Float16.Inf 的值: ${infValue}")
-    
+
     // 验证它确实是无穷大
     println("Float16.Inf 是否为无穷大: ${infValue.isInf()}")
 }
@@ -1148,7 +1148,7 @@ main() {
     // 测试 Float16.Max 属性
     let maxValue = Float16.Max
     println("Float16.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Float16.Max 是否为常规数值: ${maxValue.isNormal()}")
 }
@@ -1179,7 +1179,7 @@ main() {
     // 测试 Float16.Min 属性
     let minValue = Float16.Min
     println("Float16.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Float16.Min 是否为常规数值: ${minValue.isNormal()}")
 }
@@ -1210,7 +1210,7 @@ main() {
     // 测试 Float16.MinDenormal 属性
     let minDenormalValue = Float16.MinDenormal
     println("Float16.MinDenormal 的值: ${minDenormalValue}")
-    
+
     // 验证它确实是最小次正规数
     println("Float16.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
 }
@@ -1241,7 +1241,7 @@ main() {
     // 测试 Float16.MinNormal 属性
     let minNormalValue = Float16.MinNormal
     println("Float16.MinNormal 的值: ${minNormalValue}")
-    
+
     // 验证它确实是最小正规数
     println("Float16.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
 }
@@ -1272,7 +1272,7 @@ main() {
     // 测试 Float16.NaN 属性
     let nanValue = Float16.NaN
     println("Float16.NaN 的值: ${nanValue}")
-    
+
     // 验证它确实是 NaN
     println("Float16.NaN 是否为非数值: ${nanValue.isNaN()}")
 }
@@ -1316,11 +1316,11 @@ main() {
     let e: Float16 = 3.4f16
     let f: Float16 = 3.8f16
     let g: Float16 = 3.9f16
-    
+
     // 使用 max 方法找出最大值
     let maxValue = Float16.max(a, b, c, d, e, f, g)
     println("Float16.max(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: ${maxValue}")
-    
+
     // 验证结果
     println("最大值是否正确: ${maxValue == g}")
 }
@@ -1364,11 +1364,11 @@ main() {
     let e: Float16 = 3.4f16
     let f: Float16 = 3.8f16
     let g: Float16 = 3.9f16
-    
+
     // 使用 min 方法找出最小值
     let minValue = Float16.min(a, b, c, d, e, f, g)
     println("Float16.min(1.5, 2.7, 0.8, 3.2, 3.4, 3.8, 3.9) 的结果: ${minValue}")
-    
+
     // 验证结果
     println("最小值是否正确: ${minValue == c}")
 }
@@ -1402,13 +1402,13 @@ main() {
     let normalValue: Float16 = 1.5f16
     let infValue = Float16.Inf
     let negInfValue = -Float16.Inf
-    
+
     // 检查普通值是否为无穷
     println("1.5f16.isInf() 的结果: ${normalValue.isInf()}")
-    
+
     // 检查正无穷是否为无穷
     println("Float16.Inf.isInf() 的结果: ${infValue.isInf()}")
-    
+
     // 检查负无穷是否为无穷
     println("(-Float16.Inf).isInf() 的结果: ${negInfValue.isInf()}")
 }
@@ -1442,10 +1442,10 @@ main() {
     // 测试 Float16.isNaN 方法
     let normalValue: Float16 = 1.5f16
     let nanValue = Float16.NaN
-    
+
     // 检查普通值是否为 NaN
     println("1.5f16.isNaN() 的结果: ${normalValue.isNaN()}")
-    
+
     // 检查 NaN 值是否为 NaN
     println("Float16.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
 }
@@ -1480,16 +1480,16 @@ main() {
     let zeroValue: Float16 = 0.0f16
     let infValue = Float16.Inf
     let nanValue = Float16.NaN
-    
+
     // 检查普通值是否为常规数值
     println("1.5f16.isNormal() 的结果: ${normalValue.isNormal()}")
-    
+
     // 检查零值是否为常规数值
     println("0.0f16.isNormal() 的结果: ${zeroValue.isNormal()}")
-    
+
     // 检查无穷值是否为常规数值
     println("Float16.Inf.isNormal() 的结果: ${infValue.isNormal()}")
-    
+
     // 检查 NaN 值是否为常规数值
     println("Float16.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
 }
@@ -1649,16 +1649,16 @@ main() {
     let value1: Float16 = 1.5f16
     let value2: Float16 = 1.5f16
     let value3: Float16 = 2.0f16
-    
+
     // 计算哈希值
     let hash1 = value1.hashCode()
     let hash2 = value2.hashCode()
     let hash3 = value3.hashCode()
-    
+
     println("1.5f16 的哈希值: ${hash1}")
     println("1.5f16 的哈希值: ${hash2}")
     println("2.0f16 的哈希值: ${hash3}")
-    
+
     // 验证相等的值具有相同的哈希值
     println("相等值的哈希值是否相同: ${hash1 == hash2}")
 }
@@ -1706,16 +1706,16 @@ main() {
     let value1: Float16 = 1.5f16
     let value2: Float16 = 123.456f16
     let value3: Float16 = -0.001f16
-    
+
     // 转换为字符串
     let str1 = value1.toString()
     let str2 = value2.toString()
     let str3 = value3.toString()
-    
+
     println("1.5f16 转换为字符串: \"${str1}\"")
     println("123.456f16 转换为字符串: \"${str2}\"")
     println("-0.001f16 转换为字符串: \"${str3}\"")
-    
+
     // 验证类型
     println("转换后的类型是否为 String: ${str1 is String}")
 }
@@ -1760,7 +1760,7 @@ main() {
     // 测试 Float32.Inf 属性
     let infValue = Float32.Inf
     println("Float32.Inf 的值: ${infValue}")
-    
+
     // 验证它确实是无穷大
     println("Float32.Inf 是否为无穷大: ${infValue.isInf()}")
 }
@@ -1791,7 +1791,7 @@ main() {
     // 测试 Float32.Max 属性
     let maxValue = Float32.Max
     println("Float32.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Float32.Max 是否为常规数值: ${maxValue.isNormal()}")
 }
@@ -1822,7 +1822,7 @@ main() {
     // 测试 Float32.Min 属性
     let minValue = Float32.Min
     println("Float32.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Float32.Min 是否为常规数值: ${minValue.isNormal()}")
 }
@@ -1853,7 +1853,7 @@ main() {
     // 测试 Float32.MinDenormal 属性
     let minDenormalValue = Float32.MinDenormal
     println("Float32.MinDenormal 的值: ${minDenormalValue}")
-    
+
     // 验证它确实是最小次正规数
     println("Float32.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
 }
@@ -1884,7 +1884,7 @@ main() {
     // 测试 Float32.MinNormal 属性
     let minNormalValue = Float32.MinNormal
     println("Float32.MinNormal 的值: ${minNormalValue}")
-    
+
     // 验证它确实是最小正规数
     println("Float32.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
 }
@@ -1915,7 +1915,7 @@ main() {
     // 测试 Float32.NaN 属性
     let nanValue = Float32.NaN
     println("Float32.NaN 的值: ${nanValue}")
-    
+
     // 验证它确实是 NaN
     println("Float32.NaN 是否为非数值: ${nanValue.isNaN()}")
 }
@@ -1956,11 +1956,11 @@ main() {
     let b: Float32 = 2.7f32
     let c: Float32 = 0.8f32
     let d: Float32 = 3.2f32
-    
+
     // 使用 max 方法找出最大值
     let maxValue = Float32.max(a, b, c, d)
     println("Float32.max(1.5, 2.7, 0.8, 3.2) 的结果: ${maxValue}")
-    
+
     // 验证结果
     println("最大值是否正确: ${maxValue == d}")
 }
@@ -2001,11 +2001,11 @@ main() {
     let b: Float32 = 2.7f32
     let c: Float32 = 0.8f32
     let d: Float32 = 3.2f32
-    
+
     // 使用 min 方法找出最小值
     let minValue = Float32.min(a, b, c, d)
     println("Float32.min(1.5, 2.7, 0.8, 3.2) 的结果: ${minValue}")
-    
+
     // 验证结果
     println("最小值是否正确: ${minValue == c}")
 }
@@ -2039,13 +2039,13 @@ main() {
     let normalValue: Float32 = 1.5f32
     let infValue = Float32.Inf
     let negInfValue = -Float32.Inf
-    
+
     // 检查普通值是否为无穷
     println("1.5f32.isInf() 的结果: ${normalValue.isInf()}")
-    
+
     // 检查正无穷是否为无穷
     println("Float32.Inf.isInf() 的结果: ${infValue.isInf()}")
-    
+
     // 检查负无穷是否为无穷
     println("(-Float32.Inf).isInf() 的结果: ${negInfValue.isInf()}")
 }
@@ -2079,10 +2079,10 @@ main() {
     // 测试 Float32.isNaN 方法
     let normalValue: Float32 = 1.5f32
     let nanValue = Float32.NaN
-    
+
     // 检查普通值是否为 NaN
     println("1.5f32.isNaN() 的结果: ${normalValue.isNaN()}")
-    
+
     // 检查 NaN 值是否为 NaN
     println("Float32.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
 }
@@ -2117,16 +2117,16 @@ main() {
     let zeroValue: Float32 = 0.0f32
     let infValue = Float32.Inf
     let nanValue = Float32.NaN
-    
+
     // 检查普通值是否为常规数值
     println("1.5f32.isNormal() 的结果: ${normalValue.isNormal()}")
-    
+
     // 检查零值是否为常规数值
     println("0.0f32.isNormal() 的结果: ${zeroValue.isNormal()}")
-    
+
     // 检查无穷值是否为常规数值
     println("Float32.Inf.isNormal() 的结果: ${infValue.isNormal()}")
-    
+
     // 检查 NaN 值是否为常规数值
     println("Float32.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
 }
@@ -2286,16 +2286,16 @@ main() {
     let value1: Float32 = 1.5f32
     let value2: Float32 = 1.5f32
     let value3: Float32 = 2.0f32
-    
+
     // 计算哈希值
     let hash1 = value1.hashCode()
     let hash2 = value2.hashCode()
     let hash3 = value3.hashCode()
-    
+
     println("1.5f32 的哈希值: ${hash1}")
     println("1.5f32 的哈希值: ${hash2}")
     println("2.0f32 的哈希值: ${hash3}")
-    
+
     // 验证相等的值具有相同的哈希值
     println("相等值的哈希值是否相同: ${hash1 == hash2}")
 }
@@ -2343,16 +2343,16 @@ main() {
     let value1: Float32 = 1.5f32
     let value2: Float32 = 123.456f32
     let value3: Float32 = -0.001f32
-    
+
     // 转换为字符串
     let str1 = value1.toString()
     let str2 = value2.toString()
     let str3 = value3.toString()
-    
+
     println("1.5f32 转换为字符串: \"${str1}\"")
     println("123.456f32 转换为字符串: \"${str2}\"")
     println("-0.001f32 转换为字符串: \"${str3}\"")
-    
+
     // 验证类型
     println("转换后的类型是否为 String: ${str1 is String}")
 }
@@ -2397,7 +2397,7 @@ main() {
     // 测试 Float64.Inf 属性
     let infValue = Float64.Inf
     println("Float64.Inf 的值: ${infValue}")
-    
+
     // 验证它确实是无穷大
     println("Float64.Inf 是否为无穷大: ${infValue.isInf()}")
 }
@@ -2428,7 +2428,7 @@ main() {
     // 测试 Float64.Max 属性
     let maxValue = Float64.Max
     println("Float64.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Float64.Max 是否为常规数值: ${maxValue.isNormal()}")
 }
@@ -2459,7 +2459,7 @@ main() {
     // 测试 Float64.Min 属性
     let minValue = Float64.Min
     println("Float64.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Float64.Min 是否为常规数值: ${minValue.isNormal()}")
 }
@@ -2490,7 +2490,7 @@ main() {
     // 测试 Float64.MinDenormal 属性
     let minDenormalValue = Float64.MinDenormal
     println("Float64.MinDenormal 的值: ${minDenormalValue}")
-    
+
     // 验证它确实是最小次正规数
     println("Float64.MinDenormal 是否为常规数值: ${minDenormalValue.isNormal()}")
 }
@@ -2521,7 +2521,7 @@ main() {
     // 测试 Float64.MinNormal 属性
     let minNormalValue = Float64.MinNormal
     println("Float64.MinNormal 的值: ${minNormalValue}")
-    
+
     // 验证它确实是最小正规数
     println("Float64.MinNormal 是否为常规数值: ${minNormalValue.isNormal()}")
 }
@@ -2552,7 +2552,7 @@ main() {
     // 测试 Float64.NaN 属性
     let nanValue = Float64.NaN
     println("Float64.NaN 的值: ${nanValue}")
-    
+
     // 验证它确实是 NaN
     println("Float64.NaN 是否为非数值: ${nanValue.isNaN()}")
 }
@@ -2593,11 +2593,11 @@ main() {
     let b: Float64 = 2.7f64
     let c: Float64 = 0.8f64
     let d: Float64 = 3.2f64
-    
+
     // 使用 max 方法找出最大值
     let maxValue = Float64.max(a, b, [c, d])
     println("Float64.max(1.5, 2.7, [0.8, 3.2]) 的结果: ${maxValue}")
-    
+
     // 验证结果
     println("最大值是否正确: ${maxValue == d}")
 }
@@ -2638,11 +2638,11 @@ main() {
     let b: Float64 = 2.7f64
     let c: Float64 = 0.8f64
     let d: Float64 = 3.2f64
-    
+
     // 使用 min 方法找出最小值
     let minValue = Float64.min(a, b, [c, d])
     println("Float64.min(1.5, 2.7, [0.8, 3.2]) 的结果: ${minValue}")
-    
+
     // 验证结果
     println("最小值是否正确: ${minValue == c}")
 }
@@ -2676,13 +2676,13 @@ main() {
     let normalValue: Float64 = 1.5f64
     let infValue = Float64.Inf
     let negInfValue = -Float64.Inf
-    
+
     // 检查普通值是否为无穷
     println("1.5f64.isInf() 的结果: ${normalValue.isInf()}")
-    
+
     // 检查正无穷是否为无穷
     println("Float64.Inf.isInf() 的结果: ${infValue.isInf()}")
-    
+
     // 检查负无穷是否为无穷
     println("(-Float64.Inf).isInf() 的结果: ${negInfValue.isInf()}")
 }
@@ -2716,10 +2716,10 @@ main() {
     // 测试 Float64.isNaN 方法
     let normalValue: Float64 = 1.5f64
     let nanValue = Float64.NaN
-    
+
     // 检查普通值是否为 NaN
     println("1.5f64.isNaN() 的结果: ${normalValue.isNaN()}")
-    
+
     // 检查 NaN 值是否为 NaN
     println("Float64.NaN.isNaN() 的结果: ${nanValue.isNaN()}")
 }
@@ -2754,16 +2754,16 @@ main() {
     let zeroValue: Float64 = 0.0f64
     let infValue = Float64.Inf
     let nanValue = Float64.NaN
-    
+
     // 检查普通值是否为常规数值
     println("1.5f64.isNormal() 的结果: ${normalValue.isNormal()}")
-    
+
     // 检查零值是否为常规数值
     println("0.0f64.isNormal() 的结果: ${zeroValue.isNormal()}")
-    
+
     // 检查无穷值是否为常规数值
     println("Float64.Inf.isNormal() 的结果: ${infValue.isNormal()}")
-    
+
     // 检查 NaN 值是否为常规数值
     println("Float64.NaN.isNormal() 的结果: ${nanValue.isNormal()}")
 }
@@ -2923,16 +2923,16 @@ main() {
     let value1: Float64 = 1.5f64
     let value2: Float64 = 1.5f64
     let value3: Float64 = 2.0f64
-    
+
     // 计算哈希值
     let hash1 = value1.hashCode()
     let hash2 = value2.hashCode()
     let hash3 = value3.hashCode()
-    
+
     println("1.5f64 的哈希值: ${hash1}")
     println("1.5f64 的哈希值: ${hash2}")
     println("2.0f64 的哈希值: ${hash3}")
-    
+
     // 验证相等的值具有相同的哈希值
     println("相等值的哈希值是否相同: ${hash1 == hash2}")
 }
@@ -2980,16 +2980,16 @@ main() {
     let value1: Float64 = 1.5f64
     let value2: Float64 = 123.456f64
     let value3: Float64 = -0.001f64
-    
+
     // 转换为字符串
     let str1 = value1.toString()
     let str2 = value2.toString()
     let str3 = value3.toString()
-    
+
     println("1.5f64 转换为字符串: \"${str1}\"")
     println("123.456f64 转换为字符串: \"${str2}\"")
     println("-0.001f64 转换为字符串: \"${str3}\"")
-    
+
     // 验证类型
     println("转换后的类型是否为 String: ${str1 is String}")
 }
@@ -3034,7 +3034,7 @@ main() {
     // 测试 Int16.Max 属性
     let maxValue = Int16.Max
     println("Int16.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Int16.Max 是否等于 32767: ${maxValue == 32767}")
 }
@@ -3065,7 +3065,7 @@ main() {
     // 测试 Int16.Min 属性
     let minValue = Int16.Min
     println("Int16.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Int16.Min 是否等于 -32768: ${minValue == -32768}")
 }
@@ -3234,16 +3234,16 @@ main() {
     let value1: Int16 = 42
     let value2: Int16 = 42
     let value3: Int16 = -100
-    
+
     // 计算哈希值
     let hash1 = value1.hashCode()
     let hash2 = value2.hashCode()
     let hash3 = value3.hashCode()
-    
+
     println("42 的哈希值: ${hash1}")
     println("42 的哈希值: ${hash2}")
     println("-100 的哈希值: ${hash3}")
-    
+
     // 验证相等的值具有相同的哈希值
     println("相等值的哈希值是否相同: ${hash1 == hash2}")
 }
@@ -3291,16 +3291,16 @@ main() {
     let value1: Int16 = 42
     let value2: Int16 = -123
     let value3: Int16 = 0
-    
+
     // 转换为字符串
     let str1 = value1.toString()
     let str2 = value2.toString()
     let str3 = value3.toString()
-    
+
     println("42 转换为字符串: \"${str1}\"")
     println("-123 转换为字符串: \"${str2}\"")
     println("0 转换为字符串: \"${str3}\"")
-    
+
     // 验证类型
     println("转换后的类型是否为 String: ${str1 is String}")
 }
@@ -3345,7 +3345,7 @@ main() {
     // 测试 Int32.Max 属性
     let maxValue = Int32.Max
     println("Int32.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Int32.Max 是否等于 2147483647: ${maxValue == 2147483647}")
 }
@@ -3376,7 +3376,7 @@ main() {
     // 测试 Int32.Min 属性
     let minValue = Int32.Min
     println("Int32.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Int32.Min 是否等于 -2147483648: ${minValue == -2147483648}")
 }
@@ -3539,16 +3539,16 @@ main() {
     let value1: Int32 = 42
     let value2: Int32 = 42
     let value3: Int32 = -100
-    
+
     // 计算哈希值
     let hash1 = value1.hashCode()
     let hash2 = value2.hashCode()
     let hash3 = value3.hashCode()
-    
+
     println("42 的哈希值: ${hash1}")
     println("42 的哈希值: ${hash2}")
     println("-100 的哈希值: ${hash3}")
-    
+
     // 验证相等的值具有相同的哈希值
     println("相等值的哈希值是否相同: ${hash1 == hash2}")
 }
@@ -3596,16 +3596,16 @@ main() {
     let value1: Int32 = 42
     let value2: Int32 = -123
     let value3: Int32 = 0
-    
+
     // 转换为字符串
     let str1 = value1.toString()
     let str2 = value2.toString()
     let str3 = value3.toString()
-    
+
     println("42 转换为字符串: \"${str1}\"")
     println("-123 转换为字符串: \"${str2}\"")
     println("0 转换为字符串: \"${str3}\"")
-    
+
     // 验证类型
     println("转换后的类型是否为 String: ${str1 is String}")
 }
@@ -3650,7 +3650,7 @@ main() {
     // 测试 Int64.Max 属性
     let maxValue = Int64.Max
     println("Int64.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Int64.Max 是否等于 9223372036854775807: ${maxValue == 9223372036854775807}")
 }
@@ -3681,7 +3681,7 @@ main() {
     // 测试 Int64.Min 属性
     let minValue = Int64.Min
     println("Int64.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Int64.Min 是否等于 -9223372036854775808: ${minValue == -9223372036854775808}")
 }
@@ -3845,13 +3845,13 @@ main() {
     let hash = num.hashCode()
     println("Int64 值: ${num}")
     println("hashCode: ${hash}")
-    
+
     // 测试不同值的哈希码
     let negativeNum: Int64 = -42
     let negativeHash = negativeNum.hashCode()
     println("Int64 值: ${negativeNum}")
     println("hashCode: ${negativeHash}")
-    
+
     // 测试零值
     let zero: Int64 = 0
     let zeroHash = zero.hashCode()
@@ -3905,25 +3905,25 @@ main() {
     let str = num.toString()
     println("Int64 值: ${num}")
     println("转换为字符串: ${str}")
-    
+
     // 测试负数
     let negativeNum: Int64 = -42
     let negativeStr = negativeNum.toString()
     println("Int64 值: ${negativeNum}")
     println("转换为字符串: ${negativeStr}")
-    
+
     // 测试零值
     let zero: Int64 = 0
     let zeroStr = zero.toString()
     println("Int64 值: ${zero}")
     println("转换为字符串: ${zeroStr}")
-    
+
     // 测试最大值和最小值
     let maxVal = Int64.Max
     let maxStr = maxVal.toString()
     println("Int64 最大值: ${maxVal}")
     println("转换为字符串: ${maxStr}")
-    
+
     let minVal = Int64.Min
     let minStr = minVal.toString()
     println("Int64 最小值: ${minVal}")
@@ -3976,7 +3976,7 @@ main() {
     // 测试 Int8.Max 属性
     let maxValue = Int8.Max
     println("Int8.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值
     println("Int8.Max 是否等于 127: ${maxValue == 127}")
 }
@@ -4007,7 +4007,7 @@ main() {
     // 测试 Int8.Min 属性
     let minValue = Int8.Min
     println("Int8.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值
     println("Int8.Min 是否等于 -128: ${minValue == -128}")
 }
@@ -4171,25 +4171,25 @@ main() {
     let hash = num.hashCode()
     println("Int8 值: ${num}")
     println("hashCode: ${hash}")
-    
+
     // 测试不同值的哈希码
     let negativeNum: Int8 = -42
     let negativeHash = negativeNum.hashCode()
     println("Int8 值: ${negativeNum}")
     println("hashCode: ${negativeHash}")
-    
+
     // 测试零值
     let zero: Int8 = 0
     let zeroHash = zero.hashCode()
     println("Int8 值: ${zero}")
     println("hashCode: ${zeroHash}")
-    
+
     // 测试最大值和最小值
     let maxVal = Int8.Max
     let maxHash = maxVal.hashCode()
     println("Int8 最大值: ${maxVal}")
     println("hashCode: ${maxHash}")
-    
+
     let minVal = Int8.Min
     let minHash = minVal.hashCode()
     println("Int8 最小值: ${minVal}")
@@ -4246,25 +4246,25 @@ main() {
     let str = num.toString()
     println("Int8 值: ${num}")
     println("转换为字符串: ${str}")
-    
+
     // 测试负数
     let negativeNum: Int8 = -42
     let negativeStr = negativeNum.toString()
     println("Int8 值: ${negativeNum}")
     println("转换为字符串: ${negativeStr}")
-    
+
     // 测试零值
     let zero: Int8 = 0
     let zeroStr = zero.toString()
     println("Int8 值: ${zero}")
     println("转换为字符串: ${zeroStr}")
-    
+
     // 测试最大值和最小值
     let maxVal = Int8.Max
     let maxStr = maxVal.toString()
     println("Int8 最大值: ${maxVal}")
     println("转换为字符串: ${maxStr}")
-    
+
     let minVal = Int8.Min
     let minStr = minVal.toString()
     println("Int8 最小值: ${minVal}")
@@ -4317,7 +4317,7 @@ main() {
     // 测试 IntNative.Max 属性
     let maxValue = IntNative.Max
     println("IntNative.Max 的值: ${maxValue}")
-    
+
     // 验证它确实是最大值（在64位系统上应该是 9223372036854775807）
     println("IntNative.Max 是否等于 9223372036854775807: ${maxValue == 9223372036854775807}")
 }
@@ -4348,7 +4348,7 @@ main() {
     // 测试 IntNative.Min 属性
     let minValue = IntNative.Min
     println("IntNative.Min 的值: ${minValue}")
-    
+
     // 验证它确实是最小值（在64位系统上应该是 -9223372036854775808）
     println("IntNative.Min 是否等于 -9223372036854775808: ${minValue == -9223372036854775808}")
 }
@@ -4512,25 +4512,25 @@ main() {
     let hash = num.hashCode()
     println("IntNative 值: ${num}")
     println("hashCode: ${hash}")
-    
+
     // 测试不同值的哈希码
     let negativeNum: IntNative = -42
     let negativeHash = negativeNum.hashCode()
     println("IntNative 值: ${negativeNum}")
     println("hashCode: ${negativeHash}")
-    
+
     // 测试零值
     let zero: IntNative = 0
     let zeroHash = zero.hashCode()
     println("IntNative 值: ${zero}")
     println("hashCode: ${zeroHash}")
-    
+
     // 测试最大值和最小值
     let maxVal = IntNative.Max
     let maxHash = maxVal.hashCode()
     println("IntNative 最大值: ${maxVal}")
     println("hashCode: ${maxHash}")
-    
+
     let minVal = IntNative.Min
     let minHash = minVal.hashCode()
     println("IntNative 最小值: ${minVal}")
@@ -4587,25 +4587,25 @@ main() {
     let str = num.toString()
     println("IntNative 值: ${num}")
     println("转换为字符串: ${str}")
-    
+
     // 测试负数
     let negativeNum: IntNative = -42
     let negativeStr = negativeNum.toString()
     println("IntNative 值: ${negativeNum}")
     println("转换为字符串: ${negativeStr}")
-    
+
     // 测试零值
     let zero: IntNative = 0
     let zeroStr = zero.toString()
     println("IntNative 值: ${zero}")
     println("转换为字符串: ${zeroStr}")
-    
+
     // 测试最大值和最小值
     let maxVal = IntNative.Max
     let maxStr = maxVal.toString()
     println("IntNative 最大值: ${maxVal}")
     println("转换为字符串: ${maxStr}")
-    
+
     let minVal = IntNative.Min
     let minStr = minVal.toString()
     println("IntNative 最小值: ${minVal}")
@@ -4714,7 +4714,7 @@ main() {
     // 创建一个包含中文字符的字节数组
     var arr: Array<UInt8> = [72, 101, 108, 108, 111, 231, 136, 177] // "Hello爱" 的 UTF-8 编码
     println("字节数组: ${arr}")
-    
+
     // 获取索引为 7（即中文字符"爱"的第二个字节）对应的字符
     var tuple = Rune.getPreviousFromUtf8(arr, 7)
     println("获取的字符: ${tuple[0]}")
@@ -4858,9 +4858,9 @@ public func isAscii(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAscii() 方法
-    var asciiChar: Rune = r'A'  // ASCII 字符
-    var nonAsciiChar: Rune = r'爱'  // 非 ASCII 字符
-    
+    var asciiChar: Rune = r'A' // ASCII 字符
+    var nonAsciiChar: Rune = r'爱' // 非 ASCII 字符
+
     println("字符 '${asciiChar}' 是 ASCII 字符吗? ${asciiChar.isAscii()}")
     println("字符 '${nonAsciiChar}' 是 ASCII 字符吗? ${nonAsciiChar.isAscii()}")
 }
@@ -4891,9 +4891,9 @@ public func isAsciiControl(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiControl() 方法
-    var controlChar: Rune = r'\n'  // ASCII 控制字符
-    var nonControlChar: Rune = r'A'  // 非控制字符
-    
+    var controlChar: Rune = r'\n' // ASCII 控制字符
+    var nonControlChar: Rune = r'A' // 非控制字符
+
     println("字符 '${controlChar}' 是 ASCII 控制字符吗? ${controlChar.isAsciiControl()}")
     println("字符 '${nonControlChar}' 是 ASCII 控制字符吗? ${nonControlChar.isAsciiControl()}")
 }
@@ -4925,9 +4925,9 @@ public func isAsciiGraphic(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiGraphic() 方法
-    var graphicChar: Rune = r'A'  // ASCII 图形字符
-    var nonGraphicChar: Rune = r'\n'  // 非图形字符（控制字符）
-    
+    var graphicChar: Rune = r'A' // ASCII 图形字符
+    var nonGraphicChar: Rune = r'\n' // 非图形字符（控制字符）
+
     println("字符 '${graphicChar}' 是 ASCII 图形字符吗? ${graphicChar.isAsciiGraphic()}")
     println("字符 '${nonGraphicChar}' 是 ASCII 图形字符吗? ${nonGraphicChar.isAsciiGraphic()}")
 }
@@ -4959,9 +4959,9 @@ public func isAsciiHex(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiHex() 方法
-    var hexChar: Rune = r'A'  // ASCII 十六进制字符
-    var nonHexChar: Rune = r'G'  // 非十六进制字符
-    
+    var hexChar: Rune = r'A' // ASCII 十六进制字符
+    var nonHexChar: Rune = r'G' // 非十六进制字符
+
     println("字符 '${hexChar}' 是 ASCII 十六进制字符吗? ${hexChar.isAsciiHex()}")
     println("字符 '${nonHexChar}' 是 ASCII 十六进制字符吗? ${nonHexChar.isAsciiHex()}")
 }
@@ -4992,9 +4992,9 @@ public func isAsciiLetter(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiLetter() 方法
-    var letterChar: Rune = r'A'  // ASCII 字母字符
-    var nonLetterChar: Rune = r'1'  // 非字母字符
-    
+    var letterChar: Rune = r'A' // ASCII 字母字符
+    var nonLetterChar: Rune = r'1' // 非字母字符
+
     println("字符 '${letterChar}' 是 ASCII 字母字符吗? ${letterChar.isAsciiLetter()}")
     println("字符 '${nonLetterChar}' 是 ASCII 字母字符吗? ${nonLetterChar.isAsciiLetter()}")
 }
@@ -5025,9 +5025,9 @@ public func isAsciiLowerCase(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiLowerCase() 方法
-    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
-    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
-    
+    var lowerCaseChar: Rune = r'a' // ASCII 小写字符
+    var upperCaseChar: Rune = r'A' // ASCII 大写字符
+
     println("字符 '${lowerCaseChar}' 是 ASCII 小写字符吗? ${lowerCaseChar.isAsciiLowerCase()}")
     println("字符 '${upperCaseChar}' 是 ASCII 小写字符吗? ${upperCaseChar.isAsciiLowerCase()}")
 }
@@ -5058,9 +5058,9 @@ public func isAsciiNumber(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiNumber() 方法
-    var numberChar: Rune = r'1'  // ASCII 数字字符
-    var nonNumberChar: Rune = r'A'  // 非数字字符
-    
+    var numberChar: Rune = r'1' // ASCII 数字字符
+    var nonNumberChar: Rune = r'A' // 非数字字符
+
     println("字符 '${numberChar}' 是 ASCII 数字字符吗? ${numberChar.isAsciiNumber()}")
     println("字符 '${nonNumberChar}' 是 ASCII 数字字符吗? ${nonNumberChar.isAsciiNumber()}")
 }
@@ -5091,10 +5091,10 @@ public func isAsciiNumberOrLetter(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiNumberOrLetter() 方法
-    var numberChar: Rune = r'1'  // ASCII 数字字符
-    var letterChar: Rune = r'A'  // ASCII 字母字符
-    var specialChar: Rune = r'!'  // 特殊字符
-    
+    var numberChar: Rune = r'1' // ASCII 数字字符
+    var letterChar: Rune = r'A' // ASCII 字母字符
+    var specialChar: Rune = r'!' // 特殊字符
+
     println("字符 '${numberChar}' 是 ASCII 数字或字母字符吗? ${numberChar.isAsciiNumberOrLetter()}")
     println("字符 '${letterChar}' 是 ASCII 数字或字母字符吗? ${letterChar.isAsciiNumberOrLetter()}")
     println("字符 '${specialChar}' 是 ASCII 数字或字母字符吗? ${specialChar.isAsciiNumberOrLetter()}")
@@ -5127,9 +5127,9 @@ public func isAsciiOct(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiOct() 方法
-    var octChar: Rune = r'7'  // ASCII 八进制字符
-    var nonOctChar: Rune = r'8'  // 非八进制字符
-    
+    var octChar: Rune = r'7' // ASCII 八进制字符
+    var nonOctChar: Rune = r'8' // 非八进制字符
+
     println("字符 '${octChar}' 是 ASCII 八进制字符吗? ${octChar.isAsciiOct()}")
     println("字符 '${nonOctChar}' 是 ASCII 八进制字符吗? ${nonOctChar.isAsciiOct()}")
 }
@@ -5160,9 +5160,9 @@ public func isAsciiPunctuation(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiPunctuation() 方法
-    var punctuationChar: Rune = r'!'  // ASCII 标点符号字符
-    var nonPunctuationChar: Rune = r'A'  // 非标点符号字符
-    
+    var punctuationChar: Rune = r'!' // ASCII 标点符号字符
+    var nonPunctuationChar: Rune = r'A' // 非标点符号字符
+
     println("字符 '${punctuationChar}' 是 ASCII 标点符号字符吗? ${punctuationChar.isAsciiPunctuation()}")
     println("字符 '${nonPunctuationChar}' 是 ASCII 标点符号字符吗? ${nonPunctuationChar.isAsciiPunctuation()}")
 }
@@ -5193,9 +5193,9 @@ public func isAsciiUpperCase(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiUpperCase() 方法
-    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
-    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
-    
+    var upperCaseChar: Rune = r'A' // ASCII 大写字符
+    var lowerCaseChar: Rune = r'a' // ASCII 小写字符
+
     println("字符 '${upperCaseChar}' 是 ASCII 大写字符吗? ${upperCaseChar.isAsciiUpperCase()}")
     println("字符 '${lowerCaseChar}' 是 ASCII 大写字符吗? ${lowerCaseChar.isAsciiUpperCase()}")
 }
@@ -5226,9 +5226,9 @@ public func isAsciiWhiteSpace(): Bool
 ```cangjie
 main() {
     // 测试 Rune.isAsciiWhiteSpace() 方法
-    var whiteSpaceChar: Rune = r' '  // ASCII 空白字符
-    var nonWhiteSpaceChar: Rune = r'A'  // 非空白字符
-    
+    var whiteSpaceChar: Rune = r' ' // ASCII 空白字符
+    var nonWhiteSpaceChar: Rune = r'A' // 非空白字符
+
     println("字符 '${whiteSpaceChar}' 是 ASCII 空白字符吗? ${whiteSpaceChar.isAsciiWhiteSpace()}")
     println("字符 '${nonWhiteSpaceChar}' 是 ASCII 空白字符吗? ${nonWhiteSpaceChar.isAsciiWhiteSpace()}")
 }
@@ -5259,14 +5259,14 @@ public func toAsciiLowerCase(): Rune
 ```cangjie
 main() {
     // 测试 Rune.toAsciiLowerCase() 方法
-    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
-    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
-    var nonLetterChar: Rune = r'1'  // 非字母字符
-    
+    var upperCaseChar: Rune = r'A' // ASCII 大写字符
+    var lowerCaseChar: Rune = r'a' // ASCII 小写字符
+    var nonLetterChar: Rune = r'1' // 非字母字符
+
     var convertedUpper = upperCaseChar.toAsciiLowerCase()
     var convertedLower = lowerCaseChar.toAsciiLowerCase()
     var convertedNonLetter = nonLetterChar.toAsciiLowerCase()
-    
+
     println("大写字符 '${upperCaseChar}' 转换为小写: ${convertedUpper}")
     println("小写字符 '${lowerCaseChar}' 转换为小写: ${convertedLower}")
     println("非字母字符 '${nonLetterChar}' 转换为小写: ${convertedNonLetter}")
@@ -5299,14 +5299,14 @@ public func toAsciiUpperCase(): Rune
 ```cangjie
 main() {
     // 测试 Rune.toAsciiUpperCase() 方法
-    var lowerCaseChar: Rune = r'a'  // ASCII 小写字符
-    var upperCaseChar: Rune = r'A'  // ASCII 大写字符
-    var nonLetterChar: Rune = r'1'  // 非字母字符
-    
+    var lowerCaseChar: Rune = r'a' // ASCII 小写字符
+    var upperCaseChar: Rune = r'A' // ASCII 大写字符
+    var nonLetterChar: Rune = r'1' // 非字母字符
+
     var convertedLower = lowerCaseChar.toAsciiUpperCase()
     var convertedUpper = upperCaseChar.toAsciiUpperCase()
     var convertedNonLetter = nonLetterChar.toAsciiUpperCase()
-    
+
     println("小写字符 '${lowerCaseChar}' 转换为大写: ${convertedLower}")
     println("大写字符 '${upperCaseChar}' 转换为大写: ${convertedUpper}")
     println("非字母字符 '${nonLetterChar}' 转换为大写: ${convertedNonLetter}")
@@ -5410,7 +5410,7 @@ main() {
     var nextChar = char.next(1)
     println("字符: ${char}")
     println("下一个字符: ${nextChar}")
-    
+
     // 测试向后移动
     var prevChar = char.next(-1)
     println("前一个字符: ${prevChar}")
@@ -5447,7 +5447,7 @@ main() {
     var position = char.position()
     println("字符: ${char}")
     println("Unicode码点位置: ${position}")
-    
+
     // 测试中文字符
     var chineseChar: Rune = r'爱'
     var chinesePosition = chineseChar.position()
@@ -5499,7 +5499,7 @@ main() {
     var hash = char.hashCode()
     println("字符: ${char}")
     println("哈希值: ${hash}")
-    
+
     // 测试中文字符
     var chineseChar: Rune = r'爱'
     var chineseHash = chineseChar.hashCode()
@@ -5551,7 +5551,7 @@ main() {
     var str = char.toString()
     println("字符: ${char}")
     println("转换为字符串: ${str}")
-    
+
     // 测试中文字符
     var chineseChar: Rune = r'爱'
     var chineseStr = chineseChar.toString()
@@ -5599,7 +5599,7 @@ main() {
     // 测试 UInt16.Max 属性
     var maxVal = UInt16.Max
     println("UInt16的最大值: ${maxVal}")
-    
+
     // 验证最大值是否正确
     if (maxVal == 65535) {
         println("验证通过: UInt16.Max 等于 65535")
@@ -5634,7 +5634,7 @@ main() {
     // 测试 UInt16.Min 属性
     var minVal = UInt16.Min
     println("UInt16的最小值: ${minVal}")
-    
+
     // 验证最小值是否正确
     if (minVal == 0) {
         println("验证通过: UInt16.Min 等于 0")
@@ -5802,7 +5802,7 @@ main() {
     var hash = num.hashCode()
     println("UInt16值: ${num}")
     println("哈希值: ${hash}")
-    
+
     // 测试最大值
     var maxNum: UInt16 = UInt16.Max
     var maxHash = maxNum.hashCode()
@@ -5854,7 +5854,7 @@ main() {
     var str = num.toString()
     println("UInt16值: ${num}")
     println("转换为字符串: ${str}")
-    
+
     // 测试最大值
     var maxNum: UInt16 = UInt16.Max
     var maxStr = maxNum.toString()

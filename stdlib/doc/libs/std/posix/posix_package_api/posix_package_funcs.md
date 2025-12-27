@@ -42,7 +42,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用open打开文件（只读模式）
         let openedFd = `open`(filePath, O_RDONLY)
         if (openedFd != -1) {
@@ -51,7 +51,7 @@ main(): Int64 {
         } else {
             println("Failed to open file")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -106,13 +106,13 @@ import std.posix.*
 
 main(): Int64 {
     let filePath = "./test_open_file2.txt"
-    
+
     // 使用open创建并打开文件（创建模式）
     let fd = `open`(filePath, O_CREAT | O_WRONLY, 0o644u32)
     if (fd != -1) {
         println("Successfully created and opened file with fd: ${fd}")
         close(fd)
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -222,7 +222,7 @@ import std.posix.*
 main(): Int64 {
     // 获取当前执行进程工作目录的绝对路径。
     let currentDir = getcwd()
-    
+
     // 尝试切换到根目录
     let result = chdir("/")
     if (result == 0) {
@@ -285,7 +285,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 修改文件权限为可读可写可执行
         let result = chmod(filePath, 0o755u32)
         if (result == 0) {
@@ -293,7 +293,7 @@ main(): Int64 {
         } else {
             println("Failed to change file permissions")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -348,16 +348,16 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 注意：在大多数系统上，需要root权限才能真正改变文件所有者
         // 这里只是演示函数调用方式
-        let result = chown(filePath, 1000u32, 1000u32)  // 使用常见的用户ID和组ID
+        let result = chown(filePath, 1000u32, 1000u32) // 使用常见的用户ID和组ID
         if (result == 0) {
             println("Successfully changed file ownership")
         } else {
             println("Failed to change file ownership (may need root permissions)")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -405,7 +405,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         println("File descriptor created: ${fd}")
-        
+
         // 关闭文件描述符
         let result = close(fd)
         if (result == 0) {
@@ -413,7 +413,7 @@ main(): Int64 {
         } else {
             println("Failed to close file descriptor")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -573,11 +573,11 @@ import std.posix.*
 main(): Int64 {
     let filePath1 = "./test_dup2_file1.txt"
     let filePath2 = "./test_dup2_file2.txt"
-    
+
     // 创建两个测试文件
     let fd1 = creat(filePath1, 0o644u32)
     let fd2 = creat(filePath2, 0o644u32)
-    
+
     if (fd1 != -1 && fd2 != -1) {
         println("Original fd1: ${fd1}, fd2: ${fd2}")
         // 使用dup2将fd1复制到fd2，这会先关闭fd2
@@ -657,7 +657,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用faccessat检查文件是否可读
         let result = faccessat(AT_FDCWD, filePath, R_OK, 0)
         if (result == 0) {
@@ -665,7 +665,7 @@ main(): Int64 {
         } else {
             println("File is not readable")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -711,7 +711,7 @@ import std.posix.*
 main(): Int64 {
     let currentDir = getcwd()
     println("Current directory: ${currentDir}")
-    
+
     // 打开当前目录获取文件描述符
     let fd = open(".", O_RDONLY, 0u32)
     if (fd != -1) {
@@ -841,7 +841,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用fchmodat修改文件权限
         let result = fchmodat(AT_FDCWD, filePath, 0o755u32, 0)
         if (result == 0) {
@@ -849,7 +849,7 @@ main(): Int64 {
         } else {
             println("Failed to change file permissions with fchmodat")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -900,7 +900,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         // 使用fchown修改文件所有者（需要root权限才能真正生效）
-        let result = fchown(fd, 1000u32, 1000u32)  // 使用常见的用户ID和组ID
+        let result = fchown(fd, 1000u32, 1000u32) // 使用常见的用户ID和组ID
         if (result == 0) {
             println("fchown call succeeded (may not have actual effect without root permissions)")
         } else {
@@ -967,15 +967,15 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用fchownat修改文件所有者（需要root权限才能真正生效）
-        let result = fchownat(AT_FDCWD, filePath, 1000u32, 1000u32, 0)  // 使用常见的用户ID和组ID
+        let result = fchownat(AT_FDCWD, filePath, 1000u32, 1000u32, 0) // 使用常见的用户ID和组ID
         if (result == 0) {
             println("fchownat call succeeded (may not have actual effect without root permissions)")
         } else {
             println("fchownat call failed")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
@@ -1445,11 +1445,11 @@ main(): Int64 {
     // 检查标准输入是否为终端
     let isStdinTTY = isatty(0)
     println("Is stdin a TTY: ${isStdinTTY}")
-    
+
     // 检查标准输出是否为终端
     let isStdoutTTY = isatty(1)
     println("Is stdout a TTY: ${isStdoutTTY}")
-    
+
     return 0
 }
 ```
@@ -1493,17 +1493,17 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为块设备
         let isBlockDevice = isBlk(filePath)
         println("Is '${filePath}' a block device: ${isBlockDevice}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1546,17 +1546,17 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为字符设备
         let isCharDevice = isChr(filePath)
         println("Is '${filePath}' a character device: ${isCharDevice}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1599,21 +1599,21 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为目录
         let isDirectory = isDir(filePath)
         println("Is '${filePath}' a directory: ${isDirectory}")
-        
+
         // 检查当前目录是否为目录
         let isCurrentDirectory = isDir(".")
         println("Is '.' a directory: ${isCurrentDirectory}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1658,17 +1658,17 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为FIFO文件
         let isFIFO = isFIFO(filePath)
         println("Is '${filePath}' a FIFO file: ${isFIFO}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1712,17 +1712,17 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为软链接
         let isLink = isLnk(filePath)
         println("Is '${filePath}' a symbolic link: ${isLink}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1765,21 +1765,21 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为普通文件
         let isRegular = isReg(filePath)
         println("Is '${filePath}' a regular file: ${isRegular}")
-        
+
         // 检查当前目录是否为普通文件
         let isCurrentDirRegular = isReg(".")
         println("Is '.' a regular file: ${isCurrentDirRegular}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1824,17 +1824,17 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为套接字文件
         let isSocket = isSock(filePath)
         println("Is '${filePath}' a socket file: ${isSocket}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1879,21 +1879,21 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 检查文件是否为指定类型的文件（普通文件类型）
         let isRegularFile = isType(filePath, S_IFREG)
         println("Is '${filePath}' a regular file: ${isRegularFile}")
-        
+
         // 检查文件是否为指定类型的文件（目录类型）
         let isDirectory = isType(filePath, S_IFDIR)
         println("Is '${filePath}' a directory: ${isDirectory}")
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -1941,7 +1941,7 @@ import std.posix.*
 main(): Int64 {
     // 获取当前进程ID
     let pid = getpid()
-    
+
     // 发送SIGCONT信号给自己
     let result = kill(pid, SIGCONT)
     if (result == 0) {
@@ -1949,7 +1949,7 @@ main(): Int64 {
     } else {
         println("Failed to send SIGCONT signal to process.")
     }
-    
+
     return 0
 }
 ```
@@ -1991,7 +1991,7 @@ import std.posix.*
 main(): Int64 {
     // 获取当前进程的进程组ID
     let pgid = getpgrp()
-    
+
     // 发送SIGCONT信号到当前进程组
     let result = killpg(pgid, SIGCONT)
     if (result == 0) {
@@ -1999,7 +1999,7 @@ main(): Int64 {
     } else {
         println("Failed to send SIGCONT signal to process group.")
     }
-    
+
     return 0
 }
 ```
@@ -2049,11 +2049,11 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 获取当前用户的UID和GID
         let uid = getuid()
         let gid = getgid()
-        
+
         // 修改文件链接本身的所有者和组
         let result = lchown(filePath, uid, gid)
         if (result == 0) {
@@ -2061,13 +2061,13 @@ main(): Int64 {
         } else {
             println("Failed to change ownership of '${filePath}'")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2116,7 +2116,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 为存在的文件创建硬链接
         let linkPath = "./test_link_file_hardlink.txt"
         let result = link(filePath, linkPath)
@@ -2125,14 +2125,14 @@ main(): Int64 {
         } else {
             println("Failed to create hard link from '${filePath}' to '${linkPath}'")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
         unlink(linkPath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2189,7 +2189,7 @@ main(): Int64 {
     let fd = creat(filePath, 0o644u32)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用linkat创建相对于当前目录的硬链接
         let linkPath = "./test_linkat_file_hardlink.txt"
         let result = linkat(AT_FDCWD, filePath, AT_FDCWD, linkPath, 0)
@@ -2198,14 +2198,14 @@ main(): Int64 {
         } else {
             println("Failed to create hard link from '${filePath}' to '${linkPath}' using linkat")
         }
-        
+
         // 清理测试文件
         unlink(filePath)
         unlink(linkPath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2264,21 +2264,21 @@ main(): Int64 {
             // 将文件位置设置到文件开头
             let pos1 = lseek(fd2, 0, SEEK_SET)
             println("Position after SEEK_SET: ${pos1}")
-            
+
             // 将文件位置设置到文件末尾
             let pos2 = lseek(fd2, 0, SEEK_END)
             println("Position after SEEK_END: ${pos2}")
-            
+
             // 关闭文件
             close(fd2)
         }
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2326,7 +2326,7 @@ main(): Int64 {
     // 获取当前进程的优先级
     let currentPriority = nice(0)
     println("Current process priority: ${currentPriority}")
-    
+
     // 尝试降低进程优先级（增加nice值）
     let newPriority = nice(5)
     if (newPriority != -1) {
@@ -2334,7 +2334,7 @@ main(): Int64 {
     } else {
         println("Failed to change process priority")
     }
-    
+
     return 0
 }
 ```
@@ -2405,7 +2405,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2457,16 +2457,16 @@ main(): Int64 {
     let fd = open64(filePath, O_CREAT | O_WRONLY, 0o644u32)
     if (fd != -1) {
         println("Successfully opened file '${filePath}' with fd: ${fd}")
-        
+
         // 关闭文件
         close(fd)
-        
+
         // 清理测试文件
         unlink(filePath)
     } else {
         println("Failed to open file '${filePath}'")
     }
-    
+
     return 0
 }
 ```
@@ -2519,15 +2519,15 @@ main(): Int64 {
     let fd1 = creat(filePath, 0o644u32)
     if (fd1 != -1) {
         close(fd1)
-        
+
         // 使用openat打开已存在的文件（三个参数版本）
         let fd2 = openat(AT_FDCWD, filePath, O_RDONLY)
         if (fd2 != -1) {
             println("Successfully opened existing file '${filePath}' with fd: ${fd2}")
-            
+
             // 关闭文件
             close(fd2)
-            
+
             // 清理测试文件
             unlink(filePath)
         } else {
@@ -2536,7 +2536,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2588,23 +2588,23 @@ import std.posix.*
 main(): Int64 {
     // 使用AT_FDCWD作为文件描述符，表示当前工作目录
     let fd = AT_FDCWD
-    
+
     // 尝试打开一个不存在的文件，使用O_CREAT标志创建新文件
     // 使用O_WRONLY表示只写模式
     let oflag = O_CREAT | O_WRONLY
-    
+
     // 设置文件权限为所有者读写，组和其他用户只读
     let flag = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-    
+
     // 尝试打开或创建文件
     let result = openat(fd, "test_file.txt", oflag, flag)
-    
+
     if (result != -1) {
         println("Successfully opened/created file with fd: ${result}")
     } else {
         println("Failed to open/create file")
     }
-    
+
     return 0
 }
 ```
@@ -2654,21 +2654,21 @@ import std.posix.*
 main(): Int64 {
     // 使用AT_FDCWD作为文件描述符，表示当前工作目录
     let fd = AT_FDCWD
-    
+
     // 尝试打开一个不存在的文件，使用O_CREAT标志创建新文件
     // 使用O_RDWR表示读写模式
     let oflag = O_CREAT | O_RDWR
-    
+
     let file = "test_file64.txt"
     // 尝试打开或创建文件
     let result = openat64(fd, file, oflag)
-    
+
     if (result != -1) {
         println("Successfully opened/created file with fd: ${result}")
     } else {
         println("Failed to open/create file")
     }
-    
+
     // 清理测试文件
     unlink(file)
     return 0
@@ -2721,24 +2721,24 @@ import std.posix.*
 main(): Int64 {
     // 使用AT_FDCWD作为文件描述符，表示当前工作目录
     let fd = AT_FDCWD
-    
+
     // 尝试打开一个不存在的文件，使用O_CREAT标志创建新文件
     // 使用O_RDONLY表示只读模式
     let oflag = O_CREAT | O_RDONLY
-    
+
     // 设置文件权限为所有者读写，组和其他用户只读
     let flag = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
-    
+
     let file = "test_file64.txt"
     // 尝试打开或创建文件
     let result = openat64(fd, file, oflag, flag)
-    
+
     if (result != -1) {
         println("Successfully opened/created file with fd: ${result}")
     } else {
         println("Failed to open/create file")
     }
-    
+
     // 清理测试文件
     unlink(file)
     return 0
@@ -2815,7 +2815,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2891,7 +2891,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -2965,7 +2965,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -3018,12 +3018,12 @@ main(): Int64 {
     } else {
         println("Failed to remove nonexistent file (expected)")
     }
-    
+
     // 创建一个测试文件
     let fd = open("test_remove.txt", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 现在删除文件
         let result2 = remove("test_remove.txt")
         if (result2 == 0) {
@@ -3032,7 +3032,7 @@ main(): Int64 {
             println("Failed to remove existing file")
         }
     }
-    
+
     return 0
 }
 ```
@@ -3090,7 +3090,7 @@ main(): Int64 {
     let fd = open(filePathOld, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 重命名文件
         let result = rename(filePathOld, filePathNew)
         if (result == 0) {
@@ -3159,7 +3159,7 @@ main(): Int64 {
     let fd = open(filePathOld, O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用renameat重命名文件
         let result = renameat(AT_FDCWD, filePathOld, AT_FDCWD, filePathNew)
         if (result == 0) {
@@ -3214,13 +3214,13 @@ main(): Int64 {
     0
     // 尝试设置组ID（需要适当的权限）
     let result = setgid(current_gid)
-    
+
     if (result == 0) {
         println("Successfully set group ID")
     } else {
         println("Failed to set group ID")
     }
-    
+
     return 0
 }
 ```
@@ -3266,13 +3266,13 @@ import std.posix.*
 main(): Int64 {
     // 注意：sethostname需要超级用户权限才能执行成功
     let result = sethostname("new-hostname")
-    
+
     if (result == 0) {
         println("Successfully set hostname")
     } else {
         println("Failed to set hostname (requires root privileges)")
     }
-    
+
     return 0
 }
 ```
@@ -3314,20 +3314,20 @@ import std.posix.*
 main(): Int64 {
     // 获取当前进程ID和进程组ID
     let pid = getpid()
-    let pgid = getpgid(0)  // 0表示获取当前进程的组ID
-    
+    let pgid = getpgid(0) // 0表示获取当前进程的组ID
+
     println("Current process ID: ${pid}")
     println("Current process group ID: ${pgid}")
-    
+
     // 尝试设置当前进程的组ID为自身
-    let result = setpgid(0, 0)  // 两个参数都为0，表示将当前进程ID设置为当前进程组ID
-    
+    let result = setpgid(0, 0) // 两个参数都为0，表示将当前进程ID设置为当前进程组ID
+
     if (result == 0) {
         println("Successfully set process group ID")
     } else {
         println("Failed to set process group ID")
     }
-    
+
     return 0
 }
 ```
@@ -3366,13 +3366,13 @@ import std.posix.*
 main(): Int64 {
     // 调用setpgrp设置当前进程的组ID为当前进程ID
     let new_pgid = setpgrp()
-    
+
     if (new_pgid != -1) {
         println("Successfully set process group ID")
     } else {
         println("Failed to set process group ID")
     }
-    
+
     return 0
 }
 ```
@@ -3413,16 +3413,16 @@ import std.posix.*
 main(): Int64 {
     // 获取当前进程的有效用户ID
     let current_uid = getuid()
-    
+
     // 尝试设置用户ID（需要适当的权限）
     let result = setuid(current_uid)
-    
+
     if (result == 0) {
         println("Successfully set user ID")
     } else {
         println("Failed to set user ID")
     }
-    
+
     return 0
 }
 ```
@@ -3476,13 +3476,13 @@ main(): Int64 {
     let fd = `open`("test_file.txt", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 创建符号链接
         let result = symlink("test_file.txt", "test_symlink.txt")
-        
+
         if (result == 0) {
             println("Successfully created symbolic link")
-            
+
             // 验证符号链接是否存在
             let access_result = access("test_symlink.txt", F_OK)
             if (access_result == 0) {
@@ -3550,13 +3550,13 @@ main(): Int64 {
     let fd = open("test_file_at.txt", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 使用AT_FDCWD作为文件描述符创建符号链接
         let result = symlinkat("test_file_at.txt", AT_FDCWD, "test_symlink_at.txt")
-        
+
         if (result == 0) {
             println("Successfully created symbolic link with symlinkat")
-            
+
             // 验证符号链接是否存在
             let access_result = access("test_symlink_at.txt", F_OK)
             if (access_result == 0) {
@@ -3612,16 +3612,16 @@ import std.posix.*
 main(): Int64 {
     // 获取标准输入的文件描述符
     let fd = 0i32
-    
+
     // 尝试获取终端名称
     let terminal_name = ttyname(fd)
-    
+
     if (terminal_name != "") {
         println("Terminal name: ${terminal_name}")
     } else {
         println("Not a terminal or failed to get terminal name")
     }
-    
+
     return 0
 }
 ```
@@ -3661,13 +3661,13 @@ import std.posix.*
 main(): Int64 {
     // 获取当前的umask值
     let old_mask = umask(0)
-    
+
     // 设置新的umask值
-    let new_mask = umask(S_IRWXG | S_IRWXO)  // 设置组和其他用户的权限掩码
-    
+    let new_mask = umask(S_IRWXG | S_IRWXO) // 设置组和其他用户的权限掩码
+
     // 恢复原来的umask值
     umask(old_mask)
-    
+
     return 0
 }
 ```
@@ -3713,22 +3713,22 @@ main(): Int64 {
     let fd = `open`("test_unlink.txt", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 验证文件是否存在
         let access_result = access("test_unlink.txt", F_OK)
         if (access_result == 0) {
             println("File exists before unlink")
         }
-        
+
         // 删除文件
         let result = unlink("test_unlink.txt")
-        
+
         if (result == 0) {
             println("Successfully unlinked file")
         } else {
             println("Failed to unlink file")
         }
-        
+
         // 再次检查文件是否存在
         let access_result2 = access("test_unlink.txt", F_OK)
         if (access_result2 == -1) {
@@ -3737,7 +3737,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -3794,22 +3794,22 @@ main(): Int64 {
     let fd = open("test_unlinkat.txt", O_CREAT | O_WRONLY, S_IRUSR | S_IWUSR)
     if (fd != -1) {
         close(fd)
-        
+
         // 验证文件是否存在
         let access_result = access("test_unlinkat.txt", F_OK)
         if (access_result == 0) {
             println("File exists before unlinkat")
         }
-        
+
         // 使用unlinkat删除文件
         let result = unlinkat(AT_FDCWD, "test_unlinkat.txt", 0)
-        
+
         if (result == 0) {
             println("Successfully unlinked file with unlinkat")
         } else {
             println("Failed to unlink file with unlinkat")
         }
-        
+
         // 再次检查文件是否存在
         let access_result2 = access("test_unlinkat.txt", F_OK)
         if (access_result2 == -1) {
@@ -3818,7 +3818,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```
@@ -3893,7 +3893,7 @@ main(): Int64 {
     } else {
         println("Failed to create test file")
     }
-    
+
     return 0
 }
 ```

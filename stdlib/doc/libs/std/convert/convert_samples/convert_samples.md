@@ -250,7 +250,7 @@ After the conversion of tryParse, "18446744073709551615" became Some(18446744073
 import std.convert.*
 
 main() {
-    var c : Int32 = -20
+    var c: Int32 = -20
     print("\"${c.format("-10")}\"")
 }
 ```

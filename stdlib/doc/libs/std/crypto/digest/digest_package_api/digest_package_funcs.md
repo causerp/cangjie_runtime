@@ -33,13 +33,19 @@ main() {
 // 自定义 Digest
 class MyDigest <: Digest {
     public prop size: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop blockSize: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop algorithm: String {
-        get() { "" }
+        get() {
+            ""
+        }
     }
     public func write(buffer: Array<Byte>): Unit {
         println("buffer = ${buffer}")
@@ -99,13 +105,19 @@ main() {
 // 自定义 Digest
 class MyDigest <: Digest {
     public prop size: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop blockSize: Int64 {
-        get() { 2 }
+        get() {
+            2
+        }
     }
     public prop algorithm: String {
-        get() { "" }
+        get() {
+            ""
+        }
     }
     public func write(buffer: Array<Byte>): Unit {
         println("buffer = ${buffer}")
@@ -159,13 +171,13 @@ import std.crypto.digest.*
 main() {
     // 创建一些测试数据
     let data = "Hello, World!"
-    
+
     // 创建一个自定义的摘要算法实例
     let mydigest = MyDigest()
-    
+
     // 使用digest函数处理字符串数据
     let digestBytes = digest<MyDigest>(mydigest, data)
-    
+
     println("Input string: '${data}'")
     println("Digest result: ${digestBytes}")
 }
@@ -173,13 +185,19 @@ main() {
 // 自定义 Digest 算法
 class MyDigest <: Digest {
     public prop size: Int64 {
-        get() { 3 }
+        get() {
+            3
+        }
     }
     public prop blockSize: Int64 {
-        get() { 1 }
+        get() {
+            1
+        }
     }
     public prop algorithm: String {
-        get() { "MyDigest" }
+        get() {
+            "MyDigest"
+        }
     }
     public func write(buffer: Array<Byte>): Unit {
         println("Processing buffer with ${buffer.size} bytes")

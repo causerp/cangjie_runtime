@@ -214,18 +214,18 @@ public func filter(predicate: (T) -> Bool): Option<T>
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(5)
-    
+
     // 使用filter过滤大于3的值
     var filtered1 = someValue.filter({x => x > 3})
     println("过滤大于3的值: ${filtered1}")
-    
+
     // 使用filter过滤小于3的值
     var filtered2 = someValue.filter({x => x < 3})
     println("过滤小于3的值: ${filtered2}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 对None值使用filter
     var filtered3 = noneValue.filter({x => x > 3})
     println("对None值过滤: ${filtered3}")
@@ -272,21 +272,21 @@ func intToStringOption(x: Int64): Option<String> {
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(5)
-    
+
     // 使用flatMap将Int64转换为String
     var flatMapped1 = someValue.flatMap(intToStringOption)
     println("对Some值使用flatMap: ${flatMapped1}")
-    
+
     // 创建一个负数的Some值
     var someNegativeValue: Option<Int64> = Some(-3)
-    
+
     // 使用flatMap处理负数
     var flatMapped2 = someNegativeValue.flatMap(intToStringOption)
     println("对负数Some值使用flatMap: ${flatMapped2}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 对None值使用flatMap
     var flatMapped3 = noneValue.flatMap(intToStringOption)
     println("对None值使用flatMap: ${flatMapped3}")
@@ -364,14 +364,14 @@ public func getOrThrow(exception: ()->Exception): T
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 对Some值使用getOrThrow，应该返回值
     var value1 = someValue.getOrThrow({=> Exception("Value is None")})
     println("从Some值获取的值: ${value1}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 对None值使用getOrThrow，应该抛出异常
     try {
         noneValue.getOrThrow({=> Exception("Value is None")})
@@ -412,14 +412,14 @@ public func getOrThrow(): T
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 对Some值使用getOrThrow，应该返回值
     var value1 = someValue.getOrThrow()
     println("从Some值获取的值: ${value1}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 对None值使用getOrThrow，应该抛出NoneValueException
     try {
         noneValue.getOrThrow()
@@ -456,13 +456,13 @@ public func isNone(): Bool
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 检查是否为None
     println("Some(42) is None: ${someValue.isNone()}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 检查是否为None
     println("None is None: ${noneValue.isNone()}")
 }
@@ -494,13 +494,13 @@ public func isSome(): Bool
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 检查是否为Some
     println("Some(42) is Some: ${someValue.isSome()}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 检查是否为Some
     println("None is Some: ${noneValue.isSome()}")
 }
@@ -536,14 +536,14 @@ public func map<R>(transform: (T)-> R): Option<R>
 main() {
     // 创建一个Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 使用map将Int64转换为String
     var mapped1 = someValue.map({x => "Number: ${x}"})
     println("对Some值使用map: ${mapped1}")
-    
+
     // 创建一个None值
     var noneValue: Option<Int64> = None
-    
+
     // 对None值使用map
     var mapped2 = noneValue.map({x => "Number: ${x}"})
     println("对None值使用map: ${mapped2}")
@@ -584,25 +584,25 @@ public func flatten(): Option<T>
 main() {
     // 创建Option<Option<Int64>>类型的Some(Some(42))值
     var nestedSome: Option<Option<Int64>> = Some(Some(42))
-    
+
     // 展开嵌套的Option
     var flattened1 = nestedSome.flatten()
     println("Some(Some(42))展开后: ${flattened1}")
-    
+
     // 创建Option<Option<Int64>>类型的Some(None)值
     var someNone: Option<Option<Int64>> = Some(None)
-    
+
     // 展开嵌套的Option
     var flattened2 = someNone.flatten()
     println("Some(None)展开后: ${flattened2}")
-    
+
     // 创建Option<Option<Int64>>类型的None值
     var noneValue: Option<Option<Int64>> = None
-    
+
     // 展开嵌套的Option
     var flattened3 = noneValue.flatten()
     println("None展开后: ${flattened3}")
-    
+
     // 演示链式调用
     var chainedValue: Option<Option<Option<String>>> = Some(Some(Some("Hello")))
     var flattenedChained = chainedValue.flatten().flatten()
@@ -655,28 +655,28 @@ main() {
     // 创建相同的Some值
     var someValue1: Option<Int64> = Some(42)
     var someValue2: Option<Int64> = Some(42)
-    
+
     // 比较两个相同的Some值
     println("Some(42) != Some(42): ${someValue1 != someValue2}")
-    
+
     // 创建不同的Some值
     var someValue3: Option<Int64> = Some(42)
     var someValue4: Option<Int64> = Some(24)
-    
+
     // 比较两个不同的Some值
     println("Some(42) != Some(24): ${someValue3 != someValue4}")
-    
+
     // 创建一个Some值和一个None值
     var someValue5: Option<Int64> = Some(42)
     var noneValue1: Option<Int64> = None
-    
+
     // 比较Some值和None值
     println("Some(42) != None: ${someValue5 != noneValue1}")
-    
+
     // 创建两个None值
     var noneValue2: Option<Int64> = None
     var noneValue3: Option<Int64> = None
-    
+
     // 比较两个None值
     println("None != None: ${noneValue2 != noneValue3}")
 }
@@ -717,28 +717,28 @@ main() {
     // 创建相同的Some值
     var someValue1: Option<Int64> = Some(42)
     var someValue2: Option<Int64> = Some(42)
-    
+
     // 比较两个相同的Some值
     println("Some(42) == Some(42): ${someValue1 == someValue2}")
-    
+
     // 创建不同的Some值
     var someValue3: Option<Int64> = Some(42)
     var someValue4: Option<Int64> = Some(24)
-    
+
     // 比较两个不同的Some值
     println("Some(42) == Some(24): ${someValue3 == someValue4}")
-    
+
     // 创建一个Some值和一个None值
     var someValue5: Option<Int64> = Some(42)
     var noneValue1: Option<Int64> = None
-    
+
     // 比较Some值和None值
     println("Some(42) == None: ${someValue5 == noneValue1}")
-    
+
     // 创建两个None值
     var noneValue2: Option<Int64> = None
     var noneValue3: Option<Int64> = None
-    
+
     // 比较两个None值
     println("None == None: ${noneValue2 == noneValue3}")
 }
@@ -786,28 +786,28 @@ public func hashCode(): Int64
 main() {
     // 创建Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 获取Some值的哈希码
     var someHashCode = someValue.hashCode()
     println("Some(42)的哈希码: ${someHashCode}")
-    
+
     // 创建None值
     var noneValue: Option<Int64> = None
-    
+
     // 获取None值的哈希码
     var noneHashCode = noneValue.hashCode()
     println("None的哈希码: ${noneHashCode}")
-    
+
     // 比较两个相同的Some值的哈希码
     var someValue1: Option<Int64> = Some(42)
     var someValue2: Option<Int64> = Some(42)
-    
+
     println("Some(42)和Some(42)的哈希码是否相等: ${someValue1.hashCode() == someValue2.hashCode()}")
-    
+
     // 比较两个不同的Some值的哈希码
     var someValue3: Option<Int64> = Some(42)
     var someValue4: Option<Int64> = Some(24)
-    
+
     println("Some(42)和Some(24)的哈希码是否相等: ${someValue3.hashCode() == someValue4.hashCode()}")
 }
 ```
@@ -852,21 +852,21 @@ public func toString(): String
 main() {
     // 创建Some值
     var someValue: Option<Int64> = Some(42)
-    
+
     // 将Some值转换为字符串
     var someStr = someValue
     println("Some(42)转换为字符串: ${someStr}")
-    
+
     // 创建None值
     var noneValue: Option<Int64> = None
-    
+
     // 将None值转换为字符串
     var noneStr = noneValue
     println("None转换为字符串: ${noneStr}")
-    
+
     // 创建字符串类型的Some值
     var someStringValue: Option<String> = Some("Hello")
-    
+
     // 将字符串类型的Some值转换为字符串
     var someStringStr = someStringValue
     println("Some(\"Hello\")转换为字符串: ${someStringStr}")
@@ -956,19 +956,19 @@ main() {
     var gt: Ordering = GT
     var eq: Ordering = EQ
     var lt: Ordering = LT
-    
+
     // 测试GT与EQ的比较
     var result1 = gt.compare(eq)
     println("GT.compare(EQ): ${result1}")
-    
+
     // 测试EQ与LT的比较
     var result2 = eq.compare(lt)
     println("EQ.compare(LT): ${result2}")
-    
+
     // 测试LT与GT的比较
     var result3 = lt.compare(gt)
     println("LT.compare(GT): ${result3}")
-    
+
     // 测试相等的情况
     var result4 = gt.compare(gt)
     println("GT.compare(GT): ${result4}")
@@ -1017,12 +1017,12 @@ main() {
     var gt: Ordering = GT
     var eq: Ordering = EQ
     var lt: Ordering = LT
-    
+
     // 获取哈希值
     var gtHash = gt.hashCode()
     var eqHash = eq.hashCode()
     var ltHash = lt.hashCode()
-    
+
     println("GT的哈希值: ${gtHash}")
     println("EQ的哈希值: ${eqHash}")
     println("LT的哈希值: ${ltHash}")
@@ -1076,12 +1076,12 @@ main() {
     var gt: Ordering = GT
     var eq: Ordering = EQ
     var lt: Ordering = LT
-    
+
     // 转换为字符串
     var gtStr = gt.toString()
     var eqStr = eq.toString()
     var ltStr = lt.toString()
-    
+
     println("GT转换为字符串: ${gtStr}")
     println("EQ转换为字符串: ${eqStr}")
     println("LT转换为字符串: ${ltStr}")

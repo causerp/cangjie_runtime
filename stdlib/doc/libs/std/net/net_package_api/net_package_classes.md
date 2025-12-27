@@ -563,11 +563,11 @@ main() {
     // IPv4多播地址示例
     let multicastV4: IPAddress = IPAddress.parse("224.0.0.1")
     let normalV4: IPAddress = IPAddress.parse("192.168.1.2")
-    
+
     // IPv6多播地址示例
     let multicastV6: IPAddress = IPAddress.parse("ff02::1")
     let normalV6: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
-    
+
     println("224.0.0.1是多播地址: ${multicastV4.isMulticast()}")
     println("192.168.1.2是多播地址: ${normalV4.isMulticast()}")
     println("ff02::1是多播地址: ${multicastV6.isMulticast()}")
@@ -608,11 +608,11 @@ main() {
     let privateV4_2: IPAddress = IPAddress.parse("10.0.0.1")
     let privateV4_3: IPAddress = IPAddress.parse("172.16.0.1")
     let publicV4: IPAddress = IPAddress.parse("8.8.8.8")
-    
+
     // IPv6私有地址示例 (ULA - Unique Local Address)
     let privateV6: IPAddress = IPAddress.parse("fd00::1")
     let publicV6: IPAddress = IPAddress.parse("2001:4860:4860::8888")
-    
+
     println("192.168.1.2是私有地址: ${privateV4_1.isPrivate()}")
     println("10.0.0.1是私有地址: ${privateV4_2.isPrivate()}")
     println("172.16.0.1是私有地址: ${privateV4_3.isPrivate()}")
@@ -739,14 +739,14 @@ main() {
     let ip1: IPAddress = IPAddress.parse("192.168.1.2")
     let ip2: IPAddress = IPAddress.parse("192.168.1.2")
     let ip3: IPAddress = IPAddress.parse("192.168.1.3")
-    
+
     println("ip1 != ip2: ${ip1 != ip2}")
     println("ip1 != ip3: ${ip1 != ip3}")
-    
+
     let ipv6_1: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
     let ipv6_2: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
     let ipv6_3: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c11")
-    
+
     println("ipv6_1 != ipv6_2: ${ipv6_1 != ipv6_2}")
     println("ipv6_1 != ipv6_3: ${ipv6_1 != ipv6_3}")
 }
@@ -787,14 +787,14 @@ main() {
     let ip1: IPAddress = IPAddress.parse("192.168.1.2")
     let ip2: IPAddress = IPAddress.parse("192.168.1.2")
     let ip3: IPAddress = IPAddress.parse("192.168.1.3")
-    
+
     println("ip1 == ip2: ${ip1 == ip2}")
     println("ip1 == ip3: ${ip1 == ip3}")
-    
+
     let ipv6_1: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
     let ipv6_2: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
     let ipv6_3: IPAddress = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c11")
-    
+
     println("ipv6_1 == ipv6_2: ${ipv6_1 == ipv6_2}")
     println("ipv6_1 == ipv6_3: ${ipv6_1 == ipv6_3}")
 }
@@ -1019,7 +1019,7 @@ main() {
     let prefix: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let ip1: IPAddress = IPAddress.parse("192.168.1.100")
     let ip2: IPAddress = IPAddress.parse("192.168.2.100")
-    
+
     println("前缀 ${prefix} 包含IP ${ip1}: ${prefix.contains(ip1)}")
     println("前缀 ${prefix} 包含IP ${ip2}: ${prefix.contains(ip2)}")
 }
@@ -1058,7 +1058,7 @@ main() {
     let prefix1: IPPrefix = IPPrefix.parse("192.168.0.0/16")
     let prefix2: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix3: IPPrefix = IPPrefix.parse("10.0.0.0/8")
-    
+
     println("前缀 ${prefix1} 包含前缀 ${prefix2}: ${prefix1.contains(prefix2)}")
     println("前缀 ${prefix1} 包含前缀 ${prefix3}: ${prefix1.contains(prefix3)}")
 }
@@ -1124,7 +1124,7 @@ main() {
     let prefix: IPPrefix = IPPrefix.parse("192.168.1.100/24")
     let masked: IPPrefix = prefix.masked()
     println("掩码后的前缀: ${masked}")
-    
+
     let prefixV6: IPPrefix = IPPrefix.parse("fc00::1:2:3:4/16")
     let maskedV6: IPPrefix = prefixV6.masked()
     println("掩码后的IPv6前缀: ${maskedV6}")
@@ -1226,7 +1226,7 @@ main() {
     let prefix1: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix2: IPPrefix = IPPrefix.parse("192.168.1.128/25")
     let prefix3: IPPrefix = IPPrefix.parse("10.0.0.0/8")
-    
+
     println("前缀 ${prefix1} 与前缀 ${prefix2} 重叠: ${prefix1.overlaps(prefix2)}")
     println("前缀 ${prefix1} 与前缀 ${prefix3} 重叠: ${prefix1.overlaps(prefix3)}")
 }
@@ -1298,7 +1298,7 @@ main() {
     let prefix1: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix2: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix3: IPPrefix = IPPrefix.parse("192.168.2.0/24")
-    
+
     println("prefix1 != prefix2: ${prefix1 != prefix2}")
     println("prefix1 != prefix3: ${prefix1 != prefix3}")
 }
@@ -1337,7 +1337,7 @@ main() {
     let prefix1: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix2: IPPrefix = IPPrefix.parse("192.168.1.0/24")
     let prefix3: IPPrefix = IPPrefix.parse("192.168.2.0/24")
-    
+
     println("prefix1 == prefix2: ${prefix1 == prefix2}")
     println("prefix1 == prefix3: ${prefix1 == prefix3}")
 }
@@ -1386,7 +1386,7 @@ import std.net.*
 main() {
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4地址: ${socketAddrV4.address}")
     println("IPv6地址: ${socketAddrV6.address}")
 }
@@ -1418,7 +1418,7 @@ import std.net.*
 main() {
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4地址族: ${socketAddrV4.family}")
     println("IPv6地址族: ${socketAddrV6.family}")
 }
@@ -1450,7 +1450,7 @@ import std.net.*
 main() {
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4端口: ${socketAddrV4.port}")
     println("IPv6端口: ${socketAddrV6.port}")
 }
@@ -1482,7 +1482,7 @@ import std.net.*
 main() {
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4 Socket地址大小: ${socketAddrV4.size}")
     println("IPv6 Socket地址大小: ${socketAddrV6.size}")
 }
@@ -1522,10 +1522,10 @@ main() {
     // IPv4地址: 192.168.1.2 对应的大端序字节数组
     let ipv4Bytes = [192u8, 168u8, 1u8, 2u8]
     let port = 8080u16
-    
+
     // 使用字节数组和端口创建IPSocketAddress
     let socketAddr = IPSocketAddress(ipv4Bytes, port)
-    
+
     println("IPv4 Socket地址: ${socketAddr}")
     println("IP地址: ${socketAddr.address}")
     println("端口: ${socketAddr.port}")
@@ -1563,15 +1563,15 @@ main() {
     // 创建IPAddress对象
     let ipv4Address = IPAddress.parse("192.168.1.2")
     let ipv6Address = IPAddress.parse("2001:0250:1006:dff0:4913:2aa5:8075:7c10")
-    
+
     // 使用IPAddress对象和端口创建IPSocketAddress
     let socketAddrV4 = IPSocketAddress(ipv4Address, 8080u16)
     let socketAddrV6 = IPSocketAddress(ipv6Address, 8080u16)
-    
+
     println("IPv4 Socket地址: ${socketAddrV4}")
     println("IPv4地址: ${socketAddrV4.address}")
     println("IPv4端口: ${socketAddrV4.port}")
-    
+
     println("IPv6 Socket地址: ${socketAddrV6}")
     println("IPv6地址: ${socketAddrV6.address}")
     println("IPv6端口: ${socketAddrV6.port}")
@@ -1616,11 +1616,11 @@ main() {
     // 使用字符串IP地址和端口创建IPSocketAddress
     let socketAddrV4 = IPSocketAddress("192.168.1.2", 8080u16)
     let socketAddrV6 = IPSocketAddress("2001:0250:1006:dff0:4913:2aa5:8075:7c10", 8080u16)
-    
+
     println("IPv4 Socket地址: ${socketAddrV4}")
     println("IPv4地址: ${socketAddrV4.address}")
     println("IPv4端口: ${socketAddrV4.port}")
-    
+
     println("IPv6 Socket地址: ${socketAddrV6}")
     println("IPv6地址: ${socketAddrV6.address}")
     println("IPv6端口: ${socketAddrV6.port}")
@@ -1746,11 +1746,11 @@ main() {
     // 创建IPSocketAddress对象
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     // 获取地址字节
     let v4Bytes = socketAddrV4.getAddressBytes()
     let v6Bytes = socketAddrV6.getAddressBytes()
-    
+
     println("IPv4地址字节: ${v4Bytes}")
     println("IPv6地址字节: ${v6Bytes}")
 }
@@ -1785,11 +1785,11 @@ main() {
     // 创建IPSocketAddress对象
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     // 获取hashCode
     let v4HashCode = socketAddrV4.hashCode()
     let v6HashCode = socketAddrV6.hashCode()
-    
+
     println("IPv4 Socket地址hashCode: ${v4HashCode}")
     println("IPv6 Socket地址hashCode: ${v6HashCode}")
 }
@@ -1824,11 +1824,11 @@ main() {
     // 创建IPSocketAddress对象
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     // 检查是否为IPv4地址
     let isV4 = socketAddrV4.isIPv4()
     let isV6 = socketAddrV6.isIPv4()
-    
+
     println("192.168.1.2:8080 是IPv4地址: ${isV4}")
     println("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080 是IPv4地址: ${isV6}")
 }
@@ -1863,11 +1863,11 @@ main() {
     // 创建IPSocketAddress对象
     let socketAddrV4 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6 = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     // 检查是否为IPv6地址
     let isV4 = socketAddrV4.isIPv6()
     let isV6 = socketAddrV6.isIPv6()
-    
+
     println("192.168.1.2:8080 是IPv6地址: ${isV4}")
     println("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080 是IPv6地址: ${isV6}")
 }
@@ -1940,11 +1940,11 @@ main() {
     let socketAddr1 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr2 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr3 = IPSocketAddress.parse("192.168.1.3:8080")
-    
+
     // 比较IPSocketAddress对象是否不等
     let isNotEqual1 = socketAddr1 != socketAddr2
     let isNotEqual2 = socketAddr1 != socketAddr3
-    
+
     println("socketAddr1 != socketAddr2: ${isNotEqual1}")
     println("socketAddr1 != socketAddr3: ${isNotEqual2}")
 }
@@ -1984,11 +1984,11 @@ main() {
     let socketAddr1 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr2 = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr3 = IPSocketAddress.parse("192.168.1.3:8080")
-    
+
     // 比较IPSocketAddress对象是否相等
     let isEqual1 = socketAddr1 == socketAddr2
     let isEqual2 = socketAddr1 == socketAddr3
-    
+
     println("socketAddr1 == socketAddr2: ${isEqual1}")
     println("socketAddr1 == socketAddr3: ${isEqual2}")
 }
@@ -2039,7 +2039,7 @@ public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
 import std.net.*
 
 main() {
-    let broadcast = IPv4Address.broadcast   
+    let broadcast = IPv4Address.broadcast
     println("broadcast: ${broadcast}")
 }
 ```
@@ -2067,7 +2067,7 @@ public static let localhost: IPv4Address = IPv4Address(0x7F, 0, 0, 0x01)
 import std.net.*
 
 main() {
-    let localhost = IPv4Address.localhost   
+    let localhost = IPv4Address.localhost
     println("localhost: ${localhost}")
 }
 ```
@@ -2095,7 +2095,7 @@ public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
 import std.net.*
 
 main() {
-    let unspecified = IPv4Address.unspecified   
+    let unspecified = IPv4Address.unspecified
     println("unspecified: ${unspecified}")
 }
 ```
@@ -2130,7 +2130,7 @@ import std.net.*
 main() {
     // 使用4个字节创建IPv4Address对象
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     println("IPv4地址: ${ipv4Addr}")
 }
 ```
@@ -2161,8 +2161,8 @@ import std.net.*
 
 main() {
     // 使用UInt32值创建IPv4Address对象
-    let ipv4Addr = IPv4Address(0xC0A80102u32)  // 192.168.1.2
-    
+    let ipv4Addr = IPv4Address(0xC0A80102u32) // 192.168.1.2
+
     println("IPv4地址: ${ipv4Addr}")
 }
 ```
@@ -2202,10 +2202,10 @@ import std.net.*
 main() {
     // 创建一个包含IPv4地址的大端序字节数组
     let buffer = [192u8, 168u8, 1u8, 2u8]
-    
+
     // 从字节数组中读取IPv4Address对象
     let ipv4Addr = IPv4Address.readBigEndian(buffer)
-    
+
     println("从字节数组读取的IPv4地址: ${ipv4Addr}")
 }
 ```
@@ -2245,10 +2245,10 @@ import std.net.*
 main() {
     // 创建一个IPv4Address对象
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 根据指定的网络前缀长度创建网络前缀对象
     let prefix = ipv4Addr.getPrefix(24u8)
-    
+
     println("IPv4地址: ${ipv4Addr}")
     println("网络前缀: ${prefix}")
 }
@@ -2282,14 +2282,14 @@ import std.net.*
 main() {
     // 创建一个广播地址
     let broadcastAddr = IPv4Address.broadcast
-    
+
     // 创建一个普通地址
     let normalAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为广播地址
     let isBroadcast1 = broadcastAddr.isBroadcast()
     let isBroadcast2 = normalAddr.isBroadcast()
-    
+
     println("255.255.255.255是广播地址: ${isBroadcast1}")
     println("192.168.1.2是广播地址: ${isBroadcast2}")
 }
@@ -2322,15 +2322,15 @@ import std.net.*
 
 main() {
     // 创建一个全局单播地址
-    let globalAddr = IPv4Address(8u8, 8u8, 8u8, 8u8)  // 8.8.8.8 (Google DNS)
-    
+    let globalAddr = IPv4Address(8u8, 8u8, 8u8, 8u8) // 8.8.8.8 (Google DNS)
+
     // 创建一个私有地址
     let privateAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为全局单播地址
     let isGlobal1 = globalAddr.isGlobalUnicast()
     let isGlobal2 = privateAddr.isGlobalUnicast()
-    
+
     println("8.8.8.8是全局单播地址: ${isGlobal1}")
     println("192.168.1.2是全局单播地址: ${isGlobal2}")
 }
@@ -2364,14 +2364,14 @@ import std.net.*
 main() {
     // 创建一个链路本地地址 (169.254.x.x)
     let linkLocalAddr = IPv4Address(169u8, 254u8, 1u8, 2u8)
-    
+
     // 创建一个普通地址
     let normalAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为链路本地地址
     let isLinkLocal1 = linkLocalAddr.isLinkLocal()
     let isLinkLocal2 = normalAddr.isLinkLocal()
-    
+
     println("169.254.1.2是链路本地地址: ${isLinkLocal1}")
     println("192.168.1.2是链路本地地址: ${isLinkLocal2}")
 }
@@ -2405,14 +2405,14 @@ import std.net.*
 main() {
     // 创建一个环回地址
     let loopbackAddr = IPv4Address.localhost
-    
+
     // 创建一个普通地址
     let normalAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为环回地址
     let isLoopback1 = loopbackAddr.isLoopback()
     let isLoopback2 = normalAddr.isLoopback()
-    
+
     println("127.0.0.1是环回地址: ${isLoopback1}")
     println("192.168.1.2是环回地址: ${isLoopback2}")
 }
@@ -2446,14 +2446,14 @@ import std.net.*
 main() {
     // 创建一个多播地址 (224.0.0.1)
     let multicastAddr = IPv4Address(224u8, 0u8, 0u8, 1u8)
-    
+
     // 创建一个普通地址
     let normalAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为多播地址
     let isMulticast1 = multicastAddr.isMulticast()
     let isMulticast2 = normalAddr.isMulticast()
-    
+
     println("224.0.0.1是多播地址: ${isMulticast1}")
     println("192.168.1.2是多播地址: ${isMulticast2}")
 }
@@ -2487,14 +2487,14 @@ import std.net.*
 main() {
     // 创建一个私有地址 (192.168.x.x)
     let privateAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 创建一个公网地址
-    let publicAddr = IPv4Address(8u8, 8u8, 8u8, 8u8)  // Google DNS
-    
+    let publicAddr = IPv4Address(8u8, 8u8, 8u8, 8u8) // Google DNS
+
     // 检查是否为私有地址
     let isPrivate1 = privateAddr.isPrivate()
     let isPrivate2 = publicAddr.isPrivate()
-    
+
     println("192.168.1.2是私有地址: ${isPrivate1}")
     println("8.8.8.8是私有地址: ${isPrivate2}")
 }
@@ -2528,14 +2528,14 @@ import std.net.*
 main() {
     // 创建一个未指定地址
     let unspecifiedAddr = IPv4Address.unspecified
-    
+
     // 创建一个普通地址
     let normalAddr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 检查是否为未指定地址
     let isUnspecified1 = unspecifiedAddr.isUnspecified()
     let isUnspecified2 = normalAddr.isUnspecified()
-    
+
     println("0.0.0.0是未指定地址: ${isUnspecified1}")
     println("192.168.1.2是未指定地址: ${isUnspecified2}")
 }
@@ -2569,10 +2569,10 @@ import std.net.*
 main() {
     // 创建一个IPv4地址
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 将IPv4地址转换为UInt32值
     let bits = ipv4Addr.toBits()
-    
+
     println("IPv4地址: ${ipv4Addr}")
     println("对应的UInt32值: ${bits}")
 }
@@ -2606,10 +2606,10 @@ import std.net.*
 main() {
     // 创建一个IPv4地址
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 将IPv4地址转换为IPv6兼容地址
     let ipv6Compatible = ipv4Addr.toIPv6Compatible()
-    
+
     println("IPv4地址: ${ipv4Addr}")
     println("IPv6兼容地址: ${ipv6Compatible}")
 }
@@ -2643,10 +2643,10 @@ import std.net.*
 main() {
     // 创建一个IPv4地址
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 将IPv4地址转换为IPv6映射地址
     let ipv6Mapped = ipv4Addr.toIPv6Mapped()
-    
+
     println("IPv4地址: ${ipv4Addr}")
     println("IPv6映射地址: ${ipv6Mapped}")
 }
@@ -2680,10 +2680,10 @@ import std.net.*
 main() {
     // 创建一个IPv4地址
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 获取IPv4地址的字符串表示
     let addrString = ipv4Addr.toString()
-    
+
     println("IPv4地址对象: ${ipv4Addr}")
     println("字符串表示: ${addrString}")
 }
@@ -2725,13 +2725,13 @@ import std.net.*
 main() {
     // 创建一个IPv4地址
     let ipv4Addr = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 创建一个字节数组缓冲区
     var buffer = [0u8, 0u8, 0u8, 0u8]
-    
+
     // 将IPv4地址以大端序方式写入字节数组
     let bytesWritten = ipv4Addr.writeBigEndian(buffer)
-    
+
     println("IPv4地址: ${ipv4Addr}")
     println("写入的字节数: ${bytesWritten}")
     println("字节数组内容: ${buffer}")
@@ -2772,14 +2772,14 @@ main() {
     // 创建两个相同的IPv4地址
     let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8)
     let addr2 = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 创建一个不同的IPv4地址
     let addr3 = IPv4Address(192u8, 168u8, 1u8, 3u8)
-    
+
     // 比较IPv4地址是否不等
     let result1 = addr1 != addr2
     let result2 = addr1 != addr3
-    
+
     println("${addr1} != ${addr2}: ${result1}")
     println("${addr1} != ${addr3}: ${result2}")
 }
@@ -2816,15 +2816,15 @@ import std.net.*
 
 main() {
     // 创建两个IPv4地址
-    let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8)   // 192.168.1.2
-    let addr2 = IPv4Address(192u8, 168u8, 1u8, 10u8)  // 192.168.1.10
-    let addr3 = IPv4Address(192u8, 168u8, 1u8, 2u8)   // 192.168.1.2
-    
+    let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8) // 192.168.1.2
+    let addr2 = IPv4Address(192u8, 168u8, 1u8, 10u8) // 192.168.1.10
+    let addr3 = IPv4Address(192u8, 168u8, 1u8, 2u8) // 192.168.1.2
+
     // 比较IPv4地址
     let result1 = addr1 <= addr2
     let result2 = addr2 <= addr1
     let result3 = addr1 <= addr3
-    
+
     println("${addr1} <= ${addr2}: ${result1}")
     println("${addr2} <= ${addr1}: ${result2}")
     println("${addr1} <= ${addr3}: ${result3}")
@@ -2865,14 +2865,14 @@ main() {
     // 创建两个相同的IPv4地址
     let addr1 = IPv4Address(192u8, 168u8, 1u8, 2u8)
     let addr2 = IPv4Address(192u8, 168u8, 1u8, 2u8)
-    
+
     // 创建一个不同的IPv4地址
     let addr3 = IPv4Address(192u8, 168u8, 1u8, 3u8)
-    
+
     // 比较IPv4地址是否相等
     let result1 = addr1 == addr2
     let result2 = addr1 == addr3
-    
+
     println("${addr1} == ${addr2}: ${result1}")
     println("${addr1} == ${addr3}: ${result2}")
 }
@@ -2980,10 +2980,10 @@ import std.net.*
 main() {
     // 创建一个不带范围ID的IPv6地址
     let ipv6AddrWithoutScope = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
-    
+
     // 获取范围ID
     let scopeId = ipv6AddrWithoutScope.scopeId
-    
+
     println("IPv6地址: ${ipv6AddrWithoutScope}")
     println("范围ID: ${scopeId}")
 }
@@ -3022,10 +3022,10 @@ import std.net.*
 main() {
     // 创建一个包含IPv6地址的大端序字节数组 (::1 的字节数组表示)
     let bytes: Array<Byte> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-    
+
     // 使用字节数组创建IPv6地址
     let ipv6Addr = IPv6Address(bytes)
-    
+
     println("字节数组: ${bytes}")
     println("IPv6地址: ${ipv6Addr}")
 }
@@ -3067,7 +3067,7 @@ import std.net.*
 main() {
     // 使用8个16-bit分段创建IPv6地址 (::1 的表示)
     let ipv6Addr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     println("IPv6地址: ${ipv6Addr}")
 }
 ```
@@ -3107,10 +3107,10 @@ import std.net.*
 main() {
     // 创建一个包含IPv6地址的大端序字节数组 (::1 的字节数组表示)
     let bytes: Array<Byte> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
-    
+
     // 从字节数组中读取IPv6地址
     let ipv6Addr = IPv6Address.readBigEndian(bytes)
-    
+
     println("字节数组: ${bytes}")
     println("IPv6地址: ${ipv6Addr}")
 }
@@ -3152,10 +3152,10 @@ import std.net.*
 main() {
     // 创建一个IPv6地址
     let ipv6Addr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 根据指定的网络前缀长度创建网络前缀对象
     let prefix = ipv6Addr.getPrefix(64u8)
-    
+
     println("IPv6地址: ${ipv6Addr}")
     println("网络前缀: ${prefix}")
 }
@@ -3189,14 +3189,14 @@ import std.net.*
 main() {
     // 创建一个全局单播IPv6地址
     let globalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 创建一个环回地址
     let loopbackAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 检查是否为全局单播地址
     let isGlobal1 = globalAddr.isGlobalUnicast()
     let isGlobal2 = loopbackAddr.isGlobalUnicast()
-    
+
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是全局单播地址: ${isGlobal1}")
     println("::1是全局单播地址: ${isGlobal2}")
 }
@@ -3230,14 +3230,14 @@ import std.net.*
 main() {
     // 创建一个IPv4映射的IPv6地址 (::ffff:192.168.1.2)
     let ipv4MappedAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0xffffu16, 0xc0a8u16, 0x102u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为IPv4映射地址
     let isMapped1 = ipv4MappedAddr.isIPv4Mapped()
     let isMapped2 = normalAddr.isIPv4Mapped()
-    
+
     println("::ffff:192.168.1.2是IPv4映射地址: ${isMapped1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是IPv4映射地址: ${isMapped2}")
 }
@@ -3271,14 +3271,14 @@ import std.net.*
 main() {
     // 创建一个链路本地IPv6地址 (fe80::1)
     let linkLocalAddr = IPv6Address(0xfe80u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为链路本地地址
     let isLinkLocal1 = linkLocalAddr.isLinkLocal()
     let isLinkLocal2 = normalAddr.isLinkLocal()
-    
+
     println("fe80::1是链路本地地址: ${isLinkLocal1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是链路本地地址: ${isLinkLocal2}")
 }
@@ -3312,14 +3312,14 @@ import std.net.*
 main() {
     // 创建一个环回IPv6地址
     let loopbackAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为环回地址
     let isLoopback1 = loopbackAddr.isLoopback()
     let isLoopback2 = normalAddr.isLoopback()
-    
+
     println("::1是环回地址: ${isLoopback1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是环回地址: ${isLoopback2}")
 }
@@ -3353,14 +3353,14 @@ import std.net.*
 main() {
     // 创建一个多播IPv6地址 (ff02::1)
     let multicastAddr = IPv6Address(0xff02u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为多播地址
     let isMulticast1 = multicastAddr.isMulticast()
     let isMulticast2 = normalAddr.isMulticast()
-    
+
     println("ff02::1是多播地址: ${isMulticast1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是多播地址: ${isMulticast2}")
 }
@@ -3394,14 +3394,14 @@ import std.net.*
 main() {
     // 创建一个私有IPv6地址 (fc00::1)
     let privateAddr = IPv6Address(0xfc00u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 创建一个全局单播IPv6地址
     let globalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为私有地址
     let isPrivate1 = privateAddr.isPrivate()
     let isPrivate2 = globalAddr.isPrivate()
-    
+
     println("fc00::1是私有地址: ${isPrivate1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是私有地址: ${isPrivate2}")
 }
@@ -3435,14 +3435,14 @@ import std.net.*
 main() {
     // 创建一个Teredo IPv6地址 (2001::1)
     let teredoAddr = IPv6Address(0x2001u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2002u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为Teredo地址
     let isTeredo1 = teredoAddr.isTeredo()
     let isTeredo2 = normalAddr.isTeredo()
-    
+
     println("2001::1是Teredo地址: ${isTeredo1}")
     println("2002:db8:1:2:ffff:ffff:ffff:ffff是Teredo地址: ${isTeredo2}")
 }
@@ -3476,14 +3476,14 @@ import std.net.*
 main() {
     // 创建一个未指定的IPv6地址
     let unspecifiedAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 检查是否为未指定地址
     let isUnspecified1 = unspecifiedAddr.isUnspecified()
     let isUnspecified2 = normalAddr.isUnspecified()
-    
+
     println("::是未指定地址: ${isUnspecified1}")
     println("2001:db8:1:2:ffff:ffff:ffff:ffff是未指定地址: ${isUnspecified2}")
 }
@@ -3521,13 +3521,13 @@ import std.net.*
 main() {
     // 创建一个IPv6地址
     let ipv6Addr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 0u16, 1u16)
-    
+
     // 为IPv6地址添加范围ID
     let scopedAddr = ipv6Addr.scope(Some(5u32))
-    
+
     // 移除范围ID
     let unscopedAddr = scopedAddr.scope(None)
-    
+
     println("原始IPv6地址: ${ipv6Addr}")
     println("带范围ID的地址: ${scopedAddr}")
     println("移除范围ID的地址: ${unscopedAddr}")
@@ -3563,14 +3563,14 @@ import std.net.*
 main() {
     // 创建一个IPv4映射的IPv6地址 (::ffff:192.168.1.2)
     let ipv6MappedAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0xffffu16, 0xc0a8u16, 0x102u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 将IPv6地址转换为IPv4地址
     let ipv4Addr1 = ipv6MappedAddr.toIPv4()
     let ipv4Addr2 = normalAddr.toIPv4()
-    
+
     println("IPv6映射地址: ${ipv6MappedAddr}")
     println("转换后的IPv4地址: ${ipv4Addr1}")
     println("普通IPv6地址: ${normalAddr}")
@@ -3608,14 +3608,14 @@ import std.net.*
 main() {
     // 创建一个IPv4映射的IPv6地址 (::ffff:192.168.1.2)
     let ipv6MappedAddr = IPv6Address(0u16, 0u16, 0u16, 0u16, 0u16, 0xffffu16, 0xc0a8u16, 0x102u16)
-    
+
     // 创建一个普通IPv6地址
     let normalAddr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 将IPv6地址转换为IPv4映射地址
     let ipv4Mapped1 = ipv6MappedAddr.toIPv4Mapped()
     let ipv4Mapped2 = normalAddr.toIPv4Mapped()
-    
+
     println("IPv6映射地址: ${ipv6MappedAddr}")
     println("转换后的IPv4映射地址: ${ipv4Mapped1}")
     println("普通IPv6地址: ${normalAddr}")
@@ -3653,10 +3653,10 @@ import std.net.*
 main() {
     // 创建一个IPv6地址
     let ipv6Addr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 获取IPv6地址的字符串表示
     let addrString = ipv6Addr.toString()
-    
+
     println("IPv6地址对象: ${ipv6Addr}")
     println("字符串表示: ${addrString}")
 }
@@ -3698,13 +3698,13 @@ import std.net.*
 main() {
     // 创建一个IPv6地址
     let ipv6Addr = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 创建一个字节数组缓冲区
     var buffer: Array<Byte> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    
+
     // 将IPv6地址以大端序方式写入字节数组
     let bytesWritten = ipv6Addr.writeBigEndian(buffer)
-    
+
     println("IPv6地址: ${ipv6Addr}")
     println("写入的字节数: ${bytesWritten}")
     println("字节数组内容: ${buffer}")
@@ -3745,14 +3745,14 @@ main() {
     // 创建两个相同的IPv6地址
     let addr1 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
     let addr2 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 创建一个不同的IPv6地址
     let addr3 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xfffeu16)
-    
+
     // 比较IPv6地址是否不等
     let result1 = addr1 != addr2
     let result2 = addr1 != addr3
-    
+
     println("${addr1} != ${addr2}: ${result1}")
     println("${addr1} != ${addr3}: ${result2}")
 }
@@ -3792,12 +3792,12 @@ main() {
     let addr1 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
     let addr2 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xfffeu16)
     let addr3 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 比较IPv6地址
     let result1 = addr1 <= addr2
     let result2 = addr2 <= addr1
     let result3 = addr1 <= addr3
-    
+
     println("${addr1} <= ${addr2}: ${result1}")
     println("${addr2} <= ${addr1}: ${result2}")
     println("${addr1} <= ${addr3}: ${result3}")
@@ -3838,14 +3838,14 @@ main() {
     // 创建两个相同的IPv6地址
     let addr1 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
     let addr2 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xffffu16)
-    
+
     // 创建一个不同的IPv6地址
     let addr3 = IPv6Address(0x2001u16, 0xdb8u16, 0x1u16, 0x2u16, 0xffffu16, 0xffffu16, 0xffffu16, 0xfffeu16)
-    
+
     // 比较IPv6地址是否相等
     let result1 = addr1 == addr2
     let result2 = addr1 == addr3
-    
+
     println("${addr1} == ${addr2}: ${result1}")
     println("${addr1} == ${addr3}: ${result2}")
 }
@@ -3901,7 +3901,7 @@ import std.net.*
 
 main() {
     let socket = RawSocket(SocketDomain.IPV4, SocketType.DATAGRAM, ProtocolType.UDP)
-    
+
     // 获取只读属性localAddr（已废弃）
     // 注意：此属性已废弃，建议使用localAddress
     let localAddr = socket.localAddr
@@ -3930,7 +3930,7 @@ import std.net.*
 
 main() {
     let socket = RawSocket(SocketDomain.IPV4, SocketType.DATAGRAM, ProtocolType.UDP)
-    
+
     // 获取只读属性localAddress
     let localAddress = socket.localAddress
 }
@@ -3959,10 +3959,10 @@ import std.net.*
 
 main() {
     let socket = RawSocket(SocketDomain.IPV4, SocketType.DATAGRAM, ProtocolType.UDP)
-    
+
     // 设置可读写属性readTimeout
     socket.readTimeout = 1000 * Duration.millisecond
-    
+
     // 获取可读写属性readTimeout
     let readTimeout = socket.readTimeout
 }
@@ -3996,37 +3996,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印客户端地址和接收的消息
         println(clientSocket.remoteAddr.addr)
         println("Received message: ${receivedMessage}")
@@ -4069,37 +4069,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印客户端地址和接收的消息
         println(clientSocket.remoteAddress.addr)
         println("Received message: ${receivedMessage}")
@@ -4141,10 +4141,10 @@ import std.net.*
 
 main() {
     let socket = RawSocket(SocketDomain.IPV4, SocketType.DATAGRAM, ProtocolType.UDP)
-    
+
     // 设置可读写属性writeTimeout
     socket.writeTimeout = 1000 * Duration.millisecond
-    
+
     // 获取可读写属性writeTimeout
     let writeTimeout = socket.writeTimeout
 }
@@ -4210,37 +4210,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4283,37 +4283,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4348,37 +4348,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4423,37 +4423,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4498,45 +4498,45 @@ import std.net.*
 main() {
     // 初始化IPv4 TCP服务器套接字
     let tcpServerSocket = RawSocket(SocketDomain.IPV4, SocketType.STREAM, ProtocolType.TCP)
-    
+
     // 设置SO_REUSEADDR选项（允许端口复用）
     let reuseAddrEnableValue: Array<Byte> = [1, 0, 0, 0]
     let enableValuePtr = unsafe { acquireArrayRawData(reuseAddrEnableValue) }.pointer
-    unsafe { 
+    unsafe {
         tcpServerSocket.setSocketOption(
-            OptionLevel.SOCKET, 
-            OptionName.SO_REUSEADDR, 
-            enableValuePtr, 
+            OptionLevel.SOCKET,
+            OptionName.SO_REUSEADDR,
+            enableValuePtr,
             Int32(reuseAddrEnableValue.size)
         )
     }
-    unsafe { releaseArrayRawData(acquireArrayRawData(reuseAddrEnableValue)) }  // 释放设置值的指针资源
-    
+    unsafe { releaseArrayRawData(acquireArrayRawData(reuseAddrEnableValue)) } // 释放设置值的指针资源
+
     // 准备获取套接字选项值
     let optionValue: Array<Byte> = [0, 0, 0, 0]
-    let valuePtr = unsafe { acquireArrayRawData(optionValue) }.pointer  // 对应getSocketOption的value参数
-    
+    let valuePtr = unsafe { acquireArrayRawData(optionValue) }.pointer // 对应getSocketOption的value参数
+
     // 长度指针
-    var lenPtr: CPointer<Int32> = LibC.malloc<Int32>(count: 1)  // 对应getSocketOption的len参数
-    unsafe { lenPtr.write(10) }  // 初始化长度（需≥选项值实际字节数）
-    
+    var lenPtr: CPointer<Int32> = LibC.malloc<Int32>(count: 1) // 对应getSocketOption的len参数
+    unsafe { lenPtr.write(10) } // 初始化长度（需≥选项值实际字节数）
+
     // 调用getSocketOption获取选项值
-    unsafe { 
+    unsafe {
         tcpServerSocket.getSocketOption(
-            OptionLevel.SOCKET, 
-            OptionName.SO_REUSEADDR, 
-            valuePtr, 
+            OptionLevel.SOCKET,
+            OptionName.SO_REUSEADDR,
+            valuePtr,
             lenPtr
         )
     }
-    unsafe { releaseArrayRawData(acquireArrayRawData(optionValue)) }  // 释放缓冲区指针资源
-    
+    unsafe { releaseArrayRawData(acquireArrayRawData(optionValue)) } // 释放缓冲区指针资源
+
     // 读取并打印指针实际返回的值
-    let actualLen = unsafe { lenPtr.read() }  // 从lenPtr获取实际长度值
-    unsafe { LibC.free(lenPtr) }  // 释放长度指针内存
+    let actualLen = unsafe { lenPtr.read() } // 从lenPtr获取实际长度值
+    unsafe { LibC.free(lenPtr) } // 释放长度指针内存
     println("套接字选项值: ${optionValue}")
     println("套接字选项值的长度: ${actualLen}")
-    
+
     // 关闭套接字释放资源
     tcpServerSocket.close()
 }
@@ -4575,37 +4575,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4654,37 +4654,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4738,18 +4738,18 @@ main() {
         // 清晰表达"服务器绑定的地址"
         let serverBindAddress = RawAddress([2, 0, 39, 40, 127, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
         udpServerSocket.bind(serverBindAddress)
-        
+
         // 异步发送逻辑：明确"发送的数据"和目标地址
         spawn {
             let clientSendData: Array<Byte> = "Hello, cangjie server.".toArray()
             udpClientSocket.sendTo(serverBindAddress, clientSendData, 0)
         }
-        
+
         // 接收逻辑：区分"接收缓冲区"、"接收大小"和"接收的消息"
         let receiveBuffer = Array<Byte>(100, repeat: 0)
         let (_, receivedSize) = udpServerSocket.receiveFrom(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         println("Received message: ${receivedMessage}")
     } finally {
         // 释放资源
@@ -4793,37 +4793,37 @@ main() {
     // 初始化服务器和客户端的TCP套接字（IPv6协议）
     let serverSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
     let clientSocket = RawSocket(SocketDomain.IPV6, SocketType.STREAM, ProtocolType.TCP)
-    
+
     try {
         // 构建IPv6地址结构的字节数组（共28字节）
         let addressBytes = Array<Byte>(28, repeat: 0)
         addressBytes[0..2] = [10, 0] // 地址族：AF_INET6（IPv6）
         addressBytes[2..4] = [60, 101] // 端口号（网络字节序）
         addressBytes[18..24] = [255, 255, 127, 0, 0, 1] // IPv6地址（嵌入IPv4回环地址127.0.0.1）
-        
+
         // 封装地址信息
         let serverAddress = RawAddress(addressBytes)
-        
+
         // 服务器绑定地址并开始监听
-        serverSocket.bind(serverAddress)  // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
+        serverSocket.bind(serverAddress) // 如果出现 "Address already in use" 可以注释这行再执行一次，可以立刻释放端口
         serverSocket.listen(100)
-        
+
         // 启动客户端连接并发送消息（异步执行）
         spawn {
             clientSocket.connect(serverAddress)
             let sendData: Array<Byte> = "Hello, cangjie server.".toArray()
             clientSocket.send(sendData, 0)
         }
-        
+
         // 等待客户端连接（预留2秒时间）
         sleep(Duration.second * 2)
-        
+
         // 服务器接受连接并接收消息
         var acceptedClientSocket = serverSocket.accept(timeout: Duration.Zero)
         let receiveBuffer = Array<Byte>(100, repeat: 0) // 接收缓冲区（100字节）
         let receivedSize = acceptedClientSocket.receive(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         // 打印接收的消息
         println("Received message: ${receivedMessage}")
     } finally {
@@ -4874,18 +4874,18 @@ main() {
         // 清晰表达"服务器绑定的地址"
         let serverBindAddress = RawAddress([2, 0, 39, 40, 127, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0])
         udpServerSocket.bind(serverBindAddress)
-        
+
         // 异步发送逻辑：明确"发送的数据"和目标地址
         spawn {
             let clientSendData: Array<Byte> = "Hello, cangjie server.".toArray()
             udpClientSocket.sendTo(serverBindAddress, clientSendData, 0)
         }
-        
+
         // 接收逻辑：区分"接收缓冲区"、"接收大小"和"接收的消息"
         let receiveBuffer = Array<Byte>(100, repeat: 0)
         let (_, receivedSize) = udpServerSocket.receiveFrom(receiveBuffer, 0)
         let receivedMessage = String.fromUtf8(receiveBuffer.slice(0, receivedSize))
-        
+
         println("Received message: ${receivedMessage}")
     } finally {
         // 释放资源
@@ -4929,45 +4929,45 @@ import std.net.*
 main() {
     // 初始化IPv4 TCP服务器套接字
     let tcpServerSocket = RawSocket(SocketDomain.IPV4, SocketType.STREAM, ProtocolType.TCP)
-    
+
     // 设置SO_REUSEADDR选项（允许端口复用）
     let reuseAddrEnableValue: Array<Byte> = [1, 0, 0, 0]
     let enableValuePtr = unsafe { acquireArrayRawData(reuseAddrEnableValue) }.pointer
-    unsafe { 
+    unsafe {
         tcpServerSocket.setSocketOption(
-            OptionLevel.SOCKET, 
-            OptionName.SO_REUSEADDR, 
-            enableValuePtr, 
+            OptionLevel.SOCKET,
+            OptionName.SO_REUSEADDR,
+            enableValuePtr,
             Int32(reuseAddrEnableValue.size)
         )
     }
-    unsafe { releaseArrayRawData(acquireArrayRawData(reuseAddrEnableValue)) }  // 释放设置值的指针资源
-    
+    unsafe { releaseArrayRawData(acquireArrayRawData(reuseAddrEnableValue)) } // 释放设置值的指针资源
+
     // 准备获取套接字选项值
     let optionValue: Array<Byte> = [0, 0, 0, 0]
-    let valuePtr = unsafe { acquireArrayRawData(optionValue) }.pointer  // 对应getSocketOption的value参数
-    
+    let valuePtr = unsafe { acquireArrayRawData(optionValue) }.pointer // 对应getSocketOption的value参数
+
     // 长度指针
-    var lenPtr: CPointer<Int32> = LibC.malloc<Int32>(count: 1)  // 对应getSocketOption的len参数
-    unsafe { lenPtr.write(10) }  // 初始化长度（需≥选项值实际字节数）
-    
+    var lenPtr: CPointer<Int32> = LibC.malloc<Int32>(count: 1) // 对应getSocketOption的len参数
+    unsafe { lenPtr.write(10) } // 初始化长度（需≥选项值实际字节数）
+
     // 调用getSocketOption获取选项值
-    unsafe { 
+    unsafe {
         tcpServerSocket.getSocketOption(
-            OptionLevel.SOCKET, 
-            OptionName.SO_REUSEADDR, 
-            valuePtr, 
+            OptionLevel.SOCKET,
+            OptionName.SO_REUSEADDR,
+            valuePtr,
             lenPtr
         )
     }
-    unsafe { releaseArrayRawData(acquireArrayRawData(optionValue)) }  // 释放缓冲区指针资源
-    
+    unsafe { releaseArrayRawData(acquireArrayRawData(optionValue)) } // 释放缓冲区指针资源
+
     // 读取并打印指针实际返回的值
-    let actualLen = unsafe { lenPtr.read() }  // 从lenPtr获取实际长度值
-    unsafe { LibC.free(lenPtr) }  // 释放长度指针内存
+    let actualLen = unsafe { lenPtr.read() } // 从lenPtr获取实际长度值
+    unsafe { LibC.free(lenPtr) } // 释放长度指针内存
     println("套接字选项值: ${optionValue}")
     println("套接字选项值的长度: ${actualLen}")
-    
+
     // 关闭套接字释放资源
     tcpServerSocket.close()
 }
@@ -5014,7 +5014,7 @@ main() {
     // 抽象类不可实例化，选择子类进行实例化
     let socketAddrV4: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6: SocketAddress = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4地址族: ${socketAddrV4.family}")
     println("IPv6地址族: ${socketAddrV6.family}")
 }
@@ -5047,7 +5047,7 @@ main() {
     // 抽象类不可实例化，选择子类进行实例化
     let socketAddrV4: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6: SocketAddress = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     println("IPv4 Socket地址大小: ${socketAddrV4.size}")
     println("IPv6 Socket地址大小: ${socketAddrV6.size}")
 }
@@ -5082,11 +5082,11 @@ main() {
     // 抽象类不可实例化，选择子类进行实例化
     let socketAddrV4: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddrV6: SocketAddress = IPSocketAddress.parse("[2001:0250:1006:dff0:4913:2aa5:8075:7c10]:8080")
-    
+
     // 获取地址字节
     let v4Bytes = socketAddrV4.getAddressBytes()
     let v6Bytes = socketAddrV6.getAddressBytes()
-    
+
     println("IPv4地址字节: ${v4Bytes}")
     println("IPv6地址字节: ${v6Bytes}")
 }
@@ -5126,11 +5126,11 @@ main() {
     let socketAddr1: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr2: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr3: SocketAddress = IPSocketAddress.parse("192.168.1.3:8080")
-    
+
     // 比较IPSocketAddress对象是否不等
     let isNotEqual1 = socketAddr1 != socketAddr2
     let isNotEqual2 = socketAddr1 != socketAddr3
-    
+
     println("socketAddr1 != socketAddr2: ${isNotEqual1}")
     println("socketAddr1 != socketAddr3: ${isNotEqual2}")
 }
@@ -5170,11 +5170,11 @@ main() {
     let socketAddr1: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr2: SocketAddress = IPSocketAddress.parse("192.168.1.2:8080")
     let socketAddr3: SocketAddress = IPSocketAddress.parse("192.168.1.3:8080")
-    
+
     // 比较IPSocketAddress对象是否相等
     let isEqual1 = socketAddr1 == socketAddr2
     let isEqual2 = socketAddr1 == socketAddr3
-    
+
     println("socketAddr1 == socketAddr2: ${isEqual1}")
     println("socketAddr1 == socketAddr3: ${isEqual2}")
 }
@@ -5328,7 +5328,7 @@ public mut prop receiveBufferSize: Int64
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.net.*
 
@@ -5638,7 +5638,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         // 接收的客户端连接，设置5秒超时
         let timeout = Duration.second * 5
         try (clientSocket = server.accept(timeout: timeout)) {
@@ -5646,7 +5646,7 @@ func runTcpServer() {
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 读取的字节数
             let readBytes = clientSocket.read(recvBuffer)
-            
+
             println("Server read ${readBytes} bytes: ${recvBuffer}")
         }
     }
@@ -5659,14 +5659,14 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
         // 发送的数据直接写字面量
         client.write([4, 5, 6])
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -5779,18 +5779,18 @@ main() {
     let tcpServer = TcpServerSocket(bindAt: 8083)
     // 存储SO_REUSEADDR选项的获取结果（初始值-1表示未获取成功）
     var reuseAddrValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(SO_REUSEADDR_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: SO_REUSEADDR_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取SO_REUSEADDR选项值
             tcpServer.getSocketOption(
@@ -6219,7 +6219,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -6239,7 +6239,7 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
@@ -6254,7 +6254,7 @@ main(): Int64 {
         println("Client read ${readBytes} bytes: ${buffer}")
         println("Client keepAlive: ${client.keepAlive}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -6326,7 +6326,7 @@ public override prop localAddress: SocketAddress
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.net.*
 import std.sync.*
@@ -6341,7 +6341,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -6361,10 +6361,10 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     let socketAddress: SocketAddress = IPSocketAddress.parse("127.0.0.1:33334")
-    try (client = TcpSocket(socketAddress, localAddress: IPSocketAddress.parse("127.0.0.2:8080"))) {
+    try (client = TcpSocket(socketAddress, localAddress: IPSocketAddress.parse("127.0.0.2:0"))) {
         client.connect()
         // 打印客户端本地地址
         println("client local address: ${client.localAddress}")
@@ -6376,17 +6376,17 @@ main(): Int64 {
         let readBytes = client.read(buffer)
         println("Client read ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-client local address: 127.0.0.2:8080
+client local address: 127.0.0.2:35079
 Server read 3 bytes: [4, 5, 6, 0, 0, 0, 0, 0, 0, 0]
 Client read 3 bytes: [1, 2, 3, 0, 0, 0, 0, 0, 0, 0]
 ```
@@ -6518,7 +6518,7 @@ public mut prop receiveBufferSize: Int64
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.net.*
 
@@ -6531,7 +6531,7 @@ main(): Int64 {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 receiveBufferSize before setting: 131072
@@ -6569,7 +6569,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -6587,7 +6587,7 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
@@ -6595,7 +6595,7 @@ main(): Int64 {
         // 发送的数据直接写字面量
         client.write([4, 5, 6])
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -6860,7 +6860,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -6880,7 +6880,7 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
@@ -6892,7 +6892,7 @@ main(): Int64 {
         let readBytes = client.read(buffer)
         println("Client read ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -6938,6 +6938,7 @@ import std.net.*
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -6948,18 +6949,18 @@ main() {
     let tcpSocket = TcpSocket("127.0.0.1", 8080)
     // 存储TCP_NODELAY选项的获取结果（初始值-1表示未获取成功）
     var tcpNoDelayValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(TCP_NODELAY_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: TCP_NODELAY_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取TCP_NODELAY选项值
             tcpSocket.getSocketOption(
@@ -7190,7 +7191,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -7210,7 +7211,7 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
@@ -7222,7 +7223,7 @@ main(): Int64 {
         let readBytes = client.read(buffer)
         println("Client read ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -7268,6 +7269,7 @@ import std.net.*
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -7456,7 +7458,7 @@ func runTcpServer() {
         server.bind()
         // 明确是服务器启动计数器递减
         serverStartCounter.dec()
-        
+
         try (clientSocket = server.accept()) {
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
@@ -7476,7 +7478,7 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = TcpSocket("127.0.0.1", serverPort)) {
         client.connect()
@@ -7488,7 +7490,7 @@ main(): Int64 {
         let readBytes = client.read(buffer)
         println("Client read ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -7528,7 +7530,7 @@ main(): Int64 {
     let tcpSocket1 = TcpSocket("127.0.0.1", 8080)
     let tcpSocket2 = TcpSocket("127.0.0.1", 8080)
     let tcpSocket3 = tcpSocket1
-    
+
     println("tcpSocket1 != tcpSocket2: ${tcpSocket1 != tcpSocket2}")
     println("tcpSocket1 != tcpSocket3: ${tcpSocket1 != tcpSocket3}")
     return 0
@@ -7568,7 +7570,7 @@ main(): Int64 {
     let tcpSocket1 = TcpSocket("127.0.0.1", 8080)
     let tcpSocket2 = TcpSocket("127.0.0.1", 8080)
     let tcpSocket3 = tcpSocket1
-    
+
     println("tcpSocket1 == tcpSocket2: ${tcpSocket1 == tcpSocket2}")
     println("tcpSocket1 == tcpSocket3: ${tcpSocket1 == tcpSocket3}")
     return 0
@@ -7632,17 +7634,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -7654,12 +7656,12 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33336)) {
         client.bind()
         println("Client local address: ${client.localAddress}")
-        
+
         // 发送的数据直接写字面量
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.sendTo(serverAddress, [4, 5, 6])
@@ -7669,7 +7671,7 @@ main(): Int64 {
         let (senderAddress, readBytes) = client.receiveFrom(buffer)
         println("Client received ${readBytes} bytes from ${senderAddress}: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -7791,17 +7793,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -7813,16 +7815,16 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33339)) {
         client.bind()
-        
+
         // 连接到服务器
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.connect(serverAddress)
         println("Client remote address: ${client.remoteAddress}")
-        
+
         // 发送的数据直接写字面量
         client.send([4, 5, 6])
 
@@ -7831,7 +7833,7 @@ main(): Int64 {
         let readBytes = client.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8169,17 +8171,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8191,16 +8193,16 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33346)) {
         client.bind()
-        
+
         // 连接到服务器
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.connect(serverAddress)
         println("Client remote address after connect: ${client.remoteAddress}")
-        
+
         // 发送的数据直接写字面量
         client.send([4, 5, 6])
 
@@ -8209,7 +8211,7 @@ main(): Int64 {
         let readBytes = client.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8250,17 +8252,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8272,16 +8274,16 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33347)) {
         client.bind()
-        
+
         // 连接到服务器
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.connect(serverAddress)
         println("Client remote address after connect: ${client.remoteAddress}")
-        
+
         // 发送的数据直接写字面量
         client.send([4, 5, 6])
 
@@ -8289,12 +8291,12 @@ main(): Int64 {
         let buffer = Array<Byte>(10, repeat: 0)
         let readBytes = client.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
-        
+
         // 断开连接
         client.disconnect()
         println("Client disconnected successfully")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8342,6 +8344,7 @@ import std.net.*
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -8353,18 +8356,18 @@ main(): Int64 {
     udpSocket.bind()
     // 存储SO_REUSEADDR选项的获取结果（初始值-1表示未获取成功）
     var reuseAddrValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(SO_REUSEADDR_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: SO_REUSEADDR_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取SO_REUSEADDR选项值
             udpSocket.getSocketOption(
@@ -8562,17 +8565,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8584,16 +8587,16 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33352)) {
         client.bind()
-        
+
         // 连接到服务器
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.connect(serverAddress)
         println("Client remote address after connect: ${client.remoteAddress}")
-        
+
         // 发送的数据直接写字面量
         client.send([4, 5, 6])
 
@@ -8602,7 +8605,7 @@ main(): Int64 {
         let readBytes = client.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8656,17 +8659,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8678,11 +8681,11 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33353)) {
         client.bind()
-        
+
         // 发送的数据直接写字面量
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.sendTo(serverAddress, [4, 5, 6])
@@ -8692,7 +8695,7 @@ main(): Int64 {
         let (senderAddress, readBytes) = client.receiveFrom(buffer)
         println("Client received ${readBytes} bytes from ${senderAddress}: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8740,17 +8743,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8762,16 +8765,16 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33354)) {
         client.bind()
-        
+
         // 连接到服务器
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.connect(serverAddress)
         println("Client remote address after connect: ${client.remoteAddress}")
-        
+
         // 发送的数据直接写字面量
         client.send([4, 5, 6])
 
@@ -8780,7 +8783,7 @@ main(): Int64 {
         let readBytes = client.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8830,17 +8833,17 @@ main(): Int64 {
             server.bind()
             // 明确是服务器启动计数器递减
             serverStartCounter.dec()
-            
+
             // 接收的客户端数据，设置5秒超时
             let timeout = Duration.second * 5
             server.receiveTimeout = timeout
-            
+
             // 接收数据的缓冲区
             let recvBuffer = Array<Byte>(10, repeat: 0)
             // 接收数据
             let (senderAddress, readBytes) = server.receiveFrom(recvBuffer)
             println("Server received ${readBytes} bytes from ${senderAddress}: ${recvBuffer}")
-            
+
             // 发送数据回客户端
             server.sendTo(senderAddress, [1u8, 2u8, 3u8])
         }
@@ -8852,11 +8855,11 @@ main(): Int64 {
     }
     // 等待服务器启动完成（计数器归零）
     serverStartCounter.waitUntilZero()
-    
+
     // 客户端连接的 socket
     try (client = UdpSocket(bindAt: 33355)) {
         client.bind()
-        
+
         // 发送的数据直接写字面量
         let serverAddress = IPSocketAddress.parse("127.0.0.1:${serverPort}")
         client.sendTo(serverAddress, [4, 5, 6])
@@ -8866,7 +8869,7 @@ main(): Int64 {
         let (senderAddress, readBytes) = client.receiveFrom(buffer)
         println("Client received ${readBytes} bytes from ${senderAddress}: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -8912,6 +8915,7 @@ import std.net.*
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -9118,7 +9122,7 @@ import std.net.*
 
 main(): Int64 {
     let socketAddress = UnixSocketAddress("socketPath")
-    
+
     // 使用SocketAddress初始化UnixDatagramSocket
     let socket = UnixDatagramSocket(bindAt: socketAddress)
     println("Socket created to: ${socket.localAddress}")
@@ -9258,7 +9262,7 @@ func runUnixDatagramServer(serverSocketPath: String) {
     try (serverSocket = UnixDatagramSocket(bindAt: serverSocketPath)) {
         serverSocket.bind()
         serverReadyBarrier.wait()
-        
+
         let receiveBuffer = Array<Byte>(3, repeat: 0)
         let (_, bytesRead) = serverSocket.receiveFrom(receiveBuffer)
         println("Server received ${bytesRead} bytes: ${receiveBuffer}")
@@ -9269,22 +9273,23 @@ main(): Int64 {
     // 创建临时套接字路径
     let clientSocketPath = createTempSocketPath()
     let serverSocketPath = createTempSocketPath()
-    
+
     let serverSpawn = spawn {
         runUnixDatagramServer(serverSocketPath)
     }
-    
+
     // 等待服务器准备就绪
     serverReadyBarrier.wait()
-    
+
     try (clientSocket = UnixDatagramSocket(bindAt: clientSocketPath)) {
         clientSocket.bind()
         clientSocket.connect(serverSocketPath)
-        println("Is equal to server socket path?: ${clientSocket.remoteAddress.getOrThrow().toString() == serverSocketPath}")
+        println(
+            "Is equal to server socket path?: ${clientSocket.remoteAddress.getOrThrow().toString() == serverSocketPath}")
         let testData: Array<Byte> = [1, 2, 3]
         clientSocket.send(testData)
     }
-    
+
     // 等待服务器完成
     serverSpawn.get()
     return 0
@@ -9411,7 +9416,7 @@ import std.net.*
 
 main(): Int64 {
     let socketAddress = UnixSocketAddress("socketPath")
-    
+
     // 使用SocketAddress初始化UnixDatagramSocket
     let socket = UnixDatagramSocket(bindAt: socketAddress)
     println("Socket created to: ${socket.localAddress}")
@@ -9504,7 +9509,7 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     let socket = UnixDatagramSocket(bindAt: socketPath)
     // 绑定套接字到地址
     socket.bind()
@@ -9543,15 +9548,15 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     let socket = UnixDatagramSocket(bindAt: socketPath)
     socket.bind()
     println("Socket is closed before close(): ${socket.isClosed()}")
-    
+
     // 关闭套接字
     socket.close()
     println("Socket is closed after close(): ${socket.isClosed()}")
-    
+
     return 0
 }
 ```
@@ -9610,7 +9615,7 @@ func runUnixDatagramServer(serverSocketPath: String) {
     try (serverSocket = UnixDatagramSocket(bindAt: serverSocketPath)) {
         serverSocket.bind()
         serverReadyBarrier.wait()
-        
+
         let receiveBuffer = Array<Byte>(3, repeat: 0)
         let (_, bytesRead) = serverSocket.receiveFrom(receiveBuffer)
         println("Server received ${bytesRead} bytes: ${receiveBuffer}")
@@ -9621,24 +9626,24 @@ main(): Int64 {
     // 创建临时套接字路径
     let clientSocketPath = createTempSocketPath()
     let serverSocketPath = createTempSocketPath()
-    
+
     let serverSpawn = spawn {
         runUnixDatagramServer(serverSocketPath)
     }
-    
+
     // 等待服务器准备就绪
     serverReadyBarrier.wait()
-    
+
     try (clientSocket = UnixDatagramSocket(bindAt: clientSocketPath)) {
         clientSocket.bind()
         // 使用SocketAddress连接到服务器
         let serverSocketAddress = UnixSocketAddress(serverSocketPath)
         clientSocket.connect(serverSocketAddress)
-        
+
         let testData: Array<Byte> = [1, 2, 3]
         clientSocket.send(testData)
     }
-    
+
     // 等待服务器完成
     serverSpawn.get()
     return 0
@@ -9882,6 +9887,7 @@ func createTempSocketPath(): String {
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -9894,18 +9900,18 @@ main(): Int64 {
     unixDatagramSocket.bind()
     // 存储SO_REUSEADDR选项的获取结果（初始值-1表示未获取成功）
     var reuseAddrValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(SO_REUSEADDR_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: SO_REUSEADDR_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取SO_REUSEADDR选项值
             unixDatagramSocket.getSocketOption(
@@ -9980,15 +9986,16 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     try (socket = UnixDatagramSocket(bindAt: socketPath)) {
         socket.bind()
-        
+
         // 获取SO_REUSEADDR选项布尔值
         let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
         println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
         socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+        println(
+            "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     }
     return 0
 }
@@ -10047,15 +10054,16 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     try (socket = UnixDatagramSocket(bindAt: socketPath)) {
         socket.bind()
-        
+
         // 获取SO_REUSEADDR选项值
         let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
         println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
         socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+        println(
+            "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     }
     return 0
 }
@@ -10102,14 +10110,14 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     let socket = UnixDatagramSocket(bindAt: socketPath)
     socket.bind()
     println("Is socket closed before close(): ${socket.isClosed()}")
-    
+
     socket.close()
     println("Is socket closed after close(): ${socket.isClosed()}")
-    
+
     return 0
 }
 ```
@@ -10167,15 +10175,15 @@ func runUnixDatagramServer(serverSocketPath: String, clientSocketPath: String) {
         serverSocket.bind()
         // 等待客户端准备好
         readyBarrier.wait()
-        
+
         // 连接到客户端
         serverSocket.connect(clientSocketPath)
-        
+
         // 接收客户端的数据（使用receive而不是receiveFrom）
         let recvBuffer = Array<Byte>(10, repeat: 0)
         let readBytes = serverSocket.receive(recvBuffer)
         println("Server received ${readBytes} bytes: ${recvBuffer}")
-        
+
         // 发送数据回客户端
         serverSocket.send([1u8, 2u8, 3u8])
     }
@@ -10185,31 +10193,30 @@ main(): Int64 {
     // 创建临时套接字路径
     let clientSocketPath = createTempSocketPath()
     let serverSocketPath = createTempSocketPath()
-    
+
     // 启动服务器线程
     let serverTask = spawn {
         runUnixDatagramServer(serverSocketPath, clientSocketPath)
     }
-    
-    
+
     // 客户端连接的 socket
     try (clientSocket = UnixDatagramSocket(bindAt: clientSocketPath)) {
         clientSocket.bind()
         // 等待服务器准备好
         readyBarrier.wait()
-        
+
         // 连接到服务器
         clientSocket.connect(serverSocketPath)
-        
+
         // 发送数据到服务器
         clientSocket.send([4, 5, 6])
-        
+
         // 接收服务器返回的数据（使用receive而不是receiveFrom）
         let buffer = Array<Byte>(10, repeat: 0)
         let readBytes = clientSocket.receive(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -10274,7 +10281,7 @@ func runUnixDatagramServer(serverSocketPath: String) {
         serverSocket.bind()
         // 通知客户端已准备好
         serverReadyBarrier.wait()
-        
+
         // 接收客户端的数据（使用receiveFrom而不是receive）
         let recvBuffer = Array<Byte>(10, repeat: 0)
         let (senderAddress, readBytes) = serverSocket.receiveFrom(recvBuffer)
@@ -10288,29 +10295,29 @@ main(): Int64 {
     // 创建临时套接字路径
     let clientSocketPath = createTempSocketPath()
     let serverSocketPath = createTempSocketPath()
-    
+
     // 启动服务器线程
     let serverTask = spawn {
         runUnixDatagramServer(serverSocketPath)
     }
-    
+
     // 等待服务器准备就绪
     serverReadyBarrier.wait()
-    
+
     // 客户端连接的 socket
     try (clientSocket = UnixDatagramSocket(bindAt: clientSocketPath)) {
         clientSocket.bind()
-        
+
         // 发送数据到服务器
         let serverAddress = UnixSocketAddress(serverSocketPath)
         clientSocket.sendTo(serverAddress, [4, 5, 6])
-        
+
         // 接收服务器返回的数据（使用receiveFrom而不是receive）
         let buffer = Array<Byte>(10, repeat: 0)
         let (_, readBytes) = clientSocket.receiveFrom(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -10456,12 +10463,12 @@ func runUnixDatagramServer(serverSocketPath: String) {
         serverSocket.bind()
         // 通知客户端已准备好
         serverReadyBarrier.wait()
-        
+
         // 接收客户端的数据
         let recvBuffer = Array<Byte>(10, repeat: 0)
         let (senderAddress, readBytes) = serverSocket.receiveFrom(recvBuffer)
         println("Server received ${readBytes} bytes: ${recvBuffer}")
-        
+
         // 发送数据回客户端（使用sendTo而不是send）
         serverSocket.sendTo(senderAddress, [1u8, 2u8, 3u8])
     }
@@ -10471,29 +10478,29 @@ main(): Int64 {
     // 创建临时套接字路径
     let clientSocketPath = createTempSocketPath()
     let serverSocketPath = createTempSocketPath()
-    
+
     // 启动服务器线程
     let serverTask = spawn {
         runUnixDatagramServer(serverSocketPath)
     }
-    
+
     // 等待服务器准备就绪
     serverReadyBarrier.wait()
-    
+
     // 客户端连接的 socket
     try (clientSocket = UnixDatagramSocket(bindAt: clientSocketPath)) {
         clientSocket.bind()
-        
+
         // 发送数据到服务器（使用sendTo而不是send）
         let serverAddress = UnixSocketAddress(serverSocketPath)
         clientSocket.sendTo(serverAddress, [4, 5, 6])
-        
+
         // 接收服务器返回的数据
         let buffer = Array<Byte>(10, repeat: 0)
         let (_, readBytes) = clientSocket.receiveFrom(buffer)
         println("Client received ${readBytes} bytes: ${buffer}")
     }
-    
+
     // 等待服务器任务完成
     serverTask.get()
     return 0
@@ -10553,6 +10560,7 @@ func createTempSocketPath(): String {
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -10633,15 +10641,16 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     try (socket = UnixDatagramSocket(bindAt: socketPath)) {
         socket.bind()
-        
+
         // 获取SO_REUSEADDR选项布尔值
         let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
         println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
         socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+        println(
+            "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     }
     return 0
 }
@@ -10698,15 +10707,16 @@ func createTempSocketPath(): String {
 
 main(): Int64 {
     let socketPath = createTempSocketPath()
-    
+
     try (socket = UnixDatagramSocket(bindAt: socketPath)) {
         socket.bind()
-        
+
         // 获取SO_REUSEADDR选项值
         let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
         println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
         socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-        println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+        println(
+            "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     }
     return 0
 }
@@ -11088,15 +11098,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 连接到服务器端套接字
@@ -11110,7 +11120,7 @@ main(): Int64 {
         // 打印接收到的字节数、原始字节数据和UTF-8字符串
         println("Client received ${readBytes} bytes: ${buf}, ${String.fromUtf8(buf)}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -11174,7 +11184,7 @@ func runUnixServer() {
 
         // 阻塞等待客户端连接，接受连接后创建客户端通信实例，超时抛出异常
         try (client = serverSocket.accept(timeout: Duration.second * 2)) {
-            // 不做任何事情
+        // 不做任何事情
         } catch (e: SocketTimeoutException) {
             println("${e.message}")
         }
@@ -11184,17 +11194,17 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
 
     // 此处不进行服务器连接，故意超时
-    
+
     // 等待服务器线程执行完成
     fut.get()
 
@@ -11241,20 +11251,20 @@ let SOCKET_PATH = "tmpsock"
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 创建Unix服务器套接字实例
     let serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)
-    
+
     // 绑定套接字
     serverSocket.bind()
-    
+
     // 读取localAddress
     println("Server socket bound to: ${serverSocket.localAddress}")
-    
+
     // 清理
     serverSocket.close()
     removeIfExists(SOCKET_PATH)
-    
+
     return 0
 }
 ```
@@ -11290,25 +11300,25 @@ let SOCKET_PATH = "tmpsock"
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 创建Unix服务器套接字实例
     let serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)
-    
+
     // 绑定套接字
     serverSocket.bind()
-    
+
     // 读取localAddress
     println("Server socket bound to: ${serverSocket.localAddress}")
-    
+
     // 关闭套接字
     serverSocket.close()
-    
+
     // 检查套接字是否已关闭
     println("Server socket is closed: ${serverSocket.isClosed()}")
-    
+
     // 清理
     removeIfExists(SOCKET_PATH)
-    
+
     return 0
 }
 ```
@@ -11359,6 +11369,7 @@ let SOCKET_PATH = "tmpsock"
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -11370,18 +11381,18 @@ main(): Int64 {
     let serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)
     // 存储SO_REUSEADDR选项的获取结果（初始值-1表示未获取成功）
     var reuseAddrValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(SO_REUSEADDR_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: SO_REUSEADDR_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取SO_REUSEADDR选项值
             serverSocket.getSocketOption(
@@ -11452,7 +11463,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -11507,7 +11519,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -11548,31 +11561,31 @@ let SOCKET_PATH = "tmpsock"
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 创建Unix服务器套接字实例
     let serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)
-    
+
     // 检查套接字是否已关闭（初始状态）
     println("Server socket is closed (initial): ${serverSocket.isClosed()}")
-    
+
     // 绑定套接字
     serverSocket.bind()
-    
+
     // 读取localAddress
     println("Server socket bound to: ${serverSocket.localAddress}")
-    
+
     // 检查套接字是否已关闭（绑定后）
     println("Server socket is closed (after bind): ${serverSocket.isClosed()}")
-    
+
     // 关闭套接字
     serverSocket.close()
-    
+
     // 检查套接字是否已关闭（关闭后）
     println("Server socket is closed (after close): ${serverSocket.isClosed()}")
-    
+
     // 清理
     removeIfExists(SOCKET_PATH)
-    
+
     return 0
 }
 ```
@@ -11625,6 +11638,7 @@ let SOCKET_PATH = "tmpsock"
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -11700,7 +11714,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -11753,7 +11768,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -11794,28 +11810,28 @@ let SOCKET_PATH = "tmpsock"
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 创建Unix服务器套接字实例
     let serverSocket = UnixServerSocket(bindAt: SOCKET_PATH)
-    
+
     // 打印初始状态
     println("Server socket initial state: ${serverSocket.toString()}")
-    
+
     // 绑定套接字
     serverSocket.bind()
-    
+
     // 打印绑定后的状态
     println("Server socket state after bind: ${serverSocket.toString()}")
-    
+
     // 关闭套接字
     serverSocket.close()
-    
+
     // 打印关闭后的状态
     println("Server socket state after close: ${serverSocket.toString()}")
-    
+
     // 清理
     removeIfExists(SOCKET_PATH)
-    
+
     return 0
 }
 ```
@@ -12032,15 +12048,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 连接到服务器端套接字
@@ -12049,7 +12065,7 @@ main(): Int64 {
         // 读取remoteAddress
         println("Remote address: ${socket.remoteAddress}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -12289,15 +12305,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径，手动close，暂时不采用 try-with-resources 表达式（该表达式会自动close）
     let socket = UnixSocket(SOCKET_PATH)
     // 连接到服务器端套接字
@@ -12306,10 +12322,10 @@ main(): Int64 {
     // 检查套接字是否已关闭
     socket.isClosed()
     println("Socket is closed: ${socket.isClosed()}")
-    
+
     socket.close()
     println("Socket is closed: ${socket.isClosed()}")
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -12379,15 +12395,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 连接到服务器端套接字，设置超时时间为3秒
@@ -12399,7 +12415,7 @@ main(): Int64 {
         // 打印接收到的字节数、原始字节数据和UTF-8字符串
         println("Client received ${readBytes} bytes: ${buf}, ${String.fromUtf8(buf)}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -12453,6 +12469,7 @@ let SOCKET_PATH = "tmpsock"
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -12464,18 +12481,18 @@ main(): Int64 {
     let clientSocket = UnixSocket(SOCKET_PATH)
     // 存储SO_REUSEADDR选项的获取结果（初始值-1表示未获取成功）
     var reuseAddrValue: Int32 = -1
-    
+
     unsafe {
         // 为存储选项值分配内存
         let optionValueBuffer = malloc(SO_REUSEADDR_VALUE_SIZE)
         // 转换为Int32类型指针
         let int32Ptr = CPointer<Int32>(optionValueBuffer)
-        
+
         // 存储选项值缓冲区的长度
         let bufferSizeArray = Array<UIntNative>(1, repeat: SO_REUSEADDR_VALUE_SIZE)
         // 获取数组的原始数据指针
         let bufferSizePtr = acquireArrayRawData(bufferSizeArray)
-        
+
         try {
             // 获取SO_REUSEADDR选项值
             clientSocket.getSocketOption(
@@ -12546,7 +12563,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -12601,7 +12619,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -12661,15 +12680,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径，手动close，暂时不采用 try-with-resources 表达式（该表达式会自动close）
     let socket = UnixSocket(SOCKET_PATH)
     // 连接到服务器端套接字
@@ -12678,10 +12697,10 @@ main(): Int64 {
     // 检查套接字是否已关闭
     socket.isClosed()
     println("Socket is closed: ${socket.isClosed()}")
-    
+
     socket.close()
     println("Socket is closed: ${socket.isClosed()}")
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -12754,15 +12773,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 连接到服务器端套接字
@@ -12776,7 +12795,7 @@ main(): Int64 {
         // 打印接收到的字节数、原始字节数据和UTF-8字符串
         println("Client received ${readBytes} bytes: ${buf}, ${String.fromUtf8(buf)}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -12830,6 +12849,7 @@ let SOCKET_PATH = "tmpsock"
 
 foreign {
     func free(ptr: CPointer<Unit>): Unit
+
     func malloc(size: UIntNative): CPointer<Unit>
 }
 
@@ -12905,7 +12925,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, true)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionBool(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -12958,7 +12979,8 @@ main(): Int64 {
     let reuseAddrValue = socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)
     println("SO_REUSEADDR value before setting: ${reuseAddrValue}")
     socket.setSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR, 1)
-    println("SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
+    println(
+        "SO_REUSEADDR value after setting: ${socket.getSocketOptionIntNative(OptionLevel.SOCKET, OptionName.SO_REUSEADDR)}")
     return 0
 }
 ```
@@ -13018,15 +13040,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 打印 UnixSocket
@@ -13037,7 +13059,7 @@ main(): Int64 {
         // 打印 UnixSocket
         println("Socket: ${socket.toString()}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -13108,15 +13130,15 @@ func runUnixServer() {
 main(): Int64 {
     // 启动前清理残留的套接字文件（避免绑定失败）
     removeIfExists(SOCKET_PATH)
-    
+
     // 启动新线程运行服务器函数，返回Future对象用于等待线程结束
     let fut = spawn {
         runUnixServer()
     }
-    
+
     // 等待服务器完成初始化并绑定端口
     barrier.wait()
-    
+
     // 创建Unix客户端套接字实例，连接到指定路径
     try (socket = UnixSocket(SOCKET_PATH)) {
         // 连接到服务器端套接字
@@ -13127,7 +13149,7 @@ main(): Int64 {
         socket.write(data)
         println("Client sent data: ${String.fromUtf8(data)}")
     }
-    
+
     // 等待服务器线程执行完成
     fut.get()
     // 程序结束后清理套接字文件
@@ -13180,10 +13202,10 @@ import std.net.*
 main(): Int64 {
     // 创建UnixSocketAddress实例
     let address = UnixSocketAddress("/tmp/test.sock")
-    
+
     // 获取并打印地址族
     println("Address family: ${address.family}")
-    
+
     return 0
 }
 ```
@@ -13213,10 +13235,10 @@ import std.net.*
 main(): Int64 {
     // 创建UnixSocketAddress实例
     let address = UnixSocketAddress("/tmp/test.sock")
-    
+
     // 获取并打印地址大小
     println("Address size: ${address.size}")
-    
+
     return 0
 }
 ```
@@ -13253,7 +13275,7 @@ main(): Int64 {
     // 创建路径字符串并转换为字节数组
     let path = "/tmp/test.sock"
     let pathBytes = path.toArray()
-    
+
     // 使用字节数组初始化UnixSocketAddress
     let address = UnixSocketAddress(pathBytes)
     return 0
@@ -13341,22 +13363,22 @@ main(): Int64 {
     // 创建两个相同的UnixSocketAddress实例
     let address1 = UnixSocketAddress("/tmp/test.sock")
     let address2 = UnixSocketAddress("/tmp/test.sock")
-    
+
     // 获取并打印它们的哈希码
     let hashCode1 = address1.hashCode()
     let hashCode2 = address2.hashCode()
-    
+
     println("Address1 hash code: ${hashCode1}")
     println("Address2 hash code: ${hashCode2}")
     println("Hash codes are equal: ${hashCode1 == hashCode2}")
-    
+
     // 创建一个不同的UnixSocketAddress实例
     let address3 = UnixSocketAddress("/tmp/different.sock")
     let hashCode3 = address3.hashCode()
-    
+
     println("Address3 hash code: ${hashCode3}")
     println("Hash codes are different: ${hashCode1 != hashCode3}")
-    
+
     return 0
 }
 ```
@@ -13393,14 +13415,14 @@ main(): Int64 {
     // 创建不同的UnixSocketAddress实例
     let address1 = UnixSocketAddress("/tmp/server1.sock")
     let address2 = UnixSocketAddress("/tmp/server1.sock".toArray())
-    
+
     // 使用toString()方法并打印结果
     println("Address1 toString: ${address1.toString()}")
     println("Address2 toString: ${address2.toString()}")
-    
+
     // 比较相同路径的地址
     println("Address1 equals Address2: ${address1.toString() == address2.toString()}")
-    
+
     try {
         UnixSocketAddress("/tmp/server1\u{0}.sock")
     } catch (e: IllegalArgumentException) {
@@ -13445,18 +13467,18 @@ main(): Int64 {
     // 创建两个相同的UnixSocketAddress实例
     let address1 = UnixSocketAddress("/tmp/test.sock")
     let address2 = UnixSocketAddress("/tmp/test.sock")
-    
+
     // 使用!=操作符比较它们
     let areNotEqual = address1 != address2
     println("Address1 != Address2: ${areNotEqual}")
-    
+
     // 创建一个不同的UnixSocketAddress实例
     let address3 = UnixSocketAddress("/tmp/different.sock")
-    
+
     // 使用!=操作符比较不同的地址
     let areDifferent = address1 != address3
     println("Address1 != Address3: ${areDifferent}")
-    
+
     return 0
 }
 ```
@@ -13494,18 +13516,18 @@ main(): Int64 {
     // 创建两个相同的UnixSocketAddress实例
     let address1 = UnixSocketAddress("/tmp/test.sock")
     let address2 = UnixSocketAddress("/tmp/test.sock")
-    
+
     // 使用==操作符比较它们
     let areEqual = address1 == address2
     println("Address1 == Address2: ${areEqual}")
-    
+
     // 创建一个不同的UnixSocketAddress实例
     let address3 = UnixSocketAddress("/tmp/different.sock")
-    
+
     // 使用==操作符比较不同的地址
     let areDifferent = address1 == address3
     println("Address1 == Address3: ${areDifferent}")
-    
+
     return 0
 }
 ```

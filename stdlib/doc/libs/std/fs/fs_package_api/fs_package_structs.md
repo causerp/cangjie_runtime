@@ -35,13 +35,13 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_filedescriptor_file.txt")
-    
+
     // 获取文件描述符
     let fileDescriptor = file.fileDescriptor
 
     // 获取文件句柄信息
     println("File fileHandle: ${fileDescriptor.fileHandle}")
-    
+
     // 删除文件
     removeIfExists("./test_filedescriptor_file.txt", recursive: true)
 }
@@ -103,13 +103,13 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_info_file.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 创建时间
     println("File creationTime: ${fileInfo.creationTime}")
-    
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -147,14 +147,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_info_file.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 获取最后访问时间
     let lastAccessTime = fileInfo.lastAccessTime
     println("File lastAccessTime: ${lastAccessTime}")
-    
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -192,14 +192,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_info_file.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 获取最后访问时间
     let lastModificationTime = fileInfo.lastModificationTime
     println("File lastModificationTime: ${lastModificationTime}")
-    
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -235,14 +235,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_info_file.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 获取文件名
     let name = fileInfo.name
     println("File name: ${name}")
-    
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -279,11 +279,11 @@ main(): Unit {
 
     // 目录内再创建一个文件
     let file = File.create("./test_parentdirectory/test_info_file.txt")
-    
+
     // 获取该文件的父级目录信息
     let parentDirectory = file.info.parentDirectory
     println("Parent directory info name: ${parentDirectory?.name}")
-    
+
     // 删除文件
     removeIfExists("./test_parentdirectory", recursive: true)
 }
@@ -320,9 +320,9 @@ main(): Unit {
 
     // 获取文件信息
     let fileInfo = file.info
-    
-    println("File path: ${fileInfo.path}")  // 输出文件路径
-    
+
+    println("File path: ${fileInfo.path}") // 输出文件路径
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -362,16 +362,16 @@ main(): Unit {
     removeIfExists("./test_size.txt", recursive: true)
 
     // 创建一个文件并写入一些数据
-    var data: Array<Byte> = [83, 105, 122, 101]  // "Size"
+    var data: Array<Byte> = [83, 105, 122, 101] // "Size"
     File.writeTo("./test_size.txt", data)
-    
+
     // 创建 FileInfo 实例
     let fileInfo = FileInfo("./test_size.txt")
-    
+
     // 获取文件大小
     let size = fileInfo.size
     println("File size: ${size} bytes")
-    
+
     // 删除文件
     removeIfExists("./test_size.txt", recursive: true)
 }
@@ -412,14 +412,14 @@ main(): Unit {
 
     // 创建一个文件
     File.create("./test_init_path.txt")
-    
+
     // 使用 Path 创建 FileInfo 实例
     let path = Path("./test_init_path.txt")
     let fileInfo = FileInfo(path)
-    
+
     // 验证创建成功
     println("File name: ${fileInfo.name}")
-    
+
     // 删除文件
     removeIfExists("./test_init_path.txt", recursive: true)
 }
@@ -460,13 +460,13 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_init_string.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 验证创建成功
     println("File name: ${fileInfo.name}")
-    
+
     // 删除文件
     removeIfExists("./test_init_string.txt", recursive: true)
 }
@@ -511,14 +511,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_can_execute.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查是否可执行
     let canExecute = fileInfo.canExecute()
     println("File can execute: ${canExecute}")
-    
+
     // 删除文件
     removeIfExists("./test_can_execute.txt", recursive: true)
 }
@@ -563,14 +563,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_can_read.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查是否可读
     let canRead = fileInfo.canRead()
     println("File can read: ${canRead}")
-    
+
     // 删除文件
     removeIfExists("./test_can_read.txt", recursive: true)
 }
@@ -615,14 +615,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_can_write.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查是否可写
     let canWrite = fileInfo.canWrite()
     println("File can write: ${canWrite}")
-    
+
     // 删除文件
     removeIfExists("./test_can_write.txt", recursive: true)
 }
@@ -662,14 +662,14 @@ main(): Unit {
 
     // 创建一个目录
     Directory.create("./test_is_directory")
-    
+
     // 创建 FileInfo 实例
     let fileInfo = FileInfo("./test_is_directory")
-    
+
     // 检查是否为目录
     let isDirectory = fileInfo.isDirectory()
     println("Is directory: ${isDirectory}")
-    
+
     // 删除目录
     removeIfExists("./test_is_directory", recursive: true)
 }
@@ -705,14 +705,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_is_hidden.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查是否为隐藏文件
     let isHidden = fileInfo.isHidden()
     println("Is hidden file: ${isHidden}")
-    
+
     // 删除文件
     removeIfExists("./test_is_hidden.txt", recursive: true)
 }
@@ -755,14 +755,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_isreadonly.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查文件是否只读
     let isReadOnly = fileInfo.isReadOnly()
     println("File is read-only: ${isReadOnly}")
-    
+
     // 删除文件
     removeIfExists("./test_isreadonly.txt", recursive: true)
 }
@@ -802,14 +802,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_is_regular.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 检查是否为普通文件
     let isRegular = fileInfo.isRegular()
     println("Is regular file: ${isRegular}")
-    
+
     // 删除文件
     removeIfExists("./test_is_regular.txt", recursive: true)
 }
@@ -849,7 +849,7 @@ main(): Unit {
 
     // 创建一个source文件
     let file = File.create("./test_symlink_source.txt")
-    
+
     // 同时创建符号链接
     SymbolicLink.create("./test_symlink_target.txt", to: "./test_symlink_source.txt")
 
@@ -858,7 +858,7 @@ main(): Unit {
 
     // 获取symbolicLink信息
     let symbolicLinkInfo = FileInfo("./test_symlink_target.txt")
-    
+
     // 检查文件是否是软链接
     let isSymbolicLink01 = fileInfo.isSymbolicLink()
     println("File is symbolic link: ${isSymbolicLink01}")
@@ -866,7 +866,7 @@ main(): Unit {
     // 检查符号链接文件是否是软链接
     let isSymbolicLink02 = symbolicLinkInfo.isSymbolicLink()
     println("File is symbolic link: ${isSymbolicLink02}")
-    
+
     // 删除文件
     removeIfExists("./test_symlink_target.txt", recursive: true)
     // 删除文件
@@ -913,14 +913,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_setexecutable.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 设置文件可执行权限
     let result = fileInfo.setExecutable(true)
     println("Set executable permission result: ${result}")
-    
+
     // 删除文件
     removeIfExists("./test_setexecutable.txt", recursive: true)
 }
@@ -965,14 +965,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_setreadable.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 设置文件可读权限
     let result = fileInfo.setReadable(true)
     println("Set readable permission result: ${result}")
-    
+
     // 删除文件
     removeIfExists("./test_setreadable.txt", recursive: true)
 }
@@ -1017,14 +1017,14 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_setwritable.txt")
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 设置文件可写权限
     let result = fileInfo.setWritable(true)
     println("Set writable permission result: ${result}")
-    
+
     // 删除文件
     removeIfExists("./test_setwritable.txt", recursive: true)
 }
@@ -1064,18 +1064,18 @@ main(): Unit {
     removeIfExists("./test_equal2.txt", recursive: true)
 
     // 创建两个文件并写入相同的数据
-    var data: Array<Byte> = [69, 113, 117, 97]  // "Equa"
+    var data: Array<Byte> = [69, 113, 117, 97] // "Equa"
     File.writeTo("./test_equal1.txt", data)
     File.writeTo("./test_equal2.txt", data)
-    
+
     // 创建两个 FileInfo 实例
     let fileInfo1 = FileInfo("./test_equal1.txt")
     let fileInfo2 = FileInfo("./test_equal2.txt")
-    
+
     // 比较两个 FileInfo 实例是否相等
     let isEqual = fileInfo1 == fileInfo2
     println("File infos are equal: ${isEqual}")
-    
+
     // 删除文件
     removeIfExists("./test_equal1.txt", recursive: true)
     removeIfExists("./test_equal2.txt", recursive: true)
@@ -1212,7 +1212,7 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("./test_file.txt")
-    
+
     // 获取文件扩展名
     let extensionName = path.extensionName
     println("File extension name: ${extensionName}")
@@ -1269,7 +1269,7 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("./test_file.txt")
-    
+
     // 获取文件名
     let fileName = path.fileName
     println("File name: ${fileName}")
@@ -1313,7 +1313,7 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("./test_file.txt")
-    
+
     // 获取不带扩展名的文件名
     let fileNameWithoutExtension = path.fileNameWithoutExtension
     println("File name without extension: ${fileNameWithoutExtension}")
@@ -1376,7 +1376,7 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("/home/user/test_file.txt")
-    
+
     // 获取父路径
     let parent = path.parent
     println("Parent path: ${parent}")
@@ -1410,7 +1410,7 @@ import std.fs.*
 main(): Unit {
     // 使用字符串创建 Path 实例
     let path = Path("/home/user/test_file.txt")
-    
+
     // 输出路径
     println("Path: ${path}")
 }
@@ -1443,7 +1443,7 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("/home/user/test_file.txt")
-    
+
     // 获取路径的哈希值
     let hashCode = path.hashCode()
     println("Path hash code: ${hashCode}")
@@ -1481,14 +1481,14 @@ import std.fs.*
 main(): Unit {
     // 创建一个绝对路径实例
     let absolutePath = Path("/home/user/test_file.txt")
-    
+
     // 创建一个相对路径实例
     let relativePath = Path("./test_file.txt")
-    
+
     // 检查路径是否为绝对路径
     let isAbsolute1 = absolutePath.isAbsolute()
     let isAbsolute2 = relativePath.isAbsolute()
-    
+
     println("Path '${absolutePath}' is absolute: ${isAbsolute1}")
     println("Path '${relativePath}' is absolute: ${isAbsolute2}")
 }
@@ -1522,14 +1522,14 @@ import std.fs.*
 main(): Unit {
     // 创建一个空路径实例
     let emptyPath = Path("")
-    
+
     // 创建一个非空路径实例
     let nonEmptyPath = Path("/home/user/test_file.txt")
-    
+
     // 检查路径是否为空
     let isEmpty1 = emptyPath.isEmpty()
     let isEmpty2 = nonEmptyPath.isEmpty()
-    
+
     println("Path '${emptyPath}' is empty: ${isEmpty1}")
     println("Path '${nonEmptyPath}' is empty: ${isEmpty2}")
 }
@@ -1567,14 +1567,14 @@ import std.fs.*
 main(): Unit {
     // 创建一个相对路径实例
     let relativePath = Path("./test_file.txt")
-    
+
     // 创建一个绝对路径实例
     let absolutePath = Path("/home/user/test_file.txt")
-    
+
     // 检查路径是否为相对路径
     let isRelative1 = relativePath.isRelative()
     let isRelative2 = absolutePath.isRelative()
-    
+
     println("Path '${relativePath}' is relative: ${isRelative1}")
     println("Path '${absolutePath}' is relative: ${isRelative2}")
 }
@@ -1620,13 +1620,13 @@ import std.fs.*
 main(): Unit {
     // 创建一个基础路径实例
     let basePath = Path("/home/user")
-    
+
     // 创建要拼接的路径实例
     let subPath = Path("documents")
-    
+
     // 使用join(Path)函数拼接路径
     let joinedPath = basePath.join(subPath)
-    
+
     println("Base path: ${basePath}")
     println("Sub path: ${subPath}")
     println("Joined path: ${joinedPath}")
@@ -1674,10 +1674,10 @@ import std.fs.*
 main(): Unit {
     // 创建一个基础路径实例
     let basePath = Path("/home/user")
-    
+
     // 使用join(String)函数拼接路径字符串
     let joinedPath = basePath.join("documents/file.txt")
-    
+
     println("Base path: ${basePath}")
     println("Joined path: ${joinedPath}")
 }
@@ -1725,12 +1725,12 @@ main(): Unit {
     let path1 = Path("/home/user/../user/documents/./file.txt")
     let path2 = Path("/home//user///documents////file.txt")
     let path3 = Path("/home/user/documents/")
-    
+
     // 使用normalize()函数规范化路径
     let normalizedPath1 = path1.normalize()
     let normalizedPath2 = path2.normalize()
     let normalizedPath3 = path3.normalize()
-    
+
     println("Original path 1: ${path1}")
     println("Normalized path 1: ${normalizedPath1}")
     println("Original path 2: ${path2}")
@@ -1772,10 +1772,10 @@ import std.fs.*
 main(): Unit {
     // 创建一个路径实例
     let path = Path("/home/user/documents/file.txt")
-    
+
     // 使用toString()函数获取路径字符串
     let pathString = path.toString()
-    
+
     println("Path: ${path}")
     println("Path string: ${pathString}")
 }
@@ -1816,18 +1816,18 @@ main(): Unit {
     // 创建两个相同的路径实例
     let path1 = Path("/home/user/documents/file.txt")
     let path2 = Path("/home/user/documents/file.txt")
-    
+
     // 创建一个不同的路径实例
     let path3 = Path("/home/user/documents/another_file.txt")
-    
+
     // 创建一个需要规范化的路径实例
     let path4 = Path("/home/user/../user/documents/file.txt")
-    
+
     // 使用==操作符比较路径
     let isEqual1 = path1 == path2
     let isEqual2 = path1 == path3
     let isEqual3 = path1 == path4
-    
+
     println("Path1: ${path1}")
     println("Path2: ${path2}")
     println("Path3: ${path3}")

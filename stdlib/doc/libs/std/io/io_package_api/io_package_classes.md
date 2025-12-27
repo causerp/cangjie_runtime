@@ -387,13 +387,13 @@ public class TestStream <: InputStream & Resource {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedInputStream(testStream)
-    
+
     // 检查流是否关闭
     println("Is closed before close(): ${bufferedStream.isClosed()}")
-    
+
     // 关闭流
     bufferedStream.close()
-    
+
     // 检查流是否关闭
     println("Is closed after close(): ${bufferedStream.isClosed()}")
 }
@@ -527,7 +527,7 @@ public class TestStream <: InputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedInputStream(testStream)
-    
+
     // 输出流的总长度
     println("Length: ${bufferedStream.length}")
 }
@@ -577,11 +577,11 @@ public class TestStream <: InputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedInputStream(testStream)
-    
+
     // 读取一些数据
     let buffer = Array<Byte>(5, repeat: 0)
     bufferedStream.read(buffer)
-    
+
     // 输出当前光标位置
     println("Position: ${bufferedStream.position}")
 }
@@ -631,14 +631,14 @@ public class TestStream <: InputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedInputStream(testStream)
-    
+
     // 输出初始未读数据量
     println("Initial Remain Length: ${bufferedStream.remainLength}")
-    
+
     // 读取一些数据
     let buffer = Array<Byte>(5, repeat: 0)
     bufferedStream.read(buffer)
-    
+
     // 输出读取后的未读数据量
     println("Remain Length after reading 5 bytes: ${bufferedStream.remainLength}")
 }
@@ -1142,13 +1142,13 @@ public class TestStream <: OutputStream & Resource {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedOutputStream(testStream)
-    
+
     // 检查流是否关闭
     println("Is closed before close(): ${bufferedStream.isClosed()}")
-    
+
     // 关闭流
     bufferedStream.close()
-    
+
     // 检查流是否关闭
     println("Is closed after close(): ${bufferedStream.isClosed()}")
 }
@@ -1283,12 +1283,12 @@ public class TestStream <: OutputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedOutputStream(testStream)
-    
+
     // 写入一些数据
     let data = "Hello World".toArray()
     bufferedStream.write(data)
     bufferedStream.flush()
-    
+
     // 输出流的总长度
     println("Length: ${bufferedStream.length}")
 }
@@ -1338,12 +1338,12 @@ public class TestStream <: OutputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedOutputStream(testStream)
-    
+
     // 写入一些数据
     let data = "Hello World".toArray()
     bufferedStream.write(data)
     bufferedStream.flush()
-    
+
     // 输出当前光标位置
     println("Position: ${bufferedStream.position}")
 }
@@ -1393,12 +1393,12 @@ public class TestStream <: OutputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let bufferedStream = BufferedOutputStream(testStream)
-    
+
     // 写入一些数据
     let data = "Hello World".toArray()
     bufferedStream.write(data)
     bufferedStream.flush()
-    
+
     // 输出流中未读的数据量
     println("Remain Length: ${bufferedStream.remainLength}")
 }
@@ -1538,7 +1538,7 @@ import std.io.ByteBuffer
 main(): Unit {
     let buffer = ByteBuffer()
     println("Default capacity: ${buffer.capacity}")
-    
+
     let buffer2 = ByteBuffer(1024)
     println("Custom capacity: ${buffer2.capacity}")
 }
@@ -2020,7 +2020,7 @@ import std.io.ByteBuffer
 main(): Unit {
     let buffer = ByteBuffer("Hello World".toArray())
     println("Initial length: ${buffer.length}")
-    
+
     // 写入更多数据
     buffer.write(" More Data".toArray())
     println("Length after writing: ${buffer.length}")
@@ -2053,7 +2053,7 @@ import std.io.ByteBuffer
 main(): Unit {
     let buffer = ByteBuffer("Hello World".toArray())
     println("Initial position: ${buffer.position}")
-    
+
     // 读取一些数据
     let data = Array<Byte>(5, repeat: 0)
     buffer.read(data)
@@ -2087,7 +2087,7 @@ import std.io.ByteBuffer
 main(): Unit {
     let buffer = ByteBuffer("Hello World".toArray())
     println("Initial remain length: ${buffer.remainLength}")
-    
+
     // 读取一些数据
     let data = Array<Byte>(5, repeat: 0)
     buffer.read(data)
@@ -2269,12 +2269,12 @@ main(): Unit {
     // 创建多个ByteBuffer作为输入流
     let buffer1 = ByteBuffer("Hello ".toArray())
     let buffer2 = ByteBuffer("World".toArray())
-    
+
     // 使用init创建ChainedInputStream
     let inputStreams = [buffer1, buffer2]
     let chainedStream = ChainedInputStream(inputStreams)
     println("ChainedInputStream created successfully")
-    
+
     // 测试空数组异常情况
     try {
         let emptyStreams = Array<ByteBuffer>()
@@ -2323,11 +2323,11 @@ main(): Unit {
     let buffer1 = ByteBuffer("Hello ".toArray())
     let buffer2 = ByteBuffer("World".toArray())
     let buffer3 = ByteBuffer("!".toArray())
-    
+
     // 创建ChainedInputStream
     let inputStreams = [buffer1, buffer2, buffer3]
     let chainedStream = ChainedInputStream(inputStreams)
-    
+
     // 读取所有数据
     var result = ""
     var totalBytesRead = 0
@@ -2392,12 +2392,12 @@ main(): Unit {
     // 创建多个ByteBuffer作为输出流
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
-    
+
     // 使用init创建MultiOutputStream
     let outputStreams = [buffer1, buffer2]
     let multiStream = MultiOutputStream(outputStreams)
     println("MultiOutputStream created successfully")
-    
+
     // 测试空数组异常情况
     try {
         let emptyStreams = Array<ByteBuffer>()
@@ -2433,18 +2433,18 @@ main(): Unit {
     // 创建多个ByteBuffer作为输出流
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
-    
+
     // 创建MultiOutputStream
     let outputStreams = [buffer1, buffer2]
     let multiStream = MultiOutputStream(outputStreams)
-    
+
     // 写入一些数据
     let data = "Hello World".toArray()
     multiStream.write(data)
-    
+
     // 刷新所有输出流
     multiStream.flush()
-    
+
     // 验证数据已写入
     println("Buffer1 content: " + String.fromUtf8(buffer1.bytes()))
     println("Buffer2 content: " + String.fromUtf8(buffer2.bytes()))
@@ -2481,16 +2481,16 @@ main(): Unit {
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
     let buffer3 = ByteBuffer()
-    
+
     // 创建MultiOutputStream
     let outputStreams = [buffer1, buffer2, buffer3]
     let multiStream = MultiOutputStream(outputStreams)
-    
+
     // 写入数据到所有输出流
     let data = "Hello MultiOutputStream".toArray()
     multiStream.write(data)
     multiStream.flush()
-    
+
     // 验证所有输出流都包含了相同的数据
     println("Buffer1: " + String.fromUtf8(buffer1.bytes()))
     println("Buffer2: " + String.fromUtf8(buffer2.bytes()))
@@ -2542,7 +2542,7 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
-    
+
     // 使用init创建StringReader
     let stringReader = StringReader(buffer)
 }
@@ -2581,10 +2581,10 @@ import std.io.*
 main(): Unit {
     // 创建一个包含多行文本的ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用lines()方法读取所有行
     let lineIterator = stringReader.lines()
     for (line in lineIterator) {
@@ -2626,10 +2626,10 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用read()方法逐个读取字符
     while (true) {
         let char = stringReader.read()
@@ -2676,10 +2676,10 @@ import std.io.*
 main(): Unit {
     // 创建一个包含多行文本的ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用readln()方法逐行读取
     while (true) {
         let line = stringReader.readln()
@@ -2724,10 +2724,10 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用readToEnd()方法读取所有剩余数据
     let content = stringReader.readToEnd()
     println(content)
@@ -2768,12 +2768,12 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用readUntil()方法读取到空格字符
-    let result = stringReader.readUntil({ rune => rune == r' ' })
+    let result = stringReader.readUntil({rune => rune == r' '})
     println(result.getOrThrow())
 }
 ```
@@ -2813,10 +2813,10 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello,World".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用readUntil()方法读取到逗号字符
     let result = stringReader.readUntil(r',')
     println(result.getOrThrow())
@@ -2854,10 +2854,10 @@ import std.io.*
 main(): Unit {
     // 创建一个ByteBuffer作为输入流
     let buffer = ByteBuffer("Hello".toArray())
-    
+
     // 创建StringReader
     let stringReader = StringReader(buffer)
-    
+
     // 使用runes()方法获取字符迭代器
     let runeIterator = stringReader.runes()
     for (rune in runeIterator) {
@@ -2932,13 +2932,13 @@ public class TestStream <: InputStream & Resource {
 main(): Unit {
     let testStream = TestStream()
     let stringReader = StringReader(testStream)
-    
+
     // 检查流是否关闭
     println("Is closed before close(): ${stringReader.isClosed()}")
-    
+
     // 关闭流
     stringReader.close()
-    
+
     // 检查流是否关闭
     println("Is closed after close(): ${stringReader.isClosed()}")
 }
@@ -2998,13 +2998,13 @@ public class TestStream <: InputStream & Resource {
 main(): Unit {
     let testStream = TestStream()
     let stringReader = StringReader(testStream)
-    
+
     // 检查流是否关闭
     println("Is closed before close(): ${stringReader.isClosed()}")
-    
+
     // 关闭流
     stringReader.close()
-    
+
     // 检查流是否关闭
     println("Is closed after close(): ${stringReader.isClosed()}")
 }
@@ -3064,10 +3064,10 @@ public class TestStream <: InputStream & Seekable {
 main(): Unit {
     let testStream = TestStream()
     let stringReader = StringReader(testStream)
-    
+
     // 读取一些数据
     stringReader.read()
-    
+
     // 输出当前光标位置
     println("Position: ${stringReader.position}")
 }
@@ -3218,13 +3218,13 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入数据 */
     stringWriter.write("Hello, flush!")
-    
+
     /* 刷新缓冲区，确保数据写入到输出流 */
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3257,13 +3257,13 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入Bool值 */
     stringWriter.write(true)
     stringWriter.write(false)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3518,12 +3518,12 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入Int8值 */
     stringWriter.write(100i8)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3556,13 +3556,13 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入Rune值 */
     stringWriter.write(r'A')
     stringWriter.write(r'中')
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3595,13 +3595,13 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入字符串 */
     stringWriter.write("Hello, World!")
     stringWriter.write(" 你好，世界！")
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3634,12 +3634,12 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入UInt16值 */
     stringWriter.write(100u16)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3672,12 +3672,12 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入UInt32值 */
     stringWriter.write(100000u32)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3710,12 +3710,12 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入UInt64值 */
     stringWriter.write(10000000000u64)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3748,12 +3748,12 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入UInt8值 */
     stringWriter.write(100u8)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3786,13 +3786,13 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入ToString类型的值 */
     stringWriter.write(123.456)
     stringWriter.write(true)
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -3821,18 +3821,18 @@ import std.io.*
 main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
-    
+
     /* 写入字符串 */
     stringWriter.write("Hello")
-    
+
     /* 写入换行符 */
     stringWriter.writeln()
-    
+
     /* 再写入字符串 */
     stringWriter.write("World!")
-    
+
     stringWriter.flush()
-    
+
     /* 读取写入的数据 */
     println(String.fromUtf8(readToEnd(byteBuffer)))
 }
@@ -4459,13 +4459,13 @@ public class TestStream <: OutputStream & Resource {
 main(): Unit {
     let testStream = TestStream()
     let stringWriter = StringWriter(testStream)
-    
+
     // 检查流是否关闭
     println("Is closed before close(): ${stringWriter.isClosed()}")
-    
+
     // 关闭流
     stringWriter.close()
-    
+
     // 检查流是否关闭
     println("Is closed after close(): ${stringWriter.isClosed()}")
 }

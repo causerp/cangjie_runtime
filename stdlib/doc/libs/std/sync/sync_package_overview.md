@@ -21,7 +21,7 @@ sync 包提供并发编程相关的能力。
 <!-- run -->
 
 ```cangjie
-main () {
+main() {
     spawn {
         // 在新线程中执行
         println("Thread: ${Thread.currentThread.id}")
@@ -72,14 +72,14 @@ Bool 类型和引用类型的原子操作只提供读写和交换操作，需要
 ```cangjie
 import std.sync.Mutex
 
-main () {
+main() {
     let mtx = Mutex()
     let cnt = Box<Int64>(0)
 
     for (_ in 0..5) {
         spawn {
             synchronized(mtx) {
-                cnt.value ++
+                cnt.value++
                 println("count: ${cnt.value}")
             }
         }

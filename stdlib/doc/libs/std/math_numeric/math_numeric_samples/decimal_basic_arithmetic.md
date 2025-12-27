@@ -15,8 +15,7 @@ main() {
     println("${decimal1} * ${decimal2} = ${decimal1 * decimal2}")
     println("${decimal1} / ${decimal2} = ${decimal1 / decimal2}")
     println(
-        "${decimal1} / ${decimal2} with precision 10 and rounding mode HalfEven = ${decimal1.divWithPrecision(decimal2, 10, roundingMode: HalfEven)}"
-    )
+        "${decimal1} / ${decimal2} with precision 10 and rounding mode HalfEven = ${decimal1.divWithPrecision(decimal2, 10, roundingMode: HalfEven)}")
     let (quo, rem) = decimal1.divAndMod(decimal2)
     println("${decimal1} / ${decimal2} = ${quo} .. ${rem}")
     return 0

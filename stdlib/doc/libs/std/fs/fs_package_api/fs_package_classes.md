@@ -51,13 +51,13 @@ main(): Unit {
 
     // 创建一个测试目录路径
     let testDir = Path("./test_directory")
-    
+
     // 使用 Directory.create 创建目录
     Directory.create(testDir, recursive: true)
-    
+
     // 验证目录是否创建成功
     println("Was the directory created successfully? ${exists("./test_directory")}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./test_directory")
 }
@@ -101,10 +101,10 @@ main(): Unit {
 
     // 使用 Directory.create 创建目录（使用字符串路径）
     Directory.create("./test_directory_string", recursive: true)
-    
+
     // 验证目录是否创建成功
     println("Was the directory created successfully? ${exists("./test_directory_string")}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./test_directory_string")
 }
@@ -149,16 +149,16 @@ main(): Unit {
 
     // 创建一个目录路径用于创建临时目录
     let baseDir = Path("./temp_base_directory")
-    
+
     // 确保基础目录存在
     Directory.create(baseDir, recursive: true)
-    
+
     // 使用 Directory.createTemp 在指定目录下创建临时目录
     let tempDir = Directory.createTemp(baseDir)
-    
+
     // 临时目录创建成功
     println("The temporary directory has been created successfully.")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./temp_base_directory", recursive: true)
 }
@@ -203,13 +203,13 @@ main(): Unit {
 
     // 确保基础目录存在
     Directory.create("./temp_base_directory_string", recursive: true)
-    
+
     // 使用 Directory.createTemp 在指定目录下创建临时目录（使用字符串路径）
     let tempDir = Directory.createTemp("./temp_base_directory_string")
-    
+
     // 临时目录创建成功
     println("The temporary directory has been created successfully.")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./temp_base_directory_string", recursive: true)
 }
@@ -255,11 +255,11 @@ main(): Unit {
     // 创建一个空目录
     let emptyDir = Path("./empty_directory")
     Directory.create(emptyDir, recursive: true)
-    
+
     // 检查目录是否为空
     let isEmpty = Directory.isEmpty(emptyDir)
     println("Is directory empty: ${isEmpty}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./empty_directory")
 }
@@ -305,11 +305,11 @@ main(): Unit {
 
     // 创建一个空目录（使用字符串路径）
     Directory.create("./empty_directory_string", recursive: true)
-    
+
     // 检查目录是否为空（使用字符串路径）
     let isEmpty = Directory.isEmpty("./empty_directory_string")
     println("Is directory empty: ${isEmpty}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./empty_directory_string")
 }
@@ -356,11 +356,11 @@ main(): Unit {
 
     // 创建一个测试目录（使用字符串路径）
     Directory.create("./test_read_directory_string", recursive: true)
-    
+
     // 读取目录内容（使用Path路径）
     let files = Directory.readFrom(Path("./test_read_directory_string"))
     println("Number of files in directory: ${files.size}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./test_read_directory_string")
 }
@@ -407,11 +407,11 @@ main(): Unit {
 
     // 创建一个测试目录（使用字符串路径）
     Directory.create("./test_read_directory_string", recursive: true)
-    
+
     // 读取目录内容（使用字符串路径）
     let files = Directory.readFrom("./test_read_directory_string")
     println("Number of files in directory: ${files.size}")
-    
+
     // 删除目录，如果想保留目录就注释下面这行代码
     removeIfExists("./test_read_directory_string")
 }
@@ -464,13 +464,16 @@ main(): Unit {
     File.create("./test_walk_directory/def.txt")
 
     // 使用 walk 遍历目录，把名字中带b的文件删除
-    Directory.walk(path, {
-        fileinfo: FileInfo => 
-            if (fileinfo.name.contains("b")) {
-                remove(fileinfo.path)
-            }
-        return true // 注意：walk 函数退出条件为遍历结束或回调函数 f 返回 false，所以这里写死true，遍历每一个文件
-    })
+    Directory.walk(
+        path,
+        {
+            fileinfo: FileInfo =>
+                if (fileinfo.name.contains("b")) {
+                    remove(fileinfo.path)
+                }
+                return true // 注意：walk 函数退出条件为遍历结束或回调函数 f 返回 false，所以这里写死true，遍历每一个文件
+        }
+    )
 
     // 查询是否存在 abc.txt 这个文件
     let isExists = exists("./test_walk_directory/abc.txt")
@@ -527,13 +530,16 @@ main(): Unit {
     File.create("./test_walk_directory/def.txt")
 
     // 使用 walk 遍历目录，把名字中带b的文件删除
-    Directory.walk("./test_walk_directory", {
-        fileinfo: FileInfo => 
-            if (fileinfo.name.contains("b")) {
-                remove(fileinfo.path)
-            }
-        return true // 注意：walk 函数退出条件为遍历结束或回调函数 f 返回 false，所以这里写死true，遍历每一个文件
-    })
+    Directory.walk(
+        "./test_walk_directory",
+        {
+            fileinfo: FileInfo =>
+                if (fileinfo.name.contains("b")) {
+                    remove(fileinfo.path)
+                }
+                return true // 注意：walk 函数退出条件为遍历结束或回调函数 f 返回 false，所以这里写死true，遍历每一个文件
+        }
+    )
 
     // 查询是否存在 abc.txt 这个文件
     let isExists = exists("./test_walk_directory/abc.txt")
@@ -604,13 +610,13 @@ main(): Unit {
 
     // 创建一个文件
     let file = File.create("./test_filedescriptor_file.txt")
-    
+
     // 获取文件描述符
     file.fileDescriptor
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_filedescriptor_file.txt", recursive: true)
 }
@@ -637,22 +643,22 @@ main(): Unit {
     removeIfExists("./test_info_file.txt", recursive: true)
 
     // 创建一个文件并写入一些数据
-    var data: Array<Byte> = [73, 110, 102, 111]  // "Info"
+    var data: Array<Byte> = [73, 110, 102, 111] // "Info"
     File.writeTo("./test_info_file.txt", data)
-    
+
     // 打开文件
     let file = File("./test_info_file.txt", OpenMode.Read)
-    
+
     // 获取文件信息
     let fileInfo = file.info
-    
+
     // 验证文件信息
     println("File name: ${fileInfo.path.fileName}")
     println("File size: ${fileInfo.size}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_info_file.txt", recursive: true)
 }
@@ -686,21 +692,21 @@ main(): Unit {
     removeIfExists("./test_length_file.txt", recursive: true)
 
     // 创建一个文件并写入一些数据
-    var data: Array<Byte> = [76, 101, 110, 103, 116, 104]  // "Length"
+    var data: Array<Byte> = [76, 101, 110, 103, 116, 104] // "Length"
     File.writeTo("./test_length_file.txt", data)
-    
+
     // 打开文件
     let file = File("./test_length_file.txt", OpenMode.Read)
-    
+
     // 获取文件长度
     let fileLength = file.length
-    
+
     // 验证文件长度
     println("File length: ${fileLength}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_length_file.txt", recursive: true)
 }
@@ -741,16 +747,16 @@ import std.fs.*
 main(): Unit {
     // 创建前先删除，以防创建失败
     removeIfExists("./test_init_file.txt", recursive: true)
-    
+
     // 打开文件
     let file = File(Path("./test_init_file.txt"), OpenMode.ReadWrite)
-    
+
     // 验证文件是否创建成功
     println("Was the file created successfully? ${exists("./test_init_file.txt")}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_init_file.txt", recursive: true)
 }
@@ -791,16 +797,16 @@ import std.fs.*
 main(): Unit {
     // 创建前先删除，以防创建失败
     removeIfExists("./test_init_file.txt", recursive: true)
-    
+
     // 打开文件
     let file = File("./test_init_file.txt", OpenMode.ReadWrite)
-    
+
     // 验证文件是否创建成功
     println("Was the file created successfully? ${exists("./test_init_file.txt")}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_init_file.txt", recursive: true)
 }
@@ -839,20 +845,20 @@ import std.fs.*
 main(): Unit {
     // 创建一个测试文件路径
     let testFile = Path("./test_append_file.txt")
-    
+
     // 创建要写入的数据
-    var data: Array<Byte> = [65, 66, 67]  // ABC
-    
+    var data: Array<Byte> = [65, 66, 67] // ABC
+
     // 使用 File.appendTo 将数据追加到文件
     File.appendTo(testFile, data)
-    
+
     // 验证文件是否append成功
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_append_file.txt")
-    
+
     // 验证文件内容是否正确
     println("Is the file content correct? result: ${readData == data}")
-    
+
     // 删除文件，如果想保留文件就注释下面这行代码
     removeIfExists("./test_append_file.txt")
 }
@@ -890,18 +896,18 @@ import std.fs.*
 
 main(): Unit {
     // 创建要写入的数据
-    var data: Array<Byte> = [65, 66, 67]  // ABC
-    
+    var data: Array<Byte> = [65, 66, 67] // ABC
+
     // 使用 File.appendTo 将数据追加到文件
     File.appendTo("./test_append_file.txt", data)
-    
+
     // 验证文件是否append成功
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_append_file.txt")
-    
+
     // 验证文件内容是否正确
     println("Is the file content correct? result: ${readData == data}")
-    
+
     // 删除文件，如果想保留文件就注释下面这行代码
     removeIfExists("./test_append_file.txt")
 }
@@ -946,16 +952,16 @@ main(): Unit {
 
     // 创建一个测试文件路径
     let testFile = Path("./test_create_path_file.txt")
-    
+
     // 使用 File.create 创建文件
     let file = File.create(testFile)
-    
+
     // 验证文件是否创建成功
     println("Was the file created successfully? ${exists(testFile)}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件
     removeIfExists("./test_create_path_file.txt", recursive: true)
 }
@@ -1000,13 +1006,13 @@ main(): Unit {
 
     // 使用 File.create 创建文件
     let file = File.create("./test_create_file.txt")
-    
+
     // 验证文件是否创建成功
     println("Was the file created successfully? ${exists("./test_create_file.txt")}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除文件，如果想保留文件就注释下面这行代码
     removeIfExists("./test_create_file.txt")
 }
@@ -1053,19 +1059,19 @@ main(): Unit {
 
     // 创建一个目录路径
     let directory = Path("./temp_directory")
-    
+
     // 确保目录存在
     Directory.create(directory, recursive: true)
-    
+
     // 使用 File.createTemp 创建临时文件
     let tempFile = File.createTemp(directory)
-    
+
     // 验证临时文件是否创建成功
     println("Was the file created successfully? ${exists(tempFile.info.path)}")
-    
+
     // 关闭文件
     tempFile.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./temp_directory", recursive: true)
 }
@@ -1112,16 +1118,16 @@ main(): Unit {
 
     // 确保目录存在
     Directory.create("./temp_directory", recursive: true)
-    
+
     // 使用 File.createTemp 创建临时文件
     let tempFile = File.createTemp("./temp_directory")
-    
+
     // 验证临时文件是否创建成功
     println("Was the file created successfully? ${exists(tempFile.info.path)}")
-    
+
     // 关闭文件
     tempFile.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./temp_directory", recursive: true)
 }
@@ -1166,17 +1172,17 @@ main(): Unit {
 
     // 创建一个测试文件路径
     let testFile = Path("./test_read_file.txt")
-    
+
     // 先创建一个文件并写入一些数据
-    var writeData: Array<Byte> = [71, 72, 73]  // GHI
+    var writeData: Array<Byte> = [71, 72, 73] // GHI
     File.writeTo(testFile, writeData)
-    
+
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom(testFile)
-    
+
     // 验证文件内容是否正确读取
     println("Is the file content correct? result: ${readData == writeData}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_read_file.txt", recursive: true)
 }
@@ -1220,15 +1226,15 @@ main(): Unit {
     removeIfExists("./test_read_file.txt", recursive: true)
 
     // 先创建一个文件并写入一些数据
-    var writeData: Array<Byte> = [71, 72, 73]  // GHI
+    var writeData: Array<Byte> = [71, 72, 73] // GHI
     File.writeTo("./test_read_file.txt", writeData)
-    
+
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_read_file.txt")
-    
+
     // 验证文件内容是否正确读取
     println("Is the file content correct? result: ${readData == writeData}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_read_file.txt", recursive: true)
 }
@@ -1270,20 +1276,20 @@ main(): Unit {
 
     // 创建一个测试文件路径
     let testFile = Path("./test_write_file.txt")
-    
+
     // 创建要写入的数据
-    var data: Array<Byte> = [77, 78, 79]  // MNO
-    
+    var data: Array<Byte> = [77, 78, 79] // MNO
+
     // 使用 File.writeTo 将数据写入文件
     File.writeTo(testFile, data)
-    
+
     // 验证文件是否写入成功
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_write_file.txt")
-    
+
     // 验证文件内容是否正确
     println("Is the file content correct? result: ${readData == data}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_write_file.txt", recursive: true)
 }
@@ -1324,18 +1330,18 @@ main(): Unit {
     removeIfExists("./test_write_file.txt", recursive: true)
 
     // 创建要写入的数据
-    var data: Array<Byte> = [77, 78, 79]  // MNO
-    
+    var data: Array<Byte> = [77, 78, 79] // MNO
+
     // 使用 File.writeTo 将数据写入文件
     File.writeTo("./test_write_file.txt", data)
-    
+
     // 验证文件是否写入成功
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_write_file.txt")
-    
+
     // 验证文件内容是否正确
     println("Is the file content correct? result: ${readData == data}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_write_file.txt", recursive: true)
 }
@@ -1373,16 +1379,16 @@ main(): Unit {
 
     // 创建一个测试文件
     let file = File("./test_canread_file.txt", OpenMode.ReadWrite)
-    
+
     // 检查文件是否可读
     let readable = file.canRead()
-    
+
     // 验证结果
     println("File is readable: ${readable}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_canread_file.txt", recursive: true)
 }
@@ -1420,16 +1426,16 @@ main(): Unit {
 
     // 创建一个测试文件
     let file = File.create("./test_canwrite_file.txt")
-    
+
     // 检查文件是否可写
     let writable = file.canWrite()
-    
+
     // 验证结果
     println("File is writable: ${writable}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_canwrite_file.txt", recursive: true)
 }
@@ -1465,18 +1471,18 @@ main(): Unit {
 
     // 创建一个测试文件
     let file = File.create("./test_close_file.txt")
-    
+
     // 检查文件是否关闭
     let isClosedBefore = file.isClosed()
     println("File is closed before close: ${isClosedBefore}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 检查文件是否关闭
     let isClosedAfter = file.isClosed()
     println("File is closed after close: ${isClosedAfter}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_close_file.txt", recursive: true)
 }
@@ -1509,17 +1515,17 @@ main(): Unit {
 
     // 创建一个测试文件
     let file = File.create("./test_flush_file.txt")
-    
+
     // 写入一些数据
-    var data: Array<Byte> = [86, 87, 88]  // VWX
+    var data: Array<Byte> = [86, 87, 88] // VWX
     file.write(data)
-    
+
     // 刷新缓冲区
     file.flush()
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_flush_file.txt", recursive: true)
 }
@@ -1549,18 +1555,18 @@ main(): Unit {
 
     // 创建一个测试文件
     let file = File.create("./test_isclosed_file.txt")
-    
+
     // 检查文件是否关闭
     let isClosedBefore = file.isClosed()
     println("File is closed before close: ${isClosedBefore}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 检查文件是否关闭
     let isClosedAfter = file.isClosed()
     println("File is closed after close: ${isClosedAfter}")
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_isclosed_file.txt", recursive: true)
 }
@@ -1605,25 +1611,25 @@ main(): Unit {
     removeIfExists("./test_read_file.txt", recursive: true)
 
     // 创建一个测试文件并写入数据
-    var writeData: Array<Byte> = [89, 90, 91]  // YZ[
+    var writeData: Array<Byte> = [89, 90, 91] // YZ[
     File.writeTo("./test_read_file.txt", writeData)
-    
+
     // 打开文件进行读取
     let file = File("./test_read_file.txt", OpenMode.Read)
-    
+
     // 创建缓冲区
     var buffer: Array<Byte> = [0, 0, 0]
-    
+
     // 读取数据
     let bytesRead = file.read(buffer)
-    
+
     // 验证结果
     println("Bytes read: ${bytesRead}")
     println("Buffer content matches: ${buffer == writeData}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_read_file.txt", recursive: true)
 }
@@ -1670,34 +1676,34 @@ main(): Unit {
     removeIfExists("./test_seek_file.txt", recursive: true)
 
     // 创建一个测试文件并写入数据
-    var writeData: Array<Byte> = [65, 66, 67, 68, 69]  // ABCDE
+    var writeData: Array<Byte> = [65, 66, 67, 68, 69] // ABCDE
     File.writeTo("./test_seek_file.txt", writeData)
-    
+
     // 打开文件进行读取
     let file = File("./test_seek_file.txt", OpenMode.ReadWrite)
-    
+
     // 读取第一个字节
     var buffer: Array<Byte> = [0]
     file.read(buffer)
     println("First byte: ${buffer[0]}")
-    
+
     // 将光标跳转到文件开头
     file.seek(SeekPosition.Begin(0))
-    
+
     // 再次读取第一个字节
     file.read(buffer)
     println("First byte after seek: ${buffer[0]}")
-    
+
     // 将光标跳转到文件末尾前一个字节
     file.seek(SeekPosition.End(-1))
-    
+
     // 读取最后一个字节
     file.read(buffer)
     println("Last byte: ${buffer[0]}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_seek_file.txt", recursive: true)
 }
@@ -1740,39 +1746,39 @@ main(): Unit {
     removeIfExists("./test_setlength_file.txt", recursive: true)
 
     // 创建一个测试文件并写入数据
-    var writeData: Array<Byte> = [65, 66, 67, 68, 69]  // ABCDE
+    var writeData: Array<Byte> = [65, 66, 67, 68, 69] // ABCDE
     File.writeTo("./test_setlength_file.txt", writeData)
-    
+
     // 打开文件
     let file = File("./test_setlength_file.txt", OpenMode.ReadWrite)
-    
+
     // 获取文件原始长度
     let originalLength = file.length
     println("Original file length: ${originalLength}")
-    
+
     // 将文件长度截断为3字节
     file.setLength(3)
-    
+
     // 获取文件新长度
     let newLength = file.length
     println("New file length: ${newLength}")
-    
+
     // 读取截断后的文件内容
     file.seek(SeekPosition.Begin(0))
     var buffer: Array<Byte> = [0, 0, 0]
     file.read(buffer)
     println("File content after truncation: ${buffer}")
-    
+
     // 将文件长度扩展到6字节
     file.setLength(6)
-    
+
     // 获取文件扩展后的长度
     let extendedLength = file.length
     println("Extended file length: ${extendedLength}")
-    
+
     // 关闭文件
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_setlength_file.txt", recursive: true)
 }
@@ -1814,21 +1820,21 @@ main(): Unit {
     removeIfExists("./test_write_file.txt", recursive: true)
 
     // 创建要写入的数据
-    var data: Array<Byte> = [77, 78, 79]  // MNO
-    
+    var data: Array<Byte> = [77, 78, 79] // MNO
+
     // 打开文件
     let file = File("./test_write_file.txt", OpenMode.ReadWrite)
     // 使用 write 将数据写入文件
     file.write(data)
-    
+
     // 使用 File.readFrom 读取文件内容
     let readData = File.readFrom("./test_write_file.txt")
-    
+
     // 验证文件内容是否正确
     println("Is the file content correct? result: ${readData == data}")
 
     file.close()
-    
+
     // 删除，如果想保留就注释下面这行代码
     removeIfExists("./test_write_file.txt", recursive: true)
 }
@@ -1878,15 +1884,15 @@ main(): Unit {
     removeIfExists(Path("./test_hardlink_target.txt"), recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [72, 97, 114, 100, 76, 105, 110, 107]  // "HardLink"
+    var data: Array<Byte> = [72, 97, 114, 100, 76, 105, 110, 107] // "HardLink"
     File.writeTo(Path("./test_hardlink_source.txt"), data)
-    
+
     // 创建硬链接
     HardLink.create(Path("./test_hardlink_target.txt"), to: Path("./test_hardlink_source.txt"))
-    
+
     // 验证硬链接是否创建成功
     println("Hard link created successfully")
-    
+
     // 检查硬链接文件是否存在
     if (exists(Path("./test_hardlink_target.txt"))) {
         println("Hard link file exists")
@@ -1894,7 +1900,7 @@ main(): Unit {
         let content = File.readFrom(Path("./test_hardlink_target.txt"))
         println("Hard link file content: ${content}")
     }
-    
+
     // 删除文件
     removeIfExists(Path("./test_hardlink_source.txt"), recursive: true)
     removeIfExists(Path("./test_hardlink_target.txt"), recursive: true)
@@ -1939,15 +1945,15 @@ main(): Unit {
     removeIfExists("./test_hardlink_target.txt", recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [72, 97, 114, 100, 76, 105, 110, 107]  // "HardLink"
+    var data: Array<Byte> = [72, 97, 114, 100, 76, 105, 110, 107] // "HardLink"
     File.writeTo("./test_hardlink_source.txt", data)
-    
+
     // 创建硬链接
     HardLink.create("./test_hardlink_target.txt", to: "./test_hardlink_source.txt")
-    
+
     // 验证硬链接是否创建成功
     println("Hard link created successfully")
-    
+
     // 检查硬链接文件是否存在
     if (exists("./test_hardlink_target.txt")) {
         println("Hard link file exists")
@@ -1955,7 +1961,7 @@ main(): Unit {
         let content = File.readFrom("./test_hardlink_target.txt")
         println("Hard link file content: ${content}")
     }
-    
+
     // 删除文件
     removeIfExists("./test_hardlink_source.txt", recursive: true)
     removeIfExists("./test_hardlink_target.txt", recursive: true)
@@ -2012,15 +2018,15 @@ main(): Unit {
     removeIfExists("./test_symlink_target.txt", recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107]  // "SymbolicLink"
+    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107] // "SymbolicLink"
     File.writeTo("./test_symlink_source.txt", data)
-    
+
     // 创建符号链接
     SymbolicLink.create(Path("./test_symlink_target.txt"), to: Path("./test_symlink_source.txt"))
-    
+
     // 验证符号链接是否创建成功
     println("Symbolic link created successfully")
-    
+
     // 检查符号链接文件是否存在
     if (exists("./test_symlink_target.txt")) {
         println("Symbolic link file exists")
@@ -2028,7 +2034,7 @@ main(): Unit {
         let content = File.readFrom("./test_symlink_target.txt")
         println("Symbolic link file content: ${content}")
     }
-    
+
     // 删除文件
     removeIfExists("./test_symlink_source.txt", recursive: true)
     removeIfExists("./test_symlink_target.txt", recursive: true)
@@ -2077,15 +2083,15 @@ main(): Unit {
     removeIfExists("./test_symlink_target.txt", recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107]  // "SymbolicLink"
+    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107] // "SymbolicLink"
     File.writeTo("./test_symlink_source.txt", data)
-    
+
     // 创建符号链接
     SymbolicLink.create("./test_symlink_target.txt", to: "./test_symlink_source.txt")
-    
+
     // 验证符号链接是否创建成功
     println("Symbolic link created successfully")
-    
+
     // 检查符号链接文件是否存在
     if (exists("./test_symlink_target.txt")) {
         println("Symbolic link file exists")
@@ -2093,7 +2099,7 @@ main(): Unit {
         let content = File.readFrom("./test_symlink_target.txt")
         println("Symbolic link file content: ${content}")
     }
-    
+
     // 删除文件
     removeIfExists("./test_symlink_source.txt", recursive: true)
     removeIfExists("./test_symlink_target.txt", recursive: true)
@@ -2142,18 +2148,18 @@ main(): Unit {
     removeIfExists("./test_symlink_target.txt", recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107]  // "SymbolicLink"
+    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107] // "SymbolicLink"
     File.writeTo("./test_symlink_source.txt", data)
-    
+
     // 创建符号链接
     SymbolicLink.create("./test_symlink_target.txt", to: "./test_symlink_source.txt")
-    
+
     // 读取符号链接的目标
     let targetPath = SymbolicLink.readFrom(Path("./test_symlink_target.txt"))
-    
+
     // 验证读取结果
     println("Symbolic link target: ${targetPath}")
-    
+
     // 删除文件
     removeIfExists("./test_symlink_source.txt", recursive: true)
     removeIfExists("./test_symlink_target.txt", recursive: true)
@@ -2200,18 +2206,18 @@ main(): Unit {
     removeIfExists("./test_symlink_target.txt", recursive: true)
 
     // 创建一个源文件
-    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107]  // "SymbolicLink"
+    var data: Array<Byte> = [83, 121, 109, 98, 111, 108, 105, 99, 76, 105, 110, 107] // "SymbolicLink"
     File.writeTo("./test_symlink_source.txt", data)
-    
+
     // 创建符号链接
     SymbolicLink.create("./test_symlink_target.txt", to: "./test_symlink_source.txt")
-    
+
     // 读取符号链接的目标
     let targetPath = SymbolicLink.readFrom("./test_symlink_target.txt")
-    
+
     // 验证读取结果
     println("Symbolic link target: ${targetPath}")
-    
+
     // 删除文件
     removeIfExists("./test_symlink_source.txt", recursive: true)
     removeIfExists("./test_symlink_target.txt", recursive: true)

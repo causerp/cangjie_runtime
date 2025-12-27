@@ -34,9 +34,9 @@ public func isAscii(): Bool
 ```cangjie
 main() {
     // 测试 isAscii() 方法
-    let byte1: Byte = 65  // 'A' 的 ASCII 值
+    let byte1: Byte = 65 // 'A' 的 ASCII 值
     let byte2: Byte = 200 // 超出 ASCII 范围的值
-    
+
     println("byte1 (${byte1}) 是否在 ASCII 范围内: ${byte1.isAscii()}")
     println("byte2 (${byte2}) 是否在 ASCII 范围内: ${byte2.isAscii()}")
 }
@@ -67,10 +67,10 @@ public func isAsciiControl(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiControl() 方法
-    let byte1: Byte = 0x09  // 制表符 '\t'，属于 ASCII 控制字符
-    let byte2: Byte = 0x20  // 空格 ' '，不属于 ASCII 控制字符
-    let byte3: Byte = 0x7F  // DEL，属于 ASCII 控制字符
-    
+    let byte1: Byte = 0x09 // 制表符 '\t'，属于 ASCII 控制字符
+    let byte2: Byte = 0x20 // 空格 ' '，不属于 ASCII 控制字符
+    let byte3: Byte = 0x7F // DEL，属于 ASCII 控制字符
+
     println("byte1 (0x${byte1}) 是否是 ASCII 控制字符: ${byte1.isAsciiControl()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 控制字符: ${byte2.isAsciiControl()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 控制字符: ${byte3.isAsciiControl()}")
@@ -103,10 +103,10 @@ public func isAsciiGraphic(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiGraphic() 方法
-    let byte1: Byte = 0x21  // '!'，属于 ASCII 图形字符
-    let byte2: Byte = 0x7E  // '~'，属于 ASCII 图形字符
-    let byte3: Byte = 0x20  // ' '，空格，不属于 ASCII 图形字符
-    
+    let byte1: Byte = 0x21 // '!'，属于 ASCII 图形字符
+    let byte2: Byte = 0x7E // '~'，属于 ASCII 图形字符
+    let byte3: Byte = 0x20 // ' '，空格，不属于 ASCII 图形字符
+
     println("byte1 (0x${byte1}) 是否是 ASCII 图形字符: ${byte1.isAsciiGraphic()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 图形字符: ${byte2.isAsciiGraphic()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 图形字符: ${byte3.isAsciiGraphic()}")
@@ -139,10 +139,10 @@ public func isAsciiHex(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiHex() 方法
-    let byte1: Byte = 0x30  // '0'，属于 ASCII 十六进制数字
-    let byte2: Byte = 0x46  // 'F'，属于 ASCII 十六进制数字
-    let byte3: Byte = 0x67  // 'g'，不属于 ASCII 十六进制数字
-    
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 十六进制数字
+    let byte2: Byte = 0x46 // 'F'，属于 ASCII 十六进制数字
+    let byte3: Byte = 0x67 // 'g'，不属于 ASCII 十六进制数字
+
     println("byte1 (0x${byte1}) 是否是 ASCII 十六进制数字: ${byte1.isAsciiHex()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 十六进制数字: ${byte2.isAsciiHex()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 十六进制数字: ${byte3.isAsciiHex()}")
@@ -175,10 +175,10 @@ public func isAsciiLetter(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiLetter() 方法
-    let byte1: Byte = 0x41  // 'A'，属于 ASCII 拉丁字母
-    let byte2: Byte = 0x7A  // 'z'，属于 ASCII 拉丁字母
-    let byte3: Byte = 0x30  // '0'，数字，不属于 ASCII 拉丁字母
-    
+    let byte1: Byte = 0x41 // 'A'，属于 ASCII 拉丁字母
+    let byte2: Byte = 0x7A // 'z'，属于 ASCII 拉丁字母
+    let byte3: Byte = 0x30 // '0'，数字，不属于 ASCII 拉丁字母
+
     println("byte1 (0x${byte1}) 是否是 ASCII 拉丁字母: ${byte1.isAsciiLetter()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 拉丁字母: ${byte2.isAsciiLetter()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 拉丁字母: ${byte3.isAsciiLetter()}")
@@ -211,10 +211,10 @@ public func isAsciiLowerCase(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiLowerCase() 方法
-    let byte1: Byte = 0x61  // 'a'，属于 ASCII 小写拉丁字母
-    let byte2: Byte = 0x7A  // 'z'，属于 ASCII 小写拉丁字母
-    let byte3: Byte = 0x41  // 'A'，大写字母，不属于 ASCII 小写拉丁字母
-    
+    let byte1: Byte = 0x61 // 'a'，属于 ASCII 小写拉丁字母
+    let byte2: Byte = 0x7A // 'z'，属于 ASCII 小写拉丁字母
+    let byte3: Byte = 0x41 // 'A'，大写字母，不属于 ASCII 小写拉丁字母
+
     println("byte1 (0x${byte1}) 是否是 ASCII 小写拉丁字母: ${byte1.isAsciiLowerCase()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 小写拉丁字母: ${byte2.isAsciiLowerCase()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 小写拉丁字母: ${byte3.isAsciiLowerCase()}")
@@ -247,10 +247,10 @@ public func isAsciiNumber(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiNumber() 方法
-    let byte1: Byte = 0x30  // '0'，属于 ASCII 十进制数字
-    let byte2: Byte = 0x39  // '9'，属于 ASCII 十进制数字
-    let byte3: Byte = 0x41  // 'A'，字母，不属于 ASCII 十进制数字
-    
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 十进制数字
+    let byte2: Byte = 0x39 // '9'，属于 ASCII 十进制数字
+    let byte3: Byte = 0x41 // 'A'，字母，不属于 ASCII 十进制数字
+
     println("byte1 (0x${byte1}) 是否是 ASCII 十进制数字: ${byte1.isAsciiNumber()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 十进制数字: ${byte2.isAsciiNumber()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 十进制数字: ${byte3.isAsciiNumber()}")
@@ -283,10 +283,10 @@ public func isAsciiNumberOrLetter(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiNumberOrLetter() 方法
-    let byte1: Byte = 0x30  // '0'，数字，属于 ASCII 十进制数字和拉丁字母范围
-    let byte2: Byte = 0x41  // 'A'，字母，属于 ASCII 十进制数字和拉丁字母范围
-    let byte3: Byte = 0x20  // ' '，空格，不属于 ASCII 十进制数字和拉丁字母范围
-    
+    let byte1: Byte = 0x30 // '0'，数字，属于 ASCII 十进制数字和拉丁字母范围
+    let byte2: Byte = 0x41 // 'A'，字母，属于 ASCII 十进制数字和拉丁字母范围
+    let byte3: Byte = 0x20 // ' '，空格，不属于 ASCII 十进制数字和拉丁字母范围
+
     println("byte1 (0x${byte1}) 是否是 ASCII 十进制数字和拉丁字母: ${byte1.isAsciiNumberOrLetter()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 十进制数字和拉丁字母: ${byte2.isAsciiNumberOrLetter()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 十进制数字和拉丁字母: ${byte3.isAsciiNumberOrLetter()}")
@@ -319,10 +319,10 @@ public func isAsciiOct(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiOct() 方法
-    let byte1: Byte = 0x30  // '0'，属于 ASCII 八进制数字
-    let byte2: Byte = 0x37  // '7'，属于 ASCII 八进制数字
-    let byte3: Byte = 0x38  // '8'，不属于 ASCII 八进制数字
-    
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 八进制数字
+    let byte2: Byte = 0x37 // '7'，属于 ASCII 八进制数字
+    let byte3: Byte = 0x38 // '8'，不属于 ASCII 八进制数字
+
     println("byte1 (0x${byte1}) 是否是 ASCII 八进制数字: ${byte1.isAsciiOct()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 八进制数字: ${byte2.isAsciiOct()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 八进制数字: ${byte3.isAsciiOct()}")
@@ -355,10 +355,10 @@ public func isAsciiPunctuation(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiPunctuation() 方法
-    let byte1: Byte = 0x21  // '!'，属于 ASCII 标点符号
-    let byte2: Byte = 0x2C  // ','，属于 ASCII 标点符号
-    let byte3: Byte = 0x30  // '0'，数字，不属于 ASCII 标点符号
-    
+    let byte1: Byte = 0x21 // '!'，属于 ASCII 标点符号
+    let byte2: Byte = 0x2C // ','，属于 ASCII 标点符号
+    let byte3: Byte = 0x30 // '0'，数字，不属于 ASCII 标点符号
+
     println("byte1 (0x${byte1}) 是否是 ASCII 标点符号: ${byte1.isAsciiPunctuation()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 标点符号: ${byte2.isAsciiPunctuation()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 标点符号: ${byte3.isAsciiPunctuation()}")
@@ -391,10 +391,10 @@ public func isAsciiUpperCase(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiUpperCase() 方法
-    let byte1: Byte = 0x41  // 'A'，属于 ASCII 大写拉丁字母
-    let byte2: Byte = 0x5A  // 'Z'，属于 ASCII 大写拉丁字母
-    let byte3: Byte = 0x61  // 'a'，小写字母，不属于 ASCII 大写拉丁字母
-    
+    let byte1: Byte = 0x41 // 'A'，属于 ASCII 大写拉丁字母
+    let byte2: Byte = 0x5A // 'Z'，属于 ASCII 大写拉丁字母
+    let byte3: Byte = 0x61 // 'a'，小写字母，不属于 ASCII 大写拉丁字母
+
     println("byte1 (0x${byte1}) 是否是 ASCII 大写拉丁字母: ${byte1.isAsciiUpperCase()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 大写拉丁字母: ${byte2.isAsciiUpperCase()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 大写拉丁字母: ${byte3.isAsciiUpperCase()}")
@@ -427,10 +427,10 @@ public func isAsciiWhiteSpace(): Bool
 ```cangjie
 main() {
     // 测试 isAsciiWhiteSpace() 方法
-    let byte1: Byte = 0x09  // '\t'，制表符，属于 ASCII 空白字符
-    let byte2: Byte = 0x20  // ' '，空格，属于 ASCII 空白字符
-    let byte3: Byte = 0x41  // 'A'，字母，不属于 ASCII 空白字符
-    
+    let byte1: Byte = 0x09 // '\t'，制表符，属于 ASCII 空白字符
+    let byte2: Byte = 0x20 // ' '，空格，属于 ASCII 空白字符
+    let byte3: Byte = 0x41 // 'A'，字母，不属于 ASCII 空白字符
+
     println("byte1 (0x${byte1}) 是否是 ASCII 空白字符: ${byte1.isAsciiWhiteSpace()}")
     println("byte2 (0x${byte2}) 是否是 ASCII 空白字符: ${byte2.isAsciiWhiteSpace()}")
     println("byte3 (0x${byte3}) 是否是 ASCII 空白字符: ${byte3.isAsciiWhiteSpace()}")
@@ -463,14 +463,14 @@ public func toAsciiLowerCase(): Byte
 ```cangjie
 main() {
     // 测试 toAsciiLowerCase() 方法
-    let byte1: Byte = 0x41  // 'A'，大写字母
-    let byte2: Byte = 0x5A  // 'Z'，大写字母
-    let byte3: Byte = 0x30  // '0'，数字，无法转换
-    
+    let byte1: Byte = 0x41 // 'A'，大写字母
+    let byte2: Byte = 0x5A // 'Z'，大写字母
+    let byte3: Byte = 0x30 // '0'，数字，无法转换
+
     let lower1 = byte1.toAsciiLowerCase()
     let lower2 = byte2.toAsciiLowerCase()
     let lower3 = byte3.toAsciiLowerCase()
-    
+
     println("byte1 (0x${byte1}) 转换为小写: 0x${lower1}")
     println("byte2 (0x${byte2}) 转换为小写: 0x${lower2}")
     println("byte3 (0x${byte3}) 转换为小写: 0x${lower3} (保持不变)")
@@ -503,14 +503,14 @@ public func toAsciiUpperCase(): Byte
 ```cangjie
 main() {
     // 测试 toAsciiUpperCase() 方法
-    let byte1: Byte = 0x61  // 'a'，小写字母
-    let byte2: Byte = 0x7A  // 'z'，小写字母
-    let byte3: Byte = 0x30  // '0'，数字，无法转换
-    
+    let byte1: Byte = 0x61 // 'a'，小写字母
+    let byte2: Byte = 0x7A // 'z'，小写字母
+    let byte3: Byte = 0x30 // '0'，数字，无法转换
+
     let upper1 = byte1.toAsciiUpperCase()
     let upper2 = byte2.toAsciiUpperCase()
     let upper3 = byte3.toAsciiUpperCase()
-    
+
     println("byte1 (0x${byte1}) 转换为大写: 0x${upper1}")
     println("byte2 (0x${byte2}) 转换为大写: 0x${upper2}")
     println("byte3 (0x${byte3}) 转换为大写: 0x${upper3} (保持不变)")
@@ -773,9 +773,9 @@ main() {
     // 测试 Float64 * Duration 运算
     let floatVal: Float64 = 2.5
     let duration: Duration = Duration.second
-    
+
     let result = floatVal * duration
-    
+
     println("Float64值: ${floatVal}")
     println("Duration值: ${duration}")
     println("运算结果: ${result}")
@@ -828,13 +828,13 @@ main() {
     // 测试 Int64 * Duration 运算
     let intVal: Int64 = 3
     let duration: Duration = Duration.second
-    
+
     let result = intVal * duration
-    
+
     println("Int64值: ${intVal}")
     println("Duration值: ${duration}")
     println("运算结果: ${result}")
-    
+
     // 测试 2 * Duration.second 的示例
     let result2 = 2 * Duration.second
     println("2 * Duration.second = ${result2}")
