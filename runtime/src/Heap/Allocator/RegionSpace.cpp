@@ -204,7 +204,7 @@ MAddress AllocBuffer::AllocateImpl(size_t totalSize, AllocType allocType)
     if (r != nullptr) {
         preparedRegion.store(nullptr, std::memory_order_release);
         tlRegion = r;
-        if (theAllocator.IsAsyncAllocationEnable()) {
+        if (ThreadLocal::IsCJProcessor() && theAllocator.IsAsyncAllocationEnable()) {
             theAllocator.AddHungryBuffer(*this);
             Heap::GetHeap().GetFinalizerProcessor().NotifyToFeedAllocBuffers();
         }
@@ -305,5 +305,37 @@ void RegionSpace::FeedHungryBuffers()
         regionManager.RemoveThreadLocalRegion(region);
         regionManager.CollectRegion(region);
     }
+}
+
+void AllocBuffer::FlushRegion()
+{
+    if (LIKELY(tlRegion != RegionInfo::NullRegion()) && tlRegion != nullptr) {
+        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
+        RegionManager& manager = theAllocator.GetRegionManager();
+        manager.RemoveThreadLocalRegion(tlRegion);
+        manager.EnlistFullThreadLocalRegion(tlRegion);
+        tlRegion = RegionInfo::NullRegion();
+    }
+    RegionInfo* prepared = preparedRegion.load();
+    if (LIKELY(prepared != RegionInfo::NullRegion()) && prepared != nullptr) {
+        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
+        RegionManager& manager = theAllocator.GetRegionManager();
+        manager.RemoveThreadLocalRegion(prepared);
+        if (prepared->IsEmpty()) {
+            manager.ReclaimRegion(prepared);
+        } else {
+            manager.EnlistFullThreadLocalRegion(prepared);
+        }
+        preparedRegion.store(nullptr, std::memory_order_release);
+    }
+}
+
+extern "C" void MRT_FlushAllocBuffer()
+{
+    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
+    if (UNLIKELY(buffer == nullptr)) {
+        return;
+    }
+    buffer->FlushRegion();
 }
 } // namespace MapleRuntime
