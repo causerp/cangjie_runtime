@@ -207,7 +207,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 
 父类型：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T>
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T>
 
 ### RandomDataProvider(Configuration)
 
@@ -249,12 +249,12 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)
+- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)
 
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ```
 
 功能：构造器。
@@ -268,7 +268,7 @@ RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ### func provide()
 
 ```cangjie
-override func provide(): Iterable<T>
+public override func provide(): Iterable<T>
 ```
 
 功能：提供随机化生成的数据。
@@ -335,11 +335,11 @@ public override func shrink(value: T): Iterable<T>
 public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T>{}
 ```
 
-功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 接口的实现。
+功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 接口的实现。
 
 父类型：
 
-- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>
+- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T>
 
 ### prop isInfinite
 
@@ -393,7 +393,7 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
+- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)
 
 ### func provider(Configuration)
 
@@ -430,7 +430,7 @@ public override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
 ### prop isInfinite
 
 ```cangjie
-public prop isInfinite: Bool 
+public override prop isInfinite: Bool 
 ```
 
 功能：当该策略为无穷尽时，值为 true, 否则为 false。

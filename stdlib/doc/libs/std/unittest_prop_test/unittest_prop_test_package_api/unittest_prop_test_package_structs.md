@@ -78,7 +78,7 @@ public struct KeyRandom <: KeyFor<RandomSource> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)<[RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)<[RandomSource](./unittest_prop_test_package_interfaces.md#interface-randomsource)>
 
 ### prop random
 
@@ -273,14 +273,14 @@ extend<T0, T1> TupleWrapper2<T0, T1> <: Shrink<TupleWrapper2<T0, T1>>
 #### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper2<T0, T1>>
+public func shrink(): Iterable<TupleWrapper2<T0, T1>>
 ```
 
 功能：缩减元组。
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2<T0, T1> - 数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper2\<T0, T1>> - 数据迭代器。
 
 ## struct TupleWrapper3\<T0, T1, T2>
 
@@ -460,14 +460,14 @@ extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Shrink<TupleWrapper3<T0, T1, T2>
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
+public func shrink(): Iterable<TupleWrapper3<T0, T1, T2>>
 ```
 
 功能：缩减元组。
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3<T0, T1, T2> -  数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper3\<T0, T1, T2>> -  数据迭代器。
 
 ## struct TupleWrapper4\<T0, T1, T2, T3>
 
@@ -624,7 +624,7 @@ extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-public static func arbitrary(random: RandomSource): Generator<TupleWrapper2<T0, T1, T2, T3>>
+public static func arbitrary(random: RandomSource): Generator<TupleWrapper4<T0, T1, T2, T3>>
 ```
 
 功能：获取生成 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3> 类型随机值生成器。
@@ -648,7 +648,7 @@ extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3> <: Shrink<TupleWrapper4<T0,
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
+public func shrink(): Iterable<TupleWrapper4<T0, T1, T2, T3>>
 ```
 
 功能：缩减元组。
@@ -705,7 +705,7 @@ public func apply<R>(f: (T0, T1, T2, T3, T4) -> R): R
 
 - R - 闭包的执行结果。
 
-### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: ToString
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> \<: ToString
 
 ```cangjie
 extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: ToString
@@ -819,7 +819,7 @@ public static func arbitrary(random: RandomSource): Generator<TupleWrapper5<T0, 
 
 返回值：
 
-- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - 生成器。
+- [Generator](../unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-generatort)\<[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>> - 生成器。
 
 ### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Shrink\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Shrink\<T0>,T1 <: Shrink\<T1>,T2 <: Shrink\<T2>, T3 <: Shrink\<T3>, T4 <: Shrink\<T4>
 
@@ -837,11 +837,11 @@ extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Shrink<TupleWrap
 ### func shrink()
 
 ```cangjie
-override func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
+public func shrink(): Iterable<TupleWrapper5<T0, T1, T2, T3, T4>>
 ```
 
 功能：缩减元组。
 
 返回值：
 
-- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper5<T0, T1, T2, T3, T4>> -  数据迭代器。
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<TupleWrapper5\<T0, T1, T2, T3, T4>> -  数据迭代器。

@@ -371,7 +371,7 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 ## `@Strategy` 宏
 
-功能：在函数上使用 `@Strategy` 可从该函数创建新的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 。它是一个用于组合、映射和重用策略的便捷 API。
+功能：在函数上使用 `@Strategy` 可从该函数创建新的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 。它是一个用于组合、映射和重用策略的便捷 API。
 
 标记为 `@Strategy` 的函数必须满足以下条件：
 
@@ -379,7 +379,7 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 2. 参数必须与宏参数中指定的 DSL 相对应。
 3. 可以在 `@Test` 标记的类的外部和内部使用。
 
-> 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的地方使用。
+> 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的地方使用。
 
 ## `@Tag` 宏
 
@@ -500,8 +500,8 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 ```
 
 此 DSL 可用于 `@Test`、`@Strategy`、`@Bench` 和 `@TestCase` 宏，其中 `@Test` 仅在顶级函数上时才可用。如果测试函数中同时存在 `@Bench` 和 `@TestCase` ，则只有 `@Bench` 可以包含 DSL 。
-在 DSL 语法中，`in` 之前的标识符（在上面的示例中为 `x` 、`y` 和 `z` ）必须直接对应于函数的参数，参数源（在上面的示例中为`source1` 、`source2` 和 `source3`）是任何有效的仓颉表达式（该表达式类型必须实现接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> 或 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)\<T>，详见下文）。
-参数源的元素类型（此类型作为泛型参数 `T` 提供给接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> ）必须与相应函数参数的类型严格相同。
+在 DSL 语法中，`in` 之前的标识符（在上面的示例中为 `x` 、`y` 和 `z` ）必须直接对应于函数的参数，参数源（在上面的示例中为`source1` 、`source2` 和 `source3`）是任何有效的仓颉表达式（该表达式类型必须实现接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> 或 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)\<T>，详见下文）。
+参数源的元素类型（此类型作为泛型参数 `T` 提供给接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> ）必须与相应函数参数的类型严格相同。
 
 支持的参数源类型如下：
 
@@ -513,7 +513,7 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 - `@Strategy` 修饰的函数: `x in nameOfStrategyAnnotatedFunction` 。
 - 使用 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 组合数据策略的结果。
 
-> 高级用户可以通过定义自己的类型并且实现 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> 接口来引入自己的参数源类型。
+> 高级用户可以通过定义自己的类型并且实现 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> 接口来引入自己的参数源类型。
 
 使用 `random()` 的随机生成函数默认支持以下类型：
 

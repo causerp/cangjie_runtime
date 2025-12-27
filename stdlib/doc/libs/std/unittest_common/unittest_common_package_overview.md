@@ -18,11 +18,11 @@ unittest.common 为单元测试框架提供了打印所需的类型和一些通�
 
 |              接口名          |           功能           |
 | --------------------------- | ------------------------ |
-| [DataProvider](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) | DataStrategy 的组件，用于提供测试数据， T 指定提供者提供的数据类型。 |
+| [DataProvider\<T>](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert) | DataStrategy 的组件，用于提供测试数据， T 指定提供者提供的数据类型。 |
 | [DataShrinker](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert) | DataStrategy 的组件，用于在测试期间缩减数据，T 指定该收缩器处理的数据类型。 |
-| [DataStrategy](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) | 为参数化测试提供数据的策略，T 指定该策略操作的数据类型。 |
+| [DataStrategy\<T>](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) | 为参数化测试提供数据的策略，T 指定该策略操作的数据类型。 |
 | [PrettyPrintable](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable) | 类型实现该接口表示可以较好地进行颜色及缩进格式的打印。 |
-| [KeyFor](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor) | [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中配置型的键的类型。 |
+| [KeyFor\<T>](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort) | [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中配置型的键的类型。 |
 
 ### 类
 

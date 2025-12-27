@@ -11,7 +11,7 @@ public enum Color <: Equatable<Color> {
     | CYAN
     | MAGENTA
     | GRAY
-    | DEFAULT_COLOR;
+    | DEFAULT_COLOR
 }
 ```
 
