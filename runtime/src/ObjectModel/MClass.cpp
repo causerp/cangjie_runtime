@@ -245,8 +245,11 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                 if (edOfSuper->GetFuncTableSize() != itfFtSize) {
                     superTi->TryUpdateExtensionData(itf, edOfSuper);
                 }
+                bool hasOuterTiFast = extensionData->HasOuterTiFastPath();
+                size_t newFtSize = hasOuterTiFast ? itfFtSize * sizeof(FuncPtr) + itfFtSize * sizeof(OuterTiUnion)
+                                     : itfFtSize * sizeof(FuncPtr);
                 FuncPtr* newFt = reinterpret_cast<FuncPtr*>(
-                    TypeInfoManager::GetTypeInfoManager().Allocate(itfFtSize * sizeof(FuncPtr)));
+                    TypeInfoManager::GetTypeInfoManager().Allocate(newFtSize));
                 if (ftSize > 0) {
                     CHECK(memcpy_s(reinterpret_cast<void*>(newFt),
                                         sizeof(FuncPtr) * ftSize,
@@ -257,6 +260,18 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                                 sizeof(FuncPtr) * incrementalSize,
                                 reinterpret_cast<void*>(edOfSuper->GetFuncTable() + ftSize),
                                 sizeof(FuncPtr) * incrementalSize) == EOK);
+                if (!hasOuterTiFast) {
+                    break;
+                }
+                if (ftSize > 0) {
+                        CHECK(memcpy_s(reinterpret_cast<void*>(newFt + itfFtSize),
+                                       sizeof(OuterTiUnion) * ftSize,
+                                       reinterpret_cast<void*>(extensionData->GetFuncTable() + ftSize),
+                                       sizeof(OuterTiUnion) * ftSize) == EOK);
+                }
+                CHECK(memset_s(reinterpret_cast<void*>(newFt + itfFtSize + ftSize),
+                                sizeof(OuterTiUnion) * incrementalSize,
+                                0, sizeof(OuterTiUnion) * incrementalSize) == EOK);
                 extensionData->UpdateFuncTable(itfFtSize, newFt);
                 break;
             }
@@ -555,12 +570,24 @@ TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
     }
     auto& mTable = mTableDesc->mTable;
     auto it = mTable.find(itf->GetUUID());
-    if (it != mTable.end()) {
-        return it->second.GetCachedTypeInfo(index);
-    } else {
+    if (it == mTable.end()) {
+        // We must find the itf in mTable here, or the virtual function is not in VTable.
         LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
         return nullptr;
     }
+    auto* outerTi = it->second.GetCachedTypeInfo(index);
+    if (LIKELY(outerTi != nullptr)) {
+        return outerTi;
+    }
+    // The outer ti is not cached yet.
+    auto* ed = it->second.GetExtensionData();
+    // The extension data can't be nullptr here.
+    CHECK(ed != nullptr);
+    outerTi = ed->GetOuterTi(this, index);
+    if (outerTi != nullptr) {
+        it->second.SetCachedTypeInfo(index, outerTi);
+    }
+    return outerTi;
 }
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
