@@ -43,7 +43,7 @@ union MTableBitmap {
     BIT_TYPE shortBitmap;
     LargeBitmap* largeBitmap;
     BIT_TYPE tag;
-    
+
     void ForEachBit(const std::function<void(ExtensionData*)>& visitor, ExtensionData** vExtensionPtr)
     {
         bool isSmallBitmap = tag & SIGN_BIT;
@@ -147,7 +147,7 @@ struct StdGCTib {
     void VisitAllField(U8 &bitmapWord, MAddress &fieldAddr, const RefFieldVisitor &visitor) const
     {
         visitor(*reinterpret_cast<RefField<> *>(fieldAddr));
- 
+
         // go next ref word.
         bitmapWord >>= BITS_FOR_REF;
         fieldAddr += sizeof(RefField<>);
@@ -539,7 +539,12 @@ private:
     // 0: functable, 1: is_sub_type
     std::pair<FuncPtr*, bool> FindMTable(U32 itfUUID);
 
-    inline bool IsMTableDescUnInitialized() { return validInheritNum >> 15 == 1; }
+    inline bool IsMTableDescUnInitialized()
+    {
+        return (mTableDesc == nullptr) ||
+               (validInheritNum >> 15 == 1) ||
+               (reinterpret_cast<uintptr_t>(mTableDesc) >> 63 == 1);
+    }
     // This function must be called before mTableDesc is overwritten.
     inline BIT_TYPE GetResolveBitmapFromMTableDesc()
     {
