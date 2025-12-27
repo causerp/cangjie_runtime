@@ -2794,9 +2794,7 @@ public prop first: ?(K, V)
 
 Functionality: Retrieves the first element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
-Return Value:
-
-- ?(K, V) - If the first element exists, returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+Type: ?(K, V)
 
 ### prop last
 
@@ -2806,9 +2804,7 @@ public prop last: ?(K, V)
 
 Functionality: Retrieves the last element of the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
-Return Value:
-
-- ?(K, V) - If the last element exists, returns the element wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont); otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None.
+Type: ?(K, V)
 
 ### prop size
 
