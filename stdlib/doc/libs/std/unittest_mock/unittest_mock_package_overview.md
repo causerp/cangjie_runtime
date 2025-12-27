@@ -53,7 +53,7 @@ unittest.mock 包提供仓颉单元测试的**mock 框架**，提供 API 用于�
 | [MockFramework](./unittest_mock_package_api/unittest_mock_package_classes.md#class-mockframework) | 提供用例执行所需的框架准备与结束回收阶段的函数。 |
 | [NoneMatcher](./unittest_mock_package_api/unittest_mock_package_classes.md#class-nonematcher) | 参数值为 `None` 的匹配器。 |
 | [OrderedVerifier](./unittest_mock_package_api/unittest_mock_package_classes.md#class-orderedverifier) | 此类型用于收集 “验证语句”， 可在 ordered 函数中动态传入验证行为。|
-| [SetterActionSelector\<TRet>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-setteractionselectortret) | 此类提供了为属性 `Setter` 函数指定一个[操作 API](../unittest_mock/unittest_mock_samples/mock_framework_basics.md#操作-api) ，并允许链式调用的方法。 |
+| [SetterActionSelector\<TArg>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-setteractionselectortarg) | 此类提供了为属性 `Setter` 函数指定一个[操作 API](../unittest_mock/unittest_mock_samples/mock_framework_basics.md#操作-api) ，并允许链式调用的方法。 |
 | [SyntheticField\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-syntheticfieldt) | 合成字段。 |
 | [TypedMatcher\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-typedmatchert) | 参数类型匹配器。 |
 | [UnorderedVerifier](./unittest_mock_package_api/unittest_mock_package_classes.md#class-unorderedverifier) | 此类型用于收集 “验证语句”， 可在 unordered 函数中动态传入验证行为。 |

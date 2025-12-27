@@ -3,7 +3,7 @@
 ## class UnittestOptionValidationException
 
 ```cangjie
-public class UnittestOptionValidationException <: Exception
+public class UnittestOptionValidationException <: Exception {}
 ```
 
 Function: Exception thrown during framework validation of option value legality.

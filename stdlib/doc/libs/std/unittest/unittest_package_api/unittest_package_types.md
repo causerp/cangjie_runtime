@@ -3,7 +3,7 @@
 ## type MeasurementUnitTable
 
 ```cangjie
-type MeasurementUnitTable = Array<(Float64, String)>
+public type MeasurementUnitTable = Array<(Float64, String)>
 ```
 
 功能：用作 [Measurement](unittest_package_interfaces.md#interface-measurement) 中性能测试结果单位转换表的“边界-单位”对数组的别名。

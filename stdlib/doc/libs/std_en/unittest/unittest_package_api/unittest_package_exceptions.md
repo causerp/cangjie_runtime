@@ -85,7 +85,7 @@ Return Value:
 ## class UnittestCliOptionsFormatException
 
 ```cangjie
-public class UnittestCliOptionsFormatException <: UnittestException
+public class UnittestCliOptionsFormatException <: UnittestException {}
 ```
 
 Function: Exception thrown for console option format errors.
@@ -97,7 +97,7 @@ Parent Type:
 ## class UnittestException
 
 ```cangjie
-public open class UnittestException <: Exception
+public open class UnittestException <: Exception {}
 ```
 
 Function: Framework common exception.
@@ -109,7 +109,7 @@ Parent Type:
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected  open override func getClassName(): String
 ```
 
 Function: Gets the class name.
@@ -117,3 +117,16 @@ Function: Gets the class name.
 Return Value:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name string.
+
+## class UnittestTimeoutException
+
+```cangjie
+public class UnittestTimeoutException <: Exception {
+}
+```
+
+Function: Framework timeout exception.
+
+Parent Type:
+
+- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
