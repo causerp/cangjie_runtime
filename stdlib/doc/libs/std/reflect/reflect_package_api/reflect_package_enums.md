@@ -140,11 +140,11 @@ import std.reflect.ModifierInfo
 main(): Int64 {
     // 创建一个 ModifierInfo 枚举值
     let modifier = ModifierInfo.Abstract
-    
+
     // 获取该修饰符信息的哈希值
     let hash = modifier.hashCode()
     println("Abstract 修饰符的哈希值: ${hash}")
-    
+
     return 0
 }
 ```
@@ -184,11 +184,11 @@ import std.reflect.ModifierInfo
 main(): Int64 {
     // 创建一个 ModifierInfo 枚举值
     let modifier = ModifierInfo.Open
-    
+
     // 获取字符串形式的该修饰符信息
     let str = modifier.toString()
     println("Open 修饰符的字符串形式: ${str}")
-    
+
     return 0
 }
 ```
@@ -230,19 +230,19 @@ main(): Int64 {
     // 创建两个不同的 ModifierInfo 枚举值
     let modifier1 = ModifierInfo.Open
     let modifier2 = ModifierInfo.Abstract
-    
+
     // 判断两个修饰符信息是否不等
     let result = modifier1 != modifier2
     println("Open != Abstract: ${result}")
-    
+
     // 创建两个相同的 ModifierInfo 枚举值
     let modifier3 = ModifierInfo.Open
     let modifier4 = ModifierInfo.Open
-    
+
     // 判断两个相同的修饰符信息是否不等
     let result2 = modifier3 != modifier4
     println("Open != Open: ${result2}")
-    
+
     return 0
 }
 ```
@@ -288,19 +288,19 @@ main(): Int64 {
     // 创建两个相同的 ModifierInfo 枚举值
     let modifier1 = ModifierInfo.Static
     let modifier2 = ModifierInfo.Static
-    
+
     // 判断两个修饰符信息是否相等
     let result = modifier1 == modifier2
     println("Static == Static: ${result}")
-    
+
     // 创建两个不同的 ModifierInfo 枚举值
     let modifier3 = ModifierInfo.Static
     let modifier4 = ModifierInfo.Override
-    
+
     // 判断两个不同的修饰符信息是否相等
     let result2 = modifier3 == modifier4
     println("Static == Override: ${result2}")
-    
+
     return 0
 }
 ```

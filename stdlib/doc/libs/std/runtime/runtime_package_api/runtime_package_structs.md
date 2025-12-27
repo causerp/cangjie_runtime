@@ -47,8 +47,9 @@ public static prop maxHeapSize: Int64
 <!-- run -->
 ```cangjie
 import std.runtime.*
+
 main() {
-  println(MemoryInfo.maxHeapSize)
+    println(MemoryInfo.maxHeapSize)
 }
 ```
 

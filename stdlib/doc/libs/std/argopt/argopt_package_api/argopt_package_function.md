@@ -62,31 +62,31 @@ main(): Unit {
     let helpSpec = ArgumentSpec.Short(r'h', ArgumentMode.NoValue)
     let outputSpec = ArgumentSpec.Long("output", ArgumentMode.RequiredValue)
     let verboseSpec = ArgumentSpec.Short(r'v', ArgumentMode.OptionalValue)
-    
+
     // 创建specs数组
     let specs = [helpSpec, outputSpec, verboseSpec]
-    
+
     // 创建参数数组
     let args = ["-h", "--output", "output.txt", "file1.txt"]
-    
+
     // 解析命令行参数
     let parsed = parseArguments(args, specs)
-    
+
     // 输出解析结果
     println("选项:")
     let options = parsed.options
     for (key in options.keys()) {
         println("  ${key}: ${options[key]}")
     }
-    
+
     println("非选项参数:")
     for (nonOption in parsed.nonOptions) {
         println("  ${nonOption}")
     }
-    
+
     // 测试异常情况
     try {
-        parseArguments(["-x", "value"], specs)  // 未定义的选项
+        parseArguments(["-x", "value"], specs) // 未定义的选项
     } catch (e: ArgumentParseException) {
         println("捕获到异常: ${e.message}")
     }

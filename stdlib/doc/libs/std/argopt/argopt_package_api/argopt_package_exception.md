@@ -33,7 +33,7 @@ main(): Unit {
     // 使用无参构造函数创建异常实例
     let exception = ArgumentParseException()
     println("创建了无参的ArgumentParseException实例")
-    
+
     // 可以抛出并捕获该异常
     try {
         throw ArgumentParseException()
@@ -73,7 +73,7 @@ main(): Unit {
     let message = "参数解析失败：未知选项 --xyz"
     let exception = ArgumentParseException(message)
     println("创建了带消息的ArgumentParseException实例: ${exception.message}")
-    
+
     // 可以抛出并捕获该异常
     try {
         throw ArgumentParseException("无效的参数格式")

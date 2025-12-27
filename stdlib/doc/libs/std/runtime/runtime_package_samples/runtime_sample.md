@@ -4,7 +4,7 @@
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.env.*
 import std.runtime.*
@@ -12,7 +12,7 @@ import std.runtime.*
 foreign func CJ_MCC_SignalKill(pid: Int32, sig: Int32): Unit
 
 func sendSignal(sig: Int32): Unit {
-    unsafe {CJ_MCC_SignalKill(Int32(getProcessId()), sig)}
+    unsafe { CJ_MCC_SignalKill(Int32(getProcessId()), sig) }
     sleep(Duration.second)
 }
 
@@ -41,7 +41,7 @@ main() {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 81632 E CJNatvie Handle signal: 3.
@@ -54,7 +54,7 @@ end
 
 示例：
 
-<!-- verify -->
+<!-- run -->
 ```cangjie
 import std.env.*
 import std.runtime.*
@@ -62,7 +62,7 @@ import std.runtime.*
 foreign func CJ_MCC_SignalKill(pid: Int32, sig: Int32): Unit
 
 func sendSignal(sig: Int32): Unit {
-    unsafe {CJ_MCC_SignalKill(Int32(getProcessId()), sig)}
+    unsafe { CJ_MCC_SignalKill(Int32(getProcessId()), sig) }
     sleep(Duration.second)
 }
 
@@ -70,7 +70,7 @@ func func_1(sig: Int32) {
     println("func_1_start_${sig}")
     return false
 }
- 
+
 func func_2(sig: Int32) {
     println("func_2_start_${sig}")
     return false
@@ -90,7 +90,8 @@ main() {
     return 0
 }
 ```
-运行结果：
+
+可能的运行结果：
 
 ```text
 82934 E CJNative Handle signal: 3.

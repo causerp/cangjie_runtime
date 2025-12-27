@@ -343,25 +343,25 @@ main(): Int64 {
     // 设置一个环境变量然后移除它
     Process.current.setEnv("TEST_VAR", "test_value")
     println("已设置环境变量 TEST_VAR")
-    
+
     // 获取并打印环境变量
     let testEnv = Process.current.getEnv("TEST_VAR")
     match (testEnv) {
         case Option.Some(value) => println("TEST_VAR环境变量: ${value}")
         case Option.None => println("未找到TEST_VAR环境变量")
     }
-    
+
     // 移除环境变量
     Process.current.removeEnv("TEST_VAR")
     println("已移除环境变量 TEST_VAR")
-    
+
     // 再次获取环境变量
     let testEnvAfter = Process.current.getEnv("TEST_VAR")
     match (testEnvAfter) {
         case Option.Some(value) => println("TEST_VAR环境变量: ${value}")
         case Option.None => println("未找到TEST_VAR环境变量")
     }
-    
+
     return 0
 }
 ```
@@ -406,14 +406,14 @@ main(): Int64 {
     // 设置一个环境变量
     Process.current.setEnv("MY_VAR", "my_value")
     println("已设置环境变量 MY_VAR")
-    
+
     // 获取并打印环境变量
     let myEnv = Process.current.getEnv("MY_VAR")
     match (myEnv) {
         case Option.Some(value) => println("MY_VAR环境变量: ${value}")
         case Option.None => println("未找到MY_VAR环境变量")
     }
-    
+
     return 0
 }
 ```
@@ -509,10 +509,10 @@ main(): Int64 {
     let currentPid = getProcessId()
     // 根据PID查找进程
     let process = findProcess(currentPid)
-    
+
     // 执行命令：./main arg1 arg2 arg3
     println("进程参数: ${process.arguments}")
-    
+
     return 0
 }
 ```
@@ -549,9 +549,9 @@ main(): Int64 {
     let currentPid = getProcessId()
     // 根据PID查找进程
     let process = findProcess(currentPid)
-    
+
     println("进程命令: ${process.command}")
-    
+
     return 0
 }
 ```
@@ -685,7 +685,7 @@ main(): Int64 {
     // 根据PID查找进程
     let process = findProcess(currentPid)
     println("进程名称: ${process.name}")
-    
+
     return 0
 }
 ```
@@ -719,7 +719,7 @@ main(): Int64 {
     // 根据PID查找进程
     let process = findProcess(currentPid)
     println("进程PID: ${process.pid}")
-    
+
     return 0
 }
 ```
@@ -752,11 +752,11 @@ main(): Int64 {
     let currentPid = getProcessId()
     // 根据PID查找进程
     let process = findProcess(currentPid)
-    
+
     // 获取进程启动时间点
     let startTime = process.startTime
     println("进程启动时间点: ${startTime}")
-    
+
     return 0
 }
 ```
@@ -792,7 +792,7 @@ main(): Int64 {
     // 获取进程内核态耗时
     let systemTime = process.systemTime
     println("进程内核态耗时: ${systemTime}")
-    
+
     return 0
 }
 ```
@@ -828,7 +828,7 @@ main(): Int64 {
     // 获取进程用户态耗时
     let userTime = process.userTime
     println("进程用户态耗时: ${userTime}")
-    
+
     return 0
 }
 ```
@@ -872,7 +872,7 @@ main(): Int64 {
     // 获取进程工作目录
     let workingDirectory = process.workingDirectory
     println("当前进程工作目录: ${workingDirectory}")
-    
+
     return 0
 }
 ```
@@ -919,12 +919,12 @@ main(): Int64 {
     // 获取当前进程的PID
     let currentPid = Process.current.pid
     println("当前进程PID: ${currentPid}")
-    
+
     // 使用of函数绑定当前进程
     let process = Process.of(currentPid)
     println("绑定进程PID: ${process.pid}")
     println("绑定进程名称: ${process.name}")
-    
+
     return 0
 }
 ```
@@ -990,7 +990,7 @@ main(): Int64 {
     // 使用run函数创建并运行一个子进程
     let exitCode = Process.run("echo", ["Hello, World!"])
     println("子进程退出码: ${exitCode}")
-    
+
     return 0
 }
 ```
@@ -1054,7 +1054,7 @@ main(): Int64 {
     println("子进程退出码: ${exitCode}")
     println("标准输出字节数: ${stdout.size}")
     println("标准错误字节数: ${stderr.size}")
-    
+
     return 0
 }
 ```
@@ -1118,11 +1118,11 @@ main(): Int64 {
     let subprocess = Process.start("sleep", ["2s"])
     println("子进程PID: ${subprocess.pid}")
     println("子进程名称: ${subprocess.name}")
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
     println("子进程退出码: ${exitCode}")
-    
+
     return 0
 }
 ```
@@ -1158,18 +1158,18 @@ main(): Int64 {
     let subprocess = launch("sleep", ["2s"])
     // 根据PID查找进程
     let process: Process = findProcess(subprocess.pid)
-    
+
     // 检查进程是否存活
     let alive = process.isAlive()
     println("进程是否存活: ${alive}")
-    
+
     // 等待子进程完成
     subprocess.wait()
-    
+
     // 再次检查子进程是否存活
     let aliveAfter = process.isAlive()
     println("进程是否存活: ${aliveAfter}")
-    
+
     return 0
 }
 ```
@@ -1208,20 +1208,20 @@ main(): Int64 {
     let subprocess = launch("sleep", ["2s"])
     // 根据PID查找进程
     let process: Process = findProcess(subprocess.pid)
-    
+
     // 检查进程是否存活
     let alive = process.isAlive()
     println("进程是否存活: ${alive}")
-    
+
     // 终止子进程
     process.terminate(force: true)
     // 无需等待子进程
     subprocess.wait()
-    
+
     // 再次检查进程是否存活
     let aliveAfter = process.isAlive()
     println("进程是否存活: ${aliveAfter}")
-    
+
     return 0
 }
 ```
@@ -1267,20 +1267,20 @@ main(): Int64 {
     let subprocess = launch("sleep", ["2s"])
     // 根据PID查找进程
     let process: Process = findProcess(subprocess.pid)
-    
+
     // 检查进程是否存活
     let alive = process.isAlive()
     println("进程是否存活: ${alive}")
-    
+
     // 终止子进程
     subprocess.myTerminateAliveProcess(Int32(subprocess.pid), true)
     // 无需等待子进程
     subprocess.wait()
-    
+
     // 再次检查进程是否存活
     let aliveAfter = process.isAlive()
     println("进程是否存活: ${aliveAfter}")
-    
+
     return 0
 }
 
@@ -1347,10 +1347,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准错误流（废弃API）
     let subprocess = launch("ls", ["/nonexistent"], stdErr: ProcessRedirect.Pipe)
     let stderrStream = subprocess.stdErr
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
-    
+
     return 0
 }
 ```
@@ -1379,10 +1379,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准错误流
     let subprocess = launch("ls", ["/nonexistent"], stdErr: ProcessRedirect.Pipe)
     let stderrStream = subprocess.stdErrPipe
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
-    
+
     return 0
 }
 ```
@@ -1412,10 +1412,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准输入流（废弃API）
     let subprocess = launch("cat", [], stdIn: ProcessRedirect.Pipe)
     let stdinStream = subprocess.stdIn
-    
+
     // 关闭子进程
     subprocess.terminate(force: true)
-    
+
     return 0
 }
 ```
@@ -1444,10 +1444,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准输入流
     let subprocess = launch("cat", [], stdIn: ProcessRedirect.Pipe)
     let stdinStream = subprocess.stdInPipe
-    
+
     // 关闭子进程
     subprocess.terminate(force: true)
-    
+
     return 0
 }
 ```
@@ -1477,10 +1477,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准输出流（废弃API）
     let subprocess = launch("echo", ["Hello, World!"], stdOut: ProcessRedirect.Pipe)
     let stdoutStream = subprocess.stdOut
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
-    
+
     return 0
 }
 ```
@@ -1509,10 +1509,10 @@ main(): Int64 {
     // 创建一个子进程并获取其标准输出流
     let subprocess = launch("echo", ["Hello, World!"], stdOut: ProcessRedirect.Pipe)
     let stdoutStream = subprocess.stdOutPipe
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
-    
+
     return 0
 }
 ```
@@ -1557,11 +1557,11 @@ import std.process.*
 main(): Int64 {
     // 创建一个子进程并等待其完成
     let subprocess = launch("sleep", ["2s"])
-    
+
     // 等待子进程完成
     let exitCode = subprocess.wait()
     println("子进程退出码: ${exitCode}")
-    
+
     return 0
 }
 ```
@@ -1602,13 +1602,13 @@ main(): Int64 {
     // 创建一个子进程并等待其完成，同时获取输出
     let subprocess = launch("echo", ["Hello, World!"], stdOut: ProcessRedirect.Pipe, stdErr: ProcessRedirect.Pipe)
     println("子进程名称: ${subprocess.name}")
-    
+
     // 等待子进程完成并获取输出
     let (exitCode, stdout, stderr) = subprocess.waitOutput()
     println("子进程退出码: ${exitCode}")
     println("标准输出字节数: ${stdout.size}")
     println("标准错误字节数: ${stderr.size}")
-    
+
     return 0
 }
 ```

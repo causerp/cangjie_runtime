@@ -141,19 +141,21 @@ package test
 
 import std.reflect.*
 
-public abstract sealed class Shape {}
+sealed abstract class Shape {}
+
 public class Circle <: Shape {}
+
 public class Rectangle <: Shape {}
 
 main(): Unit {
     // 获取 Shape 类型信息
     let ty = ClassTypeInfo.get("test.Shape")
-    
+
     // 获取 sealed 子类
     for (subclass in ty.sealedSubclasses) {
         println(subclass)
     }
-    
+
     return
 }
 ```
@@ -196,7 +198,7 @@ public class Rectangular {
     public static var name: String = "Rectangle"
     public var length: Int64 = 0
     public var width: Int64 = 0
-    
+
     public init() {
         Rectangular.count += 1
     }
@@ -205,12 +207,12 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 获取静态成员变量
     for (variable in ty.staticVariables) {
         println(variable)
     }
-    
+
     return
 }
 ```
@@ -259,7 +261,7 @@ public class Dog <: Animal {
 main(): Unit {
     // 获取 Dog 类型信息
     let ty = ClassTypeInfo.get("test.Dog")
-    
+
     // 获取父类信息
     if (ty.superClass.isSome()) {
         // Dog 有父类
@@ -267,13 +269,13 @@ main(): Unit {
     } else {
         println("Dog 没有父类")
     }
-    
+
     // 同时也获取 Object 类型信息作为对比
     let objTy = ClassTypeInfo.get("std.core.Object")
     if (objTy.superClass.isNone()) {
         println("Object 没有父类")
     }
-    
+
     return
 }
 ```
@@ -750,11 +752,11 @@ main(): Unit {
     // 获取 Shape 类型信息
     let shapeTy = ClassTypeInfo.get("test.Shape")
     println("Shape 是抽象类: ${shapeTy.isAbstract()}")
-    
+
     // 获取 Circle 类型信息
     let circleTy = ClassTypeInfo.get("test.Circle")
     println("Circle 是抽象类: ${circleTy.isAbstract()}")
-    
+
     return
 }
 ```
@@ -803,11 +805,11 @@ main(): Unit {
     // 获取 OpenClass 类型信息
     let openTy = ClassTypeInfo.get("test.OpenClass")
     println("OpenClass 拥有 open 语义: ${openTy.isOpen()}")
-    
+
     // 获取 RegularClass 类型信息
     let regularTy = ClassTypeInfo.get("test.RegularClass")
     println("RegularClass 拥有 open 语义: ${regularTy.isOpen()}")
-    
+
     return
 }
 ```
@@ -843,7 +845,7 @@ package test
 
 import std.reflect.*
 
-public abstract sealed class SealedClass {
+sealed abstract class SealedClass {
     public init() {}
 }
 
@@ -855,11 +857,11 @@ main(): Unit {
     // 获取 SealedClass 类型信息
     let sealedTy = ClassTypeInfo.get("test.SealedClass")
     println("SealedClass 拥有 sealed 语义: ${sealedTy.isSealed()}")
-    
+
     // 获取 RegularClass 类型信息
     let regularTy = ClassTypeInfo.get("test.RegularClass")
     println("RegularClass 拥有 sealed 语义: ${regularTy.isSealed()}")
-    
+
     return
 }
 ```
@@ -926,10 +928,10 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     @MyAnnotation
     public init() {}
-    
+
     @MyAnnotation
     public init(name: String) {
         myName = name
@@ -939,7 +941,7 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数
     for (constructor in ty.constructors) {
         // 获取构造函数上的注解
@@ -1060,11 +1062,11 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     public init() {
         println("调用了无参构造函数")
     }
-    
+
     public init(name: String) {
         println("调用了有参构造函数")
         myName = name
@@ -1074,14 +1076,14 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历构造函数
     for (constructor in ty.constructors) {
         // 找到无参构造函数
         if (constructor.parameters.size == 0) {
             // 创建空参数数组
             let args: Array<Any> = []
-            
+
             // 调用构造函数
             let instance = constructor.apply(args)
             // 将实例转换为 Rectangular 类型
@@ -1092,7 +1094,7 @@ main(): Unit {
         if (constructor.parameters.size == 1) {
             // 创建有参数数组
             let args: Array<Any> = ["MyRectangular"]
-            
+
             // 调用构造函数
             let instance = constructor.apply(args)
             // 将实例转换为 Rectangular 类型
@@ -1100,7 +1102,7 @@ main(): Unit {
             println("有参构造实例的长度是: ${rect.length}, 宽度是: ${rect.width}, 名称是: ${rect.myName}")
         }
     }
-    
+
     return
 }
 ```
@@ -1158,11 +1160,11 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     @MyAnnotation01
     @MyAnnotation02
     public init() {}
-    
+
     @MyAnnotation01
     @MyAnnotation01
     @MyAnnotation02
@@ -1174,7 +1176,7 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数
     for (constructor in ty.constructors) {
         // 获取构造函数上所有 MyAnnotation01 注解
@@ -1239,11 +1241,11 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     @MyAnnotation01
     @MyAnnotation02
     public init() {}
-    
+
     @MyAnnotation01
     public init(name: String) {
         myName = name
@@ -1253,7 +1255,7 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数
     for (constructor in ty.constructors) {
         // 尝试获取构造函数上 MyAnnotation01 注解
@@ -1315,11 +1317,11 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     @MyAnnotation01
     @MyAnnotation02
     public init() {}
-    
+
     @MyAnnotation01
     @MyAnnotation02
     public init(name: String) {
@@ -1330,7 +1332,7 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数
     for (constructor in ty.constructors) {
         // 尝试获取构造函数上所有注解
@@ -1386,9 +1388,9 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     public init() {}
-    
+
     public init(name: String) {
         myName = name
     }
@@ -1397,13 +1399,13 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数并获取哈希值
     for (constructor in ty.constructors) {
         let hash = constructor.hashCode()
         println("构造函数 ${constructor} 的哈希值: ${hash}")
     }
-    
+
     return
 }
 ```
@@ -1443,9 +1445,9 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     public init() {}
-    
+
     public init(name: String) {
         myName = name
     }
@@ -1454,13 +1456,13 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 遍历所有构造函数并获取字符串表示
     for (constructor in ty.constructors) {
         let str = constructor.toString()
         println("构造函数的字符串表示: ${str}")
     }
-    
+
     return
 }
 ```
@@ -1504,9 +1506,9 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     public init() {}
-    
+
     public init(name: String) {
         myName = name
     }
@@ -1515,23 +1517,23 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 获取所有构造函数
     let constructors = ty.constructors.toArray()
 
     // 收集两个构造函数
     let firstConstructor: ConstructorInfo = constructors[0]
     let secondConstructor: ConstructorInfo = constructors[1]
-    
+
     // 比较不同的构造函数
     let result = firstConstructor != secondConstructor
     println("两个不同构造函数不等: ${result}")
-        
+
     // 比较相同的构造函数
     let firstConstructor1: ConstructorInfo = ClassTypeInfo.get("test.Rectangular").constructors.toArray()[0]
     let result2 = firstConstructor != firstConstructor1
     println("相同构造函数不等: ${result2}")
-    
+
     return
 }
 ```
@@ -1575,9 +1577,9 @@ public class Rectangular {
     public var length = 4
     public var width = 5
     public var myName = ""
-    
+
     public init() {}
-    
+
     public init(name: String) {
         myName = name
     }
@@ -1586,23 +1588,23 @@ public class Rectangular {
 main(): Unit {
     // 获取 Rectangular 类型信息
     let ty = ClassTypeInfo.get("test.Rectangular")
-    
+
     // 获取所有构造函数
     let constructors = ty.constructors.toArray()
 
     // 收集两个构造函数
     let firstConstructor: ConstructorInfo = constructors[0]
     let secondConstructor: ConstructorInfo = constructors[1]
-    
+
     // 比较不同的构造函数
     let result = firstConstructor == secondConstructor
     println("两个不同构造函数相等: ${result}")
-        
+
     // 比较相同的构造函数
     let firstConstructor1: ConstructorInfo = ClassTypeInfo.get("test.Rectangular").constructors.toArray()[0]
     let result2 = firstConstructor == firstConstructor1
     println("相同构造函数相等: ${result2}")
-    
+
     return
 }
 ```
@@ -1802,19 +1804,19 @@ public func genericFunc<T>(value: T): T {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数的泛型参数信息
     let genericParams = globalFunctionInfo.genericParams
     println("泛型参数数量: ${genericParams.size}")
-    
+
     // 遍历泛型参数
     for (param in genericParams) {
         println("泛型参数名称: ${param.name}")
     }
-    
+
     return
 }
 ```
@@ -1857,14 +1859,14 @@ public func myFunction(value: Int64): Int64 {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数的名称
     let name = globalFunctionInfo.name
     println("全局函数名称: ${name}")
-    
+
     return
 }
 ```
@@ -1906,19 +1908,19 @@ public func myFunction(str: String, num: Int64): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数的参数信息列表
     let parameters = globalFunctionInfo.parameters
     println("参数数量: ${parameters.size}")
-    
+
     // 遍历参数信息
     for (param in parameters) {
         println("参数名称: ${param.name}")
     }
-    
+
     return
 }
 ```
@@ -1961,14 +1963,14 @@ public func myFunction(value: Int64): String {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数的返回类型信息
     let returnType = globalFunctionInfo.returnType
     println("返回类型名称: ${returnType.name}")
-    
+
     return
 }
 ```
@@ -2023,20 +2025,20 @@ public func add(a: Int64, b: Int64): Int64 {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 准备参数
     let args: Array<Any> = [10, 20]
-    
+
     // 调用全局函数
     let result = globalFunctionInfo.apply(args)
-    
+
     // 将结果转换为 Int64 类型
     let intResult = result as Int64
     println("调用结果: ${intResult}")
-    
+
     return
 }
 ```
@@ -2094,23 +2096,23 @@ public func genericFunc<T>(value: T): T {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 准备泛型参数类型列表
     let genericTypeArgs: Array<TypeInfo> = [PrimitiveTypeInfo.get("Int64")]
-    
+
     // 准备参数
     let args: Array<Any> = [42]
-    
+
     // 调用泛型全局函数
     let result = globalFunctionInfo.apply(genericTypeArgs, args)
-    
+
     // 将结果转换为 Int64 类型
     let intResult = result as Int64
     println("调用结果: ${intResult}")
-    
+
     return
 }
 ```
@@ -2153,14 +2155,14 @@ public func myFunction(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 查找所有 MyAnnotation 类型的注解
     let annotations = globalFunctionInfo.findAllAnnotations<MyAnnotation>()
     println("找到的注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -2208,20 +2210,20 @@ public func myFunction(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 查找 MyAnnotation 类型的注解
     let annotation = globalFunctionInfo.findAnnotation<MyAnnotation>()
-    
+
     // 检查是否找到了注解
     if (annotation.isSome()) {
         println("找到了 MyAnnotation 注解")
     } else {
         println("未找到 MyAnnotation 注解")
     }
-    
+
     return
 }
 
@@ -2269,14 +2271,14 @@ public func myFunction(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取所有注解
     let allAnnotations = globalFunctionInfo.getAllAnnotations()
     println("注解总数: ${allAnnotations.size}")
-    
+
     return
 }
 
@@ -2323,14 +2325,14 @@ public func myFunction(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数信息的哈希值
     let hashCode = globalFunctionInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -2372,14 +2374,14 @@ public func myFunction(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的第一个全局函数信息
     let globalFunctionInfo = ty.functions.toArray()[0]
-    
+
     // 获取全局函数信息的字符串表示
     let str = globalFunctionInfo.toString()
     println("字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -2429,20 +2431,20 @@ public func function2(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的前两个全局函数信息
     let globalFunctionInfos = ty.functions.toArray()
     let function1Info = globalFunctionInfos[0]
     let function2Info = globalFunctionInfos[1]
-    
+
     // 比较两个不同的全局函数信息
     let result = function1Info != function2Info
     println("两个不同的全局函数信息不相等: ${result}")
-    
+
     // 比较相同的全局函数信息
     let result2 = function1Info != function1Info
     println("相同的全局函数信息不相等: ${result2}")
-    
+
     return
 }
 ```
@@ -2493,20 +2495,20 @@ public func function2(): Unit {
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的前两个全局函数信息
     let globalFunctionInfos = ty.functions.toArray()
     let function1Info = globalFunctionInfos[0]
     let function2Info = globalFunctionInfos[1]
-    
+
     // 比较两个不同的全局函数信息
     let result = function1Info == function2Info
     println("两个不同的全局函数信息相等: ${result}")
-    
+
     // 比较相同的全局函数信息
     let result2 = function1Info == function1Info
     println("相同的全局函数信息相等: ${result2}")
-    
+
     return
 }
 ```
@@ -2566,18 +2568,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量的注解信息
     let annotations = globalVariableInfo.annotations
     println("注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -2621,18 +2623,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量的名称
     let name = globalVariableInfo.name
     println("全局变量名称: ${name}")
-    
+
     return
 }
 ```
@@ -2671,18 +2673,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量的类型信息
     let typeInfo = globalVariableInfo.typeInfo
     println("全局变量类型名称: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -2724,18 +2726,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 查找所有 MyAnnotation 类型的注解
     let annotations = globalVariableInfo.findAllAnnotations<MyAnnotation>()
     println("找到的注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -2782,24 +2784,24 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 查找 MyAnnotation 类型的注解
     let annotation = globalVariableInfo.findAnnotation<MyAnnotation>()
-    
+
     // 检查是否找到了注解
     if (annotation.isSome()) {
         println("找到了 MyAnnotation 注解")
     } else {
         println("未找到 MyAnnotation 注解")
     }
-    
+
     return
 }
 
@@ -2846,18 +2848,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取所有注解
     let allAnnotations = globalVariableInfo.getAllAnnotations()
     println("注解总数: ${allAnnotations.size}")
-    
+
     return
 }
 
@@ -2903,21 +2905,21 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量的值
     let value = globalVariableInfo.getValue()
-    
+
     // 将值转换为 Int64 类型
     let intValue = value as Int64
     println("全局变量的值: ${intValue}")
-    
+
     return
 }
 ```
@@ -2958,18 +2960,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量信息的哈希值
     let hashCode = globalVariableInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -3013,23 +3015,23 @@ public let immutableVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取全局变量信息
     let globalVariableInfos = globalVariables.toArray()
     let mutableVarInfo = globalVariableInfos[0]
     let immutableVarInfo = globalVariableInfos[1]
-    
+
     // 检查全局变量是否可变
     let isMutable1 = mutableVarInfo.isMutable()
     println("mutableVar 是否可变: ${isMutable1}")
-    
+
     let isMutable2 = immutableVarInfo.isMutable()
     println("immutableVar 是否可变: ${isMutable2}")
-    
+
     return
 }
 ```
@@ -3076,25 +3078,25 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量的当前值
     let currentValue = globalVariableInfo.getValue() as Int64
     println("全局变量的当前值: ${currentValue}")
-    
+
     // 设置全局变量的新值
     globalVariableInfo.setValue(100)
-    
+
     // 获取全局变量的新值
     let newValue = globalVariableInfo.getValue() as Int64
     println("全局变量的新值: ${newValue}")
-    
+
     return
 }
 ```
@@ -3136,18 +3138,18 @@ public var myGlobalVar: Int64 = 42
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取第一个全局变量信息
     let globalVariableInfo = globalVariables.toArray()[0]
-    
+
     // 获取全局变量信息的字符串表示
     let str = globalVariableInfo.toString()
     println("字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -3193,24 +3195,24 @@ public var globalVar2: Int64 = 100
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取全局变量信息
     let globalVariableInfos = globalVariables.toArray()
     let var1Info = globalVariableInfos[0]
     let var2Info = globalVariableInfos[1]
-    
+
     // 比较两个不同的全局变量信息
     let result = var1Info != var2Info
     println("两个不同的全局变量信息不相等: ${result}")
-    
+
     // 比较相同的全局变量信息
     let result2 = var1Info != var1Info
     println("相同的全局变量信息不相等: ${result2}")
-    
+
     return
 }
 ```
@@ -3257,24 +3259,24 @@ public var globalVar2: Int64 = 100
 main(): Unit {
     // 获取 test 包的信息
     let ty = PackageInfo.get("test")
-    
+
     // 获取包中的全局变量信息
     let globalVariables = ty.variables
     println("全局变量数量: ${globalVariables.size}")
-    
+
     // 获取全局变量信息
     let globalVariableInfos = globalVariables.toArray()
     let var1Info = globalVariableInfos[0]
     let var2Info = globalVariableInfos[1]
-    
+
     // 比较两个不同的全局变量信息
     let result = var1Info == var2Info
     println("两个不同的全局变量信息相等: ${result}")
-    
+
     // 比较相同的全局变量信息
     let result2 = var1Info == var1Info
     println("相同的全局变量信息相等: ${result2}")
-    
+
     return
 }
 ```
@@ -3339,14 +3341,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 获取注解信息
     let annotations = instanceFunctionInfo.annotations
     println("注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -3397,11 +3399,11 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数信息
     let functions = classInfo.instanceFunctions
     println("实例成员函数数量: ${functions.size}")
-    
+
     // 遍历所有实例成员函数
     for (funcInfo in functions) {
         println("函数名称: ${funcInfo.name}")
@@ -3409,7 +3411,7 @@ main(): Unit {
         try {
             let genericParams = funcInfo.genericParams
             println("泛型参数数量: ${genericParams.size}")
-            
+
             // 遍历泛型参数
             for (param in genericParams) {
                 println("泛型参数名称: ${param.name}")
@@ -3418,7 +3420,7 @@ main(): Unit {
             println("该函数没有泛型参数")
         }
     }
-    
+
     return
 }
 ```
@@ -3466,14 +3468,14 @@ public open class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("publicMethod")
-    
+
     // 获取修饰符信息
     let modifiers = instanceFunctionInfo.modifiers
     println("修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -3517,14 +3519,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 获取函数名称
     let name = instanceFunctionInfo.name
     println("函数名称: ${name}")
-    
+
     return
 }
 ```
@@ -3570,25 +3572,25 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
     println("实例成员函数数量: ${functions.size}")
-    
+
     // 遍历所有实例成员函数
     for (funcInfo in functions) {
         println("函数名称: ${funcInfo.name}")
-        
+
         // 获取参数信息
         let parameters = funcInfo.parameters
         println("参数数量: ${parameters.size}")
-        
+
         // 遍历参数
         for (param in parameters) {
             println("参数名称: ${param.name}")
         }
     }
-    
+
     return
 }
 ```
@@ -3634,20 +3636,20 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
     println("实例成员函数数量: ${functions.size}")
-    
+
     // 遍历所有实例成员函数
     for (funcInfo in functions) {
         println("函数名称: ${funcInfo.name}")
-        
+
         // 获取返回值类型信息
         let returnType = funcInfo.returnType
         println("返回值类型: ${returnType.name}")
     }
-    
+
     return
 }
 ```
@@ -3701,11 +3703,11 @@ import std.reflect.*
 
 public class MyClass {
     public var value: Int64 = 0
-    
+
     public func setValue(newValue: Int64): Unit {
         this.value = newValue
     }
-    
+
     public func getValue(): Int64 {
         return this.value
     }
@@ -3714,28 +3716,28 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 创建实例
     let instance = MyClass()
-    
+
     // 获取实例成员函数
     let setValueFunc = classInfo.getInstanceFunction("setValue", [PrimitiveTypeInfo.get("Int64")])
     let getValueFunc = classInfo.getInstanceFunction("getValue", [])
-    
+
     // 准备参数
     let args: Array<Any> = [42]
-    
+
     // 调用 setValue 函数
     setValueFunc.apply(instance, args)
     println("setValue 函数调用成功")
-    
+
     // 调用 getValue 函数
     let result = getValueFunc.apply(instance, [])
-        
+
     // 将结果转换为 Int64 类型
     let intResult = result as Int64
     println("getValue 函数调用结果: ${intResult}")
-    
+
     return
 }
 ```
@@ -3798,37 +3800,37 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 创建实例
     let instance = MyClass()
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
-    
+
     // 查找 genericMethod 函数
     var genericFuncOpt: Option<InstanceFunctionInfo> = None
-    
+
     for (funcInfo in functions) {
         if (funcInfo.name == "genericMethod") {
             genericFuncOpt = Some(funcInfo)
         }
     }
-    
+
     // 准备泛型参数类型列表
     let genericTypeArgs: Array<TypeInfo> = [PrimitiveTypeInfo.get("Int64")]
-    
+
     // 准备参数
     let args: Array<Any> = [42]
-    
+
     // 调用 genericMethod 函数
     if (let Some(genericFunc) <- genericFuncOpt) {
         let result = genericFunc.apply(instance, genericTypeArgs, args)
-        
+
         // 将结果转换为 Int64 类型
         let intResult = result as Int64
         println("genericMethod 函数调用结果: ${intResult}")
     }
-    
+
     return
 }
 ```
@@ -3874,18 +3876,18 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 查找所有 MyAnnotation 注解
     let myAnnotations = instanceFunctionInfo.findAllAnnotations<MyAnnotation>()
     println("MyAnnotation 注解数量: ${myAnnotations.size}")
-    
+
     // 查找所有 AnotherAnnotation 注解
     let anotherAnnotations = instanceFunctionInfo.findAllAnnotations<AnotherAnnotation>()
     println("AnotherAnnotation 注解数量: ${anotherAnnotations.size}")
-    
+
     return
 }
 
@@ -3941,26 +3943,26 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 查找 MyAnnotation 注解
     let myAnnotation = instanceFunctionInfo.findAnnotation<MyAnnotation>()
-    
+
     match (myAnnotation) {
         case Some(annotation) => println("找到了 MyAnnotation 注解")
         case None => println("未找到 MyAnnotation 注解")
     }
-    
+
     // 尝试查找不存在的注解
     let anotherAnnotation = instanceFunctionInfo.findAnnotation<AnotherAnnotation>()
-    
+
     match (anotherAnnotation) {
         case Some(annotation) => println("找到了 AnotherAnnotation 注解")
         case None => println("未找到 AnotherAnnotation 注解")
     }
-    
+
     return
 }
 
@@ -4017,14 +4019,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 获取所有注解
     let allAnnotations = instanceFunctionInfo.getAllAnnotations()
     println("注解总数: ${allAnnotations.size}")
-    
+
     return
 }
 
@@ -4078,14 +4080,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取实例成员函数信息
     let instanceFunctionInfo = classInfo.getInstanceFunction("myMethod")
-    
+
     // 获取哈希值
     let hashCode = instanceFunctionInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -4124,25 +4126,25 @@ public abstract class MyClass {
     public func method1(): Int64 {
         return 42
     }
-    
+
     public func method2(): Int64
 }
 
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取方法信息
     let func1 = classInfo.getInstanceFunction("method1")
     let func2 = classInfo.getInstanceFunction("method2")
-    
+
     // 检查是否为抽象方法
     let isAbstract1 = func1.isAbstract()
     let isAbstract2 = func2.isAbstract()
-    
+
     println("method1 是否为抽象方法: ${isAbstract1}")
     println("method2 是否为抽象方法: ${isAbstract2}")
-    
+
     return
 }
 ```
@@ -4195,18 +4197,18 @@ public open class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取方法信息
     let methodFunc1 = classInfo.getInstanceFunction("method1")
     let methodFunc2 = classInfo.getInstanceFunction("method2")
-    
+
     // 检查是否为开放方法
     let isOpen1 = methodFunc1.isOpen()
     let isOpen2 = methodFunc2.isOpen()
-    
+
     println("method1 是否为开放方法: ${isOpen1}")
     println("method2 是否为开放方法: ${isOpen2}")
-    
+
     return
 }
 ```
@@ -4251,19 +4253,19 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
-    
+
     // 遍历所有实例成员函数
     for (funcInfo in functions) {
         println("函数名称: ${funcInfo.name}")
-        
+
         // 获取字符串表示
         let str = funcInfo.toString()
         println("字符串表示: ${str}")
     }
-    
+
     return
 }
 ```
@@ -4307,7 +4309,7 @@ public class MyClass {
     public func method1(): Int64 {
         return 42
     }
-    
+
     public func method2(): Int64 {
         return 42
     }
@@ -4316,23 +4318,23 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
     let funcArray = functions.toArray()
-    
+
     // 获取两个不同的函数信息
     let func1 = funcArray[0]
     let func2 = funcArray[1]
-    
+
     // 比较两个不同的函数信息
     let result1 = func1 != func2
     println("两个不同的函数信息不相等: ${result1}")
-    
+
     // 比较相同的函数信息
     let result2 = func1 != func1
     println("相同的函数信息不相等: ${result2}")
-    
+
     return
 }
 ```
@@ -4376,7 +4378,7 @@ public class MyClass {
     public func method1(): Int64 {
         return 42
     }
-    
+
     public func method2(): Int64 {
         return 42
     }
@@ -4385,23 +4387,23 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("test.MyClass")
-    
+
     // 获取所有实例成员函数
     let functions = classInfo.instanceFunctions
     let funcArray = functions.toArray()
-    
+
     // 获取两个不同的函数信息
     let func1 = funcArray[0]
     let func2 = funcArray[1]
-    
+
     // 比较两个不同的函数信息
     let result1 = func1 == func2
     println("两个不同的函数信息相等: ${result1}")
-    
+
     // 比较相同的函数信息
     let result2 = func1 == func1
     println("相同的函数信息相等: ${result2}")
-    
+
     return
 }
 ```
@@ -4465,14 +4467,14 @@ public class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取注解信息
     let annotations = propertyInfo.annotations
     println("注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -4522,14 +4524,14 @@ public open class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取修饰符信息
     let modifiers = propertyInfo.modifiers
     println("修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -4571,14 +4573,14 @@ public class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取属性名称
     let name = propertyInfo.name
     println("属性名称: ${name}")
-    
+
     return
 }
 ```
@@ -4620,14 +4622,14 @@ public class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取类型信息
     let typeInfo = propertyInfo.typeInfo
     println("属性类型: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -4673,18 +4675,18 @@ public class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 查找所有 MyCustomAnnotation 注解
     let myAnnotations = propertyInfo.findAllAnnotations<MyCustomAnnotation>()
     println("MyCustomAnnotation 注解数量: ${myAnnotations.size}")
-    
+
     // 查找所有 AnotherAnnotation 注解
     let anotherAnnotations = propertyInfo.findAllAnnotations<AnotherAnnotation>()
     println("AnotherAnnotation 注解数量: ${anotherAnnotations.size}")
-    
+
     return
 }
 
@@ -4740,26 +4742,26 @@ public class TestClassB {
 main(): Unit {
     // 获取 TestClassB 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassB")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 查找 CustomAnnotationA 注解
     let myAnnotation = propertyInfo.findAnnotation<CustomAnnotationA>()
-    
+
     match (myAnnotation) {
         case Some(_) => println("找到了 CustomAnnotationA 注解")
         case None => println("未找到 CustomAnnotationA 注解")
     }
-    
+
     // 尝试查找不存在的注解
     let anotherAnnotation = propertyInfo.findAnnotation<CustomAnnotationB>()
-    
+
     match (anotherAnnotation) {
         case Some(_) => println("找到了 CustomAnnotationB 注解")
         case None => println("未找到 CustomAnnotationB 注解")
     }
-    
+
     return
 }
 
@@ -4816,14 +4818,14 @@ public class TestClassC {
 main(): Unit {
     // 获取 TestClassC 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassC")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取所有注解
     let allAnnotations = propertyInfo.getAllAnnotations()
     println("注解总数: ${allAnnotations.size}")
-    
+
     return
 }
 
@@ -4936,14 +4938,14 @@ public class MyTestClass {
 main(): Unit {
     // 获取 MyTestClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyTestClass")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取哈希值
     let hashCode = propertyInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -4988,18 +4990,18 @@ public abstract class TestClassD {
 main(): Unit {
     // 获取 TestClassD 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassD")
-    
+
     // 获取属性信息
     let prop1 = classInfo.getInstanceProperty("property1")
     let prop2 = classInfo.getInstanceProperty("property2")
-    
+
     // 检查是否为抽象属性
     let isAbstract1 = prop1.isAbstract()
     let isAbstract2 = prop2.isAbstract()
-    
+
     println("property1 是否为抽象属性: ${isAbstract1}")
     println("property2 是否为抽象属性: ${isAbstract2}")
-    
+
     return
 }
 ```
@@ -5102,7 +5104,7 @@ public open class TestClassF {
             42
         }
     }
-    
+
     public open prop property2: Int64 {
         get() {
             42
@@ -5113,18 +5115,18 @@ public open class TestClassF {
 main(): Unit {
     // 获取 TestClassF 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassF")
-    
+
     // 获取属性信息
     let prop1 = classInfo.getInstanceProperty("property1")
     let prop2 = classInfo.getInstanceProperty("property2")
-    
+
     // 检查是否为开放属性
     let isOpen1 = prop1.isOpen()
     let isOpen2 = prop2.isOpen()
-    
+
     println("property1 是否为开放属性: ${isOpen1}")
     println("property2 是否为开放属性: ${isOpen2}")
-    
+
     return
 }
 ```
@@ -5180,20 +5182,20 @@ public class TestClassG {
 main(): Unit {
     // 创建实例
     let instance = TestClassG()
-    
+
     // 获取 TestClassG 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassG")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 设置新值
     propertyInfo.setValue(instance, 100)
-    
+
     // 验证值是否设置成功
     let currentValue = propertyInfo.getValue(instance) as Int64
     println("当前值: ${currentValue}")
-    
+
     return
 }
 ```
@@ -5237,14 +5239,14 @@ public class TestClassH {
 main(): Unit {
     // 获取 TestClassH 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassH")
-    
+
     // 获取实例成员属性信息
     let propertyInfo = classInfo.getInstanceProperty("myProperty")
-    
+
     // 获取字符串表示
     let str = propertyInfo.toString()
     println("字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -5287,7 +5289,7 @@ public class TestClassI {
             42
         }
     }
-    
+
     public prop property2: Int64 {
         get() {
             42
@@ -5298,19 +5300,19 @@ public class TestClassI {
 main(): Unit {
     // 获取 TestClassI 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassI")
-    
+
     // 获取实例成员属性信息
     let prop1 = classInfo.getInstanceProperty("property1")
     let prop2 = classInfo.getInstanceProperty("property2")
-    
+
     // 比较两个不同的属性信息
     let result1 = prop1 != prop2
     println("两个不同的属性信息不相等: ${result1}")
-    
+
     // 比较相同的属性信息
     let result2 = prop1 != prop1
     println("相同的属性信息不相等: ${result2}")
-    
+
     return
 }
 ```
@@ -5354,7 +5356,7 @@ public class TestClassJ {
             42
         }
     }
-    
+
     public prop property2: Int64 {
         get() {
             42
@@ -5365,19 +5367,19 @@ public class TestClassJ {
 main(): Unit {
     // 获取 TestClassJ 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassJ")
-    
+
     // 获取实例成员属性信息
     let prop1 = classInfo.getInstanceProperty("property1")
     let prop2 = classInfo.getInstanceProperty("property2")
-    
+
     // 比较两个不同的属性信息
     let result1 = prop1 == prop2
     println("两个不同的属性信息相等: ${result1}")
-    
+
     // 比较相同的属性信息
     let result2 = prop1 == prop1
     println("相同的属性信息相等: ${result2}")
-    
+
     return
 }
 ```
@@ -5437,14 +5439,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyClass")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取注解信息
     let annotations = variableInfo.annotations
     println("注解数量: ${annotations.size}")
-    
+
     return
 }
 
@@ -5490,14 +5492,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyClass")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取修饰符信息
     let modifiers = variableInfo.modifiers
     println("修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -5535,14 +5537,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyClass")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取变量名称
     let name = variableInfo.name
     println("变量名称: ${name}")
-    
+
     return
 }
 ```
@@ -5580,14 +5582,14 @@ public class MyClass {
 main(): Unit {
     // 获取 MyClass 类型信息
     let classInfo = ClassTypeInfo.get("default.MyClass")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取类型信息
     let typeInfo = variableInfo.typeInfo
     println("变量类型: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -5629,18 +5631,18 @@ public class TestClassA {
 main(): Unit {
     // 获取 TestClassA 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassA")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 查找所有 CustomAnnotationA 注解
     let annotationsA = variableInfo.findAllAnnotations<CustomAnnotationA>()
     println("CustomAnnotationA 注解数量: ${annotationsA.size}")
-    
+
     // 查找所有 CustomAnnotationB 注解
     let annotationsB = variableInfo.findAllAnnotations<CustomAnnotationB>()
     println("CustomAnnotationB 注解数量: ${annotationsB.size}")
-    
+
     return
 }
 
@@ -5692,26 +5694,26 @@ public class TestClassB {
 main(): Unit {
     // 获取 TestClassB 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassB")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 查找 AnnotationX 注解
     let annotationX = variableInfo.findAnnotation<AnnotationX>()
-    
+
     match (annotationX) {
         case Some(_) => println("找到了 AnnotationX 注解")
         case None => println("未找到 AnnotationX 注解")
     }
-    
+
     // 尝试查找不存在的注解
     let annotationY = variableInfo.findAnnotation<AnnotationY>()
-    
+
     match (annotationY) {
         case Some(_) => println("找到了 AnnotationY 注解")
         case None => println("未找到 AnnotationY 注解")
     }
-    
+
     return
 }
 
@@ -5764,14 +5766,14 @@ public class TestClassC {
 main(): Unit {
     // 获取 TestClassC 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassC")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取所有注解
     let allAnnotations = variableInfo.getAllAnnotations()
     println("注解总数: ${allAnnotations.size}")
-    
+
     return
 }
 
@@ -5830,21 +5832,21 @@ public class TestClassGetValue {
 main(): Unit {
     // 创建实例
     let instance = TestClassGetValue()
-    
+
     // 获取 TestClassGetValue 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassGetValue")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
     let immutableVarInfo = classInfo.getInstanceVariable("immutableVar")
-    
+
     // 获取变量值
     let value = variableInfo.getValue(instance) as Int64
     let immutableValue = immutableVarInfo.getValue(instance) as String
-    
+
     println("myVariable 的值: ${value}")
     println("immutableVar 的值: ${immutableValue}")
-    
+
     return
 }
 ```
@@ -5885,14 +5887,14 @@ public class TestClassD {
 main(): Unit {
     // 获取 TestClassD 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassD")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取哈希值
     let hashCode = variableInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -5935,18 +5937,18 @@ public class TestClassE {
 main(): Unit {
     // 获取 TestClassE 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassE")
-    
+
     // 获取变量信息
     let mutableVar = classInfo.getInstanceVariable("mutableVariable")
     let immutableVar = classInfo.getInstanceVariable("immutableVariable")
-    
+
     // 检查是否可修改
     let isMutable1 = mutableVar.isMutable()
     let isMutable2 = immutableVar.isMutable()
-    
+
     println("mutableVariable 是否可修改: ${isMutable1}")
     println("immutableVariable 是否可修改: ${isMutable2}")
-    
+
     return
 }
 ```
@@ -5994,20 +5996,20 @@ public class TestClassF {
 main(): Unit {
     // 创建实例
     let instance = TestClassF()
-    
+
     // 获取 TestClassF 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassF")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 设置新值
     variableInfo.setValue(instance, 100)
-    
+
     // 验证值是否设置成功
     let currentValue = variableInfo.getValue(instance) as Int64
     println("当前值: ${currentValue}")
-    
+
     return
 }
 ```
@@ -6047,14 +6049,14 @@ public class TestClassG {
 main(): Unit {
     // 获取 TestClassG 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassG")
-    
+
     // 获取实例成员变量信息
     let variableInfo = classInfo.getInstanceVariable("myVariable")
-    
+
     // 获取字符串表示
     let str = variableInfo.toString()
     println("字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -6099,19 +6101,19 @@ public class TestClassH {
 main(): Unit {
     // 获取 TestClassH 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassH")
-    
+
     // 获取实例成员变量信息
     let var1 = classInfo.getInstanceVariable("variable1")
     let var2 = classInfo.getInstanceVariable("variable2")
-    
+
     // 比较两个不同的变量信息
     let result1 = var1 != var2
     println("两个不同的变量信息不相等: ${result1}")
-    
+
     // 比较相同的变量信息
     let result2 = var1 != var1
     println("相同的变量信息不相等: ${result2}")
-    
+
     return
 }
 ```
@@ -6157,19 +6159,19 @@ public class TestClassI {
 main(): Unit {
     // 获取 TestClassI 类型信息
     let classInfo = ClassTypeInfo.get("default.TestClassI")
-    
+
     // 获取实例成员变量信息
     let var1 = classInfo.getInstanceVariable("variable1")
     let var2 = classInfo.getInstanceVariable("variable2")
-    
+
     // 比较两个不同的变量信息
     let result1 = var1 == var2
     println("两个不同的变量信息相等: ${result1}")
-    
+
     // 比较相同的变量信息
     let result2 = var1 == var1
     println("相同的变量信息相等: ${result2}")
-    
+
     return
 }
 ```
@@ -6220,7 +6222,7 @@ public prop sealedSubtypes: Collection<TypeInfo>
 import std.reflect.*
 
 // 创建一个sealed接口
-public sealed interface Shape {}
+sealed interface Shape {}
 
 // 创建实现该接口的类
 public class Circle <: Shape {
@@ -6234,16 +6236,16 @@ public class Square <: Shape {
 main(): Unit {
     // 获取接口类型信息
     let shapeType = InterfaceTypeInfo.get("default.Shape")
-    
+
     // 获取sealed子类型信息
     let subtypes = shapeType.sealedSubtypes
     println("sealed子类型数量: ${subtypes.size}")
-    
+
     // 遍历并打印所有sealed子类型
     for (subtype in subtypes) {
         println("子类型: ${subtype.name}")
     }
-    
+
     return
 }
 ```
@@ -6345,11 +6347,11 @@ public class Point <: Drawable {
 main(): Unit {
     // 创建实例
     let point: Drawable = Point()
-    
+
     // 获取实例的运行时类型信息
     let runtimeType = InterfaceTypeInfo.of(point)
     println("运行时类型: ${runtimeType.name}")
-    
+
     return
 }
 ```
@@ -6393,7 +6395,7 @@ main(): Unit {
     // 通过泛型获取接口类型信息
     let drawableType = InterfaceTypeInfo.of<Drawable>()
     println("Drawable接口的类型信息: ${drawableType.name}")
-    
+
     return
 }
 ```
@@ -6427,16 +6429,16 @@ public func isSealed(): Bool
 import std.reflect.*
 
 // 创建一个sealed接口
-public sealed interface Shape {}
+sealed interface Shape {}
 
 main(): Unit {
     // 获取接口类型信息
     let shapeType = InterfaceTypeInfo.get("default.Shape")
-    
+
     // 检查是否为sealed接口
     let isSealed = shapeType.isSealed()
     println("Shape接口是否为sealed: ${isSealed}")
-    
+
     return
 }
 ```
@@ -6494,11 +6496,11 @@ public var testVariable2: String = "Hello"
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取包中的全局变量信息
     let variables = packageInfo.variables
     println("全局变量数量: ${variables.size}")
-    
+
     return
 }
 ```
@@ -6542,11 +6544,11 @@ public func testFunction2(x: Int64): Int64 {
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取包中的全局函数信息
     let functions = packageInfo.functions
     println("全局函数数量: ${functions.size}")
-    
+
     return
 }
 ```
@@ -6582,11 +6584,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取包名称
     let name = packageInfo.name
     println("包名称: ${name}")
-    
+
     return
 }
 ```
@@ -6622,11 +6624,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取包的组织名称
     let orgName = packageInfo.organizationName
     println("组织名称: '${orgName}'")
-    
+
     return
 }
 ```
@@ -6660,11 +6662,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取父包信息
     let parentPackage = packageInfo.parentPackage
     println("父包名称: ${parentPackage.name}")
-    
+
     return
 }
 ```
@@ -6705,11 +6707,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取包限定名称
     let qualifiedName = packageInfo.qualifiedName
     println("包限定名称: ${qualifiedName}")
-    
+
     return
 }
 ```
@@ -6744,11 +6746,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取根包信息
     let rootPackage = packageInfo.rootPackage
     println("根包名称: ${rootPackage.name}")
-    
+
     return
 }
 ```
@@ -6788,11 +6790,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取子包信息
     let subPackages = packageInfo.subPackages
     println("子包数量: ${subPackages.size}")
-    
+
     return
 }
 ```
@@ -6826,20 +6828,21 @@ package abc.test
 import std.reflect.*
 
 public class A {}
+
 public interface B {}
+
 public struct C {}
 
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取类型信息
     let typeInfos = packageInfo.typeInfos
     println("类型数量: ${typeInfos.size}")
-    
+
     return
 }
-
 ```
 
 运行结果：
@@ -6871,11 +6874,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取版本信息
     let version = packageInfo.version
     println("版本: '${version}'")
-    
+
     return
 }
 ```
@@ -6923,7 +6926,7 @@ main(): Unit {
     let packageInfo = PackageInfo.get("abc.test")
     println("包名称: ${packageInfo.name}")
     println("包限定名称: ${packageInfo.qualifiedName}")
-    
+
     return
 }
 ```
@@ -6978,7 +6981,7 @@ main(): Unit {
     } catch (e: IllegalArgumentException) {
         println("加载失败: ${e.message}")
     }
-    
+
     println("这里仅展示使用方法")
     return
 }
@@ -7031,12 +7034,12 @@ public func addNumbers(a: Int64, b: Int64): Int64 {
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     let intType: TypeInfo = PrimitiveTypeInfo.get("Int64")
     let paramTypes = [intType, intType]
     let functionInfo = packageInfo.getFunction("addNumbers", paramTypes)
     println("函数: ${functionInfo}")
-    
+
     return
 }
 ```
@@ -7087,11 +7090,11 @@ public func process(x: String): String {
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取所有名为process的函数
     let functions = packageInfo.getFunctions("process")
     println("名为process的函数数量: ${functions.size}")
-    
+
     return
 }
 ```
@@ -7138,7 +7141,7 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.parent")
-    
+
     // 尝试获取子包（这里会抛出异常，因为我们没有创建子包）
     try {
         let subPackage = packageInfo.getSubPackage("child")
@@ -7146,7 +7149,7 @@ main(): Unit {
     } catch (e: InfoNotFoundException) {
         println("子包未找到")
     }
-    
+
     return
 }
 ```
@@ -7197,11 +7200,11 @@ public class TestClass {
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取类型信息
     let typeInfo = packageInfo.getTypeInfo("abc.test.TestClass")
     println("类型名称: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -7250,11 +7253,11 @@ public var testVariable: Int64 = 42
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("abc.test")
-    
+
     // 获取特定变量的信息
     let variableInfo = packageInfo.getVariable("testVariable")
     println("变量名称: ${variableInfo.name}")
-    
+
     return
 }
 ```
@@ -7290,11 +7293,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取包信息的哈希值
     let hashCode = packageInfo.hashCode()
     println("包信息的哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -7331,11 +7334,11 @@ import std.reflect.*
 main(): Unit {
     // 获取当前包的信息
     let packageInfo = PackageInfo.get("default")
-    
+
     // 获取包信息的字符串表示
     let str = packageInfo.toString()
     println("包信息的字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -7377,11 +7380,11 @@ main(): Unit {
     // 获取当前包的信息
     let packageInfo1 = PackageInfo.get("default")
     let packageInfo2 = PackageInfo.get("default")
-    
+
     // 比较两个包信息是否不等
     let result = packageInfo1 != packageInfo2
     println("两个包信息不等: ${result}")
-    
+
     return
 }
 ```
@@ -7423,11 +7426,11 @@ main(): Unit {
     // 获取当前包的信息
     let packageInfo1 = PackageInfo.get("default")
     let packageInfo2 = PackageInfo.get("default")
-    
+
     // 比较两个包信息是否相等
     let result = packageInfo1 == packageInfo2
     println("两个包信息相等: ${result}")
-    
+
     return
 }
 ```
@@ -7493,18 +7496,18 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("testFunction")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let annotations = paramInfo.annotations
             println("参数注解数量: ${annotations.size}")
         }
     }
-    
+
     return
 }
 ```
@@ -7545,16 +7548,16 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("testFunction")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         for (param in parameters) {
             println("参数名称: ${param.name}, 索引: ${param.index}")
         }
     }
-    
+
     return
 }
 ```
@@ -7596,16 +7599,16 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("calculateSum")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         for (param in parameters) {
             println("参数名称: ${param.name}")
         }
     }
-    
+
     return
 }
 ```
@@ -7646,16 +7649,16 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("processData")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         for (param in parameters) {
             println("参数名称: ${param.name}, 类型: ${param.typeInfo.name}")
         }
     }
-    
+
     return
 }
 ```
@@ -7702,7 +7705,11 @@ public class SecondAnnotation {
 }
 
 // 定义一个带多个注解的函数参数用于演示
-public func testFunction(@FirstAnnotation @SecondAnnotation value: Int64): Int64 {
+public func testFunction(
+    @FirstAnnotation
+    @SecondAnnotation
+    value: Int64
+): Int64 {
     return value
 }
 
@@ -7710,21 +7717,21 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("testFunction")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let firstAnnotations = paramInfo.findAllAnnotations<FirstAnnotation>()
             let secondAnnotations = paramInfo.findAllAnnotations<SecondAnnotation>()
-            
+
             println("FirstAnnotation注解数量: ${firstAnnotations.size}")
             println("SecondAnnotation注解数量: ${secondAnnotations.size}")
         }
     }
-    
+
     return
 }
 ```
@@ -7773,22 +7780,22 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("testFunction")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let annotation = paramInfo.findAnnotation<MyAnnotation>()
-            
+
             match (annotation) {
                 case Some(_) => println("找到了MyAnnotation注解")
                 case None => println("未找到MyAnnotation注解")
             }
         }
     }
-    
+
     return
 }
 ```
@@ -7833,7 +7840,11 @@ public class SecondAnnotation {
 }
 
 // 定义一个带多个注解的函数参数用于演示
-public func testFunction(@FirstAnnotation @SecondAnnotation value: Int64): Int64 {
+public func testFunction(
+    @FirstAnnotation
+    @SecondAnnotation
+    value: Int64
+): Int64 {
     return value
 }
 
@@ -7841,20 +7852,20 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("testFunction")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let allAnnotations = paramInfo.getAllAnnotations()
-            
+
             println("总注解数量: ${allAnnotations.size}")
             println("成功获取所有注解")
         }
     }
-    
+
     return
 }
 ```
@@ -7897,19 +7908,19 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("calculate")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let hashCode = paramInfo.hashCode()
-            
+
             println("参数信息的哈希值: ${hashCode}")
         }
     }
-    
+
     return
 }
 ```
@@ -7951,19 +7962,19 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("calculate")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let paramInfo = parameters[0]
             let str = paramInfo.toString()
-            
+
             println("参数信息的字符串表示: ${str}")
         }
     }
-    
+
     return
 }
 ```
@@ -8009,20 +8020,20 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("calculate")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size >= 2) {
             let param1 = parameters[0]
             let param2 = parameters[1]
             let result = param1 != param2
-            
+
             println("两个参数不等: ${result}")
         }
     }
-    
+
     return
 }
 ```
@@ -8068,20 +8079,20 @@ main(): Unit {
     // 获取函数信息
     let packageInfo = PackageInfo.get("default")
     let functions = packageInfo.getFunctions("calculate")
-    
+
     if (functions.size > 0) {
         let functionInfo = functions[0]
         let parameters = functionInfo.parameters
-        
+
         if (parameters.size > 0) {
             let param1 = parameters[0]
             let param2 = parameters[0]
             let result = param1 == param2
-            
+
             println("两个参数相等: ${result}")
         }
     }
-    
+
     return
 }
 ```
@@ -8301,14 +8312,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
         let annotations = staticFunction.annotations
         println("静态函数注解数量: ${annotations.size}")
     }
-    
+
     return
 }
 ```
@@ -8355,7 +8366,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8369,7 +8380,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8415,7 +8426,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8425,7 +8436,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8469,13 +8480,13 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
         println("静态函数名称: ${staticFunction.name}")
     }
-    
+
     return
 }
 ```
@@ -8519,21 +8530,21 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
         if (staticFunction.name == "processData") {
             let parameters = staticFunction.parameters
             println("参数数量: ${parameters.size}")
-            
+
             for (param in parameters) {
                 println("参数名称: ${param.name}, 类型: ${param.typeInfo.name}")
             }
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8578,7 +8589,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8588,7 +8599,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8714,21 +8725,21 @@ public class GenericClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.GenericClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     var staticFunction: ?StaticFunctionInfo = None
-    
+
     for (sf in staticFunctions) {
         if (sf.name == "process") {
             staticFunction = sf
             break
         }
     }
-    
+
     // 准备参数
     let stringTypeInfo = TypeInfo.get("std.core.String")
-    
+
     // 调用带有泛型参数的函数
     try {
         let genericClass = GenericClass()
@@ -8738,7 +8749,7 @@ main(): Unit {
     } catch (e: Exception) {
         println("调用失败: ${e.message}")
     }
-    
+
     return
 }
 ```
@@ -8797,7 +8808,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8807,7 +8818,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8859,7 +8870,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8873,7 +8884,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8932,7 +8943,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8942,7 +8953,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -8987,7 +8998,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -8997,7 +9008,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -9042,7 +9053,7 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions
     for (staticFunction in staticFunctions) {
@@ -9052,7 +9063,7 @@ main(): Unit {
             break
         }
     }
-    
+
     return
 }
 ```
@@ -9096,7 +9107,7 @@ public class TestClass {
     public static func func1(): String {
         return "Function 1"
     }
-    
+
     public static func func2(): Int64 {
         return 42
     }
@@ -9105,12 +9116,12 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions.toArray()
 
     println("两个StaticFunctionInfo对象不相等: ${staticFunctions[0] != staticFunctions[1]}")
-    
+
     return
 }
 ```
@@ -9159,12 +9170,12 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态函数信息
     let staticFunctions = classInfo.staticFunctions.toArray()
 
     println("两个StaticFunctionInfo对象相等: ${staticFunctions[0] == staticFunctions[0]}")
-    
+
     return
 }
 ```
@@ -9227,21 +9238,23 @@ public class MyAnnotation {
 public class TestClass {
     @MyAnnotation
     public static prop testProperty: String {
-        get() { "test value" }
+        get() {
+            "test value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("testProperty")
-    
+
     // 获取注解数量
     let annotations = staticProperty.annotations
     println("静态属性注解数量: ${annotations.size}")
-    
+
     return
 }
 ```
@@ -9280,25 +9293,29 @@ import std.reflect.*
 // 定义一个带修饰符的类和静态属性用于演示
 public class TestClass {
     public static prop publicProperty: String {
-        get() { "public value" }
+        get() {
+            "public value"
+        }
     }
-    
+
     private static prop privateProperty: String {
-        get() { "private value" }
+        get() {
+            "private value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("publicProperty")
-    
+
     // 获取修饰符数量
     let modifiers = staticProperty.modifiers
     println("公共静态属性修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -9334,20 +9351,22 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop propertyName: String {
-        get() { "property value" }
+        get() {
+            "property value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("propertyName")
-    
+
     // 获取属性名称
     println("静态属性名称: ${staticProperty.name}")
-    
+
     return
 }
 ```
@@ -9383,25 +9402,29 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop stringValue: String {
-        get() { "string value" }
+        get() {
+            "string value"
+        }
     }
-    
+
     public static prop intValue: Int64 {
-        get() { 42 }
+        get() {
+            42
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("stringValue")
-    
+
     // 获取属性类型信息
     let typeInfo = staticProperty.typeInfo
     println("静态属性类型: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -9452,21 +9475,23 @@ public class TestClass {
     @MyAnnotation
     @AnotherAnnotation
     public static prop annotatedProperty: String {
-        get() { "annotated value" }
+        get() {
+            "annotated value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("annotatedProperty")
-    
+
     // 查找所有指定类型的注解
     let myAnnotations = staticProperty.findAllAnnotations<MyAnnotation>()
     println("MyAnnotation注解数量: ${myAnnotations.size}")
-    
+
     return
 }
 ```
@@ -9511,17 +9536,19 @@ public class MyAnnotation {
 public class TestClass {
     @MyAnnotation
     public static prop annotatedProperty: String {
-        get() { "annotated value" }
+        get() {
+            "annotated value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("annotatedProperty")
-    
+
     // 查找指定类型的注解
     let annotation = staticProperty.findAnnotation<MyAnnotation>()
     if (annotation.isSome()) {
@@ -9529,7 +9556,7 @@ main(): Unit {
     } else {
         println("未找到MyAnnotation注解")
     }
-    
+
     return
 }
 ```
@@ -9580,21 +9607,23 @@ public class TestClass {
     @MyAnnotation
     @AnotherAnnotation
     public static prop annotatedProperty: String {
-        get() { "annotated value" }
+        get() {
+            "annotated value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("annotatedProperty")
-    
+
     // 获取所有注解
     let allAnnotations = staticProperty.getAllAnnotations()
     println("总注解数量: ${allAnnotations.size}")
-    
+
     return
 }
 ```
@@ -9632,10 +9661,14 @@ import std.reflect.*
 
 public class Rectangular {
     public static prop sides: Int64 {
-        get() { 4 }
+        get() {
+            4
+        }
     }
     public static prop angles: Int64 {
-        get() { 4 }
+        get() {
+            4
+        }
     }
 }
 
@@ -9685,21 +9718,23 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop testProperty: String {
-        get() { "test value" }
+        get() {
+            "test value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("testProperty")
-    
+
     // 获取哈希值
     let hash = staticProperty.hashCode()
     println("静态属性哈希值: ${hash}")
-    
+
     return
 }
 ```
@@ -9741,29 +9776,33 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop immutableProperty: String {
-        get() { "immutable value" }
+        get() {
+            "immutable value"
+        }
     }
-    
+
     public static mut prop mutableProperty: String {
-        get() { "mutable value" }
-        set(v) {  }
+        get() {
+            "mutable value"
+        }
+        set(v) {}
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取不可变静态属性信息
     let immutableProperty = classInfo.getStaticProperty("immutableProperty")
     let isImmutableMutable = immutableProperty.isMutable()
     println("不可变属性是否可修改: ${isImmutableMutable}")
-    
+
     // 获取可变静态属性信息
     let mutableProperty = classInfo.getStaticProperty("mutableProperty")
     let isMutableMutable = mutableProperty.isMutable()
     println("可变属性是否可修改: ${isMutableMutable}")
-    
+
     return
 }
 ```
@@ -9808,8 +9847,12 @@ import std.reflect.*
 public class Rectangular {
     private static var valueArea = 0
     public static mut prop area: Int64 {
-        get() { valueArea }
-        set(v) { valueArea = v }
+        get() {
+            valueArea
+        }
+        set(v) {
+            valueArea = v
+        }
     }
 }
 
@@ -9861,21 +9904,23 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop testProperty: String {
-        get() { "test value" }
+        get() {
+            "test value"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let staticProperty = classInfo.getStaticProperty("testProperty")
-    
+
     // 获取字符串表示
     let str = staticProperty.toString()
     println("静态属性字符串表示: ${str}")
-    
+
     return
 }
 ```
@@ -9917,26 +9962,30 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop property1: String {
-        get() { "value1" }
+        get() {
+            "value1"
+        }
     }
-    
+
     public static prop property2: Int64 {
-        get() { 42 }
+        get() {
+            42
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let property1 = classInfo.getStaticProperty("property1")
     let property2 = classInfo.getStaticProperty("property2")
-    
+
     // 比较两个静态属性信息是否不相等
     let result = property1 != property2
     println("两个静态属性不相等: ${result}")
-    
+
     return
 }
 ```
@@ -9978,21 +10027,23 @@ import std.reflect.*
 // 定义一个类和静态属性用于演示
 public class TestClass {
     public static prop property1: String {
-        get() { "value1" }
+        get() {
+            "value1"
+        }
     }
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态属性信息
     let property1 = classInfo.getStaticProperty("property1")
-    
+
     // 比较两个静态属性信息是否相等
     let result = property1 == property1
     println("同一个静态属性相等: ${result}")
-    
+
     return
 }
 ```
@@ -10060,14 +10111,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("testVariable")
-    
+
     // 获取注解数量
     let annotations = staticVariable.annotations
     println("静态变量注解数量: ${annotations.size}")
-    
+
     return
 }
 ```
@@ -10106,21 +10157,21 @@ import std.reflect.*
 // 定义一个带修饰符的类和静态变量用于演示
 public class TestClass {
     public static var publicVariable: String = "public value"
-    
+
     private static var privateVariable: String = "private value"
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("publicVariable")
-    
+
     // 获取修饰符数量
     let modifiers = staticVariable.modifiers
     println("公共静态变量修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -10161,13 +10212,13 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("variableName")
-    
+
     // 获取变量名称
     println("静态变量名称: ${staticVariable.name}")
-    
+
     return
 }
 ```
@@ -10203,21 +10254,21 @@ import std.reflect.*
 // 定义一个类和静态变量用于演示
 public class TestClass {
     public static var stringValue: String = "string value"
-    
+
     public static var intValue: Int64 = 42
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("stringValue")
-    
+
     // 获取变量类型信息
     let typeInfo = staticVariable.typeInfo
     println("静态变量类型: ${typeInfo.name}")
-    
+
     return
 }
 ```
@@ -10273,14 +10324,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("annotatedVariable")
-    
+
     // 查找所有指定类型的注解
     let myAnnotations = staticVariable.findAllAnnotations<MyAnnotation>()
     println("MyAnnotation注解数量: ${myAnnotations.size}")
-    
+
     return
 }
 ```
@@ -10330,17 +10381,17 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("annotatedVariable")
-    
+
     // 查找指定类型的注解
     let annotation = staticVariable.findAnnotation<MyAnnotation>()
     match (annotation) {
         case Some(_) => println("找到了MyAnnotation注解")
         case None => println("未找到MyAnnotation注解")
     }
-    
+
     return
 }
 ```
@@ -10396,14 +10447,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("annotatedVariable")
-    
+
     // 获取所有注解
     let allAnnotations = staticVariable.getAllAnnotations()
     println("所有注解数量: ${allAnnotations.size}")
-    
+
     return
 }
 ```
@@ -10492,14 +10543,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("testVariable")
-    
+
     // 获取哈希值
     let hashValue = staticVariable.hashCode()
     println("静态变量信息的哈希值: ${hashValue}")
-    
+
     return
 }
 ```
@@ -10539,24 +10590,24 @@ import std.reflect.*
 // 定义一个类和静态变量用于演示
 public class TestClass {
     public static var mutableVariable: String = "mutable value"
-    
+
     public static let immutableVariable: String = "immutable value"
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取可变静态变量信息
     let mutableStaticVariable = classInfo.getStaticVariable("mutableVariable")
     let isMutable = mutableStaticVariable.isMutable()
     println("可变静态变量: ${isMutable}")
-    
+
     // 获取不可变静态变量信息
     let immutableStaticVariable = classInfo.getStaticVariable("immutableVariable")
     let isImmutableMutable = immutableStaticVariable.isMutable()
     println("不可变静态变量: ${isImmutableMutable}")
-    
+
     return
 }
 ```
@@ -10653,14 +10704,14 @@ public class TestClass {
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable = classInfo.getStaticVariable("testVariable")
-    
+
     // 获取字符串表示
     let strRepresentation = staticVariable.toString()
     println("静态变量信息的字符串表示: ${strRepresentation}")
-    
+
     return
 }
 ```
@@ -10702,26 +10753,26 @@ import std.reflect.*
 // 定义一个类和静态变量用于演示
 public class TestClass {
     public static var variable1: String = "value1"
-    
+
     public static var variable2: String = "value2"
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable1 = classInfo.getStaticVariable("variable1")
     let staticVariable2 = classInfo.getStaticVariable("variable2")
-    
+
     // 比较两个静态变量信息是否不等
     let result = staticVariable1 != staticVariable2
     println("两个静态变量不相等: ${result}")
-    
+
     // 比较同一个静态变量信息
     let sameResult = staticVariable1 != staticVariable1
     println("同一个静态变量不相等: ${sameResult}")
-    
+
     return
 }
 ```
@@ -10764,26 +10815,26 @@ import std.reflect.*
 // 定义一个类和静态变量用于演示
 public class TestClass {
     public static var variable1: String = "value1"
-    
+
     public static var variable2: String = "value2"
 }
 
 main(): Unit {
     // 获取类信息
     let classInfo = ClassTypeInfo.get("test.TestClass")
-    
+
     // 获取静态变量信息
     let staticVariable1 = classInfo.getStaticVariable("variable1")
     let staticVariable2 = classInfo.getStaticVariable("variable2")
-    
+
     // 比较两个静态变量信息是否相等
     let result = staticVariable1 == staticVariable2
     println("两个静态变量相等: ${result}")
-    
+
     // 比较同一个静态变量信息
     let sameResult = staticVariable1 == staticVariable1
     println("同一个静态变量相等: ${sameResult}")
-    
+
     return
 }
 ```
@@ -10860,9 +10911,9 @@ import std.reflect.*
 
 public struct TestStruct {
     public var value: Int64 = 0
-    
+
     public init() {}
-    
+
     public init(value: Int64) {
         this.value = value
     }
@@ -10871,11 +10922,11 @@ public struct TestStruct {
 main(): Unit {
     // 获取结构体类型信息
     let structTypeInfo = StructTypeInfo.of<TestStruct>()
-    
+
     // 获取构造函数信息
     let constructors = structTypeInfo.constructors
     println("构造函数数量: ${constructors.size}")
-    
+
     return
 }
 ```
@@ -10919,11 +10970,11 @@ public struct TestStruct {
 main(): Unit {
     // 获取结构体类型信息
     let structTypeInfo = StructTypeInfo.of<TestStruct>()
-    
+
     // 获取实例成员变量信息
     let instanceVariables = structTypeInfo.instanceVariables
     println("实例成员变量数量: ${instanceVariables.size}")
-    
+
     return
 }
 ```
@@ -10967,11 +11018,11 @@ public struct TestStruct {
 main(): Unit {
     // 获取结构体类型信息
     let structTypeInfo = StructTypeInfo.of<TestStruct>()
-    
+
     // 获取静态成员变量信息
     let staticVariables = structTypeInfo.staticVariables
     println("静态成员变量数量: ${staticVariables.size}")
-    
+
     return
 }
 ```
@@ -11212,9 +11263,9 @@ import std.reflect.*
 
 public struct TestStruct {
     public var value: Int64 = 0
-    
+
     public init() {}
-    
+
     public init(value: Int64) {
         this.value = value
     }
@@ -11223,12 +11274,12 @@ public struct TestStruct {
 main(): Unit {
     // 获取结构体类型信息
     let structTypeInfo = StructTypeInfo.of<TestStruct>()
-    
+
     // 获取构造函数信息
     let int64TypeInfo = PrimitiveTypeInfo.get("Int64")
     let constructor = structTypeInfo.getConstructor([int64TypeInfo])
     println(constructor)
-    
+
     return
 }
 ```
@@ -11409,11 +11460,11 @@ public class TestClass {}
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取注解信息
     let annotations = typeInfo.annotations
     println("注解数量: ${annotations.size}")
-    
+
     return
 }
 ```
@@ -11453,7 +11504,7 @@ public class TestClass {
     public func publicMethod(): Int64 {
         return 42
     }
-    
+
     private func privateMethod(): Int64 {
         return 24
     }
@@ -11462,11 +11513,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取实例函数信息
     let instanceFunctions = typeInfo.instanceFunctions
     println("公共实例函数数量: ${instanceFunctions.size}")
-    
+
     return
 }
 ```
@@ -11505,20 +11556,22 @@ import std.reflect.*
 public class TestClass {
     public var publicVar: Int64 = 10
     public prop publicProp: Int64 {
-        get() { 20 }
+        get() {
+            20
+        }
     }
-    
+
     private var privateVar: Int64 = 30
 }
 
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取实例属性信息
     let instanceProperties = typeInfo.instanceProperties
     println("公共实例属性数量: ${instanceProperties.size}")
-    
+
     return
 }
 ```
@@ -11562,11 +11615,11 @@ public open class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取修饰符信息
     let modifiers = typeInfo.modifiers
     println("修饰符数量: ${modifiers.size}")
-    
+
     return
 }
 ```
@@ -11608,11 +11661,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取类型名称
     let name = typeInfo.name
     println("类型名称: ${name}")
-    
+
     return
 }
 ```
@@ -11655,11 +11708,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取限定名称
     let qualifiedName = typeInfo.qualifiedName
     println("限定名称: ${qualifiedName}")
-    
+
     return
 }
 ```
@@ -11699,7 +11752,7 @@ public class TestClass {
     public static func publicStaticMethod(): Int64 {
         return 42
     }
-    
+
     private static func privateStaticMethod(): Int64 {
         return 24
     }
@@ -11708,11 +11761,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取静态函数信息
     let staticFunctions = typeInfo.staticFunctions
     println("公共静态函数数量: ${staticFunctions.size}")
-    
+
     return
 }
 ```
@@ -11751,20 +11804,22 @@ import std.reflect.*
 public class TestClass {
     public static var publicStaticVar: Int64 = 10
     public static prop publicStaticProp: Int64 {
-        get() { 20 }
+        get() {
+            20
+        }
     }
-    
+
     private static var privateStaticVar: Int64 = 30
 }
 
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取静态属性信息
     let staticProperties = typeInfo.staticProperties
     println("公共静态属性数量: ${staticProperties.size}")
-    
+
     return
 }
 ```
@@ -11807,7 +11862,7 @@ public class TestClass <: MyInterface {}
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取父接口信息
     let superInterfaces = typeInfo.superInterfaces.toArray()
     for (superInterface in superInterfaces) {
@@ -12059,11 +12114,11 @@ public class TestClass {}
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 查找所有指定类型的注解
     let myAnnotations = typeInfo.findAllAnnotations<MyAnnotation>()
     println("MyAnnotation注解数量: ${myAnnotations.size}")
-    
+
     return
 }
 ```
@@ -12111,14 +12166,14 @@ public class TestClass {}
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 查找指定类型的注解
     let annotation: ?MyAnnotation = typeInfo.findAnnotation<MyAnnotation>()
     match (annotation) {
         case Some(_) => println("找到了MyAnnotation注解")
         case None => println("未找到MyAnnotation注解")
     }
-    
+
     return
 }
 ```
@@ -12172,11 +12227,11 @@ public class TestClass {}
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取所有注解
     let allAnnotations = typeInfo.getAllAnnotations()
     println("所有注解数量: ${allAnnotations.size}")
-    
+
     return
 }
 ```
@@ -12384,19 +12439,19 @@ package test
 import std.reflect.*
 
 public class MyClass {
-    public static func myFunc(): String { 
-        "Hello World" 
+    public static func myFunc(): String {
+        "Hello World"
     }
-    
-    public static func myFuncWithParam(value: Int64): String { 
-        "Hello ${value}" 
+
+    public static func myFuncWithParam(value: Int64): String {
+        "Hello ${value}"
     }
 }
 
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.get("test.MyClass")
-    
+
     // 获取带参数静态函数信息
     // 通过已有函数的参数类型来获取类型信息
     let function = typeInfo.getStaticFunction("myFuncWithParam", [PrimitiveTypeInfo.get("Int64")])
@@ -12440,7 +12495,9 @@ package test
 import std.reflect.*
 
 public class Rectangular {
-    public static func myName(): String { "" }
+    public static func myName(): String {
+        ""
+    }
 }
 
 main(): Unit {
@@ -12496,8 +12553,12 @@ import std.reflect.*
 public class Rectangular {
     private static var valueArea = 0
     public static mut prop area: Int64 {
-        get() { valueArea }
-        set(v) { valueArea = v }
+        get() {
+            valueArea
+        }
+        set(v) {
+            valueArea = v
+        }
     }
 }
 
@@ -12551,11 +12612,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取哈希值
     let hashCode = typeInfo.hashCode()
     println("哈希值: ${hashCode}")
-    
+
     return
 }
 ```
@@ -12645,11 +12706,11 @@ public class TestClass {
 main(): Unit {
     // 获取类型信息
     let typeInfo = TypeInfo.of<TestClass>()
-    
+
     // 获取字符串表示
     let strRepresentation = typeInfo.toString()
     println("字符串表示: ${strRepresentation}")
-    
+
     return
 }
 ```
@@ -12700,15 +12761,15 @@ main(): Unit {
     // 获取类型信息
     let typeInfo1 = TypeInfo.of<TestClass1>()
     let typeInfo2 = TypeInfo.of<TestClass2>()
-    
+
     // 比较两个类型信息是否不等
     let result = typeInfo1 != typeInfo2
     println("两个类型信息不等: ${result}")
-    
+
     // 比较同一个类型信息
     let sameResult = typeInfo1 != typeInfo1
     println("同一个类型信息不等: ${sameResult}")
-    
+
     return
 }
 ```
@@ -12760,15 +12821,15 @@ main(): Unit {
     // 获取类型信息
     let typeInfo1 = TypeInfo.of<TestClass1>()
     let typeInfo2 = TypeInfo.of<TestClass2>()
-    
+
     // 比较两个类型信息是否相等
     let result = typeInfo1 == typeInfo2
     println("两个类型信息相等: ${result}")
-    
+
     // 比较同一个类型信息
     let sameResult = typeInfo1 == typeInfo1
     println("同一个类型信息相等: ${sameResult}")
-    
+
     return
 }
 ```

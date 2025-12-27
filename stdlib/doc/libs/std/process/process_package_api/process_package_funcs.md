@@ -181,7 +181,7 @@ main(): Int64 {
     // 获取当前进程ID
     let currentPid = Process.current.pid
     println("当前进程PID: ${currentPid}")
-    
+
     // 根据PID查找进程
     let process = findProcess(currentPid)
     println("找到的进程PID: ${process.pid}")
@@ -257,7 +257,7 @@ main(): Int64 {
     println("启动的进程PID: ${subprocess.pid}")
     println("进程名称: ${subprocess.name}")
     println("进程命令: ${subprocess.command}")
-    
+
     // 等待进程完成
     let exitCode = subprocess.wait()
     println("进程退出码: ${exitCode}")

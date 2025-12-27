@@ -247,8 +247,9 @@ public func setGCThreshold(value: UInt64): Unit
 
 ```cangjie
 import std.runtime.*
+
 main() {
-  setGCThreshold(2048)
+    setGCThreshold(2048)
 }
 ```
 
@@ -275,8 +276,9 @@ public func SetGCThreshold(value: UInt64): Unit
 
 ```cangjie
 import std.runtime.*
+
 main() {
-  SetGCThreshold(2048)
+    SetGCThreshold(2048)
 }
 ```
 
