@@ -336,7 +336,7 @@ The capabilities provided by the methods in this class are as follows:
 ### func then()
 
 ```cangjie
-func then(): A
+public func then(): A
 ```
 
 Functionality: Returns a subclass object of [ActionSelector](unittest_mock_package_classes.md#class-actionselector) when the previous operation in the chain is completed.

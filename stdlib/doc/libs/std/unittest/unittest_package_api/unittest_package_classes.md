@@ -516,7 +516,7 @@ public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
     _: String,
     x!: Int64 = 0
-): DataStrategyProcessor<U>
+): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
 ```
 
 功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
@@ -1669,7 +1669,7 @@ public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
 ### XmlPerPackageReporter(Path)
 
 ```cangjie
-public XmlReporter(let directory: Path)
+public XmlPerPackageReporter(let directory: Path)
 ```
 
 功能：XmlPerPackageReporter 构造函数。
