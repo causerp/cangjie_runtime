@@ -4,8 +4,8 @@
 
 ```cangjie
 public interface BenchInputProvider<T> <: BenchmarkInputMarker {
-    mut func get(idx: Int64): T
     mut func reset(max: Int64)
+    mut func get(idx: Int64): T
 }
 ```
 
@@ -320,7 +320,7 @@ Purpose: Initialization routine for this measurement. Called before each benchma
 ### prop info
 
 ```cangjie
-prop info: Measure
+prop info: MeasurementInfo
 ```
 
 Purpose: Summary information for specific measurements.
@@ -505,7 +505,7 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if delta is negative or NaN.## interface Reporter
 
 ```cangjie
-sealed interface Reporter <TReport, TReturn>
+sealed interface Reporter <TReport, TReturn> {}
 ```
 
 Function: Base interface for reporters.

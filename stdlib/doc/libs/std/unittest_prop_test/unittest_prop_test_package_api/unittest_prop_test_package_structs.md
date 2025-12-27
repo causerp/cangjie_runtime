@@ -756,7 +756,7 @@ public operator func ==(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool
 #### operator func !=(TupleWrapper5\<T0, T1, T2, T3, T4>)
 
 ```cangjie
-public operator func !=(other: TupleWrapper2<T0, T1, T2, T3, T4>): Bool
+public operator func !=(other: TupleWrapper5<T0, T1, T2, T3, T4>): Bool
 ```
 
 功能：比较两个元组。

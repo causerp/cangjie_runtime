@@ -2363,8 +2363,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class FeaturesDirective <: Node {
-    public init()
     public init(input: Tokens)
+    public init()
 }
 ```
 
@@ -2443,6 +2443,18 @@ public init(inputs: Tokens)
 异常：
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法构造 [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 的时候抛出异常。
+
+### func isEmpty()
+
+```cangjie
+public func isEmpty(): Bool
+```
+
+功能：`content` 为空时返回 `true`。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - content 是否为空。
 
 ### func toTokens()
 
