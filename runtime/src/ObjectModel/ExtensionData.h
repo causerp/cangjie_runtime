@@ -12,6 +12,12 @@
 #include "MClass.inline.h"
 
 namespace MapleRuntime {
+union OuterTiUnion {
+    using OuterTiFunc = TypeInfo* (*)(TypeInfo* childTi);
+    TypeInfo* outerTypeInfo;
+    OuterTiFunc outerTiFunc;
+};
+
 class ATTR_PACKED(4) ExtensionData {
 public:
     bool TargetIsTypeInfo() const { return argNum == 0; }
@@ -67,10 +73,26 @@ public:
         return false;
     }
 
+    bool HasOuterTiFastPath() const { return (flag & 0b1) != 0; } // "bit-0 is 1" means codegen has computed the outer ti.
+    TypeInfo* GetOuterTi(TypeInfo* childTi, U64 index) const
+    {
+        CHECK(index < funcTableSize);
+        if (!HasOuterTiFastPath()) {
+            return nullptr;
+        }
+        bool isConcrete = (childTi->GetTypeArgNum() == 0);
+        OuterTiUnion* outerTiUnionStart = reinterpret_cast<OuterTiUnion*>(
+            reinterpret_cast<uint8_t*>(funcTable) + sizeof(FuncPtr) * funcTableSize);
+        return isConcrete ? outerTiUnionStart[index].outerTypeInfo : outerTiUnionStart[index].outerTiFunc == nullptr ?
+            nullptr : outerTiUnionStart[index].outerTiFunc(childTi);
+    }
+
 private:
     U32 argNum;
     U8 isInterfaceTypeInfo;
     // optimization: use 1 byte to speed up the search of mtable.
+    // bit-0: codegen has computed the outer ti as the fast path.
+    // bit-1&2: funcTable updated, bit-7: direct supertype.
     U8 flag;
     U16 funcTableSize;
     union {
@@ -83,6 +105,7 @@ private:
     };
     FuncPtr whereCondFn;
     FuncPtr* funcTable;
+    // The OuterTiUnion array is behind funcTable in memory, the offset depends on funcTableSize.
 };
 } // namespace MapleRuntime
 #endif // MRT_EXTENSION_DATA_H
