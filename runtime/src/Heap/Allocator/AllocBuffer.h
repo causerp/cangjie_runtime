@@ -62,6 +62,8 @@ public:
         stackRoots.clear();
     }
 
+    void FlushRegion();
+
 private:
     // slow path
     MAddress TryAllocateOnce(size_t totalSize, AllocType allocType);
