@@ -111,6 +111,7 @@ void TypeInfo::SetGCTib(GCTib gctib)
 void TypeInfo::SetMTableDesc(MTableDesc* desc)
 {
     this->mTableDesc = desc;
+    std::atomic_thread_fence(std::memory_order_seq_cst);
     // 15: The most significant bit indicates whether the mTable is initialized.
     validInheritNum = validInheritNum & ((1ULL << 15) - 1);
 }
@@ -359,11 +360,16 @@ std::pair<FuncPtr*, bool> TypeInfo::FindMTable(U32 itfUUID)
 
 FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
 {
+    if (GetUUID() == 0) {
+        TypeInfoManager::GetTypeInfoManager().AddTypeInfo(this);
+    }
     if (IsTempEnum() && GetSuperTypeInfo()) {
         return GetSuperTypeInfo()->GetMTable(itf);
     }
     TryInitMTable();
-    CHECK(mTableDesc != nullptr);
+    if (IsMTableDescUnInitialized()) {
+        LOG(RTLOG_FATAL, "mTableDesc init failed, ti: %s(%p)", GetName(), this, mTableDesc);
+    }
     U32 itfUUID = itf->GetUUID();
     CHECK(itfUUID != 0);
     FuncPtr* funcTable = FindMTable(itfUUID).first;
