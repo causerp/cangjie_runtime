@@ -464,7 +464,7 @@ class MyReflectException <: ReflectException {
     public init() {
         super()
     }
-    
+
     public func getClassNameWrapper(): String {
         // 调用受保护的 getClassName 方法
         return this.getClassName()
@@ -474,11 +474,11 @@ class MyReflectException <: ReflectException {
 main(): Int64 {
     // 创建自定义异常实例
     let myException = MyReflectException()
-    
+
     // 通过包装函数获得类名
     let className = myException.getClassNameWrapper()
     println("类名: ${className}")
-    
+
     return 0
 }
 ```

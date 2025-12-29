@@ -31,13 +31,13 @@ main(): Unit {
     let outputSpec = ArgumentSpec.Long("output", ArgumentMode.RequiredValue)
     let specs = [helpSpec, outputSpec]
     let args = ["-h", "--output", "output.txt", "file1.txt", "file2.txt"]
-    
+
     let parsedResult = parseArguments(args, specs)
-    
+
     // 访问nonOptions属性
     println("解析后的nonOptions: ${parsedResult.nonOptions}")
     println("nonOptions大小: ${parsedResult.nonOptions.size}")
-    
+
     // 遍历nonOptions
     println("所有非选项参数:")
     for (nonOption in parsedResult.nonOptions) {
@@ -79,25 +79,25 @@ main(): Unit {
     let verboseSpec = ArgumentSpec.Short(r'v', ArgumentMode.OptionalValue)
     let specs = [helpSpec, outputSpec, verboseSpec]
     let args = ["-h", "--output", "output.txt", "-v", "file1.txt"]
-    
+
     let parsedResult = parseArguments(args, specs)
-    
+
     // 访问options属性
     println("解析后的options大小: ${parsedResult.options.size}")
-    
+
     // 检查特定选项是否存在
     if (parsedResult.options.contains("h")) {
         println("包含帮助选项h")
     }
-    
+
     if (parsedResult.options.contains("output")) {
         println("output选项的值: ${parsedResult.options["output"]}")
     }
-    
+
     if (parsedResult.options.contains("v")) {
         println("verbose选项的值: '${parsedResult.options["v"]}'")
     }
-    
+
     // 遍历所有选项
     println("所有选项:")
     for (key in parsedResult.options.keys()) {

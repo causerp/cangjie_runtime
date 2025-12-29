@@ -48,7 +48,7 @@ import std.env.*
 main() {
     // 获取标准输入流
     let stdin = getStdIn()
-    
+
     // 读取下一个字符
     // 注意：在实际运行中，程序会等待用户输入一个字符，假设用户输入了一个H
     let r = stdin.read()
@@ -91,10 +91,10 @@ import std.env.*
 main() {
     // 获取标准输入流
     let stdin = getStdIn()
-    
+
     // 创建一个字节数组用于读取数据
-    let buffer: Array<Byte> = [0, 0 , 0 , 0 , 0]
-    
+    let buffer: Array<Byte> = [0, 0, 0, 0, 0]
+
     // 从标准输入读取数据到数组中
     // 注意：在实际运行中，程序会等待用户输入5个Byte，假设输入abcde
     stdin.read(buffer)
@@ -169,10 +169,10 @@ import std.env.*
 main() {
     // 获取标准输入实例
     let stdin = getStdIn()
-    
+
     // 读取所有输入直到EOF
     let result = stdin.readToEnd()
-    
+
     // 检查是否有输入
     match (result) {
         case Some(input) => println("Read input: ${input}")
@@ -304,14 +304,14 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入一些数据但不换行
     stdout.write("Hello, ")
     stdout.write("World!")
-    
+
     // 刷新输出流以确保数据被写入
     stdout.flush()
-    
+
     // 再写入一行
     stdout.writeln(" Flush completed.")
 }
@@ -344,13 +344,13 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 创建一个字节数组，包含 "Hello" 的 ASCII 码
     let bytes = [72, 101, 108, 108, 111] // "Hello" 的 ASCII 码
-    
+
     // 写入字节数组
     stdout.write(bytes)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -383,12 +383,12 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入布尔值
     stdout.write(true)
     stdout.write(" ")
     stdout.write(false)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -421,10 +421,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float16值
     stdout.write(3.14f16)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -457,10 +457,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float32值
     stdout.write(3.14159f32)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -493,10 +493,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float64值
     stdout.write(3.141592653589793f64)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -529,10 +529,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int16值
     stdout.write(12345i16)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -565,10 +565,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int32值
     stdout.write(123456789i32)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -601,10 +601,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int64值
     stdout.write(123456789012345i64)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -637,10 +637,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int8值
     stdout.write(42i8)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -673,10 +673,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Rune值
     stdout.write(r'A')
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -709,10 +709,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入字符串
     stdout.write("Hello, World!")
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -745,10 +745,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt16值
     stdout.write(12345u16)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -781,10 +781,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt32值
     stdout.write(123456789u32)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -817,10 +817,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt64值
     stdout.write(123456789012345u64)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -853,10 +853,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt8值
     stdout.write(42u8)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -890,12 +890,12 @@ import std.env.*
 class Person <: ToString {
     var name: String
     var age: Int64
-    
+
     public init(name: String, age: Int64) {
         this.name = name
         this.age = age
     }
-    
+
     public func toString(): String {
         return "Person(name: ${this.name}, age: ${this.age})"
     }
@@ -904,13 +904,13 @@ class Person <: ToString {
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 创建一个Person实例
     let person = Person("Alice", 30)
-    
+
     // 使用泛型write方法写入Person实例
     stdout.write(person)
-    
+
     // 写入换行
     stdout.writeln("")
 }
@@ -943,10 +943,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 创建一个字节数组，包含 "Hello" 的 ASCII 码
     let bytes = [72, 101, 108, 108, 111] // "Hello" 的 ASCII 码
-    
+
     // 写入字节数组并换行
     stdout.writeln(bytes)
 }
@@ -979,10 +979,10 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入布尔值并换行
     stdout.writeln(true)
-    
+
     // 再写入一个布尔值并换行
     stdout.writeln(false)
 }
@@ -1016,7 +1016,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float16值并换行
     stdout.writeln(3.14f16)
 }
@@ -1049,7 +1049,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float32值并换行
     stdout.writeln(3.14159f32)
 }
@@ -1082,7 +1082,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Float64值并换行
     stdout.writeln(3.141592653589793f64)
 }
@@ -1115,7 +1115,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int16值并换行
     stdout.writeln(12345i16)
 }
@@ -1148,7 +1148,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int32值并换行
     stdout.writeln(123456789i32)
 }
@@ -1181,7 +1181,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int64值并换行
     stdout.writeln(123456789012345i64)
 }
@@ -1214,7 +1214,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Int8值并换行
     stdout.writeln(42i8)
 }
@@ -1247,7 +1247,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入Rune值并换行
     stdout.writeln(r'A')
 }
@@ -1280,7 +1280,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入字符串并换行
     stdout.writeln("Hello, World!")
 }
@@ -1313,7 +1313,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt16值并换行
     stdout.writeln(12345u16)
 }
@@ -1346,7 +1346,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt32值并换行
     stdout.writeln(123456789u32)
 }
@@ -1379,7 +1379,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt64值并换行
     stdout.writeln(123456789012345u64)
 }
@@ -1412,7 +1412,7 @@ import std.env.*
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 写入UInt8值并换行
     stdout.writeln(42u8)
 }
@@ -1446,12 +1446,12 @@ import std.env.*
 class Person <: ToString {
     var name: String
     var age: Int64
-    
+
     public init(name: String, age: Int64) {
         this.name = name
         this.age = age
     }
-    
+
     public func toString(): String {
         return "Person(name: ${this.name}, age: ${this.age})"
     }
@@ -1460,10 +1460,10 @@ class Person <: ToString {
 main() {
     // 获取标准输出实例
     let stdout = getStdOut()
-    
+
     // 创建一个Person实例
     let person = Person("Alice", 30)
-    
+
     // 使用泛型writeln方法写入Person实例并换行
     stdout.writeln(person)
 }

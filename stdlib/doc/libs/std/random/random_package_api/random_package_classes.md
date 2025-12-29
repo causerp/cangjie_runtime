@@ -38,7 +38,7 @@ import std.random.*
 main(): Unit {
     // 使用默认构造函数创建Random对象
     let random = Random()
-    
+
     // 生成一些随机数验证对象创建成功
     let value = random.nextInt32()
     println("生成的随机数: ${value}")
@@ -74,14 +74,14 @@ main(): Unit {
     let seed: UInt64 = 12345
     let random1 = Random(seed)
     let random2 = Random(seed)
-    
+
     // 验证相同种子产生相同的随机数序列
     let value1_1 = random1.nextInt32()
     let value2_1 = random2.nextInt32()
     println("random1的第一个随机数: ${value1_1}")
     println("random2的第一个随机数: ${value2_1}")
     println("两个随机数是否相同: ${value1_1 == value2_1}")
-    
+
     let value1_2 = random1.nextInt32()
     let value2_2 = random2.nextInt32()
     println("random1的第二个随机数: ${value1_2}")
@@ -133,22 +133,22 @@ import std.random.*
 
 main(): Unit {
     let random = Random()
-    
+
     // 生成指定位长的随机数
     let randomValue = random.next(10)
     println("生成的10位随机数: ${randomValue}")
-    
+
     // 测试边界情况
     let randomValue32 = random.next(32)
     println("生成的32位随机数: ${randomValue32}")
-    
+
     // 测试异常情况
     try {
         let invalidValue = random.next(0)
     } catch (e: IllegalArgumentException) {
         println("捕获到异常: ${e.message}")
     }
-    
+
     try {
         let invalidValue = random.next(65)
     } catch (e: IllegalArgumentException) {
@@ -194,22 +194,22 @@ import std.random.*
 
 main(): Unit {
     let random = Random()
-    
+
     // 生成指定位长的随机数
     let randomValue = random.nextBits(10)
     println("生成的10位随机数: ${randomValue}")
-    
+
     // 测试边界情况
     let randomValue32 = random.nextBits(32)
     println("生成的32位随机数: ${randomValue32}")
-    
+
     // 测试异常情况
     try {
         let invalidValue = random.nextBits(0)
     } catch (e: IllegalArgumentException) {
         println("捕获到异常: ${e.message}")
     }
-    
+
     try {
         let invalidValue = random.nextBits(65)
     } catch (e: IllegalArgumentException) {
@@ -278,18 +278,18 @@ import std.random.*
 
 main(): Unit {
     let random = Random()
-    
+
     // 先创建一个字节数组
     let bytes = random.nextBytes(5)
-    
+
     println("调用nextBytes前:")
     for (i in 0..bytes.size) {
         println("bytes[${i}] = ${bytes[i]}")
     }
-    
+
     // 使用nextBytes重新填充数组
     random.nextBytes(bytes)
-    
+
     println("调用nextBytes后:")
     for (i in 0..bytes.size) {
         println("bytes[${i}] = ${bytes[i]}")
@@ -342,16 +342,16 @@ import std.random.*
 
 main(): Unit {
     let random = Random()
-    
+
     // 生成长度为5的随机字节数组
     let bytes = random.nextBytes(5)
     println("生成的数组长度: ${bytes.size}")
-    
+
     // 打印生成的随机字节
     for (i in 0..bytes.size) {
         println("bytes[${i}] = ${bytes[i]}")
     }
-    
+
     // 测试异常情况
     try {
         let emptyBytes = random.nextBytes(-1)

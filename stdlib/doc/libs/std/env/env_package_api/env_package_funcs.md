@@ -32,7 +32,7 @@ func cleanup() {
 main() {
     // 注册退出回调函数
     atExit(cleanup)
-    
+
     println("Main function ending")
 }
 ```
@@ -64,10 +64,10 @@ import std.env.*
 
 main() {
     println("Program started")
-    
+
     // 正常退出程序，返回状态码0
     exit(0)
-    
+
     // 这行代码不会被执行
     println("This line will not be printed")
 }
@@ -104,7 +104,7 @@ import std.env.*
 main() {
     // 获取当前进程命令
     let command = getCommand()
-    
+
     println("Current process command: ${command}")
 }
 ```
@@ -144,7 +144,7 @@ import std.env.*
 main() {
     // 获取当前进程命令行
     let commandLine = getCommandLine()
-    
+
     println("Command line arguments:")
     for (arg in commandLine) {
         println("  ${arg}")
@@ -182,7 +182,7 @@ import std.env.*
 main() {
     // 获取当前进程home目录的路径
     let homeDir = getHomeDirectory()
-    
+
     println("Home directory: ${homeDir}")
 }
 ```
@@ -214,7 +214,7 @@ import std.env.*
 main() {
     // 获取当前进程ID
     let pid = getProcessId()
-    
+
     println("Current process ID: ${pid}")
 }
 ```
@@ -246,7 +246,7 @@ import std.env.*
 main() {
     // 获取标准错误流
     let stderr = getStdErr()
-    
+
     // 向标准错误流写入信息
     stderr.write("This is an error message")
     stderr.writeln(" with a newline")
@@ -280,15 +280,15 @@ import std.env.*
 main() {
     // 获取标准输入流
     let stdin = getStdIn()
-    
+
     // 获取标准输出流
     let stdout = getStdOut()
-    
+
     stdout.write("Please enter your name: ")
-    
+
     // 从标准输入流读取一行，需要手动输出名字，这里输入zhangsan
     let name = stdin.readln()
-    
+
     match (name) {
         case Some(n) => stdout.writeln("Hello, ${n}!")
         case None => stdout.writeln("No input received.")
@@ -324,7 +324,7 @@ import std.env.*
 main() {
     // 获取标准输出流
     let stdout = getStdOut()
-    
+
     // 向标准输出流写入信息
     stdout.write("Hello, ")
     stdout.writeln("World!")
@@ -358,7 +358,7 @@ import std.env.*
 main() {
     // 获取当前进程临时目录的路径
     let tempDir = getTempDirectory()
-    
+
     println("Temporary directory: ${tempDir}")
 }
 ```
@@ -398,15 +398,15 @@ import std.env.*
 main() {
     // 获取PATH环境变量的值
     let path = getVariable("PATH")
-    
+
     match (path) {
         case Some(p) => println("PATH environment variable: ${p}")
         case None => println("PATH environment variable not found")
     }
-    
+
     // 尝试获取一个不存在的环境变量
     let nonexistent = getVariable("NONEXISTENT_VAR")
-    
+
     match (nonexistent) {
         case Some(value) => println("NONEXISTENT_VAR: ${value}")
         case None => println("NONEXISTENT_VAR not found")
@@ -450,7 +450,7 @@ import std.env.*
 main() {
     // 获取当前进程的所有环境变量
     let variables = getVariables()
-    
+
     println("Environment variables:")
     for ((key, value) in variables) {
         // 只打印前几个环境变量以避免输出过长
@@ -458,7 +458,7 @@ main() {
             println("  ${key}: ${value}")
         }
     }
-    
+
     println("Total number of environment variables: ${variables.size}")
 }
 ```
@@ -498,7 +498,7 @@ import std.env.*
 main() {
     // 获取当前进程工作路径
     let workingDir = getWorkingDirectory()
-    
+
     println("Working directory: ${workingDir}")
 }
 ```
@@ -534,17 +534,17 @@ import std.env.*
 main() {
     // 先设置一个环境变量
     setVariable("TEST_VAR", "test_value")
-    
+
     // 验证环境变量已设置
     let value = getVariable("TEST_VAR")
     match (value) {
         case Some(v) => println("Before removal - TEST_VAR: ${v}")
         case None => println("Before removal - TEST_VAR not found")
     }
-    
+
     // 移除环境变量
     removeVariable("TEST_VAR")
-    
+
     // 验证环境变量已移除
     let valueAfter = getVariable("TEST_VAR")
     match (valueAfter) {
@@ -591,17 +591,17 @@ import std.env.*
 main() {
     // 设置一个环境变量
     setVariable("MY_VAR", "my_value")
-    
+
     // 验证环境变量已设置
     let value = getVariable("MY_VAR")
     match (value) {
         case Some(v) => println("MY_VAR: ${v}")
         case None => println("MY_VAR not found")
     }
-    
+
     // 修改环境变量的值
     setVariable("MY_VAR", "new_value")
-    
+
     // 验证环境变量已更新
     let newValue = getVariable("MY_VAR")
     match (newValue) {

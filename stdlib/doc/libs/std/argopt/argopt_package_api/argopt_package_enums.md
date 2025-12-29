@@ -98,10 +98,10 @@ main() {
     let mode1 = ArgumentMode.NoValue
     let mode2 = ArgumentMode.NoValue
     let mode3 = ArgumentMode.RequiredValue
-    
+
     let equal = (mode1 == mode2)
     let notEqual = (mode1 == mode3)
-    
+
     println("mode1 == mode2: ${equal}")
     println("mode1 == mode3: ${notEqual}")
 }
