@@ -322,7 +322,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -890,7 +890,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -2007,7 +2007,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -2493,7 +2493,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [StringWriter](io_package_classes.md#class-stringwritert-where-t--outputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [StringWriter](io_package_classes.md#class-stringwritert-where-t--outputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
