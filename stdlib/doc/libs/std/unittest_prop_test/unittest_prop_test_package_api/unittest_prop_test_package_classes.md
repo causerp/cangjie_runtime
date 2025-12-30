@@ -14,7 +14,7 @@ public class Generators {}
 public static func generate<T>(l: T, r: T, body: (T, T) -> T): Generator<T>
 ```
 
-功能：通过重复调用函数生成值的生成器, 范围为 [l, r]。
+功能：通过重复调用函数生成值的生成器，范围为 [l, r]。
 
 参数：
 
@@ -215,7 +215,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 public RandomDataProvider(private let configuration: Configuration)
 ```
 
-功能：构造一个随机数据提供者RandomDataProvider的对象。
+功能：构造一个随机数据提供者 RandomDataProvider 的对象。
 
 参数：
 

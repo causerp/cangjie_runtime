@@ -265,7 +265,7 @@ public func setRegion(beginIndex: Int64, endIndex: Int64): Matcher
 
 异常：
 
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 beginIndex 小于0，或 beginIndex 大于输入序列的 size 时，抛出异常；当 endIndex 小于0，或 endIndex 大于输入序列的 size 时，抛出异常；当 beginIndex 大于 endIndex 时，抛出异常。
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 beginIndex 小于 0，或 beginIndex 大于输入序列的 size 时，抛出异常；当 endIndex 小于 0，或 endIndex 大于输入序列的 size 时，抛出异常；当 beginIndex 大于 endIndex 时，抛出异常。
 
 ### func split()
 
@@ -285,7 +285,7 @@ public func split(): Array<String>
 public func split(limit: Int64): Array<String>
 ```
 
-功能：将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)。
+功能：将给定的输入序列根据正则尽可能的分割成多个子序列（最多分割成 limit 个子串）。
 
 参数：
 
@@ -783,7 +783,7 @@ main(): Unit {
 public func split(input: String, limit: Int64): Array<String>
 ```
 
-功能：将给定的输入序列根据正则尽可能的分割成多个子序列 (最多分割成 limit 个子串)。
+功能：将给定的输入序列根据正则尽可能的分割成多个子序列（最多分割成 limit 个子串）。
 
 参数：
 

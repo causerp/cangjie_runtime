@@ -99,8 +99,8 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [CsvReporter](./unittest_package_api/unittest_package_classes.md#class-csvreporter) | 打印性能测试用例结果数据到 CSV 文件上。 |
 | [CsvRawReporter](./unittest_package_api/unittest_package_classes.md#class-csvrawreporter) | 打印性能测试用例结果数据，该数据只有批次的原始测量值，到 CSV 文件上。 |
 |[DataStrategyProcessor\<T>](./unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)| 所有 [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 组件的基类。该类的实例由 [@Strategy](../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。|
-|[FlatMapProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。 |
-|[FlatMapStrategyProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapstrategyprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。 |
+|[FlatMapProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。 |
+|[FlatMapStrategyProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapstrategyprocessortr)| 对参数数据进行 [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。 |
 | [InputParameter](./unittest_package_api/unittest_package_classes.md#class-inputparameter) | 入参对象类型。 |
 | [LazyCyclicNode](./unittest_package_api/unittest_package_classes.md#class-lazycyclicnode) | 用于在一个循环中一个接一个地推进类型擦除的内部惰性迭代器。 |
 | [MapProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-mapprocessortr) | 对参数数据进行 [Map](../collection/collection_package_api/collection_package_function.md#func-mapt-rt---r) 的处理器。 |
@@ -116,7 +116,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [TestSuiteBuilder](./unittest_package_api/unittest_package_classes.md#class-testsuitebuilder) | 提供配置测试套方法的测试套构造器。 |
 | [UnitTestCase](./unittest_package_api/unittest_package_classes.md#class-unittestcase) | 提供创建和执行单元测试用例的方法的类。 |
 | [XmlReporter](./unittest_package_api/unittest_package_classes.md#class-xmlreporter) | 打印单元测试用例结果数据到 Xml 文件上。 |
-| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperrpackagereporte) | 打印单元测试用例结果数据到 Xml 文件上。 |
+| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperpackagereporter) | 打印单元测试用例结果数据到 Xml 文件上。 |
 
 ### 枚举
 
@@ -136,47 +136,47 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [GenerateEachInputProvider\<T>](./unittest_package_api/unittest_package_structs.md#struct-generateeachinputprovidert) | 基准输入提供程序，在每次执行基准之前生成输入。 |
 | [ImmutableInputProvider\<T>](./unittest_package_api/unittest_package_structs.md#struct-immutableinputprovidert) | 最简单的输入提供程序，只需为基准测试的每次调用复制数据。适用于基准测试不会改变输入的情况。它在框架内默认使用。 |
 | [KeyBaseline](./unittest_package_api/unittest_package_structs.md#struct-keybaseline) | 作为在配置信息中配置值的键值。 |
-| [KeyBaselinePath](./unittest_package_api/unittest_package_structs.md#struct-KeyBaselinePath) | 作为在配置信息中配置值的键值。 |
-| [KeyBatchSize](./unittest_package_api/unittest_package_structs.md#struct-KeyBatchSize) | 作为在配置信息中配置值的键值。 |
-| [KeyBench](./unittest_package_api/unittest_package_structs.md#struct-KeyBench) | 作为在配置信息中配置值的键值。 |
-| [KeyCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-KeyCaptureOutput) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuided](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuided) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedBaselineScore](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedBaselineScore) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-keytimeouthandler) | 作为在配置信息中配置值的键值。 |
-) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedMaxCandidates](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedMaxCandidates) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedNewCoverageBonus](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedNewCoverageBonus) | 作为在配置信息中配置值的键值。 |
-| [KeyCoverageGuidedNewCoverageScore](./unittest_package_api/unittest_package_structs.md#struct-KeyCoverageGuidedNewCoverageScore) | 作为在配置信息中配置值的键值。 |
-| [KeyDeathAware](./unittest_package_api/unittest_package_structs.md#struct-KeyDeathAware) | 作为在配置信息中配置值的键值。 |
-| [KeyDryRun](./unittest_package_api/unittest_package_structs.md#struct-KeyDryRun) | 作为在配置信息中配置值的键值。 |
-| [KeyExcludeTags](./unittest_package_api/unittest_package_structs.md#struct-KeyExcludeTags) | 作为在配置信息中配置值的键值。 |
-| [KeyExplicitGC](./unittest_package_api/unittest_package_structs.md#struct-KeyExplicitGC) | 作为在配置信息中配置值的键值。 |
-| [KeyFilter](./unittest_package_api/unittest_package_structs.md#struct-KeyFilter) | 作为在配置信息中配置值的键值。 |
-| [KeyFromTopLevel](./unittest_package_api/unittest_package_structs.md#struct-KeyFromTopLevel) | 作为在配置信息中配置值的键值。 |
-| [KeyGenerationSteps](./unittest_package_api/unittest_package_structs.md#struct-KeyGenerationSteps) | 作为在配置信息中配置值的键值。 |
-| [KeyHelp](./unittest_package_api/unittest_package_structs.md#struct-KeyHelp) | 作为在配置信息中配置值的键值。 |
-| [KeyIncludeTags](./unittest_package_api/unittest_package_structs.md#struct-KeyIncludeTags) | 作为在配置信息中配置值的键值。 |
-| [KeyInternalTestrunnerInputPath](./unittest_package_api/unittest_package_structs.md#struct-keytimeouthandKeyInternalTestrunnerInputPather) | 作为在配置信息中配置值的键值。 |
-| [KeyMeasurement](./unittest_package_api/unittest_package_structs.md#struct-KeyMeasurement) | 作为在配置信息中配置值的键值。 |
-| [KeyMeasurementInfo](./unittest_package_api/unittest_package_structs.md#struct-KeyMeasurementInfo) | 作为在配置信息中配置值的键值。 |
-| [KeyMinBatches](./unittest_package_api/unittest_package_structs.md#struct-KeyMinBatches) | 作为在配置信息中配置值的键值。 |
-| [KeyMinDuration](./unittest_package_api/unittest_package_structs.md#struct-KeyMinDuration) | 作为在配置信息中配置值的键值。 |
-| [KeyNoCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-KeyNoCaptureOutput) | 作为在配置信息中配置值的键值。 |
-| [KeyNoColor](./unittest_package_api/unittest_package_structs.md#struct-KeyNoColor) | 作为在配置信息中配置值的键值。 |
-| [KeyParallel](./unittest_package_api/unittest_package_structs.md#struct-KeyParallel) | 作为在配置信息中配置值的键值。 |
-| [KeyRandomSeed](./unittest_package_api/unittest_package_structs.md#struct-KeyRandomSeed) | 作为在配置信息中配置值的键值。 |
-| [KeyReductionSteps](./unittest_package_api/unittest_package_structs.md#struct-KeyRandomSeed) | 作为在配置信息中配置值的键值。 |
-| [KeyReportFormat](./unittest_package_api/unittest_package_structs.md#struct-KeyReportFormat) | 作为在配置信息中配置值的键值。 |
-| [KeyReportPath](./unittest_package_api/unittest_package_structs.md#struct-KeyReportPath) | 作为在配置信息中配置值的键值。 |
-| [KeyShowAllOutput](./unittest_package_api/unittest_package_structs.md#struct-KeyShowAllOutput) | 作为在配置信息中配置值的键值。 |
-| [KeyShowTags](./unittest_package_api/unittest_package_structs.md#struct-KeyShowTags) | 作为在配置信息中配置值的键值。 |
-| [KeySkip](./unittest_package_api/unittest_package_structs.md#struct-KeySkip) | 作为在配置信息中配置值的键值。 |
-| [KeyTimeout](./unittest_package_api/unittest_package_structs.md#struct-KeyTimeout) | 作为在配置信息中配置值的键值。 |
-| [KeyTimeoutEach](./unittest_package_api/unittest_package_structs.md#struct-KeyTimeoutEach) | 作为在配置信息中配置值的键值。 |
+| [KeyBaselinePath](./unittest_package_api/unittest_package_structs.md#struct-keybaselinepath) | 作为在配置信息中配置值的键值。 |
+| [KeyBatchSize](./unittest_package_api/unittest_package_structs.md#struct-keybatchsize) | 作为在配置信息中配置值的键值。 |
+| [KeyBench](./unittest_package_api/unittest_package_structs.md#struct-keybench) | 作为在配置信息中配置值的键值。 |
+| [KeyCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-keycaptureoutput) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuided](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguided) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedBaselineScore](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguidedbaselinescore) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedInitialSeeds](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguidedinitialseeds) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedMaxCandidates](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguidedmaxcandidates) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedNewCoverageBonus](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguidednewcoveragebonus) | 作为在配置信息中配置值的键值。 |
+| [KeyCoverageGuidedNewCoverageScore](./unittest_package_api/unittest_package_structs.md#struct-keycoverageguidednewcoveragescore) | 作为在配置信息中配置值的键值。 |
+| [KeyDeathAware](./unittest_package_api/unittest_package_structs.md#struct-keydeathaware) | 作为在配置信息中配置值的键值。 |
+| [KeyDryRun](./unittest_package_api/unittest_package_structs.md#struct-keydryrun) | 作为在配置信息中配置值的键值。 |
+| [KeyExcludeTags](./unittest_package_api/unittest_package_structs.md#struct-keyexcludetags) | 作为在配置信息中配置值的键值。 |
+| [KeyExplicitGC](./unittest_package_api/unittest_package_structs.md#struct-keyexplicitgc) | 作为在配置信息中配置值的键值。 |
+| [KeyFilter](./unittest_package_api/unittest_package_structs.md#struct-keyfilter) | 作为在配置信息中配置值的键值。 |
+| [KeyFromTopLevel](./unittest_package_api/unittest_package_structs.md#struct-keyfromtoplevel) | 作为在配置信息中配置值的键值。 |
+| [KeyGenerationSteps](./unittest_package_api/unittest_package_structs.md#struct-keygenerationsteps) | 作为在配置信息中配置值的键值。 |
+| [KeyHelp](./unittest_package_api/unittest_package_structs.md#struct-keyhelp) | 作为在配置信息中配置值的键值。 |
+| [KeyIncludeTags](./unittest_package_api/unittest_package_structs.md#struct-keyincludetags) | 作为在配置信息中配置值的键值。 |
+| [KeyInternalTestrunnerInputPath](./unittest_package_api/unittest_package_structs.md#struct-keyinternaltestrunnerinputpath) | 作为在配置信息中配置值的键值。 |
+| [KeyMeasurement](./unittest_package_api/unittest_package_structs.md#struct-keymeasurement) | 作为在配置信息中配置值的键值。 |
+| [KeyMeasurementInfo](./unittest_package_api/unittest_package_structs.md#struct-keymeasurementinfo) | 作为在配置信息中配置值的键值。 |
+| [KeyMinBatches](./unittest_package_api/unittest_package_structs.md#struct-keyminbatches) | 作为在配置信息中配置值的键值。 |
+| [KeyMinDuration](./unittest_package_api/unittest_package_structs.md#struct-keyminduration) | 作为在配置信息中配置值的键值。 |
+| [KeyNoCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-keynocaptureoutput) | 作为在配置信息中配置值的键值。 |
+| [KeyNoColor](./unittest_package_api/unittest_package_structs.md#struct-keyNocolor) | 作为在配置信息中配置值的键值。 |
+| [KeyOptimizeMocksForBench](./unittest_package_api/unittest_package_structs.md#struct-keyoptimizemocksforbench) | 作为在配置信息中配置值的键值。 |
+| [KeyParallel](./unittest_package_api/unittest_package_structs.md#struct-keyparallel) | 作为在配置信息中配置值的键值。 |
+| [KeyRandomSeed](./unittest_package_api/unittest_package_structs.md#struct-keyrandomseed) | 作为在配置信息中配置值的键值。 |
+| [KeyReductionSteps](./unittest_package_api/unittest_package_structs.md#struct-keyrandomseed) | 作为在配置信息中配置值的键值。 |
+| [KeyReportFormat](./unittest_package_api/unittest_package_structs.md#struct-keyreportformat) | 作为在配置信息中配置值的键值。 |
+| [KeyReportPath](./unittest_package_api/unittest_package_structs.md#struct-keyreportpath) | 作为在配置信息中配置值的键值。 |
+| [KeyShowAllOutput](./unittest_package_api/unittest_package_structs.md#struct-keyshowalloutput) | 作为在配置信息中配置值的键值。 |
+| [KeyShowTags](./unittest_package_api/unittest_package_structs.md#struct-keyshowtags) | 作为在配置信息中配置值的键值。 |
+| [KeySkip](./unittest_package_api/unittest_package_structs.md#struct-keyskip) | 作为在配置信息中配置值的键值。 |
+| [KeyTimeout](./unittest_package_api/unittest_package_structs.md#struct-keytimeout) | 作为在配置信息中配置值的键值。 |
+| [KeyTimeoutEach](./unittest_package_api/unittest_package_structs.md#struct-keytimeouteach) | 作为在配置信息中配置值的键值。 |
 | [KeyTimeoutHandler](./unittest_package_api/unittest_package_structs.md#struct-keytimeouthandler) | 支持在配置信息中指定超时处理的句柄。 |
-| [KeyVerbose](./unittest_package_api/unittest_package_structs.md#struct-KeyVerbose) | 作为在配置信息中配置值的键值。 |
-| [KeyWarmup](./unittest_package_api/unittest_package_structs.md#struct-KeyWarmup) | 作为在配置信息中配置值的键值。 |
-| [Perf](./unittest_package_api/unittest_package_structs.md#struct-perf) | 使用linux 系统调用 `perf_event_open` 测量各种硬件和软件 CPU 计数器。仅在 Linux 上可用。 |
+| [KeyVerbose](./unittest_package_api/unittest_package_structs.md#struct-keyverbose) | 作为在配置信息中配置值的键值。 |
+| [KeyWarmup](./unittest_package_api/unittest_package_structs.md#struct-keywarmup) | 作为在配置信息中配置值的键值。 |
+| [Perf](./unittest_package_api/unittest_package_structs.md#struct-perf) | 使用 linux 系统调用 `perf_event_open` 测量各种硬件和软件 CPU 计数器。仅在 Linux 上可用。 |
 | [RelativeDelta](./unittest_package_api/unittest_package_structs.md#struct-relativedeltat) | 对于浮点类型，提供相对的 delta 数据类型来做近似相等的计算。 |
 | [TestCaseInfo](./unittest_package_api/unittest_package_structs.md#struct-testcaseinfo) | 当前正在运行的测试用例的信息。通常在动态 API 的超时处理句柄中被使用。 |
 | [Perf](./unittest_package_api/unittest_package_structs.md#struct-perf) | 使用 Linux 系统调用 `perf_event_open` 测量各种硬件和软件 CPU 计数器。仅在 Linux 上可用。 |

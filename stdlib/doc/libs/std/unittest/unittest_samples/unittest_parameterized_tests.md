@@ -74,7 +74,7 @@ func testAllEqual(size: Int64, item: Int64) {
 那么，运行这个测试，结果会如何？
 参数 `size` 和 `item` 的取值会进行组合再测试和返回结果。
 因此，测试函数时，不要配置过多参数；否则组合数量过大，导致测试变慢。
-上述例子中，`size` 参数值有5个，`item` 参数值有21个，共有21×5=105种组合。
+上述例子中，`size` 参数值有 5 个，`item` 参数值有 21 个，共有 21×5=105 种组合。
 
 注意，值驱动测试不限于整型或内置类型。
 也可以和任何仓颉类型一起使用。
@@ -117,7 +117,7 @@ func testRandomArrays(array: Array<Int64>) {
 }
 ```
 
-这个测试本质上是生成大量完全随机的数值（默认为200个），用这些值来测试代码。
+这个测试本质上是生成大量完全随机的数值（默认为 200 个），用这些值来测试代码。
 数值并不完全随机，偏向于边界值，如特定类型的零、最大值和最小值、空集合等。
 
 特别注明：通常建议随机化测试与手工编写的测试**混用**，实践表明可以互为补充。
@@ -135,7 +135,7 @@ func testNonsense(array: Array<Int64>) {
 }
 ```
 
-运行后，会生成如下类似输出:
+运行后，会生成如下类似输出：
 
 ```text
 [ FAILED ] CASE: testNonsense (1159229 ns)
@@ -226,9 +226,9 @@ func testNonsense(array: Array<Int64>) {
 可以通过如下两个配置项控制：`generationSteps` 和 `reductionSteps` 。
 随机测试一个最大的优点是，只要设置了足够多的步骤，它可以运行很长时间，这样就可以检查数百万个值。
 
-为了不使测试太耗时，默认 `generationSteps` 和 `reductionSteps` 的最大值都是200。
+为了不使测试太耗时，默认 `generationSteps` 和 `reductionSteps` 的最大值都是 200。
 通过这两个配置参数，就可以设置框架的最大步骤数。
-例如，对于上面的这个小测试，参数设置为一个大的数值可能没有多大意义。之前的运行已经表明，通常不到10步，测试就会失败。
+例如，对于上面的这个小测试，参数设置为一个大的数值可能没有多大意义。之前的运行已经表明，通常不到 10 步，测试就会失败。
 
 ## 类型参数化测试
 
@@ -317,7 +317,7 @@ func testRandomArrays<T>(array: Array<T>) where T <: Comparable<T> {
     let sorted = array.clone()
     sort(sorted)
     for (i in 0..(sorted.size - 1)) {
-        // 我们更改检查，使其支持NaN
+        // 我们更改检查，使其支持 NaN
         @Expect(!(sorted[i] > sorted[i + 1]))
     }
 }

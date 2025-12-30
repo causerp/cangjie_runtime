@@ -15,8 +15,8 @@ public enum OpenMode <: ToString & Equatable<OpenMode> {
 
 父类型：
 
-- [ToString](../../../std/core/core_package_api/core_package_interfaces.md#interface-tostring)
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[OpenMode](./fs_package_enums.md#enum-openmode)>
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[OpenMode](./fs_package_enums.md#enum-openmode)>
 
 ### Read
 
@@ -64,7 +64,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 文件打开模式名称。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 文件打开模式名称。
 
 ### operator func ==(OpenMode)
 
@@ -80,7 +80,7 @@ public operator func ==(that: OpenMode): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
 
 ### operator func !=(OpenMode)
 
@@ -96,4 +96,4 @@ public operator func !=(that: OpenMode): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果不相等，则返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不相等，则返回 true，否则返回 false。

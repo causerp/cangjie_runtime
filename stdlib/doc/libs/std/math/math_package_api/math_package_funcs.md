@@ -1348,7 +1348,7 @@ public func checkedAbs(x: Int32): Option<Int32>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->
@@ -1382,7 +1382,7 @@ public func checkedAbs(x: Int64): Option<Int64>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->
@@ -1416,7 +1416,7 @@ public func checkedAbs(x: Int8): Option<Int8>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->

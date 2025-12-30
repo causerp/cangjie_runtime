@@ -96,7 +96,7 @@ public func atExit(callback: () -> Unit): Unit
 
 > **注意：**
 >
-> 请不要使用C语言 atexit 函数，避免出现不可期问题。
+> 请不要使用 C 语言 atexit 函数，避免出现不可期问题。
 
 参数：
 
@@ -413,7 +413,7 @@ public static func run(command: String,
 - stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准输入，默认继承当前进程标准输入。
 - stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准输出，默认继承当前进程标准输出。
 - stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准错误，默认继承当前进程标准错误。
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 命名可选参数，指定等待子进程超时时间，默认为不超时, `timeout` 指定为 `0` 或负值时表示不超时。
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 命名可选参数，指定等待子进程超时时间，默认为不超时，`timeout` 指定为 `0` 或负值时表示不超时。
 
 返回值：
 
@@ -439,6 +439,7 @@ public static func runOutput(command: String,
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态、标准输出和标准错误。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 `wait` 函数自行处理。
 
 > **注意：**
+>
 > - 在 `iOS` 平台上，该功能不可用。
 > - 未来版本即将废弃，使用 [executeWithOutput](./process_package_funcs.md#func-executewithoutputstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect) 替代。
 
@@ -555,7 +556,7 @@ public class SubProcess <: Process {}
 >
 > - 提供获取子进程标准流（`stdIn`、`stdOut`、`stdErr`）机制。
 > - 提供等待子进程执行返回退出状态码机制，允许设置等待超时时长。
-> - 提供等待子进程执行返回输出结果(包含运行正常、异常结果)机制，允许设置等待超时时长。
+> - 提供等待子进程执行返回输出结果（包含运行正常、异常结果）机制，允许设置等待超时时长。
 
 父类型：
 
@@ -639,7 +640,7 @@ public prop stdOutPipe: InputStream
 public func wait(timeout!: ?Duration = None): Int64
 ```
 
-功能：阻塞当前进程等待子进程任务执行完成并返回子进程退出状态码，允许指定等待超时时间。对于需要操作标准流的场景(Pipe 模式)，使用者需要优先处理标准流，避免子进程标准流缓冲区满后调用本函数产生死锁。
+功能：阻塞当前进程等待子进程任务执行完成并返回子进程退出状态码，允许指定等待超时时间。对于需要操作标准流的场景（Pipe 模式），使用者需要优先处理标准流，避免子进程标准流缓冲区满后调用本函数产生死锁。
 
 > **说明：**
 >
@@ -666,7 +667,7 @@ public func wait(timeout!: ?Duration = None): Int64
 public func waitOutput(): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-功能：阻塞当前进程等待子进程任务执行完成，并返回子进程退出状态码、返回结果(包含输出流和错误流返回结果)。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 wait 函数自行处理。
+功能：阻塞当前进程等待子进程任务执行完成，并返回子进程退出状态码、返回结果（包含输出流和错误流返回结果）。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 wait 函数自行处理。
 
 返回值：
 

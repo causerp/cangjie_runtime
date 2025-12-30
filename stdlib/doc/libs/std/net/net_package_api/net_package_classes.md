@@ -6,7 +6,7 @@
 sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & BigEndianOrder<IPAddress>
 ```
 
-功能：此类表示Internet协议（IP）地址。互联网协议地址（IP地址）是一个数字标签，例如 *192.0.2.1* 或 *2001:0db8:0000:0000:0000:ff00:0042:8329*，分配给连接到使用互联网协议进行通信的计算机网络设备。IP地址有两个主要功能：网络接口标识和位置寻址。
+功能：此类表示 Internet 协议（IP）地址。互联网协议地址（IP 地址）是一个数字标签，例如 *192.0.2.1* 或 *2001:0db8:0000:0000:0000:ff00:0042:8329*，分配给连接到使用互联网协议进行通信的计算机网络设备。IP 地址有两个主要功能：网络接口标识和位置寻址。
 
 父类型：
 
@@ -27,7 +27,7 @@ public prop hostName: ?String
 
 - [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) - 如果不是合法字符串，抛出异常。
 
-类型：?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：?[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop size
 
@@ -49,7 +49,7 @@ public static func parse(s: String): IPAddress
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
 
 返回值：
 
@@ -125,7 +125,7 @@ public static func resolve(family: AddressFamily, domain: String): Array<IPAddre
 参数：
 
 - family: [AddressFamily](net_package_structs.md#struct-addressfamily) - 地址族。
-- domain: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 域名。
+- domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 域名。
 
 返回值：
 
@@ -154,7 +154,7 @@ public static func resolve(domain: String): Array<IPAddress>
 
 参数：
 
-- domain: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 域名。
+- domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 域名。
 
 返回值：
 
@@ -183,7 +183,7 @@ public static func tryParse(s: String): ?IPAddress
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
 
 返回值：
 
@@ -211,11 +211,11 @@ main() {
 public func getAddressBytes(): Array<Byte>
 ```
 
-功能：返回此 [IPAddress](net_package_classes.md#class-ipaddress) 对象的原始IP地址。
+功能：返回此 [IPAddress](net_package_classes.md#class-ipaddress) 对象的原始 IP 地址。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示。
 
 示例：
 <!-- run -->
@@ -246,7 +246,7 @@ public open func getPrefix(prefixLen: UInt8): IPPrefix
 
 参数：
 
-- prefixLen: [UInt8](../../../std/core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度。
+- prefixLen: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度。
 
 异常：
 
@@ -292,7 +292,7 @@ public open func isGlobalUnicast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -318,7 +318,7 @@ public func isIPv4(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -343,7 +343,7 @@ public func isIPv6(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv6 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv6 地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -368,7 +368,7 @@ public open func isLinkLocal(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -396,7 +396,7 @@ public open func isLoopback(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -422,7 +422,7 @@ public open func isMulticast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
 
 ### func isPrivate()
 
@@ -434,7 +434,7 @@ public open func isPrivate(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
 
 ### func isUnspecified()
 
@@ -446,7 +446,7 @@ public open func isUnspecified(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
 
 示例：
 <!-- run -->
@@ -542,12 +542,12 @@ public operator func !=(rhs: IPAddress): Bool
 sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString
 ```
 
-功能：这个类表示一个 IP 前缀，即一个连续的 IP 地址块，边界为2的幂（也称为“IP子网”）。
+功能：这个类表示一个 IP 前缀，即一个连续的 IP 地址块，边界为 2 的幂（也称为“IP 子网”）。
 
 一个 IP 前缀由两条信息指定：
 
-- 起始IP地址（IPv4或IPv6）。这是前缀的第一个IP地址。
-- 前缀长度。这通过指定IP地址中的位数来指定前缀的长度，从网络字节顺序中的最高有效位开始，对于前缀中的所有地址都是恒定的。
+- 起始 IP 地址（IPv4 或 IPv6）。这是前缀的第一个 IP 地址。
+- 前缀长度。这通过指定 IP 地址中的位数来指定前缀的长度，从网络字节顺序中的最高有效位开始，对于前缀中的所有地址都是恒定的。
 
 父类型：
 
@@ -585,7 +585,7 @@ public static func parse(s: String): IPPrefix
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
 
 异常：
 
@@ -621,7 +621,7 @@ public static func tryParse(s: String): ?IPPrefix
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
 
 返回值：
 
@@ -668,7 +668,7 @@ public func contains(rhs: IPAddress): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示包含指定的 [IPAddress](net_package_classes.md#class-ipaddress) 地址，false 表示不包含。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示包含指定的 [IPAddress](net_package_classes.md#class-ipaddress) 地址，false 表示不包含。
 
 ### func contains(IPPrefix)
 
@@ -684,7 +684,7 @@ public func contains(rhs: IPPrefix): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示包含指定的 [IPPrefix](net_package_classes.md#class-ipprefix) 地址，false 表示不包含。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示包含指定的 [IPPrefix](net_package_classes.md#class-ipprefix) 地址，false 表示不包含。
 
 ### func hostmask()
 
@@ -748,7 +748,7 @@ public func overlaps(rhs: IPPrefix): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示和指定的 [IPPrefix](net_package_classes.md#class-ipprefix) 地址有重叠，false 表示没有重叠。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示和指定的 [IPPrefix](net_package_classes.md#class-ipprefix) 地址有重叠，false 表示没有重叠。
 
 ### func toString()
 
@@ -820,7 +820,7 @@ public class IPSocketAddress <: SocketAddress & Equatable<IPSocketAddress>{
 }
 ```
 
-功能：此类实现了IP协议 Socket 地址（IP地址+端口号）。它提供了一个不可变的对象，用于 Socket  的绑定、连接或作为返回值。
+功能：此类实现了 IP 协议 Socket 地址（IP 地址+端口号）。它提供了一个不可变的对象，用于 Socket  的绑定、连接或作为返回值。
 
 父类型：
 
@@ -855,7 +855,7 @@ public prop port: UInt16
 
 功能：获取当前 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的端口。
 
-类型：[UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16)
+类型：[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
 ### prop size
 
@@ -865,7 +865,7 @@ public prop size: Int64
 
 功能：获取当前 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的原始字节长度。
 
-类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init(Array\<Byte>, UInt16)
 
@@ -873,12 +873,12 @@ public prop size: Int64
 public init(address: Array<Byte>, port: UInt16)
 ```
 
-功能：根据大端序 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示的 IP 地址和本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
+功能：根据大端序 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示的 IP 地址和本机序 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
 
 参数：
 
 - address: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>  - 大端序 IP 地址。
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
 
 异常：
 
@@ -890,12 +890,12 @@ public init(address: Array<Byte>, port: UInt16)
 public init(address: String, port: UInt16)
 ```
 
-功能：根据字符串表示的 IP 地址和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
+功能：根据字符串表示的 IP 地址和 本机序 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
 
 参数：
 
-- address: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
+- address: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 地址字符串。
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
 
 异常：
 
@@ -907,12 +907,12 @@ public init(address: String, port: UInt16)
 public init(address: IPAddress, port: UInt16)
 ```
 
-功能：根据 [IPAddress](net_package_classes.md#class-ipaddress) 对象和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
+功能：根据 [IPAddress](net_package_classes.md#class-ipaddress) 对象和 本机序 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
 
 参数：
 
 - address: [IPAddress](net_package_classes.md#class-ipaddress) - [IPAddress](net_package_classes.md#class-ipaddress) 对象。
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
+- port: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
 
 ### static func parse(String)
 
@@ -924,7 +924,7 @@ public static func parse(s: String): IPSocketAddress
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
 
 返回值：
 
@@ -932,7 +932,7 @@ public static func parse(s: String): IPSocketAddress
 
 异常：
 
-- [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - 入参需要是合法的socket地址，比如 192.168.0.0:80 或 [fc00::1]:8080，否则抛出异常。
+- [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - 入参需要是合法的 socket 地址，比如 192.168.0.0:80 或 [fc00::1]:8080，否则抛出异常。
 
 示例：
 <!-- run -->
@@ -964,7 +964,7 @@ public static func tryParse(s: String): ?IPSocketAddress
 
 参数：
 
-- s: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
+- s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP 协议的 Socket 字符串。
 
 返回值：
 
@@ -992,11 +992,11 @@ main() {
 public func getAddressBytes(): Array<Byte>
 ```
 
-功能：返回此 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的原始地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示，内容布局与 `sockaddr_in` 或 `sockaddr_in6` 一致。
+功能：返回此 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的原始地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示，内容布局与 `sockaddr_in` 或 `sockaddr_in6` 一致。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的原始地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象的原始地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示。
 
 ### func hashCode()
 
@@ -1020,7 +1020,7 @@ public func isIPv4(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 地址，否则返回 false。
 
 ### func isIPv6()
 
@@ -1032,7 +1032,7 @@ public func isIPv6(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv6 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv6 地址，否则返回 false。
 
 ### func toString()
 
@@ -1106,7 +1106,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
 }
 ```
 
-功能：此类表示 Internet 协议版本4 （IPv4）地址。由 [RFC 790](https://datatracker.ietf.org/doc/html/rfc790)、[RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) 和 [RFC 2365](https://datatracker.ietf.org/doc/html/rfc2365) 定义。
+功能：此类表示 Internet 协议版本 4（IPv4）地址。由 [RFC 790](https://datatracker.ietf.org/doc/html/rfc790)、[RFC 1918](https://datatracker.ietf.org/doc/html/rfc1918) 和 [RFC 2365](https://datatracker.ietf.org/doc/html/rfc2365) 定义。
 
 父类型：
 
@@ -1151,11 +1151,11 @@ public static let unspecified = IPv4Address(0, 0, 0, 0)
 public init(bits: UInt32)
 ```
 
-功能：根据本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
+功能：根据本机字节序 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
 
 参数：
 
-- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
+- bits: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 ### init(Byte, Byte, Byte, Byte)
 
@@ -1163,14 +1163,14 @@ public init(bits: UInt32)
 public init(a: Byte, b: Byte, c: Byte, d: Byte)
 ```
 
-功能：根据4 个 8-bit 字节构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址对象，文本将表示为 `a.b.c.d`。
+功能：根据 4 个 8-bit 字节构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址对象，文本将表示为 `a.b.c.d`。
 
 参数：
 
-- a: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
-- b: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
-- c: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
-- d: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
+- a: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
+- b: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
+- c: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
+- d: [Byte](../../core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
 
 ### static func readBigEndian(Array\<Byte>)
 
@@ -1202,7 +1202,7 @@ public func getPrefix(prefixLen: UInt8): IPPrefix
 
 参数：
 
-- prefixLen: [UInt8](../../../std/core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度，必须 \>= 0 且 <= 32。
+- prefixLen: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度，必须 \>= 0 且 <= 32。
 
 异常：
 
@@ -1222,7 +1222,7 @@ public func isBroadcast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是广播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是广播地址，否则返回 false。
 
 ### func isGlobalUnicast()
 
@@ -1234,7 +1234,7 @@ public func isGlobalUnicast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
 
 ### func isLinkLocal()
 
@@ -1246,7 +1246,7 @@ public func isLinkLocal(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
 
 ### func isLoopback()
 
@@ -1258,7 +1258,7 @@ public func isLoopback(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
 
 ### func isMulticast()
 
@@ -1270,7 +1270,7 @@ public func isMulticast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
 
 ### func isPrivate()
 
@@ -1282,7 +1282,7 @@ public func isPrivate(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
 
 ### func isUnspecified()
 
@@ -1294,7 +1294,7 @@ public func isUnspecified(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
 
 ### func toBits()
 
@@ -1302,11 +1302,11 @@ public func isUnspecified(): Bool
 public func toBits(): UInt32
 ```
 
-功能：此 [IPv4Address](net_package_classes.md#class-ipv4address) 地址转换为本机字节序的 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
+功能：此 [IPv4Address](net_package_classes.md#class-ipv4address) 地址转换为本机字节序的 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 返回值：
 
-- [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序的 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
+- [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序的 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 ### func toIPv6Compatible()
 
@@ -1423,7 +1423,7 @@ public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & Less
 }
 ```
 
-功能：此类表示 Internet 协议版本6 （IPv6）地址。由 [RFC4291](https://datatracker.ietf.org/doc/html/rfc4291)、[RFC5952](https://datatracker.ietf.org/doc/html/rfc5952)、[RFC4007](https://datatracker.ietf.org/doc/html/rfc4007) 定义。
+功能：此类表示 Internet 协议版本 6（IPv6）地址。由 [RFC4291](https://datatracker.ietf.org/doc/html/rfc4291)、[RFC5952](https://datatracker.ietf.org/doc/html/rfc5952)、[RFC4007](https://datatracker.ietf.org/doc/html/rfc4007) 定义。
 
 父类型：
 
@@ -1529,7 +1529,7 @@ public func getPrefix(prefixLen: UInt8): IPPrefix
 
 参数：
 
-- prefixLen: [UInt8](../../../std/core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度，必须 \>= 0 且 <= 128。
+- prefixLen: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 网络前缀长度，必须 \>= 0 且 <= 128。
 
 异常：
 
@@ -1549,7 +1549,7 @@ public func isGlobalUnicast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是全局单播地址，否则返回 false。
 
 ### func isIPv4Mapped()
 
@@ -1561,7 +1561,7 @@ public func isIPv4Mapped(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 映射地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 IPv4 映射地址，否则返回 false。
 
 ### func isLinkLocal()
 
@@ -1573,7 +1573,7 @@ public func isLinkLocal(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是链路本地地址，否则返回 false。
 
 ### func isLoopback()
 
@@ -1585,7 +1585,7 @@ public func isLoopback(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是环回地址，否则返回 false。
 
 ### func isMulticast()
 
@@ -1597,7 +1597,7 @@ public func isMulticast(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是多播地址，否则返回 false。
 
 ### func isPrivate()
 
@@ -1609,7 +1609,7 @@ public func isPrivate(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是私有地址，否则返回 false。
 
 ### func isTeredo()
 
@@ -1621,7 +1621,7 @@ public func isTeredo(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 `Teredo` 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是 `Teredo` 地址，否则返回 false。
 
 ### func isUnspecified()
 
@@ -1633,7 +1633,7 @@ public func isUnspecified(): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回 true 表示是“未指定” IP 地址，否则返回 false。
 
 ### func scope(?UInt32)
 
@@ -2104,7 +2104,7 @@ public prop size: Int64
 
 功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始字节长度。
 
-类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop family
 
@@ -2122,11 +2122,11 @@ public prop family: AddressFamily
 public func getAddressBytes(): Array<Byte>
 ```
 
-功能：返回此 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始IP地址。
+功能：返回此 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始 IP 地址。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示。
 
 ### operator func ==(SocketAddress)
 
@@ -4634,7 +4634,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
 }
 ```
 
-功能：此类实现了 Unix Domain Socket 地址，Unix Domain Socket 地址封装了Unix Domain Socket 绑定或连接到的文件系统路径，路径长度不可超过 108。
+功能：此类实现了 Unix Domain Socket 地址，Unix Domain Socket 地址封装了 Unix Domain Socket 绑定或连接到的文件系统路径，路径长度不可超过 108。
 
 如果路径是空字符串，那么表示它是 `unnamed` 地址，如果路径以`\0` 开头，那么它是 `abstract` 地址。路径中间不可包含 `\0`。
 
@@ -4661,7 +4661,7 @@ public prop size: Int64
 
 功能：获取当前 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象的原始字节长度。
 
-类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init(Array\<Byte>)
 
@@ -4689,7 +4689,7 @@ public init(path: String)
 
 参数：
 
-- path: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 文件系统路径字符串。
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 文件系统路径字符串。
 
 异常：
 
@@ -4701,11 +4701,11 @@ public init(path: String)
 public func getAddressBytes(): Array<Byte>
 ```
 
-功能：返回此 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象的原始IP地址，内容布局与 `sockaddr_un` 形式一致。
+功能：返回此 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象的原始 IP 地址，内容布局与 `sockaddr_un` 形式一致。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> 表示。
 
 示例：
 <!-- run -->

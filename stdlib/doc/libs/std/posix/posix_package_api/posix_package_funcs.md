@@ -122,7 +122,6 @@ public func chmod(path: String, mode: UInt32): Int32
 - 在 `Windows` 环境下，文件的可执行权限通过文件扩展名设置，所有目录都是可执行的，[chmod](#func-chmodstring-uint32-deprecated)() 不能更改文件和目录的可执行权限。
 - 在 `iOS` 环境下，运行设置了可执行权限的文件，系统会忽略设置的可执行权限。
 
-
 > **注意：**
 >
 > 未来版本即将废弃。
