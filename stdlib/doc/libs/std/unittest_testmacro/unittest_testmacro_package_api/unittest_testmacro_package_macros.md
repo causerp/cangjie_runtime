@@ -35,14 +35,14 @@
 功能：`@Bench` 宏用于标记要执行多次的函数并计算该函数的预期执行时间。
 
 此类函数将分批执行，并针对整个批次测量执行时间。这种测量将重复多次以获得结果的统计分布，并将计算该分布的各种统计参数。
-当前支持的参数如下:
+当前支持的参数如下：
 
 - 中位数
 - 用作误差估计的中位数 99% 置信区间的绝对值
 - 中位数 99% 置信区间的相对值
 - 平均值
 
-参数化的 DSL 与 `@Bench` 结合的示例如下，具体语法与规则详见[`@TestCase` 宏](#testcase-宏)章节：
+参数化的 DSL 与 `@Bench` 结合的示例如下，具体语法与规则详见 [`@TestCase` 宏](#testcase-宏)章节：
 
 <!-- compile -->
 
@@ -120,7 +120,7 @@ TP: default, time elapsed: 68610430659 ns, Result:
 - `generationSteps`: 类型为 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) ：参数化测试算法中的生成值的最大步数。
 - `reductionSteps` ：类型为 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64): 参数化测试算法中的缩减值的最大步数。
 
-以下参数一般用于被 `@Bench` 修饰的 Benchmark 测试函数:
+以下参数一般用于被 `@Bench` 修饰的 Benchmark 测试函数：
 
 - `explicitGC` ：类型为 [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype): Benchmark 函数测试期间如何调用 [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)。默认值为 [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype).Light 。
 - `baseline` ：类型为 [String](../../core/core_package_api/core_package_structs.md#struct-string) : 参数值为 Benchmark 函数的名称，作为比较 Benchmark 函数执行结果的基线。该结果值将作为附加列添加到输出中，其中将包含比较结果。
@@ -173,7 +173,7 @@ Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
 
 `@CustomAssertion` 修饰的函数存在返回值时，它将被 `@Assert` 宏返回。
 
-示例如下:
+示例如下：
 
 <!-- compile -->
 ```cangjie
@@ -202,13 +202,15 @@ func testfunc() {
 }
 ```
 
-> 注意: 自定义 `@Expect` 将总是返回 `Unit` ，不论 `@CustomAssertion` 修饰的函数返回值为什么类型。
+> **注意：**
+>
+> 自定义 `@Expect` 将总是返回 `Unit` ，不论 `@CustomAssertion` 修饰的函数返回值为什么类型。
 
 ### 嵌套断言
 
-在 `@CustomAssertion` 定义中， [`@Assert`](#assert-宏)/[`@Expect`](#expect-宏) (包括自定义断言), [`@AssertThrows`](#assertthrows-宏)/[`@ExpectThrows`](#expectthrows-宏), [`@Fail`](#fail-宏)/[`@FailExpect`](#failexpect-宏)宏均可被调用，形成嵌套。
+在 `@CustomAssertion` 定义中， [`@Assert`](#assert-宏)/[`@Expect`](#expect-宏) （包括自定义断言）, [`@AssertThrows`](#assertthrows-宏)/[`@ExpectThrows`](#expectthrows-宏), [`@Fail`](#fail-宏)/[`@FailExpect`](#failexpect-宏)宏均可被调用，形成嵌套。
 
-例如:
+例如：
 
 <!-- compile -->
 ```cangjie
@@ -247,7 +249,7 @@ Assert Failed: @Assert[iterableWithoutNone]([true, false, Option < Bool >.None])
 
 当指定泛型类型参数时，可使用与常规语法来完成。
 
-例如:
+例如：
 
 <!-- compile -->
 ```cangjie
@@ -389,28 +391,28 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 1. 单个 `@Tag` 在测试函数上。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Unittest]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Unittest]
+    func test() {}
+    ```
 
 2. 单个 `@Tag` 包含多个标签名，用逗号分隔。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Unittest, TestAuthor]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Unittest, TestAuthor]
+    func test() {}
+    ```
 
 3. 多个 `@Tag` 在测试函数上。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Smoke]
-@Tag[Backend, JiraTask3271]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Smoke]
+    @Tag[Backend, JiraTask3271]
+    func test() {}
+    ```
 
 ### 规则与约束
 
@@ -507,10 +509,10 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 
 - Arrays: `x in [1,2,3,4]` 。
 - Ranges: `x in 0..14` 。
-- 随机生成的值: `x in random()` 。
-- 从 json 文件中读取到的值: `x in json("filename.json")` 。
-- 从 csv 文件中读取到的值: `x in csv("filename.csv")` 。
-- `@Strategy` 修饰的函数: `x in nameOfStrategyAnnotatedFunction` 。
+- 随机生成的值：`x in random()` 。
+- 从 json 文件中读取到的值：`x in json("filename.json")` 。
+- 从 csv 文件中读取到的值：`x in csv("filename.csv")` 。
+- `@Strategy` 修饰的函数：`x in nameOfStrategyAnnotatedFunction` 。
 - 使用 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 组合数据策略的结果。
 
 > 高级用户可以通过定义自己的类型并且实现 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> 接口来引入自己的参数源类型。
@@ -526,11 +528,11 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 - 所有已支持类型的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型
 
 > 若需要新增其他的类型支持 `random()` ，可以让该类型扩展 [Arbitrary](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryt) 。
-> 在参数有多个值时，`beforeEach` / `afterEach` 不会在不同值下重复执行而仅会执行一次。若确实需要在每个值下做初始化和去初始化，需要在测试主体中写。对于性能测试方案， `@Strategy` 应该用于需要从基准中排除的设置代码。没有为这种情况提供特殊的API，因为在大多数情况下，这样的代码依赖于特定的参数值。
+> 在参数有多个值时，`beforeEach` / `afterEach` 不会在不同值下重复执行而仅会执行一次。若确实需要在每个值下做初始化和去初始化，需要在测试主体中写。对于性能测试方案， `@Strategy` 应该用于需要从基准中排除的设置代码。没有为这种情况提供特殊的 API，因为在大多数情况下，这样的代码依赖于特定的参数值。
 
 ## `@TestTemplate` 宏
 
-功能: `@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模版](../../unittest/unittest_samples/unittest_test_templates.md)。
+功能：`@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模版](../../unittest/unittest_samples/unittest_test_templates.md)。
 
 ## `@Timeout` 宏
 
@@ -546,9 +548,9 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 功能：`@Types` 宏为测试类或测试函数提供类型参数。它可以放置在测试类或测试函数上。
 
 语法规则为 `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`
-其中 `Id1`、`Id2`... 是有效类型参数标识符，`Type1`、`Type2`、`Type3`...是有效的仓颉类型。
+其中 `Id1`、`Id2`... 是有效类型参数标识符，`Type1`、`Type2`、`Type3`... 是有效的仓颉类型。
 
-`@Types` 宏有以下限制:
+`@Types` 宏有以下限制：
 
 - 必须与 `@Test`， `@TestCase` 或 `@Bench` 宏共同使用。
 - 一个声明只能有一个 `@Types` 宏修饰。

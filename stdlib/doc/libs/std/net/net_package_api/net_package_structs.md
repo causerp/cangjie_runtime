@@ -86,7 +86,7 @@ public let name: String
 
 功能：地址族名。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### let value
 
@@ -96,7 +96,7 @@ public let value: UInt16
 
 功能：地址族值。
 
-类型：[UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16)
+类型：[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
 ### init(String, UInt16)
 
@@ -108,8 +108,8 @@ public const init(name: String, value: UInt16)
 
 参数：
 
-- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 地址族名。
-- value: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 地址族值。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 地址族名。
+- value: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 地址族值。
 
 ### func toString()
 
@@ -121,7 +121,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 当前地址族的名称。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前地址族的名称。
 
 ### operator func ==(AddressFamily)
 
@@ -137,7 +137,7 @@ public operator func ==(rhs: AddressFamily): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ### operator func !=(AddressFamily)
 
@@ -153,7 +153,7 @@ public operator func !=(rhs: AddressFamily): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象不等，则返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象不等，则返回 `true`；否则，返回 `false`。
 
 ## struct OptionLevel
 
@@ -186,7 +186,7 @@ public static const ICMP: Int32 = 1
 public static const IP: Int32 = 0
 ```
 
-功能：控制 [IP]() 协议行为的套接字选项级别。
+功能：控制 IP 协议行为的套接字选项级别。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -269,7 +269,7 @@ public struct OptionName {
 public static const IP_HDRINCL: Int32
 ```
 
-功能：用于在发送数据包时指定 [IP]() 头部是否由应用程序提供的套接字选项。不同系统下的值分别为：
+功能：用于在发送数据包时指定 IP 头部是否由应用程序提供的套接字选项。不同系统下的值分别为：
 
 - macOS: 0x0002
 - Windows: 0x0002
@@ -297,7 +297,7 @@ public static const IP_TOS: Int32
 public static const IP_TTL: Int32
 ```
 
-功能：用于限制[IP]()数据包在网络中传输最大跳数的套接字选项。不同系统下的值分别为：
+功能：用于限制 IP 数据包在网络中传输最大跳数的套接字选项。不同系统下的值分别为：
 
 - macOS: 0x0004
 - Windows: 0x0004

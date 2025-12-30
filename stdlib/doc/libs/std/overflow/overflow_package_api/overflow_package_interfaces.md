@@ -8705,7 +8705,7 @@ func wrappingShl(y: UInt64): T
 
 功能：使用高位截断策略的左移运算。
 
-当移位位数大于等于操作数位数时，高位截断。例如，对 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的数进行移位，当 y (移位位数)超大于等于 8时，仅取 y 的低 3 位作为移位位数，以此保证移位位数在 0 到 7 之间。
+当移位位数大于等于操作数位数时，高位截断。例如，对 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的数进行移位，当 y（移位位数）超大于等于 8 时，仅取 y 的低 3 位作为移位位数，以此保证移位位数在 0 到 7 之间。
 
 参数：
 
@@ -8723,7 +8723,7 @@ func wrappingShr(y: UInt64): T
 
 功能：使用高位截断策略的右移运算。
 
-当移位位数大于等于操作数位数时，高位截断。例如，对 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的数进行移位，当 y (移位位数)超大于等于 8时，仅取 y 的低 3 位作为移位位数，以此保证移位位数在 0 到 7 之间。
+当移位位数大于等于操作数位数时，高位截断。例如，对 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的数进行移位，当 y （移位位数）超大于等于 8 时，仅取 y 的低 3 位作为移位位数，以此保证移位位数在 0 到 7 之间。
 
 参数：
 

@@ -119,6 +119,7 @@ public init(bytes: Array<Byte>)
 > **说明：**
 >
 > 数据存储方法有以下两种：
+>
 > - 大端存储方式：高位字节存放在低位地址。
 > - 小端存储方式：将数据的低位字节存放在内存的高位地址。
 
@@ -3154,11 +3155,11 @@ main() {
 public init(val: IntNative)
 ```
 
-功能：通过 32 位或 64 位 (具体长度与平台相关) 有符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
+功能：通过 32 位或 64 位（具体长度与平台相关）有符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
 
 参数：
 
-- val: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 32 位或 64位有符号整数。
+- val: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 32 位或 64 位有符号整数。
 
 示例：
 <!-- verify -->
@@ -3186,7 +3187,7 @@ public init(val: String)
 
 功能：通过规定格式字符串构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 结构体。默认采用精度值为 0，即无限精度进行构建。字符串需满足如下格式，即开头可选的符号（正号或负号），接 ValueString 字符串，再接可选的 ExponentString 字符串：
 
-[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串: (SignString)? ValueString (ExponentString)?
+[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串：(SignString)? ValueString (ExponentString)?
 
 - SignString: + | -
 
@@ -3343,11 +3344,11 @@ main() {
 public init(val: UIntNative)
 ```
 
-功能：通过 32 位或 64 位 (具体长度与平台相关) 无符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
+功能：通过 32 位或 64 位（具体长度与平台相关）无符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
 
 参数：
 
-- val: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 32 位或 64位无符号整数。
+- val: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 32 位或 64 位无符号整数。
 
 示例：
 <!-- verify -->
@@ -3815,7 +3816,7 @@ public func toBigInt(): BigInt
 public func toEngString(): String
 ```
 
-功能：以工程计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，指数为 3 的倍数, 当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
+功能：以工程计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，指数为 3 的倍数，当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
 
 返回值：
 
@@ -4576,7 +4577,7 @@ public static func parse(value: String): Decimal
 
 功能：通过规定格式字符串构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 结构体。默认采用精度值为 0，即无限精度进行构建。字符串需满足如下格式，即开头可选的符号（正号或负号），接 ValueString 字符串，再接可选的 ExponentString 字符串：
 
-[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串: SignString? ValueString ExponentString?
+[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串：SignString? ValueString ExponentString?
 
 - SignString: + | -
 
@@ -4615,7 +4616,7 @@ public static func tryParse(value: String): ?Decimal
 
 功能：尝试通过规定格式字符串构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 结构体。默认采用精度值为 0，即无限精度进行构建。字符串需满足如下格式，即开头可选的符号（正号或负号），接 ValueString 字符串，再接可选的 ExponentString 字符串：
 
-[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串: SignString? ValueString ExponentString?
+[Decimal](math_numeric_package_structs.md#struct-decimal) 字符串：SignString? ValueString ExponentString?
 
 - SignString: + | -
 

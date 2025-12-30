@@ -7,6 +7,7 @@ This repository provides the source code for the Cangjie Runtime and Cangjie Pro
 ![](runtime/figures/runtime_std.png)
 
 > Usage of Third-Party Libraries
+>
 > - `libboundscheck` is used by the Cangjie Runtime and Cangjie Programming Language Standard Library. It is source code dependent and will be compiled and integrated into binary release packages.
 > - `OpenSSL` is used by the Cangjie Runtime. It dynamically links to the system's dynamic libraries without source code dependency.
 > - `PCRE2` is used by the standard library `regex`. It is source code dependent and will be compiled and integrated into binary release packages.
@@ -55,7 +56,7 @@ The architecture diagram of Cangjie Runtime is shown below:
 
 ### Directory Structure
 
-```
+```text
 /cangjie_runtime
 ├── runtime
 │   ├── build            # Build scripts
@@ -107,7 +108,6 @@ The Cangjie Standard Library has three key characteristics and goals:
 - Universal Functionality: The standard library provides the most commonly used library capabilities for developers, aiming to solve most basic problems.
 - Quality Benchmark: The standard library strives to set an example and benchmark for other Cangjie libraries in terms of performance, code style, etc.
 
-
 For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html).
 
 ### System Architecture
@@ -120,7 +120,7 @@ The architecture diagram of the Cangjie standard library is shown below:
 
 The main directories are as follows:
 
-```
+```text
 /cangjie_runtime
 ├── runtime
 └── stdlib
@@ -172,6 +172,7 @@ To build the Cangjie Programming Language Standard Library, please refer to [Bui
 The standard library build artifacts need to be used with the cjc compiler and runtime, etc. For specific integration methods, please see the [Cangjie Programming Language Standard Library API](./stdlib/doc/libs/summary_cjnative_EN.md).
 
 ### Platform Support Plan
+
 - Build Platform Evolution: Plan to support Cangjie applications running on the OHOS-ARM32 platform on October 20, 2025. Advanced features such as reflection, dynamic loading capabilities, and some compiler optimizations are planned to be supported in Q4 2025.
 
 ## Repositories Involved
@@ -189,6 +190,7 @@ The standard library build artifacts need to be used with the cjc compiler and r
 [cangjie_test](https://gitcode.com/Cangjie/cangjie_test)
 
 ## Open Source License
+
 This project is licensed under [Apache-2.0 with Runtime Library Exception](./LICENSE). Please enjoy and participate in open source freely.
 
 ## Contribution Guide
