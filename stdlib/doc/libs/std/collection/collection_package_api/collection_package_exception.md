@@ -1,4 +1,4 @@
-# 异常
+# 异常类
 
 ## class ConcurrentModificationException
 
