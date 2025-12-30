@@ -55,6 +55,14 @@ func refreshTokensPosition(tks: Tokens) {
     return tks.refreshPosition()
 }
 
+// used for quote desugar
+func transformTokens<T>(input: T, tks: Tokens): Tokens {
+    match (input) {
+        case _: Tokens => Tokens().concat(tks)
+        case _ => tks
+    }
+}
+
 public open class Tokens <: ToString & Iterable<Token> & ToBytes {
     /* Invariant: `tokens` is immutable; after construction, we never alter its elements */
 
