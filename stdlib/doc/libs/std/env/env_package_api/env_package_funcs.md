@@ -10,7 +10,7 @@ public func atExit(callback: () -> Unit): Unit
 
 > **注意：**
 >
-> 请不要使用 C 语言 atexit 函数，避免出现不可期问题。
+> 请不要使用 C 语言 atexit 函数，避免出现非预期问题。
 
 参数：
 
