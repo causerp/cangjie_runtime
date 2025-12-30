@@ -96,7 +96,7 @@ void ExceptionManager::RegisterUncaughtExceptionHandler(const CJUncaughtExceptio
 }
 #endif
 
-#ifdef __APPLE__
+#ifdef __IOS__
 void ExceptionManager::DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj)
 {
     (void)sunmary;
