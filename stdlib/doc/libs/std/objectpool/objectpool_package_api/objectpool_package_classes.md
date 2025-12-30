@@ -85,7 +85,7 @@ public func get(): T
 public func put(item: T): Unit
 ```
 
-功能：尝试将对象放入 [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) 中，不保证一定会将对象放入 [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) 在对一个对象调用 put 后不应该再对该对象进行任何操作，否则可能导致不可期问题。
+功能：尝试将对象放入 [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) 中，不保证一定会将对象放入 [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) 在对一个对象调用 put 后不应该再对该对象进行任何操作，否则可能导致非预期问题。
 
 参数：
 
