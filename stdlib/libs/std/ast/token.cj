@@ -16,23 +16,7 @@ public struct Token <: ToBytes {
     public let value: String
     public let pos: Position
     public var delimiterNum: UInt16 = 1 // Delimiter r'#' number for raw string.
-    private var isSingleQuote_ = false
-
-    public mut prop isSingleQuote: Bool {
-        get() {
-            isSingleQuote_
-        }
-        /**
-         * @throws IllegalArgumentException if kind is SINGLE_QUOTED_STRING_LITERAL but set the value to false.
-         */
-        set(v) {
-            if (kind == TokenKind.SINGLE_QUOTED_STRING_LITERAL && !v) {
-                throw IllegalArgumentException(
-                "TokenKind(" + getTokenKindValue(kind) + ") and isSingleQuote not matched.\n")
-            }
-            isSingleQuote_ = v
-        }
-    }
+    protected var isSingleQuote = false
 
     /**
          Constructors
@@ -50,7 +34,7 @@ public struct Token <: ToBytes {
         value = getTokenLiteral(kind)
         pos = Position()
         if (kind == SINGLE_QUOTED_STRING_LITERAL) {
-            this.isSingleQuote_ = true
+            this.isSingleQuote = true
         }
     }
 
@@ -65,7 +49,7 @@ public struct Token <: ToBytes {
         this.value = value
         pos = Position()
         if (kind == SINGLE_QUOTED_STRING_LITERAL) {
-            this.isSingleQuote_ = true
+            this.isSingleQuote = true
         }
     }
 
@@ -74,19 +58,19 @@ public struct Token <: ToBytes {
         kind = k
         value = v
         pos = Position(f, l, c)
-        this.isSingleQuote_ = isSingleQuote
+        this.isSingleQuote = isSingleQuote
     }
 
     public func addPosition(fileID: UInt32, line: Int32, colum: Int32): Token {
-        return Token(this.kind, this.value, fileID, line, colum, isSingleQuote: this.isSingleQuote_)
+        return Token(this.kind, this.value, fileID, line, colum, isSingleQuote: this.isSingleQuote)
     }
 
     func addPosition(position: NodeFormat_Position) {
-        return Token(this.kind, this.value, position.fileId, position.line, position.column, isSingleQuote: this.isSingleQuote_)
+        return Token(this.kind, this.value, position.fileId, position.line, position.column, isSingleQuote: this.isSingleQuote)
     }
 
     func addPosition(position: Position) {
-        return Token(this.kind, this.value, position.fileID, position.line, position.column, isSingleQuote: this.isSingleQuote_)
+        return Token(this.kind, this.value, position.fileID, position.line, position.column, isSingleQuote: this.isSingleQuote)
     }
 
     // Returns true if and only if the two token's kind id, value, position are identical.

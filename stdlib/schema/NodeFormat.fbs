@@ -473,6 +473,9 @@ table Token {
   kind: uint16;
   value: string;
   pos: Position;
+  delimiter_num: uint32;
+  is_single_quote: bool;
+  has_escape: bool;
 }
 
 table TokenPart {
