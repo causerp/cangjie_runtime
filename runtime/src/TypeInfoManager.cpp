@@ -376,7 +376,11 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     CString typeInfoName = tt->GetTypeInfoName(argSize, args);
     TypeInfo* newTypeInfo = reinterpret_cast<TypeInfo*>(Allocate(sizeof(TypeInfo)));
     size_t nameSize = typeInfoName.Length() + 1;
+#ifdef __arm__
+    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize,sizeof(TypeInfo*)));
+#else
     uintptr_t nameAddr = Allocate(nameSize);
+#endif
     MapleRuntime::MemoryCopy(nameAddr, nameSize, reinterpret_cast<uintptr_t>(typeInfoName.Str()), nameSize);
     newTypeInfo->SetName(reinterpret_cast<const char*>(nameAddr));
 
@@ -386,7 +390,7 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     newTypeInfo->SetvExtensionDataStart(tt->GetvExtensionDataStart());
     newTypeInfo->SetSourceGeneric(tt);
     // genericArgs
-    size_t genericArgsSize = argSize * TYPEINFO_PTR_SIZE;
+    size_t genericArgsSize = argSize * sizeof(TypeInfo*);
     uintptr_t genericArgsAddr = Allocate(genericArgsSize);
     MapleRuntime::MemoryCopy(genericArgsAddr, genericArgsSize, reinterpret_cast<uintptr_t>(args), genericArgsSize);
     newTypeInfo->SetGenericArgs(reinterpret_cast<TypeInfo**>(genericArgsAddr));
