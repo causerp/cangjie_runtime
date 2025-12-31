@@ -514,7 +514,7 @@ public func sort<T>(data: List<T>, stable!: Bool = false, descending!: Bool = fa
 
 参数：
 
-- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-Listt)\<T> - 需要排序的 `List`。
+- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-listt)\<T> - 需要排序的 `List`。
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
 
@@ -530,7 +530,7 @@ public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = fals
 
 参数：
 
-- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-Listt)\<T> - 需要排序的 `List`。
+- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-listt)\<T> - 需要排序的 `List`。
 - by!: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 传入的比较函数。
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
@@ -547,7 +547,7 @@ public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = fa
 
 参数：
 
-- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-Listt)\<T> - 需要排序的 `List`。
+- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-listt)\<T> - 需要排序的 `List`。
 - lessThan!: (T, T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入的比较函数。
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。
@@ -564,7 +564,7 @@ public func sort<T, K>(data: List<T>, key!: (T) -> K, stable!: Bool = false, des
 
 参数：
 
-- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-Listt)\<T> - 需要排序的 `List`。
+- data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-listt)\<T> - 需要排序的 `List`。
 - key!: (T) -> K - 元素到键的映射函数。
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序，默认为否。
 - descending!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用降序排序，默认为否。

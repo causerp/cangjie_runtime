@@ -3754,9 +3754,9 @@ public func log(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -3807,9 +3807,9 @@ public func log(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -3849,9 +3849,9 @@ public func log(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -3891,9 +3891,9 @@ public func log10(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -3933,9 +3933,9 @@ public func log10(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -3975,9 +3975,9 @@ public func log10(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -4017,9 +4017,9 @@ public func log2(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -4059,9 +4059,9 @@ public func log2(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->
@@ -4101,9 +4101,9 @@ public func log2(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 NaN，返回 NaN。
+> - 如果传入 `x` 等于 0，返回 -Inf。
+> - 如果传入 `x` 为 Inf，返回 Inf。
 
 示例：
 <!-- verify -->

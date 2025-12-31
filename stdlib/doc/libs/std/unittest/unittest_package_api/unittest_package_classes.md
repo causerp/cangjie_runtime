@@ -575,7 +575,7 @@ public func mapWithConfig<R>(f: (T, Configuration) -> R): MapProcessor<T, R>
 public func flatMap<R>(f: (T) -> DataProvider<R>): FlatMapProcessor<T, R>
 ```
 
-功能：简单地将 `f` 应用于原始数据策略的每个项目，然后展平结果。 [Shrink](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt)  也会发生在原始输入上，然后进行 [flatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 。
+功能：简单地将 `f` 应用于原始数据策略的每个项目，然后展平结果。 [Shrink](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt)  也会发生在原始输入上，然后进行 [flatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 。
 
 参数：
 
@@ -641,7 +641,7 @@ public func productWithUnit<P>(p: P): MapProcessor<(T, Unit), T> where P <: Data
 public class FlatMapProcessor<T,R> <: DataStrategyProcessor<R> {}
 ```
 
-功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。
+功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。
 
 父类型：
 
@@ -653,7 +653,7 @@ public class FlatMapProcessor<T,R> <: DataStrategyProcessor<R> {}
 public class FlatMapStrategyProcessor<T,R> <: DataStrategyProcessor<R> {}
 ```
 
-功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。
+功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。
 
 父类型：
 
@@ -1664,7 +1664,7 @@ public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 ### XmlPerPackageReporter(Path)
 

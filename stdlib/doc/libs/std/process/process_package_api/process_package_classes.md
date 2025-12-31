@@ -6,7 +6,7 @@
 public class CurrentProcess <: Process {}
 ```
 
-功能：此类为当前进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对当前进程操作相关功能。
+功能：此类为当前进程类，继承 [Process](#class-process) 类，提供对当前进程操作相关功能。
 
 提供功能具体如下：
 
@@ -20,7 +20,7 @@ public class CurrentProcess <: Process {}
 
 父类型：
 
-- [Process](../process_package_overview.md#class-process)
+- [Process](#class-process)
 
 ### prop arguments
 
@@ -376,7 +376,7 @@ public static func of(pid: Int64): Process
 
 返回值：
 
-- [Process](process_package_classes.md#class-process) - 返回进程 `id` 对应的进程实例。
+- [Process](#class-process) - 返回进程 `id` 对应的进程实例。
 
 异常：
 
@@ -544,7 +544,7 @@ protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
 public class SubProcess <: Process {}
 ```
 
-功能：此类为子进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对子进程操作相关功能。
+功能：此类为子进程类，继承 [Process](#class-process) 类，提供对子进程操作相关功能。
 
 > **注意：**
 >
@@ -560,7 +560,7 @@ public class SubProcess <: Process {}
 
 父类型：
 
-- [Process](../process_package_overview.md#class-process)
+- [Process](#class-process)
 
 ### prop stdErr <sup>(deprecated)</sup>
 
