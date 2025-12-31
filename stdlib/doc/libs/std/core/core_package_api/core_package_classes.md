@@ -1908,7 +1908,7 @@ public init(capacity: Int64)
 
 参数：
 
-- capacity: [Int64](core_package_intrinsics.md#int64) - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 的字节容量，取值范围为 (0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)]。
+- capacity: [Int64](core_package_intrinsics.md#int64) - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 的字节容量，取值范围为 (0, Int64.Max]。
 
 异常：
 
@@ -1925,7 +1925,7 @@ public init(r: Rune, n: Int64)
 参数：
 
 - r: Rune - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 实例的字符。
-- n: [Int64](core_package_intrinsics.md#int64) - 字符 `r` 的数量，取值范围为 [0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)]。
+- n: [Int64](core_package_intrinsics.md#int64) - 字符 `r` 的数量，取值范围为 [0, Int64.Max]。
 
 异常：
 

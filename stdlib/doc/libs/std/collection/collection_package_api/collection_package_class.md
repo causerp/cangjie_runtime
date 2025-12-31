@@ -1736,11 +1736,11 @@ public operator func [](key: K): V
 extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 ```
 
-功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 类型扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>> 接口，支持判等操作。
+功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 类型扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>> 接口，支持判等操作。
 
 父类型：
 
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>>
 
 #### operator func ==(HashMap\<K, V>)
 
@@ -1748,13 +1748,13 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 public operator func ==(right: HashMap<K, V>): Bool
 ```
 
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否相等。
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否相等。
 
-两个 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 相等指的是其中包含的键值对完全相等。
+两个 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 相等指的是其中包含的键值对完全相等。
 
 参数：
 
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
 
 返回值：
 
@@ -1766,11 +1766,11 @@ public operator func ==(right: HashMap<K, V>): Bool
 public operator func !=(right: HashMap<K, V>): Bool
 ```
 
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否不等。
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例是否不等。
 
 参数：
 
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 被比较的对象。
 
 返回值：
 
@@ -1782,7 +1782,7 @@ public operator func !=(right: HashMap<K, V>): Bool
 extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
 ```
 
-功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 扩展 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
+功能：为 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 扩展 [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring) 接口，支持转字符串操作。
 
 父类型：
 
@@ -1794,9 +1794,9 @@ extend<K, V> HashMap<K, V> <: ToString where V <: ToString, K <: ToString
 public func toString(): String
 ```
 
-功能：将当前 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例转换为字符串。
+功能：将当前 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 实例转换为字符串。
 
-该字符串包含 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 内每个键值对的字符串表示，形如："[(k1, v1), (k2, v2), (k3, v3)]"。
+该字符串包含 [HashMap](./collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> 内每个键值对的字符串表示，形如："[(k1, v1), (k2, v2), (k3, v3)]"。
 
 返回值：
 

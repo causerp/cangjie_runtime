@@ -6,7 +6,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 
 仓颉单元测试支持 cjc 编译器（单包编译模式）和 cjpm 包管理器（ 多包模式）。
 
-用户可通过[快速入门](./unittest_samples/unittest_getting_started.md#unittest-快速入门)写出第一个单元测试程序。同时文档对于一些[基础概念及用法](./unittest_samples/unittest_basics.md#unittest-基础概念及用法)做了说明并附有示例代码，另外，对于一些高阶特性例如[参数化测试](./unittest_samples/unittest_parameterized_tests.md#参数化测试入门)等做了进一步说明。
+用户可通过[快速入门](./unittest_samples/unittest_getting_started.md)写出第一个单元测试程序。同时文档对于一些[基础概念及用法](./unittest_samples/unittest_basics.md)做了说明并附有示例代码，另外，对于一些高阶特性例如[参数化测试](./unittest_samples/unittest_parameterized_tests.md#参数化测试入门)等做了进一步说明。
 
 如下 API 从其他包中重导出，因此用户亦可以只导入 unittest 即可使用。
 
@@ -116,7 +116,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [TestSuiteBuilder](./unittest_package_api/unittest_package_classes.md#class-testsuitebuilder) | 提供配置测试套方法的测试套构造器。 |
 | [UnitTestCase](./unittest_package_api/unittest_package_classes.md#class-unittestcase) | 提供创建和执行单元测试用例的方法的类。 |
 | [XmlReporter](./unittest_package_api/unittest_package_classes.md#class-xmlreporter) | 打印单元测试用例结果数据到 Xml 文件上。 |
-| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperrpackagereporte) | 打印单元测试用例结果数据到 Xml 文件上。 |
+| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperpackagereporter) | 打印单元测试用例结果数据到 Xml 文件上。 |
 
 ### 枚举
 

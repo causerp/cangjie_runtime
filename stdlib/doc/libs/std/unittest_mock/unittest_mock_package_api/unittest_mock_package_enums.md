@@ -62,7 +62,7 @@ public enum MockSessionKind {
 }
 ```
 
-功能：控制允许在 [MockSession](./unittest_mock_package_classes.md#static-func-opensession) 使用的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)的类型。
+功能：控制允许在 [MockSession](./unittest_mock_package_classes.md#static-func-opensessionstring-mocksessionkind) 使用的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)的类型。
 只能验证在 `Verifiable` 的 `Session` 中创建的桩的期望。
 
 ### Forbidden

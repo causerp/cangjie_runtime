@@ -18,11 +18,11 @@ public func emptyIterable<T>(): Iterable<T>
 public func random<T>(): RandomDataStrategy<T> where T <: Arbitrary<T>
 ```
 
-功能：该函数生成 T 类型的随机数据，其中 T 必须实现接口 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary)\<T> 。该函数的返回值是参数化测试的一种参数源。
+功能：该函数生成 T 类型的随机数据，其中 T 必须实现接口 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<T> 。该函数的返回值是参数化测试的一种参数源。
 
 返回值：
 
-- [RandomDataStrategy](../../unittest/unittest_package_api/unittest_package_classes.md#class-randomdatastrategyt)\<T> - 使用随机数据生成的 RandomDataStrategy 接口的实例。
+- [RandomDataStrategy](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_classes.md#class-randomdatastrategyt)\<T> - 使用随机数据生成的 RandomDataStrategy 接口的实例。
 
 ## func randomInRange\<T>(Option\<T>, Option\<T>)
 
