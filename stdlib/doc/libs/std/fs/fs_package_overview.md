@@ -34,7 +34,7 @@ fs（file system）包提供对文件、文件夹、路径、文件元数据信�
 | [Directory](./fs_package_api/fs_package_classes.md#class-directory) | 对应文件系统中的目录，它提供创建、查询属性以及遍历目录等能力。  |
 | [File](./fs_package_api/fs_package_classes.md#class-file) | 提供一些对文件进行操作的函数，包括文件的打开、创建、关闭、文件的流式读写操作、查询属性以及一些其他函数。   |
 | [HardLink](./fs_package_api/fs_package_classes.md#class-hardlink) | 提供处理文件系统硬链接相关接口。 |
-| [SymbolicLink](./fs_package_api/fs_package_classes.md#class-symbolicLink) | 提供处理文件系统符号链接相关接口。 |
+| [SymbolicLink](./fs_package_api/fs_package_classes.md#class-symboliclink) | 提供处理文件系统符号链接相关接口。 |
 
 ### 枚举
 

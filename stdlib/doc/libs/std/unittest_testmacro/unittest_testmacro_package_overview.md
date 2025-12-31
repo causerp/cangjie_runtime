@@ -30,7 +30,7 @@ unittest.testmacro 为单元测试框架提供了用户所需的宏。
 | [Strategy](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) | 用于组合、映射和重用各种数据策略。|
 | [Tag](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#tag-宏) | `@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 函数，提供测试实体的元信息。|
 | [Test](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏) | 宏应用于顶级函数或顶级类，使该函数或类转换为单元测试类。 |
-| [TestBuilder](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testbuilder-宏) | 声明一个[动态测试](../unittest/unittest_samples/unittest_dynamic_tests.md#动态测试)套。|
+| [TestBuilder](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testbuilder-宏) | 声明一个[动态测试](../unittest/unittest_samples/unittest_dynamic_tests.md)套。|
 | [TestCase](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏) | 宏用于标记单元测试类内的函数，使这些函数成为单元测试的测试用例。 |
 | [Timeout](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#timeout-宏) | 指示测试应在指定时间后终止。它有助于测试可能运行很长时间或陷入无限循环的复杂算法。 |
 | [Types](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#types-宏) |  宏为测试类或测试函数提供类型参数。它可以放置在测试类或测试函数上。 |

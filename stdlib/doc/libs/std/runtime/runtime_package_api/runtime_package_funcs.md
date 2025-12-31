@@ -26,7 +26,7 @@ public func dumpHeapData(path: Path): Unit
 
 参数：
 
-- path: [Path](../../fs/fs_package_api/fs_package_structs.md/#struct-path) - 生成堆内存快照文件的文件路径。
+- path: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 生成堆内存快照文件的文件路径。
 
 异常：
 

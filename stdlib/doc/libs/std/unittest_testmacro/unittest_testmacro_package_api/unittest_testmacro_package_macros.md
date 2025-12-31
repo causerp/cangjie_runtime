@@ -473,7 +473,7 @@ public class UnittestClass {
 
 ## `@TestBuilder` 宏
 
-功能：声明一个[动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md#动态测试)套。
+功能：声明一个[动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md)套。
 
 ## `@TestCase` 宏
 
