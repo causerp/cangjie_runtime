@@ -15,7 +15,7 @@ mock 框架本身是仓颉标准库中**单元测试**的一部分。使用 mock
 * 调用[mock 构造函数](./mock_framework_basics.md#创建-mock-对象)创建 mock/spy 对象。
 * 调用[配置 API](./mock_framework_basics.md#配置-api) 设置 mock 行为。
 * 使用 mock 对象替代测试代码依赖。
-* （可选）调用[验证 API](./mock_framework_verification.md#mock-框架验证-api) 来验证测试代码与 mock/spy 对象之间的交互。
+* （可选）调用[验证 API](./mock_framework_verification.md) 来验证测试代码与 mock/spy 对象之间的交互。
 
 以如下简单 API 为例：
 
