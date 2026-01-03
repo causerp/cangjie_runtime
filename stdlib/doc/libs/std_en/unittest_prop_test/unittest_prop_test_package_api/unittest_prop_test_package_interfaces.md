@@ -1492,11 +1492,11 @@ Return value:
 func nextInt16(max: Int16): Int16
 ```
 
-Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) in the range [0, `max`).
 
 Parameters:
 
-- max: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
+- max: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
 
 Return value:
 
@@ -1504,7 +1504,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt32()
 
@@ -1524,11 +1524,11 @@ Return value:
 func nextInt32(max: Int32): Int32
 ```
 
-Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `max`).
 
 Parameters:
 
-- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
+- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
 Return value:
 
@@ -1536,7 +1536,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt64()
 
@@ -1556,11 +1556,11 @@ Return value:
 func nextInt64(max: Int64): Int64
 ```
 
-Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `max`).
 
 Parameters:
 
-- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
 Return value:
 
@@ -1568,7 +1568,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt8()
 
@@ -1588,11 +1588,11 @@ Return value:
 func nextInt8(max: Int8): Int8
 ```
 
-Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) in the range [0, `max`).
 
 Parameters:
 
-- max: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
+- max: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
 
 Return value:
 
@@ -1600,7 +1600,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextIntNative()
 
@@ -1632,11 +1632,11 @@ Return value:
 func nextUInt16(max: UInt16): UInt16
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) in the range [0, `max`).
 
 Parameters:
 
-- max: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
+- max: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
 
 Return value:
 
@@ -1644,7 +1644,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` equals 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
 
 ### func nextUInt32()
 
@@ -1664,11 +1664,11 @@ Return value:
 func nextUInt32(max: UInt32): UInt32
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) in the range [0, `max`).
 
 Parameters:
 
-- max: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
+- max: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
 
 Return value:
 
@@ -1676,7 +1676,7 @@ Return value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` equals 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
 
 ### func nextUInt64()
 
@@ -1688,7 +1688,7 @@ Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_pack
 
 Return value:
 
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64.Max].
 
 ### func nextUInt64(UInt64)
 
@@ -1696,11 +1696,21 @@ Return value:
 func nextUInt64(max: UInt64): UInt64
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) in the range [0, `max`).
 
 Parameters:
 
-- max: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt64](../../core/core_package_api/core_package_int### func nextUInt8()
+- max: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)]
+
+Return value:
+
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64.Max].
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
+
+### func nextUInt8()
 
 ```cangjie
 func nextUInt8(): UInt8
@@ -1735,7 +1745,7 @@ Exceptions:
 ### func nextUIntNative()
 
 ```cangjie
- func nextUIntNative(): UIntNative
+func nextUIntNative(): UIntNative
 ```
 
 Function: Retrieves a pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
