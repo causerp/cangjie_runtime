@@ -151,7 +151,7 @@ func warmup(x: Duration): Unit
 extend Configuration <: BenchmarkConfig {}
 ```
 
-功能：为 [Configuration](#class-configuration) 扩展 [BenchmarkConfig](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig) 接口。
+功能：为 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 扩展 [BenchmarkConfig](../../unittest/unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig) 接口。
 
 父类型：
 
@@ -248,7 +248,6 @@ public interface BenchmarkInputMarker
 ```
 
 功能：当我们不知道 `T` 时，该接口能够检测 `BenchInputProvider<T>` 。
-
 
 ## interface Measurement
 

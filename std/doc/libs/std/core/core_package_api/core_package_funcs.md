@@ -102,7 +102,7 @@ public func eprint(str: String, flush!: Bool = true): Unit
 参数：
 
 - str: [String](core_package_structs.md#struct-string) - 待输出的字符串。
-- flush!: [Bool](core_package_intrinsics.md#bool) - 是否将缓存数据区的内容立即刷新写入与标准错误流相关的文件和设备中，true表示立即刷新，false表示暂不刷新 ，默认 false。
+- flush!: [Bool](core_package_intrinsics.md#bool) - 是否将缓存数据区的内容立即刷新写入与标准错误流相关的文件和设备中，true 表示立即刷新，false 表示暂不刷新 ，默认 false。
 
 示例：
 
@@ -392,7 +392,7 @@ public func min<T>(a: T, b: T, others: Array<T>): T where T <: Comparable<T>
 
 > **注意：**
 >
-> 浮点数类型的比较也将按照[Comparable](./core_package_interfaces.md#interface-comparablet)的结果进行比较，如果浮点书中有非数`NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min`方法。
+> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点书中有非数`NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min`方法。
 
 参数：
 
@@ -520,7 +520,7 @@ main() {
 
 > **注意：**
 >
-> 仓颉采用IEEE 754格式表示浮点数，保存数值可能会有误差。
+> 仓颉采用 IEEE 754 格式表示浮点数，保存数值可能会有误差。
 >
 ## func print(Float32, Bool)
 
@@ -1470,7 +1470,7 @@ width: 5, height: 10
 public func readln(): String
 ```
 
-功能：接受控制台输入，直到遇到换行或EOF结束。
+功能：接受控制台输入，直到遇到换行或 EOF 结束。
 
 返回值：
 
@@ -1658,7 +1658,7 @@ main(): Int64 {
 }
 ```
 
-在启动主线程后，执行到sleep函数的时候，主线程会让出系统执行权，并睡眠 1 秒后重新唤醒竞争系统执行权，继续执行剩余逻辑。在主线程睡眠期间，自定义线程拿到执行权，开始执行。运行结果：
+在启动主线程后，执行到 sleep 函数的时候，主线程会让出系统执行权，并睡眠 1 秒后重新唤醒竞争系统执行权，继续执行剩余逻辑。在主线程睡眠期间，自定义线程拿到执行权，开始执行。运行结果：
 
 ```text
 Main thread

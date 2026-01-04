@@ -10,14 +10,14 @@ ref 包提供了弱引用相关的能力。弱引用是一个相对“强引用�
 
 同时，本包支持两种回收策略，激进回收策略（ GC 会尽快回收弱引用指向的对象）和延迟回收策略（ GC 会尽量晚回收弱引用指向的对象，例如仅在内存不足时回收）。
 
-## API列表
+## API 列表
 
 ### 类
 
 |                 类名              |                功能                 |
 | --------------------------------- | ---------------------------------- |
 | [WeakRef](./ref_package_api/ref_package_classes.md#class-weakreft-where-t--object) | 此类提供弱引用相关的功能，如果一个对象的引用被标记为弱引用，那么即使引用不为空并且该对象的可达性成立， GC 也可以按照指定的回收策略回收它。|
-| [WeakRefBase](./ref_package_api/ref_package_classes.md#class-weakrefbase) | 此类不包含任何公开成员和公开函数，也不允许被继承、扩展， 仅作为 `WeakRef` 的基类。|
+| [WeakRefBase](./ref_package_api/ref_package_classes.md#class-weakrefbase) | 此类不包含任何公开成员和公开函数，也不允许被继承、扩展，仅作为 `WeakRef` 的基类。|
 
 ### 枚举
 

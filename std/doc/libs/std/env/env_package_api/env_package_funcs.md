@@ -10,7 +10,7 @@ public func atExit(callback: () -> Unit): Unit
 
 > **注意：**
 >
-> 请不要使用 C 语言 atexit 函数，避免出现不可期问题。
+> 请不要使用 C 语言 atexit 函数，避免出现非预期问题。
 
 参数：
 
@@ -198,7 +198,7 @@ public func removeVariable(key: String): Unit
 
 异常：
 
-- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 k 包含空字符时，抛出异常时，抛出异常。
+- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
 
 ## func setVariable(String, String)
 

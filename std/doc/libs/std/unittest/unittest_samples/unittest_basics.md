@@ -149,7 +149,7 @@ func testAddIncorrectAssert() {
 失败断言可以让测试用例运行失败。`@Fail` 采用快速失败机制，运行至此断言则整个测试用例失败，后续断言都不再检查。`@FailExpect` 运行至此断言会使得用例失败，但后续断言依然会被检查。
 前述宏的参数为描述失败原因的字符串，`@Fail` 的返回值类型为 `Nothing` ， `@FailExpect` 的类型为 `Unit` 。
 
-举例来说:
+举例来说：
 
 <!-- run -->
 ```cangjie
@@ -180,7 +180,7 @@ func validate_even_number_generator() {
 运行至此断言当预期抛出的异常类型未被抛出时，用例将失败，`@AssertThrows` 将不再进行后续检查，而 `@ExpectThrows` 将继续检查。
 前述宏的属性入参为预期抛出的异常类型列表，通过 `|` 隔离不同异常类型，当没有属性入参时预期抛出异常基类 `Exception` 。入参为预期抛出异常的表达式或代码块。
 
-举例来说:
+举例来说：
 
 ```cangjie
 // No.1
@@ -223,7 +223,7 @@ let e: C = @AssertThrows[A | B](foo())
 
 #### `@ExpectThrows` 的返回类型
 
-`@ExpectThrows` 检查失败后也会继续执行，在指定的异常不超过一个时，它返回的类型是 Option\<T>，其中 `T` 是预期的异常类型:
+`@ExpectThrows` 检查失败后也会继续执行，在指定的异常不超过一个时，它返回的类型是 Option\<T>，其中 `T` 是预期的异常类型：
 
 ```cangjie
 let e: ?NoneValueException = @ExpectThrows[NoneValueException](foo())
@@ -291,7 +291,7 @@ func test() {
 
 ## 测试生命周期
 
-测试用例之间有时可以共享创建或清理代码。测试框架支持4个生命周期步骤，分别通过相应的宏来设置。只能为 `@Test` 测试类指定生命周期步骤，不能为 `@Test` 顶层函数指定生命周期步骤。
+测试用例之间有时可以共享创建或清理代码。测试框架支持 4 个生命周期步骤，分别通过相应的宏来设置。只能为 `@Test` 测试类指定生命周期步骤，不能为 `@Test` 顶层函数指定生命周期步骤。
 
 | 宏 | 生命周期 |
 | ---  | --- |
@@ -396,7 +396,7 @@ class Foo {
 1. `--filter=*` 匹配所有测试类
 2. `--filter=*.*` 匹配所有测试类所有测试用例（结果和*相同）
 3. `--filter=*.*Test,*.*case*` 匹配所有测试类中以 Test 结尾的用例，或者所有测试类中名字中带有 case 的测试用例
-4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case的用例，或者名字中不带有 myTest 的测试用例
+4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case 的用例，或者名字中不带有 myTest 的测试用例
 
 ### `--dry-run`
 
@@ -411,7 +411,8 @@ class Foo {
 3. `--include-tags=Unittest+Smoke` 运行所有的带有 `@Tag[Unittest]`和`@Tag[Smoke]` 的测试用例。
 4. `--include-tags=Unittest+Smoke+JiraTask3271,Backend` 运行所有的带有 `@Tag[Backend]`和/或`@Tag[Unittest, Smoke, JiraTask3271]` 的测试用例。
 
-> ** 注意 **
+> **注意：**
+>
 > 如果没有符合指定标签类别的测试用例。框架将不运行任何内容。
 > 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](./unittest_basics.md#--exclude-tags)。
 
@@ -424,7 +425,8 @@ class Foo {
 3. `--exclude-tags=Unittest+Smoke` 运行所有的**未**同时带有 `@Tag[Unittest]`、`@Tag[Smoke]` 的测试用例。
 4. `--include-tags=Unittest --exclude-tags=Smoke` 运行所有带有 `@Tag[Unittest]` 但不带有 `@Tag[Smoke]` 的测试用例。
 
-> ** 注意 **
+> **注意：**
+>
 > `exclude-tags` 的优先级高于 `include-tags`，如果用例被排除，则必定不会被执行，例如 `--include-tags=Unittest+Smoke --exclude-tags=Smoke` 则带有 `@Tag[Smoke]` 的用例不会被执行。
 
 ### `--show-tags`
@@ -453,7 +455,7 @@ class Foo {
 程序静态初始化可能会发生多次。
 不允许与 `--bench` 同时使用。由于性能用例对底层资源敏感，用例是否并行执行，将影响性能用例的结果，因此禁止与 `--bench` 同时使用。
 
-- `--parallel=<BOOL>` `<BOOL>` 可为 `true` 或 `false` ，指定为 `true` 时，测试类可被并行运行，并行进程个数将受运行系统上的CPU核数控制。另外，`--parallel` 可省略 `=true` 。
+- `--parallel=<BOOL>` `<BOOL>` 可为 `true` 或 `false` ，指定为 `true` 时，测试类可被并行运行，并行进程个数将受运行系统上的 CPU 核数控制。另外，`--parallel` 可省略 `=true` 。
 - `--parallel=nCores` 指定了并行的测试进程个数应该等于可用的 CPU 核数。
 - `--parallel=NUMBER` 指定了并行的测试进程个数值。该数值应该为正整数。
 - `--parallel=NUMBERnCores` 指定了并行的测试进程个数值为可用的 CPU 核数的指定数值倍。该数值应该为正数（支持浮点数或整数）。
@@ -488,14 +490,14 @@ class Foo {
 - `csv`：csv 报告中有统计数据。
 - `csv-raw`： csv-raw 报告中只有批次的原始测量值。
 - `html`：html 报告包含显示的所有结果和各种统计属性。可以在任何浏览器中查看。对于每个基准测试函数，html 报告包含：
-  - 每个基准参数的摘要。
-  - 执行环境相关信息的汇总，例如硬件信息、操作系统信息、编译信息、环境变量。
-  - 每个基准参数的选项卡包含详细的统计信息。
-  - 核密度估计图。这是对基准函数的单次执行实际花费的时间的概率估计。
-  - 原始测量值及其线性回归图。
-  - 具有统计属性（例如平均值、中位数、R 平方、框架开销、标准差）及其置信区间的表。
+    - 每个基准参数的摘要。
+    - 执行环境相关信息的汇总，例如硬件信息、操作系统信息、编译信息、环境变量。
+    - 每个基准参数的选项卡包含详细的统计信息。
+    - 核密度估计图。这是对基准函数的单次执行实际花费的时间的概率估计。
+    - 原始测量值及其线性回归图。
+    - 具有统计属性（例如平均值、中位数、R 平方、框架开销、标准差）及其置信区间的表。
 
-基准测试的默认使用的格式为:
+基准测试的默认使用的格式为：
 
 - `csv`
 

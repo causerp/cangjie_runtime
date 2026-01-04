@@ -120,7 +120,7 @@ public mut prop keepaliveTime: Duration
 public mut prop maxIdleSize: Int32
 ```
 
-功能：最大空闲连接数量，超过这个数量的空闲连接会被关闭，负数或0表示无限制。
+功能：最大空闲连接数量，超过这个数量的空闲连接会被关闭，负数或 0 表示无限制。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -140,7 +140,7 @@ public mut prop maxLifeTime: Duration
 public mut prop maxSize: Int32
 ```
 
-功能：连接池最大连接数量，负数或0表示无限制。
+功能：连接池最大连接数量，负数或 0 表示无限制。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -1840,7 +1840,7 @@ public static const FetchRows = "fetch_rows"
 public static const Host = "host"
 ```
 
-功能：获取数据库服务器主机名或者 [IP]() 地址。
+功能：获取数据库服务器主机名或者 IP 地址。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1930,7 +1930,7 @@ public static const SSLModeDisabled = "ssl.mode.disabled"
 public static const SSLModePreferred = "ssl.mode.preferred"
 ```
 
-功能：如果服务器支持加密连接，则建立加密连接; 如果无法建立加密连接，则回退到未加密连接，这是 SSLMode 的默认值。
+功能：如果服务器支持加密连接，则建立加密连接；如果无法建立加密连接，则回退到未加密连接，这是 SSLMode 的默认值。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1981,7 +1981,7 @@ public static const Tls12Ciphersuites = "tls1.2.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.2 及以下的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_[SHA256]():TLS_DHE_RSA_WITH_AES_128_CBC_SHA"。
+值为冒号分隔的字符串，比如 `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_[SHA256]():TLS_DHE_RSA_WITH_AES_128_CBC_SHA`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1992,7 +1992,7 @@ public static const Tls13Ciphersuites = "tls1.3.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.3 的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 "TLS_AES_256_GCM_[SHA384]():TLS_CHACHA20_POLY1305_[SHA256]()"。
+值为冒号分隔的字符串，比如 `TLS_AES_256_GCM_[SHA384]():TLS_CHACHA20_POLY1305_[SHA256]()`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2012,7 +2012,7 @@ public static const TlsVersion = "tls.version"
 public static const URL = "url"
 ```
 
-功能：获取数据库连接 [URL]() 字符串。
+功能：获取数据库连接 URL 字符串。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
