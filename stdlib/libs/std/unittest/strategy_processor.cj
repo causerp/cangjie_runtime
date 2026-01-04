@@ -458,7 +458,7 @@ sealed abstract class DataStrategyProcessor<T> {
     ): Benchmark {
         // in previous versions measurement was captured by doRun lambda
         Benchmark.createWithExplicitLoop<T>(caseName, this, configuration, TimeNow()) {
-            t,a,_,c,_ => doRun(t,a,c)
+            t,a,c,_,_ => doRun(t,a,c)
         }
     }
 
