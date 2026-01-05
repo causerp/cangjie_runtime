@@ -583,6 +583,17 @@ TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
         return nullptr;
     }
 }
+
+static bool IsTargetExtensionData(TypeInfo *ti, ExtensionData *extensionData)
+{
+    if (!ti->IsGenericTypeInfo() && extensionData->TargetIsTypeInfo()) {
+        return ti->GetUUID() == static_cast<TypeInfo*>(extensionData->GetTargetType())->GetUUID();
+    }
+    if (ti->IsGenericTypeInfo() && !extensionData->TargetIsTypeInfo()) {
+        return ti->GetSourceGeneric()->GetUUID() == static_cast<TypeTemplate*>(extensionData->GetTargetType())->GetUUID();
+    }
+    return false;
+}
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
 	if (this == itf || this->GetUUID() == itf->GetUUID()) {
@@ -605,6 +616,10 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 	FuncPtr* funcTable = extensionData->GetFuncTable();
 	auto funcPtr = funcTable[index];
 	for (auto& superTypePair : mTableDesc->mTable) {
+        ExtensionData* extensionData = superTypePair.second.GetExtensionData();
+        if (!IsTargetExtensionData(this, extensionData)) {
+            continue;
+        }
         auto superTi = superTypePair.second.GetSuperTi();
         // Avoid infinite recursion. The mTAble may contain itself.
 		if (superTi == this || superTi->GetUUID() == GetUUID()) {
@@ -622,7 +637,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
             auto res = superTi->GetMethodOuterTI(itf, index);
 			it->second.SetCachedTypeInfo(index, res);
 			return res;
-		} else if (superTypePair.second.first->IsDirect()) {
+		} else if (extensionData->IsDirect()) {
 			break;
 		}
 	}
