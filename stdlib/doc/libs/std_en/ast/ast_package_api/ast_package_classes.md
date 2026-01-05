@@ -2353,8 +2353,8 @@ Parameters:
 
 ```cangjie
 public class FeaturesDirective <: Node {
-    public init()
     public init(input: Tokens)
+    public init()
 }
 ```
 
@@ -2431,6 +2431,18 @@ Parameters:
 Exceptions:
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - Thrown when the input [Tokens](ast_package_classes.md#class-tokens) type cannot be constructed as a [PackageHeader](ast_package_classes.md#class-featuresdirective) node.
+
+### func isEmpty()
+
+```cangjie
+public func isEmpty(): Bool
+```
+
+Function: if `content` is empty.
+
+returntype:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - content is empty.
 
 ### func toTokens()
 

@@ -336,7 +336,7 @@ public class Continuation<A> where A <: ActionSelector {}
 ### func then()
 
 ```cangjie
-func then(): A
+public func then(): A
 ```
 
 功能：当链中的先前操作完成时，返回 [ActionSelector](unittest_mock_package_classes.md#class-actionselector) 的子类对象。

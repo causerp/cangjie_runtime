@@ -1643,8 +1643,8 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 
 ```cangjie
 public struct TimeNow <: Measurement {
-    public init()
     public init(unit: ?TimeUnit)
+    public init()
 }
 ```
 

@@ -1184,10 +1184,10 @@ PERFORM
 
 功能：构造一个表示 `perform` 的枚举实例。
 
-### PLATFROM
+### PLATFORM
 
 ```cangjie
-PLATFROM
+PLATFORM
 ```
 
 功能：构造一个表示 `platform` 关键字的枚举实例。

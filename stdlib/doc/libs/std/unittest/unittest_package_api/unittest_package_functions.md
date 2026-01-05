@@ -122,7 +122,7 @@ public func expectEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    optParentCtx!: ?AssertionCtx
+    optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
 
@@ -144,8 +144,8 @@ public func expectEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    isDelta!: Bool = false,
-    optParentCtx!: ?AssertionCtx
+    isDelta!: Bool,
+    optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
 

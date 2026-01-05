@@ -1648,8 +1648,8 @@ public let suiteName: String
 
 ```cangjie
 public struct TimeNow <: Measurement {
-    public init()
     public init(unit: ?TimeUnit)
+    public init()
 }
 ```
 
