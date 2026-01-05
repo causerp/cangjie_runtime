@@ -241,7 +241,7 @@ public override func provide(): Iterable<T>
 
 ```cangjie
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
-    public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+    public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 }
 ```
 
@@ -254,7 +254,7 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 ```
 
 功能：构造器。

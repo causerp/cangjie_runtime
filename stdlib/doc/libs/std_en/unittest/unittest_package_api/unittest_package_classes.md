@@ -585,7 +585,7 @@ public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
     _: String,
     x!: Int64 = 0
-): DataStrategyProcessor<U>
+): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
 ```
 
 Function: Starting point for composition and mapping of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt).
@@ -1691,6 +1691,8 @@ Return value:
 
 - [UnitTestCase](#class-unittestcase) - Unit test case object.## class XmlReporter
 
+## class XmlReporter
+
 ```cangjie
 public class XmlReporter <: Reporter<TestReport, Unit> {
     public XmlReporter(let directory: Path)
@@ -1710,6 +1712,33 @@ public XmlReporter(let directory: Path)
 ```
 
 Function: Constructor for XmlReporter.
+
+Parameters:
+
+- directory: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - The output file generation path.
+
+
+## class XmlPerPackageReporter
+
+```cangjie
+public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
+    public XmlPerPackageReporter(let directory: Path)
+}
+```
+
+Function: Outputs unit test case result data to XML files.
+
+Parent Types:
+
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+
+### XmlPerPackageReporter(Path)
+
+```cangjie
+public XmlPerPackageReporter(let directory: Path)
+```
+
+Function: Constructor for XmlPerPackageReporter.
 
 Parameters:
 
