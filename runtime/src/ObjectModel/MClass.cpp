@@ -23,44 +23,6 @@
 #include "Flags.h"
 
 namespace MapleRuntime {
-
-class ThreadSafeOuterTypeInfoCache {
-public:
-    static ThreadSafeOuterTypeInfoCache& GetInstance()
-    { 
-        static ThreadSafeOuterTypeInfoCache instance; 
-        return instance; 
-    }
-
-    void Insert(U32 objTypeUUID, U32 introTypeUUID, U64 methodIdx, TypeInfo* methodOuterTypeInfo)
-    {
-        U64 kk = ((U64)objTypeUUID << 31) | introTypeUUID;
-        rwLock.LockWrite();
-        cacheMap[kk][methodIdx] = methodOuterTypeInfo;
-        rwLock.UnlockWrite();
-    }
-
-    TypeInfo* Get(U32 objTypeUUID, U32 introTypeUUID, U64 methodIdx)
-    {
-        U64 kk = ((U64)objTypeUUID << 31) | introTypeUUID;
-        rwLock.LockRead();
-        auto it1 = cacheMap.find(kk);
-        if (it1 != cacheMap.end()) {
-            auto it2 = it1->second.find(methodIdx);
-            if (it2 != it1->second.end()) {
-                rwLock.UnlockRead();
-                return it2->second;
-            }
-        }
-        rwLock.UnlockRead();
-        return nullptr;
-    }
-
-private:
-    std::unordered_map<U64, std::unordered_map<U64, TypeInfo*>> cacheMap;
-    RwLock rwLock;
-};
-
 typedef void *(*GenericiFn)(U32 size, TypeInfo* args[]);
 TypeInfo* ExtensionData::GetInterfaceTypeInfo(U32 argsNum, TypeInfo** args) const
 {
@@ -247,14 +209,28 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
     if (this->GetUUID() == itfUUID) {
         return;
     }
-    auto itfVExtensionDataStart = itf->GetvExtensionDataStart();
-    CHECK_DETAIL(itfVExtensionDataStart != nullptr, "itfVExtensionDataStart is nullptr");
-    auto itfExtData = itf->IsInterface() ? *itfVExtensionDataStart
-                                         : *(itfVExtensionDataStart + itf->GetValidInheritNum() - 1);
-    auto ftSize = extensionData->GetFuncTableSize();
-    auto itfFtSize = itfExtData->GetFuncTableSize();
-    auto incrementalSize = itfFtSize - ftSize;
-    if (incrementalSize > 0 && !IsSameRootPackage(this, itf)) {
+    do {
+        if (LIKELY(extensionData->IsFuncTableUpdated())) {
+            return;
+        }
+
+        auto itfVExtensionDataStart = itf->GetvExtensionDataStart();
+        CHECK_DETAIL(itfVExtensionDataStart != nullptr, "itfVExtensionDataStart is nullptr");
+        auto itfExtData = itf->IsInterface() ? *itfVExtensionDataStart
+                                            : *(itfVExtensionDataStart + itf->GetValidInheritNum() - 1);
+        auto ftSize = extensionData->GetFuncTableSize();
+        auto itfFtSize = itfExtData->GetFuncTableSize();
+        auto incrementalSize = itfFtSize - ftSize;
+        if (incrementalSize == 0) {
+            extensionData->SetFuncTableUpdated();
+            return;
+        }
+        CHECK_DETAIL(incrementalSize > 0, "An incompatible module is imported.");
+
+        if (!extensionData->TryLockFuncTable()) {
+            continue;
+        }
+
         TryInitMTable();
         TraverseInnerExtensionDefs();
         auto& mTable = mTableDesc->mTable;
@@ -301,7 +277,8 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
             mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
         }
         mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
-    }
+        extensionData->SetFuncTableUpdated();
+    } while (true);
 }
 
 // This interface mustn't be invoked locklessly.
@@ -565,14 +542,16 @@ ExtensionData* TypeInfo::FindExtensionData(TypeInfo* itf, bool searchRecursively
 
 FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
 {
-    if (IsTempEnum() && GetSuperTypeInfo()) {
+    if (UNLIKELY(IsTempEnum() && GetSuperTypeInfo())) {
         return GetSuperTypeInfo()->GetMTable(itf);
     }
     auto extensionData = FindExtensionData(itf, true);
-	if (extensionData == nullptr) {
+	if (UNLIKELY(extensionData == nullptr)) {
         LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
     }
-	TryUpdateExtensionData(itf, extensionData);
+    if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
+        TryUpdateExtensionData(itf, extensionData);
+    }
 	FuncPtr* funcTable = extensionData->GetFuncTable();
 	CHECK(funcTable);
     return funcTable;
