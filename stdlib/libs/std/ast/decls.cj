@@ -296,9 +296,8 @@ public class ClassDecl <: Decl {
     }
     public func toTokens(): Tokens {
         var ret: Tokens = super.toTokens()
-        return ret
-            .append(referenceType2Tokens(upBound_, superTypes_, superTypeBitAnds_, genericConstraint, constraintCommas))
-            .append(classbody_.toTokens())
+        return referenceType2Tokens(ret, RefTypeUpperBoundInfo(upBound_, superTypes_, superTypeBitAnds_),
+            genericConstraint, constraintCommas, classbody_)
     }
 
     public func traverse(v: Visitor): Unit {
@@ -392,9 +391,9 @@ public class StructDecl <: Decl {
     }
     public func toTokens(): Tokens {
         var ret: Tokens = super.toTokens()
-        return ret
-            .append(referenceType2Tokens(upBound_, superTypes_, superTypeBitAnds_, genericConstraint, constraintCommas))
-            .append(structbody_.toTokens())
+        return referenceType2Tokens(ret, RefTypeUpperBoundInfo(upBound_, superTypes_, superTypeBitAnds_),
+            genericConstraint, constraintCommas, structbody_)
+
     }
 
     public func traverse(v: Visitor): Unit {
@@ -489,9 +488,8 @@ public class InterfaceDecl <: Decl {
 
     public func toTokens(): Tokens {
         var ret: Tokens = super.toTokens()
-        return ret
-            .append(referenceType2Tokens(upBound_, superTypes_, superTypeBitAnds_, genericConstraint, constraintCommas))
-            .append(interfacetbody_.toTokens())
+        return referenceType2Tokens(ret, RefTypeUpperBoundInfo(upBound_, superTypes_, superTypeBitAnds_),
+            genericConstraint, constraintCommas, interfacetbody_)
     }
 
     public func traverse(v: Visitor): Unit {
@@ -814,9 +812,8 @@ public class ExtendDecl <: Decl {
     }
     public func toTokens(): Tokens {
         var ret: Tokens = super.toTokens().append(extendType_)
-        return ret
-            .append(referenceType2Tokens(upBound_, superTypes_, superTypeBitAnds_, genericConstraint, constraintCommas))
-            .append(body_.toTokens())
+        return referenceType2Tokens(ret, RefTypeUpperBoundInfo(upBound_, superTypes_, superTypeBitAnds_),
+            genericConstraint, constraintCommas, body_)
     }
 
     public func traverse(v: Visitor): Unit {
