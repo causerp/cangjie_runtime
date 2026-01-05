@@ -43,6 +43,8 @@ OAT.xml @xuanjz
 /stdlib/libs/std/deriving/ @JasmineZhu
 /stdlib/libs/std/unittest/ @JasmineZhu
 
+/stdlib/libs/std/ast/ @chuckchen521
+
 #stdlib docs
 /stdlib/doc @luojianing
 
@@ -78,3 +80,5 @@ OAT.xml @xuanjz
 
 /stdlib/doc/libs/std/objectpool/ @ChaosJohn @luojianing
 /stdlib/doc/libs/std/regex/ @ChaosJohn @luojianing
+
+/stdlib/doc/libs/std/ast/ @chuckchen521 @luojianing
