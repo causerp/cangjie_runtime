@@ -27,13 +27,31 @@ public:
     FuncPtr* GetFuncTable() const { return funcTable; }
     void UpdateFuncTable(U16 ftSize, FuncPtr* newFt) { funcTableSize  = ftSize; funcTable = newFt; }
     U16 GetFuncTableSize() const { return funcTableSize; }
+    bool IsDirect() const { return flag & 0b10000000; }
+    bool IsFuncTableUpdated() const
+    {
+        return __atomic_load_n(&flag, __ATOMIC_ACQUIRE) &
+               0b00000110; // "bit-1&2 is 11" means updated already
+    }
+    bool TryLockFuncTable()
+    {
+        U8 expectedFlag = flag & 0b11111001;
+        return __atomic_compare_exchange_n(&flag, &expectedFlag,
+                                           flag | 0b00000100,    // "bit-1&2 is 10" means funcTable is locked
+                                           false, __ATOMIC_RELEASE, __ATOMIC_ACQUIRE);
+    }
+    void SetFuncTableUpdated()
+    {
+        __atomic_store_n(
+            &flag, flag | 0b00000110,    // "bit-1&2 is 11" means updated already
+            __ATOMIC_RELEASE);
+    }
 
-//private: // temporary solution
-public:
+private:
     U32 argNum;
     U8 isInterfaceTypeInfo;
     // optimization: use 1 byte to speed up the search of mtable.
-    U8 flag;
+    U8 flag; // bit-1&2: funcTable updated, bit-7: direct supertype
     U16 funcTableSize;
     union {
         TypeTemplate* tt;
