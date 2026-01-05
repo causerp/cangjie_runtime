@@ -4,8 +4,8 @@
 
 ```cangjie
 public class Annotation <: Node {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -117,7 +117,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -213,7 +213,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -223,8 +223,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ArrayLiteral <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -316,7 +316,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -326,8 +326,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class AsExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -415,7 +415,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -425,8 +425,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class AssignExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -514,7 +514,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -524,8 +524,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class BinaryExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -609,7 +609,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -699,7 +699,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -709,8 +709,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class Body <: Node {
-    public init()
     public init(decls: ArrayList<Decl>)
+    public init()
 }
 ```
 
@@ -796,7 +796,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -806,8 +806,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class CallExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -909,7 +909,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -919,8 +919,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ClassDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -1022,7 +1022,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1104,12 +1104,36 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 如果输入的标记无法解析为有效的 `CommandTypePattern` 节点，则抛出异常。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class ConstPattern
 
 ```cangjie
 public class ConstPattern <: Pattern {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -1173,7 +1197,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1283,7 +1307,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1292,7 +1316,12 @@ public func traverse(v: Visitor): Unit
 ## class Decl
 
 ```cangjie
-public open class Decl <: Node
+public open class Decl <: Node {
+    protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
+    protected var keyword_: Token = Token()
+    protected var identifier_: Token = Token()
+    protected var node: Node = Expr()
+}
 ```
 
 功能：所有声明节点的父类，继承自 [Node](ast_package_classes.md#class-node) 节点，提供了所有声明节点的通用接口。
@@ -1308,7 +1337,7 @@ public open class Decl <: Node
 ### var identifier_
 
 ```cangjie
-protected var identifier_: Token
+protected var identifier_: Token = Token()
 ```
 
 功能：获取或设置声明节点的标识符，如 `class foo {}` 中的 `foo`。
@@ -1318,7 +1347,7 @@ protected var identifier_: Token
 ### var keyword_
 
 ```cangjie
-protected var keyword_: Token
+protected var keyword_: Token = Token()
 ```
 
 功能：获取或设置声明节点的关键字。
@@ -1328,7 +1357,7 @@ protected var keyword_: Token
 ### var modifiers_
 
 ```cangjie
-protected var modifiers_: ArrayList<Modifier>
+protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
 ```
 
 功能：获取或设置节点的修饰符列表。
@@ -1338,7 +1367,7 @@ protected var modifiers_: ArrayList<Modifier>
 ### var node
 
 ```cangjie
-protected var node: Node
+protected var node: Node = Expr()
 ```
 
 功能：获取或设置[Decl](ast_package_classes.md#class-decl) 节点的形参节点。
@@ -1486,7 +1515,7 @@ public func hasAttr(attr: String): Bool
 ### func toTokens()
 
 ```cangjie
-public func toTokens(): Tokens
+public open func toTokens(): Tokens
 ```
 
 功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
@@ -1498,10 +1527,10 @@ public func toTokens(): Tokens
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1511,8 +1540,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class DoWhileExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -1640,7 +1669,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1650,8 +1679,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class EnumDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -1805,7 +1834,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -1932,7 +1961,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2031,7 +2060,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2040,7 +2069,7 @@ public func traverse(v: Visitor): Unit
 ## class Expr
 
 ```cangjie
-public open class Expr <: Node
+public open class Expr <: Node {}
 ```
 
 功能：所有表达式节点的父类，继承自 [Node](ast_package_classes.md#class-node) 节点。
@@ -2082,7 +2111,7 @@ protected open func precedence(): Int64
 ### func toTokens()
 
 ```cangjie
-public func toTokens(): Tokens
+public open func toTokens(): Tokens
 ```
 
 功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
@@ -2094,10 +2123,10 @@ public func toTokens(): Tokens
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2107,8 +2136,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ExtendDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -2234,7 +2263,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2252,7 +2281,7 @@ public class FeatureId <: Node {
 
 > **注意:**
 >
-> 必须以关键字开头`features`，其次是 feature id 列表，必须出现在源文件的包名声明之前。
+> Feature 声明必须以 `features`，其次是 feature id 列表，Feature 声明必须出现在源文件的包名声明之前。
 > feature id 由标识符组成，标识符之间用点号分隔。feature id 不能用反引号转义。
 
 父类型:
@@ -2265,7 +2294,7 @@ public class FeatureId <: Node {
 public mut prop dots: Tokens
 ```
 
-功能：获取或设置 feature 的点号。例如：`features { user.define.sample }`。
+功能：获取或设置 feature 的点号。例如：`features user.define.sample`。
 
 类型：[Tokens](ast_package_classes.md#class-tokens)
 
@@ -2323,8 +2352,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class FeaturesDirective <: Node {
+    public init(inputs: Tokens)
     public init()
-    public init(input: Tokens)
 }
 ```
 
@@ -2425,7 +2454,6 @@ public func traverse(v: Visitor): Unit
 ```cangjie
 public class FeaturesSet <: Node {
     public init()
-    public init(input: Tokens)
 }
 ```
 
@@ -2531,8 +2559,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ForInExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -2700,7 +2728,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2710,8 +2738,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class FuncDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -2863,7 +2891,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -2873,8 +2901,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public open class FuncParam <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -3007,7 +3035,7 @@ public func isMemberParam(): Bool
 ### func toTokens()
 
 ```cangjie
-public func toTokens(): Tokens
+public open func toTokens(): Tokens
 ```
 
 功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
@@ -3019,10 +3047,10 @@ public func toTokens(): Tokens
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3032,8 +3060,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class FuncType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -3173,7 +3201,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3287,7 +3315,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3297,8 +3325,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class GenericParam <: Node {
-    public init()
     public init(parameters: Tokens)
+    public init()
 }
 ```
 
@@ -3390,7 +3418,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3412,8 +3440,8 @@ public class Handler {
 
 ```cangjie
 public class IfExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -3557,7 +3585,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3570,6 +3598,8 @@ public class ImportContent <: Node {
     public init()
 }
 ```
+
+功能：表示一个包导入声明节点的具体声明内容，如 `import pkg.a.b` 中的 `pkg.a.b`。
 
 父类型：
 
@@ -3783,7 +3813,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3793,8 +3823,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ImportList <: Node {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -3894,7 +3924,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3904,8 +3934,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class IncOrDecExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -3977,7 +4007,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -3987,8 +4017,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class InterfaceDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4090,7 +4120,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4100,8 +4130,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class IsExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4189,7 +4219,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4199,8 +4229,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class JumpExpr <: Expr {
-    public init()
     public init(kind: Tokens)
+    public init()
 }
 ```
 
@@ -4262,7 +4292,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4272,8 +4302,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class LambdaExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4389,7 +4419,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4399,8 +4429,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class LetPatternExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4502,7 +4532,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4512,8 +4542,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class LitConstExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4577,7 +4607,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4587,8 +4617,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class MacroDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4718,7 +4748,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4728,8 +4758,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class MacroExpandDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -4893,7 +4923,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -4903,8 +4933,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class MacroExpandExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -5058,7 +5088,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5216,7 +5246,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5225,7 +5255,7 @@ public func traverse(v: Visitor): Unit
 ## class MacroMessage
 
 ```cangjie
-public class MacroMessage
+public class MacroMessage {}
 ```
 
 功能：记录内层宏发送的信息。
@@ -5330,8 +5360,8 @@ public func hasItem(key: String): Bool
 
 ```cangjie
 public class MainDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -5461,7 +5491,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5618,7 +5648,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5628,8 +5658,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class MatchExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -5777,7 +5807,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5787,8 +5817,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class MemberAccess <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -5928,7 +5958,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -5938,8 +5968,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class Modifier <: Node {
-    public init()
     public init(keyword: Token)
+    public init()
 }
 ```
 
@@ -5999,7 +6029,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6008,7 +6038,7 @@ public func traverse(v: Visitor): Unit
 ## class Node
 
 ```cangjie
-abstract sealed class Node <: ToTokens
+abstract sealed class Node <: ToTokens {}
 ```
 
 功能：所有仓颉语法树节点的父类。
@@ -6073,7 +6103,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6162,7 +6192,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6172,8 +6202,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PackageHeader <: Node {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6331,7 +6361,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6341,8 +6371,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ParenExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6434,7 +6464,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6537,7 +6567,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6546,7 +6576,7 @@ public func traverse(v: Visitor): Unit
 ## class Pattern
 
 ```cangjie
-public open class Pattern <: Node
+public open class Pattern <: Node {}
 ```
 
 功能：所有模式匹配节点的父类，继承自 [Node](ast_package_classes.md#class-node) 节点。
@@ -6574,7 +6604,7 @@ protected open func dump(_: UInt16): String
 ### func toTokens()
 
 ```cangjie
-public func toTokens(): Tokens
+public open func toTokens(): Tokens
 ```
 
 功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
@@ -6586,10 +6616,10 @@ public func toTokens(): Tokens
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6599,8 +6629,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PerformExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6660,12 +6690,36 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点时抛出。
 
+### func toTokens()
+
+```cangjie
+public func toTokens(): Tokens
+```
+
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
+
+返回值：
+
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
+
+### func traverse(Visitor)
+
+```cangjie
+public func traverse(v: Visitor): Unit
+```
+
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+
+参数：
+
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
 ## class PrefixType
 
 ```cangjie
 public class PrefixType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6739,7 +6793,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6749,8 +6803,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PrimaryCtorDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6864,7 +6918,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6874,8 +6928,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PrimitiveType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -6939,7 +6993,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -6949,8 +7003,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PrimitiveTypeExpr <: Expr {
-    public init()
     public init(kind: Tokens)
+    public init()
 }
 ```
 
@@ -7014,7 +7068,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7024,8 +7078,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class Program <: Node {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7054,10 +7108,10 @@ public mut prop decls: ArrayList<Decl>
 ### prop featuresDirective
 
 ```cangjie
-public mut prop featuresDirective: Option<FeaturesDirective> 
+public mut prop featuresDirective: Option<FeaturesDirective>
 ```
 
-功能：获取或设置仓颉源码文件中 TopLevel 作用域内定义的 `features` 声明节点。
+功能：获取或设置仓颉源码文件中 `TopLevel` 作用域内定义的 `features` 声明节点。
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[FeaturesDirective](ast_package_classes.md#class-featuresdirective)>
 
@@ -7123,7 +7177,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7133,8 +7187,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class PropDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7268,7 +7322,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7278,8 +7332,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class QualifiedType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7419,7 +7473,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7429,8 +7483,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class QuoteExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7536,7 +7590,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7545,7 +7599,7 @@ public func traverse(v: Visitor): Unit
 ## class QuoteToken
 
 ```cangjie
-public class QuoteToken <: Expr
+public class QuoteToken <: Expr {}
 ```
 
 功能：表示 `quote` 表达式节点内任意合法的 `token`。
@@ -7582,7 +7636,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7592,8 +7646,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class RangeExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7713,7 +7767,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7723,8 +7777,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class RefExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7840,7 +7894,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7850,8 +7904,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class RefType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7967,7 +8021,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -7977,8 +8031,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ResumeExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -7990,16 +8044,6 @@ public class ResumeExpr <: Expr {
 父类型：
 
 - [Expr](ast_package_classes.md#class-expr)
-
-### prop expr
-
-```cangjie
-public mut prop expr: Option<Expr>
-```
-
-功能：获取或设置 `resume` 关键字之后的表达式。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Expr](ast_package_classes.md#class-expr)>
 
 ### prop keywordR
 
@@ -8087,87 +8131,36 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [ResumeExpr](ast_package_classes.md#class-resumeexpr) 节点时抛出。
 
-## class ResumptionTypePattern
+### func toTokens()
 
 ```cangjie
-public class ResumptionTypePattern <: Pattern {
-    public init()
-    public init(inputs: Tokens)
-}
+public func toTokens(): Tokens
 ```
 
-功能：表示带有类型注解的恢复模式（resumption pattern），通常出现在处理器（handler）声明中，例如：`pattern: Resumption<Unit, Unit>`。
+功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
 
-一个 `ResumptionTypePattern` 的例子可能出现在 `try` 表达式中的 handler 的恢复子句中。
+返回值：
 
-父类型：
+- [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
-- [Pattern](ast_package_classes.md#class-pattern)
-
-### prop colon
+### func traverse(Visitor)
 
 ```cangjie
-public mut prop colon: Token
+public func traverse(v: Visitor): Unit
 ```
 
-功能：获取或设置用于分隔模式与类型的冒号（`:`）符号。
-
-类型： [Token](ast_package_structs.md#struct-token)
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) — 当提供的 token 不是冒号时抛出。
-
-### prop pattern
-
-```cangjie
-public mut prop pattern: Pattern
-```
-
-功能：获取或设置冒号（`:`）之前的基础模式。
-
-类型： [Pattern](ast_package_classes.md#class-pattern)
-
-### prop types
-
-```cangjie
-public mut prop types: ArrayList<TypeNode>
-```
-
-功能：获取或设置紧跟在冒号后的类型节点列表，例如 `EffectA | EffectB`。
-
-类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[TypeNode](ast_package_classes.md#class-typenode)>
-
-### init()
-
-```cangjie
-public init()
-```
-
-功能：构造一个默认的 `ResumptionTypePattern` 对象。
-
-### init(Tokens)
-
-```cangjie
-public init(inputs: Tokens)
-```
-
-功能：从一组 token 构造一个 `ResumptionTypePattern` 对象。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
-- inputs: [Tokens](ast_package_classes.md#class-tokens) — 表示一个恢复类型模式的 token 集合。
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) — 当无法从提供的 token 构造出有效的 `ResumptionTypePattern` 时抛出。
+- v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
 
 ## class ReturnExpr
 
 ```cangjie
 public class ReturnExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8249,7 +8242,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8259,8 +8252,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class SpawnExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8380,7 +8373,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8390,8 +8383,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class StructDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8493,7 +8486,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8503,8 +8496,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class SubscriptExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8606,7 +8599,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8616,8 +8609,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class SynchronizedExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8733,7 +8726,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8743,8 +8736,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ThisType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8806,7 +8799,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8816,8 +8809,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class ThrowExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -8895,7 +8888,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -8905,6 +8898,7 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public open class Tokens <: ToString & Iterable<Token> & ToBytes {
+    protected var tokens: ArrayList<Token> = ArrayList<Token>(0)
     public init()
     public init(tokArray: Array<Token>)
     public init(tokArrayList: ArrayList<Token>)
@@ -8922,7 +8916,7 @@ public open class Tokens <: ToString & Iterable<Token> & ToBytes {
 ### var tokens
 
 ```cangjie
-protected var tokens: ArrayList<Token>
+protected var tokens: ArrayList<Token> = ArrayList<Token>(0)
 ```
 
 功能：获取或设置内部以[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Token](ast_package_structs.md#struct-token)>格式存储的全部[Token](ast_package_structs.md#struct-token)。
@@ -9258,8 +9252,8 @@ public func seeing(kind: TokenKind): Bool
 
 ```cangjie
 public class TrailingClosureExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -9333,7 +9327,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9343,8 +9337,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TryExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -9504,7 +9498,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9514,8 +9508,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TupleLiteral <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -9607,7 +9601,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9724,7 +9718,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9734,8 +9728,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TupleType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -9827,7 +9821,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9837,8 +9831,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TypeAliasDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -9920,7 +9914,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -9930,8 +9924,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class TypeConvExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -10033,7 +10027,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -10042,7 +10036,7 @@ public func traverse(v: Visitor): Unit
 ## class TypeNode
 
 ```cangjie
-public open class TypeNode <: Node
+public open class TypeNode <: Node {}
 ```
 
 功能：所有类型节点的父类，继承自 [Node](ast_package_classes.md#class-node)。
@@ -10094,7 +10088,7 @@ protected open func dump(indent: UInt16): String
 ### func toTokens()
 
 ```cangjie
-public func toTokens(): Tokens
+public open func toTokens(): Tokens
 ```
 
 功能：将当前语法树节点转化为 [Tokens](ast_package_classes.md#class-tokens) 类型。
@@ -10106,10 +10100,10 @@ public func toTokens(): Tokens
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -10208,7 +10202,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -10218,8 +10212,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class UnaryExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -10291,7 +10285,7 @@ public func toTokens(): Tokens
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -10301,8 +10295,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class VarDecl <: Decl {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -10452,8 +10446,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class VarOrEnumPattern <: Pattern {
-    public init()
     public init(identifier: Token)
+    public init()
 }
 ```
 
@@ -10527,8 +10521,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class VarPattern <: Pattern {
-    public init()
     public init(identifier: Token)
+    public init()
 }
 ```
 
@@ -10602,8 +10596,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class VArrayExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -10715,8 +10709,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class VArrayType <: TypeNode {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -10851,7 +10845,7 @@ public func traverse(v: Visitor): Unit
 ## class Visitor
 
 ```cangjie
-public abstract class Visitor
+public abstract class Visitor{}
 ```
 
 功能：一个抽象类，其内部默认定义了访问不同类型 AST 节点访问（`visit`）函数。
@@ -11000,6 +10994,18 @@ protected open func visit(_: ClassDecl): Unit
 参数：
 
 - _: [ClassDecl](ast_package_classes.md#class-classdecl) - [ClassDecl](ast_package_classes.md#class-classdecl) 类型的被遍历节点。
+
+### func visit(CommandTypePattern)
+
+```cangjie
+protected open func visit(_: CommandTypePattern): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [CommandTypePattern](ast_package_classes.md#class-commandtypepattern) - [CommandTypePattern](ast_package_classes.md#class-commandtypepattern) 类型的被遍历节点。
 
 ### func visit(ConstPattern)
 
@@ -11469,6 +11475,18 @@ protected open func visit(_: Pattern): Unit
 
 - _: [Pattern](ast_package_classes.md#class-pattern) - [Pattern](ast_package_classes.md#class-pattern) 类型的被遍历节点。
 
+### func visit(PerformExpr)
+
+```cangjie
+protected open func visit(_: PerformExpr): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [PerformExpr](ast_package_classes.md#class-performexpr) - [PerformExpr](ast_package_classes.md#class-performexpr) 类型的被遍历节点。
+
 ### func visit(PrefixType)
 
 ```cangjie
@@ -11600,6 +11618,18 @@ protected open func visit(_: RefType): Unit
 参数：
 
 - _: [RefType](ast_package_classes.md#class-reftype) - [RefType](ast_package_classes.md#class-reftype) 类型的被遍历节点。
+
+### func visit(ResumeExpr)
+
+```cangjie
+protected open func visit(_: ResumeExpr): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [ResumeExpr](ast_package_classes.md#class-resumeexpr) - [ResumeExpr](ast_package_classes.md#class-resumeexpr) 类型的被遍历节点。
 
 ### func visit(ReturnExpr)
 
@@ -11905,8 +11935,8 @@ protected open func visit(_: WildcardPattern): Unit
 
 ```cangjie
 public class WhileExpr <: Expr {
-    public init()
     public init(inputs: Tokens)
+    public init()
 }
 ```
 
@@ -12032,8 +12062,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class WildcardExpr <: Expr {
-    public init()
     public init(keyword: Tokens)
+    public init()
 }
 ```
 
@@ -12109,8 +12139,8 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class WildcardPattern <: Pattern {
-    public init()
     public init(keyword: Tokens)
+    public init()
 }
 ```
 
