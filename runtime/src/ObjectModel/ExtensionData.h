@@ -98,11 +98,38 @@ public:
         if (!HasOuterTiFastPath()) {
             return nullptr;
         }
-        bool isConcrete = (childTi->GetTypeArgNum() == 0);
+        if (!IsTargetHasSameSourceWith(childTi)) {
+            for (auto pair : childTi->GetMTableDesc()->mTable) {
+                auto superTi = pair.second.GetSuperTi();
+                if (IsTargetHasSameSourceWith(superTi)) {
+                    void* fn = reinterpret_cast<void*>(whereCondFn);
+                    bool matched = fn == nullptr ||
+                        reinterpret_cast<uintptr_t>(TypeTemplate::ExecuteGenericFunc(
+                            fn, superTi->GetTypeArgNum(), superTi->GetTypeArgs())) & 0x1;
+                    if (matched) {
+                        childTi = superTi;
+                        break;
+                    }
+                }
+            }
+        }
+        bool isConcrete = (argNum == 0);
         OuterTiUnion* outerTiUnionStart = reinterpret_cast<OuterTiUnion*>(
             reinterpret_cast<uint8_t*>(funcTable) + sizeof(FuncPtr) * funcTableSize);
         return isConcrete ? outerTiUnionStart[index].outerTypeInfo : outerTiUnionStart[index].outerTiFunc == nullptr ?
             nullptr : outerTiUnionStart[index].outerTiFunc(childTi);
+    }
+
+    bool IsTargetHasSameSourceWith(TypeInfo *ti) const
+    {
+        if (!ti->IsGenericTypeInfo() && TargetIsTypeInfo()) {
+            return ti->GetUUID() == static_cast<TypeInfo*>(GetTargetType())->GetUUID();
+        }
+        if (ti->IsGenericTypeInfo() && !TargetIsTypeInfo()) {
+            return ti->GetSourceGeneric()->GetUUID() ==
+                static_cast<TypeTemplate*>(GetTargetType())->GetUUID();
+        }
+        return false;
     }
 
 private:
