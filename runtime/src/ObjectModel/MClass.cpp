@@ -559,15 +559,12 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
 
 TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
 {
-    // mTableDesc is not initialized yet.
-    if (UNLIKELY(IsMTableDescUnInitialized())) {
-        return nullptr;
+    // mTableDesc is not initialized yet, or mTableDesc is initialized,
+    // but mTable is not fully handled yet.
+    if (UNLIKELY(IsMTableDescUnInitialized() || !mTableDesc->IsFullyHandled())) {
+        (void)FindExtensionData(itf, true);
     }
 
-    // mTableDesc is initialized, but mTable is not fully handled yet.
-    if (UNLIKELY(!mTableDesc->IsFullyHandled())) {
-        return nullptr;
-    }
     auto& mTable = mTableDesc->mTable;
     auto it = mTable.find(itf->GetUUID());
     if (it == mTable.end()) {
@@ -590,17 +587,6 @@ TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
     return outerTi;
 }
 
-static bool IsTargetExtensionData(TypeInfo *ti, ExtensionData *extensionData)
-{
-    if (!ti->IsGenericTypeInfo() && extensionData->TargetIsTypeInfo()) {
-        return ti->GetUUID() == static_cast<TypeInfo*>(extensionData->GetTargetType())->GetUUID();
-    }
-    if (ti->IsGenericTypeInfo() && !extensionData->TargetIsTypeInfo()) {
-        return ti->GetSourceGeneric()->GetUUID() ==
-            static_cast<TypeTemplate*>(extensionData->GetTargetType())->GetUUID();
-    }
-    return false;
-}
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
 	if (this == itf || this->GetUUID() == itf->GetUUID()) {
@@ -624,7 +610,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 	auto funcPtr = funcTable[index];
 	for (auto& superTypePair : mTableDesc->mTable) {
         ExtensionData* extensionData = superTypePair.second.GetExtensionData();
-        if (!IsTargetExtensionData(this, extensionData)) {
+        if (!extensionData->IsTargetHasSameSourceWith(this)) {
             continue;
         }
         auto superTi = superTypePair.second.GetSuperTi();
