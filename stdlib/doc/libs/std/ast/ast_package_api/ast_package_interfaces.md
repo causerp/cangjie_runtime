@@ -290,7 +290,7 @@ public func toTokens(): Tokens
 extend Rune <: ToTokens
 ```
 
-功能：实现 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
+功能：实现 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
 
 父类型：
 
@@ -302,7 +302,7 @@ extend Rune <: ToTokens
 public func toTokens(): Tokens
 ```
 
-功能：实现 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
+功能：实现 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型到 [Tokens](ast_package_classes.md#class-tokens) 类型的转换。
 
 返回值：
 
