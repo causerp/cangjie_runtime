@@ -40,7 +40,11 @@ bool GCExecutor::Execute(void* owner)
         case GCTask::TaskType::TASK_TYPE_DUMP_HEAP: {
             CjHeapData* cjHeapData = new CjHeapData();
             if (cjHeapData != nullptr) {
+                collectorProxy->SetDumpHeapState(true);
+                LOG(RTLOG_ERROR, "start dump heap");
                 cjHeapData->DumpHeap();
+                LOG(RTLOG_ERROR, "finish dump heap");
+                collectorProxy->SetDumpHeapState(false);
                 delete cjHeapData;
             } else {
                 LOG(RTLOG_ERROR, "cjHeapData Init Failed");
@@ -64,9 +68,18 @@ bool GCExecutor::Execute(void* owner)
         }
 
         case GCTask::TaskType::TASK_TYPE_DUMP_HEAP_OOM: {
+            // Only dumping heap once time when oom occurs.
+            static std::atomic<size_t> counter = { 0 };
+            if (counter.fetch_add(1, std::memory_order_relaxed) > 0) {
+                break;
+            }
             CjHeapData* cjHeapData = new CjHeapData(true);
             if (cjHeapData != nullptr) {
+                collectorProxy->SetDumpHeapState(true);
+                LOG(RTLOG_ERROR, "start dump heap for oom");
                 cjHeapData->DumpHeap();
+                LOG(RTLOG_ERROR, "finish dump heap for oom");
+                collectorProxy->SetDumpHeapState(false);
                 delete cjHeapData;
             } else {
                 LOG(RTLOG_ERROR, "cjHeapData Init Failed");

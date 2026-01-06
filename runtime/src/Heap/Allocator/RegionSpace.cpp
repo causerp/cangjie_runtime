@@ -134,13 +134,7 @@ AllocBuffer* AllocBuffer::GetAllocBuffer() { return ThreadLocal::GetAllocBuffer(
 
 AllocBuffer::~AllocBuffer()
 {
-    if (LIKELY(tlRegion != RegionInfo::NullRegion()) && tlRegion != nullptr) {
-        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
-        RegionManager& manager = theAllocator.GetRegionManager();
-        manager.RemoveThreadLocalRegion(tlRegion);
-        manager.EnlistFullThreadLocalRegion(tlRegion);
-        tlRegion = RegionInfo::NullRegion();
-    }
+    FlushRegion();
 }
 
 void AllocBuffer::Init()

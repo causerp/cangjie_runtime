@@ -157,9 +157,11 @@ void CollectorResources::RequestGCAndWait(GCReason reason)
     // add gcTask to syncTaskQueue of gcTaskQueue and wait until this gcTask finished
     std::unique_lock<std::mutex> lock(gcFinishedCondMutex);
     uint64_t curThreadSyncIndex = taskQueue->EnqueueSync(gcTask, filter);
-    // wait until GC finished
+    // Wait until GC finished unless a new gc happened or process will exit or the current thread is main thread and gc
+    // thread is doing dump heap.
     std::function<bool()> pred = [this, curThreadSyncIndex] {
-        return ((finishedGcIndex >= curThreadSyncIndex) || (finishedGcIndex == GCTask::TASK_INDEX_FOR_EXIT));
+        return ((finishedGcIndex >= curThreadSyncIndex) || (finishedGcIndex == GCTask::TASK_INDEX_FOR_EXIT)) ||
+            (!ThreadLocal::IsCJProcessor() && collectorProxy.IsDumpHeap());
     };
     gcFinishedCondVar.wait(lock, pred);
 }
@@ -204,14 +206,23 @@ void CollectorResources::WaitForGCFinish()
                 (finishedGcIndex == GCTask::TASK_INDEX_FOR_EXIT));
     };
 #ifdef __OHOS__
-    std::chrono::seconds waitTime(2); // 2 seconds
-    gcFinishedCondVar.wait_for(lock, waitTime, pred);
+    LOG(RTLOG_ERROR, "lacking memory, start waiting gc work, sys clock %zu", startTime);
+    if (ThreadLocal::IsCJProcessor()) {
+        std::chrono::seconds waitTime(2); // 2 seconds
+        gcFinishedCondVar.wait_for(lock, waitTime, pred);
+    } else {
+        std::chrono::milliseconds waitTime(500); // 500: UI thread waits for 500 milliseconds.
+        gcFinishedCondVar.wait_for(lock, waitTime, pred);
+    }
+    uint64_t stopTime = TimeUtil::MicroSeconds();
+    uint64_t diffTime = stopTime - startTime;
+    LOG(RTLOG_ERROR, "stop waiting gc work, cost %zu us, try allocation again at sys clock %zu", diffTime, stopTime);
 #else
     gcFinishedCondVar.wait(lock, pred);
-#endif
     uint64_t stopTime = TimeUtil::MicroSeconds();
     uint64_t diffTime = stopTime - startTime;
     VLOG(REPORT, "WaitForGCFinish cost %zu us", diffTime);
+#endif
 }
 
 void CollectorResources::StartGCThreads()
