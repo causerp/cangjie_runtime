@@ -95,7 +95,7 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [HashSet\<T> where T <: Hashable & Equatable\<T>](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet) | 基于  [HashMap\<K, V>](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 实现的 [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett) 接口的实例。 |
 | [LinkedListNode\<T>](./collection_package_api/collection_package_class.md#class-linkedlistnodet) | [LinkedList\<T>](./collection_package_api/collection_package_class.md#class-linkedlistt) 上的节点。 |
 | [LinkedList\<T>](./collection_package_api/collection_package_class.md#class-linkedlistt) | 实现双向链表的数据结构。 |
-| [TreeMap\<K, V> where K <: Comparable\<K>](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek) | 基于平衡二叉搜索树实现的 [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口实例。 |
+| [TreeMap\<K, V> where K <: Comparable\<K>](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek) | 基于多路平衡树实现的 [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口实例。 |
 | [TreeSet\<T> where T <: Comparable\<T>](./collection_package_api/collection_package_class.md#class-treesett-where-t--comparablet) | 基于 [TreeMap\<K, V>](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek) 实现的 [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett) 接口的实例。 |
 
 ### 异常类
