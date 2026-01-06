@@ -31,6 +31,14 @@ void ExceptionManager::OutOfMemory()
             env = s.Str();
             if (env && !strcmp(env, "on")) { // env variable: cjHeapDumpOnOOM=on/off
                 Heap::GetHeap().GetCollectorResources().RequestHeapDump(GCTask::TaskType::TASK_TYPE_DUMP_HEAP_OOM);
+#if defined(__OHOS__) && (__OHOS__ == 1)
+                // We don't want this thread to blocked too long on OHOS platform because it may lead to app-freeze
+                // crash. And we don't enter saferegion here because oom heap dump is done in a snapshot child process
+                // where no mutator thread is running.
+                if (!ThreadLocal::IsCJProcessor()) {
+                    std::this_thread::sleep_for(std::chrono::seconds(2)); // 2: waiting dumping heap work for 2 seconds.
+                }
+#endif
             }
         }
         ThrowImplicitException(OOM);

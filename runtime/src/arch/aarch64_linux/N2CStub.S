@@ -270,11 +270,6 @@ unwindPCForN2CStub:
     mov  x0, #0x1
     bl   MRT_SetStackGrow
 
-#ifdef __OHOS__
-    // OHOS will have losts of foreign threads, so we flush alloc buffer to reduce memory cost.
-    bl   MRT_FlushAllocBuffer
-#endif
-
     mov  x0, x29
     bl MRT_RestoreTopManagedContextFromN2CStub
     ldr x0, [x29, #SafeStateOffset+0x8]

@@ -74,10 +74,20 @@ public:
         return currentCollector->GetAndTryTagRefField(obj);
     }
 
+    void SetDumpHeapState(bool state)
+    {
+        isDummpHeap.store(state);
+    }
+
+    bool IsDumpHeap() const
+    {
+        return isDummpHeap.load();
+    }
 private:
     // supported collector set
     TracingCollector* currentCollector = nullptr;
     WCollector wCollector;
+    std::atomic<bool> isDummpHeap{ false };
 };
 } // namespace MapleRuntime
 
