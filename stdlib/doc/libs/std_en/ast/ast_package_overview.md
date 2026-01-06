@@ -77,9 +77,9 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [ExceptTypePattern](./ast_package_api/ast_package_classes.md#class-excepttypepattern) | Represents nodes used in exception pattern states. |
 | [Expr](./ast_package_api/ast_package_classes.md#class-expr) | Parent class of all expression nodes, inheriting from `Node`. |
 | [ExtendDecl](./ast_package_api/ast_package_classes.md#class-extenddecl) | Represents extension definition nodes. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featureid) | Represents a feature name node. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featuresdirective) | Represents a features directive node. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featuresset) | Represents a features set which contains names of featurs. |
+| [FeatureId](./ast_package_api/ast_package_classes.md#class-featureid) | Represents a feature name node. |
+| [FeaturesDirective](./ast_package_api/ast_package_classes.md#class-featuresdirective) | Represents a features directive node. |
+| [FeaturesSet](./ast_package_api/ast_package_classes.md#class-featuresset) | Represents a features set which contains names of featurs. |
 | [ForInExpr](./ast_package_api/ast_package_classes.md#class-forinexpr) | Represents `for-in` expressions. |
 | [FuncDecl](./ast_package_api/ast_package_classes.md#class-funcdecl) | Represents function definition nodes. |
 | [FuncParam](./ast_package_api/ast_package_classes.md#class-funcparam) | Represents function parameter nodes, including unnamed and named parameters. |
@@ -127,7 +127,6 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [RefExpr](./ast_package_api/ast_package_classes.md#class-refexpr) | Represents expression nodes related to custom type nodes. |
 | [RefType](./ast_package_api/ast_package_classes.md#class-reftype) | Represents user-defined type nodes. |
 | [ResumeExpr](./ast_package_api/ast_package_classes.md#class-resumeexpr) | Represents a `resume` expression node. |
-| [ResumptionTypePattern](./ast_package_api/ast_package_classes.md#class-resumptiontypepattern) | Represents a resumption pattern with type annotation. |
 | [ReturnExpr](./ast_package_api/ast_package_classes.md#class-returnexpr) | Represents `return` expression nodes. |
 | [SpawnExpr](./ast_package_api/ast_package_classes.md#class-spawnexpr) | Represents `Spawn` expressions. |
 | [StructDecl](./ast_package_api/ast_package_classes.md#class-structdecl) | Represents `Struct` nodes. |

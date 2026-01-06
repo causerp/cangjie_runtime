@@ -4,9 +4,9 @@
 
 ```cangjie
 public struct Position <: ToBytes {
-    public let column: Int32
     public let fileID: UInt32
     public let line: Int32
+    public let column: Int32
     public init()
     public init(fileID: UInt32, line: Int32, column: Int32)
 }
@@ -139,8 +139,8 @@ Returns:
 ```cangjie
 public struct Token <: ToBytes {
     public let kind: TokenKind
-    public let pos: Position
     public let value: String
+    public let pos: Position
     public var delimiterNum: UInt16 = 1
     public init()
     public init(kind: TokenKind)
@@ -307,7 +307,9 @@ Function: Adds a [Token](ast_package_structs.md#struct-token) to the current [To
 
 Parameters:
 
-- r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to add.Returns:
+- r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to add.
+
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The collection of lexical units after adding new [Tokens](ast_package_classes.md#class-tokens).
 
