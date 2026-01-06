@@ -569,7 +569,8 @@ static bool IsTargetExtensionData(TypeInfo *ti, ExtensionData *extensionData)
         return ti->GetUUID() == static_cast<TypeInfo*>(extensionData->GetTargetType())->GetUUID();
     }
     if (ti->IsGenericTypeInfo() && !extensionData->TargetIsTypeInfo()) {
-        return ti->GetSourceGeneric()->GetUUID() == static_cast<TypeTemplate*>(extensionData->GetTargetType())->GetUUID();
+        return ti->GetSourceGeneric()->GetUUID() ==
+            static_cast<TypeTemplate*>(extensionData->GetTargetType())->GetUUID();
     }
     return false;
 }
