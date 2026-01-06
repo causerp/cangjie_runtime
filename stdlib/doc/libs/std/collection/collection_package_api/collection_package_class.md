@@ -11101,7 +11101,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
 }
 ```
 
-功能：基于平衡二叉搜索树实现的 [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) 接口实例。
+功能：基于多路平衡树实现的 [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) 接口实例。
 
 这个类的主要目的是提供一个有序的 key-value 存储结构，它可以快速地插入、删除、查找元素。
 
