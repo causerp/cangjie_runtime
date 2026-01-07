@@ -31,10 +31,10 @@ OAT.xml @xuanjz
 /stdlib/libs/std/sort/ @renyi43
 /stdlib/libs/std/unicode/ @renyi43
 
-/stdlib/libs/std/collection/ @EMROF
-/stdlib/libs/std/core/ @EMROF
-/stdlib/libs/std/fs/ @EMROF
-/stdlib/libs/std/time/ @EMROF
+/stdlib/libs/std/collection/ @xdst
+/stdlib/libs/std/core/ @xdst
+/stdlib/libs/std/fs/ @xdst
+/stdlib/libs/std/time/ @xdst
 
 /stdlib/libs/std/objectpool/ @ChaosJohn
 /stdlib/libs/std/regex/ @ChaosJohn
@@ -73,10 +73,10 @@ OAT.xml @xuanjz
 /stdlib/doc/libs/std/sort/ @renyi43 @luojianing
 /stdlib/doc/libs/std/unicode/ @renyi43 @luojianing
 
-/stdlib/doc/libs/std/collection/ @EMROF @luojianing
-/stdlib/doc/libs/std/core/ @EMROF @luojianing
-/stdlib/doc/libs/std/fs/ @EMROF @luojianing
-/stdlib/doc/libs/std/time/ @EMROF @luojianing
+/stdlib/doc/libs/std/collection/ @xdst @luojianing
+/stdlib/doc/libs/std/core/ @xdst @luojianing
+/stdlib/doc/libs/std/fs/ @xdst @luojianing
+/stdlib/doc/libs/std/time/ @xdst @luojianing
 
 /stdlib/doc/libs/std/objectpool/ @ChaosJohn @luojianing
 /stdlib/doc/libs/std/regex/ @ChaosJohn @luojianing
