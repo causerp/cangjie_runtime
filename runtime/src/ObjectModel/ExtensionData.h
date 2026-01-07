@@ -113,7 +113,7 @@ public:
                 }
             }
         }
-        bool isConcrete = (argNum == 0);
+        bool isConcrete = (childTi->GetTypeArgNum() == 0);
         OuterTiUnion* outerTiUnionStart = reinterpret_cast<OuterTiUnion*>(
             reinterpret_cast<uint8_t*>(funcTable) + sizeof(FuncPtr) * funcTableSize);
         return isConcrete ? outerTiUnionStart[index].outerTypeInfo : outerTiUnionStart[index].outerTiFunc == nullptr ?
