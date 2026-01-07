@@ -21,10 +21,11 @@ class TypeTemplate {
     }
 
     static func get(typeinfoName: String): TypeTemplate {
-        let name = if (typeinfoName.contains(".")) {
-            unsafe { LibC.mallocCString(typeinfoName) }
+        let replacedName = typeinfoName.replace("::", "/")
+        let name = if (replacedName.contains(".")) {
+            unsafe { LibC.mallocCString(replacedName) }
         } else {
-            unsafe { LibC.mallocCString("std.core." + typeinfoName) }
+            unsafe { LibC.mallocCString("std.core." + replacedName) }
         }
         let info = getTypeTemplate(name.getChars())
         unsafe { LibC.free(name) }
@@ -171,6 +172,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      * If no corresponding type information for incoming qualified name is found, the exception is thrown.
      */
     public static func get(qualifiedName: String): TypeInfo {
+        if (qualifiedName.contains("/")) {
+            throw InfoNotFoundException("TypeInfo '${qualifiedName}' not found.")
+        }
         synchronized(TYPE_INFO_CREATE_LOCK) {
             let name = normalize(qualifiedName)
             if (let Some(ti) <- CACHE.get(name)) {
@@ -185,7 +189,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             }
 
             return if (!name.contains("<")) {
-                let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(name)
+                let replacedName = name.replace("::", "/")
+                let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(replacedName)
                 let newQualifiedName = realName.replace("std.core.", "")
                 if (isGeneric(typeInfoPointer)) {
                     createGenericTypeInfo(typeInfoPointer, newQualifiedName)
