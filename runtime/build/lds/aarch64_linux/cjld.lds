@@ -60,6 +60,7 @@ SECTIONS
     *(SORT(.text.*Monitor*))
     *(.text_thread)
     g_runtimeStaticEnd = .;
+    *(SORT(.text.*))
     /* .cjinit_function sections follows the text section. */
     *(.cjinit_function .cjinit_function.*)
     /* .gnu.warning sections are handled specially by elf32.em.  */
