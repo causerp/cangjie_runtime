@@ -21,10 +21,11 @@ class TypeTemplate {
     }
 
     static func get(typeinfoName: String): TypeTemplate {
-        let name = if (typeinfoName.contains(".")) {
-            unsafe { LibC.mallocCString(typeinfoName) }
+        let replacedName = typeinfoName.replace("::", "/")
+        let name = if (replacedName.contains(".")) {
+            unsafe { LibC.mallocCString(replacedName) }
         } else {
-            unsafe { LibC.mallocCString("std.core." + typeinfoName) }
+            unsafe { LibC.mallocCString("std.core." + replacedName) }
         }
         let info = getTypeTemplate(name.getChars())
         unsafe { LibC.free(name) }
@@ -161,6 +162,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      * If no corresponding type information for incoming qualified name is found, the exception is thrown.
      */
     public static func get(qualifiedName: String): TypeInfo {
+        if (qualifiedName.contains("/")) {
+            throw InfoNotFoundException("TypeInfo '${qualifiedName}' not found.")
+        }
         synchronized(TYPE_INFO_CREATE_LOCK) {
             if (let Some(ti) <- CACHE.get(qualifiedName)) {
                 return ti
@@ -168,7 +172,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
 
             let name = normalize(qualifiedName)
             return if (!name.contains("<")) {
-                let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(name)
+                let replacedName = name.replace("::", "/")
+                let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(replacedName)
                 let newQualifiedName = realName.replace("std.core.", "")
                 if (isGeneric(typeInfoPointer)) {
                     createGenericTypeInfo(typeInfoPointer, newQualifiedName)
@@ -188,8 +193,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
 
         // 1. primitive type should use mangled name to find type
         // 2. qualifiedName in std.core should omits prefix, but runtime need it, must complete qualifiedName here
-        let replacedName = qualifiedName.replace("::", "/")
-        let stripedName = replacedName.replace(" ", "")
+        let stripedName = qualifiedName.replace(" ", "")
         match ((isPrimitive, hasPrefix, isGeneric)) {
             case (true, _, _) => unsafe { stripedName }
             case (_, _, true) => unsafe { parseGeneric(stripedName) }
@@ -306,8 +310,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         }
 
         let uuidStr = uuid ?? unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
-        typeInfo._qualifiedName = qualifiedName
-        CACHE.add(qualifiedName, typeInfo)
+        let replacedName = qualifiedName.replace("/", "::")
+        typeInfo._qualifiedName = replacedName
+        CACHE.add(replacedName, typeInfo)
         CACHE.add(uuidStr, typeInfo)
         typeInfo
     }
