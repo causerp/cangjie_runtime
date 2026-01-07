@@ -242,7 +242,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
             }
             auto edOfSuper = superTi->FindExtensionData(itf);
             if (edOfSuper) {
-                if (edOfSuper->GetFuncTableSize() != itfFtSize) {
+                if (UNLIKELY(!edOfSuper->IsFuncTableUpdated())) {
                     superTi->TryUpdateExtensionData(itf, edOfSuper);
                 }
                 bool hasOuterTiFast = extensionData->HasOuterTiFastPath();

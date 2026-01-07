@@ -1296,7 +1296,9 @@ extern "C" TypeInfo* CJ_MCC_GetMethodOuterTI(TypeInfo* ti, TypeInfo* itf, U64 in
 
 extern "C" void CJ_MCC_UpdateVMT(TypeInfo* ti, TypeInfo* itf, ExtensionData* extensionData)
 {
-    return ti->TryUpdateExtensionData(itf, extensionData);
+    if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
+        return ti->TryUpdateExtensionData(itf, extensionData);
+    }
 }
 
 extern "C" ObjRef MCC_NewGenericObject(const TypeInfo* klass, MSize size)
