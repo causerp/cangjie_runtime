@@ -27,7 +27,12 @@ struct SemanticVersionInfo {
     CString preRelease;
     CString buildMetaData;
 
-    SemanticVersionInfo() {}
+    SemanticVersionInfo()
+    {
+        major = 0;
+        minor = 0;
+        patch = 0;
+    }
     explicit SemanticVersionInfo(CString& version);
     ~SemanticVersionInfo() {}
 };
