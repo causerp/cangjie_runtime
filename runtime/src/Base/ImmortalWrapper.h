@@ -20,7 +20,7 @@ public:
     using lref = typename std::add_lvalue_reference<T>::type;
 
     template<class... Args>
-    ImmortalWrapper(Args&&... args)
+    explicit ImmortalWrapper(Args&&... args)
     {
         new (buffer) T(std::forward<Args>(args)...);
     }
