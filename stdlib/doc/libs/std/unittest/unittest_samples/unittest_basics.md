@@ -422,7 +422,7 @@ class Foo {
 >
 > 如果没有符合指定标签类别的测试用例。框架将不运行任何内容。
 >
-> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](./unittest_basics.md#--exclude-tags)。
+> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](#-exclude-tags)。
 
 ### `--exclude-tags`
 
@@ -511,7 +511,7 @@ class Foo {
 
 ### `--baseline-path=path`
 
-此选项指定用于比较的性能报告所在的路径。默认情况下，使用 ['--report-path'](#--report-pathpath) 的值。
+此选项指定用于比较的性能报告所在的路径。默认情况下，使用 ['--report-path'](#-report-pathpath) 的值。
 
 ### `--capture-output`
 
