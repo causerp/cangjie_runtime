@@ -1587,7 +1587,7 @@ public struct RelativeDelta<T> {
 
 功能：对于浮点类型，提供相对的 delta 数据类型来做近似相等的计算。计算公式如下。
 
-$$|x - y| <= absolute + relative * max(abs(x), abs(y))$$
+$$|x - y| \le absolute + relative * max(abs(x), abs(y))$$
 
 ### RelativeDelta(T, T)
 

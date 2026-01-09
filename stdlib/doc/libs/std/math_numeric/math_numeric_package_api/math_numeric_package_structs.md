@@ -3207,7 +3207,7 @@ public init(val: String)
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [parse(String)](#static-func-parsestring) 替代。
+> 未来版本即将废弃，使用 `parse(String)` 替代。
 
 参数：
 

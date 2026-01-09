@@ -574,7 +574,7 @@ extend<T> Iterator<T>
 
 功能：扩展 [Iterator](core_package_classes.md#class-iteratort)\<T> 类型。
 
-迭代器的方法主要包含中间操作和终止操作。中间操作（如 [skip()](#func-skipint64)、[map()](#func-maprt---r)）会产生一个新的迭代器。而终止操作（如 [count()](#func-count)、[all()](#func-allt---bool)）会根据迭代器产生的元素计算结果，而不产生新的迭代器。每种迭代器方法都会消耗迭代器中不同数量的元素，详见各方法描述。
+迭代器的方法主要包含中间操作和终止操作。中间操作（如 `skip(Int64)`、`map<R>((T) -> R)`）会产生一个新的迭代器。而终止操作（如 `count()`、`all((T) -> Bool)`）会根据迭代器产生的元素计算结果，而不产生新的迭代器。每种迭代器方法都会消耗迭代器中不同数量的元素，详见各方法描述。
 
 #### func all((T) -> Bool)
 
