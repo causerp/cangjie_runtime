@@ -138,9 +138,9 @@ private:
         size_t maxLen32 = 32;
         size_t maxLen64 = 64;
         if (isInt32) {
-            snprintf_s(buf, maxLen32, "%d", (static_cast<int32_t>(val)));
+            snprintf(buf, maxLen32, "%d", (static_cast<int32_t>(val)));
         } else {
-            snprintf_s(buf, maxLen64, "%lld", val);
+            snprintf(buf, maxLen64, "%lld", val);
         }
         return buf;
     }
