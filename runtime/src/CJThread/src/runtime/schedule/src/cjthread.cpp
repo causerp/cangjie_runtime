@@ -997,6 +997,9 @@ void *CJThreadMpark(struct CJThread *parkCJThread)
     ParkCallbackFunc callbackFunc;
     // Update cjthread status to PENDING
     MapleRuntime::Mutator* mutator = parkCJThread->mutator;
+    if (parkCJThread->schedule->scheduleType == SCHEDULE_UI_THREAD) {
+        MapleRuntime::ThreadLocal::SetMutator(nullptr);
+    }
     auto& context = parkCJThread->context;
     mutator->PreparedToPark((void*)context.GetPC(), (void*)context.GetFrameAddress());
     atomic_store_explicit(&parkCJThread->state, CJTHREAD_PENDING, std::memory_order_relaxed);
