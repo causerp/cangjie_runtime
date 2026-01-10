@@ -151,7 +151,7 @@ void RawPtrCheckerTimerEntry(void* arg)
     void* rawPtr = dataClosure->rawPtr;
     Mutator* mutator = dataClosure->mutator;
     size_t pos = dataClosure->pos;
-    delete dataClosure;
+    NativeAllocator::NativeFree(dataClosure, sizeof(DataClosure));
     std::vector<StackTraceElement> stackTraces;
     if (!pinnedArrayRecorder.CheckStackInfo(rawPtr, mutator, pos, stackTraces)) {
         LOG(RTLOG_ERROR, "acquireArrayRawData lasted too long");
@@ -838,7 +838,7 @@ extern "C" void* MCC_AcquireRawData(const ArrayRef array, bool* isCopy)
     std::vector<uint64_t> frame;
     StackManager::RecordLiteFrameInfos(frame, 4); // record 4 frames
     size_t pos = pinnedArrayRecorder.RegisterBtInfo(rawPtr, Mutator::GetMutator(), frame);
-    DataClosure* dataClosure = new (std::nothrow) DataClosure();
+    DataClosure* dataClosure = new (NativeAllocator::NativeAlloc(sizeof(DataClosure))) DataClosure();
     if (dataClosure != nullptr) {
         dataClosure->rawPtr = rawPtr;
         dataClosure->mutator = Mutator::GetMutator();
@@ -876,14 +876,14 @@ extern "C" void MCC_ReleaseRawData(ArrayRef array, void* rawPtr)
     if (rawPtr == unreadablePage) {
         return;
     }
+#if defined(GENERAL_ASAN_SUPPORT_INTERFACE) || defined(CANGJIE_GWPASAN_SUPPORT)
+    // sanitizer will convert alias/colorized pointer to real pointer for runtime
+    rawPtr = Sanitizer::ArrayReleaseMemoryRegion(array, rawPtr, array->GetContentSize());
+#endif
 #if defined(GENERAL_ASAN_SUPPORT_INTERFACE)
     std::vector<uint64_t> frame;
     StackManager::RecordLiteFrameInfos(frame, 4); // record 4 frames
     pinnedArrayRecorder.RemoveBtInfo(rawPtr, Mutator::GetMutator(), frame);
-#endif
-#if defined(GENERAL_ASAN_SUPPORT_INTERFACE) || defined(CANGJIE_GWPASAN_SUPPORT)
-    // sanitizer will convert alias/colorized pointer to real pointer for runtime
-    rawPtr = Sanitizer::ArrayReleaseMemoryRegion(array, rawPtr, array->GetContentSize());
 #endif
     auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<uintptr_t>(rawPtr));
     (void)regionInfo->DecRawPointerObjectCount();
