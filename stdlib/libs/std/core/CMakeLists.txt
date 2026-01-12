@@ -69,5 +69,6 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
         stack_overflow_error.cj
         print.cj
         comparable.cj
+        exclusive_scope.cj
         CACHE INTERNAL "")
 endif()
