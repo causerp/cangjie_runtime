@@ -54,6 +54,31 @@ let animals = [Animal("Smokey", "Cat, age: 5"), Animal("Daisy", "Dog, age: 9")]
 }
 ```
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Processor {
+    func process(name: String): String { return name.toAsciiTitle() }
+}
+
+@Test
+func test() {
+    let originalProcessor = Processor()
+    let processor = spy(originalProcessor)
+    let captor = ValueListener<String>.new()
+    @On(processor.process(capture(captor))).callsOriginal()
+    processor.process("hello")
+
+    let argumentValues = captor.allValues()
+    @Assert(argumentValues.size == 1 && argumentValues[0] == "hello")
+    @Assert(captor.lastValue(), "hello")
+}
+```
+
 ### func addCallback((T) -> Unit)
 
 ```cangjie
