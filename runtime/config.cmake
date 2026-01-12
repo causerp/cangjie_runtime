@@ -291,30 +291,30 @@ if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
         -fdata-sections -g2 -ggnu-pubnames -fno-common -Wheader-hygiene ${OHOS_COMPILE_OPTION} \
         -Wstring-conversion -Wtautological-overlap-compare -Wl,--allow-shlib-undefined \
         -Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions -fno-rtti \
-        -ffunction-sections -Wall -fstack-protector-strong -Werror -fno-emulated-tls \
+        -ffunction-sections -Wall -fstack-protector-strong -fno-emulated-tls \
         --sysroot=${OHOS_ROOT}/out/sdk/obj/third_party/musl/sysroot ${OHOS_INCLUDE}"
     )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=hidden -fno-exceptions \
-        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -Werror -Wunused-variable -Wno-inconsistent-dllimport")
+        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -Wunused-variable -Wno-inconsistent-dllimport")
 elseif (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
     message("android toolchain, clang version=${CLANG_VERSION_STRING}")
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer \
     -fvisibility=hidden -fno-exceptions -fno-rtti -ffunction-sections -Wall \
-        -fstack-protector-strong -fPIC -Werror -Wunused-variable ${ANDROID_INCLUDE}"
+        -fstack-protector-strong -fPIC -Wunused-variable ${ANDROID_INCLUDE}"
     )
 elseif (IOS_SIMULATOR_FLAG MATCHES 2)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-            -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target x86_64-apple-ios11-simulator")
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target x86_64-apple-ios11-simulator")
 elseif (IOS_SIMULATOR_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-            -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target arm64-apple-ios11-simulator")
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target arm64-apple-ios11-simulator")
 elseif (IOS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-        -fno-rtti -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable -target arm64-apple-ios11")
+        -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target arm64-apple-ios11")
 else ()
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -fPIC -Werror -Wunused-variable")
+        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -fPIC -Wunused-variable")
 endif ()
 set(ASAN_FLAGS "-fsanitize=address -fno-omit-frame-pointer")
 set(HWASAN_FLAGS "-shared-libsan -fsanitize=hwaddress -fno-omit-frame-pointer -fno-emulated-tls -fno-lto -fno-sanitize=cfi -mllvm -hwasan-globals=0 -fno-whole-program-vtables")

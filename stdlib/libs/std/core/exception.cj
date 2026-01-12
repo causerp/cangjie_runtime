@@ -152,3 +152,4 @@ public open class Exception <: ToString {
         getStackTraceImpl(pcArray)
     }
 }
+
