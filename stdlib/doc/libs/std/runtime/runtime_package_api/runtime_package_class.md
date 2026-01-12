@@ -24,7 +24,6 @@ public class Signal <: ToString {
 >
 > 不支持平台：Windows。
 
-
 ### static const SIGALRM
 
 ```cangjie
@@ -116,4 +115,4 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 信号值字符串。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 信号值字符串。

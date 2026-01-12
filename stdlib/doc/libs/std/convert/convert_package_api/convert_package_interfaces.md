@@ -2922,6 +2922,7 @@ main(): Int64 {
 ```text
 After the conversion of toString, 18446744073709551615 in hexadecimal became "ffffffffffffffff"
 ```
+
 ### extend UInt8 <: RadixConvertible\<UInt8>
 
 ```cangjie

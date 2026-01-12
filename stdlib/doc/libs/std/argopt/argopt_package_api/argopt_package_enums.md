@@ -14,8 +14,8 @@ public enum ArgumentMode <: ToString & Equatable<ArgumentMode> {
 
 父类型：
 
-- [ToString](../../../std/core/core_package_api/core_package_interfaces.md#interface-tostring)
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArgumentMode](#enum-argumentmode)>
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArgumentMode](#enum-argumentmode)>
 
 ### NoValue
 
@@ -51,7 +51,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 参数模式字符串。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 参数模式字符串。
 
 示例：
 
@@ -86,7 +86,7 @@ public operator func ==(that: ArgumentMode): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 相同时返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 相同时返回 `true`，否则返回 `false`。
 
 示例：
 

@@ -200,7 +200,7 @@ public let name: String
 
 功能：地址族名。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 示例：
 
@@ -239,7 +239,7 @@ public let value: UInt16
 
 功能：地址族值。
 
-类型：[UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16)
+类型：[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
 示例：
 
@@ -280,8 +280,8 @@ public const init(name: String, value: UInt16)
 
 参数：
 
-- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 地址族名。
-- value: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 地址族值。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 地址族名。
+- value: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 地址族值。
 
 示例：
 
@@ -318,7 +318,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 当前地址族的名称。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前地址族的名称。
 
 示例：
 
@@ -366,7 +366,7 @@ public operator func !=(rhs: AddressFamily): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象不等，则返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象不等，则返回 `true`；否则，返回 `false`。
 
 示例：
 
@@ -420,7 +420,7 @@ public operator func ==(rhs: AddressFamily): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
 
 示例：
 

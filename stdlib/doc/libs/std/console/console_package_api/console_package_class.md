@@ -109,7 +109,7 @@ public class ConsoleReader <: InputStream
 
 [ConsoleReader](console_package_class.md#class-consolereader-deprecated) 只有一个实例，所有方法共享同一个缓存区，相关`read`方法返回`None`的情形有：
 
-- 将标准输入重定向到文件时，读取到文件结尾EOF。
+- 将标准输入重定向到文件时，读取到文件结尾 EOF。
 - Linux 环境，按下 `Ctrl+D`。
 - Windows 环境，按下 `Ctrl+Z` 后加回车。
 
@@ -727,11 +727,11 @@ main() {
 public func write(v: Rune): Unit
 ```
 
-功能：将指定的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 的 Unicode 字符值写入标准输出或标准错误流中。
+功能：将指定的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 的 Unicode 字符值写入标准输出或标准错误流中。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 要写入的值。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 要写入的值。
 
 示例：
 

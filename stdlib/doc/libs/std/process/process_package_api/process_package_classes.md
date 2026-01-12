@@ -210,7 +210,7 @@ public func atExit(callback: () -> Unit): Unit
 
 > **注意：**
 >
-> 请不要使用C语言 atexit 函数，避免出现不可期问题。
+> 请不要使用 C 语言 atexit 函数，避免出现非预期问题。
 
 参数：
 
@@ -1255,7 +1255,6 @@ protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
 
 - [ProcessException](process_package_exceptions.md#class-processexception) - 如果进程不存在，不允许终止，则抛出异常。
 
-
 示例：
 
 <!-- verify -->
@@ -1310,13 +1309,11 @@ public class SubProcess <: Process
 >
 > 不支持平台：iOS。
 
-> **说明：**
->
-> 提供功能具体如下：
->
-> - 提供获取子进程标准流（`stdIn`、`stdOut`、`stdErr`）机制。
-> - 提供等待子进程执行返回退出状态码机制，允许设置等待超时时长。
-> - 提供等待子进程执行返回输出结果(包含运行正常、异常结果)机制，允许设置等待超时时长。
+提供功能具体如下：
+
+- 提供获取子进程标准流（`stdIn`、`stdOut`、`stdErr`）机制。
+- 提供等待子进程执行返回退出状态码机制，允许设置等待超时时长。
+- 提供等待子进程执行返回输出结果(包含运行正常、异常结果)机制，允许设置等待超时时长。
 
 父类型：
 
@@ -1529,12 +1526,10 @@ public func wait(timeout!: ?Duration = None): Int64
 >
 > 不支持平台：iOS。
 
-> **说明：**
->
-> 超时时间处理机制：
->
-> - 未传参、 `timeout` 值为 `None` 或值小于等于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待直至子进程执行返回。
-> - `timeout` 值大于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待子进程执行返回或等待超时后抛出超时异常。
+超时时间处理机制：
+
+- 未传参、 `timeout` 值为 `None` 或值小于等于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待直至子进程执行返回。
+- `timeout` 值大于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待子进程执行返回或等待超时后抛出超时异常。
 
 参数：
 

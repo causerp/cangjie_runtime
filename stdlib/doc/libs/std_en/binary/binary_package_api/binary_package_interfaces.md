@@ -832,7 +832,10 @@ main() {
 ### extend UInt32 <: BigEndianOrder\<UInt32>
 
 ```cangjie
-extend UInt32 <: BigEndianOrder## interface LittleEndianOrder\<T>
+extend UInt32 <: BigEndianOrder
+```
+
+## interface LittleEndianOrder\<T>
 
 ```cangjie
 public interface LittleEndianOrder<T> {

@@ -49,7 +49,7 @@ public func parseArguments(args: Array<String>, specs: Array<ArgumentSpec>): Par
 
 - [ArgumentParseException](./argopt_package_exception.md#class-argumentparseexception) - 当参数解析失败或解析到`非法选项`时，抛出异常。
 
-- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当定义了相同 `name` 的 [ArgumentSpec](./argopt_package_enums.md#enum-argumentspec) 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当定义了相同 `name` 的 [ArgumentSpec](./argopt_package_enums.md#enum-argumentspec) 时，抛出异常。
 
 示例：
 
@@ -63,7 +63,7 @@ main(): Unit {
     let outputSpec = ArgumentSpec.Long("output", ArgumentMode.RequiredValue)
     let verboseSpec = ArgumentSpec.Short(r'v', ArgumentMode.OptionalValue)
 
-    // 创建specs数组
+    // 创建 specs 数组
     let specs = [helpSpec, outputSpec, verboseSpec]
 
     // 创建参数数组

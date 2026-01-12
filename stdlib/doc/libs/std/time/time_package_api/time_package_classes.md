@@ -21,7 +21,7 @@ public static const RFC1123: String = "www, dd MMM yyyy HH:mm:ss z"
 
 功能：提供 RFC1123 时间格式，时间字符串格式为 `www, dd MMM yyyy HH:mm:ss z`。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 示例：
 
@@ -57,7 +57,7 @@ public static const RFC3339: String = "yyyy-MM-ddTHH:mm:ssOOOO"
 
 功能：提供 RFC3339 时间格式，时间字符串格式为 `yyyy-MM-ddTHH:mm:ssOOOO`。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 示例：
 
@@ -93,7 +93,7 @@ public static const RFC822: String = "ww dd MMM yy HH:mm:ss z"
 
 功能：提供 RFC822 时间格式，时间字符串格式为 `ww dd MMM yy HH:mm:ss z`。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 示例：
 
@@ -129,7 +129,7 @@ public static const RFC850: String = "wwww, dd-MMM-yy HH:mm:ss z"
 
 功能：提供 RFC850 时间格式，时间字符串格式为 `wwww, ww-MMM-yy HH:mm:ss z`。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 示例：
 
@@ -163,7 +163,7 @@ RFC850 格式: Tuesday, 16-Dec-25 15:31:43 UTC
 public prop format: String
 ```
 
-功能：DateTimeFormat实例的字符串格式。
+功能：DateTimeFormat 实例的字符串格式。
 
 > **注意：**
 >

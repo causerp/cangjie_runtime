@@ -320,7 +320,6 @@ public open prop message: String
 
 类型：[String](core_package_structs.md#struct-string)
 
-
 示例：
 
 <!-- verify -->

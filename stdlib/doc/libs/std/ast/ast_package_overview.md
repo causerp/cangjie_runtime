@@ -168,7 +168,7 @@ ast 包主要包含了仓颉源码的语法解析器和仓颉语法树节点，�
 
 |                 结构体名           |                功能                |
 | --------------------------------- | ---------------------------------- |
-| [Position](./ast_package_api/ast_package_structs.md#struct-position) | 表示位置信息的数据结构，包含文件ID，行号和列号。|
+| [Position](./ast_package_api/ast_package_structs.md#struct-position) | 表示位置信息的数据结构，包含文件 ID、行号和列号。|
 | [Token](./ast_package_api/ast_package_structs.md#struct-token) | 词法单元类型。|
 
 ### 异常类

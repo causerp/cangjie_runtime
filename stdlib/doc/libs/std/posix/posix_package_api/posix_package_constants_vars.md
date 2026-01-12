@@ -946,6 +946,7 @@ main(): Int32 {
 ```text
 value: 49152
 ```
+
 ## const S_IRGRP <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1105,6 +1106,7 @@ main(): Int32 {
 ```text
 value: 7
 ```
+
 ## const S_IRWXU <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1136,6 +1138,7 @@ main(): Int32 {
 ```text
 value: 448
 ```
+
 ## const S_IWGRP <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1167,6 +1170,7 @@ main(): Int32 {
 ```text
 value: 16
 ```
+
 ## const S_IWOTH <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1198,6 +1202,7 @@ main(): Int32 {
 ```text
 value: 2
 ```
+
 ## const S_IWUSR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1229,6 +1234,7 @@ main(): Int32 {
 ```text
 value: 128
 ```
+
 ## const S_IXGRP <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1260,6 +1266,7 @@ main(): Int32 {
 ```text
 value: 8
 ```
+
 ## const S_IXOTH <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1291,6 +1298,7 @@ main(): Int32 {
 ```text
 value: 1
 ```
+
 ## const S_IXUSR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1322,6 +1330,7 @@ main(): Int32 {
 ```text
 value: 64
 ```
+
 ## const SEEK_CUR <sup>(deprecated)</sup>
 
 ```cangjie
@@ -2505,6 +2514,7 @@ main(): Int32 {
 ```text
 value: 2
 ```
+
 ## const X_OK <sup>(deprecated)</sup>
 
 ```cangjie

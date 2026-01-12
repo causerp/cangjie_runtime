@@ -55,6 +55,7 @@ source cangjie/envsetup.sh
 ```
 
 To verify whether the installation was successful, you can execute the following command:
+
 ```bash
 cjc -v
 ```
@@ -84,7 +85,9 @@ If you need to update the Cangjie toolchain, first uninstall the current version
 
 This section uses Windows 10 as an example to introduce the installation method of the Cangjie toolchain.
 
-### Installation GuideOn the Windows platform, Cangjie provides developers with two formats of installation packages: `exe` and `zip`. Please visit the official Cangjie release channels to select and download the Windows version installation package that matches your platform architecture.
+### Installation Guide
+
+On the Windows platform, Cangjie provides developers with two formats of installation packages: `exe` and `zip`. Please visit the official Cangjie release channels to select and download the Windows version installation package that matches your platform architecture.
 
 - If you choose the `exe` format installation package (e.g., `cangjie-sdk-windows-x64-x.y.z.exe`), simply execute this file and follow the installation wizard to complete the setup.
 
@@ -139,7 +142,9 @@ After configuration, the Cangjie compilation toolchain will be directly availabl
 
         1. In the "User variables" (for the current user) or "System variables" (for all users) section, locate and select the Path variable, then click the "Edit" button to enter the "Edit Environment Variable" window.
 
-        2. Click the "New" button and enter the following paths separately: `%CANGJIE_HOME%\bin`, `%CANGJIE_HOME%\tools\bin`, `%CANGJIE_HOME%\tools\lib`, `%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm` (`%CANGJIE_HOME%` represents the extraction path of the Cangjie installation package). For example, if the installation package is extracted to `D:\cangjie`, the new environment variables should be: `D:\cangjie\bin`, `D:\cangjie\tools\bin`, `D:\cangjie\tools\lib`, `D:\cangjie\runtime\lib\windows_x86_64_llvm`.        3. (Applicable only for current user settings) Click the "New" button, and enter the current user directory path, then append `.cjpm\bin` at the end. For example, if the user path is `C:\Users\bob`, input `C:\Users\bob\.cjpm\bin`.
+        2. Click the "New" button and enter the following paths separately: `%CANGJIE_HOME%\bin`, `%CANGJIE_HOME%\tools\bin`, `%CANGJIE_HOME%\tools\lib`, `%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm` (`%CANGJIE_HOME%` represents the extraction path of the Cangjie installation package). For example, if the installation package is extracted to `D:\cangjie`, the new environment variables should be: `D:\cangjie\bin`, `D:\cangjie\tools\bin`, `D:\cangjie\tools\lib`, `D:\cangjie\runtime\lib\windows_x86_64_llvm`.
+
+        3. (Applicable only for current user settings) Click the "New" button, and enter the current user directory path, then append `.cjpm\bin` at the end. For example, if the user path is `C:\Users\bob`, input `C:\Users\bob\.cjpm\bin`.
 
         4. After configuration, the configured path should be visible in the "Edit Environment Variables" window. Verify the path is correctly configured and click the "OK" button.
 

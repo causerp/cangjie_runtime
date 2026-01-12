@@ -1,21 +1,21 @@
 # 函数
 
 ## func blackBox\<T>(T)
- 
+
 ```cangjie
 public func blackBox<T>(input: T): T
 ```
- 
+
 功能：指示编译器传入的变量进入优化黑盒，无法进行死代码消除等优化。
- 
+
 参数：
- 
+
 - input: T - 进入优化黑洞的变量。
- 
+
 返回值：
- 
+
 - T - 若变量仍需被使用，则可使用该返回值进行调用。
- 
+
 ## func dumpHeapData(Path)
 
 ```cangjie
@@ -26,7 +26,7 @@ public func dumpHeapData(path: Path): Unit
 
 参数：
 
-- path: [Path](../../fs/fs_package_api/fs_package_structs.md/#struct-path) - 生成堆内存快照文件的文件路径。
+- path: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 生成堆内存快照文件的文件路径。
 
 异常：
 
@@ -212,7 +212,6 @@ public func resetSignalHandler(sigs: Array<Signal>): Unit
 
 功能：清空注册的信号处理函数，如果输入信号为空，则清空所有信号的注册函数。
 
-
 参数：
 
 - sigs: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Signal](./runtime_package_class.md#class-signal)> - 需要被重置的信号列表。
@@ -226,7 +225,6 @@ public func resetSignalHandler(sigs: Array<Signal>): Unit
 > - 不支持平台：Windows。
 > - 仅支持前 31 个可被捕获的非实时信号。
 > - 暂不支持 SIGBUS、SIGFPE、SIGSEGV 等中断信号。
-
 
 ## func setGCThreshold(UInt64)
 
@@ -292,11 +290,11 @@ public func startCPUProfiling(): Unit
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
 
 异常：
 
-- ProfilingInfoException - 若调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)后，没有调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)则抛出异常。
+- ProfilingInfoException - 若调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)后，没有调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)则抛出异常。
 
 ## func stopCPUProfiling(Path)
 
@@ -304,19 +302,19 @@ public func startCPUProfiling(): Unit
 public func stopCPUProfiling(path: Path): Unit
 ```
 
-功能：停止CPU profiler 跟踪，并将记录写入指定路径的文件。
+功能：停止 CPU profiler 跟踪，并将记录写入指定路径的文件。
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
 
 参数：
 
-- path: [Path](../../fs/fs_package_api/fs_package_structs.md/#struct-path) - 生成记录文件的文件路径。
+- path: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 生成记录文件的文件路径。
 
 异常：
 
-- ProfilingInfoException - 若没有调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)，直接调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)则抛出异常。
+- ProfilingInfoException - 若没有调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)，直接调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)则抛出异常。
 
 ## func unregisterSignalHandler(Signal, SignalHandlerFunc)
 
@@ -325,7 +323,6 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 ```
 
 功能：取消注册信号的处理函数。
-
 
 参数：
 

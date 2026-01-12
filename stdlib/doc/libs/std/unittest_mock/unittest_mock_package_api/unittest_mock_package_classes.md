@@ -538,9 +538,9 @@ let foo = mock<Foo>()
 @On(foo.bar(argThat<Int64> { arg => arg > 0 })).returns(...)
 ```
 
-    > **注意：**
-    >
-    > 上例仅适用于 `mock object` 。`spy object` 的行为不同。
+> **注意：**
+>
+> 上例仅适用于 `mock object` 。`spy object` 的行为不同。
 
 <!-- code_no_check -->
 

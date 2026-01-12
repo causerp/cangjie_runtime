@@ -432,7 +432,8 @@ Output:
 
 ```text
 Concatenated result: 1 2 3 4 5 6 
-``````markdown
+```
+
 ## func contains\<T>(T) where T <: Equatable\<T>
 
 ```cangjie
@@ -1271,7 +1272,8 @@ Output:
 ```text
 Maximum element: 9
 Array is empty
-``````markdown
+```
+
 ## func min\<T>(Iterable\<T>) where T <: Comparable\<T>
 
 ```cangjie

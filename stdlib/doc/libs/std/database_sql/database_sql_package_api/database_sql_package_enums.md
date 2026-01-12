@@ -72,19 +72,19 @@ public operator func !=(rhs: ConnectionState): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个不同的ConnectionState枚举值
+    // 创建两个不同的 ConnectionState 枚举值
     let state1 = ConnectionState.Broken
     let state2 = ConnectionState.Closed
 
-    // 使用!=操作符比较两个不同的枚举值
+    // 使用 != 操作符比较两个不同的枚举值
     let result1 = state1 != state2
     println("Broken != Closed: ${result1}")
 
-    // 创建两个相同的ConnectionState枚举值
+    // 创建两个相同的 ConnectionState 枚举值
     let state3 = ConnectionState.Connected
     let state4 = ConnectionState.Connected
 
-    // 使用!=操作符比较两个相同的枚举值
+    // 使用 != 操作符比较两个相同的枚举值
     let result2 = state3 != state4
     println("Connected != Connected: ${result2}")
 }
@@ -120,7 +120,7 @@ public operator func ==(rhs: ConnectionState): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个相同的ConnectionState枚举值
+    // 创建两个相同的 ConnectionState 枚举值
     let state1 = ConnectionState.Broken
     let state2 = ConnectionState.Broken
 
@@ -128,7 +128,7 @@ main() {
     let result1 = state1 == state2
     println("Broken == Broken: ${result1}")
 
-    // 创建两个不同的ConnectionState枚举值
+    // 创建两个不同的 ConnectionState 枚举值
     let state3 = ConnectionState.Connecting
     let state4 = ConnectionState.Connected
 
@@ -206,12 +206,12 @@ public func hashCode(): Int64
 import std.database.sql.*
 
 main() {
-    // 创建TransactionAccessMode枚举值
+    // 创建 TransactionAccessMode 枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
     let mode3 = TransactionAccessMode.Unspecified
 
-    // 调用hashCode()函数获取哈希值
+    // 调用 hashCode() 函数获取哈希值
     let hash1 = mode1.hashCode()
     let hash2 = mode2.hashCode()
     let hash3 = mode3.hashCode()
@@ -255,12 +255,12 @@ public func toString(): String
 import std.database.sql.*
 
 main() {
-    // 创建TransactionAccessMode枚举值
+    // 创建 TransactionAccessMode 枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
     let mode3 = TransactionAccessMode.Unspecified
 
-    // 调用toString()函数获取字符串表示
+    // 调用 toString() 函数获取字符串表示
     let str1 = mode1.toString()
     let str2 = mode2.toString()
     let str3 = mode3.toString()
@@ -302,19 +302,19 @@ public operator func != (rhs: TransactionAccessMode): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个不同的TransactionAccessMode枚举值
+    // 创建两个不同的 TransactionAccessMode 枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadWrite
 
-    // 使用!=操作符比较两个不同的枚举值
+    // 使用 != 操作符比较两个不同的枚举值
     let result1 = mode1 != mode2
     println("ReadOnly != ReadWrite: ${result1}")
 
-    // 创建两个相同的TransactionAccessMode枚举值
+    // 创建两个相同的 TransactionAccessMode 枚举值
     let mode3 = TransactionAccessMode.Unspecified
     let mode4 = TransactionAccessMode.Unspecified
 
-    // 使用!=操作符比较两个相同的枚举值
+    // 使用 != 操作符比较两个相同的枚举值
     let result2 = mode3 != mode4
     println("Unspecified != Unspecified: ${result2}")
 }
@@ -350,7 +350,7 @@ public operator func == (rhs: TransactionAccessMode): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个相同的TransactionAccessMode枚举值
+    // 创建两个相同的 TransactionAccessMode 枚举值
     let mode1 = TransactionAccessMode.ReadOnly
     let mode2 = TransactionAccessMode.ReadOnly
 
@@ -358,7 +358,7 @@ main() {
     let result1 = mode1 == mode2
     println("ReadOnly == ReadOnly: ${result1}")
 
-    // 创建两个不同的TransactionAccessMode枚举值
+    // 创建两个不同的 TransactionAccessMode 枚举值
     let mode3 = TransactionAccessMode.ReadWrite
     let mode4 = TransactionAccessMode.Unspecified
 
@@ -440,12 +440,12 @@ public func hashCode(): Int64
 import std.database.sql.*
 
 main() {
-    // 创建TransactionDeferrableMode枚举值
+    // 创建 TransactionDeferrableMode 枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
     let mode3 = TransactionDeferrableMode.Unspecified
 
-    // 调用hashCode()函数获取哈希值
+    // 调用 hashCode() 函数获取哈希值
     let hash1 = mode1.hashCode()
     let hash2 = mode2.hashCode()
     let hash3 = mode3.hashCode()
@@ -489,12 +489,12 @@ public func toString(): String
 import std.database.sql.*
 
 main() {
-    // 创建TransactionDeferrableMode枚举值
+    // 创建 TransactionDeferrableMode 枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
     let mode3 = TransactionDeferrableMode.Unspecified
 
-    // 调用toString()函数获取字符串表示
+    // 调用 toString() 函数获取字符串表示
     let str1 = mode1.toString()
     let str2 = mode2.toString()
     let str3 = mode3.toString()
@@ -536,19 +536,19 @@ public operator func != (rhs: TransactionDeferrableMode): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个不同的TransactionDeferrableMode枚举值
+    // 创建两个不同的 TransactionDeferrableMode 枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.NotDeferrable
 
-    // 使用!=操作符比较两个不同的枚举值
+    // 使用 != 操作符比较两个不同的枚举值
     let result1 = mode1 != mode2
     println("Deferrable != NotDeferrable: ${result1}")
 
-    // 创建两个相同的TransactionDeferrableMode枚举值
+    // 创建两个相同的 TransactionDeferrableMode 枚举值
     let mode3 = TransactionDeferrableMode.Unspecified
     let mode4 = TransactionDeferrableMode.Unspecified
 
-    // 使用!=操作符比较两个相同的枚举值
+    // 使用 != 操作符比较两个相同的枚举值
     let result2 = mode3 != mode4
     println("Unspecified != Unspecified: ${result2}")
 }
@@ -584,7 +584,7 @@ public operator func == (rhs: TransactionDeferrableMode): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个相同的TransactionDeferrableMode枚举值
+    // 创建两个相同的 TransactionDeferrableMode 枚举值
     let mode1 = TransactionDeferrableMode.Deferrable
     let mode2 = TransactionDeferrableMode.Deferrable
 
@@ -592,7 +592,7 @@ main() {
     let result1 = mode1 == mode2
     println("Deferrable == Deferrable: ${result1}")
 
-    // 创建两个不同的TransactionDeferrableMode枚举值
+    // 创建两个不同的 TransactionDeferrableMode 枚举值
     let mode3 = TransactionDeferrableMode.NotDeferrable
     let mode4 = TransactionDeferrableMode.Unspecified
 
@@ -654,7 +654,7 @@ Linearizable
 
 > **说明：**
 >
-> 区别于串行化（[Serializable]()），线性化主要强调单个对象上（即 db 行或 nosql 记录）的一组单个操作（比如一系列读写操作），线性化保证这些操作严格按真实时间顺序执行。比如当您查看单个对象上的操作子集时，线性化是相关的。
+> 区别于串行化（Serializable），线性化主要强调单个对象上（即 db 行或 nosql 记录）的一组单个操作（比如一系列读写操作），线性化保证这些操作严格按真实时间顺序执行。比如当您查看单个对象上的操作子集时，线性化是相关的。
 
 ### ReadCommitted
 
@@ -723,12 +723,12 @@ public func hashCode(): Int64
 import std.database.sql.*
 
 main() {
-    // 创建TransactionIsoLevel枚举值
+    // 创建 TransactionIsoLevel 枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
     let level3 = TransactionIsoLevel.Unspecified
 
-    // 调用hashCode()函数获取哈希值
+    // 调用 hashCode() 函数获取哈希值
     let hash1 = level1.hashCode()
     let hash2 = level2.hashCode()
     let hash3 = level3.hashCode()
@@ -777,12 +777,12 @@ public func toString(): String
 import std.database.sql.*
 
 main() {
-    // 创建TransactionIsoLevel枚举值
+    // 创建 TransactionIsoLevel 枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
     let level3 = TransactionIsoLevel.Unspecified
 
-    // 调用toString()函数获取字符串表示
+    // 调用 toString() 函数获取字符串表示
     let str1 = level1.toString()
     let str2 = level2.toString()
     let str3 = level3.toString()
@@ -824,19 +824,19 @@ public operator func != (rhs: TransactionIsoLevel): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个不同的TransactionIsoLevel枚举值
+    // 创建两个不同的 TransactionIsoLevel 枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.ReadCommitted
 
-    // 使用!=操作符比较两个不同的枚举值
+    // 使用 != 操作符比较两个不同的枚举值
     let result1 = level1 != level2
     println("Serializable != ReadCommitted: ${result1}")
 
-    // 创建两个相同的TransactionIsoLevel枚举值
+    // 创建两个相同的 TransactionIsoLevel 枚举值
     let level3 = TransactionIsoLevel.Unspecified
     let level4 = TransactionIsoLevel.Unspecified
 
-    // 使用!=操作符比较两个相同的枚举值
+    // 使用 != 操作符比较两个相同的枚举值
     let result2 = level3 != level4
     println("Unspecified != Unspecified: ${result2}")
 }
@@ -872,7 +872,7 @@ public operator func == (rhs: TransactionIsoLevel): Bool
 import std.database.sql.*
 
 main() {
-    // 创建两个相同的TransactionIsoLevel枚举值
+    // 创建两个相同的 TransactionIsoLevel 枚举值
     let level1 = TransactionIsoLevel.Serializable
     let level2 = TransactionIsoLevel.Serializable
 
@@ -880,7 +880,7 @@ main() {
     let result1 = level1 == level2
     println("Serializable == Serializable: ${result1}")
 
-    // 创建两个不同的TransactionIsoLevel枚举值
+    // 创建两个不同的 TransactionIsoLevel 枚举值
     let level3 = TransactionIsoLevel.ReadCommitted
     let level4 = TransactionIsoLevel.Unspecified
 

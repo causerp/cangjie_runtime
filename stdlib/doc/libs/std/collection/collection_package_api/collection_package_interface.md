@@ -78,7 +78,7 @@ func removeFirst(): ?T
 
 返回值：
 
-- ?T - Option 封装的被删除的元素的值，如果双端队列为空，返回None。
+- ?T - Option 封装的被删除的元素的值，如果双端队列为空，返回 None。
 
 ### func removeLast()
 
@@ -90,7 +90,7 @@ func removeLast(): ?T
 
 返回值：
 
-- ?T - Option 封装的被删除的元素的值，如果双端队列为空，返回None。
+- ?T - Option 封装的被删除的元素的值，如果双端队列为空，返回 None。
 
 ## interface EquatableCollection\<T>
 
@@ -292,7 +292,7 @@ public interface Map<K, V> <: ReadOnlyMap<K, V> {
 
 功能：[Map](collection_package_interface.md#interface-mapk-v) 接口提供了一种将键映射到值的方式。它允许我们使用键来查找值，因此可以用于存储和操作键值对。
 
-[Map](collection_package_interface.md#interface-mapk-v) 不能包含重复的key，每个key最多只能映射到一个value。
+[Map](collection_package_interface.md#interface-mapk-v) 不能包含重复的 key，每个 key 最多只能映射到一个 value。
 
 父类型：
 

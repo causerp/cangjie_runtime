@@ -3679,7 +3679,7 @@ public mut prop lBrace: Token
 public mut prop orgName: Token
 ```
 
-功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中代表组织名的词法单元，setter会检查orgSeparator是否为 "::" 词法单元，若为空则同时设置其为 "::" 词法单元。
+功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中代表组织名的词法单元，setter 会检查 orgSeparator 是否为 "::" 词法单元，若为空则同时设置其为 "::" 词法单元。
 
 类型：[Token](ast_package_structs.md#struct-token)
 
@@ -3693,13 +3693,13 @@ public mut prop orgName: Token
 public mut prop orgSeparator: Token
 ```
 
-功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中的 "::" 词法单元，setter会检查orgName内容是否为空字符串，若有则抛异常。
+功能：获取或设置 [ImportContent](ast_package_classes.md#class-importcontent) 节点中的 "::" 词法单元，setter 会检查 orgName 内容是否为空字符串，若有则抛异常。
 
 类型：[Token](ast_package_structs.md#struct-token)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或orgName内容为空字符串时抛出异常。
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或 orgName 内容为空字符串时抛出异常。
 
 ### prop prefixDots
 
@@ -6263,7 +6263,7 @@ public mut prop keywordP: Token
 public mut prop orgName: Token
 ```
 
-功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中代表组织名的词法单元，setter会检查orgSeparator是否为 "::" 词法单元，若为空则同时设置其为 "::" 词法单元。
+功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中代表组织名的词法单元，setter 会检查 orgSeparator 是否为 "::" 词法单元，若为空则同时设置其为 "::" 词法单元。
 
 类型：[Token](ast_package_structs.md#struct-token)
 
@@ -6277,13 +6277,13 @@ public mut prop orgName: Token
 public mut prop orgSeparator: Token
 ```
 
-功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中的 "::" 词法单元，setter会检查orgName内容是否为空字符串，若有则抛异常。
+功能：获取或设置 [PackageHeader](ast_package_classes.md#class-packageheader) 节点中的 "::" 词法单元，setter 会检查 orgName 内容是否为空字符串，若有则抛异常。
 
 类型：[Token](ast_package_structs.md#struct-token)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或orgName内容为空字符串时抛出异常。
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当设置的 [Token](ast_package_structs.md#struct-token) 不是 "::" 时，或 orgName 内容为空字符串时抛出异常。
 
 ### prop packageIdentifier
 
