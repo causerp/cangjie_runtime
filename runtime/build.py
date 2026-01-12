@@ -263,6 +263,7 @@ def do_build(args):
             print("Please configure ios toolchain, for example '/root/workspace/ios_dep_files/'")
             sys.exit(1)
         os.environ["PATH"] = os.path.join(args.target_toolchain, "bin") + ":" + os.environ["PATH"]
+        os.environ["SDKROOT"] = os.path.join(args.target_sysroot)
         ios_flag = "1" if target_args == "ios-aarch64" else "0"
         if target_args == "ios-simulator-aarch64":
             target_arch = "aarch64"
@@ -390,6 +391,10 @@ if __name__ == "__main__":
     b.add_argument(
         "--target-toolchain",
         help="The toolchain required for cross-compilation depends on the specific build target; please specify the appropriate toolchain according to each build-target."
+    )
+    b.add_argument(
+        "--target-sysroot",
+        help="The sysroot required for cross-compilation depends on the specific build target; please specify the appropriate sysroot according to each build-target."
     )
     b.add_argument(
         "--cjlib-sanitizer-support",
