@@ -20,7 +20,7 @@ public struct BatchInputProvider<T> <: BenchInputProvider<T> {
 public BatchInputProvider(let builder: () -> T)
 ```
 
-功能：BatchInputProvider构造函数。
+功能：BatchInputProvider 构造函数。
 
 参数：
 
@@ -77,7 +77,7 @@ public struct BatchSizeOneInputProvider<T> <: BenchInputProvider<T>{
 public BatchSizeOneInputProvider(let builder: () -> T)
 ```
 
-功能：BatchSizeOneInputProvider构造函数。
+功能：BatchSizeOneInputProvider 构造函数。
 
 参数：
 
@@ -195,7 +195,7 @@ public struct GenerateEachInputProvider<T> <: BenchInputProvider<T>{
 public GenerateEachInputProvider(let builder: () -> T)
 ```
 
-功能：GenerateEachInputProvider构造函数。
+功能：GenerateEachInputProvider 构造函数。
 
 参数：
 
@@ -249,7 +249,7 @@ public struct ImmutableInputProvider<T> <: BenchInputProvider<T> {
 public ImmutableInputProvider(let data: T)
 ```
 
-功能：ImmutableInputProvider构造函数。
+功能：ImmutableInputProvider 构造函数。
 
 参数：
 
@@ -1529,7 +1529,7 @@ public struct Perf <: Measurement {
 }
 ```
 
-功能：使用linux 系统调用 `perf_event_open` 测量各种硬件和软件 CPU 计数器。仅在 Linux 上可用。
+功能：使用 Linux 系统调用 `perf_event_open` 测量各种硬件和软件 CPU 计数器。仅在 Linux 上可用。
 
 父类型：
 
@@ -1615,7 +1615,7 @@ public struct RelativeDelta<T> {
 
 功能：对于浮点类型，提供相对的 delta 数据类型来做近似相等的计算。计算公式如下。
 
-$$|x - y| <= absolute + relative * max(abs(x), abs(y))$$
+$$|x - y| \le absolute + relative * max(abs(x), abs(y))$$
 
 ### RelativeDelta(T, T)
 

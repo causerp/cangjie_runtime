@@ -992,7 +992,6 @@ public interface ThreadContext {
 
 目前不允许用户自行实现 [ThreadContext](core_package_interfaces.md#interface-threadcontext) 接口，仓颉语言根据使用场景，提供了 `MainThreadContext`, 具体定义可在终端框架库中查阅。
 
-
 ### func end()
 
 ```cangjie

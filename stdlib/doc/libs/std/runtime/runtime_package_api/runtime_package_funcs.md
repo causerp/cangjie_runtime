@@ -1,21 +1,21 @@
 # 函数
 
 ## func blackBox\<T>(T)
- 
+
 ```cangjie
 public func blackBox<T>(input: T): T
 ```
- 
+
 功能：指示编译器传入的变量进入优化黑盒，无法进行死代码消除等优化。
- 
+
 参数：
- 
+
 - input: T - 进入优化黑洞的变量。
- 
+
 返回值：
- 
+
 - T - 若变量仍需被使用，则可使用该返回值进行调用。
- 
+
 ## func dumpHeapData(Path)
 
 ```cangjie
@@ -26,7 +26,7 @@ public func dumpHeapData(path: Path): Unit
 
 参数：
 
-- path: [Path](../../fs/fs_package_api/fs_package_structs.md/#struct-path) - 生成堆内存快照文件的文件路径。
+- path: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 生成堆内存快照文件的文件路径。
 
 异常：
 
@@ -42,7 +42,7 @@ public func GC(heavy!: Bool = false): Unit
 
 > **注意：**
 >
-> 未来版本即将废弃，使用[gc](runtime_package_funcs.md#func-gcbool) 替代。
+> 未来版本即将废弃，使用 [gc](runtime_package_funcs.md#func-gcbool) 替代。
 
 参数：
 
@@ -174,7 +174,7 @@ public func getThreadCount(): Int64
 public func getUsedHeapSize(): Int64
 ```
 
-功能：在 Linux 平台下获取仓颉堆实际占用的物理内存大小, 单位为 byte。在 Windows 及 macOs 平台下获取仓颉进程实际占用的物理内存大小, 单位为 byte。
+功能：在 Linux 平台下获取仓颉堆实际占用的物理内存大小，单位为 byte。在 Windows 及 macOs 平台下获取仓颉进程实际占用的物理内存大小，单位为 byte。
 
 返回值：
 
@@ -190,7 +190,7 @@ public func SetGCThreshold(value: UInt64): Unit
 
 > **注意：**
 >
-> 未来版本即将废弃，使用[setGCThreshold(UInt64)](./runtime_package_funcs.md#func-setgcthresholduint64) 替代。
+> 未来版本即将废弃，使用 [setGCThreshold(UInt64)](./runtime_package_funcs.md#func-setgcthresholduint64) 替代。
 
 参数：
 
@@ -242,11 +242,11 @@ public func startCPUProfiling(): Unit
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 与 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath) 两个函数必须一一对应。
 
 异常：
 
-- ProfilingInfoException - 若调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)后，没有调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)则抛出异常。
+- ProfilingInfoException - 若调用了 [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 后，没有调用 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了 [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 则抛出异常。
 
 ## func stopCPUProfiling(Path)
 
@@ -254,16 +254,16 @@ public func startCPUProfiling(): Unit
 public func stopCPUProfiling(path: Path): Unit
 ```
 
-功能：停止CPU profiler 跟踪，并将记录写入指定路径的文件。
+功能：停止 CPU profiler 跟踪，并将记录写入指定路径的文件。
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 与 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath) 两个函数必须一一对应。
 
 参数：
 
-- path: [Path](../../fs/fs_package_api/fs_package_structs.md/#struct-path) - 生成记录文件的文件路径。
+- path: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path) - 生成记录文件的文件路径。
 
 异常：
 
-- ProfilingInfoException - 若没有调用了[startCPUProfiling](./runtime_package_funcs.md/#func-startcpuprofiling)，直接调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)则抛出异常。
+- ProfilingInfoException - 若没有调用了 [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)，直接调用 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath) 则抛出异常。
