@@ -1459,7 +1459,7 @@ public class TestGroupBuilder {}
 
 功能：提供配置测试组合的方法的构造器。
 
-请看示例： [TestGroup](#class-testgroup).
+参考示例： [TestGroup](#class-testgroup).
 
 ### func add(Benchmark)
 
@@ -1840,7 +1840,7 @@ public class TestSuiteBuilder {}
 
 功能：提供配置测试套方法的测试套构造器。
 
-请看示例： [TestSuite](#class-testsuite).
+参考示例： [TestSuite](#class-testsuite).
 
 ### func add(Benchmark)
 
@@ -2300,7 +2300,7 @@ main() {
 ### XmlPerPackageReporter(Path)
 
 ```cangjie
-public XmlReporter(let directory: Path)
+public XmlPerPackageReporter(let directory: Path)
 ```
 
 功能：XmlPerPackageReporter 构造函数。
