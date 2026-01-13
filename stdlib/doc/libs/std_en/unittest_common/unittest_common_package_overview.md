@@ -18,11 +18,11 @@ unittest.common provides types and common methods required for printing in the u
 
 | Interface Name | Description |
 | --------------------------- | ------------------------ |
-| [DataProvider](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) | A component of DataStrategy for providing test data, where T specifies the data type provided. |
+| [DataProvider\<T>](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert) | A component of DataStrategy for providing test data, where T specifies the data type provided. |
 | [DataShrinker](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert) | A component of DataStrategy for data reduction during testing, where T specifies the data type processed by this shrinker. |
-| [DataStrategy](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) | Strategy for providing data to parameterized tests, where T specifies the data type operated by this strategy. |
+| [DataStrategy](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) | Strategy for providing data to parameterized tests, where T specifies the data type operated by this strategy. |
 | [PrettyPrintable](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-prettyprintable) | Types implementing this interface indicate they can be printed with proper color and indentation formatting. |
-| [KeyFor](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor) | The type of configuration keys in [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration). |
+| [KeyFor\<T>](./unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort) | The type of configuration keys in [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration). |
 
 ### Classes
 

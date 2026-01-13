@@ -4,12 +4,12 @@
 
 ```cangjie
 public interface BenchInputProvider<T> <: BenchmarkInputMarker {
-    mut func get(idx: Int64): T
     mut func reset(max: Int64)
+    mut func get(idx: Int64): T
 }
 ```
 
-Purpose: This interface should be implemented when certain code needs to execute before benchmark execution, or when a code segment needs to re-execute upon input changes. The implementation type of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) should return an implementation of this interface.
+Purpose: This interface should be implemented when certain code needs to execute before benchmark execution, or when a code segment needs to re-execute upon input changes. The implementation type of [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) should return an implementation of this interface.
 
 Users generally don't need to implement this interface directly, as they can use the [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-macro) macro.
 
@@ -244,7 +244,7 @@ Parameters:
 ## interface BenchmarkInputMarker
 
 ```cangjie
-public interface BenchmarkInputMarker
+public interface BenchmarkInputMarker {}
 ```
 
 Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is unknown.
@@ -253,12 +253,8 @@ Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is
 
 ```cangjie
 public interface Measurement {
-    prop conversionTable: MeasurementUnitTable
-    prop name: String
-    prop textDescription: String
     func setup(): Unit
     func measure(): Float64
-    prop info: MeasurementInfo
 }
 ```
 
@@ -323,6 +319,10 @@ Purpose: Initialization routine for this measurement. Called before each benchma
 
 ### prop info
 
+```cangjie
+prop info: MeasurementInfo
+```
+
 Purpose: Summary information for specific measurements.
 
 Type: [MeasurementInfo](../unittest_package_api/unittest_package_structs.md#struct-measurementinfo)
@@ -340,7 +340,7 @@ Purpose: Determines whether an object is approximately equal based on a given de
 ### func isNear(CT, D)
 
 ```cangjie
-public func isNear(obj: CT, delta!: D): Bool
+func isNear(obj: CT, delta!: D): Bool
 ```
 
 Purpose: Determines whether an object is approximately equal based on a given delta.
@@ -505,7 +505,7 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if delta is negative or NaN.## interface Reporter
 
 ```cangjie
-sealed interface Reporter <TReport, TReturn>
+sealed interface Reporter <TReport, TReturn> {}
 ```
 
 Function: Base interface for reporters.

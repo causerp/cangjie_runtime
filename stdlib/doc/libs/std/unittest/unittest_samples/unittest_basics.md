@@ -365,7 +365,7 @@ class Foo {
 }
 ```
 
-为[参数化测试](./unittest_parameterized_tests.md#参数化测试)或参数化性能测试配置生命周期时，注意标识为 **before each** 或 **after each** 的步骤仅在执行测试用例或基准之前或之后为其所有参数执行一次。也就是说，从生命周期的角度看，使用不同参数执行多次的测试主体会被视为单个测试用例。
+为[参数化测试](./unittest_parameterized_tests.md)或参数化性能测试配置生命周期时，注意标识为 **before each** 或 **after each** 的步骤仅在执行测试用例或基准之前或之后为其所有参数执行一次。也就是说，从生命周期的角度看，使用不同参数执行多次的测试主体会被视为单个测试用例。
 
 如果参数化测试的每个参数都需要单独创建清理，需要将相应的代码配置在测试用例主体本身中。此外，还可以访问参数本身。
 
@@ -403,7 +403,7 @@ class Foo {
 1. `--filter=*` 匹配所有测试类
 2. `--filter=*.*` 匹配所有测试类所有测试用例（结果和*相同）
 3. `--filter=*.*Test,*.*case*` 匹配所有测试类中以 Test 结尾的用例，或者所有测试类中名字中带有 case 的测试用例
-4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case 的用例，或者名字中不带有 myTest 的测试用例
+4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case 的用例，或者名字中不带有 myTest 的测试用例。
 
 ### `--dry-run`
 
@@ -421,7 +421,8 @@ class Foo {
 > **注意：**
 >
 > 如果没有符合指定标签类别的测试用例。框架将不运行任何内容。
-> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](./unittest_basics.md#--exclude-tags)。
+>
+> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](#-exclude-tags)。
 
 ### `--exclude-tags`
 

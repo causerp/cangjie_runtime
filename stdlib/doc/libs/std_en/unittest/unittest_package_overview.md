@@ -18,7 +18,7 @@ The following APIs are re-exported from other packages, allowing users to utiliz
 | -------------- | ------------- |
 | [DataProvider](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) | Component of DataStrategy for providing test data, where T specifies the data type provided. |
 | [DataShrinker](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datashrinkert) | Component of DataStrategy for shrinking data during testing, where T specifies the data type processed by the shrinker. |
-| [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) | Strategy for providing data in parameterized tests, where T specifies the data type operated by the strategy. |
+| [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) | Strategy for providing data in parameterized tests, where T specifies the data type operated by the strategy. |
 
 #### Classes
 
@@ -80,7 +80,7 @@ The following APIs are re-exported from other packages, allowing users to utiliz
 
 | Interface Name | Functionality |
 | ------------- | ------------- |
-| [BenchInputProvider](./unittest_package_api/unittest_package_interfaces.md#interface-benchinputprovider) | Interface for handling performance tests where code needs execution before each test call or input changes, requiring regeneration from scratch each time. |
+| [BenchInputProvider](./unittest_package_api/unittest_package_interfaces.md#interface-benchinputprovidert) | Interface for handling performance tests where code needs execution before each test call or input changes, requiring regeneration from scratch each time. |
 | [BenchmarkConfig](./unittest_package_api/unittest_package_interfaces.md#interface-benchmarkconfig) | Marker interface distinguishing performance-related configuration functions in [Configuration](../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration). |
 | [BenchmarkInputMarker](./unittest_package_api/unittest_package_interfaces.md#interface-benchmarkinputmarker) | Detects `BenchInputProvider<T>` when `T` is unknown. |
 | [Measurement](./unittest_package_api/unittest_package_interfaces.md#interface-measurement) | Interface for collecting and analyzing various data during performance testing. Specific instances are specified in the `@Measure` macro (e.g., in class declarations). |
@@ -98,7 +98,7 @@ The following APIs are re-exported from other packages, allowing users to utiliz
 | [ConsoleReporter](./unittest_package_api/unittest_package_classes.md#class-consolereporter) | Prints unit test or performance test results to the console. |
 | [CsvReporter](./unittest_package_api/unittest_package_classes.md#class-csvreporter) | Prints performance test results to CSV files. |
 | [CsvRawReporter](./unittest_package_api/unittest_package_classes.md#class-csvrawreporter) | Prints raw performance test measurement data to CSV files. |
-| [DataStrategyProcessor\<T>](./unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) | Base class for all [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) components. Instances are created by the [`@Strategy`](../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) macro or member functions. |
+| [DataStrategyProcessor\<T>](./unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) | Base class for all [DataStrategy](../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) components. Instances are created by the [`@Strategy`](../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) macro or member functions. |
 | [FlatMapProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapprocessortr) | Processor for applying [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) to parameter data. |
 | [FlatMapStrategyProcessor\<T,R>](./unittest_package_api/unittest_package_classes.md#class-flatmapstrategyprocessortr) | Processor for applying [FlatMap](../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) to parameter data. |
 | [InputParameter](./unittest_package_api/unittest_package_classes.md#class-inputparameter) | Input parameter object type. |
