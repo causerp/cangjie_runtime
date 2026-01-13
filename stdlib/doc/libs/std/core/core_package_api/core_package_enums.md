@@ -580,6 +580,7 @@ public enum ThreadState <: ToString {
     | Pending
     | Terminated 
     | ...
+}
 ```
 
 功能：表示线程的状态。

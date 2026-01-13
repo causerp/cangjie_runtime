@@ -72,7 +72,7 @@ public init(message: String)
 public init(message: String, sqlState: String, errorCode: Int64)
 ```
 
-功能：根据异常信息、SQL语句状态、错误码信息，创建 [SqlException](database_sql_package_exceptions.md#class-sqlexception) 实例。
+功能：根据异常信息、SQL 语句状态、错误码信息，创建 [SqlException](database_sql_package_exceptions.md#class-sqlexception) 实例。
 
 参数：
 

@@ -148,7 +148,7 @@ public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
 
 ## func rename(String, String, Bool)
@@ -171,7 +171,7 @@ public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): U
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行rename方法失败时抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
 
 ## func remove(Path, Bool)
@@ -220,7 +220,7 @@ public func remove(path: String, recursive!: Bool = false): Unit
 public func removeIfExists(path: Path, recursive!: Bool = false): Bool
 ```
 
-功能：判断目标是否存在，如果存在则执行[remove](#func-removepath-bool)方法，并返回 `true`。
+功能：判断目标是否存在，如果存在则执行 [remove](#func-removepath-bool) 方法，并返回 `true`。
 
 参数：
 

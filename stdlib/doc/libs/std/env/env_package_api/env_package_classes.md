@@ -15,7 +15,7 @@ public class ConsoleReader <: InputStream
 >
 > [ConsoleReader](./env_package_classes.md#class-consolereader) 只有一个实例，所有方法共享同一个缓存区，相关`read`方法返回`None`的情形有：
 >
-> - 将标准输入重定向到文件时，读取到文件结尾EOF。
+> - 将标准输入重定向到文件时，读取到文件结尾 EOF。
 > - Linux 环境，按下 `Ctrl+D`。
 > - Windows 环境，按下 `Ctrl+Z` 后加回车。
 

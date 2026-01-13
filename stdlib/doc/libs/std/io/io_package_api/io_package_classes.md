@@ -93,7 +93,7 @@ main(): Unit {
         println("Error: ${e.message}")
     }
 
-    /* 内部缓冲区大小被定义为0的情况 */
+    /* 内部缓冲区大小被定义为 0 的情况 */
     try {
         let invalidBuffer = Array<Byte>()
         let bufferedStream = BufferedInputStream(inputStream, invalidBuffer)
@@ -322,7 +322,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [BufferedInputStream](io_package_classes.md#class-bufferedinputstreamt-where-t--inputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -345,7 +345,7 @@ import std.io.InputStream
 import std.io.ByteBuffer
 
 /**
- * 自定义实现 InputStream 和 Resource 接口的类A
+ * 自定义实现 InputStream 和 Resource 接口的类 A
  */
 public class A <: InputStream & Resource {
     private var closed: Bool = false
@@ -370,7 +370,7 @@ public class A <: InputStream & Resource {
 main(): Unit {
     let bufferedStream = BufferedInputStream(A())
 
-    /* 使用try-with-resource语法获取资源 */
+    /* 使用 try-with-resource 语法获取资源 */
     try (r = bufferedStream) {
         println("Get the resource")
         let data = Array<Byte>(11, repeat: 0)
@@ -475,7 +475,7 @@ import std.io.IOException
 import std.io.readToEnd
 
 /**
- * 自定义实现 InputStream 和 Seekable 接口的类A
+ * 自定义实现 InputStream 和 Seekable 接口的类 A
  */
 public class A <: InputStream & Seekable {
     public var inputStream: ByteBuffer = ByteBuffer()
@@ -624,7 +624,7 @@ main(): Unit {
         println("Error: ${e.message}")
     }
 
-    /* 内部缓冲区大小被定义为0的情况 */
+    /* 内部缓冲区大小被定义为 0 的情况 */
     try {
         let invalidBuffer = Array<Byte>()
         let bufferedStream = BufferedOutputStream(outputStream, invalidBuffer)
@@ -890,7 +890,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -914,7 +914,7 @@ import std.io.ByteBuffer
 import std.io.readToEnd
 
 /**
- * 自定义实现 OutputStream 和 Resource 接口的类A
+ * 自定义实现 OutputStream 和 Resource 接口的类 A
  */
 public class A <: OutputStream & Resource {
     private var closed: Bool = false
@@ -938,7 +938,7 @@ main(): Unit {
     let resourceStream = A()
     let bufferedStream = BufferedOutputStream(resourceStream)
 
-    /* 使用try-with-resource语法获取资源 */
+    /* 使用 try-with-resource 语法获取资源 */
     try (r = bufferedStream) {
         println("Get the resource")
         let data = "Hello World".toArray()
@@ -1044,7 +1044,7 @@ import std.io.IOException
 import std.io.readToEnd
 
 /**
- * 自定义实现 OutputStream 和 Seekable 接口的类A
+ * 自定义实现 OutputStream 和 Seekable 接口的类 A
  */
 public class A <: OutputStream & Seekable {
     public var outputStream: ByteBuffer = ByteBuffer()
@@ -1456,7 +1456,7 @@ public func reserve(additional: Int64): Unit
 > **说明：**
 >
 > - 当缓冲区剩余字节数大于等于 `additional` 时不发生扩容。
-> - 当缓冲区剩余字节数量小于 `additional` 时，取（`additional` + `capacity`）与（`capacity`的1.5倍向下取整）两个值中的最大值进行扩容。
+> - 当缓冲区剩余字节数量小于 `additional` 时，取（`additional` + `capacity`）与（`capacity`的 1.5 倍向下取整）两个值中的最大值进行扩容。
 
 参数：
 
@@ -1486,14 +1486,14 @@ main(): Unit {
     buffer.reserve(2)
     println("reserve 2: " + buffer.capacity.toString())
 
-    /* 尝试扩容，additional为负数 */
+    /* 尝试扩容，additional 为负数 */
     try {
         buffer.reserve(-1)
     } catch (e: IllegalArgumentException) {
         println("Error: " + e.message)
     }
 
-    /* 尝试扩容，导致容量超过Int64最大值 */
+    /* 尝试扩容，导致容量超过 Int64 最大值 */
     try {
         buffer.reserve(Int64.Max - buffer.capacity + 1)
     } catch (e: OverflowException) {
@@ -1549,7 +1549,7 @@ main(): Unit {
     let buffer = ByteBuffer("Hello World".toArray())
     println("initial position: ${buffer.position}")
 
-    /* 移动到当前位置之后6个字节 */
+    /* 移动到当前位置之后 6 个字节 */
     buffer.seek(SeekPosition.Current(6))
     println(String.fromUtf8(buffer.bytes()))
 
@@ -1580,7 +1580,7 @@ Error: Can't move the position before the beginning of the stream.
 public func setLength(length: Int64): Unit
 ```
 
-功能：将当前数据修改为指定长度。该操作不会改变seek的偏移。
+功能：将当前数据修改为指定长度。该操作不会改变 seek 的偏移。
 
 参数：
 
@@ -1601,7 +1601,7 @@ main(): Unit {
     let buffer = ByteBuffer("Hello World".toArray())
     println("initial length: " + buffer.length.toString())
 
-    /* 设置长度为5，并读取缓冲区中所有的内容 */
+    /* 设置长度为 5，并读取缓冲区中所有的内容 */
     buffer.setLength(5)
     println("set length to 5: " + String.fromUtf8(buffer.bytes()))
 
@@ -2007,7 +2007,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
@@ -2493,7 +2493,7 @@ public func close(): Unit
 
 > **注意：**
 >
-> 调用此方法后不可再调用 [StringWriter](io_package_classes.md#class-stringwritert-where-t--outputstream) 的其他接口，否则会造成不可期现象。
+> 调用此方法后不可再调用 [StringWriter](io_package_classes.md#class-stringwritert-where-t--outputstream) 的其他接口，否则会造成非预期现象。
 
 #### func isClosed()
 
