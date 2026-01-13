@@ -122,12 +122,10 @@ public:
 
     bool IsTargetHasSameSourceWith(TypeInfo *ti) const
     {
-        if (!ti->IsGenericTypeInfo() && TargetIsTypeInfo()) {
+        if (TargetIsTypeInfo()) {
             return ti->GetUUID() == static_cast<TypeInfo*>(GetTargetType())->GetUUID();
-        }
-        if (ti->IsGenericTypeInfo() && !TargetIsTypeInfo()) {
-            return ti->GetSourceGeneric()->GetUUID() ==
-                static_cast<TypeTemplate*>(GetTargetType())->GetUUID();
+        } else if (ti->IsGenericTypeInfo()) {
+            return ti->GetSourceGeneric()->GetUUID() == static_cast<TypeTemplate*>(GetTargetType())->GetUUID();
         }
         return false;
     }
