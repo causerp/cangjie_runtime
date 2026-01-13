@@ -1,15 +1,15 @@
 # 接口
 
-## interface BenchInputProvider
+## interface BenchInputProvider\<T>
 
 ```cangjie
 public interface BenchInputProvider<T> <: BenchmarkInputMarker  {
-    mut func get(idx: Int64): T
     mut func reset(max: Int64)
+    mut func get(idx: Int64): T
 }
 ```
 
-功能：当某些代码需要在性能测试执行前执行，或当输入变化就需要重新执行一段代码时，可实现本接口。同时 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的实现类型应返回此接口的实现类型。
+功能：当某些代码需要在性能测试执行前执行，或当输入变化就需要重新执行一段代码时，可实现本接口。同时 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的实现类型应返回此接口的实现类型。
 
 用户一般不需要自行实现该接口，可直接使用 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏。
 
@@ -244,7 +244,7 @@ public func warmup(x: Duration)
 ## interface BenchmarkInputMarker
 
 ```cangjie
-public interface BenchmarkInputMarker
+public interface BenchmarkInputMarker {}
 ```
 
 功能：当我们不知道 `T` 时，该接口能够检测 `BenchInputProvider<T>` 。
@@ -253,12 +253,8 @@ public interface BenchmarkInputMarker
 
 ```cangjie
 public interface Measurement {
-    prop conversionTable: MeasurementUnitTable
-    prop name: String
-    prop textDescription: String
     func setup(): Unit
     func measure(): Float64
-    prop info: MeasurementInfo
 }
 ```
 
@@ -395,6 +391,10 @@ func setup()
 
 ### prop info
 
+```cangjie
+prop info: MeasurementInfo
+```
+
 功能：具体测量的汇总信息。
 
 类型: [MeasurementInfo](../unittest_package_api/unittest_package_structs.md#struct-measurementinfo)
@@ -448,7 +448,7 @@ Summary: TOTAL: 1
 ### func isNear(CT, D)
 
 ```cangjie
-public func isNear(obj: CT, delta!: D): Bool
+func isNear(obj: CT, delta!: D): Bool
 ```
 
 功能：判断某个对象是否基于这个 delta 近似相等。
@@ -612,10 +612,10 @@ public func isNear(obj: Float64, delta!: RelativeDelta<Float64>): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - delta 值不能为负数，且不是 NaN，否则将抛出该异常。
 
-## interface Reporter
+## interface Reporter\<TReport, TReturn>
 
 ```cangjie
-sealed interface Reporter <TReport, TReturn>
+sealed interface Reporter <TReport, TReturn> {}
 ```
 
 功能：报告器基础接口。

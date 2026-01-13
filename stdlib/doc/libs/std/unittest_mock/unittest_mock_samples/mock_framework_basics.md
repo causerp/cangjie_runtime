@@ -2,7 +2,7 @@
 
 ## 创建 mock 对象
 
-**mock 构造函数**可以通过调用 `mock<T>` 和 `spy<T>` 函数来创建两种对象：**mock**和**spy**，其中 `T` 表示被 mock 的类或接口。
+**mock 构造函数**可以通过调用 `mock<T>` 和 `spy<T>` 函数来创建两种对象：**mock** 和 **spy**，其中 `T` 表示被 mock 的类或接口。
 
 <!-- code_no_check -->
 
@@ -59,7 +59,7 @@ public func spy<T>(objectToSpyOn: T): T
 1. `@On` 宏调用中描述的**桩签名**。
 2. 用于描述桩行为的[操作](#操作-api)。
 3. （可选）用于设置[预期](#预期)的基数说明符（ cardinality specifier， 指定预期执行次数的表达式）。
-4. （可选）[续体](#桩链)（ continuation， 支持链式调用的表达式）。
+4. （可选）[续体](#桩链)（continuation， 支持链式调用的表达式）。
 
 mock 框架拦截匹配桩签名的调用，并执行桩声明中指定的操作。
 
@@ -185,7 +185,7 @@ class RightsTest {
 
 <!--compile.onlyformat-->
 ```cangjie
-let p = mock<Printer>() // 假设print采用ToString类型的单个参数。
+let p = mock<Printer>() // 假设 print 采用 ToString 类型的单个参数。
 
 @On(p.print(_)) // 可以使用“_”特殊字符代替 any() 。
 
@@ -195,7 +195,7 @@ let p = mock<Printer>() // 假设print采用ToString类型的单个参数。
 let predefined = "foo" // 可以传递单个标识符，而不是参数匹配器。
 @On(p.print(predefined)) // 如果类型相等，则使用结构相等来匹配。
 
-@On(p.print(ofType<Bar>())) // 仅匹配Bar类型的参数。
+@On(p.print(ofType<Bar>())) // 仅匹配 Bar 类型的参数。
 
 // 对于更复杂的匹配器，鼓励使用以下模式。
 let hasQuestionMark = { arg: String => arg.contains("?") }
@@ -210,7 +210,7 @@ let hasQuestionMark = { arg: String => arg.contains("?") }
 <!-- code_no_check -->
 
 ```cangjie
-@On(foo.bar(calculateArgument())) // 不正确，calculateArgument()不是匹配器。
+@On(foo.bar(calculateArgument())) // 不正确，calculateArgument() 不是匹配器。
 
 let expectedArgument = calculateArgument()
 @On(foo.bar(expectedArgument)) // 正确，只要 'expectedArgument' 是可等价的和/或引用类型。
@@ -316,7 +316,7 @@ Expectation failed
             example_test.cj:6
 ```
 
-如果没有自定义预期，mock框架使用默认预期：
+如果没有自定义预期，mock 框架使用默认预期：
 
 | 操作| 默认期望基数| 允许自定义基数|
 | ----   |  ---                |  ---                      |
@@ -388,7 +388,7 @@ let serviceSpy = spy(service)
 >
 > 在编译依赖 `p` 的包时，也必须添加此标志。
 
-在测试中使用mock对象（ `cjc --test` ）不需要额外的标志。
+在测试中使用 mock 对象（ `cjc --test` ）不需要额外的标志。
 
 ### 使用 cjpm 编译
 
@@ -396,6 +396,6 @@ let serviceSpy = spy(service)
 
 还可以使用 cjpm 配置文件控制哪些包支持 mock 。
 
-<!-- 待办：添加关于默认mock行为的章节。-->
+<!-- 待办：添加关于默认 mock 行为的章节。-->
 
 <!-- 待办：添加对其他文档的引用。-->

@@ -8,7 +8,7 @@ public class Configuration <: ToString {
 }
 ```
 
-功能：存储 `@Configure` 宏生成的 `unittest` 配置数据的对象。[Configuration](#class-configuration) 与 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 类似，但它的键是 [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) 类型，值为任何给定类型。
+功能：存储 `@Configure` 宏生成的 `unittest` 配置数据的对象。[Configuration](#class-configuration) 与 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 类似，但它的键是 [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) 类型，值为任何给定类型。
 
 父类型：
 
@@ -46,7 +46,7 @@ T 为 泛型参数，用于在对象中查找对应类型的值。
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 
 返回值：
 
@@ -80,7 +80,7 @@ public func remove<T>(key: KeyFor<T>): ?T
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 
 返回值：
 
@@ -89,14 +89,14 @@ public func remove<T>(key: KeyFor<T>): ?T
 ### func removeByName\<T>(String)
 
 ```cangjie
-public func removeByName<T>(name: String): ?T
+public func removeByName<T>(key: String): ?T
 ```
 
 功能：删除对应键名称和类型的值。
 
 参数：
 
-- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 键名称。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 键名称。
 
 返回值：
 
@@ -105,14 +105,14 @@ public func removeByName<T>(name: String): ?T
 ### func set\<T>(KeyFor\<T>, T)
 
 ```cangjie
-public func set<T>(key: KeyFor<T>, value: T)
+public func set<T>(key: KeyFor<T>, value: T): Unit
 ```
 
 功能：给对应键名称和类型设置值。
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor)\<T> - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 - value: T - 键值。
 
 ### func setByName\<T>(String, T)
@@ -228,7 +228,7 @@ public override operator func !=(that: ConfigurationKey): Bool
 
 ```cangjie
 extend ConfigurationKey {
-    public static func create<T>(name: String): ConfigurationKey 
+    static func create<T>(name: String): ConfigurationKey 
 }
 ```
 

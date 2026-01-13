@@ -85,7 +85,7 @@ Returns:
 ## class UnittestCliOptionsFormatException
 
 ```cangjie
-public class UnittestCliOptionsFormatException <: UnittestException
+public class UnittestCliOptionsFormatException <: UnittestException {}
 ```
 
 Function: Exception thrown for console option format errors.
@@ -97,7 +97,7 @@ Parent Type:
 ## class UnittestException
 
 ```cangjie
-public open class UnittestException <: Exception
+public open class UnittestException <: Exception {}
 ```
 
 Function: Framework common exception.
@@ -117,3 +117,16 @@ Function: Gets the class name.
 Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Class name string.
+
+## class UnittestTimeoutException
+
+```cangjie
+public class UnittestTimeoutException <: Exception {
+}
+```
+
+Function: Framework timeout exception.
+
+Parent Type:
+
+- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)

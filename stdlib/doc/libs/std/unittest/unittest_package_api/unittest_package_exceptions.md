@@ -85,7 +85,7 @@ public func getOriginalStackTrace(): String
 ## class UnittestCliOptionsFormatException
 
 ```cangjie
-public class UnittestCliOptionsFormatException <: UnittestException
+public class UnittestCliOptionsFormatException <: UnittestException {}
 ```
 
 功能：控制台选项格式错误抛出的异常。
@@ -97,7 +97,7 @@ public class UnittestCliOptionsFormatException <: UnittestException
 ## class UnittestException
 
 ```cangjie
-public open class UnittestException <: Exception
+public open class UnittestException <: Exception {}
 ```
 
 功能：框架通用异常。
@@ -109,7 +109,7 @@ public open class UnittestException <: Exception
 ### func getClassName()
 
 ```cangjie
-protected override open func getClassName(): String
+protected open override func getClassName(): String
 ```
 
 功能：获得类名。
@@ -117,3 +117,16 @@ protected override open func getClassName(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名字符串。
+
+## class UnittestTimeoutException
+
+```cangjie
+public class UnittestTimeoutException <: Exception {
+}
+```
+
+功能：运行超时时抛出的异常。仅可被框架使用。
+
+父类型：
+
+- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)

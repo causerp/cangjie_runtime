@@ -113,4 +113,4 @@ TP: example/example, time elapsed: 60989 ns, Result:
 
 单元测试框架 API 已经存在于 `std` 模块的 `unittest` 包中，宏也存在于 `std` 模块的 `unittest.testmacro` 包中，因此不需要在测试文件中显式导入。
 
-如需了解更多关于 unittest 框架的基本概念，请参考[单元测试基础](./unittest_basics.md#unittest-基础概念及用法)。
+如需了解更多关于 unittest 框架的基本概念，请参考[单元测试基础](./unittest_basics.md)。

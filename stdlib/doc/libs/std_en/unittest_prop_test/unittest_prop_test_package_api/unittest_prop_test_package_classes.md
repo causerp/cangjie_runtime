@@ -203,11 +203,11 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 }
 ```
 
-Function: An implementation of the [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) interface using random data generation.
+Function: An implementation of the [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert) interface using random data generation.
 
 Parent Type:
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T>
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T>
 
 ### RandomDataProvider(Configuration)
 
@@ -241,7 +241,7 @@ Returns:
 
 ```cangjie
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
-    public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+    public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 }
 ```
 
@@ -249,12 +249,12 @@ Function: A data provider capable of generating data within a specified range.
 
 Parent Type:
 
-- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)
+- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)
 
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 ```
 
 Function: Constructor.
@@ -268,7 +268,7 @@ Parameters:
 ### func provide()
 
 ```cangjie
-override func provide(): Iterable<T>
+public override func provide(): Iterable<T>
 ```
 
 Function: Provides randomly generated data.
@@ -335,11 +335,11 @@ Returns:
 public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T>{}
 ```
 
-Function: An implementation of the [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) interface using random data generation.
+Function: An implementation of the [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) interface using random data generation.
 
 Parent Type:
 
-- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>
+- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T>
 
 ### prop isInfinite
 
@@ -393,7 +393,7 @@ Function: A data strategy generator that operates within specified ranges.
 
 Parent Types:
 
-- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
+- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)
 
 ### func provider(Configuration)
 
@@ -430,7 +430,7 @@ Returns:
 ### prop isInfinite
 
 ```cangjie
-public prop isInfinite: Bool 
+public override prop isInfinite: Bool 
 ```
 
 Function: Returns true if this strategy is infinite, otherwise false.

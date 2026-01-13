@@ -10,7 +10,7 @@ Function: Used for configuration keys in [Configuration](../../unittest_common/u
 
 Parent Type:
 
-- [KeyFor](../unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop tags
 

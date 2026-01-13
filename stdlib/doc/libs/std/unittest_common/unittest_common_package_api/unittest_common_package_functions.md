@@ -6,7 +6,7 @@
 public func registerOptionValidator(name: String, validator: (Any) -> OptionValidity): Unit
 ```
 
-功能：用于注册自定义选项验证器。大多数情况下，用户应该使用  [@UnittestOption](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#UnittestOption-宏) 宏，而不是直接使用这个函数。
+功能：用于注册自定义选项验证器。大多数情况下，用户应该使用  [@UnittestOption](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#unittestoption-宏) 宏，而不是直接使用这个函数。
 
 参数：
 

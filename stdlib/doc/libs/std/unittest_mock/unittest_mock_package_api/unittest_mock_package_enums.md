@@ -62,19 +62,31 @@ public enum MockSessionKind {
 }
 ```
 
-功能：控制允许在 [MockSession](./unittest_mock_package_classes.md#static-func-opensession) 使用的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)的类型。
+功能：控制允许在 [MockSession](./unittest_mock_package_classes.md#static-func-opensessionstring-mocksessionkind) 使用的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)的类型。
 只能验证在 `Verifiable` 的 `Session` 中创建的桩的期望。
 
 ### Forbidden
+
+```cangjie
+Forbidden
+```
 
 功能：不允许使用[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)。
 
 ### Stateless
 
+```cangjie
+Stateless
+```
+
 功能：只允许无状态的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)。
 不允许本质上有状态的操作，例如 returnsConsequively 和基数说明符（ cardinality specifier， 指定预期执行次数的表达式）。
 
 ### Verifiable
+
+```cangjie
+Verifiable
+```
 
 功能：允许任意[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)。
 
@@ -91,11 +103,19 @@ public enum StubMode {
 
 ### ReturnsDefaults
 
+```cangjie
+ReturnsDefaults
+```
+
 功能：`Mock object` 将为基础类型返回默认的值。用于简化 `mock object` 的配置步骤。
 这些默认值一般为空或 0 。
 支持的基础类型为：Unit, 数值类型（ 如 Int64 ）, option 类型, Bool, String, Array, ArrayList, HashSet, HashMap 。
 
 ### SyntheticFields
+
+```cangjie
+SyntheticFields
+```
 
 功能：`Mock object` 会将其可变属性和字段视为可变字段。
 与直接使用 SyntheticField 类似，但更简洁。

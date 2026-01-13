@@ -12,7 +12,7 @@ Function: An input provider that generates the entire batch of benchmark inputs 
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### BatchInputProvider(() -> T)
 
@@ -69,7 +69,7 @@ Should be used when `GenerateEachInputProvider` yields poor quality results. Thi
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### BatchSizeOneInputProvider(() -> T)
 
@@ -86,14 +86,14 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Returns:
 
@@ -126,7 +126,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides a unit conversion table for the current time.
@@ -137,7 +137,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides a unique display name for the current time unit, e.g.: `CpuCycles`.
@@ -147,7 +147,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: Simple text description of this measurement that will appear in certain reports.
@@ -187,7 +187,7 @@ Generation time is included in benchmark measurements but later excluded from fi
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### GenerateEachInputProvider(() -> T)
 
@@ -204,14 +204,14 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Returns:
 
@@ -220,14 +220,14 @@ Returns:
 ### func reset(Int64)
 
 ```cangjie
-public mut func reset(max: Int64)
+public mut func reset(_: Int64)
 ```
 
 Function: Called before benchmark measurements. After calling this function, subsequent `get(i)` calls must successfully retrieve `i` within [0, max).
 
 Parameters:
 
-- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum value.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum value.
 
 ## struct ImmutableInputProvider\<T>
 
@@ -241,7 +241,7 @@ Function: The simplest input provider that simply copies data for each benchmark
 
 Parent Types:
 
-- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovider)\<T>
+- [BenchInputProvider](unittest_package_interfaces.md#interface-benchinputprovidert)\<T>
 
 ### ImmutableInputProvider(T)
 
@@ -258,14 +258,14 @@ Parameters:
 ### func get(Int64)
 
 ```cangjie
-public mut func get(idx: Int64): T
+public mut func get(_: Int64): T
 ```
 
 Function: Retrieves an element. The execution time of this function is included in benchmark measurements but later excluded from results as part of framework overhead calculation.
 
 Parameters:
 
-- idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
+- _: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
 Returns:
 
@@ -322,12 +322,12 @@ conf.set(KeyBaseline.baseline, "baseline")
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop baseline
 
 ```cangjie
-public static prop baseline: Baseline
+public static prop baseline: KeyBaseline
 ```
 
 Function: The key value for configuration items.
@@ -350,12 +350,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop baselinePath
 
 ```cangjie
-public static prop baselinePath: BaselinePath
+public static prop baselinePath: KeyBaselinePath
 ```
 
 Function: The key value for configuration items.
@@ -378,12 +378,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop batchSize
 
 ```cangjie
-public static prop batchSize: BatchSize
+public static prop batchSize: KeyBatchSize
 ```
 
 Function: The key value for configuration items.
@@ -406,12 +406,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop bench
 
 ```cangjie
-public static prop bench: Bench
+public static prop bench: KeyBench
 ```
 
 Function: The key value for configuration items.
@@ -432,12 +432,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop captureOutput
 
 ```cangjie
-public static prop captureOutput: CaptureOutput
+public static prop captureOutput: KeyCaptureOutput
 ```
 
 Function: The key value for the configuration item.
@@ -460,12 +460,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuided
 
 ```cangjie
-public static prop coverageGuided: CoverageGuided
+public static prop coverageGuided: KeyCoverageGuided
 ```
 
 Function: The key value for the configuration item.
@@ -488,12 +488,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedBaselineScore
 
 ```cangjie
-public static prop coverageGuidedBaselineScore: CoverageGuidedBaselineScore
+public static prop coverageGuidedBaselineScore: KeyCoverageGuidedBaselineScore
 ```
 
 Function: The key value for the configuration item.
@@ -516,12 +516,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedInitialSeeds
 
 ```cangjie
-public static prop coverageGuidedInitialSeeds: CoverageGuidedInitialSeeds
+public static prop coverageGuidedInitialSeeds: KeyCoverageGuidedInitialSeeds
 ```
 
 Function: The key value for the configuration item.
@@ -544,12 +544,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedMaxCandidates
 
 ```cangjie
-public static prop coverageGuidedMaxCandidates: CoverageGuidedMaxCandidates
+public static prop coverageGuidedMaxCandidates: KeyCoverageGuidedMaxCandidates
 ```
 
 Function: The key value for the configuration item.
@@ -572,12 +572,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedNewCoverageBonus
 
 ```cangjie
-public static prop coverageGuidedNewCoverageBonus: CoverageGuidedNewCoverageBonus
+public static prop coverageGuidedNewCoverageBonus: KeyCoverageGuidedNewCoverageBonus
 ```
 
 Function: The key value for the configuration item.
@@ -600,12 +600,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop coverageGuidedNewCoverageScore
 
 ```cangjie
-public static prop coverageGuidedNewCoverageScore: CoverageGuidedNewCoverageScore
+public static prop coverageGuidedNewCoverageScore: KeyCoverageGuidedNewCoverageScore
 ```
 
 Function: The key value for the configuration item.
@@ -628,12 +628,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop deathAware
 
 ```cangjie
-public static prop deathAware: DeathAware
+public static prop deathAware: KeyDeathAware
 ```
 
 Function: The key value for the configuration item.
@@ -656,12 +656,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop dryRun
 
 ```cangjie
-public static prop dryRun: DryRun
+public static prop dryRun: KeyDryRun
 ```
 
 Function: The key value for the configuration item.
@@ -684,12 +684,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop excludeTags
 
 ```cangjie
-public static prop excludeTags: ExcludeTags
+public static prop excludeTags: KeyExcludeTags
 ```
 
 Function: The key value for the configuration item.
@@ -712,12 +712,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop explicitGC
 
 ```cangjie
-public static prop explicitGC: ExplicitGC
+public static prop explicitGC: KeyExplicitGC
 ```
 
 Function: The key value for the configuration item.
@@ -740,12 +740,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop filter
 
 ```cangjie
-public static prop filter: Filter
+public static prop filter: KeyFilter
 ```
 
 Function: The key value for the configuration item.
@@ -768,12 +768,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop fromTopLevel
 
 ```cangjie
-public static prop fromTopLevel: FromTopLevel
+public static prop fromTopLevel: KeyFromTopLevel
 ```
 
 Function: The key value for the configuration item.
@@ -796,12 +796,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop generationSteps
 
 ```cangjie
-public static prop generationSteps: GenerationSteps
+public static prop generationSteps: KeyGenerationSteps
 ```
 
 Function: The key value for the configuration item.
@@ -824,7 +824,7 @@ Function: Used in configuration information to specify whether to print help inf
 
 Parent Type:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop help
 
@@ -852,12 +852,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop includeTags
 
 ```cangjie
-public static prop includeTags: IncludeTags
+public static prop includeTags: KeyIncludeTags
 ```
 
 Function: The key value of the configuration item.
@@ -880,12 +880,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop internalTestrunnerInputPath
 
 ```cangjie
-public static prop internalTestrunnerInputPath: InternalTestrunnerInputPath
+public static prop internalTestrunnerInputPath: KeyInternalTestrunnerInputPath
 ```
 
 Function: The key value of the configuration item.
@@ -908,12 +908,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop measurement
 
 ```cangjie
-public static prop measurement: Measurement
+public static prop measurement: KeyMeasurement
 ```
 
 Function: The key value of the configuration item.
@@ -936,12 +936,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop measurementInfo
 
 ```cangjie
-public static prop measurementInfo: MeasurementInfo
+public static prop measurementInfo: KeyMeasurementInfo
 ```
 
 Function: The key value of the configuration item.
@@ -964,12 +964,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop minBatches
 
 ```cangjie
-public static prop minBatches: MinBatches
+public static prop minBatches: KeyMinBatches
 ```
 
 Function: The key value of the configuration item.
@@ -992,12 +992,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop minDuration
 
 ```cangjie
-public static prop minDuration: MinDuration
+public static prop minDuration: KeyMinDuration
 ```
 
 Function: The key value of the configuration item.
@@ -1020,12 +1020,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop noCaptureOutput
 
 ```cangjie
-public static prop noCaptureOutput: NoCaptureOutput
+public static prop noCaptureOutput: KeyNoCaptureOutput
 ```
 
 Function: The key value of the configuration item.
@@ -1048,12 +1048,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop noColor
 
 ```cangjie
-public static prop noColor: NoColor
+public static prop noColor: KeyNoColor
 ```
 
 Function: The key value of the configuration item.
@@ -1076,12 +1076,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop optimizeMocksForBench
 
 ```cangjie
-public static prop optimizeMocksForBench: OptimizeMocksForBench
+public static prop optimizeMocksForBench: keyOptimizeMocksForBench
 ```
 
 Function: The key value of the configuration item.
@@ -1104,12 +1104,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop parallel
 
 ```cangjie
-public static prop parallel: Parallel
+public static prop parallel: KeyParallel
 ```
 
 Function: The key value of the configuration item.
@@ -1132,12 +1132,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop randomSeed
 
 ```cangjie
-public static prop randomSeed: RandomSeed
+public static prop randomSeed: KeyRandomSeed
 ```
 
 Function: The key value of the configuration item.
@@ -1160,12 +1160,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reductionSteps
 
 ```cangjie
-public static prop reductionSteps: ReductionSteps
+public static prop reductionSteps: KeyReductionSteps
 ```
 
 Function: The key value of the configuration item.
@@ -1188,12 +1188,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reportFormat
 
 ```cangjie
-public static prop reportFormat: ReportFormat
+public static prop reportFormat: KeyReportFormat
 ```
 
 Function: The key value of the configuration item.
@@ -1216,12 +1216,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop reportPath
 
 ```cangjie
-public static prop reportPath: ReportPath
+public static prop reportPath: KeyReportPath
 ```
 
 Function: The key value of the configuration item.
@@ -1244,12 +1244,12 @@ Function: Used as the key for corresponding configuration items in [Configuratio
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop showAllOutput
 
 ```cangjie
-public static prop showAllOutput: ShowAllOutput
+public static prop showAllOutput: KeyShowAllOutput
 ```
 
 Function: The key value of the configuration item.
@@ -1271,12 +1271,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop showTags
 
 ```cangjie
-public static prop showTags: ShowTags
+public static prop showTags: KeyShowTags
 ```
 
 Function: The key value of the configuration item.
@@ -1299,12 +1299,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop skip
 
 ```cangjie
-public static prop skip: Skip
+public static prop skip: KeySkip
 ```
 
 Function: The key value of the configuration item.
@@ -1327,12 +1327,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeout
 
 ```cangjie
-public static prop timeout: Timeout
+public static prop timeout: KeyTimeout
 ```
 
 Function: The key value of the configuration item.
@@ -1355,12 +1355,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeoutEach
 
 ```cangjie
-public static prop timeoutEach: TimeoutEach
+public static prop timeoutEach: KeyTimeoutEach
 ```
 
 Function: The key value of the configuration item.
@@ -1391,7 +1391,7 @@ conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeoutHandler
 
@@ -1423,12 +1423,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop verbose
 
 ```cangjie
-public static prop verbose: Verbose
+public static prop verbose: KeyVerbose
 ```
 
 Function: The key value of the configuration item.
@@ -1451,12 +1451,12 @@ Function: Used as a key for corresponding configuration items in [Configuration]
 
 Parent Types:
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop warmup
 
 ```cangjie
-public static prop warmup: Warmup
+public static prop warmup: KeyWarmup
 ```
 
 Function: The key value of the configuration item.
@@ -1481,10 +1481,10 @@ public struct MeasurementInfo {
 
 Function: A structure for storing measurement information.
 
-### prop conversionTable
+### let conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public let  conversionTable: MeasurementUnitTable
 ```
 
 Function: Used to construct representations of measured values in performance test reports.
@@ -1495,10 +1495,10 @@ Default value is `[(1.0, "")]`.
 
 Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable).
 
-### prop name
+### let name
 
 ```cangjie
-prop name: String
+public let  name: String
 ```
 
 Function: The unique display name for the current `Measurement` type.
@@ -1507,10 +1507,10 @@ Default value is `Measurement`.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string).
 
-### prop textDescription
+### let textDescription
 
 ```cangjie
-prop textDescription: String
+public let textDescription: String
 ```
 
 Function: A simple text description of this measurement that will be displayed in certain reports.
@@ -1522,7 +1522,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ```cangjie
 public struct Perf <: Measurement {
     public init()
-    public Perf(counter: PerfCounter)
+    public Perf(var counter: PerfCounter)
 }
 ```
 
@@ -1535,7 +1535,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides the conversion table for corresponding CPU counters.
@@ -1545,7 +1545,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides a unique display name for the current CPU counter, e.g., `Perf(cycles)`.
@@ -1555,7 +1555,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: A simple text description of this measurement that will be displayed in certain reports.
@@ -1573,7 +1573,7 @@ Function: Default constructor using CPU cycle counters.
 ### Perf(PerfCounter)
 
 ```cangjie
-public Perf(counter: PerfCounter)
+public Perf(var counter: PerfCounter)
 ```
 
 Function: Constructor specifying the CPU counter to measure.
@@ -1597,7 +1597,7 @@ Returns:
 ### func setup()
 
 ```cangjie
-func setup()
+public func setup()
 ```
 
 Function: Initialization routine for this CPU counter. Called before each benchmark step.
@@ -1671,8 +1671,8 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 
 ```cangjie
 public struct TimeNow <: Measurement {
-    public init()
     public init(unit: ?TimeUnit)
+    public init()
 }
 ```
 
@@ -1685,7 +1685,7 @@ Parent Types:
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 Function: Provides the unit conversion table for current time.
@@ -1696,7 +1696,7 @@ Type: [MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#t
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 Function: Provides the unique display name for current time unit, e.g.: `Duration(ns)` or `Duration(s)`.
@@ -1706,7 +1706,7 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 Function: A brief text description of this measurement that will be displayed in certain reports.

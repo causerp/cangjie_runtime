@@ -14,7 +14,7 @@ public class Generators {}
 public static func generate<T>(l: T, r: T, body: (T, T) -> T): Generator<T>
 ```
 
-功能：通过重复调用函数生成值的生成器, 范围为 [l, r]。
+功能：通过重复调用函数生成值的生成器，范围为 [l, r]。
 
 参数：
 
@@ -65,7 +65,7 @@ public static func iterable<T>(random: RandomSource, collection: Array<T>): Gene
 public static func lookup<T>(random: RandomSource): Generator<T> where T <: Arbitrary<T>
 ```
 
-功能：通过 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器。
+功能：通过 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器。
 
 参数：
 
@@ -81,7 +81,7 @@ public static func lookup<T>(random: RandomSource): Generator<T> where T <: Arbi
 public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator<R> where T <: Arbitrary<T>
 ```
 
-功能：获取 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -98,7 +98,7 @@ public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator
  public static func mapped<T1, T2, R>(random: RandomSource, body: (T1, T2) -> R): Generator<R> where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>
 ```
 
-功能：获取 T1，T2 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1，T2 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -116,7 +116,7 @@ public static func mapped<T1, T2, T3, R>(random: RandomSource, body: (T1, T2, T3
             where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>, T3 <: Arbitrary<T3>
 ```
 
-功能：获取 T1,T2,T3 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1,T2,T3 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -134,7 +134,7 @@ public static func mapped<T1, T2, T3, T4, R>(random: RandomSource, body: (T1, T2
             where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>, T3 <: Arbitrary<T3>, T4 <: Arbitrary<T4>
 ```
 
-功能：获取 T1,T2,T3,T4 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1,T2,T3,T4 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -203,11 +203,11 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 }
 ```
 
-功能：使用随机数据生成的 [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider) 接口的实现。
+功能：使用随机数据生成的 [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert) 接口的实现。
 
 父类型：
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T>
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T>
 
 ### RandomDataProvider(Configuration)
 
@@ -215,7 +215,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 public RandomDataProvider(private let configuration: Configuration)
 ```
 
-功能：构造一个随机数据提供者RandomDataProvider的对象。
+功能：构造一个随机数据提供者 RandomDataProvider 的对象。
 
 参数：
 
@@ -241,7 +241,7 @@ public override func provide(): Iterable<T>
 
 ```cangjie
 public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryRange<T> {
-    public RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+    public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 }
 ```
 
@@ -249,12 +249,12 @@ public class RandomDataProviderRange<T> <: DataProvider<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)
+- [DataProvider\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)
 
 ### RandomDataProviderRange(Configuration, T, T)
 
 ```cangjie
-RandomDataProviderRange(configuration: Configuration, min: T, max: T)
+public RandomDataProviderRange(private let configuration: Configuration, private let min: T, private let max: T)
 ```
 
 功能：构造器。
@@ -268,7 +268,7 @@ RandomDataProviderRange(configuration: Configuration, min: T, max: T)
 ### func provide()
 
 ```cangjie
-override func provide(): Iterable<T>
+public override func provide(): Iterable<T>
 ```
 
 功能：提供随机化生成的数据。
@@ -339,11 +339,11 @@ public override func shrink(value: T): Iterable<T>
 public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T>{}
 ```
 
-功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 接口的实现。
+功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 接口的实现。
 
 父类型：
 
-- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T>
+- [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T>
 
 ### prop isInfinite
 
@@ -397,7 +397,7 @@ public class RandomDataStrategyRange<T> <: DataStrategy<T> where T <: ArbitraryR
 
 父类型：
 
-- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)
+- [DataStrategy\<T>](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)
 
 ### func provider(Configuration)
 
@@ -434,7 +434,7 @@ public override func shrinker(_: Configuration): RandomDataShrinkerRange<T>
 ### prop isInfinite
 
 ```cangjie
-public prop isInfinite: Bool 
+public override prop isInfinite: Bool 
 ```
 
 功能：当该策略为无穷尽时，值为 true, 否则为 false。
