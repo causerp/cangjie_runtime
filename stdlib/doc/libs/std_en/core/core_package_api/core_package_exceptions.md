@@ -551,7 +551,8 @@ Execution Result:
 ```text
 Default exception string: Exception
 Exception with message string: Exception: Custom exception message
-``````markdown
+```
+
 ## class IllegalArgumentException
 
 ```cangjie

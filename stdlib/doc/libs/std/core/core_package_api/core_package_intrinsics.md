@@ -1518,7 +1518,7 @@ extend Float16
 public static func fromBits(bits: UInt16): Float16
 ```
 
-功能：将指定的 [UInt16](core_package_intrinsics.md#uint16) 按照`IEEE 754`标准中 float16 的二进制位表示形式，直接转换为对应的 [Float16](core_package_intrinsics.md#float16) 浮点数。
+功能：将指定的 [UInt16](core_package_intrinsics.md#uint16) 按照 `IEEE 754` 标准中 float16 的二进制位表示形式，直接转换为对应的 [Float16](core_package_intrinsics.md#float16) 浮点数。
 
 参数：
 
@@ -2155,7 +2155,7 @@ extend Float32
 public static func fromBits(bits: UInt32): Float32
 ```
 
-功能：将指定的 [UInt32](core_package_intrinsics.md#uint32)按照`IEEE 754`标准中float32的二进制位表示形式，直接转换为对应的[Float32](core_package_intrinsics.md#float32)浮点数。
+功能：将指定的 [UInt32](core_package_intrinsics.md#uint32)按照 `IEEE 754` 标准中 float32 的二进制位表示形式，直接转换为对应的[Float32](core_package_intrinsics.md#float32)浮点数。
 
 参数：
 
@@ -2792,7 +2792,7 @@ extend Float64
 public static func fromBits(bits: UInt64): Float64
 ```
 
-功能：将指定的 [UInt64](core_package_intrinsics.md#uint64)按照`IEEE 754`标准中float64的二进制位表示形式，直接转换为对应的[Float64](core_package_intrinsics.md#float32)浮点数。
+功能：将指定的 [UInt64](core_package_intrinsics.md#uint64)按照 `IEEE 754` 标准中 float64 的二进制位表示形式，直接转换为对应的[Float64](core_package_intrinsics.md#float64)浮点数。
 
 参数：
 
@@ -6134,7 +6134,6 @@ main() {
 ```text
 42
 ```
-
 
 ## UInt64
 

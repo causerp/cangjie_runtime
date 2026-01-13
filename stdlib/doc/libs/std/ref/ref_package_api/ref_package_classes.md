@@ -217,6 +217,4 @@ main(): Int64 {
 sealed abstract class WeakRefBase
 ```
 
-功能：此类不包含任何公开成员和公开函数，也不允许被继承、扩展， 仅作为 [WeakRef](ref_package_classes.md#class-weakreft-where-t--object) 的基类。
-
-<!-- verify -->
+功能：此类不包含任何公开成员和公开函数，也不允许被继承、扩展，仅作为 [WeakRef](ref_package_classes.md#class-weakreft-where-t--object) 的基类。

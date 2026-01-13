@@ -193,7 +193,6 @@ Note: DriverManager.register() may throw SqlException
 if a driver with the same name is already registered.
 ```
 
-
 ## class PooledDatasource
 
 ```cangjie
@@ -339,7 +338,7 @@ To get the keepalive time:
 public mut prop maxIdleSize: Int32
 ```
 
-功能：最大空闲连接数量，超过这个数量的空闲连接会被关闭，负数或0表示无限制。
+功能：最大空闲连接数量，超过这个数量的空闲连接会被关闭，负数或 0 表示无限制。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -419,7 +418,7 @@ To get the maximum lifetime:
 public mut prop maxSize: Int32
 ```
 
-功能：连接池最大连接数量，负数或0表示无限制。
+功能：连接池最大连接数量，负数或 0 表示无限制。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -1669,7 +1668,6 @@ main() {
 Created SqlDate with value: 2012-01-01T00:00:00Z
 SqlDate name: SqlDate
 ```
-
 
 ## class SqlDecimal <sup>(deprecated)</sup>
 
@@ -4066,7 +4064,6 @@ Created SqlNullableTime with value: Some(2012-01-01T00:00:00Z)
 Created SqlNullableTime with value: None
 ```
 
-
 ## class SqlNullableTimestamp <sup>(deprecated)</sup>
 
 ```cangjie
@@ -4758,7 +4755,7 @@ Fetch rows key: fetch_rows
 public static const Host: String = "host"
 ```
 
-功能：获取数据库服务器主机名或者 [IP]() 地址。
+功能：获取数据库服务器主机名或者 IP 地址。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -5151,7 +5148,7 @@ public static const Tls12Ciphersuites: String = "tls1.2.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.2 及以下的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_[SHA256]():TLS_DHE_RSA_WITH_AES_128_CBC_SHA"。
+值为冒号分隔的字符串，比如 `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_[SHA256]():TLS_DHE_RSA_WITH_AES_128_CBC_SHA`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -5180,7 +5177,7 @@ public static const Tls13Ciphersuites: String = "tls1.3.ciphersuites"
 ```
 
 功能：此选项指定客户端允许使用 TLSv1.3 的加密连接使用哪些密码套件。
-值为冒号分隔的字符串，比如 "TLS_AES_256_GCM_[SHA384]():TLS_CHACHA20_POLY1305_[SHA256]()"。
+值为冒号分隔的字符串，比如 `TLS_AES_256_GCM_[SHA384]():TLS_CHACHA20_POLY1305_[SHA256]()`。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -5264,10 +5261,9 @@ Update timeout key: update_timeout
 public static const URL: String = "url"
 ```
 
-功能：获取数据库连接 [URL]() 字符串。
+功能：获取数据库连接 URL 字符串。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
 
 示例：
 
@@ -5681,7 +5677,6 @@ main() {
 ```text
 Created SqlTime with value: 2012-01-01T00:00:00Z
 ```
-
 
 ## class SqlTimestamp <sup>(deprecated)</sup>
 

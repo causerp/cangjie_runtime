@@ -10864,7 +10864,7 @@ public static func repeat(delay: Duration, interval: Duration, task: ()->Unit, s
 参数：
 
 - delay: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 从现在开始到 Task 被执行的时间间隔。取值范围 [[Duration.Min](../../core/core_package_api/core_package_structs.md#static-const-min), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]，小于或等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero) 时 Task 将立即被执行。
-- interval: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
+- interval: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
 - task: ()->Unit - 待定时执行的任务。
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - 追平策略，默认 Burst。当 Task 执行时间过长时，后续任务执行时间点可能发生延迟，不同的追平策略适用于不同的场景，详见 [CatchupStyle](sync_package_enums.md#enum-catchupstyle) 说明。
 
@@ -10915,9 +10915,9 @@ public static func repeatDuring(period: Duration, delay: Duration, interval: Dur
 
 参数：
 
-- period: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 重复周期的最大持续时间，从 delay 之后开始计时。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
-- delay: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 从现在开始到 Task 被执行的时间间隔。取值范围 [Duration.Min, [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]，小于或等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)时 Task 将立即被执行。
-- interval: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
+- period: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 重复周期的最大持续时间，从 delay 之后开始计时。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
+- delay: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 从现在开始到 Task 被执行的时间间隔。取值范围 [Duration.Min, [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]，小于或等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)时 Task 将立即被执行。
+- interval: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
 - task: ()->Unit - 待定时执行的任务。
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - 追平策略，默认 Burst。当 Task 执行时间过长时，后续任务执行时间点可能发生延迟，不同的追平策略适用于不同的场景，详见 [CatchupStyle](sync_package_enums.md#enum-catchupstyle) 说明。
 
@@ -10969,9 +10969,9 @@ public static func repeatTimes(count: Int64, delay: Duration, interval: Duration
 
 参数：
 
-- count: [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64) - Task 最大执行次数。取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
-- delay: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 从现在开始到 Task 被执行的时间间隔。取值范围 [Duration.Min, [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]，小于或等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero) 时 Task 将立即被执行。
-- interval: [Duration](../../../std/core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Task 最大执行次数。取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
+- delay: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 从现在开始到 Task 被执行的时间间隔。取值范围 [Duration.Min, [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]，小于或等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero) 时 Task 将立即被执行。
+- interval: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 两次 Task 之间的时间间隔。取值范围 ([Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero), [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)]。
 - task: ()->Unit - 待定时执行的任务。
 - style!: [CatchupStyle](./sync_package_enums.md#enum-catchupstyle) - 追平策略，默认 Burst。当 Task 执行时间过长时，后续任务执行时间点可能发生延迟，不同的追平策略适用于不同的场景，详见 [CatchupStyle](sync_package_enums.md#enum-catchupstyle) 说明。
 
@@ -11073,7 +11073,7 @@ public func hashCode(): Int64
 
 返回值：
 
-- [Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64) - 对象的哈希值。
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 对象的哈希值。
 
 示例：
 

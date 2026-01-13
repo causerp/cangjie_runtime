@@ -14,8 +14,8 @@ public enum OverflowStrategy <: Equatable<OverflowStrategy> & ToString {
 
 父类型：
 
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[OverflowStrategy](#enum-overflowstrategy)>
-- [ToString](../../../std/core/core_package_api/core_package_interfaces.md#interface-tostring)
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[OverflowStrategy](#enum-overflowstrategy)>
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
 ### Saturating
 
@@ -51,7 +51,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 溢出策略名称字符串。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 溢出策略名称字符串。
 
 示例：
 
@@ -86,7 +86,7 @@ public operator func ==(that: OverflowStrategy): Bool
 
 返回值：
 
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 溢出策略相同，返回 true；否则，返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 溢出策略相同，返回 true；否则，返回 false。
 
 示例：
 

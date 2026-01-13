@@ -1085,7 +1085,8 @@ Execution Result:
 
 ```text
 hello
-``````markdown
+```
+
 ## Float16
 
 Function: Represents a 16-bit floating-point number conforming to the half-precision format (`binary16`) in `IEEE 754`.

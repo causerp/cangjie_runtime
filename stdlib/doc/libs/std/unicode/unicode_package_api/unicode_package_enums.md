@@ -36,6 +36,7 @@ Other
 ```
 
 功能：其他语。
+
 ### TR
 
 ```cangjie

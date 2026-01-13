@@ -20,7 +20,7 @@ collection 包提供了常见数据结构的高效实现、相关抽象的接口
 
 - [HashSet](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet)：基于哈希表实现的集合数据结构，它可以用于快速检索和删除元素，具有高效的插入、删除和查找操作。
 
-- [TreeMap](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek)：基于红黑树实现的有序映射表。通常情况下，当需要将元素按照自然顺序或者自定义顺序进行排序时，可以使用TreeMap。
+- [TreeMap](./collection_package_api/collection_package_class.md#class-treemapk-v-where-k--comparablek)：基于红黑树实现的有序映射表。通常情况下，当需要将元素按照自然顺序或者自定义顺序进行排序时，可以使用 TreeMap。
 
 - [TreeSet](./collection_package_api/collection_package_class.md#class-treesett-where-t--comparablet)：基于 TreeMap 实现的有序集合。能自动排序元素，可用于存储不重复且需排序的数据。
 
@@ -72,7 +72,7 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [EquatableCollection\<T>](./collection_package_api/collection_package_interface.md#interface-equatablecollectiont) |定义了可以进行比较的集合类型。|
 | [List\<T>](./collection_package_api/collection_package_interface.md#interface-listt)  |  提供了对索引友好的列表操作。 |
 | [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v)  |  提供了一种将键映射到值的方式。 |
-| [MapEntryView\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapentryviewk-v) | 键值对集合中的某个Key的视图 |
+| [MapEntryView\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapentryviewk-v) | 键值对集合中的某个 Key 的视图 |
 | [OrderedMap\<K, V>](./collection_package_api/collection_package_interface.md#interface-orderedmapk-v) | 有序映射 |
 | [OrderedSet\<T>](./collection_package_api/collection_package_interface.md#interface-orderedsett) | 有序集合 |
 | [Queue\<T>](./collection_package_api/collection_package_interface.md#interface-queuet)| 队列数据结构，它遵循先进先出（First In First Out, FIFO）原则。 |

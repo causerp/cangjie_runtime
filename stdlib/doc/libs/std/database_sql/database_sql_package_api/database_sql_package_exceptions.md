@@ -33,10 +33,10 @@ public prop errorCode: Int64
 import std.database.sql.*
 
 main() {
-    // 创建一个SqlException实例
+    // 创建一个 SqlException 实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
 
-    // 访问errorCode属性
+    // 访问 errorCode 属性
     let errorCode = exception.errorCode
     println("Error code: ${errorCode}")
 }
@@ -65,10 +65,10 @@ public override prop message: String
 import std.database.sql.*
 
 main() {
-    // 创建一个SqlException实例
+    // 创建一个 SqlException 实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
 
-    // 访问message属性
+    // 访问 message 属性
     let message = exception.message
     println("Error message: ${message}")
 }
@@ -97,10 +97,10 @@ public prop sqlState: String
 import std.database.sql.*
 
 main() {
-    // 创建一个SqlException实例
+    // 创建一个 SqlException 实例
     let exception = SqlException("Error message", "SQLST", 12345i64)
 
-    // 访问sqlState属性
+    // 访问 sqlState 属性
     let sqlState = exception.sqlState
     println("SQL state: ${sqlState}")
 }
@@ -127,7 +127,7 @@ public init()
 import std.database.sql.*
 
 main() {
-    // 使用无参构造函数创建SqlException实例
+    // 使用无参构造函数创建 SqlException 实例
     let exception = SqlException()
 
     // 打印异常信息
@@ -164,7 +164,7 @@ public init(message: String)
 import std.database.sql.*
 
 main() {
-    // 使用带消息参数的构造函数创建SqlException实例
+    // 使用带消息参数的构造函数创建 SqlException 实例
     let exception = SqlException("Database connection failed")
 
     // 打印异常信息
@@ -188,7 +188,7 @@ Error code: 0
 public init(message: String, sqlState: String, errorCode: Int64)
 ```
 
-功能：根据异常信息、SQL语句状态、错误码信息，创建 [SqlException](database_sql_package_exceptions.md#class-sqlexception) 实例。
+功能：根据异常信息、SQL 语句状态、错误码信息，创建 [SqlException](database_sql_package_exceptions.md#class-sqlexception) 实例。
 
 参数：
 
@@ -203,7 +203,7 @@ public init(message: String, sqlState: String, errorCode: Int64)
 import std.database.sql.*
 
 main() {
-    // 使用带所有参数的构造函数创建SqlException实例
+    // 使用带所有参数的构造函数创建 SqlException 实例
     let exception = SqlException("Database connection failed", "SQLST", 12345i64)
 
     // 打印异常信息
@@ -240,10 +240,10 @@ protected override open func getClassName(): String
 import std.database.sql.*
 
 main() {
-    // 创建一个SqlException实例
+    // 创建一个 SqlException 实例
     let exception = MyException()
 
-    // 调用getClassName函数获取类名
+    // 调用 getClassName 函数获取类名
     let className = exception.myGetClassName()
     println("Class name: ${className}")
 }

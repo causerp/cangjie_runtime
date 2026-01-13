@@ -20,7 +20,7 @@ public class Configuration <: ToString {
 public init()
 ```
 
-功能：构造一个空的Configuration实例。
+功能：构造一个空的 Configuration 实例。
 
 ### func clone()
 
@@ -28,7 +28,7 @@ public init()
 public func clone(): Configuration
 ```
 
-功能：拷贝一份Configuration对象。
+功能：拷贝一份 Configuration 对象。
 
 返回值：
 
@@ -181,7 +181,7 @@ public override func hashCode(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - hashCode 值。
-  
+
 ### let name
 
 ```cangjie
@@ -242,7 +242,7 @@ public static func create<T>(name: String): ConfigurationKey
 
 参数：
 
-- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
 
 返回值：
 
@@ -264,12 +264,12 @@ public abstract class PrettyPrinter {
 public PrettyPrinter(let indentationSize!: UInt64 = 4, let startingIndent!: UInt64 = 0)
 ```
 
-功能：PrettyPrinter构造器。
+功能：PrettyPrinter 构造器。
 
 参数：
 
-- indentationSize!: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个缩进的空格数，默认4格。
-- startingIndent!: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 开头的缩进个数，默认0个缩进。
+- indentationSize!: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个缩进的空格数，默认 4 格。
+- startingIndent!: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 开头的缩进个数，默认 0 个缩进。
 
 ### prop isTopLevel
 
@@ -479,7 +479,7 @@ pp.customOffset(5) {
 }
 ```
 
-此时字符串 "1" "2" "3" 均额外缩进5个字符。
+此时字符串 "1" "2" "3" 均额外缩进 5 个字符。
 
 参数：
 
@@ -538,7 +538,7 @@ pp.indent(2) {
 }
 ```
 
-此时字符串 "1" "2" "3" 均额外缩进2次。
+此时字符串 "1" "2" "3" 均额外缩进 2 次。
 
 参数：
 

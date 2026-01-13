@@ -12,7 +12,7 @@ public struct Position <: ToBytes {
 }
 ```
 
-功能：表示位置信息的数据结构，包含文件ID，行号和列号。
+功能：表示位置信息的数据结构，包含文件 ID、行号和列号。
 
 父类型：
 
@@ -66,7 +66,7 @@ public init(fileID: UInt32, line: Int32, column: Int32)
 
 参数：
 
-- fileID: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 文件ID。
+- fileID: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 文件 ID。
 - line: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 行号。
 - column: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 列号。
 

@@ -175,7 +175,7 @@ public abstract class InteropContext <: Equatable<InteropContext> {
 
 父类型：
 
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-InteropContext)>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-interopcontext)>
 
 ### init(CrossReferenceHandler)
 

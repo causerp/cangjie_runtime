@@ -516,7 +516,7 @@ public func reserve(additional: Int64): Unit
 
 功能：增加此双端队列的容量。
 
-将双端队列扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当此双端队列剩余容量大于等于 additional 时，不发生扩容；当此双端队列剩余容量小于 additional 时，取（原始容量的1.5倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
+将双端队列扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当此双端队列剩余容量大于等于 additional 时，不发生扩容；当此双端队列剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
 
 参数：
 
@@ -1383,6 +1383,7 @@ main() {
 ```
 
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): ArrayList<T>
 ```
@@ -2176,7 +2177,7 @@ public func reserve(additional: Int64): Unit
 
 功能：增加此 [ArrayList](collection_package_class.md#class-arraylistt) 实例的容量。
 
-将 [ArrayList](collection_package_class.md#class-arraylistt) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量大于等于 additional 时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量小于 additional 时，取（原始容量的1.5倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
+将 [ArrayList](collection_package_class.md#class-arraylistt) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量大于等于 additional 时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
 
 参数：
 
@@ -2184,7 +2185,7 @@ public func reserve(additional: Int64): Unit
 
 异常：
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当additional + 已使用容量超过Int64.Max时，抛出异常。
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当 additional + 已使用容量超过 Int64.Max 时，抛出异常。
 
 示例：
 
@@ -2383,7 +2384,7 @@ public func sortBy(comparator!: (T, T) -> Ordering): Unit
 
 功能：对数组中的元素进行非稳定排序。
 
-通过传入的比较函数，根据其返回值 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) 类型的结果，可对数组进行自定义排序comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 t1 在 t2后；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 t1 在t2 前；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序，那么 t1 在 t2 之前； 如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 t1，t2 顺序不确定。
+通过传入的比较函数，根据其返回值 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) 类型的结果，可对数组进行自定义排序 comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 t1 在 t2 后；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 t1 在 t2 前；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序，那么 t1 在 t2 之前； 如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 t1，t2 顺序不确定。
 
 > **注意：**
 >
@@ -2440,7 +2441,7 @@ public func sortBy(stable!: Bool, comparator!: (T, T) -> Ordering): Unit
 
 功能：对数组中的元素进行排序。
 
-通过传入的比较函数，根据其返回值 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) 类型的结果，可对数组进行自定义排序comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 t1 在 t2后；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 t1 在t2 前；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序，那么 t1 在 t2 之前； 如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 t1，t2 顺序不确定。
+通过传入的比较函数，根据其返回值 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) 类型的结果，可对数组进行自定义排序 comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 t1 在 t2 后；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 t1 在 t2 前；如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序，那么 t1 在 t2 之前； 如果 comparator 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 t1，t2 顺序不确定。
 
 > **注意：**
 >
@@ -2491,6 +2492,7 @@ main() {
 ```
 
 ### func step(Int64)
+
 ```cangjie
 public func step(count: Int64): ArrayList<T>
 ```
@@ -2538,6 +2540,7 @@ main() {
 ```
 
 ### func take(Int64)
+
 ```cangjie
 public func take(count: Int64): ArrayList<T>
 ```
@@ -4506,7 +4509,6 @@ main() {
 字符串长度: 9
 ```
 
-
 ## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
 
 ```cangjie
@@ -4523,7 +4525,7 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
 
 哈希表是一种常用的数据结构，它可以用来快速地查找、插入和删除数据。哈希表的基本原理是将数据映射到一个数组中，这个数组称为哈希表。每个数据元素都有一个对应的哈希值，这个哈希值可以用来确定该元素在哈希表中的位置。
 
-哈希表的特点是快速的查找、插入和删除操作，时间复杂度通常是O(1)。由于哈希表底层的数组大小是动态的，所以哈希表不能保证元素的顺序不可变。
+哈希表的特点是快速的查找、插入和删除操作，时间复杂度通常是 O(1)。由于哈希表底层的数组大小是动态的，所以哈希表不能保证元素的顺序不可变。
 
 父类型：
 
@@ -4612,7 +4614,7 @@ main() {
 public init()
 ```
 
-功能：构造一个具有默认初始容量为16和默认负载因子为空的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+功能：构造一个具有默认初始容量为 16 和默认负载因子为空的 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
 示例：
 
@@ -5268,6 +5270,7 @@ main() {
 ```
 
 ### func filter((K, V) -> Bool)
+
 ```cangjie
 public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
 ```
@@ -5953,7 +5956,7 @@ public func reserve(additional: Int64): Unit
 
 功能：扩容当前的[HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
-将 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 扩容 additional 大小当 additional 小于等于零时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量大于等于 additional 时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量小于 additional 时，取（原始容量的1.5倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
+将 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 扩容 additional 大小当 additional 小于等于零时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量大于等于 additional 时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
 
 参数：
 
@@ -5961,7 +5964,7 @@ public func reserve(additional: Int64): Unit
 
 异常：
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当additional + 已使用容量超过Int64.Max时，抛出异常。
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当 additional + 已使用容量超过 Int64.Max 时，抛出异常。
 
 示例：
 
@@ -7203,6 +7206,7 @@ main() {
 ```
 
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): HashSet<T>
 ```
@@ -7349,7 +7353,7 @@ main() {
         }
     }
 
-    // 使用for-in循环遍历（内部使用iterator）
+    // 使用 for-in 循环遍历（内部使用 iterator）
     println("\n使用for-in循环遍历:")
     for (element in set) {
         println("- ${element}")
@@ -7661,7 +7665,7 @@ main() {
 public func reserve(additional: Int64): Unit
 ```
 
-功能：将 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量大于等于 additional 时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量小于 additional 时，取（原始容量的1.5倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
+功能：将 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量大于等于 additional 时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
 
 参数：
 
@@ -7669,7 +7673,7 @@ public func reserve(additional: Int64): Unit
 
 异常：
 
-- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当additional + 已使用容量超过Int64.Max时，抛出异常。
+- [OverflowException](../../core/core_package_api/core_package_exceptions.md#class-overflowexception) - 当 additional + 已使用容量超过 Int64.Max 时，抛出异常。
 
 示例：
 
@@ -9441,6 +9445,7 @@ public func clear(): Unit
 功能：删除链表中的所有元素。
 
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): LinkedList<T>
 ```
@@ -9569,7 +9574,7 @@ main() {
     if (let Some(node) <- middleNode) {
         println("从节点值 ${node.value} 开始向前遍历:")
 
-        // 使用forward方法从中间节点向后遍历到尾部
+        // 使用 forward 方法从中间节点向后遍历到尾部
         let iterator = list.forward(node)
         for (element in iterator) {
             print("${element} ")
@@ -9725,7 +9730,7 @@ main() {
     println("第一个元素: ${list.first}")
     println("最后一个元素: ${list.last}")
 
-    // 使用for-in语法（内部也使用iterator()）
+    // 使用 for-in 语法（内部也使用 iterator()）
     println("使用for-in语法遍历:")
     for (fruit in list) {
         print("${fruit} ")
@@ -9747,6 +9752,7 @@ main() {
 使用for-in语法遍历:
 苹果 香蕉 橙子 葡萄 
 ```
+
 ### func map\<R>((T) -> R)
 
 ```cangjie
@@ -10440,6 +10446,7 @@ main() {
 ```
 
 ### func step(Int64)
+
 ```cangjie
 public func step(count: Int64): LinkedList<T>
 ```
@@ -10461,6 +10468,7 @@ public func step(count: Int64): LinkedList<T>
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
 
 ### func take(Int64)
+
 ```cangjie
 public func take(count: Int64): LinkedList<T>
 ```
@@ -12075,6 +12083,7 @@ entryView用于提供对TreeMap中特定键值对的引用视图访问
 ```
 
 ### func filter((K, V) -> Bool)
+
 ```cangjie
 public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
 ```
@@ -12368,7 +12377,7 @@ main() {
         println("${key}: ${value}")
     }
 
-    // 使用for-in循环自动遍历（内部使用iterator）
+    // 使用 for-in 循环自动遍历（内部使用 iterator）
     println("\n使用for-in循环遍历:")
     for ((key, value) in map) {
         println("${key}: ${value}")
@@ -14082,6 +14091,7 @@ main() {
 ```
 
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): TreeSet<T>
 ```

@@ -483,6 +483,7 @@ After partial fill: [1, -1, -1, -1, 5]
 ```
 
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): Array<T> 
 ```
@@ -780,6 +781,7 @@ Reversed string array: [Cangjie, World, Hello]
 ```
 
 ### func skip(Int64)
+
 ```cangjie
 public func skip(count: Int64): Array<T>
 ```
@@ -914,7 +916,9 @@ Original array: [-1, 1, 2, 3, 4, 5]
 Left slice: [-1, 1, 2]
 Right slice: [3, 4, 5]
 ```
+
 ### func step(Int64)
+
 ```cangjie
 public func step(count: Int64): Array<T>
 ```
@@ -984,6 +988,7 @@ After swapping index 2 with itself: [1, 4, 3, 2, 5]
 ```
 
 ### func take(Int64)
+
 ```cangjie
 public func take(count: Int64): Array<T>
 ```
@@ -4258,7 +4263,7 @@ Seconds in small duration: 0
 public func toString(): String
 ```
 
-功能：获得当前 [Duration](core_package_structs.md#struct-duration) 实例的字符串表示，格式形如："1d2h3m4s5ms6us7ns"，表示“1天2小时3分钟4秒5毫秒6微秒7纳秒”。某个单位下数值为 0 时此项会被省略，特别地，当所有单位下数值都为 0 时，返回 "0s"。
+功能：获得当前 [Duration](core_package_structs.md#struct-duration) 实例的字符串表示，格式形如："1d2h3m4s5ms6us7ns"，表示“1 天 2 小时 3 分钟 4 秒 5 毫秒 6 微秒 7 纳秒”。某个单位下数值为 0 时此项会被省略，特别地，当所有单位下数值都为 0 时，返回 "0s"。
 
 返回值：
 
@@ -5088,7 +5093,7 @@ public static func malloc<T>(count!: Int64 = 1): CPointer<T> where T <: CType
 
 参数：
 
-- count!: [Int64](core_package_intrinsics.md#int64) - 为可选参数，默认为1，表示申请 T 类型的个数。
+- count!: [Int64](core_package_intrinsics.md#int64) - 为可选参数，默认为 1，表示申请 T 类型的个数。
 
 返回值：
 
@@ -6543,7 +6548,7 @@ public func indexOf(str: String, fromIndex: Int64): Option<Int64>
 
 返回值：
 
-- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 如果搜索成功，返回 str 第一次出现的索引，否则返回 None。特别地，当 str 是空字符串时，如果fromIndex 大于 0，返回 None，否则返回 Some(0)。当 fromIndex 小于零，效果同 0，当 fromIndex 大于等于原字符串长度返回 None。
+- [Option](core_package_enums.md#enum-optiont)\<[Int64](core_package_intrinsics.md#int64)> - 如果搜索成功，返回 str 第一次出现的索引，否则返回 None。特别地，当 str 是空字符串时，如果 fromIndex 大于 0，返回 None，否则返回 Some(0)。当 fromIndex 小于零，效果同 0，当 fromIndex 大于等于原字符串长度返回 None。
 
 示例：
 

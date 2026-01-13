@@ -121,6 +121,7 @@ public init(bytes: Array<Byte>)
 > **说明：**
 >
 > 数据存储方法有以下两种：
+>
 > - 大端存储方式：高位字节存放在低位地址。
 > - 小端存储方式：将数据的低位字节存放在内存的高位地址。
 
@@ -3460,7 +3461,7 @@ public init(val: IntNative)
 
 参数：
 
-- val: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 32 位或 64位有符号整数。
+- val: [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 32 位或 64 位有符号整数。
 
 示例：
 
@@ -3673,7 +3674,7 @@ public init(val: UIntNative)
 
 参数：
 
-- val: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 32 位或 64位无符号整数。
+- val: [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - 32 位或 64 位无符号整数。
 
 示例：
 

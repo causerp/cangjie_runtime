@@ -56,7 +56,7 @@ public func cangjieLex(code: String, truncated: Bool): Tokens
 
 异常：
 
-- [IllegalMemoryException](../../core/core_package_api/core_package_exceptions.md#class-illegalmemoryexception) - 当申请内存失败，抛出异常时，抛出异常。
+- [IllegalMemoryException](../../core/core_package_api/core_package_exceptions.md#class-illegalmemoryexception) - 当申请内存失败时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 code 无法被正确的解析为 [Tokens](ast_package_classes.md#class-tokens) 时，抛出异常。
 
 ## func compareTokens(Tokens, Tokens)

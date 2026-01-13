@@ -1104,7 +1104,7 @@ public func count(): Int64
 Function: Counts the number of elements in the current iterator. This method consumes all elements to compute the count.
 
 > **Note:**
-> 
+>
 > This method consumes the iterator, meaning no elements remain after its use.
 
 Returns:
@@ -1702,7 +1702,7 @@ main(): Int64 {
     println(flag1)
 
     /* No element is greater than 5, returns true */
-    var flag2: Bool = iter2.none({value => value > 5})```markdown
+    var flag2: Bool = iter2.none({value => value > 5})
     println(flag2)
     return 0
 }
@@ -1960,7 +1960,7 @@ The current element is (1, 4)
 The current element is (2, 5)
 The current element is (3, 6)
 ```
-    
+
 ### extend\<T> Iterator\<T> where T <: Comparable\<T>
 
 ```cangjie
@@ -2454,7 +2454,7 @@ Function: This class is primarily used for string construction.
 - Performance-wise, it uses a dynamic expansion algorithm to reduce memory allocation frequency, resulting in faster string construction and typically lower memory resource usage.
 
 > **Note:**
-> 
+>
 > [StringBuilder](core_package_classes.md#class-stringbuilder) only supports UTF-8 encoded character data.
 
 Parent Type:
@@ -3685,7 +3685,7 @@ public func toString(): String
 Function: Retrieves the string from this [StringBuilder](core_package_classes.md#class-stringbuilder) instance.
 
 > **Note:**
-> 
+>
 > This function does not copy the string data.
 
 Returns:

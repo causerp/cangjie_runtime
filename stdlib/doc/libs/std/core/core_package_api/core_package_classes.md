@@ -1102,7 +1102,7 @@ public func count(): Int64
 功能：统计当前迭代器包含元素数量。此方法会消耗迭代器中所有元素来计算迭代器中的元素数量。
 
 > **注意：**
-> 
+>
 > 该方法会消耗迭代器，即使用该方法后迭代器内不再包含任何元素。
 
 返回值：
@@ -1756,7 +1756,7 @@ public func skip(count: Int64): Iterator<T>
 
 功能：从前往后从当前迭代器跳过特定个数。
 
-当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于0并且count小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
+当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于 0 并且 count 小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
 
 参数：
 
@@ -2449,7 +2449,7 @@ public class StringBuilder <: ToString {
 - 在性能上使用动态扩容算法，减少内存申请频率，构造字符串的速度更快，占用内存资源通常更少。
 
 > **注意：**
-> 
+>
 > [StringBuilder](core_package_classes.md#class-stringbuilder) 仅支持 UTF-8 编码的字符数据。
 
 父类型：
@@ -3680,7 +3680,7 @@ public func toString(): String
 功能：获取 [StringBuilder](core_package_classes.md#class-stringbuilder) 实例中的字符串。
 
 > **注意：**
-> 
+>
 > 该函数不会将字符串数据进行拷贝。
 
 返回值：
@@ -4196,7 +4196,7 @@ public class ThreadSnapshot <: ToString {
 
 功能：获取当前线程或者所有线程的信息，包含名称、id、状态、调用栈。
 
-该类型实例无法通过构造得到，仅能通过 [class ThreadSnapshot ](core_package_classes.md#class-threadsnapshot)类的 [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread)和[dumpAllThreads](core_package_classes.md#func-dumpallthreads) 静态函数获取。
+该类型实例无法通过构造得到，仅能通过 [class ThreadSnapshot](core_package_classes.md#class-threadsnapshot)类的 [dumpCurrentThread](core_package_classes.md#func-dumpcurrentthread)和[dumpAllThreads](core_package_classes.md#func-dumpallthreads) 静态函数获取。
 
 父类型：
 
@@ -4208,7 +4208,7 @@ public class ThreadSnapshot <: ToString {
 public let id: Int64
 ```
 
-功能：获取线程的id。
+功能：获取线程的 id。
 
 类型：[Int64](core_package_intrinsics.md#int64)
 

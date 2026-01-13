@@ -35,7 +35,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
 public static prop UnixEpoch: DateTime
 ```
 
-功能：获取 Unix 时间纪元，即表示零时区 `1970年1月1日0时0分0秒0纳秒` 的 [DateTime](time_package_structs.md#struct-datetime) 实例。
+功能：获取 Unix 时间纪元，即表示零时区 `1970 年 1 月 1 日 0 时 0 分 0 秒 0 纳秒` 的 [DateTime](time_package_structs.md#struct-datetime) 实例。
 
 类型：[DateTime](time_package_structs.md#struct-datetime)
 
@@ -1661,7 +1661,7 @@ public func addMonths(n: Int64): DateTime
 
 > **注意：**
 >
-> 由于月的间隔不固定，若设 dt 表示 “2020年3月31日”，`dt.addMonths(1)` 不会返回非法日期“2020年4月31日”。为了尽量返回有效的日期，会偏移到当月最后一天，返回“2020年4月30日”。
+> 由于月的间隔不固定，若设 dt 表示 “2020 年 3 月 31 日”，`dt.addMonths(1)` 不会返回非法日期“2020 年 4 月 31 日”。为了尽量返回有效的日期，会偏移到当月最后一天，返回“2020 年 4 月 30 日”。
 
 参数：
 
@@ -1901,7 +1901,7 @@ public func addYears(n: Int64): DateTime
 
 > **注意：**
 >
-> 由于年的间隔不固定，若设 dt 表示 “2020年2月29日”，`dt.addYears(1)` 不会返回非法日期“2021年2月29日”。为了尽量返回有效的日期，会偏移到当月最后一天，返回 “2021年2月28日”。
+> 由于年的间隔不固定，若设 dt 表示 “2020 年 2 月 29 日”，`dt.addYears(1)` 不会返回非法日期“2021 年 2 月 29 日”。为了尽量返回有效的日期，会偏移到当月最后一天，返回 “2021 年 2 月 28 日”。
 
 参数：
 
