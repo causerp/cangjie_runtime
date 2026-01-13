@@ -56,7 +56,7 @@ public func cangjieLex(code: String, truncated: Bool): Tokens
 
 异常：
 
-- [IllegalMemoryException](../../core/core_package_api/core_package_exceptions.md#class-illegalmemoryexception) - 当申请内存失败，抛出异常时，抛出异常。
+- [IllegalMemoryException](../../core/core_package_api/core_package_exceptions.md#class-illegalmemoryexception) - 当申请内存失败时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 code 无法被正确的解析为 [Tokens](ast_package_classes.md#class-tokens) 时，抛出异常。
 
 ## func compareTokens(Tokens, Tokens)
@@ -65,7 +65,7 @@ public func cangjieLex(code: String, truncated: Bool): Tokens
 public func compareTokens(tokens1: Tokens, tokens2: Tokens): Bool
 ```
 
-功能：用于比较两个[Tokens](ast_package_classes.md#class-tokens)是否一致。
+功能：用于比较两个 [Tokens](ast_package_classes.md#class-tokens) 是否一致。
 
 参数：
 
@@ -185,7 +185,7 @@ public func parseDecl(input: Tokens, astKind!: String = ""): Decl
 - input: [Tokens](ast_package_classes.md#class-tokens) - 待解析源码的词法单元。
 - astKind!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用于指定解析特定的节点类型，有效支持的值为：`PrimaryCtorDecl` 和 `PropMemberDecl`。
     - `PrimaryCtorDecl`: 解析主构造函数。
-    - `PropMemberDecl`: 解析prop声明的getter和setter函数。
+    - `PropMemberDecl`: 解析 prop 声明的 getter 和 setter 函数。
 
 返回值：
 
@@ -197,7 +197,7 @@ public func parseDecl(input: Tokens, astKind!: String = ""): Decl
 
 示例：
 
-1. 以下代码展示 `astKind` 设为 `PropMemberDecl` 的案例。在这个参数下，可以使用 `parseDecl` 解析 `prop` 的getter和setter函数，解析结果为 `FuncDecl` 类型（如果不设置`astKind`，则会因为没有 `func` 关键字而无法解析）。
+1. 以下代码展示 `astKind` 设为 `PropMemberDecl` 的案例。在这个参数下，可以使用 `parseDecl` 解析 `prop` 的 getter 和 setter 函数，解析结果为 `FuncDecl` 类型（如果不设置`astKind`，则会因为没有 `func` 关键字而无法解析）。
 
 <!-- verify -->
 
@@ -368,7 +368,7 @@ public func parseProgram(input: Tokens): Program
 
 > **注意：**
 >
-> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含(在 [packageHeader](ast_package_classes.md#prop-packageHeader) 和 [importLists](ast_package_classes.md#prop-importLists) 属性中)，因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
+> 仓颉宏展开后的代码不允许出现包的声明和包导入语句。使用该函数时，若输入的源码中包含包声明或包导入语句，输出的 [Program](ast_package_classes.md#class-program) 节点中也会包含（在 [packageHeader](ast_package_classes.md#prop-packageHeader) 和 [importLists](ast_package_classes.md#prop-importLists) 属性中），因此不能在宏函数中直接将该节点返回为 [Tokens](ast_package_classes.md#class-tokens)。
 
 参数：
 

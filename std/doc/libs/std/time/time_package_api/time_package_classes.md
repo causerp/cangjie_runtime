@@ -59,7 +59,7 @@ public static const RFC850: String = "wwww, dd-MMM-yy HH:mm:ss z"
 public prop format: String
 ```
 
-功能：DateTimeFormat实例的字符串格式。
+功能：DateTimeFormat 实例的字符串格式。
 
 > **注意：**
 >
@@ -75,7 +75,7 @@ public static func of(format: String): DateTimeFormat
 
 功能：根据字符串创建具体的 DateTimeFormat 类型实例。
 
-字符串的具体格式见[时间字符串格式](../time_package_overview.md#时间字符串格式)
+字符串的具体格式见[时间字符串格式](../time_package_overview.md#时间字符串格式)。
 
 > **注意：**
 >
@@ -118,7 +118,7 @@ public static let Local: TimeZone
 
 功能：获取本地时区。
 
-`Local` 从系统环境变量 TZ 中获取时区 ID，并根据该时区 ID 从系统时区文件中加载时区。其行为与函数[load](#static-func-loadstring)相同。
+`Local` 从系统环境变量 TZ 中获取时区 ID，并根据该时区 ID 从系统时区文件中加载时区。其行为与函数 [load](#static-func-loadstring) 相同。
 
 环境变量 TZ 的取值为标准时区 ID 格式（各操作系统遵循相同规范），例如“Asia/Shanghai”。
 
@@ -190,7 +190,7 @@ public static func load(id: String): TimeZone
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `id` 为空，或长度超过 4096 字节，或不符合标准时区 ID 格式时，抛出异常。
-- [InvalidDataException](time_package_exceptions.md#class-invaliddataexception) - 当时区文件加载失败(找不到文件，文件解析失败等)时，抛出异常。
+- [InvalidDataException](time_package_exceptions.md#class-invaliddataexception) - 当时区文件加载失败（找不到文件，文件解析失败等）时，抛出异常。
 
 ### static func loadFromPaths(String, Array\<String>)
 
@@ -214,7 +214,7 @@ public static func loadFromPaths(id: String, tzpaths: Array<String>): TimeZone
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `id` 为空，或长度超过 4096 字节，或不符合标准时区 ID 格式时，抛出异常。
-- [InvalidDataException](time_package_exceptions.md#class-invaliddataexception) - 当时区文件加载失败(找不到文件，文件解析失败等)时，抛出异常。
+- [InvalidDataException](time_package_exceptions.md#class-invaliddataexception) - 当时区文件加载失败（找不到文件，文件解析失败等）时，抛出异常。
 
 ### static func loadFromTZData(String, Array\<UInt8>)
 

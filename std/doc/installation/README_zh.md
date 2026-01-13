@@ -146,7 +146,7 @@ $ rm -rf <path>/<to>/cangjie
 
         1. 在 “用户变量”（为当前用户进行配置）或 “系统变量”（为系统所有用户进行配置）区域中，找到并选择 Path 变量，点击 “编辑” 按钮，进入 “编辑环境变量” 窗口。
 
-        2. 分别点击 “新建” 按钮，并分别输入 `%CANGJIE_HOME%\bin` 、 `%CANGJIE_HOME%\tools\bin` 、 `%CANGJIE_HOME%\tools\lib` 、 `%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm` (`%CANGJIE_HOME%` 为仓颉安装包的解压路径)。例如，仓库安装包解压在 `D:\cangjie` ，则新建的环境变量分别为： `D:\cangjie\bin` 、 `D:\cangjie\tools\bin` 、 `D:\cangjie\tools\lib` 、 `D:\cangjie\runtime\lib\windows_x86_64_llvm` 。
+        2. 分别点击 “新建” 按钮，并分别输入 `%CANGJIE_HOME%\bin` 、 `%CANGJIE_HOME%\tools\bin` 、 `%CANGJIE_HOME%\tools\lib` 、 `%CANGJIE_HOME%\runtime\lib\windows_x86_64_llvm` （`%CANGJIE_HOME%` 为仓颉安装包的解压路径）。例如，仓库安装包解压在 `D:\cangjie` ，则新建的环境变量分别为： `D:\cangjie\bin` 、 `D:\cangjie\tools\bin` 、 `D:\cangjie\tools\lib` 、 `D:\cangjie\runtime\lib\windows_x86_64_llvm` 。
 
         3. （仅适用于为当前用户设置）点击 “新建” 按钮，并输入当前用户目录路径，并在路径后面添加 `.cjpm\bin` 。例如用户路径在 `C:\Users\bob` ，则输入 `C:\Users\bob\.cjpm\bin` 。
 

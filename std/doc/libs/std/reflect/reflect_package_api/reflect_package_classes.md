@@ -402,7 +402,7 @@ public func isOpen(): Bool
 
 > **注意：**
 >
-> 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如: `abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
+> 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如：`abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
 
 返回值：
 
@@ -820,7 +820,7 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
 public prop annotations: Collection<Annotation>
 ```
 
-功能：获取所有[GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的全局函数的注解，返回对应集合。
+功能：获取所有 [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的全局函数的注解，返回对应集合。
 
 > **注意：**
 >
@@ -937,7 +937,6 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该全局函数信息所对应的全局函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
-
 
 ### func findAnnotation\<T>() where T <: Annotation
 
@@ -1079,8 +1078,6 @@ public func getValue(): Any
 返回值：
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该全局变量的值。
-
-
 
 ### func hashCode()
 
@@ -1367,7 +1364,6 @@ main(): Unit {
 Some(20)
 ```
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -1379,8 +1375,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func hashCode()
 
@@ -1531,7 +1525,6 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -1543,8 +1536,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func getValue(Any)
 
@@ -1781,7 +1772,6 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -1793,8 +1783,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func getValue(Any)
 
@@ -2241,7 +2229,7 @@ public static func load(path: String): PackageInfo
 
 - [ReflectException](reflect_package_exceptions.md#class-reflectexception) - 如果共享库加载失败，则会抛出异常。
 - [ReflectException](reflect_package_exceptions.md#class-reflectexception) - 如果具有相同包名称或相同文件名的共享库被重复加载，则会抛出异常。
-- [ReflectException](reflect_package_exceptions.md#class-reflectexception) - 如果动态库内部存在多个Package，则抛出异常。
+- [ReflectException](reflect_package_exceptions.md#class-reflectexception) - 如果动态库内部存在多个 Package，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当路径不合法时，抛出异常。
 
 ### func getFunction(String, Array\<TypeInfo>)
@@ -2449,7 +2437,7 @@ public prop index: Int64
 
 > **注意：**
 >
-> `index` 从0开始计数。
+> `index` 从 0 开始计数。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -2473,7 +2461,6 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -2485,8 +2472,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func hashCode()
 
@@ -2874,7 +2859,6 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该静态成员函数信息所对应的静态成员函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -2886,8 +2870,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func hashCode()
 
@@ -3010,7 +2992,6 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -3022,8 +3003,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func getValue()
 
@@ -3272,7 +3251,6 @@ public prop typeInfo: TypeInfo
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -3284,8 +3262,6 @@ public func findAnnotation<T>(): Option<T> where T <: Annotation
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func getValue()
 
@@ -3726,7 +3702,6 @@ public static redef func get(qualifiedName: String): StructTypeInfo
 <!-- verify -->
 ```cangjie
 import std.reflect.*
-import std.reflect.*
 
 public struct Rectangular {}
 
@@ -4152,7 +4127,6 @@ main(): Unit {
 default.Rectangular
 ```
 
-
 ### func findAnnotation\<T>() where T <: Annotation
 
 ```cangjie
@@ -4161,11 +4135,9 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
-返回值： 
+返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
-
-
 
 ### func getInstanceFunction(String, Array\<TypeInfo>)
 

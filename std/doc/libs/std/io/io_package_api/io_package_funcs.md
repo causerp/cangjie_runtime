@@ -155,7 +155,7 @@ main(): Unit {
     let sourceDataError: Array<UInt8> = [0xC3, 0x28, 0x48, 0x65, 0x6C, 0x6C, 0x6F]
     inputStream.write(sourceDataError)
 
-    /* 使用 readString 函数读取输入流中的所有剩余内容，由于 inputStream 的第一位是不合法的UTF-8字符，所以将产生不可期的输出字符 */
+    /* 使用 readString 函数读取输入流中的所有剩余内容，由于 inputStream 的第一位是不合法的UTF-8字符，所以将产生非预期的输出字符 */
     unsafe {
         let result = readStringUnchecked(inputStream)
         println("Read string: ${result}")

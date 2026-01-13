@@ -186,7 +186,7 @@ public static const ICMP: Int32 = 1
 public static const IP: Int32 = 0
 ```
 
-功能：控制 [IP]() 协议行为的套接字选项级别。
+功能：控制 IP 协议行为的套接字选项级别。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -269,7 +269,7 @@ public struct OptionName {
 public static const IP_HDRINCL: Int32
 ```
 
-功能：用于在发送数据包时指定 [IP]() 头部是否由应用程序提供的套接字选项。不同系统下的值分别为：
+功能：用于在发送数据包时指定 IP 头部是否由应用程序提供的套接字选项。不同系统下的值分别为：
 
 - macOS: 0x0002
 - Windows: 0x0002
@@ -297,7 +297,7 @@ public static const IP_TOS: Int32
 public static const IP_TTL: Int32
 ```
 
-功能：用于限制[IP]()数据包在网络中传输最大跳数的套接字选项。不同系统下的值分别为：
+功能：用于限制 IP 数据包在网络中传输最大跳数的套接字选项。不同系统下的值分别为：
 
 - macOS: 0x0004
 - Windows: 0x0004
