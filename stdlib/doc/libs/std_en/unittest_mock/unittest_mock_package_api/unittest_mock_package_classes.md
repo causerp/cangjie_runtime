@@ -136,6 +136,38 @@ The verification capabilities provided by the APIs in this interface are as foll
 - If the call count of the stub signature exceeds the specified number, an [ExpectationFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) will be thrown immediately.
 - If the call count of the stub signature is insufficient, the framework will throw an [ExceptionFailedException](./unittest_mock_package_exceptions.md#class-expectationfailedexception) after the test case execution is completed.
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printer = mock<Printer>()
+    @On(printer.print("abc")).returns(true)
+
+    printer.print("abc")
+    Verify.that(@Called(printer.print("abc")).once())
+
+    printer.print("abc")
+    Verify.that(@Called(printer.print("abc")).atLeastOnce())
+    Verify.that(@Called(printer.print("abc")).times(2))
+    Verify.that(@Called(printer.print("abc")).times(min: 1, max: 3))
+    Verify.that(@Called(printer.print("abc")).atLeastTimes(2))
+
+    Verify.that(@Called(printer.print("xyz")).times(0))
+    Verify.that(@Called(printer.print("xyz")).atLeastTimes(0))
+    Verify.that(@Called(printer.print("xyz")).never())
+}
+
+```
+
 ### func anyTimes()
 
 ```cangjie
@@ -331,6 +363,29 @@ The capabilities provided by the methods in this class are as follows:
 
 - Allows the stub signature to perform additional operations when the previous operation is satisfied. A `Continuation` instance is meaningful only when followed by a behavior definition.
 - Throws a [MockFrameworkException](./unittest_mock_package_exceptions.md#class-mockframeworkexception) when the previous operation is not satisfied. The exact location where this exception is thrown is not guaranteed.
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printer = mock<Printer>()
+    @On(printer.print("abc")).returns(true).times(2).then().returns(false)
+
+    @Assert(printer.print("abc") == true)
+    @Assert(printer.print("abc") == true)
+    @Assert(printer.print("abc") == false)
+    @Assert(printer.print("abc") == false)
+}
+```
 
 ### func then()
 
@@ -665,6 +720,38 @@ Parent type:
 
 - [ActionSelector](#class-actionselector)
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printerMock = mock<Printer>()
+    @On(printerMock.print(_)).returns(false)
+    @On(printerMock.print("throw")).throws(TimeoutException())
+    @On(printerMock.print("fail")).fails()
+
+    @ExpectThrows[TimeoutException](printerMock.print("throw"))
+    @Expect(printerMock.print("something"), false)
+    // printerMock.print("fail") // expected to fail
+
+    let printer = Printer()
+    let printerSpy = spy(printer)
+    @On(printerSpy.print(_)).callsOriginal()
+    @On(printerSpy.print("hello")).returns(false)
+
+    @Expect(printerSpy.print("hello"), false)
+    @Expect(printerSpy.print("something"), true)
+}
+```
+
 ### func callsOriginal()
 
 ```cangjie
@@ -874,13 +961,45 @@ Function: The return value of the argument matcher that the framework needs to c
 
 Returns:
 
-- Option\<T> - A value matching the type of the actual argument.## class OrderedVerifier
+- Option\<T> - A value matching the type of the actual argument.
+
+## class OrderedVerifier
 
 ```cangjie
 public class OrderedVerifier {}
 ```
 
 Purpose: This type is used to collect "verification statements" that can be dynamically passed into verification behaviors within the `ordered` function.
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+func printMessage(printer: Printer) {
+    printer.print("hello")
+    printer.print("world")
+}
+
+@Test
+func test() {
+    let printer = Printer()
+    let spyPrinter = spy<Printer>(printer)
+
+    printMessage(spyPrinter)
+
+    Verify.ordered(
+        @Called(spyPrinter.print("hello")),
+        @Called(spyPrinter.print("world"))
+    )
+}
+```
 
 ### func checkThat(VerifyStatement)
 
@@ -991,6 +1110,35 @@ public class SyntheticField<T> {}
 
 Purpose: Synthetic field. Used for handling mutable properties and fields.
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    mut prop name: String {
+        get() { "nop" }
+        set(x) {}
+    }
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printer = mock<Printer>(SyntheticFields)
+    let syntheticField = SyntheticField.create(initialValue: "tty0")
+    @On(printer.name).getsField(syntheticField)
+    @On(printer.name = _).setsField(syntheticField)
+
+    @Assert(printer.name, "tty0")
+
+    printer.name = "virtual0"
+    @Assert(printer.name, "virtual0")
+}
+```
+
 ### static func create(T)
 
 ```cangjie
@@ -1079,6 +1227,41 @@ public class UnorderedVerifier{}
 
 Purpose: This type is used to collect "verification statements" that can be dynamically passed into verification behaviors within the `unordered` function.
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+func printMessage(printer: Printer) {
+    printer.print("hello")
+    printer.print("world")
+}
+
+@Test
+func test() {
+    let printer = Printer()
+    let spyPrinter = spy<Printer>(printer)
+
+    printMessage(spyPrinter)
+
+    Verify.unordered(
+        @Called(spyPrinter.print("hello")),
+        @Called(spyPrinter.print("world"))
+    )
+
+    Verify.unordered(
+        @Called(spyPrinter.print("world")),
+        @Called(spyPrinter.print("hello"))
+    )
+}
+```
+
 ### func checkThat(VerifyStatement)
 
 ```cangjie
@@ -1132,6 +1315,38 @@ Verify.that(@Called(foo.bar()))
 ```
 
 Notably, [CardinalitySelector](unittest_mock_package_classes.md#class-cardinalityselectora)\<R> provides some APIs that support verifying certain behaviors. Therefore, users can freely choose different methods for behavior verification.
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printer = mock<Printer>()
+    @On(printer.print("abc")).returns(true)
+    @On(printer.print("xyz")).returns(false)
+
+    @Expect(printer.print("abc"), true)
+    @Expect(printer.print("xyz"), false)
+
+    Verify.that(@Called(printer.print("abc")).once())
+    Verify.that(@Called(printer.print("xyz")).atLeastOnce())
+    Verify.ordered(@Called(printer.print("abc")), @Called(printer.print("xyz")))
+    Verify.unordered(@Called(printer.print("xyz")), @Called(printer.print("abc")))
+    Verify.unordered(Partial, @Called(printer.print("xyz")))
+    @ExpectThrows[VerificationFailedException](Verify.unordered(Exhaustive, @Called(printer.print("xyz"))))
+
+    Verify.clearInvocationLog()
+    Verify.noInteractions(printer)
+}
+```
 
 ### static func clearInvocationLog()
 
@@ -1336,7 +1551,9 @@ The "verification statements" in the input list must be non-overlapping (i.e., w
 
 Parameters:
 
-- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - Multiple "verification statements" to be verified. The variadic parameter syntax## class VerifyStatement
+- statements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[VerifyStatement](unittest_mock_package_classes.md#class-verifystatement)> - Multiple "verification statements" to be verified. The variadic parameter syntax
+
+## class VerifyStatement
 
 ```cangjie
 public class VerifyStatement {}
@@ -1346,6 +1563,31 @@ Function: This type represents a single verification statement (referred to as "
 Objects of this type can only be created through the `@Called` macro call expression.
 Consecutively calling multiple member functions on an object is meaningless and will throw an exception. That is, the execution count can only be specified once.
 When no member function is called to specify the execution count, the default verification value for execution count will be based on the type of verification action where the statement resides. For example, a "verification statement" in [Verify](unittest_mock_package_classes.md#class-verify).ordered() defaults to verifying one execution.
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printer = mock<Printer>()
+    @On(printer.print("abc")).returns(true)
+
+    printer.print("abc")
+    Verify.that(@Called(printer.print("abc")).once())
+
+    printer.print("abc")
+    Verify.that(@Called(printer.print("abc")).atLeastOnce())
+    Verify.that(@Called(printer.print("abc")).times(2))
+}
+```
 
 ### func atLeastOnce()
 
