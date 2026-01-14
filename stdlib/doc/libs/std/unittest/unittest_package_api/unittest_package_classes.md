@@ -232,23 +232,7 @@ public class BenchReport <: Report {}
 
 - [Report](#class-report)
 
-### func reportTo\<T>(Reporter\<BenchReport, T>)
-
-```cangjie
-public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
-```
-
-功能：打印性能用例结果报告。
-
-参数：
-
-- reporter: [Reporter](#class-report)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
-
-返回值：
-
-- T - 打印结果返回值。一般为 Unit 类型。
-
-示例:
+示例：
 
 <!-- run -->
 ```cangjie
@@ -278,6 +262,22 @@ main() {
     @Assert(results[0] < 50_000000.0 && results[0] > 25_000000.0)
 }
 ```
+
+### func reportTo\<T>(Reporter\<BenchReport, T>)
+
+```cangjie
+public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
+```
+
+功能：打印性能用例结果报告。
+
+参数：
+
+- reporter: [Reporter](../unittest_package_api/unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
+
+返回值：
+
+- T - 打印结果返回值。一般为 Unit 类型。
 
 ## class CartesianProductProcessor\<T0,T1>
 
