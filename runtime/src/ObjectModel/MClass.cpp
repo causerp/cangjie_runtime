@@ -261,7 +261,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
         for (auto& superTypePair : mTable) {
             auto superTi = superTypePair.second.GetSuperTi();
             // make sure super is the subtype of itf, and super is the direct super type of this type.
-            if (!superTypePair.second.first->IsDirect()) {
+            if (!superTypePair.second.GetExtensionData()->IsDirect()) {
                 continue;
             }
             auto edOfSuper = superTi->FindExtensionData(itf);
