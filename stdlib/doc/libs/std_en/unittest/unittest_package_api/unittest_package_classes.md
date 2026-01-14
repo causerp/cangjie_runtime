@@ -309,22 +309,6 @@ Parent Type:
 
 - [Report](#class-report)
 
-### func reportTo\<T>(Reporter\<BenchReport, T>)
-
-```cangjie
-public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
-```
-
-Function: Prints the performance test case result report.
-
-Parameters:
-
-- reporter: [Reporter](#class-report)\<[BenchReport](#class-benchreport), T> - The performance test case result report.
-
-Returns:
-
-- T: The return value of the print operation. Typically of type Unit.
-
 Example:
 
 <!-- run -->
@@ -355,6 +339,22 @@ main() {
     @Assert(results[0] < 50_000000.0 && results[0] > 25_000000.0)
 }
 ```
+
+### func reportTo\<T>(Reporter\<BenchReport, T>)
+
+```cangjie
+public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
+```
+
+Function: Prints the performance test case result report.
+
+Parameters:
+
+- reporter: [Reporter](#class-report)\<[BenchReport](#class-benchreport), T> - The performance test case result report.
+
+Returns:
+
+- T: The return value of the print operation. Typically of type Unit.
 
 ## class CartesianProductProcessor\<T0,T1>
 
