@@ -46,7 +46,7 @@ T 为 泛型参数，用于在对象中查找对应类型的值。
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 
 返回值：
 
@@ -80,7 +80,7 @@ public func remove<T>(key: KeyFor<T>): ?T
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 
 返回值：
 
@@ -89,7 +89,7 @@ public func remove<T>(key: KeyFor<T>): ?T
 ### func removeByName\<T>(String)
 
 ```cangjie
-public func removeByName<T>(name: String): ?T
+public func removeByName<T>(key: String): ?T
 ```
 
 功能：删除对应键名称和类型的值。
@@ -105,14 +105,14 @@ public func removeByName<T>(name: String): ?T
 ### func set\<T>(KeyFor\<T>, T)
 
 ```cangjie
-public func set<T>(key: KeyFor<T>, value: T)
+public func set<T>(key: KeyFor<T>, value: T): Unit
 ```
 
 功能：给对应键名称和类型设置值。
 
 参数：
 
-- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfor) - 配置项的键值。
+- key: [KeyFor](./unittest_common_package_interfaces.md#interface-keyfort) - 配置项的键值。
 - value: T - 键值。
 
 ### func setByName\<T>(String, T)

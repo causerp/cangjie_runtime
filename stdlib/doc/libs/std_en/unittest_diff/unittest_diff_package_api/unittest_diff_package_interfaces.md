@@ -1,6 +1,6 @@
 # Interface
 
-## interface AssertPrintable
+## interface AssertPrintable\<T>
 
 ```cangjie
 public interface AssertPrintable<T> {
@@ -67,7 +67,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ```cangjie
 public func pprintForAssertion(
-    pp: PrettyPrinter, that: Float16, thisPrefix: String, thatPrefix: String, level: Int64
+    pp: PrettyPrinter, right: Float16, leftPrefix: String, rightPrefix: String, level: Int64
 ): PrettyPrinter
 ```
 
@@ -76,9 +76,9 @@ Function: Method for printing the check results of [@Assert](../../unittest_test
 Parameters:
 
 - pp: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - Printer.
-- that: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Information to be printed.
-- thisPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
-- thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
+- right: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - Information to be printed.
+- leftPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
+- rightPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
 Return value:
@@ -107,7 +107,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ```cangjie
 public func pprintForAssertion(
-    pp: PrettyPriner, that: Float32, thisPrefix: String, thatPrefix: String, level: Int64
+    pp: PrettyPriner, right: Float32, leftPrefix: String, rightPrefix: String, level: Int64
 ): PrettyPrinter
 ```
 
@@ -116,9 +116,9 @@ Function: Method for printing the check results of [@Assert](../../unittest_test
 Parameters:
 
 - pp: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - Printer.
-- that: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Information to be printed.
-- thisPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
-- thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
+- right: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - Information to be printed.
+- leftPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
+- rightPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
 Return value:
@@ -147,7 +147,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ```cangjie
 public func pprintForAssertion(
-    pp: PrettyPrinter, that: Float64, thisPrefix: String, thatPrefix: String, level: Int64
+    pp: PrettyPrinter, right: Float64, leftPrefix: String, rightPrefix: String, level: Int64
 ): PrettyPrinter
 ```
 
@@ -156,9 +156,9 @@ Function: Method for printing the check results of [@Assert](../../unittest_test
 Parameters:
 
 - pp: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - Printer.
-- that: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Information to be printed.
-- thisPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
-- thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
+- right: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - Information to be printed.
+- leftPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
+- rightPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
 Return value:
@@ -187,7 +187,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ```cangjie
 public func pprintForAssertion(
-    pp: PrettyPrinter, that:  Option<T>, thisPrefix: String, thatPrefix: String, level: Int64
+    pp: PrettyPrinter, right:  Option<T>, leftPrefix: String, rightPrefix: String, level: Int64
 ): PrettyPrinter
 ```
 
@@ -196,9 +196,9 @@ Function: Method for printing the check results of [@Assert](../../unittest_test
 Parameters:
 
 - pp: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - Printer.
-- that:  [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Information to be printed.
-- thisPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
-- thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
+- right:  [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Information to be printed.
+- leftPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
+- rightPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
 Return value:
@@ -227,7 +227,7 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ```cangjie
 public func pprintForAssertion(
-    pp: PrettyPrinter, that: String, thisPrefix: String, thatPrefix: String, level: Int64
+    pp: PrettyPrinter, right: String, leftPrefix: String, rightPrefix: String, level: Int64
 ): PrettyPrinter
 ```
 
@@ -236,9 +236,9 @@ Function: Method for printing the check results of [@Assert](../../unittest_test
 Parameters:
 
 - pp: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - Printer.
-- that: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Information to be printed.
-- thisPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
-- thatPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
+- right: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Information to be printed.
+- leftPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for expected content.
+- rightPrefix: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Prefix for actual content.
 - level: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Nesting level.
 
 Return value:
