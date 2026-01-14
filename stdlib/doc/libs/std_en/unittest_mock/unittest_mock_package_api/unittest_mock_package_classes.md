@@ -361,6 +361,8 @@ Parent Types:
 
 - [ActionSelector](#class-actionselector)
 
+For an example, see [SyntheticField](#class-syntheticfieldt).
+
 ### func getsField(SyntheticField\<TRet>)
 
 ```cangjie
@@ -910,6 +912,8 @@ When passed an `@On` macro invocation expression of a member function call expre
 Parent Type:
 
 - [ActionSelector](#class-actionselector)
+
+For an example, see [SyntheticField](#class-syntheticfieldt).
 
 ### func doesNothing()
 

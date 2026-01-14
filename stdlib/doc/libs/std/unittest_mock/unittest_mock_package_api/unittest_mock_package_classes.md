@@ -362,6 +362,8 @@ public class GetterActionSelector<TRet> <: ActionSelector {}
 
 - [ActionSelector](#class-actionselector)
 
+参考示例：[SyntheticField](#class-syntheticfieldt)。
+
 ### func getsField(SyntheticField\<TRet>)
 
 ```cangjie
@@ -979,6 +981,37 @@ public class OrderedVerifier {}
 
 功能：此类型用于收集 “验证语句”，可在 [ordered](#static-func-orderedarrayverifystatement) 函数中动态传入验证行为。
 
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+func printMessage(printer: Printer) {
+    printer.print("hello")
+    printer.print("world")
+}
+
+@Test
+func test() {
+    let printer = Printer()
+    let spyPrinter = spy<Printer>(printer)
+
+    printMessage(spyPrinter)
+
+    Verify.ordered(
+        @Called(spyPrinter.print("hello")),
+        @Called(spyPrinter.print("world"))
+    )
+}
+```
+
 ### func checkThat(VerifyStatement)
 
 ```cangjie
@@ -1007,6 +1040,8 @@ public class SetterActionSelector<TArg> <: ActionSelector {}
 父类型：
 
 - [ActionSelector](#class-actionselector)
+
+参考示例：[SyntheticField](#class-syntheticfieldt)。
 
 ### func doesNothing()
 
