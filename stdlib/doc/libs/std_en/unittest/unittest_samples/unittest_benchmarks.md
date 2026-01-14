@@ -14,6 +14,8 @@ To ensure reliable results, most of the heavy lifting is handled internally by t
 
 A simple benchmark can be constructed by using the `@Bench` macro in the corresponding example.
 
+Example:
+
 <!-- run -->
 ```cangjie
 @Test
@@ -36,6 +38,8 @@ Additionally, most other macros (e.g., `@BeforeEach`, `@AfterEach`, `@BeforeAll`
 
 For example, a simple benchmark can be written for the default hash method. Note that the data is created outside the benchmark to ensure it is generated only once before the benchmark starts.
 
+Example:
+
 <!-- run -->
 ```cangjie
 @Test
@@ -51,6 +55,8 @@ class Foo {
 ```
 
 Next, to run this benchmark on different data, the most straightforward approach is as follows:
+
+Example:
 
 <!-- run -->
 ```cangjie
@@ -68,6 +74,8 @@ class Foo {
 ```
 
 While this method works, you'll notice that the final report labels the input parameters as `data[0]` and `data[1]` because, for arbitrary input parameters, the framework doesn't know which property is most important in our benchmark. Additionally, this approach introduces unnecessary code redundancy. Moreover, there's a bigger potential issue: if the data type isn't a simple string but a more complex form, such as an array of strings, a large number of live objects will be allocated, most of which are only used for executing a specific benchmark.
+
+Example:
 
 <!-- run -->
 ```cangjie
@@ -97,6 +105,8 @@ class ArrayBenchmarks {
 When benchmarking `createArray`, every GC trigger would involve traversing the elements of `data_1` and `data_2`, even though they are irrelevant to any test other than the `hashCode` benchmark. Especially when dealing with large objects, this can lead to unstable benchmarks, affecting the accuracy of the final results.
 
 The aforementioned issues, as well as more complex ones, can be resolved by defining specific strategies and applying the `@Strategy` macro. This macro accepts the same domain-specific language (DSL) as the `@Bench` and `@TestCase` macros, generating a new strategy that maps inputs in a flattened manner. Thus, this example can be evolved as follows:
+
+Example:
 
 <!-- run -->
 ```cangjie
@@ -255,6 +265,8 @@ For users with a statistical background, raw data can be exported in CSV format 
 
 By default, the framework measures time, which is usually sufficient. However, in some cases, other performance metrics may be needed for deeper investigation. To enable this, we provide the `Measurement` interface and support for several advanced measurement sources. These can be enabled by annotating a test source list with a special `@Measure` class.
 
+Example:
+
 <!-- run -->
 ```cangjie
 @Test
@@ -277,6 +289,8 @@ Out-of-the-box measurement tools provided by the framework include:
 ### Setup Before Each Call
 
 Suppose we want to benchmark the `ArrayList.sort` function. This function modifies its input data, leading to varying benchmark results because, after the first call, `sort` operates on an already sorted array. To address this, we need to regenerate the data before each function call. This is achieved by implementing the `BenchInputProvider` interface via data-returning functions annotated with `@Strategy`.
+
+Example: 
 
 <!-- run -->
 ```cangjie
@@ -317,6 +331,8 @@ Many benchmark-related configuration parameters can be set via the `@Configue` m
 
 Additionally, sometimes it may be necessary to iterate over multiple parameter values to verify their impact on results. To support this requirement, the framework provides a special syntax form for the data DSL: `config.<parameter> in <strategy>`.
 
+Example: 
+
 <!-- run -->
 ```cangjie
 @Test
@@ -333,6 +349,8 @@ class Foo {
 
 When benchmarking complex code, the code often includes parameters that can influence its behavior. Therefore, to perform a deterministic benchmark, you may need to specify concrete values for these parameters. Benchmark code might look like this:
 
+Example: 
+
 <!-- run -->
 ```cangjie
 @Bench
@@ -343,6 +361,8 @@ func foo(): Unit {
 ```
 
 However, it is possible that this function is not called this way in the actual program. In other words, the value of `param` is computed at runtime in the real program, whereas here we use a literal constant, allowing the compiler to exploit this information during optimization. The issue is that we want the benchmarked `complexCode` to accurately simulate its behavior in the real program. Thus, the solution is to use strategies to hide the exact values from the compiler.
+
+Example: 
 
 <!-- run -->
 ```cangjie
