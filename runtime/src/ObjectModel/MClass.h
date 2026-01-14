@@ -526,11 +526,14 @@ private:
     // 0: functable, 1: is_sub_type
     std::pair<FuncPtr*, bool> FindMTable(U32 itfUUID);
 
-    inline bool IsMTableDescUnInitialized()
-    {
-        return (mTableDesc == nullptr) ||
-               (validInheritNum >> 15 == 1) ||
-               (reinterpret_cast<uintptr_t>(mTableDesc) >> 63 == 1);
+    inline bool IsMTableDescUnInitialized() {
+
+        return (mTableDesc == nullptr) || (validInheritNum >> 15 == 1)
+        // mtable bitmap optimization will be enabled for non-ARM architectures.
+#ifndef __arm__
+               || (reinterpret_cast<uintptr_t>(mTableDesc) >> 63 == 1)
+#endif
+            ;
     }
     // This function must be called before mTableDesc is overwritten.
     inline U64 GetResolveBitmapFromMTableDesc()
