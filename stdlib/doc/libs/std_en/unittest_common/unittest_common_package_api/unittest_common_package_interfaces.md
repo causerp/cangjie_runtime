@@ -1,6 +1,6 @@
 # Interfaces
 
-## interface DataProvider
+## interface DataProvider\<T>
 
 ```cangjie
 public interface DataProvider<T> {
@@ -8,7 +8,7 @@ public interface DataProvider<T> {
 }
 ```
 
-Function: A component of [DataStrategy](#interface-datastrategy) used to provide test data, where T specifies the data type provided by the provider.
+Function: A component of [DataStrategy](#interface-datastrategyt) used to provide test data, where T specifies the data type provided by the provider.
 
 ### func provide()
 
@@ -70,7 +70,7 @@ public interface DataShrinker<T> {
 }
 ```
 
-Function: A component of [DataStrategy](#interface-datastrategy) used to shrink data during testing, where T specifies the data type processed by this shrinker.
+Function: A component of [DataStrategy](#interface-datastrategyt) used to shrink data during testing, where T specifies the data type processed by this shrinker.
 
 ### func shrink(T)
 
@@ -163,18 +163,18 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 Function: Retrieves the component for providing test data.
 
 Parameters:
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
 Returns:
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - Component object for providing test data.
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - Component object for providing test data.
 
 #### func shrinker(Configuration)
 
@@ -213,18 +213,18 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 #### func provider(Configuration)
 
 ```cangjie
-public func provider(configuration: Configuration): DataProvider<T>
+public func provider(_: Configuration): DataProvider<T>
 ```
 
 Function: Retrieves the component for providing test data.
 
 Parameters:
 
-- configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
+- _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
 Returns:
 
-- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - Component object for providing test data.
+- [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - Component object for providing test data.
 
 #### func shrinker(Configuration)
 
@@ -316,7 +316,7 @@ Returns:
 
 - [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
-## interface KeyFor
+## interface KeyFor\<T>
 
 ```cangjie
 public interface KeyFor<T> {

@@ -149,7 +149,7 @@ func testAddIncorrectAssert() {
 失败断言可以让测试用例运行失败。`@Fail` 采用快速失败机制，运行至此断言则整个测试用例失败，后续断言都不再检查。`@FailExpect` 运行至此断言会使得用例失败，但后续断言依然会被检查。
 前述宏的参数为描述失败原因的字符串，`@Fail` 的返回值类型为 `Nothing` ， `@FailExpect` 的类型为 `Unit` 。
 
-举例来说:
+举例来说：
 
 <!-- run -->
 ```cangjie
@@ -180,7 +180,7 @@ func validate_even_number_generator() {
 运行至此断言当预期抛出的异常类型未被抛出时，用例将失败，`@AssertThrows` 将不再进行后续检查，而 `@ExpectThrows` 将继续检查。
 前述宏的属性入参为预期抛出的异常类型列表，通过 `|` 隔离不同异常类型，当没有属性入参时预期抛出异常基类 `Exception` 。入参为预期抛出异常的表达式或代码块。
 
-举例来说:
+举例来说：
 
 <!-- code_no_check -->
 ```cangjie
@@ -226,7 +226,7 @@ let e: C = @AssertThrows[A | B](foo())
 
 #### `@ExpectThrows` 的返回类型
 
-`@ExpectThrows` 检查失败后也会继续执行，在指定的异常不超过一个时，它返回的类型是 Option\<T>，其中 `T` 是预期的异常类型:
+`@ExpectThrows` 检查失败后也会继续执行，在指定的异常不超过一个时，它返回的类型是 Option\<T>，其中 `T` 是预期的异常类型：
 
 <!-- code_no_check -->
 ```cangjie
@@ -264,18 +264,20 @@ a > b with delta <=> !a.isNear(b, delta) && a > b
 <!-- run -->
 ```cangjie
 // 基础类型
+import std.math.*
+
 @Test
 func test1() {
     @Expect(1.0, 1.001, delta: 0.001) // 解糖为 @Expect(1.0 == 1.001, delta: 0.001)
     @Expect(1.0 == 1.001, delta: 0.001)
-    @Expect(1.0 != 1.901, delta: RelativeDelta(absoluteDelta: 0.001, relativeDelta: 0.02))
+    @Expect(1.0 != 1.901, delta: RelativeDelta(absolute: 0.001, relative: 0.02))
     @Expect(1.0 < 1.401, delta: 0.001)
 }
 // 自定义类型
 class Point <: NearEquatable<Point, Point> {
     Point(let x: Int64, let y: Int64) { }
 
-    public func isNear(obj: Point, delta: Point): Bool {
+    public func isNear(obj: Point, delta!: Point): Bool {
         if (x < 0 || y < 0) {
             throw IllegalArgumentException("Coordinates must be non negative. Actual: ($x, $y)")
         }
@@ -363,7 +365,7 @@ class Foo {
 }
 ```
 
-为[参数化测试](./unittest_parameterized_tests.md#参数化测试)或参数化性能测试配置生命周期时，注意标识为 **before each** 或 **after each** 的步骤仅在执行测试用例或基准之前或之后为其所有参数执行一次。也就是说，从生命周期的角度看，使用不同参数执行多次的测试主体会被视为单个测试用例。
+为[参数化测试](./unittest_parameterized_tests.md)或参数化性能测试配置生命周期时，注意标识为 **before each** 或 **after each** 的步骤仅在执行测试用例或基准之前或之后为其所有参数执行一次。也就是说，从生命周期的角度看，使用不同参数执行多次的测试主体会被视为单个测试用例。
 
 如果参数化测试的每个参数都需要单独创建清理，需要将相应的代码配置在测试用例主体本身中。此外，还可以访问参数本身。
 
@@ -401,7 +403,7 @@ class Foo {
 1. `--filter=*` 匹配所有测试类
 2. `--filter=*.*` 匹配所有测试类所有测试用例（结果和*相同）
 3. `--filter=*.*Test,*.*case*` 匹配所有测试类中以 Test 结尾的用例，或者所有测试类中名字中带有 case 的测试用例
-4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case 的用例，或者名字中不带有 myTest 的测试用例
+4. `--filter=MyTest*.*Test,*.*case*,-*.*myTest` 匹配所有 MyTest 开头测试类中以 Test 结尾的用例，或者名字中带有 case 的用例，或者名字中不带有 myTest 的测试用例。
 
 ### `--dry-run`
 
@@ -419,7 +421,8 @@ class Foo {
 > **注意：**
 >
 > 如果没有符合指定标签类别的测试用例。框架将不运行任何内容。
-> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](./unittest_basics.md#--exclude-tags)。
+>
+> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](#-exclude-tags)。
 
 ### `--exclude-tags`
 
@@ -488,10 +491,7 @@ class Foo {
 
 该选项用于指定测试执行后生成的报告的格式。
 
-单元测试支持的格式：
-
-- `xml`：xml 格式的文件与测试套相对应，这是默认格式。
-- `xml-per-package`：xml 格式的文件与包相对应。
+目前，单元测试仅支持默认的 xml 格式。
 
 基准测试支持：
 
@@ -505,7 +505,7 @@ class Foo {
     - 原始测量值及其线性回归图。
     - 具有统计属性（例如平均值、中位数、R 平方、框架开销、标准差）及其置信区间的表。
 
-基准测试的默认使用的格式为:
+基准测试的默认使用的格式为：
 
 - `csv`
 

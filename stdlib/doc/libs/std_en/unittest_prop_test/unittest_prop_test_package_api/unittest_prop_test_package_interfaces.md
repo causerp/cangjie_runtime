@@ -15,7 +15,7 @@ Function: Provides methods for generating values within a specified range for di
 ### func arbitraryRange(RandomSource, T, T)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
+static func arbitraryRange(random: RandomSource, min: T, max: T): Generator<T>
 ```
 
 Function: Returns values generated within the specified range.
@@ -33,7 +33,7 @@ Returns:
 ### func max()
 
 ```cangjie
-func max(): T
+static func max(): T
 ```
 
 Function: Returns the maximum value.
@@ -45,7 +45,7 @@ Returns:
 ### func min()
 
 ```cangjie
-func min(): T
+static func min(): T
 ```
 
 Function: Returns the minimum value.
@@ -69,7 +69,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Float16, Float16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
+public static func arbitraryRange(random: RandomSource, min: Float16, max: Float16): Generator<Float16>
 ```
 
 Function: Returns values generated within the specified range.
@@ -87,7 +87,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Float16
+public static func max(): Float16
 ```
 
 Function: Returns the maximum value.
@@ -99,7 +99,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Float16
+public static func min(): Float16
 ```
 
 Function: Returns the minimum value.
@@ -123,7 +123,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Float32, Float32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float32, max: Float32): c<Float32>
+public static func arbitraryRange(random: RandomSource, min: Float32, max: Float32): Generator<Float32>
 ```
 
 Function: Returns values generated within the specified range.
@@ -141,7 +141,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Float32
+public static func max(): Float32
 ```
 
 Function: Returns the maximum value.
@@ -153,7 +153,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Float32
+public static func min(): Float32
 ```
 
 Function: Returns the minimum value.
@@ -177,7 +177,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Float64, Float64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
+public static func arbitraryRange(random: RandomSource, min: Float64, max: Float64): Generator<Float64>
 ```
 
 Function: Returns values generated within the specified range.
@@ -195,7 +195,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Float64
+public static func max(): Float64
 ```
 
 Function: Returns the maximum value.
@@ -207,7 +207,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Float64
+public static func min(): Float64
 ```
 
 Function: Returns the minimum value.
@@ -231,7 +231,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Int16, Int16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
+public static func arbitraryRange(random: RandomSource, min: Int16, max: Int16): Generator<Int16>
 ```
 
 Function: Returns values generated within the specified range.
@@ -249,7 +249,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Int16
+public static func max(): Int16
 ```
 
 Function: Returns the maximum value.
@@ -261,7 +261,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Int16
+public static func min(): Int16
 ```
 
 Function: Returns the minimum value.
@@ -285,7 +285,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Int32, Int32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
+public static func arbitraryRange(random: RandomSource, min: Int32, max: Int32): Generator<Int32>
 ```
 
 Function: Returns values generated within the specified range.
@@ -303,7 +303,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Int32
+public static func max(): Int32
 ```
 
 Function: Returns the maximum value.
@@ -315,7 +315,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Int32
+public static func min(): Int32
 ```
 
 Function: Returns the minimum value.
@@ -339,7 +339,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Int64, Int64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int64>
+public static func arbitraryRange(random: RandomSource, min: Int64, max: Int64): Generator<Int64>
 ```
 
 Function: Returns values generated within the specified range.
@@ -357,7 +357,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Int64
+public static func max(): Int64
 ```
 
 Function: Returns the maximum value.
@@ -369,7 +369,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Int64
+public static func min(): Int64
 ```
 
 Function: Returns the minimum value.
@@ -393,7 +393,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, Int8, Int8)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
+public static func arbitraryRange(random: RandomSource, min: Int8, max: Int8): Generator<Int8>
 ```
 
 Function: Returns values generated within the specified range.
@@ -411,7 +411,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): Int8
+public static func max(): Int8
 ```
 
 Function: Returns the maximum value.
@@ -423,7 +423,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): Int8
+public static func min(): Int8
 ```
 
 Function: Returns the minimum value.
@@ -445,7 +445,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, IntNative, IntNative)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
+public static func arbitraryRange(random: RandomSource, min: IntNative, max: IntNative): Generator<IntNative>
 ```
 
 Function: Returns values generated within the specified range.
@@ -463,7 +463,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): IntNative
+public static func max(): IntNative
 ```
 
 Function: Returns the maximum value.
@@ -475,7 +475,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): IntNative
+public static func min(): IntNative
 ```
 
 Function: Returns the minimum value.
@@ -499,7 +499,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, UInt16, UInt16)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
+public static func arbitraryRange(random: RandomSource, min: UInt16, max: UInt16): Generator<UInt16>
 ```
 
 Function: Returns values generated within the specified range.
@@ -517,7 +517,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): UInt16
+public static func max(): UInt16
 ```
 
 Function: Returns the maximum value.
@@ -529,7 +529,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): UInt16
+public static func min(): UInt16
 ```
 
 Function: Returns the minimum value.
@@ -553,7 +553,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, UInt32, UInt32)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
+public static func arbitraryRange(random: RandomSource, min: UInt32, max: UInt32): Generator<UInt32>
 ```
 
 Function: Returns values generated within the specified range.
@@ -571,7 +571,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): UInt32
+public static func max(): UInt32
 ```
 
 Function: Returns the maximum value.
@@ -583,7 +583,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): UInt32
+public static func min(): UInt32
 ```
 
 Function: Returns the minimum value.
@@ -607,7 +607,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, UInt64, UInt64)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
+public static func arbitraryRange(random: RandomSource, min: UInt64, max: UInt64): Generator<UInt64>
 ```
 
 Function: Returns values generated within the specified range.
@@ -625,7 +625,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): UInt64
+public static func max(): UInt64
 ```
 
 Function: Returns the maximum value.
@@ -637,7 +637,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): UInt64
+public static func min(): UInt64
 ```
 
 Function: Returns the minimum value.
@@ -661,7 +661,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, UInt8, UInt8)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
+public static func arbitraryRange(random: RandomSource, min: UInt8, max: UInt8): Generator<UInt8>
 ```
 
 Function: Returns values generated within the specified range.
@@ -679,7 +679,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): UInt8
+public static func max(): UInt8
 ```
 
 Function: Returns the maximum value.
@@ -691,7 +691,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): UInt8
+public static func min(): UInt8
 ```
 
 Function: Returns the minimum value.
@@ -715,7 +715,7 @@ Function: Implements methods for generating values within a specified range for 
 #### func arbitraryRange(RandomSource, UIntNative, UIntNative)
 
 ```cangjie
-func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
+public static func arbitraryRange(random: RandomSource, min: UIntNative, max: UIntNative): Generator<UIntNative>
 ```
 
 Function: Returns values generated within the specified range.
@@ -733,7 +733,7 @@ Returns:
 #### func max()
 
 ```cangjie
-func max(): UIntNative
+public static func max(): UIntNative
 ```
 
 Function: Returns the maximum value.
@@ -745,7 +745,7 @@ Returns:
 #### func min()
 
 ```cangjie
-func min(): UIntNative
+public static func min(): UIntNative
 ```
 
 Function: Returns the minimum value.
@@ -795,7 +795,7 @@ Parent Types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Bool>
+public static func arbitrary(random: RandomSource): Generator<Bool>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -823,7 +823,7 @@ Parent Types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float16>
+public static func arbitrary(random: RandomSource): Generator<Float16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -849,7 +849,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float32>
+public static func arbitrary(random: RandomSource): Generator<Float32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -877,7 +877,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Float64>
+public static func arbitrary(random: RandomSource): Generator<Float64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -905,7 +905,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int16>
+public static func arbitrary(random: RandomSource): Generator<Int16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -933,7 +933,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int32>
+public static func arbitrary(random: RandomSource): Generator<Int32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -961,7 +961,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int64>
+public static func arbitrary(random: RandomSource): Generator<Int64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -989,7 +989,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Int8>
+public static func arbitrary(random: RandomSource): Generator<Int8>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1017,7 +1017,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<IntNative>
+public static func arbitrary(random: RandomSource): Generator<IntNative>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1045,7 +1045,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Ordering>
+public static func arbitrary(random: RandomSource): Generator<Ordering>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1073,7 +1073,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Rune>
+public static func arbitrary(random: RandomSource): Generator<Rune>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1101,7 +1101,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<String>
+public static func arbitrary(random: RandomSource): Generator<String>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1129,7 +1129,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt16>
+public static func arbitrary(random: RandomSource): Generator<UInt16>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1157,7 +1157,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt32>
+public static func arbitrary(random: RandomSource): Generator<UInt32>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1185,7 +1185,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt64>
+public static func arbitrary(random: RandomSource): Generator<UInt64>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1213,7 +1213,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UInt8>
+public static func arbitrary(random: RandomSource): Generator<UInt8>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1241,7 +1241,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<UIntNative>
+public static func arbitrary(random: RandomSource): Generator<UIntNative>
 ```
 
 Function: Obtains a generator for random values of type T.
@@ -1269,14 +1269,14 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Unit>
+public static func arbitrary(_: RandomSource): Generator<Unit>
 ```
 
 Function: Obtains a generator for random values of type T.
 
 Parameters:
 
-- random: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
+- _: [RandomSource](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-randomsource) - Random number source.
 
 Returns:
 
@@ -1297,7 +1297,7 @@ Parent types:
 #### static func arbitrary(RandomSource)
 
 ```cangjie
-static func arbitrary(random: RandomSource): Generator<Array<T## interface Generator\<T>
+public static func arbitrary(random: RandomSource): Generator<Array<T## interface Generator\<T>
 
 ```cangjie
 public interface Generator<T> {
@@ -1410,7 +1410,7 @@ Function: Provides the capability to generate random primitive type data require
 ### func nextBool()
 
 ```cangjie
-public open func nextBool(): Bool
+func nextBool(): Bool
 ```
 
 Function: Retrieves a pseudo-random boolean value.
@@ -1422,7 +1422,7 @@ Returns:
 ### func nextFloat16()
 
 ```cangjie
-public open func nextFloat16(): Float16
+func nextFloat16(): Float16
 ```
 
 Function: Retrieves a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) in the range [0.0, 1.0).
@@ -1434,7 +1434,7 @@ Returns:
 ### func nextFloat32()
 
 ```cangjie
-public open func nextFloat32(): Float32
+func nextFloat32(): Float32
 ```
 
 Function: Retrieves a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) in the range [0.0, 1.0).
@@ -1446,7 +1446,7 @@ Returns:
 ### func nextFloat64()
 
 ```cangjie
-public open func nextFloat64(): Float64
+func nextFloat64(): Float64
 ```
 
 Function: Retrieves a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) in the range [0.0, 1.0).
@@ -1477,7 +1477,7 @@ Returns:
 ### func nextInt16()
 
 ```cangjie
-public open func nextInt16(): Int16
+func nextInt16(): Int16
 ```
 
 Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
@@ -1489,14 +1489,14 @@ Returns:
 ### func nextInt16(Int16)
 
 ```cangjie
-public open func nextInt16(upper: Int16): Int16
+func nextInt16(max: Int16): Int16
 ```
 
-Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
+- max: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max].
 
 Returns:
 
@@ -1504,12 +1504,12 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt32()
 
 ```cangjie
-public open func nextInt32(): Int32
+func nextInt32(): Int32
 ```
 
 Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
@@ -1521,14 +1521,14 @@ Returns:
 ### func nextInt32(Int32)
 
 ```cangjie
-public open func nextInt32(upper: Int32): Int32
+func nextInt32(max: Int32): Int32
 ```
 
-Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
+- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
 Returns:
 
@@ -1536,12 +1536,12 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt64()
 
 ```cangjie
-public open func nextInt64(): Int64
+func nextInt64(): Int64
 ```
 
 Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
@@ -1553,14 +1553,14 @@ Returns:
 ### func nextInt64(Int64)
 
 ```cangjie
-public open func nextInt64(upper: Int64): Int64
+func nextInt64(max: Int64): Int64
 ```
 
-Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
 Returns:
 
@@ -1568,12 +1568,12 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextInt8()
 
 ```cangjie
-public open func nextInt8(): Int8
+func nextInt8(): Int8
 ```
 
 Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
@@ -1585,14 +1585,14 @@ Returns:
 ### func nextInt8(Int8)
 
 ```cangjie
-public open func nextInt8(upper: Int8): Int8
+func nextInt8(max: Int8): Int8
 ```
 
-Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
+- max: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max].
 
 Returns:
 
@@ -1600,12 +1600,12 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 ### func nextIntNative()
 
 ```cangjie
-public func nextIntNative(): IntNative
+func nextIntNative(): IntNative
 ```
 
 Function: Retrieves a pseudo-random number of type [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative).
@@ -1617,7 +1617,7 @@ Returns:
 ### func nextUInt16()
 
 ```cangjie
-public open func nextUInt16(): UInt16
+func nextUInt16(): UInt16
 ```
 
 Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
@@ -1629,14 +1629,14 @@ Returns:
 ### func nextUInt16(UInt16)
 
 ```cangjie
-public open func nextUInt16(upper: UInt16): UInt16
+func nextUInt16(max: UInt16): UInt16
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) in the range [0, `max`).
 
 Parameters:
 
-- upper: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
+- max: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max].
 
 Returns:
 
@@ -1644,12 +1644,12 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` equals 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
 
 ### func nextUInt32()
 
 ```cangjie
-public open func nextUInt32(): UInt32
+func nextUInt32(): UInt32
 ```
 
 Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
@@ -1661,14 +1661,14 @@ Returns:
 ### func nextUInt32(UInt32)
 
 ```cangjie
-public open func nextUInt32(upper: UInt32): UInt32
+func nextUInt32(max: UInt32): UInt32
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) in the range [0, `max`).
 
 Parameters:
 
-- upper: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
+- max: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max].
 
 Returns:
 
@@ -1676,34 +1676,44 @@ Returns:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` equals 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
 
 ### func nextUInt64()
 
 ```cangjie
-public open func nextUInt64(): UInt64
+func nextUInt64(): UInt64
 ```
 
 Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
 
 Returns:
 
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64.Max].
 
 ### func nextUInt64(UInt64)
 
 ```cangjie
-public open func nextUInt64(upper: UInt64): UInt64
+func nextUInt64(max: UInt64): UInt64
 ```
 
-Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) in the range [0, `upper`).
+Function: Retrieves a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) in the range [0, `max`).
 
 Parameters:
 
-- upper: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound of the pseudo-random number range (excluding `upper`), with valid range (0, [UInt64](../../core/core_package_api/core_package_int### func nextUInt8()
+- max: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - The upper bound of the pseudo-random number range (excluding `max`), with valid range (0, [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)]
+
+Returns:
+
+- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - A pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64.Max].
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` equals 0.
+
+### func nextUInt8()
 
 ```cangjie
-public open func nextUInt8(): UInt8
+func nextUInt8(): UInt8
 ```
 
 Function: Retrieves a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
@@ -1715,14 +1725,14 @@ Returns:
 ### func nextUInt8(UInt8)
 
 ```cangjie
-public open func nextUInt8(upper: UInt8): UInt8
+func nextUInt8(max: UInt8): UInt8
 ```
 
 Function: Retrieves a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) within the range [0, `upper`).
 
 Parameters:
 
-- upper: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The upper bound (exclusive) of the generated pseudo-random number range, with valid values in (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max].
+- max: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - The upper bound (exclusive) of the generated pseudo-random number range, with valid values in (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max].
 
 Returns:
 
@@ -1735,7 +1745,7 @@ Exceptions:
 ### func nextUIntNative()
 
 ```cangjie
-public func nextUIntNative(): UIntNative
+func nextUIntNative(): UIntNative
 ```
 
 Function: Retrieves a pseudo-random number of type [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative).
@@ -1747,7 +1757,7 @@ Returns:
 ### func suggestBool()
 
 ```cangjie
-public open func suggestBool(): Bool
+func suggestBool(): Bool
 ```
 
 Function: Retrieves a pseudo-random boolean value.
@@ -1759,7 +1769,7 @@ Returns:
 ### func suggestRune()
 
 ```cangjie
-public open func suggestRune(): Rune
+func suggestRune(): Rune
 ```
 
 Function: Retrieves a pseudo-random value of type [Rune](../../core/core_package_api/core_package_intrinsics.md#rune).
@@ -1771,7 +1781,7 @@ Returns:
 ### func suggestFloat16()
 
 ```cangjie
-public open func suggestFloat16(): Float16
+func suggestFloat16(): Float16
 ```
 
 Function: Retrieves a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) within the range [0.0, 1.0).
@@ -1783,7 +1793,7 @@ Returns:
 ### func suggestFloat32()
 
 ```cangjie
-public open func suggestFloat32(): Float32
+func suggestFloat32(): Float32
 ```
 
 Function: Retrieves a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) within the range [0.0, 1.0).
@@ -1795,7 +1805,7 @@ Returns:
 ### func suggestFloat64()
 
 ```cangjie
-public open func suggestFloat64(): Float64
+func suggestFloat64(): Float64
 ```
 
 Function: Retrieves a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) within the range [0.0, 1.0).
@@ -1807,7 +1817,7 @@ Returns:
 ### func suggestInt16()
 
 ```cangjie
-public open func suggestInt16(): Int16
+func suggestInt16(): Int16
 ```
 
 Function: Retrieves a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
@@ -1861,7 +1871,7 @@ Function: Extends the Random type with the RandomSource interface.
 #### func nextBool()
 
 ```cangjie
-public open func nextBool(): Bool
+public func nextBool(): Bool
 ```
 
 Function: Generates a pseudo-random boolean value.
@@ -1873,7 +1883,7 @@ Returns:
 #### func nextFloat16()
 
 ```cangjie
-public open func nextFloat16(): Float16
+public func nextFloat16(): Float16
 ```
 
 Function: Generates a pseudo-random number of type [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) in the range [0.0, 1.0).
@@ -1885,7 +1895,7 @@ Returns:
 #### func nextFloat32()
 
 ```cangjie
-public open func nextFloat32(): Float32
+public func nextFloat32(): Float32
 ```
 
 Function: Generates a pseudo-random number of type [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) in the range [0.0, 1.0).
@@ -1897,7 +1907,7 @@ Returns:
 #### func nextFloat64()
 
 ```cangjie
-public open func nextFloat64(): Float64
+public func nextFloat64(): Float64
 ```
 
 Function: Generates a pseudo-random number of type [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) in the range [0.0, 1.0).
@@ -1928,7 +1938,7 @@ Returns:
 #### func nextInt16()
 
 ```cangjie
-public open func nextInt16(): Int16
+public func nextInt16(): Int16
 ```
 
 Function: Generates a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).
@@ -1940,7 +1950,7 @@ Returns:
 #### func nextInt16(Int16)
 
 ```cangjie
-public open func nextInt16(upper: Int16): Int16
+public func nextInt16(upper: Int16): Int16
 ```
 
 Function: Generates a pseudo-random number of type [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) in the range [0, `upper`).
@@ -1960,7 +1970,7 @@ Exceptions:
 #### func nextInt32()
 
 ```cangjie
-public open func nextInt32(): Int32
+public func nextInt32(): Int32
 ```
 
 Function: Generates a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).
@@ -1972,7 +1982,7 @@ Returns:
 #### func nextInt32(Int32)
 
 ```cangjie
-public open func nextInt32(upper: Int32): Int32
+public func nextInt32(upper: Int32): Int32
 ```
 
 Function: Generates a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `upper`).
@@ -1992,7 +2002,7 @@ Exceptions:
 #### func nextInt64()
 
 ```cangjie
-public open func nextInt64(): Int64
+public func nextInt64(): Int64
 ```
 
 Function: Generates a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).
@@ -2004,7 +2014,7 @@ Returns:
 #### func nextInt64(Int64)
 
 ```cangjie
-public open func nextInt64(upper: Int64): Int64
+public func nextInt64(upper: Int64): Int64
 ```
 
 Function: Generates a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `upper`).
@@ -2024,7 +2034,7 @@ Exceptions:
 #### func nextInt8()
 
 ```cangjie
-public open func nextInt8(): Int8
+public func nextInt8(): Int8
 ```
 
 Function: Generates a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).
@@ -2036,7 +2046,7 @@ Returns:
 #### func nextInt8(Int8)
 
 ```cangjie
-public open func nextInt8(upper: Int8): Int8
+public func nextInt8(upper: Int8): Int8
 ```
 
 Function: Generates a pseudo-random number of type [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) in the range [0, `upper`).
@@ -2068,7 +2078,7 @@ Returns:
 #### func nextUInt16()
 
 ```cangjie
-public open func nextUInt16(): UInt16
+public func nextUInt16(): UInt16
 ```
 
 Function: Generates a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).
@@ -2080,7 +2090,7 @@ Returns:
 #### func nextUInt16(UInt16)
 
 ```cangjie
-public open func nextUInt16(upper: UInt16): UInt16
+public func nextUInt16(upper: UInt16): UInt16
 ```
 
 Function: Generates a pseudo-random number of type [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) in the range [0, `upper`).
@@ -2100,7 +2110,7 @@ Exceptions:
 #### func nextUInt32()
 
 ```cangjie
-public open func nextUInt32(): UInt32
+public func nextUInt32(): UInt32
 ```
 
 Function: Generates a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).
@@ -2112,7 +2122,7 @@ Returns:
 #### func nextUInt32(UInt32)
 
 ```cangjie
-public open func nextUInt32(upper: UInt32): UInt32
+public func nextUInt32(upper: UInt32): UInt32
 ```
 
 Function: Generates a pseudo-random number of type [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) in the range [0, `upper`).
@@ -2132,7 +2142,7 @@ Exceptions:
 #### func nextUInt64()
 
 ```cangjie
-public open func nextUInt64(): UInt64
+public func nextUInt64(): UInt64
 ```
 
 Function: Generates a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).
@@ -2144,7 +2154,7 @@ Returns:
 #### func nextUInt64(UInt64)
 
 ```cangjie
-public open func nextUInt64(upper: UInt64): UInt64
+public func nextUInt64(upper: UInt64): UInt64
 ```
 
 Function: Generates a pseudo-random number of type [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) in the range [0, `upper`).
@@ -2164,7 +2174,7 @@ Exceptions:
 #### func nextUInt8()
 
 ```cangjie
-public open func nextUInt8(): UInt8
+public func nextUInt8(): UInt8
 ```
 
 Function: Generates a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).
@@ -2176,7 +2186,7 @@ Returns:
 #### func nextUInt8(UInt8)
 
 ```cangjie
-public open func nextUInt8(upper: UInt8): UInt8
+public func nextUInt8(upper: UInt8): UInt8
 ```
 
 Function: Generates a pseudo-random number of type [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) in the range [0, `upper`).
@@ -2208,7 +2218,7 @@ Returns:
 #### func suggestBool()
 
 ```cangjie
-public open func suggestBool(): Bool
+public func suggestBool(): Bool
 ```
 
 Function: Generates a pseudo-random boolean value.
@@ -2227,6 +2237,28 @@ Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - An iterator of possible "smaller" values.
 
+## interface Shrink\<T>
+
+```cangjie
+public interface Shrink<T> {
+    func shrink(): Iterable<T>
+}
+```
+
+Function: shrink the T type numbers to a smaller group.
+
+### func shrink()
+
+```cangjie
+func shrink(): Iterable<T>
+```
+
+Function: shrink the T type numbers to a smaller group.
+
+return type:
+
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - a smaller group.
+
 ### extend Bool <: Shrink\<Bool>
 
 ```cangjie
@@ -2242,7 +2274,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Bool>
+public func shrink(): Iterable<Bool>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2266,7 +2298,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int16>
+public func shrink(): Iterable<Int16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2290,7 +2322,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int32
+public func shrink(): Iterable<Int32
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2314,7 +2346,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int64>
+public func shrink(): Iterable<Int64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2338,7 +2370,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Int8>
+public func shrink(): Iterable<Int8>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2362,7 +2394,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<IntNative>
+public func shrink(): Iterable<IntNative>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2386,7 +2418,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Rune>
+public func shrink(): Iterable<Rune>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2410,7 +2442,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<String>
+public func shrink(): Iterable<String>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2434,7 +2466,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt16>
+public func shrink(): Iterable<UInt16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2458,7 +2490,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt32>
+public func shrink(): Iterable<UInt32>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2482,7 +2514,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt64>
+public func shrink(): Iterable<UInt64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2506,7 +2538,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UInt8>
+public func shrink(): Iterable<UInt8>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2530,7 +2562,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<UIntNative>
+public func shrink(): Iterable<UIntNative>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2554,7 +2586,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Unit>
+public func shrink(): Iterable<Unit>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2578,7 +2610,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float16>
+public func shrink(): Iterable<Float16>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2602,7 +2634,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float32>
+public func shrink(): Iterable<Float32>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2626,7 +2658,7 @@ Parent type:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Float64>
+public func shrink(): Iterable<Float64>
 ```
 
 Function: Shrinks this value into a set of possible "smaller" values.
@@ -2648,7 +2680,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Array<T>>
+public func shrink(): Iterable<Array<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2672,7 +2704,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<Option<T>>
+public func shrink(): Iterable<Option<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2696,7 +2728,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<ArrayList<T>>
+public func shrink(): Iterable<ArrayList<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2720,7 +2752,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashSet<T>>
+public func shrink(): Iterable<HashSet<T>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.
@@ -2744,7 +2776,7 @@ Parent Types:
 #### func shrink()
 
 ```cangjie
-func shrink(): Iterable<HashMap<K, V>>
+public func shrink(): Iterable<HashMap<K, V>>
 ```
 
 Function: Reduces this value to a set of possible "smaller" values.

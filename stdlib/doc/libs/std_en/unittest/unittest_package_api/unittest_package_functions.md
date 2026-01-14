@@ -50,7 +50,7 @@ public func assertEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    isDelta!: Bool = false,
+    isDelta!: Bool,
     optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
@@ -122,7 +122,7 @@ public func expectEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    optParentCtx!: ?AssertionCtx
+    optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
 
@@ -144,8 +144,8 @@ public func expectEqual<T>(
     rightStr: String,
     expected: T,
     actual: T,
-    isDelta!: Bool = false,
-    optParentCtx!: ?AssertionCtx
+    isDelta!: Bool,
+    optParentCtx!: ?AssertionCtx = None
 ): Unit where T <: Equatable<T>
 ```
 
@@ -188,14 +188,14 @@ Parameters:
 
 ```cangjie
 public func invokeCustomAssert<T>(
-    passerdArgs: Array<String>,
+    passedArgs: Array<String>,
     caller: String,
     assert: (AssertionCtx) -> T,
     optParentCtx!: ?AssertionCtx = None
 ): T
 ```
 
-Function: Executes user-defined assertion functions specified by [`@Assert\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
+Function: Executes user-defined assertion functions specified by [`@Assert[caller](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#assert-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
 
 Parameters:
 
@@ -212,14 +212,14 @@ Returns:
 
 ```cangjie
 public func invokeCustomExpect(
-    passerdArgs: Array<String>,
+    passedArgs: Array<String>,
     caller: String,
     expect: (AssertionCtx) -> Any,
     optParentCtx!: ?AssertionCtx = None
 ): Unit
 ```
 
-Function: Executes user-defined assertion functions specified by [`@Expect\[caller\](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
+Function: Executes user-defined assertion functions specified by [`@Expect[caller](passerArgs)`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-宏) used in [`@Test`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#test-宏), [`@TestCase`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#testcase-宏), or [`@CustomAssertion`](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) macros.
 
 Parameters:
 

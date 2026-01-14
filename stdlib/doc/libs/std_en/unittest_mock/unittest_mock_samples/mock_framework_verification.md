@@ -280,7 +280,7 @@ public class Verify {
 
     public static func clearInvocationLog(): Unit
 
-    public static func noInteractions(mocks: Array<Object>): Unit
+    public static func noInteractions(mockObjects: Array<Object>): Unit
 }
 ```
 

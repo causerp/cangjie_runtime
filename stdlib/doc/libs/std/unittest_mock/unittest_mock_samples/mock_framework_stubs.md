@@ -266,7 +266,7 @@ foo.bar(1) // "Odd"
 由于每个匹配器都只是 `Matchers` 类的静态函数，因此可以使用**扩展**来自定义参数匹配器。新参数匹配器需要调用现有的（实例）。
 
 <!-- 链接至Matchers类 （自动生成的 API 手册） -->
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 
@@ -283,7 +283,7 @@ extend Matchers {
 
 函数参数匹配器可以包含参数。
 
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 
@@ -320,7 +320,7 @@ setter 类似于返回 `Unit` 的函数。特殊操作 `doesNothing()` 可用于
 
 <!-- 待办：链接至字段操作 -->
 
-<!--compile-->
+<!-- compile -->
 ```cangjie
 import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
@@ -349,8 +349,6 @@ func test() {
 通常，当一些调用匹配不到任何桩时将抛出异常。但是，对于某些常见情况，mock 对象可以配置增加默认行为，此时，当匹配不到任何桩时，将执行默认行为。这通过启用**桩模式**来实现。
 
 有两种可用的模式 `ReturnsDefaults` 和 `SyntheticFields` 。这些模式通过枚举类型 `StubMode` 表示。可以通过在创建 mock 对象时将其传递给 `mock` 函数来为特定的 mock 对象启用桩模式。
-
-<!-- code_no_check -->
 
 ```cangjie
 public func mock<T>(modes: Array<StubMode>): T

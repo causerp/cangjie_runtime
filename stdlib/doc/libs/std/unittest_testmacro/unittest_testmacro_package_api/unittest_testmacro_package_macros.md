@@ -35,14 +35,14 @@
 功能：`@Bench` 宏用于标记要执行多次的函数并计算该函数的预期执行时间。
 
 此类函数将分批执行，并针对整个批次测量执行时间。这种测量将重复多次以获得结果的统计分布，并将计算该分布的各种统计参数。
-当前支持的参数如下:
+当前支持的参数如下：
 
 - 中位数
 - 用作误差估计的中位数 99% 置信区间的绝对值
 - 中位数 99% 置信区间的相对值
 - 平均值
 
-参数化的 DSL 与 `@Bench` 结合的示例如下，具体语法与规则详见[`@TestCase` 宏](#testcase-宏)章节：
+参数化的 DSL 与 `@Bench` 结合的示例如下，具体语法与规则详见 [`@TestCase` 宏](#testcase-宏)章节：
 
 <!-- compile -->
 
@@ -120,7 +120,7 @@ TP: default, time elapsed: 68610430659 ns, Result:
 - `generationSteps`: 类型为 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) ：参数化测试算法中的生成值的最大步数。
 - `reductionSteps` ：类型为 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64): 参数化测试算法中的缩减值的最大步数。
 
-以下参数一般用于被 `@Bench` 修饰的 Benchmark 测试函数:
+以下参数一般用于被 `@Bench` 修饰的 Benchmark 测试函数：
 
 - `explicitGC` ：类型为 [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype): Benchmark 函数测试期间如何调用 [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)。默认值为 [ExplicitGcType](../../unittest/unittest_package_api/unittest_package_enums.md#enum-explicitgctype).Light 。
 - `baseline` ：类型为 [String](../../core/core_package_api/core_package_structs.md#struct-string) : 参数值为 Benchmark 函数的名称，作为比较 Benchmark 函数执行结果的基线。该结果值将作为附加列添加到输出中，其中将包含比较结果。
@@ -173,43 +173,71 @@ Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
 
 `@CustomAssertion` 修饰的函数存在返回值时，它将被 `@Assert` 宏返回。
 
-示例如下:
+示例如下：
 
 <!-- compile -->
 ```cangjie
+public class A {}
+
+@CustomAssertion
+public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
+    if (let Some(res) <- value) {
+        return res
+    }
+    ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
+}
+
+@CustomAssertion
+public func checkA(ctx: AssertionCtx, value: A): Unit {
+    /* ... */
+}
+func maybeReturnsSomeObject() { Option<A>.None }
+
 @Test
 func testfunc() {
-    let maybeValue: Option<SomeObject> = maybeReturnsSomeObject()
+    let maybeValue: Option<A> = maybeReturnsSomeObject()
     let value = @Assert[checkNotNone](maybeValue)
 
-    @Assert[otherAssertion](value)
+    @Assert[checkA](value)
 }
 ```
 
-> 注意: 自定义 `@Expect` 将总是返回 `Unit` ，不论 `@CustomAssertion` 修饰的函数返回值为什么类型。
+> **注意：**
+>
+> 自定义 `@Expect` 将总是返回 `Unit` ，不论 `@CustomAssertion` 修饰的函数返回值为什么类型。
 
 ### 嵌套断言
 
-在 `@CustomAssertion` 定义中， [`@Assert`](#assert-宏)/[`@Expect`](#expect-宏) (包括自定义断言), [`@AssertThrows`](#assertthrows-宏)/[`@ExpectThrows`](#expectthrows-宏), [`@Fail`](#fail-宏)/[`@FailExpect`](#failexpect-宏)宏均可被调用，形成嵌套。
+在 `@CustomAssertion` 定义中， [`@Assert`](#assert-宏)/[`@Expect`](#expect-宏) （包括自定义断言）, [`@AssertThrows`](#assertthrows-宏)/[`@ExpectThrows`](#expectthrows-宏), [`@Fail`](#fail-宏)/[`@FailExpect`](#failexpect-宏)宏均可被调用，形成嵌套。
 
-例如:
+例如：
 
 <!-- compile -->
 ```cangjie
+import std.collection.*
+
 @CustomAssertion
-func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Interable<?T>): Array<T> {
+public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
+    if (let Some(res) <- value) {
+        return res
+    }
+    ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
+}
+
+@CustomAssertion
+func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Iterable<?T>): Array<T> {
     iter |> map { it: ?T => @Assert[checkNotNone](it)} |> collectArray
 }
 
 @Test
 func customTest() {
-    @Assert[iterWithoutNone]([true, false, Option<Bool>.None])
+    @Assert[iterableWithoutNone]([true, false, Option<Bool>.None])
 }
 ```
 
 ```text
 [ FAILED ] CASE: customTest
-Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
+Assert Failed: @Assert[iterableWithoutNone]([true, false, Option < Bool >.None])
 └── @Assert[checkNotNone](it):
     └── Assert Failed: `('it' was expected to be Some(_) but got None)`
 ```
@@ -221,13 +249,14 @@ Assert Failed: @Assert[iterWithoutNone]([true, false, Option < Bool >.None])
 
 当指定泛型类型参数时，可使用与常规语法来完成。
 
-例如:
+例如：
 
-<!-- compile-->
+<!-- compile -->
 ```cangjie
 @CustomAssertion
-public func doesThrow<E>(ctx: AssertionCtx, codeblock: () -> Any): E where E <: Excepiton {
-    ...
+public func doesThrow<E>(ctx: AssertionCtx, codeblock: () -> Any): E where E <: Exception {
+    /*...*/
+    throw Exception()
 }
 
 @Test
@@ -344,7 +373,7 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 ## `@Strategy` 宏
 
-功能：在函数上使用 `@Strategy` 可从该函数创建新的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 。它是一个用于组合、映射和重用策略的便捷 API。
+功能：在函数上使用 `@Strategy` 可从该函数创建新的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 。它是一个用于组合、映射和重用策略的便捷 API。
 
 标记为 `@Strategy` 的函数必须满足以下条件：
 
@@ -352,11 +381,11 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 2. 参数必须与宏参数中指定的 DSL 相对应。
 3. 可以在 `@Test` 标记的类的外部和内部使用。
 
-> 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的地方使用。
+> 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的地方使用。
 
 ## `@Tag` 宏
 
-`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#--include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#--exclude-tags) 运行选项过滤带有这些标签的测试实体。
+`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#-include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#-exclude-tags) 运行选项过滤带有这些标签的测试实体。
 
 ### 支持的语法
 
@@ -444,7 +473,7 @@ public class UnittestClass {
 
 ## `@TestBuilder` 宏
 
-功能：声明一个[动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md#动态测试)套。
+功能：声明一个[动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md)套。
 
 ## `@TestCase` 宏
 
@@ -460,7 +489,7 @@ public class UnittestClass {
 @Test
 class Tests {
     @TestCase
-    func fooTest(): Unit {...}
+    func fooTest(): Unit {/*...*/}
 }
 ```
 
@@ -473,20 +502,20 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 ```
 
 此 DSL 可用于 `@Test`、`@Strategy`、`@Bench` 和 `@TestCase` 宏，其中 `@Test` 仅在顶级函数上时才可用。如果测试函数中同时存在 `@Bench` 和 `@TestCase` ，则只有 `@Bench` 可以包含 DSL 。
-在 DSL 语法中，`in` 之前的标识符（在上面的示例中为 `x` 、`y` 和 `z` ）必须直接对应于函数的参数，参数源（在上面的示例中为`source1` 、`source2` 和 `source3`）是任何有效的仓颉表达式（该表达式类型必须实现接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> 或 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)\<T>，详见下文）。
-参数源的元素类型（此类型作为泛型参数 `T` 提供给接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> ）必须与相应函数参数的类型严格相同。
+在 DSL 语法中，`in` 之前的标识符（在上面的示例中为 `x` 、`y` 和 `z` ）必须直接对应于函数的参数，参数源（在上面的示例中为`source1` 、`source2` 和 `source3`）是任何有效的仓颉表达式（该表达式类型必须实现接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> 或 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort)\<T>，详见下文）。
+参数源的元素类型（此类型作为泛型参数 `T` 提供给接口 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> ）必须与相应函数参数的类型严格相同。
 
 支持的参数源类型如下：
 
 - Arrays: `x in [1,2,3,4]` 。
 - Ranges: `x in 0..14` 。
-- 随机生成的值: `x in random()` 。
-- 从 json 文件中读取到的值: `x in json("filename.json")` 。
-- 从 csv 文件中读取到的值: `x in csv("filename.csv")` 。
-- `@Strategy` 修饰的函数: `x in nameOfStrategyAnnotatedFunction` 。
+- 随机生成的值：`x in random()` 。
+- 从 json 文件中读取到的值：`x in json("filename.json")` 。
+- 从 csv 文件中读取到的值：`x in csv("filename.csv")` 。
+- `@Strategy` 修饰的函数：`x in nameOfStrategyAnnotatedFunction` 。
 - 使用 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 组合数据策略的结果。
 
-> 高级用户可以通过定义自己的类型并且实现 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> 接口来引入自己的参数源类型。
+> 高级用户可以通过定义自己的类型并且实现 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> 接口来引入自己的参数源类型。
 
 使用 `random()` 的随机生成函数默认支持以下类型：
 
@@ -503,7 +532,7 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 
 ## `@TestTemplate` 宏
 
-功能: `@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模版](../../unittest/unittest_samples/unittest_test_templates.md)。
+功能：`@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模版](../../unittest/unittest_samples/unittest_test_templates.md)。
 
 ## `@Timeout` 宏
 
@@ -519,9 +548,9 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 功能：`@Types` 宏为测试类或测试函数提供类型参数。它可以放置在测试类或测试函数上。
 
 语法规则为 `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`
-其中 `Id1`、`Id2`... 是有效类型参数标识符，`Type1`、`Type2`、`Type3`...是有效的仓颉类型。
+其中 `Id1`、`Id2`... 是有效类型参数标识符，`Type1`、`Type2`、`Type3`... 是有效的仓颉类型。
 
-`@Types` 宏有以下限制:
+`@Types` 宏有以下限制：
 
 - 必须与 `@Test`， `@TestCase` 或 `@Bench` 宏共同使用。
 - 一个声明只能有一个 `@Types` 宏修饰。

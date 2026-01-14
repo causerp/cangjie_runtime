@@ -112,7 +112,7 @@ public func setArgsAliases(aliases: Array<String>): Unit
 
 参数：
 
-- aliases: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 标识符数组。数组的大小应与参数列表匹配(除 [`AssertionCtx`](#class-assertionctx) 外)。
+- aliases: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 标识符数组。数组的大小应与参数列表匹配（除 [`AssertionCtx`](#class-assertionctx) 外）。
 
 ## class Benchmark
 
@@ -345,7 +345,7 @@ public class CartesianProductProcessor<T0, T1> <: DataStrategyProcessor<(T0, T1)
 public CartesianProductProcessor(let left: DataStrategyProcessor<T0>, let right: DataStrategyProcessor<T1>)
 ```
 
-功能：CartesianProductProcessor构造函数。
+功能：CartesianProductProcessor 构造函数。
 
 参数：
 
@@ -405,7 +405,7 @@ Summary: TOTAL: 1
 public ConsoleReporter(let colored!: Bool = true)
 ```
 
-功能：ConsoleReporter构造函数。
+功能：ConsoleReporter 构造函数。
 
 参数：
 
@@ -467,7 +467,7 @@ Summary: TOTAL: 1
 public TextReporter(let into!: PP)
 ```
 
-功能：TextReporter构造函数。
+功能：TextReporter 构造函数。
 
 参数：
 
@@ -523,7 +523,7 @@ Case,Args,Median,Err,Err%,Mean,Unit,Measurement
 public CsvReporter(let directory: Path)
 ```
 
-功能：CsvReporter构造函数。
+功能：CsvReporter 构造函数。
 
 参数：
 
@@ -599,7 +599,7 @@ Case,Args,BatchSize,Duration,Unit,Measurement
 public CsvRawReporter(let directory: Path)
 ```
 
-功能：CsvRawReporter构造函数。
+功能：CsvRawReporter 构造函数。
 
 参数：
 
@@ -608,18 +608,18 @@ public CsvRawReporter(let directory: Path)
 ## class DataStrategyProcessor\<T>
 
 ```cangjie
-abstract sealed class DataStrategyProcessor<T> {}
+sealed abstract class DataStrategyProcessor<T> {}
 ```
 
-功能：所有 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 组件的基类。该类的实例由 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。
+功能：所有 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 组件的基类。该类的实例由 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。
 
-### prop isInfinite
+### prop isInfinite 
 
-```cangjie
-protected prop isInfinite: Bool
+```cangjie 
+protected prop isInfinite: Bool 
 ```
 
-功能：获取该策略是否为无限。
+功能：获取该策略是否为无限。 
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -758,11 +758,11 @@ protected func shrinkLastItem(configuration: Configuration, engine: LazyCyclicNo
 public static func start(s: DataStrategy<T>, name: String): SimpleProcessor<T>
 ```
 
-功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的组合和映射的起点。
+功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
 
 参数：
 
-- s: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 数据策略。
+- s: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 数据策略。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 
 返回值：
@@ -775,14 +775,14 @@ public static func start(s: DataStrategy<T>, name: String): SimpleProcessor<T>
 public static func start<U>(
     f: () -> DataStrategy<U>,
     name: String
-): DataStrategyProcessor<U> where U <: BenchInputProvider < U >
+): DataStrategyProcessor<U> where U <: BenchInputProvider < T >
 ```
 
-功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的组合和映射的起点。
+功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
 
 参数：
 
-- f: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<U> - 生成数据策略的闭包。
+- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<U> - 生成数据策略的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 
 返回值：
@@ -799,11 +799,11 @@ public static func start(
 ): SimpleProcessor<T>
 ```
 
-功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的组合和映射的起点。
+功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
 
 参数：
 
-- f: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 生成数据策略的闭包。
+- f: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 生成数据策略的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 为实现不同返回值的重构增加的参数。
 
@@ -814,15 +814,15 @@ public static func start(
 ### static func start(() -> DataStrategyProcessor\<T>, String)
 
 ```cangjie
-public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataStrategyProcessor<T>
+public static func start(f: () -> DataStrategyProcessor<T>, _: String): DataStrategyProcessor<T>
 ```
 
-功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的组合和映射的起点。
+功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
 
 参数：
 
 - f: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 生成数据策略处理器的闭包。
-- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
+- _: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 
 返回值：
 
@@ -833,12 +833,12 @@ public static func start(f: () -> DataStrategyProcessor<T>, name: String): DataS
 ```cangjie
 public static func start<U>(
     f: () -> DataStrategyProcessor<U>,
-    name: String,
+    _: String,
     x!: Int64 = 0
 ): DataStrategyProcessor<U> where U <: BenchInputProvider<T>
 ```
 
-功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy) 的组合和映射的起点。
+功能：[DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的组合和映射的起点。
 
 参数：
 
@@ -848,7 +848,7 @@ public static func start<U>(
 
 返回值：
 
-- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> where U <: [BenchInputProvider](./unittest_package_interfaces.md#interface-benchinputprovider)\<T> - 数据策略处理器。
+- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 数据策略处理器。
 
 ### extend \<T> DataStrategyProcessor\<T>
 
@@ -894,11 +894,11 @@ public func mapWithConfig<R>(f: (T, Configuration) -> R): MapProcessor<T, R>
 public func flatMap<R>(f: (T) -> DataProvider<R>): FlatMapProcessor<T, R>
 ```
 
-功能：简单地将 `f` 应用于原始数据策略的每个项目，然后展平结果。 [Shrink](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt)  也会发生在原始输入上，然后进行 [flatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 。
+功能：简单地将 `f` 应用于原始数据策略的每个项目，然后展平结果。 [Shrink](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-shrinkt)  也会发生在原始输入上，然后进行 [flatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 。
 
 参数：
 
-- f: (T) -> [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<R> - 需要增加的处理逻辑函数。
+- f: (T) -> [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<R> - 需要增加的处理逻辑函数。
 
 返回值：
 
@@ -914,7 +914,7 @@ public func flatMapStrategy<R>(f: (T) -> DataStrategy<R>): FlatMapStrategyProces
 
 参数：
 
-- f: (T) -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<R> - 需要增加的处理逻辑函数。
+- f: (T) -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<R> - 需要增加的处理逻辑函数。
 
 返回值：
 
@@ -960,7 +960,7 @@ public func productWithUnit<P>(p: P): MapProcessor<(T, Unit), T> where P <: Data
 public class FlatMapProcessor<T,R> <: DataStrategyProcessor<R> {}
 ```
 
-功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。
+功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。
 
 父类型：
 
@@ -972,7 +972,7 @@ public class FlatMapProcessor<T,R> <: DataStrategyProcessor<R> {}
 public class FlatMapStrategyProcessor<T,R> <: DataStrategyProcessor<R> {}
 ```
 
-功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-r-t---iterabler) 的处理器。
+功能：对参数数据进行 [FlatMap](../../collection/collection_package_api/collection_package_function.md#func-flatmapt-rt---iterabler) 的处理器。
 
 父类型：
 
@@ -1254,7 +1254,7 @@ public class RawStatsReporter <: Reporter<BenchReport, HashMap<String, (Float64,
 public RawStatsReporter()
 ```
 
-功能：RawStatsReporter构造函数。
+功能：RawStatsReporter 构造函数。
 
 ## class SimpleProcessor\<T>
 
@@ -1276,11 +1276,11 @@ public class SimpleProcessor<T> <: DataStrategyProcessor<T> {
 public SimpleProcessor(let buildDelegate:() -> DataStrategy<T>, let name: String)
 ```
 
-功能：SimpleProcessor构造函数。
+功能：SimpleProcessor 构造函数。
 
 参数：
 
-- buildDelegate: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 生成数据策略的闭包。
+- buildDelegate: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 生成数据策略的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 处理器名称。
 
 ## class TestGroup
@@ -1459,7 +1459,7 @@ public class TestGroupBuilder {}
 
 功能：提供配置测试组合的方法的构造器。
 
-请看示例： [TestGroup](#class-testgroup).
+参考示例： [TestGroup](#class-testgroup).
 
 ### func add(Benchmark)
 
@@ -1569,7 +1569,7 @@ public class TestPackage {
 public TestPackage(let name: String)
 ```
 
-功能：TestPackage构造函数。
+功能：TestPackage 构造函数。
 
 参数：
 
@@ -1840,7 +1840,7 @@ public class TestSuiteBuilder {}
 
 功能：提供配置测试套方法的测试套构造器。
 
-请看示例： [TestSuite](#class-testsuite).
+参考示例： [TestSuite](#class-testsuite).
 
 ### func add(Benchmark)
 
@@ -2242,7 +2242,7 @@ main() {
 public XmlReporter(let directory: Path)
 ```
 
-功能：XmlReporter构造函数。
+功能：XmlReporter 构造函数。
 
 参数：
 
@@ -2300,7 +2300,7 @@ main() {
 ### XmlPerPackageReporter(Path)
 
 ```cangjie
-public XmlReporter(let directory: Path)
+public XmlPerPackageReporter(let directory: Path)
 ```
 
 功能：XmlPerPackageReporter 构造函数。

@@ -5,8 +5,8 @@
 ```cangjie
 public enum ExplicitGcType <: ToString {
     | Disabled
-    | Heavy
     | Light
+    | Heavy
 }
 ```
 
@@ -56,9 +56,9 @@ Returns:
 
 ```cangjie
 public enum TimeUnit <: ToString {
+    | Nanos
     | Micros
     | Millis
-    | Nanos
     | Seconds
 }
 ```

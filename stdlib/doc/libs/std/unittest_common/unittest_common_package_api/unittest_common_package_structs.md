@@ -10,7 +10,7 @@ public struct KeyTags <: KeyFor<Array<String>> {}
 
 父类型：
 
-- [KeyFor](../unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop tags
 
