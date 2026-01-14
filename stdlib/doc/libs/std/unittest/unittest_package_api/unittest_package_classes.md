@@ -325,6 +325,37 @@ public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
 
 - T - 打印结果返回值。一般为 Unit 类型。
 
+示例:
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+import std.sync.*
+
+foreign func usleep(arg: UIntNative): UIntNative
+
+@Test
+class FooTest {
+    @Bench[x in [ 1 ]]
+    @Configure[minDuration: Duration.second]
+    func testSleep(x: Int64): Unit {
+        unsafe { usleep(30000) }
+    }
+}
+
+main() {
+    let startTime = DateTime.now()
+    let report: BenchReport = FooTest().asTestSuite().runBenchmarks()
+    let duration = DateTime.now() - startTime
+    report.reportTo(ConsoleReporter(colored: false))
+
+    let results = report.reportTo(RawStatsReporter())["testSleep1"]
+    @Assert(results[0] < 50_000000.0 && results[0] > 25_000000.0)
+}
+```
+
 ## class CartesianProductProcessor\<T0,T1>
 
 ```cangjie

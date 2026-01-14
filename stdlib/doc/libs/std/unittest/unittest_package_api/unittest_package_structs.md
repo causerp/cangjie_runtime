@@ -123,6 +123,31 @@ public struct CpuCycles <: Measurement {}
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+示例:
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+
+var counter: Float64 = 0.0
+
+@Test
+@Measure[CpuCycles()]
+class BenchClass {
+    @BeforeEach
+    func beforeEach() {
+        counter = 0.0
+    }
+
+    @Bench
+    func foo() {
+        counter += 1.0
+    }
+}
+```
+
 ### prop conversionTable
 
 ```cangjie
@@ -316,8 +341,10 @@ public struct KeyBaseline <: KeyFor<String> {}
 
 <!-- compile -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyBaseline.baseline, "baseline")
+func example() {
+    let conf = Configuration()
+    conf.set(KeyBaseline.baseline, "baseline")
+}
 ```
 
 父类型：
@@ -1543,8 +1570,10 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 <!-- compile -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+func example() {
+    let conf = Configuration()
+    conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+}
 ```
 
 父类型：
@@ -1698,6 +1727,49 @@ public struct Perf <: Measurement {
 父类型：
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+示例:
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+
+var counter: Float64 = 0.0
+
+let perf0 = Perf(PerfCounter.HW_CPU_CYCLES)
+let perf1 = Perf(PerfCounter.HW_INSTRUCTIONS)
+let perf2 = Perf(PerfCounter.HW_CACHE_REFERENCES)
+let perf3 = Perf(PerfCounter.HW_CACHE_MISSES)
+let perf4 = Perf(PerfCounter.HW_BRANCH_INSTRUCTIONS)
+let perf5 = Perf(PerfCounter.HW_BRANCH_MISSES)
+let perf6 = Perf(PerfCounter.HW_BUS_CYCLES)
+let perf8 = Perf(PerfCounter.HW_STALLED_CYCLES_BACKEND)
+let perf9 = Perf(PerfCounter.HW_REF_CPU_CYCLES)
+let perf10 = Perf(PerfCounter.SW_CPU_CLOCK)
+let perf11 = Perf(PerfCounter.SW_TASK_CLOCK)
+let perf12 = Perf(PerfCounter.SW_PAGE_FAULTS)
+let perf13 = Perf(PerfCounter.SW_CONTEXT_SWITCHES)
+let perf14 = Perf(PerfCounter.SW_CPU_MIGRATIONS)
+let perf15 = Perf(PerfCounter.SW_PAGE_FAULTS_MIN)
+let perf16 = Perf(PerfCounter.SW_PAGE_FAULTS_MAJ)
+let perf17 = Perf(PerfCounter.SW_EMULATION_FAULTS)
+
+@Test
+@Measure[perf0, perf1, perf2, perf3, perf4, perf5, perf6, perf8, perf9, perf10, perf11, perf12, perf13, perf14, perf15, perf16, perf17]
+class Test_CPU_01 {
+    @BeforeEach
+    func beforeEach() {
+        counter = 0.0
+    }
+    
+    @Bench
+    func foo() {
+        counter += 1.0
+    }
+}
+```
 
 ### prop conversionTable
 
@@ -1926,6 +1998,23 @@ public struct TimeNow <: Measurement {
 父类型：
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+示例:
+
+<!-- run -->
+```cangjie
+import std.time.*
+
+@Test
+@Measure[TimeNow(Nanos)]
+public class Test_Residentsleeper {
+
+    @Bench
+    func case01(): Unit {
+        sleep(0.95 * Duration.millisecond)
+    }
+}
+```
 
 ### prop conversionTable
 
