@@ -1,5 +1,6 @@
 # 基准测试
 
+<a id="getting-started-with-benchmarking"></a>
 ## 基准测试入门
 
 仓颉单元测试框架为灵活创建基准测试提供了强大的支持。
@@ -28,6 +29,7 @@ class Foo {
 
 要运行基准测试，您可以通过向测试可执行文件传入 `--bench` 选项来实现，或者在 cjpm 项目中，使用 `cjpm bench` 命令。
 
+<a id="parameterized-benchmarking"></a>
 ## 参数化基准测试
 
 基准测试 API 的语法与单元测试相似，并且尽可能地与现有单元测试特性集成。

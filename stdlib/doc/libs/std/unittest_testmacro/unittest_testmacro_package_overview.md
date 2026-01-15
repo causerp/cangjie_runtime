@@ -23,7 +23,7 @@ unittest.testmacro 为单元测试框架提供了用户所需的宏。
 | [ExpectThrows](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expectthrows-宏) | 声明[预期异常的断言](../unittest/unittest_samples/unittest_basics.md#预期异常的断言)，测试函数内部使用，断言失败继续执行用例。 |
 | [Fail](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#fail-宏) | 声明[预期失败的断言](../unittest/unittest_samples/unittest_basics.md#失败断言)，测试函数内部使用，断言失败停止用例。 |
 | [FailExpect](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#failexpect-宏) | 声明[预期失败的断言](../unittest/unittest_samples/unittest_basics.md#失败断言)，测试函数内部使用，断言失败继续执行用例。 |
-| [Measurement](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#measure-宏) | 用于为性能测试指定 [Measurement](../unittest/unittest_package_api/unittest_package_interfaces.md#interface-measurement) 实例。只能应用于标有 `@Test` 宏的类或顶级函数的范围内。 |
+| [Measure](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#measure-宏) | 用于为性能测试指定 [Measurement](../unittest/unittest_package_api/unittest_package_interfaces.md#interface-measurement) 实例。只能应用于标有 `@Test` 宏的类或顶级函数的范围内。 |
 | [Parallel](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#parallel-宏) | 可以修饰测试类。被 `@Parallel` 修饰的测试类中的测试用例可并行执行。 |
 | [PowerAssert](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#powerassert-宏) | 检查传递的表达式是否为真，并显示包含传递表达式的中间值和异常的详细图表。 |
 | [Skip](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#skip-宏) | 修饰已经被 `@TestCase` / `@Bench` 修饰的函数，使该测试用例被跳过。 |

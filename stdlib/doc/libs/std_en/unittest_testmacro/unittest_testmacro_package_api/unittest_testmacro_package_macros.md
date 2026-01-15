@@ -107,6 +107,22 @@ Example: see [`@AfterAll`](#afterall-macro).
 
 Function: The `@Bench` macro marks a function to be executed multiple times and calculates its expected execution time.
 
+Example:
+
+<!-- run -->
+```cangjie
+@Test
+class Foo {
+    var x = 0
+    @Bench
+    func foo() {
+        x += 1
+    }
+}
+```
+
+You can read more abount benchmarking and find more examples here: [Getting Started with Benchmarking](../../unittest/unittest_samples/unittest_benchmarks.md#getting-started-with-benchmarking)
+
 Such functions are executed in batches, and the execution time is measured for the entire batch. This measurement is repeated multiple times to obtain a statistical distribution of results, and various statistical parameters of this distribution are calculated.
 Currently supported parameters include:
 
@@ -513,8 +529,9 @@ Function: Used to specify a [Measurement](../../unittest/unittest_package_api/un
 For each `Measurement`, different measurements are performed. Therefore, specifying more `Measurement` instances will take more time for performance testing.
 The default value is [TimeNow](../../unittest/unittest_package_api/unittest_package_structs.md#struct-timenow)(), which internally uses [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime).now() for measurement.
 
-For example:
+Example:
 
+<!-- run -->
 ```cangjie
 @Test
 @Measure[TimeNow(), TimeNow(Nanos)]
