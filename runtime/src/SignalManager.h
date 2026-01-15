@@ -65,6 +65,10 @@ private:
     // install unexpected signal handlers
     void InstallUnexpectedSignalHandlers();
     void InstallSIGUSR1Handlers() const;
+#ifdef __OHOS__
+    void InstallSIGUSR2Handlers() const;
+    static bool HandleUnexpectedSIGUSR2(int sig, siginfo_t *info, void *context);
+#endif
     static bool HandleUnexpectedSIGUSR1(int sig, siginfo_t *info, void *context);
     static bool HandleUnexpectedSigsegv(int sig, siginfo_t* info, void* context);
     static bool HandleUnexpectedSignal(int sig, siginfo_t* info, void* context);
