@@ -441,8 +441,8 @@ Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
 
 ```cangjie
 public class LazySeq<T> <: Iterable<T> {
-    public init()
     public init(element: T) 
+    public init()
 }
 ```
 
