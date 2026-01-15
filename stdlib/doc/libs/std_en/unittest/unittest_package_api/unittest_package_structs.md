@@ -123,6 +123,31 @@ Parent Types:
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+
+var counter: Float64 = 0.0
+
+@Test
+@Measure[CpuCycles()]
+class BenchClass {
+    @BeforeEach
+    func beforeEach() {
+        counter = 0.0
+    }
+
+    @Bench
+    func foo() {
+        counter += 1.0
+    }
+}
+```
+
 ### prop conversionTable
 
 ```cangjie
@@ -316,8 +341,10 @@ Example:
 
 <!-- compile -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyBaseline.baseline, "baseline")
+func example() {
+    let conf = Configuration()
+    conf.set(KeyBaseline.baseline, "baseline")
+}
 ```
 
 Parent Types:
@@ -1385,8 +1412,10 @@ Example:
 
 <!-- compile -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+func example() {
+    let conf = Configuration()
+    conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+}
 ```
 
 Parent Types:
@@ -1532,6 +1561,10 @@ Parent Types:
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+Example:
+
+- See [enum PerfCounter](unittest_package_enums.md#enum-perfcounter)
+
 ### prop conversionTable
 
 ```cangjie
@@ -1667,7 +1700,9 @@ public let suiteName: String
 
 Function: Test suite name for the case.
 
-Type: [String](../../core/core_package_api/core_package_structs.md#struct-string).## struct TimeNow
+Type: [String](../../core/core_package_api/core_package_structs.md#struct-string).
+
+## struct TimeNow
 
 ```cangjie
 public struct TimeNow <: Measurement {
@@ -1681,6 +1716,23 @@ Function: An implementation of [Measurement](../../unittest/unittest_package_api
 Parent Types:
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.time.*
+
+@Test
+@Measure[TimeNow(Nanos)]
+public class Test_Residentsleeper {
+
+    @Bench
+    func case01(): Unit {
+        sleep(0.95 * Duration.millisecond)
+    }
+}
+```
 
 ### prop conversionTable
 

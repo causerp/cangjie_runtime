@@ -123,6 +123,31 @@ public struct CpuCycles <: Measurement {}
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+
+var counter: Float64 = 0.0
+
+@Test
+@Measure[CpuCycles()]
+class BenchClass {
+    @BeforeEach
+    func beforeEach() {
+        counter = 0.0
+    }
+
+    @Bench
+    func foo() {
+        counter += 1.0
+    }
+}
+```
+
 ### prop conversionTable
 
 ```cangjie
@@ -316,8 +341,10 @@ public struct KeyBaseline <: KeyFor<String> {}
 
 <!-- code_no_check -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyBaseline.baseline, "baseline")
+func example() {
+    let conf = Configuration()
+    conf.set(KeyBaseline.baseline, "baseline")
+}
 ```
 
 父类型：
@@ -1543,8 +1570,10 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 <!-- code_no_check -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+func example() {
+    let conf = Configuration()
+    conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+}
 ```
 
 父类型：
@@ -1698,6 +1727,10 @@ public struct Perf <: Measurement {
 父类型：
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+示例：
+
+参见 [enum PerfCounter](unittest_package_enums.md#enum-perfcounter)
 
 ### prop conversionTable
 
@@ -1926,6 +1959,23 @@ public struct TimeNow <: Measurement {
 父类型：
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.time.*
+
+@Test
+@Measure[TimeNow(Nanos)]
+public class Test_Residentsleeper {
+
+    @Bench
+    func case01(): Unit {
+        sleep(0.95 * Duration.millisecond)
+    }
+}
+```
 
 ### prop conversionTable
 
