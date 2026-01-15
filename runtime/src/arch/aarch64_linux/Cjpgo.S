@@ -25,13 +25,13 @@ __CJ_Register_PGO:                        // Function entry point
     .cfi_offset w30, -16
 
 // Load the address of CJ_MRT_RegisterProfDumpFunc from GOT
-    adrp    x1, ::got::CJ_MRT_RegisterProfDumpFunc
+    adrp    x1, :got:CJ_MRT_RegisterProfDumpFunc
     ldr     x1, [x1, :got_lo12:CJ_MRT_RegisterProfDumpFunc]
 // If the function pointer is null (function not available), skip registration
     cbz     x1, .Lret0
 
 // Load the address of __llvm_profile_write_file from GOT as the argument
-    adrp    x0, ::got::__llvm_profile_write_file
+    adrp    x0, :got:__llvm_profile_write_file
     ldr     x0, [x0, :got_lo12:__llvm_profile_write_file]
 // Call the registration function through register for consistency
     blr     x1
