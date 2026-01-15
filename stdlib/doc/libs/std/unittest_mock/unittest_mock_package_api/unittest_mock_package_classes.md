@@ -416,6 +416,8 @@ public class GetterActionSelector<TRet> <: ActionSelector {}
 
 - [ActionSelector](#class-actionselector)
 
+参考示例：[SyntheticField](#class-syntheticfieldt)。
+
 ### func getsField(SyntheticField\<TRet>)
 
 ```cangjie
@@ -1031,6 +1033,8 @@ public func value<T>(): Option<T>
 public class OrderedVerifier {}
 ```
 
+功能：此类型用于收集 “验证语句”，可在 ordered 函数中动态传入验证行为。
+
 示例：
 
 <!-- run -->
@@ -1061,8 +1065,6 @@ func test() {
 }
 ```
 
-功能：此类型用于收集 “验证语句”，可在 ordered 函数中动态传入验证行为。
-
 ### func checkThat(VerifyStatement)
 
 ```cangjie
@@ -1091,6 +1093,8 @@ public class SetterActionSelector<TArg> <: ActionSelector {}
 父类型：
 
 - [ActionSelector](#class-actionselector)
+
+参考示例：[SyntheticField](#class-syntheticfieldt)。
 
 ### func doesNothing()
 
