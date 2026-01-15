@@ -441,8 +441,8 @@ public override prop isInfinite: Bool
 
 ```cangjie
 public class LazySeq<T> <: Iterable<T> {
-    public init()
     public init(element: T) 
+    public init()
 }
 ```
 
