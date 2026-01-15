@@ -34,6 +34,22 @@
 
 功能：`@Bench` 宏用于标记要执行多次的函数并计算该函数的预期执行时间。
 
+示例：
+
+<!-- run -->
+```cangjie
+@Test
+class Foo {
+    var x = 0
+    @Bench
+    func foo() {
+        x += 1
+    }
+}
+```
+
+您可以在[基准测试入门](../../unittest/unittest_samples/unittest_benchmarks.md#getting-started-with-benchmarking)章节中阅读更多关于基准测试的内容并找到更多示例。
+
 此类函数将分批执行，并针对整个批次测量执行时间。这种测量将重复多次以获得结果的统计分布，并将计算该分布的各种统计参数。
 当前支持的参数如下：
 
@@ -295,7 +311,7 @@ func customTest() {
 
 例如：
 
-<!-- compile -->
+<!-- run -->
 ```cangjie
 @Test
 @Measure[TimeNow(), TimeNow(Nanos)]
@@ -382,6 +398,8 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 3. 可以在 `@Test` 标记的类的外部和内部使用。
 
 > 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的地方使用。
+
+有关 `@Strategy` 宏的应用示例及其在参数化基准测试中的使用，请参阅[参数化基准测试](../../unittest/unittest_samples/unittest_benchmarks.md#parameterized-benchmarking)章节。
 
 ## `@Tag` 宏
 
