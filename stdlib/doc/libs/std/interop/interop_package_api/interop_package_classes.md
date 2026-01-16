@@ -163,7 +163,7 @@ protected init(context: InteropContext)
 
 ```cangjie
 public abstract class InteropContext <: Equatable<InteropContext> {
-    protected init(handler: CrossReferenceHandler)
+    protected init(handler: (ExportedRef, ForeignProxy) -> Unit)
 }
 ```
 
@@ -177,14 +177,14 @@ public abstract class InteropContext <: Equatable<InteropContext> {
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-interopcontext)>
 
-### init(CrossReferenceHandler)
+### init((ExportedRef, ForeignProxy) -> Unit)
 
 ```cangjie
-protected init(handler: CrossReferenceHandler)
+protected init(handler: (ExportedRef, ForeignProxy) -> Unit)
 ```
 
 功能：用来构造一个 [InteropContext](#class-interopcontext) 实例。
 
 参数：
 
-- handler: [CrossReferenceHandler](./interop_package_types.md#type-crossreferencehandler) - 在特定互操作场景下用来处理跨语言循环引用中垃圾内存的函数。
+- handler: ([ExportedRef](#class-exportedref), [ForeignProxy](#class-foreignproxy)) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 在特定互操作场景下用来处理跨语言循环引用中垃圾内存的函数。
