@@ -827,6 +827,179 @@ public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     }
 
     /**
+     * @description Performs mapping on this HashMap and returns a new HashMap.
+     * 
+     * @param transform the given mapping function.
+     * @returns a new HashMap.
+     */
+    @Frozen
+    public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R> {
+        let size: Int64 = entries.size
+        var newMap = HashMap<K, R>()
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                newMap.add(entries[i].key, transform(entries[i].key, entries[i].value))
+            }
+        }
+        return newMap
+    }
+
+    /**
+     * @description Performs mapping on this HashMap and returns a new HashMap.
+     * 
+     * @param transform the given mapping function.
+     * @returns a new HashMap.
+     */
+    @Frozen
+    public func mapValues<R>(transform: (V) -> R): HashMap<K, R> {
+        let size: Int64 = entries.size
+        var newMap = HashMap<K, R>()
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                newMap.add(entries[i].key, transform(entries[i].value))
+            }
+        }
+        return newMap
+    }
+
+    /**
+     * @description Returns a new HashMap<K, V> containing key-value pairs that satisfy the filtering condition.
+     * 
+     * @param predicate the given condition.
+     * @returns a new collection of key-value pairs that satisfy the filtering condition.
+     */
+    @Frozen
+    public func filter(predicate: (K, V) -> Bool): HashMap<K, V> {
+        let size: Int64 = entries.size
+        var newMap = HashMap<K, V>()
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                newMap.add(entries[i].key, entries[i].value)
+            }
+        }
+        return newMap
+    }
+
+    /**
+     * @description Iterates over all key-value pairs and performs the given operation.
+     * 
+     * @param action the given operation function.
+     */
+    @Frozen
+    public func forEach(action: (K, V) -> Unit): Unit {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                action(entries[i].key, entries[i].value)
+            }
+        }
+    }
+
+    /**
+     * @description Determine whether all key-value pairs in the HashMap satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns true if all key-value pairs in the HashMap satisfy the condition, otherwise returns false.
+     */
+    @Frozen
+    public func all(predicate: (K, V) -> Bool): Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && !predicate(entries[i].key, entries[i].value)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether there is any key-value pair in the HashMap that satisfies the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether there is any key-value pair that satisfies the condition.
+     */
+    @Frozen
+    public func any(predicate: (K, V) -> Bool): Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all key-value pairs in the HashMap do not satisfy the condition.
+     * 
+     * @param predicate the given condition.
+     * @returns Whether all key-value pairs in the current HashMap do not satisfy the condition.
+     */
+    @Frozen
+    public func none(predicate: (K, V) -> Bool): Bool {
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0 && predicate(entries[i].key, entries[i].value)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     * 
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func fold<R>(initial: R, operation: (R, K, V) -> R): R {
+        var result: R = initial
+        let size: Int64 = entries.size
+        for (i in 0..size) {
+            if (entries[i].hash >= 0) {
+                result = operation(result, entries[i].key, entries[i].value)
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first value as the initial value.
+     * 
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @Frozen
+    public func reduce(operation: (V, V) -> V): Option<V> {
+        if (this.size == 0) {
+            return None<V>
+        }
+        let len: Int64 = entries.size
+        var index = 0
+        var result = unsafe { zeroValue<V>() }
+        while (index < len) {
+            if (entries[index].hash >= 0) {
+                result = entries[index].value
+                index++
+                break
+            }
+            index++
+        }
+        if (this.size == 1) {
+            return result
+        }
+        while (index < len) {
+            if (entries[index].hash >= 0) {
+                result = operation(result, entries[index].value)
+            }
+            index++
+        }
+        return result
+    }
+
+    /**
      * An exception is reported when the get operator is overloaded and the key does not exist.
      *
      * @param key transfer the value for judgment.
