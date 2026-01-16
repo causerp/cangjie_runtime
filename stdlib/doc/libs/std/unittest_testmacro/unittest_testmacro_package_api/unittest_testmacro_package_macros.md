@@ -18,9 +18,13 @@
 4. `@Assert(leftExpr, rightExpr, delta: deltaExpr)` 使用 delta 参数使能近似相等功能。
 5. `@Assert(leftExpr <comparison_operator> rightExpr, delta: deltaExpr)` 使用 delta 参数使能近似相等功能。
 
+参考示例：[断言](../../unittest/unittest_samples/unittest_basics.md#断言)
+
 ## `@AssertThrows` 宏
 
 功能：声明[预期异常的断言](../../unittest/unittest_samples/unittest_basics.md#预期异常的断言)，测试函数内部使用，断言失败停止用例。
+
+参考示例：[断言](../../unittest/unittest_samples/unittest_basics.md#预期异常的断言)
 
 ## `@BeforeAll` 宏
 
@@ -133,41 +137,112 @@ TP: default, time elapsed: 68610430659 ns, Result:
 如果测试类使用 `@Configure` 宏指定配置，则该类中的所有测试函数都会继承此配置参数。
 如果此类中的测试函数也标有 `@Configure` 宏，则配置参数将从类和函数合并，其中函数级宏优先。
 
+示例：
+
+<!-- run -->
+
+```cangjie
+import std.unittest.*
+
+@Test
+@Configure[warmup: Duration.millisecond * 100, minDuration: Duration.second * 10]
+class DatabaseBenchmark {
+    @Bench
+    func queryPerformance(): Unit {
+        let result = simulateDatabaseQuery()
+        @Assert(!result.isEmpty())
+    }
+    
+    private func simulateDatabaseQuery(): String {
+        sleep(Duration.microsecond * 500)
+        "data_result"
+    }
+}
+```
+
 ## `@CustomAssertion` 宏
 
-功能：`@CustomAssertions` 将函数指定为用户自定义断言。
+功能： `@CustomAssertion` 宏允许您创建可复用、领域特定的断言，这些断言能与测试框架无缝集成。自定义断言必须满足以下条件：
 
-该宏修饰的函数应满足两个要求：
+1. 必须是顶层函数
+2. 首个参数必须是 [`AssertionCtx`](../../unittest/unittest_package_api/unittest_package_classes.md#class-assertionctx) 类型。
+3. 提供有意义的错误信息
+4. 返回可用于链式调用的有效值
 
-1. 顶层函数
-2. 首个入参为 [`AssertionCtx`](../../unittest/unittest_package_api/unittest_package_classes.md#class-assertionctx) 类型。
+示例：
 
-示例如下：
-
-`@CustomAssertion` 的输出为树状结构，以提高 [嵌套断言](#嵌套断言) 的可读性。
-
-例如：
-
-<!-- compile -->
+<!-- run -->
 ```cangjie
+import std.collection.*
+
 @CustomAssertion
-public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
+public func checkNotNone<T>(
+    ctx: AssertionCtx,
+    value: ?T,
+    errorMessage!: String = "Expected ${ctx.arg("value")} to be Some(_) but got None."
+): T {
     if (let Some(res) <- value) {
         return res
     }
-    ctx.fail("Expected ${ctx.arg("value")} to be Some(_) but got None")
+    ctx.fail(errorMessage)
 }
+
 @Test
-func customTest() {
-    @Assert[checkNotNone](Option<Bool>.None)
+func testSuccess() {
+    let maybeValue = Option<Int64>.Some(42)
+    let unwrapped = @Assert[checkNotNone](maybeValue)
+}
+
+@Test
+func testFail() {
+    let maybeValue = Option<Int64>.None
+    let unwrapped = @Assert[checkNotNone](maybeValue)
+}
+
+@CustomAssertion
+public func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Iterable<?T>): Array<T> {
+    iter |> enumerate |> map { pair: (Int64, ?T) =>
+        let (index, elem) = pair
+        return @Assert[checkNotNone](
+            elem,
+            errorMessage: "Element at index ${index} is None. Expected all elements to be Some(_)"
+        )
+    } |> collectArray
+}
+
+@Test
+func testIterableFail() {
+    let iter = [Option<Int64>.Some(1), Option<Int64>.Some(2), Option<Int64>.None]
+    let result = @Assert[iterableWithoutNone](iter)
 }
 ```
 
+可能的运行结果：
+
 ```text
-[ FAILED ] CASE: customTest (120812 ns)
-Assert Failed: @Assert[checkNotNone](Option < Bool >.None)
-└── Assert Failed: `('Option < Bool >.None' was expected to be Some(_) but got None)`
+
+TP: default, time elapsed: 1943510 ns, RESULT:
+    TCS: TestCase_testSuccess, time elapsed: 853058 ns, RESULT:
+    [ PASSED ] CASE: testSuccess (432856 ns)
+    TCS: TestCase_testFail, time elapsed: 426161 ns, RESULT:
+    [ FAILED ] CASE: testFail (270125 ns)
+    Assert Failed: @Assert[checkNotNone](maybeValue):
+    └── Assert Failed: `(Expected <value not found> to be Some(_) but got None.)`
+
+    TCS: TestCase_testIterableFail, time elapsed: 626869 ns, RESULT:
+    [ FAILED ] CASE: testIterableFail (513480 ns)
+    Assert Failed: @Assert[iterableWithoutNone](iter):
+    └── @Assert[checkNotNone](elem, Element at index 2 is None. Expected all elements to be Some(_)):
+          └── Assert Failed: `(Element at index 2 is None. Expected all elements to be Some(_))`
+
+Summary: TOTAL: 3
+    PASSED: 1, SKIPPED: 0, ERROR: 0
+    FAILED: 2, listed below:
+            TCS: TestCase_testFail, CASE: testFail
+            TCS: TestCase_testIterableFail, CASE: testIterableFail
 ```
+
+`@CustomAssertion` 的输出为树状结构，以提高 [嵌套断言](#嵌套断言) 的可读性。
 
 ### 返回值
 
@@ -275,9 +350,13 @@ func customTest() {
 4. `@Expect(leftExpr, rightExpr, delta: deltaExpr)` 使用 delta 参数使能近似相等功能。
 5. `@Expect(leftExpr <comparison_operator> rightExpr, delta: deltaExpr)` 使用 delta 参数使能近似相等功能。
 
+参考示例：[断言](../../unittest/unittest_samples/unittest_basics.md#断言)
+
 ## `@ExpectThrows` 宏
 
 功能：声明[预期异常的断言](../../unittest/unittest_samples/unittest_basics.md#预期异常的断言)，测试函数内部使用，断言失败继续执行用例。
+
+参考示例：[断言](../../unittest/unittest_samples/unittest_basics.md#预期异常的断言)
 
 ## `@Fail` 宏
 
