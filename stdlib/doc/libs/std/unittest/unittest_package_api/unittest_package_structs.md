@@ -1642,8 +1642,8 @@ public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)>
 
 ### prop warmup
 
