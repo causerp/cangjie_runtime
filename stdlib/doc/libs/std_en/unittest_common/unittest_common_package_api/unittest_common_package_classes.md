@@ -254,6 +254,37 @@ public abstract class PrettyPrinter {
 
 Function: A printer with color, alignment, and indentation control.
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.common.*
+
+main() {
+    let pp = PrettyText()
+    pp.colored(Color.BLUE, "Start:").newLine()
+    pp.appendLine('-' * 40)
+    pp.appendLeftAligned("left", 40).newLine()
+    pp.appendCentered("centered", 40).newLine()
+    pp.appendRightAligned("right", 40).newLine()
+    pp.indent {
+        => pp.appendLine("isTopLevel: ${pp.isTopLevel}")
+    }
+    println(pp.toString())
+}
+```
+
+Possible output:
+
+```text
+Start:
+----------------------------------------
+left                                    
+                centered                
+                                   right
+    isTopLevel: false
+```
+
 ### PrettyPrinter(UInt64,UInt64)
 
 ```cangjie
@@ -599,6 +630,29 @@ Parent Types:
 - [PrettyPrinter](#class-prettyprinter)
 - [PrettyPrintable](unittest_common_package_interfaces.md#interface-prettyprintable)
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.common.*
+import std.unittest.testmacro.*
+
+main() {
+    let pp = PrettyText()
+    println("isEmpty: ${pp.isEmpty()}")
+    pp.append("hello world")
+    println(pp.toString())
+}
+```
+
+Possible output:
+
+```text
+isEmpty: true
+hello world
+```
 
 ### init()
 

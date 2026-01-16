@@ -21,6 +21,18 @@ Parent Type:
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[Color](#enum-color)>
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.common.*
+
+main(): Unit {
+    let pp = PrettyText()
+    pp.colored(Color.BLUE, "blue text!")
+}
+```
+
 ### RED
 
 ```cangjie

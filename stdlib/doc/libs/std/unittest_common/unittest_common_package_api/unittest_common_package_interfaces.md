@@ -252,6 +252,26 @@ public interface PrettyPrintable {
 
 功能：类型实现该接口表示可以较好地进行颜色及缩进格式的打印。
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.common.*
+
+main() {
+    let prettyPrintable = [PrettyText("hello "), PrettyText("world")]
+    let prettyPrinter = PrettyText()
+    prettyPrintable.pprint(prettyPrinter)
+    println(prettyPrinter.toString())
+}
+```
+
+可能的运行结果：
+
+```text
+hello world
+```
+
 ### func pprint(PrettyPrinter)
 
 ```cangjie

@@ -252,6 +252,26 @@ public interface PrettyPrintable {
 
 Function: Types implementing this interface can be printed with proper color and indentation formatting.
 
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest.common.*
+
+main() {
+    let prettyPrintable = [PrettyText("hello "), PrettyText("world")]
+    let prettyPrinter = PrettyText()
+    prettyPrintable.pprint(prettyPrinter)
+    println(prettyPrinter.toString())
+}
+```
+
+Possible output:
+
+```text
+hello world
+```
+
 ### func pprint(PrettyPrinter)
 
 ```cangjie

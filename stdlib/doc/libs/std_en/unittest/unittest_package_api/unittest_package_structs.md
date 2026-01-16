@@ -1383,10 +1383,45 @@ Function: Supports specifying a timeout handler in configuration information.
 
 Example:
 
-<!-- compile -->
+<!-- run -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+import std.unittest.*
+import std.unittest.testmacro.*
+
+@Test
+class Test {
+    @TestCase
+    @Timeout[Duration.second]
+    func assertIsACancellationPoint() {
+        sleep(Duration.second * 2)
+        @Assert(false)
+    }
+}
+
+main(): Unit {
+    let config = Configuration()
+    config.set(
+        KeyTimeoutHandler.timeoutHandler,
+        {info: TestCaseInfo => println("Timeout in ${info.suiteName}.${info.caseName}!")}
+    )
+    Test().asTestSuite().runTests(config).reportTo(ConsoleReporter())
+}
+```
+
+Possible output:
+
+```text
+Timeout in Test.assertIsACancellationPoint!
+--------------------------------------------------------------------------------------------------
+TP: default, time elapsed: 2006440952 ns, RESULT:
+    TCS: Test, time elapsed: 2006435848 ns, RESULT:
+    [ FAILED ] CASE: assertIsACancellationPoint (2005625479 ns)
+    Execution time exceeded specified timeout.
+Summary: TOTAL: 1
+    PASSED: 0, SKIPPED: 0, ERROR: 0
+    FAILED: 1, listed below:
+            TCS: Test, CASE: assertIsACancellationPoint
+--------------------------------------------------------------------------------------------------
 ```
 
 Parent Types:
@@ -1639,6 +1674,8 @@ public struct TestCaseInfo {
 ```
 
 Function: Information about the currently running test case. Typically used in timeout handlers for dynamic APIs.
+
+Example: see [KeyTimeoutHandler](./unittest_package_structs.md#struct-keytimeouthandler).
 
 ### let caseName
 
