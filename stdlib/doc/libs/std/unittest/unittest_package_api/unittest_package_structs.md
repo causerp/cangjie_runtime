@@ -1666,6 +1666,8 @@ public RelativeDelta(let absolute!: T, let relative!: T)
 - absolute!: T - 绝对比较部分的 delta 值。
 - relative!: T - 相对比较部分的 delta 值。
 
+参考示例：[近似相等](../../unittest/unittest_samples/unittest_basics.md#近似相等)
+
 ## struct TestCaseInfo
 
 ```cangjie

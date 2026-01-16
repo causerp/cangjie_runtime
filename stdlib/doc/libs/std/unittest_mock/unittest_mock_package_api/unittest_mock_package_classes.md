@@ -492,7 +492,39 @@ public func throws(exceptionFactory: () -> Exception): CardinalitySelector<Gette
 extend MethodActionSelector<Unit> {}
 ```
 
-功能：扩展 [MethodActionSelector](#class-methodactionselectortret) 。
+功能：扩展 [MethodActionSelector](#class-methodactionselectortret)。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.mock.*
+import std.unittest.mock.mockmacro.*
+
+class Printer {
+    func print(message: String): Bool { return true }
+}
+
+@Test
+func test() {
+    let printerMock = mock<Printer>()
+    @On(printerMock.print(_)).returns(false)
+    @On(printerMock.print("throw")).throws(TimeoutException())
+    @On(printerMock.print("fail")).fails()
+
+    @ExpectThrows[TimeoutException](printerMock.print("throw"))
+    @Expect(printerMock.print("something"), false)
+    // printerMock.print("fail") // expected to fail
+
+    let printer = Printer()
+    let printerSpy = spy(printer)
+    @On(printerSpy.print(_)).callsOriginal()
+    @On(printerSpy.print("hello")).returns(false)
+
+    @Expect(printerSpy.print("hello"), false)
+    @Expect(printerSpy.print("something"), true)
+}
+```
 
 #### func returns()
 

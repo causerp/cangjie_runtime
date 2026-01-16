@@ -157,6 +157,14 @@ Return Value:
 
 - [Configuration](#class-configuration) - The merged configuration.
 
+See example:
+
+- [Custom configuration for benchamark](../../unittest/unittest_package_api/unittest_package_classes.md#class-benchmark)
+- [Dynamic tests](../../unittest/unittest_samples/unittest_dynamic_tests.md#introduction-to-dynamic-testing)
+
+For most cases, you don't need programmatic Configuration changes. Use these instead:
+[@Configure macro](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#configure-macro)
+
 ## class ConfigurationKey
 
 ```cangjie

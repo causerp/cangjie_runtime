@@ -157,6 +157,15 @@ public static func merge(parent: Configuration, child: Configuration): Configura
 
 - [Configuration](#class-configuration) - 合并完成的配置
 
+参考示例：
+
+- [自定义性能基准测试配置](../../unittest/unittest_package_api/unittest_package_classes.md#class-benchmark)
+- [动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md#动态测试入门)
+
+对于大多数情况，你无需编程式地更改配置。请改用以下方式：
+
+[@Configure 宏](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#configure-宏)
+
 ## class ConfigurationKey
 
 ```cangjie
