@@ -163,7 +163,7 @@ Parameter:
 
 ```cangjie
 public abstract class InteropContext <: Equatable<InteropContext> {
-    protected init(handler: CrossReferenceHandler)
+    protected init(handler: (ExportedRef, ForeignProxy) -> Unit)
 }
 ```
 
@@ -177,14 +177,14 @@ Parent type:
 
 - [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-InteropContext)>
 
-### init(CrossReferenceHandler)
+### init((ExportedRef, ForeignProxy) -> Unit)
 
 ```cangjie
-protected init(handler: CrossReferenceHandler)
+protected init(handler: (ExportedRef, ForeignProxy) -> Unit)
 ```
 
 Function: Used to construct an instance of [InteropContext](#class-interopcontext).
 
 Parameter:
 
-- handler: [CrossReferenceHandler](./interop_package_types.md#type-crossreferencehandler) - A Function used to handle garbage memory in cross-language circular references in specific interoperability scenarios.
+- handler: ([ExportedRef](#class-exportedref), [ForeignProxy](#class-foreignproxy)) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - A Function used to handle garbage memory in cross-language circular references in specific interoperability scenarios.
