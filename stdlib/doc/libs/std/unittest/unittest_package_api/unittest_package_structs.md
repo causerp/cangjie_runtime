@@ -1566,14 +1566,47 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 功能：支持在配置信息中指定超时处理的句柄。
 
-例如：
+示例：
 
-<!-- code_no_check -->
+<!-- run -->
 ```cangjie
-func example() {
-    let conf = Configuration()
-    conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+import std.unittest.*
+import std.unittest.testmacro.*
+
+@Test
+class Test {
+    @TestCase
+    @Timeout[Duration.second]
+    func assertIsACancellationPoint() {
+        sleep(Duration.second * 2)
+        @Assert(false)
+    }
 }
+
+main(): Unit {
+    let config = Configuration()
+    config.set(
+        KeyTimeoutHandler.timeoutHandler,
+        {info: TestCaseInfo => println("Timeout in ${info.suiteName}.${info.caseName}!")}
+    )
+    Test().asTestSuite().runTests(config).reportTo(ConsoleReporter())
+}
+```
+
+可能的运行结果：
+
+```text
+Timeout in Test.assertIsACancellationPoint!
+--------------------------------------------------------------------------------------------------
+TP: default, time elapsed: 2006440952 ns, RESULT:
+    TCS: Test, time elapsed: 2006435848 ns, RESULT:
+    [ FAILED ] CASE: assertIsACancellationPoint (2005625479 ns)
+    Execution time exceeded specified timeout.
+Summary: TOTAL: 1
+    PASSED: 0, SKIPPED: 0, ERROR: 0
+    FAILED: 1, listed below:
+            TCS: Test, CASE: assertIsACancellationPoint
+--------------------------------------------------------------------------------------------------
 ```
 
 父类型：
@@ -1840,6 +1873,8 @@ public struct TestCaseInfo {
 ```
 
 功能：当前正在运行的测试用例的信息。通常在动态 API 的超时处理句柄中被使用。
+
+参考示例：[KeyTimeoutHandler](./unittest_package_structs.md#struct-keytimeouthandler).
 
 ### let caseName
 
