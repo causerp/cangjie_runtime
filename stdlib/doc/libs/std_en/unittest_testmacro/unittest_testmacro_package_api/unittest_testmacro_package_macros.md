@@ -34,6 +34,22 @@ Function: Declares a function in a test class as a [test lifecycle](../../unitte
 
 Function: The `@Bench` macro marks a function to be executed multiple times and calculates its expected execution time.
 
+Example:
+
+<!-- run -->
+```cangjie
+@Test
+class Foo {
+    var x = 0
+    @Bench
+    func foo() {
+        x += 1
+    }
+}
+```
+
+You can read more abount benchmarking and find more examples here: [Getting Started with Benchmarking](../../unittest/unittest_samples/unittest_benchmarks.md#getting-started-with-benchmarking)
+
 Such functions are executed in batches, and the execution time is measured for the entire batch. This measurement is repeated multiple times to obtain a statistical distribution of results, and various statistical parameters of this distribution are calculated.
 Currently supported parameters include:
 
@@ -262,8 +278,9 @@ Function: Used to specify a [Measurement](../../unittest/unittest_package_api/un
 For each `Measurement`, different measurements are performed. Therefore, specifying more `Measurement` instances will take more time for performance testing.
 The default value is [TimeNow](../../unittest/unittest_package_api/unittest_package_structs.md#struct-timenow)(), which internally uses [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime).now() for measurement.
 
-For example:
+Example:
 
+<!-- run -->
 ```cangjie
 @Test
 @Measure[TimeNow(), TimeNow(Nanos)]
@@ -318,6 +335,20 @@ All public and protected members of `unittest.TestCases` (see API overview below
     1. `ctx`: A `TestContext` instance containing this test.
     2. `name`: The name of the class.  
 Users of the unit testing framework should not modify these fields, as it may lead to unexpected errors.
+
+## `@Strategy` Macro
+
+Function: Using `@Strategy` on a function creates a new [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) from that function. It is a convenient API for combining, mapping, and reusing strategies.
+
+Functions marked with `@Strategy` must satisfy the following conditions:
+
+1. Must explicitly specify a return type.
+2. Parameters must correspond to the DSL specified in the macro arguments.
+3. Can be used both inside and outside of classes marked with `@Test`.
+
+> Implementation note: The macro expansion results in a variable with the function name and type [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort). This variable can be used anywhere a [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) can be used.
+
+For examples of `@Strategy` macro usage and its application in parameterized benchmarking, refer to the [Parameterized Benchmarking](../../unittest/unittest_samples/unittest_benchmarks.md#parameterized-benchmarking) section.
 
 ## `@TestBuilder` Macro
 
