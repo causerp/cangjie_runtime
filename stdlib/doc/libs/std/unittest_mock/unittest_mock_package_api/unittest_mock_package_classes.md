@@ -497,14 +497,14 @@ extend MethodActionSelector<Unit> {}
 #### func returns()
 
 ```cangjie
-public func returns(): CardinalitySelector<MethodActionSelector<TRet>>
+public func returns(): CardinalitySelector<MethodActionSelector<Unit>>
 ```
 
 功能：指定桩函数什么都不做。
 
 返回值：
 
-- [CardinalitySelector](#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<TRet>> - 预期执行次数的操作器。
+- [CardinalitySelector](#class-cardinalityselectora)\<[MethodActionSelector](#class-methodactionselectortret)\<Unit>> - 预期执行次数的操作器。
 
 ## class Matchers
 
@@ -945,7 +945,7 @@ public func value<T>(): Option<T>
 public class OrderedVerifier {}
 ```
 
-功能：此类型用于收集 “验证语句”，可在 ordered 函数中动态传入验证行为。
+功能：此类型用于收集 “验证语句”，可在 [ordered](#static-func-orderedarrayverifystatement) 函数中动态传入验证行为。
 
 ### func checkThat(VerifyStatement)
 
@@ -1142,7 +1142,7 @@ public func value(): T
 public class UnorderedVerifier{}
 ```
 
-功能：此类型用于收集 “验证语句”， 可在 unordered 函数中动态传入验证行为。
+功能：此类型用于收集 “验证语句”， 可在 [unordered](#static-func-unorderedarrayverifystatement) 函数中动态传入验证行为。
 
 ### func checkThat(VerifyStatement)
 

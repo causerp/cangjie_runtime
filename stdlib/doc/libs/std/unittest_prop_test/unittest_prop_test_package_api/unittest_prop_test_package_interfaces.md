@@ -1618,14 +1618,14 @@ func nextInt16(): Int16
 ### func nextInt16(Int16)
 
 ```cangjie
-func nextInt16(upper: Int16): Int16
+func nextInt16(max: Int16): Int16
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
 
 参数：
 
-- upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 表示生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max]。
+- max: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 表示生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max]。
 
 返回值：
 
@@ -1633,7 +1633,7 @@ func nextInt16(upper: Int16): Int16
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 ### func nextInt32()
 
@@ -2822,7 +2822,7 @@ public func suggestUIntNative(): UIntNative
 #### func suggestInt64(Int64, Int64)
 
 ```cangjie
-func suggestInt64(l: Int64, r: Int64): Int64
+public func suggestInt64(l: Int64, r: Int64): Int64
 ```
 
 功能：获取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
