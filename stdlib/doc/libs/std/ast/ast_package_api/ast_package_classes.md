@@ -2363,7 +2363,7 @@ public func traverse(v: Visitor): Unit
 
 ```cangjie
 public class FeaturesDirective <: Node {
-    public init(input: Tokens)
+    public init(inputs: Tokens)
     public init()
 }
 ```
