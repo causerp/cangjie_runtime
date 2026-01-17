@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 #ifdef __ios__
 #include <time.h>
 #else
@@ -295,12 +296,16 @@ char** GetCommandline(char* argv, size_t len, size_t argc, char** envStartAddr)
 
 #define SYSCTL_ARGNUM_ARGMAX 2
 #define SYSCTL_ARGNUM_PROCARGS2 3
+#define MAX_RETRY 3
+#define BASE_RETRY_DELAY 200
+
 char* GetProcessArgs(pid_t pid, size_t* length)
 {
-    int maxArgsLen;
+    int maxArgsLen = 0;
     size_t size = sizeof(maxArgsLen);
     // Get the maximum size of the arguments
     int mib2[SYSCTL_ARGNUM_ARGMAX] = {CTL_KERN, KERN_ARGMAX};
+
     if (sysctl(mib2, SYSCTL_ARGNUM_ARGMAX, &maxArgsLen, &size, NULL, 0) == -1) {
         return NULL;
     }
@@ -309,19 +314,42 @@ char* GetProcessArgs(pid_t pid, size_t* length)
         return NULL;
     }
 
-    char* argv = (char*)malloc(maxArgsLen);
+    char* argv = (char*)malloc((size_t)maxArgsLen);
     if (argv == NULL) {
         return NULL;
     }
 
     int mib3[SYSCTL_ARGNUM_PROCARGS2] = {CTL_KERN, KERN_PROCARGS2, pid};
     size = (size_t)maxArgsLen;
-    if (sysctl(mib3, SYSCTL_ARGNUM_PROCARGS2, argv, &size, NULL, 0) == -1) {
-        free(argv);
-        return NULL;
+    int ret = -1;
+    int retry = 0;
+
+    while (retry < MAX_RETRY) {
+        ret = sysctl(mib3, SYSCTL_ARGNUM_PROCARGS2, argv, &size, NULL, 0);
+        if (ret == 0) {
+            break;
+        }
+
+        switch (errno) {
+            case EIO:
+            case EBUSY:
+            case EAGAIN:
+                retry++;
+                usleep(BASE_RETRY_DELAY * retry);
+                break;
+            default:
+                retry = MAX_RETRY;
+                break;
+        }
     }
 
-    *length = maxArgsLen;
+    if (ret == -1) {
+        free(argv);
+        argv = NULL;
+    } else {
+        *length = size;
+    }
+
     return argv;
 }
 
