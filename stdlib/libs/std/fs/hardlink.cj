@@ -19,24 +19,21 @@ public class HardLink {
     }
 
     public static func create(link: String, to!: String): Unit {
-        if (link.isEmpty() || to.isEmpty()) {
-            throw IllegalArgumentException("The path 'link' or 'to' cannot be empty!")
-        } else if (link.contains(NULL_BYTE) || to.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path 'link' or 'to' cannot contain null character!")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("link", link, true)
+        PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
 
         unsafe {
             try (cPath1 = LibC.mallocCString(link).asResource(), cPath2 = LibC.mallocCString(to).asResource()) {
                 let pret = CJ_FS_Link(cPath1.value, cPath2.value)
                 if (pret.isNull()) {
-                    throw FSException("Failed malloc in C code!")
+                    throw FSException("Failed malloc in C code when create hard link `${link}` to `${to}`.")
                 }
                 let ret = pret.read()
                 LibC.free(pret)
                 if (ret.rtnCode != 0) {
                     try {
                         let errMessage = ret.msg.toString()
-                        throw FSException("Failed to create link: '${errMessage.trimAscii()}'.")
+                        throw FSException("Failed to create hard link `${link}` to `${to}` return ${ret.rtnCode}: \"${errMessage.trimAscii()}\".")
                     } finally {
                         LibC.free(ret.msg)
                     }
