@@ -176,7 +176,7 @@ bool MethodInfo::CheckGenericConstraint(GenericTypeInfo* genericTi, TypeInfo* ti
             genericConstraintTi =
                 GetActualTypeFromGenericType(reinterpret_cast<GenericTypeInfo*>(genericConstraintTi), genericArgsArray);
         }
-        if (!ti->IsSubType(genericConstraintTi)) {
+        if (genericConstraintTi == nullptr || !ti->IsSubType(genericConstraintTi)) {
             return false;
         }
     }
