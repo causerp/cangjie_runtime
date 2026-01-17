@@ -10,12 +10,6 @@ The `interop` package provides base classes needed for developing cross-language
 
 ## API List
 
-### Type Aliases
-
-|               Type Alias           |                Functionality                 |
-| -----------------------   --------- | -------         --------------------------- |
-| [CrossReferenceHandler](./interop_package_api/interop_package_types.md#type-crossreferencehandler) | Defines a function type for handling cross-heap circular references, with parameter types [ExportedRef](./interop_package_classes.md#class-exportedref) and [ForeignProxy](./interop_package_classes.md#class-foreignproxy). |
-
 ### Classes
 
 |               Class Name             |                Functionality                 |
