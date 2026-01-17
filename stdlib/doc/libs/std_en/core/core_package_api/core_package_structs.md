@@ -82,6 +82,7 @@ Exceptions:
 
 - [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) - Throws an exception when size is less than 0.
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -98,6 +99,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the array satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -113,6 +120,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func clone()
 
@@ -288,6 +300,7 @@ Execution result:
 [0, -1, -1]
 ```
 
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): Array<T> 
@@ -303,6 +316,12 @@ Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array containing elements that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -319,6 +338,12 @@ Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> - Returns a new array after filtering and mapping.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> Array\<R>)
 
 ```cangjie
@@ -335,6 +360,12 @@ Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> -  the new array after being "mapped" and "flattened".
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -352,6 +383,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -363,6 +400,11 @@ Function: Iterates over all elements and performs the given operation.
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func get(Int64)
 
@@ -401,6 +443,7 @@ Execution result:
 Some(0)
 ```
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -416,6 +459,11 @@ Parameters:
 Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func map\<R>((T)->R)
 
@@ -451,6 +499,7 @@ Execution Result:
 [1, 2, 3]
 ```
 
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -467,6 +516,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current array do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -482,6 +537,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func repeat(Int64)
 
@@ -546,6 +606,7 @@ Execution Result:
 [5, 4, 3, 2, 1, 0]
 ```
 
+<!--Del-->
 ### func skip(Int64)
 ```cangjie
 public func skip(count: Int64): Array<T>
@@ -566,6 +627,11 @@ Return value:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func slice(Int64, Int64)
 
@@ -650,6 +716,7 @@ Exceptions:
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown if mid is less than 0 or greater than this.size.
 
+<!--Del-->
 ### func step(Int64)
 ```cangjie
 public func step(count: Int64): Array<T>
@@ -670,6 +737,11 @@ Return value:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func swap(Int64, Int64)
 
@@ -708,6 +780,7 @@ Execution Result:
 [1, 3, 2, 4]
 ```
 
+<!--Del-->
 ### func take(Int64)
 ```cangjie
 public func take(count: Int64): Array<T>
@@ -728,6 +801,11 @@ Return value:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### operator func \[](Int64)
 
@@ -860,6 +938,7 @@ Output:
 [0, 10, 11, 3, 4, 5]
 ```
 
+<!--Del-->
 ### extend\<T> Array\<T>
 
 ```cangjie
@@ -880,6 +959,10 @@ Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new array with indices.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+
 #### func zip\<R>(Array\<R>)
 
 ```cangjie
@@ -895,6 +978,10 @@ Parameters:
 Return value:
 
 - [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - Returns a new array.
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### extend\<T> Array\<T> <: Collection\<T>
 

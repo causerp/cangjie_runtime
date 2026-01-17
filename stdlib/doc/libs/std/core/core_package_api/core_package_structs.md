@@ -82,6 +82,7 @@ public init(size: Int64, repeat!: T)
 
 - [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) - 当 size 小于 0，抛出异常。
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -98,6 +99,12 @@ public func all(predicate: (T) -> Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组所有元素都满足条件，返回 true，否则返回 false
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -113,6 +120,11 @@ public func any(predicate: (T) -> Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func clone()
 
@@ -287,7 +299,7 @@ main() {
 ```text
 [0, -1, -1]
 ```
-
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): Array<T> 
@@ -303,6 +315,12 @@ public func filter(predicate: (T) -> Bool): Array<T>
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个满足筛选条件的元素的新数组。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -319,6 +337,12 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> - 返回一个筛选和映射的新数组。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> Array\<R>)
 
 ```cangjie
@@ -335,6 +359,12 @@ public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> -  被“映射（map）”和“压平（flatten）”后的新数组
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -352,6 +382,12 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 - R - 返回最终计算得到的值。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -363,6 +399,11 @@ public func forEach(action: (T) -> Unit): Unit
 参数：
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func get(Int64)
 
@@ -401,6 +442,7 @@ main() {
 Some(0)
 ```
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -416,6 +458,11 @@ public func intersperse(separator: T): Array<T>
 返回值：
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个新数组。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func map\<R>((T)->R)
 
@@ -451,6 +498,7 @@ main(): Int64 {
 [1, 2, 3]
 ```
 
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -467,6 +515,12 @@ public func none(predicate: (T) -> Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前数组中元素是否都不满足条件。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -482,6 +536,11 @@ public func reduce(operation: (T, T) -> T): Option<T>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func repeat(Int64)
 
@@ -546,6 +605,7 @@ main() {
 [5, 4, 3, 2, 1, 0]
 ```
 
+<!--Del-->
 ### func skip(Int64)
 ```cangjie
 public func skip(count: Int64): Array<T>
@@ -566,6 +626,11 @@ public func skip(count: Int64): Array<T>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func slice(Int64, Int64)
 
@@ -650,6 +715,7 @@ public func splitAt(mid: Int64): (Array<T>, Array<T>)
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - mid 小于 0 或大于 this.size。
 
+<!--Del-->
 ### func step(Int64)
 ```cangjie
 public func step(count: Int64): Array<T>
@@ -670,6 +736,11 @@ public func step(count: Int64): Array<T>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func swap(Int64, Int64)
 
@@ -708,6 +779,7 @@ main(): Int64 {
 [1, 3, 2, 4]
 ```
 
+<!--Del-->
 ### func take(Int64)
 ```cangjie
 public func take(count: Int64): Array<T>
@@ -728,6 +800,11 @@ public func take(count: Int64): Array<T>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### operator func \[](Int64)
 
@@ -860,6 +937,7 @@ main() {
 [0, 10, 11, 3, 4, 5]
 ```
 
+<!--Del-->
 ### extend\<T> Array\<T>
 
 ```cangjie
@@ -880,6 +958,10 @@ public func enumerate(): Array<(Int64, T)>
 
 - [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新数组。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+
 #### func zip\<R>(Array\<R>)
 
 ```cangjie
@@ -895,6 +977,11 @@ public func zip<R>(other: Array<R>): Array<(T, R)>
 返回值：
 
 - [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - 返回一个新数组。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### extend\<T> Array\<T> <: Collection\<T>
 

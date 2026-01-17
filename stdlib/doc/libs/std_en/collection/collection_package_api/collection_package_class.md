@@ -423,6 +423,7 @@ Example:
 
 See [ArrayList's add function](../collection_package_samples/sample_arraylist_add.md) for usage examples.
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -439,6 +440,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [ArrayList](collection_package_class.md#class-arraylistt) satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -454,6 +461,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func clear()
 
@@ -479,6 +491,7 @@ Return Value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt)\<T>.
 
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): ArrayList<T>
@@ -494,6 +507,12 @@ Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new collection containing elements that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -510,6 +529,12 @@ Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<R> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) after filtering and mapping.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> ArrayList\<R>)
 
 ```cangjie
@@ -526,6 +551,12 @@ Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<R> -  the new [ArrayList](collection_package_class.md#class-arraylistt) after being "mapped" and "flattened".
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -543,6 +574,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -554,6 +591,11 @@ Function: Iterates over all elements and performs the given operation.
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func get(Int64)
 
@@ -593,6 +635,7 @@ Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The underlying raw data of the [ArrayList](collection_package_class.md#class-arraylistt).
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -608,6 +651,11 @@ Parameters:
 Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<T> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt).
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func isEmpty()
 
@@ -633,6 +681,7 @@ Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator over the elements in the [ArrayList](collection_package_class.md#class-arraylistt).
 
+<!--Del-->
 ### func map\<R>((T) -> R)
 
 ```cangjie
@@ -649,6 +698,12 @@ Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<R> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -665,6 +720,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [ArrayList](collection_package_class.md#class-arraylistt) do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -680,6 +741,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func remove(Int64)
 
@@ -800,6 +866,7 @@ Example:
 
 See usage example at [ArrayList's remove/clear/slice functions](../collection_package_samples/sample_arraylist_remove_clear_slice.md).
 
+<!--Del-->
 ### func skip(Int64)
 ```cangjie
 public func skip(count: Int64): ArrayList<T>
@@ -820,6 +887,11 @@ Return value:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
 
@@ -858,6 +930,7 @@ Parameters:
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to use a stable sort.
 - comparator!: (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - A function of type (T, T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).
 
+<!--Del-->
 ### func step(Int64)
 ```cangjie
 public func step(count: Int64): ArrayList<T>
@@ -879,6 +952,12 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func take(Int64)
 ```cangjie
 public func take(count: Int64): ArrayList<T>
@@ -899,6 +978,11 @@ Return value:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func toArray()
 
@@ -978,6 +1062,7 @@ Exceptions:
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the [step](collection_package_function.md#func-steptint64) of `range` is not equal to 1.
 - [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - Thrown when `range` is invalid.
 
+<!--Del-->
 ### extend\<T> ArrayList\<T>
 
 ```cangjie
@@ -998,6 +1083,10 @@ Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with indices.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+
 #### func zip\<R>(ArrayList\<R>)
 
 ```cangjie
@@ -1013,6 +1102,11 @@ Parameters:
 Return value:
 
 - [ArrayList](collection_package_class.md#class-arraylistt)\<(T, R)> - Returns a new [ArrayList](collection_package_class.md#class-arraylistt) .
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### extend\<T> ArrayList\<T> <: Equatable\<ArrayList\<T>> where T <: Equatable\<T>
 
@@ -1746,6 +1840,7 @@ Example:
 
 See [HashMap's add/remove/clear functions](../collection_package_samples/sample_hashmap_add_remove_clear.md) for usage examples.
 
+<!--Del-->
 ### func all((K, V) -> Bool)
 
 ```cangjie
@@ -1762,6 +1857,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) satisfy the condition, otherwise returns false
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((K, V) -> Bool)
 
 ```cangjie
@@ -1777,6 +1878,11 @@ Parameters:
 Parameters:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any key-value pair that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func clear()
 
@@ -1854,6 +1960,7 @@ Return Value:
 
 - [MapEntryView](./collection_package_interface.md#interface-mapentryviewk-v)\<K, V> - A reference view.
 
+<!--Del-->
 ### func filter((K, V) -> Bool)
 ```cangjie
 public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
@@ -1869,6 +1976,12 @@ Return value:
 
 - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - Returns a new collection of key-value pairs that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, K, V) -> R)
 
 ```cangjie
@@ -1886,6 +1999,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((K, V) -> Unit)
 
 ```cangjie
@@ -1897,6 +2016,11 @@ Function: Iterates over all key-value pairs and performs the given operation.
 Parameters:
 
 - action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func get(K)
 
@@ -1954,6 +2078,7 @@ Return Value:
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - A container holding all returned keys.
 
+<!--Del-->
 ### func mapValues\<R>((K, V) -> R)
 
 ```cangjie
@@ -1970,6 +2095,12 @@ Return value:
 
 - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
@@ -1986,6 +2117,12 @@ Return value:
 
 - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, R> - Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((K, V) -> Bool)
 
 ```cangjie
@@ -2001,6 +2138,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all key-value pairs in the current [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((V, V) -> V)
 
 ```cangjie
@@ -2016,6 +2159,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func remove(Collection\<K>)
 
@@ -2345,6 +2493,7 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be added.
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -2361,6 +2510,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -2376,6 +2531,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### prop capacity
 
@@ -2445,6 +2605,7 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) contains all elements from the [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont); otherwise, returns false.
 
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): HashSet<T>
@@ -2460,6 +2621,12 @@ Return value:
 
 - [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) containing elements that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -2476,6 +2643,12 @@ Return value:
 
 - [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) after filtering and mapping. 
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -2493,6 +2666,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -2504,6 +2683,11 @@ Function: Iterates over all elements and performs the given operation.
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func isEmpty()
 
@@ -2533,6 +2717,7 @@ Example:
 
 See [HashSet's add/iterator/remove functions](../collection_package_samples/sample_hashset_add_iterator_remove.md) for usage examples.
 
+<!--Del-->
 ### func map\<R>((T)->R)
 
 ```cangjie
@@ -2548,6 +2733,12 @@ Return value:
 
 - [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<R> - A new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) containing the transformed elements from the original [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -2564,6 +2755,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -2579,6 +2776,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func remove(T)
 
@@ -3052,6 +3254,7 @@ Return Value:
 
 - [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - The node pointing to the element.
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -3068,6 +3271,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in this linked list satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -3083,6 +3292,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func backward(LinkedListNode\<T>)
 
@@ -3112,6 +3326,7 @@ public func clear(): Unit
 
 Function: Removes all elements from the linked list.
 
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): LinkedList<T>
@@ -3127,6 +3342,12 @@ Return value:
 
 - [LinkedList](collection_package_class.md#class-linkedlistt)\<T> - Returns a new linked list containing elements that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -3143,6 +3364,12 @@ Parameters:
 
 - [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - Returns a new linked list after filtering and mapping.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> LinkedList\<R>)
 
 ```cangjie
@@ -3159,6 +3386,12 @@ Parameters:
 
 - [LinkedList](collection_package_class.md#class-linkedlistt)\<R> -  the new linked list after being "mapped" and "flattened".
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -3176,6 +3409,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -3187,6 +3426,11 @@ Function: Iterates over all elements and performs the given operation.
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func forward(LinkedListNode\<T>)
 
@@ -3208,6 +3452,7 @@ Exceptions:
 
 - [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - Thrown if the node does not belong to any linked list instance.
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -3223,6 +3468,11 @@ Parameters:
 Return value:
 
 - LinkedList\<T> - Returns a new linked list.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func isEmpty()
 
@@ -3248,6 +3498,7 @@ Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - The iterator for elements in the current collection.
 
+<!--Del-->
 ### func map\<R>((T) -> R)
 
 ```cangjie
@@ -3263,6 +3514,11 @@ Parameters:
 Return value:
 
 - [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - Returns a new LinkedList.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func nodeAt(Int64)
 
@@ -3282,6 +3538,7 @@ Return Value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>> - The node at the specified index, returns None if it doesn't exist.
 
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -3298,6 +3555,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current linked list do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -3313,6 +3576,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func removeFirst()
 
@@ -3382,6 +3650,7 @@ public func reverse(): Unit
 
 Function: Reverses the order of elements in this linked list.
 
+<!--Del-->
 ### func skip(Int64)
 ```cangjie
 public func skip(count: Int64): LinkedList<T>
@@ -3403,6 +3672,11 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func splitOff(LinkedListNode\<T>)
 
 ```cangjie
@@ -3423,6 +3697,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the specified node does not belong to this linked list.
 
+<!--Del-->
 ### func step(Int64)
 ```cangjie
 public func step(count: Int64): LinkedList<T>
@@ -3444,6 +3719,12 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func take(Int64)
 ```cangjie
 public func take(count: Int64): LinkedList<T>
@@ -3465,6 +3746,11 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func toArray()
 
 ```cangjie
@@ -3477,6 +3763,7 @@ Return Value:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - An array of type T.
 
+<!--Del-->
 ### extend\<T> LinkedList\<T>
 
 ```cangjie
@@ -3497,6 +3784,10 @@ Return value:
 
 - [LinkedList](./collection_package_class.md#class-linkedlistt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new [LinkedList](./collection_package_class.md#class-linkedlistt) with indices.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+
 #### func zip\<R>(LinkedList\<R>)
 
 ```cangjie
@@ -3512,6 +3803,10 @@ Parameters:
 Return value:
 
 - [LinkedList](./collection_package_class.md#class-linkedlistt)\<(T, R)> - Returns a new linked list.
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### extend\<T> LinkedList\<T> <: Equatable\<LinkedList\<T>> where T <: Equatable\<T>
 
@@ -3722,6 +4017,7 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - The collection of key-value pairs to add to the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
+<!--Del-->
 ### func all((K, V) -> Bool)
 
 ```cangjie
@@ -3738,6 +4034,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((K, V) -> Bool)
 
 ```cangjie
@@ -3753,6 +4055,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any key-value pair that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func backward(K, Bool)
 
@@ -3839,6 +4146,7 @@ Return Value:
 
 - [MapEntryView](./collection_package_interface.md#interface-mapentryviewk-v)\<K, V> - A reference view.
 
+<!--Del-->
 ### func filter((K, V) -> Bool)
 ```cangjie
 public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
@@ -3854,6 +4162,12 @@ Return value:
 
 - [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - Returns a new collection of key-value pairs that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, K, V) -> R)
 
 ```cangjie
@@ -3871,6 +4185,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((K, V) -> Unit)
 
 ```cangjie
@@ -3882,6 +4202,11 @@ Function: Iterates over all key-value pairs and performs the given operation.
 Parameters:
 
 - action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func forward(K, Bool)
 
@@ -3952,6 +4277,7 @@ Return Value:
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - A collection containing all keys.
 
+<!--Del-->
 ### func mapValues\<R>((K, V) -> R)
 
 ```cangjie
@@ -3968,6 +4294,12 @@ Return value:
 
 - [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
@@ -3984,6 +4316,12 @@ Return value:
 
 - [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> - Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((K, V) -> Bool)
 
 ```cangjie
@@ -4000,6 +4338,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all key-value pairs in the current [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((V, V) -> V)
 
 ```cangjie
@@ -4015,6 +4359,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func removeFirst()
 
@@ -4340,6 +4689,7 @@ Parameters:
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - The collection of elements to be added.
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -4356,6 +4706,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfy the condition, otherwise returns false.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -4371,6 +4727,11 @@ Parameters:
 Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func backward(T, Bool)
 
@@ -4441,6 +4802,7 @@ Return Value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if this [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) contains all elements from the collection; otherwise, returns false.
 
+<!--Del-->
 ### func filter((T) -> Bool)
 ```cangjie
 public func filter(predicate: (T) -> Bool): TreeSet<T>
@@ -4456,6 +4818,12 @@ Return value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - Returns a new collection of elements that satisfy the filtering condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> Option<R>)
 
 ```cangjie
@@ -4472,6 +4840,12 @@ Return value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) after filtering and mapping.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -4489,6 +4863,12 @@ Return value:
 
 - R - Returns the final computed value.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -4500,6 +4880,11 @@ Function: Iterates over all elements and performs the given operation.
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func forward(T, Bool)
 
@@ -4542,6 +4927,7 @@ Return Value:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - An iterator for the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
+<!--Del-->
 ### func map\<R>((T)->R)
 
 ```cangjie
@@ -4558,6 +4944,12 @@ Return value:
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<R> - a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) composed of elements obtained by mapping all elements in the original [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -4574,6 +4966,12 @@ Return value:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) do not satisfy the condition.
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -4589,6 +4987,11 @@ Parameters:
 Return value:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func removeFirst()
 
