@@ -52,9 +52,13 @@ public static const INET6: AddressFamily
 public static const NETLINK: AddressFamily
 ```
 
-功能：NetLink 地址族，仅 Linux 下支持，其值为：
+功能：NetLink 地址族，其值为：
 
 - Linux: AddressFamily("NETLINK", 16)
+
+> **注意：**
+>
+> 不支持平台：Windows、macOS、iOS。
 
 类型：[AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -783,7 +787,7 @@ public static let NETLINK: SocketDomain = SocketDomain(16)
 
 > **注意：**
 >
-> 该常量在 Windows 和 macOS 平台不提供。
+> 不支持平台：Windows、macOS、iOS。
 
 类型：[SocketDomain](net_package_structs.md#struct-socketdomain)
 
@@ -797,7 +801,7 @@ public static let PACKET: SocketDomain = SocketDomain(17)
 
 > **注意：**
 >
-> 该常量在 Windows 和 macOS 平台不提供。
+> 不支持平台：Windows、macOS、iOS。
 
 类型：[SocketDomain](net_package_structs.md#struct-socketdomain)
 

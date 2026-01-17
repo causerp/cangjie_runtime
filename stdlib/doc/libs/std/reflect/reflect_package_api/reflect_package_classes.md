@@ -8,6 +8,10 @@ public class ClassTypeInfo <: TypeInfo
 
 功能：描述 `class` 类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [TypeInfo](#class-typeinfo)
@@ -22,6 +26,7 @@ public prop constructors: Collection<ConstructorInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 构造函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -71,6 +76,7 @@ public prop instanceVariables: Collection<InstanceVariableInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 实例成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 该集合不包含任何继承而来的 `public` 实例成员变量。
@@ -121,6 +127,7 @@ public prop sealedSubclasses: Collection<ClassTypeInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型不拥有 `sealed` 语义，则返回空集合。
 > - 如果该 `class` 类型拥有 `sealed` 语义，那么获得的集合必不可能是空集合，因为该 `class` 类型本身就是自己的子类。
 
@@ -136,6 +143,7 @@ public prop staticVariables: Collection<StaticVariableInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 静态成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 该集合不包含任何继承而来的 `public` 静态成员变量。
@@ -152,7 +160,8 @@ public prop superClass: Option<ClassTypeInfo>
 
 > **注意：**
 >
-> 理论上只有 class [Object](../../core/core_package_api/core_package_classes.md#class-object) 没有直接父类。
+> - 不支持平台：macOS、iOS。
+> - 理论上只有 class [Object](../../core/core_package_api/core_package_classes.md#class-object) 没有直接父类。
 
 类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)>
 
@@ -163,6 +172,10 @@ public func construct(args: Array<Any>): Any
 ```
 
 功能：在该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型中根据实参列表搜索匹配的构造函数并调用，传入实参列表，返回调用结果。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -220,6 +233,10 @@ public func getConstructor(parameterTypes: Array<TypeInfo>): ConstructorInfo
 ```
 
 功能：尝试在该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型中获取与给定形参类型信息列表匹配的 `public` 构造函数的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -287,6 +304,10 @@ public func getInstanceVariable(name: String): InstanceVariableInfo
 
 功能：给定变量名称，尝试获取该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 所对应的 `class` 类型中匹配的实例成员变量的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 变量名称。
@@ -339,6 +360,10 @@ public func getStaticVariable(name: String): StaticVariableInfo
 
 功能：给定变量名称，尝试获取该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 所对应的 `class` 类型中匹配的静态成员变量的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 变量名称。
@@ -388,6 +413,10 @@ public func isAbstract(): Bool
 
 功能：判断该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型是否是抽象类。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型是抽象类则返回 `true`，否则返回 `false`。
@@ -402,7 +431,8 @@ public func isOpen(): Bool
 
 > **注意：**
 >
-> 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如：`abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
+> - 不支持平台：macOS、iOS。
+> - 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如：`abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
 
 返回值：
 
@@ -416,6 +446,10 @@ public func isSealed(): Bool
 
 功能：判断该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型是否拥有 `sealed` 语义。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 对应的 `class` 类型拥有 `sealed` 语义则返回 `true`，否则返回 `false`。
@@ -427,6 +461,10 @@ public redef static func get(qualifiedName: String): ClassTypeInfo
 ```
 
 功能：获取给定限定名称所对应类型的 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -471,6 +509,10 @@ public redef static func of(a: Any): ClassTypeInfo
 功能：获取给定的任意类型的实例的运行时类型所对应的类型信息。
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -517,6 +559,10 @@ public static func of(a: Object): ClassTypeInfo
 
 功能：获取给定的 `class` 类型的实例的运行时类型所对应的 `class` 类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - a: [Object](../../core/core_package_api/core_package_classes.md#class-object) - `class` 类型的实例。
@@ -561,6 +607,10 @@ public redef static func of<T>(): ClassTypeInfo
 
 功能：获取给定类型 `T` 对应的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - `T` 类型对应的类型信息。
@@ -599,6 +649,10 @@ public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
 
 功能：描述构造函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ConstructorInfo](#class-constructorinfo)>
@@ -615,6 +669,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该构造函数信息所对应的构造函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -630,7 +685,8 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 
 > **注意：**
 >
-> 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不支持平台：macOS、iOS。
+> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -688,6 +744,10 @@ public func apply(args: Array<Any>): Any
 
 功能：调用该 [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) 对应的构造函数，传入实参列表，并返回调用结果。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 实参列表。
@@ -711,6 +771,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 功能：获取所有具有给定限定名称的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定 T 类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
@@ -722,6 +786,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -735,6 +803,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -746,6 +818,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该构造器信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -759,6 +835,10 @@ public func toString(): String
 
 功能：获取字符串形式的该构造函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该构造函数信息。
@@ -770,6 +850,10 @@ public operator func !=(that: ConstructorInfo): Bool
 ```
 
 功能：判断该构造器信息与给定的另一个构造器信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -787,6 +871,10 @@ public operator func ==(that: ConstructorInfo): Bool
 
 功能：判断该构造器信息与给定的另一个构造器信息是否相等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - 被比较相等性的另一个构造器信息。
@@ -803,6 +891,10 @@ public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
 
 功能：描述泛型类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [TypeInfo](./reflect_package_classes.md#class-typeinfo)
@@ -815,6 +907,10 @@ public operator func ==(that: GenericTypeInfo): Bool
 ```
 
 功能：判断该泛型类型信息与给定的另一个泛型类型信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -832,6 +928,10 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
 
 功能：描述全局函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[GlobalFunctionInfo](#class-globalfunctioninfo)>
@@ -848,6 +948,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该全局函数信息所对应全局函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -860,6 +961,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 ```
 
 功能：获取该 [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的实例成员函数的泛型参数信息列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
 
@@ -877,7 +982,8 @@ public prop name: String
 
 > **注意：**
 >
-> 构成重载的所有全局函数将拥有相同的名称。
+> - 不支持平台：macOS、iOS。
+> - 构成重载的所有全局函数将拥有相同的名称。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -891,7 +997,8 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 
 > **注意：**
 >
-> 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不支持平台：macOS、iOS。
+> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -902,6 +1009,10 @@ public prop returnType: TypeInfo
 ```
 
 功能：获取该 [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的全局函数的返回类型的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
@@ -915,7 +1026,8 @@ public func apply(args: Array<Any>): Any
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -942,7 +1054,8 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -970,6 +1083,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 功能：获取所有具有给定限定名称的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定 T 类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
@@ -981,6 +1098,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -994,6 +1115,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -1005,6 +1130,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该全局函数信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1018,6 +1147,10 @@ public func toString(): String
 
 功能：获取字符串形式的该全局函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该全局函数信息。
@@ -1029,6 +1162,10 @@ public operator func ==(that: GlobalFunctionInfo): Bool
 ```
 
 功能：判断该全局函数信息与给定的另一个全局函数信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1046,6 +1183,10 @@ public operator func !=(that: GlobalFunctionInfo): Bool
 
 功能：判断该全局函数信息与给定的另一个全局函数信息是否不等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
@@ -1061,6 +1202,10 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
 ```
 
 功能：描述全局变量信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -1078,6 +1223,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该全局变量信息所对应的全局变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -1091,6 +1237,10 @@ public prop name: String
 
 功能：获取该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -1101,6 +1251,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的声明类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -1110,6 +1264,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1123,6 +1281,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -1134,6 +1296,10 @@ public func getValue(): Any
 ```
 
 功能：获取该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1147,6 +1313,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -1158,6 +1328,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该全局变量信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1173,6 +1347,7 @@ public func isMutable(): Bool
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果实例成员变量被 `var` 修饰符所修饰，则该全局变量可被修改。
 > - 如果实例成员变量被 `let` 修饰符所修饰，则该全局变量不可被修改。
 
@@ -1187,6 +1362,10 @@ public func setValue(newValue: Any): Unit
 ```
 
 功能：设置该 [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) 对应的全局变量的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1205,6 +1384,10 @@ public func toString(): String
 
 功能：获取字符串形式的该全局变量信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该全局变量信息。
@@ -1216,6 +1399,10 @@ public operator func ==(that: GlobalVariableInfo): Bool
 ```
 
 功能：判断该全局变量信息与给定的另一个全局变量信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1233,6 +1420,10 @@ public operator func !=(that: GlobalVariableInfo): Bool
 
 功能：判断该全局变量信息与给定的另一个全局变量信息是否不等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
@@ -1248,6 +1439,10 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
 ```
 
 功能：描述实例成员函数信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -1265,6 +1460,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员函数信息所对应的实例成员函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -1277,6 +1473,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 ```
 
 功能：获取该 [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) 对应的实例成员函数的泛型参数信息列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
 
@@ -1294,6 +1494,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该实例成员函数无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
@@ -1310,6 +1511,7 @@ public prop name: String
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 构成重载的所有实例成员函数将拥有相同的名称。
 > - 操作符重载函数的名称就是该操作符本身的符号内容，如"`+`"，"`*`"，"`[]`"。
 
@@ -1322,6 +1524,10 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 ```
 
 功能：获取该 [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) 对应的实例成员函数的参数信息列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 > **说明：**
 >
@@ -1337,6 +1543,10 @@ public prop returnType: TypeInfo
 
 功能：获取该 [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) 对应的实例成员函数的返回值类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func apply(Any, Array\<Any>)
@@ -1349,7 +1559,8 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致。
 
 参数：
 
@@ -1379,7 +1590,8 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致。
 
 参数：
 
@@ -1444,6 +1656,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 功能：获取所有具有给定限定名称的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定 T 类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
@@ -1455,6 +1671,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1468,6 +1688,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -1479,6 +1703,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该实例成员函数信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1492,6 +1720,10 @@ public func isAbstract(): Bool
 
 功能：判断 [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) 所对应的实例成员函数是否拥有 `abstract` 语义。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数拥有 `abstract` 语义则返回 `true`，否则返回 `false`。
@@ -1503,6 +1735,10 @@ public func isOpen(): Bool
 ```
 
 功能：判断该 [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) 对应的实例成员函数是否拥有 `open` 语义。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1520,6 +1756,10 @@ public func toString(): String
 
 功能：获取字符串形式的该实例成员函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该实例成员函数信息。
@@ -1531,6 +1771,10 @@ public operator func ==(that: InstanceFunctionInfo): Bool
 ```
 
 功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1548,6 +1792,10 @@ public operator func !=(that: InstanceFunctionInfo): Bool
 
 功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否不等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
@@ -1563,6 +1811,10 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
 ```
 
 功能：描述实例成员属性信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -1580,6 +1832,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员属性信息所对应的实例成员属性，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -1595,6 +1848,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该实例成员属性无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
@@ -1609,6 +1863,10 @@ public prop name: String
 
 功能：获取该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -1619,6 +1877,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性的声明类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -1628,6 +1890,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1641,6 +1907,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -1653,6 +1923,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -1664,6 +1938,10 @@ public func getValue(instance: Any): Any
 ```
 
 功能：获取该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性在给定实例中的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1720,6 +1998,10 @@ public func hashCode(): Int64
 
 功能：获取该实例成员属性信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该实例成员属性信息的哈希值。
@@ -1732,6 +2014,10 @@ public func isAbstract(): Bool
 
 功能：判断该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是否是抽象的。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是抽象的，则返回 `true`，否则返回 `false`。
@@ -1743,6 +2029,10 @@ public func isOpen(): Bool
 ```
 
 功能：判断该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性是否拥有 `open` 语义。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1758,7 +2048,8 @@ public func isMutable(): Bool
 
 > **注意：**
 >
-> 如果实例成员属性被 `mut` 修饰符所修饰，则该实例成员属性可被修改，否则不可被修改。
+> - 不支持平台：macOS、iOS。
+> - 如果实例成员属性被 `mut` 修饰符所修饰，则该实例成员属性可被修改，否则不可被修改。
 
 返回值：
 
@@ -1771,6 +2062,10 @@ public func setValue(instance: Any, newValue: Any): Unit
 ```
 
 功能：设置该 [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) 对应的实例成员属性在给定实例中的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1791,6 +2086,10 @@ public func toString(): String
 
 功能：获取字符串形式的该实例成员属性信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该实例成员属性信息。
@@ -1802,6 +2101,10 @@ public operator func !=(that: InstancePropertyInfo): Bool
 ```
 
 功能：判断该实例成员属性信息与给定的另一个实例成员属性信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1819,6 +2122,10 @@ public operator func ==(that: InstancePropertyInfo): Bool
 
 功能：判断该实例成员属性信息与给定的另一个实例成员属性信息是否相等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - 被比较相等性的另一个实例成员属性信息。
@@ -1834,6 +2141,10 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
 ```
 
 功能：描述实例成员变量信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -1851,6 +2162,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员变量信息所对应的实例成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -1866,6 +2178,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该实例成员变量无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
@@ -1880,6 +2193,10 @@ public prop name: String
 
 功能：获取该 [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) 对应的实例成员变量的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -1890,6 +2207,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) 对应的实例成员变量的声明类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -1899,6 +2220,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -1912,6 +2237,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -1924,6 +2253,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -1935,6 +2268,10 @@ public func getValue(instance: Any): Any
 ```
 
 功能：获取该 [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) 对应的实例成员变量在给定实例中的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1986,6 +2323,10 @@ public func hashCode(): Int64
 
 功能：获取该实例成员变量信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该实例成员变量信息的哈希值。
@@ -2000,6 +2341,7 @@ public func isMutable(): Bool
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果实例成员变量被 `var` 修饰符所修饰，则该实例成员变量可被修改。
 > - 如果实例成员变量被 `let` 修饰符所修饰，则该实例成员变量不可被修改。
 
@@ -2014,6 +2356,10 @@ public func setValue(instance: Any, newValue: Any): Unit
 ```
 
 功能：设置该 [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) 对应的实例成员变量在给定实例中的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2034,6 +2380,10 @@ public func toString(): String
 
 功能：获取字符串形式的该实例成员变量信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该实例成员变量信息。
@@ -2045,6 +2395,10 @@ public operator func ==(that: InstanceVariableInfo): Bool
 ```
 
 功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2062,6 +2416,10 @@ public operator func !=(that: InstanceVariableInfo): Bool
 
 功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否不等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
@@ -2078,6 +2436,10 @@ public class InterfaceTypeInfo <: TypeInfo
 
 功能：`interface` 类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [TypeInfo](#class-typeinfo)
@@ -2092,6 +2454,7 @@ public prop sealedSubtypes: Collection<TypeInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `interface` 类型不拥有 `sealed` 语义，则返回空集合。
 > - 如果该 `interface` 类型拥有 `sealed` 语义，那么获得的集合必不可能是空集合，因为该 `interface` 类型本身就是自己的子类型。
 
@@ -2105,6 +2468,10 @@ public func isSealed(): Bool
 
 功能：判断该 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) 所对应的 `interface` 类型是否拥有 `sealed` 语义。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该 `interface` 类型拥有 `sealed` 语义则返回 `true`，否则返回 `false`。
@@ -2116,6 +2483,10 @@ public redef static func get(qualifiedName: String): InterfaceTypeInfo
 ```
 
 功能：获取给定 `qualifiedName` 所对应的类型的 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2161,6 +2532,10 @@ public redef static func of(a: Any): InterfaceTypeInfo
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
@@ -2182,6 +2557,10 @@ public redef static func of<T>(): InterfaceTypeInfo
 
 功能：获取给定 `T` 类型对应的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) - `T` 类型对应的类型信息。
@@ -2199,6 +2578,10 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
 
 功能：描述包信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[PackageInfo](#class-packageinfo)>
@@ -2213,6 +2596,10 @@ public prop functions: Collection<GlobalFunctionInfo>
 
 功能：获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中所有 `public` 全局函数的信息所组成的列表。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo)>
 
 ### prop name
@@ -2225,7 +2612,8 @@ public prop name: String
 
 > **注意：**
 >
-> 包的名称不包含其所在的模块名称和其父包的名称，例如限定名称为 `a/b.c.d` 的包的名称是 `d` 。
+> - 不支持平台：macOS、iOS。
+> - 包的名称不包含其所在的模块名称和其父包的名称，例如限定名称为 `a/b.c.d` 的包的名称是 `d` 。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2236,6 +2624,10 @@ public prop parentPackage: PackageInfo
 ```
 
 功能：获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的父包的 [PackageInfo](reflect_package_classes.md#class-packageinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[PackageInfo](reflect_package_classes.md#class-packageinfo)
 
@@ -2253,7 +2645,8 @@ public prop qualifiedName: String
 
 > **注意：**
 >
-> 包的限定名称的格式是 `(module_name/)?(default|package_name)(.package_name)*`，例如限定名称为 `a/b.c.d` 的包位于模块 `a` 下的 `b` 包里的 `c` 包里。
+> - 不支持平台：macOS、iOS。
+> - 包的限定名称的格式是 `(module_name/)?(default|package_name)(.package_name)*`，例如限定名称为 `a/b.c.d` 的包位于模块 `a` 下的 `b` 包里的 `c` 包里。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2267,7 +2660,8 @@ public prop rootPackage: PackageInfo
 
 > **注意：**
 >
-> 如果包本身就是 `root` 包，那么其 `rootPackage` 属性返回的是其本身。例如，限定名称为 `a.b.c` 的包，`rootPackage` 返回的是 `a`; 限定名称为 `a` 的包，`rootpackage` 返回的是 `a`。
+> - 不支持平台：macOS、iOS。
+> - 如果包本身就是 `root` 包，那么其 `rootPackage` 属性返回的是其本身。例如，限定名称为 `a.b.c` 的包，`rootPackage` 返回的是 `a`; 限定名称为 `a` 的包，`rootpackage` 返回的是 `a`。
 
 类型：[PackageInfo](reflect_package_classes.md#class-packageinfo)
 
@@ -2285,6 +2679,7 @@ public prop subPackages: Collection<PackageInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 该属性只会返回已被加载的子包。
 > - 不保证返回结果的顺序。
 
@@ -2300,7 +2695,8 @@ public prop typeInfos: Collection<TypeInfo>
 
 > **注意：**
 >
-> 目前该列表不包含所有反射尚未支持的类型。
+> - 不支持平台：macOS、iOS。
+> - 目前该列表不包含所有反射尚未支持的类型。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)>
 
@@ -2311,6 +2707,10 @@ public prop variables: Collection<GlobalVariableInfo>
 ```
 
 功能：获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中所有 `public` 全局变量的信息所组成的列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo)>
 
@@ -2324,7 +2724,8 @@ public prop version: String
 
 > **注意：**
 >
-> 由于目前动态库中尚无版本信息，获取到的版本号总是空字符串。
+> - 不支持平台：macOS、iOS。
+> - 由于目前动态库中尚无版本信息，获取到的版本号总是空字符串。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2335,6 +2736,10 @@ public static func get(qualifiedName: String): PackageInfo
 ```
 
 功能：获取给定 `qualifiedName` 所对应的 [PackageInfo](./reflect_package_classes.md#class-packageinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2358,6 +2763,7 @@ public static func load(path: String): PackageInfo
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 为了提升兼容性，路径 `path` 中的共享库文件名不需要后缀名（如 `.so` 和 `.dll` 等）。
 > - 如果某个 `package` 通过静态加载方式（如：`import`）已经导入过，那么动态加载该 `package` 会抛出异常。
 
@@ -2384,6 +2790,10 @@ public func getFunction(name: String, parameterTypes: Array<TypeInfo>): GlobalFu
 
 功能：尝试在该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中获取拥有给定函数名称且与给定形参类型信息列表匹配的 `public` 全局函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 全局函数的名称。
@@ -2405,6 +2815,10 @@ public func getFunctions(name: String): Array<GlobalFunctionInfo>
 
 功能：尝试在该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中获取拥有给定函数名称的所有 `public` 全局函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 全局函数的名称。
@@ -2420,6 +2834,10 @@ public func getSubPackage(qualifiedName: String): PackageInfo
 ```
 
 功能：尝试获取该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应限定名称为 `qualifiedName` 的子包的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2442,6 +2860,10 @@ public func getTypeInfo(qualifiedTypeName: String): TypeInfo
 
 功能：尝试在该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中获取拥有给定类型名称的全局定义的 `public` 类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - qualifiedTypeName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称
@@ -2461,6 +2883,10 @@ public func getVariable(name: String): GlobalVariableInfo
 ```
 
 功能：尝试在该 [PackageInfo](reflect_package_classes.md#class-packageinfo) 对应的包中获取拥有给定变量名称的 `public` 全局变量的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2482,6 +2908,10 @@ public func hashCode(): Int64
 
 功能：获取该包信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该包信息的哈希值。
@@ -2496,7 +2926,8 @@ public func toString(): String
 
 > **注意：**
 >
-> 内部实现为该包信息的限定名称字符串。
+> - 不支持平台：macOS、iOS。
+> - 内部实现为该包信息的限定名称字符串。
 
 返回值：
 
@@ -2512,7 +2943,8 @@ public operator func !=(that: PackageInfo): Bool
 
 > **注意：**
 >
-> 内部实现为比较两个包信息的限定名称是否相等。
+> - 不支持平台：macOS、iOS。
+> - 内部实现为比较两个包信息的限定名称是否相等。
 
 参数：
 
@@ -2532,7 +2964,8 @@ public operator func ==(that: PackageInfo): Bool
 
 > **注意：**
 >
-> 内部实现为比较两个包信息的限定名称是否相等。
+> - 不支持平台：macOS、iOS。
+> - 内部实现为比较两个包信息的限定名称是否相等。
 
 参数：
 
@@ -2550,6 +2983,10 @@ public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString
 
 功能：描述函数形参信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ParameterInfo](#class-parameterinfo)>
@@ -2566,6 +3003,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该函数形参信息所对应的函数形参，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -2581,7 +3019,8 @@ public prop index: Int64
 
 > **注意：**
 >
-> `index` 从 0 开始计数。
+> - 不支持平台：macOS、iOS。
+> - `index` 从 0 开始计数。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -2593,6 +3032,10 @@ public prop name: String
 
 功能：获取该 [ParameterInfo](reflect_package_classes.md#class-parameterinfo) 对应的形参的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -2603,6 +3046,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [ParameterInfo](reflect_package_classes.md#class-parameterinfo) 对应的函数形参的声明类型所对应的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -2612,6 +3059,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2625,6 +3076,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -2636,6 +3091,10 @@ public func getAllAnnotations(): Array<Annotation>
 ```
 
 功能：获取作用于该对象的所有注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2649,6 +3108,10 @@ public func hashCode(): Int64
 
 功能：获取该函数形参信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该函数形参信息的哈希值。
@@ -2661,6 +3124,10 @@ public func toString(): String
 
 功能：获取字符串形式的该函数形参信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该函数形参信息。
@@ -2672,6 +3139,10 @@ public operator func !=(that: ParameterInfo): Bool
 ```
 
 功能：判断该函数形参信息与给定的另一个函数形参信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2688,6 +3159,10 @@ public operator func ==(that: ParameterInfo): Bool
 ```
 
 功能：判断该函数形参信息与给定的另一个函数形参信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2709,7 +3184,8 @@ public class PrimitiveTypeInfo <: TypeInfo
 
 > **注意：**
 >
-> 目前尚不支持 `Nothing` 原始数据类型。
+> - 不支持平台：macOS、iOS。
+> - 目前尚不支持 `Nothing` 原始数据类型。
 
 父类型：
 
@@ -2722,6 +3198,10 @@ public static redef func get(qualifiedName: String): PrimitiveTypeInfo
 ```
 
 功能：获取给定的类型的限定名称所对应类型的 [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2765,6 +3245,10 @@ public static redef func of(a: Any): PrimitiveTypeInfo
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 任意类型的实例。
@@ -2806,6 +3290,10 @@ public static redef func of<T>(): PrimitiveTypeInfo
 
 功能：获取给定 `T` 类型对应的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo) - `T` 类型对应的类型信息。
@@ -2842,6 +3330,10 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
 
 功能：描述静态成员函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[StaticFunctionInfo](#class-staticfunctioninfo)>
@@ -2858,6 +3350,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该 [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) 对应的静态成员函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -2870,6 +3363,10 @@ public prop genericParams: Collection<GenericTypeInfo>
 ```
 
 功能：获取该 [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) 对应的实例成员函数的泛型参数信息列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo)>
 
@@ -2887,6 +3384,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该静态成员函数无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
@@ -2903,7 +3401,8 @@ public prop name: String
 
 > **注意：**
 >
-> 构成重载的所有静态成员函数将拥有相同的名称。
+> - 不支持平台：macOS、iOS。
+> - 构成重载的所有静态成员函数将拥有相同的名称。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2917,7 +3416,8 @@ public prop parameters: ReadOnlyList<ParameterInfo>
 
 > **注意：**
 >
-> 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
+> - 不支持平台：macOS、iOS。
+> - 不保证参数顺序，可根据 `ParameterInfo`的 `index` 属性确定参数实际位置。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[ParameterInfo](reflect_package_classes.md#class-parameterinfo)>
 
@@ -2928,6 +3428,10 @@ public prop returnType: TypeInfo
 ```
 
 功能：获取该 [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) 对应的静态成员函数的返回值类型的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
@@ -2941,7 +3445,8 @@ public func apply(thisType: TypeInfo, args: Array<Any>): Any
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -3004,7 +3509,8 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 
 > **注意：**
 >
-> `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 不支持平台：macOS、iOS。
+> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -3035,6 +3541,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 功能：获取所有具有给定限定名称的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定 T 类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
@@ -3046,6 +3556,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3059,6 +3573,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -3070,6 +3588,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该静态成员函数信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3083,6 +3605,10 @@ public func toString(): String
 
 功能：获取字符串形式的该静态成员函数信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该静态成员函数信息。
@@ -3094,6 +3620,10 @@ public operator func !=(that: StaticFunctionInfo): Bool
 ```
 
 功能：判断该静态成员函数信息与给定的另一个静态成员函数信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3111,6 +3641,10 @@ public operator func ==(that: StaticFunctionInfo): Bool
 
 功能：判断该静态成员函数信息与给定的另一个静态成员函数信息是否相等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - 被比较相等性的另一个静态成员函数信息。
@@ -3126,6 +3660,10 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
 ```
 
 功能：描述静态成员属性信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -3143,6 +3681,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该静态成员属性信息所对应的静态成员属性，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -3158,6 +3697,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该静态成员属性无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 目前获取到的修饰符集合内容较为混乱，尚未统一。
@@ -3172,6 +3712,10 @@ public prop name: String
 
 功能：获取该 [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) 对应的静态成员属性的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -3182,6 +3726,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) 对应的静态成员属性的声明类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -3191,6 +3739,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3204,6 +3756,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -3215,6 +3771,10 @@ public func getAllAnnotations(): Array<Annotation>
 ```
 
 功能：获取作用于该对象的所有注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3230,7 +3790,8 @@ public func getValue(): Any
 
 > **注意：**
 >
-> 如果该静态成员属性缺少合法实现，如 `interface` 类型中的抽象静态成员属性，则应抛出 [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) 异常，但由于后端尚未支持，故尚未实现。
+> - 不支持平台：macOS、iOS。
+> - 如果该静态成员属性缺少合法实现，如 `interface` 类型中的抽象静态成员属性，则应抛出 [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) 异常，但由于后端尚未支持，故尚未实现。
 
 返回值：
 
@@ -3280,6 +3841,10 @@ public func hashCode(): Int64
 
 功能：获取该静态成员属性信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该静态成员属性信息的哈希值。
@@ -3291,6 +3856,10 @@ public func isMutable(): Bool
 ```
 
 功能：判断该静态成员属性信息所对应的静态成员属性是否可修改。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3310,7 +3879,8 @@ public func setValue(newValue: Any): Unit
 
 > **注意：**
 >
-> 如果该静态成员属性缺少合法实现，如 `interface` 类型中的抽象静态成员属性，则应抛出 [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) 异常，但由于后端尚未支持，故尚未实现。
+> - 不支持平台：macOS、iOS。
+> - 如果该静态成员属性缺少合法实现，如 `interface` 类型中的抽象静态成员属性，则应抛出 [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception) 异常，但由于后端尚未支持，故尚未实现。
 
 参数：
 
@@ -3366,6 +3936,10 @@ public func toString(): String
 
 功能：获取字符串形式的该静态成员属性信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该静态成员属性信息。
@@ -3377,6 +3951,10 @@ public operator func !=(that: StaticPropertyInfo): Bool
 ```
 
 功能：判断该静态成员属性信息与给定的另一个静态成员属性信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3394,6 +3972,10 @@ public operator func ==(that: StaticPropertyInfo): Bool
 
 功能：判断该静态成员属性信息与给定的另一个静态成员属性信息是否相等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - 被比较相等性的另一个静态成员属性信息。
@@ -3409,6 +3991,10 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
 ```
 
 功能：描述静态成员变量信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -3426,6 +4012,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -3441,6 +4028,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该静态成员变量无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 目前获取到的修饰符集合内容较为混乱，尚未统一。
@@ -3455,6 +4043,10 @@ public prop name: String
 
 功能：获取该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量的名称。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop typeInfo
@@ -3465,6 +4057,10 @@ public prop typeInfo: TypeInfo
 
 功能：获取该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量的声明类型的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 类型：[TypeInfo](reflect_package_classes.md#class-typeinfo)
 
 ### func findAllAnnotations\<T>() where T <: Annotation
@@ -3474,6 +4070,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
 功能：获取所有具有给定限定名称的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3487,6 +4087,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
@@ -3499,6 +4103,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -3510,6 +4118,10 @@ public func getValue(): Any
 ```
 
 功能：获取该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -3553,6 +4165,10 @@ public func hashCode(): Int64
 
 功能：获取该静态成员变量信息的哈希值。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 该静态成员变量信息的哈希值。
@@ -3567,6 +4183,7 @@ public func isMutable(): Bool
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果静态成员变量被 `var` 修饰符所修饰，则该静态成员变量可被修改。
 > - 如果静态成员变量被 `let` 修饰符所修饰，则该静态成员变量不可被修改。
 
@@ -3581,6 +4198,10 @@ public func setValue(newValue: Any): Unit
 ```
 
 功能：设置该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量的值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3631,6 +4252,10 @@ public func toString(): String
 
 功能：获取字符串形式的该静态成员变量信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该静态成员变量信息。
@@ -3642,6 +4267,10 @@ public operator func !=(that: StaticVariableInfo): Bool
 ```
 
 功能：判断该静态成员变量信息与给定的另一个静态成员变量信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3659,6 +4288,10 @@ public operator func ==(that: StaticVariableInfo): Bool
 
 功能：判断该静态成员变量信息与给定的另一个静态成员变量信息是否相等。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - that: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - 被比较相等性的另一个静态成员变量信息。
@@ -3674,6 +4307,10 @@ public class StructTypeInfo <: TypeInfo
 ```
 
 功能：描述 `struct` 类型的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -3710,6 +4347,7 @@ public prop constructors: Collection<ConstructorInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 构造函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -3725,6 +4363,7 @@ public prop instanceVariables: Collection<InstanceVariableInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 实例成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -3740,6 +4379,7 @@ public prop staticVariables: Collection<StaticVariableInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 静态成员变量，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -3752,6 +4392,10 @@ public func construct(args: Array<Any>): Any
 ```
 
 功能：在该 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) 对应的 `struct` 类型中根据实参列表搜索匹配的构造函数并调用，传入实参列表，返回调用结果。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3806,6 +4450,10 @@ public func getConstructor(parameterTypes: Array<TypeInfo>): ConstructorInfo
 
 功能：尝试在该 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) 对应的 `struct` 类型中获取与给定形参类型信息列表匹配的 `public` 构造函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - parameterTypes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)> - 形参类型信息列表。
@@ -3825,6 +4473,10 @@ public func getInstanceVariable(name: String): InstanceVariableInfo
 ```
 
 功能：给定变量名称，尝试获取该 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) 对应的 `struct` 类型中匹配的实例成员变量的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -3878,6 +4530,10 @@ public func getStaticVariable(name: String): StaticVariableInfo
 
 功能：给定变量名称，尝试获取该 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) 对应的 `struct` 类型中匹配的静态成员变量的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 变量名称。
@@ -3927,6 +4583,10 @@ public static redef func get(qualifiedName: String): StructTypeInfo
 
 功能：获取给定 `qualifiedName` 所对应的类型的 [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
@@ -3968,6 +4628,10 @@ public static redef func of(a: Any): StructTypeInfo
 ```
 
 功能：获取给定的任意类型实例的运行时类型所对应的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
 
@@ -4016,6 +4680,10 @@ public static redef func of<T>(): StructTypeInfo
 
 功能：获取给定 `T` 类型对应的类型信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - `T` 类型对应的类型信息。
@@ -4054,6 +4722,10 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString
 
 功能：[TypeInfo](reflect_package_classes.md#class-typeinfo) 提供了所有数据类型通用的操作接口。开发者通常无需向下转型为更具体的数据类型，如 [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 等，就能进行反射操作。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 [TypeInfo](reflect_package_classes.md#class-typeinfo) 的子类包括 [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo)、[StructTypeInfo](reflect_package_classes.md#class-structtypeinfo)、[ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) 和 [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo)，分别对应基本数据类型，`struct` 数据类型，`class` 数据类型和 `interface` 数据类型的类型信息。
 
 > **说明：**
@@ -4076,6 +4748,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该类型信息所对应的类型，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 
@@ -4091,6 +4764,7 @@ public prop instanceFunctions: Collection<InstanceFunctionInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 实例成员函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 如果该类型信息所对应的类型是 `struct` 或 `class` 类型，则该集合不包含继承而来的实例成员函数的信息。
@@ -4107,6 +4781,7 @@ public prop instanceProperties: Collection<InstancePropertyInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 实例成员属性，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 如果该类型信息所对应的类型是 `struct` 或 `class` 类型，则该集合不包含继承而来的实例成员属性的信息。
@@ -4123,6 +4798,7 @@ public prop modifiers: Collection<ModifierInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该类型无任何修饰符，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - `interface` 类型默认拥有 `open` 语义，故返回的集合总是包含 `open` 修饰符。
@@ -4140,6 +4816,7 @@ public prop name: String
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 该名称不包含任何模块名和包名前缀。
 > - 类型别名的类型信息就是实际类型其本身的类型信息，所以该函数并不会返回类型别名本身的名称而是实际类型的名称，如类型别名 [Byte](../../core/core_package_api/core_package_types.md#type-byte) 的类型信息的名称是 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 而不是 [Byte](../../core/core_package_api/core_package_types.md#type-byte)。
 
@@ -4155,6 +4832,7 @@ public prop qualifiedName: String
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 限定名称包含模块名和包名前缀。
 > - 特别的，仓颉内置数据类型，以及位于 `std` 模块 `core` 包下的所有类型的限定名称都是不带有任何模块名和包名前缀的。
 > - 在缺省模块名和包名的上下文中定义的所有类型，均无模块名前缀，但拥有包名前缀"`default`"，如："`default.MyType`"。
@@ -4171,6 +4849,7 @@ public prop staticFunctions: Collection<StaticFunctionInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 静态成员函数，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 如果该类型信息所对应的类型是 `struct` 、`class` 或 `interface` 类型，则该集合不包含继承而来的静态成员函数的信息。
@@ -4187,6 +4866,7 @@ public prop staticProperties: Collection<StaticPropertyInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 静态成员属性，则返回空集合。
 > - 该集合不保证遍历顺序恒定。
 > - 如果该类型信息所对应的类型是 `struct` 、`class` 或 `interface` 类型，则该集合不包含继承而来的静态成员属性的信息。
@@ -4203,6 +4883,7 @@ public prop superInterfaces: Collection<InterfaceTypeInfo>
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 所有类型均默认直接实现 interface [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) 类型。
 > - 该集合不保证遍历顺序恒定。
 > - 目前， `struct` 类型只支持获取到 interface [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) 类型。
@@ -4219,7 +4900,8 @@ public static func get(qualifiedName: String): TypeInfo
 
 > **注意：**
 >
-> 目前， 类型的限定名称 `qualifiedName` 不支持 `Nothing` 类型、函数类型、元组类型和`enum` 类型的限定名称。
+> - 不支持平台：macOS、iOS。
+> - 目前， 类型的限定名称 `qualifiedName` 不支持 `Nothing` 类型、函数类型、元组类型和`enum` 类型的限定名称。
 
 参数：
 
@@ -4261,6 +4943,10 @@ public static func of(a: Any): TypeInfo
 ```
 
 功能：获取给定的任意类型实例的运行时类型所对应的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
 
@@ -4314,7 +5000,8 @@ public static func of(a: Object): ClassTypeInfo
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [ClassTypeInfo](#class-classtypeinfo) 的 [static func of(Object)](#static-func-ofobject) 函数替代。
+> - 不支持平台：macOS、iOS。
+> - 未来版本即将废弃，使用 [ClassTypeInfo](#class-classtypeinfo) 的 [static func of(Object)](#static-func-ofobject) 函数替代。
 
 参数：
 
@@ -4338,6 +5025,7 @@ public static func of<T>(): TypeInfo
 
 > **注意：**
 >
+> - 不支持平台：macOS、iOS。
 > - 目前，泛型 `T` 不支持 `Nothing` 类型、函数类型、元组类型和`enum` 类型。
 > - `T` 支持传入类型别名，包括内置类型别名（如 [Int](../../core/core_package_api/core_package_types.md#type-int)、[UInt](../../core/core_package_api/core_package_types.md#type-uint) 和 `Rune` 等）与用户自定义类型别名。
 
@@ -4378,6 +5066,10 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 功能：获取所有具有给定限定名称的注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 若无指定 T 类型的注解时，返回空数组；若有相关注解时，将所有该类型注解对象构成的数组返回。
@@ -4389,6 +5081,10 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -4402,6 +5098,10 @@ public func getAllAnnotations(): Array<Annotation>
 
 功能：获取作用于该对象的所有注解。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 作用于该对象的所有注解。
@@ -4413,6 +5113,10 @@ public func getInstanceFunction(name: String, parameterTypes: Array<TypeInfo>): 
 ```
 
 功能：给定函数名称与函数形参类型列表所对应的类型信息列表，尝试获取该类型中匹配的实例成员函数的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -4466,6 +5170,10 @@ public func getInstanceFunctions(name: String): Array<InstanceFunctionInfo>
 
 功能：给定函数名称，尝试获取该类型中所有匹配的实例成员函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 函数名称。
@@ -4512,6 +5220,10 @@ public func getInstanceProperty(name: String): InstancePropertyInfo
 ```
 
 功能：尝试获取该类型中与给定属性名称匹配的实例成员属性的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -4565,6 +5277,10 @@ public func getStaticFunction(name: String, parameterTypes: Array<TypeInfo>): St
 
 功能：通过给定函数名称与函数形参类型列表所对应的类型信息列表，尝试获取该类型中匹配的静态成员函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 函数名称。
@@ -4616,6 +5332,10 @@ public func getStaticFunctions(name: String): Array<StaticFunctionInfo>
 
 功能：给定函数名称，尝试获取该类型中所有匹配的静态成员函数的信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 函数名称。
@@ -4661,6 +5381,10 @@ public func getStaticProperty(name: String): StaticPropertyInfo
 ```
 
 功能：尝试获取该类型中与给定属性名称匹配的静态成员属性的信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -4718,7 +5442,8 @@ public func hashCode(): Int64
 
 > **注意：**
 >
-> 内部实现为该类型信息的限定名称字符串的哈希值。
+> - 不支持平台：macOS、iOS。
+> - 内部实现为该类型信息的限定名称字符串的哈希值。
 
 返回值：
 
@@ -4731,6 +5456,10 @@ public func isSubtypeOf(supertype: TypeInfo): Bool
 ```
 
 功能：判断当前 [TypeInfo](reflect_package_classes.md#class-typeinfo) 实例对应的类型是否是参数中指定的 [TypeInfo](reflect_package_classes.md#class-typeinfo) 实例表示的类型的子类型。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -4777,7 +5506,8 @@ public func toString(): String
 
 > **注意：**
 >
-> 内部实现为该类型信息的限定名称字符串。
+> - 不支持平台：macOS、iOS。
+> - 内部实现为该类型信息的限定名称字符串。
 
 返回值：
 
@@ -4790,6 +5520,10 @@ public operator func !=(that: TypeInfo): Bool
 ```
 
 功能：判断该类型信息与给定的另一个类型信息是否不等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -4806,6 +5540,10 @@ public operator func ==(that: TypeInfo): Bool
 ```
 
 功能：判断该类型信息与给定的另一个类型信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 

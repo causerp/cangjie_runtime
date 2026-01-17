@@ -124,7 +124,7 @@ public static let Local: TimeZone
 
 若环境变量 TZ 未设置或者为空，加载本地时区的规则如下：
 
-- 在 Linux/Unix like 系统上：加载系统路径“/etc/localtime”链接，时区名与“/etc/localtime”指向的相对路径名相同，例如“Asia/Shanghai”。
+- 在 Linux、macOS、OpenHarmony、HarmonyOS、iOS、Android 系统上：加载系统路径“/etc/localtime”链接，时区名与“/etc/localtime”指向的相对路径名相同，例如“Asia/Shanghai”。
 - 如果上一条执行失败或者在 Windows 系统上，返回 ID 为 “UTC&偏移量” 的时区，例如“Asia/Shanghai”对应的时区为“UTC+08:00”。
 
 类型：[TimeZone](time_package_classes.md#class-timezone)
@@ -176,7 +176,7 @@ public static func load(id: String): TimeZone
 
 > **说明：**
 >
-> - 在 Linux 、 macOS 系统中，若存在环境变量 CJ_TZPATH，则使用环境变量指定的路径加载时区文件（若存在多个通过分隔符 “:” 分开的环境变量值，则按照分隔路径的先后顺序依次查找时区文件，并加载第一个找到的时区文件），否则从系统时区文件目录（Linux 和 macOS 为 "/usr/share/zoneinfo"）加载时区。
+> - 在 Linux、macOS、OpenHarmony、HarmonyOS、iOS、Android 系统中，若存在环境变量 CJ_TZPATH，则使用环境变量指定的路径加载时区文件（若存在多个通过分隔符 “:” 分开的环境变量值，则按照分隔路径的先后顺序依次查找时区文件，并加载第一个找到的时区文件），否则从系统时区文件目录（例如：Linux 和 macOS 为 "/usr/share/zoneinfo"）加载时区。
 > - 在 Windows 系统中，用户需下载[时区文件](https://www.iana.org/time-zones)并编译，设置环境变量 CJ_TZPATH 指向 zoneinfo 目录（若存在多个通过分隔符 “;” 分开的环境变量值，则按照分隔路径的先后顺序依次查找时区文件，并加载第一个找到的时区文件），否则会导致异常。
 
 参数：

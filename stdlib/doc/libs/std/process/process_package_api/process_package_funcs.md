@@ -3,22 +3,24 @@
 ## func execute(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect,ProcessRedirect, ?Duration)
 
 ```cangjie
-public func execute(command: String,
-                      arguments: Array<String>,
-                      workingDirectory!: ?Path = None,
-                      environment!: ?Map<String, String> = None,
-                      stdIn!: ProcessRedirect = Inherit,
-                      stdOut!: ProcessRedirect = Inherit,
-                      stdErr!: ProcessRedirect = Inherit,
-                      timeout!: ?Duration = None): Int64
+public func execute(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit,
+    timeout!: ?Duration = None
+): Int64
 ```
 
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态。
 
 > **注意：**
 >
+> - 不支持平台：iOS。
 > - 在 `Windows` 平台上，在子进程执行完成后立即删除子进程的可执行文件可能删除失败并抛出异常，异常信息为 `Access is denied`，如果遇到该问题，可以在一小段延迟后重新尝试删除该文件，详细实现可参考示例。
-> - 在 `iOS` 平台上，该功能不可用。
 
 参数：
 
@@ -51,20 +53,22 @@ public func execute(command: String,
 ## func executeWithOutput(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect)
 
 ```cangjie
-public func executeWithOutput(command: String,
-                            arguments: Array<String>,
-                            workingDirectory!: ?Path = None,
-                            environment!: ?Map<String, String> = None,
-                            stdIn!: ProcessRedirect = Inherit,
-                            stdOut!: ProcessRedirect = Pipe,
-                            stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>)
+public func executeWithOutput(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Pipe,
+    stdErr!: ProcessRedirect = Pipe
+): (Int64, Array<Byte>, Array<Byte>)
 ```
 
 功能：根据输入参数创建并运行一个子进程，等待该子进程运行完毕并返回子进程退出状态、标准输出和标准错误。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 `wait` 函数自行处理。
 
 > **注意：**
 >
-> 在 `iOS` 平台上，该功能不可用。
+> 不支持平台：iOS。
 
 参数：
 
@@ -123,20 +127,22 @@ public func findProcess(pid: Int64): Process
 ## func launch(String, Array\<String>, ?Path, ?Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect)
 
 ```cangjie
-public func launch(command: String,
-                        arguments: Array<String>,
-                        workingDirectory!: ?Path = None,
-                        environment!: ?Map<String, String> = None,
-                        stdIn!: ProcessRedirect = Inherit,
-                        stdOut!: ProcessRedirect = Inherit,
-                        stdErr!: ProcessRedirect = Inherit): SubProcess
+public func launch(
+    command: String,
+    arguments: Array<String>,
+    workingDirectory!: ?Path = None,
+    environment!: ?Map<String, String> = None,
+    stdIn!: ProcessRedirect = Inherit,
+    stdOut!: ProcessRedirect = Inherit,
+    stdErr!: ProcessRedirect = Inherit
+): SubProcess
 ```
 
 功能：根据输入参数创建并运行一个子进程，并返回一个子进程实例。调用该函数创建子进程后，需要调用 `wait` 或 `waitOutput` 函数，否则该子进程结束后成为的僵尸进程的资源不会被回收。
 
 > **注意：**
 >
-> 在 `iOS` 平台上，该功能不可用。
+> 不支持平台：iOS。
 
 参数：
 

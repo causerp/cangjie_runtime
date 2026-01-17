@@ -211,6 +211,18 @@ public class TcpSocket <: StreamingSocket & Equatable<TcpSocket> & Hashable {
      *
      * Not supported on windows and macOS
      */
+    @When[os == "Linux"]
+    public mut prop quickAcknowledge: Bool {
+        get() {
+            impl.getSocketOptionBool(IPPROTO_TCP, SOCK_TCP_QUICKACK)
+        }
+        set(newState) {
+            impl.setSocketOptionBool(IPPROTO_TCP, SOCK_TCP_QUICKACK, newState)
+        }
+    }
+
+    @When[os != "Linux"]
+    @Deprecated
     public mut prop quickAcknowledge: Bool {
         get() {
             impl.getSocketOptionBool(IPPROTO_TCP, SOCK_TCP_QUICKACK)
