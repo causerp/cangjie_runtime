@@ -43,7 +43,7 @@ union MTableBitmap {
     BIT_TYPE shortBitmap;
     LargeBitmap* largeBitmap;
     BIT_TYPE tag;
-    
+
     void ForEachBit(const std::function<void(ExtensionData*)>& visitor, ExtensionData** vExtensionPtr)
     {
         bool isSmallBitmap = tag & SIGN_BIT;
@@ -289,7 +289,7 @@ struct StdGCTib {
     void VisitAllField(U8 &bitmapWord, MAddress &fieldAddr, const RefFieldVisitor &visitor) const
     {
         visitor(*reinterpret_cast<RefField<> *>(fieldAddr));
- 
+
         // go next ref word.
         bitmapWord >>= BITS_FOR_REF;
         fieldAddr += sizeof(RefField<>);
@@ -449,8 +449,8 @@ public:
     inline U32 GetNumOfEnumCtor() const { return enumCtorInfoCnt; }
     inline U32 GetNumOfInstanceMethodInfos() const { return instanceMethodCnt; }
     inline U32 GetNumOfStaticMethodInfos() const { return staticMethodCnt; }
-    inline EnumCtorInfo* GetEnumCtor(U32 idx) const;
-    inline TypeInfo* GetCtorTypeInfo(U32 idx) const;
+    EnumCtorInfo* GetEnumCtor(U32 idx) const;
+    TypeInfo* GetCtorTypeInfo(U32 idx) const;
     void* GetAnnotations(TypeInfo* arrayTi);
     MethodInfo* GetInstanceMethodInfo(U32 index) const;
     MethodInfo* GetStaticMethodInfo(U32 index);
@@ -459,6 +459,10 @@ public:
     void SetCtorInfoNum(U32 num) { enumCtorInfoCnt = num; }
     void SetParsed() { modifier |= MODIFIER_ENUM_PARSED; }
     bool IsParsed() const { return (modifier & MODIFIER_ENUM_PARSED) != 0; }
+    bool IsEnumKind0() const { return (modifier & MODIFIER_ENUM_KIND0) != 0; }
+    bool IsEnumKind1() const { return (modifier & MODIFIER_ENUM_KIND1) != 0; }
+    bool IsEnumKind2() const { return (modifier & MODIFIER_ENUM_KIND2) != 0; }
+    bool IsEnumCtor() const { return (modifier & MODIFIER_ENUM_CTOR) != 0; }
 private:
     Uptr GetBaseAddr() const { return reinterpret_cast<Uptr>(base); }
     DataRefOffset64<EnumCtorInfo> enumCtorInfos;
@@ -468,6 +472,16 @@ private:
     U32 staticMethodCnt;
     Uptr annotationMethod;
     Uptr base[0];
+};
+
+class EnumCtorReflectInfo {
+public:
+    void* GetAnnotations(TypeInfo* arrayTi);
+    bool IsEnumCtor() const { return (modifier & MODIFIER_ENUM_CTOR) != 0; }
+    U32 GetModifier() const { return modifier; }
+private:
+    Uptr annotationMethod;
+    U32 modifier;
 };
 
 class ATTR_PACKED(4) TypeTemplate {
@@ -503,12 +517,14 @@ public:
     inline U16 GetUUID() const { return uuid.load(); }
     inline void SetUUID(U16 id);
     inline EnumInfo* GetEnumInfo();
+    inline EnumCtorReflectInfo* GetEnumCtorReflectInfo();
     inline bool ReflectInfoIsNull() const;
     bool ReflectIsEnable() const;
+    bool IsEnumCtor() const;
 
     CString GetTypeInfoName(U32 argSize, TypeInfo* args[]);
     ReflectInfo* GetReflectInfo() const { return reflectInfo; }
-    TypeInfo* GetFieldTypeInfo(U16 fieldIdx, U32 argSize, TypeInfo* args[]);
+    TypeInfo* GetFieldType(U16 fieldIdx, U32 argSize, TypeInfo* args[]);
     TypeInfo* GetSuperTypeInfo(U32 argSize, TypeInfo* args[]);
     FuncRef GetFinalizeMethod() const { return finalizerMethod; }
     static void* ExecuteGenericFunc(void* genericFunc, U32 argSize, TypeInfo* args[]);
@@ -530,6 +546,7 @@ private:
     union {
         ReflectInfo* reflectInfo;
         EnumInfo* enumInfo;
+        EnumCtorReflectInfo* enumCtorReflectInfo;
     };
     ExtensionData **vExtensionDataStart;
     U16 validInheritNum;
@@ -589,11 +606,11 @@ public:
     inline U32* GetFieldOffsets() const;
     inline U16 GetValidInheritNum() const;
 
+    inline TypeInfo** GetFieldTypes() const { return fields; }
     inline TypeInfo* GetFieldType(U16 idx) const;
     inline TypeInfo* GetComponentTypeInfo() const;
     inline U16 GetTypeArgNum() const { return typeArgsNum; }
-    inline U32 GetFieldOffsets(U16 idx) const { return fieldOffsets[idx]; }
-    inline TypeInfo* GetFieldTypeInfo(U16 idx) const { return fields[idx]; }
+    inline U32 GetFieldOffset(U16 idx) const { return fieldOffsets[idx]; }
     inline TypeInfo** GetTypeArgs() const { return typeArgs; }
     inline TypeTemplate* GetSourceGeneric() const;
     inline ExtensionData** GetvExtensionDataStart() const;
@@ -605,8 +622,13 @@ public:
     inline bool HasExtPart() const;
     inline bool IsBoxClass();
     U32 GetModifier();
+    bool IsEnumCtor() const;
+    bool IsOptionLikeRefEnum();
+    bool IsZeroSizedEnum();
+    bool IsOptionLikeUnassociatedCtor();
     bool ReflectIsEnable() const;
     bool ReflectInfoIsNull() const;
+    inline EnumCtorReflectInfo* GetEnumCtorReflectInfo();
     ReflectInfo* GetReflectInfo();
 
     inline const char* GetName() const;
@@ -624,6 +646,9 @@ public:
 
     U32 GetNumOfStaticFieldInfos();
     StaticFieldInfo* GetStaticFieldInfo(U32 index);
+
+    U32 GetNumOfEnumCtor();
+    EnumCtorInfo* GetEnumCtor(U32 idx);
 
     PackageInfo* GetPackageInfo();
     void* GetAnnotations(TypeInfo* arrayTi);
@@ -652,6 +677,7 @@ public:
     void SetReflectInfo(ReflectInfo* info) { this->reflectInfo = info; }
     void SetvExtensionDataStart(ExtensionData **ptr) { this->vExtensionDataStart = ptr; }
     void SetEnumInfo(EnumInfo* ei) { this->enumInfo = ei; }
+    void SetEnumCtorReflectInfo(EnumCtorReflectInfo* enumCtorInfo) { this->enumCtorReflectInfo = enumCtorInfo; }
     MTableDesc* GetMTableDesc() const { return mTableDesc; }
     void AddMTable(TypeInfo* ti, ExtensionData* extensionData);
     FuncPtr* GetMTable(TypeInfo* itf);
@@ -721,6 +747,7 @@ private:
     union {
         ReflectInfo* reflectInfo;
         EnumInfo* enumInfo;
+        EnumCtorReflectInfo* enumCtorReflectInfo;
     };
 };
 

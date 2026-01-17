@@ -1616,6 +1616,1321 @@ main(): Unit {
 相同构造函数相等: true
 ```
 
+## class EnumConstructorInfo
+
+```cangjie
+public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
+```
+
+功能：描述枚举构造子信息，可用于查询构造子参数类型、注解，并根据构造子进行构造/拆解枚举实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+父类型：
+
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
+- [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+### prop annotations
+
+```cangjie
+public prop annotations: Collection<Annotation>
+```
+
+功能：获取所有作用于该枚举构造子上的注解集合。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    let annos = ctor.annotations.toArray()
+    println(annos.size)
+    return
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
+### prop enumTypeInfo
+
+```cangjie
+public prop enumTypeInfo: EnumTypeInfo
+```
+
+功能：获取该枚举构造子所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[EnumTypeInfo](#class-enumtypeinfo)
+
+异常：
+
+- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果声明类型不是枚举类型，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.enumTypeInfo.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E
+```
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：获取该枚举构造子的名称（不包含包名前缀）。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+M2
+```
+
+### prop qualifiedName
+
+```cangjie
+public prop qualifiedName: String
+```
+
+功能：获取该枚举构造子的限定名称。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M2<Int64>
+```
+
+### prop parameters
+
+```cangjie
+public prop parameters: ReadOnlyList<TypeInfo>
+```
+
+功能：获取该枚举构造子的参数类型列表，按声明顺序返回。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M3", argsCount: 2)
+    let params = ctor.parameters
+    println(params.size)
+    println(params[0].name)
+    println(params[1].name)
+    return
+}
+```
+
+运行结果：
+
+```text
+2
+Int64
+String
+```
+
+### static func get(String)
+
+```cangjie
+public static func get(qualifiedName: String): EnumConstructorInfo
+```
+
+功能：获取给定限定名称所对应的 [EnumConstructorInfo](#class-enumconstructorinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造子的限定名称，例如 `default.E.M2<Int64>`。
+
+返回值：
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 与 `qualifiedName` 对应的枚举构造子信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `qualifiedName` 对应的类型不是枚举类型或不存在，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumConstructorInfo.get("test.E.M2<Int64>")
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M2<Int64>
+```
+
+### static func of(Any)
+
+```cangjie
+public static func of(instance: Any): EnumConstructorInfo
+```
+
+功能：获取给定枚举实例所属的构造子信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
+
+返回值：
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - `instance` 所属构造子信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是该枚举的实例，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let inst = E.M3(7, "hi")
+    let ctor = EnumConstructorInfo.of(inst)
+    println(ctor.qualifiedName)
+    let values = ctor.getAssociatedvalues(inst)
+    println(values.size)
+    println(values[0] as Int64)
+    println(values[1] as String)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M3<Int64, String>
+2
+Some(7)
+Some(hi)
+```
+
+### func apply(Array<Any>)
+
+```cangjie
+public func apply(args: Array<Any>): Any
+```
+
+功能：根据传入的参数列表，构造相应的枚举实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子参数的实参列表，顺序需与构造子声明一致。
+
+返回值：
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 由该构造子创建的枚举实例。
+
+异常：
+
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 当实参个数与构造子参数个数不一致，或任一实参的运行时类型与对应形参类型不匹配时抛出。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E <: ToString {
+    M1 | M2(Int64)
+
+    public func toString(): String {
+        match (this) {
+            case M1 => "M1"
+            case M2(val) => "M2(${val})"
+        }
+    }
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    let inst = (ctor.apply([7]) as E).getOrThrow()
+    println(inst)
+    return
+}
+```
+
+运行结果：
+
+```text
+M2(7)
+```
+
+### func getAssociatedvalues(Any)
+
+```cangjie
+public func getAssociatedvalues(instance: Any): ReadOnlyList<Any>
+```
+
+功能：获取给定枚举实例的关联值列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
+
+返回值：
+
+- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 关联值列表，按声明顺序返回。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造子与创建的，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    let values = ctor.getAssociatedvalues(E.M2(7))
+    println(values.size)
+    println(values[0] as Int64)
+    return
+}
+```
+
+运行结果：
+
+```text
+1
+Some(7)
+```
+
+### func findAllAnnotations\<T>()
+
+```cangjie
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
+```
+
+功能：获取该构造子上的所有类型为 `T` 的注解实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 注解列表。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    let annos = ctor.findAllAnnotations<A1>()
+    println(annos.size)
+    return
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
+### func findAllAnnotation\<T>()
+
+```cangjie
+public func findAllAnnotation<T>(): ?T where T <: Annotation
+```
+
+功能：获取该构造子上的任意一个类型为 `T` 的注解实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- ?T - 注解实例或 `None`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.findAllAnnotation<A1>().isNone())
+    return
+}
+```
+
+运行结果：
+
+```text
+true
+```
+
+### func getAllAnnotations()
+
+```cangjie
+public func getAllAnnotations(): Array<Annotation>
+```
+
+功能：获取该构造子上的所有注解实例数组。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 注解数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.getAllAnnotations().size)
+    return
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
+### func hashCode()
+
+```cangjie
+public func hashCode(): Int64
+```
+
+功能：获取该构造子信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 哈希值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.hashCode() == ctor.hashCode())
+    return
+}
+```
+
+运行结果：
+
+```text
+true
+```
+
+### operator func ==(EnumConstructorInfo)
+
+```cangjie
+public operator func ==(other: EnumConstructorInfo): Bool
+```
+
+功能：判断该构造子信息与另一个构造子信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- other: [EnumConstructorInfo](#class-enumconstructorinfo) - 另一个构造子信息。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 相等返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let c1 = e.getConstructor("M1")
+    let c2 = e.getConstructor("M2", argsCount: 1)
+    println(c1 == c1)
+    println(c1 == c2)
+    return
+}
+```
+
+运行结果：
+
+```text
+true
+false
+```
+
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：获取该构造子信息的字符串表示，等价于 `qualifiedName`。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串表示。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.toString())
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M1
+```
+## class EnumTypeInfo
+
+```cangjie
+public class EnumTypeInfo <: TypeInfo
+```
+
+功能：`Enum` 类型的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+父类型：
+
+- [TypeInfo](#class-typeinfo)
+
+### prop constructors
+
+```cangjie
+public prop constructors: Collection<EnumConstructorInfo>
+```
+
+功能：获取该 [EnumTypeInfo](#class-enumtypeinfo) 对应的所有枚举构造子信息，返回对应集合。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let ctors = e.constructors.toArray()
+    println(ctors.size)
+    return
+}
+```
+
+运行结果：
+
+```text
+2
+```
+
+### static func get(String)
+
+```cangjie
+public redef static func get(qualifiedName: String): EnumTypeInfo
+```
+
+功能：获取给定限定名称所对应类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类型的限定名称。
+
+返回值：
+
+- [EnumTypeInfo](#class-enumtypeinfo) - 与 `qualifiedName` 对应的枚举类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是枚举类型或者 qaulifiedName 对应的定义不存在，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e1 = EnumTypeInfo.get("test.E")
+    println(e1.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E
+```
+
+### static func of(Any)
+
+```cangjie
+public static redef func of(instance: Any): EnumTypeInfo
+```
+
+功能：获取给定实例所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
+
+返回值：
+
+- [EnumTypeInfo](#class-enumtypeinfo) - `instance` 所属枚举类型的类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let info = EnumTypeInfo.of(E.M1)
+    println(info.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E
+```
+
+### static func of\<T>()
+
+```cangjie
+public static redef func of<T>(): EnumTypeInfo
+```
+
+功能：获取给定类型 `T` 所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [EnumTypeInfo](#class-enumtypeinfo) - `T` 所属枚举类型的类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `T` 不是任何枚举类型，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let info = EnumTypeInfo.of<E>()
+    println(info.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+E
+```
+
+### func construct(String, Array\<Any>)
+
+```cangjie
+public func construct(constructor: String, args: Array<Any>): Any
+```
+
+功能：根据构造子签名和实参列表构造该枚举的实例并返回。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子签名。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子实参列表。
+
+返回值：
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 构造出的枚举实例。
+
+异常：
+
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果 `args` 的数量或类型与构造子参数不匹配或者指定的构造子不存在，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M3(Int64, String)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let inst = (e.construct("M3<Int64, String>", [42, "abc"]) as E).getOrThrow()
+    match (inst) {
+        case E.M3(v1, v2) => println("${v1}, ${v2}")
+        case _ => println("unexpected")
+    }
+    return
+}
+```
+
+运行结果：
+
+```text
+42, abc
+```
+
+### func destruct(Any)
+
+```cangjie
+public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
+```
+
+功能：拆解给定枚举实例，返回其构造子信息和关联值列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
+
+返回值：
+
+- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - 构造子信息与关联值列表。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型实例，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    let (ctor, values) = e.destruct(E.M2(7))
+    println(ctor.qualifiedName)
+    println(values.size)
+    println(values[0] as Int64)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M2<Int64>
+1
+Some(7)
+```
+
+### func getConstructor(String, Int64)
+
+```cangjie
+public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumConstructorInfo
+```
+
+功能：按构造子名与参数个数查询构造子信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子名（不含参数签名），例如 `M2`。
+- argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；为 `0` 时不限制参数个数。
+
+返回值：
+
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 匹配到的构造子信息。
+
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果未找到匹配的构造子，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+    | M2(Int64)
+    | M2(Int64, Int64)
+}
+
+main(): Unit {
+    let e = EnumTypeInfo.get("test.E")
+    println(e.getConstructor("M1").qualifiedName)
+    println(e.getConstructor("M2", argsCount: 1).qualifiedName)
+    println(e.getConstructor("M2", argsCount: 2).qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M1
+test.E.M2<Int64>
+test.E.M2<Int64, Int64>
+```
+
+## class FunctionTypeInfo
+
+```cangjie
+public class FunctionTypeInfo <: TypeInfo
+```
+
+功能：描述函数类型（函数值/闭包）的类型信息，可用于获取参数与返回值的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+父类型：
+
+- [TypeInfo](#class-typeinfo)
+
+### prop parameters
+
+```cangjie
+public prop parameters: ReadOnlyList<TypeInfo>
+```
+
+功能：获取该函数类型的参数类型列表，按声明顺序返回。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let f = { x: Int64, y: UInt8 => x + Int64(y) }
+    let info = FunctionTypeInfo.of(f)
+    println(info.parameters.size)
+    println(info.parameters[0].name)
+    println(info.parameters[1].name)
+    return
+}
+```
+
+运行结果：
+
+```text
+2
+Int64
+UInt8
+```
+
+### prop returnType
+
+```cangjie
+public prop returnType: TypeInfo
+```
+
+功能：获取该函数类型的返回值类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[TypeInfo](#class-typeinfo)
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let f = { x: Int64, y: Int64 => x + y }
+    let info = FunctionTypeInfo.of(f)
+    println(info.returnType.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+Int64
+```
+
+### static func of(Any)
+
+```cangjie
+public redef static func of(instance: Any): FunctionTypeInfo
+```
+
+功能：获取给定实例的运行时类型所对应的 [FunctionTypeInfo](#class-functiontypeinfo)。
+
+运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 运行时类型为函数类型的实例。
+
+返回值：
+
+- [FunctionTypeInfo](#class-functiontypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是函数类型，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+func add(a: Int64, b: Int64): Int64 {
+    a + b
+}
+
+main(): Unit {
+    let f: (Int64, Int64) -> Int64 = add
+    let info = FunctionTypeInfo.of(f)
+    println(info.parameters.size)
+    println(info.returnType.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+2
+Int64
+```
+
+### static func of\<T>()
+
+```cangjie
+public static redef func of<T>(): FunctionTypeInfo
+```
+
+功能：获取给定类型 `T` 对应的 [FunctionTypeInfo](#class-functiontypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [FunctionTypeInfo](#class-functiontypeinfo) - `T` 类型对应的函数类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是函数类型，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = FunctionTypeInfo.of<(Int64, String) -> Bool>()
+    println(info.parameters.size)
+    println(info.parameters[1].name)
+    println(info.returnType.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+2
+String
+Bool
+```
+
+### func apply(Any, Array\<Any>)
+
+```cangjie
+public func apply(instance: Any, args: Array<Any>): Any
+```
+
+功能：按函数参数顺序传入实参列表，对函数进行调用并返回调用结果。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 函数实例。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 实参列表。
+
+返回值：
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 调用结果。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与函数参数个数不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+func add(a: Int64, b: Int64): Int64 {
+    a + b
+}
+
+main(): Unit {
+    let f: (Int64, Int64) -> Int64 = add
+    let info = FunctionTypeInfo.of(f)
+    let res = (info.apply(f, [1, 2]) as Int64).getOrThrow()
+    println(res)
+    return
+}
+```
+
+运行结果：
+
+```text
+3
+```
 ## class GenericTypeInfo
 
 ```cangjie
@@ -11404,6 +12719,281 @@ main(): Unit {
 static area: Int64
 ```
 
+## class TupleTypeInfo
+
+```cangjie
+public class TupleTypeInfo <: TypeInfo
+```
+
+功能：描述元组类型的类型信息。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+父类型：
+
+- [TypeInfo](#class-typeinfo)
+
+### prop elements
+
+```cangjie
+public prop elements: ReadOnlyList<TypeInfo>
+```
+
+功能：获取该 [TupleTypeInfo](#class-tupletypeinfo) 对应元组中各元素的类型信息列表，按元组声明顺序返回。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of((1, "abc", true))
+    println(info.elements.size)
+    println(info.elements[0].name)
+    println(info.elements[1].name)
+    println(info.elements[2].name)
+    return
+}
+```
+
+运行结果：
+
+```text
+3
+Int64
+String
+Bool
+```
+
+### static func of(Any)
+
+```cangjie
+public redef static func of(instance: Any): TupleTypeInfo
+```
+
+功能：获取给定实例的运行时类型所对应的 [TupleTypeInfo](#class-tupletypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 运行时类型为元组的实例。
+
+返回值：
+
+- [TupleTypeInfo](#class-tupletypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [TupleTypeInfo](#class-tupletypeinfo)，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of((1, "a"))
+    println(info.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+Tuple<Int64, String>
+```
+
+### static func of\<T>()
+
+```cangjie
+public static redef func of<T>(): TupleTypeInfo
+```
+
+功能：获取给定类型 `T` 对应的 [TupleTypeInfo](#class-tupletypeinfo)。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [TupleTypeInfo](#class-tupletypeinfo) - `T` 类型对应的元组类型信息。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是 [TupleTypeInfo](#class-tupletypeinfo)，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+main(): Unit {
+    let info = TupleTypeInfo.of<(Int64, Bool)>()
+    println(info.name)
+    return
+}
+```
+
+运行结果：
+
+```text
+Tuple<Int64, Bool>
+```
+### func construct(Array\<Any>)
+
+```cangjie
+public func construct(args: Array<Any>): Any
+```
+
+功能：按元组各元素的顺序传入实参列表，构造该 [TupleTypeInfo](#class-tupletypeinfo) 对应的元组实例，返回构造结果。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 元组各元素的取值，顺序与元组声明一致。
+
+返回值：
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 构造出的元组实例。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与元组元素数量不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+class C {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+struct S {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+main(): Unit {
+    let tp = (1, S(0), C(1))
+    let info = TupleTypeInfo.of(tp)
+    let constructed = (info.construct([42, S(99), C(100)]) as (Int64, S, C)).getOrThrow()
+    println(constructed[0])
+    println(constructed[1].v)
+    println(constructed[2].v)
+    return
+}
+```
+
+运行结果：
+
+```text
+42
+99
+100
+```
+
+### func destruct(Any)
+
+```cangjie
+public func destruct(instance: Any): ReadOnlyList<Any>
+```
+
+功能：将指定元组实例拆解为各元素的只读列表并返回。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该 [TupleTypeInfo](#class-tupletypeinfo) 对应类型的实例。
+
+返回值：
+
+- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 元组实例中的元素值列表，顺序与元组声明一致。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 的运行时类型与该 [TupleTypeInfo](#class-tupletypeinfo) 不一致，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+class C {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+struct S {
+    public var v: Int64 = 0
+    public init(val: Int64) {
+        this.v = val
+    }
+}
+
+main(): Unit {
+    let tp = (1, S(0), C(1))
+    let info = TupleTypeInfo.of(tp)
+    let destructed = info.destruct(tp)
+    println(destructed.size)
+    println(destructed[0] as Int64)
+    println((destructed[1] as S)?.v)
+    println((destructed[2] as C)?.v)
+    return
+}
+```
+
+运行结果：
+
+```text
+3
+Some(1)
+Some(0)
+Some(1)
+```
+
 ## class TypeInfo
 
 ```cangjie
@@ -11895,7 +13485,7 @@ public static func get(qualifiedName: String): TypeInfo
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 目前， 类型的限定名称 `qualifiedName` 不支持 `Nothing` 类型、函数类型、元组类型和`enum` 类型的限定名称。
+> - 目前，类型的限定名称 `qualifiedName` 不支持 `Nothing` 类型和 `Tuple` 类型的限定名称。
 
 参数：
 
@@ -11943,10 +13533,6 @@ public static func of(a: Any): TypeInfo
 > 不支持平台：macOS、iOS。
 
 运行时类型是指在程序运行时，通过动态绑定确定的类型，运行时类型与实例对象相绑定。在继承等场景下运行时类型和静态类型可能不一致。
-
-> **注意：**
->
-> 目前，实例 `a` 不支持运行时类型为函数类型、元组类型、`enum` 类型。
 
 参数：
 
@@ -12044,7 +13630,7 @@ public static func of<T>(): TypeInfo
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 目前，泛型 `T` 不支持 `Nothing` 类型、函数类型、元组类型和`enum` 类型。
+> - 目前，泛型 `T` 不支持 `Nothing` 类型。
 > - `T` 支持传入类型别名，包括内置类型别名（如 [Int](../../core/core_package_api/core_package_types.md#type-int)、[UInt](../../core/core_package_api/core_package_types.md#type-uint) 和 `Rune` 等）与用户自定义类型别名。
 
 返回值：

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2026. All rights reserved.
  * This source file is part of the Cangjie project, licensed under Apache-2.0
  * with Runtime Library Exception.
  *
@@ -22,6 +22,15 @@ func isPrimitive(ti: CPointer<Unit>): Bool
 
 @Intrinsic
 func isClass(ti: CPointer<Unit>): Bool
+
+@Intrinsic
+func isTuple(ti: CPointer<Unit>): Bool
+
+@Intrinsic
+func isFunction(ti: CPointer<Unit>): Bool
+
+@Intrinsic
+func isEnum(ti: CPointer<Unit>): Bool
 
 @Intrinsic
 func isGeneric(ti: CPointer<Unit>): Bool
@@ -234,3 +243,36 @@ func getPackageVersion(packageInfo: CPointer<Unit>): CPointer<UInt8>
 
 @Intrinsic
 func getSubPackages(packageInfo: CPointer<Unit>, arrayTi: CPointer<Unit>): Any
+
+// TupleTypeInfo
+@Intrinsic
+func getNumOfFieldTypes(ti: CPointer<Unit>): UInt32 /* return tuple elements count */
+
+@Intrinsic
+func getFieldTypes(ti: CPointer<Unit>): CPointer<Unit> /* return pointer to array of TypeInfo */
+
+@Intrinsic
+func newAndInitEnumTupleObject(ti: CPointer<Unit>, args: Array<Any>): Object /* create and init object of given TypeInfo, for TupleTypeInfo and EnumTypeInfo */
+
+@Intrinsic
+func getAssociatedValues(tupleObj: Any, arrayTi: CPointer<Unit>): Any /* return array of associated values*/
+
+// FunctionTypeInfo
+@Intrinsic
+func getNumOfFunctionSignatureTypes(funcTi: CPointer<Unit>): UInt32 /* return function signature types count */
+
+@Intrinsic
+func getFunctionSignatureTypes(funcTi: CPointer<Unit>): CPointer<Unit> /* return pointer to array of function signature TypeInfo */
+
+// EnumTypeInfo and EnumConstructorInfo
+@Intrinsic
+func getNumOfEnumConstructorInfos(enumTi: CPointer<Unit>): UInt32 /* return number of enum constructors */
+
+@Intrinsic
+func getEnumConstructorInfo(enumTi: CPointer<Unit>, index: UInt32): CPointer<Unit> /* return pointer to enum constructor info at index */
+
+@Intrinsic
+func getEnumConstructorName(enumCtorInfo: CPointer<Unit>): CPointer<UInt8> /* return enum constructor name */
+
+@Intrinsic
+func getEnumConstructorInfoFromAny(instance: Any): CPointer<Unit> /* return enum constructor info from enum instance */

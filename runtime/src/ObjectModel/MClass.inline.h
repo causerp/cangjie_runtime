@@ -72,6 +72,14 @@ inline EnumInfo* TypeTemplate::GetEnumInfo()
     return nullptr;
 }
 
+inline EnumCtorReflectInfo* TypeTemplate::GetEnumCtorReflectInfo()
+{
+    if (IsEnumCtor()) {
+        return enumCtorReflectInfo;
+    }
+    return nullptr;
+}
+
 inline const char* TypeInfo::GetName() const { return typeInfoName; }
 
 inline MSize TypeInfo::GetInstanceSize() const { return instanceSize; }
@@ -181,9 +189,7 @@ inline bool TypeInfo::IsGeneric() const
 
 inline bool TypeInfo::IsReflectUnsupportedType() const
 {
-    return type == TypeKind::TYPE_KIND_VARRAY ||
-           type == TypeKind::TYPE_KIND_TUPLE ||
-           type == TypeKind::TYPE_KIND_ENUM;
+    return type == TypeKind::TYPE_KIND_VARRAY;
 }
 
 
@@ -212,6 +218,14 @@ inline EnumInfo* TypeInfo::GetEnumInfo()
 {
     if (IsEnum() || IsTempEnum()) {
         return enumInfo;
+    }
+    return nullptr;
+}
+
+inline EnumCtorReflectInfo* TypeInfo::GetEnumCtorReflectInfo()
+{
+    if ((IsEnum() || IsTempEnum()) && IsEnumCtor()) {
+        return enumCtorReflectInfo;
     }
     return nullptr;
 }
@@ -270,14 +284,6 @@ inline U32 TypeInfo::GetClassSize() const
 {
     return sizeof(TypeInfo);
 }
-
-inline EnumCtorInfo* EnumInfo::GetEnumCtor(U32 idx) const
-{
-    CHECK(idx < GetNumOfEnumCtor());
-    EnumCtorInfo* enumCtorInfo = enumCtorInfos.GetDataRef();
-    return enumCtorInfo + idx;
-}
-
 inline const char* GenericTypeInfo::GetSourceGenericName() { return tt->GetName(); }
 } // namespace MapleRuntime
 #endif // MRT_MCLASS_INLINE_H

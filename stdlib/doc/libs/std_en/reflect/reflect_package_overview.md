@@ -33,6 +33,8 @@ This package currently does not support macOS platform.
 | --------------------------------- |----------------------------------------|
 | [ClassTypeInfo](./reflect_package_api/reflect_package_classes.md#class-classtypeinfo) | Describes type information for `class` types.                      |
 | [ConstructorInfo](./reflect_package_api/reflect_package_classes.md#class-constructorinfo)| Describes constructor information.           |
+| [EnumTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumtypeinfo)| Describes type information for `enum` types.           |
+| [FunctionTypeInfo](./reflect_package_api/reflect_package_classes.md#class-functiontypeinfo)| Describes type information for function types.           |
 | [GenericTypeInfo](./reflect_package_api/reflect_package_classes.md#class-generictypeinfo) | Describes generic type information.|
 | [GlobalFunctionInfo](./reflect_package_api/reflect_package_classes.md#class-globalfunctioninfo) | Describes global function information.                              |
 | [GlobalVariableInfo](./reflect_package_api/reflect_package_classes.md#class-globalvariableinfo) | Describes global variable information.                              |
@@ -47,6 +49,7 @@ This package currently does not support macOS platform.
 | [StaticPropertyInfo](./reflect_package_api/reflect_package_classes.md#class-staticpropertyinfo) | Describes static member property information.                            |
 | [StaticVariableInfo](./reflect_package_api/reflect_package_classes.md#class-staticvariableinfo) | Describes static member variable information.                            |
 | [StructTypeInfo](./reflect_package_api/reflect_package_classes.md#class-structtypeinfo) | Describes type information for `struct` types.                     |
+| [TupleTypeInfo](./reflect_package_api/reflect_package_classes.md#class-tupletypeinfo)| Describes type information for `tuple` types.           |
 | [TypeInfo](./reflect_package_api/reflect_package_classes.md#class-typeinfo) | `TypeInfo` provides common operation interfaces for all data types, supporting reflection operations. |
 
 ### Enums

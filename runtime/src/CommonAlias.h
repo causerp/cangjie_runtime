@@ -169,8 +169,32 @@ extern "C" MRT_EXPORT bool CJ_MCC_IsInterface(TypeInfo* ti) __attribute__((alias
 extern "C" MRT_EXPORT bool CJ_MCC_IsStruct(TypeInfo* ti) __attribute__((alias("MCC_IsStruct")));
 extern "C" MRT_EXPORT bool CJ_MCC_IsPrimitive(TypeInfo* ti) __attribute__((alias("MCC_IsPrimitive")));
 extern "C" MRT_EXPORT bool CJ_MCC_IsGeneric(TypeInfo* ti) __attribute__((alias("MCC_IsGeneric")));
+extern "C" MRT_EXPORT bool CJ_MCC_IsEnum(TypeInfo* ti) __attribute__((alias("MCC_IsEnum")));
+extern "C" MRT_EXPORT bool CJ_MCC_IsFunction(TypeInfo* ti) __attribute__((alias("MCC_IsFunction")));
+extern "C" MRT_EXPORT bool CJ_MCC_IsTuple(TypeInfo* ti) __attribute__((alias("MCC_IsTuple")));
 extern "C" MRT_EXPORT bool CJ_MCC_IsReflectUnsupportedType(TypeInfo* ti)
     __attribute__((alias("MCC_IsReflectUnsupportedType")));
+
+extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetFunctionSignatureTypes(TypeInfo* funcTi)
+    __attribute__((alias("MCC_GetFunctionSignatureTypes")));
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFunctionSignatureTypes(TypeInfo* funcTi)
+    __attribute__((alias("MCC_GetNumOfFunctionSignatureTypes")));
+
+// for enum
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfEnumConstructorInfos(TypeInfo* ti)
+    __attribute__((alias("MCC_GetNumOfEnumConstructorInfos")));
+extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetEnumConstructorInfo(TypeInfo* ti, U32 idx)
+    __attribute__((alias("MCC_GetEnumConstructorInfo")));
+extern "C" MRT_EXPORT const char* CJ_MCC_GetEnumConstructorName(EnumCtorInfo* ti)
+    __attribute__((alias("MCC_GetEnumConstructorName")));
+extern "C" MRT_EXPORT EnumCtorInfo* CJ_MCC_GetEnumConstructorInfoFromAny(ObjRef obj)
+    __attribute__((alias("MCC_GetEnumConstructorInfoFromAny")));
+
+// for tuple
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFieldTypes(TypeInfo* ti)
+    __attribute__((alias("MCC_GetNumOfFieldTypes")));
+extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetFieldTypes(TypeInfo* ti)
+    __attribute__((alias("MCC_GetFieldTypes")));
 
 extern "C" MRT_EXPORT U32 CJ_MCC_GetQualifiedNameLength(TypeInfo* ti)
     __attribute__((alias("MCC_GetQualifiedNameLength")));

@@ -231,9 +231,40 @@ __asm__(".global _CJ_MCC_IsPrimitive\n\t.set _CJ_MCC_IsPrimitive, _MCC_IsPrimiti
 extern "C" MRT_EXPORT bool CJ_MCC_IsGeneric(TypeInfo* ti);
 __asm__(".global _CJ_MCC_IsGeneric\n\t.set _CJ_MCC_IsGeneric, _MCC_IsGeneric");
 
+extern "C" MRT_EXPORT bool CJ_MCC_IsEnum(TypeInfo* ti);
+__asm__(".global _CJ_MCC_IsEnum\n\t.set _CJ_MCC_IsEnum, _MCC_IsEnum");
+
+extern "C" MRT_EXPORT bool CJ_MCC_IsFunction(TypeInfo* ti);
+__asm__(".global _CJ_MCC_IsFunction\n\t.set _CJ_MCC_IsFunction, _MCC_IsFunction");
+
+extern "C" MRT_EXPORT bool CJ_MCC_IsTuple(TypeInfo* ti);
+__asm__(".global _CJ_MCC_IsTuple\n\t.set _CJ_MCC_IsTuple, _MCC_IsTuple");
+
 extern "C" MRT_EXPORT bool CJ_MCC_IsReflectUnsupportedType(TypeInfo* ti);
 __asm__(".global _CJ_MCC_IsReflectUnsupportedType\n\t.set _CJ_MCC_IsReflectUnsupportedType, "
     "_MCC_IsReflectUnsupportedType");
+
+// for function
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFunctionSignatureTypes(TypeInfo* funcTi);
+__asm__(".global _CJ_MCC_GetNumOfFunctionSignatureTypes\n\t.set _CJ_MCC_GetNumOfFunctionSignatureTypes, _MCC_GetNumOfFunctionSignatureTypes");
+extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetFunctionSignatureTypes(TypeInfo* funcTi);
+__asm__(".global _CJ_MCC_GetFunctionSignatureTypes\n\t.set _CJ_MCC_GetFunctionSignatureTypes, _MCC_GetFunctionSignatureTypes");
+
+// for enum
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfEnumConstructorInfos(TypeInfo* ti);
+__asm__(".global _CJ_MCC_GetNumOfEnumConstructorInfos\n\t.set _CJ_MCC_GetNumOfEnumConstructorInfos, _MCC_GetNumOfEnumConstructorInfos");
+extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetEnumConstructInfo(TypeInfo* ti, U32 idx);
+__asm__(".global _CJ_MCC_GetEnumConstructorInfo\n\t.set _CJ_MCC_GetEnumConstructorInfo, _MCC_GetEnumConstructorInfo");
+extern "C" MRT_EXPORT const char* CJ_MCC_GetEnumConstructorName(EnumCtorInfo* ti);
+__asm__(".global _CJ_MCC_GetEnumConstructorName\n\t.set _CJ_MCC_GetEnumConstructorName, _MCC_GetEnumConstructorName");
+extern "C" MRT_EXPORT EnumCtorInfo* CJ_MCC_GetEnumConstructorInfoFromAny(ObjRef obj);
+__asm__(".global _CJ_MCC_GetEnumConstructorInfoFromAny\n\t.set _CJ_MCC_GetEnumConstructorInfoFromAny, _MCC_GetEnumConstructorInfoFromAny");
+
+// for tuple
+extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFieldTypes(TypeInfo* ti);
+__asm__(".global _CJ_MCC_GetNumOfFieldTypes\n\t.set _CJ_MCC_GetNumOfFieldTypes, _MCC_GetNumOfFieldTypes");
+extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetFieldTypes(TypeInfo* ti);
+__asm__(".global _CJ_MCC_GetFieldTypes\n\t.set _CJ_MCC_GetFieldTypes, _MCC_GetFieldTypes");
 
 extern "C" MRT_EXPORT U32 CJ_MCC_GetQualifiedNameLength(TypeInfo* ti);
 __asm__(".global _CJ_MCC_GetQualifiedNameLength\n\t.set _CJ_MCC_GetQualifiedNameLength, _MCC_GetQualifiedNameLength");
