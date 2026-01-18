@@ -46,8 +46,8 @@ main(args: Array<String>): Int64 {
     // 获取当前进程的参数列表
     let currentProcess = Process.current
     let arguments = currentProcess.arguments
+    println("尝试使用 ./main arg1 arg2 arg3 执行程序")
     println("参数数量: ${arguments.size}")
-    // 可以尝试执行 ./main arg1 arg2 arg3
     for (i in 0..arguments.size) {
         if (i < arguments.size) {
             println("参数 ${i}: ${arguments[i]}")
@@ -60,6 +60,7 @@ main(args: Array<String>): Int64 {
 可能的运行结果：
 
 ```text
+尝试使用 ./main arg1 arg2 arg3 执行程序
 参数数量: 3
 参数 0: arg1
 参数 1: arg2
@@ -594,7 +595,7 @@ main(): Int64 {
     // 根据PID查找进程
     let process = findProcess(currentPid)
     let commandLine = process.commandLine
-    // 执行命令 ./main arg1 arg2 arg3
+    println("尝试使用 ./main arg1 arg2 arg3 执行程序")
     println("命令行参数数量: ${commandLine.size}")
     for (i in 0..commandLine.size) {
         println("参数 ${i}: ${commandLine[i]}")
@@ -606,6 +607,7 @@ main(): Int64 {
 可能的运行结果：
 
 ```text
+尝试使用 ./main arg1 arg2 arg3 执行程序
 命令行参数数量: 4
 参数 0: ./main
 参数 1: arg1

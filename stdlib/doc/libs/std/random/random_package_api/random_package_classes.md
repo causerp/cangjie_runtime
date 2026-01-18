@@ -21,6 +21,27 @@ public prop seed: UInt64
 
 类型：[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    // 使用默认构造函数创建Random对象
+    let random = Random()
+
+    let seed = random.seed
+    println("种子: ${seed}")
+}
+```
+
+可能的运行结果：
+
+```text
+种子: 1768631965497376828
+```
+
 ### init()
 
 ```cangjie
@@ -80,13 +101,6 @@ main(): Unit {
     let value2_1 = random2.nextInt32()
     println("random1的第一个随机数: ${value1_1}")
     println("random2的第一个随机数: ${value2_1}")
-    println("两个随机数是否相同: ${value1_1 == value2_1}")
-
-    let value1_2 = random1.nextInt32()
-    let value2_2 = random2.nextInt32()
-    println("random1的第二个随机数: ${value1_2}")
-    println("random2的第二个随机数: ${value2_2}")
-    println("两个随机数是否相同: ${value1_2 == value2_2}")
 }
 ```
 
@@ -95,10 +109,6 @@ main(): Unit {
 ```text
 random1的第一个随机数: 1861434509
 random2的第一个随机数: 1861434509
-两个随机数是否相同: true
-random1的第二个随机数: 1778302432
-random2的第二个随机数: 1778302432
-两个随机数是否相同: true
 ```
 
 ### func next(UInt64) <sup>(deprecated)</sup>
@@ -137,23 +147,6 @@ main(): Unit {
     // 生成指定位长的随机数
     let randomValue = random.next(10)
     println("生成的10位随机数: ${randomValue}")
-
-    // 测试边界情况
-    let randomValue32 = random.next(32)
-    println("生成的32位随机数: ${randomValue32}")
-
-    // 测试异常情况
-    try {
-        let invalidValue = random.next(0)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
-
-    try {
-        let invalidValue = random.next(65)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
 }
 ```
 
@@ -161,9 +154,6 @@ main(): Unit {
 
 ```text
 生成的10位随机数: 960
-生成的32位随机数: 2742077129
-捕获到异常: Bits cannot be 0.
-捕获到异常: Bits must be less than or equal to 64.
 ```
 
 ### func nextBits(UInt64)
@@ -198,23 +188,6 @@ main(): Unit {
     // 生成指定位长的随机数
     let randomValue = random.nextBits(10)
     println("生成的10位随机数: ${randomValue}")
-
-    // 测试边界情况
-    let randomValue32 = random.nextBits(32)
-    println("生成的32位随机数: ${randomValue32}")
-
-    // 测试异常情况
-    try {
-        let invalidValue = random.nextBits(0)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
-
-    try {
-        let invalidValue = random.nextBits(65)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
 }
 ```
 
@@ -222,9 +195,6 @@ main(): Unit {
 
 ```text
 生成的10位随机数: 512
-生成的32位随机数: 3284567890
-捕获到异常: Bits cannot be 0.
-捕获到异常: Bits must be less than or equal to 64.
 ```
 
 ### func nextBool()
@@ -240,22 +210,26 @@ public func nextBool(): Bool
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 一个 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Bool = m.nextBool()
-    println("n=${n is Bool}")
+    // 创建一个随机数生成器
+    let random = Random()
+
+    // 生成一个布尔值
+    let bool = random.nextBool()
+    println("结果: ${bool}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n=true
+结果: false
 ```
 
 ### func nextBytes(Array\<Byte>)
@@ -280,38 +254,22 @@ main(): Unit {
     let random = Random()
 
     // 先创建一个字节数组
-    let bytes = random.nextBytes(5)
+    let bytes = Array<UInt8>(5, repeat: 0)
 
-    println("调用nextBytes前:")
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
+    println("调用nextBytes前: ${bytes}")
 
     // 使用nextBytes重新填充数组
     random.nextBytes(bytes)
 
-    println("调用nextBytes后:")
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
+    println("调用nextBytes后: ${bytes}")
 }
 ```
 
 可能的运行结果：
 
 ```text
-调用nextBytes前:
-bytes[0] = 200
-bytes[1] = 46
-bytes[2] = 141
-bytes[3] = 211
-bytes[4] = 109
-调用nextBytes后:
-bytes[0] = 164
-bytes[1] = 187
-bytes[2] = 173
-bytes[3] = 16
-bytes[4] = 229
+调用nextBytes前: [0, 0, 0, 0, 0]
+调用nextBytes后: [138, 254, 94, 118, 164]
 ```
 
 ### func nextBytes(Int32)
@@ -345,32 +303,16 @@ main(): Unit {
 
     // 生成长度为5的随机字节数组
     let bytes = random.nextBytes(5)
-    println("生成的数组长度: ${bytes.size}")
 
     // 打印生成的随机字节
-    for (i in 0..bytes.size) {
-        println("bytes[${i}] = ${bytes[i]}")
-    }
-
-    // 测试异常情况
-    try {
-        let emptyBytes = random.nextBytes(-1)
-    } catch (e: IllegalArgumentException) {
-        println("捕获到异常: ${e.message}")
-    }
+    println("生成的随机字节: ${bytes}")
 }
 ```
 
 可能的运行结果：
 
 ```text
-生成的数组长度: 5
-bytes[0] = 22
-bytes[1] = 242
-bytes[2] = 63
-bytes[3] = 116
-bytes[4] = 89
-捕获到异常: Length must be positive.
+生成的随机字节: [86, 205, 17, 142, 41]
 ```
 
 ### func nextFloat16()
@@ -386,24 +328,27 @@ public func nextFloat16(): Float16
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float16 = m.nextFloat16()
-    if (n is Float16) {
-        println("n is Float16")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float16类型的随机数 [0.0, 1.0)
+    let randomFloat16 = rng.nextFloat16()
+    println("生成的Float16随机数: ${randomFloat16}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float16
+生成的Float16随机数: 0.286133
 ```
 
 ### func nextFloat32()
@@ -419,24 +364,27 @@ public func nextFloat32(): Float32
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float32 = m.nextFloat32()
-    if (n is Float32) {
-        println("n is Float32")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float32类型的随机数 [0.0, 1.0)
+    let randomFloat32 = rng.nextFloat32()
+    println("生成的Float32随机数: ${randomFloat32}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float32
+生成的Float32随机数: 0.010008
 ```
 
 ### func nextFloat64()
@@ -452,24 +400,27 @@ public func nextFloat64(): Float64
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float64 = m.nextFloat64()
-    if (n is Float64) {
-        println("n is Float64")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float64类型的随机数 [0.0, 1.0)
+    let randomFloat64 = rng.nextFloat64()
+    println("生成的Float64随机数: ${randomFloat64}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float64
+生成的Float64随机数: 0.510989
 ```
 
 ### func nextGaussianFloat16(Float16, Float16)
@@ -492,24 +443,32 @@ public func nextGaussianFloat16(mean!: Float16 = 0.0, sigma!: Float16 = 1.0): Fl
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float16 = m.nextGaussianFloat16(mean: 0.0, sigma: 1.0)
-    if (n is Float16) {
-        println("n is Float16")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float16类型的高斯分布随机数（均值0.0，标准差1.0）
+    let gaussianFloat16 = rng.nextGaussianFloat16()
+    println("生成的默认高斯分布Float16随机数: ${gaussianFloat16}")
+
+    // 生成一个Float16类型的高斯分布随机数（均值2.0，标准差1.5）
+    let gaussianFloat16Custom = rng.nextGaussianFloat16(mean: 2.0, sigma: 1.5)
+    println("生成的自定义高斯分布Float16随机数: ${gaussianFloat16Custom}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float16
+生成的默认高斯分布Float16随机数: -1.596680
+生成的自定义高斯分布Float16随机数: 3.708984
 ```
 
 ### func nextGaussianFloat32(Float32, Float32)
@@ -532,24 +491,32 @@ public func nextGaussianFloat32(mean!: Float32 = 0.0, sigma!: Float32 = 1.0): Fl
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 类型的随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float32 = m.nextGaussianFloat32(mean: 0.0, sigma: 1.0)
-    if (n is Float32) {
-        println("n is Float32")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float32类型的高斯分布随机数（均值0.0，标准差1.0）
+    let gaussianFloat32 = rng.nextGaussianFloat32()
+    println("生成的默认高斯分布Float32随机数: ${gaussianFloat32}")
+
+    // 生成一个Float32类型的高斯分布随机数（均值2.0，标准差1.5）
+    let gaussianFloat32Custom = rng.nextGaussianFloat32(mean: 2.0, sigma: 1.5)
+    println("生成的自定义高斯分布Float32随机数: ${gaussianFloat32Custom}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float32
+生成的默认高斯分布Float32随机数: 0.666218
+生成的自定义高斯分布Float32随机数: 3.623906
 ```
 
 ### func nextGaussianFloat64(Float64, Float64)
@@ -572,24 +539,32 @@ public func nextGaussianFloat64(mean!: Float64 = 0.0, sigma!: Float64 = 1.0): Fl
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Float64 = m.nextGaussianFloat64(mean: 0.0, sigma: 1.0)
-    if (n is Float64) {
-        println("n is Float64")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Float64类型的高斯分布随机数（均值0.0，标准差1.0）
+    let gaussianFloat64 = rng.nextGaussianFloat64()
+    println("生成的默认高斯分布Float64随机数: ${gaussianFloat64}")
+
+    // 生成一个Float64类型的高斯分布随机数（均值2.0，标准差1.5）
+    let gaussianFloat64Custom = rng.nextGaussianFloat64(mean: 2.0, sigma: 1.5)
+    println("生成的自定义高斯分布Float64随机数: ${gaussianFloat64Custom}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Float64
+生成的默认高斯分布Float64随机数: 0.461099
+生成的自定义高斯分布Float64随机数: 3.610765
 ```
 
 ### func nextInt16()
@@ -605,24 +580,27 @@ public func nextInt16(): Int16
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int16 = m.nextInt16()
-    if (n is Int16) {
-        println("n is Int16")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Int16类型的随机数
+    let randomInt16 = rng.nextInt16()
+    println("生成的Int16随机数: ${randomInt16}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int16
+生成的Int16随机数: 23604
 ```
 
 ### func nextInt16(Int16)
@@ -646,31 +624,26 @@ public func nextInt16(upper: Int16): Int16
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int16 = m.nextInt16(5)
-    if (n is Int16) {
-        println("n is Int16")
-    }
-    try {
-        let p: Int16 = m.nextInt16(-1)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 小于等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 100) 的Int16类型的随机数
+    let randomInt16Upper = rng.nextInt16(100)
+    println("生成的范围在[0, 100)的Int16随机数: ${randomInt16Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int16
-参数异常：upper 小于等于 0
+生成的范围在[0, 100)的Int16随机数: 25
 ```
 
 ### func nextInt32()
@@ -686,24 +659,27 @@ public func nextInt32(): Int32
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int32 = m.nextInt32()
-    if (n is Int32) {
-        println("n is Int32")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Int32类型的随机数
+    let randomInt32 = rng.nextInt32()
+    println("生成的Int32随机数: ${randomInt32}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int32
+生成的Int32随机数: 1556266486
 ```
 
 ### func nextInt32(Int32)
@@ -727,31 +703,26 @@ public func nextInt32(upper: Int32): Int32
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int32 = m.nextInt32(5)
-    if (n is Int32) {
-        println("n is Int32")
-    }
-    try {
-        let p: Int32 = m.nextInt32(-1)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 小于等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 1000) 的Int32类型的随机数
+    let randomInt32Upper = rng.nextInt32(1000)
+    println("生成的范围在[0, 1000)的Int32随机数: ${randomInt32Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int32
-参数异常：upper 小于等于 0
+生成的范围在[0, 1000)的Int32随机数: 571
 ```
 
 ### func nextInt64()
@@ -767,24 +738,27 @@ public func nextInt64(): Int64
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int64 = m.nextInt64()
-    if (n is Int64) {
-        println("n is Int64")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Int64类型的随机数
+    let randomInt64 = rng.nextInt64()
+    println("生成的Int64随机数: ${randomInt64}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int64
+生成的Int64随机数: -7311212217809863139
 ```
 
 ### func nextInt64(Int64)
@@ -808,31 +782,26 @@ public func nextInt64(upper: Int64): Int64
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int64 = m.nextInt64(5)
-    if (n is Int64) {
-        println("n is Int64")
-    }
-    try {
-        let p: Int64 = m.nextInt64(-1)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 小于等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 1000000) 的Int64类型的随机数
+    let randomInt64Upper = rng.nextInt64(1000000)
+    println("生成的范围在[0, 1000000)的Int64随机数: ${randomInt64Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int64
-参数异常：upper 小于等于 0
+生成的范围在[0, 1000000)的Int64随机数: 917339
 ```
 
 ### func nextInt8()
@@ -848,24 +817,27 @@ public func nextInt8(): Int8
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int8 = m.nextInt8()
-    if (n is Int8) {
-        println("n is Int8")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个Int8类型的随机数
+    let randomInt8 = rng.nextInt8()
+    println("生成的Int8随机数: ${randomInt8}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int8
+生成的Int8随机数: 2
 ```
 
 ### func nextInt8(Int8): Int8
@@ -889,31 +861,26 @@ public func nextInt8(upper: Int8): Int8
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: Int8 = m.nextInt8(5)
-    if (n is Int8) {
-        println("n is Int8")
-    }
-    try {
-        let p: Int8 = m.nextInt8(-1)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 小于等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 100) 的Int8类型的随机数
+    let randomInt8Upper = rng.nextInt8(100)
+    println("生成的范围在[0, 100)的Int8随机数: ${randomInt8Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is Int8
-参数异常：upper 小于等于 0
+生成的范围在[0, 100)的Int8随机数: 7
 ```
 
 ### func nextUInt16()
@@ -929,24 +896,27 @@ public func nextUInt16(): UInt16
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt16 = m.nextUInt16()
-    if (n is UInt16) {
-        println("n is UInt16")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个UInt16类型的随机数
+    let randomUInt16 = rng.nextUInt16()
+    println("生成的UInt16随机数: ${randomUInt16}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt16
+生成的UInt16随机数: 24058
 ```
 
 ### func nextUInt16(UInt16)
@@ -970,31 +940,26 @@ public func nextUInt16(upper: UInt16): UInt16
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt16 = m.nextUInt16(5)
-    if (n is UInt16) {
-        println("n is UInt16")
-    }
-    try {
-        let p: UInt16 = m.nextUInt16(0)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 10000) 的UInt16类型的随机数
+    let randomUInt16Upper = rng.nextUInt16(10000)
+    println("生成的范围在[0, 10000)的UInt16随机数: ${randomUInt16Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt16
-参数异常：upper 等于 0
+生成的范围在[0, 10000)的UInt16随机数: 4927
 ```
 
 ### func nextUInt32()
@@ -1010,24 +975,27 @@ public func nextUInt32(): UInt32
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt32 = m.nextUInt32()
-    if (n is UInt32) {
-        println("n is UInt32")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个UInt32类型的随机数
+    let randomUInt32 = rng.nextUInt32()
+    println("生成的UInt32随机数: ${randomUInt32}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt32
+生成的UInt32随机数: 738971091
 ```
 
 ### func nextUInt32(UInt32)
@@ -1051,31 +1019,26 @@ public func nextUInt32(upper: UInt32): UInt32
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt32 = m.nextUInt32(5)
-    if (n is UInt32) {
-        println("n is UInt32")
-    }
-    try {
-        let p: UInt32 = m.nextUInt32(0)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 1000000) 的UInt32类型的随机数
+    let randomUInt32Upper = rng.nextUInt32(1000000)
+    println("生成的范围在[0, 1000000)的UInt32随机数: ${randomUInt32Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt32
-参数异常：upper 等于 0
+生成的范围在[0, 1000000)的UInt32随机数: 913641
 ```
 
 ### func nextUInt64()
@@ -1091,24 +1054,27 @@ public func nextUInt64(): UInt64
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt64 = m.nextUInt64()
-    if (n is UInt64) {
-        println("n is UInt64")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个UInt64类型的随机数
+    let randomUInt64 = rng.nextUInt64()
+    println("生成的UInt64随机数: ${randomUInt64}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt64
+生成的UInt64随机数: 9612265470820164117
 ```
 
 ### func nextUInt64(UInt64)
@@ -1132,31 +1098,26 @@ public func nextUInt64(upper: UInt64): UInt64
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt64 = m.nextUInt64(5)
-    if (n is UInt64) {
-        println("n is UInt64")
-    }
-    try {
-        let p: UInt64 = m.nextUInt64(0)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 1000000000000) 的UInt64类型的随机数
+    let randomUInt64Upper = rng.nextUInt64(1000000000000)
+    println("生成的范围在[0, 1000000000000)的UInt64随机数: ${randomUInt64Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt64
-参数异常：upper 等于 0
+生成的范围在[0, 1000000000000)的UInt64随机数: 48580775680
 ```
 
 ### func nextUInt8()
@@ -1172,24 +1133,27 @@ public func nextUInt8(): UInt8
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt8 = m.nextUInt8()
-    if (n is UInt8) {
-        println("n is UInt8")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个UInt8类型的随机数
+    let randomUInt8 = rng.nextUInt8()
+    println("生成的UInt8随机数: ${randomUInt8}")
+
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt8
+生成的UInt8随机数: 151
 ```
 
 ### func nextUInt8(UInt8)
@@ -1213,31 +1177,26 @@ public func nextUInt8(upper: UInt8): UInt8
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
 
 示例：
-<!-- verify -->
+
+<!-- run -->
 ```cangjie
 import std.random.*
 
 main() {
-    let m: Random = Random()
-    let n: UInt8 = m.nextUInt8(5)
-    if (n is UInt8) {
-        println("n is UInt8")
-    }
-    try {
-        let p: UInt8 = m.nextUInt8(0)
-        println(p)
-    } catch (e: IllegalArgumentException) {
-        println("参数异常：upper 等于 0")
-    }
+    // 创建一个Random实例
+    let rng = Random()
+
+    // 生成一个范围在 [0, 100) 的UInt8类型的随机数
+    let randomUInt8Upper = rng.nextUInt8(100)
+    println("生成的范围在[0, 100)的UInt8随机数: ${randomUInt8Upper}")
     return 0
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
-n is UInt8
-参数异常：upper 等于 0
+生成的范围在[0, 100)的UInt8随机数: 16
 ```
 
 ### func nextUInt8s(Array\<UInt8>) <sup>(deprecated)</sup>
@@ -1259,3 +1218,31 @@ public func nextUInt8s(array: Array<UInt8>): Array<UInt8>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回替换后的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.random.*
+
+main(): Unit {
+    let random = Random()
+
+    // 先创建一个字节数组
+    let bytes = Array<UInt8>(5, repeat: 0)
+
+    println("调用nextUInt8s前: ${bytes}")
+
+    // 使用nextUInt8s重新填充数组
+    let result = random.nextUInt8s(bytes)
+
+    println("调用nextUInt8s后: ${result}")
+}
+```
+
+可能的运行结果：
+
+```text
+调用nextUInt8s前: [0, 0, 0, 0, 0]
+调用nextUInt8s后: [237, 114, 163, 155, 228]
+```

@@ -1756,45 +1756,6 @@ main(): Unit {
 M2
 ```
 
-### prop qualifiedName
-
-```cangjie
-public prop qualifiedName: String
-```
-
-功能：获取该枚举构造子的限定名称。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M2(Int64)
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
-    println(ctor.qualifiedName)
-    return
-}
-```
-
-运行结果：
-
-```text
-test.E.M2<Int64>
-```
-
 ### prop parameters
 
 ```cangjie
@@ -1837,6 +1798,45 @@ main(): Unit {
 2
 Int64
 String
+```
+
+### prop qualifiedName
+
+```cangjie
+public prop qualifiedName: String
+```
+
+功能：获取该枚举构造子的限定名称。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M2<Int64>
 ```
 
 ### static func get(String)
@@ -2056,140 +2056,6 @@ main(): Unit {
 Some(7)
 ```
 
-### func findAllAnnotations\<T>()
-
-```cangjie
-public func findAllAnnotations<T>(): Array<T> where T <: Annotation
-```
-
-功能：获取该构造子上的所有类型为 `T` 的注解实例。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 注解列表。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-@Annotation
-public class A1 {
-    public const init() {}
-}
-
-public enum E {
-    | M1
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    let annos = ctor.findAllAnnotations<A1>()
-    println(annos.size)
-    return
-}
-```
-
-运行结果：
-
-```text
-0
-```
-
-### func findAllAnnotation\<T>()
-
-```cangjie
-public func findAllAnnotation<T>(): ?T where T <: Annotation
-```
-
-功能：获取该构造子上的任意一个类型为 `T` 的注解实例。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- ?T - 注解实例或 `None`。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-@Annotation
-public class A1 {
-    public const init() {}
-}
-
-public enum E {
-    | M1
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.findAllAnnotation<A1>().isNone())
-    return
-}
-```
-
-运行结果：
-
-```text
-true
-```
-
-### func getAllAnnotations()
-
-```cangjie
-public func getAllAnnotations(): Array<Annotation>
-```
-
-功能：获取该构造子上的所有注解实例数组。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 注解数组。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M1
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.getAllAnnotations().size)
-    return
-}
-```
-
-运行结果：
-
-```text
-0
-```
-
 ### func hashCode()
 
 ```cangjie
@@ -2231,6 +2097,46 @@ main(): Unit {
 true
 ```
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：获取该构造子信息的字符串表示，等价于 `qualifiedName`。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串表示。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.toString())
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M1
+```
 ### operator func ==(EnumConstructorInfo)
 
 ```cangjie
@@ -2281,46 +2187,6 @@ true
 false
 ```
 
-### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-功能：获取该构造子信息的字符串表示，等价于 `qualifiedName`。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串表示。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M1
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.toString())
-    return
-}
-```
-
-运行结果：
-
-```text
-test.E.M1
-```
 ## class EnumTypeInfo
 
 ```cangjie
@@ -2727,7 +2593,7 @@ package test
 import std.reflect.*
 
 main(): Unit {
-    let f = { x: Int64, y: UInt8 => x + Int64(y) }
+    let f = {x: Int64, y: UInt8 => x + Int64(y)}
     let info = FunctionTypeInfo.of(f)
     println(info.parameters.size)
     println(info.parameters[0].name)
@@ -2767,7 +2633,7 @@ package test
 import std.reflect.*
 
 main(): Unit {
-    let f = { x: Int64, y: Int64 => x + y }
+    let f = {x: Int64, y: Int64 => x + y}
     let info = FunctionTypeInfo.of(f)
     println(info.returnType.name)
     return
