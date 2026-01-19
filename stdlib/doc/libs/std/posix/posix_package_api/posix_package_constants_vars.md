@@ -10,7 +10,8 @@ public const AT_EMPTY_PATH: Int32 = 0x1000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：macOS、iOS。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -53,7 +54,7 @@ public const AT_SYMLINK_FOLLOW: Int32
 
 功能：表示一个用于控制符号链接解析行为的标志，指定在操作符号链接时是否跟随链接指向的目标文件。通常与 `AT_FDCWD` 结合使用。若无该标志，大多数系统调用会直接操作符号链接本身（如读取链接路径）。使用该标志后，系统调用会先解析符号链接，然后操作其指向的目标文件。主要用于 `linkat`、`unlinkat` 等函数，所属函数参数 `fd`。不同系统下的值分别为：
 
-- macOS: 0x040
+- macOS 和 iOS：0x040
 - 其他情况：0x400
 
 > **注意：**
@@ -84,8 +85,8 @@ public const O_APPEND: Int32
 
 功能：读取或写入文件时，数据将从文件末尾移动。即写入的数据将附加到文件的末尾，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000008
-- Windows: 0x8
+- macOS 和 iOS：0x00000008
+- Windows：0x8
 - 其他情况：0x400
 
 > **注意：**
@@ -102,12 +103,13 @@ public const O_CLOEXEC: Int32
 
 功能：在某些多线程程序中，使用此标志是必不可少的。因为在一个线程同时打开文件描述符，而另一个线程执行 `fork(2)` 加 `execve(2)` 场景下使用单独的 `fcntl(2)` `F_SETFD` 操作设置 `FD_CLOEXEC` 标志并不足以避免竞争条件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x01000000
+- macOS 和 iOS：0x01000000
 - 其他情况：0x80000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -119,8 +121,8 @@ public const O_CREAT: Int32
 
 功能：如果要打开的文件不存在，则自动创建该文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000200
-- Windows: 0x100
+- macOS 和 iOS：0x00000200
+- Windows：0x100
 - 其他情况：0x40
 
 > **注意：**
@@ -137,12 +139,13 @@ public const O_DIRECTORY: Int32
 
 功能：如果 `pathname` 指定的文件不是目录，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00100000
+- macOS 和 iOS：0x00100000
 - 其他情况：0x80000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -154,12 +157,13 @@ public const O_DSYNC: Int32
 
 功能：每次写入都会等待物理 `I/O` 完成，但如果写操作不影响读取刚写入的数据，则不等待文件属性更新，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x400000
+- macOS 和 iOS：0x400000
 - 其他情况：0x1000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -171,8 +175,8 @@ public const O_EXCL: Int32
 
 功能：如同时设置 [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated)，则此指令检查文件是否存在。如果文件不存在，则创建文件。否则，打开文件出错。此外，如果同时设置了 [O_CREAT](posix_package_constants_vars.md#const-o_creat-deprecated) 和 [O_EXCL](posix_package_constants_vars.md#const-o_excl-deprecated)，并且要打开的文件是符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000800
-- Windows: 0x400
+- macOS 和 iOS：0x00000800
+- Windows：0x400
 - 其他情况：0x80
 
 > **注意：**
@@ -189,12 +193,13 @@ public const O_NOCTTY: Int32
 
 功能：如要打开的文件是终端设备，则该文件不会成为这个进程的控制终端，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00020000
+- macOS 和 iOS：0x00020000
 - 其他情况：0x100
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -206,12 +211,13 @@ public const O_NOFOLLOW: Int32
 
 功能：如 `pathname` 指定的文件是单符号连接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000100
+- macOS 和 iOS：0x00000100
 - 其他情况：0x20000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -223,12 +229,13 @@ public const O_NONBLOCK: Int32
 
 功能：以非阻塞的方式打开文件，即 `I/O` 操作不会导致调用进程等待，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000004
+- macOS 和 iOS：0x00000004
 - 其他情况：0x800
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -270,7 +277,8 @@ public const O_RSYNC: Int32 = 0x101000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows、macOS、iOS。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -282,12 +290,13 @@ public const O_SYNC: Int32
 
 功能：同步打开文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x0080
+- macOS 和 iOS：0x0080
 - 其他情况：0x101000
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：Windows。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -299,7 +308,7 @@ public const O_TRUNC: Int32
 
 功能：如果文件存在且打开可写，则此标志将文件长度清除为 0，文件中以前存储的数据消失，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
-- macOS: 0x00000400
+- macOS 和 iOS：0x00000400
 - 其他情况：0x200
 
 > **注意：**
@@ -414,7 +423,7 @@ public const SIGBUS: Int32
 
 功能：硬件故障，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0xA
+- macOS 和 iOS：0xA
 - 其他情况：0x7
 
 > **注意：**
@@ -431,7 +440,7 @@ public const SIGCHLD: Int32
 
 功能：子进程状态更改，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x14
+- macOS 和 iOS：0x14
 - 其他情况：0x11
 
 > **注意：**
@@ -448,7 +457,7 @@ public const SIGCONT: Int32
 
 功能：暂停过程的继续，默认操作继续或忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x13
+- macOS 和 iOS：0x13
 - 其他情况：0x12
 
 > **注意：**
@@ -521,7 +530,7 @@ public const SIGIO: Int32
 
 功能：异步 `IO`，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x17
+- macOS 和 iOS：0x17
 - 其他情况：0x1D
 
 > **注意：**
@@ -596,7 +605,8 @@ public const SIGPWR: Int32 = 0x1E
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：macOS、iOS。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -638,7 +648,8 @@ public const SIGSTKFLT: Int32 = 0x10
 
 > **注意：**
 >
-> 未来版本即将废弃。
+> - 不支持平台：macOS、iOS。
+> - 未来版本即将废弃。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -650,7 +661,7 @@ public const SIGSTOP: Int32
 
 功能：停止，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x11
+- macOS 和 iOS：0x11
 - 其他情况：0x13
 
 > **注意：**
@@ -667,7 +678,7 @@ public const SIGSYS: Int32
 
 功能：终止，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0xC
+- macOS 和 iOS：0xC
 - 其他情况：0x1F
 
 > **注意：**
@@ -712,7 +723,7 @@ public const SIGTSTP: Int32
 
 功能：终端停止符号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x12
+- macOS 和 iOS：0x12
 - 其他情况：0x14
 
 > **注意：**
@@ -757,7 +768,7 @@ public const SIGURG: Int32
 
 功能：紧急情况（套接字），忽略默认操作，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x10
+- macOS 和 iOS：0x10
 - 其他情况：0x17
 
 > **注意：**
@@ -774,7 +785,7 @@ public const SIGUSR1: Int32
 
 功能：用户定义的信号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x1E
+- macOS 和 iOS：0x1E
 - 其他情况：0xA
 
 > **注意：**
@@ -791,7 +802,7 @@ public const SIGUSR2: Int32
 
 功能：用户定义的信号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
-- macOS: 0x1F
+- macOS 和 iOS：0x1F
 - 其他情况：0xC
 
 > **注意：**

@@ -18,7 +18,8 @@ public enum ModifierInfo <: Equatable<ModifierInfo> & Hashable & ToString  {
 
 > **注意：**
 >
-> 由于开发者通过反射功能获取到的类型信息均来自于 `public` 的类型，这些类型都必定拥有 `public` 的访问控制语义，因此修饰符信息并不包含任何访问控制相关的修饰符。
+> - 不支持平台：macOS、iOS。
+> - 由于开发者通过反射功能获取到的类型信息均来自于 `public` 的类型，这些类型都必定拥有 `public` 的访问控制语义，因此修饰符信息并不包含任何访问控制相关的修饰符。
 
 父类型：
 
@@ -34,6 +35,10 @@ Abstract
 
 功能：表示 abstract 修饰符。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 ### Mut
 
 ```cangjie
@@ -41,6 +46,10 @@ Mut
 ```
 
 功能：表示 mut 修饰符。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 ### Open
 
@@ -50,6 +59,10 @@ Open
 
 功能：表示 open 修饰符。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 ### Override
 
 ```cangjie
@@ -57,6 +70,10 @@ Override
 ```
 
 功能：表示 override 修饰符。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 ### Redef
 
@@ -66,6 +83,10 @@ Redef
 
 功能：表示 redef 修饰符。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 ### Sealed
 
 ```cangjie
@@ -73,6 +94,10 @@ Sealed
 ```
 
 功能：表示 sealed 修饰符。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 ### Static
 
@@ -82,6 +107,10 @@ Static
 
 功能：表示 static 修饰符。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 ### func hashCode()
 
 ```cangjie
@@ -89,6 +118,10 @@ public func hashCode(): Int64
 ```
 
 功能：获取该修饰符信息的哈希值。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -106,6 +139,10 @@ public override func toString(): String
 
 功能：获取字符串形式的该修饰符信息。
 
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串形式的该修饰符信息。
@@ -121,6 +158,10 @@ public override operator func ==(that: ModifierInfo): Bool
 ```
 
 功能：判断该修饰符信息与给定的另一个修饰符信息是否相等。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -144,7 +185,8 @@ public override operator func !=(that: ModifierInfo): Bool
 
 > **注意：**
 >
-> 修饰符信息的相等性的语义等价于 `enum` 类型实例的相等性的语义。
+> - 不支持平台：macOS、iOS。
+> - 修饰符信息的相等性的语义等价于 `enum` 类型实例的相等性的语义。
 
 参数：
 

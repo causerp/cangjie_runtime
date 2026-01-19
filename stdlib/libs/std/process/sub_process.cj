@@ -16,6 +16,160 @@ import std.io.*
  * SubProcess
  *
  */
+@When[os != "iOS"]
+public class SubProcess <: Process {
+    var _stdIn: OutputStream
+    var _stdOut: InputStream
+    var _stdErr: InputStream
+
+    init(
+        pid: Int64,
+        name: ?String,
+        command: ?String,
+        arguments: ?Array<String>,
+        commandLine: ?Array<String>,
+        workingDirectory: ?Path,
+        environment: ?Map<String, String>,
+        stdIn: OutputStream,
+        stdOut: InputStream,
+        stdErr: InputStream
+    ) {
+        super(pid, name, command, arguments, commandLine, workingDirectory, environment)
+        this._stdIn = stdIn
+        this._stdOut = stdOut
+        this._stdErr = stdErr
+    }
+
+    @When[os == "Windows"]
+    ~init() {
+        if (this._handle != INVALID_HANDLE) {
+            unsafe { CJ_OS_CloseProcessHandle(this._handle) }
+        }
+    }
+
+    public prop stdInPipe: OutputStream {
+        get() {
+            this._stdIn
+        }
+    }
+    public prop stdOutPipe: InputStream {
+        get() {
+            this._stdOut
+        }
+    }
+    public prop stdErrPipe: InputStream {
+        get() {
+            this._stdErr
+        }
+    }
+
+    @Deprecated[message: "Use `public prop stdErrPipe: InputStream` instead."]
+    public prop stdErr: InputStream {
+        get() {
+            this._stdErr
+        }
+    }
+
+    @Deprecated[message: "Use `public prop stdOutPipe: InputStream` instead."]
+    public prop stdOut: InputStream {
+        get() {
+            this._stdOut
+        }
+    }
+
+    @Deprecated[message: "Use `public prop stdInPipe: OutputStream` instead."]
+    public prop stdIn: OutputStream {
+        get() {
+            this._stdIn
+        }
+    }
+
+    /**
+     * wait func developer should read the outputStream or errStream first and then invoke this func.
+     * if developer invoke wait func first and then read stream, it can be occur unexpected concurrency results.
+     *
+     * @param timeout
+     * @return Int64
+     */
+    public func wait(timeout!: ?Duration = None): Int64 {
+        // implement func for wait subprocess exec result and return statuscode
+        let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(this.pid), this._handle)
+        closeStdStream()
+        return exitCode
+    }
+
+    /**
+     * waitOutput func is applicable to scenarios where number of bytes in output or error stream is small.
+     * If you need to deal with big size within output or error stream, please use stdOut or stdErr prop and wait func.
+     *
+     * @return (exitCode: Int64, out: Array<Byte>, err: Array<Byte>)
+     */
+    public func waitOutput(): (Int64, Array<Byte>, Array<Byte>) {
+        let outStreamFuture: Future<Array<Byte>> = spawn {
+            => try {
+                let outByteArrStream: ByteBuffer = readToByteBuffer(this._stdOut)
+                return readToEnd(outByteArrStream)
+            } catch (_: ProcessException) {
+                // processException while read outputStream means it is invalid.
+                throw ProcessException("OutputStream is invalid, not allow to read.")
+            }
+        }
+
+        let errStreamFuture: Future<Array<Byte>> = spawn {
+            => try {
+                let errByteArrStream: ByteBuffer = readToByteBuffer(this._stdErr)
+                return readToEnd(errByteArrStream)
+            } catch (_: ProcessException) {
+                // processException while read errStream means it is invalid.
+                throw ProcessException("ErrorStream is invalid, not allow to read.")
+            }
+        }
+
+        let outArr: Array<Byte> = outStreamFuture.get()
+        let errArr: Array<Byte> = errStreamFuture.get()
+
+        // implement func for wait subprocess exec result and return statuscode, stdOut and stdErr
+        let exitCode: Int64 = getWaitExitCode(Duration.Zero, Int32(this.pid), this._handle)
+
+        closeStdStream()
+        return (exitCode, outArr, errArr)
+    }
+
+    func closeStdStream(): Unit {
+        if (let Some(stdInStream) <- (this._stdIn as ProcessOutputStream)) {
+            if (let Some(stdInPipeOutputStream) <- (stdInStream.outputStream as PipeOutputStream)) {
+                try {
+                    stdInPipeOutputStream.close()
+                } finally {
+                    stdInStream.outputStream = NullProcessStream()
+                }
+            }
+        }
+
+        if (let Some(stdOutStream) <- (this._stdOut as ProcessInputStream)) {
+            if (let Some(stdOutPipeInputStream) <- (stdOutStream.inputStream as PipeInputStream)) {
+                try {
+                    stdOutPipeInputStream.close()
+                } finally {
+                    stdOutStream.inputStream = NullProcessStream()
+                }
+            }
+        }
+
+        if (let Some(stdErrStream) <- (this._stdErr as ProcessInputStream)) {
+            if (let Some(stdErrPipeInputStream) <- (stdErrStream.inputStream as PipeInputStream)) {
+                try {
+                    stdErrPipeInputStream.close()
+                } finally {
+                    stdErrStream.inputStream = NullProcessStream()
+                }
+            }
+        }
+    }
+}
+
+@When[os == "iOS"]
+@Deprecated
 public class SubProcess <: Process {
     var _stdIn: OutputStream
     var _stdOut: InputStream

@@ -82,6 +82,18 @@ public class TcpServerSocket <: ServerSocket {
      * This option could be only modified before binding and will fail
      * after a successful bind() invocation.
      */
+    @When[os != "Windows"]
+    public mut prop reusePort: Bool {
+        get() {
+            impl.getSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT)
+        }
+        set(enabled) {
+            impl.setSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT, enabled)
+        }
+    }
+
+    @When[os == "Windows"]
+    @Deprecated
     public mut prop reusePort: Bool {
         get() {
             impl.getSocketOptionBool(SOL_SOCKET, SOCK_REUSEPORT)

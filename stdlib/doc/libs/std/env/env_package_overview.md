@@ -4,9 +4,7 @@
 
 env 包提供当前进程的相关信息与功能、包括环境变量、命令行参数、标准流、退出程序。也提供标准输入、标准输出、标准错误进行交互的方法。
 
-本包提供多平台统一操控能力，目前支持 Linux 平台，macOS 平台，Windows 平台。
-
-本包提供 [getStdErr()](./env_package_api/env_package_funcs.md#func-getstderr)、[getStdIn()](./env_package_api/env_package_funcs.md#func-getstdin) 、[getStdOut()](./env_package_api/env_package_funcs.md#func-getstdout)，用于获取这三个标准流。
+本包提供 [getStdErr()](./env_package_api/env_package_funcs.md#func-getStdErr)、[getStdIn()](./env_package_api/env_package_funcs.md#func-getStdIn) 、[getStdOut()](./env_package_api/env_package_funcs.md#func-getStdOut)，用于获取这三个标准流。
 
 - [ConsoleReader](./env_package_api/env_package_classes.md#class-consolereader) 封装了标准输入流的相关功能，可以通过相关的 `read` 方法从标准输入中读取数据。
 - [ConsoleWriter](./env_package_api/env_package_classes.md#class-consolewriter) 封装了标准输出、标准错误流的相关功能，[ConsoleWriter](./env_package_api/env_package_classes.md#class-consolewriter) 封装了一系列的 `write` 方法，提供了向标准输出、标准错误写入数据的能力。
