@@ -860,8 +860,7 @@ bool TypeInfo::IsOptionLikeRefEnum()
     if (!enumInfo->IsEnumKind2()) {
         return false;
     }
-    TypeInfo* ctorTypeInfo = enumInfo->GetCtorTypeInfo(0);
-    if (ctorTypeInfo->GetFieldNum() == 1) {
+    if (!GetFieldType(0)->IsBool()) {
         return true;
     }
     return false;
