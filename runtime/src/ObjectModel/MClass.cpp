@@ -23,44 +23,6 @@
 #include "Flags.h"
 
 namespace MapleRuntime {
-
-class ThreadSafeOuterTypeInfoCache {
-public:
-    static ThreadSafeOuterTypeInfoCache& GetInstance()
-    { 
-        static ThreadSafeOuterTypeInfoCache instance; 
-        return instance; 
-    }
-
-    void Insert(U32 objTypeUUID, U32 introTypeUUID, U64 methodIdx, TypeInfo* methodOuterTypeInfo)
-    {
-        U64 kk = ((U64)objTypeUUID << 31) | introTypeUUID;
-        rwLock.LockWrite();
-        cacheMap[kk][methodIdx] = methodOuterTypeInfo;
-        rwLock.UnlockWrite();
-    }
-
-    TypeInfo* Get(U32 objTypeUUID, U32 introTypeUUID, U64 methodIdx)
-    {
-        U64 kk = ((U64)objTypeUUID << 31) | introTypeUUID;
-        rwLock.LockRead();
-        auto it1 = cacheMap.find(kk);
-        if (it1 != cacheMap.end()) {
-            auto it2 = it1->second.find(methodIdx);
-            if (it2 != it1->second.end()) {
-                rwLock.UnlockRead();
-                return it2->second;
-            }
-        }
-        rwLock.UnlockRead();
-        return nullptr;
-    }
-
-private:
-    std::unordered_map<U64, std::unordered_map<U64, TypeInfo*>> cacheMap;
-    RwLock rwLock;
-};
-
 typedef void *(*GenericiFn)(U32 size, TypeInfo* args[]);
 TypeInfo* ExtensionData::GetInterfaceTypeInfo(U32 argsNum, TypeInfo** args) const
 {
@@ -202,7 +164,7 @@ inline bool IsSameRootPackage(TypeInfo* itf1, TypeInfo* itf2)
     U32 pos = 0U;
     char ch = name1[pos];
     while (ch == name2[pos]) {
-        if (ch == '.' | ch == ':') {
+        if (ch == '.' || ch == ':') {
             return true;
         }
         ++pos;
@@ -247,77 +209,76 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
     if (this->GetUUID() == itfUUID) {
         return;
     }
-
-    /* change to check module name */
-    auto thisName = GetName();
-    auto itfName = itf->GetName();
-    U32 pos = 0U;	 
-    char ch = thisName[pos];
-    while (ch == itfName[pos]) {
-        if (ch == '.' | ch == ':') {
+    do {
+        if (LIKELY(extensionData->IsFuncTableUpdated())) {
             return;
         }
-        ++pos;
-        ch = thisName[pos];
-        if ((ch == ':' && itfName[pos] == '.') || (ch == '.' && itfName[pos] == ':')) {
-            return;
-        }
-    }
 
-    auto itfExtData = itf->FindExtensionData(itf);
-    if (itfExtData) {
+        auto itfVExtensionDataStart = itf->GetvExtensionDataStart();
+        CHECK_DETAIL(itfVExtensionDataStart != nullptr, "itfVExtensionDataStart is nullptr");
+        auto itfExtData = itf->IsInterface() ? *itfVExtensionDataStart
+                                            : *(itfVExtensionDataStart + itf->GetValidInheritNum() - 1);
         auto ftSize = extensionData->GetFuncTableSize();
         auto itfFtSize = itfExtData->GetFuncTableSize();
         auto incrementalSize = itfFtSize - ftSize;
-        if (incrementalSize > 0) {
-            TryInitMTable();
-            TraverseInnerExtensionDefs();
-            auto& mTable = mTableDesc->mTable;
-            for (auto& superTypePair : mTable) {
-                auto superTi = superTypePair.second.GetSuperTi();
-                // make sure super is the subtype of itf, and super is the direct super type of this type.
-                if (!superTypePair.second.GetExtensionData()->IsDirect()) {
-                    continue;
+        if (incrementalSize == 0) {
+            extensionData->SetFuncTableUpdated();
+            return;
+        }
+        CHECK_DETAIL(incrementalSize > 0, "An incompatible module is imported.");
+
+        if (!extensionData->TryLockFuncTable()) {
+            continue;
+        }
+
+        TryInitMTable();
+        TraverseInnerExtensionDefs();
+        auto& mTable = mTableDesc->mTable;
+        for (auto& superTypePair : mTable) {
+            auto superTi = superTypePair.second.GetSuperTi();
+            // make sure super is the subtype of itf, and super is the direct super type of this type.
+            if (!superTypePair.second.GetExtensionData()->IsDirect()) {
+                continue;
+            }
+            auto edOfSuper = superTi->FindExtensionData(itf);
+            if (edOfSuper) {
+                if (UNLIKELY(!edOfSuper->IsFuncTableUpdated())) {
+                    superTi->TryUpdateExtensionData(itf, edOfSuper);
                 }
-                auto edOfSuper = superTi->FindExtensionData(itf);
-                if (edOfSuper) {
-                    if (edOfSuper->GetFuncTableSize() != itfFtSize) {
-                        superTi->TryUpdateExtensionData(itf, edOfSuper);
-                    }
-                    bool hasOuterTiFast = extensionData->HasOuterTiFastPath();
-                    size_t newFtSize = hasOuterTiFast ? itfFtSize * sizeof(FuncPtr) + itfFtSize * sizeof(OuterTiUnion)
-                                        : itfFtSize * sizeof(FuncPtr);
-                    FuncPtr* newFt = reinterpret_cast<FuncPtr*>(
-                        TypeInfoManager::GetTypeInfoManager().Allocate(newFtSize));
-                    if (ftSize > 0) {
-                        CHECK(memcpy_s(reinterpret_cast<void*>(newFt),
-                                            sizeof(FuncPtr) * ftSize,
-                                            reinterpret_cast<void*>(extensionData->GetFuncTable()),
-                                            sizeof(FuncPtr) * ftSize) == EOK);
-                    }
-                    CHECK(memcpy_s(reinterpret_cast<void*>(newFt + ftSize),
-                                    sizeof(FuncPtr) * incrementalSize,
-                                    reinterpret_cast<void*>(edOfSuper->GetFuncTable() + ftSize),
-                                    sizeof(FuncPtr) * incrementalSize) == EOK);
-                    if (!hasOuterTiFast) {
-                        break;
-                    }
-                    if (ftSize > 0) {
-                            CHECK(memcpy_s(reinterpret_cast<void*>(newFt + itfFtSize),
-                                        sizeof(OuterTiUnion) * ftSize,
-                                        reinterpret_cast<void*>(extensionData->GetFuncTable() + ftSize),
-                                        sizeof(OuterTiUnion) * ftSize) == EOK);
-                    }
-                    CHECK(memset_s(reinterpret_cast<void*>(newFt + itfFtSize + ftSize),
-                                    sizeof(OuterTiUnion) * incrementalSize,
-                                    0, sizeof(OuterTiUnion) * incrementalSize) == EOK);
-                    extensionData->UpdateFuncTable(itfFtSize, newFt);
+                bool hasOuterTiFast = extensionData->HasOuterTiFastPath();
+                size_t newFtSize = hasOuterTiFast ? itfFtSize * sizeof(FuncPtr) + itfFtSize * sizeof(OuterTiUnion)
+                                                  : itfFtSize * sizeof(FuncPtr);
+                FuncPtr* newFt = reinterpret_cast<FuncPtr*>(TypeInfoManager::GetTypeInfoManager().Allocate(newFtSize));
+                if (ftSize > 0) {
+                    CHECK(memcpy_s(reinterpret_cast<void*>(newFt),
+                                    sizeof(FuncPtr) * ftSize,
+                                    reinterpret_cast<void*>(extensionData->GetFuncTable()),
+                                    sizeof(FuncPtr) * ftSize) == EOK);
+                }
+                CHECK(memcpy_s(reinterpret_cast<void*>(newFt + ftSize),
+                                sizeof(FuncPtr) * incrementalSize,
+                                reinterpret_cast<void*>(edOfSuper->GetFuncTable() + ftSize),
+                                sizeof(FuncPtr) * incrementalSize) == EOK);
+                if (!hasOuterTiFast) {
                     break;
                 }
+                if (ftSize > 0) {
+                    CHECK(memcpy_s(reinterpret_cast<void*>(newFt + itfFtSize),
+                                    sizeof(OuterTiUnion) * ftSize,
+                                    reinterpret_cast<void*>(extensionData->GetFuncTable() + ftSize),
+                                    sizeof(OuterTiUnion) * ftSize) == EOK);
+                }
+                CHECK(memset_s(reinterpret_cast<void*>(newFt + itfFtSize + ftSize),
+                                sizeof(OuterTiUnion) * incrementalSize,
+                                0, sizeof(OuterTiUnion) * incrementalSize) == EOK);
+                extensionData->UpdateFuncTable(itfFtSize, newFt);
+                break;
             }
             mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
         }
-    }
+        mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
+        extensionData->SetFuncTableUpdated();
+    } while (true);
 }
 
 // This interface mustn't be invoked locklessly.
@@ -581,14 +542,16 @@ ExtensionData* TypeInfo::FindExtensionData(TypeInfo* itf, bool searchRecursively
 
 FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
 {
-    if (IsTempEnum() && GetSuperTypeInfo()) {
+    if (UNLIKELY(IsTempEnum() && GetSuperTypeInfo())) {
         return GetSuperTypeInfo()->GetMTable(itf);
     }
     auto extensionData = FindExtensionData(itf, true);
-	if (extensionData == nullptr) {
+	if (UNLIKELY(extensionData == nullptr)) {
         LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
     }
-	TryUpdateExtensionData(itf, extensionData);
+    if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
+        TryUpdateExtensionData(itf, extensionData);
+    }
 	FuncPtr* funcTable = extensionData->GetFuncTable();
 	CHECK(funcTable);
     return funcTable;

@@ -41,7 +41,7 @@ Before building the standard library, you need to first build the runtime in thi
    2. `build.py build` command starts the compilation：
       - `-t` or `--build-type`，specifies the type of build artifact, which can be either `release` or `debug`;
       - `--target-lib` specifies the openssl lib directory and the output directory for runtime binary artifacts(By default, it is under runtime/output)
-   3. `build.py install` ommand installs the build artifacts to the `output` directory.
+   3. `build.py install` command installs the build artifacts to the `output` directory.
       - `--prefix` specifies the installation path (optional), by default it installs in the std/output directory
 
 The output directory structure is as follows:
