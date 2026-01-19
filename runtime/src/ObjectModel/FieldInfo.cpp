@@ -327,7 +327,7 @@ void SetFieldFromArgs(ObjRef obj, TypeInfo* ti, void* args)
         TypeInfo* argType = ti->GetFieldType(idx);
         U32 offset = ti->GetFieldOffset(idx);
 
-        if ((ti->IsEnum() || ti->IsTempEnum()) && HaveEnumTag(ti)) {
+        if ((ti->IsEnum() || ti->IsTempEnum()) && !ti->IsZeroSizedEnum()) {
             // For enum and temp enum, skip the first element (the tag).
             argType = ti->GetFieldType(idx + 1);
             offset = ti->GetFieldOffset(idx + 1);
@@ -377,7 +377,7 @@ ObjRef CreateEnumObject(TypeInfo* ti, MSize size)
         ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewObject return nullptr");
     }
 
-    if (obj != nullptr && HaveEnumTag(ti)) {
+    if (obj != nullptr && !ti->IsZeroSizedEnum() && !ti->IsOptionLikeRefEnum()) {
         SetEnumTag(obj, ti);
     }
 
@@ -391,7 +391,7 @@ void SetElementFromObject(ArrayRef array, ObjRef obj, TypeInfo* ti, U16 fieldNum
         U32 offset = ti->GetFieldOffset(idx);
 
         // For enum and temp enum, skip the first element (the tag)
-        if ((ti->IsEnum() || ti->IsTempEnum()) && HaveEnumTag(ti)) {
+        if ((ti->IsEnum() || ti->IsTempEnum()) && !ti->IsZeroSizedEnum()) {
             fieldTi = ti->GetFieldType(idx + 1);
             offset = ti->GetFieldOffset(idx + 1);
         }
@@ -475,11 +475,6 @@ BaseObject* VArrayToAny(TypeInfo* fieldTi, Uptr fieldAddr)
     }
 
     return fieldObj;
-}
-
-bool HaveEnumTag(TypeInfo* ti)
-{
-    return !ti->IsZeroSizedEnum();
 }
 
 I32 GetEnumTag(ObjRef obj, TypeInfo* ti)

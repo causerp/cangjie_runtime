@@ -138,6 +138,8 @@ inline bool TypeInfo::IsNothing() const { return type == TypeKind::TYPE_KIND_NOT
 
 inline bool TypeInfo::IsUnit() const { return type == TypeKind::TYPE_KIND_UNIT; }
 
+inline bool TypeInfo::IsBool() const { return type == TypeKind::TYPE_KIND_BOOL; }
+
 inline bool TypeInfo::IsTuple() const { return type == TypeKind::TYPE_KIND_TUPLE; }
 
 inline bool TypeInfo::IsEnum() const { return type == TypeKind::TYPE_KIND_ENUM; }

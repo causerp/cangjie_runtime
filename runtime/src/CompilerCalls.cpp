@@ -1291,7 +1291,7 @@ extern "C" TypeInfo** MCC_GetFunctionSignatureTypes(TypeInfo* funcTi)
 extern "C" U32 MCC_GetNumOfFieldTypes(TypeInfo* ti)
 {
     U32 num = ti->GetFieldNum();
-    if ((ti->IsEnum() || ti->IsTempEnum()) && FieldInitializer::HaveEnumTag(ti)) {
+    if ((ti->IsEnum() || ti->IsTempEnum()) && !ti->IsZeroSizedEnum()) {
         if (ti->IsOptionLikeUnassociatedCtor()) {
             return num - 2;
         }
@@ -1303,7 +1303,7 @@ extern "C" U32 MCC_GetNumOfFieldTypes(TypeInfo* ti)
 extern "C" TypeInfo** MCC_GetFieldTypes(TypeInfo* ti)
 {
     TypeInfo** fieldTypes = ti->GetFieldTypes();
-    if ((ti->IsEnum() || ti->IsTempEnum()) && FieldInitializer::HaveEnumTag(ti)) {
+    if ((ti->IsEnum() || ti->IsTempEnum()) && !ti->IsZeroSizedEnum()) {
         if (ti->IsOptionLikeUnassociatedCtor()) {
             return nullptr;
         }
@@ -1369,7 +1369,7 @@ extern "C" ObjRef MCC_GetAssociatedValues(ObjRef obj, TypeInfo* arrayTi)
             ti = enumInfo->GetCtorTypeInfo(tag);
             fieldNum = ti->GetFieldNum();
         }
-        if (FieldInitializer::HaveEnumTag(ti)) {
+        if (!ti->IsZeroSizedEnum()) {
             if (ti->IsOptionLikeUnassociatedCtor()) {
                 fieldNum -= 2;
             } else {

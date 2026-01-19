@@ -582,6 +582,7 @@ public:
     inline bool IsStruct() const;
     inline bool IsNothing() const;
     inline bool IsUnit() const;
+    inline bool IsBool() const;
     inline bool IsTuple() const;
     inline bool IsEnum() const;
     inline bool IsTempEnum() const;
