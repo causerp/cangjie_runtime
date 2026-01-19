@@ -320,7 +320,7 @@ TypeInfo* CJFileLoader::FindTypeInfoFromLoadedFiles(const char* typeInfoName)
         if (ti == nullptr) {
             return nullptr;
         }
-        typeInfoCache.insert({ typeInfoName, ti });
+        typeInfoCache.insert({ ti->GetName(), ti });
         return ti;
     }
     return nullptr;
@@ -347,7 +347,7 @@ TypeTemplate* CJFileLoader::FindTypeTemplateFromLoadedFiles(const char* typeTemp
         if (tt == nullptr) {
             return nullptr;
         }
-        typeTemplateCache.insert({ typeTemplateName, tt });
+        typeTemplateCache.insert({ tt->GetName(), tt });
         return tt;
     }
     return nullptr;
