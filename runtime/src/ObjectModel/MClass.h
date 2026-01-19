@@ -455,6 +455,8 @@ public:
     void* GetAnnotations(TypeInfo* arrayTi);
     MethodInfo* GetInstanceMethodInfo(U32 index) const;
     MethodInfo* GetStaticMethodInfo(U32 index);
+    void SetInstanceMethodInfo(U32 idx, MethodInfo* methodInfo);
+    void SetStaticMethodInfo(U32 idx, MethodInfo* methodInfo);
 
     void SetEnumCtors(void* ctors);
     void SetCtorInfoNum(U32 num) { enumCtorInfoCnt = num; }
