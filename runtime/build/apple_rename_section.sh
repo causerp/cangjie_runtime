@@ -5,12 +5,13 @@
 # with Runtime Library Exception.
 #
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
+set -e
 
 platform=$1
 c_compiler=$2
 shift 2
 
-if [ ${platform} == "macos_cangjie" ] || [ ${platform} == "mac_x86_64_cangjie" ] || [ ${platform} == "mac_aarch64_cangjie" ]; then
+if [ "${platform}" == "macos_cangjie" ] || [ "${platform}" == "mac_x86_64_cangjie" ] || [ "${platform}" == "mac_aarch64_cangjie" ]; then
   mac_sdk_path=$(xcrun --show-sdk-path)
   for param in "$@"; do
     IFS=';' read -ra target_objects <<< "$param"
@@ -26,12 +27,12 @@ if [ ${platform} == "macos_cangjie" ] || [ ${platform} == "mac_x86_64_cangjie" ]
     done
   done
 else
-  if [ ${platform} == "ios_simulator_aarch64_cangjie" ]; then
+  if [ "${platform}" == "ios_simulator_aarch64_cangjie" ]; then
     XCODE_PATH=$(xcode-select -p)
     CMAKE_IOS_DEVELOPER_ROOT=${XCODE_PATH}/Platforms/iPhoneSimulator.platform/Developer
     CMAKE_IOS_SDK_ROOT=${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneSimulator17.5.sdk
     TARGET=arm64-apple-ios11-simulator
-  elif [ ${platform} == "ios_simulator_x86_64_cangjie" ]; then
+  elif [ "${platform}" == "ios_simulator_x86_64_cangjie" ]; then
     XCODE_PATH=$(xcode-select -p)
     CMAKE_IOS_DEVELOPER_ROOT=${XCODE_PATH}/Platforms/iPhoneSimulator.platform/Developer
     CMAKE_IOS_SDK_ROOT=${CMAKE_IOS_DEVELOPER_ROOT}/SDKs/iPhoneSimulator17.5.sdk
