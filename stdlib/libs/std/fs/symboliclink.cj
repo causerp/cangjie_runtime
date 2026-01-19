@@ -19,11 +19,8 @@ public class SymbolicLink {
     }
 
     public static func create(link: String, to!: String): Unit {
-        if (link.isEmpty() || to.isEmpty()) {
-            throw IllegalArgumentException("The path 'link' or 'to' cannot be empty!")
-        } else if (link.contains(NULL_BYTE) || to.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path 'link' or 'to' cannot contain null character!")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("link", link, true)
+        PathValidator.throwIfEmptyOrContainsNullByte("to", to, true)
 
         unsafe {
             try (cPath1 = LibC.mallocCString(link).asResource(), cPath2 = LibC.mallocCString(to).asResource()) {
@@ -38,7 +35,7 @@ public class SymbolicLink {
                 }
                 try {
                     let errMessage = ret.msg.toString()
-                    throw FSException("${errMessage.trimAscii()}.")
+                    throw FSException("Failed to create symbolic link `${link}` to `${to}` return ${ret.rtnCode}: \"${errMessage.trimAscii()}\".")
                 } finally {
                     LibC.free(ret.msg)
                 }
@@ -51,13 +48,9 @@ public class SymbolicLink {
     }
 
     public static func readFrom(path: Path, recursive!: Bool = false): Path {
-        if (path._rawPath.isEmpty()) {
-            throw IllegalArgumentException("The path cannot be empty!")
-        } else if (path._rawPath.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The path cannot contain null character!")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("path", path, true)
         if (!FileInfo(path).isSymbolicLink()) {
-            throw IllegalArgumentException("The path is not a symbolic link!")
+            throw IllegalArgumentException("The input path `${path}` is not a symbolic link.")
         }
 
         if (recursive) {

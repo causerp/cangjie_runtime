@@ -25,7 +25,7 @@ public class Directory {
     public static func create(path: String, recursive!: Bool = false): Unit {
         let normalPath = removeTralingSlashChar(path)
         if (exists(normalPath)) {
-            throw FSException("The path of directory exists.")
+            throw FSException("The input path `${path}` is already exists.")
         }
         if (recursive) {
             Directory.createRecursive(normalPath)
@@ -69,7 +69,7 @@ public class Directory {
             var ret: Bool = CJ_FS_CreateTempDir(arrPtr.pointer)
             releaseArrayRawData(arrPtr)
             if (!ret) {
-                throw FSException("Failed to create the temporary directory!")
+                throw FSException("Failed to create the temporary directory `${directoryPath}`!")
             }
         }
         return Path(String.fromUtf8(tempArr.slice(0, tempArr.size - 1)))
@@ -86,7 +86,7 @@ public class Directory {
             let ret = CJ_FS_ISDirEmpty(cPath)
             LibC.free(cPath)
             if (ret < 0) {
-                throw FSException("Failed to check whether the directory is empty!")
+                throw FSException("Failed to check whether directory `${path}` is empty.")
             }
             return ret == 0
         }
@@ -148,31 +148,16 @@ public class Directory {
         walk(Path(path), f)
     }
 
-    private static func copyCheck(sourceDirPath: String, destinationDirPath: String, overwrite: Bool): Unit {
-        if (sourceDirPath.contains(NULL_BYTE) || destinationDirPath.contains(NULL_BYTE)) {
-            throw IllegalArgumentException(
-                "The directory source path or destination path cannot contain null character!")
-        }
-        if (!exists(sourceDirPath)) {
-            throw FSException("The `${sourceDirPath}` does not exist!")
-        }
-        if (!overwrite && exists(destinationDirPath)) {
-            throw FSException("The `${destinationDirPath}` already exists!")
-        }
-    }
-
     private static func createSubDirectory(parent: String, name: String): String {
-        if (name.contains(NULL_BYTE)) {
-            throw IllegalArgumentException("The name cannot contain null character.")
-        }
+        PathValidator.throwIfEmptyOrContainsNullByte("name", name, false)
         if (containsSlash(name)) {
-            throw FSException("The name cannot contain path information.")
+            throw FSException("The name `${name}` contains path information.")
         }
         let pathStr = String.join([parent, name], delimiter: SLASH_STRING)
         if (exists(pathStr)) {
-            throw FSException("The name of directory exists.")
+            throw FSException("The name `${name}` of directory `${pathStr}` is already exists.")
         }
-        callNativeFunc(pathStr, CJ_FS_DirCreate, "Failed to create directory")
+        callNativeFunc(pathStr, CJ_FS_DirCreate, "Failed to create directory `${pathStr}`")
         return pathStr
     }
 
@@ -201,7 +186,7 @@ public class Directory {
             info =>
             var fName = info.path.fileName
             if (fName.isEmpty()) {
-                throw FSException("File name cannot be empty!")
+                throw FSException("File name is empty!")
             }
             if (info.isDirectory()) {
                 let destPath = Path(curDestDir).join(fName)
@@ -242,7 +227,15 @@ public class Directory {
      * @throws IllegalArgumentException while path contains null character.
      */
     static func copy(sourceDirPath: String, destinationDirPath: String, overwrite: Bool): Unit {
-        copyCheck(sourceDirPath, destinationDirPath, overwrite)
+        PathValidator.throwIfEmptyOrContainsNullByte("sourceDirPath", sourceDirPath, true)
+        PathValidator.throwIfEmptyOrContainsNullByte("destinationDirPath", destinationDirPath, true)
+        if (!exists(sourceDirPath)) {
+            throw FSException("The input path 'sourceDirPath' `${sourceDirPath}` does not exist.")
+        }
+        if (!overwrite && exists(destinationDirPath)) {
+            throw FSException("The input path 'destinationDirPath' `${destinationDirPath}` is already exists and overwrite is false.")
+        }
+
         if (!exists(destinationDirPath)) {
             Directory.create(destinationDirPath, recursive: true)
         }
@@ -252,10 +245,10 @@ public class Directory {
             return
         }
         if (destFullPath.startsWith(srcFullPath) && destFullPath.removePrefix(srcFullPath).startsWith(SLASH_STRING)) {
-            throw FSException("The `${destinationDirPath}` is in the ${sourceDirPath}!")
+            throw FSException("The destinationDirPath `${destinationDirPath}` is in the sourceDirPath `${sourceDirPath}`.")
         }
         if (copyDirectory(srcFullPath, destFullPath) == -1) {
-            throw FSException("Failed to copy `${sourceDirPath}` to `${destinationDirPath}`!")
+            throw FSException("Failed to copy sourceDirPath `${sourceDirPath}` to destinationDirPath `${destinationDirPath}`.")
         }
     }
 
@@ -266,9 +259,9 @@ public class Directory {
     private static func createNoRecursive(path: String): Unit {
         let parent = Path(path).parent
         if (!parent.isEmpty() && !exists(parent)) {
-            throw FSException("Failed to create directory, parent directory: `${parent}` does not exist.")
+            throw FSException("Failed to create directory `${path}`, parent directory `${parent}` does not exist.")
         }
-        callNativeFunc(path, CJ_FS_DirCreate, "Failed to create directory")
+        callNativeFunc(path, CJ_FS_DirCreate, "Failed to create directory `${path}`")
     }
 
     /*
@@ -278,7 +271,7 @@ public class Directory {
         // cannot create path "", "./" or "/" or r'\0'
         if (path.isEmpty() || path == CURRENT_DIRECTORY_STRING || path == ROOT_DIRECTORY_STRING || path.contains(
             NULL_BYTE)) {
-            throw IllegalArgumentException("Invalid path, failed to create directory.")
+            throw IllegalArgumentException("Invalid path `${path}`, failed to create directory.")
         }
 
         // skip the end r'/'
@@ -286,7 +279,7 @@ public class Directory {
 
         // cannot create path "/[/]*/",
         if (lastLetterIdx < 0) {
-            throw IllegalArgumentException("Invalid path, failed to create directory.")
+            throw IllegalArgumentException("Invalid path `${path}`, failed to create directory.")
         }
         return path[..=lastLetterIdx]
     }
@@ -296,14 +289,14 @@ public class Directory {
      * @throws FSException if system create directory failed
      */
     private static func createRecursive(path: String): Unit {
-        callNativeFunc(path, CJ_FS_DirCreateRecursive, "Failed to recursive create directory")
+        callNativeFunc(path, CJ_FS_DirCreateRecursive, "Failed to recursive create directory `${path}`")
     }
 }
 
 func checkDirectoryPath(path: Path): Path {
     let info = FileInfo(path)
     if (!info.isDirectory()) {
-        throw FSException("The path '${path}' is not a directory!")
+        throw FSException("The input path `${path}` is not a directory.")
     }
     return info.path
 }
