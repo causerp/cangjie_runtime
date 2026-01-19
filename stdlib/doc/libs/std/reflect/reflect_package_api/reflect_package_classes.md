@@ -2026,7 +2026,7 @@ public func getAssociatedvalues(instance: Any): ReadOnlyList<Any>
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造子与创建的，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造子创建的，则抛出异常。
 
 示例：
 
@@ -2400,7 +2400,7 @@ public redef static func get(qualifiedName: String): EnumTypeInfo
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是枚举类型或者 qaulifiedName 对应的定义不存在，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是枚举类型或者 qualifiedName 对应的定义不存在，则抛出异常。
 
 示例：
 
@@ -2903,7 +2903,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与函数参数个数不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应函数参数类型不匹配，则抛出异常。
 
 示例：
 
@@ -7805,7 +7805,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局变量用于演示
+// 定义一些公开全局变量用于演示
 public var testVariable1: Int64 = 42
 public var testVariable2: String = "Hello"
 
@@ -7849,7 +7849,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局函数用于演示
+// 定义一些公开全局函数用于演示
 public func testFunction1(): String {
     return "Hello from testFunction1"
 }
@@ -8567,7 +8567,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局变量用于演示
+// 定义一些公开全局变量用于演示
 public var testVariable: Int64 = 42
 
 main(): Unit {
@@ -10634,7 +10634,7 @@ main(): Unit {
 
     // 获取修饰符数量
     let modifiers = staticProperty.modifiers
-    println("公共静态属性修饰符数量: ${modifiers.size}")
+    println("公开静态属性修饰符数量: ${modifiers.size}")
 
     return
 }
@@ -10643,7 +10643,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态属性修饰符数量: 1
+公开静态属性修饰符数量: 1
 ```
 
 ### prop name
@@ -11490,7 +11490,7 @@ main(): Unit {
 
     // 获取修饰符数量
     let modifiers = staticVariable.modifiers
-    println("公共静态变量修饰符数量: ${modifiers.size}")
+    println("公开静态变量修饰符数量: ${modifiers.size}")
 
     return
 }
@@ -11499,7 +11499,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态变量修饰符数量: 1
+公开静态变量修饰符数量: 1
 ```
 
 ### prop name
@@ -12861,6 +12861,7 @@ main(): Unit {
 ```text
 Tuple<Int64, Bool>
 ```
+
 ### func construct(Array\<Any>)
 
 ```cangjie
@@ -13111,7 +13112,7 @@ main(): Unit {
 
     // 获取实例函数信息
     let instanceFunctions = typeInfo.instanceFunctions
-    println("公共实例函数数量: ${instanceFunctions.size}")
+    println("公开实例函数数量: ${instanceFunctions.size}")
 
     return
 }
@@ -13120,7 +13121,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共实例函数数量: 1
+公开实例函数数量: 1
 ```
 
 ### prop instanceProperties
@@ -13165,7 +13166,7 @@ main(): Unit {
 
     // 获取实例属性信息
     let instanceProperties = typeInfo.instanceProperties
-    println("公共实例属性数量: ${instanceProperties.size}")
+    println("公开实例属性数量: ${instanceProperties.size}")
 
     return
 }
@@ -13174,7 +13175,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共实例属性数量: 1
+公开实例属性数量: 1
 ```
 
 ### prop modifiers
@@ -13359,7 +13360,7 @@ main(): Unit {
 
     // 获取静态函数信息
     let staticFunctions = typeInfo.staticFunctions
-    println("公共静态函数数量: ${staticFunctions.size}")
+    println("公开静态函数数量: ${staticFunctions.size}")
 
     return
 }
@@ -13368,7 +13369,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态函数数量: 1
+公开静态函数数量: 1
 ```
 
 ### prop staticProperties
@@ -13413,7 +13414,7 @@ main(): Unit {
 
     // 获取静态属性信息
     let staticProperties = typeInfo.staticProperties
-    println("公共静态属性数量: ${staticProperties.size}")
+    println("公开静态属性数量: ${staticProperties.size}")
 
     return
 }
@@ -13422,7 +13423,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态属性数量: 1
+公开静态属性数量: 1
 ```
 
 ### prop superInterfaces
