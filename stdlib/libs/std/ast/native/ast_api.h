@@ -18,7 +18,7 @@ struct ParseRes {
     char* eMsg;
 };
 
-uint8_t* CJ_AST_Lex(void *fptr, const char* code);
+ParseRes* CJ_AST_Lex(void *fptr, const char* code);
 
 ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter);
 
