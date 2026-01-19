@@ -1966,6 +1966,59 @@ String
 Bool
 ```
 
+### func apply(Any, Array\<Any>)
+
+```cangjie
+public func apply(instance: Any, args: Array<Any>): Any
+```
+
+Function: Invokes the function with the given argument list in parameter order and returns the invocation result.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Function instance.
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Argument list.
+
+Returns:
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Invocation result.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of elements in `args` does not match the number of function parameters.
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any element in `args` does not match the declared type of the corresponding function parameter.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+func add(a: Int64, b: Int64): Int64 {
+    a + b
+}
+
+main(): Unit {
+    let f: (Int64, Int64) -> Int64 = add
+    let info = FunctionTypeInfo.of(f)
+    let res = (info.apply(f, [1, 2]) as Int64).getOrThrow()
+    println(res)
+    return
+}
+```
+
+Execution Result:
+
+```text
+3
+```
+
 ## class GenericTypeInfo
 
 ```cangjie
