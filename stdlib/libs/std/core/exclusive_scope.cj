@@ -1,5 +1,5 @@
 /*
- * Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
+ * Copyright (c) Huawei Technologies Co., Ltd. 2026. All rights reserved.
  * This source file is part of the Cangjie project, licensed under Apache-2.0
  * with Runtime Library Exception.
  *
@@ -8,6 +8,17 @@
 
 package std.core
 
+/**
+ * The execution of the input function @param fn occupies the underlying OS thread exclusively.
+ * When executing @param fn, a switch from the cangjie thread stack to the OS thread stack will occur,
+ * and the underlying OS thread cannot be preempted by other cangjie threads.
+ * After @param fn returns, it will switch back to the cangjie thread stack,
+ * and the preemption will be permitted.
+ * 
+ * @param fn The function to be executed exclusively.
+ * @return The return value of @param fn.
+ * @throws ExclusiveScopeException if an exception occurs during execution.
+ */
 public func exclusiveScope<T>(fn: () -> T): T {
     let cl = ExclusiveScope<T>()
     cl.run(fn)
@@ -24,8 +35,8 @@ private enum Result<T> {
     | Err(Error)
 }
 
-// CJ_MCC_ExclusiveScope
-@Intrinsic func exclusiveScopeImpl<T>(executeClosure: (() -> T) -> T, fn: () -> T): T
+@Intrinsic 
+func exclusiveScopeImpl<T>(executeClosure: (() -> T) -> T, fn: () -> T): T
 
 private class ExclusiveScope<T> {
     var result: Result<T> = unsafe { zeroValue<Result<T>>() }
@@ -42,7 +53,12 @@ private class ExclusiveScope<T> {
     }
 }
 
-class ExclusiveScopeException <: Exception {
+/**
+ * Custom exception class to wrap exceptions thrown in an exclusive scope.
+ * This exception preserves the original exception's stack trace and information.
+ * It is thrown when an exception occurs within an exclusive scope execution.
+ */
+public class ExclusiveScopeException <: Exception {
     ExclusiveScopeException(cause: Exception) {
         super(cause)
     }

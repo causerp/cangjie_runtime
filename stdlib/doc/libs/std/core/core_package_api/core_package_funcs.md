@@ -257,6 +257,52 @@ main() {
 width: 10, height: 20
 ```
 
+## func exclusiveScope\<T>(( ) -> T)
+
+```cangjie
+public func exclusiveScope<T>(fn: () -> T): T
+```
+
+功能：在独占作用域中执行一个闭包，确保闭包在隔离的上下文中运行，并适当地处理任何结果或异常。当执行 fn 时，会发生从仓颉线程栈到操作系统线程栈的切换，并且底层操作系统线程不能被其他仓颉线程抢占。在 fn 返回后，它将切换回仓颉线程栈，并允许进行抢占。
+
+参数：
+
+- fn: () -> T - 在独占作用域中执行的函数/闭包。
+
+返回值：
+
+- T - 函数执行的结果。
+
+异常：
+
+- [ExclusiveScopeException](core_package_exceptions.md#class-exclusivescopeexception) - 如果在执行过程中发生异常。
+
+示例：
+
+<!-- verify -->
+
+```cangjie
+main() {
+    let result = exclusiveScope<Int64> {
+        // 在独占作用域中执行的代码
+        return 42
+    }
+    println("结果: ${result}")
+    
+    // 也可以执行无返回值的操作
+    exclusiveScope<Unit> {
+        println("在独占作用域中执行")
+    }
+}
+```
+
+运行结果：
+
+```text
+结果: 42
+在独占作用域中执行
+```
+
 ## func ifNone\<T>(Option\<T>, () -> Unit)
 
 ```cangjie
