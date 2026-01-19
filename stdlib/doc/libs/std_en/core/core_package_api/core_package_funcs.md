@@ -257,6 +257,51 @@ Output:
 width: 10, height: 20
 ```
 
+## func exclusiveScope\<T>(( ) -> T)
+
+```cangjie
+public func exclusiveScope<T>(fn: () -> T): T
+```
+
+Function: Executes a closure in an exclusive scope, ensuring that the closure runs in an isolated context and handling any results or exceptions appropriately. When executing fn, a switch from the cangjie thread stack to the OS thread stack will occur, and the underlying OS thread cannot be preempted by other cangjie threads. After fn returns, it will switch back to the cangjie thread stack, and the preemption will be permitted.
+
+Parameters:
+
+- fn: () -> T - The function/closure to be executed in the exclusive scope.
+
+Return values:
+
+- T - The result of the function execution.
+
+Throws:
+
+- [ExclusiveScopeException](core_package_exceptions.md#class-exclusivescopeexception) - if an exception occurs during execution.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    let result = exclusiveScope<Int64> {
+        // Execute code in exclusive scope
+        return 42
+    }
+    println("Result: ${result}")
+    
+    // Can also execute operations without return value
+    exclusiveScope<Unit> {
+        println("Executing in exclusive scope")
+    }
+}
+```
+
+Output:
+
+```text
+Result: 42
+Executing in exclusive scope
+```
+
 ## func ifNone\<T>(Option\<T>, () -> Unit)
 
 ```cangjie

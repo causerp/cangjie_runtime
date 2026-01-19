@@ -822,6 +822,42 @@ Output:
 Exception class name: IllegalArgumentException
 ```
 
+## class ExclusiveScopeException
+
+```cangjie
+public class ExclusiveScopeException <: Exception
+```
+
+Purpose: Custom exception class used to wrap exceptions thrown within an exclusive scope. It preserves the original exception's stack trace and information and does not support actively constructing this exception.
+
+Parent Type: 
+- [Exception](#class-exception)
+
+### func toString()
+
+```cangjie
+public override func toString(): String
+```
+Purpose: Get stack trace information.
+
+Return Value:
+
+- [String](core_package_structs.md#struct-string)
+
+Example:
+
+<!-- code_no_check -->
+```cangjie
+// This example is for demonstration only, assuming an ExclusiveScopeException is thrown
+main() {
+    try {
+    // Assume memory error occurs
+    } catch (e: ExclusiveScopeException) {
+        println(e.message)
+    }
+}
+```
+
 ## class IllegalFormatException
 
 ```cangjie
