@@ -101,7 +101,8 @@ public:
         cachedTypeInfos = std::move(other.cachedTypeInfos);
         return *this;
     }
-    InheritFuncTable(ExtensionData* ed, TypeInfo* super, size_t sz) : superExtensionData(ed), superTypeInfo(super), cachedTypeInfos(sz) {}
+    InheritFuncTable(ExtensionData* ed, TypeInfo* super, size_t sz)
+        : superExtensionData(ed), superTypeInfo(super), cachedTypeInfos(sz) {}
     ExtensionData* GetExtensionData() const { return superExtensionData; }
     TypeInfo* GetSuperTi() const { return superTypeInfo; }
     void ResetAtomicInfoArray(size_t size) { cachedTypeInfos.Reset(size); }
