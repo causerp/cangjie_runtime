@@ -102,6 +102,8 @@
         - [File Example](std_en/fs/fs_samples/file_samples.md)
         - [FileInfo Example](std_en/fs/fs_samples/fileinfo_samples.md)
         - [Path Example](std_en/fs/fs_samples/path_samples.md)
+- [std.interop](std_en/interop/interop_package_overview.md)
+    - [Classes](std_en/interop/interop_package_api/interop_package_classes.md)
 - [std.io](std_en/io/io_package_overview.md)
     - [Functions](std_en/io/io_package_api/io_package_funcs.md)
     - [Interfaces](std_en/io/io_package_api/io_package_interfaces.md)
