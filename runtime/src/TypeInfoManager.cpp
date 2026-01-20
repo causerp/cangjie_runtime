@@ -605,14 +605,19 @@ void TypeInfoManager::ParseEnumInfo(TypeTemplate* tt, U32 argSize, TypeInfo* arg
         TypeInfo* enumTi = reinterpret_cast<TypeInfo*>(TypeTemplate::ExecuteGenericFunc(fn, argSize, args));
         ctor->SetTypeInfo(enumTi);
     }
-    EnumInfo* tiEnumInfo = reinterpret_cast<EnumInfo*>(enumInfoAddr);
-
+    if (!tt->ReflectIsEnable() || ttEnumInfo->GetReflectVersion() == 0) {
+        enumInfo->SetParsed();
+        ti->SetEnumInfo(enumInfo);
+        return;
+    }
+    enumInfo->SetDeclaringGenericTypeInfo((reinterpret_cast<GenericTypeInfo*>(
+        ttEnumInfo->GetDeclaringGenericTypeInfo())));
     for (U32 idx = 0; idx < ttEnumInfo->GetNumOfInstanceMethodInfos(); ++idx) {
         uintptr_t methodInfoAddr = Allocate(sizeof(MethodInfo));
         MethodInfo* ttMethodInfo = ttEnumInfo->GetInstanceMethodInfo(idx);
         MethodInfo* tiMethodInfo = reinterpret_cast<MethodInfo*>(methodInfoAddr);
         CopyMethodInfo(ttMethodInfo, tiMethodInfo, ti);
-        tiEnumInfo->SetInstanceMethodInfo(idx, tiMethodInfo);
+        enumInfo->SetInstanceMethodInfo(idx, tiMethodInfo);
     }
 
     for (U32 idx = 0; idx < ttEnumInfo->GetNumOfStaticMethodInfos(); ++idx) {
@@ -620,10 +625,10 @@ void TypeInfoManager::ParseEnumInfo(TypeTemplate* tt, U32 argSize, TypeInfo* arg
         MethodInfo* ttMethodInfo = ttEnumInfo->GetStaticMethodInfo(idx);
         MethodInfo* tiMethodInfo = reinterpret_cast<MethodInfo*>(methodInfoAddr);
         CopyMethodInfo(ttMethodInfo, tiMethodInfo, ti);
-        tiEnumInfo->SetStaticMethodInfo(idx, tiMethodInfo);
+        enumInfo->SetStaticMethodInfo(idx, tiMethodInfo);
     }
     enumInfo->SetParsed();
-    ti->SetEnumInfo(tiEnumInfo);
+    ti->SetEnumInfo(enumInfo);
 }
 
 void TypeInfoManager::AddMTable(TypeTemplate* tt, TypeInfo* newTypeInfo, U32 argSize, TypeInfo* args[])
