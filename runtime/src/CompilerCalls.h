@@ -48,6 +48,8 @@ extern "C" TypeInfo* MCC_GetObjClass(const ObjectPtr obj);
 
 extern "C" TypeInfo* MCC_GetTypeForAny(const ObjectPtr obj);
 
+extern "C" bool MCC_IsWrapperClassForAutoEnv(const TypeInfo* ti);
+
 // Called to trigger one gc task in managed code
 extern "C" void MCC_InvokeGCImpl(bool sync);
 
