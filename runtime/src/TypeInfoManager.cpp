@@ -399,22 +399,33 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
 
     U16 fieldNum = tt->GetFieldNum();
     U16 typeArgNum = tt->GetTypeArgNum();
-    if (tt->IsTuple() || tt->IsFunc() || tt->IsRawArray()) {
+    if (tt->IsCFunc()) {
+        typeArgNum = argSize;
+    } else if (tt->IsTuple() || tt->IsFunc() || tt->IsRawArray()) {
         fieldNum = argSize;
         typeArgNum = argSize;
     } else if (tt->IsVArray()) {
         LOG(RTLOG_FATAL, "Instantiate TypeInfo for VArray is not supported");
     }
+#ifdef __arm__
+    U32 ptrSize = 4;
+#else
+    U32 ptrSize = 8;
+#endif
     newTypeInfo->SetFieldNum(fieldNum);
     newTypeInfo->SetTypeArgNum(typeArgNum);
     if (tt->IsArrayType() || tt->IsCPointer()) {
         // args stores the component typeInfo of the array or cpointer.
         TypeInfo* componentTypeTi = args[0];
         newTypeInfo->SetComponentTypeInfo(componentTypeTi);
-        newTypeInfo->SetInstanceSize(8U);
-        newTypeInfo->SetAlign(8U);
+        newTypeInfo->SetInstanceSize(ptrSize);
+        newTypeInfo->SetAlign(ptrSize);
         AddTypeInfo(newTypeInfo);
         tiDesc->SetTypeInfoStatus(TypeInfoStatus::TYPEINFO_INITED);
+        return;
+    } else if (tt->IsCFunc()) {
+        newTypeInfo->SetInstanceSize(ptrSize);
+        newTypeInfo->SetAlign(ptrSize);
         return;
     }
     U32* offsets = reinterpret_cast<U32*>(Allocate(fieldNum * sizeof(U32)));
@@ -424,7 +435,7 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
 
 void TypeInfoManager::FillRemainingField(GenericTiDesc* &tiDesc, TypeTemplate* tt, U32 argSize, TypeInfo* args[])
 {
-    if (tt->IsArrayType()) {
+    if (tt->IsArrayType() || tt->IsCFunc()) {
         return;
     }
     TypeInfo* newTypeInfo = tiDesc->typeInfo;
