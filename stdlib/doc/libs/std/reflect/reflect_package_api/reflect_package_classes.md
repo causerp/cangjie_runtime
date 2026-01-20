@@ -2617,6 +2617,20 @@ public prop name: String
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+### prop organizationName
+
+```cangjie
+public prop organizationName: String
+```
+
+功能：获取该包信息所对应的包的组织名称。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
 ### prop parentPackage
 
 ```cangjie
