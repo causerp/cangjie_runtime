@@ -157,6 +157,14 @@ Returns:
 
 - [Configuration](#class-configuration) - The merged configuration.
 
+See example:
+
+- [Custom configuration for benchamark](../../unittest/unittest_package_api/unittest_package_classes.md#class-benchmark)
+- [Dynamic tests](../../unittest/unittest_samples/unittest_dynamic_tests.md#introduction-to-dynamic-testing)
+
+For most cases, you don't need programmatic Configuration changes. Use these instead:
+[@Configure macro](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#configure-macro)
+
 ## class ConfigurationKey
 
 ```cangjie
@@ -243,6 +251,37 @@ Parameters:
 Returns:
 
 - [ConfigurationKey](#class-configurationkey) - The created configuration key.
+
+Example:
+
+<!-- run -->
+```cangjie
+import std.unittest_common.*
+
+main(): Int64 {
+    // Create configuration keys for different types
+    let intKey = ConfigurationKey.create<Int64>("maxRetries")
+    let stringKey = ConfigurationKey.create<String>("defaultUser")
+    let boolKey = ConfigurationKey.create<Bool>("verboseMode")
+
+    // Create a Configuration instance and use the keys
+    let config = Configuration()
+
+    // Set values using the configuration keys
+    config.set(intKey, 3)
+    config.set(stringKey, "admin")
+    config.set(boolKey, true)
+
+    // Retrieve values using the same keys
+    let retries = config.get(intKey)
+    let user = config.get(stringKey)
+    let verbose = config.get(boolKey)
+
+    println("maxRetries: ${retries}")
+    println("defaultUser: ${user}")
+    println("verboseMode: ${verbose}")
+}
+```
 
 ## class PrettyPrinter
 

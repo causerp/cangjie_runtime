@@ -550,7 +550,7 @@ extend MethodActionSelector<Unit> {}
 
 功能：扩展 [MethodActionSelector](#class-methodactionselectortret) 。
 
-示例:
+示例：
 
 <!-- run -->
 ```cangjie

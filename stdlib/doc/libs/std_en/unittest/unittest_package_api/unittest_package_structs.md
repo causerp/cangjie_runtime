@@ -1661,6 +1661,8 @@ Parameters:
 - absolute!: T - The delta value for the absolute comparison part.
 - relative!: T - The delta value for the relative comparison part.
 
+see Example: [approximate-equality](../../unittest//unittest_samples/unittest_basics.md#approximate-equality)
+
 ## struct TestCaseInfo
 
 ```cangjie
