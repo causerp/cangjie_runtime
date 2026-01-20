@@ -4,7 +4,6 @@ OAT.xml @xuanjz
 /.gitcode/ @xuanjz
 
 # stdlib
-/stdlib/ @ChaosJohn
 
 /stdlib/libs/std/argopt/ @MinamiK
 /stdlib/libs/std/env/ @MinamiK
