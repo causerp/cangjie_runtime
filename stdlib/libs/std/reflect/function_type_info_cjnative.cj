@@ -132,7 +132,7 @@ public class FunctionTypeInfo <: TypeInfo {
      * @throws IllegalArgumentException if argument count mismatches.
      */
     public func apply(instance: Any, args: Array<Any>): Any {
-        let instanceType = TypeInfo.of(instance)
+        let instanceType: FunctionTypeInfo = FunctionTypeInfo.of(instance)
         if (instanceType != this) {
             throw IllegalTypeException("Expected function type `${this}`, but got `${instanceType}`.")
         }

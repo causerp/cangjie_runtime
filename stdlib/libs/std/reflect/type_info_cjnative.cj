@@ -149,7 +149,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      */
     public static func of(a: Any): TypeInfo {
         var ti = getTypeForAny(a)
-        if (isEnum(ti) && let sti <- getSuperTypeInfo(ti)) {
+        if ((isEnum(ti) || isFunction(ti)) && let sti <- getSuperTypeInfo(ti)) {
             if (!sti.isNull()) {
                 ti = sti
             }
