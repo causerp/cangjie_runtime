@@ -780,6 +780,31 @@ MethodInfo* ReflectInfo::GetStaticMethodInfo(U32 index)
     return reinterpret_cast<DataRefOffset64<MethodInfo>*>(baseAddr)->GetDataRef();
 }
 
+static U8 GetReflectVersionFromModifier(U32 modifier)
+{
+    U8 version = 0;
+    if (modifier & MODIFIER_REFLECT_VER_BIT1) {
+        version |= 1;
+    }
+    if (modifier & MODIFIER_REFLECT_VER_BIT2) {
+        version |= 2;
+    }
+    if (modifier & MODIFIER_REFLECT_VER_BIT3) {
+        version |= 4;
+    }
+    return version;
+}
+
+U8 ReflectInfo::GetReflectVersion() const
+{
+    return GetReflectVersionFromModifier(GetModifier());
+}
+
+U8 EnumInfo::GetReflectVersion() const
+{
+    return GetReflectVersionFromModifier(GetModifier());
+}
+
 static void* GetAnnotations(Uptr annotationMethod, TypeInfo* arrayTi)
 {
     CHECK_DETAIL(arrayTi != nullptr, "arrayTi is nullptr");
