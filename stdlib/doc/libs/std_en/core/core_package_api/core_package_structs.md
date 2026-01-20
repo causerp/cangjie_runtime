@@ -82,6 +82,50 @@ Exceptions:
 
 - [NegativeArraySizeException](core_package_exceptions.md#class-negativearraysizeexception) - Throws an exception when size is less than 0.
 
+<!--Del-->
+### func all((T) -> Bool)
+
+```cangjie
+public func all(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the array satisfy the condition.
+
+Parameters：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if all elements in the array satisfy the condition, otherwise returns false.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func any((T) -> Bool)
+
+```cangjie
+public func any(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether there is any element in the array that satisfies the condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether there is any element that satisfies the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func clone()
 
 ```cangjie
@@ -256,6 +300,112 @@ Execution result:
 [0, -1, -1]
 ```
 
+<!--Del-->
+### func filter((T) -> Bool)
+```cangjie
+public func filter(predicate: (T) -> Bool): Array<T> 
+```
+
+Function: Returns a new array containing elements that satisfy the filtering condition.
+
+Parameters:
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array containing elements that satisfy the filtering condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func filterMap\<R>((T) -> ?R)
+
+```cangjie
+public func filterMap<R>(transform: (T) -> ?R): Array<R>
+```
+
+Function: Performs filtering and mapping operations simultaneously, returning a new array.
+
+Parameters:
+
+- transform: (T) -> ?R - the given mapping function. If the function's return value is Some, it corresponds to the filter's predicate being true; otherwise, it is false.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<R> - Returns a new array after filtering and mapping.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func flatMap\<R>((T) -> Array\<R>)
+
+```cangjie
+public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
+```
+
+Function: Applies a transformation closure (transform) to each element in the array, where the closure returns an array, then "flattens" and concatenates all returned arrays into a single result array.
+
+Parameters:
+
+- transform: (T) -> [Array](core_package_structs.md#struct-arrayt)\<R> - the given mapping function.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<R> -  the new array after being "mapped" and "flattened".
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func fold\<R>(R, (R, T) -> R)
+
+```cangjie
+public func fold<R>(initial: R, operation: (R, T) -> R): R
+```
+
+Function: Computes from left to right using the specified initial value.
+
+Parameters:
+
+- initial: R - the given initial value of type R.
+- operation: (R, T) -> R - the given computation function.
+
+Return value:
+
+- R - Returns the final computed value.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func forEach((T) -> Unit)
+
+```cangjie
+public func forEach(action: (T) -> Unit): Unit
+```
+
+Function: Iterates over all elements and performs the given operation.
+
+Parameters:
+
+- action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - the given operation function.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func get(Int64)
 
 ```cangjie
@@ -293,6 +443,28 @@ Execution result:
 Some(0)
 ```
 
+<!--Del-->
+### func intersperse(T)
+
+```cangjie
+public func intersperse(separator: T): Array<T>
+```
+
+Function: Returns a new array with the given element inserted between every two elements.
+
+Parameters:
+
+- separator: T - the given element.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func map\<R>((T)->R)
 
 ```cangjie
@@ -326,6 +498,50 @@ Execution Result:
 ```text
 [1, 2, 3]
 ```
+
+<!--Del-->
+### func none((T) -> Bool)
+
+```cangjie
+public func none(predicate: (T) -> Bool): Bool
+```
+
+Function: Determine whether all elements in the array do not satisfy the condition.
+
+Parameters：
+
+- predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - the given condition.
+
+Return value:
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether all elements in the current array do not satisfy the condition.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
+<!--Del-->
+### func reduce((T, T) -> T)
+
+```cangjie
+public func reduce(operation: (T, T) -> T): Option<T>
+```
+
+Function: Compute from left to right using the first element as the initial value.
+
+Parameters:
+
+- operation: (T, T) -> T - the given computation function.
+
+Return value:
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - Returns the computation result.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func repeat(Int64)
 
@@ -389,6 +605,33 @@ Execution Result:
 ```text
 [5, 4, 3, 2, 1, 0]
 ```
+
+<!--Del-->
+### func skip(Int64)
+```cangjie
+public func skip(count: Int64): Array<T>
+```
+
+Function: Skips a specific number of elements and returns a new array.
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, it is equivalent to not skipping any elements, and returns a new array containing all elements of the source array. When count is greater than 0 and less than the size of the source array, the first count elements are skipped, and a new array containing the remaining elements is returned. When count is greater than or equal to the size of the array, an empty array is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to skip.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array with the specified number of elements skipped.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func slice(Int64, Int64)
 
@@ -473,6 +716,33 @@ Exceptions:
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - Thrown if mid is less than 0 or greater than this.size.
 
+<!--Del-->
+### func step(Int64)
+```cangjie
+public func step(count: Int64): Array<T>
+```
+
+Function: Extracts elements from the array at specified intervals and returns a new array.
+
+When count is less than or equal to 0, an exception is thrown.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the interval for selection.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - a new array containing all elements extracted from the source array at intervals.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count <= 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### func swap(Int64, Int64)
 
 ```cangjie
@@ -509,6 +779,33 @@ Execution Result:
 ```text
 [1, 3, 2, 4]
 ```
+
+<!--Del-->
+### func take(Int64)
+```cangjie
+public func take(count: Int64): Array<T>
+```
+
+Function: Extracts a specific number of elements from the array and returns a new array.
+
+When count is less than or equal to 0, an exception is thrown. When count is 0, no elements are taken, and an empty array is returned. When count is greater than 0 and less than the size of the source array, the first count elements are taken, and a new array is returned. When count is greater than or equal to the size of the array, all elements are taken, and a new array is returned.
+
+Parameters:
+
+- count: [Int64](core_package_intrinsics.md#int64) - the number of elements to take.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<T> - Returns a new array with the specified number of elements taken.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when count < 0.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### operator func \[](Int64)
 
@@ -640,6 +937,51 @@ Output:
 ```text
 [0, 10, 11, 3, 4, 5]
 ```
+
+<!--Del-->
+### extend\<T> Array\<T>
+
+```cangjie
+extend<T> Array<T>
+```
+
+Function：Extends the [Array](core_package_structs.md#struct-arrayt)\<T> type
+
+#### func enumerate()
+
+```cangjie
+public func enumerate(): Array<(Int64, T)>
+```
+
+Function: Used to obtain an array with indices.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - Returns a new array with indices.
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+
+#### func zip\<R>(Array\<R>)
+
+```cangjie
+public func zip<R>(other: Array<R>): Array<(T, R)>
+```
+
+Function: Merges two arrays into a new array (the length depends on the shorter array).
+
+Parameters:
+
+- other: [Array](core_package_structs.md#struct-arrayt)\<R> - one of the arrays to be merged.
+
+Return value:
+
+- [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - Returns a new array.
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### extend\<T> Array\<T> <: Collection\<T>
 

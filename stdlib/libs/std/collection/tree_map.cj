@@ -258,6 +258,287 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
     }
 
     /**
+     * @description Performs mapping on this TreeMap and returns a new TreeMap.
+     *
+     * @param transform the given mapping function.
+     * @returns a new TreeMap.
+     */
+    @When[env != "ohos"]
+    public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R> {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
+        var index = 0
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                arr[index] = (key, transform(key, value))
+                index++
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return TreeMap<K, R>(arr.slice(0, index))
+    }
+
+    /**
+     * @description Performs mapping on this TreeMap and returns a new TreeMap.
+     *
+     * @param transform the given mapping function.
+     * @returns a new TreeMap.
+     */
+    @When[env != "ohos"]
+    public func mapValues<R>(transform: (V) -> R): TreeMap<K, R> {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
+        var index = 0
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                arr[index] = (key, transform(value))
+                index++
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return TreeMap<K, R>(arr.slice(0, index))
+    }
+
+    /**
+     * @description Returns a new TreeMap<K, V> containing key-value pairs that satisfy the filtering condition.
+     *
+     * @param predicate the given mapping function.
+     * @returns a new collection of key-value pairs that satisfy the filtering condition.
+     */
+    @When[env != "ohos"]
+    public func filter(predicate: (K, V) -> Bool): TreeMap<K, V> {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        var arr: Array<(K, V)> = unsafe { Array<(K, V)>(this.size, repeat: zeroValue<(K, V)>()) }
+        var index = 0
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                if (predicate(key, value)) {
+                    arr[index] = (key, value)
+                    index++
+                }
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return TreeMap<K, V>(arr.slice(0, index))
+    }
+
+    /**
+     * @description Iterates over all key-value pairs and performs the given operation.
+     *
+     * @param action the given operation function.
+     */
+    @When[env != "ohos"]
+    public func forEach(action: (K, V) -> Unit): Unit {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                action(key, value)
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+    }
+
+    /**
+     * @description Determine whether all key-value pairs in the TreeMap satisfy the condition.
+     *
+     * @param predicate the given condition.
+     * @returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
+     */
+    @When[env != "ohos"]
+    public func all(predicate: (K, V) -> Bool): Bool {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                if (!predicate(key, value)) {
+                    return false
+                }
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Determine whether there is any key-value pair in the TreeMap that satisfies the condition.
+     *
+     * @param predicate the given condition.
+     * @returns Whether there is any key-value pair that satisfies the condition.
+     */
+    @When[env != "ohos"]
+    public func any(predicate: (K, V) -> Bool): Bool {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                if (predicate(key, value)) {
+                    return true
+                }
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return false
+    }
+
+    /**
+     * @description Determine whether all key-value pairs in the TreeMap do not satisfy the condition.
+     *
+     * @param predicate the given condition.
+     * @returns Whether all key-value pairs in the current TreeMap do not satisfy the condition.
+     */
+    @When[env != "ohos"]
+    public func none(predicate: (K, V) -> Bool): Bool {
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                if (predicate(key, value)) {
+                    return false
+                }
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return true
+    }
+
+    /**
+     * @description Computes from left to right using the specified initial value.
+     *
+     * @param initial the given initial value of type R.
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @When[env != "ohos"]
+    public func fold<R>(initial: R, operation: (R, K, V) -> R): R {
+        var result = initial
+        let curNode: Node<K, V> = this.root
+        var deque = ArrayDeque<Node<K, V>>()
+        deque.addLast(curNode)
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                result = operation(result, key, value)
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return result
+    }
+
+    /**
+     * @description Compute from left to right using the first value as the initial value.
+     *
+     * @param operation the given computation function.
+     * @returns the final computed value.
+     */
+    @When[env != "ohos"]
+    public func reduce(operation: (V, V) -> V): Option<V> {
+        if (this.size <= 0) {
+            return None<V>
+        }
+        let curNode: Node<K, V> = this.root
+        var result = curNode.entries[0].value
+        for (i in 1..curNode.entries.size) {
+            var value = curNode.entries[i].value
+            result = operation(result, value)
+        }
+        var deque = ArrayDeque<Node<K, V>>()
+        if (!curNode.isLeaf()) {
+            var childs = curNode.children
+            for (i in 0..childs.size) {
+                deque.addLast(childs[i])
+            }
+        }
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var value = node.entries[i].value
+                result = operation(result, value)
+            }
+            if (!node.isLeaf()) {
+                var childs = node.children
+                for (i in 0..childs.size) {
+                    deque.addLast(childs[i])
+                }
+            }
+        }
+        return result
+    }
+
+    /**
      * An exception is reported when the get operator is overloaded and the key does not exist.
      *
      * @param key transfer the value for judgment.
@@ -652,7 +933,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
                         broNode = parent.getChild(psr.index - 1).getOrThrow()
                         curNode.insertEntry(0, parent.getEntry(psr.index - 1).getOrThrow())
                         parent.deleteEntry(psr.index - 1)
-                        parent.insertEntry(psr.index - 1, broNode.getOrThrow().getEntry(broNode.getOrThrow().entrySize - 1).getOrThrow())
+                        parent.insertEntry(psr.index - 1,
+                            broNode.getOrThrow().getEntry(broNode.getOrThrow().entrySize - 1).getOrThrow())
                         if (broNode?.isLeaf() == false) {
                             let child = broNode.getOrThrow().getChild(broNode.getOrThrow().entrySize).getOrThrow()
                             curNode.insertChild(0, child)
