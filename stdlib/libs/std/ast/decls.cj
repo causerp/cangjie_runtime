@@ -2213,10 +2213,10 @@ public class MacroExpandDecl <: Decl {
             let identifier = identArray[identArray.size - 1]
             ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
         }
-        if (isValidToken(lSquare_)) {
+        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
             ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
         }
-        if (isValidToken(lParen_)) {
+        if (isValidToken(lParen_) && isValidToken(rParen_)) {
             ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
         } else {
             match (macroInputDecl_) {
@@ -2413,10 +2413,10 @@ public class MacroExpandParam <: FuncParam {
             let identifier = identArray[identArray.size - 1]
             ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
         }
-        if (isValidToken(lSquare_)) {
+        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
             ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
         }
-        if (isValidToken(lParen_)) {
+        if (isValidToken(lParen_) && isValidToken(rParen_)) {
             ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
         } else {
             match (macroInputDecl_) {
