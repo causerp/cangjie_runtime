@@ -1010,7 +1010,7 @@ public class ResumeExpr <: Expr {
             match (parseExpr(inputs) as ResumeExpr) {
                 case Some(v) =>
                     this.resume_ = v.resume_
-                    this.with_ = with_
+                    this.with_ = v.with_
                     this.withExpr_ = v.withExpr_
                     this.throwing_ = v.throwing_
                     this.throwingExpr_ = v.throwingExpr_
@@ -4260,10 +4260,10 @@ public class MacroExpandExpr <: Expr {
     }
     public mut prop identifier: Token {
         get() {
-            identifier_
+            pkgIdentifier_
         }
         set(v) {
-            identifier_ = v
+            pkgIdentifier_ = v
         }
     }
 
@@ -4308,6 +4308,11 @@ public class MacroExpandExpr <: Expr {
         }
         set(v) {
             macroInputs_ = v
+            macroInputDecl_ = try {
+                Some(parseDecl(v))
+            } catch (_: ParseASTException | ASTException) {
+                None
+            }
         }
     }
     public mut prop rParen: Token {
@@ -4335,15 +4340,14 @@ public class MacroExpandExpr <: Expr {
             let identifier = identArray[identArray.size - 1]
             ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
         }
-        ret.append(Token(TokenKind.NL))
-        if (isValidToken(lSquare_)) {
+        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
             ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
         }
-        if (hasParenthesis_) {
+        if (isValidToken(lParen_) && isValidToken(rParen_)) {
             ret.append(lParen_).append(macroInputs_).append(rParen_)
         } else {
             match (macroInputDecl_) {
-                case Some(v) => ret.append(v)
+                case Some(v) => ret.append(Token(NL)).append(v)
                 case None => ()
             }
         }
