@@ -213,6 +213,11 @@ static int32_t Redirect(const ProcessStartInfo* info, int32_t filedes[STD_COUNT]
             return -1;
         }
     }
+#if defined(__ANDROID__) || defined(__OHOS__)
+    if (filedes[STDIN][READ] != STDIN) {
+        (void)fclose(stdin);
+    }
+#endif
     if (dup2(filedes[STDIN][READ], STDIN) < 0) { // Redirect stdIn.
         WriteError(error[WRITE], &errno);
         return -1;
@@ -224,6 +229,11 @@ static int32_t Redirect(const ProcessStartInfo* info, int32_t filedes[STD_COUNT]
             return -1;
         }
     }
+#if defined(__ANDROID__) || defined(__OHOS__)
+    if (filedes[STDOUT][WRITE] != STDOUT) {
+        (void)fclose(stdout);
+    }
+#endif
     if (dup2(filedes[STDOUT][WRITE], STDOUT) < 0) { // Redirect stdOut.
         WriteError(error[WRITE], &errno);
         return -1;
@@ -235,6 +245,11 @@ static int32_t Redirect(const ProcessStartInfo* info, int32_t filedes[STD_COUNT]
             return -1;
         }
     }
+#if defined(__ANDROID__) || defined(__OHOS__)
+    if (filedes[STDERR][WRITE] != STDERR) {
+        (void)fclose(stderr);
+    }
+#endif
     if (dup2(filedes[STDERR][WRITE], STDERR) < 0) { // Redirect stdErr.
         WriteError(error[WRITE], &errno);
         return -1;
