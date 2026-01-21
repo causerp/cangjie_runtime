@@ -161,7 +161,7 @@ inline bool IsSameRootPackage(TypeInfo* itf1, TypeInfo* itf2)
     U32 pos = 0U;
     char ch = name1[pos];
     while (ch == name2[pos]) {
-        if (ch == '.' | ch == ':') {
+        if (ch == '.' || ch == ':') {
             return true;
         }
         ++pos;
