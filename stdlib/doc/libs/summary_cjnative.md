@@ -103,7 +103,6 @@
         - [FileInfo 示例](std/fs/fs_samples/fileinfo_samples.md)
         - [Path 示例](std/fs/fs_samples/path_samples.md)
 - [std.interop](std/interop/interop_package_overview.md)
-    - [类型别名](std/interop/interop_package_api/interop_package_types.md)
     - [类](std/interop/interop_package_api/interop_package_classes.md)
 - [std.io](std/io/io_package_overview.md)
     - [函数](std/io/io_package_api/io_package_funcs.md)

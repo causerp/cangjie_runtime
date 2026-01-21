@@ -10,12 +10,6 @@ interop 包提供了开发跨语言互操作库需要的一些基类，互操作
 
 ## API 列表
 
-### 类型别名
-
-|               类型别名           |                功能                 |
-| -------------------------------- | ---------------------------------- |
-| [CrossReferenceHandler](./interop_package_api/interop_package_types.md#type-crossreferencehandler) | 定义一个跨堆循环引用的处理函数类型，其参数类型分别为 [ExportedRef](./interop_package_api/interop_package_classes.md#class-exportedref) 和 [ForeignProxy](./interop_package_api/interop_package_classes.md#class-foreignproxy)。 |
-
 ### 类
 
 |                 类名             |                功能                 |
