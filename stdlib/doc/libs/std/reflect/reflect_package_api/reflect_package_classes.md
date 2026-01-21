@@ -1930,7 +1930,7 @@ main(): Unit {
     let inst = E.M3(7, "hi")
     let ctor = EnumConstructorInfo.of(inst)
     println(ctor.qualifiedName)
-    let values = ctor.getAssociatedvalues(inst)
+    let values = ctor.getAssociatedValues(inst)
     println(values.size)
     println(values[0] as Int64)
     println(values[1] as String)
@@ -2004,10 +2004,10 @@ main(): Unit {
 M2(7)
 ```
 
-### func getAssociatedvalues(Any)
+### func getAssociatedValues(Any)
 
 ```cangjie
-public func getAssociatedvalues(instance: Any): ReadOnlyList<Any>
+public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
 ```
 
 功能：获取给定枚举实例的关联值列表。
@@ -2042,7 +2042,7 @@ public enum E {
 
 main(): Unit {
     let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
-    let values = ctor.getAssociatedvalues(E.M2(7))
+    let values = ctor.getAssociatedValues(E.M2(7))
     println(values.size)
     println(values[0] as Int64)
     return
@@ -9435,8 +9435,7 @@ public class PrimitiveTypeInfo <: TypeInfo
 
 > **注意：**
 >
-> - 不支持平台：macOS、iOS。
-> - 目前尚不支持 `Nothing` 原始数据类型。
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -13486,7 +13485,7 @@ public static func get(qualifiedName: String): TypeInfo
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 目前，类型的限定名称 `qualifiedName` 不支持 `Nothing` 类型和 `Tuple` 类型的限定名称。
+> - 目前，对于 `Tuple` 类型，仅当 `qualifiedName` 对应的元组已被实例化时，该接口才可用。
 
 参数：
 
@@ -13631,7 +13630,6 @@ public static func of<T>(): TypeInfo
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 目前，泛型 `T` 不支持 `Nothing` 类型。
 > - `T` 支持传入类型别名，包括内置类型别名（如 [Int](../../core/core_package_api/core_package_types.md#type-int)、[UInt](../../core/core_package_api/core_package_types.md#type-uint) 和 `Rune` 等）与用户自定义类型别名。
 
 返回值：
