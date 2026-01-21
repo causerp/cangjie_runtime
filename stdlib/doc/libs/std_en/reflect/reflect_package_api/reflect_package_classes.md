@@ -1118,10 +1118,10 @@ Execution Result:
 7, hi
 ```
 
-### func getAssociatedvalues(Any)
+### func getAssociatedValues(Any)
 
 ```cangjie
-public func getAssociatedvalues(instance: Any): ReadOnlyList<Any>
+public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
 ```
 
 Function: Retrieves the associated value list of the given enum instance.
@@ -1157,7 +1157,7 @@ public enum E {
 
 main(): Unit {
     let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
-    let values = ctor.getAssociatedvalues(E.M2(7))
+    let values = ctor.getAssociatedValues(E.M2(7))
     println(values.size)
     println(values[0] as Int64)
     return
@@ -3895,7 +3895,7 @@ Primitive data types include the untyped (`Nothing`), unit type ([Unit](../../co
 
 > **Note:**
 >
-> The `Nothing` primitive data type is currently not supported.
+> Unsupported platforms: macOS, iOS.
 
 Parent Type:
 
@@ -5678,8 +5678,8 @@ public static func get(qualifiedName: String): TypeInfo
 Function: Gets the [TypeInfo](reflect_package_classes.md#class-typeinfo) corresponding to the type specified by the given `qualifiedName`.
 
 > **Note:**
->
-> Currently, the qualified name `qualifiedName` does not support the `Nothing` type, function types, tuple types, or `enum` types.
+> - Unsupported platforms: macOS, iOS.
+> - Currently, for Tuple types, this API is only available when the tuple corresponding to qualifiedName has been instantiated.
 
 Parameters:
 
@@ -5797,8 +5797,7 @@ public static func of<T>(): TypeInfo
 Function: Gets the type information corresponding to the given type `T`.
 
 > **Note:**
->
-> - Currently, generic `T` does not support the `Nothing` type, function types, tuple types, or `enum` types.
+> - Unsupported platforms: macOS, iOS.
 > - `T` supports type aliases, including built-in aliases (e.g., [Int](../../core/core_package_api/core_package_types.md#type-int), [UInt](../../core/core_package_api/core_package_types.md#type-uint), `Rune`) and user-defined type aliases.
 
 Returns:

@@ -72,7 +72,7 @@ public class EnumTypeInfo <: TypeInfo {
             }
         } catch (e: InfoNotFoundException) {
             throw IllegalTypeException(
-                "Expected an enum type name (e.g. `default.E`), but got `${qualifiedName}`. Use EnumConstructorInfo.get for constructor names.")
+                "Expected an enum type name (e.g. `default.E`), but got `${qualifiedName}`.")
         }
     }
 
@@ -123,13 +123,7 @@ public class EnumTypeInfo <: TypeInfo {
      * @throws InvocationTargetException if argument count or types do not match.
      */
     public func construct(constructor: String, args: Array<Any>): Any {
-        let ctor = getConstructorBySignature(constructor)
-        try {
-            ctor.apply(args)
-        } catch (e: IllegalArgumentException | IllegalTypeException) {
-            throw InvocationTargetException(
-                "Failed to construct enum `${qualifiedName}` with constructor `${ctor.signature}`: ${e.message}.")
-        }
+        getConstructorBySignature(constructor).apply(args)
     }
 
     /**
@@ -339,7 +333,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
             let enumInfo = EnumTypeInfo.get(enumQualifiedName)
             enumInfo.getConstructorBySignature(signature)
         } catch (e: Exception) {
-            throw IllegalTypeException("Enum constructor `${qualifiedName}` not found: ${e.message}.")
+            throw IllegalTypeException("Enum constructor `${qualifiedName}` not found: ${e.message.removeSuffix('.')}.")
         } 
     }
 
@@ -377,7 +371,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
             checkArgs(args)
         } catch (e: IllegalArgumentException | IllegalTypeException) {
             throw InvocationTargetException(
-                "Failed to construct enum `${enumTypeInfo.qualifiedName}` with constructor `${signature}`: ${e.message}.")
+                "Failed to construct enum `${enumTypeInfo.qualifiedName}` with constructor `${signature}`: ${e.message.removeSuffix('.')}.")
         }
         newAndInitEnumTupleObject(_info, args)
     }
@@ -389,7 +383,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
      * @return associated values in declaration order.
      * @throws IllegalTypeException if the instance is not from this enum or was constructed by a different constructor.
      */
-    public func getAssociatedvalues(instance: Any): ReadOnlyList<Any> {
+    public func getAssociatedValues(instance: Any): ReadOnlyList<Any> {
         let instanceType = TypeInfo.of(instance)
         if (!instanceType.isSubtypeOf(enumTypeInfo)) {
             throw IllegalTypeException(
