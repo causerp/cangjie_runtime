@@ -39,6 +39,30 @@ public func level(): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 枚举值对应的整型。`ERROR` 返回 0，`WARNING` 返回 1。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建 DiagReportLevel 
+    let levelError = DiagReportLevel.ERROR
+    let levelWarning = DiagReportLevel.WARNING
+
+    // 输出枚举值对应的整型值
+    println("levelError.level(): ${levelError.level()}")
+    println("levelWarning.level(): ${levelWarning.level()}")
+}
+```
+
+运行结果：
+
+```text
+levelError.level(): 0
+levelWarning.level(): 1
+```
+
 ## enum ImportKind
 
 ```cangjie
@@ -99,6 +123,36 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - [ImportKind](ast_package_enums.md#enum-importkind) 转换后的字符串值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建 ImportKind 
+    let kind0 = ImportKind.Alias
+    let kind1 = ImportKind.All
+    let kind2 = ImportKind.Multi
+    let kind3 = ImportKind.Single
+
+    // 输出枚举值的字符串表示
+    println("kind0.toString(): ${kind0.toString()}")
+    println("kind1.toString(): ${kind1.toString()}")
+    println("kind2.toString(): ${kind2.toString()}")
+    println("kind3.toString(): ${kind3.toString()}")
+}
+```
+
+运行结果：
+
+```text
+kind0.toString(): Alias
+kind1.toString(): All
+kind2.toString(): Multi
+kind3.toString(): Single
+```
 
 ## enum TokenKind
 
@@ -1608,7 +1662,7 @@ WITH
 
 功能：构造一个表示 `with` 的枚举实例。
 
-### func !=(TokenKind)
+### operator func !=(TokenKind)
 
 ```cangjie
 public operator func !=(right: TokenKind): Bool
@@ -1624,7 +1678,30 @@ public operator func !=(right: TokenKind): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 布尔类型。
 
-### func ==(TokenKind)
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建 TokenKind
+    let identifierKind = TokenKind.IDENTIFIER
+    let atExclKind = TokenKind.AT_EXCL
+
+    println("identifierKind != identifierKind: ${identifierKind != identifierKind}")
+    println("identifierKind != atExclKind: ${identifierKind != atExclKind}")
+}
+```
+
+运行结果：
+
+```text
+identifierKind != identifierKind: false
+identifierKind != atExclKind: true
+```
+
+### operator func ==(TokenKind)
 
 ```cangjie
 public operator func ==(right: TokenKind): Bool
@@ -1640,6 +1717,29 @@ public operator func ==(right: TokenKind): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 布尔类型。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建 TokenKind
+    let identifierKind = TokenKind.IDENTIFIER
+    let atExclKind = TokenKind.AT_EXCL
+
+    println("identifierKind == identifierKind: ${identifierKind == identifierKind}")
+    println("identifierKind == atExclKind: ${identifierKind == atExclKind}")
+}
+```
+
+运行结果：
+
+```text
+identifierKind == identifierKind: true
+identifierKind == atExclKind: false
+```
+
 ### func toString()
 
 ```cangjie
@@ -1651,3 +1751,26 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - [TokenKind](ast_package_enums.md#enum-tokenkind) 转换后的字符串值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建 TokenKind
+    let identifierKind = TokenKind.IDENTIFIER
+    let atExclKind = TokenKind.AT_EXCL
+
+    println("identifierKind.toString(): ${identifierKind.toString()}")
+    println("atExclKind.toString(): ${atExclKind.toString()}")
+}
+```
+
+运行结果：
+
+```text
+identifierKind.toString(): IDENTIFIER
+atExclKind.toString(): AT_EXCLAMATION
+```
