@@ -415,6 +415,7 @@ public:
     void SetDeclaringGenericTypeInfo(GenericTypeInfo* ti) { genericTypeInfo = ti; }
 
     void* GetAnnotations(TypeInfo* arrayTi);
+    U8 GetReflectVersion() const;
 private:
     Uptr GetBaseAddr() const { return reinterpret_cast<Uptr>(base); }
     DataRefOffset64<FieldNames> fieldNamesOffset;
@@ -455,6 +456,8 @@ public:
     void* GetAnnotations(TypeInfo* arrayTi);
     MethodInfo* GetInstanceMethodInfo(U32 index) const;
     MethodInfo* GetStaticMethodInfo(U32 index);
+    void SetInstanceMethodInfo(U32 idx, MethodInfo* methodInfo);
+    void SetStaticMethodInfo(U32 idx, MethodInfo* methodInfo);
 
     void SetEnumCtors(void* ctors);
     void SetCtorInfoNum(U32 num) { enumCtorInfoCnt = num; }
@@ -464,6 +467,9 @@ public:
     bool IsEnumKind1() const { return (modifier & MODIFIER_ENUM_KIND1) != 0; }
     bool IsEnumKind2() const { return (modifier & MODIFIER_ENUM_KIND2) != 0; }
     bool IsEnumCtor() const { return (modifier & MODIFIER_ENUM_CTOR) != 0; }
+    void* GetDeclaringGenericTypeInfo() { return genericTypeInfo; }
+    void SetDeclaringGenericTypeInfo(GenericTypeInfo* ti) { genericTypeInfo = ti; }
+    U8 GetReflectVersion() const;
 private:
     Uptr GetBaseAddr() const { return reinterpret_cast<Uptr>(base); }
     DataRefOffset64<EnumCtorInfo> enumCtorInfos;
@@ -472,6 +478,7 @@ private:
     U32 instanceMethodCnt;
     U32 staticMethodCnt;
     Uptr annotationMethod;
+    void* genericTypeInfo;
     Uptr base[0];
 };
 

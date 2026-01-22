@@ -86,6 +86,9 @@ constexpr U32 MODIFIER_HAS_SRET2   = 0x1 << 19; // has sret and it is 'known str
 constexpr U32 MODIFIER_HAS_SRET3   = 0x1 << 20; // has sret and it is 'unknow struct T'
 constexpr U32 MODIFIER_ENUM_CTOR   = 0x1 << 21;
 constexpr U32 MODIFIER_ENUM_PARSED = 0x1 << 22;
+constexpr U32 MODIFIER_REFLECT_VER_BIT1 = 0x1 << 28;
+constexpr U32 MODIFIER_REFLECT_VER_BIT2 = 0x1 << 29;
+constexpr U32 MODIFIER_REFLECT_VER_BIT3 = 0x1 << 30;
 constexpr U32 MODIFIER_INVALID     = 0x1 << 31;
 } // namespace MapleRuntime
 
