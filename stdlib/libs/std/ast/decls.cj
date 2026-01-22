@@ -188,9 +188,11 @@ public open class Decl <: Node {
     }
 
     public open func traverse(v: Visitor): Unit {
+        v.visit(this)
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (anno in annotations_) {
             anno.traverse(v)
         }
@@ -2232,9 +2234,7 @@ public class MacroExpandDecl <: Decl {
         if (v.needBreakTraverse()) {
             return
         }
-        for (anno in annotations) {
-            anno.traverse(v)
-        }
+        super.traverse(v)
         match (macroInputDecl_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -2432,9 +2432,7 @@ public class MacroExpandParam <: FuncParam {
         if (v.needBreakTraverse()) {
             return
         }
-        for (anno in annotations) {
-            anno.traverse(v)
-        }
+        super.traverse(v)
         match (macroInputDecl_) {
             case Some(node) => node.traverse(v)
             case None => ()

@@ -47,6 +47,7 @@ public open class TypeNode <: Node {
     }
     public open func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -100,6 +101,7 @@ public class PrimitiveType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -218,6 +220,7 @@ public class RefType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (ty in typeArguments_) {
             ty.traverse(v)
         }
@@ -365,6 +368,7 @@ public class QualifiedType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         baseType_.traverse(v)
         for (ty in typeArguments_) {
             ty.traverse(v)
@@ -457,6 +461,7 @@ public class ParenType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         ty_.traverse(v)
         return
     }
@@ -555,6 +560,7 @@ public class TupleType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
         }
@@ -621,6 +627,7 @@ public class ThisType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -690,6 +697,7 @@ public class PrefixType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         baseType_.traverse(v)
         return
     }
@@ -840,6 +848,7 @@ public class FuncType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
         }
@@ -978,6 +987,7 @@ public class VArrayType <: TypeNode {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         elementTy_.traverse(v)
         return
     }
