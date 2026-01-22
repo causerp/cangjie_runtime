@@ -351,6 +351,6 @@ function(install_ast_library_ffi lib_name)
     # set install dir
     string(TOLOWER ${TARGET_TRIPLE_DIRECTORY_PREFIX} output_lib_dir)
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
-        install(FILES ${lib_name} DESTINATION lib/${output_lib_dir}_${CJNATIVE_BACKEND})
+        install(FILES ${lib_name} DESTINATION lib/${output_lib_dir}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
     endif()
 endfunction()
