@@ -56,6 +56,30 @@ public init()
 
 功能：构造一个默认的 [Position](ast_package_structs.md#struct-position) 实例，其中 `fileID`、`line`、`column` 成员变量均为 `0`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Position
+    let pos = Position()
+    
+    println("pos.fileID: ${pos.fileID}")
+    println("pos.line: ${pos.line}")
+    println("pos.column: ${pos.column}")
+}
+```
+
+运行结果：
+
+```text
+pos.fileID: 0
+pos.line: 0
+pos.column: 0
+```
+
 ### init(UInt32, Int32, Int32)
 
 ```cangjie
@@ -70,6 +94,30 @@ public init(fileID: UInt32, line: Int32, column: Int32)
 - line: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 行号。
 - column: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 列号。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Position
+    let pos = Position(1, 2, 3)
+    
+    println("pos.fileID: ${pos.fileID}")
+    println("pos.line: ${pos.line}")
+    println("pos.column: ${pos.column}")
+}
+```
+
+运行结果：
+
+```text
+pos.fileID: 1
+pos.line: 2
+pos.column: 3
+```
+
 ### func dump()
 
 ```cangjie
@@ -77,6 +125,28 @@ public func dump(): Unit
 ```
 
 功能：将 [Position](ast_package_structs.md#struct-position) 的信息打印出来。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造 Position
+    let pos = Position(1, 2, 3)
+    
+    println("pos.dump():")
+    pos.dump()
+}
+```
+
+运行结果：
+
+```text
+pos.dump():
+fileID: 1, line: 2, column: 3
+```
 
 ### func isEmpty()
 
@@ -90,6 +160,29 @@ public func isEmpty(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当行号和列号为 `0` 时返回 true。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Position
+    let pos0 = Position()
+    let pos1 = Position(1, 2, 3)
+    
+    println("pos0.isEmpty(): ${pos0.isEmpty()}")
+    println("pos1.isEmpty(): ${pos1.isEmpty()}")
+}
+```
+
+运行结果：
+
+```text
+pos0.isEmpty(): true
+pos1.isEmpty(): false
+```
+
 ### func toBytes()
 
 ```cangjie
@@ -101,6 +194,26 @@ public func toBytes(): Array<UInt8>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 序列化后的字节序列。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造 Position
+    let pos = Position(1, 2, 3)
+    
+    println("pos.toBytes(): ${pos.toBytes()}")
+}
+```
+
+运行结果：
+
+```text
+pos.toBytes(): [1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0]
+```
 
 ### operator func !=(Position)
 
@@ -118,6 +231,27 @@ public operator func !=(r: Position): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当两个 [Position](ast_package_structs.md#struct-position) 实例不完全相等时返回 true。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Position
+    let pos0 = Position()
+    let pos1 = Position(1, 2, 3)
+    
+    println("pos0 != pos1: ${pos0 != pos1}")
+}
+```
+
+运行结果：
+
+```text
+pos0 != pos1: true
+```
+
 ### operator func ==(Position)
 
 ```cangjie
@@ -133,6 +267,27 @@ public operator func ==(r: Position): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当两个 [Position](ast_package_structs.md#struct-position) 实例完全相等时返回 true。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Position
+    let pos0 = Position()
+    let pos1 = Position(1, 2, 3)
+    
+    println("pos0 == pos1: ${pos0 == pos1}")
+}
+```
+
+运行结果：
+
+```text
+pos0 == pos1: false
+```
 
 ## struct Token
 
@@ -214,6 +369,28 @@ public init()
 
 功能：构造一个默认的 [Token](ast_package_structs.md#struct-token) 对象，其中 [TokenKind](ast_package_enums.md#enum-tokenkind) 类型为 `ILLEGAL`，`value` 为空字符串，[Position](ast_package_structs.md#struct-position) 成员变量均为 0。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token()
+    
+    println("token.dump():")
+    token.dump()
+}
+```
+
+运行结果：
+
+```text
+token.dump():
+description: illegal, token_id: 162, token_literal_value: , fileID: 0, line: 0, column: 0
+```
+
 ### init(TokenKind)
 
 ```cangjie
@@ -225,6 +402,28 @@ public init(kind: TokenKind)
 参数：
 
 - kind: [TokenKind](ast_package_enums.md#enum-tokenkind) - 构建词法单元的类型。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.AT)
+    
+    println("token.dump():")
+    token.dump()
+}
+```
+
+运行结果：
+
+```text
+token.dump():
+description: at, token_id: 51, token_literal_value: @, fileID: 1, line: 5, column: 17
+```
 
 ### init(TokenKind, String)
 
@@ -241,7 +440,29 @@ public init(kind: TokenKind, value: String)
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 `kind` 与 `value` 不匹配时，抛出异常点。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 `kind` 与 `value` 不匹配时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.IDENTIFIER, "hello")
+    
+    println("token.dump():")
+    token.dump()
+}
+```
+
+运行结果：
+
+```text
+token.dump():
+description: identifier, token_id: 137, token_literal_value: hello, fileID: 1, line: 5, column: 17
+```
 
 ### func addPosition(UInt32, Int32, Int32)
 
@@ -261,6 +482,28 @@ public func addPosition(fileID: UInt32, line: Int32, colum: Int32): Token
 
 - [Token](ast_package_structs.md#struct-token) - 补充完位置信息后的 [Token](ast_package_structs.md#struct-token) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.IDENTIFIER, "hello").addPosition(1, 2, 3)
+    
+    println("token.dump():")
+    token.dump()
+}
+```
+
+运行结果：
+
+```text
+token.dump():
+description: identifier, token_id: 137, token_literal_value: hello, fileID: 1, line: 2, column: 3
+```
+
 ### func dump()
 
 ```cangjie
@@ -268,6 +511,28 @@ public func dump(): Unit
 ```
 
 功能：将 [Token](ast_package_structs.md#struct-token) 的信息打印出来。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.IDENTIFIER, "hello")
+    
+    println("token.dump():")
+    token.dump()
+}
+```
+
+运行结果：
+
+```text
+token.dump():
+description: identifier, token_id: 137, token_literal_value: hello, fileID: 1, line: 5, column: 17
+```
 
 ### func toBytes()
 
@@ -280,6 +545,26 @@ public func toBytes(): Array<UInt8>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 序列化后的字节序列。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.IDENTIFIER, "hello").addPosition(1, 2, 3)
+    
+    println("token.toBytes(): ${token.toBytes()}")
+}
+```
+
+运行结果：
+
+```text
+token.toBytes(): [137, 0, 5, 0, 0, 0, 104, 101, 108, 108, 111, 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, 0]
+```
 
 ### operator func !=(Token)
 
@@ -297,6 +582,27 @@ public operator func !=(r: Token): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 两个词法单元的种类 `ID`、值、位置不相同时，返回 true。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token0 = Token(TokenKind.AT)
+    let token1 = Token(TokenKind.AT).addPosition(1, 2, 3)
+    
+    println("token0 != token1: ${token0 != token1}")
+}
+```
+
+运行结果：
+
+```text
+token0 != token1: true
+```
+
 ### operator func +(Token)
 
 ```cangjie
@@ -312,6 +618,33 @@ public operator func +(r: Token): Tokens
 返回值：
 
 - [Tokens](ast_package_classes.md#class-tokens) - 添加新的 [Tokens](ast_package_classes.md#class-tokens) 后的词法单元集合。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token0 = Token(TokenKind.NOT)
+    let token1 = Token(TokenKind.IDENTIFIER, "flag")
+
+    // 将两个 Token 拼接为 Tokens
+    let tokens = token0 + token1
+    
+    println("tokens.dump()")
+    tokens.dump()
+}
+```
+
+运行结果：
+
+```text
+tokens.dump()
+description: not, token_id: 21, token_literal_value: !, fileID: 1, line: 5, column: 18
+description: identifier, token_id: 137, token_literal_value: flag, fileID: 1, line: 6, column: 18
+```
 
 ### operator func +(Tokens)
 
@@ -329,6 +662,34 @@ public operator func +(r: Tokens): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 添加新的 [Tokens](ast_package_classes.md#class-tokens) 后的词法单元集合。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token = Token(TokenKind.NOT)
+    let tokens = quote(flag0 && flag1)
+
+    let newTokens = token + tokens
+    
+    println("newTokens.dump()")
+    newTokens.dump()
+}
+```
+
+运行结果：
+
+```text
+newTokens.dump()
+description: not, token_id: 21, token_literal_value: !, fileID: 1, line: 5, column: 17
+description: identifier, token_id: 137, token_literal_value: flag0, fileID: 1, line: 6, column: 24
+description: and, token_id: 16, token_literal_value: &&, fileID: 1, line: 6, column: 30
+description: identifier, token_id: 137, token_literal_value: flag1, fileID: 1, line: 6, column: 33
+```
+
 ### operator func ==(Token)
 
 ```cangjie
@@ -344,3 +705,24 @@ public operator func ==(r: Token): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 两个词法单元的种类 `ID`、值、位置相同时，返回 true。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 构造默认的 Token
+    let token0 = Token(TokenKind.AT)
+    let token1 = Token(TokenKind.AT).addPosition(1, 2, 3)
+    
+    println("token0 == token1: ${token0 == token1}")
+}
+```
+
+运行结果：
+
+```text
+token0 == token1: false
+```
