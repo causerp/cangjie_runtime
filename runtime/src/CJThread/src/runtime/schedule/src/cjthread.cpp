@@ -406,8 +406,8 @@ struct CJThread *CJThreadMemAlloc(struct Schedule *schedule, struct StackAttr *s
     if (cjthread == nullptr) {
         return nullptr;
     }
-
-    if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+    // for SCHEDULE_EXCLUSIVE cjthread to use osthread
+    if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD || schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         // should not create new stack when cj thread is created by foreign thread.
         CJThreadStackAttrInit(cjthread, 0, nullptr, stackAttr);
     } else {
@@ -623,7 +623,7 @@ MRT_STATIC_INLINE void CJThreadMake(const struct CJThreadAttrInner *attr,
     (void)memset_s(&newCJThread->context, sizeof(struct CJThreadContext), 0, sizeof(struct CJThreadContext));
 
     // foreign thread schedule do not create new stack and not need to init cjthread context.
-    if (newCJThread->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+    if (newCJThread->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD || newCJThread->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return;
     }
     if (attr != nullptr && attr->cjFromC) {
@@ -644,7 +644,8 @@ MRT_STATIC_INLINE void CJThreadMake(const struct CJThreadAttrInner *attr,
 void CJThread0Make(struct CJThread *cjthread0)
 {
     // foreign thread schedule do not create new stack and not need to init cjthread context.
-    if (cjthread0->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+    if (cjthread0->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD ||
+        cjthread0->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return;
     }
     CJThreadContextInit(&cjthread0->context, nullptr, cjthread0->stack.cjthreadStackBaseAddr);
@@ -849,6 +850,96 @@ struct CJThread* CJThreadBuild(ScheduleHandle schedule, const struct CJThreadAtt
     return newCJThread;
 }
 
+void ExclusiveExecutor(struct Thread* thread, struct CJThread* newCJThread)
+{
+    // Save old scheduler and processor before switching
+    struct Schedule* newSchedule = newCJThread->schedule;
+    thread->cjthread = newCJThread;
+    newCJThread->thread = thread;
+    // Temporarily switch thread->processor to EXCLUSIVE processor for timer wake to work
+    struct Processor* exclusiveProcessor = &newSchedule->schdProcessor.processorGroup[0];
+    thread->processor = exclusiveProcessor;
+    // Switch to new scheduler
+    ScheduleSet(newSchedule);
+    CJThreadSet(newCJThread);
+    MapleRuntime::ThreadLocal::SetProtectAddr(nullptr);
+    uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
+    MapleRuntime::ThreadLocalData* tlData = reinterpret_cast<MapleRuntime::ThreadLocalData*>(threadData);
+    tlData->cjthread = reinterpret_cast<uint8_t*>(newCJThread);
+    MapleRuntime::Mutator* mutator = newCJThread->mutator;
+    tlData->mutator = mutator;
+    mutator->PreparedToRun(tlData);
+#if defined(__ANDROID__)
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, CJThreadGetId(newCJThread)));
+#endif
+    newCJThread->func(newCJThread->argStart, newCJThread->argSize);
+    return;
+}
+
+// ExclusiveRestore restore from exclusive cjthread
+void ExclusiveRestore(struct CJThread* oldCJThread, struct Thread* thread, struct CJThread* newCJThread, struct Processor* oldProcessor)
+{
+    struct Schedule* oldSchedule = oldCJThread->schedule;
+    struct Schedule* newSchedule = newCJThread->schedule;
+
+    // Get saved values
+    uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
+    MapleRuntime::ThreadLocalData* tlData = reinterpret_cast<MapleRuntime::ThreadLocalData*>(threadData);
+
+    // Restore thread's original processor (passed from assembly)
+    thread->processor = oldProcessor;
+    oldProcessor->thread = thread;
+
+    // Restore TLS
+    ScheduleSet(oldSchedule);
+    CJThreadSet(oldCJThread);
+
+    // Restore thread data
+    thread->cjthread = oldCJThread;
+    tlData->mutator = oldCJThread->mutator;
+#if defined(__ANDROID__)
+    TRACE_FINISH();
+    TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXIT, CJThreadGetId(newCJThread)));
+#endif
+    // Free cjthread and scheduler
+    ScheduleAllCJThreadListRemove(newCJThread);
+    free(newCJThread);
+    ExclusiveScheduleFree(newSchedule);
+#if defined(__ANDROID__)
+    TRACE_FINISH();
+#endif
+}
+
+CJThreadHandle ExclusiveCJThreadNew(CJThreadFunc func,
+                           const void *argStart, unsigned int argSize)
+{
+    struct StackAttr stackAttr;
+    stackAttr.stackGrow = false;
+    
+    struct ArgAttr argAttr;
+    argAttr.argStart = argStart;
+    argAttr.argSize = argSize;
+
+    // Use CreateSubSchedulerAndInit to properly initialize the exclusive scheduler
+    auto runtime = reinterpret_cast<MapleRuntime::CangjieRuntime*>(&MapleRuntime::Runtime::Current());
+    ScheduleHandle scheduler = runtime->CreateSubSchedulerAndInit(SCHEDULE_EXCLUSIVE);
+    if (scheduler == nullptr) {
+        HILOG_ERROR(errno, "failed to create exclusive scheduler");
+        return nullptr;
+    }
+    
+    // Set scheduler state to RUNNING to allow timer wake to work
+    struct Schedule* schedule = reinterpret_cast<struct Schedule*>(scheduler);
+    schedule->state = SCHEDULE_RUNNING;
+
+    CJThreadHandle newCJThread = CJThreadNew(scheduler, nullptr, func, argStart, argSize);
+    if (newCJThread == nullptr) {
+        LOG(RTLOG_FATAL, "failed to create exclusive cjthread");
+    }
+    return newCJThread;
+}
+
+
 /* Create a cjthread in the cjthread context. */
 CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *attrUser, CJThreadFunc func,
                            const void *argStart, unsigned int argSize, bool isSignal)
@@ -882,6 +973,9 @@ CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *a
     if (targetSchedule->scheduleType == SCHEDULE_UI_THREAD &&
         g_scheduleManager.postTaskFunc != nullptr) {
         error = AddToCJSingleModeThreadList(newCJThread);
+    } else if (targetSchedule->scheduleType == SCHEDULE_EXCLUSIVE) {
+        // Exclusive cjthread will not be written into the scheduler's scheduling queue.
+        error = 0;
     } else if (buf == GLOBAL_BUF) {
         error = ScheduleGlobalWrite(&newCJThread, 1);
     } else {
@@ -1062,7 +1156,7 @@ int CJThreadParkInForeignThread(CJThread* cjthread, ParkCallbackFunc func, void 
     unsigned long long now = 0;
     checkFunc = g_scheduleManager.check[PROCESSOR_TIMER_HOOK];
     if (checkFunc != nullptr) {
-        checkFunc(ProcessorGet(), &now, nullptr);
+            checkFunc(ProcessorGet(), &now, nullptr);
     }
 
     atomic_store_explicit(&cjthread->state, CJTHREAD_RUNNING, std::memory_order_relaxed);
@@ -1105,6 +1199,11 @@ int CJThreadPark(ParkCallbackFunc func, TraceEvent waitReason, void *arg)
         return CJThreadParkInForeignThread(cjthread, func, arg);
     }
 #endif
+
+    // If cjthread is in exclusive thread schedule, do not schedule, just park.
+    if (cjthread->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
+        return CJThreadParkInForeignThread(cjthread, func, arg);
+    }
 
     // If cjthread is in foregin thread schedule, do not schedule, just park.
     if (cjthread->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
@@ -1244,9 +1343,9 @@ void *CJThreadMresched(struct CJThread *reCJThread)
  **/
 __attribute__((noinline)) int CJThreadResched(void)
 {
-    // If cjthread is in foreign thread schedule, do not reschedule.
+    // If cjthread is in foreign or exclusive thread schedule, do not reschedule.
     struct CJThread *cjthread = CJThreadGet();
-    if (cjthread->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+    if (cjthread->schedule->scheduleType == SCHEDULE_FOREIGN_THREAD || cjthread->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return 0;
     }
 #ifdef CANGJIE_ASAN_SUPPORT
@@ -1292,8 +1391,8 @@ void CJThreadPreemptResched(void)
 
 bool ShouldWakeDirectly(Schedule* schedule, CJThread* cjthread)
 {
-    // If cj thread is in foreign thread schedule, just wake this schedule.
-    if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+    // If cj thread is in foreign or exclusive thread schedule, just wake this schedule.
+    if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD || schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return true;
     }
 #ifdef __OHOS__
@@ -1614,8 +1713,14 @@ void *CJThreadStackGuardGet(void)
     if (cjthread == nullptr) {
         return nullptr;
     }
-#ifdef __arm__
+
+    // EXCLUSIVE uses OS thread stack which doesn't need checking
     struct Schedule *schedule = ScheduleGet();
+    if (schedule != nullptr && schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
+        return nullptr;
+    }
+
+#ifdef __arm__
     if (schedule == nullptr) {
         return nullptr;
     }

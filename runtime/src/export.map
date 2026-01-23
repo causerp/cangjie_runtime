@@ -9,5 +9,6 @@ CANGJIE {
   local: unwindPCForSafepointHandlerStub;unwindPCForN2CStub;unwindPCForC2NStub;
       unwindPCForC2RStubStart;unwindPCForC2RStubEnd;unwindPCForStackGrowStub;
       unwindPCForRuntimeStubStart;unwindPCForRuntimeStubEnd;unwindPCForC2NStubExceptionReturn;
-      CalleeSavedStubFrameSize;C2NStubFrameSize;*__stack_chk_fail*;
+      CalleeSavedStubFrameSize;C2NStubFrameSize;*__stack_chk_fail*;unwindPCForExclusiveStub;
+      unwindPCForExclusiveStubFull;
 };
