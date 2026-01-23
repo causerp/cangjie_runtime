@@ -298,7 +298,9 @@ main() {
 ```cangjie
 public open class Exception <: ToString {
     public init()
+    public init(causedBy: Exception)
     public init(message: String)
+    public init(message: String, causedBy: Exception)
 }
 ```
 
@@ -309,6 +311,54 @@ public open class Exception <: ToString {
 父类型：
 
 - [ToString](core_package_interfaces.md#interface-tostring)
+
+### prop causedBy
+
+```cangjie
+public mut prop causedBy: ?Exception
+```
+
+功能：异常的触发原因。
+
+类型：?[Exception](core_package_exceptions.md#class-exception)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        throwException()
+    } catch(e: Exception) {
+        println(e)
+        if (let Some(cause) <- e.causedBy) {
+            println(cause)
+        }
+    }
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        let exception = Exception("这是一个异常")
+        exception.causedBy = e
+        throw exception
+    }
+}
+
+func throwCause() {
+    throw Exception("这是一个cause")
+}
+
+```
+
+运行结果：
+
+```text
+Exception: 这是一个异常
+Exception: 这是一个cause
+```
 
 ### prop message
 
@@ -360,6 +410,53 @@ main() {
 }
 ```
 
+### init(Exception)
+
+```cangjie
+public init(causedBy: Exception)
+```
+
+功能：根据触发原因构造一个 [Exception](core_package_exceptions.md#class-exception) 实例，异常信息为空。
+
+参数：
+
+- causedBy: [Exception](core_package_exceptions.md#class-exception) - 触发原因。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        throwException()
+    } catch(e: Exception) {
+        println(e)
+        if (let Some(cause) <- e.causedBy) {
+            println(cause)
+        }
+    }
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        throw Exception(e)
+    }
+}
+
+func throwCause() {
+    throw Exception("这是一个cause")
+}
+```
+
+运行结果：
+
+```text
+Exception
+Exception: 这是一个cause
+```
+
 ### init(String)
 
 ```cangjie
@@ -380,6 +477,61 @@ main() {
     // 使用带消息的构造函数创建Exception实例
     let exception = Exception("自定义异常信息")
 }
+```
+
+### init(String, Exception)
+
+```cangjie
+public init(message: String, causedBy: Exception)
+```
+
+功能：根据异常信息和触发原因构造一个 [Exception](core_package_exceptions.md#class-exception) 实例。
+
+参数：
+
+- message: [String](core_package_structs.md#struct-string) - 异常提示信息。
+- causedBy: [Exception](core_package_exceptions.md#class-exception) - 触发原因。
+
+示例：
+
+<!-- run -->
+```cangjie
+main(): Unit {
+    try {
+        throwException()
+    } catch(e: Exception) {
+        throw Exception("这是被抛出的异常", e)
+    }
+
+    ()
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        throw Exception("这是一个异常", e)
+    }
+}
+
+func throwCause() {
+    throw Exception("这是一个cause")
+}
+```
+
+可能的运行结果：
+
+```text
+An exception has occurred:
+Exception: 这是被抛出的异常
+	 at default::main()(/tmp/test-exception-chain.cj:5)
+Caused by: Exception: 这是一个异常
+	 at default::throwException()(/tmp/test-exception-chain.cj:15)
+	 at default::main()(/tmp/test-exception-chain.cj:3)
+Caused by: Exception: 这是一个cause
+	 at default::throwCause()(/tmp/test-exception-chain.cj:20)
+	 at default::throwException()(/tmp/test-exception-chain.cj:13)
+	 ... 1 more
 ```
 
 ### func getClassName()
