@@ -22,6 +22,7 @@ It includes built-in types (signed integers, unsigned integers, floating-point n
 | [eprintln(String)](./core_package_api/core_package_funcs.md#func-eprintlnstring) | Prints the specified string to the standard error text stream, appending a newline at the end. |
 | [eprint\<T>(T, Bool) where T <: ToString](./core_package_api/core_package_funcs.md#func-eprinttt-bool-where-t--tostring) | Prints the string representation of the specified T-type instance to the standard error text stream. |
 | [eprintln\<T>(T) where T <: ToString](./core_package_api/core_package_funcs.md#func-eprintlntt-where-t--tostring) | Prints the string representation of the specified T-type instance to the standard error text stream, appending a newline at the end. |
+| [exclusiveScope\<T>(( ) -> T)](./core_package_api/core_package_funcs.md#func-exclusivescopett---t) | Executes a closure in an exclusive scope, ensuring that the closure runs in an isolated context and handling any results or exceptions appropriately. |
 | [ifNone(Option\<T>, () -> Unit)](./core_package_api/core_package_funcs.md#func-ifnonetoptiont----unit) | Executes the action function if the input is of type Option.None. |
 | [ifSome(Option\<T>, (T) -> Unit)](./core_package_api/core_package_funcs.md#func-ifsometoptiont-t---unit) | Executes the action function if the input is of type Option.Some. |
 | [max\<T>(T, T, Array\<T>) where T <: Comparable\<T>](./core_package_api/core_package_funcs.md#func-maxtt-t-arrayt-where-t--comparablet) | Retrieves the maximum value from a set of data. |
@@ -116,4 +117,67 @@ It includes built-in types (signed integers, unsigned integers, floating-point n
 | [Iterable\<E>](./core_package_api/core_package_interfaces.md#interface-iterablee) | This interface indicates iterability. Types implementing this interface (typically container types) can be iterated over in `for-in` statements or by obtaining their corresponding iterator type instance and calling the `next` function. |
 | [Resource](./core_package_api/core_package_interfaces.md#interface-resource) | This interface manages resources, typically used for closing and releasing memory, handles, etc. |
 | [ToString](./core_package_api/core_package_interfaces.md#interface-tostring) | This interface provides a string representation of a specific type. |
-| [CType](./core_package_api/core_package_interfaces.md#interface
+| [CType](./core_package_api/core_package_interfaces.md#interface-ctype) | Represents an interface supporting C language interoperability. |
+
+### Classes
+
+| Class Name | Description |
+| ------------ | ------------ |
+| [ArrayIterator\<T>](./core_package_api/core_package_classes.md#class-arrayiteratort) | Array iterator, see `Iterable` and `Iterator` interfaces for iteration details. |
+| [Box\<T>](./core_package_api/core_package_classes.md#class-boxt) | The `Box` type provides the ability to add a layer of `class` encapsulation to other types. |
+| [Future\<T>](./core_package_api/core_package_classes.md#class-futuret) | A Future\<T> instance represents a Cangjie thread task, which can be used to obtain the computation result of the Cangjie thread and send a cancellation signal to the Cangjie thread. |
+| [Iterator\<T>](./core_package_api/core_package_classes.md#class-iteratort) | This class represents an iterator, providing a `next` method to iterate through members in a container. |
+| [Object](./core_package_api/core_package_classes.md#class-object) | Constructs an `object` instance. |
+| [RangeIterator\<T> <: Iterator\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>](./core_package_api/core_package_classes.md#class-rangeiteratort--iteratort-where-t--countablet--comparablet--equatablet) | Iterator for the `Range` type, see `Iterable` and `Iterator` interfaces for iteration details. |
+| [StackTraceElement](./core_package_api/core_package_classes.md#class-stacktraceelement) | Represents specific information about an exception stack, including the class name, function name, file name, and line number where the exception occurred. |
+| [StringBuilder](./core_package_api/core_package_classes.md#class-stringbuilder) | This class is mainly used for string construction. |
+| [Thread](./core_package_api/core_package_classes.md#class-thread) | The `Thread` class represents a Cangjie class, which can be used to obtain thread ID and name, check if there is a cancellation request for the thread, register handler functions for unhandled exceptions in threads, etc. |
+| [ThreadLocal\<T>](./core_package_api/core_package_classes.md#class-threadlocalt) | This class represents Cangjie thread-local variables. |
+| [ThreadSnapshot](./core_package_api/core_package_classes.md#class-threadsnapshot) | This class is used to obtain information about the current thread or all threads, including name, ID, status, and call stack. |
+
+### Enums
+
+| Enum Name | Description |
+| ------------ | ------------ |
+| [AnnotationKind](./core_package_api/core_package_enums.md#enum-annotationkind) | Indicates the positions where custom annotations are intended to be supported. |
+| [Endian](./core_package_api/core_package_enums.md#enum-endian) | The Endian enumeration type indicates the endianness of the running platform, either big-endian or little-endian. |
+| [Ordering](./core_package_api/core_package_enums.md#enum-ordering) | Ordering indicates the result of comparing sizes, containing three cases: less than, greater than, and equal. |
+| [Option\<T>](./core_package_api/core_package_enums.md#enum-optiont) | Option\<T> is a wrapper of type `T`, indicating that it may have a value or no value. |
+| [ThreadState](./core_package_api/core_package_enums.md#enum-threadstate) | ThreadState represents the state of a thread, containing four states: waiting to execute, executing, suspended, and finished execution. |
+
+### Structs
+
+| Struct Name | Description |
+| ------------ | ------------ |
+| [Array\<T>](./core_package_api/core_package_structs.md#struct-arrayt) | Cangjie array type, used to represent an ordered sequence of elements of a single type. |
+| [CPointerHandle\<T> where T <: CType](./core_package_api/core_package_structs.md#struct-cpointerhandlet-where-t--ctype) | Represents the raw pointer of an `Array` array, where the generic parameter in this type should satisfy the `CType` constraint. |
+| [CPointerResource\<T> where T <: CType](./core_package_api/core_package_structs.md#struct-cpointerresourcet-where-t--ctype) | This struct represents the resource management type corresponding to `CPointer`, and its instance can be obtained through the member function `asResource` of `CPointer`. |
+| [CStringResource](./core_package_api/core_package_structs.md#struct-cstringresource) | This struct represents the resource management type corresponding to `CString`, and its instance can be obtained through the member function `asResource` of `CString`. |
+| [DefaultHasher](./core_package_api/core_package_structs.md#struct-defaulthasher) | This struct provides the default hash algorithm implementation. |
+| [Duration](./core_package_api/core_package_structs.md#struct-duration) | Represents a time interval, which is a time type describing a period of time, providing common static instances as well as calculation and comparison functions. |
+| [LibC](./core_package_api/core_package_structs.md#struct-libc) | Provides high-frequency used C interfaces in Cangjie, such as allocating and freeing heap-based CType instances. |
+| [Range\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>](./core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) | This class is an interval type used to represent a sequence of `T` with fixed range and step size, requiring `T` to be countable and ordered. |
+| [String](./core_package_api/core_package_structs.md#struct-string) | This struct represents the Cangjie string, providing a series of string operations such as construction, searching, and concatenation. |
+
+### Exception Classes
+
+| Exception Class Name | Description |
+| ------------ | ------------ |
+| [ArithmeticException](./core_package_api/core_package_exceptions.md#class-arithmeticexception) | Arithmetic exception class, used when arithmetic exceptions occur. |
+| [Error](./core_package_api/core_package_exceptions.md#class-error) | `Error` is the parent class of all error classes. This class cannot be inherited or initialized, but can be caught. |
+| [Exception](./core_package_api/core_package_exceptions.md#class-exception) | `Exception` is the parent class of all exception classes. |
+| [ExclusiveScopeException](./core_package_api/core_package_exceptions.md#class-exclusivescopeexception) | Custom exception class to wrap exceptions thrown in an exclusive scope. It preserves the original exception's stack trace and information. |
+| [IllegalArgumentException](./core_package_api/core_package_exceptions.md#class-illegalargumentexception) | Exception class representing illegal arguments. |
+| [IllegalFormatException](./core_package_api/core_package_exceptions.md#class-illegalformatexception) | Exception class for invalid or non-standard variable formats. |
+| [IllegalMemoryException](./core_package_api/core_package_exceptions.md#class-illegalmemoryexception) | Exception class for memory operation errors. |
+| [IllegalStateException](./core_package_api/core_package_exceptions.md#class-illegalstateexception) | Exception class for illegal state conditions. |
+| [IncompatiblePackageException](./core_package_api/core_package_exceptions.md#class-incompatiblepackageexception) | Exception class for incompatible packages. |
+| [IndexOutOfBoundsException](./core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) | Exception class for index out-of-bounds conditions. |
+| [NegativeArraySizeException](./core_package_api/core_package_exceptions.md#class-negativearraysizeexception) | Exception class for negative array sizes. |
+| [NoneValueException](./core_package_api/core_package_exceptions.md#class-nonevalueexception) | Exception class indicating that an Option\<T> instance's value is `None`, typically thrown in `getOrThrow` functions. |
+| [OutOfMemoryError](./core_package_api/core_package_exceptions.md#class-outofmemoryerror) | Memory insufficiency error class; this class cannot be inherited or initialized, but can be caught. |
+| [OverflowException](./core_package_api/core_package_exceptions.md#class-overflowexception) | Exception class for arithmetic operation overflows. |
+| [SpawnException](./core_package_api/core_package_exceptions.md#class-spawnexception) | Thread exception class, indicating exceptions occurring during thread processing. |
+| [StackOverflowError](./core_package_api/core_package_exceptions.md#class-stackoverflowerror) | Stack overflow error class; this class cannot be inherited or initialized, but can be caught. |
+| [TimeoutException](./core_package_api/core_package_exceptions.md#class-timeoutexception)| Exception thrown when blocking operations timeout. |
+| [UnsupportedException](./core_package_api/core_package_exceptions.md#class-unsupportedexception) | Exception class for unsupported functionality. |

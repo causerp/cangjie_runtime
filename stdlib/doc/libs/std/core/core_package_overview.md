@@ -22,6 +22,7 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [eprintln(String)](./core_package_api/core_package_funcs.md#func-eprintlnstring) | 将指定字符串打印到标准错误文本流，末尾添加换行。 |
 | [eprint\<T>(T, Bool) where T <: ToString](./core_package_api/core_package_funcs.md#func-eprinttt-bool-where-t--tostring) | 将指定 T 类型实例的字符串表示打印到标准错误文本流。 |
 | [eprintln\<T>(T) where T <: ToString](./core_package_api/core_package_funcs.md#func-eprintlntt-where-t--tostring) | 将指定 T 类型实例的字符串表示打印到标准错误文本流，末尾添加换行。 |
+| [exclusiveScope\<T>(( ) -> T)](./core_package_api/core_package_funcs.md#func-exclusivescopett---t) | 在独占作用域中执行一个闭包，确保闭包在隔离的上下文中运行，并适当地处理任何结果或异常。 |
 | [ifNone(Option\<T>, () -> Unit)](./core_package_api/core_package_funcs.md#func-ifnonetoptiont----unit) | 如果输入是 Option.None 类型数据，则执行 action 函数。 |
 | [ifSome(Option\<T>, (T) -> Unit)](./core_package_api/core_package_funcs.md#func-ifsometoptiont-t---unit) | 如果输入是 Option.Some 类型数据，则执行 action 函数。 |
 | [max\<T>(T, T, Array\<T>) where T <: Comparable\<T>](./core_package_api/core_package_funcs.md#func-maxtt-t-arrayt-where-t--comparablet) | 获取一组数据中的最大值 |
@@ -165,6 +166,7 @@ core 包是标准库的核心包，提供了适用仓颉语言编程最基本的
 | [ArithmeticException](./core_package_api/core_package_exceptions.md#class-arithmeticexception) | 算术异常类，发生算术异常时使用。 |
 | [Error](./core_package_api/core_package_exceptions.md#class-error) | `Error` 是所有错误类的父类。该类不可被继承，不可初始化，但是可以被捕获到。 |
 | [Exception](./core_package_api/core_package_exceptions.md#class-exception) | `Exception` 是所有异常类的父类。 |
+| [ExclusiveScopeException](./core_package_api/core_package_exceptions.md#class-exclusivescopeexception) | 自定义异常类，用于包装在独占作用域中抛出的异常。它保留了原始异常的堆栈跟踪和信息。 |
 | [IllegalArgumentException](./core_package_api/core_package_exceptions.md#class-illegalargumentexception) | 表示参数非法的异常类。 |
 | [IllegalFormatException](./core_package_api/core_package_exceptions.md#class-illegalformatexception) | 表示变量的格式无效或不标准时的异常类。 |
 | [IllegalMemoryException](./core_package_api/core_package_exceptions.md#class-illegalmemoryexception) | 表示内存操作错误的异常类。 |
