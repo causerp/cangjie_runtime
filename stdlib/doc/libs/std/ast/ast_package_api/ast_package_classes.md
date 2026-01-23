@@ -3551,6 +3551,43 @@ public init()
 
 功能：构造一个默认的 [IfExpr](ast_package_classes.md#class-ifexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 IfExpr 对象
+    let ifExpr = IfExpr()
+    
+    // 设置 IfExpr 的属性
+    ifExpr.keywordI = Token(TokenKind.IF, "if")
+    ifExpr.lParen = Token(TokenKind.LPAREN, "(")
+    ifExpr.rParen = Token(TokenKind.RPAREN, ")")
+    ifExpr.condition = RefExpr(quote(cond))
+    
+    // 创建 if 块
+    let ifBlock = Block()
+    ifBlock.lBrace = Token(TokenKind.LCURL, "{")
+    ifBlock.rBrace = Token(TokenKind.RCURL, "}")
+    let expr1 = LitConstExpr(quote(1))
+    ifBlock.nodes.add(expr1)
+    ifExpr.ifBlock = ifBlock
+    
+    // 转化为 Tokens 并输出
+    println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+ifExpr.toTokens(): if(cond) {
+    1
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -3567,6 +3604,32 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IfExpr](ast_package_classes.md#class-ifexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 Tokens 构造 IfExpr
+    let ifExpr = IfExpr(quote(if (x > 0) { println("Positive") } else { println("Negative") }))
+    
+    // 转化为 Tokens 并输出
+    println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+ifExpr.toTokens(): if(x > 0) {
+    println("Positive")
+}
+else {
+    println("Negative")
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -3579,6 +3642,43 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 IfExpr 对象
+    let ifExpr = IfExpr()
+    
+    // 设置 IfExpr 的属性
+    ifExpr.keywordI = Token(TokenKind.IF, "if")
+    ifExpr.lParen = Token(TokenKind.LPAREN, "(")
+    ifExpr.rParen = Token(TokenKind.RPAREN, ")")
+    ifExpr.condition = RefExpr(quote(condition))
+    
+    // 创建 if 块
+    let ifBlock = Block()
+    ifBlock.lBrace = Token(TokenKind.LCURL, "{")
+    ifBlock.rBrace = Token(TokenKind.RCURL, "}")
+    let expr1 = CallExpr(quote(println("Condition is true")))
+    ifBlock.nodes.add(expr1)
+    ifExpr.ifBlock = ifBlock
+    
+    // 转化为 Tokens 并输出
+    println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+ifExpr.toTokens(): if(condition) {
+    println("Condition is true")
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -3590,6 +3690,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: IfExpr) {
+        println("Visiting IfExpr")
+    }
+}
+
+main(): Unit {
+    // 使用 Tokens 构造 IfExpr
+    let ifExpr = IfExpr(quote(if (a < b) { println(a) } else { println(b) }))
+    
+    // 使用自定义访问器遍历 IfExpr 节点
+    ifExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting IfExpr
+```
 
 ## class ImportContent
 
@@ -3747,6 +3874,33 @@ public init()
 
 功能：构造一个默认的 [ImportContent](ast_package_classes.md#class-importcontent) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ImportContent 对象
+    let importContent = ImportContent()
+
+    // 设置 ImportContent 的属性
+    importContent.importKind = ImportKind.Single
+    importContent.prefixPaths = quote(std collection)
+    importContent.prefixDots = quote(. .)
+    importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
+    
+    // 转化为 Tokens 并输出
+    println("importContent.toTokens(): ${importContent.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.toTokens(): std.collection.ArrayList
+```
+
 ### func isImportAlias()
 
 ```cangjie
@@ -3758,6 +3912,28 @@ public func isImportAlias(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [ImportContent](ast_package_classes.md#class-importcontent) 节点是否对导入项取了别名。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个别名导入的 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.Alias
+    importContent.importAlias = quote(as myAlias)
+    
+    println("importContent.isImportAlias(): ${importContent.isImportAlias()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.isImportAlias(): true
+```
 
 ### func isImportAll()
 
@@ -3771,6 +3947,27 @@ public func isImportAll(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [ImportContent](ast_package_classes.md#class-importcontent) 节点是否为全导入。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个全导入的 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.All
+    
+    println("importContent.isImportAll(): ${importContent.isImportAll()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.isImportAll(): true
+```
+
 ### func isImportMulti()
 
 ```cangjie
@@ -3782,6 +3979,27 @@ public func isImportMulti(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [ImportContent](ast_package_classes.md#class-importcontent) 节点是否导入了多个顶级定义或声明。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个多导入的 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.Multi
+    
+    println("importContent.isImportMulti(): ${importContent.isImportMulti()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.isImportMulti(): true
+```
 
 ### func isImportSingle()
 
@@ -3795,6 +4013,27 @@ public func isImportSingle(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - [ImportContent](ast_package_classes.md#class-importcontent) 节点是否为单导入。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个单导入的 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.Single
+    
+    println("importContent.isImportSingle(): ${importContent.isImportSingle()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.isImportSingle(): true
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -3807,6 +4046,35 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ImportContent 对象
+    let importContent = ImportContent()
+
+    // 设置 ImportContent 的属性
+    importContent.importKind = ImportKind.Single
+    importContent.orgName = Token(TokenKind.IDENTIFIER, "ORG")
+    importContent.orgSeparator = Token(TokenKind.DOUBLE_COLON, "::")
+    importContent.prefixPaths = quote(std collection)
+    importContent.prefixDots = quote(.)
+    importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
+    
+    // 转化为 Tokens 并输出
+    println("importContent.toTokens(): ${importContent.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+importContent.toTokens(): ORG :: std.collection.ArrayList
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -3818,6 +4086,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: ImportContent) {
+        println("Visiting ImportContent")
+    }
+}
+
+main(): Unit {
+    // 构造一个默认的 ImportContent 对象
+    let importContent = ImportContent()
+    
+    // 使用自定义访问器遍历 ImportContent 节点
+    importContent.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting ImportContent
+```
 
 ## class ImportList
 
@@ -3878,6 +4173,39 @@ public init()
 
 功能：构造一个默认的 [ImportList](ast_package_classes.md#class-importlist) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ImportList 对象
+    let importList = ImportList()
+    
+    // 设置 ImportList 的属性
+    importList.keywordI = Token(TokenKind.IMPORT, "import")
+    
+    // 创建并设置 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.Single
+    importContent.prefixPaths = quote(std collection)
+    importContent.prefixDots = quote(.)
+    importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
+    
+    importList.content = importContent
+    
+    // 转化为 Tokens 并输出
+    println("importList.toTokens(): ${importList.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+importList.toTokens(): import std.collection.ArrayList
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -3894,6 +4222,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ImportList](ast_package_classes.md#class-importlist) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 Tokens 构造 ImportList
+    let importList = ImportList(quote(import std.collection.*))
+    
+    // 转化为 Tokens 并输出
+    println("importList.toTokens(): ${importList.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+importList.toTokens(): import std.collection.*
+```
+
 ### func isImportMulti()
 
 ```cangjie
@@ -3905,6 +4254,28 @@ public func isImportMulti(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果 [ImportList](ast_package_classes.md#class-importlist) 节点导入了多个顶级定义或声明，返回 true；反之，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    let singleImport = ImportList(quote(import std.ast.RefType))
+    let multiImport = ImportList(quote(import std.ast.{RefType, CallExpr}))
+    
+    println("singleImport.isImportMulti(): ${singleImport.isImportMulti()}")
+    println("multiImport.isImportMulti(): ${multiImport.isImportMulti()}")
+}
+```
+
+运行结果：
+
+```text
+singleImport.isImportMulti(): false
+multiImport.isImportMulti(): true
+```
 
 ### func toTokens()
 
@@ -3918,6 +4289,38 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ImportList 对象
+    let importList = ImportList()
+    
+    // 设置 ImportList 的属性
+    importList.keywordI = Token(TokenKind.IMPORT, "import")
+    
+    // 创建并设置 ImportContent
+    let importContent = ImportContent()
+    importContent.importKind = ImportKind.Single
+    importContent.prefixPaths = quote(std collection)
+    importContent.prefixDots = quote(.)
+    importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
+    importList.content = importContent
+    
+    // 转化为 Tokens 并输出
+    println("importList.toTokens(): ${importList.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+importList.toTokens(): import std.collection.ArrayList
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -3929,6 +4332,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: ImportList) {
+        println("Visiting ImportList")
+    }
+}
+
+main(): Unit {
+    // 用 Tokens 创建 ImportList
+    let importList = ImportList(quote(import std.ast.RefType as RT))
+    
+    // 使用自定义访问器遍历 ImportList 节点
+    importList.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting ImportList
+```
 
 ## class IncOrDecExpr
 
@@ -3973,6 +4403,31 @@ public init()
 
 功能：构造一个默认的 [IncOrDecExpr](ast_package_classes.md#class-incordecexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 IncOrDecExpr 对象
+    let incOrDecExpr = IncOrDecExpr()
+    
+    // 设置 IncOrDecExpr 的属性
+    incOrDecExpr.expr = RefExpr(quote(counter))
+    incOrDecExpr.op = Token(TokenKind.DECR, "--")
+    
+    // 转化为 Tokens 并输出
+    println("incOrDecExpr.toTokens(): ${incOrDecExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+incOrDecExpr.toTokens(): counter --
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -3989,6 +4444,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IncOrDecExpr](ast_package_classes.md#class-incordecexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 Tokens 构造 IncOrDecExpr
+    let incExpr = IncOrDecExpr(quote(x++))
+
+    // 转化为 Tokens 并输出
+    println("incExpr.toTokens(): ${incExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+incExpr.toTokens(): x ++
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4001,6 +4477,31 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 IncOrDecExpr 对象
+    let incOrDecExpr = IncOrDecExpr()
+    
+    // 设置 IncOrDecExpr 的属性
+    incOrDecExpr.expr = RefExpr(quote(counter))
+    incOrDecExpr.op = Token(TokenKind.INCR, "++")
+    
+    // 转化为 Tokens 并输出
+    println("incOrDecExpr.toTokens(): ${incOrDecExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+incOrDecExpr.toTokens(): counter ++
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4012,6 +4513,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: IncOrDecExpr) {
+        println("Visiting IncOrDecExpr")
+    }
+}
+
+main(): Unit {
+    // 使用 Tokens 构造 IncOrDecExpr
+    let incOrDecExpr = IncOrDecExpr(quote(x--))
+    
+    // 使用自定义访问器遍历 IncOrDecExpr 节点
+    incOrDecExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting IncOrDecExpr
+```
 
 ## class InterfaceDecl
 
@@ -4086,6 +4614,39 @@ public init()
 
 功能：构造一个默认的 [InterfaceDecl](ast_package_classes.md#class-interfacedecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 InterfaceDecl 对象
+    let interfaceDecl = InterfaceDecl()
+    
+    // 设置 InterfaceDecl 的属性
+    interfaceDecl.identifier = Token(TokenKind.IDENTIFIER, "Shape")
+    interfaceDecl.keyword = Token(TokenKind.INTERFACE, "interface")
+    
+    // 创建并设置 body
+    let body = Body()
+    let funcDecl = FuncDecl(quote(func area(): Float64))
+    body.decls.add(funcDecl)
+    interfaceDecl.body = body
+    
+    // 转化为 Tokens 并输出
+    println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+interfaceDecl.toTokens(): interface Shape {
+    func area(): Float64
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4102,6 +4663,29 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [InterfaceDecl](ast_package_classes.md#class-interfacedecl) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 Tokens 构造 InterfaceDecl
+    let interfaceDecl = InterfaceDecl(quote(interface MyInterface { func foo(): Int64 }))
+    
+    // 转化为 Tokens 并输出
+    println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+interfaceDecl.toTokens(): interface MyInterface {
+    func foo(): Int64
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4114,6 +4698,39 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 InterfaceDecl 对象
+    let interfaceDecl = InterfaceDecl()
+    
+    // 设置 InterfaceDecl 的属性
+    interfaceDecl.identifier = Token(TokenKind.IDENTIFIER, "Shape")
+    interfaceDecl.keyword = Token(TokenKind.INTERFACE, "interface")
+    
+    // 创建并设置 body
+    let body = Body()
+    let funcDecl = FuncDecl(quote(func area(): Float64))
+    body.decls.add(funcDecl)
+    interfaceDecl.body = body
+    
+    // 转化为 Tokens 并输出
+    println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+interfaceDecl.toTokens(): interface Shape {
+    func area(): Float64
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4125,6 +4742,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: InterfaceDecl) {
+        println("Visiting InterfaceDecl")
+    }
+}
+
+main(): Unit {
+    // 使用 Tokens 构造 InterfaceDecl
+    let interfaceDecl = InterfaceDecl(quote(interface MyInterface { func foo(): Int64 }))
+    
+    // 使用自定义访问器遍历 InterfaceDecl 节点
+    interfaceDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting InterfaceDecl
+```
 
 ## class IsExpr
 
@@ -4185,6 +4829,32 @@ public init()
 
 功能：构造一个默认的 [IsExpr](ast_package_classes.md#class-isexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 IsExpr 对象
+    let isExpr = IsExpr()
+    
+    // 设置 IsExpr 的属性
+    isExpr.expr = RefExpr(quote(x))
+    isExpr.keyword = Token(TokenKind.IS)
+    isExpr.shiftType = PrimitiveType(quote(Int8))
+    
+    // 转化为 Tokens 并输出
+    println("isExpr.toTokens(): ${isExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+isExpr.toTokens(): x is Int8
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4201,6 +4871,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [IsExpr](ast_package_classes.md#class-isexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 IsExpr 对象
+    let isExpr = IsExpr(quote(x is String))
+    
+    // 转化为 Tokens 并输出
+    println("isExpr.toTokens(): ${isExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+isExpr.toTokens(): x is String
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4213,6 +4904,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 IsExpr 对象
+    let isExpr = IsExpr(quote(x is String))
+    
+    // 转化为 Tokens 并输出
+    println("isExpr.toTokens(): ${isExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+isExpr.toTokens(): x is String
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4224,6 +4936,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: IsExpr) {
+        println("Visiting IsExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 IsExpr 对象
+    let isExpr = IsExpr(quote(x is String))
+    
+    // 使用自定义访问器遍历 IsExpr 节点
+    isExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting IsExpr
+```
 
 ## class JumpExpr
 
@@ -4258,6 +4997,30 @@ public init()
 
 功能：构造一个默认的 [JumpExpr](ast_package_classes.md#class-jumpexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 JumpExpr 对象
+    let jumpExpr = JumpExpr()
+    
+    // 设置 JumpExpr 的属性
+    jumpExpr.keyword = Token(TokenKind.BREAK)
+    
+    // 转化为 Tokens 并输出
+    println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+jumpExpr.toTokens(): break
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4274,6 +5037,27 @@ public init(kind: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [JumpExpr](ast_package_classes.md#class-jumpexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 JumpExpr 对象
+    let jumpExpr = JumpExpr(quote(break))
+    
+    // 转化为 Tokens 并输出
+    println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+jumpExpr.toTokens(): break
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4286,6 +5070,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 JumpExpr 对象
+    let jumpExpr = JumpExpr(quote(break))
+    
+    // 转化为 Tokens 并输出
+    println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+jumpExpr.toTokens(): break
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4297,6 +5102,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: JumpExpr) {
+        println("Visiting JumpExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 JumpExpr 对象
+    let jumpExpr = JumpExpr(quote(break))
+    
+    // 使用自定义访问器遍历 JumpExpr 节点
+    jumpExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting JumpExpr
+```
 
 ## class LambdaExpr
 
@@ -4385,6 +5217,40 @@ public init()
 
 功能：构造一个默认的 [LambdaExpr](ast_package_classes.md#class-lambdaexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 LambdaExpr 对象
+    let lambdaExpr = LambdaExpr()
+    
+    // 设置 LambdaExpr 的属性
+    lambdaExpr.lBrace = Token(TokenKind.LCURL)
+    lambdaExpr.rBrace = Token(TokenKind.RCURL)
+    lambdaExpr.doubleArrow = Token(TokenKind.DOUBLE_ARROW)
+    let funcParams = ArrayList<FuncParam>()
+    funcParams.add(FuncParam(quote(x: Int64)))
+    lambdaExpr.funcParams = funcParams
+    let nodes = ArrayList<Node>()
+    nodes.add(BinaryExpr(quote(x + 1)))
+    lambdaExpr.nodes = nodes
+    
+    // 转化为 Tokens 并输出
+    println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+lambdaExpr.toTokens(): { x: Int64 =>
+    x + 1
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4401,6 +5267,29 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [LambdaExpr](ast_package_classes.md#class-lambdaexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LambdaExpr 对象
+    let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
+    
+    // 转化为 Tokens 并输出
+    println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+lambdaExpr.toTokens(): { x: Int64 =>
+    x + 1
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4413,6 +5302,29 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LambdaExpr 对象
+    let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
+    
+    // 转化为 Tokens 并输出
+    println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+lambdaExpr.toTokens(): { x: Int64 =>
+    x + 1
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4424,6 +5336,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: LambdaExpr) {
+        println("Visiting LambdaExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 LambdaExpr 对象
+    let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
+    
+    // 使用自定义访问器遍历 LambdaExpr 节点
+    lambdaExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting LambdaExpr
+```
 
 ## class LetPatternExpr
 
@@ -4498,6 +5437,33 @@ public init()
 
 功能：构造一个默认的 [LetPatternExpr](ast_package_classes.md#class-letpatternexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 LetPatternExpr 对象
+    let letPatternExpr = LetPatternExpr()
+    
+    // 设置 LetPatternExpr 的属性
+    letPatternExpr.keyword = Token(TokenKind.LET)
+    letPatternExpr.pattern = EnumPattern(quote(Some(v)))
+    letPatternExpr.backArrow = Token(TokenKind.BACKARROW)
+    letPatternExpr.expr = RefExpr(quote(x))
+    
+    // 转化为 Tokens 并输出
+    println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+letPatternExpr.toTokens(): let Some(v) <- x
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4514,6 +5480,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [LetPatternExpr](ast_package_classes.md#class-letpatternexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LetPatternExpr 对象
+    let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
+    
+    // 转化为 Tokens 并输出
+    println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+letPatternExpr.toTokens(): let Some(v) <- x
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4526,6 +5513,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LetPatternExpr 对象
+    let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
+    
+    // 转化为 Tokens 并输出
+    println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+letPatternExpr.toTokens(): let Some(v) <- x
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4537,6 +5545,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: LetPatternExpr) {
+        println("Visiting LetPatternExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 LetPatternExpr 对象
+    let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
+    
+    // 使用自定义访问器遍历 LetPatternExpr 节点
+    letPatternExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting LetPatternExpr
+```
 
 ## class LitConstExpr
 
@@ -4573,6 +5608,30 @@ public init()
 
 功能：构造一个默认的 [LitConstExpr](ast_package_classes.md#class-litconstexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 LitConstExpr 对象
+    let litConstExpr = LitConstExpr()
+    
+    // 设置 LitConstExpr 的属性
+    litConstExpr.literal = Token(TokenKind.INTEGER_LITERAL, "123")
+    
+    // 转化为 Tokens 并输出
+    println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+litConstExpr.toTokens(): 123
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4589,6 +5648,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenExpr](ast_package_classes.md#class-parenexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LitConstExpr 对象
+    let litConstExpr = LitConstExpr(quote(123))
+    
+    // 转化为 Tokens 并输出
+    println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+litConstExpr.toTokens(): 123
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4601,6 +5681,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 LitConstExpr 对象
+    let litConstExpr = LitConstExpr(quote(123))
+    
+    // 转化为 Tokens 并输出
+    println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+litConstExpr.toTokens(): 123
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4612,6 +5713,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: LitConstExpr) {
+        println("Visiting LitConstExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 LitConstExpr 对象
+    let litConstExpr = LitConstExpr(quote(123))
+    
+    // 使用自定义访问器遍历 LitConstExpr 节点
+    litConstExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting LitConstExpr
+```
 
 ## class MacroDecl
 
@@ -4714,6 +5842,39 @@ public init()
 
 功能：构造一个默认的 [MacroDecl](ast_package_classes.md#class-macrodecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MacroDecl 对象
+    let macroDecl = MacroDecl()
+    
+    // 设置 MacroDecl 的属性
+    macroDecl.keyword = quote(macro)[0]
+    macroDecl.identifier = quote(testMacro)[0]
+    macroDecl.lParen = Token(TokenKind.LPAREN)
+    let param1 = FuncParam(quote(a: Tokens))
+    let param2 = FuncParam(quote(b: Tokens))
+    macroDecl.funcParams = ArrayList<FuncParam>([param1, param2])
+    macroDecl.rParen = Token(TokenKind.RPAREN)
+    macroDecl.colon = Token(TokenKind.COLON)
+    macroDecl.declType = RefType(quote(Tokens))
+    macroDecl.block = Block()
+    
+    // 转化为 Tokens 并输出
+    println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroDecl.toTokens(): macro testMacro(a: Tokens, b: Tokens): Tokens
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4730,6 +5891,28 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroDecl](ast_package_classes.md#class-macrodecl) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MacroDecl 对象
+    let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
+    
+    // 转化为 Tokens 并输出
+    println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroDecl.toTokens(): public macro M(input: Tokens): Tokens {
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4742,6 +5925,28 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MacroDecl 对象
+    let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
+    
+    // 转化为 Tokens 并输出
+    println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroDecl.toTokens(): public macro M(input: Tokens): Tokens {
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4753,6 +5958,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MacroDecl) {
+        println("Visiting MacroDecl")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 MacroDecl 对象
+    let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
+    
+    // 使用自定义访问器遍历 MacroDecl 节点
+    macroDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MacroDecl
+```
 
 ## class MacroExpandDecl
 
@@ -4889,6 +6121,40 @@ public init()
 
 功能：构造一个默认的 [MacroExpandDecl](ast_package_classes.md#class-macroexpanddecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MacroExpandDecl 对象
+    let macroExpandDecl = MacroExpandDecl()
+    
+    // 设置 MacroExpandDecl 的属性
+    macroExpandDecl.keyword = quote(@)[0]
+    macroExpandDecl.fullIdentifier = quote(testMacro)[0]
+    macroExpandDecl.macroAttrs = quote(123)
+    macroExpandDecl.lSquare = Token(LSQUARE)
+    macroExpandDecl.rSquare = Token(RSQUARE)
+    macroExpandDecl.lParen = Token(LPAREN)
+    macroExpandDecl.rParen = Token(RPAREN)
+    macroExpandDecl.macroInputs = Tokens()
+    macroExpandDecl.macroInputDecl = FuncDecl(quote(func test() {}))
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandDecl.toTokens(): @testMacro[123](func test() {
+}
+)
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -4905,6 +6171,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroExpandDecl](ast_package_classes.md#class-macroexpanddecl) 节点时，抛出异常。
 
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main() {
+    // 从 Tokens 创建 MacroExpandDecl 对象
+    let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandDecl.toTokens(): @M
+class A {
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -4917,6 +6204,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MacroExpandDecl 对象
+    let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandDecl.toTokens(): @M
+class A {
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -4928,6 +6236,31 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MacroExpandDecl) {
+        println("Visiting MacroExpandDecl")
+    }
+}
+
+main() {
+    // 从 Tokens 创建 MacroExpandDecl 对象
+    let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
+    
+    // 使用自定义访问器遍历 MacroExpandDecl 节点
+    macroExpandDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MacroExpandDecl
+```
 
 ## class MacroExpandExpr
 
@@ -5054,6 +6387,37 @@ public init()
 
 功能：构造一个默认的 [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MacroExpandExpr 对象
+    let macroExpandExpr = MacroExpandExpr()
+    
+    // 设置 MacroExpandExpr 的属性
+    macroExpandExpr.at = Token(TokenKind.AT)
+    macroExpandExpr.identifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandExpr.lParen = Token(TokenKind.LPAREN)
+    macroExpandExpr.rParen = Token(TokenKind.RPAREN)
+    macroExpandExpr.lSquare = Token(TokenKind.LSQUARE)
+    macroExpandExpr.rSquare = Token(TokenKind.RSQUARE)
+    macroExpandExpr.macroAttrs = quote(123)
+    macroExpandExpr.macroInputs = quote(a is Int64)
+
+    // 转化为 Tokens 并输出
+    println("macroExpandExpr.toTokens(): ${macroExpandExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandExpr.toTokens(): @M[123](a is Int64)
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -5070,6 +6434,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MacroExpandExpr 对象
+    let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandExpr.toTokens(): ${macroExpandExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandExpr.toTokens(): @M(a is Int64)
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5082,6 +6467,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MacroExpandExpr 对象
+    let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandExpr.toTokens(): ${macroExpandExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandExpr.toTokens(): @M(a is Int64)
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5093,6 +6499,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MacroExpandExpr) {
+        println("Visiting MacroExpandExpr")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 MacroExpandExpr 对象
+    let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
+    
+    // 使用自定义访问器遍历 MacroExpandExpr 节点
+    macroExpandExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MacroExpandExpr
+```
 
 ## class MacroExpandParam
 
@@ -5228,6 +6661,37 @@ public init()
 
 功能：构造一个默认的 [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MacroExpandParam 对象
+    let macroExpandParam = MacroExpandParam()
+    
+    // 设置 MacroExpandParam 的属性
+    macroExpandParam.keyword = Token(TokenKind.AT, "@")
+    macroExpandParam.fullIdentifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandParam.identifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandParam.lSquare = Token(TokenKind.LSQUARE)
+    macroExpandParam.rSquare = Token(TokenKind.RSQUARE)
+    macroExpandParam.macroAttrs = quote(123)
+    macroExpandParam.macroInputs = quote(a: Int64)
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandParam.toTokens(): ${macroExpandParam.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandParam.toTokens(): @M[123]
+a: Int64
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5240,6 +6704,37 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MacroExpandParam 对象
+    let macroExpandParam = MacroExpandParam()
+    
+    // 设置 MacroExpandParam 的属性
+    macroExpandParam.keyword = Token(TokenKind.AT, "@")
+    macroExpandParam.fullIdentifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandParam.identifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandParam.lSquare = Token(TokenKind.LSQUARE)
+    macroExpandParam.rSquare = Token(TokenKind.RSQUARE)
+    macroExpandParam.macroAttrs = quote(123)
+    macroExpandParam.macroInputs = quote(a: Int64)
+    
+    // 转化为 Tokens 并输出
+    println("macroExpandParam.toTokens(): ${macroExpandParam.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+macroExpandParam.toTokens(): @M[123]
+a: Int64
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5251,6 +6746,38 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: FuncParam) {
+        println("Visiting MacroExpandParam")
+    }
+}
+
+main(): Unit {
+    // 构造一个默认的 MacroExpandParam 对象
+    let macroExpandParam = MacroExpandParam()
+    
+    // 设置 MacroExpandParam 的属性
+    macroExpandParam.keyword = Token(TokenKind.AT, "@")
+    macroExpandParam.identifier = Token(TokenKind.IDENTIFIER, "M")
+    macroExpandParam.macroInputs = quote(any)
+    
+    // 使用自定义访问器遍历 MacroExpandParam 节点
+    macroExpandParam.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MacroExpandParam
+```
 
 ## class MacroMessage
 
@@ -5280,6 +6807,58 @@ public func getBool(key: String): Bool
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 当不存在 key 值对应的 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 类型的信息时，抛出异常。
 
+示例：
+
+<!-- run -macro0-->
+<!-- cfg="--compile-macro" -->
+```cangjie
+// 宏定义
+macro package M
+
+import std.ast.*
+import std.collection.ArrayList
+
+public macro inner(input: Tokens) {
+    // 向外层宏发送 Bool 类型消息
+    setItem("TrueFromInner", true)
+    setItem("FalseFromInner", false)
+    return input
+}
+
+public macro outer(input: Tokens) {
+    // 获取名为 inner 的内层宏所发送的全部消息
+    let messages = getChildMessages("inner")
+
+    // 获取内层宏发送的 Bool 消息
+    let msg0 = messages[0].getBool("TrueFromInner")
+    let msg1 = messages[0].getBool("FalseFromInner")
+
+    // 输出两个 Bool 类型消息
+    println("Message 0 from inner-macro: ${msg0}")
+    println("Message 1 from inner-macro: ${msg1}")
+    return input
+}
+```
+
+<!-- run -macro0-->
+<!-- cfg="--debug-macro" -->
+```cangjie
+// 宏调用
+import M.*
+
+@outer(@inner(var a = 1))
+
+main() {
+}
+```
+
+运行结果：
+
+```text
+Message 0 from inner-macro: true
+Message 1 from inner-macro: false
+```
+
 ### func getInt64(String)
 
 ```cangjie
@@ -5299,6 +6878,54 @@ public func getInt64(key: String): Int64
 异常：
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 当不存在 key 值对应的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的信息时，抛出异常。
+
+示例：
+
+<!-- run -macro1-->
+<!-- cfg="--compile-macro" -->
+```cangjie
+// 宏定义
+macro package M
+
+import std.ast.*
+import std.collection.ArrayList
+
+public macro inner(input: Tokens) {
+    // 向外层宏发送 Int64 类型消息
+    setItem("Int64FromInner", 100)
+    return input
+}
+
+public macro outer(input: Tokens) {
+    // 获取名为 inner 的内层宏所发送的全部消息
+    let messages = getChildMessages("inner")
+
+    // 获取内层宏发送的 Int64 消息
+    let msg = messages[0].getInt64("Int64FromInner")
+
+    // 输出 Int64 类型消息
+    println("Message from inner-macro: ${msg}")
+    return input
+}
+```
+
+<!-- run -macro1-->
+<!-- cfg="--debug-macro" -->
+```cangjie
+// 宏调用
+import M.*
+
+@outer(@inner(var a = 1))
+
+main() {
+}
+```
+
+运行结果：
+
+```text
+Message from inner-macro: 100
+```
 
 ### func getString(String)
 
@@ -5320,6 +6947,54 @@ public func getString(key: String): String
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 当不存在 key 值对应的 [String](../../core/core_package_api/core_package_structs.md#struct-string) 类型的信息时，抛出异常。
 
+示例：
+
+<!-- run -macro2-->
+<!-- cfg="--compile-macro" -->
+```cangjie
+// 宏定义
+macro package M
+
+import std.ast.*
+import std.collection.ArrayList
+
+public macro inner(input: Tokens) {
+    // 向外层宏发送 String 类型消息
+    setItem("StringFromInner", "message")
+    return input
+}
+
+public macro outer(input: Tokens) {
+    // 获取名为 inner 的内层宏所发送的全部消息
+    let messages = getChildMessages("inner")
+
+    // 获取内层宏发送的 String 消息
+    let msg = messages[0].getString("StringFromInner")
+
+    // 输出 String 类型消息
+    println("Message from inner-macro: ${msg}")
+    return input
+}
+```
+
+<!-- run -macro2-->
+<!-- cfg="--debug-macro" -->
+```cangjie
+// 宏调用
+import M.*
+
+@outer(@inner(var a = 1))
+
+main() {
+}
+```
+
+运行结果：
+
+```text
+Message from inner-macro: message
+```
+
 ### func getTokens(String)
 
 ```cangjie
@@ -5340,6 +7015,54 @@ public func getTokens(key: String): Tokens
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 当不存在 key 值对应的 [Tokens](ast_package_classes.md#class-tokens) 类型的信息时，抛出异常。
 
+示例：
+
+<!-- run -macro3-->
+<!-- cfg="--compile-macro" -->
+```cangjie
+// 宏定义
+macro package M
+
+import std.ast.*
+import std.collection.ArrayList
+
+public macro inner(input: Tokens) {
+    // 向外层宏发送 Tokens 类型消息
+    setItem("TokensFromInner", quote(1 + 1))
+    return input
+}
+
+public macro outer(input: Tokens) {
+    // 获取名为 inner 的内层宏所发送的全部消息
+    let messages = getChildMessages("inner")
+
+    // 获取内层宏发送的 Tokens 消息
+    let msg = messages[0].getTokens("TokensFromInner")
+
+    // 输出 Tokens 类型消息
+    println("Message from inner-macro: ${msg}")
+    return input
+}
+```
+
+<!-- run -macro3-->
+<!-- cfg="--debug-macro" -->
+```cangjie
+// 宏调用
+import M.*
+
+@outer(@inner(var a = 1))
+
+main() {
+}
+```
+
+运行结果：
+
+```text
+Message from inner-macro: 1 + 1
+```
+
 ### func hasItem(String)
 
 ```cangjie
@@ -5355,6 +7078,52 @@ public func hasItem(key: String): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 若存在 key 值对应的相关信息，返回 true；反之，返回 false。
+
+示例：
+
+<!-- run -macro4-->
+<!-- cfg="--compile-macro" -->
+```cangjie
+// 宏定义
+macro package M
+
+import std.ast.*
+import std.collection.ArrayList
+
+public macro inner(input: Tokens) {
+    // 向外层宏发送 Int64 类型消息
+    setItem("Int64FromInner", 100)
+    return input
+}
+
+public macro outer(input: Tokens) {
+    // 获取名为 inner 的内层宏所发送的全部消息
+    let messages = getChildMessages("inner")
+
+    // 判断内层宏是否发送了对应的消息
+    let result = messages[0].hasItem("Int64FromInner")
+    println("messages[0].hasItem(\"Int64FromInner\"): ${result}")
+    return input
+}
+```
+
+<!-- run -macro4-->
+<!-- cfg="--debug-macro" -->
+```cangjie
+// 宏调用
+import M.*
+
+@outer(@inner(var a = 1))
+
+main() {
+}
+```
+
+运行结果：
+
+```text
+messages[0].hasItem("Int64FromInner"): true
+```
 
 ## class MainDecl
 
@@ -5457,6 +7226,42 @@ public init()
 
 功能：构造一个默认的 [MainDecl](ast_package_classes.md#class-maindecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MainDecl 对象
+    let mainDecl = MainDecl()
+    
+    // 设置 MainDecl 的属性
+    mainDecl.keyword = quote(main)[0]
+    mainDecl.colon = Token(TokenKind.COLON)
+    mainDecl.declType = PrimitiveType(quote(Unit))
+    mainDecl.funcParams = ArrayList<FuncParam>()
+    mainDecl.lParen = Token(TokenKind.LPAREN)
+    mainDecl.rParen = Token(TokenKind.RPAREN)
+
+    // 设置代码块
+    let block = Block()
+    block.lBrace = Token(TokenKind.LCURL)
+    block.rBrace = Token(TokenKind.RCURL)
+    mainDecl.block = block
+    
+    // 转化为 Tokens 并输出
+    println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+mainDecl.toTokens(): main(): Unit {
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -5473,6 +7278,29 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MainDecl](ast_package_classes.md#class-maindecl) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MainDecl 对象
+    let mainDecl = MainDecl(quote(main() { println("Hello World") }))
+    
+    // 转化为 Tokens 并输出
+    println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+mainDecl.toTokens(): main() {
+    println("Hello World")
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5485,6 +7313,29 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 MainDecl 对象
+    let mainDecl = MainDecl(quote(main() { println("Hello World") }))
+    
+    // 通过toTokens()将实例输出
+    println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+mainDecl.toTokens(): main() {
+    println("Hello World")
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5496,6 +7347,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MainDecl) {
+        println("Visiting MainDecl")
+    }
+}
+
+main(): Unit {
+    // 从 Tokens 创建 MainDecl 对象
+    let mainDecl = MainDecl(quote(main() { println("Hello World") }))
+    
+    // 使用自定义访问器遍历 MainDecl 节点
+    mainDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MainDecl
+```
 
 ## class MatchCase
 
@@ -5630,6 +7508,36 @@ public init()
 
 功能：构造一个默认的 [MatchCase](ast_package_classes.md#class-matchcase) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MatchCase 对象
+    let matchCase = MatchCase()
+    
+    // 设置 MatchCase 的属性
+    matchCase.keywordC = Token(CASE)
+    matchCase.expr = BinaryExpr(quote(a > 1))
+
+    // 设置代码块
+    let block = Block()
+    block.nodes.add(LitConstExpr(quote(true)))
+    matchCase.block = block
+
+    // 转化为 Tokens 并输出
+    println("matchCase.toTokens(): ${matchCase.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+matchCase.toTokens(): case a > 1 => true
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5642,6 +7550,36 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MatchCase 对象
+    let matchCase = MatchCase()
+    
+    // 设置 MatchCase 的属性
+    matchCase.keywordC = Token(CASE)
+    matchCase.expr = BinaryExpr(quote(a > 1))
+
+    // 设置代码块
+    let block = Block()
+    block.nodes.add(LitConstExpr(quote(true)))
+    matchCase.block = block
+    
+    // 转化为 Tokens 并输出
+    println("matchCase.toTokens(): ${matchCase.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+matchCase.toTokens(): case a > 1 => true
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5653,6 +7591,42 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MatchCase) {
+        println("Visiting MatchCase")
+    }
+}
+
+main(): Unit {
+    // 构造一个默认的 MatchCase 对象
+    let matchCase = MatchCase()
+    
+    // 设置 MatchCase 的属性
+    matchCase.keywordC = Token(CASE)
+    matchCase.expr = BinaryExpr(quote(a > 1))
+
+    // 设置代码块
+    let block = Block()
+    block.nodes.add(LitConstExpr(quote(true)))
+    matchCase.block = block
+    
+    // 使用自定义访问器遍历 MatchCase 节点
+    matchCase.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MatchCase
+```
 
 ## class MatchExpr
 
@@ -5773,6 +7747,46 @@ public init()
 
 功能：构造一个默认的 [MatchExpr](ast_package_classes.md#class-matchexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MatchExpr 对象
+    let matchExpr = MatchExpr()
+    
+    // 设置 MatchExpr 的属性
+    matchExpr.keyword = Token(TokenKind.MATCH)
+    matchExpr.lBrace = Token(TokenKind.LCURL)
+    matchExpr.rBrace = Token(TokenKind.RCURL)
+    matchExpr.lParen = Token(TokenKind.LPAREN)
+    matchExpr.rParen = Token(TokenKind.RPAREN)
+    matchExpr.matchCases = ArrayList<MatchCase>()
+    matchExpr.selector = RefExpr(quote(x))
+
+    let matchCase = MatchCase()
+    matchCase.keywordC = Token(CASE)
+    matchCase.expr = WildcardExpr()
+    let block = Block()
+    block.nodes.add(LitConstExpr(quote(true)))
+    matchCase.block = block
+    matchExpr.matchCases.add(matchCase)
+    
+    // 转化为 Tokens 并输出
+    println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+matchExpr.toTokens(): match(x) {
+    case _ => true
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -5789,6 +7803,29 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MatchExpr](ast_package_classes.md#class-matchexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MatchExpr 对象
+    let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
+    
+    // 转化为 Tokens 并输出
+    println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+matchExpr.toTokens(): match(x) {
+    case _ => 2
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5801,6 +7838,32 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 MatchExpr 对象
+    let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
+    
+    // 调用 toTokens 方法将 MatchExpr 转化为 Tokens
+    let tokens = matchExpr.toTokens()
+    
+    // 转化为 Tokens 并输出
+    println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+matchExpr.toTokens(): match(x) {
+    case _ => 2
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5812,6 +7875,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MatchExpr) {
+        println("Visiting MatchExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 MatchExpr 对象
+    let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
+    
+    // 使用自定义访问器遍历 MatchExpr 节点
+    matchExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MatchExpr
+```
 
 ## class MemberAccess
 
@@ -5924,6 +8014,36 @@ public init()
 
 功能：构造一个默认的 [MemberAccess](ast_package_classes.md#class-memberaccess) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 MemberAccess 对象
+    let memberAccess = MemberAccess()
+    
+    // 设置 MemberAccess 的属性
+    memberAccess.baseExpr = RefExpr(quote(obj))
+    memberAccess.dot = Token(TokenKind.DOT)
+    memberAccess.field = Token(TokenKind.IDENTIFIER, "field")
+    memberAccess.commas = quote(,)
+    memberAccess.lAngle = Token(TokenKind.LT)
+    memberAccess.rAngle = Token(TokenKind.GT)
+    memberAccess.typeArguments = ArrayList<TypeNode>()
+    
+    // 转化为 Tokens 并输出
+    println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+memberAccess.toTokens(): obj.field
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -5940,6 +8060,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MemberAccess](ast_package_classes.md#class-memberaccess) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 MemberAccess 对象
+    let memberAccess = MemberAccess(quote(obj.field))
+    
+    // 转化为 Tokens 并输出
+    println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+memberAccess.toTokens(): obj.field
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -5952,6 +8093,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 MemberAccess 对象
+    let memberAccess = MemberAccess(quote(obj.field))
+    
+    // 转化为 Tokens 并输出
+    println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+memberAccess.toTokens(): obj.field
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -5963,6 +8125,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: MemberAccess) {
+        println("Visiting MemberAccess")
+    }
+}
+
+main(): Unit {
+    // 创建一个 MemberAccess 对象
+    let memberAccess = MemberAccess(quote(obj.field))
+    
+    // 使用自定义访问器遍历 MemberAccess 节点
+    memberAccess.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting MemberAccess
+```
 
 ## class Modifier
 
@@ -5999,6 +8188,30 @@ public init()
 
 功能：构造一个默认的 [Modifier](ast_package_classes.md#class-modifier) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 Modifier 对象
+    let modifier = Modifier()
+    
+    // 设置 Modifier 的属性
+    modifier.keyword = Token(TokenKind.PUBLIC, "public")
+    
+    // 转化为 Tokens 并输出
+    println("modifier.toTokens(): ${modifier.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+modifier.toTokens(): public
+```
+
 ### init(Token)
 
 ```cangjie
@@ -6010,6 +8223,27 @@ public init(keyword: Token)
 参数：
 
 - keyword: [Token](ast_package_structs.md#struct-token) - 将要构造 [Modifier](ast_package_classes.md#class-modifier) 类型的词法单元。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 Token 构造 Modifier 对象
+    let modifier = Modifier(Token(TokenKind.PUBLIC, "public"))
+    
+    // 转化为 Tokens 并输出
+    println("modifier.toTokens(): ${modifier.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+modifier.toTokens(): public
+```
 
 ### func toTokens()
 
@@ -6023,6 +8257,28 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 Modifier 对象
+    let token = Token(TokenKind.PUBLIC, "public")
+    let modifier = Modifier(token)
+    
+    // 转化为 Tokens 并输出
+    println("modifier.toTokens(): ${modifier.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+modifier.toTokens(): public
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6034,6 +8290,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: Modifier) {
+        println("Visiting Modifier")
+    }
+}
+
+main(): Unit {
+    // 创建一个 Modifier 对象
+    let modifier = Modifier(Token(TokenKind.PUBLIC, "public"))
+    
+    // 使用自定义访问器遍历 Modifier 节点
+    modifier.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting Modifier
+```
 
 ## class Node
 
@@ -6085,6 +8368,52 @@ public func dump(): Unit
 
 语法树输出的详细格式请参见[语法树节点打印](../ast_samples/dump.md)。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 Node 子类对象 (使用 IfExpr 作为示例)
+    let ifExpr = IfExpr()
+    
+    // 设置 IfExpr 的条件
+    ifExpr.condition = LitConstExpr(quote(true))
+    ifExpr.keywordI = Token(TokenKind.IF)
+
+    // 设置代码块
+    let block = Block()
+    block.lBrace = Token(TokenKind.LCURL)
+    block.rBrace = Token(TokenKind.RCURL)
+    ifExpr.ifBlock = block
+    
+    // 调用 dump 方法输出节点信息
+    ifExpr.dump()
+}
+```
+
+运行结果：
+
+```text
+IfExpr {
+  -keywordI: Token {
+    value: "if"
+    kind: IF
+    pos: 9: 23
+  }
+  -condition: LitConstExpr {
+    -literal: Token {
+      value: "true"
+      kind: BOOL_LITERAL
+      pos: 8: 43
+    }
+  }
+  -ifBlock: Block {
+  }
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6097,6 +8426,32 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 Node 子类对象 (使用 IfExpr 作为示例)
+    let node = IfExpr(quote(if (x > 0) { x = x + 1 } else { x = x - 1 }))
+    
+    // 输出 Tokens 信息
+    println("node.toTokens(): ${node.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+node.toTokens(): if(x > 0) {
+    x = x + 1
+}
+else {
+    x = x - 1
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6108,6 +8463,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: Node) {
+        println("Visiting Node")
+    }
+}
+
+main(): Unit {
+    // 创建 Node 节点（以 ClassDecl 为例）
+    let node = ClassDecl(quote(class A {}))
+    
+    // 使用自定义访问器遍历 Node 节点
+    node.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting Node
+```
 
 ## class OptionalExpr
 
@@ -6158,6 +8540,31 @@ public init()
 
 功能：构造一个默认的 [OptionalExpr](ast_package_classes.md#class-optionalexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 OptionalExpr 对象
+    let optionalExpr = OptionalExpr()
+    
+    // 设置 OptionalExpr 的属性
+    optionalExpr.baseExpr = RefExpr(quote(a))
+    optionalExpr.quest = Token(TokenKind.QUEST)
+    
+    // 转化为 Tokens 并输出
+    println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+optionalExpr.toTokens(): a?
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6174,6 +8581,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [OptionalExpr](ast_package_classes.md#class-optionalexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 OptionalExpr 对象
+    let optionalExpr = OptionalExpr(quote(a?))
+    
+    // 转化为 Tokens 并输出
+    println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+optionalExpr.toTokens(): a?
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6186,6 +8614,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 OptionalExpr 对象
+    let optionalExpr = OptionalExpr(quote(a?))
+    
+    // 转化为 Tokens 并输出
+    println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+optionalExpr.toTokens(): a?
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6197,6 +8646,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: OptionalExpr) {
+        println("Visiting OptionalExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 OptionalExpr 对象
+    let optionalExpr = OptionalExpr(quote(a?))
+    
+    // 使用自定义访问器遍历 OptionalExpr 节点
+    optionalExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting OptionalExpr
+```
 
 ## class PackageHeader
 
@@ -6327,6 +8803,32 @@ public init()
 
 功能：构造一个默认的 [PackageHeader](ast_package_classes.md#class-packageheader) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PackageHeader 对象
+    let packageHeader = PackageHeader()
+    
+    // 设置 PackageHeader 的属性
+    packageHeader.keywordP = Token(TokenKind.PACKAGE)
+    packageHeader.packageIdentifier = Token(TokenKind.IDENTIFIER, "myPackage")
+    packageHeader.accessible = Token(TokenKind.PUBLIC)
+    
+    // 转化为 Tokens 并输出
+    println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+packageHeader.toTokens(): package myPackage
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6343,6 +8845,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PackageHeader](ast_package_classes.md#class-packageheader) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 PackageHeader 对象
+    let packageHeader = PackageHeader(quote(package myPackage))
+    
+    // 转化为 Tokens 并输出
+    println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+packageHeader.toTokens(): package myPackage
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6355,6 +8878,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 PackageHeader 对象
+    let packageHeader = PackageHeader(quote(package myPackage))
+    
+    // 转化为 Tokens 并输出
+    println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+packageHeader.toTokens(): package myPackage
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6366,6 +8910,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PackageHeader) {
+        println("Visiting PackageHeader")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PackageHeader 对象
+    let packageHeader = PackageHeader(quote(package myPackage))
+    
+    // 使用自定义访问器遍历 PackageHeader 节点
+    packageHeader.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting PackageHeader
+```
 
 ## class ParenExpr
 
@@ -6430,6 +9001,32 @@ public init()
 
 功能：构造一个默认的 [ParenExpr](ast_package_classes.md#class-parenexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ParenExpr 对象
+    let parenExpr = ParenExpr()
+    
+    // 设置 ParenExpr 的属性
+    parenExpr.lParen = Token(TokenKind.LPAREN)
+    parenExpr.parenthesizedExpr = LitConstExpr(quote(1))
+    parenExpr.rParen = Token(TokenKind.RPAREN)
+    
+    // 转化为 Tokens 并输出
+    println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenExpr.toTokens(): (1)
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6446,6 +9043,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenExpr](ast_package_classes.md#class-parenexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 ParenExpr 对象
+    let parenExpr = ParenExpr(quote((1 + 2)))
+    
+    // 转化为 Tokens 并输出
+    println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenExpr.toTokens(): (1 + 2)
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6458,6 +9076,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 ParenExpr 对象
+    let parenExpr = ParenExpr(quote((1 + 2)))
+    
+    // 转化为 Tokens 并输出
+    println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenExpr.toTokens(): (1 + 2)
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6469,6 +9108,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: ParenExpr) {
+        println("Visiting ParenExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 ParenExpr 对象
+    let parenExpr = ParenExpr(quote((1 + 2)))
+    
+    // 使用自定义访问器遍历 ParenExpr 节点
+    parenExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting ParenExpr
+```
 
 ## class ParenType
 
@@ -6533,6 +9199,32 @@ public init()
 
 功能：构造一个默认的 [ParenType](ast_package_classes.md#class-parentype) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 ParenType 对象
+    let parenType = ParenType()
+    
+    // 设置 ParenType 的属性
+    parenType.lParen = Token(TokenKind.LPAREN)
+    parenType.parenthesizedType = PrimitiveType(quote(Int8))
+    parenType.rParen = Token(TokenKind.RPAREN)
+    
+    // 转化为 Tokens 并输出
+    println("parenType.toTokens(): ${parenType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenType.toTokens(): (Int8)
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6549,6 +9241,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ParenType](ast_package_classes.md#class-parentype) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 ParenType 对象
+    let parenType = ParenType(quote((Int32)))
+    
+    // 转化为 Tokens 并输出
+    println("parenType.toTokens(): ${parenType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenType.toTokens(): (Int32)
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6561,6 +9274,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 ParenType 对象
+    let parenType = ParenType(quote((Int32)))
+    
+    // 转化为 Tokens 并输出
+    println("parenType.toTokens(): ${parenType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+parenType.toTokens(): (Int32)
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6572,6 +9306,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: ParenType) {
+        println("Visiting ParenType")
+    }
+}
+
+main(): Unit {
+    // 创建一个 ParenType 对象
+    let parenType = ParenType(quote((Int32)))
+    
+    // 使用自定义访问器遍历 ParenType 节点
+    parenType.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting ParenType
+```
 
 ## class Pattern
 
@@ -6601,6 +9362,40 @@ protected open func dump(_: UInt16): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 格式化输出内容。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+extend VarPattern {
+    public func myDump() {
+        dump(4)
+    }
+}
+
+main(): Unit {
+    // 创建一个 Pattern 子类对象 (使用 VarPattern 作为示例)
+    let pattern = VarPattern(quote(e)[0])
+    
+    // 调用 dump 方法输出节点信息
+    let result = pattern.myDump()
+    println("Pattern dump result: ${result}")
+}
+```
+
+运行结果：
+
+```text
+Pattern dump result: VarPattern {
+          -identifier: Token {
+            value: "e"
+            kind: IDENTIFIER
+            pos: 11: 36
+          }
+        }
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6613,6 +9408,27 @@ public open func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 Pattern 子类对象 (使用 VarPattern 作为示例)
+    let pattern = VarPattern(quote(e)[0])
+    
+    // 输出 Pattern 节点转化成的 Tokens
+    println("pattern.toTokens(): ${pattern.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+pattern.toTokens(): e
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6624,6 +9440,33 @@ public open func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: Pattern) {
+        println("Visiting Pattern")
+    }
+}
+
+main(): Unit {
+    // 创建 Pattern 节点（以 VarPattern 为例）
+    let pattern = VarPattern(quote(e)[0])
+    
+    // 使用自定义访问器遍历 Pattern 节点
+    pattern.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting Pattern
+```
 
 ## class PerformExpr
 
@@ -6674,6 +9517,31 @@ public init()
 
 功能：构造一个默认的 [PerformExpr](ast_package_classes.md#class-performexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PerformExpr 对象
+    let performExpr = PerformExpr()
+    
+    // 设置 PerformExpr 的属性
+    performExpr.keyword = Token(TokenKind.PERFORM)
+    performExpr.expr = CallExpr(quote(Effect()))
+    
+    // 转化为 Tokens 并输出
+    println("performExpr.toTokens(): ${performExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+performExpr.toTokens(): perform Effect()
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6690,6 +9558,31 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点时抛出。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 PerformExpr 对象
+    let performExpr = PerformExpr(quote(perform Effect()))
+    
+    // 转化为 Tokens 并输出
+    println("performExpr.toTokens(): ${performExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+performExpr.toTokens(): perform Effect()
+```
+
+> **注意:**
+>
+> 编译时需要添加 `--experimental` 和 `--enable-eh` 编译选项以支持 `Effect Handlers` 特性。
+
 ### func toTokens()
 
 ```cangjie
@@ -6702,6 +9595,31 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PerformExpr 对象
+    let performExpr = PerformExpr(quote(perform Effect()))
+    
+    // 转化为 Tokens 并输出
+    println("performExpr.toTokens(): ${performExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+performExpr.toTokens(): perform Effect()
+```
+
+> **注意:**
+>
+> 编译时需要添加 `--experimental` 和 `--enable-eh` 编译选项以支持 `Effect Handlers` 特性。
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6713,6 +9631,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PerformExpr) {
+        println("Visiting PerformExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PerformExpr 对象
+    let performExpr = PerformExpr(quote(perform Effect()))
+    
+    // 使用自定义访问器遍历 PerformExpr 节点
+    performExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting PerformExpr
+```
 
 ## class PrefixType
 
@@ -6759,6 +9704,31 @@ public init()
 
 功能：构造一个默认的 [PrefixType](ast_package_classes.md#class-prefixtype) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PrefixType 对象
+    let prefixType = PrefixType()
+    
+    // 设置 PrefixType 的属性
+    prefixType.prefixOps = quote(?)
+    prefixType.baseType = PrimitiveType(quote(Int8))
+    
+    // 转化为 Tokens 并输出
+    println("prefixType.toTokens(): ${prefixType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+prefixType.toTokens(): ?Int8
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6775,6 +9745,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrefixType](ast_package_classes.md#class-prefixtype) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 PrefixType 对象
+    let prefixType = PrefixType(quote(?Int32))
+    
+    // 转化为 Tokens 并输出
+    println("prefixType.toTokens(): ${prefixType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+prefixType.toTokens(): ?Int32
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6787,6 +9778,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PrefixType 对象
+    let prefixType = PrefixType(quote(?Int32))
+    
+    // 转化为 Tokens 并输出
+    println("prefixType.toTokens(): ${prefixType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+prefixType.toTokens(): ?Int32
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6798,6 +9810,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PrefixType) {
+        println("Visiting PrefixType")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PrefixType 对象
+    let prefixType = PrefixType(quote(?Int32))
+    
+    // 使用自定义访问器遍历 PrefixType 节点
+    prefixType.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting PrefixType
+```
 
 ## class PrimaryCtorDecl
 
@@ -6872,6 +9911,43 @@ public init()
 
 功能：构造一个默认的 [PrimaryCtorDecl](ast_package_classes.md#class-primaryctordecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PrimaryCtorDecl 对象
+    let primaryCtorDecl = PrimaryCtorDecl()
+    
+    // 设置 PrimaryCtorDecl 的属性
+    primaryCtorDecl.identifier = quote(ctor)[0]
+    primaryCtorDecl.lParen = Token(TokenKind.LPAREN)
+    primaryCtorDecl.rParen = Token(TokenKind.RPAREN)
+
+    // 设置参数
+    let param1 = FuncParam(quote(x: Int8))
+    primaryCtorDecl.funcParams = ArrayList<FuncParam>([param1])
+    
+    // 设置代码块
+    let block = Block()
+    block.lBrace = Token(TokenKind.LCURL)
+    block.rBrace = Token(TokenKind.RCURL)
+    primaryCtorDecl.block = block
+    
+    // 转化为 Tokens 并输出
+    println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primaryCtorDecl.toTokens(): ctor(x: Int8) {
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6888,6 +9964,29 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrimaryCtorDecl](ast_package_classes.md#class-primaryctordecl) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 PrimaryCtorDecl 对象
+    let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
+    
+    // 转化为 Tokens 并输出
+    println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primaryCtorDecl.toTokens(): Ctor(x: Int8) {
+    super(x)
+}
+```
+
 ### func isConst()
 
 ```cangjie
@@ -6899,6 +9998,26 @@ public func isConst(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前节点为 `Const` 类型的节点时，返回 true；反之，返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PrimaryCtorDecl 对象
+    let primaryCtorDecl = PrimaryCtorDecl()
+    
+    println("primaryCtorDecl.isConst(): ${primaryCtorDecl.isConst()}")
+}
+```
+
+运行结果：
+
+```text
+primaryCtorDecl.isConst(): false
+```
 
 ### func toTokens()
 
@@ -6912,6 +10031,29 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PrimaryCtorDecl 对象
+    let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
+    
+    // 转化为 Tokens 并输出
+    println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primaryCtorDecl.toTokens(): Ctor(x: Int8) {
+    super(x)
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6923,6 +10065,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PrimaryCtorDecl) {
+        println("Visiting PrimaryCtorDecl")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PrimaryCtorDecl 对象
+    let primaryCtorDecl = PrimaryCtorDecl(quote(ctor(x: Int8) { super(x) }))
+    
+    // 使用自定义访问器遍历 PrimaryCtorDecl 节点
+    primaryCtorDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting PrimaryCtorDecl
+```
 
 ## class PrimitiveType
 
@@ -6959,6 +10128,30 @@ public init()
 
 功能：构造一个默认的 [PrimitiveType](ast_package_classes.md#class-primitivetype) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PrimitiveType 对象
+    let primitiveType = PrimitiveType()
+    
+    // 设置 PrimitiveType 的属性
+    primitiveType.keyword = Token(TokenKind.INT8, "Int8")
+    
+    // 输出 PrimitiveType 节点转化成的 Tokens
+    println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveType.toTokens(): Int8
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -6975,6 +10168,30 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrimitiveType](ast_package_classes.md#class-primitivetype) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 quote 宏创建 Tokens
+    let tokens = quote(Int8)
+    
+    // 使用 Tokens 构造 PrimitiveType 对象
+    let primitiveType = PrimitiveType(tokens)
+    
+    // 输出 PrimitiveType 节点转化成的 Tokens
+    println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveType.toTokens(): Int8
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -6987,6 +10204,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PrimitiveType 对象
+    let primitiveType = PrimitiveType(quote(Int8))
+    
+    // 输出 PrimitiveType 节点转化成的 Tokens
+    println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveType.toTokens(): Int8
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -6998,6 +10236,36 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PrimitiveType) {
+        println("Visiting PrimitiveType")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PrimitiveType 对象
+    let primitiveType = PrimitiveType(quote(Int8))
+    
+    // 创建自定义访问器
+    let visitor = MyVisitor()
+    
+    // 遍历 PrimitiveType 节点
+    primitiveType.traverse(visitor)
+}
+```
+
+运行结果：
+
+```text
+Visiting PrimitiveType
+```
 
 ## class PrimitiveTypeExpr
 
@@ -7034,6 +10302,30 @@ public init()
 
 功能：构造一个默认的 [PrimitiveTypeExpr](ast_package_classes.md#class-primitivetypeexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PrimitiveTypeExpr 对象
+    let primitiveTypeExpr = PrimitiveTypeExpr()
+    
+    // 设置 PrimitiveTypeExpr 的属性
+    primitiveTypeExpr.keyword = Token(TokenKind.INT8, "Int8")
+    
+    // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
+    println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveTypeExpr.toTokens(): Int8
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -7050,6 +10342,30 @@ public init(kind: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PrimitiveTypeExpr](ast_package_classes.md#class-primitivetypeexpr) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 quote 宏创建 Tokens
+    let tokens = quote(Int8)
+    
+    // 使用 Tokens 构造 PrimitiveTypeExpr 对象
+    let primitiveTypeExpr = PrimitiveTypeExpr(tokens)
+    
+    // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
+    println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveTypeExpr.toTokens(): Int8
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -7062,6 +10378,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 PrimitiveTypeExpr 对象
+    let primitiveTypeExpr = PrimitiveTypeExpr(quote(Int8))
+    
+    // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
+    println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+primitiveTypeExpr.toTokens(): Int8
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7073,6 +10410,36 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PrimitiveTypeExpr) {
+        println("Visiting PrimitiveTypeExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PrimitiveTypeExpr 对象
+    let primitiveTypeExpr = PrimitiveTypeExpr(quote(Int8))
+    
+    // 创建自定义访问器
+    let visitor = MyVisitor()
+    
+    // 遍历 PrimitiveTypeExpr 节点
+    primitiveTypeExpr.traverse(visitor)
+}
+```
+
+运行结果：
+
+```text
+Visiting PrimitiveTypeExpr
+```
 
 ## class Program
 
@@ -7143,6 +10510,32 @@ public init()
 
 功能：构造一个默认的 [Program](ast_package_classes.md#class-program) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 Program 对象
+    let program = Program()
+    
+    // 设置 Program 的属性
+    program.packageHeader = PackageHeader(quote(package test))
+    program.importLists = ArrayList<ImportList>()
+    program.decls = ArrayList<Decl>()
+    
+    // 转化为 Tokens 并输出
+    println("program.toTokens(): ${program.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+program.toTokens(): package test
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -7159,6 +10552,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为一个文件节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 Program 对象
+    let program = Program(quote(let a = 1))
+    
+    // 转化为 Tokens 并输出
+    println("program.toTokens(): ${program.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+program.toTokens(): let a = 1
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -7171,6 +10585,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个 Program 对象
+    let program = Program(quote(let a = 1))
+    
+    // 转化为 Tokens 并输出
+    println("program.toTokens(): ${program.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+program.toTokens(): let a = 1
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7182,6 +10617,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: Program) {
+        println("Visiting Program")
+    }
+}
+
+main(): Unit {
+    // 创建一个 Program 对象
+    let program = Program(quote(let a = 1))
+    
+    // 使用自定义访问器遍历 Program 节点
+    program.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting Program
+```
 
 ## class PropDecl
 
@@ -7288,6 +10750,37 @@ public init()
 
 功能：构造一个默认的 [PropDecl](ast_package_classes.md#class-propdecl) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 PropDecl 对象
+    let propDecl = PropDecl()
+    
+    // 设置 PropDecl 的属性
+    propDecl.keyword = quote(prop)[0]
+    propDecl.identifier = quote(testProp)[0]
+    propDecl.colon = Token(TokenKind.COLON)
+    propDecl.declType = PrimitiveType(quote(Int8))
+
+    propDecl.lBrace = Token(TokenKind.LCURL)
+    propDecl.rBrace = Token(TokenKind.RCURL)
+    
+    // 转化为 Tokens 并输出
+    println("propDecl.toTokens(): ${propDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+propDecl.toTokens(): prop testProp: Int8 {
+}
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -7304,6 +10797,31 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [PropDecl](ast_package_classes.md#class-propdecl) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 PropDecl 对象
+    let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
+    
+    // 转化为 Tokens 并输出
+    println("propDecl.toTokens(): ${propDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+propDecl.toTokens(): prop x: Int32 {
+    get() {
+        0
+    }
+}
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -7316,6 +10834,31 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 PropDecl 对象
+    let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
+    
+    // 转化为 Tokens 并输出
+    println("propDecl.toTokens(): ${propDecl.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+propDecl.toTokens(): prop x: Int32 {
+    get() {
+        0
+    }
+}
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7327,6 +10870,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: PropDecl) {
+        println("Visiting PropDecl")
+    }
+}
+
+main(): Unit {
+    // 创建一个 PropDecl 对象
+    let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
+    
+    // 使用自定义访问器遍历 PropDecl 节点
+    propDecl.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting PropDecl
+```
 
 ## class QualifiedType
 
@@ -7439,6 +11009,36 @@ public init()
 
 功能：构造一个默认的 [QualifiedType](ast_package_classes.md#class-qualifiedtype) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 QualifiedType 对象
+    let qualifiedType = QualifiedType()
+    
+    // 设置 QualifiedType 的属性
+    qualifiedType.baseType = RefType(quote(Package))
+    qualifiedType.identifier = Token(TokenKind.IDENTIFIER, "Type")
+    qualifiedType.dot = Token(TokenKind.DOT)
+    qualifiedType.commas = quote(,)
+    qualifiedType.lAngle = Token(TokenKind.LT)
+    qualifiedType.rAngle = Token(TokenKind.GT)
+    qualifiedType.typeArguments = ArrayList<TypeNode>()
+    
+    // 转化为 Tokens 并输出
+    println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+qualifiedType.toTokens(): Package.Type
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -7455,6 +11055,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [QualifiedType](ast_package_classes.md#class-qualifiedtype) 节点时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 QualifiedType 对象
+    let qualifiedType = QualifiedType(quote(Package.Type))
+    
+    // 转化为 Tokens 并输出
+    println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+qualifiedType.toTokens(): Package.Type
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -7467,6 +11088,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 QualifiedType 对象
+    let qualifiedType = QualifiedType(quote(Package.Type))
+    
+    // 转化为 Tokens 并输出
+    println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+qualifiedType.toTokens(): Package.Type
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7478,6 +11120,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: QualifiedType) {
+        println("Visiting QualifiedType")
+    }
+}
+
+main(): Unit {
+    // 创建一个 QualifiedType 对象
+    let qualifiedType = QualifiedType(quote(Package.Type))
+    
+    // 使用自定义访问器遍历 QualifiedType 节点
+    qualifiedType.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting QualifiedType
+```
 
 ## class QuoteExpr
 
@@ -7556,6 +11225,33 @@ public init()
 
 功能：构造一个默认的 [QuoteExpr](ast_package_classes.md#class-quoteexpr) 对象。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 构造一个默认的 QuoteExpr 对象
+    let quoteExpr = QuoteExpr()
+    
+    // 设置 QuoteExpr 的属性
+    quoteExpr.keyword = Token(TokenKind.QUOTE)
+    quoteExpr.lParen = Token(TokenKind.LPAREN)
+    quoteExpr.rParen = Token(TokenKind.RPAREN)
+    quoteExpr.exprs = ArrayList<Expr>()
+    
+    // 转化为 Tokens 并输出
+    println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+quoteExpr.toTokens(): quote()
+```
+
 ### init(Tokens)
 
 ```cangjie
@@ -7572,6 +11268,27 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [QuoteExpr](ast_package_classes.md#class-quoteexpr) 节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 从 Tokens 创建 QuoteExpr 对象
+    let quoteExpr = QuoteExpr(quote(quote(x + 1)))
+    
+    // 转化为 Tokens 并输出
+    println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+quoteExpr.toTokens(): quote(x + 1)
+```
+
 ### func toTokens()
 
 ```cangjie
@@ -7584,6 +11301,27 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 创建一个带实际值的 QuoteExpr 对象
+    let quoteExpr = QuoteExpr(quote(quote(x + 1)))
+    
+    // 转化为 Tokens 并输出
+    println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+quoteExpr.toTokens(): quote(x + 1)
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7595,6 +11333,33 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: QuoteExpr) {
+        println("Visiting QuoteExpr")
+    }
+}
+
+main(): Unit {
+    // 创建一个 QuoteExpr 对象
+    let quoteExpr = QuoteExpr(quote(quote(x + 1)))
+    
+    // 使用自定义访问器遍历 QuoteExpr 节点
+    quoteExpr.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting QuoteExpr
+```
 
 ## class QuoteToken
 
@@ -7630,6 +11395,33 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+main(): Unit {
+    // 使用 quote 宏创建 Tokens
+    let tokens = quote(quote(x + 1))
+    
+    // 使用 Tokens 构造 QuoteExpr 对象
+    let quoteExpr = QuoteExpr(tokens)
+
+    // 获取一个 QuoteToken 对象
+    let quoteToken = quoteExpr.exprs[0]
+    
+    // 转化为 Tokens 并输出
+    println("quoteToken.toTokens(): ${quoteToken.toTokens()}")
+}
+```
+
+运行结果：
+
+```text
+quoteToken.toTokens(): x + 1
+```
+
 ### func traverse(Visitor)
 
 ```cangjie
@@ -7641,6 +11433,35 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.ast.*
+
+class MyVisitor <: Visitor {
+    public override func visit(_: Expr) {
+        println("Visiting QuoteToken")
+    }
+}
+
+main(): Unit {
+    // 创建一个 QuoteToken 对象
+    let tokens = quote(quote(x + 1))
+    let quoteExpr = QuoteExpr(tokens)
+    let quoteToken = quoteExpr.exprs[0]
+
+    // 使用自定义访问器遍历 QuoteToken 节点
+    quoteToken.traverse(MyVisitor())
+}
+```
+
+运行结果：
+
+```text
+Visiting QuoteToken
+```
 
 ## class RangeExpr
 
