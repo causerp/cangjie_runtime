@@ -214,6 +214,35 @@ public func all(predicate: (T) -> Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组所有元素都满足条件，返回 true，否则返回 false
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [2, 4, 6, 8, 10]
+
+    println("数组: ${arr}")
+
+    // 检查数组中所有元素是否都是偶数
+    let allEven = arr.all({num => num % 2 == 0})
+    println("所有元素都是偶数: ${allEven}")
+
+    // 检查数组中所有元素是否都大于5
+    let allGreaterThanFive = arr.all({num => num > 5})
+    println("所有元素都大于5: ${allGreaterThanFive}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+数组: [2, 4, 6, 8, 10]
+所有元素都是偶数: true
+所有元素都大于5: false
+```
+
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -229,6 +258,35 @@ public func any(predicate: (T) -> Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否存在任意满足条件的元素。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 3, 5, 8, 9]
+
+    println("数组: ${arr}")
+
+    // 检查数组中是否存在偶数
+    let hasEven = arr.any({num => num % 2 == 0})
+    println("存在偶数: ${hasEven}")
+
+    // 检查数组中是否存在大于10的元素
+    let hasGreaterThanTen = arr.any({num => num > 10})
+    println("存在大于10的元素: ${hasGreaterThanTen}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+数组: [1, 3, 5, 8, 9]
+存在偶数: true
+存在大于10的元素: false
+```
 
 ### func clone()
 
@@ -498,6 +556,29 @@ public func filter(predicate: (T) -> Bool): Array<T>
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个满足筛选条件的元素的新数组。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    println("原数组: ${arr}")
+
+    // 筛选偶数
+    let evenNumbers = arr.filter({num => num % 2 == 0})
+    println("偶数: ${evenNumbers}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+偶数: [2, 4, 6, 8, 10]
+```
+
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -514,6 +595,36 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> - 返回一个筛选和映射的新数组。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = ["123", "abcd", "45", ""]
+
+    println("原数组: ${arr}")
+
+    // 使用filterMap筛选非空字符串并转换为其长度
+    let lengths = arr.filterMap({
+        s: String => if (!s.isEmpty()) {
+            Some(s.size)
+        } else {
+            Option<Int64>.None
+        }
+    })
+    println("非空字符串的长度: ${lengths}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [123, abcd, 45, ]
+非空字符串的长度: [3, 4, 2]
+```
+
 ### func flatMap\<R>((T) -> Array\<R>)
 
 ```cangjie
@@ -529,6 +640,31 @@ public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
 返回值：
 
 - [Array](core_package_structs.md#struct-arrayt)\<R> -  被“映射（map）”和“压平（flatten）”后的新数组
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3]
+
+    println("原数组: ${arr}")
+
+    // 使用flatMap将每个数字扩展为多个元素的数组
+    let expanded = arr.flatMap({
+        num: Int64 => ["数字: ${num}", "数字的平方: ${num * num}"]
+    })
+    println("扩展后: ${expanded}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3]
+扩展后: [数字: 1, 数字的平方: 1, 数字: 2, 数字的平方: 4, 数字: 3, 数字的平方: 9]
+```
 
 ### func fold\<R>(R, (R, T) -> R)
 
@@ -547,6 +683,29 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 - R - 返回最终计算得到的值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5]
+
+    println("原数组: ${arr}")
+
+    // 使用fold计算数组元素之和
+    let sum = arr.fold(0, {acc: Int64, num: Int64 => acc + num})
+    println("数组元素之和: ${sum}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5]
+数组元素之和: 15
+```
+
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -558,6 +717,34 @@ public func forEach(action: (T) -> Unit): Unit
 参数：
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - 给定的操作函数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = ["apple", "banana", "cherry"]
+
+    println("原数组: ${arr}")
+
+    // 使用forEach遍历数组并打印每个元素
+    println("遍历结果:")
+    arr.forEach({
+        item => println(" ${item}")
+    })
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [apple, banana, cherry]
+遍历结果:
+ apple
+ banana
+ cherry
+```
 
 ### func get(Int64)
 
@@ -611,6 +798,29 @@ public func intersperse(separator: T): Array<T>
 返回值：
 
 - [Array](core_package_structs.md#struct-arrayt)\<T> - 返回一个新数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4]
+
+    println("原数组: ${arr}")
+
+    // 使用intersperse在元素之间插入分隔符
+    let result = arr.intersperse(0)
+    println("插入分隔符0后: ${result}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4]
+插入分隔符0后: [1, 0, 2, 0, 3, 0, 4]
+```
 
 ### func map\<R>((T)->R)
 
@@ -673,6 +883,35 @@ public func none(predicate: (T) -> Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前数组中元素是否都不满足条件。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 3, 5, 7, 9] // 全是奇数
+
+    println("数组: ${arr}")
+
+    // 检查数组中是否所有元素都不是偶数（即没有偶数）
+    let noEven = arr.none({num => num % 2 == 0})
+    println("没有偶数: ${noEven}")
+
+    // 检查数组中是否所有元素都不大于10
+    let noGreaterThanTen = arr.none({num => num > 10})
+    println("没有大于10的数: ${noGreaterThanTen}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+数组: [1, 3, 5, 7, 9]
+没有偶数: true
+没有大于10的数: true
+```
+
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -688,6 +927,33 @@ public func reduce(operation: (T, T) -> T): Option<T>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 返回计算结果。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5]
+
+    println("原数组: ${arr}")
+
+    // 使用reduce计算数组元素之和
+    let sumResult = arr.reduce({acc, num => acc + num})
+    if (let Some(sum) <- sumResult) {
+        println("数组元素之和: ${sum}")
+    } else {
+        println("数组为空")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5]
+数组元素之和: 15
+```
 
 ### func repeat(Int64)
 
@@ -801,6 +1067,40 @@ public func skip(count: Int64): Array<T>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8]
+
+    println("原数组: ${arr}")
+
+    // 跳过前3个元素
+    let skipped = arr.skip(3)
+    println("跳过前3个元素后: ${skipped}")
+
+    // 跳过前0个元素（相当于不跳过）
+    let noSkip = arr.skip(0)
+    println("跳过前0个元素后: ${noSkip}")
+
+    // 跳过超过数组长度的元素
+    let skipAll = arr.skip(10)
+    println("跳过前10个元素后: ${skipAll}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5, 6, 7, 8]
+跳过前3个元素后: [4, 5, 6, 7, 8]
+跳过前0个元素后: [1, 2, 3, 4, 5, 6, 7, 8]
+跳过前10个元素后: []
+```
 
 ### func slice(Int64, Int64)
 
@@ -939,6 +1239,29 @@ public func step(count: Int64): Array<T>
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count <= 0 时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    println("原数组: ${arr}")
+
+    // 以步长为3提取元素
+    let stepped3 = arr.step(3)
+    println("步长为3提取的元素: ${stepped3}")
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+步长为3提取的元素: [1, 4, 7, 10]
+```
+
 ### func swap(Int64, Int64)
 
 ```cangjie
@@ -1008,6 +1331,35 @@ public func take(count: Int64): Array<T>
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = [1, 2, 3, 4, 5, 6, 7, 8]
+
+    println("原数组: ${arr}")
+
+    // 取前3个元素
+    let taken = arr.take(3)
+    println("取前3个元素: ${taken}")
+
+    // 取超过数组长度的元素（返回整个数组）
+    let takeAll = arr.take(10)
+    println("取前10个元素: ${takeAll}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [1, 2, 3, 4, 5, 6, 7, 8]
+取前3个元素: [1, 2, 3]
+取前10个元素: [1, 2, 3, 4, 5, 6, 7, 8]
+```
 
 ### operator func \[](Int64)
 
@@ -1254,6 +1606,38 @@ public func enumerate(): Array<(Int64, T)>
 
 - [Array](core_package_structs.md#struct-arrayt)\<([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), T)> - 返回一个带索引的新数组。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr = ["apple", "banana", "cherry"]
+
+    println("原数组: ${arr}")
+
+    // 使用enumerate获取带索引的数组
+    let enumerated = arr.enumerate()
+
+    // 遍历带索引的数组
+    println("遍历带索引的数组:")
+    for (pair in enumerated) {
+        let (index, value) = pair
+        println(" (${index}, ${value})")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+原数组: [apple, banana, cherry]
+遍历带索引的数组:
+ (0, apple)
+ (1, banana)
+ (2, cherry)
+```
+
 #### func zip\<R>(Array\<R>)
 
 ```cangjie
@@ -1269,6 +1653,40 @@ public func zip<R>(other: Array<R>): Array<(T, R)>
 返回值：
 
 - [Array](core_package_structs.md#struct-arrayt)\<(T, R)> - 返回一个新数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    let arr1 = [1, 2, 3, 4]
+    let arr2 = ["apple", "banana", "cherry", "date"]
+
+    println("数组1: ${arr1}")
+    println("数组2: ${arr2}")
+
+    // 使用zip合并两个数组
+    let zipped = arr1.zip(arr2)
+    println("合并后的数组:")
+    for (pair in zipped) {
+        let (index, value) = pair
+        println(" (${index}, ${value})")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+数组1: [1, 2, 3, 4]
+数组2: [apple, banana, cherry, date]
+合并后的数组:
+ (1, apple)
+ (2, banana)
+ (3, cherry)
+ (4, date)
+```
 
 ### extend\<T> Array\<T> <: Collection\<T>
 
@@ -5843,6 +6261,32 @@ public static func checkUtf8Encoding(data: Array<UInt8>): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 Byte 数组符合 UTF-8 编码，返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个UTF-8编码的字节数组，表示"仓颉"
+    let utf8Bytes: Array<UInt8> = [228, 187, 147, 233, 162, 137]
+
+    // 使用checkUtf8Encoding函数检查字节数组是否为有效的UTF-8编码
+    let isValid = String.checkUtf8Encoding(utf8Bytes)
+    println("字节数组是否为有效的UTF-8编码: ${isValid}")
+
+    // 创建一个不是UTF-8编码的字节数组
+    let invalidUtf8Bytes: Array<UInt8> = [100, 187, 147, 233, 162, 137]
+    let isInvalid = String.checkUtf8Encoding(invalidUtf8Bytes)
+    println("字节数组是否为有效的UTF-8编码: ${isInvalid}")
+}
+```
+
+运行结果：
+
+```text
+字节数组是否为有效的UTF-8编码: true
+字节数组是否为有效的UTF-8编码: false
+```
+
 ### static func fromUtf8(Array\<UInt8>)
 
 ```cangjie
@@ -5869,7 +6313,7 @@ public static func fromUtf8(utf8Data: Array<UInt8>): String
 ```cangjie
 main() {
     // 创建一个UTF-8编码的字节数组，表示"Hello 世界"
-    let utf8Bytes = [72u8, 101u8, 108u8, 108u8, 111u8, 32u8, 228u8, 184u8, 150u8, 231u8, 149u8, 140u8]
+    let utf8Bytes: Array<UInt8> = [72, 101, 108, 108, 111, 32, 228, 184, 150, 231, 149, 140]
 
     // 使用fromUtf8函数创建字符串
     let str = String.fromUtf8(utf8Bytes)
@@ -5913,22 +6357,20 @@ public unsafe static  func fromUtf8Unchecked(utf8Data: Array<UInt8>): String
 <!-- verify -->
 ```cangjie
 main() {
-    // 创建一个UTF-8编码的字节数组，表示"Hello 世界"
-    let utf8Bytes = [72u8, 101u8, 108u8, 108u8, 111u8, 32u8, 228u8, 184u8, 150u8, 231u8, 149u8, 140u8]
+    // 创建一个UTF-8编码的字节数组，表示"仓颉"
+    let utf8Bytes: Array<UInt8> = [228, 187, 147, 233, 162, 137]
 
     // 使用fromUtf8Unchecked函数创建字符串（不进行UTF-8验证）
     let str = unsafe { String.fromUtf8Unchecked(utf8Bytes) }
 
-    println("String from UTF-8 bytes (unchecked): '${str}'")
-    println("String size: ${str.size}")
+    println("结果: ${str}")
 }
 ```
 
 运行结果：
 
 ```text
-String from UTF-8 bytes (unchecked): 'Hello 世界'
-String size: 12
+结果: 仓颉
 ```
 
 ### static func join(Array\<String>, String)
@@ -6001,6 +6443,27 @@ public static unsafe func withRawData(rawData: Array<UInt8>): String
 异常：
 
 - [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当试图构造长度超过 [UInt32 的最大值](./core_package_intrinsics.md#uint32) 的字符串时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建一个UTF-8编码的字节数组，表示"仓颉"
+    let utf8Bytes: Array<UInt8> = [228, 187, 147, 233, 162, 137]
+
+    // 使用withRawData函数创建字符串
+    let str = unsafe { String.withRawData(utf8Bytes) }
+
+    println("结果: ${str}")
+}
+```
+
+运行结果：
+
+```text
+结果: 仓颉
+```
 
 ### func clone()
 

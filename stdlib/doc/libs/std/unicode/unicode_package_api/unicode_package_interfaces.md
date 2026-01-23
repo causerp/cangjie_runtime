@@ -1125,7 +1125,7 @@ public func trimLeft(): String
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果字符串中不存在有效的 UTF-8 编码，抛出异常。
 
 示例：
-
+<!-- verify -->
 ```cangjie
 import std.unicode.*
 
@@ -1162,7 +1162,7 @@ public func trimRight(): String
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果字符串中不存在有效的 UTF-8 编码，抛出异常。
 
 示例：
-
+<!-- verify -->
 ```cangjie
 import std.unicode.*
 

@@ -11,3 +11,30 @@ public type SignalHandlerFunc = (Int32) -> Bool
 > **注意：**
 >
 > 不支持平台：Windows。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.runtime.*
+
+func signalHandler(sigValue: Int32): Bool {
+    println("signalHandler 接收到信号: ${sigValue}")
+    let stop: Bool = false
+    println("signalHandler 是否停止后续？${stop}")
+    return stop
+}
+
+main() {
+    let isSignalHandlerFunc = {_: Int32 => return true} is SignalHandlerFunc
+    println("是否是信号处理函数: ${isSignalHandlerFunc}")
+    println("是否是信号处理函数: ${signalHandler is SignalHandlerFunc}")
+}
+```
+
+可能的运行结果：
+
+```text
+是否是信号处理函数: true
+是否是信号处理函数: true
+```

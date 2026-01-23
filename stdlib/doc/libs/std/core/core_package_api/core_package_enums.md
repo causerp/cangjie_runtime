@@ -1164,3 +1164,20 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 创建Ordering实例
+    let t = ThreadState.Running
+    println("Thread State: ${t}")
+}
+```
+
+运行结果：
+
+```text
+Thread State: Running
+```

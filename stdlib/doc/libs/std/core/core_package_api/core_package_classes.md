@@ -4212,6 +4212,28 @@ public let id: Int64
 
 类型：[Int64](core_package_intrinsics.md#int64)
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 获取当前线程的快照
+    let threadSnapshot = ThreadSnapshot.dumpCurrentThread()
+
+    // 访问id字段
+    let threadId = threadSnapshot.id
+    println("线程ID: ${threadId}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程ID: 1
+```
+
 ### let name
 
 ```cangjie
@@ -4221,6 +4243,32 @@ public let name: String
 功能：获取线程的名称。
 
 类型：[String](core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main(): Int64 {
+    // 获取当前线程并设置名称
+    let currentThread = Thread.currentThread
+    currentThread.name = "MainThread"
+
+    // 获取当前线程的快照
+    let threadSnapshot = ThreadSnapshot.dumpCurrentThread()
+
+    // 访问name字段
+    let threadName = threadSnapshot.name
+    println("线程名称: ${threadName}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程名称: MainThread
+```
 
 ### let stackTrace
 
@@ -4232,6 +4280,28 @@ public let stackTrace: Array<StackTraceElement>
 
 类型：[Array](core_package_structs.md#struct-arrayt)\<[StackTraceElement](core_package_classes.md#class-stacktraceelement)>
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 获取当前线程的快照
+    let threadSnapshot = ThreadSnapshot.dumpCurrentThread()
+
+    // 访问stackTrace字段
+    let trace = threadSnapshot.stackTrace
+    println("调用栈大小: ${trace.size}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+调用栈大小: 2
+```
+
 ### let state
 
 ```cangjie
@@ -4241,6 +4311,28 @@ public let state: ThreadState
 功能：获取线程的状态。
 
 类型：[ThreadState](core_package_enums.md#enum-threadstate)
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 获取当前线程的快照
+    let threadSnapshot = ThreadSnapshot.dumpCurrentThread()
+
+    // 访问state字段
+    let threadState = threadSnapshot.state
+    println("线程状态: ${threadState}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+线程状态: Running
+```
 
 ### func dumpAllThreads()
 
@@ -4257,7 +4349,6 @@ public static func dumpAllThreads(): Array<ThreadSnapshot>
 示例：
 
 <!-- run -->
-
 ```cangjie
 main(): Unit {
     /* 创建一个线程 */
@@ -4310,7 +4401,6 @@ public static func dumpCurrentThread(): ThreadSnapshot
 示例：
 
 <!-- run -->
-
 ```cangjie
 main(): Unit {
     /* 获取当前线程信息 */
@@ -4320,7 +4410,7 @@ main(): Unit {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
@@ -4340,3 +4430,28 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转换后的字符串。
+
+示例：
+
+<!-- run -->
+```cangjie
+main() {
+    // 获取当前线程的快照
+    let threadSnapshot = ThreadSnapshot.dumpCurrentThread()
+
+    // 调用toString方法
+    let str = threadSnapshot.toString()
+    println("线程快照字符串表示: ${str}")
+
+    return 0
+}
+```
+
+可能的运行结果：
+
+```text
+线程快照字符串表示: ThreadSnapshot(id=1, name=, state=Running)
+stack trace:
+         at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:181)
+         at default.main()(test_threadsnapshot_tostring.cj:3)
+```
