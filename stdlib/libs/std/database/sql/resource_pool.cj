@@ -23,7 +23,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     var entryCount: Int32
     var isclosed = AtomicBool(false)
 
-    public init(options: Options<T>) {
+    init(options: Options<T>) {
         this.options = options
         entryQueue = LinkedBlockingQueue<Entry<T>>(Int64(options.maxSize))
         idleEntry = BlockingQueue<Entry<T>>(Int64(options.maxSize))
