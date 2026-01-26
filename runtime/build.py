@@ -325,6 +325,9 @@ def do_install(args):
         build_dir = os.path.join(script_path, "CMakebuild")
         os.makedirs(build_dir, exist_ok=True)
         os.chdir(build_dir)
+        macos_flag = 1 if platform.system().lower() == 'darwin' else 0
+        if macos_flag:
+            os.environ["ZERO_AR_DATE"] = "1"
         if args.prefix == "":
             subprocess.run(["cmake", "-P", "cmake_install.cmake"], check=True)
         else:

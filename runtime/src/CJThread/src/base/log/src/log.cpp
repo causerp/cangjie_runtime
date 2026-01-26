@@ -113,8 +113,13 @@ void HiLogWrite(RTLogLevel level, const char *fmt, ...)
         va_list alist;
         char output[LOG_BUF_SIZE];
         va_start(alist, fmt);
-        (void)vsnprintf_s(output, LOG_BUF_SIZE, LOG_BUF_SIZE - 1, fmt, alist);
+        int ret = vsnprintf_s(output, LOG_BUF_SIZE, LOG_BUF_SIZE - 1, fmt, alist);
         va_end(alist);
+        if (ret < 0) {
+            printf("HiLogWrite failed: %d\n", errno);
+            printf("%s\r\n", output);
+            return;
+        }
         printf("%s\r\n", output);
     }
 #endif
