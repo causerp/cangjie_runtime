@@ -1663,6 +1663,10 @@ public init(inputs: Tokens)
 
 - inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [CallExpr](ast_package_classes.md#class-callexpr) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
 
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [CallExpr](ast_package_classes.md#class-callexpr) 节点时，抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -1683,10 +1687,6 @@ main(): Unit {
 ```text
 callExpr.toTokens(): foo(10, "hello")
 ```
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [CallExpr](ast_package_classes.md#class-callexpr) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -1886,6 +1886,10 @@ public init(inputs: Tokens)
 
 - inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [ClassDecl](ast_package_classes.md#class-classdecl) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
 
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ClassDecl](ast_package_classes.md#class-classdecl) 节点时，抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -1907,10 +1911,6 @@ main(): Unit {
 classDecl.toTokens(): class MyClass {
 }
 ```
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [ClassDecl](ast_package_classes.md#class-classdecl) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -3061,6 +3061,10 @@ public init(inputs: Tokens)
 
 - inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [DoWhileExpr](ast_package_classes.md#class-dowhileexpr) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
 
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [DoWhileExpr](ast_package_classes.md#class-dowhileexpr) 节点时，抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -3083,10 +3087,6 @@ doWhileExpr.toTokens(): do {
 }
 while(true)
 ```
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [DoWhileExpr](ast_package_classes.md#class-dowhileexpr) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -3590,6 +3590,10 @@ public init(inputs: Tokens)
 
 - inputs: [Tokens](ast_package_classes.md#class-tokens) - 将要构造 [EnumPattern](ast_package_classes.md#class-enumpattern) 类型的词法单元集合 ([Tokens](ast_package_classes.md#class-tokens))。
 
+异常：
+
+- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [EnumPattern](ast_package_classes.md#class-enumpattern) 节点时，抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -3610,10 +3614,6 @@ main(): Unit {
 ```text
 enumPattern.toTokens(): Point(x, y)
 ```
-
-异常：
-
-- [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [EnumPattern](ast_package_classes.md#class-enumpattern) 节点时，抛出异常。
 
 ### func toTokens()
 
@@ -9322,6 +9322,8 @@ public init(inputs: Tokens)
 
 - [ASTException](ast_package_exceptions.md#class-astexception) - 当输入的 [Tokens](ast_package_classes.md#class-tokens) 类型无法构造为 [MacroExpandDecl](ast_package_classes.md#class-macroexpanddecl) 节点时，抛出异常。
 
+示例：
+
 <!-- verify -->
 ```cangjie
 import std.ast.*
@@ -9355,6 +9357,8 @@ public func toTokens(): Tokens
 
 - [Tokens](ast_package_classes.md#class-tokens) - 转化后的 [Tokens](ast_package_classes.md#class-tokens) 类型节点。
 
+示例：
+
 <!-- verify -->
 ```cangjie
 import std.ast.*
@@ -9387,6 +9391,8 @@ public func traverse(v: Visitor): Unit
 参数：
 
 - v: [Visitor](ast_package_classes.md#class-visitor) - [Visitor](ast_package_classes.md#class-visitor) 类型的实例。
+
+示例：
 
 <!-- verify -->
 ```cangjie
@@ -13073,7 +13079,7 @@ main(): Unit {
     let primaryCtorDecl = PrimaryCtorDecl()
     
     // 设置 PrimaryCtorDecl 的属性
-    primaryCtorDecl.identifier = quote(ctor)[0]
+    primaryCtorDecl.identifier = quote(Ctor)[0]
     primaryCtorDecl.lParen = Token(TokenKind.LPAREN)
     primaryCtorDecl.rParen = Token(TokenKind.RPAREN)
 
@@ -13095,7 +13101,7 @@ main(): Unit {
 运行结果：
 
 ```text
-primaryCtorDecl.toTokens(): ctor(x: Int8) {
+primaryCtorDecl.toTokens(): Ctor(x: Int8) {
 }
 ```
 
@@ -13231,7 +13237,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
-    let primaryCtorDecl = PrimaryCtorDecl(quote(ctor(x: Int8) { super(x) }))
+    let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
     
     // 使用自定义访问器遍历 PrimaryCtorDecl 节点
     primaryCtorDecl.traverse(MyVisitor())
@@ -23333,7 +23339,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
-    let primaryCtorDecl = PrimaryCtorDecl(quote(ctor(x: Int8) { super(x) }))
+    let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
     
     // 创建自定义访问器
     let visitor = MyVisitor()
