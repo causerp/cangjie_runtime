@@ -664,7 +664,6 @@ func createConstructorWithAt(decl: Decl): Constructor {
     var annos: ArrayList<Annotation> = ArrayList<Annotation>()
     var ident = decl.identifier
     var lParen = Token(TokenKind.LPAREN)
-    var params_: ArrayList<TypeNode> = ArrayList<TypeNode>()
     let commas = Tokens()
     var params = ArrayList<TypeNode>()
     var rParen = Token(TokenKind.RPAREN)

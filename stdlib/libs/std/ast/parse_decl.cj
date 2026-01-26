@@ -376,10 +376,6 @@ func createMacroExpandParam(decl: NodeFormat_Decl): Decl {
         case Some(v) => v
         case None => throw ParseASTException()
     }
-    let fp =  match (pm.GetBase()) {
-        case Some(v) => v
-        case None => throw ParseASTException()
-    }
     return match (createMacroExpand(pm.GetInvocation(), isDecl: false, isFuncParam: true) as FuncParam) {
         case Some(v) => v
         case None => throw ParseASTException("Failed to create MacroExpandParam Node")
