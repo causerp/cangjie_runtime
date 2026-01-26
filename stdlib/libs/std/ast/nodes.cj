@@ -35,7 +35,9 @@ abstract sealed class Node <: ToTokens {
     }
     public func toTokens(): Tokens
 
-    public func traverse(v: Visitor): Unit
+    public open func traverse(v: Visitor): Unit {
+        v.visit(this)
+    }
 
     public func dump(): Unit {
         beginNode = true
@@ -169,6 +171,7 @@ public class Annotation <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         match (this.cond_) {
             case Some(node) => node.traverse(v)
             case _ => ()
@@ -226,6 +229,7 @@ public class Modifier <: Node {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -299,6 +303,7 @@ public class GenericParam <: Node {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -401,6 +406,7 @@ public class GenericConstraint <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         ty_.traverse(v)
         for (upb in upperBounds_) {
             upb.traverse(v)
@@ -499,6 +505,7 @@ public class Body <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (decl in decls_) {
             decl.traverse(v)
         }
@@ -607,6 +614,7 @@ public class Argument <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -768,6 +776,7 @@ public class MatchCase <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         match (expr_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -902,6 +911,7 @@ public class Program <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         ftrDirective_.traverse(v)
         pkgHeader_.traverse(v)
         for (im in importLists_) {
@@ -983,6 +993,7 @@ public class FeatureId <: Node {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -1080,6 +1091,7 @@ public class FeaturesDirective <: Node {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         for (fc in content_) {
             fc.traverse(v)
         }
@@ -1222,6 +1234,7 @@ public class PackageHeader <: Node {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -1442,6 +1455,7 @@ public class ImportContent <: Node {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -1544,6 +1558,7 @@ public class ImportList <: Node {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -1668,6 +1683,7 @@ public class Constructor <: Node {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (anno in annotations_) {
             anno.traverse(v)
         }
