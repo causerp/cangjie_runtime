@@ -410,7 +410,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
      *
      * @return the annotation if exactly one exists; otherwise None.
      */
-    public func findAllAnnotation<T>(): ?T where T <: Annotation {
+    public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
     }
 
