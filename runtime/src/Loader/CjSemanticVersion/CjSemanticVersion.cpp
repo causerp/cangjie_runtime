@@ -80,7 +80,7 @@ SemanticVersionInfo::SemanticVersionInfo(CString& version)
     CString coreVersion;
     int dashPos = version.Find('-');
     int plusPos = version.Find('+');
-    int endPos = version.Length() - 1;
+    int endPos = static_cast<int>(version.Length() - 1);
     if (dashPos == endPos || plusPos == endPos) {
         LOG(RTLOG_ERROR, "The version %s is incorrect.", version.Str());
         return;
