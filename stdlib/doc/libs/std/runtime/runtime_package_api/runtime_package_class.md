@@ -16,10 +16,6 @@ public class Signal {
 
 功能：信号类，用于向操作系统、其他进程或进程自身传递事件的通知。
 
-父类型：
-
-- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-
 > **注意：**
 >
 > 不支持平台：Windows。
