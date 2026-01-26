@@ -12,6 +12,7 @@ public interface ToBytes {
     func toBytes(): Array<UInt8>
 }
 
+@OverflowWrapping
 func castUInt32ToBytes(v: UInt32): Array<UInt8> {
     var b: Array<UInt8> = Array<UInt8>(4, repeat: 0)
     /* NOTE: little-endian */
