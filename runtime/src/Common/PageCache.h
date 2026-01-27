@@ -8,13 +8,14 @@
 #ifndef MRT_PAGE_CACHE_H
 #define MRT_PAGE_CACHE_H
 
+#include "Base/ImmortalWrapper.h"
 #include "MemCommon.h"
 
 namespace MapleRuntime {
 class PageCache {
 public:
     // Return the singleton object of PageCache
-    static PageCache* GetInstance() { return &instance; }
+    static PageCache* GetInstance() { return &*instance; }
 
     // Get a k-page Span
     Span* NewSpan(size_t k);
@@ -28,6 +29,7 @@ public:
     void ReleaseSpanToPageCache(Span* span);
 
 private:
+    friend class ImmortalWrapper<PageCache>;
     std::mutex pageMtx;
     SpanList pageCacheSpans[MAX_NPAGES];
     std::unordered_map<pageID, Span*> idSpanMap; // The mapping between page numbers and span objects.
@@ -38,7 +40,7 @@ private:
     PageCache(const PageCache&) = delete;
     PageCache& operator=(const PageCache&) = delete;
 
-    static PageCache instance;
+    static ImmortalWrapper<PageCache> instance;
 };
 
 class ScopedPageCacheMutex {
