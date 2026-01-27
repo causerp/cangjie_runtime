@@ -26,20 +26,20 @@ public interface MaxMinValue<T> {
 }
 
 public interface Number<T> {
-    operator func +(rhs: T): T
-    operator func -(rhs: T): T
-    operator func *(rhs: T): T
-    operator func /(rhs: T): T
+    operator func +(other: T): T
+    operator func -(other: T): T
+    operator func *(other: T): T
+    operator func /(other: T): T
     operator func -(): T
 }
 
 public interface Integer<T> <: Number<T> {
     static func isSigned(): Bool
 
-    operator func %(rhs: T): T
-    operator func &(rhs: T): T
-    operator func |(rhs: T): T
-    operator func ^(rhs: T): T
+    operator func %(other: T): T
+    operator func &(other: T): T
+    operator func |(other: T): T
+    operator func ^(other: T): T
     operator func !(): T
     operator func >>(n: Int64): T
     operator func <<(n: Int64): T

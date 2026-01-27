@@ -564,11 +564,11 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 extend<T> HashSet<T> <: Equatable<HashSet<T>> {
     /** overloaded determination equal function. */
     @Frozen
-    public operator func ==(that: HashSet<T>): Bool {
-        if (this.size != that.size) {
+    public operator func ==(other: HashSet<T>): Bool {
+        if (this.size != other.size) {
             return false
         }
-        for (key in that where !this.contains(key)) {
+        for (key in other where !this.contains(key)) {
             return false
         }
         return true
@@ -576,8 +576,8 @@ extend<T> HashSet<T> <: Equatable<HashSet<T>> {
 
     /** overloaded determination unequal function. */
     @Frozen
-    public operator func !=(that: HashSet<T>): Bool {
-        return !(this == that)
+    public operator func !=(other: HashSet<T>): Bool {
+        return !(this == other)
     }
 }
 

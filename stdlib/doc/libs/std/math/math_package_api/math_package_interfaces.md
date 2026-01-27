@@ -387,10 +387,10 @@ public static func getNaN(): Float64
 ```cangjie
 public interface Integer<T> <: Number<T> {
     static func isSigned(): Bool
-    operator func %(rhs: T): T
-    operator func &(rhs: T): T
-    operator func |(rhs: T): T
-    operator func ^(rhs: T): T
+    operator func %(other: T): T
+    operator func &(other: T): T
+    operator func |(other: T): T
+    operator func ^(other: T): T
     operator func !(): T
     operator func >>(n: Int64): T
     operator func <<(n: Int64): T
@@ -418,14 +418,14 @@ static func isSigned(): Bool
 ### operator func %(T)
 
 ```cangjie
-operator func %(rhs: T): T
+operator func %(other: T): T
 ```
 
 功能：算术运算符，计算余数。
 
 参数：
 
-- rhs: T - 运算符右边的数，表示除数。
+- other: T - 运算符右边的数，表示除数。
 
 返回值：
 
@@ -434,14 +434,14 @@ operator func %(rhs: T): T
 ### operator func &(T)
 
 ```cangjie
-operator func &(rhs: T): T
+operator func &(other: T): T
 ```
 
 功能：位运算符，按位与。
 
 参数：
 
-- rhs: T - 运算符右边的数。
+- other: T - 运算符右边的数。
 
 返回值：
 
@@ -450,14 +450,14 @@ operator func &(rhs: T): T
 ### operator func |(T)
 
 ```cangjie
-operator func |(rhs: T): T
+operator func |(other: T): T
 ```
 
 功能：位运算符，按位或。
 
 参数：
 
-- rhs: T - 运算符右边的数。
+- other: T - 运算符右边的数。
 
 返回值：
 
@@ -466,14 +466,14 @@ operator func |(rhs: T): T
 ### operator func ^(T)
 
 ```cangjie
-operator func ^(rhs: T): T
+operator func ^(other: T): T
 ```
 
 功能：位运算符，按位异或。
 
 参数：
 
-- rhs: T - 运算符右边的数。
+- other: T - 运算符右边的数。
 
 返回值：
 
@@ -1417,10 +1417,10 @@ public static func getMin(): UIntNative
 
 ```cangjie
 public interface Number<T> {
-    operator func +(rhs: T): T
-    operator func -(rhs: T): T
-    operator func *(rhs: T): T
-    operator func /(rhs: T): T
+    operator func +(other: T): T
+    operator func -(other: T): T
+    operator func *(other: T): T
+    operator func /(other: T): T
     operator func -(): T
 }
 ```
@@ -1430,14 +1430,14 @@ public interface Number<T> {
 ### operator func +(T)
 
 ```cangjie
-operator func +(rhs: T): T
+operator func +(other: T): T
 ```
 
 功能：算术运算符，计算加法。
 
 参数：
 
-- rhs: T - 运算符右边的数，表示另一个加数。
+- other: T - 运算符右边的数，表示另一个加数。
 
 返回值：
 
@@ -1446,14 +1446,14 @@ operator func +(rhs: T): T
 ### operator func -(T)
 
 ```cangjie
-operator func -(rhs: T): T
+operator func -(other: T): T
 ```
 
 功能：算术运算符，计算减法。
 
 参数：
 
-- rhs: T - 运算符右边的数，表示减数。
+- other: T - 运算符右边的数，表示减数。
 
 返回值：
 
@@ -1462,14 +1462,14 @@ operator func -(rhs: T): T
 ### operator func *(T)
 
 ```cangjie
-operator func *(rhs: T): T
+operator func *(other: T): T
 ```
 
 功能：算术运算符，计算乘法。
 
 参数：
 
-- rhs: T - 运算符右边的数，表示另一个乘数。
+- other: T - 运算符右边的数，表示另一个乘数。
 
 返回值：
 
@@ -1478,14 +1478,14 @@ operator func *(rhs: T): T
 ### operator func /(T)
 
 ```cangjie
-operator func /(rhs: T): T
+operator func /(other: T): T
 ```
 
 功能：算术运算符，计算除法。
 
 参数：
 
-- rhs: T - 运算符右边的数，表示除数。
+- other: T - 运算符右边的数，表示除数。
 
 返回值：
 

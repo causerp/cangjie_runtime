@@ -59,8 +59,8 @@ public enum ModifierInfo <: Equatable<ModifierInfo> & Hashable & ToString {
         (mask & finalMask) == 0
     }
 
-    public override operator func == (that: ModifierInfo): Bool {
-        match ((this, that)) {
+    public override operator func ==(other: ModifierInfo): Bool {
+        match ((this, other)) {
             case (Open, Open) => true
             case (Override, Override) => true
             case (Redef, Redef) => true
@@ -72,8 +72,8 @@ public enum ModifierInfo <: Equatable<ModifierInfo> & Hashable & ToString {
         }
     }
 
-    public override operator func != (that: ModifierInfo): Bool {
-        return !(this == that)
+    public override operator func !=(other: ModifierInfo): Bool {
+        return !(this == other)
     }
 
     public func hashCode(): Int64 {

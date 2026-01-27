@@ -1125,7 +1125,7 @@ extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T>
 #### operator func ==(ArrayList\<T>)
 
 ```cangjie
-public operator func ==(that: ArrayList<T>): Bool
+public operator func ==(other: ArrayList<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否相等。
@@ -1134,7 +1134,7 @@ public operator func ==(that: ArrayList<T>): Bool
 
 参数：
 
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
+- other: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
 
 返回值：
 
@@ -1143,14 +1143,14 @@ public operator func ==(that: ArrayList<T>): Bool
 #### operator func !=(ArrayList\<T>)
 
 ```cangjie
-public operator func !=(that: ArrayList<T>): Bool
+public operator func !=(other: ArrayList<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否不等。
 
 参数：
 
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
+- other: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
 
 返回值：
 
@@ -2955,7 +2955,7 @@ extend<T> HashSet<T> <: Equatable<HashSet<T>>
 #### operator func ==(HashSet\<T>)
 
 ```cangjie
-public operator func ==(that: HashSet<T>): Bool
+public operator func ==(other: HashSet<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否相等。
@@ -2964,7 +2964,7 @@ public operator func ==(that: HashSet<T>): Bool
 
 参数：
 
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
+- other: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
 
 返回值：
 
@@ -2973,14 +2973,14 @@ public operator func ==(that: HashSet<T>): Bool
 #### operator func !=(HashSet\<T>)
 
 ```cangjie
-public operator func !=(that: HashSet<T>): Bool
+public operator func !=(other: HashSet<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否不等。
 
 参数：
 
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
+- other: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
 
 返回值：
 
@@ -5167,7 +5167,7 @@ extend<T> TreeSet<T> <: Equatable<TreeSet<T>>
 #### operator func ==(TreeSet\<T>)
 
 ```cangjie
-public operator func ==(that: TreeSet<T>): Bool
+public operator func ==(other: TreeSet<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否相等。
@@ -5176,7 +5176,7 @@ public operator func ==(that: TreeSet<T>): Bool
 
 参数：
 
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
+- other: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
 
 返回值：
 
@@ -5185,14 +5185,14 @@ public operator func ==(that: TreeSet<T>): Bool
 #### operator func !=(TreeSet\<T>)
 
 ```cangjie
-public operator func !=(that: TreeSet<T>): Bool
+public operator func !=(other: TreeSet<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否不等。
 
 参数：
 
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
+- other: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
 
 返回值：
 

@@ -1455,14 +1455,14 @@ public func trimStart(predicate: (T)->Bool): Array<T>
 #### operator func !=(Array\<T>)
 
 ```cangjie
-public operator const func !=(that: Array<T>): Bool
+public operator const func !=(other: Array<T>): Bool
 ```
 
 功能：判断当前实例与指定 [Array](core_package_structs.md#struct-arrayt)\<T> 实例是否不等。
 
 参数：
 
-- that: [Array](core_package_structs.md#struct-arrayt)\<T> - 用于与当前实例比较的另一个 [Array](core_package_structs.md#struct-arrayt)\<T> 实例。
+- other: [Array](core_package_structs.md#struct-arrayt)\<T> - 用于与当前实例比较的另一个 [Array](core_package_structs.md#struct-arrayt)\<T> 实例。
 
 返回值：
 
@@ -1471,7 +1471,7 @@ public operator const func !=(that: Array<T>): Bool
 #### operator func ==(Array\<T>)
 
 ```cangjie
-public operator const func ==(that: Array<T>): Bool
+public operator const func ==(other: Array<T>): Bool
 ```
 
 功能：判断当前实例与指定 [Array](core_package_structs.md#struct-arrayt)\<T> 实例是否相等。
@@ -1480,7 +1480,7 @@ public operator const func ==(that: Array<T>): Bool
 
 参数：
 
-- that: [Array](core_package_structs.md#struct-arrayt)\<T> - 用于与当前实例比较的另一个 [Array](core_package_structs.md#struct-arrayt)\<T> 实例。
+- other: [Array](core_package_structs.md#struct-arrayt)\<T> - 用于与当前实例比较的另一个 [Array](core_package_structs.md#struct-arrayt)\<T> 实例。
 
 返回值：
 
@@ -2066,18 +2066,18 @@ public func abs(): Duration
 ### func compare(Duration)
 
 ```cangjie
-public func compare(rhs: Duration): Ordering
+public func compare(divisor: Duration): Ordering
 ```
 
 功能：比较当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个 [Duration](core_package_structs.md#struct-duration) 实例的关系，如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT。
 
 参数：
 
-- rhs: [Duration](core_package_structs.md#struct-duration) - 参与比较的 [Duration](core_package_structs.md#struct-duration) 实例。
+- divisor: [Duration](core_package_structs.md#struct-duration) - 参与比较的 [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
-- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 当前 [Duration](core_package_structs.md#struct-duration) 实例与 `rhs` 的大小关系。
+- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个实例的大小关系。
 
 ### func hashCode()
 
@@ -2202,14 +2202,14 @@ public func toString(): String
 ### operator func !=(Duration)
 
 ```cangjie
-public operator func !=(r: Duration): Bool
+public operator func !=(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否不等于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2218,14 +2218,14 @@ public operator func !=(r: Duration): Bool
 ### operator func *(Float64)
 
 ```cangjie
-public operator func *(r: Float64): Duration
+public operator func *(multiplier: Float64): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型与 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的乘法，即 [Duration](core_package_structs.md#struct-duration) * [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 运算。
 
 参数：
 
-- r: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 乘法的右操作数。
+- multiplier: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 乘法的右操作数。
 
 返回值：
 
@@ -2238,14 +2238,14 @@ public operator func *(r: Float64): Duration
 ### operator func *(Int64)
 
 ```cangjie
-public operator func *(r: Int64): Duration
+public operator func *(multiplier: Int64): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型与 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的乘法，即 [Duration](core_package_structs.md#struct-duration) * [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 运算。
 
 参数：
 
-- r: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 乘法的右操作数。
+- multiplier: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 乘法的右操作数。
 
 返回值：
 
@@ -2258,14 +2258,14 @@ public operator func *(r: Int64): Duration
 ### operator func +(Duration)
 
 ```cangjie
-public operator func +(r: Duration): Duration
+public operator func +(other: Duration): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型之间的加法，即 [Duration](core_package_structs.md#struct-duration) + [Duration](core_package_structs.md#struct-duration) 运算。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - 加法的右操作数。
+- other: [Duration](core_package_structs.md#struct-duration) - 加法的右操作数。
 
 返回值：
 
@@ -2278,14 +2278,14 @@ public operator func +(r: Duration): Duration
 ### operator func -(Duration)
 
 ```cangjie
-public operator func -(r: Duration): Duration
+public operator func -(other: Duration): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型之间的减法，即 [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 运算。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - 减法的右操作数。
+- other: [Duration](core_package_structs.md#struct-duration) - 减法的右操作数。
 
 返回值：
 
@@ -2298,14 +2298,14 @@ public operator func -(r: Duration): Duration
 ### operator func /(Duration)
 
 ```cangjie
-public operator func /(r: Duration): Float64
+public operator func /(other: Duration): Float64
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型与 [Duration](core_package_structs.md#struct-duration) 类型的除法，即 [Duration](core_package_structs.md#struct-duration) / [Duration](core_package_structs.md#struct-duration) 运算。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - 除数。
+- other: [Duration](core_package_structs.md#struct-duration) - 除数。
 
 返回值：
 
@@ -2318,14 +2318,14 @@ public operator func /(r: Duration): Float64
 ### operator func /(Float64)
 
 ```cangjie
-public operator func /(r: Float64): Duration
+public operator func /(divisor: Float64): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型与 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 类型的除法，即 [Duration](core_package_structs.md#struct-duration) / [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 运算。
 
 参数：
 
-- r: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 除数。
+- divisor: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 除数。
 
 返回值：
 
@@ -2339,14 +2339,14 @@ public operator func /(r: Float64): Duration
 ### operator func /(Int64)
 
 ```cangjie
-public operator func /(r: Int64): Duration
+public operator func /(divisor: Int64): Duration
 ```
 
 功能：实现 [Duration](core_package_structs.md#struct-duration) 类型与 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的除法，即 [Duration](core_package_structs.md#struct-duration) / [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 运算。
 
 参数：
 
-- r: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 除数。
+- divisor: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 除数。
 
 返回值：
 
@@ -2360,14 +2360,14 @@ public operator func /(r: Int64): Duration
 ### operator func <(Duration)
 
 ```cangjie
-public operator func <(r: Duration): Bool
+public operator func <(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2376,14 +2376,14 @@ public operator func <(r: Duration): Bool
 ### operator func <=(Duration)
 
 ```cangjie
-public operator func <=(r: Duration): Bool
+public operator func <=(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否小于等于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2392,14 +2392,14 @@ public operator func <=(r: Duration): Bool
 ### operator func ==(Duration)
 
 ```cangjie
-public operator func ==(r: Duration): Bool
+public operator func ==(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否等于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2408,14 +2408,14 @@ public operator func ==(r: Duration): Bool
 ### operator func >(Duration)
 
 ```cangjie
-public operator func >(r: Duration): Bool
+public operator func >(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2424,14 +2424,14 @@ public operator func >(r: Duration): Bool
 ### operator func >=(Duration)
 
 ```cangjie
-public operator func >=(r: Duration): Bool
+public operator func >=(other: Duration): Bool
 ```
 
 功能：判断当前 [Duration](core_package_structs.md#struct-duration) 实例是否大于等于 `r`。
 
 参数：
 
-- r: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
@@ -2699,7 +2699,7 @@ extend<T> Range<T> <: Equatable<Range<T>> where T <: Countable<T> & Comparable<T
 #### operator func ==(Range\<T>)
 
 ```cangjie
-public operator func ==(that: Range<T>): Bool
+public operator func ==(other: Range<T>): Bool
 ```
 
 功能：判断两个 [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 实例是否相等。
@@ -2708,7 +2708,7 @@ public operator func ==(that: Range<T>): Bool
 
 参数：
 
-- that: [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T> - 待比较的 [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 实例。
+- other: [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<T> - 待比较的 [Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 实例。
 
 返回值：
 
@@ -3035,14 +3035,14 @@ public func endsWith(suffix: String): Bool
 ### func equalsIgnoreAsciiCase(String): Bool
 
 ```cangjie
-public func equalsIgnoreAsciiCase(that: String): Bool
+public func equalsIgnoreAsciiCase(other: String): Bool
 ```
 
 功能：判断当前字符串和指定字符串是否相等，忽略大小写。
 
 参数：
 
-- that: [String](./core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](./core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 
@@ -3852,14 +3852,14 @@ public func trimStart(set: String): String
 ### operator func !=(String)
 
 ```cangjie
-public operator const func !=(right: String): Bool
+public operator const func !=(other: String): Bool
 ```
 
 功能：判断两个字符串是否不相等。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的 [String](core_package_structs.md#struct-string) 实例。
+- other: [String](core_package_structs.md#struct-string) - 待比较的 [String](core_package_structs.md#struct-string) 实例。
 
 返回值：
 
@@ -3888,14 +3888,14 @@ public operator const func *(count: Int64): String
 ### operator func +(String)
 
 ```cangjie
-public operator const func +(right: String): String
+public operator const func +(other: String): String
 ```
 
 功能：两个字符串相加，将 right 字符串拼接在原字符串的末尾。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待追加的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待追加的字符串。
 
 返回值：
 
@@ -3908,14 +3908,14 @@ public operator const func +(right: String): String
 ### operator func <(String)
 
 ```cangjie
-public operator const func <(right: String): Bool
+public operator const func <(other: String): Bool
 ```
 
 功能：判断两个字符串大小。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 
@@ -3924,14 +3924,14 @@ public operator const func <(right: String): Bool
 ### operator func <=(String)
 
 ```cangjie
-public operator const func <=(right: String): Bool
+public operator const func <=(other: String): Bool
 ```
 
 功能：判断两个字符串大小。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 
@@ -3940,14 +3940,14 @@ public operator const func <=(right: String): Bool
 ### operator func ==(String)
 
 ```cangjie
-public operator const func ==(right: String): Bool
+public operator const func ==(other: String): Bool
 ```
 
 功能：判断两个字符串是否相等。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 
@@ -3956,14 +3956,14 @@ public operator const func ==(right: String): Bool
 ### operator func >(String)
 
 ```cangjie
-public operator const func >(right: String): Bool
+public operator const func >(other: String): Bool
 ```
 
 功能：判断两个字符串大小。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 
@@ -3972,14 +3972,14 @@ public operator const func >(right: String): Bool
 ### operator func >=(String)
 
 ```cangjie
-public operator const func >=(right: String): Bool
+public operator const func >=(other: String): Bool
 ```
 
 功能：判断两个字符串大小。
 
 参数：
 
-- right: [String](core_package_structs.md#struct-string) - 待比较的字符串。
+- other: [String](core_package_structs.md#struct-string) - 待比较的字符串。
 
 返回值：
 

@@ -22,37 +22,37 @@ extend<T> Box<T> <: Hashable where T <: Hashable {
 }
 
 extend<T> Box<T> <: Comparable<Box<T>> where T <: Comparable<T> {
-    public operator func ==(that: Box<T>): Bool {
-        return this.value == that.value
+    public operator func ==(other: Box<T>): Bool {
+        return this.value == other.value
     }
-    public operator func !=(that: Box<T>): Bool {
-        return this.value != that.value
+    public operator func !=(other: Box<T>): Bool {
+        return this.value != other.value
     }
-    public operator func >(that: Box<T>): Bool {
-        return this.value > that.value
+    public operator func >(other: Box<T>): Bool {
+        return this.value > other.value
     }
-    public operator func <(that: Box<T>): Bool {
-        return this.value < that.value
+    public operator func <(other: Box<T>): Bool {
+        return this.value < other.value
     }
-    public operator func >=(that: Box<T>): Bool {
-        return this.value >= that.value
+    public operator func >=(other: Box<T>): Bool {
+        return this.value >= other.value
     }
-    public operator func <=(that: Box<T>): Bool {
-        return this.value <= that.value
+    public operator func <=(other: Box<T>): Bool {
+        return this.value <= other.value
     }
 
     /**
      * Compare the relationship between two instance of Box<T>.
      *
-     * @param that Instance of Box<T> compared with this.
+     * @param other Instance of Box<T> compared with this.
      * @return Value indicating the relationship between two instance of Box<T>.
      *
      * @since 0.27.3
      */
-    public func compare(that: Box<T>): Ordering {
+    public func compare(other: Box<T>): Ordering {
         match {
-            case this.value < that.value => Ordering.LT
-            case this.value > that.value => Ordering.GT
+            case this.value < other.value => Ordering.LT
+            case this.value > other.value => Ordering.GT
             case _ => Ordering.EQ
         }
     }

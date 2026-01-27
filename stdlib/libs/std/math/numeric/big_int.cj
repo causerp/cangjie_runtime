@@ -639,97 +639,97 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     }
 
     /**
-     * Return a BigInt, whose value is (this + @p that).
+     * Return a BigInt, whose value is (this + @p other).
      *
-     * @param that: the value to be added to this BigInt;
+     * @param other: the value to be added to this BigInt;
      *
-     * @return: the result of (this + @p that).
+     * @return: the result of (this + @p other).
      */
-    public operator func +(that: BigInt): BigInt {
+    public operator func +(other: BigInt): BigInt {
         if (this.sign == 0) {
-            return BigInt(that.int, that.intArr.clone(), that.negSign)
+            return BigInt(other.int, other.intArr.clone(), other.negSign)
         }
-        if (that.sign == 0) {
+        if (other.sign == 0) {
             return BigInt(this.int, this.intArr.clone(), this.negSign)
         }
-        if (this.sign == that.sign) {
-            let (int, intArr) = addAbs(this.int, this.intArr, that.int, that.intArr)
+        if (this.sign == other.sign) {
+            let (int, intArr) = addAbs(this.int, this.intArr, other.int, other.intArr)
             return BigInt(int, intArr, this.negSign)
         } else {
-            let (int, resultArr, isNeg) = subAbs(this.int, this.intArr, that.int, that.intArr, this.negSign)
+            let (int, resultArr, isNeg) = subAbs(this.int, this.intArr, other.int, other.intArr, this.negSign)
             return BigInt(int, resultArr, isNeg)
         }
     }
 
     /**
-     * Return a BigInt, whose value is (this - @p that).
+     * Return a BigInt, whose value is (this - @p other).
      *
-     * @param that: the value to be substracted from this BigInt;
+     * @param other: the value to be substracted from this BigInt;
      *
-     * @return: the result of (this - @p that).
+     * @return: the result of (this - @p other).
      */
-    public operator func -(that: BigInt): BigInt {
+    public operator func -(other: BigInt): BigInt {
         if (this.sign == 0) {
-            return -that
+            return -other
         }
-        if (that.sign == 0) {
+        if (other.sign == 0) {
             return BigInt(this.int, this.intArr.clone(), this.negSign)
         }
-        if (this.sign == that.sign) {
-            let (int, resultArr, isNeg) = subAbs(this.int, this.intArr, that.int, that.intArr, this.negSign)
+        if (this.sign == other.sign) {
+            let (int, resultArr, isNeg) = subAbs(this.int, this.intArr, other.int, other.intArr, this.negSign)
             return BigInt(int, resultArr, isNeg)
         } else {
-            let (int, intArr) = addAbs(this.int, this.intArr, that.int, that.intArr)
+            let (int, intArr) = addAbs(this.int, this.intArr, other.int, other.intArr)
             return BigInt(int, intArr, this.negSign)
         }
     }
 
     /**
-     * Return a BigInt, whose value is (this * @p that).
+     * Return a BigInt, whose value is (this * @p other).
      *
-     * @param that: the value to be multiplied by this BigInt;
+     * @param other: the value to be multiplied by this BigInt;
      *
-     * @return: the result of (this * @p that).
+     * @return: the result of (this * @p other).
      */
-    public operator func *(that: BigInt): BigInt {
-        if (this.sign == 0 || that.sign == 0) {
+    public operator func *(other: BigInt): BigInt {
+        if (this.sign == 0 || other.sign == 0) {
             return BigInt(0, EMPTY_ARRAY, false)
         }
-        let (rInt, rArr) = mul(this.int, this.intArr, that.int, that.intArr)
-        return BigInt(rInt, rArr, this.negSign != that.negSign)
+        let (rInt, rArr) = mul(this.int, this.intArr, other.int, other.intArr)
+        return BigInt(rInt, rArr, this.negSign != other.negSign)
     }
 
     /**
-     * Return a BigInt, whose value is (this / @p that).
+     * Return a BigInt, whose value is (this / @p other).
      * The result of the quotient is rounding towards zero.
      * For exampke, -7 divided by 2 is (-3.5), so the result is -3.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value other this BigInt is to be divided;
      *
-     * @return: the result of (this / @p that).
+     * @return: the result of (this / @p other).
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    public operator func /(that: BigInt): BigInt {
-        let (dInt, dArr, dNegSign) = div(that.int, that.intArr, that.negSign)
+    public operator func /(other: BigInt): BigInt {
+        let (dInt, dArr, dNegSign) = div(other.int, other.intArr, other.negSign)
         return BigInt(dInt, dArr, dNegSign)
     }
 
     /**
-     * Return a BigInt, whose value is (this % @p that).
+     * Return a BigInt, whose value is (this % @p other).
      * The result satisfies the following restrictions:
      * - If this BigInt is a positive, the result is non-negative;
      * - If this BigInt is a negative, the result is negative or zero.
      * For example, -7 / 2 = -3 --- (-1), so the result is -1.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value that this BigInt is to be divided;
      *
-     * @return: the result of (this % @p that).
+     * @return: the result of (this % @p other).
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    public operator func %(that: BigInt): BigInt {
-        let (mInt, mArr) = mod(int, intArr, that.int, that.intArr)
+    public operator func %(other: BigInt): BigInt {
+        let (mInt, mArr) = mod(int, intArr, other.int, other.intArr)
         let mNegSign = if (mInt == 0 && mArr.size == 0) {
             false
         } else {
@@ -739,99 +739,99 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     }
 
     /**
-     * Return a pair containing (this / @p that) and (this % @p that).
+     * Return a pair containing (this / @p other) and (this % @p other).
      * The result of the quotient is rounding towards zero.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value that this BigInt is to be divided;
      *
-     * @return: the pair containing (this / @p that) and (this % @p that).
+     * @return: the pair containing (this / @p other) and (this % @p other).
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    public func divAndMod(that: BigInt): (BigInt, BigInt) {
-        let (dInt, dArr, dNegSign, mInt, mArr, mNegSign) = privateDivAndMod(that.int, that.intArr, that.negSign)
+    public func divAndMod(other: BigInt): (BigInt, BigInt) {
+        let (dInt, dArr, dNegSign, mInt, mArr, mNegSign) = privateDivAndMod(other.int, other.intArr, other.negSign)
         return (BigInt(dInt, dArr, dNegSign), BigInt(mInt, mArr, mNegSign))
     }
 
     /**
-     * Return a BigInt, whose value equals to this BigInt divided by @p that.
+     * Return a BigInt, whose value equals to this BigInt divided by @p other.
      * The caculation follows Euclidean division.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value that this BigInt is to be divided;
      *
-     * @return: the quotient of this BigInt divided by @p that.
+     * @return: the quotient of this BigInt divided by @p other.
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    @Deprecated[message: "Use member function `public func divAndMod(that: BigInt): (BigInt, BigInt)` instead."]
-    public func quo(that: BigInt): BigInt {
-        let (dInt, dArr, dNegSign, mInt, mArr, _) = privateDivAndMod(that.int, that.intArr, that.negSign)
+    @Deprecated[message: "Use member function `public func divAndMod(other: BigInt): (BigInt, BigInt)` instead."]
+    public func quo(other: BigInt): BigInt {
+        let (dInt, dArr, dNegSign, mInt, mArr, _) = privateDivAndMod(other.int, other.intArr, other.negSign)
         if (sign == -1 && !(mInt == 0 && mArr.size == 0)) {
             let (qInt, qArr) = addOneAndOverSize(dInt, dArr)
-            return BigInt(qInt, qArr, negSign != that.negSign)
+            return BigInt(qInt, qArr, negSign != other.negSign)
         }
         return BigInt(dInt, dArr, dNegSign)
     }
 
     /**
-     * Return a BigInt, whose value equals to the reminder of this BigInt divided by @p that.
+     * Return a BigInt, whose value equals to the reminder of this BigInt divided by @p other.
      * The result is always non-negative.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value that this BigInt is to be divided;
      *
-     * @return: the reminder of this BigInt divided by @p that.
+     * @return: the reminder of this BigInt divided by @p other.
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    @Deprecated[message: "Use member function `public func divAndMod(that: BigInt): (BigInt, BigInt)` instead."]
-    public func rem(that: BigInt): BigInt {
-        let (mInt, mArr) = mod(int, intArr, that.int, that.intArr)
+    @Deprecated[message: "Use member function `public func divAndMod(other: BigInt): (BigInt, BigInt)` instead."]
+    public func rem(other: BigInt): BigInt {
+        let (mInt, mArr) = mod(int, intArr, other.int, other.intArr)
         if (sign == -1 && !(mInt == 0 && mArr.size == 0)) {
-            return modAddAbsOfDivisor(mInt, mArr, that)
+            return modAddAbsOfDivisor(mInt, mArr, other)
         }
         return BigInt(mInt, mArr, false)
     }
 
     /**
-     * Return a BigInt, which is a pair of the quotient and the reminder of this BigInt divided by @p that.
+     * Return a BigInt, which is a pair of the quotient and the reminder of this BigInt divided by @p other.
      * The caculation follows Eculidean division.
      *
-     * @param that: the value that this BigInt is to be divided;
+     * @param other: the value that this BigInt is to be divided;
      *
-     * @return: the reminder of this BigInt divided by @p that.
+     * @return: the reminder of this BigInt divided by @p other.
      *
-     * @throws ArithmeticException if @p that == 0.
+     * @throws ArithmeticException if @p other == 0.
      */
-    @Deprecated[message: "Use member function `public func divAndMod(that: BigInt): (BigInt, BigInt)` instead."]
-    public func quoAndRem(that: BigInt): (BigInt, BigInt) {
-        let (dInt, dArr, dNegSign, mInt, mArr, _) = privateDivAndMod(that.int, that.intArr, that.negSign)
+    @Deprecated[message: "Use member function `public func divAndMod(other: BigInt): (BigInt, BigInt)` instead."]
+    public func quoAndRem(other: BigInt): (BigInt, BigInt) {
+        let (dInt, dArr, dNegSign, mInt, mArr, _) = privateDivAndMod(other.int, other.intArr, other.negSign)
         if (sign == -1 && !(mInt == 0 && mArr.size == 0)) {
             let (qInt, qArr) = addOneAndOverSize(dInt, dArr)
-            let rBig = modAddAbsOfDivisor(mInt, mArr, that)
-            return (BigInt(qInt, qArr, negSign != that.negSign), rBig)
+            let rBig = modAddAbsOfDivisor(mInt, mArr, other)
+            return (BigInt(qInt, qArr, negSign != other.negSign), rBig)
         }
         return (BigInt(dInt, dArr, dNegSign), BigInt(mInt, mArr, false))
     }
 
     /**
-     * Return a BigInt v, where ((this * v) % (@p that) == 1).
+     * Return a BigInt v, where ((this * v) % (@p other) == 1).
      *
-     * @param that: the modulus.
+     * @param other: the modulus.
      *
      * @return: a modular multiplicative inverse of this BigInt.
      *
-     * @throws IllegalArgumentException if this BigInt and @p that are not relatively prime.
+     * @throws IllegalArgumentException if this BigInt and @p other are not relatively prime.
      */
-    public func modInverse(that: BigInt): BigInt {
-        if (that.int == 1 && that.intArr.size == 0) {
+    public func modInverse(other: BigInt): BigInt {
+        if (other.int == 1 && other.intArr.size == 0) {
             return BigInt(0, EMPTY_ARRAY, false)
         }
-        if (this.sign == 0 || that.sign == 0) {
+        if (this.sign == 0 || other.sign == 0) {
             throw IllegalArgumentException("The BigInt is not relatively prime with the input.")
         }
-        let (x, _) = exgcdToInverse(this, that)
+        let (x, _) = exgcdToInverse(this, other)
         if (this.negSign != x.negSign) {
-            let (rInt, rArr, _) = subAbs(that.int, that.intArr, x.int, x.intArr, false)
+            let (rInt, rArr, _) = subAbs(other.int, other.intArr, x.int, x.intArr, false)
             return BigInt(rInt, rArr, negSign)
         }
         return x
@@ -935,32 +935,32 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     }
 
     /**
-     * Return a BigInt, whose value is (this & (@p that)).
+     * Return a BigInt, whose value is (this & (@p other)).
      *
-     * @param that: value to be AND'ed with this BigInt.
+     * @param other: value to be AND'ed with this BigInt.
      *
-     * @return: the result of (this & (@p that)).
+     * @return: the result of (this & (@p other)).
      */
-    public operator func &(that: BigInt): BigInt {
-        if (sign == 0 || that.sign == 0) {
+    public operator func &(other: BigInt): BigInt {
+        if (sign == 0 || other.sign == 0) {
             return BigInt(0, EMPTY_ARRAY, false)
         }
-        if (negSign == that.negSign) {
+        if (negSign == other.negSign) {
             // _abs means the absolute value
             // x_abs & y_abs
             if (!negSign) {
-                let (rInt, rArr) = and(int, intArr, that.int, that.intArr)
+                let (rInt, rArr) = and(int, intArr, other.int, other.intArr)
                 return BigInt(rInt, rArr, false)
             }
             // ((x_abs - 1) | (y_abs - 1)) + 1
-            let (rInt, rArr) = subOneOrOrXor(int, intArr, that.int, that.intArr, Or)
+            let (rInt, rArr) = subOneOrOrXor(int, intArr, other.int, other.intArr, Or)
             let (rIntPlus, rArrPlus) = addOneAndOverSize(rInt, normalize(rArr))
             return BigInt(rIntPlus, rArrPlus, true)
         }
         // x_abs & !(y_abs - 1)
         // &, the size of the result array is up to the size of x_abs
         if (!negSign) {
-            let (intSubOne, rArr) = resetSizeAndSubOne(that.int, that.intArr, intArr.size, true)
+            let (intSubOne, rArr) = resetSizeAndSubOne(other.int, other.intArr, intArr.size, true)
             let rInt = !intSubOne & int
             for (i in 0..intArr.size) {
                 rArr[i] = !rArr[i] & intArr[i]
@@ -969,37 +969,37 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
         }
         // y_abs & !(x_abs - 1)
         // &, the size of the result array is up to the size of y_abs
-        let (intSubOne, rArr) = resetSizeAndSubOne(int, intArr, that.intArr.size, true)
-        let rInt = !intSubOne & that.int
-        for (i in 0..that.intArr.size) {
-            rArr[i] = !rArr[i] & that.intArr[i]
+        let (intSubOne, rArr) = resetSizeAndSubOne(int, intArr, other.intArr.size, true)
+        let rInt = !intSubOne & other.int
+        for (i in 0..other.intArr.size) {
+            rArr[i] = !rArr[i] & other.intArr[i]
         }
         return BigInt(rInt, normalize(rArr), false)
     }
 
     /**
-     * Return a BigInt, whose value is (this | (@p that)).
+     * Return a BigInt, whose value is (this | (@p other)).
      *
-     * @param that: value to be OR'ed with this BigInt.
+     * @param other: value to be OR'ed with this BigInt.
      *
-     * @return: the result of (this | (@p that)).
+     * @return: the result of (this | (@p other)).
      */
-    public operator func |(that: BigInt): BigInt {
+    public operator func |(other: BigInt): BigInt {
         if (sign == 0) {
-            return BigInt(that.int, that.intArr.clone(), that.negSign)
+            return BigInt(other.int, other.intArr.clone(), other.negSign)
         }
-        if (that.sign == 0) {
+        if (other.sign == 0) {
             return BigInt(int, intArr.clone(), negSign)
         }
-        if (negSign == that.negSign) {
+        if (negSign == other.negSign) {
             // _abs means the absolute value
             // x_abs | y_abs
             if (!negSign) {
-                let (rInt, rArr) = orOrXor(this, that, Or)
+                let (rInt, rArr) = orOrXor(this, other, Or)
                 return BigInt(rInt, rArr, false)
             }
             // ((x_abs - 1) & (y_abs - 1)) + 1
-            let (rInt, rArr) = subOneAnd(int, intArr, that.int, that.intArr)
+            let (rInt, rArr) = subOneAnd(int, intArr, other.int, other.intArr)
             let (rIntPlus, rArrPlus) = addOneAndOverSize(rInt, normalize(rArr))
             return BigInt(rIntPlus, rArrPlus, true)
         }
@@ -1009,7 +1009,7 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
         let intSubOne: UInt64
         let rArr: Array<UInt32>
         if (!negSign) {
-            (intSubOne, rArr) = subOne(that.int, that.intArr, true)
+            (intSubOne, rArr) = subOne(other.int, other.intArr, true)
             rInt = !int & intSubOne
             for (i in 0..min(rArr.size, intArr.size)) {
                 rArr[i] = !intArr[i] & rArr[i]
@@ -1018,9 +1018,9 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
         // &, the size of the result array is up to the size of (x_abs - 1)
         } else {
             (intSubOne, rArr) = subOne(int, intArr, true)
-            rInt = !that.int & intSubOne
-            for (i in 0..min(rArr.size, that.intArr.size)) {
-                rArr[i] = !that.intArr[i] & rArr[i]
+            rInt = !other.int & intSubOne
+            for (i in 0..min(rArr.size, other.intArr.size)) {
+                rArr[i] = !other.intArr[i] & rArr[i]
             }
         }
         let (rIntPlus, rArrPlus) = addOneAndOverSize(rInt, normalize(rArr))
@@ -1028,28 +1028,28 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     }
 
     /**
-     * Return a BigInt, whose value is (this ^ (@p that)).
+     * Return a BigInt, whose value is (this ^ (@p other)).
      *
-     * @param that: value to be XOR'ed with this BigInt.
+     * @param other: value to be XOR'ed with this BigInt.
      *
-     * @return: the result of (this ^ (@p that)).
+     * @return: the result of (this ^ (@p other)).
      */
-    public operator func ^(that: BigInt): BigInt {
+    public operator func ^(other: BigInt): BigInt {
         if (sign == 0) {
-            return BigInt(that.int, that.intArr.clone(), that.negSign)
+            return BigInt(other.int, other.intArr.clone(), other.negSign)
         }
-        if (that.sign == 0) {
+        if (other.sign == 0) {
             return BigInt(int, intArr.clone(), negSign)
         }
-        if (negSign == that.negSign) {
+        if (negSign == other.negSign) {
             // _abs means the absolute value
             // x_abs ^ y_abs
             if (!negSign) {
-                let (rInt, rArr) = orOrXor(this, that, Xor)
+                let (rInt, rArr) = orOrXor(this, other, Xor)
                 return BigInt(rInt, normalize(rArr), false)
             }
             // (x_abs - 1) ^ (y_abs - 1)
-            let (rInt, rArr) = subOneOrOrXor(int, intArr, that.int, that.intArr, Xor)
+            let (rInt, rArr) = subOneOrOrXor(int, intArr, other.int, other.intArr, Xor)
             return BigInt(rInt, normalize(rArr), false)
         }
         // (x_abs ^ (y_abs - 1)) + 1
@@ -1057,30 +1057,30 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
         let rInt: UInt64
         let intSubOne: UInt64
         let rArr: Array<UInt32>
-        let (maxSize, minSize) = if (intArr.size >= that.intArr.size) {
-            (intArr.size, that.intArr.size)
+        let (maxSize, minSize) = if (intArr.size >= other.intArr.size) {
+            (intArr.size, other.intArr.size)
         } else {
-            (that.intArr.size, intArr.size)
+            (other.intArr.size, intArr.size)
         }
         if (!negSign) {
-            (intSubOne, rArr) = resetSizeAndSubOne(that.int, that.intArr, maxSize, true)
+            (intSubOne, rArr) = resetSizeAndSubOne(other.int, other.intArr, maxSize, true)
             rInt = int ^ intSubOne
             for (i in 0..minSize) {
                 rArr[i] = intArr[i] ^ rArr[i]
             }
-            if (intArr.size >= that.intArr.size) {
+            if (intArr.size >= other.intArr.size) {
                 intArr.copyTo(rArr, minSize, minSize, maxSize - minSize)
             }
         // (y_abs ^ (x_abs - 1)) + 1
         // ^, the size of the result array is up to the size of the longer one in (y_abs and (x_abs - 1))
         } else {
             (intSubOne, rArr) = resetSizeAndSubOne(int, intArr, maxSize, true)
-            rInt = that.int ^ intSubOne
+            rInt = other.int ^ intSubOne
             for (i in 0..minSize) {
-                rArr[i] = that.intArr[i] ^ rArr[i]
+                rArr[i] = other.intArr[i] ^ rArr[i]
             }
-            if (intArr.size < that.intArr.size) {
-                that.intArr.copyTo(rArr, minSize, minSize, maxSize - minSize)
+            if (intArr.size < other.intArr.size) {
+                other.intArr.copyTo(rArr, minSize, minSize, maxSize - minSize)
             }
         }
         let (rIntPlus, rArrPlus) = addOneAndOverSize(rInt, normalize(rArr))
@@ -1197,44 +1197,44 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     /**
      * Report whether this BigInt is equal to another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is equal to @p that, otherwise false.
+     * @return: true if this BigInt is equal to @p other, otherwise false.
      */
-    public operator func ==(that: BigInt): Bool {
-        return this.sign == that.sign && this.int == that.int && this.intArr == that.intArr
+    public operator func ==(other: BigInt): Bool {
+        return this.sign == other.sign && this.int == other.int && this.intArr == other.intArr
     }
 
     /**
      * Report whether this BigInt is not equal to another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is not equal to @p that, otherwise false.
+     * @return: true if this BigInt is not equal to @p other, otherwise false.
      */
-    public operator func !=(that: BigInt): Bool {
-        return !(this == that)
+    public operator func !=(other: BigInt): Bool {
+        return !(this == other)
     }
 
     /**
      * Report whether this BigInt is greater than another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is greater than @p that, otherwise false.
+     * @return: true if this BigInt is greater than @p other, otherwise false.
      */
-    public operator func >(that: BigInt): Bool {
-        if (this.sign > that.sign) {
+    public operator func >(other: BigInt): Bool {
+        if (this.sign > other.sign) {
             return true
         }
-        if (this.sign < that.sign) {
+        if (this.sign < other.sign) {
             return false
         }
-        let c = compareAbsArr(this.intArr, that.intArr, 0)
+        let c = compareAbsArr(this.intArr, other.intArr, 0)
         if (c * this.sign > 0) {
             return true
         }
-        if (c == 0 && ((this.int > that.int && this.sign > 0) || (this.int < that.int && this.sign < 0))) {
+        if (c == 0 && ((this.int > other.int && this.sign > 0) || (this.int < other.int && this.sign < 0))) {
             return true
         }
         return false
@@ -1243,25 +1243,25 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     /**
      * Report whether this BigInt is greater than or equal to another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is greater than or equal to @p that, otherwise false.
+     * @return: true if this BigInt is greater than or equal to @p other, otherwise false.
      */
-    public operator func >=(that: BigInt): Bool {
-        if (this.sign > that.sign) {
+    public operator func >=(other: BigInt): Bool {
+        if (this.sign > other.sign) {
             return true
         }
-        if (this.sign < that.sign) {
+        if (this.sign < other.sign) {
             return false
         }
         if (this.sign == 0) {
             return true
         }
-        let c = compareAbsArr(this.intArr, that.intArr, 0)
+        let c = compareAbsArr(this.intArr, other.intArr, 0)
         if (c * this.sign > 0) {
             return true
         }
-        if (c == 0 && ((this.int >= that.int && this.sign >= 0) || (this.int <= that.int && this.sign <= 0))) {
+        if (c == 0 && ((this.int >= other.int && this.sign >= 0) || (this.int <= other.int && this.sign <= 0))) {
             return true
         }
         return false
@@ -1270,36 +1270,36 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
     /**
      * Report whether this BigInt is less than another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is less than @p that, otherwise false.
+     * @return: true if this BigInt is less than @p other, otherwise false.
      */
-    public operator func <(that: BigInt): Bool {
-        return !(this >= that)
+    public operator func <(other: BigInt): Bool {
+        return !(this >= other)
     }
 
     /**
      * Report whether this BigInt is less than or equal to another BigInt.
      *
-     * @param that: the BigInt for comparison.
+     * @param other: the BigInt for comparison.
      *
-     * @return: true if this BigInt is less than or equal to @p that, otherwise false.
+     * @return: true if this BigInt is less than or equal to @p other, otherwise false.
      */
-    public operator func <=(that: BigInt): Bool {
-        return !(this > that)
+    public operator func <=(other: BigInt): Bool {
+        return !(this > other)
     }
 
     /**
      * Compare the relationship between this BigInt and another BigInt.
      *
-     * @param that: the BigInt for comparison
+     * @param other: the BigInt for comparison
      *
      * @return: the relationship between two BigInt instances.
      */
-    public func compare(that: BigInt): Ordering {
+    public func compare(other: BigInt): Ordering {
         match {
-            case this < that => Ordering.LT
-            case this > that => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }

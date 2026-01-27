@@ -138,14 +138,14 @@ public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & Less
     public func isUnspecified(): Bool {
         return this == IPv6Address.unspecified
     }
-    public operator func <=(rhs: IPv6Address): Bool {
-        return _octets <= rhs._octets
+    public operator func <=(other: IPv6Address): Bool {
+        return _octets <= other._octets
     }
-    public operator func ==(rhs: IPv6Address): Bool {
-        return _octets == rhs._octets && this._scopeId == rhs._scopeId
+    public operator func ==(other: IPv6Address): Bool {
+        return _octets == other._octets && this._scopeId == other._scopeId
     }
-    public operator func !=(rhs: IPv6Address): Bool {
-        return !(this == rhs)
+    public operator func !=(other: IPv6Address): Bool {
+        return !(this == other)
     }
     public func toString(): String {
         let sb = StringBuilder()

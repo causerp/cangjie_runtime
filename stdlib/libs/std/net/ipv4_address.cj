@@ -91,14 +91,14 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
     public func getPrefix(prefixLen: UInt8): IPPrefix {
         return IPv4Prefix(this, prefixLen)
     }
-    public operator func <=(rhs: IPv4Address): Bool {
-        return _octets <= rhs._octets
+    public operator func <=(other: IPv4Address): Bool {
+        return _octets <= other._octets
     }
-    public operator func ==(rhs: IPv4Address): Bool {
-        return _octets == rhs._octets
+    public operator func ==(other: IPv4Address): Bool {
+        return _octets == other._octets
     }
-    public operator func !=(rhs: IPv4Address): Bool {
-        return !(this == rhs)
+    public operator func !=(other: IPv4Address): Bool {
+        return !(this == other)
     }
     public func toString(): String {
         return "${_octets[0]}.${_octets[1]}.${_octets[2]}.${_octets[3]}"

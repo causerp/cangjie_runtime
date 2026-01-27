@@ -846,7 +846,7 @@ public func toString(): String
 ### operator func !=(ConstructorInfo)
 
 ```cangjie
-public operator func !=(that: ConstructorInfo): Bool
+public operator func !=(other: ConstructorInfo): Bool
 ```
 
 功能：判断该构造器信息与给定的另一个构造器信息是否不等。
@@ -857,16 +857,16 @@ public operator func !=(that: ConstructorInfo): Bool
 
 参数：
 
-- that: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - 被比较相等性的另一个构造器信息。
+- other: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - 被比较相等性的另一个构造器信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(ConstructorInfo)
 
 ```cangjie
-public operator func ==(that: ConstructorInfo): Bool
+public operator func ==(other: ConstructorInfo): Bool
 ```
 
 功能：判断该构造器信息与给定的另一个构造器信息是否相等。
@@ -877,11 +877,11 @@ public operator func ==(that: ConstructorInfo): Bool
 
 参数：
 
-- that: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - 被比较相等性的另一个构造器信息。
+- other: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - 被比较相等性的另一个构造器信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class GenericTypeInfo
 
@@ -903,7 +903,7 @@ public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
 ### operator func ==(GenericTypeInfo)
 
 ```cangjie
-public operator func ==(that: GenericTypeInfo): Bool
+public operator func ==(other: GenericTypeInfo): Bool
 ```
 
 功能：判断该泛型类型信息与给定的另一个泛型类型信息是否相等。
@@ -914,11 +914,11 @@ public operator func ==(that: GenericTypeInfo): Bool
 
 参数：
 
-- that: [GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo) - 被比较相等性的另一个泛型类型信息。
+- other: [GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo) - 被比较相等性的另一个泛型类型信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该泛型类型信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该泛型类型信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class GlobalFunctionInfo
 
@@ -1158,7 +1158,7 @@ public func toString(): String
 ### operator func ==(GlobalFunctionInfo)
 
 ```cangjie
-public operator func ==(that: GlobalFunctionInfo): Bool
+public operator func ==(other: GlobalFunctionInfo): Bool
 ```
 
 功能：判断该全局函数信息与给定的另一个全局函数信息是否相等。
@@ -1169,16 +1169,16 @@ public operator func ==(that: GlobalFunctionInfo): Bool
 
 参数：
 
-- that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
+- other: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ### operator func !=(GlobalFunctionInfo)
 
 ```cangjie
-public operator func !=(that: GlobalFunctionInfo): Bool
+public operator func !=(other: GlobalFunctionInfo): Bool
 ```
 
 功能：判断该全局函数信息与给定的另一个全局函数信息是否不等。
@@ -1189,11 +1189,11 @@ public operator func !=(that: GlobalFunctionInfo): Bool
 
 参数：
 
-- that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
+- other: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - 被比较相等性的另一个全局函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局函数信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ## class GlobalVariableInfo
 
@@ -1395,7 +1395,7 @@ public func toString(): String
 ### operator func ==(GlobalVariableInfo)
 
 ```cangjie
-public operator func ==(that: GlobalVariableInfo): Bool
+public operator func ==(other: GlobalVariableInfo): Bool
 ```
 
 功能：判断该全局变量信息与给定的另一个全局变量信息是否相等。
@@ -1406,16 +1406,16 @@ public operator func ==(that: GlobalVariableInfo): Bool
 
 参数：
 
-- that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
+- other: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ### operator func !=(GlobalVariableInfo)
 
 ```cangjie
-public operator func !=(that: GlobalVariableInfo): Bool
+public operator func !=(other: GlobalVariableInfo): Bool
 ```
 
 功能：判断该全局变量信息与给定的另一个全局变量信息是否不等。
@@ -1426,11 +1426,11 @@ public operator func !=(that: GlobalVariableInfo): Bool
 
 参数：
 
-- that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
+- other: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - 被比较相等性的另一个全局变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该全局变量信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ## class InstanceFunctionInfo
 
@@ -1767,7 +1767,7 @@ public func toString(): String
 ### operator func ==(InstanceFunctionInfo)
 
 ```cangjie
-public operator func ==(that: InstanceFunctionInfo): Bool
+public operator func ==(other: InstanceFunctionInfo): Bool
 ```
 
 功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否相等。
@@ -1778,16 +1778,16 @@ public operator func ==(that: InstanceFunctionInfo): Bool
 
 参数：
 
-- that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
+- other: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ### operator func !=(InstanceFunctionInfo)
 
 ```cangjie
-public operator func !=(that: InstanceFunctionInfo): Bool
+public operator func !=(other: InstanceFunctionInfo): Bool
 ```
 
 功能：判断该实例成员函数信息与给定的另一个实例成员函数信息是否不等。
@@ -1798,11 +1798,11 @@ public operator func !=(that: InstanceFunctionInfo): Bool
 
 参数：
 
-- that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
+- other: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - 被比较相等性的另一个实例成员函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员函数信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ## class InstancePropertyInfo
 
@@ -2097,7 +2097,7 @@ public func toString(): String
 ### operator func !=(InstancePropertyInfo)
 
 ```cangjie
-public operator func !=(that: InstancePropertyInfo): Bool
+public operator func !=(other: InstancePropertyInfo): Bool
 ```
 
 功能：判断该实例成员属性信息与给定的另一个实例成员属性信息是否不等。
@@ -2108,16 +2108,16 @@ public operator func !=(that: InstancePropertyInfo): Bool
 
 参数：
 
-- that: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - 被比较相等性的另一个实例成员属性信息。
+- other: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - 被比较相等性的另一个实例成员属性信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(InstancePropertyInfo)
 
 ```cangjie
-public operator func ==(that: InstancePropertyInfo): Bool
+public operator func ==(other: InstancePropertyInfo): Bool
 ```
 
 功能：判断该实例成员属性信息与给定的另一个实例成员属性信息是否相等。
@@ -2128,11 +2128,11 @@ public operator func ==(that: InstancePropertyInfo): Bool
 
 参数：
 
-- that: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - 被比较相等性的另一个实例成员属性信息。
+- other: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - 被比较相等性的另一个实例成员属性信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员属性信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class InstanceVariableInfo
 
@@ -2391,7 +2391,7 @@ public func toString(): String
 ### operator func ==(InstanceVariableInfo)
 
 ```cangjie
-public operator func ==(that: InstanceVariableInfo): Bool
+public operator func ==(other: InstanceVariableInfo): Bool
 ```
 
 功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否相等。
@@ -2402,16 +2402,16 @@ public operator func ==(that: InstanceVariableInfo): Bool
 
 参数：
 
-- that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
+- other: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ### operator func !=(InstanceVariableInfo)
 
 ```cangjie
-public operator func !=(that: InstanceVariableInfo): Bool
+public operator func !=(other: InstanceVariableInfo): Bool
 ```
 
 功能：判断该实例成员变量信息与给定的另一个实例成员变量信息是否不等。
@@ -2422,11 +2422,11 @@ public operator func !=(that: InstanceVariableInfo): Bool
 
 参数：
 
-- that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
+- other: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - 被比较相等性的另一个实例成员变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该实例成员变量信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ## class InterfaceTypeInfo
 
@@ -2950,7 +2950,7 @@ public func toString(): String
 ### operator func !=(PackageInfo)
 
 ```cangjie
-public operator func !=(that: PackageInfo): Bool
+public operator func !=(other: PackageInfo): Bool
 ```
 
 功能：判断该包信息与给定的另一个包信息是否不等。
@@ -2962,16 +2962,16 @@ public operator func !=(that: PackageInfo): Bool
 
 参数：
 
-- that: [PackageInfo](reflect_package_classes.md#class-packageinfo) - 被比较相等性的另一个包信息。
+- other: [PackageInfo](reflect_package_classes.md#class-packageinfo) - 被比较相等性的另一个包信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该包信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该包信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(PackageInfo)
 
 ```cangjie
-public operator func ==(that: PackageInfo): Bool
+public operator func ==(other: PackageInfo): Bool
 ```
 
 功能：判断该包信息与给定的另一个包信息是否相等。
@@ -2983,11 +2983,11 @@ public operator func ==(that: PackageInfo): Bool
 
 参数：
 
-- that: [PackageInfo](reflect_package_classes.md#class-packageinfo) - 被比较相等性的另一个包信息。
+- other: [PackageInfo](reflect_package_classes.md#class-packageinfo) - 被比较相等性的另一个包信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该包信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该包信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class ParameterInfo
 
@@ -3149,7 +3149,7 @@ public func toString(): String
 ### operator func !=(ParameterInfo)
 
 ```cangjie
-public operator func !=(that: ParameterInfo): Bool
+public operator func !=(other: ParameterInfo): Bool
 ```
 
 功能：判断该函数形参信息与给定的另一个函数形参信息是否不等。
@@ -3160,16 +3160,16 @@ public operator func !=(that: ParameterInfo): Bool
 
 参数：
 
-- that: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - 被比较相等性的另一个函数形参信息。
+- other: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - 被比较相等性的另一个函数形参信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该函数形参信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该函数形参信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(ParameterInfo)
 
 ```cangjie
-public operator func ==(that: ParameterInfo): Bool
+public operator func ==(other: ParameterInfo): Bool
 ```
 
 功能：判断该函数形参信息与给定的另一个函数形参信息是否相等。
@@ -3180,11 +3180,11 @@ public operator func ==(that: ParameterInfo): Bool
 
 参数：
 
-- that: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - 被比较相等性的另一个函数形参信息。
+- other: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - 被比较相等性的另一个函数形参信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该函数形参信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该函数形参信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class PrimitiveTypeInfo
 
@@ -3630,7 +3630,7 @@ public func toString(): String
 ### operator func !=(StaticFunctionInfo)
 
 ```cangjie
-public operator func !=(that: StaticFunctionInfo): Bool
+public operator func !=(other: StaticFunctionInfo): Bool
 ```
 
 功能：判断该静态成员函数信息与给定的另一个静态成员函数信息是否不等。
@@ -3641,16 +3641,16 @@ public operator func !=(that: StaticFunctionInfo): Bool
 
 参数：
 
-- that: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - 被比较相等性的另一个静态成员函数信息。
+- other: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - 被比较相等性的另一个静态成员函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员函数信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员函数信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(StaticFunctionInfo)
 
 ```cangjie
-public operator func ==(that: StaticFunctionInfo): Bool
+public operator func ==(other: StaticFunctionInfo): Bool
 ```
 
 功能：判断该静态成员函数信息与给定的另一个静态成员函数信息是否相等。
@@ -3661,11 +3661,11 @@ public operator func ==(that: StaticFunctionInfo): Bool
 
 参数：
 
-- that: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - 被比较相等性的另一个静态成员函数信息。
+- other: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - 被比较相等性的另一个静态成员函数信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员函数信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员函数信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class StaticPropertyInfo
 
@@ -3961,7 +3961,7 @@ public func toString(): String
 ### operator func !=(StaticPropertyInfo)
 
 ```cangjie
-public operator func !=(that: StaticPropertyInfo): Bool
+public operator func !=(other: StaticPropertyInfo): Bool
 ```
 
 功能：判断该静态成员属性信息与给定的另一个静态成员属性信息是否不等。
@@ -3972,16 +3972,16 @@ public operator func !=(that: StaticPropertyInfo): Bool
 
 参数：
 
-- that: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - 被比较相等性的另一个静态成员属性信息。
+- other: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - 被比较相等性的另一个静态成员属性信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(StaticPropertyInfo)
 
 ```cangjie
-public operator func ==(that: StaticPropertyInfo): Bool
+public operator func ==(other: StaticPropertyInfo): Bool
 ```
 
 功能：判断该静态成员属性信息与给定的另一个静态成员属性信息是否相等。
@@ -3992,11 +3992,11 @@ public operator func ==(that: StaticPropertyInfo): Bool
 
 参数：
 
-- that: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - 被比较相等性的另一个静态成员属性信息。
+- other: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - 被比较相等性的另一个静态成员属性信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员属性信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class StaticVariableInfo
 
@@ -4277,7 +4277,7 @@ public func toString(): String
 ### operator func !=(StaticVariableInfo)
 
 ```cangjie
-public operator func !=(that: StaticVariableInfo): Bool
+public operator func !=(other: StaticVariableInfo): Bool
 ```
 
 功能：判断该静态成员变量信息与给定的另一个静态成员变量信息是否不等。
@@ -4288,16 +4288,16 @@ public operator func !=(that: StaticVariableInfo): Bool
 
 参数：
 
-- that: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - 被比较相等性的另一个静态成员变量信息。
+- other: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - 被比较相等性的另一个静态成员变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(StaticVariableInfo)
 
 ```cangjie
-public operator func ==(that: StaticVariableInfo): Bool
+public operator func ==(other: StaticVariableInfo): Bool
 ```
 
 功能：判断该静态成员变量信息与给定的另一个静态成员变量信息是否相等。
@@ -4308,11 +4308,11 @@ public operator func ==(that: StaticVariableInfo): Bool
 
 参数：
 
-- that: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - 被比较相等性的另一个静态成员变量信息。
+- other: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - 被比较相等性的另一个静态成员变量信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该静态成员变量信息与另一个相等则返回 `true`，否则返回 `false`。
 
 ## class StructTypeInfo
 
@@ -5530,7 +5530,7 @@ public func toString(): String
 ### operator func !=(TypeInfo)
 
 ```cangjie
-public operator func !=(that: TypeInfo): Bool
+public operator func !=(other: TypeInfo): Bool
 ```
 
 功能：判断该类型信息与给定的另一个类型信息是否不等。
@@ -5541,16 +5541,16 @@ public operator func !=(that: TypeInfo): Bool
 
 参数：
 
-- that: [TypeInfo](reflect_package_classes.md#class-typeinfo) - 被比较相等性的另一个类型信息。
+- other: [TypeInfo](reflect_package_classes.md#class-typeinfo) - 被比较相等性的另一个类型信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该类型信息的限定名称与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该类型信息的限定名称与另一个不等则返回 `true`，否则返回 `false`。
 
 ### operator func ==(TypeInfo)
 
 ```cangjie
-public operator func ==(that: TypeInfo): Bool
+public operator func ==(other: TypeInfo): Bool
 ```
 
 功能：判断该类型信息与给定的另一个类型信息是否相等。
@@ -5561,8 +5561,8 @@ public operator func ==(that: TypeInfo): Bool
 
 参数：
 
-- that: [TypeInfo](reflect_package_classes.md#class-typeinfo) - 被比较相等性的另一个类型信息。
+- other: [TypeInfo](reflect_package_classes.md#class-typeinfo) - 被比较相等性的另一个类型信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该类型信息的限定名称与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该类型信息的限定名称与另一个相等则返回 `true`，否则返回 `false`。

@@ -56,14 +56,14 @@ public func toString(): String
 ### operator func ==(ArgumentMode)
 
 ```cangjie
-public operator func ==(that: ArgumentMode): Bool
+public operator func ==(other: ArgumentMode): Bool
 ```
 
 功能：比较参数模式是否相同。
 
 参数：
 
-- that: [ArgumentMode](./argopt_package_enums.md#enum-argumentmode) - 参数模式。
+- other: [ArgumentMode](./argopt_package_enums.md#enum-argumentmode) - 参数模式。
 
 返回值：
 

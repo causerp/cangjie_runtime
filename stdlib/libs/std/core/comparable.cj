@@ -211,54 +211,54 @@ public enum Ordering {
 }
 
 public interface Less<T> {
-    operator func <(rhs: T): Bool
+    operator func <(other: T): Bool
 }
 
 public interface Greater<T> {
-    operator func >(rhs: T): Bool
+    operator func >(other: T): Bool
 }
 
 public interface LessOrEqual<T> {
-    operator func <=(rhs: T): Bool
+    operator func <=(other: T): Bool
 }
 
 public interface GreaterOrEqual<T> {
-    operator func >=(rhs: T): Bool
+    operator func >=(other: T): Bool
 }
 
 public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEqual<T> & GreaterOrEqual<T> {
-    func compare(that: T): Ordering
+    func compare(other: T): Ordering
 
-    operator func ==(rhs: T): Bool {
-        return match (this.compare(rhs)) {
+    operator func ==(other: T): Bool {
+        return match (this.compare(other)) {
             case EQ => true
             case _ => false
         }
     }
 
-    operator func <(rhs: T): Bool {
-        return match (this.compare(rhs)) {
+    operator func <(other: T): Bool {
+        return match (this.compare(other)) {
             case LT => true
             case _ => false
         }
     }
 
-    operator func >(rhs: T): Bool {
-        return match (this.compare(rhs)) {
+    operator func >(other: T): Bool {
+        return match (this.compare(other)) {
             case GT => true
             case _ => false
         }
     }
 
-    operator func <=(rhs: T): Bool {
-        return match (this.compare(rhs)) {
+    operator func <=(other: T): Bool {
+        return match (this.compare(other)) {
             case LT | EQ => true
             case _ => false
         }
     }
 
-    operator func >=(rhs: T): Bool {
-        return match (this.compare(rhs)) {
+    operator func >=(other: T): Bool {
+        return match (this.compare(other)) {
             case GT | EQ => true
             case _ => false
         }
@@ -289,462 +289,462 @@ extend Ordering <: Comparable<Ordering> {
 }
 
 extend IntNative <: Comparable<IntNative> {
-    public func compare(rhs: IntNative): Ordering {
+    public func compare(other: IntNative): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 }
 
 extend Int64 <: Comparable<Int64> {
-    public func compare(rhs: Int64): Ordering {
+    public func compare(other: Int64): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Int64): Bool {
-        return Int64Less(this, rhs)
+    public operator func <(other: Int64): Bool {
+        return Int64Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Int64): Bool {
-        return Int64Greater(this, rhs)
+    public operator func >(other: Int64): Bool {
+        return Int64Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Int64): Bool {
-        return Int64LessOrEqual(this, rhs)
+    public operator func <=(other: Int64): Bool {
+        return Int64LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Int64): Bool {
-        return Int64GreaterOrEqual(this, rhs)
+    public operator func >=(other: Int64): Bool {
+        return Int64GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Int64): Bool {
-        return Int64Equal(this, rhs)
+    public operator func ==(other: Int64): Bool {
+        return Int64Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Int64): Bool {
-        return Int64NotEqual(this, rhs)
+    public operator func !=(other: Int64): Bool {
+        return Int64NotEqual(this, other)
     }
 }
 
 extend Int32 <: Comparable<Int32> {
-    public func compare(rhs: Int32): Ordering {
+    public func compare(other: Int32): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Int32): Bool {
-        return Int32Less(this, rhs)
+    public operator func <(other: Int32): Bool {
+        return Int32Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Int32): Bool {
-        return Int32Greater(this, rhs)
+    public operator func >(other: Int32): Bool {
+        return Int32Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Int32): Bool {
-        return Int32LessOrEqual(this, rhs)
+    public operator func <=(other: Int32): Bool {
+        return Int32LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Int32): Bool {
-        return Int32GreaterOrEqual(this, rhs)
+    public operator func >=(other: Int32): Bool {
+        return Int32GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Int32): Bool {
-        return Int32Equal(this, rhs)
+    public operator func ==(other: Int32): Bool {
+        return Int32Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Int32): Bool {
-        return Int32NotEqual(this, rhs)
+    public operator func !=(other: Int32): Bool {
+        return Int32NotEqual(this, other)
     }
 }
 
 extend Int16 <: Comparable<Int16> {
-    public func compare(rhs: Int16): Ordering {
+    public func compare(other: Int16): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Int16): Bool {
-        return Int16Less(this, rhs)
+    public operator func <(other: Int16): Bool {
+        return Int16Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Int16): Bool {
-        return Int16Greater(this, rhs)
+    public operator func >(other: Int16): Bool {
+        return Int16Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Int16): Bool {
-        return Int16LessOrEqual(this, rhs)
+    public operator func <=(other: Int16): Bool {
+        return Int16LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Int16): Bool {
-        return Int16GreaterOrEqual(this, rhs)
+    public operator func >=(other: Int16): Bool {
+        return Int16GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Int16): Bool {
-        return Int16Equal(this, rhs)
+    public operator func ==(other: Int16): Bool {
+        return Int16Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Int16): Bool {
-        return Int16NotEqual(this, rhs)
+    public operator func !=(other: Int16): Bool {
+        return Int16NotEqual(this, other)
     }
 }
 
 extend Int8 <: Comparable<Int8> {
-    public func compare(rhs: Int8): Ordering {
+    public func compare(other: Int8): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Int8): Bool {
-        return Int8Less(this, rhs)
+    public operator func <(other: Int8): Bool {
+        return Int8Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Int8): Bool {
-        return Int8Greater(this, rhs)
+    public operator func >(other: Int8): Bool {
+        return Int8Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Int8): Bool {
-        return Int8LessOrEqual(this, rhs)
+    public operator func <=(other: Int8): Bool {
+        return Int8LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Int8): Bool {
-        return Int8GreaterOrEqual(this, rhs)
+    public operator func >=(other: Int8): Bool {
+        return Int8GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Int8): Bool {
-        return Int8Equal(this, rhs)
+    public operator func ==(other: Int8): Bool {
+        return Int8Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Int8): Bool {
-        return Int8NotEqual(this, rhs)
+    public operator func !=(other: Int8): Bool {
+        return Int8NotEqual(this, other)
     }
 }
 
 extend UIntNative <: Comparable<UIntNative> {
-    public func compare(rhs: UIntNative): Ordering {
+    public func compare(other: UIntNative): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 }
 
 extend UInt64 <: Comparable<UInt64> {
-    public func compare(rhs: UInt64): Ordering {
+    public func compare(other: UInt64): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: UInt64): Bool {
-        return UInt64Less(this, rhs)
+    public operator func <(other: UInt64): Bool {
+        return UInt64Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: UInt64): Bool {
-        return UInt64Greater(this, rhs)
+    public operator func >(other: UInt64): Bool {
+        return UInt64Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: UInt64): Bool {
-        return UInt64LessOrEqual(this, rhs)
+    public operator func <=(other: UInt64): Bool {
+        return UInt64LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: UInt64): Bool {
-        return UInt64GreaterOrEqual(this, rhs)
+    public operator func >=(other: UInt64): Bool {
+        return UInt64GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: UInt64): Bool {
-        return UInt64Equal(this, rhs)
+    public operator func ==(other: UInt64): Bool {
+        return UInt64Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: UInt64): Bool {
-        return UInt64NotEqual(this, rhs)
+    public operator func !=(other: UInt64): Bool {
+        return UInt64NotEqual(this, other)
     }
 }
 
 extend UInt32 <: Comparable<UInt32> {
-    public func compare(rhs: UInt32): Ordering {
+    public func compare(other: UInt32): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: UInt32): Bool {
-        return UInt32Less(this, rhs)
+    public operator func <(other: UInt32): Bool {
+        return UInt32Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: UInt32): Bool {
-        return UInt32Greater(this, rhs)
+    public operator func >(other: UInt32): Bool {
+        return UInt32Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: UInt32): Bool {
-        return UInt32LessOrEqual(this, rhs)
+    public operator func <=(other: UInt32): Bool {
+        return UInt32LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: UInt32): Bool {
-        return UInt32GreaterOrEqual(this, rhs)
+    public operator func >=(other: UInt32): Bool {
+        return UInt32GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: UInt32): Bool {
-        return UInt32Equal(this, rhs)
+    public operator func ==(other: UInt32): Bool {
+        return UInt32Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: UInt32): Bool {
-        return UInt32NotEqual(this, rhs)
+    public operator func !=(other: UInt32): Bool {
+        return UInt32NotEqual(this, other)
     }
 }
 
 extend UInt16 <: Comparable<UInt16> {
-    public func compare(rhs: UInt16): Ordering {
+    public func compare(other: UInt16): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: UInt16): Bool {
-        return UInt16Less(this, rhs)
+    public operator func <(other: UInt16): Bool {
+        return UInt16Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: UInt16): Bool {
-        return UInt16Greater(this, rhs)
+    public operator func >(other: UInt16): Bool {
+        return UInt16Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: UInt16): Bool {
-        return UInt16LessOrEqual(this, rhs)
+    public operator func <=(other: UInt16): Bool {
+        return UInt16LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: UInt16): Bool {
-        return UInt16GreaterOrEqual(this, rhs)
+    public operator func >=(other: UInt16): Bool {
+        return UInt16GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: UInt16): Bool {
-        return UInt16Equal(this, rhs)
+    public operator func ==(other: UInt16): Bool {
+        return UInt16Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: UInt16): Bool {
-        return UInt16NotEqual(this, rhs)
+    public operator func !=(other: UInt16): Bool {
+        return UInt16NotEqual(this, other)
     }
 }
 
 extend UInt8 <: Comparable<UInt8> {
-    public func compare(rhs: UInt8): Ordering {
+    public func compare(other: UInt8): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: UInt8): Bool {
-        return UInt8Less(this, rhs)
+    public operator func <(other: UInt8): Bool {
+        return UInt8Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: UInt8): Bool {
-        return UInt8Greater(this, rhs)
+    public operator func >(other: UInt8): Bool {
+        return UInt8Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: UInt8): Bool {
-        return UInt8LessOrEqual(this, rhs)
+    public operator func <=(other: UInt8): Bool {
+        return UInt8LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: UInt8): Bool {
-        return UInt8GreaterOrEqual(this, rhs)
+    public operator func >=(other: UInt8): Bool {
+        return UInt8GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: UInt8): Bool {
-        return UInt8Equal(this, rhs)
+    public operator func ==(other: UInt8): Bool {
+        return UInt8Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: UInt8): Bool {
-        return UInt8NotEqual(this, rhs)
+    public operator func !=(other: UInt8): Bool {
+        return UInt8NotEqual(this, other)
     }
 }
 
 extend Float16 <: Comparable<Float16> {
-    public func compare(rhs: Float16): Ordering {
+    public func compare(other: Float16): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Float16): Bool {
-        return Float16Less(this, rhs)
+    public operator func <(other: Float16): Bool {
+        return Float16Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Float16): Bool {
-        return Float16Greater(this, rhs)
+    public operator func >(other: Float16): Bool {
+        return Float16Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Float16): Bool {
-        return Float16LessOrEqual(this, rhs)
+    public operator func <=(other: Float16): Bool {
+        return Float16LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Float16): Bool {
-        return Float16GreaterOrEqual(this, rhs)
+    public operator func >=(other: Float16): Bool {
+        return Float16GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Float16): Bool {
-        return Float16Equal(this, rhs)
+    public operator func ==(other: Float16): Bool {
+        return Float16Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Float16): Bool {
-        return Float16NotEqual(this, rhs)
+    public operator func !=(other: Float16): Bool {
+        return Float16NotEqual(this, other)
     }
 }
 
 extend Float32 <: Comparable<Float32> {
-    public func compare(rhs: Float32): Ordering {
+    public func compare(other: Float32): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Float32): Bool {
-        return Float32Less(this, rhs)
+    public operator func <(other: Float32): Bool {
+        return Float32Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Float32): Bool {
-        return Float32Greater(this, rhs)
+    public operator func >(other: Float32): Bool {
+        return Float32Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Float32): Bool {
-        return Float32LessOrEqual(this, rhs)
+    public operator func <=(other: Float32): Bool {
+        return Float32LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Float32): Bool {
-        return Float32GreaterOrEqual(this, rhs)
+    public operator func >=(other: Float32): Bool {
+        return Float32GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Float32): Bool {
-        return Float32Equal(this, rhs)
+    public operator func ==(other: Float32): Bool {
+        return Float32Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Float32): Bool {
-        return Float32NotEqual(this, rhs)
+    public operator func !=(other: Float32): Bool {
+        return Float32NotEqual(this, other)
     }
 }
 
 extend Float64 <: Comparable<Float64> {
-    public func compare(rhs: Float64): Ordering {
+    public func compare(other: Float64): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
 
     @Frozen
-    public operator func <(rhs: Float64): Bool {
-        return Float64Less(this, rhs)
+    public operator func <(other: Float64): Bool {
+        return Float64Less(this, other)
     }
 
     @Frozen
-    public operator func >(rhs: Float64): Bool {
-        return Float64Greater(this, rhs)
+    public operator func >(other: Float64): Bool {
+        return Float64Greater(this, other)
     }
 
     @Frozen
-    public operator func <=(rhs: Float64): Bool {
-        return Float64LessOrEqual(this, rhs)
+    public operator func <=(other: Float64): Bool {
+        return Float64LessOrEqual(this, other)
     }
 
     @Frozen
-    public operator func >=(rhs: Float64): Bool {
-        return Float64GreaterOrEqual(this, rhs)
+    public operator func >=(other: Float64): Bool {
+        return Float64GreaterOrEqual(this, other)
     }
 
     @Frozen
-    public operator func ==(rhs: Float64): Bool {
-        return Float64Equal(this, rhs)
+    public operator func ==(other: Float64): Bool {
+        return Float64Equal(this, other)
     }
 
     @Frozen
-    public operator func !=(rhs: Float64): Bool {
-        return Float64NotEqual(this, rhs)
+    public operator func !=(other: Float64): Bool {
+        return Float64NotEqual(this, other)
     }
 }
 

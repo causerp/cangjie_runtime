@@ -42,23 +42,23 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString {
         }
     }
 
-    public func contains(rhs: IPAddress): Bool {
-        match ((this, rhs)) {
+    public func contains(other: IPAddress): Bool {
+        match ((this, other)) {
             case (lv4: IPv4Prefix, rv4: IPv4Address) => return lv4.contains(rv4)
             case (lv6: IPv6Prefix, rv6: IPv6Address) => return lv6.contains(rv6)
             case _ => false
         }
     }
-    public func contains(rhs: IPPrefix): Bool {
-        match ((this, rhs)) {
+    public func contains(other: IPPrefix): Bool {
+        match ((this, other)) {
             case (lv4: IPv4Prefix, rv4: IPv4Prefix) => return lv4.contains(rv4)
             case (lv6: IPv6Prefix, rv6: IPv6Prefix) => return lv6.contains(rv6)
             case _ => false
         }
     }
     // Overlap with the Specified IP Network
-    public func overlaps(rhs: IPPrefix): Bool {
-        match ((this, rhs)) {
+    public func overlaps(other: IPPrefix): Bool {
+        match ((this, other)) {
             case (lv4: IPv4Prefix, rv4: IPv4Prefix) => return lv4.overlaps(rv4)
             case (lv6: IPv6Prefix, rv6: IPv6Prefix) => return lv6.overlaps(rv6)
             case _ => false
@@ -100,15 +100,15 @@ sealed abstract class IPPrefix <: Equatable<IPPrefix> & Hashable & ToString {
             case _ => throw Exception()
         }
     }
-    public operator func ==(rhs: IPPrefix): Bool {
-        match ((this, rhs)) {
+    public operator func ==(other: IPPrefix): Bool {
+        match ((this, other)) {
             case (lv4: IPv4Prefix, rv4: IPv4Prefix) => lv4 == rv4
             case (lv6: IPv6Prefix, rv6: IPv6Prefix) => lv6 == rv6
             case _ => false
         }
     }
-    public operator func !=(rhs: IPPrefix): Bool {
-        return !(this == rhs)
+    public operator func !=(other: IPPrefix): Bool {
+        return !(this == other)
     }
     public func toString(): String
 }

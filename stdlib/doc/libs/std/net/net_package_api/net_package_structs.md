@@ -130,14 +130,14 @@ public func toString(): String
 ### operator func ==(AddressFamily)
 
 ```cangjie
-public operator func ==(rhs: AddressFamily): Bool
+public operator func ==(other: AddressFamily): Bool
 ```
 
 功能：比较地址族值是否相等。
 
 参数：
 
-- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
+- other: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
 
 返回值：
 
@@ -146,14 +146,14 @@ public operator func ==(rhs: AddressFamily): Bool
 ### operator func !=(AddressFamily)
 
 ```cangjie
-public operator func !=(rhs: AddressFamily): Bool
+public operator func !=(other: AddressFamily): Bool
 ```
 
 功能：比较地址族值是否不等。
 
 参数：
 
-- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
+- other: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
 
 返回值：
 

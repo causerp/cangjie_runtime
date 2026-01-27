@@ -168,15 +168,15 @@ sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & 
         throw IllegalArgumentException("The buffer size must be 4 or 16")
     }
 
-    public operator func ==(rhs: IPAddress): Bool {
-        match ((this, rhs)) {
+    public operator func ==(other: IPAddress): Bool {
+        match ((this, other)) {
             case (lv4: IPv4Address, rv4: IPv4Address) => lv4 == rv4
             case (lv6: IPv6Address, rv6: IPv6Address) => lv6 == rv6
             case _ => false
         }
     }
-    public operator func !=(rhs: IPAddress): Bool {
-        return !(this == rhs)
+    public operator func !=(other: IPAddress): Bool {
+        return !(this == other)
     }
 
     public func hashCode(): Int64 {
