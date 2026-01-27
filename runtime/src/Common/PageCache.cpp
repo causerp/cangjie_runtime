@@ -8,7 +8,7 @@
 #include "PageCache.h"
 
 namespace MapleRuntime {
-PageCache PageCache::instance;
+ImmortalWrapper<PageCache> PageCache::instance;
 
 std::mutex& PageCache::GetPageMutex() { return pageMtx; }
 
@@ -55,7 +55,6 @@ Span* PageCache::NewSpan(size_t k)
     bigSpan->pageId = reinterpret_cast<pageID>(ptr) >> PAGE_SHIFT;
 
     pageCacheSpans[MAX_NPAGES - 1].PushFront(bigSpan);
-
     return NewSpan(k);
 }
 
@@ -68,7 +67,7 @@ Span* PageCache::MapObjectToSpan(void* obj)
     if (ret != idSpanMap.end()) {
         return ret->second;
     } else {
-        CHECK_DETAIL(false, "MapObjectToSpan false");
+        CHECK_DETAIL(false, "MapObjectToSpan false, object %p, map size %zu", obj, idSpanMap.size());
         return nullptr;
     }
 }

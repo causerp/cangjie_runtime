@@ -1036,7 +1036,7 @@ int TimerExit(void *processor)
                 --g_timerNum;
             }
             pthread_mutex_unlock(&heap->mutex);
-            MapleRuntime::NativeAllocator::NativeFree(heap->buf, sizeof(struct TimerNode *) * TIMER_HEAP_SIZE);
+            MapleRuntime::NativeAllocator::NativeFree(heap->buf, sizeof(struct TimerNode *) * heap->capacity);
         }
         MapleRuntime::NativeAllocator::NativeFree(heap, sizeof(struct TimerHeap));
     }
