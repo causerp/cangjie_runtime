@@ -934,6 +934,21 @@ bool TypeInfo::IsOptionLikeUnassociatedCtor()
     return false;
 }
 
+bool TypeInfo::IsEnumKind1()
+{
+    if (!IsEnum() && !IsTempEnum()) {
+        return false;
+    }
+    EnumInfo* enumInfo = nullptr;
+    if (IsEnumCtor()) {
+        enumInfo = GetSuperTypeInfo()->GetEnumInfo();
+    } else {
+        enumInfo = GetEnumInfo();
+    }
+    CHECK_DETAIL(enumInfo != nullptr, "EnumInfo is nullptr.");
+    return enumInfo->IsEnumKind1();
+}
+
 U32 TypeInfo::GetNumOfInstanceFieldInfos()
 {
     if ((IsGenericTypeInfo() && !GetSourceGeneric()->ReflectIsEnable()) || !ReflectIsEnable()) {
