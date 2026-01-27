@@ -296,7 +296,7 @@ if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
     )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=hidden -fno-exceptions \
-        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -Wunused-variable -Wno-inconsistent-dllimport")
+        -fno-rtti -Wall -fstack-protector-strong -Wunused-variable -Wno-inconsistent-dllimport")
 elseif (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
     message("android toolchain, clang version=${CLANG_VERSION_STRING}")
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer \
