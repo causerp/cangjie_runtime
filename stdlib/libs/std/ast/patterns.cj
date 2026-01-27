@@ -19,6 +19,7 @@ public open class Pattern <: Node {
     }
     public open func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
     }
     protected open func dump(_: UInt16): String {
         ""
@@ -65,6 +66,7 @@ public class ConstPattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         litConstExpr_.traverse(v)
         return
     }
@@ -109,6 +111,7 @@ public class WildcardPattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -148,6 +151,7 @@ public class VarPattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -187,6 +191,7 @@ public class VarOrEnumPattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         return
     }
 
@@ -285,6 +290,7 @@ public class ExceptTypePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         pattern_.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
@@ -387,6 +393,7 @@ public class CommandTypePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         pattern_.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
@@ -475,6 +482,7 @@ public class TypePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         pattern_.traverse(v)
         type_.traverse(v)
         return
@@ -595,6 +603,7 @@ public class EnumPattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         constructor_.traverse(v)
         for (p in patterns_) {
             p.traverse(v)
@@ -708,6 +717,7 @@ public class TuplePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
+        super.traverse(v)
         for (p in patterns_) {
             p.traverse(v)
         }
