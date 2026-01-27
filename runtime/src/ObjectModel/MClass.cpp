@@ -808,6 +808,7 @@ U8 EnumInfo::GetReflectVersion() const
 static void* GetAnnotations(Uptr annotationMethod, TypeInfo* arrayTi)
 {
     CHECK_DETAIL(arrayTi != nullptr, "arrayTi is nullptr");
+    ScopedAllocBuffer scopedAllocBuffer;
     U32 size = arrayTi->GetInstanceSize();
     MSize objSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
     MObject* obj = ObjectManager::NewObject(arrayTi, objSize, AllocType::RAW_POINTER_OBJECT);
@@ -830,10 +831,6 @@ static void* GetAnnotations(Uptr annotationMethod, TypeInfo* arrayTi)
 #endif
     Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
         size, reinterpret_cast<Uptr>(structRet), size);
-    AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
-    if (buffer != nullptr) {
-        buffer->CommitRawPointerRegions();
-    }
     return obj;
 }
 
@@ -1035,7 +1032,8 @@ EnumCtorInfo* TypeInfo::GetEnumCtor(U32 idx)
 void* TypeInfo::GetAnnotations(TypeInfo* arrayTi)
 {
     if ((IsGenericTypeInfo() && !GetSourceGeneric()->ReflectIsEnable()) || !ReflectIsEnable()) {
-        return nullptr;
+        // reflect is not enabled, return empty array.
+        return MapleRuntime::GetAnnotations(0, arrayTi);
     }
     if (IsEnum() || IsTempEnum()) {
         if (IsEnumCtor()) {
