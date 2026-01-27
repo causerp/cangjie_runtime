@@ -66,11 +66,11 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
             AddressFamily.UNIX
         }
     }
-    public operator func ==(rhs: UnixSocketAddress): Bool {
-        return _path[0.._len] == rhs._path[0..rhs._len]
+    public operator func ==(other: UnixSocketAddress): Bool {
+        return _path[0.._len] == other._path[0..other._len]
     }
-    public operator func !=(rhs: UnixSocketAddress): Bool {
-        return !(this == rhs)
+    public operator func !=(other: UnixSocketAddress): Bool {
+        return !(this == other)
     }
     public func getAddressBytes(): Array<Byte> {
         let buf = Array<Byte>(this.size, repeat: 0)

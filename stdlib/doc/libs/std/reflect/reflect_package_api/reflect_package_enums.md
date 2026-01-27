@@ -214,11 +214,11 @@ public override operator func !=(that: ModifierInfo): Bool
 
 参数：
 
-- that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
+- other: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与 `that` 不等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与另一个不等则返回 `true`，否则返回 `false`。
 
 示例：
 
@@ -257,7 +257,7 @@ Open != Open: false
 ### operator func ==(ModifierInfo)
 
 ```cangjie
-public override operator func ==(that: ModifierInfo): Bool
+public override operator func ==(other: ModifierInfo): Bool
 ```
 
 功能：判断该修饰符信息与给定的另一个修饰符信息是否相等。
@@ -268,11 +268,11 @@ public override operator func ==(that: ModifierInfo): Bool
 
 参数：
 
-- that: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
+- other: [ModifierInfo](reflect_package_enums.md#enum-modifierinfo) - 被比较相等性的另一个修饰符信息。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与 `that` 相等则返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该修饰符信息与另一个相等则返回 `true`，否则返回 `false`。
 
 > **注意：**
 >

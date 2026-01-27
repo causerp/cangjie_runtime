@@ -1039,14 +1039,14 @@ Set writable permission result: true
 ### operator func ==(FileInfo)
 
 ```cangjie
-public operator func ==(that: FileInfo): Bool
+public operator func ==(other: FileInfo): Bool
 ```
 
 功能：判断当前 [FileInfo](fs_package_structs.md#struct-fileinfo) 和另一个 [FileInfo](fs_package_structs.md#struct-fileinfo) 是否对应同一文件。
 
 参数：
 
-- that: [FileInfo](fs_package_structs.md#struct-fileinfo) - 另一个 [FileInfo](fs_package_structs.md#struct-fileinfo)。
+- other: [FileInfo](fs_package_structs.md#struct-fileinfo) - 另一个 [FileInfo](fs_package_structs.md#struct-fileinfo)。
 
 返回值：
 
@@ -1791,7 +1791,7 @@ Path string: /home/user/documents/file.txt
 ### operator func ==(Path)
 
 ```cangjie
-public operator func ==(that: Path): Bool
+public operator func ==(other: Path): Bool
 ```
 
 功能：判断 [Path](fs_package_structs.md#struct-path) 是否相等。
@@ -1800,7 +1800,7 @@ public operator func ==(that: Path): Bool
 
 参数：
 
-- that: [Path](fs_package_structs.md#struct-path) - 另一个 [Path](fs_package_structs.md#struct-path)。
+- other: [Path](fs_package_structs.md#struct-path) - 另一个 [Path](fs_package_structs.md#struct-path)。
 
 返回值：
 

@@ -19,8 +19,8 @@ public enum OverflowStrategy <: Equatable<OverflowStrategy> & ToString {
     | Throwing
     | Wrapping
 
-    public operator func ==(that: OverflowStrategy): Bool {
-        return match ((this, that)) {
+    public operator func ==(other: OverflowStrategy): Bool {
+        return match ((this, other)) {
             case (Saturating, Saturating) => true
             case (Throwing, Throwing) => true
             case (Wrapping, Wrapping) => true

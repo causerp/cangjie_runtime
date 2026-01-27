@@ -206,15 +206,15 @@ public class Timer <: Equatable<Timer> & Hashable {
     /**
      * Check if the two Timer instances are the same one actually.
      */
-    public operator func ==(rhs: Timer): Bool {
-        refEq(this, rhs)
+    public operator func ==(other: Timer): Bool {
+        refEq(this, other)
     }
 
     /**
      * Check if the two Timer instances are different actually.
      */
-    public operator func !=(rhs: Timer): Bool {
-        !refEq(this, rhs)
+    public operator func !=(other: Timer): Bool {
+        !refEq(this, other)
     }
 
     /**

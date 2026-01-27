@@ -1016,13 +1016,13 @@ public class ArrayList<T> <: List<T> {
 extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T> {
     /** overloaded determination == method. */
     @Frozen
-    public operator func ==(that: ArrayList<T>): Bool {
-        if (this.size != that.size) {
+    public operator func ==(other: ArrayList<T>): Bool {
+        if (this.size != other.size) {
             return false
         }
         /* Back-to-front traversal can reduce boundary checks and improve performance */
         for (i in this.size - 1..=0 : -1) {
-            if (unsafe { this.myData.getUnchecked(i) != that.myData.getUnchecked(i) }) {
+            if (unsafe { this.myData.getUnchecked(i) != other.myData.getUnchecked(i) }) {
                 return false
             }
         }
@@ -1031,8 +1031,8 @@ extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T> {
 
     /** overloaded determination != method. */
     @Frozen
-    public operator func !=(that: ArrayList<T>): Bool {
-        return !(this == that)
+    public operator func !=(other: ArrayList<T>): Bool {
+        return !(this == other)
     }
 
     @Frozen

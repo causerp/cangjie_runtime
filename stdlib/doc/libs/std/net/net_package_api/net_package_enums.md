@@ -85,14 +85,14 @@ UNIX toString: domain
 ### operator func !=(SocketNet)
 
 ```cangjie
-public operator func !=(that: SocketNet): Bool
+public operator func !=(other: SocketNet): Bool
 ```
 
 功能：判断两个 [SocketNet](net_package_enums.md#enum-socketnet) 是否不相等。
 
 参数：
 
-- that: [SocketNet](net_package_enums.md#enum-socketnet) - 传入的 [SocketNet](net_package_enums.md#enum-socketnet)。
+- other: [SocketNet](net_package_enums.md#enum-socketnet) - 传入的 [SocketNet](net_package_enums.md#enum-socketnet)。
 
 返回值：
 
@@ -139,14 +139,14 @@ TCP != TCP: false
 ### operator func ==(SocketNet)
 
 ```cangjie
-public operator func ==(that: SocketNet): Bool
+public operator func ==(other: SocketNet): Bool
 ```
 
 功能：判断两个 [SocketNet](net_package_enums.md#enum-socketnet) 是否相等。
 
 参数：
 
-- that: [SocketNet](net_package_enums.md#enum-socketnet) - 的 [SocketNet](net_package_enums.md#enum-socketnet)。
+- other: [SocketNet](net_package_enums.md#enum-socketnet) - 的 [SocketNet](net_package_enums.md#enum-socketnet)。
 
 返回值：
 

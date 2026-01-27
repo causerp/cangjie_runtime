@@ -11106,14 +11106,14 @@ timer 的哈希值: 1
 ### operator func !=(Timer)
 
 ```cangjie
-public operator func !=(rhs: Timer): Bool
+public operator func !=(other: Timer): Bool
 ```
 
-功能：判断当前 [Timer](sync_package_classes.md#class-timer) 与入参 `rhs` 指定的 [Timer](sync_package_classes.md#class-timer) 是否不是同一个实例。
+功能：判断当前 [Timer](sync_package_classes.md#class-timer) 与另一个指定的 [Timer](sync_package_classes.md#class-timer) 是否不是同一个实例。
 
 参数：
 
-- rhs: [Timer](#class-timer) - 待比较的另一个 [Timer](#class-timer) 对象。
+- other: [Timer](#class-timer) - 待比较的另一个 [Timer](#class-timer) 对象。
 
 返回值：
 
@@ -11165,14 +11165,14 @@ timer1 和 timer3 是同一个实例
 ### operator func ==(Timer)
 
 ```cangjie
-public operator func ==(rhs: Timer): Bool
+public operator func ==(other: Timer): Bool
 ```
 
-功能：判断当前 [Timer](sync_package_classes.md#class-timer) 与入参 `rhs` 指定的 [Timer](sync_package_classes.md#class-timer) 是否是同一个实例。
+功能：判断当前 [Timer](sync_package_classes.md#class-timer) 与另一个指定的 [Timer](sync_package_classes.md#class-timer) 是否是同一个实例。
 
 参数：
 
-- rhs: [Timer](#class-timer) - 待比较的另一个 [Timer](#class-timer) 对象。
+- other: [Timer](#class-timer) - 待比较的另一个 [Timer](#class-timer) 对象。
 
 返回值：
 

@@ -45,11 +45,11 @@ public struct AddressFamily <: ToString & Equatable<AddressFamily> {
         this.value = value
     }
 
-    public operator func ==(rhs: AddressFamily): Bool {
-        this.value == rhs.value
+    public operator func ==(other: AddressFamily): Bool {
+        this.value == other.value
     }
-    public operator func !=(rhs: AddressFamily): Bool {
-        this.value != rhs.value
+    public operator func !=(other: AddressFamily): Bool {
+        this.value != other.value
     }
 
     public func toString(): String {

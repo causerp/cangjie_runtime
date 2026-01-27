@@ -105,12 +105,12 @@ public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {
         annotations.toArray()
     }
 
-    public operator func ==(that: ParameterInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: ParameterInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: ParameterInfo): Bool {
-        !(this == that)
+    public operator func !=(other: ParameterInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {

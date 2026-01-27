@@ -643,12 +643,12 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         annotations.toArray()
     }
 
-    public operator func ==(that: TypeInfo): Bool {
-        this.qualifiedName == that.qualifiedName
+    public operator func ==(other: TypeInfo): Bool {
+        this.qualifiedName == other.qualifiedName
     }
 
-    public operator func !=(that: TypeInfo): Bool {
-        this.qualifiedName != that.qualifiedName
+    public operator func !=(other: TypeInfo): Bool {
+        this.qualifiedName != other.qualifiedName
     }
 
     public func hashCode(): Int64 {

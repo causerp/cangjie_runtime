@@ -218,12 +218,12 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         }
     }
 
-    public operator func !=(rhs: ResourcePool<T>): Bool {
-        return !(this == rhs)
+    public operator func !=(other: ResourcePool<T>): Bool {
+        return !(this == other)
     }
 
-    public operator func ==(rhs: ResourcePool<T>): Bool {
-        return refEq(this, rhs)
+    public operator func ==(other: ResourcePool<T>): Bool {
+        return refEq(this, other)
     }
 
     func appendLegalIdleEntry(v: Entry<T>, idleCount: Int64, list: ArrayList<Entry<T>>): Unit {

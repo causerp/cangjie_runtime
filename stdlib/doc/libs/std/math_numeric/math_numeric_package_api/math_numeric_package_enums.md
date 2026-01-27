@@ -75,14 +75,14 @@ enum string: Saturating
 ### operator func ==(OverflowStrategy)
 
 ```cangjie
-public operator func ==(that: OverflowStrategy): Bool
+public operator func ==(other: OverflowStrategy): Bool
 ```
 
 功能：判等。
 
 参数：
 
-- that: [OverflowStrategy](#enum-overflowstrategy) - 被比较的溢出策略。
+- other: [OverflowStrategy](#enum-overflowstrategy) - 被比较的溢出策略。
 
 返回值：
 

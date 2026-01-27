@@ -161,12 +161,12 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
         annotations.toArray()
     }
 
-    public operator func ==(that: InstanceVariableInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: InstanceVariableInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: InstanceVariableInfo): Bool {
-        !(this == that)
+    public operator func !=(other: InstanceVariableInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -324,12 +324,12 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
         annotations.toArray()
     }
 
-    public operator func ==(that: StaticVariableInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: StaticVariableInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: StaticVariableInfo): Bool {
-        !(this == that)
+    public operator func !=(other: StaticVariableInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -459,12 +459,12 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
         annotations.toArray()
     }
 
-    public operator func ==(that: GlobalVariableInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: GlobalVariableInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: GlobalVariableInfo): Bool {
-        !(this == that)
+    public operator func !=(other: GlobalVariableInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {

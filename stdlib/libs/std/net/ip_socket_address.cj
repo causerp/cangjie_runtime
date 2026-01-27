@@ -132,11 +132,11 @@ public class IPSocketAddress <: SocketAddress & Equatable<IPSocketAddress> {
     public func isIPv6(): Bool {
         return _addr.isIPv6()
     }
-    public operator func ==(rhs: IPSocketAddress): Bool {
-        return _addr == rhs._addr && _port == rhs._port
+    public operator func ==(other: IPSocketAddress): Bool {
+        return _addr == other._addr && _port == other._port
     }
-    public operator func !=(rhs: IPSocketAddress): Bool {
-        return !(this == rhs)
+    public operator func !=(other: IPSocketAddress): Bool {
+        return !(this == other)
     }
     public func hashCode(): Int64 {
         var df = DefaultHasher()

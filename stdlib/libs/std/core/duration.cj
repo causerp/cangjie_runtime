@@ -264,66 +264,66 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Add with another duration.
      *
-     * @param r - Another duration.
+     * @param other - Another duration.
      * @return Duration - New duration instance after addition.
      *
      * @throws ArithmeticException - If the sum in nanoseconds is out of range for 'Duration'.
      *
      * @since 0.18.2
      */
-    public operator func +(r: Duration): Duration {
-        if ((r.sec | Int64(r.ns)) == 0) {
+    public operator func +(other: Duration): Duration {
+        if ((other.sec | Int64(other.ns)) == 0) {
             return this
         }
-        if (isSumOverflow(this.sec, r.sec)) {
+        if (isSumOverflow(this.sec, other.sec)) {
             throw ArithmeticException("Out of range of representation of 'Duration'!")
         }
-        return Duration.of(this.sec + r.sec, Int64(this.ns) + Int64(r.ns))
+        return Duration.of(this.sec + other.sec, Int64(this.ns) + Int64(other.ns))
     }
 
     /**
      * Subtract another duration.
      *
-     * @param r - Another duration.
+     * @param other - Another duration.
      * @return Duration - New duration instance after subtraction.
      *
      * @throws ArithmeticException - If the subtracted Value in nanoseconds is out of range for 'Duration'.
      *
      * @since 0.18.2
      */
-    public operator func -(r: Duration): Duration {
-        if ((r.sec | Int64(r.ns)) == 0) {
+    public operator func -(other: Duration): Duration {
+        if ((other.sec | Int64(other.ns)) == 0) {
             return this
         }
-        if (checkSub(this.sec, r.sec)) {
+        if (checkSub(this.sec, other.sec)) {
             throw ArithmeticException("Out of range of representation of 'Duration'!")
         }
-        return Duration.of(this.sec - r.sec, Int64(this.ns) - Int64(r.ns))
+        return Duration.of(this.sec - other.sec, Int64(this.ns) - Int64(other.ns))
     }
 
     /**
      * Multiply by the specified 'Int64' value.
      *
-     * @param r - The specified 'Int64' value to multiply.
+     * @param multiplier - The specified 'Int64' value to multiply.
      * @return Duration - New duration instance after multiplication.
      *
      * @throws ArithmeticException If the multiplied value in nanoseconds is out of range for 'Duration'.
      *
      * @since 0.18.2
      */
-    public operator func *(r: Int64): Duration {
-        if (this == Zero || r == 0) {
+    public operator func *(multiplier: Int64): Duration {
+        if (this == Zero || multiplier == 0) {
             return Zero
-        } else if (r == -1 && this != Min) {
+        } else if (multiplier == -1 && this != Min) {
             let (secs, nanos) = toSameSign()
             return Duration.of(-secs, -nanos)
-        } else if (r == 1) {
+        } else if (multiplier == 1) {
             return this
         } else if (this == Min || this == Max) {
             throw ArithmeticException("Out of range of representation of 'Duration'!")
         }
-        let (secU64, nsU32, multiplier, sign) = toUnsignedNum(r)
-        if (let Some(v) <- durMul(secU64, nsU32, multiplier, sign)) {
+        let (secU64, nsU32, multi, sign) = toUnsignedNum(multiplier)
+        if (let Some(v) <- durMul(secU64, nsU32, multi, sign)) {
             return v
         }
         throw ArithmeticException("Out of range of representation of 'Duration'!")
@@ -332,24 +332,24 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Multiply by the specified 'Float64' value.
      *
-     * @param r - The specified 'Float64' value to multiply.
+     * @param multiplier - The specified 'Float64' value to multiply.
      * @return Duration - New duration instance after multiplication.
      *
-     * @throws IllegalArgumentException - If the value of @p r is NaN(not a number).
+     * @throws IllegalArgumentException - If the value of @p multiplier is NaN(not a number).
      * @throws ArithmeticException - If the multiplied value in nanoseconds is out of range for 'Duration'.
      *
      * @since 0.18.2
      */
-    public operator func *(r: Float64): Duration {
-        if (this == Zero || r == FLOAT64_0) {
+    public operator func *(multiplier: Float64): Duration {
+        if (this == Zero || multiplier == FLOAT64_0) {
             return Zero
-        } else if (r == FLOAT64_1) {
+        } else if (multiplier == FLOAT64_1) {
             return this
-        } else if (r != r) {
+        } else if (multiplier != multiplier) {
             throw IllegalArgumentException("The value of operand cannot be Float64.NaN(not a number)!")
         }
 
-        let result = this.toFloat64Nanoseconds() * r
+        let result = this.toFloat64Nanoseconds() * multiplier
         return getDurationByFloat64(result).getOrThrow(
             {=> ArithmeticException("Out of range of representation of 'Duration'!")})
     }
@@ -375,34 +375,34 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Divide by the specified 'Int64' value.
      *
-     * @param r - the specified 'Int64' value.
+     * @param divisor - the specified 'Int64' value.
      * @return Duration - New instance after division.
      *
-     * @throws IllegalArgumentException - If the value of @p r is 0.
+     * @throws IllegalArgumentException - If the value of @p divisor is 0.
      * @throws ArithmeticException - If the divided value in nanoseconds is out of range for 'Duration'.
      */
-    public operator func /(r: Int64): Duration {
-        if (r == 0) {
+    public operator func /(divisor: Int64): Duration {
+        if (divisor == 0) {
             throw IllegalArgumentException("The value of right operand cannot be 0!")
-        } else if (r == 1) {
+        } else if (divisor == 1) {
             return this
         }
-        if (this == Min && r == -1) {
+        if (this == Min && divisor == -1) {
             throw ArithmeticException("Out of range of representation of 'Duration'!")
         }
-        let (secU64, nsU32, divisor, sign) = toUnsignedNum(r)
-        if (divisor <= 0xFFFF_FFFF) {
+        let (secU64, nsU32, denominator, sign) = toUnsignedNum(divisor)
+        if (denominator <= 0xFFFF_FFFF) {
             let nanos = UInt64(nsU32)
-            let (seconds, extraSec) = (secU64 / divisor, secU64 % divisor)
-            var nanoseconds = nanos / divisor
-            let extraNs = nanos % divisor
-            nanoseconds += ((extraSec * UInt64(NS_PER_SEC) + extraNs) / divisor)
+            let (seconds, extraSec) = (secU64 / denominator, secU64 % denominator)
+            var nanoseconds = nanos / denominator
+            let extraNs = nanos % denominator
+            nanoseconds += ((extraSec * UInt64(NS_PER_SEC) + extraNs) / denominator)
             if (sign) {
                 return Duration.of(Int64(seconds), Int64(nanoseconds))
             }
             return Duration.of(-Int64(seconds), -Int64(nanoseconds))
         }
-        let (seconds, nanoseconds) = durDiv(secU64, nsU32, divisor)
+        let (seconds, nanoseconds) = durDiv(secU64, nsU32, denominator)
         if (sign) {
             return Duration(seconds, UInt32(nanoseconds))
         }
@@ -412,24 +412,24 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Divide by the specified 'Float64' value.
      *
-     * @param r - the specified 'Float64' value.
+     * @param divisor - the specified 'Float64' value.
      * @return Duration - New instance after division.
      *
-     * @throws IllegalArgumentException - If the value of @p r is 0 or NaN(not a number).
+     * @throws IllegalArgumentException - If the value of @p divisor is 0 or NaN(not a number).
      * @throws ArithmeticException - If the divided value in nanoseconds is out of the range for 'Duration'.
      */
-    public operator func /(r: Float64): Duration {
+    public operator func /(divisor: Float64): Duration {
         if (this == Zero) {
             return Zero
         }
-        if (r == FLOAT64_0) {
+        if (divisor == FLOAT64_0) {
             throw IllegalArgumentException("The value of right operand cannot be 0.0!")
-        } else if (r == FLOAT64_1) {
+        } else if (divisor == FLOAT64_1) {
             return this
-        } else if (r != r) {
+        } else if (divisor != divisor) {
             throw IllegalArgumentException("The value of right operand cannot be Float64.NaN(not a number)!")
         }
-        let result = this.toFloat64Nanoseconds() / r
+        let result = this.toFloat64Nanoseconds() / divisor
         return getDurationByFloat64(result).getOrThrow(
             {=> ArithmeticException("Out of range of representation of 'Duration'!")})
     }
@@ -437,54 +437,54 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Divide by another duration.
      *
-     * @param r - Another duration.
+     * @param other - Another duration.
      * @return Float64 - The divided 'Float64' value.
      *
-     * @throws IllegalArgumentException - If @p r is Duration.Zero.
+     * @throws IllegalArgumentException - If @p other is Duration.Zero.
      */
-    public operator func /(r: Duration): Float64 {
-        if (r == Zero) {
+    public operator func /(other: Duration): Float64 {
+        if (other == Zero) {
             throw IllegalArgumentException("The value of right operand cannot be Duration.Zero!")
         }
-        return this.toFloat64Nanoseconds() / r.toFloat64Nanoseconds()
+        return this.toFloat64Nanoseconds() / other.toFloat64Nanoseconds()
     }
 
     /**
      * Report whether it is equal to another Duration.
      *
-     * @param r another duration.
-     * @return true if equal @p r, otherwise false.
+     * @param other another duration.
+     * @return true if equal @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func ==(r: Duration): Bool {
-        return this.sec == r.sec && this.ns == r.ns
+    public operator func ==(other: Duration): Bool {
+        return this.sec == other.sec && this.ns == other.ns
     }
 
     /**
      * Report whether it is not equal to another Duration.
      *
-     * @param r another duration.
-     * @return true if not equal @p r, otherwise false.
+     * @param other another duration.
+     * @return true if not equal @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func !=(r: Duration): Bool {
-        return !(this == r)
+    public operator func !=(other: Duration): Bool {
+        return !(this == other)
     }
 
     /**
      * Report whether it is greater than or equal to another Duration.
      *
-     * @param r another duration.
-     * @return true if greater than or equal to @p r, otherwise false.
+     * @param other another duration.
+     * @return true if greater than or equal to @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func >=(r: Duration): Bool {
-        return if (this.sec == r.sec) {
-            this.ns >= r.ns
-        } else if (this.sec < r.sec) {
+    public operator func >=(other: Duration): Bool {
+        return if (this.sec == other.sec) {
+            this.ns >= other.ns
+        } else if (this.sec < other.sec) {
             false
         } else {
             true
@@ -494,15 +494,15 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Report whether it is greater than another Duration.
      *
-     * @param r another duration.
-     * @return true if greater than @p r, otherwise false.
+     * @param other another duration.
+     * @return true if greater than @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func >(r: Duration): Bool {
-        return if (this.sec == r.sec) {
-            this.ns > r.ns
-        } else if (this.sec < r.sec) {
+    public operator func >(other: Duration): Bool {
+        return if (this.sec == other.sec) {
+            this.ns > other.ns
+        } else if (this.sec < other.sec) {
             false
         } else {
             true
@@ -512,37 +512,37 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
     /**
      * Report whether it is less than or equal to another Duration.
      *
-     * @param r another duration.
-     * @return true if less than or equal to @p r, otherwise false.
+     * @param other another duration.
+     * @return true if less than or equal to @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func <=(r: Duration): Bool {
-        return !(this > r)
+    public operator func <=(other: Duration): Bool {
+        return !(this > other)
     }
 
     /**
      * Report whether it is less than another Duration.
      *
-     * @param r another duration.
-     * @return true if less than @p r, otherwise false.
+     * @param other another duration.
+     * @return true if less than @p other, otherwise false.
      *
      * @since 0.18.2
      */
-    public operator func <(r: Duration): Bool {
-        return !(this >= r)
+    public operator func <(other: Duration): Bool {
+        return !(this >= other)
     }
 
     /**
      * Compare the relationship between the current duration instance and another duration instance.
      *
-     * @param rhs - Another duration instance for comparison
+     * @param other - Another duration instance for comparison
      * @return Ordering - Indicating the relationship between two duration instances.
      */
-    public func compare(rhs: Duration): Ordering {
+    public func compare(other: Duration): Ordering {
         return match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }

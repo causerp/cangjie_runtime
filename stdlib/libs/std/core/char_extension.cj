@@ -281,15 +281,15 @@ extend Rune <: Comparable<Rune> {
     /**
      * Compare the relationship between two instance of Rune.
      *
-     * @param rhs Instance of Rune compared with this.
+     * @param other Instance of Rune compared with this.
      * @return Value indicating the relationship between two instance of Rune.
      *
      * @since 0.27.3
      */
-    public func compare(rhs: Rune): Ordering {
+    public func compare(other: Rune): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }
