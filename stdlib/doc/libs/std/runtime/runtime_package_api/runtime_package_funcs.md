@@ -744,7 +744,7 @@ public func stopCPUProfiling(path: Path): Unit
 - ProfilingInfoException - 若没有调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)，直接调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)则抛出异常。
 
 示例：
-<!-- coverage -->
+<!-- associated_example -->
 参见 [func startCPUProfiling](#func-startcpuprofiling) 示例。
 
 ## func unregisterSignalHandler(Signal, SignalHandlerFunc)

@@ -1170,7 +1170,6 @@ public func toString(): String
 <!-- verify -->
 ```cangjie
 main() {
-    // 创建Ordering实例
     let t = ThreadState.Running
     println("Thread State: ${t}")
 }

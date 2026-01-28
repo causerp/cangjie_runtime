@@ -1622,7 +1622,7 @@ main(): Unit {
 public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
 ```
 
-功能：描述枚举构造子信息，可用于查询构造子参数类型、注解，并根据构造子进行构造/拆解枚举实例。
+功能：描述枚举构造器信息，可用于查询构造器参数类型、注解，并根据构造器进行构造/拆解枚举实例。
 
 > **注意：**
 >
@@ -1640,7 +1640,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
 public prop annotations: Collection<Annotation>
 ```
 
-功能：获取所有作用于该枚举构造子上的注解集合。
+功能：获取所有作用于该枚举构造器上的注解集合。
 
 > **注意：**
 >
@@ -1680,7 +1680,7 @@ main(): Unit {
 public prop enumTypeInfo: EnumTypeInfo
 ```
 
-功能：获取该枚举构造子所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+功能：获取该枚举构造器所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
 
 > **注意：**
 >
@@ -1723,7 +1723,7 @@ test.E
 public prop name: String
 ```
 
-功能：获取该枚举构造子的名称（不包含包名前缀）。
+功能：获取该枚举构造器的名称（不包含包名前缀）。
 
 > **注意：**
 >
@@ -1762,7 +1762,7 @@ M2
 public prop parameters: ReadOnlyList<TypeInfo>
 ```
 
-功能：获取该枚举构造子的参数类型列表，按声明顺序返回。
+功能：获取该枚举构造器的参数类型列表，按声明顺序返回。
 
 > **注意：**
 >
@@ -1806,7 +1806,7 @@ String
 public prop qualifiedName: String
 ```
 
-功能：获取该枚举构造子的限定名称。
+功能：获取该枚举构造器的限定名称。
 
 > **注意：**
 >
@@ -1853,11 +1853,11 @@ public static func get(qualifiedName: String): EnumConstructorInfo
 
 参数：
 
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造子的限定名称，例如 `default.E.M2<Int64>`。
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造器的限定名称，例如 `default.E.M2<Int64>`。
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - 与 `qualifiedName` 对应的枚举构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 与 `qualifiedName` 对应的枚举构造器信息。
 
 异常：
 
@@ -1894,7 +1894,7 @@ test.E.M2<Int64>
 public static func of(instance: Any): EnumConstructorInfo
 ```
 
-功能：获取给定枚举实例所属的构造子信息。
+功能：获取给定枚举实例所属的构造器信息。
 
 > **注意：**
 >
@@ -1906,7 +1906,7 @@ public static func of(instance: Any): EnumConstructorInfo
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - `instance` 所属构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - `instance` 所属构造器信息。
 
 异常：
 
@@ -1961,15 +1961,15 @@ public func apply(args: Array<Any>): Any
 
 参数：
 
-- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子参数的实参列表，顺序需与构造子声明一致。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造器参数的实参列表，顺序需与构造器声明一致。
 
 返回值：
 
-- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 由该构造子创建的枚举实例。
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 由该构造器创建的枚举实例。
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 当实参个数与构造子参数个数不一致，或任一实参的运行时类型与对应形参类型不匹配时抛出。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 当实参个数与构造器参数个数不一致，或任一实参的运行时类型与对应形参类型不匹配时抛出。
 
 示例：
 
@@ -2004,6 +2004,140 @@ main(): Unit {
 M2(7)
 ```
 
+### func findAllAnnotations\<T>()
+
+```cangjie
+public func findAllAnnotations<T>(): Array<T> where T <: Annotation
+```
+
+功能：获取该构造器上的所有类型为 `T` 的注解实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 注解列表。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    let annos = ctor.findAllAnnotations<A1>()
+    println(annos.size)
+    return
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
+### func findAnnotation\<T>()
+
+```cangjie
+public func findAnnotation<T>(): ?T where T <: Annotation
+```
+
+功能：获取该构造器上的任意一个类型为 `T` 的注解实例。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- ?T - 注解实例或 `None`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+@Annotation
+public class A1 {
+    public const init() {}
+}
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.findAnnotation<A1>().isNone())
+    return
+}
+```
+
+运行结果：
+
+```text
+true
+```
+
+### func getAllAnnotations()
+
+```cangjie
+public func getAllAnnotations(): Array<Annotation>
+```
+
+功能：获取该构造器上的所有注解实例数组。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - 注解数组。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.getAllAnnotations().size)
+    return
+}
+```
+
+运行结果：
+
+```text
+0
+```
+
 ### func getAssociatedValues(Any)
 
 ```cangjie
@@ -2026,7 +2160,7 @@ public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造子创建的，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造器创建的，则抛出异常。
 
 示例：
 
@@ -2062,7 +2196,7 @@ Some(7)
 public func hashCode(): Int64
 ```
 
-功能：获取该构造子信息的哈希值。
+功能：获取该构造器信息的哈希值。
 
 > **注意：**
 >
@@ -2103,7 +2237,7 @@ true
 public func toString(): String
 ```
 
-功能：获取该构造子信息的字符串表示，等价于 `qualifiedName`。
+功能：获取该构造器信息的字符串表示，等价于 `qualifiedName`。
 
 > **注意：**
 >
@@ -2137,13 +2271,14 @@ main(): Unit {
 ```text
 test.E.M1
 ```
+
 ### operator func ==(EnumConstructorInfo)
 
 ```cangjie
 public operator func ==(other: EnumConstructorInfo): Bool
 ```
 
-功能：判断该构造子信息与另一个构造子信息是否相等。
+功能：判断该构造器信息与另一个构造器信息是否相等。
 
 > **注意：**
 >
@@ -2151,7 +2286,7 @@ public operator func ==(other: EnumConstructorInfo): Bool
 
 参数：
 
-- other: [EnumConstructorInfo](#class-enumconstructorinfo) - 另一个构造子信息。
+- other: [EnumConstructorInfo](#class-enumconstructorinfo) - 另一个构造器信息。
 
 返回值：
 
@@ -2209,7 +2344,7 @@ public class EnumTypeInfo <: TypeInfo
 public prop constructors: Collection<EnumConstructorInfo>
 ```
 
-功能：获取该 [EnumTypeInfo](#class-enumtypeinfo) 对应的所有枚举构造子信息，返回对应集合。
+功能：获取该 [EnumTypeInfo](#class-enumtypeinfo) 对应的所有枚举构造器信息，返回对应集合。
 
 > **注意：**
 >
@@ -2394,7 +2529,7 @@ E
 public func construct(constructor: String, args: Array<Any>): Any
 ```
 
-功能：根据构造子签名和实参列表构造该枚举的实例并返回。
+功能：根据构造器签名和实参列表构造该枚举的实例并返回。
 
 > **注意：**
 >
@@ -2402,8 +2537,8 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 参数：
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子签名。
-- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子实参列表。
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器签名。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造器实参列表。
 
 返回值：
 
@@ -2411,7 +2546,7 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果 `args` 的数量或类型与构造子参数不匹配或者指定的构造子不存在，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果 `args` 的数量或类型与构造器参数不匹配或者指定的构造器不存在，则抛出异常。
 
 示例：
 
@@ -2449,7 +2584,7 @@ main(): Unit {
 public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 ```
 
-功能：拆解给定枚举实例，返回其构造子信息和关联值列表。
+功能：拆解给定枚举实例，返回其构造器信息和关联值列表。
 
 > **注意：**
 >
@@ -2461,7 +2596,7 @@ public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 
 返回值：
 
-- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - 构造子信息与关联值列表。
+- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - 构造器信息与关联值列表。
 
 异常：
 
@@ -2504,7 +2639,7 @@ Some(7)
 public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumConstructorInfo
 ```
 
-功能：按构造子名与参数个数查询构造子信息。
+功能：按构造器名与参数个数查询构造器信息。
 
 > **注意：**
 >
@@ -2512,16 +2647,16 @@ public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumCons
 
 参数：
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子名（不含参数签名），例如 `M2`。
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器名（不含参数签名），例如 `M2`。
 - argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；为 `0` 时不限制参数个数。
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - 匹配到的构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 匹配到的构造器信息。
 
 异常：
 
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果未找到匹配的构造子，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果未找到匹配的构造器，则抛出异常。
 
 示例：
 
