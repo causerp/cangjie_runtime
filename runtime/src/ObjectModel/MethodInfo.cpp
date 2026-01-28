@@ -522,7 +522,12 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         PrepareSRet(&argValues, sret, retType);
     }
     if (instanceObj != nullptr) {
-        argValues.AddReference(instanceObj);
+        if (declaringTi->IsStruct() || ((declaringTi->IsEnum() ||
+            declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
+            argValues.AddInt64(reinterpret_cast<I64>(instanceObj) + TYPEINFO_PTR_SIZE);
+        } else {
+            argValues.AddReference(instanceObj);
+        }
     } else {
         TypeInfo* ti = declaringTi;
         if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsGenericTypeInfo()))) {
