@@ -845,7 +845,7 @@ extern "C" void* MCC_AcquireRawData(const ArrayRef array, bool* isCopy)
         dataClosure->rawPtr = rawPtr;
         dataClosure->mutator = Mutator::GetMutator();
         dataClosure->pos = pos;
-        auto timer = TimerNew(10ULL * SECOND_TO_NANO_SECOND, 0, &RawPtrCheckerTimerEntry,
+        auto timer = TimerNew(30ULL * SECOND_TO_NANO_SECOND, 0, &RawPtrCheckerTimerEntry,
                               reinterpret_cast<void*>(dataClosure));
         if (timer != nullptr) {
             TimerRelease(timer);
