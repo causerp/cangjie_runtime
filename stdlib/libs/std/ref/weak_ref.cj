@@ -44,16 +44,16 @@ sealed abstract class WeakRefBase {
 public enum CleanupPolicy <: Equatable<CleanupPolicy> {
     EAGER | DEFERRED
 
-    public operator func ==(that: CleanupPolicy): Bool {
-        match ((this, that)) {
+    public operator func ==(other: CleanupPolicy): Bool {
+        match ((this, other)) {
             case (EAGER, EAGER) => true
             case (DEFERRED, DEFERRED) => true
             case _ => false
         }
     }
 
-    public operator func !=(that: CleanupPolicy): Bool {
-        !(this == that)
+    public operator func !=(other: CleanupPolicy): Bool {
+        !(this == other)
     }
 }
 

@@ -22,8 +22,8 @@ public enum RoundingMode <: Equatable<RoundingMode> & ToString {
     | HalfUp
     | Up
 
-    public operator func ==(that: RoundingMode): Bool {
-        return match ((this, that)) {
+    public operator func ==(other: RoundingMode): Bool {
+        return match ((this, other)) {
             case (Ceiling, Ceiling) => true
             case (Down, Down) => true
             case (Floor, Floor) => true

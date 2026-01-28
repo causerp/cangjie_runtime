@@ -91,14 +91,14 @@ public func toString(): String
 ### operator func ==(RoundingMode)
 
 ```cangjie
-public operator func ==(that: RoundingMode): Bool
+public operator func ==(other: RoundingMode): Bool
 ```
 
 功能：判等。
 
 参数：
 
-- that: [RoundingMode](#enum-roundingmode) - 被比较的舍入规则。
+- other: [RoundingMode](#enum-roundingmode) - 被比较的舍入规则。
 
 返回值：
 

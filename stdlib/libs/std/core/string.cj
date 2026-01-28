@@ -907,15 +907,15 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     @Frozen
     @OverflowWrapping
-    public func equalsIgnoreAsciiCase(that: String): Bool {
-        if (this.length != that.length) {
+    public func equalsIgnoreAsciiCase(other: String): Bool {
+        if (this.length != other.length) {
             return false
         }
         var idx1 = Int64(this.start)
-        var idx2 = Int64(that.start)
+        var idx2 = Int64(other.start)
         while (idx1 < Int64(this.start + this.length)) {
             let b1 = arrayGetUnchecked(this.myData, idx1)
-            let b2 = arrayGetUnchecked(that.myData, idx2)
+            let b2 = arrayGetUnchecked(other.myData, idx2)
             if (!byteEqualsIgnoreAsciiCase(b1, b2)) {
                 return false
             }
@@ -1041,15 +1041,15 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
     // Return a string which is the result of concatenating `left` and `right`.
     @Frozen
     @OverflowWrapping
-    public operator const func +(right: String): String {
-        let newLen = this.size + right.size
+    public operator const func +(other: String): String {
+        let newLen = this.size + other.size
         if (newLen > Int64(UInt32.Max)) {
             throw IllegalArgumentException("The size of String is too large.")
         }
 
         let newData = RawArray<Byte>(newLen, repeat: 0)
         intrinsicBuiltInCopyTo<UInt8>(this.myData, newData, Int64(this.start), 0, this.size)
-        intrinsicBuiltInCopyTo<UInt8>(right.myData, newData, Int64(right.start), this.size, right.size)
+        intrinsicBuiltInCopyTo<UInt8>(other.myData, newData, Int64(other.start), this.size, other.size)
         return String(newData, 0, UInt32(newLen))
     }
 
@@ -1078,8 +1078,8 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     // Returns true if and only if string `left` is less than `right` with the lexicographical order.
     @Frozen
-    public operator const func <(right: String): Bool {
-        return match (this.compare(right)) {
+    public operator const func <(other: String): Bool {
+        return match (this.compare(other)) {
             case LT => return true
             case _ => return false
         }
@@ -1087,8 +1087,8 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     // Returns true if and only if string `left` is less than or equal to `right` with the lexicographical order.
     @Frozen
-    public operator const func <=(right: String): Bool {
-        return match (this.compare(right)) {
+    public operator const func <=(other: String): Bool {
+        return match (this.compare(other)) {
             case GT => return false
             case _ => return true
         }
@@ -1096,8 +1096,8 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     // Returns true if and only if string `left` is greater than `right` with the lexicographical order.
     @Frozen
-    public operator const func >(right: String): Bool {
-        return match (this.compare(right)) {
+    public operator const func >(other: String): Bool {
+        return match (this.compare(other)) {
             case GT => return true
             case _ => return false
         }
@@ -1105,8 +1105,8 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     // Returns true if and only if string `left` is greater than or equal to `right` with the lexicographical order.
     @Frozen
-    public operator const func >=(right: String): Bool {
-        return match (this.compare(right)) {
+    public operator const func >=(other: String): Bool {
+        return match (this.compare(other)) {
             case LT => return false
             case _ => return true
         }
@@ -1114,20 +1114,20 @@ public struct String <: Collection<Byte> & Comparable<String> & Hashable & ToStr
 
     // Returns true if and only if the two string are identical.
     @Frozen
-    public operator const func ==(right: String): Bool {
-        if (this.length != right.length) {
+    public operator const func ==(other: String): Bool {
+        if (this.length != other.length) {
             return false
         }
-        if (intrinsicRefEqRawArray(this.myData, right.myData) && this.start == right.start) {
+        if (intrinsicRefEqRawArray(this.myData, other.myData) && this.start == other.start) {
             return true
         }
-        return compareBytes(this.myData, Int64(this.start), right.myData, Int64(right.start), Int64(this.length)) == 0
+        return compareBytes(this.myData, Int64(this.start), other.myData, Int64(other.start), Int64(this.length)) == 0
     }
 
     // Returns true if and only if the two string are not identical.
     @Frozen
-    public operator const func !=(right: String): Bool {
-        return !(this == right)
+    public operator const func !=(other: String): Bool {
+        return !(this == other)
     }
 
     /**

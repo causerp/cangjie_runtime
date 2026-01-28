@@ -11,8 +11,8 @@ package std.reflect
 import std.collection.*
 
 public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo> {
-    public operator func ==(that: GenericTypeInfo): Bool {
-        return this.name == that.name
+    public operator func ==(other: GenericTypeInfo): Bool {
+        return this.name == other.name
     }
     init(cp: CPointer<Unit>) {
         super(cp)
@@ -219,12 +219,12 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
         annotations.toArray()
     }
 
-    public operator func ==(that: InstanceFunctionInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: InstanceFunctionInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: InstanceFunctionInfo): Bool {
-        !(this == that)
+    public operator func !=(other: InstanceFunctionInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -442,12 +442,12 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         annotations.toArray()
     }
 
-    public operator func ==(that: StaticFunctionInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: StaticFunctionInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: StaticFunctionInfo): Bool {
-        !(this == that)
+    public operator func !=(other: StaticFunctionInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -623,12 +623,12 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
         annotations.toArray()
     }
 
-    public operator func ==(that: InstancePropertyInfo): Bool {
-        this._getterInfo.getOrThrow()._info == that._getterInfo.getOrThrow()._info
+    public operator func ==(other: InstancePropertyInfo): Bool {
+        this._getterInfo.getOrThrow()._info == other._getterInfo.getOrThrow()._info
     }
 
-    public operator func !=(that: InstancePropertyInfo): Bool {
-        !(this == that)
+    public operator func !=(other: InstancePropertyInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -780,12 +780,12 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     public func getAllAnnotations(): Array<Annotation> {
         annotations.toArray()
     }
-    public operator func ==(that: StaticPropertyInfo): Bool {
-        this._getterInfo.getOrThrow()._info == that._getterInfo.getOrThrow()._info
+    public operator func ==(other: StaticPropertyInfo): Bool {
+        this._getterInfo.getOrThrow()._info == other._getterInfo.getOrThrow()._info
     }
 
-    public operator func !=(that: StaticPropertyInfo): Bool {
-        !(this == that)
+    public operator func !=(other: StaticPropertyInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -909,12 +909,12 @@ public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
         annotations.toArray()
     }
 
-    public operator func ==(that: ConstructorInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: ConstructorInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: ConstructorInfo): Bool {
-        !(this == that)
+    public operator func !=(other: ConstructorInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -1082,12 +1082,12 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
         annotations.toArray()
     }
 
-    public operator func ==(that: GlobalFunctionInfo): Bool {
-        this._info == that._info
+    public operator func ==(other: GlobalFunctionInfo): Bool {
+        this._info == other._info
     }
 
-    public operator func !=(that: GlobalFunctionInfo): Bool {
-        !(this == that)
+    public operator func !=(other: GlobalFunctionInfo): Bool {
+        !(this == other)
     }
 
     public func hashCode(): Int64 {

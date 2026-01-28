@@ -517,12 +517,12 @@ class IteratorForSet<T> <: Iterator<T> where T <: Comparable<T> {
  */
 extend<T> TreeSet<T> <: Equatable<TreeSet<T>> {
     /** overloaded determination equal function. */
-    public operator func ==(that: TreeSet<T>): Bool {
-        if (this.size != that.size) {
+    public operator func ==(other: TreeSet<T>): Bool {
+        if (this.size != other.size) {
             return false
         }
         let iThis = this.iterator()
-        let iThat = that.iterator()
+        let iThat = other.iterator()
         for (_ in 0..this.size where iThis.next() != iThat.next()) {
             return false
         }
@@ -530,8 +530,8 @@ extend<T> TreeSet<T> <: Equatable<TreeSet<T>> {
     }
 
     /** overloaded determination unequal function. */
-    public operator func !=(that: TreeSet<T>): Bool {
-        return !(this == that)
+    public operator func !=(other: TreeSet<T>): Bool {
+        return !(this == other)
     }
 }
 

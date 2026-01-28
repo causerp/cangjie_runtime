@@ -117,14 +117,14 @@ extend<T> Box<T> <: Comparable<Box<T>> where T <: Comparable<T>
 #### func compare(Box\<T>)
 
 ```cangjie
-public func compare(that: Box<T>): Ordering
+public func compare(other: Box<T>): Ordering
 ```
 
 功能：判断当前 [Box](core_package_classes.md#class-boxt) 实例与另一个 [Box](core_package_classes.md#class-boxt) 实例的大小关系。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -172,14 +172,14 @@ Ordering.GT
 #### operator func !=(Box\<T>)
 
 ```cangjie
-public operator func !=(that: Box<T>): Bool
+public operator func !=(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象是否不相等。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -188,14 +188,14 @@ public operator func !=(that: Box<T>): Bool
 #### operator func <(Box\<T>)
 
 ```cangjie
-public operator func <(that: Box<T>): Bool
+public operator func <(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象的大小。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -204,14 +204,14 @@ public operator func <(that: Box<T>): Bool
 #### operator func <=(Box\<T>)
 
 ```cangjie
-public operator func <=(that: Box<T>): Bool
+public operator func <=(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象的大小。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -220,14 +220,14 @@ public operator func <=(that: Box<T>): Bool
 #### operator func ==(Box\<T>)
 
 ```cangjie
-public operator func ==(that: Box<T>): Bool
+public operator func ==(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象是否相等。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -236,14 +236,14 @@ public operator func ==(that: Box<T>): Bool
 #### operator func >(Box\<T>)
 
 ```cangjie
-public operator func >(that: Box<T>): Bool
+public operator func >(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象的大小。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 
@@ -252,14 +252,14 @@ public operator func >(that: Box<T>): Bool
 #### operator func >=(Box\<T>)
 
 ```cangjie
-public operator func >=(that: Box<T>): Bool
+public operator func >=(other: Box<T>): Bool
 ```
 
 功能：比较 [Box](core_package_classes.md#class-boxt) 对象的大小。
 
 参数：
 
-- that: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
+- other: [Box](core_package_classes.md#class-boxt)\<T> - 比较的另外一个 [Box](core_package_classes.md#class-boxt) 对象。
 
 返回值：
 

@@ -36,31 +36,31 @@ DEFERRED
 ### operator func ==(CleanupPolicy)
 
 ```cangjie
-public operator func ==(that: CleanupPolicy): Bool
+public operator func ==(other: CleanupPolicy): Bool
 ```
 
-功能：对 `Enum CleanupPolicy` 判断是否相等。
+功能：判断两个清理策略是否相等。
 
 参数：
 
-- that: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
+- other: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与 `that` 回收策略相同时返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与另一个回收策略相同时返回 `true`，否则返回 `false`。
 
 ### operator func !=(CleanupPolicy)
 
 ```cangjie
-public operator func !=(that: CleanupPolicy): Bool
+public operator func !=(other: CleanupPolicy): Bool
 ```
 
-功能：对 `Enum CleanupPolicy` 判断是否不等。
+功能：判断两个清理策略是否不等。
 
 参数：
 
-- that: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
+- other: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - 被比较的枚举实例。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与 `that` 回收策略不同时返回 `true`，否则返回 `false`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 当前回收策略与另一个回收策略不同时返回 `true`，否则返回 `false`。

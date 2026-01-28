@@ -244,7 +244,7 @@ public struct FileInfo <: Equatable<FileInfo> {
         }
     }
 
-    public operator func ==(that: FileInfo): Bool {
-        return _path == that.path
+    public operator func ==(other: FileInfo): Bool {
+        return _path == other.path
     }
 }

@@ -669,14 +669,14 @@ false
 #### func equals(CString)
 
 ```cangjie
-public func equals(rhs: CString): Bool
+public func equals(other: CString): Bool
 ```
 
 功能：判断两个字符串是否相等。
 
 参数：
 
-- rhs: [CString](core_package_intrinsics.md#cstring) - 比较的目标字符串。
+- other: [CString](core_package_intrinsics.md#cstring) - 比较的目标字符串。
 
 返回值：
 
@@ -711,14 +711,14 @@ false
 #### func equalsLower(CString)
 
 ```cangjie
-public func equalsLower(rhs: CString): Bool
+public func equalsLower(other: CString): Bool
 ```
 
 功能：判断两个字符串是否相等，忽略大小写。
 
 参数：
 
-- rhs: [CString](core_package_intrinsics.md#cstring) - 匹配的目标字符串。
+- other: [CString](core_package_intrinsics.md#cstring) - 匹配的目标字符串。
 
 返回值：
 
@@ -1246,14 +1246,14 @@ extend Float16 <: Comparable<Float16>
 #### func compare(Float16)
 
 ```cangjie
-public func compare(rhs: Float16): Ordering
+public func compare(other: Float16): Ordering
 ```
 
 功能：判断当前 [Float16](core_package_intrinsics.md#float16) 值与指定 [Float16](core_package_intrinsics.md#float16) 值的大小关系。
 
 参数：
 
-- rhs: [Float16](core_package_intrinsics.md#float16) - 待比较的另一个 [Float16](core_package_intrinsics.md#float16) 值。
+- other: [Float16](core_package_intrinsics.md#float16) - 待比较的另一个 [Float16](core_package_intrinsics.md#float16) 值。
 
 返回值：
 
@@ -1550,14 +1550,14 @@ extend Float32 <: Comparable<Float32>
 #### func compare(Float32)
 
 ```cangjie
-public func compare(rhs: Float32): Ordering
+public func compare(other: Float32): Ordering
 ```
 
 功能：判断当前 [Float32](core_package_intrinsics.md#float32) 值与指定 [Float32](core_package_intrinsics.md#float32) 值的大小关系。
 
 参数：
 
-- rhs: [Float32](core_package_intrinsics.md#float32) - 待比较的另一个 [Float32](core_package_intrinsics.md#float32) 值。
+- other: [Float32](core_package_intrinsics.md#float32) - 待比较的另一个 [Float32](core_package_intrinsics.md#float32) 值。
 
 返回值：
 
@@ -1854,14 +1854,14 @@ extend Float64 <: Comparable<Float64>
 #### func compare(Float64)
 
 ```cangjie
-public func compare(rhs: Float64): Ordering
+public func compare(other: Float64): Ordering
 ```
 
 功能：判断当前 [Float64](core_package_intrinsics.md#float64) 值与指定 [Float64](core_package_intrinsics.md#float64) 值的大小关系。
 
 参数：
 
-- rhs: [Float64](core_package_intrinsics.md#float64) - 待比较的另一个 [Float64](core_package_intrinsics.md#float64) 值。
+- other: [Float64](core_package_intrinsics.md#float64) - 待比较的另一个 [Float64](core_package_intrinsics.md#float64) 值。
 
 返回值：
 
@@ -2046,14 +2046,14 @@ extend Int16 <: Comparable<Int16>
 #### func compare(Int16)
 
 ```cangjie
-public func compare(rhs: Int16): Ordering
+public func compare(other: Int16): Ordering
 ```
 
 功能：判断当前 [Int16](core_package_intrinsics.md#int16) 值与指定 [Int16](core_package_intrinsics.md#int16) 值的大小关系。
 
 参数：
 
-- rhs: [Int16](core_package_intrinsics.md#int16) - 待比较的另一个 [Int16](core_package_intrinsics.md#int16) 值。
+- other: [Int16](core_package_intrinsics.md#int16) - 待比较的另一个 [Int16](core_package_intrinsics.md#int16) 值。
 
 返回值：
 
@@ -2249,14 +2249,14 @@ extend Int32 <: Comparable<Int32>
 #### func compare(Int32)
 
 ```cangjie
-public func compare(rhs: Int32): Ordering
+public func compare(other: Int32): Ordering
 ```
 
 功能：判断当前 [Int32](core_package_intrinsics.md#int32) 值与指定 [Int32](core_package_intrinsics.md#int32) 值的大小关系。
 
 参数：
 
-- rhs: [Int32](core_package_intrinsics.md#int32) - 待比较的另一个 [Int32](core_package_intrinsics.md#int32) 值。
+- other: [Int32](core_package_intrinsics.md#int32) - 待比较的另一个 [Int32](core_package_intrinsics.md#int32) 值。
 
 返回值：
 
@@ -2446,14 +2446,14 @@ extend Int64 <: Comparable<Int64>
 #### func compare(Int64)
 
 ```cangjie
-public func compare(rhs: Int64): Ordering
+public func compare(other: Int64): Ordering
 ```
 
 功能：判断当前 [Int64](core_package_intrinsics.md#int64) 值与指定 [Int64](core_package_intrinsics.md#int64) 值的大小关系。
 
 参数：
 
-- rhs: [Int64](core_package_intrinsics.md#int64) - 待比较的另一个 [Int64](core_package_intrinsics.md#int64) 值。
+- other: [Int64](core_package_intrinsics.md#int64) - 待比较的另一个 [Int64](core_package_intrinsics.md#int64) 值。
 
 返回值：
 
@@ -2643,14 +2643,14 @@ extend Int8 <: Comparable<Int8>
 #### func compare(Int8)
 
 ```cangjie
-public func compare(rhs: Int8): Ordering
+public func compare(other: Int8): Ordering
 ```
 
 功能：判断当前 [Int8](core_package_intrinsics.md#int8) 值与指定 [Int8](core_package_intrinsics.md#int8) 值的大小关系。
 
 参数：
 
-- rhs: [Int8](core_package_intrinsics.md#int8) - 待比较的另一个 [Int8](core_package_intrinsics.md#int8) 值。
+- other: [Int8](core_package_intrinsics.md#int8) - 待比较的另一个 [Int8](core_package_intrinsics.md#int8) 值。
 
 返回值：
 
@@ -2840,14 +2840,14 @@ extend IntNative <: Comparable<IntNative>
 #### func compare(IntNative)
 
 ```cangjie
-public func compare(rhs: IntNative): Ordering
+public func compare(other: IntNative): Ordering
 ```
 
 功能：判断当前 [IntNative](core_package_intrinsics.md#intnative) 值与指定 [IntNative](core_package_intrinsics.md#intnative) 值的大小关系。
 
 参数：
 
-- rhs: [IntNative](core_package_intrinsics.md#intnative) - 待比较的另一个 [IntNative](core_package_intrinsics.md#intnative) 值。
+- other: [IntNative](core_package_intrinsics.md#intnative) - 待比较的另一个 [IntNative](core_package_intrinsics.md#intnative) 值。
 
 返回值：
 
@@ -3360,7 +3360,7 @@ extend Rune <: Comparable<Rune>
 #### func compare(Rune)
 
 ```cangjie
-public func compare(rhs: Rune): Ordering
+public func compare(other: Rune): Ordering
 ```
 
 功能：判断当前 [Rune](core_package_intrinsics.md#rune) 实例与指定 [Rune](core_package_intrinsics.md#rune) 实例的大小关系。
@@ -3369,7 +3369,7 @@ public func compare(rhs: Rune): Ordering
 
 参数：
 
-- rhs: [Rune](core_package_intrinsics.md#rune) - 待比较的另一个 [Rune](core_package_intrinsics.md#rune) 实例。
+- other: [Rune](core_package_intrinsics.md#rune) - 待比较的另一个 [Rune](core_package_intrinsics.md#rune) 实例。
 
 返回值：
 
@@ -3531,14 +3531,14 @@ extend UInt16 <: Comparable<UInt16>
 #### func compare(UInt16)
 
 ```cangjie
-public func compare(rhs: UInt16): Ordering
+public func compare(other: UInt16): Ordering
 ```
 
 功能：判断当前 [UInt16](core_package_intrinsics.md#uint16) 值与指定 [UInt16](core_package_intrinsics.md#uint16) 值的大小关系。
 
 参数：
 
-- rhs: [UInt16](core_package_intrinsics.md#uint16) - 待比较的另一个 [UInt16](core_package_intrinsics.md#uint16) 值。
+- other: [UInt16](core_package_intrinsics.md#uint16) - 待比较的另一个 [UInt16](core_package_intrinsics.md#uint16) 值。
 
 返回值：
 
@@ -3728,14 +3728,14 @@ extend UInt32 <: Comparable<UInt32>
 #### func compare(UInt32)
 
 ```cangjie
-public func compare(rhs: UInt32): Ordering
+public func compare(other: UInt32): Ordering
 ```
 
 功能：判断当前 [UInt32](core_package_intrinsics.md#uint32) 值与指定 [UInt32](core_package_intrinsics.md#uint32) 值的大小关系。
 
 参数：
 
-- rhs: [UInt32](core_package_intrinsics.md#uint32) - 待比较的另一个 [UInt32](core_package_intrinsics.md#uint32) 值。
+- other: [UInt32](core_package_intrinsics.md#uint32) - 待比较的另一个 [UInt32](core_package_intrinsics.md#uint32) 值。
 
 返回值：
 
@@ -3925,14 +3925,14 @@ extend UInt64 <: Comparable<UInt64>
 #### func compare(UInt64)
 
 ```cangjie
-public func compare(rhs: UInt64): Ordering
+public func compare(other: UInt64): Ordering
 ```
 
 功能：判断当前 [UInt64](core_package_intrinsics.md#uint64) 值与指定 [UInt64](core_package_intrinsics.md#uint64) 值的大小关系。
 
 参数：
 
-- rhs: [UInt64](core_package_intrinsics.md#uint64) - 待比较的另一个 [UInt64](core_package_intrinsics.md#uint64) 值。
+- other: [UInt64](core_package_intrinsics.md#uint64) - 待比较的另一个 [UInt64](core_package_intrinsics.md#uint64) 值。
 
 返回值：
 
@@ -4122,14 +4122,14 @@ extend UInt8 <: Comparable<UInt8>
 #### func compare(UInt8)
 
 ```cangjie
-public func compare(rhs: UInt8): Ordering
+public func compare(other: UInt8): Ordering
 ```
 
 功能：判断当前 [UInt8](core_package_intrinsics.md#uint8) 值与指定 [UInt8](core_package_intrinsics.md#uint8) 值的大小关系。
 
 参数：
 
-- rhs: [UInt8](core_package_intrinsics.md#uint8) - 待比较的另一个 [UInt8](core_package_intrinsics.md#uint8) 值。
+- other: [UInt8](core_package_intrinsics.md#uint8) - 待比较的另一个 [UInt8](core_package_intrinsics.md#uint8) 值。
 
 返回值：
 
@@ -4319,14 +4319,14 @@ extend UIntNative <: Comparable<UIntNative>
 #### func compare(UIntNative)
 
 ```cangjie
-public func compare(rhs: UIntNative): Ordering
+public func compare(other: UIntNative): Ordering
 ```
 
 功能：判断当前 [UIntNative](core_package_intrinsics.md#uintnative) 值与指定 [UIntNative](core_package_intrinsics.md#uintnative) 值的大小关系。
 
 参数：
 
-- rhs: [UIntNative](core_package_intrinsics.md#uintnative) - 待比较的另一个 [UIntNative](core_package_intrinsics.md#uintnative) 值。
+- other: [UIntNative](core_package_intrinsics.md#uintnative) - 待比较的另一个 [UIntNative](core_package_intrinsics.md#uintnative) 值。
 
 返回值：
 

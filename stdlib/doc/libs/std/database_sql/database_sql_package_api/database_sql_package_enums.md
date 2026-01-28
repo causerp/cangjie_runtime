@@ -52,14 +52,14 @@ Connecting
 ### operator func !=(ConnectionState)
 
 ```cangjie
-public operator func !=(rhs: ConnectionState): Bool
+public operator func !=(other: ConnectionState): Bool
 ```
 
 功能：判断数据源连接状态是否不同。
 
 参数：
 
-- rhs: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - 数据源连接状态。
+- other: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - 数据源连接状态。
 
 返回值：
 
@@ -68,14 +68,14 @@ public operator func !=(rhs: ConnectionState): Bool
 ### operator func ==(ConnectionState)
 
 ```cangjie
-public operator func ==(rhs: ConnectionState): Bool
+public operator func ==(other: ConnectionState): Bool
 ```
 
 功能：判断数据源连接状态是否相同。
 
 参数：
 
-- rhs: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - 数据源连接状态。
+- other: [ConnectionState](database_sql_package_enums.md#enum-connectionstate) - 数据源连接状态。
 
 返回值：
 
@@ -156,14 +156,14 @@ public func toString(): String
 ### operator func !=(TransactionAccessMode)
 
 ```cangjie
-public operator func != (rhs: TransactionAccessMode): Bool
+public operator func != (other: TransactionAccessMode): Bool
 ```
 
 功能：判断两个 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 是否不相等。
 
 参数：
 
-- rhs: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - 传入 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 的枚举值。
+- other: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - 传入 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 的枚举值。
 
 返回值：
 
@@ -172,14 +172,14 @@ public operator func != (rhs: TransactionAccessMode): Bool
 ### operator func ==(TransactionAccessMode)
 
 ```cangjie
-public operator func == (rhs: TransactionAccessMode): Bool
+public operator func == (other: TransactionAccessMode): Bool
 ```
 
 功能：判断两个 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 是否相等。
 
 参数：
 
-- rhs: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - 传入 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 的枚举值。
+- other: [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) - 传入 [TransactionAccessMode](database_sql_package_enums.md#enum-transactionaccessmode) 的枚举值。
 
 返回值：
 
@@ -264,14 +264,14 @@ public func toString(): String
 ### operator func !=(TransactionDeferrableMode)
 
 ```cangjie
-public operator func != (rhs: TransactionDeferrableMode): Bool
+public operator func != (other: TransactionDeferrableMode): Bool
 ```
 
 功能：判断两个 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 是否不相等。
 
 参数：
 
-- rhs: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - 传入 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 的枚举值。
+- other: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - 传入 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 的枚举值。
 
 返回值：
 
@@ -280,14 +280,14 @@ public operator func != (rhs: TransactionDeferrableMode): Bool
 ### operator func ==(TransactionDeferrableMode)
 
 ```cangjie
-public operator func == (rhs: TransactionDeferrableMode): Bool
+public operator func == (other: TransactionDeferrableMode): Bool
 ```
 
 功能：判断两个 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 是否相等。
 
 参数：
 
-- rhs: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - 传入 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 的枚举值。
+- other: [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) - 传入 [TransactionDeferrableMode](database_sql_package_enums.md#enum-transactiondeferrablemode) 的枚举值。
 
 返回值：
 
@@ -426,14 +426,14 @@ public func toString(): String
 ### operator func !=(TransactionIsoLevel)
 
 ```cangjie
-public operator func != (rhs: TransactionIsoLevel): Bool
+public operator func != (other: TransactionIsoLevel): Bool
 ```
 
 功能：判断两个 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) 是否不相等。
 
 参数：
 
-- rhs: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - 传入的 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel)。
+- other: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - 传入的 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel)。
 
 返回值：
 
@@ -442,14 +442,14 @@ public operator func != (rhs: TransactionIsoLevel): Bool
 ### operator func ==(TransactionIsoLevel)
 
 ```cangjie
-public operator func == (rhs: TransactionIsoLevel): Bool
+public operator func == (other: TransactionIsoLevel): Bool
 ```
 
 功能：判断两个 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) 是否相等。
 
 参数：
 
-- rhs: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - 传入的 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel)。
+- other: [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel) - 传入的 [TransactionIsoLevel](database_sql_package_enums.md#enum-transactionisolevel)。
 
 返回值：
 

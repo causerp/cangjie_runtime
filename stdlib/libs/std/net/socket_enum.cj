@@ -27,8 +27,8 @@ public enum SocketNet <: ToString & Equatable<SocketNet> {
         }
     }
 
-    public operator func ==(that: SocketNet): Bool {
-        match ((this, that)) {
+    public operator func ==(other: SocketNet): Bool {
+        match ((this, other)) {
             case (TCP, TCP) => true
             case (UDP, UDP) => true
             case (UNIX, UNIX) => true
@@ -36,8 +36,8 @@ public enum SocketNet <: ToString & Equatable<SocketNet> {
         }
     }
 
-    public operator func !=(that: SocketNet): Bool {
-        return !(this == that)
+    public operator func !=(other: SocketNet): Bool {
+        return !(this == other)
     }
 }
 

@@ -96,13 +96,13 @@ extend<T> Array<T> <: ToString where T <: ToString {
 @ConstSafe
 extend<T> Array<T> <: Equatable<Array<T>> where T <: Equatable<T> {
     @Frozen
-    public operator const func ==(that: Array<T>): Bool {
-        if (this.size != that.size) {
+    public const operator func ==(other: Array<T>): Bool {
+        if (this.size != other.size) {
             return false
         }
         /* Back-to-front traversal can reduce boundary checks and improve performance */
         for (i in this.size - 1..=0 : -1) {
-            if (this[i] != that[i]) {
+            if (this[i] != other[i]) {
                 return false
             }
         }
@@ -110,8 +110,8 @@ extend<T> Array<T> <: Equatable<Array<T>> where T <: Equatable<T> {
     }
 
     @Frozen
-    public operator const func !=(that: Array<T>): Bool {
-        return !(this == that)
+    public const operator func !=(other: Array<T>): Bool {
+        return !(this == other)
     }
 
     @Frozen

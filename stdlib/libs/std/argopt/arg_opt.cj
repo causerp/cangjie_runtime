@@ -455,8 +455,8 @@ public enum ArgumentMode <: ToString & Equatable<ArgumentMode> {
         }
     }
 
-    public operator func ==(that: ArgumentMode): Bool {
-        this.toString() == that.toString()
+    public operator func ==(other: ArgumentMode): Bool {
+        this.toString() == other.toString()
     }
 }
 

@@ -350,12 +350,12 @@ public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {
         fns.toArray()
     }
 
-    public operator func ==(that: PackageInfo): Bool {
-        this.hashCode() == that.hashCode()
+    public operator func ==(other: PackageInfo): Bool {
+        this.hashCode() == other.hashCode()
     }
 
-    public operator func !=(that: PackageInfo): Bool {
-        this.hashCode() != that.hashCode()
+    public operator func !=(other: PackageInfo): Bool {
+        this.hashCode() != other.hashCode()
     }
 
     public func hashCode(): Int64 {
