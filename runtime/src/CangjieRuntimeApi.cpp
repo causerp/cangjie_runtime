@@ -368,6 +368,7 @@ struct FutureImpl {
     FutureFlag flag{ FLAG_WAITING };
     std::mutex g_mtx;
     std::condition_variable cv;
+    bool autoRelease{ false };
 
     explicit FutureImpl(void* arg, const CJTaskFunc fn = nullptr) : fn(fn), arg(arg) {}
 };
@@ -394,6 +395,8 @@ static void* UserFuncExecutor(void* arg, [[maybe_unused]] unsigned int len)
         std::lock_guard<std::mutex> lck(fi->g_mtx);
         fi->res = ptr;
         if (fi->flag == FLAG_RELEASED) {
+            needDelete = true;
+        } else if (fi->autoRelease) {
             needDelete = true;
         } else {
             fi->flag = FLAG_DONE;
@@ -456,6 +459,9 @@ CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJT
     if (UNLIKELY(fi == nullptr)) {
         LOG(RTLOG_ERROR, "new future failed.\n");
         return nullptr;
+    }
+    if (isSignal) {
+        fi->autoRelease = true;  // Mark for auto-release after signal task execution
     }
     {
         std::lock_guard<std::mutex> lck(g_mtx);
