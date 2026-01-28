@@ -96,6 +96,8 @@ public:
         superExtensionData = other.superExtensionData;
         superTypeInfo = other.superTypeInfo;
         cachedTypeInfos = std::move(other.cachedTypeInfos);
+        other.superExtensionData = nullptr;
+        other.superTypeInfo = nullptr;
     }
     InheritFuncTable& operator=(InheritFuncTable&& other)
     {
