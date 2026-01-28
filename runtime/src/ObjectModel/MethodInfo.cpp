@@ -639,6 +639,11 @@ void* DynamicMethodInfo::ApplyCangjieMethod(void* argsArray)
 
     // add outerTi
     argValues.AddInt64(reinterpret_cast<I64>(functionTi));
+    // The stack parameters are increased by 8 bytes each time,
+    // guaranteed $rbp 16-byte alignment, keep stackIdx is even
+    if (argValues.GetStackIdx() % 2 != 0) {
+        argValues.AddReference(nullptr);
+    }
     uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
 #if defined(__aarch64__)
     ApplyCangjieMethodStub(argValues.GetData(), reinterpret_cast<void*>(argValues.GetStackSize()),
