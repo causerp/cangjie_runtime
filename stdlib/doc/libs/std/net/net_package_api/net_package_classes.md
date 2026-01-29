@@ -1138,7 +1138,7 @@ public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
 ### static let unspecified
 
 ```cangjie
-public static let unspecified = IPv4Address(0, 0, 0, 0)
+public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
 ```
 
 功能：返回表示未指定的 [IPv4Address](net_package_classes.md#class-ipv4address) 地址：`0.0.0.0`，这对应于其他语言中的常量 `INADDR_ANY`。
