@@ -99,10 +99,10 @@ public class Block <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (node in nodes_) {
             node.traverse(v)
         }
@@ -205,10 +205,10 @@ public class BinaryExpr <: Expr {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         lExpr_.traverse(v)
         rExpr_.traverse(v)
         return
@@ -288,10 +288,10 @@ public class UnaryExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -380,10 +380,10 @@ public class IsExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         shiftType_.traverse(v)
         return
@@ -474,10 +474,10 @@ public class AsExpr <: Expr {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         shiftType_.traverse(v)
         return
@@ -564,10 +564,10 @@ public class ParenExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -751,10 +751,10 @@ public class RefExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (arg in typeArgs_) {
             arg.traverse(v)
         }
@@ -836,10 +836,10 @@ public class ReturnExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         match (expr_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -916,10 +916,10 @@ public class ThrowExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -987,10 +987,10 @@ public class PerformExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -1116,10 +1116,10 @@ public class ResumeExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         match(withExpr_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -1234,10 +1234,10 @@ public class AssignExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         lexpr_.traverse(v)
         rexpr_.traverse(v)
         return
@@ -1349,10 +1349,10 @@ public class CallExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         postfixExpr_.traverse(v)
         for (arg in args_) {
             arg.traverse(v)
@@ -1510,10 +1510,10 @@ public class MemberAccess <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         postfixExpr_.traverse(v)
         for (arg in typeArgs_) {
             arg.traverse(v)
@@ -1663,10 +1663,10 @@ public class IfExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         cond_.traverse(v)
         ifBlock_.traverse(v)
         match (elseExpr_) {
@@ -1773,10 +1773,10 @@ public class LetPatternExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         pattern_.traverse(v)
         expr_.traverse(v)
         return
@@ -1921,10 +1921,10 @@ public class MatchExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         match (selector_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -2045,10 +2045,10 @@ public class WhileExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         cond_.traverse(v)
         block_.traverse(v)
         return
@@ -2169,10 +2169,10 @@ public class DoWhileExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         block_.traverse(v)
         cond_.traverse(v)
         return
@@ -2305,10 +2305,10 @@ public class LambdaExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (param in funcParams_) {
             param.traverse(v)
         }
@@ -2432,10 +2432,10 @@ public class SpawnExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         match (context_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -2550,10 +2550,10 @@ public class SynchronizedExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         mutex_.traverse(v)
         block_.traverse(v)
         return
@@ -2625,10 +2625,10 @@ public class TrailingClosureExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         lambda_.traverse(v)
         return
@@ -2723,10 +2723,10 @@ public class TypeConvExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         type_.traverse(v)
         expr_.traverse(v)
         return
@@ -2888,10 +2888,10 @@ public class ForInExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         pattern_.traverse(v)
         expr_.traverse(v)
         match (patternGuard_) {
@@ -3052,10 +3052,10 @@ public class ArrayLiteral <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (elem in elements_) {
             elem.traverse(v)
         }
@@ -3153,10 +3153,10 @@ public class TupleLiteral <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (elem in elements_) {
             elem.traverse(v)
         }
@@ -3291,10 +3291,10 @@ public class RangeExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         match (start_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -3437,10 +3437,10 @@ public class SubscriptExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         postfixExpr_.traverse(v)
         for (idenx in index_) {
             idenx.traverse(v)
@@ -3570,10 +3570,10 @@ public class IncOrDecExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         expr_.traverse(v)
         return
     }
@@ -3781,10 +3781,10 @@ public class TryExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (res in resourceSpec_) {
             res.traverse(v)
         }
@@ -3902,10 +3902,10 @@ public class OptionalExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         baseExpr_.traverse(v)
         return
     }
@@ -4054,10 +4054,10 @@ public class QuoteExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (expr in exprs_) {
             expr.traverse(v)
         }
@@ -4206,10 +4206,10 @@ public class VArrayExpr <: Expr {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         ty_.traverse(v)
         for (arg in args_) {
             arg.traverse(v)
@@ -4397,6 +4397,12 @@ public class MacroExpandExpr <: Expr {
     public func traverse(v: Visitor): Unit {
         v.visit(this)
         super.traverse(v)
+        if (v.needBreakTraverse()) {
+            return
+        }
+        if (let Some(decl) <- macroInputDecl_) {
+            decl.traverse(v)
+        }
         return
     }
 

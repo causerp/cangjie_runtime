@@ -63,10 +63,10 @@ public class ConstPattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         litConstExpr_.traverse(v)
         return
     }
@@ -287,10 +287,10 @@ public class ExceptTypePattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         pattern_.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
@@ -390,10 +390,10 @@ public class CommandTypePattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         pattern_.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
@@ -479,10 +479,10 @@ public class TypePattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         pattern_.traverse(v)
         type_.traverse(v)
         return
@@ -600,10 +600,10 @@ public class EnumPattern <: Pattern {
     }
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         constructor_.traverse(v)
         for (p in patterns_) {
             p.traverse(v)
@@ -714,10 +714,10 @@ public class TuplePattern <: Pattern {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (p in patterns_) {
             p.traverse(v)
         }
