@@ -2351,7 +2351,7 @@ Function: Represents a features directive node.
 
 A [FeaturesDirective](ast_package_classes.md#class-featuresdirective) node: `feature define`.
 
-> **Node:**
+> **Note:**
 >
 > Features directive declaration must start with keyword `features`, followed by the [features set](), and must appear before the package header of the source file.
 
@@ -2453,7 +2453,7 @@ Function: Represents a features set which contains names of featurs.
 
 A [FeaturesSet](ast_package_classes.md#class-featuresset) node: `features set define`.
 
-> **Node:**
+> **Note:**
 >
 > Features set must start with `{` and end with `}`. Features set contains set of [featuresId](ast_package_classes.md#class-featureid).
 
@@ -6674,7 +6674,7 @@ Parameters:
 
 Exceptions:
 
-- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed into a [PerformExpr](ast_package_classes.md#class-performexpr) node.
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed into a [PerformExpr](ast_package_classes.md#class-performexpr) node, or compile options for `Effect Handlers` experimental features not given.
 
 ### func toTokens()
 
@@ -8115,7 +8115,7 @@ Parameters:
 
 Exceptions:
 
-- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed as a valid [ResumeExpr](ast_package_classes.md#class-resumeexpr) node.
+- [ASTException](ast_package_exceptions.md#class-astexception) — Thrown when the input [Tokens](ast_package_classes.md#class-tokens) cannot be parsed as a valid [ResumeExpr](ast_package_classes.md#class-resumeexpr) node, or compile options for `Effect Handlers` experimental features not given.
 
 ### func toTokens()
 
@@ -10840,6 +10840,7 @@ Function: An abstract class that internally defines default `visit` functions fo
 >
 > - The `visit` function is used in conjunction with `traverse` to enable node access and modification. All `visit` functions have empty default implementations and can be implemented as needed.
 > - This class must be inherited and allows subclasses to redefine visitor functions.
+> - For node types that have a parent class, `traverse` visits the current node first, then the parent node, and lastly the child nodes. For parentless node types, it traverses the current node first, followed by its child nodes.
 
 ### func breakTraverse()
 
@@ -10856,6 +10857,10 @@ protected func needBreakTraverse(): Bool
 ```
 
 Function: Determines whether traversal should be stopped.
+
+> **Note:**
+>
+> - This function will reset the flag used for judgment after determining that the traversal needs to be stopped. Consequently, if this function is called after invoking `breakTraverse()`, the previous call to `breakTraverse()` may become invalid, which will affect the termination of the traversal.
 
 Returns:
 
@@ -11100,6 +11105,43 @@ Parameters:
 
 - _: [ExtendDecl](ast_package_classes.md#class-extenddecl) - The node being traversed of type [ExtendDecl](ast_package_classes.md#class-extenddecl).
 
+
+### func visit(FeatureId)
+
+```cangjie
+protected open func visit(_: FeatureId): Unit
+```
+
+Function: Defines the operation when visiting a node, requires override.
+
+Parameters:
+
+- _: [FeatureId](ast_package_classes.md#class-featureid) - The node being traversed of type [FeatureId](ast_package_classes.md#class-featureid).
+
+### func visit(FeaturesDirective)
+
+```cangjie
+protected open func visit(_: FeaturesDirective): Unit
+```
+
+Function: Defines the operation when visiting a node, requires override.
+
+Parameters:
+
+- _: [FeaturesDirective](ast_package_classes.md#class-featuresdirective) - The node being traversed of type [FeaturesDirective](ast_package_classes.md#class-featuresdirective).
+
+### func visit(FeaturesSet)
+
+```cangjie
+protected open func visit(_: FeaturesSet): Unit
+```
+
+Function: Defines the operation when visiting a node, requires override.
+
+Parameters:
+
+- _: [FeaturesSet](ast_package_classes.md#class-featuresset) - The node being traversed of type [FeaturesSet](ast_package_classes.md#class-featuresset).
+
 ### func visit(ForInExpr)
 
 ```cangjie
@@ -11327,6 +11369,18 @@ Function: Defines the operation when visiting a node, requires override.
 Parameters:
 
 - _: [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) - The node being traversed of type [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr).
+
+### func visit(MacroExpandParam)
+
+```cangjie
+protected open func visit(_: MacroExpandParam): Unit
+```
+
+Function: Defines the operation when visiting a node, requires override.
+
+Parameters:
+
+- _: [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) - The node being traversed of type [MacroExpandParam](ast_package_classes.md#class-macroexpandparam).
 
 ### func visit(MainDecl)
 
@@ -11567,6 +11621,18 @@ Purpose: Defines the operation when visiting a node, requires override.
 Parameters:
 
 - _: [QuoteExpr](ast_package_classes.md#class-quoteexpr) - The node being traversed of type [QuoteExpr](ast_package_classes.md#class-quoteexpr).
+
+### func visit(QuoteToken)
+
+```cangjie
+protected open func visit(_: QuoteToken): Unit
+```
+
+Function: Defines the operation when visiting a node, requires override.
+
+Parameters:
+
+- _: [QuoteToken](ast_package_classes.md#class-quotetoken) - The node being traversed of type [QuoteToken](ast_package_classes.md#class-quotetoken).
 
 ### func visit(RangeExpr)
 

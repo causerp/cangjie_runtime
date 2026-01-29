@@ -217,10 +217,10 @@ public class RefType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (ty in typeArguments_) {
             ty.traverse(v)
         }
@@ -365,10 +365,10 @@ public class QualifiedType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         baseType_.traverse(v)
         for (ty in typeArguments_) {
             ty.traverse(v)
@@ -458,10 +458,10 @@ public class ParenType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         ty_.traverse(v)
         return
     }
@@ -557,10 +557,10 @@ public class TupleType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
         }
@@ -694,10 +694,10 @@ public class PrefixType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         baseType_.traverse(v)
         return
     }
@@ -845,10 +845,10 @@ public class FuncType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         for (ty in types_) {
             ty.traverse(v)
         }
@@ -984,10 +984,10 @@ public class VArrayType <: TypeNode {
 
     public func traverse(v: Visitor): Unit {
         v.visit(this)
+        super.traverse(v)
         if (v.needBreakTraverse()) {
             return
         }
-        super.traverse(v)
         elementTy_.traverse(v)
         return
     }
