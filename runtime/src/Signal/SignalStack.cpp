@@ -117,12 +117,14 @@ void SignalStack::Handler(int signal, siginfo_t* siginfo, void* ucontextRaw)
                                     MapleRuntime::SignalStack::HandlerImpl),
                                     args) == NULL) {
                     LOG(RTLOG_ERROR, "Signal Handler fail. as RunCJTask return null\n");
+                    delete args;
                 }
             }
             break;
         default:
             if (RunCJTaskSignal(reinterpret_cast<CJTaskFunc>(MapleRuntime::SignalStack::HandlerImpl), args) == NULL) {
                 LOG(RTLOG_ERROR, "Signal Handler fail. as RunCJTask return null\n");
+                delete args;
             }
     }
 }
@@ -155,6 +157,7 @@ void SignalStack::HandlerImpl(void* args)
             // Execute the signal handler
             if (handler.saSignalAction(signal, siginfo, ucontextRaw)) {
                 SetHandlingSignal(previous_value);
+                delete signalArgs;
                 return;
             }
             g_linkedSignalProcmask(SIG_SETMASK, &previous_mask, nullptr);
@@ -187,6 +190,7 @@ void SignalStack::HandlerImpl(void* args)
         // Get the signal handler
         auto handler = SignalStack::stacks[signal].sigAction.sa_handler;
         if (handler == SIG_IGN) {
+            delete signalArgs;
             return;
         } else if (handler == SIG_DFL) {
             // Restore default signal handler and re-raise the signal
@@ -194,6 +198,7 @@ void SignalStack::HandlerImpl(void* args)
             dfl.sa_handler = SIG_DFL;
             g_linkedSignalAction(signal, &dfl, nullptr);
             raise(signal);
+            delete signalArgs;
             return;
         } else {
             g_linkedSignalProcmask(SIG_SETMASK, &mask, nullptr);
@@ -203,6 +208,7 @@ void SignalStack::HandlerImpl(void* args)
             handler(signal);
         }
     }
+    delete signalArgs;
 }
 
 template <typename T>
