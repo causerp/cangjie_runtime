@@ -79,6 +79,7 @@ ast 包主要包含了仓颉源码的语法解析器和仓颉语法树节点，�
 | [ExtendDecl](./ast_package_api/ast_package_classes.md#class-extenddecl) | 表示一个扩展定义节点。 |
 | [FeatureId](./ast_package_api/ast_package_classes.md#class-featureid) | 表示一个 feature id。 |
 | [FeaturesDirective](./ast_package_api/ast_package_classes.md#class-featuresdirective) | feature directive 节点对象。 |
+| [FeaturesSet](./ast_package_api/ast_package_classes.md#class-featuresSet) | 一组 features 名称。 |
 | [ForInExpr](./ast_package_api/ast_package_classes.md#class-forinexpr) | 表示 `for-in` 表达式。 |
 | [FuncDecl](./ast_package_api/ast_package_classes.md#class-funcdecl) | 表示一个函数定义节点。 |
 | [FuncParam](./ast_package_api/ast_package_classes.md#class-funcparam) | 表示函数参数节点，包括非命名参数和命名参数。 |
