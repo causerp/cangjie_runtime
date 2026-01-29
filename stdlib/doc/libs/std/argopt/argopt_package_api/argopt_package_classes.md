@@ -74,15 +74,15 @@ public init(args: Array<String>, shortArgFormat: String, longArgList: Array<Stri
 public init(shortArgFormat: String)
 ```
 
-功能：构造 `ArgOpt` 实例，并从短参名字符串中解析短参名。
+功能：构造 `ArgOpt` 实例，并从指定的短参数格式字符串中解析参数名称。
 
 参数：
 
-- shortArgFormat: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 包含短参名的字符串。
+- shortArgFormat: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定的短参数格式字符串。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当短参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当指定的短参数格式字符串不符合规范，或不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
 
 ### init(String, Array\<String>)
 
@@ -90,7 +90,7 @@ public init(shortArgFormat: String)
 public init(shortArgFormat: String, longArgList: Array<String>)
 ```
 
-功能：构造 `ArgOpt` 实例，并从短参名字符串中解析短参名，从列表的字符串中解析长参名。
+功能：构造 `ArgOpt` 实例，并从指定的短参名字符串中解析短参名，从指定的字符串列表中解析长参名。
 
 参数：
 
@@ -99,7 +99,7 @@ public init(shortArgFormat: String, longArgList: Array<String>)
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当短参名字符串不符合规范，或字符串数组中的长参名字符串不符合规范，或字符串不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当指定的短参名或数组中的长参名字符串不符合规范，或不符合 UTF-8 编码，或不存在该 Unicode 字符时，抛出异常。
 
 ### func getArg(String)
 
@@ -107,7 +107,7 @@ public init(shortArgFormat: String, longArgList: Array<String>)
 public func getArg(arg: String): Option<String>
 ```
 
-功能：返回参数 `arg` 指定参数的解析值。
+功能：返回参数 `arg` 所指定的参数解析值。
 
 参数：
 
