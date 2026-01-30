@@ -6644,7 +6644,7 @@ public init(inputs: Tokens)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点时抛出。
+- [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [PerformExpr](ast_package_classes.md#class-performexpr) 节点，或编译未开启 `Effect Handlers` 实验特性时抛出。
 
 ### func toTokens()
 
@@ -8085,7 +8085,7 @@ public init(inputs: Tokens)
 
 异常：
 
-- [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [ResumeExpr](ast_package_classes.md#class-resumeexpr) 节点时抛出。
+- [ASTException](ast_package_exceptions.md#class-astexception) — 当输入的 [Tokens](ast_package_classes.md#class-tokens) 无法解析为 [ResumeExpr](ast_package_classes.md#class-resumeexpr) 节点，或编译未开启 `Effect Handlers` 实验特性时抛出。
 
 ### func toTokens()
 
@@ -10810,6 +10810,7 @@ public abstract class Visitor {}
 >
 > - `visit` 函数搭配 `traverse` 一起使用，可实现对节点的访问和修改, 所有 `visit` 函数都有默认为空的实现，可以按需实现需要的 `visit` 方法。
 > - 该类需要被继承使用，并允许子类重新定义访问函数。
+> - 对于有父类的节点类型，`traverse` 函数的遍历顺序为先遍历当前节点，再遍历父类节点，最后遍历子节点。对于无父类的节点类型，`traverse` 函数先遍历当前节点，再遍历子节点。
 
 ### func breakTraverse()
 
@@ -10826,6 +10827,10 @@ protected func needBreakTraverse(): Bool
 ```
 
 功能：用于判断是否需要停止遍历。
+
+> **注意:**
+>
+> 该函数会在判断需要停止遍历后将用于判断的标记位重置，因此若在先调用 `breakTraverse()` 的情况下调用该函数，可能导致上一次 `breakTraverse()` 失效，影响遍历的停止。
 
 返回值：
 
@@ -11071,6 +11076,30 @@ protected open func visit(_: ExtendDecl): Unit
 
 - _: [ExtendDecl](ast_package_classes.md#class-extenddecl) - [ExtendDecl](ast_package_classes.md#class-extenddecl) 类型的被遍历节点。
 
+### func visit(FeatureId)
+
+```cangjie
+protected open func visit(_: FeatureId): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [FeatureId](ast_package_classes.md#class-featureid) - [FeatureId](ast_package_classes.md#class-featureid) 类型的被遍历节点。
+
+### func visit(FeaturesDirective)
+
+```cangjie
+protected open func visit(_: FeaturesDirective): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [FeaturesDirective](ast_package_classes.md#class-featuresdirective) - [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 类型的被遍历节点。
+
 ### func visit(ForInExpr)
 
 ```cangjie
@@ -11298,6 +11327,18 @@ protected open func visit(_: MacroExpandExpr): Unit
 参数：
 
 - _: [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) - [MacroExpandExpr](ast_package_classes.md#class-macroexpandexpr) 类型的被遍历节点。
+
+### func visit(MacroExpandParam)
+
+```cangjie
+protected open func visit(_: MacroExpandParam): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) - [MacroExpandParam](ast_package_classes.md#class-macroexpandparam) 类型的被遍历节点。
 
 ### func visit(MainDecl)
 
@@ -11538,6 +11579,18 @@ protected open func visit(_: QuoteExpr): Unit
 参数：
 
 - _: [QuoteExpr](ast_package_classes.md#class-quoteexpr) - [QuoteExpr](ast_package_classes.md#class-quoteexpr) 类型的被遍历节点。
+
+### func visit(QuoteToken)
+
+```cangjie
+protected open func visit(_: QuoteToken): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [QuoteToken](ast_package_classes.md#class-quotetoken) - [QuoteToken](ast_package_classes.md#class-quotetoken) 类型的被遍历节点。
 
 ### func visit(RangeExpr)
 
