@@ -259,6 +259,10 @@ extern "C" MRT_EXPORT const char* CJ_MCC_GetEnumConstructorName(EnumCtorInfo* ti
 __asm__(".global _CJ_MCC_GetEnumConstructorName\n\t.set _CJ_MCC_GetEnumConstructorName, _MCC_GetEnumConstructorName");
 extern "C" MRT_EXPORT EnumCtorInfo* CJ_MCC_GetEnumConstructorInfoFromAny(ObjRef obj);
 __asm__(".global _CJ_MCC_GetEnumConstructorInfoFromAny\n\t.set _CJ_MCC_GetEnumConstructorInfoFromAny, _MCC_GetEnumConstructorInfoFromAny");
+extern "C" MRT_EXPORT bool CJ_MCC_IsBox(TypeInfo* ti);
+__asm__(".global _CJ_MCC_IsBox\n\t.set _CJ_MCC_IsBox, _MCC_IsBox");
+extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetTypeArgs(TypeInfo* ti);
+__asm__(".global _CJ_MCC_GetTypeArgs\n\t.set _CJ_MCC_GetTypeArgs, _MCC_GetTypeArgs");
 
 // for tuple
 extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFieldTypes(TypeInfo* ti);
