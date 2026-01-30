@@ -579,12 +579,12 @@ func toArray(): Array<T>
 
 ```cangjie
 public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEqual<T> & GreaterOrEqual<T> {
-    func compare(that: T): Ordering
-    operator func <(rhs: T): Bool
-    operator func <=(rhs: T): Bool
-    operator func ==(rhs: T): Bool
-    operator func >(rhs: T): Bool
-    operator func >=(rhs: T): Bool
+    func compare(other: T): Ordering
+    operator func <(other: T): Bool
+    operator func <=(other: T): Bool
+    operator func ==(other: T): Bool
+    operator func >(other: T): Bool
+    operator func >=(other: T): Bool
 }
 ```
 
@@ -603,14 +603,14 @@ public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEq
 ### func compare(T)
 
 ```cangjie
-func compare(that: T): Ordering
+func compare(other: T): Ordering
 ```
 
 功能：判断当前 `T` 类型实例与参数指向的 `T` 类型实例的大小关系。
 
 参数：
 
-- that: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -619,14 +619,14 @@ func compare(that: T): Ordering
 ### operator func <(T)
 
 ```cangjie
-operator func <(rhs: T): Bool
+operator func <(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否小于参数指向的 `T` 类型实例，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -635,14 +635,14 @@ operator func <(rhs: T): Bool
 ### operator func <=(T)
 
 ```cangjie
-operator func <=(rhs: T): Bool
+operator func <=(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -651,14 +651,14 @@ operator func <=(rhs: T): Bool
 ### operator func ==(T)
 
 ```cangjie
-operator func ==(rhs: T): Bool
+operator func ==(other: T): Bool
 ```
 
 功能：判断两个实例是否相等，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待比较的另一个实例。
+- other: T - 待比较的另一个实例。
 
 返回值：
 
@@ -667,14 +667,14 @@ operator func ==(rhs: T): Bool
 ### operator func >(T)
 
 ```cangjie
-operator func >(rhs: T): Bool
+operator func >(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否大于参数指向的 `T` 类型实例，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -683,14 +683,14 @@ operator func >(rhs: T): Bool
 ### operator func >=(T)
 
 ```cangjie
-operator func >=(rhs: T): Bool
+operator func >=(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -890,7 +890,7 @@ main() {
 
 ```cangjie
 public interface Equal<T> {
-    operator func ==(rhs: T): Bool
+    operator func ==(other: T): Bool
 }
 ```
 
@@ -899,14 +899,14 @@ public interface Equal<T> {
 ### operator func ==(T)
 
 ```cangjie
-operator func ==(rhs: T): Bool
+operator func ==(other: T): Bool
 ```
 
 功能：判断两个实例是否相等。
 
 参数：
 
-- rhs: T - 待比较的另一个实例。
+- other: T - 待比较的另一个实例。
 
 返回值：
 
@@ -916,7 +916,7 @@ operator func ==(rhs: T): Bool
 
 ```cangjie
 public interface Equatable<T> <: Equal<T> & NotEqual<T> {
-    operator func !=(rhs: T): Bool
+    operator func !=(other: T): Bool
 }
 ```
 
@@ -934,14 +934,14 @@ public interface Equatable<T> <: Equal<T> & NotEqual<T> {
 ### operator func !=(T)
 
 ```cangjie
-operator func !=(rhs: T): Bool
+operator func !=(other: T): Bool
 ```
 
 功能：判断两个实例是否不相等，该函数是此接口的一个默认实现函数。
 
 参数：
 
-- rhs: T - 待比较的另一个实例。
+- other: T - 待比较的另一个实例。
 
 返回值：
 
@@ -951,7 +951,7 @@ operator func !=(rhs: T): Bool
 
 ```cangjie
 public interface Greater<T> {
-    operator func >(rhs: T): Bool
+    operator func >(other: T): Bool
 }
 ```
 
@@ -960,14 +960,14 @@ public interface Greater<T> {
 ### operator func >(T)
 
 ```cangjie
-operator func >(rhs: T): Bool
+operator func >(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否大于参数指向的 `T` 类型实例。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -977,7 +977,7 @@ operator func >(rhs: T): Bool
 
 ```cangjie
 public interface GreaterOrEqual<T> {
-    operator func >=(rhs: T): Bool
+    operator func >=(other: T): Bool
 }
 ```
 
@@ -986,14 +986,14 @@ public interface GreaterOrEqual<T> {
 ### operator func >=(T)
 
 ```cangjie
-operator func >=(rhs: T): Bool
+operator func >=(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -1266,7 +1266,7 @@ func iterator(): Iterator<E>
 
 ```cangjie
 public interface Less<T> {
-    operator func <(rhs: T): Bool
+    operator func <(other: T): Bool
 }
 ```
 
@@ -1275,14 +1275,14 @@ public interface Less<T> {
 ### operator func <(T)
 
 ```cangjie
-operator func <(rhs: T): Bool
+operator func <(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否小于参数指向的 `T` 类型实例。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -1292,7 +1292,7 @@ operator func <(rhs: T): Bool
 
 ```cangjie
 public interface LessOrEqual<T> {
-    operator func <=(rhs: T): Bool
+    operator func <=(other: T): Bool
 }
 ```
 
@@ -1301,14 +1301,14 @@ public interface LessOrEqual<T> {
 ### operator func <=(T)
 
 ```cangjie
-operator func <=(rhs: T): Bool
+operator func <=(other: T): Bool
 ```
 
 功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例。
 
 参数：
 
-- rhs: T - 待与当前实例比较的另一个实例。
+- other: T - 待与当前实例比较的另一个实例。
 
 返回值：
 
@@ -1318,7 +1318,7 @@ operator func <=(rhs: T): Bool
 
 ```cangjie
 public interface NotEqual<T> {
-    operator func !=(rhs: T): Bool
+    operator func !=(other: T): Bool
 }
 ```
 
@@ -1327,14 +1327,14 @@ public interface NotEqual<T> {
 ### operator func !=(T)
 
 ```cangjie
-operator func !=(rhs: T): Bool
+operator func !=(other: T): Bool
 ```
 
 功能：判断两个实例是否不相等。
 
 参数：
 
-- rhs: T - 待比较的另一个实例。
+- other: T - 待比较的另一个实例。
 
 返回值：
 

@@ -142,13 +142,13 @@ public struct MonoTime <: Hashable & Comparable<MonoTime> {
     /**
      * Compare the order between two instance of MonoTime.
      *
-     * @param rhs instance of MonoTime compared with this.
+     * @param other instance of MonoTime compared with this.
      * @return a Ordering value indicating the relationship between two instance of MonoTime.
      */
-    public func compare(rhs: MonoTime): Ordering {
+    public func compare(other: MonoTime): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }

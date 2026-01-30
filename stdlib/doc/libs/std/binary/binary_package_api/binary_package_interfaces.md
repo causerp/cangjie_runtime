@@ -4,24 +4,24 @@
 
 ```cangjie
 public interface BigEndianOrder<T> {
-    func writeBigEndian(buffer: Array<UInt8>): Int64
-    static func readBigEndian(buffer: Array<UInt8>): T
+    func writeBigEndian(buffer: Array<Byte>): Int64
+    static func readBigEndian(buffer: Array<Byte>): T
 }
 ```
 
 功能：大端序字节序列转换接口。
 
-### static func readBigEndian(Array\<UInt8>)
+### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-static func readBigEndian(buffer: Array<UInt8>): T
+static func readBigEndian(buffer: Array<Byte>): T
 ```
 
 功能：从字节数组中以大端序的方式读取一个 T 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -31,17 +31,17 @@ static func readBigEndian(buffer: Array<UInt8>): T
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 buffer 太小，不足以读出 T 值时，抛出异常。
 
-### func writeBigEndian(Array\<UInt8>)
+### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-func writeBigEndian(buffer: Array<UInt8>): Int64
+func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 T 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -63,17 +63,17 @@ extend Bool <: BigEndianOrder<Bool>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Bool
+public static func readBigEndian(buffer: Array<Byte>): Bool
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -89,7 +89,7 @@ public static func readBigEndian(buffer: Array<UInt8>): Bool
 import std.binary.*
 
 main() {
-    let buffer: Array<UInt8> = [0x1]
+    let buffer: Array<Byte> = [0x1]
     let n = Bool.readBigEndian(buffer)
     println(n)
 }
@@ -101,17 +101,17 @@ main() {
 true
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -128,7 +128,7 @@ public func writeBigEndian(buffer: Array<UInt8>): Int64
 import std.binary.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = true.writeBigEndian(buffer)
     println(n == 1)
     println(buffer[0] == 0x01u8)
@@ -154,17 +154,17 @@ extend Float16 <: BigEndianOrder<Float16>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Float16
+public static func readBigEndian(buffer: Array<Byte>): Float16
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -182,7 +182,7 @@ import std.binary.*
 
 main() {
     /* 12.5的IEEE 754表示为0x4A40 */
-    let buffer: Array<UInt8> = [0x4A, 0x40]
+    let buffer: Array<Byte> = [0x4A, 0x40]
     let n = Float16.readBigEndian(buffer)
     println(n == 12.5)
 }
@@ -194,17 +194,17 @@ main() {
 true
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -221,7 +221,7 @@ public func writeBigEndian(buffer: Array<UInt8>): Int64
 import std.binary.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let len = 12.5f16.writeBigEndian(buffer)
     println(len)
 
@@ -249,17 +249,17 @@ extend Float32 <: BigEndianOrder<Float32>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Float32
+public static func readBigEndian(buffer: Array<Byte>): Float32
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -276,7 +276,7 @@ public static func readBigEndian(buffer: Array<UInt8>): Float32
 import std.binary.*
 
 main() {
-    let buffer: Array<UInt8> = [0x41, 0x48, 0x00, 0x00]
+    let buffer: Array<Byte> = [0x41, 0x48, 0x00, 0x00]
     let n = Float32.readBigEndian(buffer)
     println(n)
 }
@@ -288,17 +288,17 @@ main() {
 12.500000
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -315,7 +315,7 @@ public func writeBigEndian(buffer: Array<UInt8>): Int64
 import std.binary.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let len = 12.5f32.writeBigEndian(buffer)
     println(len)
 
@@ -343,17 +343,17 @@ extend Float64 <: BigEndianOrder<Float64>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Float64
+public static func readBigEndian(buffer: Array<Byte>): Float64
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -372,23 +372,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    let buffer: Array<Byte> = [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
     let n = Float64.readBigEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -407,7 +407,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 12.5f64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x40, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00])
@@ -426,17 +426,17 @@ extend Int16 <: BigEndianOrder<Int16>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Int16
+public static func readBigEndian(buffer: Array<Byte>): Int16
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -455,23 +455,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34]
+    let buffer: Array<Byte> = [0x12, 0x34]
     let n = Int16.readBigEndian(buffer)
     @Assert(n, 0x1234)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -490,7 +490,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234i16.writeBigEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x12, 0x34])
@@ -509,17 +509,17 @@ extend Int32 <: BigEndianOrder<Int32>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Int32
+public static func readBigEndian(buffer: Array<Byte>): Int32
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -538,23 +538,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78]
+    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78]
     let n = Int32.readBigEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -573,7 +573,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    var buffer: Array<UInt8> = Array<UInt8>(8, repeat: 0)
+    var buffer: Array<Byte> = Array<Byte>(8, repeat: 0)
     let n = 0x12345678i32.writeBigEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x12u8, 0x34u8, 0x56u8, 0x78u8])
@@ -592,17 +592,17 @@ extend Int64 <: BigEndianOrder<Int64>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Int64
+public static func readBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -621,23 +621,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
+    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
     let n = Int64.readBigEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -656,7 +656,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234567890123456i64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56])
@@ -675,17 +675,17 @@ extend Int8 <: BigEndianOrder<Int8>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): Int8
+public static func readBigEndian(buffer: Array<Byte>): Int8
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -704,23 +704,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12]
+    let buffer: Array<Byte> = [0x12]
     let n = Int8.readBigEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -739,7 +739,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12i8.writeBigEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -758,17 +758,17 @@ extend UInt16 <: BigEndianOrder<UInt16>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): UInt16
+public static func readBigEndian(buffer: Array<Byte>): UInt16
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -787,23 +787,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34]
+    let buffer: Array<Byte> = [0x12, 0x34]
     let n = UInt16.readBigEndian(buffer)
     @Assert(n, 0x1234)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -822,7 +822,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234u16.writeBigEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x12, 0x34])
@@ -841,17 +841,17 @@ extend UInt32 <: BigEndianOrder<UInt32>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): UInt32
+public static func readBigEndian(buffer: Array<Byte>): UInt32
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -870,23 +870,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78]
+    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78]
     let n = UInt32.readBigEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -905,7 +905,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12345678u32.writeBigEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78])
@@ -924,17 +924,17 @@ extend UInt64 <: BigEndianOrder<UInt64>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): UInt64
+public static func readBigEndian(buffer: Array<Byte>): UInt64
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -953,23 +953,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
+    let buffer: Array<Byte> = [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56]
     let n = UInt64.readBigEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -988,7 +988,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234567890123456u64.writeBigEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x12, 0x34, 0x56, 0x78, 0x90, 0x12, 0x34, 0x56])
@@ -1007,17 +1007,17 @@ extend UInt8 <: BigEndianOrder<UInt8>
 
 - [BigEndianOrder](#interface-bigendianordert)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
 
-#### static func readBigEndian(Array\<UInt8>)
+#### static func readBigEndian(Array\<Byte>)
 
 ```cangjie
-public static func readBigEndian(buffer: Array<UInt8>): UInt8
+public static func readBigEndian(buffer: Array<Byte>): UInt8
 ```
 
 功能：从字节数组中以大端序的方式读取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1036,23 +1036,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12]
+    let buffer: Array<Byte> = [0x12]
     let n = UInt8.readBigEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeBigEndian(Array\<UInt8>)
+#### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
-public func writeBigEndian(buffer: Array<UInt8>): Int64
+public func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值以大端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1071,7 +1071,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12u8.writeBigEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -1082,24 +1082,24 @@ main() {
 
 ```cangjie
 public interface LittleEndianOrder<T> {
-    func writeLittleEndian(buffer: Array<UInt8>): Int64
-    static func readLittleEndian(buffer: Array<UInt8>): T
+    func writeLittleEndian(buffer: Array<Byte>): Int64
+    static func readLittleEndian(buffer: Array<Byte>): T
 }
 ```
 
 功能：小端序字节序列转换接口。
 
-### static func readLittleEndian(Array\<UInt8>)
+### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-static func readLittleEndian(buffer: Array<UInt8>): T
+static func readLittleEndian(buffer: Array<Byte>): T
 ```
 
 功能：从字节数组中以小端序的方式读取一个 T 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1109,17 +1109,17 @@ static func readLittleEndian(buffer: Array<UInt8>): T
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 buffer 太小，不足以读出 T 值时，抛出异常。
 
-### func writeLittleEndian(Array\<UInt8>)
+### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-func writeLittleEndian(buffer: Array<UInt8>): Int64
+func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 T 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1141,17 +1141,17 @@ extend Bool <: LittleEndianOrder<Bool>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Bool
+public static func readLittleEndian(buffer: Array<Byte>): Bool
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1170,23 +1170,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x1]
+    let buffer: Array<Byte> = [0x1]
     let n = Bool.readLittleEndian(buffer)
     @Assert(n, true)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1205,7 +1205,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = true.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x01])
@@ -1224,17 +1224,17 @@ extend Float16 <: LittleEndianOrder<Float16>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Float16
+public static func readLittleEndian(buffer: Array<Byte>): Float16
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1253,23 +1253,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x40, 0x4A]
+    let buffer: Array<Byte> = [0x40, 0x4A]
     let n = Float16.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1288,7 +1288,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 12.5f16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x40, 0x4A])
@@ -1307,17 +1307,17 @@ extend Float32  <: LittleEndianOrder<Float32>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Float32
+public static func readLittleEndian(buffer: Array<Byte>): Float32
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1336,23 +1336,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x00, 0x00, 0x48, 0x41]
+    let buffer: Array<Byte> = [0x00, 0x00, 0x48, 0x41]
     let n = Float32.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1371,7 +1371,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 12.5f32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x00, 0x00, 0x48, 0x41])
@@ -1390,17 +1390,17 @@ extend Float64 <: LittleEndianOrder<Float64>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Float64
+public static func readLittleEndian(buffer: Array<Byte>): Float64
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1419,23 +1419,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40]
+    let buffer: Array<Byte> = [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40]
     let n = Float64.readLittleEndian(buffer)
     @Assert(n, 12.5)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1454,7 +1454,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 12.5f64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x29, 0x40])
@@ -1473,17 +1473,17 @@ extend Int16 <: LittleEndianOrder<Int16>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Int16
+public static func readLittleEndian(buffer: Array<Byte>): Int16
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1502,23 +1502,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x34, 0x12]
+    let buffer: Array<Byte> = [0x34, 0x12]
     let n = Int16.readLittleEndian(buffer)
     @Assert(n, 0x1234i16)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1537,7 +1537,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234i16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x34, 0x12])
@@ -1556,17 +1556,17 @@ extend Int32 <: LittleEndianOrder<Int32>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Int32
+public static func readLittleEndian(buffer: Array<Byte>): Int32
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1585,23 +1585,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<Byte> = [0x78, 0x56, 0x34, 0x12]
     let n = Int32.readLittleEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1620,7 +1620,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12345678i32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x78, 0x56, 0x34, 0x12])
@@ -1639,17 +1639,17 @@ extend Int64 <: LittleEndianOrder<Int64>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Int64
+public static func readLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1668,23 +1668,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<Byte> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
     let n = Int64.readLittleEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1703,7 +1703,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234567890123456i64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12])
@@ -1722,17 +1722,17 @@ extend Int8 <: LittleEndianOrder<Int8>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): Int8
+public static func readLittleEndian(buffer: Array<Byte>): Int8
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1751,23 +1751,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12]
+    let buffer: Array<Byte> = [0x12]
     let n = Int8.readLittleEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1786,7 +1786,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12i8.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])
@@ -1805,17 +1805,17 @@ extend UInt16 <: LittleEndianOrder<UInt16>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): UInt16
+public static func readLittleEndian(buffer: Array<Byte>): UInt16
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1834,23 +1834,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x34, 0x12]
+    let buffer: Array<Byte> = [0x34, 0x12]
     let n = UInt16.readLittleEndian(buffer)
     @Assert(n, 0x1234u16)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1869,7 +1869,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234u16.writeLittleEndian(buffer)
     @Assert(n, 2)
     @Assert(buffer[..n] == [0x34, 0x12])
@@ -1888,17 +1888,17 @@ extend UInt32 <: LittleEndianOrder<UInt32>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): UInt32
+public static func readLittleEndian(buffer: Array<Byte>): UInt32
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -1917,23 +1917,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<Byte> = [0x78, 0x56, 0x34, 0x12]
     let n = UInt32.readLittleEndian(buffer)
     @Assert(n, 0x12345678)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -1952,7 +1952,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12345678u32.writeLittleEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x78, 0x56, 0x34, 0x12])
@@ -1971,17 +1971,17 @@ extend UInt64 <: LittleEndianOrder<UInt64>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): UInt64
+public static func readLittleEndian(buffer: Array<Byte>): UInt64
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -2000,23 +2000,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
+    let buffer: Array<Byte> = [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12]
     let n = UInt64.readLittleEndian(buffer)
     @Assert(n, 0x1234567890123456)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -2035,7 +2035,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x1234567890123456u64.writeLittleEndian(buffer)
     @Assert(n, 8)
     @Assert(buffer[..n] == [0x56, 0x34, 0x12, 0x90, 0x78, 0x56, 0x34, 0x12])
@@ -2054,17 +2054,17 @@ extend UInt8 <: LittleEndianOrder<UInt8>
 
 - [LittleEndianOrder](#interface-littleendianordert)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)>
 
-#### static func readLittleEndian(Array\<UInt8>)
+#### static func readLittleEndian(Array\<Byte>)
 
 ```cangjie
-public static func readLittleEndian(buffer: Array<UInt8>): UInt8
+public static func readLittleEndian(buffer: Array<Byte>): UInt8
 ```
 
 功能：从字节数组中以小端序的方式读取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待读取的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待读取的数据。
 
 返回值：
 
@@ -2083,23 +2083,23 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer: Array<UInt8> = [0x12]
+    let buffer: Array<Byte> = [0x12]
     let n = UInt8.readLittleEndian(buffer)
     @Assert(n, 0x12)
 }
 ```
 
-#### func writeLittleEndian(Array\<UInt8>)
+#### func writeLittleEndian(Array\<Byte>)
 
 ```cangjie
-public func writeLittleEndian(buffer: Array<UInt8>): Int64
+public func writeLittleEndian(buffer: Array<Byte>): Int64
 ```
 
 功能：将 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 值以小端序的方式写入字节数组中。
 
 参数：
 
-- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 缓冲区，用于存放待写入的数据。
+- buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 缓冲区，用于存放待写入的数据。
 
 返回值：
 
@@ -2118,7 +2118,7 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    let buffer = Array<UInt8>(8, repeat: 0)
+    let buffer = Array<Byte>(8, repeat: 0)
     let n = 0x12u8.writeLittleEndian(buffer)
     @Assert(n, 1)
     @Assert(buffer[..n] == [0x12])

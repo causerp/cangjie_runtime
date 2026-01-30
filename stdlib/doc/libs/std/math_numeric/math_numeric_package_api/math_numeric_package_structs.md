@@ -781,18 +781,18 @@ main() {
 ### func compare(BigInt)
 
 ```cangjie
-public func compare(that: BigInt): Ordering
+public func compare(other: BigInt): Ordering
 ```
 
-功能：判断 [BigInt](math_numeric_package_structs.md#struct-bigint) 与另一个 [BigInt](math_numeric_package_structs.md#struct-bigint) 的关系。
+功能：判断 [BigInt](math_numeric_package_structs.md#struct-bigint) 与另一个 [BigInt](math_numeric_package_structs.md#struct-bigint) 的大小关系。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
-- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 返回此 [BigInt](math_numeric_package_structs.md#struct-bigint) 与另一个 [BigInt](math_numeric_package_structs.md#struct-bigint) 的关系。如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT；如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT。
+- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 返回此 [BigInt](math_numeric_package_structs.md#struct-bigint) 与另一个 [BigInt](math_numeric_package_structs.md#struct-bigint) 的大小关系。如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT；如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT。
 
 示例：
 
@@ -828,7 +828,7 @@ Ordering.EQ
 ### func divAndMod(BigInt)
 
 ```cangjie
-public func divAndMod(that: BigInt): (BigInt, BigInt)
+public func divAndMod(other: BigInt): (BigInt, BigInt)
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 的除法运算。
@@ -837,7 +837,7 @@ public func divAndMod(that: BigInt): (BigInt, BigInt)
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -1016,24 +1016,24 @@ main() {
 ### func modInverse(BigInt)
 
 ```cangjie
-public func modInverse(that: BigInt): BigInt
+public func modInverse(other: BigInt): BigInt
 ```
 
-功能：求模逆元。
+功能：计算当前数值的模逆元。
 
-模逆元 r 满足 $(this * r) \% that == 1$。显然，`this` 和 `that` 必须互质。当 `that` 为 正负 1 时，结果总是 0。
+针对入参的模数，返回满足 `(当前数值 × 逆元) % 模数 = 1` 的整数逆元；该逆元仅在当前数值与模数互质（最大公约数为 1）时存在。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。入参不得为 0，且需要与 `this` 互质。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 模运算的模数（即计算逆元的基准值）。
 
 返回值：
 
-- [BigInt](math_numeric_package_structs.md#struct-bigint) - 返回模逆元。
+- [BigInt](math_numeric_package_structs.md#struct-bigint) - 满足模逆元定义的整数结果；若模数为 ±1，返回值固定为 0。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `this` 和 `that` 不互质或 `that` 为 0 时，抛此异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当底数与模数不互质、或模数为 0 时抛出此异常。
 
 示例：
 
@@ -1102,7 +1102,7 @@ main() {
 ### func quo(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
-public func quo(that: BigInt): BigInt
+public func quo(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 的除法运算。
@@ -1115,7 +1115,7 @@ public func quo(that: BigInt): BigInt
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -1148,7 +1148,7 @@ main() {
 ### func quoAndRem(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
-public func quoAndRem(that: BigInt): (BigInt, BigInt)
+public func quoAndRem(other: BigInt): (BigInt, BigInt)
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 的除法运算。
@@ -1161,7 +1161,7 @@ public func quoAndRem(that: BigInt): (BigInt, BigInt)
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -1196,7 +1196,7 @@ main() {
 ### func rem(BigInt) <sup>(deprecated)</sup>
 
 ```cangjie
-public func rem(that: BigInt): BigInt
+public func rem(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 的模运算。
@@ -1209,7 +1209,7 @@ public func rem(that: BigInt): BigInt
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -1912,14 +1912,14 @@ main() {
 ### operator func !=(BigInt)
 
 ```cangjie
-public operator func !=(that: BigInt): Bool
+public operator func !=(other: BigInt): Bool
 ```
 
 功能：判不等运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 判不等运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 判不等运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -1947,7 +1947,7 @@ true
 ### operator func %(BigInt)
 
 ```cangjie
-public operator func %(that: BigInt): BigInt
+public operator func %(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 的模运算。
@@ -1956,7 +1956,7 @@ public operator func %(that: BigInt): BigInt
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -1989,14 +1989,14 @@ main() {
 ### operator func &(BigInt)
 
 ```cangjie
-public operator func &(that: BigInt): BigInt
+public operator func &(other: BigInt): BigInt
 ```
 
 功能：按位与。其功能是参与运算的两数各对应的二进位相与。只有对应的两个二进位都为 1 时，结果位才为 1。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位与运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位与运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2025,14 +2025,14 @@ main() {
 ### operator func *(BigInt)
 
 ```cangjie
-public operator func *(that: BigInt): BigInt
+public operator func *(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 乘法。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 乘数。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 乘数。
 
 返回值：
 
@@ -2096,14 +2096,14 @@ main() {
 ### operator func +(BigInt)
 
 ```cangjie
-public operator func +(that: BigInt): BigInt
+public operator func +(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 加法。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 加数。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 加数。
 
 返回值：
 
@@ -2163,14 +2163,14 @@ main() {
 ### operator func -(BigInt)
 
 ```cangjie
-public operator func -(that: BigInt): BigInt
+public operator func -(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 减法。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 减数。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 减数。
 
 返回值：
 
@@ -2199,14 +2199,14 @@ main() {
 ### operator func <(BigInt)
 
 ```cangjie
-public operator func <(that: BigInt): Bool
+public operator func <(other: BigInt): Bool
 ```
 
 功能：小于比较运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 小于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 小于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2273,14 +2273,14 @@ main() {
 ### operator func <=(BigInt)
 
 ```cangjie
-public operator func <=(that: BigInt): Bool
+public operator func <=(other: BigInt): Bool
 ```
 
 功能：小于等于比较运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 小于等于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 小于等于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2308,14 +2308,14 @@ false
 ### operator func ==(BigInt)
 
 ```cangjie
-public operator func ==(that: BigInt): Bool
+public operator func ==(other: BigInt): Bool
 ```
 
 功能：判等运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 判等运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 判等运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2343,14 +2343,14 @@ false
 ### operator func >(BigInt)
 
 ```cangjie
-public operator func >(that: BigInt): Bool
+public operator func >(other: BigInt): Bool
 ```
 
 功能：大于比较运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 大于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 大于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2378,14 +2378,14 @@ true
 ### operator func >=(BigInt)
 
 ```cangjie
-public operator func >=(that: BigInt): Bool
+public operator func >=(other: BigInt): Bool
 ```
 
 功能：大于等于比较运算。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 大于等于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 大于等于比较运算的另一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2452,7 +2452,7 @@ main() {
 ### operator func \/(BigInt)
 
 ```cangjie
-public operator func /(that: BigInt): BigInt
+public operator func /(other: BigInt): BigInt
 ```
 
 功能：[BigInt](math_numeric_package_structs.md#struct-bigint) 除法。
@@ -2461,7 +2461,7 @@ public operator func /(that: BigInt): BigInt
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 除数。除数不得为 0。
 
 返回值：
 
@@ -2494,14 +2494,14 @@ main() {
 ### operator func ^(BigInt)
 
 ```cangjie
-public operator func ^(that: BigInt): BigInt
+public operator func ^(other: BigInt): BigInt
 ```
 
 功能：按位异或。其功能是参与运算的两数各对应的二进位相异或。二进制位结果不相同时，异或结果为 1；二进制位结果相同时，异或结果为 0。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位异或运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位异或运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 
@@ -2530,14 +2530,14 @@ main() {
 ### operator func |(BigInt)
 
 ```cangjie
-public operator func |(that: BigInt): BigInt
+public operator func |(other: BigInt): BigInt
 ```
 
 功能：按位或。其功能是参与运算的两数各对应的二进位相或。只有对应的两个二进位都为 0 时，结果位才为 0。
 
 参数：
 
-- that: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位或运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
+- other: [BigInt](math_numeric_package_structs.md#struct-bigint) - 按位或运算的另外一个 [BigInt](math_numeric_package_structs.md#struct-bigint)。
 
 返回值：
 

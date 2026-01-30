@@ -314,8 +314,8 @@ public struct Path <: Equatable<Path> & Hashable & ToString {
         }
     }
 
-    public operator func ==(that: Path): Bool {
-        this.normalize()._rawPath == that.normalize()._rawPath
+    public operator func ==(other: Path): Bool {
+        this.normalize()._rawPath == other.normalize()._rawPath
     }
 
     public func hashCode(): Int64 {

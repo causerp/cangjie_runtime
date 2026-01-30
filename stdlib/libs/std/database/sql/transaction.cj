@@ -48,8 +48,8 @@ public enum TransactionIsoLevel <: ToString & Hashable & Equatable<TransactionIs
         }
     }
 
-    public operator func ==(rhs: TransactionIsoLevel): Bool {
-        match ((this, rhs)) {
+    public operator func ==(other: TransactionIsoLevel): Bool {
+        match ((this, other)) {
             case (Unspecified, Unspecified) => true
             case (ReadCommitted, ReadCommitted) => true
             case (ReadUncommitted, ReadUncommitted) => true
@@ -62,8 +62,8 @@ public enum TransactionIsoLevel <: ToString & Hashable & Equatable<TransactionIs
         }
     }
 
-    public operator func !=(rhs: TransactionIsoLevel): Bool {
-        return !(this == rhs)
+    public operator func !=(other: TransactionIsoLevel): Bool {
+        return !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -90,8 +90,8 @@ public enum TransactionAccessMode <: ToString & Hashable & Equatable<Transaction
         }
     }
 
-    public operator func ==(rhs: TransactionAccessMode): Bool {
-        match ((this, rhs)) {
+    public operator func ==(other: TransactionAccessMode): Bool {
+        match ((this, other)) {
             case (Unspecified, Unspecified) => true
             case (ReadWrite, ReadWrite) => true
             case (ReadOnly, ReadOnly) => true
@@ -99,8 +99,8 @@ public enum TransactionAccessMode <: ToString & Hashable & Equatable<Transaction
         }
     }
 
-    public operator func !=(rhs: TransactionAccessMode): Bool {
-        return !(this == rhs)
+    public operator func !=(other: TransactionAccessMode): Bool {
+        return !(this == other)
     }
 
     public func hashCode(): Int64 {
@@ -127,8 +127,8 @@ public enum TransactionDeferrableMode <: ToString & Hashable & Equatable<Transac
         }
     }
 
-    public operator func ==(rhs: TransactionDeferrableMode): Bool {
-        match ((this, rhs)) {
+    public operator func ==(other: TransactionDeferrableMode): Bool {
+        match ((this, other)) {
             case (Unspecified, Unspecified) => true
             case (Deferrable, Deferrable) => true
             case (NotDeferrable, NotDeferrable) => true
@@ -136,8 +136,8 @@ public enum TransactionDeferrableMode <: ToString & Hashable & Equatable<Transac
         }
     }
 
-    public operator func !=(rhs: TransactionDeferrableMode): Bool {
-        return !(this == rhs)
+    public operator func !=(other: TransactionDeferrableMode): Bool {
+        return !(this == other)
     }
 
     public func hashCode(): Int64 {

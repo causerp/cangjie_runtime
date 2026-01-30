@@ -913,13 +913,13 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     /**
      * Compare the relationship between two instance of DateTime.
      *
-     * @param rhs Instance of DateTime compared with this.
+     * @param other Instance of DateTime compared with this.
      * @return Value indicating the relationship between two instance of DateTime.
      */
-    public func compare(rhs: DateTime): Ordering {
+    public func compare(other: DateTime): Ordering {
         match {
-            case this < rhs => Ordering.LT
-            case this > rhs => Ordering.GT
+            case this < other => Ordering.LT
+            case this > other => Ordering.GT
             case _ => Ordering.EQ
         }
     }

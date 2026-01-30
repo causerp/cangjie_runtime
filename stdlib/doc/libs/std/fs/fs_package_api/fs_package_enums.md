@@ -99,14 +99,14 @@ ReadWrite mode: ReadWrite
 ### operator func !=(OpenMode)
 
 ```cangjie
-public operator func !=(that: OpenMode): Bool
+public operator func !=(other: OpenMode): Bool
 ```
 
 功能：比较 [OpenMode](fs_package_enums.md#enum-openmode) 实例是否不等。
 
 参数：
 
-- that: [OpenMode](fs_package_enums.md#enum-openmode) - 待比较的 [OpenMode](fs_package_enums.md#enum-openmode) 实例。
+- other: [OpenMode](fs_package_enums.md#enum-openmode) - 待比较的 [OpenMode](fs_package_enums.md#enum-openmode) 实例。
 
 返回值：
 
@@ -143,14 +143,14 @@ Read mode not equals Read mode: false
 ### operator func ==(OpenMode)
 
 ```cangjie
-public operator func ==(that: OpenMode): Bool
+public operator func ==(other: OpenMode): Bool
 ```
 
 功能：比较 [OpenMode](fs_package_enums.md#enum-openmode) 实例是否相等。
 
 参数：
 
-- that: [OpenMode](fs_package_enums.md#enum-openmode) - 待比较的 [OpenMode](fs_package_enums.md#enum-openmode) 实例。
+- other: [OpenMode](fs_package_enums.md#enum-openmode) - 待比较的 [OpenMode](fs_package_enums.md#enum-openmode) 实例。
 
 返回值：
 

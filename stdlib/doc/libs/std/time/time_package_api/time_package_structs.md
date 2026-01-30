@@ -1958,18 +1958,18 @@ main() {
 ### func compare(DateTime)
 
 ```cangjie
-public func compare(rhs: DateTime): Ordering
+public func compare(other: DateTime): Ordering
 ```
 
-功能：判断一个 [DateTime](time_package_structs.md#struct-datetime) 实例与参数 `rhs` 的大小关系。如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT。
+功能：判断一个 [DateTime](time_package_structs.md#struct-datetime) 实例与另一个一个 [DateTime](time_package_structs.md#struct-datetime) 实例的大小关系。如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT。
 
 参数：
 
-- rhs: [DateTime](time_package_structs.md#struct-datetime) - 参与比较的 [DateTime](time_package_structs.md#struct-datetime) 实例。
+- other: [DateTime](time_package_structs.md#struct-datetime) - 参与比较的 [DateTime](time_package_structs.md#struct-datetime) 实例。
 
 返回值：
 
-- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - [DateTime](time_package_structs.md#struct-datetime) 实例与 `rhs` 大小关系。
+- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 两个 [DateTime](time_package_structs.md#struct-datetime) 实例的大小关系。
 
 示例：
 
@@ -3154,14 +3154,14 @@ main() {
 ### func compare(MonoTime)
 
 ```cangjie
-public func compare(rhs: MonoTime): Ordering
+public func compare(other: MonoTime): Ordering
 ```
 
 功能：判断一个 [MonoTime](time_package_structs.md#struct-monotime) 实例与另一个 [MonoTime](time_package_structs.md#struct-monotime) 实例大小关系。
 
 参数：
 
-- rhs: [MonoTime](time_package_structs.md#struct-monotime) - 参与比较的 [MonoTime](time_package_structs.md#struct-monotime) 实例。
+- other: [MonoTime](time_package_structs.md#struct-monotime) - 参与比较的 [MonoTime](time_package_structs.md#struct-monotime) 实例。
 
 返回值：
 

@@ -634,14 +634,14 @@ extend<T> Option<T> <: Equatable<Option<T>> where T <: Equatable<T>
 #### operator func !=(Option\<T>)
 
 ```cangjie
-public operator func !=(that: Option<T>): Bool
+public operator func !=(other: Option<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [Option](core_package_enums.md#enum-optiont)\<T> 实例是否不等。
 
 参数：
 
-- that: [Option](core_package_enums.md#enum-optiont)\<T> - 待比较的 [Option](core_package_enums.md#enum-optiont)\<T> 实例。
+- other: [Option](core_package_enums.md#enum-optiont)\<T> - 待比较的 [Option](core_package_enums.md#enum-optiont)\<T> 实例。
 
 返回值：
 
@@ -694,7 +694,7 @@ None != None: false
 #### operator func ==(Option\<T>)
 
 ```cangjie
-public operator func ==(that: Option<T>): Bool
+public operator func ==(other: Option<T>): Bool
 ```
 
 功能：判断当前实例与参数指向的 [Option](core_package_enums.md#enum-optiont)\<T> 实例是否相等。
@@ -703,7 +703,7 @@ public operator func ==(that: Option<T>): Bool
 
 参数：
 
-- that: [Option](core_package_enums.md#enum-optiont)\<T> - 待比较的 [Option](core_package_enums.md#enum-optiont)\<T> 实例。
+- other: [Option](core_package_enums.md#enum-optiont)\<T> - 待比较的 [Option](core_package_enums.md#enum-optiont)\<T> 实例。
 
 返回值：
 
@@ -932,7 +932,7 @@ extend Ordering <: Comparable<Ordering>
 #### func compare(Ordering)
 
 ```cangjie
-public func compare(that: Ordering): Ordering
+public func compare(other: Ordering): Ordering
 ```
 
 功能：判断当前 [Ordering](core_package_enums.md#enum-ordering) 实例与参数指定的 [Ordering](core_package_enums.md#enum-ordering) 实例的大小关系。
@@ -941,7 +941,7 @@ public func compare(that: Ordering): Ordering
 
 参数：
 
-- that: [Ordering](core_package_enums.md#enum-ordering) - 待比较的 [Ordering](core_package_enums.md#enum-ordering) 实例。
+- other: [Ordering](core_package_enums.md#enum-ordering) - 待比较的 [Ordering](core_package_enums.md#enum-ordering) 实例。
 
 返回值：
 
