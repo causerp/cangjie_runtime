@@ -8,13 +8,14 @@
 #ifndef MRT_CENTRAL_CACHE_H
 #define MRT_CENTRAL_CACHE_H
 
+#include "Base/ImmortalWrapper.h"
 #include "MemCommon.h"
 
 namespace MapleRuntime {
 class CentralCache {
 public:
     // Singleton mode
-    static CentralCache* GetInstance() { return &instance; }
+    static CentralCache* GetInstance() { return &*instance; }
 
     // Obtain a certain number of small fixed-length memory blocks from the central cache.
     size_t FetchRangeObj(void*& start, void*& end, size_t batchNum, size_t alignBytes);
@@ -23,6 +24,7 @@ public:
     void ReleaseListToSpans(void* start, size_t index);
 
 private:
+    friend class ImmortalWrapper<CentralCache>;
     // Obtain a non-null span from a specified SpanList.
     Span* GetOneSpan(SpanList& list, size_t alignBytes);
 
@@ -35,7 +37,7 @@ private:
     CentralCache(const CentralCache&) = delete;
     CentralCache& operator=(const CentralCache&) = delete;
 
-    static CentralCache instance;
+    static ImmortalWrapper<CentralCache> instance;
 };
 } // namespace MapleRuntime
 #endif // MRT_CENTRAL_CACHE_H
