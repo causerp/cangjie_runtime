@@ -105,7 +105,7 @@ add_custom_command(
     COMMAND ${CMAKE_COMMAND} -E copy 
         $ENV{CANGJIE_HOME}/lib/${output_cj_lib_dir}/libcangjie-ast-support.a
         ${AST_FFI_LIB}
-    COMMAND ${TARGET_AR} q ${AST_FFI_LIB} $<TARGET_OBJECTS:${libname}-objs>
+    COMMAND ${TARGET_AR} qD ${AST_FFI_LIB} $<TARGET_OBJECTS:${libname}-objs>
     DEPENDS ${libname}-objs
 )
 
