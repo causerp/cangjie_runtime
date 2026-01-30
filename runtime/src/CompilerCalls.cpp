@@ -1113,6 +1113,9 @@ static TypeInfo* GetActualTypeFromGenericType(GenericTypeInfo* genericTi, void* 
     CJArray* cjArray = static_cast<CJArray*>(args);
     TypeInfo** actualTypeInfos = reinterpret_cast<TypeInfo**>(&(cjArray->rawPtr->data));
     U64 len = genericTi->GetGenericArgsNum();
+    if (len == 0) {
+        return nullptr;
+    }
     void* mem = calloc(len, TYPEINFO_PTR_SIZE);
     CHECK_DETAIL(mem != nullptr, "GetActualTypeFromGenericType calloc failed");
     TypeInfo** typeInfos = static_cast<TypeInfo**>(mem);
@@ -1139,7 +1142,7 @@ static bool CheckGenericConstraint(GenericTypeInfo* genericTi, TypeInfo* ti, voi
             constraintTi =
                 GetActualTypeFromGenericType(reinterpret_cast<GenericTypeInfo*>(constraintTi), args, genericArgs);
         }
-        if (!ti->IsSubType(constraintTi)) {
+        if (constraintTi == nullptr || !ti->IsSubType(constraintTi)) {
             return false;
         }
     }
@@ -1153,6 +1156,9 @@ extern "C" TypeInfo* MCC_GetOrCreateTypeInfoForReflect(TypeTemplate* tt, void* a
     }
     CJArray* cjArray = static_cast<CJArray*>(args);
     U64 len = cjArray->rawPtr->len;
+    if (len == 0) {
+        return nullptr;
+    }
 
     if (tt->IsRawArray() || tt->IsVArray() || tt->IsCPointer()) {
         if (len != 1) {
