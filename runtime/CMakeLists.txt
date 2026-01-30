@@ -49,6 +49,7 @@ endif ()
 # project name: CangjieRuntime
 project(CangjieRuntime C CXX ASM)
 include(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/SetupAr.cmake)
 
 message("-- BUILD_CJTHREAD: " ${BUILD_CJTHREAD})
 message("-- BUILD_RUNTIME: "   ${BUILD_RUNTIME})
@@ -531,7 +532,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$")
 endif () # CMAKE_BUILD_TYPE MATCHES "^(Release|MinSizeRel)$"
 
 
-if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2 OR WINDOWS_FLAG MATCHES 1 
+if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2 OR WINDOWS_FLAG MATCHES 1
     OR MACOS_FLAG MATCHES 1 OR (ANDROID_FLAG MATCHES 0 AND OHOS_FLAG MATCHES 0))
     add_library(cangjie-runtime-static STATIC)
     if (WINDOWS_FLAG MATCHES 1)
@@ -629,7 +630,7 @@ if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MAT
     endif()
     if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2 OR MACOS_FLAG MATCHES 1)
         add_custom_command(TARGET cangjie-runtime-static PRE_BUILD
-            COMMAND sh ${CMAKE_SOURCE_DIR}/build/apple_rename_section.sh 
+            COMMAND sh ${CMAKE_SOURCE_DIR}/build/apple_rename_section.sh
                 "${RENAME_PLATFORM}"
                 "${CMAKE_C_COMPILER}"
                 "$<TARGET_OBJECTS:runtime>"
