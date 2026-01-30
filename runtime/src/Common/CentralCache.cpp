@@ -10,7 +10,7 @@
 #include "PageCache.h"
 
 namespace MapleRuntime {
-CentralCache CentralCache::instance;
+ImmortalWrapper<CentralCache> CentralCache::instance;
 
 // Retrieve a non-empty Span from a specific SpanList.
 Span* CentralCache::GetOneSpan(SpanList& list, size_t alignBytes)
