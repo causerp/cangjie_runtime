@@ -202,6 +202,8 @@ public abstract class Visitor {
  	 
     protected open func visit(_: FeaturesDirective): Unit {}
 
+    protected open func visit(_: FeaturesSet): Unit {}
+
     protected open func visit(_: QuoteToken): Unit {}
 
     protected open func visit(_: MacroExpandParam): Unit {}
