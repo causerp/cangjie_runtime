@@ -55,7 +55,6 @@ set(CMAKE_C_FLAGS
     -Wno-inconsistent-dllimport \
     -Wno-pointer-to-int-cast \
     -fuse-ld=lld \
-    -stdlib=libc++ \
     --rtlib=compiler-rt"
 )
 
