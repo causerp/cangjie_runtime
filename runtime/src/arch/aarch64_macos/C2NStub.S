@@ -87,6 +87,8 @@
     .text
     .align 2
     .global _CJ_MCC_C2NStub
+    .cfi_sections .debug_frame
+
 _CJ_MCC_C2NStub:
 
     // x10 = cpStackSize, x9 = calleeAddr
