@@ -11100,6 +11100,18 @@ protected open func visit(_: FeaturesDirective): Unit
 
 - _: [FeaturesDirective](ast_package_classes.md#class-featuresdirective) - [FeaturesDirective](ast_package_classes.md#class-featuresdirective) 类型的被遍历节点。
 
+### func visit(FeaturesSet)
+
+```cangjie
+protected open func visit(_: FeaturesSet): Unit
+```
+
+功能：定义访问节点时的操作，需要重写。
+
+参数：
+
+- _: [FeaturesSet](ast_package_classes.md#class-featuresset) - [FeaturesSet](ast_package_classes.md#class-featuresset) 类型的被遍历节点。
+
 ### func visit(ForInExpr)
 
 ```cangjie
