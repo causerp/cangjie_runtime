@@ -1953,18 +1953,6 @@ public func append(runeArr: Array<Rune>): Unit
 
 - runeArr: [Array](core_package_structs.md#struct-arrayt)\<Rune> - 插入的 `Rune` 数组。
 
-### func append\<T>(Array\<T>) where T <: ToString
-
-```cangjie
-public func append<T>(val: Array<T>): Unit where T <: ToString
-```
-
-功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `val` 指定的 [Array](core_package_structs.md#struct-arrayt)\<T> 的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
-
-参数：
-
-- val: [Array](core_package_structs.md#struct-arrayt)\<T> - 插入的 [Array](core_package_structs.md#struct-arrayt)\<T> 类型实例。
-
 ### func append(Bool)
 
 ```cangjie
@@ -2109,18 +2097,6 @@ public func append(sb: StringBuilder): Unit
 
 - sb: [StringBuilder](core_package_classes.md#class-stringbuilder) - 插入的 [StringBuilder](core_package_classes.md#class-stringbuilder) 实例。
 
-### func append\<T>(T) where T <: ToString
-
-```cangjie
-public func append<T>(v: T): Unit where T <: ToString
-```
-
-功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `v` 指定 `T` 类型的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
-
-参数：
-
-- v: T - 插入的 `T` 类型实例。
-
 ### func append(UInt16)
 
 ```cangjie
@@ -2168,6 +2144,30 @@ public func append(n: UInt8): Unit
 参数：
 
 - n: [UInt8](core_package_intrinsics.md#uint8) - 插入的 [UInt8](core_package_intrinsics.md#uint8) 类型的值。
+
+### func append\<T>(Array\<T>) where T <: ToString
+
+```cangjie
+public func append<T>(val: Array<T>): Unit where T <: ToString
+```
+
+功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `val` 指定的 [Array](core_package_structs.md#struct-arrayt)\<T> 的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
+
+参数：
+
+- val: [Array](core_package_structs.md#struct-arrayt)\<T> - 插入的 [Array](core_package_structs.md#struct-arrayt)\<T> 类型实例。
+
+### func append\<T>(T) where T <: ToString
+
+```cangjie
+public func append<T>(v: T): Unit where T <: ToString
+```
+
+功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `v` 指定 `T` 类型的字符串表示，类型 `T` 需要实现 [ToString](core_package_interfaces.md#interface-tostring) 接口。
+
+参数：
+
+- v: T - 插入的 `T` 类型实例。
 
 ### func appendFromUtf8(Array\<Byte>)
 

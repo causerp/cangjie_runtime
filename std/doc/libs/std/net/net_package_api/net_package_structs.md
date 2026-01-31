@@ -123,22 +123,6 @@ public func toString(): String
 
 - [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 当前地址族的名称。
 
-### operator func ==(AddressFamily)
-
-```cangjie
-public operator func ==(rhs: AddressFamily): Bool
-```
-
-功能：比较地址族值是否相等。
-
-参数：
-
-- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
-
-返回值：
-
-- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
-
 ### operator func !=(AddressFamily)
 
 ```cangjie
@@ -154,6 +138,22 @@ public operator func !=(rhs: AddressFamily): Bool
 返回值：
 
 - [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(AddressFamily)
+
+```cangjie
+public operator func ==(rhs: AddressFamily): Bool
+```
+
+功能：比较地址族值是否相等。
+
+参数：
+
+- rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - 参与比较的 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象。
+
+返回值：
+
+- [Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [AddressFamily](net_package_structs.md#struct-addressfamily) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ## struct OptionLevel
 
@@ -1041,24 +1041,6 @@ public static const IPPROTO_UDP: Int32 = 17
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
-### const SOL_SOCKET <sup>(deprecated)</sup>
-
-```cangjie
-public static const SOL_SOCKET: Int32
-```
-
-功能：常数，用于将套接字选项的 `level` 层级设为 `SOL_SOCKET`。不同系统下的值分别为：
-
-- macOS: 0xFFFF
-- Windows: 0xFFFF
-- 其他情况：1
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用 [OptionLevel.SOCKET](#static-const-socket) 替代。
-
-类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
-
 ### const SO_BINDTODEVICE
 
 ```cangjie
@@ -1154,6 +1136,24 @@ public static const SO_SNDBUF: Int32
 - macOS: 0x1001
 - Windows: 0x1001
 - 其他情况：0x0007
+
+类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
+
+### const SOL_SOCKET <sup>(deprecated)</sup>
+
+```cangjie
+public static const SOL_SOCKET: Int32
+```
+
+功能：常数，用于将套接字选项的 `level` 层级设为 `SOL_SOCKET`。不同系统下的值分别为：
+
+- macOS: 0xFFFF
+- Windows: 0xFFFF
+- 其他情况：1
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用 [OptionLevel.SOCKET](#static-const-socket) 替代。
 
 类型：[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 

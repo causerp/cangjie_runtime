@@ -128,52 +128,6 @@ public func exists(path: String): Bool
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
 
-## func rename(Path, Path, Bool)
-
-```cangjie
-public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
-```
-
-功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，否则会抛出异常。
-
-> **注意：**
->
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
-
-参数：
-
-- sourcePath: [Path](./fs_package_structs.md#struct-path) - 待重命名的地址。
-- to!: [Path](./fs_package_structs.md#struct-path) - 目标地址。
-- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
-
-## func rename(String, String, Bool)
-
-```cangjie
-public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): Unit
-```
-
-功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，`overwrite` 为 `false` 会抛出异常。
-
-> **注意：**
->
-> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
-
-参数：
-
-- sourcePath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待重命名的地址。
-- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目标地址。
-- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
-
 ## func remove(Path, Bool)
 
 ```cangjie
@@ -256,4 +210,50 @@ public func removeIfExists(path: String, recursive!: Bool = false): Bool
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果删除失败，抛出此异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
+
+## func rename(Path, Path, Bool)
+
+```cangjie
+public func rename(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
+```
+
+功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，否则会抛出异常。
+
+> **注意：**
+>
+> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+
+参数：
+
+- sourcePath: [Path](./fs_package_structs.md#struct-path) - 待重命名的地址。
+- to!: [Path](./fs_package_structs.md#struct-path) - 目标地址。
+- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
+
+## func rename(String, String, Bool)
+
+```cangjie
+public func rename(sourcePath: String, to!: String, overwrite!: Bool = false): Unit
+```
+
+功能：将 `sourcePath` 指定的文件或者目录重命名为由 `to` 给定的名称，`sourcePath` 必须是现有文件或者目录的路径，如果 `to` 是现有文件或者目录的路径时，其具体行为由 `overwrite` 指定， 如果 `overwrite` 为 `true`，将会删除现有的文件或者目录，再执行重命名操作，`overwrite` 为 `false` 会抛出异常。
+
+> **注意：**
+>
+> 当`overwrite` 为 `true`时，`rename`的一个隐含行为是删除目标位置的原有文件或者目录，如果目标位置是目录，将会递归删除目录内的所有内容，需要谨慎使用。
+
+参数：
+
+- sourcePath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待重命名的地址。
+- to!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目标地址。
+- overwrite!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否覆盖目标地址，默认值为 `false`。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 操作系统执行 rename 方法失败时抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。

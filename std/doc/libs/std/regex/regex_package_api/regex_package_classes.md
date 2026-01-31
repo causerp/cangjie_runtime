@@ -466,9 +466,9 @@ main(): Unit {
     let r = Regex(#"(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})"#)
     let arr = r.findAll("2024-10-24&2025-01-01", group: true)
     for (md in arr) {
-        println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
+        println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
         for ((name, index) in r.getNamedGroups()) {
-            println("${name} => ${index}")
+            println(" ${name} => ${index}")
         }
     }
 }
@@ -477,14 +477,14 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
-day => 3
-month => 2
-year => 1
-# found: `2025-01-01` and groupCount: 3
-day => 3
-month => 2
-year => 1
+found: `2024-10-24` and groupCount: 3
+ day => 3
+ month => 2
+ year => 1
+found: `2025-01-01` and groupCount: 3
+ day => 3
+ month => 2
+ year => 1
 ```
 
 ### func lazyFindAll(String, Bool)
@@ -516,9 +516,9 @@ main(): Unit {
     while (true) {
         match (iter.next()) {
             case Some(md) =>
-                println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
+                println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
                 for ((name, index) in r.getNamedGroups()) {
-                    println("${name} => ${index}")
+                    println(" ${name} => ${index}")
                 }
             case None => break
         }
@@ -529,14 +529,14 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
-day => 3
-month => 2
-year => 1
-# found: `2025-01-01` and groupCount: 3
-day => 3
-month => 2
-year => 1
+found: `2024-10-24` and groupCount: 3
+ day => 3
+ month => 2
+ year => 1
+found: `2025-01-01` and groupCount: 3
+ day => 3
+ month => 2
+ year => 1
 ```
 
 ### func matcher(String) <sup>(deprecated)</sup>

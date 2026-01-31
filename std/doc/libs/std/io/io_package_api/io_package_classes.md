@@ -1895,6 +1895,26 @@ public func read(): ?Rune
 
 - [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当读取到非法字符时，抛出异常。
 
+### func readln()
+
+```cangjie
+public func readln(): Option<String>
+```
+
+功能：按行读取流中的数据。
+
+> **说明：**
+>
+> - 读取的数据会去掉原换行符。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str)，str 为该次读出的字符串；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None。
+
+异常：
+
+- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当读取到非法字符时，抛出异常。
+
 ### func readToEnd()
 
 ```cangjie
@@ -1942,26 +1962,6 @@ public func readUntil(v: Rune): Option<String>
 参数：
 
 - v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 指定字符。
-
-返回值：
-
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.Some(str)，str 为该次读出的字符串；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>.None。
-
-异常：
-
-- [ContentFormatException](io_package_exceptions.md#class-contentformatexception) - 当读取到非法字符时，抛出异常。
-
-### func readln()
-
-```cangjie
-public func readln(): Option<String>
-```
-
-功能：按行读取流中的数据。
-
-> **说明：**
->
-> - 读取的数据会去掉原换行符。
 
 返回值：
 

@@ -123,39 +123,6 @@ main() {
 NegativeArraySizeException is caught!
 ```
 
-## func eprintln(String)
-
-```cangjie
-public func eprintln(str: String): Unit
-```
-
-功能：将指定字符串打印到标准错误文本流，末尾添加换行。
-
-如抛出异常时，消息将打印到标准错误文本流（stderr），而不是标准输出（stdout）。
-
-参数：
-
-- str: [String](core_package_structs.md#struct-string) - 待输出的字符串。
-
-示例：
-
-<!-- verify -->
-```cangjie
-main() {
-    try {
-        throw NegativeArraySizeException("I am an Exception!")
-    } catch (e: NegativeArraySizeException) {
-        eprintln("NegativeArraySizeException is caught!")
-    }
-}
-```
-
-运行结果：
-
-```text
-NegativeArraySizeException is caught!
-```
-
 ## func eprint\<T>(T, Bool) where T <: ToString
 
 ```cangjie
@@ -205,6 +172,39 @@ main() {
 
 ```text
 width: 10, height: 20
+```
+
+## func eprintln(String)
+
+```cangjie
+public func eprintln(str: String): Unit
+```
+
+功能：将指定字符串打印到标准错误文本流，末尾添加换行。
+
+如抛出异常时，消息将打印到标准错误文本流（stderr），而不是标准输出（stdout）。
+
+参数：
+
+- str: [String](core_package_structs.md#struct-string) - 待输出的字符串。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        throw NegativeArraySizeException("I am an Exception!")
+    } catch (e: NegativeArraySizeException) {
+        eprintln("NegativeArraySizeException is caught!")
+    }
+}
+```
+
+运行结果：
+
+```text
+NegativeArraySizeException is caught!
 ```
 
 ## func eprintln\<T>(T) where T <: ToString

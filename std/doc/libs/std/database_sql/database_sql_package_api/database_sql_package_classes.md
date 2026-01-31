@@ -1551,56 +1551,6 @@ public init(v: ?DateTime)
 
 - v: ?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
 
-## class SqlNullableTimeTz <sup>(deprecated)</sup>
-
-```cangjie
-public class SqlNullableTimeTz <: SqlNullableDbType {
-    public init(v: ?DateTime)
-}
-```
-
-功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型，可为数据库 `Null` 值。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
-
-父类型：
-
-- [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated)
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated)。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-### prop value
-
-```cangjie
-public mut prop value: ?DateTime
-```
-
-功能：该数据的值。
-
-类型：?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
-
-### init(?DateTime)
-
-```cangjie
-public init(v: ?DateTime)
-```
-
-功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated) 实例。
-
-参数：
-
-- v: ?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
-
 ## class SqlNullableTimestamp <sup>(deprecated)</sup>
 
 ```cangjie
@@ -1646,6 +1596,56 @@ public init(v: ?DateTime)
 ```
 
 功能：根据传入参数 v 构造一个 [SqlNullableTimestamp <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimestamp-deprecated) 实例。
+
+参数：
+
+- v: ?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
+
+## class SqlNullableTimeTz <sup>(deprecated)</sup>
+
+```cangjie
+public class SqlNullableTimeTz <: SqlNullableDbType {
+    public init(v: ?DateTime)
+}
+```
+
+功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型，可为数据库 `Null` 值。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+
+父类型：
+
+- [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：类型名称，即 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated)。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+### prop value
+
+```cangjie
+public mut prop value: ?DateTime
+```
+
+功能：该数据的值。
+
+类型：?[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
+
+### init(?DateTime)
+
+```cangjie
+public init(v: ?DateTime)
+```
+
+功能：根据传入参数 v 构造一个 [SqlNullableTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqlnullabletimeTz-deprecated) 实例。
 
 参数：
 
@@ -2006,16 +2006,6 @@ public static const TlsVersion = "tls.version"
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
-### static const URL
-
-```cangjie
-public static const URL = "url"
-```
-
-功能：获取数据库连接 URL 字符串。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
 ### static const UpdateTimeout
 
 ```cangjie
@@ -2023,6 +2013,16 @@ public static const UpdateTimeout = "update_timeout"
 ```
 
 功能：获取 update 操作的超时时间，单位 ms。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+### static const URL
+
+```cangjie
+public static const URL = "url"
+```
+
+功能：获取数据库连接 URL 字符串。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -2186,56 +2186,6 @@ public init(v: DateTime)
 
 - v: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
 
-## class SqlTimeTz <sup>(deprecated)</sup>
-
-```cangjie
-public class SqlTimeTz <: SqlDbType {
-    public init(v: DateTime)
-}
-```
-
-功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
-
-父类型：
-
-- [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-功能：类型名称，即 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated)。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-### prop value
-
-```cangjie
-public mut prop value: DateTime
-```
-
-功能：该数据的值。
-
-类型：[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
-
-### init(DateTime)
-
-```cangjie
-public init(v: DateTime)
-```
-
-功能：根据传入参数 v 构造一个 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated) 实例。
-
-参数：
-
-- v: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
-
 ## class SqlTimestamp <sup>(deprecated)</sup>
 
 ```cangjie
@@ -2281,6 +2231,56 @@ public init(v: DateTime)
 ```
 
 功能：根据传入参数 v 构造一个 [SqlTimestamp <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimestamp-deprecated) 实例。
+
+参数：
+
+- v: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) - 传入的数据。
+
+## class SqlTimeTz <sup>(deprecated)</sup>
+
+```cangjie
+public class SqlTimeTz <: SqlDbType {
+    public init(v: DateTime)
+}
+```
+
+功能：带时区的时间，仅时分秒毫秒时区有效，对应仓颉 [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime) 类型。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+
+父类型：
+
+- [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：类型名称，即 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated)。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+### prop value
+
+```cangjie
+public mut prop value: DateTime
+```
+
+功能：该数据的值。
+
+类型：[DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
+
+### init(DateTime)
+
+```cangjie
+public init(v: DateTime)
+```
+
+功能：根据传入参数 v 构造一个 [SqlTimeTz <sup>(deprecated)</sup>](database_sql_package_classes.md#class-sqltimetz-deprecated) 实例。
 
 参数：
 

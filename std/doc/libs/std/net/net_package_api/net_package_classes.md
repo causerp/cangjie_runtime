@@ -504,22 +504,6 @@ main() {
 }
 ```
 
-### operator func ==(IPAddress)
-
-```cangjie
-public operator func ==(rhs: IPAddress): Bool
-```
-
-功能：判断两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象是否相等。
-
-参数：
-
-- rhs: [IPAddress](net_package_classes.md#class-ipaddress) - 参与比较的 [IPAddress](net_package_classes.md#class-ipaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
 ### operator func !=(IPAddress)
 
 ```cangjie
@@ -535,6 +519,22 @@ public operator func !=(rhs: IPAddress): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(IPAddress)
+
+```cangjie
+public operator func ==(rhs: IPAddress): Bool
+```
+
+功能：判断两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象是否相等。
+
+参数：
+
+- rhs: [IPAddress](net_package_classes.md#class-ipaddress) - 参与比较的 [IPAddress](net_package_classes.md#class-ipaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPAddress](net_package_classes.md#class-ipaddress) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ## class IPPrefix
 
@@ -778,22 +778,6 @@ main() {
 }
 ```
 
-### operator func ==(IPPrefix)
-
-```cangjie
-public operator func ==(rhs: IPPrefix): Bool
-```
-
-功能：判断两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象是否相等。
-
-参数：
-
-- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - 参与比较的 [IPPrefix](net_package_classes.md#class-ipprefix) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象相等，则返回 `true`；否则，返回 `false`。
-
 ### operator func !=(IPPrefix)
 
 ```cangjie
@@ -809,6 +793,22 @@ public operator func !=(rhs: IPPrefix): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(IPPrefix)
+
+```cangjie
+public operator func ==(rhs: IPPrefix): Bool
+```
+
+功能：判断两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象是否相等。
+
+参数：
+
+- rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - 参与比较的 [IPPrefix](net_package_classes.md#class-ipprefix) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPPrefix](net_package_classes.md#class-ipprefix) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ## class IPSocketAddress
 
@@ -884,6 +884,19 @@ public init(address: Array<Byte>, port: UInt16)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 address 不合法，抛出异常。
 
+### init(IPAddress, UInt16)
+
+```cangjie
+public init(address: IPAddress, port: UInt16)
+```
+
+功能：根据 [IPAddress](net_package_classes.md#class-ipaddress) 对象和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
+
+参数：
+
+- address: [IPAddress](net_package_classes.md#class-ipaddress) - [IPAddress](net_package_classes.md#class-ipaddress) 对象。
+- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
+
 ### init(String, UInt16)
 
 ```cangjie
@@ -900,19 +913,6 @@ public init(address: String, port: UInt16)
 异常：
 
 - [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - 如果传入的 IP 地址不合法，抛出异常。
-
-### init(IPAddress, UInt16)
-
-```cangjie
-public init(address: IPAddress, port: UInt16)
-```
-
-功能：根据 [IPAddress](net_package_classes.md#class-ipaddress) 对象和 本机序 [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) 端口构造 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 地址。
-
-参数：
-
-- address: [IPAddress](net_package_classes.md#class-ipaddress) - [IPAddress](net_package_classes.md#class-ipaddress) 对象。
-- port: [UInt16](../../../std/core/core_package_api/core_package_intrinsics.md#uint16) - 本机序端口。
 
 ### static func parse(String)
 
@@ -1062,22 +1062,6 @@ main() {
 }
 ```
 
-### operator func ==(IPSocketAddress)
-
-```cangjie
-public operator func ==(rhs: IPSocketAddress): Bool
-```
-
-功能：判断两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - 参与比较的 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
 ### operator func !=(IPSocketAddress)
 
 ```cangjie
@@ -1093,6 +1077,22 @@ public operator func !=(rhs: IPSocketAddress): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(IPSocketAddress)
+
+```cangjie
+public operator func ==(rhs: IPSocketAddress): Bool
+```
+
+功能：判断两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - 参与比较的 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ## class IPv4Address
 
@@ -1145,18 +1145,6 @@ public static let unspecified = IPv4Address(0, 0, 0, 0)
 
 类型：[IPv4Address](net_package_classes.md#class-ipv4address)
 
-### init(UInt32)
-
-```cangjie
-public init(bits: UInt32)
-```
-
-功能：根据本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
-
-参数：
-
-- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
-
 ### init(Byte, Byte, Byte, Byte)
 
 ```cangjie
@@ -1171,6 +1159,18 @@ public init(a: Byte, b: Byte, c: Byte, d: Byte)
 - b: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
 - c: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
 - d: [Byte](../../../std/core/core_package_api/core_package_types.md#type-byte) - 8-bit 字节。
+
+### init(UInt32)
+
+```cangjie
+public init(bits: UInt32)
+```
+
+功能：根据本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值构造 [IPv4Address](net_package_classes.md#class-ipv4address) 地址。
+
+参数：
+
+- bits: [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) - 本机字节序 [UInt32](../../../std/core/core_package_api/core_package_intrinsics.md#uint32) 值。
 
 ### static func readBigEndian(Array\<Byte>)
 
@@ -1332,6 +1332,18 @@ public func toIPv6Mapped(): IPv6Address
 
 - [IPv6Address](net_package_classes.md#class-ipv4address) - [IPv6Address](net_package_classes.md#class-ipv4address) 对象。
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [IPv4Address](net_package_classes.md#class-ipv4address)  的文本表示字符串。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv4Address](net_package_classes.md#class-ipv4address) 的文本表示字符串，比如 `a.b.c.d`。
+
 ### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
@@ -1352,17 +1364,21 @@ public func writeBigEndian(buffer: Array<Byte>): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 写入的数据的字节数。
 
-### func toString()
+### operator func !=(IPv4Address)
 
 ```cangjie
-public func toString(): String
+public operator func !=(rhs: IPv4Address): Bool
 ```
 
-功能：返回当前 [IPv4Address](net_package_classes.md#class-ipv4address)  的文本表示字符串。
+功能：判断两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象是否不等。
+
+参数：
+
+- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - 参与比较的 [IPv4Address](net_package_classes.md#class-ipv4address) 对象。
 
 返回值：
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv4Address](net_package_classes.md#class-ipv4address) 的文本表示字符串，比如 `a.b.c.d`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 ### operator func <=(IPv4Address)
 
@@ -1395,22 +1411,6 @@ public operator func ==(rhs: IPv4Address): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象相等，则返回 `true`；否则，返回 `false`。
-
-### operator func !=(IPv4Address)
-
-```cangjie
-public operator func !=(rhs: IPv4Address): Bool
-```
-
-功能：判断两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象是否不等。
-
-参数：
-
-- rhs: [IPv4Address](net_package_classes.md#class-ipv4address) - 参与比较的 [IPv4Address](net_package_classes.md#class-ipv4address) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv4Address](net_package_classes.md#class-ipv4address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 ## class IPv6Address
 
@@ -1675,6 +1675,18 @@ public func toIPv4Mapped(): ?IPv4Address
 
 - ?[IPv4Address](net_package_classes.md#class-ipv4address) - ?[IPv4Address](net_package_classes.md#class-ipv4address) 值。
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：返回当前 [IPv6Address](net_package_classes.md#class-ipv6address)  的文本表示字符串。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv6Address](net_package_classes.md#class-ipv6address) 的文本表示字符串，比如 `2001:db8:1:2:ffff:ffff:ffff:ffff`。
+
 ### func writeBigEndian(Array\<Byte>)
 
 ```cangjie
@@ -1695,17 +1707,21 @@ public func writeBigEndian(buffer: Array<Byte>): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 写入的数据的字节数。
 
-### func toString()
+### operator func !=(IPv6Address)
 
 ```cangjie
-public func toString(): String
+public operator func !=(rhs: IPv6Address): Bool
 ```
 
-功能：返回当前 [IPv6Address](net_package_classes.md#class-ipv6address)  的文本表示字符串。
+功能：判断两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象是否不等。
+
+参数：
+
+- rhs: [IPv6Address](net_package_classes.md#class-ipv6address) - 参与比较的 [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
 
 返回值：
 
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前 [IPv6Address](net_package_classes.md#class-ipv6address) 的文本表示字符串，比如 `2001:db8:1:2:ffff:ffff:ffff:ffff`。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 ### operator func <=(IPv6Address)
 
@@ -1738,22 +1754,6 @@ public operator func ==(rhs: IPv6Address): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象相等，则返回 `true`；否则，返回 `false`。
-
-### operator func !=(IPv6Address)
-
-```cangjie
-public operator func !=(rhs: IPv6Address): Bool
-```
-
-功能：判断两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象是否不等。
-
-参数：
-
-- rhs: [IPv6Address](net_package_classes.md#class-ipv6address) - 参与比较的 [IPv6Address](net_package_classes.md#class-ipv6address) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [IPv6Address](net_package_classes.md#class-ipv6address) 对象不等，则返回 `true`；否则，返回 `false`。
 
 ## class RawSocket
 
@@ -2096,16 +2096,6 @@ sealed abstract class SocketAddress <: ToString & Equatable<SocketAddress> & Has
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[SocketAddress](#class-socketaddress)>
 - [Hashable](../../core/core_package_api/core_package_interfaces.md#interface-hashable)
 
-### prop size
-
-```cangjie
-public prop size: Int64
-```
-
-功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始字节长度。
-
-类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
-
 ### prop family
 
 ```cangjie
@@ -2115,6 +2105,16 @@ public prop family: AddressFamily
 功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的地址族。
 
 类型：[AddressFamily](net_package_structs.md#struct-addressfamily)
+
+### prop size
+
+```cangjie
+public prop size: Int64
+```
+
+功能：当前 [SocketAddress](net_package_classes.md#class-socketaddress) 对象的原始字节长度。
+
+类型：[Int64](../../../std/core/core_package_api/core_package_intrinsics.md#int64)
 
 ### func getAddressBytes()
 
@@ -2127,22 +2127,6 @@ public func getAddressBytes(): Array<Byte>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> - 原始 IP 地址的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../std/core/core_package_api/core_package_types.md#type-byte)> 表示。
-
-### operator func ==(SocketAddress)
-
-```cangjie
-public operator func ==(rhs: SocketAddress): Bool
-```
-
-功能：判断两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [SocketAddress](net_package_classes.md#class-socketaddress) - 参与比较的 [SocketAddress](net_package_classes.md#class-socketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ### operator func !=(SocketAddress)
 
@@ -2159,6 +2143,22 @@ public operator func !=(rhs: SocketAddress): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(SocketAddress)
+
+```cangjie
+public operator func ==(rhs: SocketAddress): Bool
+```
+
+功能：判断两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [SocketAddress](net_package_classes.md#class-socketaddress) - 参与比较的 [SocketAddress](net_package_classes.md#class-socketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [SocketAddress](net_package_classes.md#class-socketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
 
 ## class TcpServerSocket
 
@@ -3717,6 +3717,30 @@ public func getSocketOption(
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
 
+### func getSocketOptionBool(Int32, Int32)
+
+```cangjie
+public func getSocketOptionBool(
+    level: Int32,
+    option: Int32
+): Bool
+```
+
+功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+参数：
+
+- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
+- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 参数，例如 `SO_KEEPALIVE`。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回指定的套接字参数值。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
+
+异常：
+
+- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
+
 ### func getSocketOptionIntNative(Int32, Int32)
 
 ```cangjie
@@ -3890,30 +3914,6 @@ public func setSocketOptionIntNative(
 异常：
 
 - [SocketException](net_package_exceptions.md#class-socketexception) - 当 `setsockopt` 返回失败时抛出异常。
-
-### func getSocketOptionBool(Int32, Int32)
-
-```cangjie
-public func getSocketOptionBool(
-    level: Int32,
-    option: Int32
-): Bool
-```
-
-功能：获取指定的套接字参数。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
-
-参数：
-
-- level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 层级，例如 `SOL_SOCKET`。
-- option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 参数，例如 `SO_KEEPALIVE`。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 返回指定的套接字参数值。从 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 强转而来。`0 => false，非 0 => true`。
-
-异常：
-
-- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `getsockopt` 返回失败时，抛出异常。
 
 ### func toString()
 
@@ -4798,22 +4798,6 @@ main() {
 }
 ```
 
-### operator func ==(UnixSocketAddress)
-
-```cangjie
-public operator func ==(rhs: UnixSocketAddress): Bool
-```
-
-功能：判断两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象是否相等。
-
-参数：
-
-- rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - 参与比较的 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。
-
 ### operator func !=(UnixSocketAddress)
 
 ```cangjie
@@ -4829,3 +4813,19 @@ public operator func !=(rhs: UnixSocketAddress): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象不等，则返回 `true`；否则，返回 `false`。
+
+### operator func ==(UnixSocketAddress)
+
+```cangjie
+public operator func ==(rhs: UnixSocketAddress): Bool
+```
+
+功能：判断两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象是否相等。
+
+参数：
+
+- rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - 参与比较的 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果两个 [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) 对象相等，则返回 `true`；否则，返回 `false`。

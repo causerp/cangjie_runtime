@@ -251,22 +251,6 @@ public func isDirectory(): Bool
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
 
-### func isRegular()
-
-```cangjie
-public func isRegular(): Bool
-```
-
-功能：判断当前文件是否是普通文件。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示是文件；false 表示不是文件。
-
-异常：
-
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
-
 ### func isHidden()
 
 ```cangjie
@@ -293,6 +277,22 @@ public func isReadOnly(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示是只读；false 表示不是只读。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果判断过程中底层接口发生错误，则抛出异常。
+
+### func isRegular()
+
+```cangjie
+public func isRegular(): Bool
+```
+
+功能：判断当前文件是否是普通文件。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true 表示是文件；false 表示不是文件。
 
 异常：
 
