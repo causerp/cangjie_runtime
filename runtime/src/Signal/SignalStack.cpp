@@ -94,12 +94,17 @@ struct SignalArgs {
     int signal;
     siginfo_t* siginfo;
     void* ucontextRaw;
+    bool isAsync;
 };
 
 void SignalStack::Handler(int signal, siginfo_t* siginfo, void* ucontextRaw)
 {
     FLOG(RTLOG_ERROR, "CJNatvie Handle signal: %d.", signal);
-    SignalArgs* args = new SignalArgs{signal, siginfo, ucontextRaw};
+    SignalArgs* args = new SignalArgs{signal, siginfo, ucontextRaw, false};
+    if (args == nullptr) {
+        FLOG(RTLOG_ERROR, "Signal Handler fail: failed to new SignalArgs");
+        return;
+    }
     switch (signal) {
         case SIGSEGV:
         case SIGBUS:
@@ -113,6 +118,7 @@ void SignalStack::Handler(int signal, siginfo_t* siginfo, void* ucontextRaw)
             if (!SignalStack::stacks[signal].IsUserSigHandler()) {
                 HandlerImpl(args);
             } else {
+                args->isAsync = true;
                 if (RunCJTaskSignal(reinterpret_cast<CJTaskFunc>(
                                     MapleRuntime::SignalStack::HandlerImpl),
                                     args) == NULL) {
@@ -122,6 +128,7 @@ void SignalStack::Handler(int signal, siginfo_t* siginfo, void* ucontextRaw)
             }
             break;
         default:
+            args->isAsync = true;
             if (RunCJTaskSignal(reinterpret_cast<CJTaskFunc>(MapleRuntime::SignalStack::HandlerImpl), args) == NULL) {
                 LOG(RTLOG_ERROR, "Signal Handler fail. as RunCJTask return null\n");
                 delete args;
@@ -145,13 +152,15 @@ void SignalStack::HandlerImpl(void* args)
             if (handler.saSignalAction == nullptr) {
                 break;
             }
-            // Check if the handler is allowed to not return
-            bool handler_noreturn = (handler.scFlags & SIGNAL_STACK_ALLOW_NORETURN);
             // Save the previous signal mask
             sigset_t previous_mask;
             g_linkedSignalProcmask(SIG_SETMASK, &handler.scMask, &previous_mask);
             bool previous_value = GetHandlingSignal();
-            if (!handler_noreturn) {
+            // If the signal is handled asynchronously, signal reentry is allowed
+            // and reentered signals are handled by the registered Cangjie handler since it has no return value.
+            // Otherwise, it is handled by the OS default handler.
+            if (!signalArgs->isAsync) {
+                // marke thread is handling a signal
                 SetHandlingSignal(true);
             }
             // Execute the signal handler
