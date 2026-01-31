@@ -127,7 +127,7 @@ public func getArgumentsMap(): HashMap<String, String>
 
 返回值：
 
-- [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - 已解析的参数名为键，参数值为值的哈希表。
+- [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string)> - 已解析的参数名为键，参数值为值的哈希表。
 
 ### func getUnparseArgs()
 

@@ -48,9 +48,9 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 | [name](./process_package_api/process_package_classes.md#prop-name) | `Linux` `Windows` `macOS` |
 | [command](./process_package_api/process_package_classes.md#prop-command) | `Linux` `Windows` `macOS` |
 | [arguments <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-arguments-deprecated) | `Linux` `macOS` |
-| [commandLine <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-commandLine-deprecated) | `Linux` `macOS` |
+| [commandLine <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-commandline-deprecated) | `Linux` `macOS` |
 | [environment <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-environment-deprecated) | `Linux` |
-| [workingDirectory <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-workingDirectory-deprecated) | `Linux` `macOS` |
+| [workingDirectory <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-workingdirectory-deprecated) | `Linux` `macOS` |
 | [of(Int64) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-ofint64-deprecated) | `Linux` `Windows` `macOS` |
 | [start(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-startstring-arraystring-path-mapstring-string-processredirect-processredirect-processredirect-deprecated) | `Linux` `Windows` `macOS` |
 | [run(String, Array\<String>, Path, Map\<String, String>, ProcessRedirect, ProcessRedirect, ProcessRedirect, Duration) <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#static-func-runstring-arraystring-path-mapstring-string-processredirect-processredirectprocessredirect-duration-deprecated) | `Linux` `Windows` `macOS` |
@@ -66,11 +66,11 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 | 成员 |  支持平台 |
 | ------------ | ------------ |
 | [arguments](./process_package_api/process_package_classes.md#prop-arguments) | `Linux` `Windows` `macOS` |
-| [homeDirectory](./process_package_api/process_package_classes.md#prop-homeDirectory) | `Linux` `Windows` `macOS` |
-| [tempDirectory](./process_package_api/process_package_classes.md#prop-tempDirectory) | `Linux` `Windows` `macOS` |
-| [stdIn](./process_package_api/process_package_classes.md#prop-stdIn) | `Linux` `Windows` `macOS` |
-| [stdOut](./process_package_api/process_package_classes.md#prop-stdOut) | `Linux` `Windows` `macOS` |
-| [stdErr](./process_package_api/process_package_classes.md#prop-stdErr) | `Linux` `Windows` `macOS` |
+| [homeDirectory](./process_package_api/process_package_classes.md#prop-homedirectory) | `Linux` `Windows` `macOS` |
+| [tempDirectory](./process_package_api/process_package_classes.md#prop-tempdirectory) | `Linux` `Windows` `macOS` |
+| [stdIn](./process_package_api/process_package_classes.md#prop-stdin) | `Linux` `Windows` `macOS` |
+| [stdOut](./process_package_api/process_package_classes.md#prop-stdout) | `Linux` `Windows` `macOS` |
+| [stdErr](./process_package_api/process_package_classes.md#prop-stderr) | `Linux` `Windows` `macOS` |
 | [atExit(() -> Unit)](./process_package_api/process_package_classes.md#func-atexit---unit) | `Linux` `Windows` `macOS` |
 | [exit(Int64)](./process_package_api/process_package_classes.md#func-exitint64) | `Linux` `Windows` `macOS` |
 | [getEnv(String)](./process_package_api/process_package_classes.md#func-getenvstring) | `Linux` `Windows` `macOS` |
@@ -81,11 +81,11 @@ process 包主要提供 Process 进程操作接口，主要包括进程创建，
 
 | 成员 |  支持平台 |
 | ------------ | ------------ |
-| [stdIn <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stdIn-deprecated) | `Linux` `Windows` `macOS` |
+| [stdIn <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stdin-deprecated) | `Linux` `Windows` `macOS` |
 | [stdInPipe](./process_package_api/process_package_classes.md#prop-stdinpipe) | `Linux` `Windows` `macOS` |
-| [stdOut <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stdOut-deprecated) | `Linux` `Windows` `macOS` |
+| [stdOut <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stdout-deprecated) | `Linux` `Windows` `macOS` |
 | [stdOutPipe](./process_package_api/process_package_classes.md#prop-stdoutpipe) | `Linux` `Windows` `macOS` |
-| [stdErr <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stdErr-deprecated) | `Linux` `Windows` `macOS` |
+| [stdErr <sup>(deprecated)</sup>](./process_package_api/process_package_classes.md#prop-stderr-deprecated) | `Linux` `Windows` `macOS` |
 | [stdErrPipe](./process_package_api/process_package_classes.md#prop-stderrpipe) | `Linux` `Windows` `macOS` |
 | [wait(Duration)](./process_package_api/process_package_classes.md#func-waitduration) | `Linux` `Windows` `macOS` |
 | [waitOutput()](./process_package_api/process_package_classes.md#func-waitoutput) | `Linux` `Windows` `macOS` |

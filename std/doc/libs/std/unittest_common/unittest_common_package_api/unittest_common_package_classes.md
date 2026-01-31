@@ -238,7 +238,7 @@ extend ConfigurationKey {
 
 参数：
 
-- name: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
+- name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 配置键值的名称。
 
 返回值：
 

@@ -1889,7 +1889,7 @@ public func read(): ?Rune
 
 返回值：
 
-- ?[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)>.Some(c)，c 为该次读出的字符；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)>.None。
+- ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.Some(c)，c 为该次读出的字符；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.None。
 
 异常：
 
@@ -1941,7 +1941,7 @@ public func readUntil(predicate: (Rune)->Bool): Option<String>
 
 参数：
 
-- predicate: ([Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune))->Bool - 满足一定条件返回 `true` 的表达式。
+- predicate: ([Rune](../../core/core_package_api/core_package_intrinsics.md#rune))->Bool - 满足一定条件返回 `true` 的表达式。
 
 返回值：
 
@@ -1961,7 +1961,7 @@ public func readUntil(v: Rune): Option<String>
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 指定字符。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 指定字符。
 
 返回值：
 
@@ -1977,11 +1977,11 @@ public func readUntil(v: Rune): Option<String>
 public func runes(): Iterator<Rune>
 ```
 
-功能：获得 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
+功能：获得 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
 
 返回值：
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)> - 字符串的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> - 字符串的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
 
 异常：
 
@@ -2207,11 +2207,11 @@ public func write(v: Int8): Unit
 public func write(v: Rune): Unit
 ```
 
-功能：写入 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型。
+功能：写入 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
 
 ### func write(String)
 
@@ -2395,11 +2395,11 @@ public func writeln(v: Int8): Unit
 public func writeln(v: Rune): Unit
 ```
 
-功能：写入 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型 + 换行符。
+功能：写入 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型 + 换行符。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
 
 ### func writeln(String)
 

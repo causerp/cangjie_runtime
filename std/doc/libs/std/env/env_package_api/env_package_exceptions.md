@@ -12,7 +12,7 @@ public class EnvException <: Exception {
 
 父类型：
 
-- [Exception](../../../std/core/core_package_api/core_package_exceptions.md#class-exception)
+- [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception)
 
 ### init(String)
 

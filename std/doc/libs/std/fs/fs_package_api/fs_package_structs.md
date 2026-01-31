@@ -21,7 +21,7 @@ public prop fileHandle: IntNative
 
 功能：获取文件句柄信息。
 
-类型：[IntNative](../../core/core_package_api/core_package_intrinsics.md#IntNative)
+类型：[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)
 
 ## struct FileInfo
 
@@ -625,7 +625,7 @@ public func isEmpty(): Bool
 public func isRelative(): Bool
 ```
 
-功能：判断 [Path](fs_package_structs.md#struct-path) 是否是相对路径，其结果与函数 [isAbsolute](fs_package_structs.md#func-isAbsolute) 结果相反。
+功能：判断 [Path](fs_package_structs.md#struct-path) 是否是相对路径，其结果与函数 [isAbsolute](fs_package_structs.md#func-isabsolute) 结果相反。
 
 返回值：
 

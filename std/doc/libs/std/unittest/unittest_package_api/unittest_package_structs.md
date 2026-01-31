@@ -310,7 +310,7 @@ public static func createOrExisting<U>(arg: U): U where U <: BenchInputProvider<
 public struct KeyBaseline <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 例如：
 
@@ -346,7 +346,7 @@ public prop name: String
 public struct KeyBaselinePath <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -374,7 +374,7 @@ public prop name: String
 public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -402,7 +402,7 @@ public prop name: String
 public struct KeyBench <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -430,7 +430,7 @@ public prop name: String
 public struct KeyCaptureOutput <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -458,7 +458,7 @@ public prop name: String
 public struct KeyCoverageGuided <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -486,7 +486,7 @@ public prop name: String
 public struct KeyCoverageGuidedBaselineScore <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -514,7 +514,7 @@ public prop name: String
 public struct KeyCoverageGuidedInitialSeeds <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -542,7 +542,7 @@ public prop name: String
 public struct KeyCoverageGuidedMaxCandidates <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -570,7 +570,7 @@ public prop name: String
 public struct KeyCoverageGuidedNewCoverageBonus <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -598,7 +598,7 @@ public prop name: String
 public struct KeyCoverageGuidedNewCoverageScore <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -626,7 +626,7 @@ public prop name: String
 public struct KeyDeathAware <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -654,7 +654,7 @@ public prop name: String
 public struct KeyDryRun <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -682,7 +682,7 @@ public prop name: String
 public struct KeyExcludeTags <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -710,7 +710,7 @@ public prop name: String
 public struct KeyExplicitGC <: KeyFor<ExplicitGcType> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -738,7 +738,7 @@ public prop name: String
 public struct KeyFilter <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -766,7 +766,7 @@ public prop name: String
 public struct KeyFromTopLevel <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -794,7 +794,7 @@ public prop name: String
 public struct KeyGenerationSteps <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -850,7 +850,7 @@ public prop name: String
 public struct KeyIncludeTags <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -878,7 +878,7 @@ public prop name: String
 public struct KeyInternalTestrunnerInputPath <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -906,7 +906,7 @@ public prop name: String
 public struct KeyMeasurement <: KeyFor<Measurement> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -934,7 +934,7 @@ public prop name: String
 public struct KeyMeasurementInfo <: KeyFor<MeasurementInfo> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -962,7 +962,7 @@ public prop name: String
 public struct KeyMinBatches <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -990,7 +990,7 @@ public prop name: String
 public struct KeyMinDuration <: KeyFor<Duration> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1018,7 +1018,7 @@ public prop name: String
 public struct KeyNoCaptureOutput <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1046,7 +1046,7 @@ public prop name: String
 public struct KeyNoColor <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1074,7 +1074,7 @@ public prop name: String
 public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1102,7 +1102,7 @@ public prop name: String
 public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1130,7 +1130,7 @@ public prop name: String
 public struct KeyRandomSeed <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1158,7 +1158,7 @@ public prop name: String
 public struct KeyReductionSteps <: KeyFor<Int64> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1186,7 +1186,7 @@ public prop name: String
 public struct KeyReportFormat <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1214,7 +1214,7 @@ public prop name: String
 public struct KeyReportPath <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1242,7 +1242,7 @@ public prop name: String
 public struct KeyShowAllOutput <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1270,7 +1270,7 @@ public prop name: String
 public struct KeyShowTags <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1298,7 +1298,7 @@ public prop name: String
 public struct KeySkip <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1326,7 +1326,7 @@ public prop name: String
 public struct KeyTimeout <: KeyFor<Duration> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1354,7 +1354,7 @@ public prop name: String
 public struct KeyTimeoutEach <: KeyFor<String> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1422,7 +1422,7 @@ public prop name: String
 public struct KeyVerbose <: KeyFor<Bool> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 
@@ -1450,7 +1450,7 @@ public prop name: String
 public struct KeyWarmup <: KeyFor<Int64> & KeyFor<Duration> {}
 ```
 
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值。
 
 父类型：
 

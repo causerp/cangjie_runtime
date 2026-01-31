@@ -308,11 +308,11 @@ public func write(v: Int8): Unit
 public func write(v: Rune): Unit
 ```
 
-功能：将指定的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 的 Unicode 字符值写入标准输出或标准错误流中。
+功能：将指定的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 的 Unicode 字符值写入标准输出或标准错误流中。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 要写入的值。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 要写入的值。
 
 ### func write(String)
 
