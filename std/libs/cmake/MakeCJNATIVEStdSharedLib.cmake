@@ -131,6 +131,7 @@ function(make_cangjie_lib target_name)
         if(CMAKE_C_COMPILER_ID STREQUAL "Clang" OR CMAKE_C_COMPILER_ID STREQUAL "AppleClang")
             if(OHOS)
                 list(APPEND flags_to_compile "-lclang_rt.builtins")
+                list(APPEND flags_to_compile "--exclude-libs=libclang_rt.builtins.a")
             elseif(DARWIN)
                 # If native code (C or C++) uses compiler built-in features, the following library needs to be linked.
                 # For example for `__builtin_cpu_init()` function, clang will generate references to `___cpu_model`
@@ -152,6 +153,7 @@ function(make_cangjie_lib target_name)
         if(OHOS)
             list(APPEND flags_to_compile "-lc")
             list(APPEND flags_to_compile "-lunwind")
+            list(APPEND flags_to_compile "--exclude-libs=libunwind.a")
         endif()
         if(NOT DARWIN AND NOT CANGJIE_LIBRARY_ALLOW_UNDEFINED AND NOT CANGJIE_ENABLE_HWASAN AND NOT CANGJIE_SANITIZER_SUPPORT_ENABLED)
             # Extra checkes when generating cangjie shared libraries. If symbols are used in Cangjie but not
