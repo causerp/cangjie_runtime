@@ -22,7 +22,9 @@ func provide(): Iterable<T>
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 数据迭代器。
 
-参考示例：[DataShrinker](#datashrinkert-的主要用途)
+示例：
+
+参考 [DataShrinker](#interface-datashrinkert)。
 
 ### extend\<T> Array\<T> <: DataProvider\<T>
 

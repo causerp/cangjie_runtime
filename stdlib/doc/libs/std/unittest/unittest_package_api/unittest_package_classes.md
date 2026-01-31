@@ -262,7 +262,7 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 参数数据策略。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 参数数据策略。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
 - body!: (T) -> Unit - 用例执行体。
@@ -350,7 +350,7 @@ public func reportTo<T>(reporter: Reporter<BenchReport, T>): T
 
 参数：
 
-- reporter: [Reporter](../unittest_package_api/unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
+- reporter: [Reporter](../unittest_package_api/unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), T> - 性能用例结果报告。
 
 返回值：
 
@@ -395,8 +395,8 @@ public class ConsoleReporter <: Reporter<TestReport, Unit> & Reporter<BenchRepor
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 示例：
 
@@ -454,8 +454,8 @@ public class TextReporter<PP> <: Reporter<TestReport, PP> & Reporter<BenchReport
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), PP>
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), PP>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), PP>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), PP>
 
 示例：
 
@@ -516,7 +516,7 @@ public class CsvReporter <: Reporter<BenchReport, Unit> {
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 示例：
 
@@ -572,7 +572,7 @@ public class CsvRawReporter <: Reporter<BenchReport, Unit> {
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 示例：
 
@@ -644,13 +644,13 @@ sealed abstract class DataStrategyProcessor<T> {}
 
 功能：所有 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 组件的基类。该类的实例由 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。
 
-### prop isInfinite 
+### prop isInfinite
 
-```cangjie 
+```cangjie
 protected prop isInfinite: Bool 
 ```
 
-功能：获取该策略是否为无限。 
+功能：获取该策略是否为无限。
 
 类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
@@ -1277,7 +1277,7 @@ public class RawStatsReporter <: Reporter<BenchReport, HashMap<String, (Float64,
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[BenchReport](#class-benchreport), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), ([Float64](../../core/core_package_api/core_package_intrinsics.md#float64), [Float64](../../core/core_package_api/core_package_intrinsics.md#float64))>>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[BenchReport](#class-benchreport), [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), ([Float64](../../core/core_package_api/core_package_intrinsics.md#float64), [Float64](../../core/core_package_api/core_package_intrinsics.md#float64))>>
 
 ### RawStatsReporter()
 
@@ -1672,7 +1672,7 @@ public func reportTo<T>(reporter: Reporter<TestReport, T>): T
 
 参数：
 
-- reporter: [Reporter](../unittest_package_api/unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), T> - 单元测试报告打印器。
+- reporter: [Reporter](../unittest_package_api/unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), T> - 单元测试报告打印器。
 
 返回值：
 
@@ -2180,7 +2180,7 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategy)\<T> - 参数数据策略。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 参数数据策略。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
 - body!: (T) -> Unit - 用例执行体。
 
@@ -2224,7 +2224,7 @@ public class XmlReporter <: Reporter<TestReport, Unit> {
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 示例：
 
@@ -2291,7 +2291,7 @@ public class XmlPerPackageReporter <: Reporter<TestReport, Unit> {
 
 父类型：
 
-- [Reporter](unittest_package_interfaces.md#interface-reporter)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
+- [Reporter](unittest_package_interfaces.md#interface-reportertreport-treturn)\<[TestReport](#class-testreport), [Unit](../../core/core_package_api/core_package_intrinsics.md#unit)>
 
 示例：
 

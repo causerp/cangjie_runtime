@@ -121,7 +121,7 @@ class Foo {
 }
 ```
 
-您可以在[基准测试入门](../../unittest/unittest_samples/unittest_benchmarks.md#getting-started-with-benchmarking)章节中阅读更多关于基准测试的内容并找到更多示例。
+您可以在[基准测试入门](../../unittest/unittest_samples/unittest_benchmarks.md#基准测试入门)章节中阅读更多关于基准测试的内容并找到更多示例。
 
 此类函数将分批执行，并针对整个批次测量执行时间。这种测量将重复多次以获得结果的统计分布，并将计算该分布的各种统计参数。
 当前支持的参数如下：
@@ -753,11 +753,11 @@ Summary: TOTAL: 2
 
 > 实现说明：宏展开的结果是一个具有函数名称和 [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort) 类型的变量。 该变量可以在任何可以使用  [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 的地方使用。
 
-有关 `@Strategy` 宏的应用示例及其在参数化基准测试中的使用，请参阅[参数化基准测试](../../unittest/unittest_samples/unittest_benchmarks.md#parameterized-benchmarking)章节。
+有关 `@Strategy` 宏的应用示例及其在参数化基准测试中的使用，请参阅[参数化基准测试](../../unittest/unittest_samples/unittest_benchmarks.md#参数化基准测试)章节。
 
 ## `@Tag` 宏
 
-`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#-include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#-exclude-tags) 运行选项过滤带有这些标签的测试实体。
+`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#--include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#--exclude-tags) 运行选项过滤带有这些标签的测试实体。
 
 示例：
 

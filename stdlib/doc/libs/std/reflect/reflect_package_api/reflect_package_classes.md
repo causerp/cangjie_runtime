@@ -1947,7 +1947,7 @@ Some(7)
 Some(hi)
 ```
 
-### func apply(Array<Any>)
+### func apply(Array\<Any>)
 
 ```cangjie
 public func apply(args: Array<Any>): Any
@@ -2932,6 +2932,7 @@ main(): Unit {
 ```text
 3
 ```
+
 ## class GenericTypeInfo
 
 ```cangjie

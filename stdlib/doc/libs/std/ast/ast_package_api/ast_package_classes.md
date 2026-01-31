@@ -4754,7 +4754,7 @@ public class FeaturesSet <: Node {
 public mut prop commas: Tokens 
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的一组 `,`。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featuresset) 节点里的一组 `,`。
 
 类型：[Tokens](ast_package_classes.md#class-tokens)
 
@@ -4768,7 +4768,7 @@ public mut prop commas: Tokens
 public mut prop content: ArrayList<FeatureId> 
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的一组 feature id。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featuresset) 节点里的一组 feature id。
 
 类型：[ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[featuresId](ast_package_classes.md#class-featureid)>
 
@@ -4782,7 +4782,7 @@ public mut prop content: ArrayList<FeatureId>
 public mut prop lCurl: Token
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的 `{` 。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featuresset) 节点里的 `{` 。
 
 类型：[Token](ast_package_structs.md#struct-token)
 
@@ -4796,7 +4796,7 @@ public mut prop lCurl: Token
 public mut prop rCurl: Token
 ```
 
-功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featureset) 节点里的 `}` 。
+功能：获取或设置在 [FeaturesSet](ast_package_classes.md#class-featuresset) 节点里的 `}` 。
 
 类型：[Token](ast_package_structs.md#struct-token)
 

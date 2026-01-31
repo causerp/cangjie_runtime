@@ -925,7 +925,7 @@ extend<T> Iterator<T>
 
 功能：扩展 [Iterator](core_package_classes.md#class-iteratort)\<T> 类型。
 
-迭代器的方法主要包含中间操作和终止操作。中间操作（如 [skip()](#func-skipint64)、[map()](#func-maprt---r)）会产生一个新的迭代器。而终止操作（如 [count()](#func-count)、[all()](#func-allt---bool)）会根据迭代器产生的元素计算结果，而不产生新的迭代器。每种迭代器方法都会消耗迭代器中不同数量的元素，详见各方法描述。
+迭代器的方法主要包含中间操作和终止操作。中间操作（如 `skip()`、`map()`）会产生一个新的迭代器。而终止操作（如 `count()`、`all()`）会根据迭代器产生的元素计算结果，而不产生新的迭代器。每种迭代器方法都会消耗迭代器中不同数量的元素，详见各方法描述。
 
 #### func all((T) -> Bool)
 
@@ -2619,7 +2619,7 @@ public init(capacity: Int64)
 
 参数：
 
-- capacity: [Int64](core_package_intrinsics.md#int64) - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 的字节容量，取值范围为 (0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)]。
+- capacity: [Int64](core_package_intrinsics.md#int64) - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 的字节容量，取值范围为 (0, [Int64.Max](./core_package_intrinsics.md)]。
 
 异常：
 
@@ -2668,7 +2668,7 @@ public init(r: Rune, n: Int64)
 参数：
 
 - r: Rune - 初始化 [StringBuilder](core_package_classes.md#class-stringbuilder) 实例的字符。
-- n: [Int64](core_package_intrinsics.md#int64) - 字符 `r` 的数量，取值范围为 [0, [Int64.Max](./core_package_intrinsics.md#static-prop-max-5)]。
+- n: [Int64](core_package_intrinsics.md#int64) - 字符 `r` 的数量，取值范围为 [0, [Int64.Max](./core_package_intrinsics.md)]。
 
 异常：
 
