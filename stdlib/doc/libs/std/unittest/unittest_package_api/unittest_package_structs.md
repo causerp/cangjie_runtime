@@ -378,7 +378,7 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop batchSize
 
@@ -1106,7 +1106,7 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop parallel
 

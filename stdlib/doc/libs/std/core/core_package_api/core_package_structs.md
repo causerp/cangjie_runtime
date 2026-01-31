@@ -301,6 +301,7 @@ main() {
 ```
 <!--Del-->
 ### func filter((T) -> Bool)
+
 ```cangjie
 public func filter(predicate: (T) -> Bool): Array<T> 
 ```
@@ -607,6 +608,7 @@ main() {
 
 <!--Del-->
 ### func skip(Int64)
+
 ```cangjie
 public func skip(count: Int64): Array<T>
 ```
@@ -717,6 +719,7 @@ public func splitAt(mid: Int64): (Array<T>, Array<T>)
 
 <!--Del-->
 ### func step(Int64)
+
 ```cangjie
 public func step(count: Int64): Array<T>
 ```
@@ -781,6 +784,7 @@ main(): Int64 {
 
 <!--Del-->
 ### func take(Int64)
+
 ```cangjie
 public func take(count: Int64): Array<T>
 ```
