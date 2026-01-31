@@ -2283,6 +2283,7 @@ func suggestFloat16(l: Float16, r: Float16): Float16
 返回值：
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 一个 [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) 类型的伪随机数。
+
 ### extend Random
 
 ```cangjie
