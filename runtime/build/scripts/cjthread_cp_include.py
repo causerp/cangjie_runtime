@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
 # This source file is part of the Cangjie project, licensed under Apache-2.0
 # with Runtime Library Exception.
@@ -21,7 +24,7 @@ def copy_files(txt_file, target_dir):
             absolute_path = os.path.abspath(path_expanded)
             if os.path.isfile(absolute_path):  # 检查文件是否存在
                 command = f"rsync -ua {absolute_path} {target_dir}"
-                os.system(command)
+                subprocess.run(command)
 
 if __name__ == "__main__":
     txt_file = sys.argv[1]

@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 # Copyright (c) Huawei Technologies Co., Ltd. 2025. All rights reserved.
 # This source file is part of the Cangjie project, licensed under Apache-2.0
 # with Runtime Library Exception.
@@ -39,7 +42,7 @@ def copy_files_from_directory(target_dir, arch):
             # 构建 rsync 命令
             command = f"rsync -ua '{absolute_path}' '{target_dir}'"
             # 执行 rsync 命令
-            os.system(command)
+            subprocess.run(command)
 
 
 if __name__ == "__main__":
