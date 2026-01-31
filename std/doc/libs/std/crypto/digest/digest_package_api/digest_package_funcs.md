@@ -61,27 +61,6 @@ buffer = [1, 2, 3, 4, 5]
 [3, 2, 1]
 ```
 
-## func digest\<T>(T, String) where T <: Digest <sup>(deprecated)</sup>
-
-```cangjie
-public func digest<T>(algorithm: T, data: String): Array<Byte> where T <: Digest
-```
-
-功能：提供 digest 泛型函数，实现用指定的摘要算法进行摘要运算。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
-
-参数：
-
-- algorithm: T - 具体的摘要算法。
-- data: [String](../../../core/core_package_api/core_package_structs.md#struct-string) - 待进行摘要运算的数据。
-
-返回值：
-
-- [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - 摘要运算结果。
-
 ## func digest\<T>(T, InputStream) where T <: Digest
 
 ```cangjie
@@ -149,3 +128,24 @@ buffer = [3, 4]
 buffer = [5]
 [3, 2, 1]
 ```
+
+## func digest\<T>(T, String) where T <: Digest <sup>(deprecated)</sup>
+
+```cangjie
+public func digest<T>(algorithm: T, data: String): Array<Byte> where T <: Digest
+```
+
+功能：提供 digest 泛型函数，实现用指定的摘要算法进行摘要运算。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
+
+参数：
+
+- algorithm: T - 具体的摘要算法。
+- data: [String](../../../core/core_package_api/core_package_structs.md#struct-string) - 待进行摘要运算的数据。
+
+返回值：
+
+- [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - 摘要运算结果。

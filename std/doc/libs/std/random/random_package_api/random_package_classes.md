@@ -138,6 +138,38 @@ main() {
 n=true
 ```
 
+### func nextBytes(Array\<Byte>)
+
+```cangjie
+public func nextBytes(bytes: Array<Byte>): Unit
+```
+
+功能：生成随机数替换入参数组中的每个元素。
+
+参数：
+
+- bytes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 被替换的数组。
+
+### func nextBytes(Int32)
+
+```cangjie
+public func nextBytes(length: Int32): Array<Byte>
+```
+
+功能：生成指定长度的随机数数组。
+
+参数：
+
+- length: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 生成的随机数数组长度，`length` 大于 0。
+
+返回值：
+
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 生成的随机数数组。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `length` 小于等于 0 时，抛出异常。
+
 ### func nextFloat16()
 
 ```cangjie
@@ -1024,35 +1056,3 @@ public func nextUInt8s(array: Array<UInt8>): Array<UInt8>
 返回值：
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - 返回替换后的 [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)。
-
-### func nextBytes(Array\<Byte>)
-
-```cangjie
-public func nextBytes(bytes: Array<Byte>): Unit
-```
-
-功能：生成随机数替换入参数组中的每个元素。
-
-参数：
-
-- bytes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 被替换的数组。
-
-### func nextBytes(Int32)
-
-```cangjie
-public func nextBytes(length: Int32): Array<Byte>
-```
-
-功能：生成指定长度的随机数数组。
-
-参数：
-
-- length: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 生成的随机数数组长度，`length` 大于 0。
-
-返回值：
-
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 生成的随机数数组。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当参数 `length` 小于等于 0 时，抛出异常。

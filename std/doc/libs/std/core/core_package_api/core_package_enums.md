@@ -36,14 +36,6 @@ Extension
 
 功能：扩展声明。
 
-### Init
-
-```cangjie
-Init
-```
-
-功能：构造函数声明。
-
 ### GlobalFunction
 
 ```cangjie
@@ -59,6 +51,14 @@ GlobalVariable
 ```
 
 功能：全局变量声明。
+
+### Init
+
+```cangjie
+Init
+```
+
+功能：构造函数声明。
 
 ### MemberFunction
 
@@ -335,6 +335,26 @@ public func map<R>(transform: (T)-> R): Option<R>
 
 - [Option](core_package_enums.md#enum-optiont)\<R> - 如果当前实例值是 [Some](#somet)，执行 transform 函数，并且返回 [Option](#enum-optiont)\<R> 类型的结果，否则返回 [None](#none)。
 
+### extend\<T> Option\<Option\<T>>
+
+```cangjie
+extend<T> Option<Option<T>>
+```
+
+功能：为 Option\<Option\<T>> 类型扩展实现某些功能。
+
+#### func flatten()
+
+```cangjie
+public func flatten(): Option<T>
+```
+
+功能：将 [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开，如果当前实例是 [Some](#somet)([Option](core_package_enums.md#enum-optiont)\<T>.[Some](#somet)(v)), 展开后的结果为 [Some](#somet)(v)。
+
+返回值：
+
+- [Option](core_package_enums.md#enum-optiont)\<T> - [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开后的结果。
+
 ### extend\<T> Option\<T> <: Equatable\<Option\<T>> where T <: Equatable\<T>
 
 ```cangjie
@@ -430,26 +450,6 @@ public func toString(): String
 返回值：
 
 - [String](core_package_structs.md#struct-string) - 转化后的字符串。
-
-### extend\<T> Option\<Option\<T>>
-
-```cangjie
-extend<T> Option<Option<T>>
-```
-
-功能：为 Option\<Option\<T>> 类型扩展实现某些功能。
-
-#### func flatten()
-
-```cangjie
-public func flatten(): Option<T>
-```
-
-功能：将 [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开，如果当前实例是 [Some](#somet)([Option](core_package_enums.md#enum-optiont)\<T>.[Some](#somet)(v)), 展开后的结果为 [Some](#somet)(v)。
-
-返回值：
-
-- [Option](core_package_enums.md#enum-optiont)\<T> - [Option](core_package_enums.md#enum-optiont)\<[Option](core_package_enums.md#enum-optiont)\<T>> 类型展开后的结果。
 
 ## enum Ordering
 

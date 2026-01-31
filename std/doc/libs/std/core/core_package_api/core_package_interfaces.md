@@ -184,42 +184,6 @@ public func toAsciiUpperCase(): Byte
 
 - [Byte](core_package_types.md#type-byte) - 转换后的 [Byte](core_package_types.md#type-byte)，如果无法转换则返回原来的 [Byte](core_package_types.md#type-byte)。
 
-## interface CType
-
-```cangjie
-sealed interface CType
-```
-
-功能：表示支持与 C 语言互操作的接口。
-
-[CType](core_package_interfaces.md#interface-ctype) 接口是一个语言内置的空接口，它是 [CType](core_package_interfaces.md#interface-ctype) 约束的具体实现，所有 C 互操作支持的类型都隐式地实现了该接口，因此所有 C 互操作支持的类型都可以作为 [CType](core_package_interfaces.md#interface-ctype) 类型的子类型使用。
-
-> **注意：**
->
-> - [CType](core_package_interfaces.md#interface-ctype) 接口是仓颉中的一个接口类型，它本身不满足 [CType](core_package_interfaces.md#interface-ctype) 约束。
-> - [CType](core_package_interfaces.md#interface-ctype) 接口不允许被用户继承、扩展。
-> - [CType](core_package_interfaces.md#interface-ctype) 接口不会突破子类型的使用限制。
-
-示例：
-
-<!-- run -->
-```cangjie
-@C
-struct Data {}
-
-@C
-func foo() {}
-
-main() {
-    var c: CType = Data() // ok
-    c = 0 // ok
-    c = true // ok
-    c = CString(CPointer<UInt8>()) // ok
-    c = CPointer<Int8>() // ok
-    c = foo // ok
-}
-```
-
 ## interface Collection\<T>
 
 ```cangjie
@@ -490,6 +454,42 @@ public operator func *(r: Duration): Duration
 
 - [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当相乘后的结果超出 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) 的表示范围时，抛出异常。
 
+## interface CType
+
+```cangjie
+sealed interface CType
+```
+
+功能：表示支持与 C 语言互操作的接口。
+
+[CType](core_package_interfaces.md#interface-ctype) 接口是一个语言内置的空接口，它是 [CType](core_package_interfaces.md#interface-ctype) 约束的具体实现，所有 C 互操作支持的类型都隐式地实现了该接口，因此所有 C 互操作支持的类型都可以作为 [CType](core_package_interfaces.md#interface-ctype) 类型的子类型使用。
+
+> **注意：**
+>
+> - [CType](core_package_interfaces.md#interface-ctype) 接口是仓颉中的一个接口类型，它本身不满足 [CType](core_package_interfaces.md#interface-ctype) 约束。
+> - [CType](core_package_interfaces.md#interface-ctype) 接口不允许被用户继承、扩展。
+> - [CType](core_package_interfaces.md#interface-ctype) 接口不会突破子类型的使用限制。
+
+示例：
+
+<!-- run -->
+```cangjie
+@C
+struct Data {}
+
+@C
+func foo() {}
+
+main() {
+    var c: CType = Data() // ok
+    c = 0 // ok
+    c = true // ok
+    c = CString(CPointer<UInt8>()) // ok
+    c = CPointer<Int8>() // ok
+    c = foo // ok
+}
+```
+
 ## interface Equal\<T>
 
 ```cangjie
@@ -551,32 +551,6 @@ operator func !=(rhs: T): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果不相等，返回 true，否则返回 false。
 
-## interface GreaterOrEqual\<T>
-
-```cangjie
-public interface GreaterOrEqual<T> {
-    operator func >=(rhs: T): Bool
-}
-```
-
-功能：该接口表示大于等于计算。
-
-### operator func >=(T)
-
-```cangjie
-operator func >=(rhs: T): Bool
-```
-
-功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例。
-
-参数：
-
-- rhs: T - 待与当前实例比较的另一个实例。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果大于等于，返回 true，否则返回 false。
-
 ## interface Greater\<T>
 
 ```cangjie
@@ -602,6 +576,32 @@ operator func >(rhs: T): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果大于，返回 true，否则返回 false。
+
+## interface GreaterOrEqual\<T>
+
+```cangjie
+public interface GreaterOrEqual<T> {
+    operator func >=(rhs: T): Bool
+}
+```
+
+功能：该接口表示大于等于计算。
+
+### operator func >=(T)
+
+```cangjie
+operator func >=(rhs: T): Bool
+```
+
+功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例。
+
+参数：
+
+- rhs: T - 待与当前实例比较的另一个实例。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果大于等于，返回 true，否则返回 false。
 
 ## interface Hashable
 
@@ -866,32 +866,6 @@ func iterator(): Iterator<E>
 
 - [Iterator](core_package_classes.md#class-iteratort)\<E> - 迭代器。
 
-## interface LessOrEqual\<T>
-
-```cangjie
-public interface LessOrEqual<T> {
-    operator func <=(rhs: T): Bool
-}
-```
-
-功能：该接口表示小于等于计算。
-
-### operator func <=(T)
-
-```cangjie
-operator func <=(rhs: T): Bool
-```
-
-功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例。
-
-参数：
-
-- rhs: T - 待与当前实例比较的另一个实例。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果小于等于，返回 true，否则返回 false。
-
 ## interface Less\<T>
 
 ```cangjie
@@ -917,6 +891,32 @@ operator func <(rhs: T): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果小于，返回 true，否则返回 false。
+
+## interface LessOrEqual\<T>
+
+```cangjie
+public interface LessOrEqual<T> {
+    operator func <=(rhs: T): Bool
+}
+```
+
+功能：该接口表示小于等于计算。
+
+### operator func <=(T)
+
+```cangjie
+operator func <=(rhs: T): Bool
+```
+
+功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例。
+
+参数：
+
+- rhs: T - 待与当前实例比较的另一个实例。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果小于等于，返回 true，否则返回 false。
 
 ## interface NotEqual\<T>
 
@@ -957,6 +957,14 @@ public interface Resource {
 
 实现了该接口的类型可以在 `try-with-resource` 语法上下文中实现自动资源释放。
 
+### func close()
+
+```cangjie
+func close(): Unit
+```
+
+功能：关闭资源。
+
 ### func isClosed()
 
 ```cangjie
@@ -968,14 +976,6 @@ func isClosed(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果已经关闭返回 true，否则返回 false。
-
-### func close()
-
-```cangjie
-func close(): Unit
-```
-
-功能：关闭资源。
 
 ## interface ThreadContext
 

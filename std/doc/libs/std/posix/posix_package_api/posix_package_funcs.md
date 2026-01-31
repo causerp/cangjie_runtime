@@ -598,6 +598,26 @@ public func getuid(): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 当前真实用户 `ID`。
 
+## func isatty(Int32) <sup>(deprecated)</sup>
+
+```cangjie
+public func isatty(fd: Int32): Bool
+```
+
+功能：用于测试文件描述符是否引用终端，成功时返回 `true`，否则返回 `false`。
+
+> **注意：**
+>
+> 未来版本即将废弃。
+
+参数：
+
+- fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 文件描述符。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 操作成功时返回 `true`，否则返回 `false`。
+
 ## func isBlk(String) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -758,26 +778,6 @@ public func isType(path: String, mode: UInt32): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果是指定模式的文件，返回 `true`，否则返回 `false`。
-
-## func isatty(Int32) <sup>(deprecated)</sup>
-
-```cangjie
-public func isatty(fd: Int32): Bool
-```
-
-功能：用于测试文件描述符是否引用终端，成功时返回 `true`，否则返回 `false`。
-
-> **注意：**
->
-> 未来版本即将废弃。
-
-参数：
-
-- fd: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 文件描述符。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 操作成功时返回 `true`，否则返回 `false`。
 
 ## func kill(Int32, Int32) <sup>(deprecated)</sup>
 

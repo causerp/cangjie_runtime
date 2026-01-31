@@ -111,18 +111,6 @@ public func clear(): Unit
 
 功能：清空此双端队列中的所有元素。
 
-### func iterator()
-
-```cangjie
-public func iterator(): Iterator<T>
-```
-
-功能：获取此双端队列中元素的迭代器，其顺序为从前到后的顺序。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
-
 ### func isEmpty()
 
 ```cangjie
@@ -134,6 +122,18 @@ public func isEmpty(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果为空，则返回 `true`，否则，返回 `false`。
+
+### func iterator()
+
+```cangjie
+public func iterator(): Iterator<T>
+```
+
+功能：获取此双端队列中元素的迭代器，其顺序为从前到后的顺序。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
 
 ### func removeFirst()
 
@@ -236,16 +236,6 @@ public class ArrayList<T> <: List<T> {
 
 - [List](./collection_package_interface.md#interface-listt)\<T>
 
-### prop size
-
-```cangjie
-public prop size: Int64
-```
-
-功能：返回此 [ArrayList](collection_package_class.md#class-arraylistt) 中的元素个数。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
 ### prop capacity
 
 ```cangjie
@@ -275,6 +265,16 @@ public prop last: ?T
 功能：返回此 [ArrayList](collection_package_class.md#class-arraylistt) 中的最后一个元素，如果没有则返回 None。
 
 类型：?T
+
+### prop size
+
+```cangjie
+public prop size: Int64
+```
+
+功能：返回此 [ArrayList](collection_package_class.md#class-arraylistt) 中的元素个数。
+
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### init()
 
@@ -349,6 +349,43 @@ public static func of(elements: Array<T>): ArrayList<T>
 >
 > 此函数的参数可使用变长参数方式提供，例如： `ArrayList.of(1, 2, 3)` 等价于 `ArrayList.of([1, 2, 3])` 。
 
+### func add(Collection\<T>)
+
+```cangjie
+public func add(all!: Collection<T>): Unit
+```
+
+功能：将指定集合中的所有元素附加到此 [ArrayList](collection_package_class.md#class-arraylistt) 的末尾。
+
+函数会按照迭代器顺序遍历入参中的集合，并且将所有元素插入到此 [ArrayList](collection_package_class.md#class-arraylistt) 的尾部。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要插入的元素的集合。
+
+### func add(Collection\<T>, Int64)
+
+```cangjie
+public func add(all!: Collection<T>, at!: Int64): Unit
+```
+
+功能：从指定位置开始，将指定集合中的所有元素插入此 [ArrayList](collection_package_class.md#class-arraylistt)。
+
+函数会按照迭代器顺序遍历入参中的集合，并且将所有元素插入到指定位置，原先在指定位置及其后的元素会后移。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 要插入的 T 类型元素集合。
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入集合的目标索引。
+
+异常：
+
+- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 at 超出范围时，抛出异常。
+
+示例：
+
+使用示例见 [ArrayList 的 add 函数](../collection_package_samples/sample_arraylist_add.md)。
+
 ### func add(T)
 
 ```cangjie
@@ -365,20 +402,6 @@ public func add(element: T): Unit
 
 使用示例见 [ArrayList 的 add 函数](../collection_package_samples/sample_arraylist_add.md)。
 
-### func add(Collection\<T>)
-
-```cangjie
-public func add(all!: Collection<T>): Unit
-```
-
-功能：将指定集合中的所有元素附加到此 [ArrayList](collection_package_class.md#class-arraylistt) 的末尾。
-
-函数会按照迭代器顺序遍历入参中的集合，并且将所有元素插入到此 [ArrayList](collection_package_class.md#class-arraylistt) 的尾部。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要插入的元素的集合。
-
 ### func add(T, Int64)
 
 ```cangjie
@@ -391,29 +414,6 @@ public func add(element: T, at!: Int64): Unit
 
 - element: T - 要插入的 T 类型元素。
 - at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入元素的目标索引。
-
-异常：
-
-- [IndexOutOfBoundsException](../../core/core_package_api/core_package_exceptions.md#class-indexoutofboundsexception) - 当 at 超出范围时，抛出异常。
-
-示例：
-
-使用示例见 [ArrayList 的 add 函数](../collection_package_samples/sample_arraylist_add.md)。
-
-### func add(Collection\<T>, Int64)
-
-```cangjie
-public func add(all!: Collection<T>, at!: Int64): Unit
-```
-
-功能：从指定位置开始，将指定集合中的所有元素插入此 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-函数会按照迭代器顺序遍历入参中的集合，并且将所有元素插入到指定位置，原先在指定位置及其后的元素会后移。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 要插入的 T 类型元素集合。
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入集合的目标索引。
 
 异常：
 
@@ -754,23 +754,21 @@ extend<T> ArrayList<T> <: Equatable<ArrayList<T>> where T <: Equatable<T>
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[ArrayList](#class-arraylistt)\<T>>
 
-#### operator func ==(ArrayList\<T>)
+#### func contains(T)
 
 ```cangjie
-public operator func ==(that: ArrayList<T>): Bool
+public func contains(element: T): Bool
 ```
 
-功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否相等。
-
-两个数组相等指的是两者对应位置的元素分别相等。
+功能：判断当前数组中是否含有指定元素 `element`。
 
 参数：
 
-- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
+- element: T - 待寻找的元素。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组中包含指定元素，返回 true，否则返回 false。
 
 #### operator func !=(ArrayList\<T>)
 
@@ -788,21 +786,23 @@ public operator func !=(that: ArrayList<T>): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
-#### func contains(T)
+#### operator func ==(ArrayList\<T>)
 
 ```cangjie
-public func contains(element: T): Bool
+public operator func ==(that: ArrayList<T>): Bool
 ```
 
-功能：判断当前数组中是否含有指定元素 `element`。
+功能：判断当前实例与参数指向的 [ArrayList](./collection_package_class.md#class-arraylistt) 实例是否相等。
+
+两个数组相等指的是两者对应位置的元素分别相等。
 
 参数：
 
-- element: T - 待寻找的元素。
+- that: [ArrayList](./collection_package_class.md#class-arraylistt)\<T> - 被比较的对象。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果数组中包含指定元素，返回 true，否则返回 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
 
 ### extend\<T> ArrayList\<T> <: SortExtension where T <: Comparable\<T> <sup>(deprecated)</sup>
 
@@ -981,18 +981,6 @@ public func clear(): Unit
 
 功能：清空此队列中的所有元素。
 
-### func iterator()
-
-```cangjie
-public func iterator(): Iterator<T>
-```
-
-功能：获取此队列中元素的迭代器，其顺序为从前到后的顺序。
-
-返回值：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
-
 ### func isEmpty()
 
 ```cangjie
@@ -1004,6 +992,18 @@ public func isEmpty(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果为空，则返回 `true`，否则，返回 `false`。
+
+### func iterator()
+
+```cangjie
+public func iterator(): Iterator<T>
+```
+
+功能：获取此队列中元素的迭代器，其顺序为从前到后的顺序。
+
+返回值：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 元素的迭代器。
 
 ### func peek()
 
@@ -1260,64 +1260,6 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前栈的字符串表示。
 
-## class HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>
-
-```cangjie
-public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equatable<K> {
-    public init(map: HashMap<K, V>)
-}
-```
-
-功能：此类主要实现 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的迭代器功能。
-
-父类型：
-
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)>
-
-### init(HashMap\<K, V>)
-
-```cangjie
-public init(map: HashMap<K, V>)
-```
-
-功能：创建 [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> 实例。
-
-参数：
-
-- [map](collection_package_function.md#func-mapt-rt---r): [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
-
-### func next()
-
-```cangjie
-public func next(): ?(K, V)
-```
-
-功能：返回迭代器中的下一个元素。
-
-返回值：
-
-- ?(K, V) - 迭代器中的下一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装。
-
-异常：
-
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
-
-### func remove()
-
-```cangjie
-public func remove(): Option<(K, V)>
-```
-
-功能：删除此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 迭代器的 next 函数返回的元素，此函数只能在 next 函数调用时调用一次。
-
-返回值：
-
-- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)> - 返回被删除的元素。
-
-异常：
-
-- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
-
 ## class HashMap\<K, V> where K <: Hashable & Equatable\<K>
 
 ```cangjie
@@ -1433,6 +1375,24 @@ public init(size: Int64, initElement: (Int64) -> (K, V))
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0 则抛出异常。
 
+### func add(Collection\<(K, V)>)
+
+```cangjie
+public func add(all!: Collection<(K, V)>): Unit
+```
+
+功能：按照 elements 的迭代器顺序将新的键值对集合放入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中。
+
+对于 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有的键，该键的值将被新值替换。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的键值对集合。
+
+示例：
+
+使用示例见 [HashMap 的 add/remove/clear 函数](../collection_package_samples/sample_hashmap_add_remove_clear.md)。
+
 ### func add(K, V)
 
 ```cangjie
@@ -1455,24 +1415,6 @@ public func add(key: K, value: V): Option<V>
 示例：
 
 使用示例见 [HashMap 的 get/add/contains 函数](../collection_package_samples/sample_hashmap_get_add_contains.md)。
-
-### func add(Collection\<(K, V)>)
-
-```cangjie
-public func add(all!: Collection<(K, V)>): Unit
-```
-
-功能：按照 elements 的迭代器顺序将新的键值对集合放入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中。
-
-对于 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中已有的键，该键的值将被新值替换。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的键值对集合。
-
-示例：
-
-使用示例见 [HashMap 的 add/remove/clear 函数](../collection_package_samples/sample_hashmap_add_remove_clear.md)。
 
 ### func clear()
 
@@ -1498,6 +1440,22 @@ public func clone(): HashMap<K, V>
 
 - [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 返回一个 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
+### func contains(Collection\<K>)
+
+```cangjie
+public func contains(all!: Collection<K>): Bool
+```
+
+功能：判断是否包含指定集合中所有键的映射。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 键传递待判断的 keys。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果都包含，则返回 true；否则，返回 false。
+
 ### func contains(K)
 
 ```cangjie
@@ -1517,22 +1475,6 @@ public func contains(key: K): Bool
 示例：
 
 使用示例见 [HashMap 的 get/add/contains 函数](../collection_package_samples/sample_hashmap_get_add_contains.md)。
-
-### func contains(Collection\<K>)
-
-```cangjie
-public func contains(all!: Collection<K>): Bool
-```
-
-功能：判断是否包含指定集合中所有键的映射。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 键传递待判断的 keys。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果都包含，则返回 true；否则，返回 false。
 
 ### func entryView(K)
 
@@ -1698,19 +1640,6 @@ public func values(): Collection<V>
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - 保存所有返回的 value。
 
-### operator func \[](K, V)
-
-```cangjie
-public operator func [](key: K, value!: V): Unit
-```
-
-功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
-
-参数：
-
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
-
 ### operator func \[](K)
 
 ```cangjie
@@ -1731,6 +1660,19 @@ public operator func [](key: K): V
 
 - [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 如果该 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 不存在该键，抛此异常。
 
+### operator func \[](K, V)
+
+```cangjie
+public operator func [](key: K, value!: V): Unit
+```
+
+功能：运算符重载 add 方法，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+
+参数：
+
+- key: K - 传递值进行判断。
+- value!: V - 传递要设置的值。
+
 ### extend\<K, V> HashMap\<K, V> <: Equatable\<HashMap\<K, V>> where V <: Equatable\<V>
 
 ```cangjie
@@ -1742,6 +1684,22 @@ extend<K, V> HashMap<K, V> <: Equatable<HashMap<K, V>> where V <: Equatable<V>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V>>
+
+#### operator func !=(HashMap\<K, V>)
+
+```cangjie
+public operator func !=(right: HashMap<K, V>): Bool
+```
+
+功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否不等。
+
+参数：
+
+- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 #### operator func ==(HashMap\<K, V>)
 
@@ -1760,22 +1718,6 @@ public operator func ==(right: HashMap<K, V>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-#### operator func !=(HashMap\<K, V>)
-
-```cangjie
-public operator func !=(right: HashMap<K, V>): Bool
-```
-
-功能：判断当前实例与参数指向的 [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> 实例是否不等。
-
-参数：
-
-- right: [HashMap](./collection_package_class.md#class-hashmapk-v)\<K, V> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 ### extend\<K, V> HashMap\<K, V> <: ToString where V <: ToString, K <: ToString
 
@@ -1803,6 +1745,64 @@ public func toString(): String
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 转换得到的字符串。
 
+## class HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>
+
+```cangjie
+public class HashMapIterator<K, V> <: Iterator<(K, V)> where K <: Hashable & Equatable<K> {
+    public init(map: HashMap<K, V>)
+}
+```
+
+功能：此类主要实现 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 的迭代器功能。
+
+父类型：
+
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)>
+
+### init(HashMap\<K, V>)
+
+```cangjie
+public init(map: HashMap<K, V>)
+```
+
+功能：创建 [HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)\<K, V> 实例。
+
+参数：
+
+- [map](collection_package_function.md#func-mapt-rt---r): [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> - 传入 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
+
+### func next()
+
+```cangjie
+public func next(): ?(K, V)
+```
+
+功能：返回迭代器中的下一个元素。
+
+返回值：
+
+- ?(K, V) - 迭代器中的下一个元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装。
+
+异常：
+
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
+
+### func remove()
+
+```cangjie
+public func remove(): Option<(K, V)>
+```
+
+功能：删除此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 迭代器的 next 函数返回的元素，此函数只能在 next 函数调用时调用一次。
+
+返回值：
+
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)> - 返回被删除的元素。
+
+异常：
+
+- [ConcurrentModificationException](collection_package_exception.md#class-concurrentmodificationexception) - 当函数检测到不同步的并发修改，抛出异常。
+
 ## class HashSet\<T> where T <: Hashable & Equatable\<T>
 
 ```cangjie
@@ -1827,6 +1827,22 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
 
 - [Set](collection_package_interface.md#interface-sett)\<T>
 
+### prop capacity
+
+```cangjie
+public prop capacity: Int64
+```
+
+功能：返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
+
+> **注意：**
+>
+> 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
+
+返回值：
+
+- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
+
 ### prop size
 
 ```cangjie
@@ -1836,23 +1852,6 @@ public prop size: Int64
 功能：返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的元素个数。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-### init(Int64, (Int64) -> T)
-
-```cangjie
-public init(size: Int64, initElement: (Int64) -> T)
-```
-
-功能：通过传入的函数元素个数 size 和函数规则来构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。构造出的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量受 size 大小影响。
-
-参数：
-
-- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 初始化函数中元素的个数。
-- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - 初始化函数规则。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0，抛出异常。
 
 ### init()
 
@@ -1902,6 +1901,35 @@ public init(capacity: Int64)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 capacity 小于 0，抛出异常。
 
+### init(Int64, (Int64) -> T)
+
+```cangjie
+public init(size: Int64, initElement: (Int64) -> T)
+```
+
+功能：通过传入的函数元素个数 size 和函数规则来构造 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。构造出的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的容量受 size 大小影响。
+
+参数：
+
+- size: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 初始化函数中元素的个数。
+- initElement: ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) ->T - 初始化函数规则。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0，抛出异常。
+
+### func add(Collection\<T>)
+
+```cangjie
+public func add(all!: Collection<T>): Unit
+```
+
+功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，如果元素存在，则不添加。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+
 ### func add(T)
 
 ```cangjie
@@ -1921,34 +1949,6 @@ public func add(element: T): Bool
 示例：
 
 使用示例见 [HashSet 的 add/iterator/remove 函数](../collection_package_samples/sample_hashset_add_iterator_remove.md)。
-
-### func add(Collection\<T>)
-
-```cangjie
-public func add(all!: Collection<T>): Unit
-```
-
-功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中，如果元素存在，则不添加。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
-
-### prop capacity
-
-```cangjie
-public prop capacity: Int64
-```
-
-功能：返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
-
-> **注意：**
->
-> 容量大小不一定等于 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的 size。
-
-返回值：
-
-- [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 返回此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 的内部数组容量大小。
 
 ### func clear()
 
@@ -1970,22 +1970,6 @@ public func clone(): HashSet<T>
 
 - [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 返回克隆到的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
 
-### func contains(T)
-
-```cangjie
-public func contains(element: T): Bool
-```
-
-功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否包含指定元素。
-
-参数：
-
-- element: T - 指定的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -2001,6 +1985,22 @@ public func contains(all!: Collection<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 包含 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素，则返回 true；否则，返回 false。
+
+### func contains(T)
+
+```cangjie
+public func contains(element: T): Bool
+```
+
+功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否包含指定元素。
+
+参数：
+
+- element: T - 指定的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
 
 ### func isEmpty()
 
@@ -2030,6 +2030,18 @@ public func iterator(): Iterator<T>
 
 使用示例见 [HashSet 的 add/iterator/remove 函数](../collection_package_samples/sample_hashset_add_iterator_remove.md)。
 
+### func remove(Collection\<T>)
+
+```cangjie
+public func remove(all!: Collection<T>): Unit
+```
+
+功能：移除此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中移除的元素的集合。
+
 ### func remove(T)
 
 ```cangjie
@@ -2049,18 +2061,6 @@ public func remove(element: T): Bool
 示例：
 
 使用示例见 [HashSet 的 add/iterator/remove 函数](../collection_package_samples/sample_hashset_add_iterator_remove.md)。
-
-### func remove(Collection\<T>)
-
-```cangjie
-public func remove(all!: Collection<T>): Unit
-```
-
-功能：移除此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中移除的元素的集合。
 
 ### func removeIf((T) -> Bool)
 
@@ -2150,13 +2150,13 @@ public operator func &(other: ReadOnlySet<T>): HashSet<T>
 
 - [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - T 类型集合。
 
-### operator func |(ReadOnlySet\<T>)
+### operator func -(ReadOnlySet\<T>)
 
 ```cangjie
-public operator func |(other: ReadOnlySet<T>): HashSet<T>
+public operator func -(other: ReadOnlySet<T>): HashSet<T>
 ```
 
-功能：返回包含两个集合并集的元素的新集合。
+功能：返回包含两个集合差集的元素的新集合。
 
 参数：
 
@@ -2166,13 +2166,13 @@ public operator func |(other: ReadOnlySet<T>): HashSet<T>
 
 - [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - T 类型集合。
 
-### operator func -(ReadOnlySet\<T>)
+### operator func |(ReadOnlySet\<T>)
 
 ```cangjie
-public operator func -(other: ReadOnlySet<T>): HashSet<T>
+public operator func |(other: ReadOnlySet<T>): HashSet<T>
 ```
 
-功能：返回包含两个集合差集的元素的新集合。
+功能：返回包含两个集合并集的元素的新集合。
 
 参数：
 
@@ -2194,6 +2194,22 @@ extend<T> HashSet<T> <: Equatable<HashSet<T>>
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>>
 
+#### operator func !=(HashSet\<T>)
+
+```cangjie
+public operator func !=(that: HashSet<T>): Bool
+```
+
+功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否不等。
+
+参数：
+
+- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
 #### operator func ==(HashSet\<T>)
 
 ```cangjie
@@ -2211,22 +2227,6 @@ public operator func ==(that: HashSet<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-#### operator func !=(HashSet\<T>)
-
-```cangjie
-public operator func !=(that: HashSet<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> 实例是否不等。
-
-参数：
-
-- that: [HashSet](./collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 ### extend\<T> HashSet\<T> <: ToString where T <: ToString
 
@@ -2253,60 +2253,6 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 转换得到的字符串。
-
-## class LinkedListNode\<T>
-
-```cangjie
-public class LinkedListNode<T>
-```
-
-功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。
-
-可以通过 [LinkedListNode](collection_package_class.md#class-linkedlistnodet) 对 [LinkedList](collection_package_class.md#class-linkedlistt) 进行前向后向遍历操作，也可以访问和修改元素的值。
-
-[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 只能通过对应 [LinkedList](collection_package_class.md#class-linkedlistt) 的 'nodeAt'、'firstNode'、'lastNode' 获得，当 [LinkedList](collection_package_class.md#class-linkedlistt) 删除掉对应的节点时，会造成一个悬空的节点，对悬空的节点进行任何操作都会抛 '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)' 异常。
-
-### prop next
-
-```cangjie
-public prop next: Option<LinkedListNode<T>>
-```
-
-功能：获取当前节点的下一个节点，如果没有则返回 None。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-### prop prev
-
-```cangjie
-public prop prev: Option<LinkedListNode<T>>
-```
-
-功能：获取当前节点的前一个节点，如果没有则返回 None。
-
-类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
-
-### prop value
-
-```cangjie
-public mut prop value: T
-```
-
-功能：获取或者修改元素的值。
-
-类型：T
-
-异常：
-
-- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
 
 ## class LinkedList\<T>
 
@@ -2428,6 +2374,64 @@ public init(size: Int64, initElement: (Int64)-> T)
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的链表长度小于 0 则抛此异常。
 
+### func addAfter(LinkedListNode\<T>,T)
+
+```cangjie
+public func addAfter(node: LinkedListNode<T>, element: T): LinkedListNode<T>
+```
+
+功能：在链表中指定节点的后面插入一个元素，并且返回该元素的节点。
+
+参数：
+
+- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指定的节点。
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向被插入元素的节点。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的节点不属于该链表，则抛此异常。
+
+### func addBefore(LinkedListNode\<T>,T)
+
+```cangjie
+public func addBefore(node: LinkedListNode<T>, element: T): LinkedListNode<T>
+```
+
+功能：在链表中指定节点的前面插入一个元素，并且返回该元素的节点。
+
+参数：
+
+- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指定的节点。
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向被插入元素的节点。
+
+异常：
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的节点不属于该链表，则抛此异常。
+
+### func addFirst(T)
+
+```cangjie
+public func addFirst(element: T): LinkedListNode<T>
+```
+
+功能：在链表的头部位置插入一个元素，并且返回该元素的节点。
+
+参数：
+
+- element: T - 要添加到链表中的元素。
+
+返回值：
+
+- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
+
 ### func addLast(T)
 
 ```cangjie
@@ -2492,48 +2496,6 @@ public func forward(mark: LinkedListNode<T>): Iterator<T>
 
 - [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
 
-### func addAfter(LinkedListNode\<T>,T)
-
-```cangjie
-public func addAfter(node: LinkedListNode<T>, element: T): LinkedListNode<T>
-```
-
-功能：在链表中指定节点的后面插入一个元素，并且返回该元素的节点。
-
-参数：
-
-- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指定的节点。
-- element: T - 要添加到链表中的元素。
-
-返回值：
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向被插入元素的节点。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的节点不属于该链表，则抛此异常。
-
-### func addBefore(LinkedListNode\<T>,T)
-
-```cangjie
-public func addBefore(node: LinkedListNode<T>, element: T): LinkedListNode<T>
-```
-
-功能：在链表中指定节点的前面插入一个元素，并且返回该元素的节点。
-
-参数：
-
-- node: [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指定的节点。
-- element: T - 要添加到链表中的元素。
-
-返回值：
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向被插入元素的节点。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的节点不属于该链表，则抛此异常。
-
 ### func isEmpty()
 
 ```cangjie
@@ -2576,46 +2538,6 @@ public func nodeAt(index: Int64): Option<LinkedListNode<T>>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>> - 编号为 index 的节点，如果没有则返回 None。
 
-### func removeFirst()
-
-```cangjie
-public func removeFirst() : ?T
-```
-
-功能：移除链表的第一个元素，并返回该元素的值。
-
-返回值：
-
-- ?T - 被删除的元素的值，若链表为空则返回 None。
-
-### func removeLast()
-
-```cangjie
-public func removeLast() : ?T
-```
-
-功能：移除链表的最后一个元素，并返回该元素的值。
-
-返回值：
-
-- ?T - 被删除的元素的值，若链表为空则返回 None。
-
-### func addFirst(T)
-
-```cangjie
-public func addFirst(element: T): LinkedListNode<T>
-```
-
-功能：在链表的头部位置插入一个元素，并且返回该元素的节点。
-
-参数：
-
-- element: T - 要添加到链表中的元素。
-
-返回值：
-
-- [LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T> - 指向该元素的节点。
-
 ### func remove(LinkedListNode\<T>)
 
 ```cangjie
@@ -2636,6 +2558,18 @@ public func remove(node: LinkedListNode<T>): T
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果指定的节点不属于该链表，则抛此异常。
 
+### func removeFirst()
+
+```cangjie
+public func removeFirst() : ?T
+```
+
+功能：移除链表的第一个元素，并返回该元素的值。
+
+返回值：
+
+- ?T - 被删除的元素的值，若链表为空则返回 None。
+
 ### func removeIf((T)-> Bool)
 
 ```cangjie
@@ -2651,6 +2585,18 @@ public func removeIf(predicate: (T)-> Bool): Unit
 异常：
 
 - [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - 当 `predicate` 中增删或者修改 [LinkedList](./collection_package_class.md#class-linkedlistt) 内节点时，抛出异常。
+
+### func removeLast()
+
+```cangjie
+public func removeLast() : ?T
+```
+
+功能：移除链表的最后一个元素，并返回该元素的值。
+
+返回值：
+
+- ?T - 被删除的元素的值，若链表为空则返回 None。
 
 ### func reverse()
 
@@ -2704,6 +2650,22 @@ extend<T> LinkedList<T> <: Equatable<LinkedList<T>> where T <: Equatable<T>
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[LinkedList](#class-linkedlistt)\<T>>
 
+#### operator func !=(LinkedList\<T>)
+
+```cangjie
+public operator func !=(right: LinkedList<T>): Bool
+```
+
+功能：判断当前实例与参数指向的 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 实例是否不等。
+
+参数：
+
+- right: [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
 #### operator func ==(LinkedList\<T>)
 
 ```cangjie
@@ -2721,22 +2683,6 @@ public operator func ==(right: LinkedList<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-#### operator func !=(LinkedList\<T>)
-
-```cangjie
-public operator func !=(right: LinkedList<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> 实例是否不等。
-
-参数：
-
-- right: [LinkedList](./collection_package_class.md#class-linkedlistt)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 ### extend\<T> LinkedList\<T> <: ToString where T <: ToString
 
@@ -2763,6 +2709,60 @@ public func toString(): String
 返回值：
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - 转换得到的字符串。
+
+## class LinkedListNode\<T>
+
+```cangjie
+public class LinkedListNode<T>
+```
+
+功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。
+
+可以通过 [LinkedListNode](collection_package_class.md#class-linkedlistnodet) 对 [LinkedList](collection_package_class.md#class-linkedlistt) 进行前向后向遍历操作，也可以访问和修改元素的值。
+
+[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 只能通过对应 [LinkedList](collection_package_class.md#class-linkedlistt) 的 'nodeAt'、'firstNode'、'lastNode' 获得，当 [LinkedList](collection_package_class.md#class-linkedlistt) 删除掉对应的节点时，会造成一个悬空的节点，对悬空的节点进行任何操作都会抛 '[IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception)' 异常。
+
+### prop next
+
+```cangjie
+public prop next: Option<LinkedListNode<T>>
+```
+
+功能：获取当前节点的下一个节点，如果没有则返回 None。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+### prop prev
+
+```cangjie
+public prop prev: Option<LinkedListNode<T>>
+```
+
+功能：获取当前节点的前一个节点，如果没有则返回 None。
+
+类型：[Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[LinkedListNode](collection_package_class.md#class-linkedlistnodet)\<T>>
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
+
+### prop value
+
+```cangjie
+public mut prop value: T
+```
+
+功能：获取或者修改元素的值。
+
+类型：T
+
+异常：
+
+- [IllegalStateException](../../core/core_package_api/core_package_exceptions.md#class-illegalstateexception) - 如果该节点不属于任何链表实例，抛此异常。
 
 ## class TreeMap\<K, V> where K <: Comparable\<K>
 
@@ -2872,6 +2872,18 @@ public init(size: Int64, initElement: (Int64) -> (K, V))
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 size 小于 0 则抛出异常。
 
+### func add(Collection\<(K, V)>)
+
+```cangjie
+public func add(all!: Collection<(K, V)>): Unit
+```
+
+功能：将新的键值对集合放入 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中。对于 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中已有的键，该键的值将被新值替换。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的键值对集合。
+
 ### func add(K, V)
 
 ```cangjie
@@ -2888,18 +2900,6 @@ public func add(key: K, value: V): Option<V>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 如果赋值之前 key 存在，旧的 value 用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装并返回；否则，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V>.None。
-
-### func add(Collection\<(K, V)>)
-
-```cangjie
-public func add(all!: Collection<(K, V)>): Unit
-```
-
-功能：将新的键值对集合放入 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中。对于 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中已有的键，该键的值将被新值替换。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要添加进 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的键值对集合。
 
 ### func backward(K, Bool)
 
@@ -2938,22 +2938,6 @@ public func clone(): TreeMap<K, V>
 
 - [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 返回一个 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 实例。
 
-### func contains(K)
-
-```cangjie
-public func contains(key: K): Bool
-```
-
-功能：判断是否包含指定键的映射。
-
-参数：
-
-- key: K - 传递要判断的 key。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
-
 ### func contains(Collection\<K>)
 
 ```cangjie
@@ -2965,6 +2949,22 @@ public func contains(all!: Collection<K>): Bool
 参数：
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 键的集合。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
+
+### func contains(K)
+
+```cangjie
+public func contains(key: K): Bool
+```
+
+功能：判断是否包含指定键的映射。
+
+参数：
+
+- key: K - 传递要判断的 key。
 
 返回值：
 
@@ -3055,29 +3055,17 @@ public func keys(): EquatableCollection<K>
 
 - [EquatableCollection](collection_package_interface.md#interface-equatablecollectiont)\<K> - 包含所有键的集合。
 
-### func removeFirst()
+### func remove(Collection\<K>)
 
 ```cangjie
-public func removeFirst(): ?(K, V)
+public func remove(all!: Collection<K>): Unit
 ```
 
-功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
+功能：从此映射中删除指定集合的映射（如果存在）。
 
-返回值：
+参数：
 
-- ?(K, V) - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?(K, V)
-```
-
-功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
-
-返回值：
-
-- ?(K, V) - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的键的集合。
 
 ### func remove(K)
 
@@ -3095,17 +3083,17 @@ public func remove(key: K): Option<V>
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 被移除映射的值用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装，如果 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中不存在指定的键，返回 None。
 
-### func remove(Collection\<K>)
+### func removeFirst()
 
 ```cangjie
-public func remove(all!: Collection<K>): Unit
+public func removeFirst(): ?(K, V)
 ```
 
-功能：从此映射中删除指定集合的映射（如果存在）。
+功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的第一个元素。
 
-参数：
+返回值：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的键的集合。
+- ?(K, V) - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
 
 ### func removeIf((K, V) -> Bool)
 
@@ -3123,6 +3111,18 @@ public func removeIf(predicate: (K, V) -> Bool): Unit
 
 - [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - 当 `predicate` 中增删或者修改 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 内键值对时，抛出异常。
 
+### func removeLast()
+
+```cangjie
+public func removeLast(): ?(K, V)
+```
+
+功能：删除 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 的最后一个元素。
+
+返回值：
+
+- ?(K, V) - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<(K, V)>.None。
+
 ### func values()
 
 ```cangjie
@@ -3134,19 +3134,6 @@ public func values(): Collection<V>
 返回值：
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<V> - 包含所有值的集合。
-
-### operator func \[](K, V)
-
-```cangjie
-public operator func [](key: K, value!: V): Unit
-```
-
-功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
-
-参数：
-
-- key: K - 传递值进行判断。
-- value!: V - 传递要设置的值。
 
 ### operator func \[](K)
 
@@ -3168,6 +3155,19 @@ public operator func [](key: K): V
 
 - [NoneValueException](../../core/core_package_api/core_package_exceptions.md#class-nonevalueexception) - 如果该 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 不存在该键，抛出异常。
 
+### operator func \[](K, V)
+
+```cangjie
+public operator func [](key: K, value!: V): Unit
+```
+
+功能：运算符重载集合，如果键存在，新 value 覆盖旧 value，如果键不存在，添加此键值对。
+
+参数：
+
+- key: K - 传递值进行判断。
+- value!: V - 传递要设置的值。
+
 ### extend\<K, V> TreeMap\<K, V> <: Equatable\<TreeMap\<K, V>> where V <: Equatable\<V>
 
 ```cangjie
@@ -3179,6 +3179,22 @@ extend<K, V> TreeMap<K, V> <: Equatable<TreeMap<K, V>> where V <: Equatable<V>
 父类型：
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>>
+
+#### operator func !=(TreeMap\<K, V>)
+
+```cangjie
+public operator func !=(right: TreeMap<K, V>): Bool
+```
+
+功能：判断当前实例与参数指向的 [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> 实例是否不等。
+
+参数：
+
+- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 #### operator func ==(TreeMap\<K, V>)
 
@@ -3197,22 +3213,6 @@ public operator func ==(right: TreeMap<K, V>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-#### operator func !=(TreeMap\<K, V>)
-
-```cangjie
-public operator func !=(right: TreeMap<K, V>): Bool
-```
-
-功能：判断当前实例与参数指向的 [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> 实例是否不等。
-
-参数：
-
-- right: [TreeMap](./collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 ### extend\<K, V> TreeMap\<K, V> <: ToString where V <: ToString, K <: ToString & Comparable\<K>
 
@@ -3351,6 +3351,18 @@ public static func of(elements: Array<T>): TreeSet<T>
 >
 > 此函数的参数可使用变长参数方式提供，例如： `TreeSet.of(1, 2, 3)` 等价于 `TreeSet.of([1, 2, 3])` 。
 
+### func add(Collection\<T>)
+
+```cangjie
+public func add(all!: Collection<T>): Unit
+```
+
+功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中，如果元素存在，则不添加。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+
 ### func add(T)
 
 ```cangjie
@@ -3366,18 +3378,6 @@ public func add(element: T): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果添加成功，则返回 true；否则，返回 false。
-
-### func add(Collection\<T>)
-
-```cangjie
-public func add(all!: Collection<T>): Unit
-```
-
-功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中，如果元素存在，则不添加。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
 
 ### func backward(T, Bool)
 
@@ -3416,22 +3416,6 @@ public func clone(): TreeSet<T>
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 返回一个 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 实例。
 
-### func contains(T)
-
-```cangjie
-public func contains(element: T): Bool
-```
-
-功能：判断是否包含指定元素。
-
-参数：
-
-- element: T - 指定的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -3447,6 +3431,22 @@ public func contains(all!: Collection<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 包含 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素，则返回 true；否则，返回 false。
+
+### func contains(T)
+
+```cangjie
+public func contains(element: T): Bool
+```
+
+功能：判断是否包含指定元素。
+
+参数：
+
+- element: T - 指定的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含指定元素，则返回 true；否则，返回 false。
 
 ### func forward(T, Bool)
 
@@ -3489,29 +3489,17 @@ public func iterator(): Iterator<T>
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的迭代器。
 
-### func removeFirst()
+### func remove(Collection\<T>)
 
 ```cangjie
-public func removeFirst(): ?T
+public func remove(all!: Collection<T>): Unit
 ```
 
-功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的第一个元素。
+功能：移除此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
 
-返回值：
+参数：
 
-- ?T - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?T
-```
-
-功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的最后一个元素。
-
-返回值：
-
-- ?T - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中移除的元素的集合。
 
 ### func remove(T)
 
@@ -3529,17 +3517,17 @@ public func remove(element: T): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，表示移除成功；false，表示移除失败。
 
-### func remove(Collection\<T>)
+### func removeFirst()
 
 ```cangjie
-public func remove(all!: Collection<T>): Unit
+public func removeFirst(): ?T
 ```
 
-功能：移除此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
+功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的第一个元素。
 
-参数：
+返回值：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要从此 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中移除的元素的集合。
+- ?T - 如果存在第一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
 
 ### func removeIf((T) -> Bool)
 
@@ -3556,6 +3544,18 @@ public func removeIf(predicate: (T) -> Bool): Unit
 异常：
 
 - [ConcurrentModificationException](./collection_package_exception.md#class-concurrentmodificationexception) - 当 `predicate` 中增删或者修改 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 内元素时，抛出异常。
+
+### func removeLast()
+
+```cangjie
+public func removeLast(): ?T
+```
+
+功能：删除 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 的最后一个元素。
+
+返回值：
+
+- ?T - 如果存在最后一个元素，那么删除该元素，用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装该元素并返回；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T>.None。
 
 ### func retain(Set\<T>)
 
@@ -3613,13 +3613,13 @@ public operator func &(other: ReadOnlySet<T>): TreeSet<T>
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - T 类型集合。
 
-### operator func |(ReadOnlySet\<T>)
+### operator func -(ReadOnlySet\<T>)
 
 ```cangjie
-public operator func |(other: ReadOnlySet<T>): TreeSet<T>
+public operator func -(other: ReadOnlySet<T>): TreeSet<T>
 ```
 
-功能：返回包含两个集合并集的元素的新集合。
+功能：返回包含两个集合差集的元素的新集合。
 
 参数：
 
@@ -3629,13 +3629,13 @@ public operator func |(other: ReadOnlySet<T>): TreeSet<T>
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - T 类型集合。
 
-### operator func -(ReadOnlySet\<T>)
+### operator func |(ReadOnlySet\<T>)
 
 ```cangjie
-public operator func -(other: ReadOnlySet<T>): TreeSet<T>
+public operator func |(other: ReadOnlySet<T>): TreeSet<T>
 ```
 
-功能：返回包含两个集合差集的元素的新集合。
+功能：返回包含两个集合并集的元素的新集合。
 
 参数：
 
@@ -3657,6 +3657,22 @@ extend<T> TreeSet<T> <: Equatable<TreeSet<T>>
 
 - [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>>
 
+#### operator func !=(TreeSet\<T>)
+
+```cangjie
+public operator func !=(that: TreeSet<T>): Bool
+```
+
+功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否不等。
+
+参数：
+
+- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
+
 #### operator func ==(TreeSet\<T>)
 
 ```cangjie
@@ -3674,22 +3690,6 @@ public operator func ==(that: TreeSet<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果相等，则返回 true，否则返回 false。
-
-#### operator func !=(TreeSet\<T>)
-
-```cangjie
-public operator func !=(that: TreeSet<T>): Bool
-```
-
-功能：判断当前实例与参数指向的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> 实例是否不等。
-
-参数：
-
-- that: [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 被比较的对象。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果不等，则返回 true，否则返回 false。
 
 ### extend\<T> TreeSet\<T> <: ToString where T <: ToString
 

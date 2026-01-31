@@ -46,18 +46,6 @@ static func getInf(): T
 
 - T - 类型 T 的无穷数。
 
-### static func getPI()
-
-```cangjie
-static func getPI(): T
-```
-
-功能：获取 T 类型的圆周率常数。
-
-返回值：
-
-- T - 类型 T 的圆周率常数。
-
 ### static func getMinDenormal()
 
 ```cangjie
@@ -93,6 +81,18 @@ static func getNaN(): T
 返回值：
 
 - T - 类型 T 的非数。
+
+### static func getPI()
+
+```cangjie
+static func getPI(): T
+```
+
+功能：获取 T 类型的圆周率常数。
+
+返回值：
+
+- T - 类型 T 的圆周率常数。
 
 ### func isInf()
 
@@ -166,18 +166,6 @@ public static func getInf(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的无穷数值。
 
-#### static func getPI()
-
-```cangjie
-public static func getPI(): Float16
-```
-
-功能：获取半精度浮点数类型的圆周率常数。
-
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的圆周率常数。
-
 #### static func getMinDenormal()
 
 ```cangjie
@@ -213,6 +201,18 @@ public static func getNaN(): Float16
 返回值：
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的非数。
+
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float16
+```
+
+功能：获取半精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的圆周率常数。
 
 ### extend Float32 <: FloatingPoint\<Float32>
 
@@ -250,18 +250,6 @@ public static func getInf(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的无穷数值。
 
-#### static func getPI()
-
-```cangjie
-public static func getPI(): Float32
-```
-
-功能：获取单精度浮点数类型的圆周率常数。
-
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的圆周率常数。
-
 #### static func getMinDenormal()
 
 ```cangjie
@@ -297,6 +285,18 @@ public static func getNaN(): Float32
 返回值：
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的非数。
+
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float32
+```
+
+功能：获取单精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的圆周率常数。
 
 ### extend Float64 <: FloatingPoint\<Float64>
 
@@ -334,18 +334,6 @@ public static func getInf(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的无穷数值。
 
-#### static func getPI()
-
-```cangjie
-public static func getPI(): Float64
-```
-
-功能：获取双精度浮点数类型的圆周率常数。
-
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的圆周率常数。
-
 #### static func getMinDenormal()
 
 ```cangjie
@@ -382,6 +370,18 @@ public static func getNaN(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的非数。
 
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float64
+```
+
+功能：获取双精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的圆周率常数。
+
 ## interface Integer\<T>
 
 ```cangjie
@@ -415,6 +415,18 @@ static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果类型是有符号的，返回 `true`；否则返回 `false`。
 
+### operator func !()
+
+```cangjie
+operator func !(): T
+```
+
+功能：位运算符，按位取反。
+
+返回值：
+
+- T - 计算所得结果。
+
 ### operator func %(T)
 
 ```cangjie
@@ -447,45 +459,17 @@ operator func &(rhs: T): T
 
 - T - 计算所得结果。
 
-### operator func |(T)
+### operator func <<(Int64)
 
 ```cangjie
-operator func |(rhs: T): T
+operator func <<(n: Int64): T
 ```
 
-功能：位运算符，按位或。
+功能：位运算符，按位左移。
 
 参数：
 
-- rhs: T - 运算符右边的数。
-
-返回值：
-
-- T - 计算所得结果。
-
-### operator func ^(T)
-
-```cangjie
-operator func ^(rhs: T): T
-```
-
-功能：位运算符，按位异或。
-
-参数：
-
-- rhs: T - 运算符右边的数。
-
-返回值：
-
-- T - 计算所得结果。
-
-### operator func !()
-
-```cangjie
-operator func !(): T
-```
-
-功能：位运算符，按位取反。
+- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 运算符右边的数，表示左移的位数。
 
 返回值：
 
@@ -507,17 +491,33 @@ operator func >>(n: Int64): T
 
 - T - 计算所得结果。
 
-### operator func <<(Int64)
+### operator func ^(T)
 
 ```cangjie
-operator func <<(n: Int64): T
+operator func ^(rhs: T): T
 ```
 
-功能：位运算符，按位左移。
+功能：位运算符，按位异或。
 
 参数：
 
-- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 运算符右边的数，表示左移的位数。
+- rhs: T - 运算符右边的数。
+
+返回值：
+
+- T - 计算所得结果。
+
+### operator func |(T)
+
+```cangjie
+operator func |(rhs: T): T
+```
+
+功能：位运算符，按位或。
+
+参数：
+
+- rhs: T - 运算符右边的数。
 
 返回值：
 
@@ -778,18 +778,6 @@ public interface MathExtension<T> {
 >
 > 未来版本即将废弃，使用 [FloatingPoint\<T>](#interface-floatingpointt) 替代。
 
-### static func GetPI()
-
-```cangjie
-static func GetPI(): T
-```
-
-功能：获取 T 类型的圆周率常数。
-
-返回值：
-
-- T - 类型 T 的圆周率常数。
-
 ### static func GetE()
 
 ```cangjie
@@ -801,6 +789,18 @@ static func GetE(): T
 返回值：
 
 - T - 类型 T 的自然常数。
+
+### static func GetPI()
+
+```cangjie
+static func GetPI(): T
+```
+
+功能：获取 T 类型的圆周率常数。
+
+返回值：
+
+- T - 类型 T 的圆周率常数。
 
 ### extend Float16 <: MathExtension\<Float16>
 
@@ -814,18 +814,6 @@ extend Float16 <: MathExtension<Float16>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../../std/core/core_package_api/core_package_intrinsics.md#float16)>
 
-#### static func GetPI()
-
-```cangjie
-public static func GetPI(): Float16
-```
-
-功能：获取半精度浮点数的圆周率常数。
-
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的圆周率常数
-
 #### static func GetE()
 
 ```cangjie
@@ -837,6 +825,18 @@ public static func GetE(): Float16
 返回值：
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的自然常数
+
+#### static func GetPI()
+
+```cangjie
+public static func GetPI(): Float16
+```
+
+功能：获取半精度浮点数的圆周率常数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的圆周率常数
 
 ### extend Float32 <: MathExtension\<Float32>
 
@@ -850,18 +850,6 @@ extend Float32 <: MathExtension<Float32>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../../std/core/core_package_api/core_package_intrinsics.md#float32)>
 
-#### static func GetPI()
-
-```cangjie
-public static func GetPI(): Float32
-```
-
-功能：获取单精度浮点数的圆周率常数。
-
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的圆周率常数
-
 #### static func GetE()
 
 ```cangjie
@@ -873,6 +861,18 @@ public static func GetE(): Float32
 返回值：
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的自然常数
+
+#### static func GetPI()
+
+```cangjie
+public static func GetPI(): Float32
+```
+
+功能：获取单精度浮点数的圆周率常数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的圆周率常数
 
 ### extend Float64 <: MathExtension\<Float64>
 
@@ -886,18 +886,6 @@ extend Float64 <: MathExtension<Float64>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../../std/core/core_package_api/core_package_intrinsics.md#float64)>
 
-#### static func GetPI()
-
-```cangjie
-public static func GetPI(): Float64
-```
-
-功能：获取双精度浮点数的圆周率常数。
-
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的圆周率常数
-
 #### static func GetE()
 
 ```cangjie
@@ -909,6 +897,18 @@ public static func GetE(): Float64
 返回值：
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的自然常数
+
+#### static func GetPI()
+
+```cangjie
+public static func GetPI(): Float64
+```
+
+功能：获取双精度浮点数的圆周率常数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的圆周率常数
 
 ## interface MaxMinValue\<T>
 
@@ -1427,6 +1427,22 @@ public interface Number<T> {
 
 功能：提供数值类型相关的方法。
 
+### operator func *(T)
+
+```cangjie
+operator func *(rhs: T): T
+```
+
+功能：算术运算符，计算乘法。
+
+参数：
+
+- rhs: T - 运算符右边的数，表示另一个乘数。
+
+返回值：
+
+- T - 计算所得积。
+
 ### operator func +(T)
 
 ```cangjie
@@ -1442,6 +1458,18 @@ operator func +(rhs: T): T
 返回值：
 
 - T - 计算所得和。
+
+### operator func -()
+
+```cangjie
+operator func -(): T
+```
+
+功能：算术运算符，计算取负的值。
+
+返回值：
+
+- T - 取负的值。
 
 ### operator func -(T)
 
@@ -1459,22 +1487,6 @@ operator func -(rhs: T): T
 
 - T - 计算所得差。
 
-### operator func *(T)
-
-```cangjie
-operator func *(rhs: T): T
-```
-
-功能：算术运算符，计算乘法。
-
-参数：
-
-- rhs: T - 运算符右边的数，表示另一个乘数。
-
-返回值：
-
-- T - 计算所得积。
-
 ### operator func /(T)
 
 ```cangjie
@@ -1490,18 +1502,6 @@ operator func /(rhs: T): T
 返回值：
 
 - T - 计算所得商。
-
-### operator func -()
-
-```cangjie
-operator func -(): T
-```
-
-功能：算术运算符，计算取负的值。
-
-返回值：
-
-- T - 取负的值。
 
 ### extend Float16 <: Number\<Float16>
 

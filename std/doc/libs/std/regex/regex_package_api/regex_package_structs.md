@@ -31,7 +31,7 @@ main(): Unit {
     let iter = r.lazyFindAll("2024-10-24&2025-01-01", group: true)
     while (true) {
         match (iter.next()) {
-            case Some(md) => println("# found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
+            case Some(md) => println("found: `${md.matchString()}` and groupCount: ${md.groupCount()}")
             case None => break
         }
     }
@@ -41,8 +41,8 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: `2024-10-24` and groupCount: 3
-# found: `2025-01-01` and groupCount: 3
+found: `2024-10-24` and groupCount: 3
+found: `2025-01-01` and groupCount: 3
 ```
 
 ### func groupNumber() <sup>(deprecated)</sup>
@@ -85,9 +85,9 @@ main(): Unit {
     while (true) {
         match (iter.next()) {
             case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+                println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
                 let pos = md.matchPosition(0)
-                println("pos: [${pos.start}, ${pos.end}]")
+                println(" pos: [${pos.start}, ${pos.end}]")
             case None => break
         }
     }
@@ -97,10 +97,10 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
-pos: [0, 10]
-# found: 2025-01-01 and groupCount: 3
-pos: [11, 21]
+found: 2024-10-24 and groupCount: 3
+ pos: [0, 10]
+found: 2025-01-01 and groupCount: 3
+ pos: [11, 21]
 ```
 
 ### func matchPosition(Int64)
@@ -135,10 +135,10 @@ main(): Unit {
     while (true) {
         match (iter.next()) {
             case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+                println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
                 /* 月份的捕获组索引为 2 */
                 let pos = md.matchPosition(2)
-                println("# month: [${pos.start}, ${pos.end}]")
+                println(" month: [${pos.start}, ${pos.end}]")
             case None => break
         }
     }
@@ -148,10 +148,10 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
-# month: [5, 7]
-# found: 2025-01-01 and groupCount: 3
-# month: [16, 18]
+found: 2024-10-24 and groupCount: 3
+ month: [5, 7]
+found: 2025-01-01 and groupCount: 3
+ month: [16, 18]
 ```
 
 ### func matchPosition(String)
@@ -186,9 +186,9 @@ main(): Unit {
     while (true) {
         match (iter.next()) {
             case Some(md) =>
-                println("# found: ${md.matchString()} and groupCount: ${md.groupCount()}")
+                println("found: ${md.matchString()} and groupCount: ${md.groupCount()}")
                 let pos = md.matchPosition("year")
-                println("year: [${pos.start}, ${pos.end}]")
+                println(" year: [${pos.start}, ${pos.end}]")
             case None => break
         }
     }
@@ -198,10 +198,10 @@ main(): Unit {
 运行结果：
 
 ```text
-# found: 2024-10-24 and groupCount: 3
-year: [0, 4]
-# found: 2025-01-01 and groupCount: 3
-year: [11, 15]
+found: 2024-10-24 and groupCount: 3
+ year: [0, 4]
+found: 2025-01-01 and groupCount: 3
+ year: [11, 15]
 ```
 
 ### func matchString()
