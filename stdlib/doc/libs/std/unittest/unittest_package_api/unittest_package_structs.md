@@ -1460,7 +1460,7 @@ public struct MeasurementInfo {
 ### let conversionTable
 
 ```cangjie
-let conversionTable: MeasurementUnitTable
+public let conversionTable: MeasurementUnitTable
 ```
 
 功能：用于在性能测试报告中构建测量值的表示。
@@ -1474,7 +1474,7 @@ let conversionTable: MeasurementUnitTable
 ### let name
 
 ```cangjie
-let name: String
+public let name: String
 ```
 
 功能：当前 `Measurement` 类型的唯一显示名称。
@@ -1486,7 +1486,7 @@ let name: String
 ### let textDescription
 
 ```cangjie
-let textDescription: String
+public let textDescription: String
 ```
 
 功能：描述此测量的简单文本将显示在某些报告中。
