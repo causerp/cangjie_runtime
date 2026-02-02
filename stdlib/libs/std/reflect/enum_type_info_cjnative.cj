@@ -493,14 +493,14 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
         }
         let sb = StringBuilder()
         sb.append(name)
-        sb.append("<")
+        sb.append("(")
         for (idx in 0..params.size) {
             sb.append(params[idx].qualifiedName)
             if (idx < params.size - 1) {
                 sb.append(", ")
             }
         }
-        sb.append(">")
+        sb.append(")")
         sb.toString()
     }
 }
@@ -518,7 +518,7 @@ func getEnumSuperTypeInfo(ti: EnumTypeInfo): ?EnumTypeInfo {
 
 func parseConstructorName(raw: String): String {
     var name = raw
-    if (let Some(idx) <- name.indexOf("<")) {
+    if (let Some(idx) <- name.indexOf("(")) {
         name = name[..idx]
     }
     let dot = name.lastIndexOf(".") ?? -1
@@ -534,8 +534,8 @@ func findLastTopLevelDot(name: String): Int64 {
     var idx: Int64 = name.size - 1
     while (idx >= 0) {
         match (name[idx]) {
-            case '>' => angle++
-            case '<' => angle--
+            case ')' => angle++
+            case '(' => angle--
             case '.' =>
                 if (angle == 0) {
                     return idx
