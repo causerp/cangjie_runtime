@@ -496,8 +496,7 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果该 `class` 类型拥有 `abstract` 语义，调用 `construct` 则抛出异常，因为抽象类不可被实例化。
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果 `args` 未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
+- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果入参未能成功匹配任何该 `class` 类型的可见性为 `public` 的构造函数，则抛出异常。
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 在被调用的构造函数内部抛出的任何异常均将被封装为 [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) 异常并抛出。
 
 示例：
@@ -1046,8 +1045,8 @@ public func apply(args: Array<Any>): Any
 异常：
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该构造函数信息所对应的构造函数所属的类型是抽象类，则会抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该构造函数信息所对应的构造函数的形参列表中的形参的数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该构造函数信息所对应的构造函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该构造函数信息所对应的构造函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该构造函数信息所对应的构造函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的构造函数信息所对应的构造函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -1947,7 +1946,7 @@ Some(7)
 Some(hi)
 ```
 
-### func apply(Array<Any>)
+### func apply(Array\<Any>)
 
 ```cangjie
 public func apply(args: Array<Any>): Any
@@ -2546,7 +2545,7 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果 `args` 的数量或类型与构造器参数不匹配或者指定的构造器不存在，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果构造器实参列表的数量或类型与构造器参数不匹配或者指定的构造器不存在，则抛出异常。
 
 示例：
 
@@ -2903,8 +2902,8 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与函数参数个数不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应函数参数类型不匹配，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表的数量与函数参数个数不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中任一元素类型与对应函数参数类型不匹配，则抛出异常。
 
 示例：
 
@@ -2932,6 +2931,7 @@ main(): Unit {
 ```text
 3
 ```
+
 ## class GenericTypeInfo
 
 ```cangjie
@@ -3308,7 +3308,7 @@ public func apply(args: Array<Any>): Any
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 实参列表的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -3321,8 +3321,8 @@ public func apply(args: Array<Any>): Any
 异常：
 
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果存在泛型参数的函数调用了该方法，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该全局函数信息 `GlobalFunctionInfo` 所对应的全局函数的形参列表中的形参的数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该全局函数信息 `GlobalFunctionInfo` 所对应的全局函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -3376,7 +3376,7 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 实参列表的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -3390,10 +3390,10 @@ public func apply(genericTypeArgs: Array<TypeInfo>, args: Array<Any>): Any
 异常：
 
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果非泛型函数调用了该方法，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该全局函数信息 `GlobalFunctionInfo` 所对应的全局函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该全局函数信息 `GlobalFunctionInfo` 所对应的全局函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该全局函数信息所对应的全局函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该全局函数信息所对应的全局函数的参数的类型约束，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该全局函数信息所对应的全局函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的实参列表和泛型参数类型列表 `genericTypeArgs` 不满足该全局函数信息所对应的全局函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的全局函数信息所对应全局函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -4989,7 +4989,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致。
+> - 实参列表的类型确保和函数入参类型完全一致。
 
 参数：
 
@@ -5004,9 +5004,9 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果存在泛型参数的函数调用了该方法，则抛出异常。
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该实例成员函数信息所对应的实例成员函数是抽象的，或不存在相应的函数实现，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该实例成员函数信息所对应的实例成员函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该实例成员函数信息所对应的实例成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -5076,7 +5076,7 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致。
+> - 泛型参数列表的类型确保和函数入参类型完全一致。
 
 参数：
 
@@ -5093,10 +5093,10 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该函数信息对应的成员函数是 `abstract` 或不存在函数体，则会抛出异常。
 - [InvacationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果非泛型函数调用了此方法，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该成员函数信息所对应的成员函数所属的类型不相同，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该成员函数信息所对应的成员函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该成员函数信息所对应的成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该成员函数信息所对应的成员函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果参数列表 `args` 中的任何一个参数的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该成员函数信息所对应的成员函数的参数的类型约束，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果参数列表中的任何一个参数的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表和泛型参数类型列表 `genericTypeArgs` 不满足该成员函数信息所对应的成员函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -9941,7 +9941,7 @@ public func apply(thisType: TypeInfo, args: Array<Any>): Any
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 实参列表的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -9956,9 +9956,9 @@ public func apply(thisType: TypeInfo, args: Array<Any>): Any
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该函数信息对应的静态成员函数存在泛型参数，则会抛出异常。
 - [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果该函数信息对应的静态成员函数的函数体未实现，则会抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该静态成员函数信息所对应的静态成员函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该静态成员函数信息所对应的静态成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `thisType` 和该静态函数的函数签名不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -10005,7 +10005,7 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - `args` 的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
+> - 实参列表的类型确保和函数入参类型完全一致，否则会导致参数检查失败。
 
 参数：
 
@@ -10021,11 +10021,11 @@ public func apply(thisType: TypeInfo, genericTypeArgs: Array<TypeInfo>, args: Ar
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) -  如果该函数信息对应的静态成员函数是非泛型函数，则抛出异常。
 - [InfoNotFoundException](../reflect_package_api/reflect_package_exceptions.md#class-infonotfoundexception) - 如果该函数信息对应的静态成员函数的函数体未实现，则会抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的实参的数目与该静态成员函数信息所对应的静态成员函数的形参列表中的形参的数目不等，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表 `args` 中的泛型参数的数目与该静态成员函数信息所对应的泛型参数的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该静态成员函数信息所对应的静态成员函数的形参列表中的形参的数目不等，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的泛型参数的数目与该静态成员函数信息所对应的泛型参数的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `thisType` 和该静态函数的函数签名不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表 `args` 中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的参数列表 `args` 和泛型参数类型列表 `genericTypeArgs` 不满足该静态成员函数信息所对应的静态成员函数的参数的类型约束，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该静态成员函数信息所对应的静态成员函数的对应形参的声明类型的子类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果传入的实参列表和泛型参数类型列表 `genericTypeArgs` 不满足该静态成员函数信息所对应的静态成员函数的参数的类型约束，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的静态成员函数信息所对应的静态成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
 示例：
@@ -12514,7 +12514,7 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果 `args` 未能成功匹配任何该 `struct` 类型的 `public` 构造函数，则抛出异常
+- [MisMatchException](reflect_package_exceptions.md#class-mismatchexception) - 如果实参列表未能成功匹配任何该 `struct` 类型的 `public` 构造函数，则抛出异常
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 在被调用的构造函数内部抛出的任何异常均将被封装为 [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) 异常并抛出。
 
 示例：
@@ -12884,8 +12884,8 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与元组元素数量不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表的数量与元组元素数量不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中任一元素类型与对应元组元素类型不匹配，则抛出异常。
 
 示例：
 
