@@ -83,6 +83,23 @@ static char* CloneString(const std::string s, const size_t size)
     return ret;
 }
 
+void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, std::vector<Token>& outputTokens)
+{
+    auto token0 = inputTokens[0];
+    auto token1 = inputTokens[1];
+    if (token0.End().column == token1.Begin().column) {
+        // >= > trans to > =>
+        token0 = Token(TokenKind::GT, ">", token0.Begin(), token0.Begin() + 1);
+        token1 = Token(TokenKind::DOUBLE_ARROW, "=>", token0.Begin() + 1, token1.End());
+    }
+    if (macCall != nullptr) {
+        token0 = Token(token0.kind, token0.Value(), macCall->GetBeginPos(), macCall->GetEndPos());
+        token1 = Token(token1.kind, token1.Value(), macCall->GetBeginPos(), macCall->GetEndPos());
+    }
+    outputTokens.emplace_back(token0);
+    outputTokens.emplace_back(token1);
+    return;
+}
 } // namespace
 
 extern "C" {
@@ -97,31 +114,33 @@ uint8_t* CJ_AST_Lex(void* fptr, const char* code)
     std::string cangjieCode(code);
     Lexer lex(cangjieCode, diag, sm, false, false);
     std::vector<Token> tokens{};
-    Token token = lex.Next();
 
-    auto pos = token.Begin();
-    auto end = token.End();
-    auto inMacCall = false;
+    MacroCall* macCall = nullptr;
     if (fptr != nullptr) {
-        auto macCall = reinterpret_cast<MacroCall*>(fptr);
-        pos = macCall->GetBeginPos();
-        end = macCall->GetEndPos();
-        inMacCall = true;
+        macCall = reinterpret_cast<MacroCall*>(fptr);
     }
-    while (token.kind != TokenKind::END) {
-        auto tk = Token(token.kind, token.Value(), pos, end);
-        tk.isSingleQuote = token.isSingleQuote;
-        if (token.kind == TokenKind::MULTILINE_RAW_STRING) {
-            tk.delimiterNum = token.delimiterNum;
+    while (true) {
+        if (lex.Seeing({TokenKind::GE, TokenKind::GT}, false, false)) {
+            auto geToken = lex.Next();
+            auto gtToken = lex.Next();
+            TryCombineDoubleArrow(macCall, {geToken, gtToken}, tokens);
         }
-        tokens.emplace_back(tk);
-        token = lex.Next();
-        if (!inMacCall) {
-            pos = token.Begin();
-            end = token.End();
+        Token token = lex.Next();
+        if (macCall == nullptr) {
+            tokens.emplace_back(token);
+        } else {
+            auto tk = Token(token.kind, token.Value(), macCall->GetBeginPos(), macCall->GetEndPos());
+            tk.isSingleQuote = token.isSingleQuote;
+            if (token.kind == TokenKind::MULTILINE_RAW_STRING) {
+                tk.delimiterNum = token.delimiterNum;
+            }
+            tokens.emplace_back(tk);
+        }
+        if (token.kind == TokenKind::END) {
+            break;
         }
     }
-    tokens.emplace_back(token.kind, token.Value(), pos, end);
+
     return TokenSerialization::GetTokensBytesWithHead(tokens);
 }
 
