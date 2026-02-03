@@ -18,4 +18,4 @@ std.crypto.digest 包提供常用摘要算法的通用接口，包括 MD5、SHA1
 
 |                 接口名              |                功能                 |
 | --------------------------------- | ---------------------------------- |
-| [Digest](./digest_package_api/digest_package_interfaces.md#interface-digest ) | 此接口是摘要算法的通用接口。 |
+| [Digest](./digest_package_api/digest_package_interfaces.md#interface-digest) | 此接口是摘要算法的通用接口。 |

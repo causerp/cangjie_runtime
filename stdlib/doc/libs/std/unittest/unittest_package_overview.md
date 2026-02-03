@@ -161,8 +161,7 @@ unittest 包用于编写仓颉项目单元测试代码，提供包括代码编�
 | [KeyMinBatches](./unittest_package_api/unittest_package_structs.md#struct-keyminbatches) | 作为在配置信息中配置值的键值。 |
 | [KeyMinDuration](./unittest_package_api/unittest_package_structs.md#struct-keyminduration) | 作为在配置信息中配置值的键值。 |
 | [KeyNoCaptureOutput](./unittest_package_api/unittest_package_structs.md#struct-keynocaptureoutput) | 作为在配置信息中配置值的键值。 |
-| [KeyNoColor](./unittest_package_api/unittest_package_structs.md#struct-keyNocolor) | 作为在配置信息中配置值的键值。 |
-| [KeyOptimizeMocksForBench](./unittest_package_api/unittest_package_structs.md#struct-keyoptimizemocksforbench) | 作为在配置信息中配置值的键值。 |
+| [KeyNoColor](./unittest_package_api/unittest_package_structs.md#struct-keynocolor) | 作为在配置信息中配置值的键值。 |
 | [KeyParallel](./unittest_package_api/unittest_package_structs.md#struct-keyparallel) | 作为在配置信息中配置值的键值。 |
 | [KeyRandomSeed](./unittest_package_api/unittest_package_structs.md#struct-keyrandomseed) | 作为在配置信息中配置值的键值。 |
 | [KeyReductionSteps](./unittest_package_api/unittest_package_structs.md#struct-keyrandomseed) | 作为在配置信息中配置值的键值。 |
