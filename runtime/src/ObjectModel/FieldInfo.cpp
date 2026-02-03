@@ -267,6 +267,9 @@ BaseObject* VArrayToAny(TypeInfo* fieldTi, Uptr fieldAddr);
 bool SetPrimitiveField(ObjRef obj, Uptr argAddr, TypeInfo* argType, ObjRef argObj)
 {
     MSize fieldSize = argType->GetInstanceSize();
+    if (fieldSize == 0) {
+        return true;
+    }
     if (memcpy_s(reinterpret_cast<void*>(argAddr), fieldSize,
                  reinterpret_cast<void*>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
                  fieldSize) != EOK) {
@@ -300,6 +303,9 @@ bool SetStructField(ObjRef obj, Uptr argAddr, TypeInfo* argType, ObjRef argObj)
 bool SetVArrayField(ObjRef obj, Uptr argAddr, TypeInfo* argType, ObjRef argObj)
 {
     MSize vArraySize = argType->GetFieldNum() * argType->GetComponentTypeInfo()->GetInstanceSize();
+    if (vArraySize == 0) {
+        return true;
+    }
     if (memcpy_s(reinterpret_cast<void*>(argAddr), vArraySize,
                  reinterpret_cast<void*>(reinterpret_cast<Uptr>(argObj) + TYPEINFO_PTR_SIZE),
                  vArraySize) != EOK) {
@@ -451,7 +457,9 @@ BaseObject* PrimitiveToAny(TypeInfo* fieldTi, Uptr fieldAddr)
 {
     MSize size = MRT_ALIGN(fieldTi->GetInstanceSize() + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
     BaseObject* fieldObj = ObjectManager::NewObject(fieldTi, size, AllocType::RAW_POINTER_OBJECT);
-
+    if (fieldTi->GetInstanceSize() == 0) {
+        return fieldObj;
+    }
     if (memcpy_s(reinterpret_cast<void*>(reinterpret_cast<Uptr>(fieldObj) + TYPEINFO_PTR_SIZE),
                  fieldTi->GetInstanceSize(),
                  reinterpret_cast<void*>(fieldAddr),
@@ -468,7 +476,9 @@ BaseObject* VArrayToAny(TypeInfo* fieldTi, Uptr fieldAddr)
     MSize vArraySize = fieldTi->GetFieldNum() * fieldTi->GetComponentTypeInfo()->GetInstanceSize();
     MSize size = MRT_ALIGN(vArraySize + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
     BaseObject* fieldObj = ObjectManager::NewObject(fieldTi, size, AllocType::RAW_POINTER_OBJECT);
-
+    if (vArraySize == 0) {
+        return fieldObj;
+    }
     if (memcpy_s(reinterpret_cast<void*>(reinterpret_cast<Uptr>(fieldObj) + TYPEINFO_PTR_SIZE), vArraySize,
                  reinterpret_cast<void*>(fieldAddr), vArraySize) != EOK) {
         LOG(RTLOG_ERROR, "FieldInitializer: memcpy_s failed for VArray field");
