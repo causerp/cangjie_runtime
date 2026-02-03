@@ -1754,9 +1754,14 @@ Some(15)
 public func skip(count: Int64): Iterator<T>
 ```
 
-功能：从前往后从当前迭代器跳过特定个数。
+功能：从前往后从当前迭代器跳过指定个数的元素，返回一个新的迭代器，原迭代器保持不变。
 
-当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于 0 并且 count 小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
+> **说明：**
+>
+> - 当 `count < 0` 时，抛出异常。
+> - 当 `count = 0` 时，不跳过任何元素，返回一个与原迭代器内容一致的新迭代器。
+> - 当 `0 < count < 迭代器元素总数` 时，跳过前 count 个元素，返回包含剩余元素的新迭代器。
+> - 当 `count ≥ 迭代器元素总数` 时，跳过所有元素，返回空的新迭代器。
 
 参数：
 
@@ -1764,11 +1769,11 @@ public func skip(count: Int64): Iterator<T>
 
 返回值：
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 返回一个跳过指定数量元素的迭代器。
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 返回一个跳过指定数量元素的新迭代器。
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 count < 0 时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当 `count < 0` 时，抛出异常。
 
 示例：
 
@@ -4415,8 +4420,8 @@ main(): Unit {
 ```text
 ThreadSnapshot(id=1, name=, state=Running)
 stack trace:
-	 at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:205)
-	 at default.main()(code.cj:3)
+         at std.core.ThreadSnapshot::dumpCurrentThread()(thread.cj:181)
+         at default.main()(test.cj:3)
 ```
 
 ### func toString()
