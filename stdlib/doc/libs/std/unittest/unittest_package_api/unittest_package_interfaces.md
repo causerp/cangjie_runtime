@@ -255,6 +255,10 @@ public interface BenchmarkInputMarker {}
 public interface Measurement {
     func setup(): Unit
     func measure(): Float64
+    prop conversionTable: MeasurementUnitTable
+    prop name: String
+    prop textDescription: String
+    prop info: MeasurementInfo
 }
 ```
 

@@ -255,6 +255,10 @@ Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is
 public interface Measurement {
     func setup(): Unit
     func measure(): Float64
+    prop conversionTable: MeasurementUnitTable
+    prop name: String
+    prop textDescription: String
+    prop info: MeasurementInfo
 }
 ```
 
