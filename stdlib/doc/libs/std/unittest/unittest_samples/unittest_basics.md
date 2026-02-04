@@ -422,7 +422,7 @@ class Foo {
 >
 > 如果没有符合指定标签类别的测试用例。框架将不运行任何内容。
 >
-> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](#-exclude-tags)。
+> 可以与 `exclude-tags` 结合。详见 [`--exclude-tags`](#--exclude-tags)。
 
 ### `--exclude-tags`
 

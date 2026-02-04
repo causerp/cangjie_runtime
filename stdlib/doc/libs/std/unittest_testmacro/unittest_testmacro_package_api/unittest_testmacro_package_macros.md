@@ -385,34 +385,34 @@ Assert Failed: `(foo(10, y: "test" + s) == foo(s.size, y: s) + bar(a))`
 
 ## `@Tag` 宏
 
-`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#-include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#-exclude-tags) 运行选项过滤带有这些标签的测试实体。
+`@Tag` 宏可以应用于 `@Test` 类和 `@Test` 或 `@TestCase` 或 `@Bench` 函数，提供测试实体的元信息。后续可以通过 [`--include-tags`](../../unittest/unittest_samples/unittest_basics.md#--include-tags) 和 [`--exclude-tags`](../../unittest/unittest_samples/unittest_basics.md#--exclude-tags) 运行选项过滤带有这些标签的测试实体。
 
 ### 支持的语法
 
 1. 单个 `@Tag` 在测试函数上。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Unittest]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Unittest]
+    func test() {}
+    ```
 
 2. 单个 `@Tag` 包含多个标签名，用逗号分隔。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Unittest, TestAuthor]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Unittest, TestAuthor]
+    func test() {}
+    ```
 
 3. 多个 `@Tag` 在测试函数上。
 
-<!-- code_no_check -->
-```cangjie
-@Tag[Smoke]
-@Tag[Backend, JiraTask3271]
-func test() {}
-```
+    <!-- code_no_check -->
+    ```cangjie
+    @Tag[Smoke]
+    @Tag[Backend, JiraTask3271]
+    func test() {}
+    ```
 
 ### 规则与约束
 
@@ -528,7 +528,7 @@ func test(x: Int64, y: String, z: Float64): Unit {}
 - 所有已支持类型的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型
 
 > 若需要新增其他的类型支持 `random()` ，可以让该类型扩展 [Arbitrary](../../unittest_prop_test/unittest_prop_test_package_api/unittest_prop_test_package_interfaces.md#interface-arbitraryt) 。
-> 在参数有多个值时，`beforeEach` / `afterEach` 不会在不同值下重复执行而仅会执行一次。若确实需要在每个值下做初始化和去初始化，需要在测试主体中写。对于性能测试方案， `@Strategy` 应该用于需要从基准中排除的设置代码。没有为这种情况提供特殊的API，因为在大多数情况下，这样的代码依赖于特定的参数值。
+> 在参数有多个值时，`beforeEach` / `afterEach` 不会在不同值下重复执行而仅会执行一次。若确实需要在每个值下做初始化和去初始化，需要在测试主体中写。对于性能测试方案， `@Strategy` 应该用于需要从基准中排除的设置代码。没有为这种情况提供特殊的 API，因为在大多数情况下，这样的代码依赖于特定的参数值。
 
 ## `@TestTemplate` 宏
 
