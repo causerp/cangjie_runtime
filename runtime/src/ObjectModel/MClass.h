@@ -692,7 +692,6 @@ public:
     void AddMTable(TypeInfo* ti, ExtensionData* extensionData);
     FuncPtr* GetMTable(TypeInfo* itf);
     TypeInfo* GetMethodOuterTI(TypeInfo* itf, U64 index);
-    TypeInfo* GetMethodOuterTIWithCache(TypeInfo* itf, U64 index);
     U32 GetUUID();
     inline U32 GetClassSize() const;
     inline TypeInfo* GetSuperTypeInfo() const;                     // it can be null
