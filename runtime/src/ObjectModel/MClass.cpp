@@ -558,80 +558,61 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
     return funcTable;
 }
 
-TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
-{
-    // mTableDesc is not initialized yet, or mTableDesc is initialized,
-    // but mTable is not fully handled yet.
-    if (UNLIKELY(IsMTableDescUnInitialized() || !mTableDesc->IsFullyHandled())) {
-        (void)FindExtensionData(itf, true);
-    }
-
-    auto& mTable = mTableDesc->mTable;
-    auto it = mTable.find(itf->GetUUID());
-    if (it == mTable.end()) {
-        // We must find the itf in mTable here, or the virtual function is not in VTable.
-        LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
-        return nullptr;
-    }
-    auto* outerTi = it->second.GetCachedTypeInfo(index);
-    if (LIKELY(outerTi != nullptr)) {
-        return outerTi;
-    }
-    // The outer ti is not cached yet.
-    auto* ed = it->second.GetExtensionData();
-    // The extension data can't be nullptr here.
-    CHECK(ed != nullptr);
-    outerTi = ed->GetOuterTi(this, index);
-    if (outerTi != nullptr) {
-        it->second.SetCachedTypeInfo(index, outerTi);
-    }
-    return outerTi;
-}
-
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
 	if (this == itf || this->GetUUID() == itf->GetUUID()) {
 		return this;
 	}
-    TypeInfo* superTi = GetSuperTypeInfo();
+	TypeInfo* superTi = GetSuperTypeInfo();
 	if (UNLIKELY(IsTempEnum() && superTi != nullptr)) {
 		return superTi->GetMethodOuterTI(itf, index);
 	}
-    auto* outerTiFromCache = GetMethodOuterTIWithCache(itf, index);
-    if (LIKELY(outerTiFromCache != nullptr)) {
-        return outerTiFromCache;
-    }
-	auto extensionData = FindExtensionData(itf);
-	if (extensionData == nullptr) {
-        LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
+	if (UNLIKELY(IsMTableDescUnInitialized() || !mTableDesc->IsFullyHandled())) {
+		(void)FindExtensionData(itf, true);
 	}
-    auto& mTable = mTableDesc->mTable;
-    auto it = mTable.find(itf->GetUUID());
-	FuncPtr* funcTable = extensionData->GetFuncTable();
-	auto funcPtr = funcTable[index];
-	for (auto& superTypePair : mTableDesc->mTable) {
-        ExtensionData* extensionData = superTypePair.second.GetExtensionData();
-        if (!extensionData->IsTargetHasSameSourceWith(this)) {
-            continue;
-        }
-        auto superTi = superTypePair.second.GetSuperTi();
-        // Avoid infinite recursion. The mTAble may contain itself.
+	auto& mTable = mTableDesc->mTable;
+	auto it = mTable.find(itf->GetUUID());
+	if (it == mTable.end()) {
+		LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
+		return nullptr;
+	}
+	auto* outerTi = it->second.GetCachedTypeInfo(index);
+	if (LIKELY(outerTi != nullptr)) {
+		return outerTi;
+	}
+	auto* ed = it->second.GetExtensionData();
+	CHECK(ed != nullptr);
+	outerTi = ed->GetOuterTi(this, index);
+	if (outerTi != nullptr) {
+		it->second.SetCachedTypeInfo(index, outerTi);
+		return outerTi;
+	}
+	// Cache miss and GetOuterTi returned null: resolve by walking supers.
+	FuncPtr* funcTable = ed->GetFuncTable();
+	FuncPtr funcPtr = funcTable[index];
+	for (auto& superTypePair : mTable) {
+		ExtensionData* thisEdSuper = superTypePair.second.GetExtensionData();
+		if (!thisEdSuper->IsTargetHasSameSourceWith(this)) {
+			continue;
+		}
+		TypeInfo* superTi = superTypePair.second.GetSuperTi();
 		if (superTi == this || superTi->GetUUID() == GetUUID()) {
-            continue;
+			continue;
 		}
-		auto edOfSuper = superTi->FindExtensionData(itf);
-		if (edOfSuper == nullptr) {
-            continue;
+		auto* superEdItf = superTi->FindExtensionData(itf);
+		if (superEdItf == nullptr) {
+			continue;
 		}
-        auto funcPtrInSuper = edOfSuper->GetFuncTable()[index];
-        if (funcPtrInSuper == nullptr) {
-            continue;
-        }
+		FuncPtr funcPtrInSuper = superEdItf->GetFuncTable()[index];
+		if (funcPtrInSuper == nullptr) {
+			continue;
+		}
 		if (funcPtrInSuper == funcPtr) {
-            auto res = superTi->GetMethodOuterTI(itf, index);
+			TypeInfo* res = superTi->GetMethodOuterTI(itf, index);
 			it->second.SetCachedTypeInfo(index, res);
 			return res;
-		} else if (extensionData->IsDirect()) {
+		}
+		if (thisEdSuper->IsDirect()) {
 			break;
 		}
 	}

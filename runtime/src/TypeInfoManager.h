@@ -84,9 +84,7 @@ private:
             tt = desc.tt;
             argSize = desc.argSize;
             hash = desc.hash;
-            for (U32 i = 0; i < argSize; i++) {
-                argsVector.push_back(desc.args[i]);
-            }
+            argsVector.assign(desc.args, desc.args + desc.argSize);
             tid.store(GetTid());
         }
 

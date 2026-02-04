@@ -62,7 +62,7 @@ public:
             return nullptr;
         }
         if (!IsTargetHasSameSourceWith(childTi)) {
-            for (auto pair : childTi->GetMTableDesc()->mTable) {
+            for (const auto& pair : childTi->GetMTableDesc()->mTable) {
                 auto superTi = pair.second.GetSuperTi();
                 if (IsTargetHasSameSourceWith(superTi)) {
                     void* fn = reinterpret_cast<void*>(whereCondFn);
