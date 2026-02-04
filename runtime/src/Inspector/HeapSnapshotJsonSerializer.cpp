@@ -68,7 +68,7 @@ void CjHeapDataForIDE::SerializeString()
 {
     writer->WriteString("\\\"STRING\\\":[");
     bool isFirstElement = true;
-    for (auto string : strings) {
+    for (const auto& string : strings) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {

@@ -744,24 +744,25 @@ extern "C" void* MCC_LoadPackage(const char* path)
     if (path == nullptr || *path == '\0') {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    if (LoaderManager::GetInstance()->FileHasLoaded(path)) {
+    LoaderManager* loaderMgr = LoaderManager::GetInstance();
+    if (loaderMgr->FileHasLoaded(path)) {
         return reinterpret_cast<void*>(LOAD_FILENAME_REPEATED);
     }
     if (LoadCJLibrary(path) != E_OK) {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    if (LoaderManager::GetInstance()->GetPackageInfoByPath(path) == nullptr) {
-        LoaderManager::GetInstance()->RemovePackageInfo(path);
+    if (loaderMgr->GetPackageInfoByPath(path) == nullptr) {
+        loaderMgr->RemovePackageInfo(path);
         return reinterpret_cast<void*>(LOAD_PACKAGE_REPEATED);
     }
-    if (LoaderManager::GetInstance()->FileHasMultiPackage(path)) {
-        LoaderManager::GetInstance()->RemovePackageInfo(path);
+    if (loaderMgr->FileHasMultiPackage(path)) {
+        loaderMgr->RemovePackageInfo(path);
         return reinterpret_cast<void*>(HAS_MULTI_PACKAGE);
     }
     if (InitCJLibrary(path) != E_OK) {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    return LoaderManager::GetInstance()->GetPackageInfoByPath(path);
+    return loaderMgr->GetPackageInfoByPath(path);
 }
 
 extern "C" PackageInfo* MCC_GetPackageByQualifiedName(const char* packageName)

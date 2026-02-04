@@ -172,7 +172,7 @@ uint32_t* StackInfo::GetAnchorFAFromMutatorContext() const
 void StackInfo::ExtractLiteFrameInfoFromStack(std::vector<uint64_t>& liteFrameInfos, size_t steps) const
 {
     size_t count = 1;
-    for (auto frameInfo : stack) {
+    for (const auto& frameInfo : stack) {
         if (count <= steps) {
             liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.mFrame.GetIP()));
             liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.GetFuncStartPC()));

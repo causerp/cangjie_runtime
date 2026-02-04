@@ -44,7 +44,7 @@ uint64_t ULEBDecodeSingleStr(std::vector<uint8_t>& bytes)
     uint64_t result = 0;
     uint32_t shift = 0;
     constexpr uint8_t IntValueBits = 7;
-    for (const auto& byte : bytes) {
+    for (auto byte : bytes) {
         result |= static_cast<uint64_t>(byte & 0x7f) << shift;
         if ((byte & 0x80) == 0) {
             break;
