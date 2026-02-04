@@ -1348,7 +1348,7 @@ public func checkedAbs(x: Int32): Option<Int32>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->
@@ -1382,7 +1382,7 @@ public func checkedAbs(x: Int64): Option<Int64>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->
@@ -1416,7 +1416,7 @@ public func checkedAbs(x: Int8): Option<Int8>
 
 返回值：
 
-- [Option](../../../std/core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)> - 返回传入参数的绝对值的 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 类型。
 
 示例：
 <!-- verify -->
@@ -3754,9 +3754,9 @@ public func log(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -3807,9 +3807,9 @@ public func log(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -3849,9 +3849,9 @@ public func log(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -3891,9 +3891,9 @@ public func log10(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -3933,9 +3933,9 @@ public func log10(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -3975,9 +3975,9 @@ public func log10(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -4017,9 +4017,9 @@ public func log2(x: Float16): Float16
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -4059,9 +4059,9 @@ public func log2(x: Float32): Float32
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-1)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-1)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->
@@ -4101,9 +4101,9 @@ public func log2(x: Float64): Float64
 >
 > 返回值存在如下特殊场景：
 >
-> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md#static-prop-nan-2)。
-> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
-> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md#static-prop-inf-2)。
+> - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
+> - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
 
 示例：
 <!-- verify -->

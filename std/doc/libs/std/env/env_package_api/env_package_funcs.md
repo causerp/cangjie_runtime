@@ -38,7 +38,7 @@ public func getCommand(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 当前进程命令。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前进程命令。
 
 异常：
 
@@ -54,7 +54,7 @@ public func getCommandLine(): Array<String>
 
 返回值：
 
-- [Array](../../../std/core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)> - 当前进程命令行。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - 当前进程命令行。
 
 异常：
 
@@ -142,15 +142,15 @@ public func getVariable(key: String): ?String
 
 参数：
 
-- key: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 指定名称。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 指定名称。
 
 返回值：
 
-- ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 当前进程指定名称的环境变量值。
+- ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - 当前进程指定名称的环境变量值。
 
 异常：
 
-- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
 
 ## func getVariables()
 
@@ -162,7 +162,7 @@ public func getVariables(): Array<(String, String)>
 
 返回值：
 
-- [Array](../../../std/core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../../std/core/core_package_api/core_package_structs.md#struct-string), [String](../../../std/core/core_package_api/core_package_structs.md#struct-string))> - 当前进程环境变量。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<([String](../../core/core_package_api/core_package_structs.md#struct-string), [String](../../core/core_package_api/core_package_structs.md#struct-string))> - 当前进程环境变量。
 
 异常：
 
@@ -194,11 +194,11 @@ public func removeVariable(key: String): Unit
 
 参数：
 
-- key: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
 
 异常：
 
-- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
 
 ## func setVariable(String, String)
 
@@ -214,9 +214,9 @@ public func setVariable(key: String, value: String): Unit
 
 参数：
 
-- key: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
-- value: [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - 环境变量值。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
+- value: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量值。
 
 异常：
 
-- [IllegalArgumentException](../../../std/core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 或 value 中包含空字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 或 value 中包含空字符时，抛出异常。

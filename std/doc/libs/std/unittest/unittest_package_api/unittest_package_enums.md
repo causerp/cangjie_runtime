@@ -50,7 +50,7 @@ public func toString(): String
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式字符串。
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式字符串。
 
 ## enum TimeUnit
 

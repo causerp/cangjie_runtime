@@ -16,7 +16,7 @@ public struct Function0Wrapper<R> {
 public Function0Wrapper(public let function: () -> R)
 ```
 
-功能：Function0Wrapper构造器。
+功能：Function0Wrapper 构造器。
 
 参数：
 
@@ -50,11 +50,11 @@ public operator func () (): R
 extend<R> Function0Wrapper<R> <: Arbitrary<Function0Wrapper<R>> where R <: Arbitrary<R>
 ```
 
-功能：为 [Function0Wrapper](#struct-function0wrapperr) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实现。
+功能：为 [Function0Wrapper](#struct-function0wrapperr) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[Function0Wrapper](#struct-function0wrapperr)\<R>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[Function0Wrapper](#struct-function0wrapperr)\<R>>
 
 #### static func arbitrary(RandomSource)
 
@@ -112,7 +112,7 @@ public struct TupleWrapper2<T0, T1> {
 public TupleWrapper2(public let tuple: (T0, T1))
 ```
 
-功能：TupleWrapper2构造器。
+功能：TupleWrapper2 构造器。
 
 参数：
 
@@ -242,11 +242,11 @@ public func getElementAsAny(index: Int64): ?Any
 extend<T0, T1> TupleWrapper2<T0, T1> <: Arbitrary<TupleWrapper2<T0, T1>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>
 ```
 
-功能：为 [TupleWrapper2](#struct-tuplewrapper2t0-t1) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实现。
+功能：为 [TupleWrapper2](#struct-tuplewrapper2t0-t1) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1>>
 
 #### static func arbitrary(RandomSource)
 
@@ -298,7 +298,7 @@ public struct TupleWrapper3<T0, T1, T2> {
 public TupleWrapper3(public let tuple: (T0, T1, T2))
 ```
 
-功能：TupleWrapper3构造器。
+功能：TupleWrapper3 构造器。
 
 参数：
 
@@ -428,11 +428,11 @@ public func getElementAsAny(index: Int64): ?Any
 extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Arbitrary<TupleWrapper3<T0, T1, T2>>  where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>
 ```
 
-功能：为 [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实现。
+功能：为 [TupleWrapper3](#struct-tuplewrapper3t0-t1-t2) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>>
 
 #### static func arbitrary(RandomSource)
 
@@ -485,11 +485,11 @@ public struct TupleWrapper4<T0, T1, T2, T3> {
 public TupleWrapper4(public let tuple: (T0, T1, T2, T3))
 ```
 
-功能：TupleWrapper4构造器。
+功能：TupleWrapper4 构造器。
 
 参数：
 
-- tuple: (T0, T1, T2, T3) - 闭包的4个入参。
+- tuple: (T0, T1, T2, T3) - 闭包的 4 个入参。
 
 ### let tuple
 
@@ -615,11 +615,11 @@ public func getElementAsAny(index: Int64): ?Any
 extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T0, T1, T2, T3>> where where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>
 ```
 
-功能：为 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实现。
+功能：为 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>>
 
 #### static func arbitrary(RandomSource)
 
@@ -673,11 +673,11 @@ public struct TupleWrapper5<T0, T1, T2, T3, T4> {
 public TupleWrapper5(public let tuple: (T0, T1, T2, T3, T4))
 ```
 
-功能：TupleWrapper5构造器。
+功能：TupleWrapper5 构造器。
 
 参数：
 
-- tuple: (T0, T1, T2, T3, T4) - 闭包的5个入参。
+- tuple: (T0, T1, T2, T3, T4) - 闭包的 5 个入参。
 
 ### let tuple
 
@@ -803,11 +803,11 @@ public func getElementAsAny(index: Int64): ?Any
 extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper2<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
 ```
 
-功能：为 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实现。
+功能：为 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1, T2, T3, T4>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1, T2, T3, T4>>
 
 #### static func arbitrary(RandomSource)
 

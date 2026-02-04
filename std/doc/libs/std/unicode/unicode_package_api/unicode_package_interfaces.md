@@ -191,7 +191,7 @@ func toUpperCase(opt: CasingOption): Rune
 extend Rune <: UnicodeRuneExtension
 ```
 
-功能：为 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeRuneExtension) 接口，支持字符集相关的操作。
+功能：为 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-unicoderuneextension) 接口，支持字符集相关的操作。
 
 父类型：
 
@@ -726,7 +726,7 @@ func trim(): String
 func trimEnd(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 返回值：
 
@@ -762,7 +762,7 @@ func trimLeft(): String
 func trimRight(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 > **注意：**
 >
@@ -798,7 +798,7 @@ func trimStart(): String
 extend String <: UnicodeStringExtension
 ```
 
-功能：为 [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-UnicodeStringExtension) 接口，支持字符集相关的操作。
+功能：为 [String](../../core/core_package_api/core_package_structs.md#struct-string) 类型扩展 [UnicodeRuneExtension](unicode_package_interfaces.md#interface-unicodestringextension) 接口，支持字符集相关的操作。
 
 父类型：
 
@@ -1077,7 +1077,7 @@ main(): Unit {
 public func trimEnd(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 返回值：
 
@@ -1147,7 +1147,7 @@ main(): Unit {
 public func trimRight(): String
 ```
 
-功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
+功能：去除字符串结尾的空字符，空字符定义见 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的扩展函数 [isWhiteSpace](#func-iswhitespace)。
 
 > **注意：**
 >

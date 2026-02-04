@@ -14,7 +14,7 @@ public class Generators {}
 public static func generate<T>(l: T, r: T, body: (T, T) -> T): Generator<T>
 ```
 
-功能：通过重复调用函数生成值的生成器, 范围为 [l, r]。
+功能：通过重复调用函数生成值的生成器，范围为 [l, r]。
 
 参数：
 
@@ -65,7 +65,7 @@ public static func iterable<T>(random: RandomSource, collection: Array<T>): Gene
 public static func lookup<T>(random: RandomSource): Generator<T> where T <: Arbitrary<T>
 ```
 
-功能：通过 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器。
+功能：通过 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器。
 
 参数：
 
@@ -81,7 +81,7 @@ public static func lookup<T>(random: RandomSource): Generator<T> where T <: Arbi
 public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator<R> where T <: Arbitrary<T>
 ```
 
-功能：获取 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -98,7 +98,7 @@ public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator
  public static func mapped<T1, T2, R>(random: RandomSource, body: (T1, T2) -> R): Generator<R> where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>
 ```
 
-功能：获取 T1，T2 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1，T2 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -116,7 +116,7 @@ public static func mapped<T1, T2, T3, R>(random: RandomSource, body: (T1, T2, T3
             where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>, T3 <: Arbitrary<T3>
 ```
 
-功能：获取 T1,T2,T3 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1,T2,T3 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -134,7 +134,7 @@ public static func mapped<T1, T2, T3, T4, R>(random: RandomSource, body: (T1, T2
             where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>, T3 <: Arbitrary<T3>, T4 <: Arbitrary<T4>
 ```
 
-功能：获取 T1,T2,T3,T4 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) 实例提供的生成器，并使用函数体生成 R 类型的值。
+功能：获取 T1,T2,T3,T4 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
 
 参数：
 
@@ -215,7 +215,7 @@ public class RandomDataProvider<T> <: DataProvider<T> where T <: Arbitrary<T> {
 public RandomDataProvider(private let configuration: Configuration)
 ```
 
-功能：构造一个随机数据提供者RandomDataProvider的对象。
+功能：构造一个随机数据提供者 RandomDataProvider 的对象。
 
 参数：
 

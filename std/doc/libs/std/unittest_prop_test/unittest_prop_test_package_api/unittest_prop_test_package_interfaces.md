@@ -1404,11 +1404,11 @@ static func arbitrary(random: RandomSource): Generator<HashSet<T>>
 extend<K, V> HashMap<K, V> <: Arbitrary<HashMap<K, V>> where K <: Arbitrary<K>, V <: Arbitrary<V>
 ```
 
-功能：为 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<T>  实现了 [Arbitrary](#interface-arbitraryt) 接口，且 T 需实现 [Arbitrary](#interface-arbitraryt)\<T> 接口。
+功能：为 [HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<T>  实现了 [Arbitrary](#interface-arbitraryt) 接口，且 T 需实现 [Arbitrary](#interface-arbitraryt)\<T> 接口。
 
 父类型：
 
-- [Arbitrary](#interface-arbitraryt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v)\<K, V>>
+- [Arbitrary](#interface-arbitraryt)\<[HashMap](../../collection/collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>>
 
 #### static func arbitrary(RandomSource)
 
