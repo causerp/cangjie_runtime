@@ -88,7 +88,7 @@ protected:
         size_t remain = size % numPerRow;
         size_t count = defaultCount;
         CString detail = "";
-        for (auto x : rootMap) {
+        for (const auto& x : rootMap) {
             if (count == defaultCount) {
                 detail.Append("     ");
             }

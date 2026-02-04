@@ -152,8 +152,8 @@ private:
     GenericTiDescHashMap genericTypeInfoDescMap;
     uintptr_t startAddress;
     uintptr_t endAddress;
-    std::atomic<U32> tiUUID { 1 };
-    std::atomic<U16> ttUUID { 1 };
+    std::atomic<U32> tiMaxUUID { 1 };
+    std::atomic<U16> ttMaxUUID { 1 };
     TypeGCInfo typeGCInfo;
     std::vector<std::pair<uintptr_t, size_t>> mmapList;
     std::unordered_map<U32, MTableDesc*> mTableList;
