@@ -413,8 +413,8 @@ public struct KeyBatchSize <: KeyFor<Int64> & KeyFor<Range<Int64>> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>>
 
 ### prop batchSize
 
@@ -1246,9 +1246,9 @@ public struct KeyParallel <: KeyFor<Bool> & KeyFor<String> & KeyFor<Int64> {}
 
 父类型：
 
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfor)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)>
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)\<[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)>
 
 ### prop parallel
 
@@ -1860,7 +1860,7 @@ public RelativeDelta(let absolute!: T, let relative!: T)
 - absolute!: T - 绝对比较部分的 delta 值。
 - relative!: T - 相对比较部分的 delta 值。
 
-参考示例：[近似相等](../../unittest/unittest_samples/unittest_basics.md#近似相等)
+参考示例：[近似相等](../../unittest/unittest_samples/unittest_basics.md)
 
 ## struct TestCaseInfo
 

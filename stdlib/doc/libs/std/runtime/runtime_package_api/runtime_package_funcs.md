@@ -466,8 +466,6 @@ main() {
 当前使用的堆内存大小: 614400 字节
 ```
 
-
-
 ## func registerSignalHandler(Signal, SignalHandlerFunc)
 
 ```cangjie
