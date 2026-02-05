@@ -92,6 +92,10 @@ void CentralCache::ReleaseListToSpans(void* start, size_t index)
     while (start) {
         void* next = NextObj(start);
         Span* span = PageCache::GetInstance()->MapObjectToSpan(start);
+        if (span == nullptr) {
+            start = next;
+            continue;
+        }
         NextObj(start) = span->freeBlocks;
         span->freeBlocks = start;
         --span->useCount;
