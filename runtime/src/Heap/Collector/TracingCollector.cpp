@@ -451,12 +451,9 @@ bool TracingCollector::MarkSatbBuffer(WorkStack& workStack)
     if (!workStack.empty()) {
         workStack.clear();
     }
-#ifdef __arm__
-    uint64_t maxIterationTime = 120ULL * 1000 * 1000 * 1000; // 2 mins.
-#else
-    constexpr size_t maxIterationTime = 120ULL * 1000 * 1000 * 1000; // 2 mins.
-#endif
-    constexpr size_t maxIterationLoopNum = 1000;
+
+    constexpr uint64_t maxIterationTime = 120ULL * 1000 * 1000 * 1000; // 2 mins.
+    constexpr uint64_t maxIterationLoopNum = 1000;
     auto visitSatbObj = [this, &workStack]() {
         WorkStack remarkStack;
         auto func = [&remarkStack](Mutator& mutator) {
@@ -479,7 +476,7 @@ bool TracingCollector::MarkSatbBuffer(WorkStack& workStack)
     };
 
     visitSatbObj();
-    size_t iterationCnt = 0;
+    uint64_t iterationCnt = 0;
     uint64_t iterationStartTime = TimeUtil::NanoSeconds();
     do {
         if (++iterationCnt > maxIterationLoopNum && (TimeUtil::NanoSeconds() - iterationStartTime) > maxIterationTime) {

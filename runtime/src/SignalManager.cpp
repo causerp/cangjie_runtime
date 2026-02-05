@@ -114,11 +114,15 @@ void PrintSignalHandlerStack(int sig, const siginfo_t* info, void* context)
     ucontext_t* ucontext = static_cast<ucontext_t*>(context);
     uintptr_t sigPc = GetPCFromUContext(*ucontext);
     uintptr_t sigFa = GetFAFromUContext(*ucontext);
-    pthread_t thread = pthread_self();
     constexpr uint8_t threadNameLen = 16;
     constexpr uint32_t simpleSigStrSize = 256;
     char threadName[threadNameLen];
+#if defined (__arm__) && defined (__ANDROID__)
+    prctl(PR_GET_NAME, threadName, 0, 0, 0);
+#else
+    pthread_t thread = pthread_self();
     pthread_getname_np(thread, threadName, threadNameLen);
+#endif
     UnwindContext uwContext;
     const char* frameTypeStr;
     Mutator* mutator = Mutator::GetMutator();

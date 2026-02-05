@@ -214,10 +214,17 @@ CJ_MCC_N2CStub:
 
 #ifdef __OHOS__
     cmp  r0, #0
-    beq  .L_copy
-    mov  sp, r0
+    movne sp, r0
 #endif
 
+    // Calculate stack args size and alignment requires 16 byte-aligned
+    sub  r9, r4, r10
+    sub  r9, sp, r9
+    tst  r9, #0xf
+    it   ne
+    subne sp, sp, #8
+    cfi_adjust_cfa_offset (8)
+    
     // copy arg8, arg9, arg10, ... (if existed)
 .L_copy:
     cmp  r4, r10
@@ -334,19 +341,36 @@ unwindPCForN2CStub:
 .type    ExecuteCangjieStub, %function
 ExecuteCangjieStub:
     .cfi_startproc
-    sub  sp, sp, #8
+    // Calculate stack args size and alignment requires 16 byte-aligned.
+    // If arm32 need tlData argument, the parameters need to be saved first .
+    mov  r12, sp
+    tst  sp, #0xf
+    it  ne
+    subne  sp, sp, #8
+    cfi_adjust_cfa_offset (8)
+
+    sub  sp, sp, #16
     str  r11, [sp]
     str  lr, [sp, #4]
-    cfi_adjust_cfa_offset (8)
+    str  r12, [sp, #8]
+    cfi_adjust_cfa_offset (16)
     cfi_rel_offset (r11, 0)
     cfi_rel_offset (lr, 4)
+    cfi_rel_offset (r12, 8)
     blx  r3
     ldr  r11, [sp]
     ldr  lr, [sp, #4]
-    add  sp, sp, #8
-    cfi_adjust_cfa_offset (-8)
+    ldr  r12, [sp, #8]
+    add  sp, sp, #16
+    cfi_adjust_cfa_offset (-16)
     cfi_restore (r11)
     cfi_restore (lr)
+    cfi_restore (r12)
+
+    tst  r12, #0xf
+    it  ne
+    addne  sp, sp, #8
+    cfi_adjust_cfa_offset (-8)
 
     bx  lr
     .cfi_endproc
@@ -448,6 +472,8 @@ CJ_MRT_ARKTS_CreateEngineStub:
 #endif
 
 
+// TODO: The reflection function is not supported on the arm32. In future development,
+// need to pay attention to the 16-byte alignment of sp before invoking the cangjie method.
 .text
 .align 2
 .global  ApplyCangjieMethodStub

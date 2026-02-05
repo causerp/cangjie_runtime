@@ -57,11 +57,7 @@ public:
 
     void RestoreToCallerContext(CalleeSavedRegisterContext& context, uint32_t adjustedSize = 0) const
     {
-#if defined(__arm__)
-        constexpr uint8_t sizeOfAddr = 4;
-#else
-        constexpr uint8_t sizeOfAddr = 8;
-#endif
+        constexpr uint8_t sizeOfAddr = sizeof(void*);  // arm32 is 4, aarch64 is 8
         constexpr uint8_t sizeOfStackHead = sizeOfAddr * 2; // callee rbp + return addr
 #if defined(__x86_64__)
         context.rsp = context.rbp + sizeOfStackHead;
@@ -186,11 +182,7 @@ public:
             bitsLen = VarInt::BitsLen::FORTH_STEP_VAR_BITS;
         }
         bitsMask = static_cast<uint32_t>((1UL << bitsLen) - 1);
-#ifdef __arm__
-        res = *reinterpret_cast<uint32_t*>(*point) >> (tagLen * validPos) & bitsMask;
-#else
-        res = *reinterpret_cast<uint64_t*>(*point) >> (tagLen * validPos) & bitsMask;
-#endif
+        res = (*reinterpret_cast<ArchUInt*>(*point) >> (tagLen * validPos)) & bitsMask;
         uint32_t byteLen = bitsLen >> 3; // 8 bits per byte
         *point = reinterpret_cast<Uptr*>(reinterpret_cast<uint8_t*>(*point) + byteLen);
         return res;
