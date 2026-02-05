@@ -24,31 +24,23 @@ class ExtensionData;
 class BaseFile;
 constexpr U8 BITS_FOR_REF = 1;
 constexpr U8 REF_BIT_MASK = 1;
-constexpr U64 SIGN_BIT_64 = (U64)1 << 63;
-constexpr U32 SIGN_BIT_32 = (U32)1 << 31;
+// for arm32: 1 << 31. for aarch64 or x86_64: 1 << 63.
+constexpr ArchUInt SIGN_BIT =  (ArchUInt)1 << (sizeof(void*) * 8 - 1);
 constexpr U16 INVALID_INHERIT_NUM = (1 << 15) - 1;
-
-#ifdef __arm__
-#define SIGN_BIT  SIGN_BIT_32
-using BIT_TYPE = U32;
-#else
-#define SIGN_BIT  SIGN_BIT_64
-using BIT_TYPE = U64;
-#endif
 
 extern const size_t TYPEINFO_PTR_SIZE;
 
 union MTableBitmap {
     using LargeBitmap = std::pair<U32, U8[]>;
-    BIT_TYPE shortBitmap;
+    ArchUInt shortBitmap;
     LargeBitmap* largeBitmap;
-    BIT_TYPE tag;
+    ArchUInt tag;
 
     void ForEachBit(const std::function<void(ExtensionData*)>& visitor, ExtensionData** vExtensionPtr)
     {
         bool isSmallBitmap = tag & SIGN_BIT;
         if (isSmallBitmap) {
-            BIT_TYPE bitInfo = shortBitmap & (~SIGN_BIT);
+            ArchUInt bitInfo = shortBitmap & (~SIGN_BIT);
             while (LIKELY(bitInfo != 0)) {
                 if (bitInfo & 0x1) {
                     visitor(*vExtensionPtr);
@@ -225,7 +217,7 @@ struct MTableDesc {
     bool pending = false;
     bool needsResolveInner = true;
     bool needsResolveOuter = true;
-    explicit MTableDesc(BIT_TYPE bitmap_);
+    explicit MTableDesc(ArchUInt bitmap_);
     MTableDesc() = delete;
     bool IsFullyHandled() const { return !NeedResolveInner() && !NeedResolveOuter(); };
     inline bool NeedResolveInner() const { return needsResolveInner; }
@@ -234,11 +226,11 @@ struct MTableDesc {
 
 typedef TypeInfo* (*GenericFunc)(TypeInfo**);
 struct ShortGCTib {
-    BIT_TYPE bitmap; // lower 63 bits are valid, each bit indicates 8-byte width, 1:ref, 0:no-ref
+    ArchUInt bitmap; // lower 63 bits are valid, each bit indicates 8-byte width, 1:ref, 0:no-ref
 
     void ForEachBitmapWord(MAddress fieldAddr, const RefFieldVisitor& visitor) const
     {
-        BIT_TYPE gcInfo = bitmap & (~SIGN_BIT);
+        ArchUInt gcInfo = bitmap & (~SIGN_BIT);
         while (LIKELY(gcInfo != 0)) {
             if (gcInfo & REF_BIT_MASK) {
                 visitor(*reinterpret_cast<RefField<>*>(fieldAddr));
@@ -250,7 +242,7 @@ struct ShortGCTib {
     void ForEachBitmapWordInRange(MAddress baseAddr, const RefFieldVisitor& visitor, MAddress rangeStart,
                                   MAddress rangeEnd) const
     {
-        BIT_TYPE gcInfo = bitmap & (~SIGN_BIT);
+        ArchUInt gcInfo = bitmap & (~SIGN_BIT);
         U32 startPos = (rangeStart - baseAddr) / sizeof(RefField<>);
         gcInfo >>= startPos;
 
@@ -346,7 +338,7 @@ struct StdGCTib {
 };
 
 union GCTib {
-    BIT_TYPE tag;           // 1: bitmap, 0: gctib
+    ArchUInt tag;           // 1: bitmap, 0: gctib
     ShortGCTib bitmap; // each bit indicates 8-byte width, 1:ref, 0:no-ref
     StdGCTib* gctib;   // valid only when highest bit is 0.
 
@@ -356,7 +348,7 @@ union GCTib {
         // arm32 only use gctib pointer.
         return false;
 #else
-        return static_cast<bool>(tag & SIGN_BIT_64); // 63: Use 64-bit sign bit as flag.
+        return static_cast<bool>(tag & SIGN_BIT); // 63: Use 64-bit sign bit as flag.
 #endif
     }
 
@@ -744,7 +736,7 @@ private:
             ;
     }
     // This function must be called before mTableDesc is overwritten.
-    inline BIT_TYPE GetResolveBitmapFromMTableDesc()
+    inline ArchUInt GetResolveBitmapFromMTableDesc()
     {
         return reinterpret_cast<uintptr_t>(mTableDesc);
     }

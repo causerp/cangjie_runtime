@@ -129,12 +129,8 @@ public:
     }
     U32 GetStackSize()
     {
-        // 8: means the size of each type in stack
-#ifdef __arm__
-        return (stackIdx - kRegArgsSize) * 4;
-#else
-        return (stackIdx - kRegArgsSize) * 8;
-#endif
+        // sizeof(void*): means the size of each type in stack. arm32 is 4 and the other is 8.
+        return (stackIdx - kRegArgsSize) * sizeof(void*);
     }
     U32 GetStackIdx()
     {

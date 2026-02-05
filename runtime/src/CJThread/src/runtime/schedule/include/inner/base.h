@@ -112,7 +112,31 @@ static inline int SemaphoreDestroy(struct Semaphore *sem)
     return sem_destroy(&sem->sem);
 }
 
+#if defined (__ANDROID__) && (VOS_WORDSIZE == 32) && (MRT_HARDWARE_PLATFORM == MRT_ARM)
+struct CJthreadSpinLock {
+    pthread_mutex_t lock;
+};
 
+static inline int PthreadSpinInit(struct CJthreadSpinLock *lock)
+{
+    return pthread_mutex_init(&lock->lock, nullptr);
+}
+
+static inline int PthreadSpinLock(struct CJthreadSpinLock *lock)
+{
+    return pthread_mutex_lock(&lock->lock);
+}
+
+static inline int PthreadSpinUnlock(struct CJthreadSpinLock *lock)
+{
+    return pthread_mutex_unlock(&lock->lock);
+}
+
+static inline int PthreadSpinDestroy(struct CJthreadSpinLock *lock)
+{
+    return pthread_mutex_destroy(&lock->lock);
+}
+#else
 struct CJthreadSpinLock {
     pthread_spinlock_t lock;
 };
@@ -137,5 +161,6 @@ static inline int PthreadSpinDestroy(struct CJthreadSpinLock *lock)
     return pthread_spin_destroy(&lock->lock);
 }
 
+#endif
 #endif
 #endif

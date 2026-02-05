@@ -511,13 +511,9 @@ bool CJFileLoader::CheckPackageCompatibility(BaseFile* file)
     if (file == nullptr) {
         return false;
     }
-#ifdef __arm__
-    bool isCompatible = true;
-#else
     CString packageName = file->GetRealPath();
     CString packageVersion = file->GetSDKVersion();
     bool isCompatible = compatibility.CheckPackageCompatibility(packageName, packageVersion);
-#endif
     file->SetFileCompatibility(isCompatible);
     AddLoadedFiles(file);
     return isCompatible;
