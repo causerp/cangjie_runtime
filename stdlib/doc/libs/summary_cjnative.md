@@ -1,4 +1,5 @@
 - [仓颉编程语言标准库概述](std/std_module_overview.md)
+<!--RP1--><!--RP1End-->
 - [std.core](std/core/core_package_overview.md)
     - [函数](std/core/core_package_api/core_package_funcs.md)
     - [类型别名](std/core/core_package_api/core_package_types.md)
