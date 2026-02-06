@@ -111,8 +111,13 @@ void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, s
     auto token1 = inputTokens[1];
     if (token0.End().column == token1.Begin().column) {
         // >= > trans to > =>
-        token0 = Token(TokenKind::GT, ">", token0.Begin(), token0.Begin() + 1);
-        token1 = Token(TokenKind::DOUBLE_ARROW, "=>", token0.Begin() + 1, token1.End());
+        if (token0.kind == TokenKind::GE) {
+            token0 = Token(TokenKind::GT, ">", token0.Begin(), token0.Begin() + Len(TokenKind::GT));
+            token1 = Token(TokenKind::DOUBLE_ARROW, "=>", token0.Begin() + Len(TokenKind::GT), token1.End());
+        } else { // >>= > trans to >> =>
+            token0 = Token(TokenKind::RSHIFT, ">>", token0.Begin(), token0.Begin() + Len(TokenKind::RSHIFT));
+            token1 = Token(TokenKind::DOUBLE_ARROW, "=>", token0.Begin() + Len(TokenKind::RSHIFT), token1.End());
+        }
     }
     if (macCall != nullptr) {
         token0 = Token(token0.kind, token0.Value(), macCall->GetBeginPos(), macCall->GetEndPos());
@@ -142,7 +147,7 @@ ParseRes* CJ_AST_Lex(void* fptr, const char* code)
         macCall = reinterpret_cast<MacroCall*>(fptr);
     }
     while (true) {
-        if (lex.Seeing({TokenKind::GE, TokenKind::GT}, false, false)) {
+        if (lex.Seeing({TokenKind::GE, TokenKind::GT}, false, false) || lex.Seeing({TokenKind::RSHIFT_ASSIGN, TokenKind::GT}, false, false)) {
             auto geToken = lex.Next();
             auto gtToken = lex.Next();
             TryCombineDoubleArrow(macCall, {geToken, gtToken}, tokens);
