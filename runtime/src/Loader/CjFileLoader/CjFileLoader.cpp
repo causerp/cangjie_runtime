@@ -153,11 +153,11 @@ void CJFileLoader::VisitExtensionData(
             continue;
         }
         auto& extensions = it1->second;
-        if (extensions.find(tt) == extensions.end()) {
+        auto range = extensions.equal_range(tt);
+        if (range.first == range.second) {
             continue;
         }
         bool found = false;
-        auto range = extensions.equal_range(tt);
         for (auto it2 = range.first; it2 != range.second; ++it2) {
             auto res = f(it2->second);
             found |= res;
@@ -189,8 +189,9 @@ void CJFileLoader::ParseEnumCtor(TypeInfo* ti)
 #ifdef __arm__
     return;
 #endif
+    TypeInfoManager& typeInfoMgr = TypeInfoManager::GetTypeInfoManager();
     if (ti->IsGenericTypeInfo()) {
-        return TypeInfoManager::GetTypeInfoManager().ParseEnumInfo(
+        return typeInfoMgr.ParseEnumInfo(
             ti->GetSourceGeneric(), ti->GetTypeArgNum(), ti->GetTypeArgs(), ti);
     }
     EnumInfo* ei = ti->GetEnumInfo();
@@ -226,6 +227,7 @@ void CJFileLoader::RegisterTypeExt(BaseFile* baseFile)
 
 void CJFileLoader::RegisterTypeInfoCreatedByFE(BaseFile* baseFile)
 {
+    TypeInfoManager& typeInfoMgr = TypeInfoManager::GetTypeInfoManager();
     Uptr typeInfoBase = baseFile->GetTypeInfoBase();
     Uptr typeInfoEnd = typeInfoBase + baseFile->GetTypeInfoTotalSize();
     while (typeInfoBase < typeInfoEnd) {
@@ -237,12 +239,12 @@ void CJFileLoader::RegisterTypeInfoCreatedByFE(BaseFile* baseFile)
         if (tt != nullptr) {
             ti->SetvExtensionDataStart(tt->GetvExtensionDataStart());
         }
-        TypeInfoManager::GetTypeInfoManager().AddTypeInfo(ti);
+        typeInfoMgr.AddTypeInfo(ti);
         if (ti->IsEnum() || ti->IsTempEnum()) {
             ParseEnumCtor(ti);
         }
     }
-    TypeInfoManager::GetTypeInfoManager().InitAnyAndObjectType();
+    typeInfoMgr.InitAnyAndObjectType();
 
     Uptr staticGIBase = baseFile->GetStaticGIBase();
     Uptr staticGIEnd = staticGIBase + baseFile->GetStaticGISize();
@@ -259,7 +261,7 @@ void CJFileLoader::RegisterTypeInfoCreatedByFE(BaseFile* baseFile)
         if (ti->IsEnum() || ti->IsTempEnum()) {
             continue;
         } else if (ti->IsGenericTypeInfo() && ti->ReflectInfoIsNull() && !ti->GetSourceGeneric()->ReflectInfoIsNull()) {
-            TypeInfoManager::GetTypeInfoManager().FillReflectInfo(ti->GetSourceGeneric(), ti);
+            typeInfoMgr.FillReflectInfo(ti->GetSourceGeneric(), ti);
         }
     }
 }
@@ -267,7 +269,8 @@ void CJFileLoader::RegisterTypeInfoCreatedByFE(BaseFile* baseFile)
 void CJFileLoader::RegisterOuterTypeExtensions(BaseFile* baseFile)
 {
     lastIsFinished = false;
-    for (auto mtDesc : TypeInfoManager::GetTypeInfoManager().mTableList) {
+    TypeInfoManager& typeInfoMgr = TypeInfoManager::GetTypeInfoManager();
+    for (const auto& mtDesc : typeInfoMgr.mTableList) {
         mtDesc.second->waitedExtensionDatas.emplace_back(baseFile);
     }
     Uptr extensionDataRefBase = baseFile->GetOuterTypeExtensionsBase();
@@ -285,9 +288,9 @@ void CJFileLoader::RegisterOuterTypeExtensions(BaseFile* baseFile)
         // need to be collected in `extensionDatas`.
         if (extensionData->TargetIsTypeInfo()) {
             TypeInfo* itf = extensionData->GetInterfaceTypeInfo();
-            TypeInfoManager::GetTypeInfoManager().AddTypeInfo(itf);
+            typeInfoMgr.AddTypeInfo(itf);
             TypeInfo* ti = reinterpret_cast<TypeInfo*>(extensionData->GetTargetType());
-            TypeInfoManager::GetTypeInfoManager().AddTypeInfo(ti);
+            typeInfoMgr.AddTypeInfo(ti);
             ti->AddMTable(itf, extensionData);
             continue;
         }

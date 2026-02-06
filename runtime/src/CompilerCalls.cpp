@@ -87,7 +87,7 @@ public:
             std::vector<StackTraceElement> stackTraces;
             StackManager::GetStackTraceByLiteFrameInfos(stackInfo, stackTraces);
             LOG(RTLOG_ERROR, "Call too many releaseArrayRawData");
-            for (auto& ste : stackTraces) {
+            for (const auto& ste : stackTraces) {
                 LOG(RTLOG_ERROR, "\t at %s%s%s(%s:%ld)", ste.className.Str(),
                     ste.className.Length() > 0 ? "." : "", ste.methodName.Str(), ste.fileName.Str(),
                     ste.lineNumber);
@@ -100,7 +100,7 @@ public:
             std::vector<StackTraceElement> stackTraces;
             StackManager::GetStackTraceByLiteFrameInfos(stackInfo, stackTraces);
             LOG(RTLOG_ERROR, "Call too many releaseArrayRawData");
-            for (auto& ste : stackTraces) {
+            for (const auto& ste : stackTraces) {
                 LOG(RTLOG_ERROR, "\t at %s%s%s(%s:%ld)", ste.className.Str(),
                     ste.className.Length() > 0 ? "." : "", ste.methodName.Str(), ste.fileName.Str(),
                     ste.lineNumber);
@@ -157,7 +157,7 @@ void RawPtrCheckerTimerEntry(void* arg)
     std::vector<StackTraceElement> stackTraces;
     if (!pinnedArrayRecorder.CheckStackInfo(rawPtr, mutator, pos, stackTraces)) {
         LOG(RTLOG_ERROR, "acquireArrayRawData lasted too long");
-        for (auto& ste : stackTraces) {
+        for (const auto& ste : stackTraces) {
             LOG(RTLOG_ERROR, "\t at %s%s%s(%s:%ld) misses releaseArrayRawData", ste.className.Str(),
                 ste.className.Length() > 0 ?
                 "." : "", ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
@@ -906,24 +906,25 @@ extern "C" void* MCC_LoadPackage(const char* path)
     if (path == nullptr || *path == '\0') {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    if (LoaderManager::GetInstance()->FileHasLoaded(path)) {
+    LoaderManager* loaderMgr = LoaderManager::GetInstance();
+    if (loaderMgr->FileHasLoaded(path)) {
         return reinterpret_cast<void*>(LOAD_FILENAME_REPEATED);
     }
     if (LoadCJLibrary(path) != E_OK) {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    if (LoaderManager::GetInstance()->GetPackageInfoByPath(path) == nullptr) {
-        LoaderManager::GetInstance()->RemovePackageInfo(path);
+    if (loaderMgr->GetPackageInfoByPath(path) == nullptr) {
+        loaderMgr->RemovePackageInfo(path);
         return reinterpret_cast<void*>(LOAD_PACKAGE_REPEATED);
     }
-    if (LoaderManager::GetInstance()->FileHasMultiPackage(path)) {
-        LoaderManager::GetInstance()->RemovePackageInfo(path);
+    if (loaderMgr->FileHasMultiPackage(path)) {
+        loaderMgr->RemovePackageInfo(path);
         return reinterpret_cast<void*>(HAS_MULTI_PACKAGE);
     }
     if (InitCJLibrary(path) != E_OK) {
         return reinterpret_cast<void*>(LOAD_FAIL);
     }
-    return LoaderManager::GetInstance()->GetPackageInfoByPath(path);
+    return loaderMgr->GetPackageInfoByPath(path);
 }
 
 extern "C" PackageInfo* MCC_GetPackageByQualifiedName(const char* packageName)

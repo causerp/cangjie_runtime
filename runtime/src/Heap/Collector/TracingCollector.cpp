@@ -44,10 +44,9 @@ void StaticRootTable::VisitRoots(const RefFieldVisitor& visitor)
         for (USize i = 0; i < gcRootsSize; i++) {
             RefField<>* root = array->content[i];
             // make sure to visit each static root only once time.
-            if (visitedSet.find(root) != visitedSet.end()) {
+            if (!visitedSet.insert(root).second) {
                 continue;
             }
-            visitedSet.insert(root);
             visitor(*root);
         }
     }

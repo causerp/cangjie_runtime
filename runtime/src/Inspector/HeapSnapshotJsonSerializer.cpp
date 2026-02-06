@@ -67,7 +67,7 @@ void CjHeapDataForIDE::SerializeString()
 {
     writer->WriteString("\\\"STRING\\\":[");
     bool isFirstElement = true;
-    for (auto string : strings) {
+    for (const auto& string : strings) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
@@ -92,7 +92,7 @@ void CjHeapDataForIDE::SerializeAllClassLoad()
 {
     writer->WriteContinueString("\\\"CLASSLOAD\\\":[");
     bool isFirstElement = true;
-    for (auto klassInfo : dumpClassMap) {
+    for (const auto& klassInfo : dumpClassMap) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
@@ -108,7 +108,7 @@ void CjHeapDataForIDE::SerializeAllClass()
 {
     writer->WriteContinueString("\\\"CLASS\\\":[");
     bool isFirstElement = true;
-    for (auto klassInfo : dumpClassMap) {
+    for (const auto& klassInfo : dumpClassMap) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
@@ -124,7 +124,7 @@ void CjHeapDataForIDE::SerializeAllStructClass()
 {
     writer->WriteContinueString("\\\"STRUCTCLASS\\\":[");
     bool isFirstElement = true;
-    for (auto klassInfo : dumpStructClassMap) {
+    for (const auto& klassInfo : dumpStructClassMap) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
@@ -149,7 +149,7 @@ void CjHeapDataForIDE::SerializeAllStructClassLoad()
 {
     writer->WriteContinueString("\\\"STRUCTCLASSLOAD\\\":[");
     bool isFirstElement = true;
-    for (auto klassInfo : dumpStructClassMap) {
+    for (const auto& klassInfo : dumpStructClassMap) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
@@ -265,7 +265,7 @@ void CjHeapDataForIDE::SerializeAllObjects()
 {
     writer->WriteContinueString("\\\"OBJECTS\\\":[");
     bool isFirstElement = true;
-    for (auto objectInfo : dumpObjects) {
+    for (const auto& objectInfo : dumpObjects) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {

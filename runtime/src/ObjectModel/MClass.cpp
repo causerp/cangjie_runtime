@@ -232,7 +232,7 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
         TryInitMTable();
         TraverseInnerExtensionDefs();
         auto& mTable = mTableDesc->mTable;
-        for (auto& superTypePair : mTable) {
+        for (const auto& superTypePair : mTable) {
             auto superTi = superTypePair.second.GetSuperTi();
             // make sure super is the subtype of itf, and super is the direct super type of this type.
             if (!superTypePair.second.GetExtensionData()->IsDirect()) {
@@ -472,7 +472,7 @@ void TypeInfo::GetInterfaces(std::vector<TypeInfo*> &itfs)
 	if (IsGenericTypeInfo()) {
 		TraverseOuterExtensionDefs();
 	}
-    for (auto& pair : mTableDesc->mTable) {
+    for (const auto& pair : mTableDesc->mTable) {
 		auto super = pair.second.GetSuperTi();
 		if (super->IsInterface()) {
 			itfs.emplace_back(super);
@@ -487,7 +487,7 @@ ExtensionData* TypeInfo::FindExtensionDataRecursively(TypeInfo* itf)
     }
 
     std::lock_guard<std::recursive_mutex> lock(mTableDesc->mTableMutex);
-    for (auto& pair : mTableDesc->mTable) {
+    for (const auto& pair : mTableDesc->mTable) {
         if (pair.first == GetUUID()) {
             // Avoid infinite recursion. The mTAble may contain itself.
             continue;
@@ -546,21 +546,33 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
     if (UNLIKELY(IsTempEnum() && GetSuperTypeInfo())) {
         return GetSuperTypeInfo()->GetMTable(itf);
     }
+    // Fast path: mTable ready and entry found with func table already updated
+    if (LIKELY(!IsMTableDescUnInitialized() && mTableDesc->IsFullyHandled())) {
+        const U32 itfUUID = itf->GetUUID();
+        auto it = mTableDesc->mTable.find(itfUUID);
+        if (it != mTableDesc->mTable.end()) {
+            ExtensionData* ed = it->second.GetExtensionData();
+            if (LIKELY(ed->IsFuncTableUpdated())) {
+                return ed->GetFuncTable();
+            }
+        }
+    }
     auto extensionData = FindExtensionData(itf, true);
-	if (UNLIKELY(extensionData == nullptr)) {
+    if (UNLIKELY(extensionData == nullptr)) {
         LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
     }
     if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
         TryUpdateExtensionData(itf, extensionData);
     }
-	FuncPtr* funcTable = extensionData->GetFuncTable();
-	CHECK(funcTable);
+    FuncPtr* funcTable = extensionData->GetFuncTable();
+    CHECK(funcTable);
     return funcTable;
 }
 
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
-	if (this == itf || this->GetUUID() == itf->GetUUID()) {
+	U32 itfUUID = itf->GetUUID();
+	if (this == itf || this->GetUUID() == itfUUID) {
 		return this;
 	}
 	TypeInfo* superTi = GetSuperTypeInfo();
@@ -571,7 +583,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 		(void)FindExtensionData(itf, true);
 	}
 	auto& mTable = mTableDesc->mTable;
-	auto it = mTable.find(itf->GetUUID());
+	auto it = mTable.find(itfUUID);
 	if (it == mTable.end()) {
 		LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
 		return nullptr;
@@ -590,7 +602,7 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 	// Cache miss and GetOuterTi returned null: resolve by walking supers.
 	FuncPtr* funcTable = ed->GetFuncTable();
 	FuncPtr funcPtr = funcTable[index];
-	for (auto& superTypePair : mTable) {
+	for (const auto& superTypePair : mTable) {
 		ExtensionData* thisEdSuper = superTypePair.second.GetExtensionData();
 		if (!thisEdSuper->IsTargetHasSameSourceWith(this)) {
 			continue;

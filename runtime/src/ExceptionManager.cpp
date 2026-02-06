@@ -136,7 +136,7 @@ void ExceptionManager::DumpException()
         if (str == nullptr) {
             LOG(RTLOG_FATAL, "Alloca memory failed when Cangjie dump uncaught exception.");
         }
-        for (auto ste : stackTrace) {
+        for (const auto& ste : stackTrace) {
             const int strLen = 10;
             char* str = static_cast<char*>(malloc(strLen * sizeof(char)));
             sprintf_s(str, strLen, "%ld", ste.lineNumber);
@@ -191,7 +191,7 @@ void ExceptionManager::DumpException()
 #endif
             LOG(RTLOG_ERROR, "\t ... Some frames are not displayed ...\n");
         }
-        for (auto ste : stackTrace) {
+        for (const auto& ste : stackTrace) {
 #ifdef __APPLE__
             PRINT_ERROR("\t at %s%s%s(%s:%lld)\n", ste.className.Str(), ste.className.Length() > 0 ? "." : "",
                        ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);

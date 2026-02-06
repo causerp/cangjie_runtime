@@ -101,7 +101,7 @@ void StackManager::PrintStackTraceForCpuProfile(UnwindContext* unContext, unsign
     std::vector<uint64_t> funcDescRefs;
     std::vector<FrameType> frameTypes;
     std::vector<uint32_t> lineNumbers;
-    for (auto& frame : stacks) {
+    for (const auto& frame : stacks) {
 #ifdef __APPLE__
         FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(frame.mFrame.GetFA());
 #else
