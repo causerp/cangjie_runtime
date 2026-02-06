@@ -186,6 +186,10 @@ public open class Tokens <: ToString & Iterable<Token> & ToBytes {
 
     /** Returns current tokens which is the result of concatenating this and `tks`. */
     public open func append(tokens: Tokens): Tokens {
+        if (!(tokens is ConcatTokens)) {
+            this.tokens.add(all: tokens.tokens)
+            return this
+        }
         for (tk in tokens) {
             this.tokens.add(tk)
         }
