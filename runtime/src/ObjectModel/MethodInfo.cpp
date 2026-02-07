@@ -522,7 +522,9 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         PrepareSRet(&argValues, sret, retType);
     }
     if (instanceObj != nullptr) {
-        if ((!declaringTi->IsGenericTypeInfo() && declaringTi->IsStruct()) || ((declaringTi->IsEnum() ||
+        // When a struct is passed as 'this' parameter and its size is unknown at compile time,
+        // the passed 'this' is the struct object itself
+        if ((declaringTi->IsStruct() && !declaringTi->IsUnknownSize()) || ((declaringTi->IsEnum() ||
             declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
             argValues.AddInt64(reinterpret_cast<I64>(instanceObj) + TYPEINFO_PTR_SIZE);
         } else {
@@ -530,7 +532,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         }
     } else {
         TypeInfo* ti = declaringTi;
-        if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsGenericTypeInfo()))) {
+        if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsUnknownSize()))) {
             U32 size = ti->GetInstanceSize();
             MSize objSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
             instanceObj = ObjectManager::NewObject(declaringTi, objSize, AllocType::RAW_POINTER_OBJECT);
@@ -568,7 +570,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     if (HasSRetWithUnknowGenericStruct()) {
         return ret.ref;
     }
-    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsGenericTypeInfo()))) {
+    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsUnknownSize()))) {
         return instanceObj;
     } else if (IsInitializer() && declaringTi->IsStruct()) {
         ret.ref = instanceObj;

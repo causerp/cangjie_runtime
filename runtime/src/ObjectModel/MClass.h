@@ -602,6 +602,7 @@ public:
     inline bool IsFloat64() const;
     inline bool IsCFunc() const;
     inline bool IsRef() const;
+    inline bool IsUnknownSize() const; // mark structs with unknown compile-time size
     inline bool IsGenericTypeInfo() const; // mark generic instantiation TypeInfo
     inline bool IsGeneric() const; // mark a type of GenericTypeInfo, for reflect
     inline bool IsReflectUnsupportedType() const;
@@ -639,7 +640,7 @@ public:
     bool ReflectIsEnable() const;
     bool ReflectInfoIsNull() const;
     inline EnumCtorReflectInfo* GetEnumCtorReflectInfo();
-    ReflectInfo* GetReflectInfo();
+    ReflectInfo* GetReflectInfo() const;
 
     inline const char* GetName() const;
     FuncRef GetFinalizeMethod() const;
