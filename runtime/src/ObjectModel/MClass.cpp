@@ -78,7 +78,7 @@ void* TypeTemplate::ExecuteGenericFunc(void* genericFunc, U32 argSize, TypeInfo*
     return ((GenericiFn)genericFunc)(argSize, args);
 }
 
-ReflectInfo* TypeInfo::GetReflectInfo()
+ReflectInfo* TypeInfo::GetReflectInfo() const
 {
     return reflectInfo;
 }
@@ -836,7 +836,7 @@ bool TypeTemplate::IsEnumCtor() const
     if (!IsEnum() && !IsTempEnum()) {
         return false;
     }
-    return enumInfo->GetModifier() & MODIFIER_ENUM_CTOR;
+    return enumInfo != nullptr ? (enumInfo->GetModifier() & MODIFIER_ENUM_CTOR) : false;
 }
 
 void* ReflectInfo::GetAnnotations(TypeInfo* arrayTi)
@@ -844,15 +844,16 @@ void* ReflectInfo::GetAnnotations(TypeInfo* arrayTi)
     return MapleRuntime::GetAnnotations(annotationMethod, arrayTi);
 }
 
-U32 TypeInfo::GetModifier()
+U32 TypeInfo::GetModifier() const
 {
     if ((IsGenericTypeInfo() && !GetSourceGeneric()->ReflectIsEnable()) || !ReflectIsEnable()) {
         return MODIFIER_INVALID;
     }
     if (IsEnum()) {
-        return enumInfo->GetModifier();
+        return enumInfo != nullptr ? enumInfo->GetModifier() : MODIFIER_INVALID;
     } else {
-        return GetReflectInfo()->GetModifier();
+        ReflectInfo* reflectInfo = GetReflectInfo();
+        return reflectInfo != nullptr ? reflectInfo->GetModifier() : MODIFIER_INVALID;
     }
 }
 bool TypeInfo::IsEnumCtor() const
@@ -860,7 +861,7 @@ bool TypeInfo::IsEnumCtor() const
     if (!IsEnum() && !IsTempEnum()) {
         return false;
     }
-    return enumInfo->GetModifier() & MODIFIER_ENUM_CTOR;
+    return enumInfo != nullptr ? (enumInfo->GetModifier() & MODIFIER_ENUM_CTOR) : false;
 }
 
 bool TypeInfo::IsOptionLikeRefEnum()
