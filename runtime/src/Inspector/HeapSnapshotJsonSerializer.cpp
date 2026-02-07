@@ -265,7 +265,7 @@ void CjHeapDataForIDE::SerializeAllObjects()
 {
     writer->WriteContinueString("\\\"OBJECTS\\\":[");
     bool isFirstElement = true;
-    for (const auto& objectInfo : dumpObjects) {
+    for (auto& objectInfo : dumpObjects) {
         if (!isFirstElement) {
             writer->WriteChar(',');
         } else {
