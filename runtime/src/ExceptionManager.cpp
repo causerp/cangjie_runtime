@@ -3,8 +3,6 @@
 // with Runtime Library Exception.
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
-
-
 #include "Base/Log.h"
 #include "Base/LogFile.h"
 #include "Common/Runtime.h"
@@ -105,6 +103,15 @@ void ExceptionManager::DefaultUncaughtTask(const char* sunmary, const CJErrorObj
 }
 #endif
 
+#if defined(__ANDROID__)
+void ExceptionManager::AndroidDefaultUncaughtTask(const char* summary, const CJErrorObject errorObj)
+{
+    (void)summary;
+    (void)errorObj;
+    abort();
+}
+#endif
+
 void ExceptionManager::DumpException()
 {
     ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
@@ -122,11 +129,13 @@ void ExceptionManager::DumpException()
     // Otherwise, dump the exception information.
     std::lock_guard<std::mutex> lock(gUncaughtExceptionHandlerMtx);
     if (Runtime::Current().GetExceptionManager().GetUncaughtExceptionHandler().uncaughtTask) {
-#if defined(__OHOS__) && (__OHOS__ == 1) || (__APPLE__)
+#if defined(__OHOS__) && (__OHOS__ == 1) || (__APPLE__) || (__ANDROID__)
         const char* summary = "Uncaught exception was found.";
         CString exceptionMsg(eWrapper.GetExceptionMessage());
 #if defined(__APPLE__) && (__IOS__ == 1)
         CFException::ReportBacktraceToIosIpsLog(eWrapper);
+#endif
+#if defined(__APPLE__) && (__IOS__ == 1) || (__ANDROID__)
         LOG(RTLOG_ERROR, summary);
         LOG(RTLOG_ERROR, exceptionMsg.Str());
 #endif
@@ -149,7 +158,7 @@ void ExceptionManager::DumpException()
             exceptionStack += +":";
             exceptionStack += str;
             exceptionStack += ")\n";
-#if defined(__APPLE__)
+#if defined(__APPLE__) || (__ANDROID__)
             LOG(RTLOG_ERROR, exceptionStack.Str());
             exceptionStack = "";
 #endif
