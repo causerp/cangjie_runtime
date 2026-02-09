@@ -265,6 +265,10 @@ public func exclusiveScope<T>(fn: () -> T): T
 
 Function: Executes a closure in an exclusive scope, ensuring that the closure runs in an isolated context and handling any results or exceptions appropriately. When executing fn, a switch from the cangjie thread stack to the OS thread stack will occur, and the underlying OS thread cannot be preempted by other cangjie threads. After fn returns, it will switch back to the cangjie thread stack, and the preemption will be permitted.
 
+> **Note:**
+>
+> This function is not available on Windows, macOS, OpenHarmony, HarmonyOS and iOS platforms.
+
 Parameters:
 
 - fn: () -> T - The function/closure to be executed in the exclusive scope.
