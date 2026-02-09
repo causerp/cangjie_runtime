@@ -2873,7 +2873,7 @@ public func suggestInt32(l: Int32, r: Int32): Int32
 #### func suggestUInt32(UInt32, UInt32)
 
 ```cangjie
-func suggestUInt32(UInt32, UInt32): UInt32
+public func suggestUInt32(l:UInt32, r:UInt32): UInt32
 ```
 
 功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
