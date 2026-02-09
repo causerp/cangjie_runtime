@@ -132,6 +132,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
 
     var _inheritedAndExtendedMembers: InheritedAndExtendedMembers = InheritedAndExtendedMembers()
 
+    var _replacedName: Option<String> = None
+
     init(cp: CPointer<Unit>) {
         _info = cp
     }
@@ -374,8 +376,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         }
 
         let uuidStr = uuid ?? unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
-        typeInfo._qualifiedName = qualifiedName
-        CACHE.add(qualifiedName, typeInfo)
+        let replacedName = qualifiedName.replace("/", "::")
+        typeInfo._replacedName = replacedName
+        CACHE.add(replacedName, typeInfo)
         CACHE.add(uuidStr, typeInfo)
         typeInfo
     }
@@ -403,9 +406,15 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             match (_qualifiedName) {
                 case Some(res) => res
                 case None =>
-                    let name = getQualifiedName(_info)
-                    _qualifiedName = name
-                    name
+                    _qualifiedName = if (isBox(_info)) {
+                        let args = getTypeArgs(_info)
+                        // Get the first member from the array
+                        let typeArg = unsafe { CPointer<CPointer<Unit>>(args).read() }
+                        getQualifiedName(typeArg)
+                    } else {
+                        _replacedName.getOrDefault({=> getQualifiedName(_info)})
+                    }
+                    _qualifiedName.getOrThrow()
             }
         }
     }
@@ -567,7 +576,14 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         if (supertype.qualifiedName == "Any") {
             return true
         }
-        isSubType(_info, supertype._info)
+        let realTi = if (isBox(supertype._info)) {
+            let args = getTypeArgs(supertype._info)
+            // Get the first member from the array
+            unsafe { CPointer<CPointer<Unit>>(args).read() }
+        } else {
+            supertype._info
+        }
+        isSubType(_info, realTi)
     }
 
     /**
