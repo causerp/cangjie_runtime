@@ -141,12 +141,14 @@ void OnHeapDeallocated(void* addr, size_t size)
         };
         g_counter->DiagnoseUnreleased(logger);
         delete g_counter;
+        g_counter = nullptr;
         DeleteHeapMemoryAlias(addr, size);
 
         Logger::GetLogger().FormatLog(RTLOG_FATAL, true, "Detect un-released array");
         BUILTIN_UNREACHABLE();
     }
     delete g_counter;
+    g_counter = nullptr;
 
     // 1. remove heap memory alias
     DeleteHeapMemoryAlias(addr, size);

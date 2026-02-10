@@ -103,7 +103,7 @@ SemanticVersionInfo::SemanticVersionInfo(CString& version)
         preRelease = version.SubStr(dashPos + 1);
     }
     auto tokens = CString::Split(coreVersion, '.');
-    // A normal version number MUST consists of three parts, MAJOR.MINOR.PATCH.
+    // 3: A normal version number MUST consists of three parts, MAJOR.MINOR.PATCH.
     if (tokens.size() != 3) {
         LOG(RTLOG_ERROR, "The version %s is incorrect.", version.Str());
         return;

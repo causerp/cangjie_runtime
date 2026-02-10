@@ -573,7 +573,7 @@ public:
 
 #elif defined(__APPLE__)
         MemorySet(reinterpret_cast<uintptr_t>(unitAddress), size, 0, size);
-        void* ret = mmap(unitAddress, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1 ,0);
+        void* ret = mmap(unitAddress, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0);
         if (ret == MAP_FAILED) {
             LOG(RTLOG_ERROR, "region mmmap fixed failed");
         } else if (ret != reinterpret_cast<void*>(unitAddress)) {
@@ -1169,7 +1169,7 @@ private:
             UnitInfo& operator[](size_t index)
             {
                 CHECK(index >= 0 && index < size);
-                return unitArray[size-index-1];
+                return unitArray[size - index - 1];
             }
         };
 

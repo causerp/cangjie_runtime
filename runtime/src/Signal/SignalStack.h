@@ -38,7 +38,8 @@ public:
 
     bool IsUserSigHandler() { return isUserSigHandler; }
 
-    void setUserSigHandler(bool flag) {
+    void setUserSigHandler(bool flag)
+    {
         isUserSigHandler = flag;
     }
 
@@ -50,7 +51,7 @@ public:
     void AddHandler(SignalAction* sa);
     void RemoveHandler(bool (*fn)(int, siginfo_t*, void*));
 
-    static void Handler(int signal, siginfo_t* siginfo, void*);
+    static void Handler(int signal, siginfo_t* siginfo, void* ucontextRaw);
     static void HandlerImpl(void* args);
     static void InitializeSignalStack();
     static SignalStack* GetStacks() { return stacks; }

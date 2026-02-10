@@ -135,7 +135,7 @@ public:
      * @param idx The start index of the demangled name.
      * @return size_t The end index of the demangled name.
      */
-    size_t ForwardTypes(T& mangled, size_t& cnt, size_t idx = 0);
+    size_t ForwardTypes(T& mangled, size_t& cnt, size_t startId = 0);
 
     /**
      * @brief Get the index at the end of the number.

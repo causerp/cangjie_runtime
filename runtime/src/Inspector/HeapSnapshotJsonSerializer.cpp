@@ -42,6 +42,7 @@ bool CjHeapDataForIDE::Serialize()
     writer->WriteString(",\"result\":{}");
     writer->End();
     delete writer;
+    writer = nullptr;
     return true;
 }
 

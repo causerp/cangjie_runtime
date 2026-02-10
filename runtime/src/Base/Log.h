@@ -118,22 +118,27 @@ private:
     bool IsLogValid(os_log_t osLog);
     std::pair<size_t, void *> FormatArgs(SignpostType type, const char* name, int64_t value = 0);
 
-    os_log_t GetLog() {
+    os_log_t GetLog()
+    {
         os_log_t log = os_log_create("com.cangjie.trace", "ios-tracing");
         return log;
     }
-    os_signpost_id_t& GetId() {
+    os_signpost_id_t& GetId()
+    {
         thread_local os_signpost_id_t id = 0;
         return id;
     }
-    const char* GetName() {
+    const char* GetName()
+    {
         return endName;
     }
-    void SetName(const char* name) {
+    void SetName(const char* name)
+    {
         endName = name;
     }
 
-    static char* SignpostInt(int64_t val, bool isInt32 = true) {
+    static char* SignpostInt(int64_t val, bool isInt32 = true)
+    {
         static char buf[64];
         size_t maxLen32 = 32;
         size_t maxLen64 = 64;

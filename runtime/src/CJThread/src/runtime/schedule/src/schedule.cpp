@@ -1510,7 +1510,7 @@ int AddToCJSingleModeThreadList(struct CJThread *cjthread)
     PostTaskFunc PostTask = g_scheduleManager.postTaskFunc;
     if (PostTask == nullptr) {
         HILOG_ERROR(ERRNO_SCHD_EVENT_HANDLER_FUNC_NULL,
-                  "The event handler function is nullptr when add to cjSingleModeThreadList.");
+                    "The event handler function is nullptr when add to cjSingleModeThreadList.");
         return -1;
     }
 
