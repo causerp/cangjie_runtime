@@ -1982,14 +1982,14 @@ Return Value:
 #### func nextInt32(Int32)
 
 ```cangjie
-public func nextInt32(upper: Int32): Int32
+public func nextInt32(max: Int32): Int32
 ```
 
-Function: Generates a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `upper`).
+Function: Generates a pseudo-random number of type [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
+- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max].
 
 Return Value:
 
@@ -1997,7 +1997,7 @@ Return Value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 #### func nextInt64()
 
@@ -2014,14 +2014,14 @@ Return Value:
 #### func nextInt64(Int64)
 
 ```cangjie
-public func nextInt64(upper: Int64): Int64
+public func nextInt64(max: Int64): Int64
 ```
 
-Function: Generates a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `upper`).
+Function: Generates a pseudo-random number of type [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) in the range [0, `max`).
 
 Parameters:
 
-- upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The upper bound (exclusive) of the generatable range, with valid values in (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max].
 
 Return Value:
 
@@ -2029,7 +2029,7 @@ Return Value:
 
 Exceptions:
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `upper` is less than or equal to 0.
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if `max` is less than or equal to 0.
 
 #### func nextInt8()
 
