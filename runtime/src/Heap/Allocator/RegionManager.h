@@ -383,8 +383,8 @@ public:
             recentFullRegionList.GetAllocatedSize() + oldLargeRegionList.GetAllocatedSize() +
             recentLargeRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
             recentPinnedRegionList.GetAllocatedSize() + rawPointerPinnedRegionList.GetAllocatedSize() +
-            largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize()
-            + tlRegionList.GetAllocatedSize() + threadLocalSize;
+            largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize() +
+            tlRegionList.GetAllocatedSize() + threadLocalSize;
     }
 
     inline size_t GetFromSpaceSize() const { return fromRegionList.GetAllocatedSize(); }

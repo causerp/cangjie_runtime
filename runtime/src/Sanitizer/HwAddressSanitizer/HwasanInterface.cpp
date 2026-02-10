@@ -108,11 +108,13 @@ void OnHeapDeallocated(void*, size_t)
         };
         g_counter->DiagnoseUnreleased(logger);
         delete g_counter;
+        g_counter = nullptr;
 
         Logger::GetLogger().FormatLog(RTLOG_FATAL, true, "Detect un-released array");
         BUILTIN_UNREACHABLE();
     }
     delete g_counter;
+    g_counter = nullptr;
 }
 
 void UntagMemory(void* addr, size_t size)

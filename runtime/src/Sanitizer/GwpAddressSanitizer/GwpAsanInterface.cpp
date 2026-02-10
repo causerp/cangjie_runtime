@@ -94,12 +94,14 @@ void OnHeapDeallocated(void*, size_t)
             Logger::GetLogger().FormatLog(RTLOG_FAIL, true, "Unreleased array: %p", array.first);
         }
         delete g_canary;
+        g_canary = nullptr;
 
         Logger::GetLogger().FormatLog(RTLOG_FATAL, true, "Detect un-released array");
         BUILTIN_UNREACHABLE();
     }
 
     delete g_canary;
+    g_canary = nullptr;
 }
 
 static void CheckCanary(void* addr, size_t size, uint64_t expect)

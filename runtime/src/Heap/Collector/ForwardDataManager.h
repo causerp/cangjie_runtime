@@ -94,7 +94,7 @@ class ForwardDataManager {
             MapleRuntime::MemorySet(startAddress, size, 0, size);
             void* ret = mmap(reinterpret_cast<void*>(startAddress), size,
                             PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1 , 0);
-            if(ret == MAP_FAILED) {
+            if (ret == MAP_FAILED) {
                 LOG(RTLOG_ERROR, "forwarding fata mmap ixed failed");
             } else if (ret != reinterpret_cast<void*>(startAddress)) {
                 LOG(RTLOG_ERROR, "mmap fixed at wrong addr %p -> %p", startAddress, ret);

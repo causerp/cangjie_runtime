@@ -245,7 +245,7 @@ void TypeInfoManager::AddTypeInfo(TypeInfo* ti)
             CHECK(ti->IsObjectType());
             if (LIKELY(hasExisted)) {
                 CHECK(memcpy_s(reinterpret_cast<void*>(ti), sizeof(TypeInfo) - 16U,
-                                reinterpret_cast<void*>(tiDesc->typeInfo), sizeof(TypeInfo) - 16U) == EOK);
+                               reinterpret_cast<void*>(tiDesc->typeInfo), sizeof(TypeInfo) - 16U) == EOK);
             } else {
                 TypeTemplate* tt = ti->sourceGeneric;
                 U16 fieldNum = tt->GetFieldNum();
@@ -377,7 +377,7 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     TypeInfo* newTypeInfo = reinterpret_cast<TypeInfo*>(Allocate(sizeof(TypeInfo)));
     size_t nameSize = typeInfoName.Length() + 1;
 #ifdef __arm__
-    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize,sizeof(TypeInfo*)));
+    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize, sizeof(TypeInfo*)));
 #else
     uintptr_t nameAddr = Allocate(nameSize);
 #endif

@@ -608,7 +608,7 @@ static ArrayRef GetAllThreadSnapshot(const TypeInfo* arraySnapshot, const TypeIn
 }
 
 extern "C" ArrayRef MCC_GetAllThreadSnapshotImpl(const TypeInfo* arraySnapshot, const TypeInfo* arrayStackTrace,
-                                                const TypeInfo* charArray)
+                                                 const TypeInfo* charArray)
 {
     ScopedEnterSaferegion enterSaferegion(false);
     ArrayRef allRecords = nullptr;
@@ -959,7 +959,8 @@ static TypeInfo* GetActualTypeFromGenericType(GenericTypeInfo* genericTi, void* 
             }
         }
     }
-    TypeInfo* ti = TypeInfoManager::GetTypeInfoManager().GetOrCreateTypeInfo(genericTi->GetSourceGeneric(), len, typeInfos);
+    TypeInfo* ti = TypeInfoManager::GetTypeInfoManager().GetOrCreateTypeInfo(
+        genericTi->GetSourceGeneric(), len, typeInfos);
     free(mem);
     mem = nullptr;
     return ti;
@@ -1004,6 +1005,7 @@ extern "C" TypeInfo* MCC_GetOrCreateTypeInfoForReflect(TypeTemplate* tt, void* a
     Uptr base = reinterpret_cast<Uptr>(&(cjArray->rawPtr->data));
     void* mem = calloc(len, TYPEINFO_PTR_SIZE);
     TypeInfo** typeInfos = static_cast<TypeInfo**>(mem);
+    CHECK_DETAIL(mem != nullptr, "MCC_GetOrCreateTypeInfoForReflect calloc failed");
     GenericTypeInfo* genericArgs = reinterpret_cast<GenericTypeInfo*>(
         tt->GetReflectInfo()->GetDeclaringGenericTypeInfo());
     for (U64 idx = 0; idx < len; ++idx) {
@@ -1158,12 +1160,12 @@ extern "C" void* MCC_GetParameterAnnotations(ParameterInfo* parameterInfo, TypeI
     return parameterInfo->GetAnnotations(arrayTi);
 }
 
-extern "C" ObjectPtr CJ_MCC_ReadRefField(ObjectPtr obj, RefField<false>* field)
+extern "C" ObjectPtr CJ_MCC_ReadRefField(const ObjectPtr obj, RefField<false>* field)
 {
     return Heap::GetHeap().GetBarrier().ReadReference(obj, *field);
 }
 
-extern "C" ObjectPtr CJ_MCC_ReadWeakRef(ObjectPtr obj, RefField<false>* field)
+extern "C" ObjectPtr CJ_MCC_ReadWeakRef(const ObjectPtr obj, RefField<false>* field)
 {
     return Heap::GetHeap().GetBarrier().ReadWeakRef(obj, *field);
 }

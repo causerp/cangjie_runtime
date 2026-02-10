@@ -349,7 +349,7 @@ MRT_EXPORT enum RTErrorCode InitCJRuntime(const struct RuntimeParam* param);
  * @param  param  [IN] arkVM address
  * @retval
  */
-MRT_EXPORT void RegisterArkVMInRuntime(unsigned long long arkVM);
+MRT_EXPORT void RegisterArkVMInRuntime(unsigned long long vm);
 
 /*
  * @brief Create and init a Cangjie UI scheduler.

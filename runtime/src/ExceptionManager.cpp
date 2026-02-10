@@ -190,7 +190,7 @@ void ExceptionManager::DumpException()
         for (auto ste : stackTrace) {
 #ifdef __APPLE__
             PRINT_ERROR("\t at %s%s%s(%s:%lld)\n", ste.className.Str(), ste.className.Length() > 0 ? "." : "",
-                       ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
+                        ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
 #endif
             LOG(RTLOG_ERROR, "\t at %s%s%s(%s:%ld)\n", ste.className.Str(), ste.className.Length() > 0 ? "." : "",
                 ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
