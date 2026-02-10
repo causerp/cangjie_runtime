@@ -610,7 +610,7 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
     CString gcTibStr = typeGCInfo.GetGCTibStr(typeInfo);
     size_t len = gcTibStr.Length();
     GCTib gcTib;
-    constexpr uint8_t alignSize = sizeof(uint32_t);
+    constexpr uint8_t alignSize = sizeof(uint64_t);
     // create StdGCTib
     U16 num = gcTibStr.Length() / alignSize;
     U16 needSpace = sizeof(U32) + sizeof(U8) * num;
