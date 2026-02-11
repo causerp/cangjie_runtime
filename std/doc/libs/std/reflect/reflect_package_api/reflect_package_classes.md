@@ -3,7 +3,7 @@
 ## class ClassTypeInfo
 
 ```cangjie
-public class ClassTypeInfo <: TypeInfo
+public class ClassTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `class` 类型的类型信息。
@@ -594,7 +594,7 @@ public func isSealed(): Bool
 ## class ConstructorInfo
 
 ```cangjie
-public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
+public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString {}
 ```
 
 功能：描述构造函数信息。
@@ -774,7 +774,7 @@ public operator func ==(that: ConstructorInfo): Bool
 ## class GenericTypeInfo
 
 ```cangjie
-public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
+public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo> {}
 ```
 
 功能：描述泛型类型信息。
@@ -803,7 +803,7 @@ public operator func ==(that: GenericTypeInfo): Bool
 ## class GlobalFunctionInfo
 
 ```cangjie
-public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString
+public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局函数信息。
@@ -1009,7 +1009,7 @@ public operator func ==(that: GlobalFunctionInfo): Bool
 ## class GlobalVariableInfo
 
 ```cangjie
-public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString
+public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局变量信息。
@@ -1172,7 +1172,7 @@ public operator func ==(that: GlobalVariableInfo): Bool
 ## class InstanceFunctionInfo
 
 ```cangjie
-public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString
+public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员函数信息。
@@ -1463,7 +1463,7 @@ public operator func ==(that: InstanceFunctionInfo): Bool
 ## class InstancePropertyInfo
 
 ```cangjie
-public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString
+public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员属性信息。
@@ -1710,7 +1710,7 @@ public operator func ==(that: InstancePropertyInfo): Bool
 ## class InstanceVariableInfo
 
 ```cangjie
-public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString
+public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员变量信息。
@@ -1929,7 +1929,7 @@ public operator func ==(that: InstanceVariableInfo): Bool
 ## class InterfaceTypeInfo
 
 ```cangjie
-public class InterfaceTypeInfo <: TypeInfo
+public class InterfaceTypeInfo <: TypeInfo {}
 ```
 
 功能：`interface` 类型的类型信息。
@@ -2050,7 +2050,7 @@ public func isSealed(): Bool
 ## class PackageInfo
 
 ```cangjie
-public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
+public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {}
 ```
 
 功能：描述包信息。
@@ -2401,7 +2401,7 @@ public operator func ==(that: PackageInfo): Bool
 ## class ParameterInfo
 
 ```cangjie
-public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString
+public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {}
 ```
 
 功能：描述函数形参信息。
@@ -2532,7 +2532,7 @@ public operator func ==(that: ParameterInfo): Bool
 ## class PrimitiveTypeInfo
 
 ```cangjie
-public class PrimitiveTypeInfo <: TypeInfo
+public class PrimitiveTypeInfo <: TypeInfo {}
 ```
 
 功能：描述原始数据类型的类型信息。
@@ -2669,7 +2669,7 @@ Int64
 ## class StaticFunctionInfo
 
 ```cangjie
-public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString
+public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员函数信息。
@@ -2930,7 +2930,7 @@ public operator func ==(that: StaticFunctionInfo): Bool
 ## class StaticPropertyInfo
 
 ```cangjie
-public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString
+public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员属性信息。
@@ -3189,7 +3189,7 @@ public operator func ==(that: StaticPropertyInfo): Bool
 ## class StaticVariableInfo
 
 ```cangjie
-public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString
+public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员变量信息。
@@ -3430,7 +3430,7 @@ public operator func ==(that: StaticVariableInfo): Bool
 ## class StructTypeInfo
 
 ```cangjie
-public class StructTypeInfo <: TypeInfo
+public class StructTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `struct` 类型的类型信息。
@@ -4127,17 +4127,17 @@ main(): Unit {
 default.Rectangular
 ```
 
-### func findAnnotation\<T>() where T <: Annotation
+### func findAnnotation\<T>()
 
 ```cangjie
-public func findAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): Option<T>
 ```
 
 功能：尝试获取拥有给定限定名称且作用于该对象的注解。
 
 返回值：
 
-- ?T - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
+- [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<T> - 如果成功匹配则返回该注解，重复标注或者无法匹配时返回 `None`。
 
 ### func getInstanceFunction(String, Array\<TypeInfo>)
 

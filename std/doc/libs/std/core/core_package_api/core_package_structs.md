@@ -2098,7 +2098,7 @@ public operator func >=(r: Duration): Bool
 ## struct LibC
 
 ```cangjie
-public struct LibC
+public struct LibC {}
 ```
 
 功能：提供了仓颉中较为高频使用的 C 接口，如申请、释放堆上 [CType](core_package_interfaces.md#interface-ctype) 实例。

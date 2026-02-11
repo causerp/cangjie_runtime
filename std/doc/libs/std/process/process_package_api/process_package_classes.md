@@ -3,7 +3,7 @@
 ## class CurrentProcess <sup>(deprecated)</sup>
 
 ```cangjie
-public class CurrentProcess <: Process
+public class CurrentProcess <: Process {}
 ```
 
 功能：此类为当前进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对当前进程操作相关功能。
@@ -117,14 +117,14 @@ public func exit(code: Int64): Nothing
 ### func getEnv(String)
 
 ```cangjie
-public func getEnv(k: String): Option<String>
+public func getEnv(key: String): Option<String>
 ```
 
 功能：获取指定名称的环境变量值。
 
 参数：
 
-- k: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
+- key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 环境变量名称。
 
 返回值：
 
@@ -132,7 +132,7 @@ public func getEnv(k: String): Option<String>
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 `k` 包含空字符时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数入参包含空字符时，抛出异常。
 
 ### func removeEnv(String)
 
@@ -510,28 +510,10 @@ public func terminate(force!: Bool = false): Unit
 
 - [ProcessException](process_package_exceptions.md#class-processexception) - 如果进程不存在，不允许终止，则抛出异常。
 
-### func terminateAliveProcess(Int32, Bool)
-
-```cangjie
-protected open func terminateAliveProcess(pid: Int32, force: Bool): Unit
-```
-
-功能：终止指定进程，子进程执行返回结果，包含子进程退出状态（若子进程正常退出，返回子进程退出码，若子进程被信号杀死，返回导致子进程终止的信号编号），进程标准输出结果和进程错误结果。
-
-参数：
-
-- pid: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 需要终止的进程 `ID`。
-
-- force: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 命名可选参数，指定是否强制关闭进程，默认为 `false`，若设置为 `false`，对应进程可以在释放资源后结束；若设置为 `true`，对应进程将被直接杀死。`Windows` 平台实现为强制关闭进程。
-
-异常：
-
-- [ProcessException](process_package_exceptions.md#class-processexception) - 如果进程不存在，不允许终止，则抛出异常。
-
 ## class SubProcess
 
 ```cangjie
-public class SubProcess <: Process
+public class SubProcess <: Process {}
 ```
 
 功能：此类为子进程类，继承 [Process](process_package_classes.md#class-process) 类，提供对子进程操作相关功能。
