@@ -630,7 +630,7 @@ public:
     inline bool IsMutexClass() const;
     inline bool IsWaitQueueClass() const;
     inline bool HasExtPart() const;
-    inline bool IsBoxClass();
+    inline bool IsBoxClass() const;
     U32 GetModifier() const;
     bool IsEnumCtor() const;
     bool IsOptionLikeRefEnum();

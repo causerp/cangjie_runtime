@@ -36,6 +36,12 @@ func isEnum(ti: CPointer<Unit>): Bool
 func isGeneric(ti: CPointer<Unit>): Bool
 
 @Intrinsic
+func isBox(ti: CPointer<Unit>): Bool
+
+@Intrinsic
+func getTypeArgs(ti: CPointer<Unit>): CPointer<Unit>
+
+@Intrinsic
 func getOrCreateTypeInfoForReflect(typeTemplate: CPointer<Unit>, typeArgs: Array<CPointer<Unit>>): CPointer<Unit>
 
 @Intrinsic
