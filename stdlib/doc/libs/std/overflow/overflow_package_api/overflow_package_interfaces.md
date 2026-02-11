@@ -8141,7 +8141,6 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt16值，尝试进行取负运算
-    // 注意：对于UInt16类型，取负操作可能会导致溢出
     let a1 = 100u16
 
     // 使用checkedNeg进行取负运算
@@ -8686,7 +8685,6 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt32值，尝试进行取负运算
-    // 注意：对于UInt32类型，取负操作可能会导致溢出
     let a1 = 100u32
 
     // 使用checkedNeg进行取负运算
@@ -9231,7 +9229,6 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt64值，尝试进行取负运算
-    // 注意：对于UInt64类型，取负操作可能会导致溢出
     let a1 = 100u64
 
     // 使用checkedNeg进行取负运算
@@ -9776,7 +9773,6 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UInt8值，尝试进行取负运算
-    // 注意：对于UInt8类型，取负操作可能会导致溢出
     let a1 = 100u8
 
     // 使用checkedNeg进行取负运算
@@ -10321,7 +10317,6 @@ import std.overflow.*
 
 main(): Int64 {
     // 创建一个UIntNative值，尝试进行取负运算
-    // 注意：对于UIntNative类型，取负操作可能会导致溢出
     let a1 = 100u64
 
     // 使用checkedNeg进行取负运算

@@ -7127,14 +7127,14 @@ main() {
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
-public func filterMap<R>(transform: (T) -> ?R): HashSet<R>
+public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
 
 参数：
 
-- transform: (T) -> ?R - 给定的映射函数。函数返回值为 Some 对应 filter 的 predicate 为 true，反之表示 false。
+- transform: (T) -> [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<R> -  兼具筛选判断和映射转换的闭包函数，入参为集合中的单个元素；若元素符合筛选条件，完成映射转换并返回 Some(R)（R 为转换后的值，会加入结果集）；若元素不符合筛选条件，直接返回 None（元素会被过滤，不加入结果集）。
 
 返回值：
 
@@ -7360,7 +7360,7 @@ public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equata
 
 参数：
 
-- transform: (T)->R - 映射函数。
+- transform: (T) -> R - 映射函数。
 
 返回值：
 
@@ -10535,7 +10535,7 @@ main() {
 ## class LinkedListNode\<T>
 
 ```cangjie
-public class LinkedListNode<T>
+public class LinkedListNode<T> {}
 ```
 
 功能：[LinkedListNode](collection_package_class.md#class-linkedlistnodet) 是 [LinkedList](collection_package_class.md#class-linkedlistt) 上的节点。
@@ -11558,7 +11558,7 @@ contains 'orange': false
 public func entryView(k: K): MapEntryView<K, V>
 ```
 
-功能：如果不包含特定键，返回一个空的引用视图。如果包含特定键，则返回该键对应的元素的引用视图。
+功能：根据指定键从当前容器中获取对应键值对的视图对象。
 
 参数：
 

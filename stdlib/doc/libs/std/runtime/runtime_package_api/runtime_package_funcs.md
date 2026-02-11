@@ -76,6 +76,37 @@ main() {
 }
 ```
 
+## func isGCRunning()
+
+```cangjie
+public func isGCRunning(): Bool
+```
+
+功能：GC 状态查询函数，用于检测当前虚拟机中是否有垃圾回收过程正在执行。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 正在执行返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.runtime.*
+
+main() {
+    // 调用GC状态查询函数
+    let gcStatus = isGCRunning()
+    println("当前GC运行状态: ${gcStatus}")
+}
+```
+
+运行结果：
+
+```text
+当前GC运行状态: false
+```
+
 ## func gc(Bool)
 
 ```cangjie

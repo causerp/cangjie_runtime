@@ -8,8 +8,8 @@ public interface Condition {
     func notifyAll(): Unit
     func wait(): Unit
     func wait(timeout!: Duration): Bool
-    func waitUntil(predicate: ()->Bool): Unit
-    func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
+    func waitUntil(predicate: () -> Bool): Unit
+    func waitUntil(predicate: () -> Bool, timeout!: Duration): Bool
 }
 ```
 
@@ -83,10 +83,10 @@ func wait(timeout!: Duration): Bool
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `timeout` 小于等于 [Duration.Zero](../../core/core_package_api/core_package_structs.md#static-const-zero)，抛出异常。
 - [IllegalSynchronizationStateException](sync_package_exceptions.md#class-illegalsynchronizationstateexception) - 如果当前线程没有持有该互斥体，抛出异常。
 
-### func waitUntil(()->Bool)
+### func waitUntil(() -> Bool)
 
 ```cangjie
-func waitUntil(predicate: ()->Bool): Unit
+func waitUntil(predicate: () -> Bool): Unit
 ```
 
 功能：当前线程挂起，直到对应的 `notify` 函数被调用且 `predicate` 结果为 `true`。
@@ -98,7 +98,7 @@ func waitUntil(predicate: ()->Bool): Unit
 
 参数：
 
-- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 等待为真的条件。
+- predicate: () -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 等待为真的条件。
 
 异常：
 
@@ -107,7 +107,7 @@ func waitUntil(predicate: ()->Bool): Unit
 ### func waitUntil(()->Bool,Duration)
 
 ```cangjie
-func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
+func waitUntil(predicate: () -> Bool, timeout!: Duration): Bool
 ```
 
 功能：当前线程挂起，直到对应的 `notify` 函数被调用且 `predicate` 结果为 `true`，或者挂起时间超过 `timeout`。
@@ -119,7 +119,7 @@ func waitUntil(predicate: ()->Bool, timeout!: Duration): Bool
 
 参数：
 
-- predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 等待为真的条件。
+- predicate: () -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 等待为真的条件。
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 挂起时间，其默认值为 [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max)。
 
 返回值：

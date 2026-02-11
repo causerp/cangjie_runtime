@@ -3,7 +3,7 @@
 ## class ClassTypeInfo
 
 ```cangjie
-public class ClassTypeInfo <: TypeInfo
+public class ClassTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `class` 类型的类型信息。
@@ -875,7 +875,7 @@ RegularClass 拥有 sealed 语义: false
 ## class ConstructorInfo
 
 ```cangjie
-public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
+public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString {}
 ```
 
 功能：描述构造函数信息。
@@ -1618,7 +1618,7 @@ main(): Unit {
 ## class EnumConstructorInfo
 
 ```cangjie
-public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
+public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString {}
 ```
 
 功能：描述枚举构造器信息，可用于查询构造器参数类型、注解，并根据构造器进行构造/拆解枚举实例。
@@ -1905,11 +1905,11 @@ public static func of(instance: Any): EnumConstructorInfo
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - `instance` 所属构造器信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 入参实例所属构造器信息。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是该枚举的实例，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是该枚举的实例，则抛出异常。
 
 示例：
 
@@ -2159,7 +2159,7 @@ public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造器创建的，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是通过该构造器创建的，则抛出异常。
 
 示例：
 
@@ -2324,7 +2324,7 @@ false
 ## class EnumTypeInfo
 
 ```cangjie
-public class EnumTypeInfo <: TypeInfo
+public class EnumTypeInfo <: TypeInfo {}
 ```
 
 功能：`Enum` 类型的类型信息。
@@ -2381,7 +2381,7 @@ main(): Unit {
 ### static func get(String)
 
 ```cangjie
-public redef static func get(qualifiedName: String): EnumTypeInfo
+public static redef func get(qualifiedName: String): EnumTypeInfo
 ```
 
 功能：获取给定限定名称所对应类型的 [EnumTypeInfo](#class-enumtypeinfo)。
@@ -2446,11 +2446,11 @@ public static redef func of(instance: Any): EnumTypeInfo
 
 返回值：
 
-- [EnumTypeInfo](#class-enumtypeinfo) - `instance` 所属枚举类型的类型信息。
+- [EnumTypeInfo](#class-enumtypeinfo) - 入参实例所属枚举类型的类型信息。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是枚举类型，则抛出异常。
 
 示例：
 
@@ -2599,7 +2599,7 @@ public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型实例，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是枚举类型实例，则抛出异常。
 
 示例：
 
@@ -2691,7 +2691,7 @@ test.E.M2<Int64, Int64>
 ## class FunctionTypeInfo
 
 ```cangjie
-public class FunctionTypeInfo <: TypeInfo
+public class FunctionTypeInfo <: TypeInfo {}
 ```
 
 功能：描述函数类型（函数值/闭包）的类型信息，可用于获取参数与返回值的类型信息。
@@ -2783,7 +2783,7 @@ Int64
 ### static func of(Any)
 
 ```cangjie
-public redef static func of(instance: Any): FunctionTypeInfo
+public static redef func of(instance: Any): FunctionTypeInfo
 ```
 
 功能：获取给定实例的运行时类型所对应的 [FunctionTypeInfo](#class-functiontypeinfo)。
@@ -2800,7 +2800,7 @@ public redef static func of(instance: Any): FunctionTypeInfo
 
 返回值：
 
-- [FunctionTypeInfo](#class-functiontypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+- [FunctionTypeInfo](#class-functiontypeinfo) - 入参实例运行时类型所对应的类型信息。
 
 异常：
 
@@ -2935,7 +2935,7 @@ main(): Unit {
 ## class GenericTypeInfo
 
 ```cangjie
-public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo>
+public class GenericTypeInfo <: TypeInfo & Equatable<GenericTypeInfo> {}
 ```
 
 功能：描述泛型类型信息。
@@ -3009,7 +3009,7 @@ main(): Unit {
 ## class GlobalFunctionInfo
 
 ```cangjie
-public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString
+public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局函数信息。
@@ -3839,7 +3839,7 @@ main(): Unit {
 ## class GlobalVariableInfo
 
 ```cangjie
-public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString
+public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述全局变量信息。
@@ -4608,7 +4608,7 @@ main(): Unit {
 ## class InstanceFunctionInfo
 
 ```cangjie
-public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString
+public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员函数信息。
@@ -5005,7 +5005,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果存在泛型参数的函数调用了该方法，则抛出异常。
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该实例成员函数信息所对应的实例成员函数是抽象的，或不存在相应的函数实现，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该实例成员函数信息所对应的实例成员函数的形参列表中的形参的数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
@@ -5092,7 +5092,7 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该函数信息对应的成员函数是 `abstract` 或不存在函数体，则会抛出异常。
 - [InvacationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果非泛型函数调用了此方法，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该成员函数信息所对应的成员函数所属的类型不相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该成员函数信息所对应的成员函数所属的类型不相同，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该成员函数信息所对应的成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该成员函数信息所对应的成员函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果参数列表中的任何一个参数的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
@@ -5734,7 +5734,7 @@ main(): Unit {
 ## class InstancePropertyInfo
 
 ```cangjie
-public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString
+public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员属性信息。
@@ -6180,11 +6180,11 @@ public func getValue(instance: Any): Any
 
 返回值：
 
-- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该实例成员属性在实例 `instance` 中的值。
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该实例成员属性在入参实例中的值。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员属性信息所对应的实例成员属性所属的类型不严格相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员属性信息所对应的实例成员属性所属的类型不严格相同，则抛出异常。
 
 示例：
 
@@ -6474,7 +6474,7 @@ public func setValue(instance: Any, newValue: Any): Unit
 异常：
 
 - [IllegalSetException](reflect_package_exceptions.md#class-illegalsetexception) - 如果该实例成员属性信息所对应的实例成员属性不可修改，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员属性信息所对应的实例成员属性所属的类型不严格相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员属性信息所对应的实例成员属性所属的类型不严格相同，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果新值 `newValue` 的运行时类型不是该实例成员属性信息所对应的实例成员属性的声明类型的子类型，则抛出异常。
 
 示例：
@@ -6710,7 +6710,7 @@ main(): Unit {
 ## class InstanceVariableInfo
 
 ```cangjie
-public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString
+public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述实例成员变量信息。
@@ -7128,11 +7128,11 @@ public func getValue(instance: Any): Any
 
 返回值：
 
-- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该实例成员变量在实例 `instance` 中的值。
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 该实例成员变量在入参实例中的值。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员变量信息所对应的实例成员变量所属的类型不严格相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员变量信息所对应的实例成员变量所属的类型不严格相同，则抛出异常。
 
 示例：
 
@@ -7296,7 +7296,7 @@ public func setValue(instance: Any, newValue: Any): Unit
 异常：
 
 - [IllegalSetException](reflect_package_exceptions.md#class-illegalsetexception) - 如果该实例成员变量信息所对应的实例成员变量不可修改，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员变量信息所对应的实例成员变量所属的类型不严格相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员变量信息所对应的实例成员变量所属的类型不严格相同，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果新值 `newValue` 的运行时类型不是该实例成员变量信息所对应的实例成员变量的声明类型的子类型，则抛出异常。
 
 示例：
@@ -7502,7 +7502,7 @@ main(): Unit {
 ## class InterfaceTypeInfo
 
 ```cangjie
-public class InterfaceTypeInfo <: TypeInfo
+public class InterfaceTypeInfo <: TypeInfo {}
 ```
 
 功能：`interface` 类型的类型信息。
@@ -7769,7 +7769,7 @@ Shape接口是否为sealed: true
 ## class PackageInfo
 
 ```cangjie
-public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString
+public class PackageInfo <: Equatable<PackageInfo> & Hashable & ToString {}
 ```
 
 功能：描述包信息。
@@ -8765,7 +8765,7 @@ main(): Unit {
 ## class ParameterInfo
 
 ```cangjie
-public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString
+public class ParameterInfo <: Equatable<ParameterInfo> & Hashable & ToString {}
 ```
 
 功能：描述函数形参信息。
@@ -9427,7 +9427,7 @@ main(): Unit {
 ## class PrimitiveTypeInfo
 
 ```cangjie
-public class PrimitiveTypeInfo <: TypeInfo
+public class PrimitiveTypeInfo <: TypeInfo {}
 ```
 
 功能：描述原始数据类型的类型信息。
@@ -9576,7 +9576,7 @@ Int64
 ## class StaticFunctionInfo
 
 ```cangjie
-public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString
+public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员函数信息。
@@ -10509,7 +10509,7 @@ main(): Unit {
 ## class StaticPropertyInfo
 
 ```cangjie
-public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString
+public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员属性信息。
@@ -11377,7 +11377,7 @@ main(): Unit {
 ## class StaticVariableInfo
 
 ```cangjie
-public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString
+public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & ToString {}
 ```
 
 功能：描述静态成员变量信息。
@@ -12169,7 +12169,7 @@ main(): Unit {
 ## class StructTypeInfo
 
 ```cangjie
-public class StructTypeInfo <: TypeInfo
+public class StructTypeInfo <: TypeInfo {}
 ```
 
 功能：描述 `struct` 类型的类型信息。
@@ -12722,7 +12722,7 @@ static area: Int64
 ## class TupleTypeInfo
 
 ```cangjie
-public class TupleTypeInfo <: TypeInfo
+public class TupleTypeInfo <: TypeInfo {}
 ```
 
 功能：描述元组类型的类型信息。
@@ -12779,7 +12779,7 @@ Bool
 ### static func of(Any)
 
 ```cangjie
-public redef static func of(instance: Any): TupleTypeInfo
+public static redef func of(instance: Any): TupleTypeInfo
 ```
 
 功能：获取给定实例的运行时类型所对应的 [TupleTypeInfo](#class-tupletypeinfo)。
@@ -12794,7 +12794,7 @@ public redef static func of(instance: Any): TupleTypeInfo
 
 返回值：
 
-- [TupleTypeInfo](#class-tupletypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+- [TupleTypeInfo](#class-tupletypeinfo) - 入参实例运行时类型所对应的类型信息。
 
 异常：
 
@@ -12950,7 +12950,7 @@ public func destruct(instance: Any): ReadOnlyList<Any>
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 的运行时类型与该 [TupleTypeInfo](#class-tupletypeinfo) 不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例的运行时类型与该 [TupleTypeInfo](#class-tupletypeinfo) 不一致，则抛出异常。
 
 示例：
 

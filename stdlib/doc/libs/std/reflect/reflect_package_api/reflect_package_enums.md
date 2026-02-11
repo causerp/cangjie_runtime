@@ -202,7 +202,7 @@ Open 修饰符的字符串形式: open
 ### operator func !=(ModifierInfo)
 
 ```cangjie
-public override operator func !=(that: ModifierInfo): Bool
+public override operator func !=(other: ModifierInfo): Bool
 ```
 
 功能：判断该修饰符信息与给定的另一个修饰符信息是否不等。

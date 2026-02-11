@@ -406,29 +406,5 @@ public let start: Int64
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 示例：
-
-<!-- verify -->
-```cangjie
-import std.regex.*
-
-main(): Unit {
-    let r = Regex(#"(\d{4})-(\d{2})-(\d{2})"#)
-    let result = r.find("Today is 2024-10-24", group: true)
-    match (result) {
-        case Some(md) =>
-            let pos = md.matchPosition(0) // 获取完整匹配的位置信息
-            println("匹配的字符串: ${md.matchString()}")
-            println("开始位置: ${pos.start}")
-            println("结束位置: ${pos.end}")
-        case None => println("未找到匹配")
-    }
-}
-```
-
-运行结果：
-
-```text
-匹配的字符串: 2024-10-24
-开始位置: 9
-结束位置: 19
-```
+<!-- associated_example -->
+参见 [let end](#let-end) 示例。

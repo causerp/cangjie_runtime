@@ -2005,9 +2005,9 @@ socketAddr1 == socketAddr3: false
 
 ```cangjie
 public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & LessOrEqual<IPv4Address> {
-    public static let broadcast = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
-    public static let localhost = IPv4Address(0x7F, 0, 0, 0x01)
-    public static let unspecified = IPv4Address(0, 0, 0, 0)
+    public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
+    public static let localhost: IPv4Address = IPv4Address(0x7F, 0, 0, 0x01)
+    public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
     public init(bits: UInt32)
     public init(a: Byte, b: Byte, c: Byte, d: Byte)
 }
@@ -2889,8 +2889,8 @@ main() {
 
 ```cangjie
 public class IPv6Address <: IPAddress & ToString & Equatable<IPv6Address> & LessOrEqual<IPv6Address> {
-    public static let localhost = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
-    public static let unspecified = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
+    public static let localhost: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 1)
+    public static let unspecified: IPv6Address = IPv6Address(0u16, 0, 0, 0, 0, 0, 0, 0)
     public init(octets: Array<Byte>, scopeId!: ?UInt32 = None)
     public init(a: UInt16, b: UInt16, c: UInt16, d: UInt16, e: UInt16, f: UInt16, g: UInt16, h: UInt16, scopeId!: ?UInt32 = None)
 }
