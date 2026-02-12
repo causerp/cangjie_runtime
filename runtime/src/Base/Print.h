@@ -109,7 +109,8 @@ if (OH_LOG_IsLoggable(LOG_DOMAIN, LOG_TAG, LOG_WARN)) {       \
     } while (0)
 
 #elif defined (__IOS__)
-inline os_log_t GetOsLogger() {
+inline os_log_t GetOsLogger()
+{
     static os_log_t logger = os_log_create(LOG_SUBSYSTEM, LOG_CATEGORY);
     return logger;
 }

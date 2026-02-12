@@ -58,6 +58,6 @@ struct GCRequest {
 };
 
 // Defined in gcRequest.cpp
-extern GCRequest g_gcRequests[];
+extern GCRequest g_gcRequests[GC_REASON_MAX];
 } // namespace MapleRuntime
 #endif // MRT_GCREQUEST_H
