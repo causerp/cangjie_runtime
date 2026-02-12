@@ -35,14 +35,14 @@ LoaderManager::~LoaderManager() noexcept
 
 ILoader* LoaderManager::GetLoader() const { return loader; }
 
-TypeInfo* LoaderManager::FindTypeInfoFromLoadedFiles(const char* mangledName)
+TypeInfo* LoaderManager::FindTypeInfoFromLoadedFiles(const char* typeInfoName)
 {
-    return loader->FindTypeInfoFromLoadedFiles(mangledName);
+    return loader->FindTypeInfoFromLoadedFiles(typeInfoName);
 }
 
-TypeTemplate* LoaderManager::FindTypeTemplateFromLoadedFiles(const char* mangledName)
+TypeTemplate* LoaderManager::FindTypeTemplateFromLoadedFiles(const char* typeTemplateName)
 {
-    return loader->FindTypeTemplateFromLoadedFiles(mangledName);
+    return loader->FindTypeTemplateFromLoadedFiles(typeTemplateName);
 }
 
 void LoaderManager::RecordTypeInfo(TypeInfo* ti)

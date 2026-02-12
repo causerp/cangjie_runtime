@@ -472,15 +472,15 @@ void TypeInfo::GetInterfaces(std::vector<TypeInfo*> &itfs)
 {
     TryInitMTable();
     TraverseInnerExtensionDefs();
-	if (IsGenericTypeInfo()) {
-		TraverseOuterExtensionDefs();
-	}
+    if (IsGenericTypeInfo()) {
+        TraverseOuterExtensionDefs();
+    }
     for (auto& pair : mTableDesc->mTable) {
-		auto super = pair.second.GetSuperTi();
-		if (super->IsInterface()) {
-			itfs.emplace_back(super);
-		}
-	}
+        auto super = pair.second.GetSuperTi();
+        if (super->IsInterface()) {
+            itfs.emplace_back(super);
+        }
+    }
 }
 
 ExtensionData* TypeInfo::FindExtensionDataRecursively(TypeInfo* itf)
@@ -550,14 +550,14 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
         return GetSuperTypeInfo()->GetMTable(itf);
     }
     auto extensionData = FindExtensionData(itf, true);
-	if (UNLIKELY(extensionData == nullptr)) {
+    if (UNLIKELY(extensionData == nullptr)) {
         LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
     }
     if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
         TryUpdateExtensionData(itf, extensionData);
     }
-	FuncPtr* funcTable = extensionData->GetFuncTable();
-	CHECK(funcTable);
+    FuncPtr* funcTable = extensionData->GetFuncTable();
+    CHECK(funcTable);
     return funcTable;
 }
 
@@ -593,53 +593,53 @@ TypeInfo* TypeInfo::GetMethodOuterTIWithCache(TypeInfo* itf, U64 index)
 
 TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
 {
-	if (this == itf || this->GetUUID() == itf->GetUUID()) {
-		return this;
-	}
+    if (this == itf || this->GetUUID() == itf->GetUUID()) {
+        return this;
+    }
     TypeInfo* superTi = GetSuperTypeInfo();
-	if (UNLIKELY(IsTempEnum() && superTi != nullptr)) {
-		return superTi->GetMethodOuterTI(itf, index);
-	}
+    if (UNLIKELY(IsTempEnum() && superTi != nullptr)) {
+        return superTi->GetMethodOuterTI(itf, index);
+    }
     auto* outerTiFromCache = GetMethodOuterTIWithCache(itf, index);
     if (LIKELY(outerTiFromCache != nullptr)) {
         return outerTiFromCache;
     }
-	auto extensionData = FindExtensionData(itf);
-	if (extensionData == nullptr) {
+    auto extensionData = FindExtensionData(itf);
+    if (extensionData == nullptr) {
         LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
-	}
+    }
     auto& mTable = mTableDesc->mTable;
     auto it = mTable.find(itf->GetUUID());
-	FuncPtr* funcTable = extensionData->GetFuncTable();
-	auto funcPtr = funcTable[index];
-	for (auto& superTypePair : mTableDesc->mTable) {
+    FuncPtr* funcTable = extensionData->GetFuncTable();
+    auto funcPtr = funcTable[index];
+    for (auto& superTypePair : mTableDesc->mTable) {
         ExtensionData* extensionData = superTypePair.second.GetExtensionData();
         if (!extensionData->IsTargetHasSameSourceWith(this)) {
             continue;
         }
         auto superTi = superTypePair.second.GetSuperTi();
         // Avoid infinite recursion. The mTAble may contain itself.
-		if (superTi == this || superTi->GetUUID() == GetUUID()) {
+        if (superTi == this || superTi->GetUUID() == GetUUID()) {
             continue;
-		}
-		auto edOfSuper = superTi->FindExtensionData(itf);
-		if (edOfSuper == nullptr) {
+        }
+        auto edOfSuper = superTi->FindExtensionData(itf);
+        if (edOfSuper == nullptr) {
             continue;
-		}
+        }
         auto funcPtrInSuper = edOfSuper->GetFuncTable()[index];
         if (funcPtrInSuper == nullptr) {
             continue;
         }
-		if (funcPtrInSuper == funcPtr) {
+        if (funcPtrInSuper == funcPtr) {
             auto res = superTi->GetMethodOuterTI(itf, index);
-			it->second.SetCachedTypeInfo(index, res);
-			return res;
-		} else if (extensionData->IsDirect()) {
-			break;
-		}
-	}
-	it->second.SetCachedTypeInfo(index, this);
-	return this;
+            it->second.SetCachedTypeInfo(index, res);
+            return res;
+        } else if (extensionData->IsDirect()) {
+            break;
+        }
+    }
+    it->second.SetCachedTypeInfo(index, this);
+    return this;
 }
 
 bool TypeInfo::IsSubType(TypeInfo* typeInfo)
@@ -696,7 +696,7 @@ bool TypeInfo::IsSubType(TypeInfo* typeInfo)
             return false;
         }
         TypeInfo* objectTi = TypeInfoManager::GetTypeInfoManager().GetObjectTypeInfo();
-		CHECK(objectTi != nullptr);
+        CHECK(objectTi != nullptr);
         if (typeInfo == objectTi) {
             return true;
         }
@@ -916,33 +916,33 @@ FuncRef TypeInfo::GetFinalizeMethod() const
 
 bool TypeInfo::NeedRefresh()
 {
-	// TypeInfo refresh is exclusively required for classes with type arguments.
-	if (type != TypeKind::TYPE_KIND_CLASS || typeArgsNum == 0) {
-		return false;
-	}
+    // TypeInfo refresh is exclusively required for classes with type arguments.
+    if (type != TypeKind::TYPE_KIND_CLASS || typeArgsNum == 0) {
+        return false;
+    }
 
-	// For class:
-	// 1) if this TypeInfo has the same number of fields with its TypeTemplate, it means no
-	// need to be refreshed.
-	if (GetFieldNum() == GetSourceGeneric()->GetFieldNum()) {
-		return false;
-	}
-	// 2) if its TypeInfo does not set extension part bit, it may be compiled by previous SDK,
-	// so always refresh the TypeInfo for correctness.
-	if (!HasExtPart()) {
-		return true;
-	}
-	// 3) if this TypeInfo does not have extension part, refresh the TypeInfo.
-	auto typeExt = LoaderManager::GetInstance()->GetLoader()->GetTypeExt(this);
-	if (typeExt == nullptr) {
-		return true;
-	}
-	// 4) if its TypeInfo has extension part, but the first byte of content is `0`, it means the
+    // For class:
+    // 1) if this TypeInfo has the same number of fields with its TypeTemplate, it means no
+    // need to be refreshed.
+    if (GetFieldNum() == GetSourceGeneric()->GetFieldNum()) {
+        return false;
+    }
+    // 2) if its TypeInfo does not set extension part bit, it may be compiled by previous SDK,
+    // so always refresh the TypeInfo for correctness.
+    if (!HasExtPart()) {
+        return true;
+    }
+    // 3) if this TypeInfo does not have extension part, refresh the TypeInfo.
+    auto typeExt = LoaderManager::GetInstance()->GetLoader()->GetTypeExt(this);
+    if (typeExt == nullptr) {
+        return true;
+    }
+    // 4) if its TypeInfo has extension part, but the first byte of content is `0`, it means the
     // TypeInfo needs to be refreshed.
-	if (*reinterpret_cast<uint8_t*>(typeExt->content) == 0) {
-		return true;
-	}
-	return false;
+    if (*reinterpret_cast<uint8_t*>(typeExt->content) == 0) {
+        return true;
+    }
+    return false;
 }
 
 void EnumInfo::SetEnumCtors(void* ctors)

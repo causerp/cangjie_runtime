@@ -99,7 +99,7 @@ FrameInfo GetCurFrameInfo(WinModuleManager& winModuleManager, Uptr pc, Uptr sp)
         FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(startProc));
         Uptr* stackMapEntry = funcDesc->GetStackMap();
         uint32_t validPos = 0;
-        uint32_t stackOffset = EHFrameInfo::ReadVarInt(&stackMapEntry, validPos);
+        stackOffset = EHFrameInfo::ReadVarInt(&stackMapEntry, validPos);
         Uptr* calleeFA = reinterpret_cast<Uptr*>(sp - 0x10);
         Uptr winRbp = reinterpret_cast<Uptr>(*calleeFA);
         frameInfo.mFrame.SetFA(reinterpret_cast<FrameAddress*>(winRbp + stackOffset));

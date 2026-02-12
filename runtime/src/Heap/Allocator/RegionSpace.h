@@ -43,7 +43,7 @@ public:
     }
 
     RegionSpace() = default;
-    ATTR_NO_INLINE virtual ~RegionSpace()
+    ATTR_NO_INLINE ~RegionSpace() override
     {
         if (allocBufferManager != nullptr) {
             delete allocBufferManager;

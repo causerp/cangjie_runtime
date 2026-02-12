@@ -48,7 +48,7 @@ public:
     // debug interface for runtime to get all stack trace.
     static void PrintStackTrace(UnwindContext* unContext = nullptr);
 
-    static void PrintSignalStackTrace(UnwindContext* unContext, uintptr_t pc, uintptr_t fa);
+    static void PrintSignalStackTrace(UnwindContext* uwContext, uintptr_t pc, uintptr_t fa);
 
     static void PrintStackTraceForCpuProfile(UnwindContext* unContext, unsigned long long int cjThreadId);
 
@@ -57,7 +57,7 @@ public:
     static void GetStackTraceByLiteFrameInfos(const std::vector<uint64_t>& liteFrameInfos,
                                               std::vector<StackTraceElement>& stackTrace);
 
-    static void GetStackTraceByLiteFrameInfo(const uint64_t ip, const uint64_t pc, const uint64_t fa,
+    static void GetStackTraceByLiteFrameInfo(const uint64_t ip, const uint64_t pc, const uint64_t funcDesc,
                                              StackTraceElement& ste);
 
     // visit GC roots of current managed thread for tracing GC.

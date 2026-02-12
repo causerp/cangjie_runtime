@@ -232,5 +232,4 @@ __attribute__((constructor(0))) __declspec(dllexport) void InitData()
     uintptr_t end = std::max<uintptr_t>(addrs);
     __CJMetadataSize = end - start;
 }
-
 }

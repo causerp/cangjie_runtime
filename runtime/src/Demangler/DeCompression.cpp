@@ -51,7 +51,7 @@ inline size_t StripCangjiePrefix(T& identifier, size_t idx)
 {
     if (idx + MANGLE_CHAR_LEN < identifier.Length() && identifier[idx] == MANGLE_UNDERSCORE_PREFIX &&
         identifier[idx + MANGLE_CHAR_LEN] == 'C') {
-        if(idx + MANGLE_CHAR_LEN  * 2 < identifier.Length() && identifier[idx + MANGLE_CHAR_LEN  * 2] == 'V') {
+        if (idx + MANGLE_CHAR_LEN  * 2 < identifier.Length() && identifier[idx + MANGLE_CHAR_LEN  * 2] == 'V') {
             return idx + PREFIX_LEN + MANGLE_CHAR_LEN;
         } else {
             return idx + PREFIX_LEN;
@@ -356,8 +356,8 @@ size_t DeCompression<T>::ForwardClassType(T& mangled, size_t& cnt, size_t idx)
     size_t curIdx = idx;
     size_t curCnt = cnt;
     // Skip 'CN' 'RN' 'NN'
-    if (idx + PREFIX_LEN < mangled.Length() && (mangled[idx] == 'C' || mangled[idx] == 'R' || mangled[idx] == 'N')
-        && mangled[idx + MANGLE_CHAR_LEN] == MANGLE_NESTED_PREFIX[0]) {
+    if (idx + PREFIX_LEN < mangled.Length() && (mangled[idx] == 'C' || mangled[idx] == 'R' || mangled[idx] == 'N') &&
+        mangled[idx + MANGLE_CHAR_LEN] == MANGLE_NESTED_PREFIX[0]) {
         curIdx += PREFIX_LEN;
     } else {
         return idx;
@@ -535,9 +535,9 @@ void DeCompression<T>::TreeIdMapPop(size_t& from, size_t to)
 }
 
 template<typename T>
-T DeCompression<T>::TreeIdMapErase(T& mangled, size_t& cnt, size_t entityId, size_t sid)
+T DeCompression<T>::TreeIdMapErase(T& mangled, size_t& cnt, size_t eid, size_t sid)
 {
-    treeIdMap.erase(treeIdMap.begin() + entityId);
+    treeIdMap.erase(treeIdMap.begin() + eid);
     UpdateCompressedName(mangled, sid, mangled.Length());
     cnt--;
     return mangled;

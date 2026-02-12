@@ -21,7 +21,8 @@ int DomainsockDisconnect(SignedSocket connFd)
     SchdpollEventType type = SHCDPOLL_WRITE;
     socklen_t peerLen = sizeof(struct sockaddr);
     socklen_t optLen = static_cast<socklen_t>(sizeof(int));
-    int ret, opt;
+    int ret;
+    int opt;
     if (getsockopt(connFd, SOL_SOCKET, SO_TYPE, &opt, &optLen) == -1) {
         ret = errno;
         LOG_ERROR(ret, "getsockopt failed, fd: %d", connFd);

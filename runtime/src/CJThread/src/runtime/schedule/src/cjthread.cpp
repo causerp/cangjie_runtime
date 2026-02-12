@@ -774,7 +774,7 @@ MRT_STATIC_INLINE void CJThreadNewSetLocalData(struct CJThread *cjthread, const 
 /* Set stack info in cjthread through attr. */
 MRT_INLINE static void CJThreadNewSetAttr(const struct CJThreadAttrInner *attr,
                                           struct ScheduleCJThread *scheduleCJThread,
-                                       	  struct StackAttr *stackAttr)
+                                          struct StackAttr *stackAttr)
 {
     stackAttr->stackSizeAlign = scheduleCJThread->stackSize;
     stackAttr->stackGrow = scheduleCJThread->stackGrow;

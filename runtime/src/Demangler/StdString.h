@@ -15,8 +15,8 @@ namespace Cangjie {
  * @brief This is a std::string proxy type.
  * Since the Demangler and DemanglerInfo template classes are based on the CString type we created in the Base library,
  * we need to maintain API consistency with the CString class. The following methods must all be implemented. This type
- * also helps remove the dependency on CString and boundscheck (an indirect dependency) of the cangjie-demangle library that
- * we export to other users.
+ * also helps remove the dependency on CString and boundscheck (an indirect dependency) of the cangjie-demangle library
+ * that we export to other users.
  */
 class StdString : public std::string {
 public:
