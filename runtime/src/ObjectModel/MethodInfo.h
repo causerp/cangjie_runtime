@@ -118,7 +118,7 @@ private:
 // to construct MethodInfo for function calls.
 class DynamicMethodInfo {
 public:
-    DynamicMethodInfo(ObjRef obj);
+    explicit DynamicMethodInfo(ObjRef obj);
     void* ApplyCangjieMethod(void* args);
 private:
     U32 parameterCount;
