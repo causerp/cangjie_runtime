@@ -370,7 +370,7 @@ TypeInfo* TypeInfoManager::GetOrCreateTypeInfo(TypeTemplate* tt, U32 argSize, Ty
     if (typeInfoDesc->IsInited()) {
         return typeInfoDesc->typeInfo;
     }
-    const U32 currentTid = GetTid();
+    const U32 currentTid = static_cast<U32>(GetTid());
     do {
         if (typeInfoDesc->IsInited()) {
             return typeInfoDesc->typeInfo;
