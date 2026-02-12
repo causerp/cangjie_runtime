@@ -4,7 +4,7 @@
 
 ```cangjie
 public class Matcher {
-    public init(re: Regex, input: String)
+    public init(regex: Regex, input: String)
 }
 ```
 
@@ -17,14 +17,14 @@ public class Matcher {
 ### init(Regex, String)
 
 ```cangjie
-public init(re: Regex, input: String)
+public init(regex: Regex, input: String)
 ```
 
 功能：使用传入的正则表达式和输入序列创建 [Matcher](#class-matcher-deprecated) 实例。
 
 参数：
 
-- re: [Regex](regex_package_classes.md#class-regex) - 正则表达式。
+- regex: [Regex](regex_package_classes.md#class-regex) - 正则表达式。
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 输入序列。
 
 ### func allCount()

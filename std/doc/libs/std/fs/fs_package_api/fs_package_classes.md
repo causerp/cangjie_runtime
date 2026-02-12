@@ -672,7 +672,7 @@ public func write(buffer: Array<Byte>): Unit
 ## class HardLink
 
 ```cangjie
-public class HardLink
+public class HardLink {}
 ```
 
 功能：提供处理文件系统硬链接相关接口。
@@ -716,7 +716,7 @@ public static func create(link: String, to!: String): Unit
 ## class SymbolicLink
 
 ```cangjie
-public class SymbolicLink
+public class SymbolicLink {}
 ```
 
 功能：提供处理文件系统符号链接相关接口。

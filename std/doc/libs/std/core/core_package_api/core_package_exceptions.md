@@ -35,18 +35,6 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
-### func getClassName()
-
-```cangjie
-protected open override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名字符串。
-
 ## class Error
 
 ```cangjie
@@ -68,18 +56,6 @@ public open prop message: String
 功能：获取错误信息。
 
 类型：[String](core_package_structs.md#struct-string)
-
-### func getClassName()
-
-```cangjie
-protected open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
 
 ### func getStackTrace()
 
@@ -172,18 +148,6 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
-### func getClassName()
-
-```cangjie
-protected open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
 ### func getStackTrace()
 
 ```cangjie
@@ -251,18 +215,6 @@ public init(message: String)
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
 
-### func getClassName()
-
-```cangjie
-protected override open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
 ## class IllegalFormatException
 
 ```cangjie
@@ -297,18 +249,6 @@ public init(message: String)
 参数：
 
 - message: [String](core_package_structs.md#struct-string) - 异常提示信息。
-
-### func getClassName()
-
-```cangjie
-protected override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。
 
 ## class IllegalMemoryException
 
@@ -523,7 +463,7 @@ public init(message: String)
 ## class OutOfMemoryError
 
 ```cangjie
-public class OutOfMemoryError <: Error
+public class OutOfMemoryError <: Error {}
 ```
 
 功能：表示内存不足错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。
@@ -605,7 +545,7 @@ public init(message: String)
 ## class StackOverflowError
 
 ```cangjie
-public class StackOverflowError <: Error
+public class StackOverflowError <: Error {}
 ```
 
 功能：表示堆栈溢出错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。

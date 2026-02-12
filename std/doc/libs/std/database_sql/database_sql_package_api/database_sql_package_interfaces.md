@@ -402,7 +402,7 @@ prop name: String
 ## interface SqlNullableDbType <sup>(deprecated)</sup>
 
 ```cangjie
-public interface SqlNullableDbType <: SqlDbType
+public interface SqlNullableDbType <: SqlDbType {}
 ```
 
 功能：允许 `null` 值的 sql 数据类型父类。

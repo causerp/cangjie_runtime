@@ -318,7 +318,7 @@ public func toString(): String
 ## class Future\<T>
 
 ```cangjie
-public class Future<T>
+public class Future<T> {}
 ```
 
 功能：[Future](core_package_classes.md#class-futuret)\<T> 实例代表一个仓颉线程任务，可用于获取仓颉线程的计算结果，向仓颉线程发送取消信号。
@@ -495,7 +495,9 @@ Some(1)
 ## class Iterator\<T>
 
 ```cangjie
-public abstract class Iterator<T> <: Iterable<T>
+public abstract class Iterator<T> <: Iterable<T> {
+    public init()
+}
 ```
 
 功能：该类表示迭代器，提供 `next` 方法支持对容器内的成员进行迭代遍历。
@@ -1739,7 +1741,7 @@ public const init()
 ## class RangeIterator\<T> <: Iterator\<T> where T <: Countable\<T> & Comparable\<T> & Equatable\<T>
 
 ```cangjie
-public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T>
+public class RangeIterator<T> <: Iterator<T> where T <: Countable<T> & Comparable<T> & Equatable<T> {}
 ```
 
 功能：[Range](core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 类型的迭代器，迭代功能详述见 [Iterable](core_package_interfaces.md#interface-iterablee) 和 [Iterator](core_package_classes.md#class-iteratort) 接口说明。
@@ -2250,7 +2252,7 @@ public func toString(): String
 ## class Thread
 
 ```cangjie
-public class Thread
+public class Thread {}
 ```
 
 功能：获取线程 ID 及名字、查询线程是否存在取消请求、注册线程未处理异常的处理函数等。
@@ -2320,7 +2322,7 @@ public static func handleUncaughtExceptionBy(exHandler: (Thread, Exception) -> U
 ## class ThreadLocal\<T>
 
 ```cangjie
-public class ThreadLocal<T>
+public class ThreadLocal<T> {}
 ```
 
 功能：该类表示仓颉线程局部变量。
