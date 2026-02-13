@@ -72,6 +72,14 @@ inline EnumInfo* TypeTemplate::GetEnumInfo()
     return nullptr;
 }
 
+inline EnumDebugInfo* TypeTemplate::GetEnumDebugInfo()
+{
+    if (IsEnum() || IsTempEnum()) {
+        return enumDebugInfo;
+    }
+    return nullptr;
+}
+
 inline EnumCtorReflectInfo* TypeTemplate::GetEnumCtorReflectInfo()
 {
     if (IsEnumCtor()) {
@@ -263,7 +271,7 @@ inline bool TypeInfo::IsBoxClass() const
     if (IsGeneric()) {
         return false;
     }
-    return GetModifier() & MODIFIER_BOXCLASS;
+    return static_cast<bool>(GetModifier() & MODIFIER_BOXCLASS);
 }
 
 inline bool TypeInfo::ReflectInfoIsNull() const { return reflectInfo == nullptr; }
