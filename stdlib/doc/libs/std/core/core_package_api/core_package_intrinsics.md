@@ -4710,7 +4710,6 @@ public static func getPreviousFromUtf8(arr: Array<UInt8>, index: Int64): (Rune, 
 <!-- verify -->
 ```cangjie
 main() {
-    // 测试 Rune.getPreviousFromUtf8 方法
     // 创建一个包含中文字符的字节数组
     var arr: Array<UInt8> = [72, 101, 108, 108, 111, 231, 136, 177] // "Hello爱" 的 UTF-8 编码
     println("字节数组: ${arr}")

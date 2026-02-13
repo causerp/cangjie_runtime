@@ -3,8 +3,7 @@
 ## struct ParsedArguments
 
 ```cangjie
-public struct ParsedArguments {
-}
+public struct ParsedArguments {}
 ```
 
 功能：存储参数解析的结果。

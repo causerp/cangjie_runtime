@@ -3,7 +3,7 @@
 ## class Console <sup>(deprecated)</sup>
 
 ```cangjie
-public class Console
+public class Console {}
 ```
 
 功能：此类提供标准输入、标准输出和标准错误流的获取接口。
@@ -99,7 +99,7 @@ main() {
 ## class ConsoleReader <sup>(deprecated)</sup>
 
 ```cangjie
-public class ConsoleReader <: InputStream
+public class ConsoleReader <: InputStream {}
 ```
 
 功能：提供从控制台读出数据并转换成字符或字符串的功能。
@@ -368,7 +368,7 @@ Some(abcde)
 ## class ConsoleWriter <sup>(deprecated)</sup>
 
 ```cangjie
-public class ConsoleWriter <: OutputStream
+public class ConsoleWriter <: OutputStream {}
 ```
 
 功能：此类提供保证线程安全的标准输出功能。

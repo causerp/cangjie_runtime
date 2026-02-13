@@ -1398,9 +1398,6 @@ main() {
     let element = arr[2]
 
     println("Element at index 2: ${element}")
-
-    // 注意：访问超出范围的元素会抛出IndexOutOfBoundsException异常
-    // 这里我们只演示正常访问
 }
 ```
 
@@ -2938,7 +2935,6 @@ public init()
 <!-- verify -->
 ```cangjie
 main() {
-    // 创建一个默认的CPointerHandle实例
     // 注意：此构造函数已被标记为废弃，未来版本将不再使用
     let handle = CPointerHandle<Int64>()
 
@@ -5434,7 +5430,7 @@ Duration 1 is not greater than or equal to Duration 4
 ## struct LibC
 
 ```cangjie
-public struct LibC
+public struct LibC {}
 ```
 
 功能：提供了仓颉中较为高频使用的 C 接口，如申请、释放堆上 [CType](core_package_interfaces.md#interface-ctype) 实例。
@@ -8771,8 +8767,7 @@ main() {
     // 创建一个字符串用于测试
     let str = "123456789"
 
-    // 使用trimStart函数从头开始删除符合过滤条件的字符
-    // 这里删除开头所有小于'5'的数字字符
+    // 删除开头所有小于'5'的数字字符
     let trimmed = str.trimStart({c => c < r'5'})
 
     println("Original string: '${str}'")
@@ -8813,8 +8808,7 @@ main() {
     // 创建一个字符串用于测试
     let str = "12241"
 
-    // 使用trimStart函数从头开始删除在数组中的字符
-    // 这里删除开头所有'1'和'2'字符
+    // 删除开头所有'1'和'2'字符
     let trimmed = str.trimStart([r'1', r'2'])
 
     println("Original string: '${str}'")
@@ -8855,8 +8849,7 @@ main() {
     // 创建一个字符串用于测试
     let str = "12241"
 
-    // 使用trimStart函数从头开始删除在字符串中的字符
-    // 这里删除开头所有'1'和'2'字符
+    // 删除开头所有'1'和'2'字符
     let trimmed = str.trimStart("12")
 
     println("Original string: '${str}'")
@@ -9310,9 +9303,6 @@ main() {
     println("String: '${str}'")
     println("str[0]: ${byte1}")
     println("str[7]: ${byte2}")
-
-    // 注意：如果索引超出范围会抛出异常
-    // let byte3 = str[100]  // 这行代码会抛出异常
 }
 ```
 
@@ -9367,9 +9357,6 @@ main() {
     println("String: '${str}'")
     println("str[0..5]: '${slice1}'")
     println("str[7..]: '${slice2}'")
-
-    // 注意：如果区间超出范围会抛出异常
-    // let slice3 = str[0..100]  // 这行代码会抛出异常
 }
 ```
 

@@ -77,58 +77,10 @@ main() {
 ArithmeticException的init(String)构造函数用于根据异常信息创建算术异常实例
 ```
 
-### func getClassName()
-
-```cangjie
-protected open override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名字符串。
-
-示例：
-
-<!-- verify -->
-```cangjie
-// 创建一个继承自ArithmeticException的类来访问受保护的getClassName方法
-public class MyArithmeticException <: ArithmeticException {
-    public init() {
-        super()
-    }
-
-    public init(message: String) {
-        super(message)
-    }
-
-    // 公共方法来调用受保护的getClassName方法
-    public func getClassNamePublic(): String {
-        return getClassName()
-    }
-}
-
-main() {
-    let exception = MyArithmeticException("测试异常")
-    let className = exception.getClassNamePublic()
-    println("类名: ${className}")
-
-    println("ArithmeticException的getClassName()方法用于获取类名")
-}
-```
-
-运行结果：
-
-```text
-类名: ArithmeticException
-ArithmeticException的getClassName()方法用于获取类名
-```
-
 ## class Error
 
 ```cangjie
-public open class Error <: ToString
+public open class Error <: ToString {}
 ```
 
 功能：[Error](core_package_exceptions.md#class-error) 是所有错误类的基类。该类不可被继承，不可初始化，但是可以被捕获到。
@@ -157,38 +109,6 @@ main() {
     // 假设出现内存错误或栈溢出错误
     } catch (e: Error) {
         println(e.message)
-    }
-}
-```
-
-### func getClassName()
-
-```cangjie
-protected open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- compile -->
-```cangjie
-// 此示例只做展示，假设内部抛出 Error
-main() {
-    try {
-    // 假设出现栈溢出错误
-    } catch (e: StackOverflowError) {
-        println(e.message)
-    }
-}
-
-extend Error {
-    public func printlnClassName(): Unit {
-        println(getClassName())
     }
 }
 ```
@@ -534,50 +454,6 @@ Caused by: Exception: 这是一个cause
 	 ... 1 more
 ```
 
-### func getClassName()
-
-```cangjie
-protected open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- verify -->
-```cangjie
-// 创建Exception的子类来演示getClassName()方法
-class MyException <: Exception {
-    public init() {
-        super()
-    }
-
-    public init(message: String) {
-        super(message)
-    }
-
-    // 调用protected方法getClassName()
-    public func getExceptionClassName(): String {
-        return this.getClassName()
-    }
-}
-
-main() {
-    let exception = MyException("测试异常")
-    println("异常类名: " + exception.getExceptionClassName())
-}
-```
-
-运行结果：
-
-```text
-异常类名: Exception
-```
-
 ### func getStackTrace()
 
 ```cangjie
@@ -689,7 +565,7 @@ main() {
 ## class ExclusiveScopeException
 
 ```cangjie
-public class ExclusiveScopeException <: Exception
+public class ExclusiveScopeException <: Exception {}
 ```
 
 功能：自定义异常类，用于包装在独占作用域中抛出的异常。它保留了原始异常的堆栈信息，不支持主动构造该异常，但是可以被捕获到。
@@ -779,50 +655,6 @@ main() {
 }
 ```
 
-### func getClassName()
-
-```cangjie
-protected override open func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- verify -->
-```cangjie
-// 创建IllegalArgumentException的子类来演示getClassName()方法
-class MyException <: IllegalArgumentException {
-    public init() {
-        super()
-    }
-
-    public init(message: String) {
-        super(message)
-    }
-
-    // 调用protected方法getClassName()
-    public func getExceptionClassName(): String {
-        return this.getClassName()
-    }
-}
-
-main() {
-    let exception = MyException("测试异常")
-    println("异常类名: " + exception.getExceptionClassName())
-}
-```
-
-运行结果：
-
-```text
-异常类名: IllegalArgumentException
-```
-
 ## class IllegalFormatException
 
 ```cangjie
@@ -876,50 +708,6 @@ main() {
     // 使用带消息的构造函数创建IllegalFormatException实例
     let exception = IllegalFormatException("自定义异常信息")
 }
-```
-
-### func getClassName()
-
-```cangjie
-protected override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- verify -->
-```cangjie
-// 创建IllegalFormatException的子类来演示getClassName()方法
-class MyException <: IllegalFormatException {
-    public init() {
-        super()
-    }
-
-    public init(message: String) {
-        super(message)
-    }
-
-    // 调用protected方法getClassName()
-    public func getExceptionClassName(): String {
-        return this.getClassName()
-    }
-}
-
-main() {
-    let exception = MyException("测试异常")
-    println("异常类名: " + exception.getExceptionClassName())
-}
-```
-
-运行结果：
-
-```text
-异常类名: IllegalFormatException
 ```
 
 ## class IllegalMemoryException
@@ -1255,7 +1043,7 @@ main() {
 ## class OutOfMemoryError
 
 ```cangjie
-public class OutOfMemoryError <: Error
+public class OutOfMemoryError <: Error {}
 ```
 
 功能：表示内存不足错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。
@@ -1264,37 +1052,7 @@ public class OutOfMemoryError <: Error
 
 - [Error](#class-error)
 
-### func getClassName()
-
-```cangjie
-protected override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- compile -->
-```cangjie
-// 此示例只做展示，假设抛出 OutOfMemoryError
-main() {
-    try {
-    // 假设出现内存错误
-    } catch (e: OutOfMemoryError) {
-        println(e.message)
-    }
-}
-
-extend Error {
-    public func printlnClassName(): Unit {
-        println(getClassName())
-    }
-}
-```
+<!-- associated_example -->
 
 ## class OverflowException
 
@@ -1409,7 +1167,7 @@ main() {
 ## class StackOverflowError
 
 ```cangjie
-public class StackOverflowError <: Error
+public class StackOverflowError <: Error {}
 ```
 
 功能：表示堆栈溢出错误的错误类，该类不可被继承，不可初始化，但是可以被捕获到。
@@ -1417,38 +1175,6 @@ public class StackOverflowError <: Error
 父类型：
 
 - [Error](#class-error)
-
-### func getClassName()
-
-```cangjie
-protected override func getClassName(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- compile -->
-```cangjie
-// 此示例只做展示，假设抛出 StackOverflowError
-main() {
-    try {
-    // 假设出现栈溢出错误
-    } catch (e: StackOverflowError) {
-        println(e.message)
-    }
-}
-
-extend Error {
-    public func printlnClassName(): Unit {
-        println(getClassName())
-    }
-}
-```
 
 ### func printStackTrace()
 

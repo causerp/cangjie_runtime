@@ -3,7 +3,7 @@
 ## class DriverManager
 
 ```cangjie
-public class DriverManager
+public class DriverManager {}
 ```
 
 功能：支持运行时根据驱动名获取数据库驱动实例。

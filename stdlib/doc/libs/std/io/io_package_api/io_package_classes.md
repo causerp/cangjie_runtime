@@ -2001,7 +2001,7 @@ World
 Error: Can't move the position before the beginning of the stream.
 ```
 
-#### prop length
+### prop length
 
 ```cangjie
 public prop length: Int64
@@ -2034,7 +2034,7 @@ Initial length: 11
 Length after writing: 21
 ```
 
-#### prop position
+### prop position
 
 ```cangjie
 public prop position: Int64
@@ -2068,7 +2068,7 @@ Initial position: 0
 Position after reading 5 bytes: 5
 ```
 
-#### prop remainLength
+### prop remainLength
 
 ```cangjie
 public prop remainLength: Int64

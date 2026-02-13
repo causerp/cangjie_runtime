@@ -1848,7 +1848,7 @@ Is the file content correct? result: true
 ## class HardLink
 
 ```cangjie
-public class HardLink
+public class HardLink {}
 ```
 
 功能：提供处理文件系统硬链接相关接口。
@@ -1978,7 +1978,7 @@ Hard link file content: [72, 97, 114, 100, 76, 105, 110, 107]
 ## class SymbolicLink
 
 ```cangjie
-public class SymbolicLink
+public class SymbolicLink {}
 ```
 
 功能：提供处理文件系统符号链接相关接口。
