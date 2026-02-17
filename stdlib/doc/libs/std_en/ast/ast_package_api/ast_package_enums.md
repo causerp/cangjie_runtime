@@ -263,7 +263,7 @@ public enum TokenKind <: ToString {
     | AT_EXCL                      /*  e.g. "@!"     */
     | ILLEGAL
     | COMMON                       /*  "common"       */
-    | PLATFORM                     /*  "platform"     */
+    | SPECIFIC                     /*  "specific"     */
     | HANDLE                       /*  "handle"      */
     | PERFORM                      /*  "perform"     */
     | RESUME                       /*  "resume"      */
@@ -807,14 +807,6 @@ PACKAGE_IDENTIFIER
 ```
 
 Function: Constructs an enumeration instance representing *package identifier*.
-
-### PLATFORM
-
-```cangjie
-PLATFORM
-```
-
-Function: Constructs an enumeration instance representing `PLATFORM`.
 
 ### IF
 
@@ -1439,6 +1431,15 @@ SYNCHRONIZED
 ```
 
 Function: Constructs an enum instance representing `synchronized`.
+
+### SPECIFIC
+
+```cangjie
+SPECIFIC
+```
+
+Function: Constructs an enumeration instance representing `specific`.
+
 
 ### THIS
 
