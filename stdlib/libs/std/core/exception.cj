@@ -125,7 +125,7 @@ public open class Exception <: ToString {
         let trace = getStackTrace()
         var ourSize = trace.size - 1
         var enclosingSize = enclosingTrace.size - 1
-        while (ourSize >= 0 && enclosingSize >= 0 && trace[ourSize].fileName == enclosingTrace[enclosingSize].fileName && trace[ourSize].lineNumber == enclosingTrace[enclosingSize].lineNumber) {
+        while (ourSize >= 0 && enclosingSize >= 0 && trace[ourSize].equals(enclosingTrace[enclosingSize])) {
             ourSize--
             enclosingSize--
         }

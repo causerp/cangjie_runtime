@@ -35,4 +35,11 @@ public open class StackTraceElement <: ToString {
                 "${declaringClass}${packageDelimiter}${methodName}(${fileName}:${lineNumber})")
         }
     }
+
+    func equals(other: StackTraceElement): Bool {
+        return this.declaringClass == other.declaringClass &&
+            this.methodName == other.methodName &&
+            this.fileName == other.fileName &&
+            this.lineNumber == other.lineNumber
+    }
 }
