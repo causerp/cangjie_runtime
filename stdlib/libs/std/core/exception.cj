@@ -91,6 +91,11 @@ public open class Exception <: ToString {
         }
     }
 
+    /*
+     * Cause of this exception, which may be null. The cause is the exception that caused this exception to get thrown.
+     * It is possible that `printStackTrace` will recurse infinitely and eventually cause a stack overflow. Be careful.
+     * To fix it, Exception should implement `Hashable & Equatable` and check if a cause has already been printed.
+     */
     @When[env != "ohos"]
     public mut prop causedBy: ?Exception {
         get() {
