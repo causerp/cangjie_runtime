@@ -263,7 +263,7 @@ public enum TokenKind <: ToString {
     | AT_EXCL                      /*  e.g. "@!"     */
     | ILLEGAL
     | COMMON                       /*  "common"       */
-    | PLATFORM                     /*  "platform"     */
+    | SPECIFIC                     /*  "specific"     */
     | HANDLE                       /*  "handle"      */
     | PERFORM                      /*  "perform"     */
     | RESUME                       /*  "resume"      */
@@ -1439,6 +1439,14 @@ SYNCHRONIZED
 ```
 
 功能：构造一个表示 `synchronized` 的枚举实例。
+
+### SPECIFIC
+
+```cangjie
+SPECIFIC
+```
+
+功能：构造一个表示 `specific` 的枚举实例。
 
 ### THIS
 
