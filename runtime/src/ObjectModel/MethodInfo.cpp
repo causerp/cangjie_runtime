@@ -568,7 +568,11 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         return sret;
     }
     if (HasSRetWithUnknowGenericStruct()) {
+#if defined(__aarch64__)
+        return sret;
+#else
         return ret.ref;
+#endif
     }
     if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsUnknownSize()))) {
         return instanceObj;
