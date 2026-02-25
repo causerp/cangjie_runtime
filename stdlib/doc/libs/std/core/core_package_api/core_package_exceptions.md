@@ -164,7 +164,7 @@ public mut prop causedBy: ?Exception
 main() {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         println(e)
         if (let Some(cause) <- e.causedBy) {
             println(cause)
@@ -185,7 +185,6 @@ func throwException() {
 func throwCause() {
     throw Exception("这是一个cause")
 }
-
 ```
 
 运行结果：
@@ -238,7 +237,7 @@ public init(causedBy: Exception)
 main() {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         println(e)
         if (let Some(cause) <- e.causedBy) {
             println(cause)
@@ -304,7 +303,7 @@ public init(message: String, causedBy: Exception)
 main(): Unit {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         throw Exception("这是被抛出的异常", e)
     }
 

@@ -164,7 +164,7 @@ Example:
 main() {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         println(e)
         if (let Some(cause) <- e.causedBy) {
             println(cause)
@@ -185,7 +185,6 @@ func throwException() {
 func throwCause() {
     throw Exception("This is a cause")
 }
-
 ```
 
 Execution Result:
@@ -238,7 +237,7 @@ Example:
 main() {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         println(e)
         if (let Some(cause) <- e.causedBy) {
             println(cause)
@@ -304,7 +303,7 @@ Example:
 main(): Unit {
     try {
         throwException()
-    } catch(e: Exception) {
+    } catch (e: Exception) {
         throw Exception("This is the exception to be thrown", e)
     }
 
