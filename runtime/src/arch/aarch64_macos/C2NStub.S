@@ -84,11 +84,9 @@
 //                 | arg9         |
 //   stub sp  -->  | arg8         | <== MCC_C2NStub frame ends at here
 
-    .text
+    .section __TEXT,__cjrt_text,regular
     .align 2
     .global _CJ_MCC_C2NStub
-    .cfi_sections .debug_frame
-
 _CJ_MCC_C2NStub:
 
     // x10 = cpStackSize, x9 = calleeAddr
