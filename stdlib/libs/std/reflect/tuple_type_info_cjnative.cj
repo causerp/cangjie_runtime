@@ -12,6 +12,7 @@ import std.collection.{ReadOnlyList, ArrayList}
 /**
  * Reflective information about tuple types.
  */
+@When[env != "ohos"]
 public class TupleTypeInfo <: TypeInfo {
     init(cp: CPointer<Unit>) {
         super(cp)

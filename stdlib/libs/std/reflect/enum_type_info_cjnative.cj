@@ -14,6 +14,7 @@ import std.collection.*
  *
  * This class exposes constructors, construction, and deconstruction helpers for enums.
  */
+@When[env != "ohos"]
 public class EnumTypeInfo <: TypeInfo {
     var _constructors: Option<Collection<EnumConstructorInfo>> = None
     var _constructorsByTypeInfo: Option<HashMap<UIntNative, EnumConstructorInfo>> = None
@@ -210,6 +211,7 @@ public class EnumTypeInfo <: TypeInfo {
  *
  * Provides constructor signature data, annotations, and invocation helpers.
  */
+@When[env != "ohos"]
 public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString {
     let _info: CPointer<Unit>
     let _enumTypeInfoPointer: CPointer<Unit>
@@ -505,6 +507,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
     }
 }
 
+@When[env != "ohos"]
 func getEnumSuperTypeInfo(ti: EnumTypeInfo): ?EnumTypeInfo {
     let superPointer = getSuperTypeInfo(ti._info)
     if (superPointer.isNull()) {
@@ -516,6 +519,7 @@ func getEnumSuperTypeInfo(ti: EnumTypeInfo): ?EnumTypeInfo {
     }
 }
 
+@When[env != "ohos"]
 func parseConstructorName(raw: String): String {
     var name = raw
     if (let Some(idx) <- name.indexOf("(")) {
@@ -525,10 +529,12 @@ func parseConstructorName(raw: String): String {
     name[dot + 1..]
 }
 
+@When[env != "ohos"]
 func normalizeConstructorSignature(raw: String): String {
     raw.trimAscii().replace(" ", "")
 }
 
+@When[env != "ohos"]
 func findLastTopLevelDot(name: String): Int64 {
     var angle = 0
     var idx: Int64 = name.size - 1

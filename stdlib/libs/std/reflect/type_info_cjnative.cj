@@ -352,12 +352,9 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         typeInfo
     }
 
-    static func createConcreteTypeInfo(typeInfoPointer: CPointer<Unit>, qualifiedName: String, uuid!: ?String = None): TypeInfo {
-        if (qualifiedName.isEmpty()) {
-            throw ReflectException("Unexpected empty qualifiedName.")
-        }
-
-        let typeInfo = if (isPrimitive(typeInfoPointer)) {
+    @When[env != "ohos"]
+    static func getTypeInfoByPointer(typeInfoPointer: CPointer<Unit>, qualifiedName: String) {
+        return if (isPrimitive(typeInfoPointer)) {
             PrimitiveTypeInfo(typeInfoPointer, qualifiedName)
         } else if (isInterface(typeInfoPointer)) {
             InterfaceTypeInfo(typeInfoPointer)
@@ -374,6 +371,29 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         } else {
             throw ReflectException("Type \"${qualifiedName}\" is not supported.")
         }
+    }
+
+    @When[env == "ohos"]
+    static func getTypeInfoByPointer(typeInfoPointer: CPointer<Unit>, qualifiedName: String) {
+        return if (isPrimitive(typeInfoPointer)) {
+            PrimitiveTypeInfo(typeInfoPointer, qualifiedName)
+        } else if (isInterface(typeInfoPointer)) {
+            InterfaceTypeInfo(typeInfoPointer)
+        } else if (isClass(typeInfoPointer)) {
+            ClassTypeInfo(typeInfoPointer)
+        } else if (isStruct(typeInfoPointer)) {
+            StructTypeInfo(typeInfoPointer)
+        } else {
+            throw ReflectException("Type \"${qualifiedName}\" is not supported.")
+        }
+    }
+
+    static func createConcreteTypeInfo(typeInfoPointer: CPointer<Unit>, qualifiedName: String, uuid!: ?String = None): TypeInfo {
+        if (qualifiedName.isEmpty()) {
+            throw ReflectException("Unexpected empty qualifiedName.")
+        }
+
+        let typeInfo = TypeInfo.getTypeInfoByPointer(typeInfoPointer, qualifiedName)
 
         let uuidStr = uuid ?? unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
         let replacedName = qualifiedName.replace("/", "::")
