@@ -150,8 +150,7 @@ struct CJThread {
     char name[CJTHREAD_NAME_SIZE];           /* cjthread name */
     bool isCJThread0;
 #ifdef __OHOS__
-    unsigned int singleModelC2NCount;
-    struct StackInfo stackInfo;
+    std::vector<unsigned long long> threadStackTopList;
 #endif
 };
 

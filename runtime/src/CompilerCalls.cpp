@@ -1739,7 +1739,6 @@ void CJ_MCC_RemoveExportedRef(U64 id)
     Heap::GetHeap().RemoveExportObject(id);
 }
 
-
 #if defined(__OHOS__)
 void* ARKTS_CreateEngine = nullptr;
 void* ARKTS_UpdateStackInfo = nullptr;
@@ -1790,9 +1789,7 @@ extern "C" void* CJ_MRT_ARKTS_CreateEngine()
     }
     RegisterArkVMInRuntime(arkVm);
     RegisterStackInfoCallbacks(((UpdateStackInfoFunc)ARKTS_UpdateStackInfo));
-    if (!IsForeignThread()) {
-        UpdateArkVMStackInfo(arkVm);
-    }
+
     return res;
 }
 #endif
