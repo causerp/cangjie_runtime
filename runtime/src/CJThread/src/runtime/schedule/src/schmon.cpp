@@ -152,8 +152,9 @@ void SchmonCheckAllprocessors(unsigned long long now)
     timerCheckFunc = g_scheduleManager.schmon.checkFunc[SCHMON_TIMER_HOOK];
     DULINK_FOR_EACH_ITEM(scheduleNode, &g_scheduleManager.allScheduleList) {
         schedule = DULINK_ENTRY(scheduleNode, struct Schedule, allScheduleDulink);
-        /* if schedule is from foreign thread, do not check preempt */
-        if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD) {
+        /* if schedule is from foreign thread or exclusive, do not check preempt */
+        if (schedule->scheduleType == SCHEDULE_FOREIGN_THREAD ||
+            schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
             if (timerCheckFunc != nullptr) {
                 timerCheckFunc(&schedule->schdProcessor.processorGroup[0], now);
             }
