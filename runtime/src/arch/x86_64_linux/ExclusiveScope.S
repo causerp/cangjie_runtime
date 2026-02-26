@@ -127,6 +127,13 @@ unwindPCForExclusiveStub:
     stmxcsr CONTEXT_MXCSR(%r14)
     fstcw   CONTEXT_FPU_CW(%r14)
 
+    // Nested exclusive scope is already on OS thread stack.
+    // Switching rsp again to thread->context.rsp may clobber current frames.
+    movq    -80(%rbp), %rdi
+    callq   IsExclusiveCJThread@PLT
+    testl   %eax, %eax
+    jnz     .L_exc_skip_stack_switch
+
     // ==================== switch to OS thread ====================
     movq    -88(%rbp), %r12             // thread
     leaq    THREAD_CONTEXT_OFFSET(%r12), %r15
@@ -143,6 +150,15 @@ unwindPCForExclusiveStub:
     movq    -88(%rbp), %rdi
     movq    -160(%rbp), %rsi
     callq   ExclusiveExecutor@PLT
+    jmp     .L_exc_after_executor
+
+.L_exc_skip_stack_switch:
+    // Already on OS thread stack, execute directly without switching rsp.
+    movq    -88(%rbp), %rdi
+    movq    -160(%rbp), %rsi
+    callq   ExclusiveExecutor@PLT
+
+.L_exc_after_executor:
 
     movq    %rax, %r13
     movapd  %xmm0, -128(%rbp)

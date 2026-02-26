@@ -876,11 +876,31 @@ void ExclusiveExecutor(struct Thread* thread, struct CJThread* newCJThread)
     return;
 }
 
+int IsExclusiveCJThread(struct CJThread* cjthread)
+{
+    if (cjthread == nullptr || cjthread->schedule == nullptr) {
+        return 0;
+    }
+    return cjthread->schedule->scheduleType == SCHEDULE_EXCLUSIVE ? 1 : 0;
+}
+
 // ExclusiveRestore restore from exclusive cjthread
 void ExclusiveRestore(struct CJThread* oldCJThread, struct Thread* thread, struct CJThread* newCJThread, struct Processor* oldProcessor)
 {
+    if (oldCJThread == nullptr || thread == nullptr || newCJThread == nullptr || oldProcessor == nullptr) {
+        LOG(RTLOG_ERROR, "ExclusiveRestore received null parameter. oldCJThread=%p, thread=%p, newCJThread=%p, oldProcessor=%p",
+            oldCJThread, thread, newCJThread, oldProcessor);
+        return;
+    }
+
     struct Schedule* oldSchedule = oldCJThread->schedule;
     struct Schedule* newSchedule = newCJThread->schedule;
+
+    if (oldSchedule == nullptr || newSchedule == nullptr) {
+        LOG(RTLOG_ERROR, "ExclusiveRestore: invalid schedule detected. oldSchedule=%p, newSchedule=%p",
+            oldSchedule, newSchedule);
+        return;
+    }
 
     // Get saved values
     uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
