@@ -127,12 +127,16 @@ Return Value:
 
 ## class Exception
 
+<!--RP1-->
 ```cangjie
 public open class Exception <: ToString {
     public init()
+    public init(causedBy: Exception)
     public init(message: String)
+    public init(message: String, causedBy: Exception)
 }
 ```
+<!--RP1End-->
 
 Purpose: [Exception](core_package_exceptions.md#class-exception) is the parent class for all exception classes.
 
@@ -142,13 +146,66 @@ Parent Types:
 
 - [ToString](core_package_interfaces.md#interface-tostring)
 
+<!--Del-->
+### prop causedBy
+
+```cangjie
+public mut prop causedBy: ?Exception
+```
+
+Function: Cause of exception.
+
+Type: ?[Exception](core_package_exceptions.md#class-exception)
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        throwException()
+    } catch (e: Exception) {
+        println(e)
+        if (let Some(cause) <- e.causedBy) {
+            println(cause)
+        }
+    }
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        let exception = Exception("This is an exception")
+        exception.causedBy = e
+        throw exception
+    }
+}
+
+func throwCause() {
+    throw Exception("This is a cause")
+}
+```
+
+Execution Result:
+
+```text
+Exception: This is an exception
+Exception: This is a cause
+```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### prop message
 
 ```cangjie
 public open prop message: String
 ```
 
-Purpose: Gets the exception message.
+Function: Gets the exception message.
 
 Type: [String](core_package_structs.md#struct-string)
 
@@ -158,7 +215,60 @@ Type: [String](core_package_structs.md#struct-string)
 public init()
 ```
 
-Purpose: Constructs a default [Exception](core_package_exceptions.md#class-exception) instance with empty exception message.
+Function: Constructs a default [Exception](core_package_exceptions.md#class-exception) instance with empty default exception message.
+
+<!--Del-->
+### init(Exception)
+
+```cangjie
+public init(causedBy: Exception)
+```
+
+Function: Constructs a [Exception](core_package_exceptions.md#class-exception) instance with the specified cause and empty default exception message.
+
+Parameters:
+
+- causedBy: [Exception](core_package_exceptions.md#class-exception) - Cause of exception.
+
+Example:
+
+<!-- verify -->
+```cangjie
+main() {
+    try {
+        throwException()
+    } catch (e: Exception) {
+        println(e)
+        if (let Some(cause) <- e.causedBy) {
+            println(cause)
+        }
+    }
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        throw Exception(e)
+    }
+}
+
+func throwCause() {
+    throw Exception("This is a cause")
+}
+```
+
+Execution Result:
+
+```text
+Exception
+Exception: This is a cause
+```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### init(String)
 
@@ -171,6 +281,67 @@ Purpose: Constructs an [Exception](core_package_exceptions.md#class-exception) i
 Parameters:
 
 - message: [String](core_package_structs.md#struct-string) - Exception message.
+
+<!--Del-->
+### init(String, Exception)
+
+```cangjie
+public init(message: String, causedBy: Exception)
+```
+
+Function: Construct a [Exception](core_package_exceptions.md#class-exception) instance with the specified exception message and cause。
+
+Parameters:
+
+- message: [String](core_package_structs.md#struct-string) - Exception message.
+- causedBy: [Exception](core_package_exceptions.md#class-exception) - Cause of exception.
+
+Example:
+
+<!-- run -->
+```cangjie
+main(): Unit {
+    try {
+        throwException()
+    } catch (e: Exception) {
+        throw Exception("This is the exception to be thrown", e)
+    }
+
+    ()
+}
+
+func throwException() {
+    try {
+        throwCause()
+    } catch (e: Exception) {
+        throw Exception("This is an exception", e)
+    }
+}
+
+func throwCause() {
+    throw Exception("This is a cause")
+}
+```
+
+Possible execution result:
+
+```text
+An exception has occurred:
+Exception: This is the exception to be thrown
+     at default::main()(/tmp/test-exception-chain.cj:5)
+Caused by: Exception: This is an exception
+     at default::throwException()(/tmp/test-exception-chain.cj:15)
+     at default::main()(/tmp/test-exception-chain.cj:3)
+Caused by: Exception: This is a cause
+     at default::throwCause()(/tmp/test-exception-chain.cj:20)
+     at default::throwException()(/tmp/test-exception-chain.cj:13)
+     ... 1 more
+```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func getClassName()
 
