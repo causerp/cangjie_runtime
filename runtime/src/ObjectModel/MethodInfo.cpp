@@ -522,10 +522,17 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         PrepareSRet(&argValues, sret, retType);
     }
     if (instanceObj != nullptr) {
-        argValues.AddReference(instanceObj);
+        // When a struct is passed as 'this' parameter and its size is unknown at compile time,
+        // the passed 'this' is the struct object itself
+        if ((declaringTi->IsStruct() && !declaringTi->IsUnknownSize()) || ((declaringTi->IsEnum() ||
+            declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
+            argValues.AddInt64(reinterpret_cast<I64>(instanceObj) + TYPEINFO_PTR_SIZE);
+        } else {
+            argValues.AddReference(instanceObj);
+        }
     } else {
         TypeInfo* ti = declaringTi;
-        if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsGenericTypeInfo()))) {
+        if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsUnknownSize()))) {
             U32 size = ti->GetInstanceSize();
             MSize objSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
             instanceObj = ObjectManager::NewObject(declaringTi, objSize, AllocType::RAW_POINTER_OBJECT);
@@ -563,7 +570,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     if (HasSRetWithUnknowGenericStruct()) {
         return ret.ref;
     }
-    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsGenericTypeInfo()))) {
+    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsUnknownSize()))) {
         return instanceObj;
     } else if (IsInitializer() && declaringTi->IsStruct()) {
         ret.ref = instanceObj;
@@ -575,5 +582,86 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     void* any = RetValueToAny(ret, sret, retType);
     MemoryFree(sret);
     return any;
+}
+
+DynamicMethodInfo::DynamicMethodInfo(ObjRef obj) {
+    this->instanceObj = obj;
+    this->functionTi = obj->GetTypeInfo();
+    TypeInfo* ti = nullptr;
+    auto super = this->functionTi->GetSuperTypeInfo();
+    if (this->functionTi->IsFunc()) {
+        ti = this->functionTi;
+    } else if (super != nullptr && super->IsFunc()) {
+        ti = super;
+    } else {
+        LOG(RTLOG_FATAL, "DynamicMethodInfo: functionTi is not a function type");
+    }
+
+    TypeInfo* funcType = ti->GetTypeArgs()[0];
+    this->parameterCount = funcType->GetTypeArgNum() - 1;
+    this->entryPoint = *reinterpret_cast<Uptr*>(reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE);
+    this->returnType = funcType->GetTypeArgs()[0];
+    this->parameterTypes = &(funcType->GetTypeArgs()[1]);
+}
+
+void* DynamicMethodInfo::ApplyCangjieMethod(void* argsArray)
+{
+    if (argsArray == nullptr) {
+        LOG(RTLOG_ERROR, "DynamicMethodInfo: argsArray is null");
+        return nullptr;
+    }
+    ScopedAllocBuffer scopedAllocBuffer;
+    ArgValue argValues;
+    CJRawArray* cjRawArray = nullptr;
+    if (!Heap::IsHeapAddress(argsArray)) {
+        cjRawArray = static_cast<CJArray*>(argsArray)->rawPtr;
+    } else {
+        RefField<false> oldField(reinterpret_cast<MAddress>(argsArray));
+        cjRawArray = reinterpret_cast<CJRawArray*>(Heap::GetBarrier().ReadReference(nullptr, oldField));
+    }
+    U64 actualArgCount = cjRawArray->len;
+    if (actualArgCount != parameterCount) {
+        LOG(RTLOG_FATAL, "DynamicMethodInfo: actualArgCount %d != parameterCount %d", actualArgCount, parameterCount);
+    }
+
+    size_t retObjSize = MRT_ALIGN(returnType->GetInstanceSize() + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
+    ObjRef retObj = ObjectManager::NewObject(returnType, retObjSize, AllocType::RAW_POINTER_OBJECT);
+    if (retObj == nullptr) {
+        VLOG(REPORT, "ApplyCangjieMethod: new object failed and throw OutOfMemoryError");
+        ExceptionManager::CheckAndThrowPendingException("ObjectManager::NewObject return nullptr");
+    }
+#if defined(__aarch64__)
+#else
+    argValues.AddInt64(reinterpret_cast<I64>(&retObj));
+#endif
+    argValues.AddReference(instanceObj);
+
+    ObjRef rawArray = reinterpret_cast<ObjRef>(cjRawArray);
+    RefField<false>* refField = reinterpret_cast<RefField<false>*>(&(cjRawArray->data));
+    for (U64 actualArgIdx = 0; actualArgIdx < actualArgCount; ++actualArgIdx) {
+        ObjRef argObj = static_cast<ObjRef>(Heap::GetBarrier().ReadReference(rawArray, *refField));
+        argValues.AddReference(argObj);
+        refField++;
+    }
+
+    // add outerTi
+    argValues.AddInt64(reinterpret_cast<I64>(functionTi));
+    // The stack parameters are increased by 8 bytes each time,
+    // guaranteed $rbp 16-byte alignment, keep stackIdx is even
+    if (argValues.GetStackIdx() % 2 != 0) {
+        argValues.AddReference(nullptr);
+    }
+    uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
+#if defined(__aarch64__)
+    ApplyCangjieMethodStub(argValues.GetData(), reinterpret_cast<void*>(argValues.GetStackSize()),
+        reinterpret_cast<void*>(entryPoint), reinterpret_cast<void*>(threadData), &retObj);
+#else
+    ApplyCangjieMethodStub(argValues.GetData(), argValues.GetStackSize(), entryPoint, threadData);
+#endif
+
+    if (ExceptionManager::HasPendingException()) {
+        ExceptionManager::ThrowPendingException();
+    }
+    return retObj;
 }
 } // namespace MapleRuntime

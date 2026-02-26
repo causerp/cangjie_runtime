@@ -44,8 +44,12 @@ class TypeTemplateParser {
     var map = HashMap<String, CPointer<Unit>>()
     func parse(string: String): TypeInfo {
         let name = unsafe { string.rawData() }
-        parseGenericString(name, 0, name.size)
-        templates.reverse()
+        var idx = 0
+        while (idx < name.size && name[idx] != b'<') {
+            idx += 1
+        }
+        let templateName = String.fromUtf8(name[0..idx]).trimAscii()
+        parseGenericString(name, idx + 1, name.size, templateName)
         for (i in 0..templates.size) {
             let tt = templates[i]
             let template = TypeTemplate.get(tt)
@@ -54,12 +58,12 @@ class TypeTemplateParser {
             }
             let genericParams = ArrayList<CPointer<Unit>>(data[i].size) {
                 j =>
-                let typeStr = data[i][j]
-                if (typeStr.contains("<")) {
-                    map.get(typeStr) ?? throw InfoNotFoundException("TypeInfo `${typeStr}` not found.")
-                } else {
-                    TypeInfo.get(typeStr)._info
-                }
+                    let typeStr = data[i][j]
+                    if (typeStr.contains("<")) {
+                        map.get(typeStr) ?? throw InfoNotFoundException("TypeInfo `${typeStr}` not found.")
+                    } else {
+                        TypeInfo.get(typeStr)._info
+                    }
             }
             let info = getOrCreateTypeInfoForReflect(template.info, genericParams.toArray())
             if (info.isNull()) {
@@ -75,21 +79,20 @@ class TypeTemplateParser {
         throw InfoNotFoundException("Cannot find ${name.toString()}.")
     }
 
-    func parseGenericString(name: Array<Byte>, begin: Int64, end: Int64): Int64 {
+    func parseGenericString(name: Array<Byte>, begin: Int64, end: Int64, templateName: String): Int64 {
         if (begin >= end) {
             return end
         }
         var strs: ArrayList<String> = ArrayList<String>()
         var start = begin
-        var count = 0
         var idx = begin
         while (idx < end) {
             if (name[idx] == b'<') {
-                count += 1
-                templates.add(String.fromUtf8(name[start..idx]).trimAscii())
-                idx = parseGenericString(name, idx + 1, end)
+                let nestedTemplateName = String.fromUtf8(name[start..idx]).trimAscii()
+                idx = parseGenericString(name, idx + 1, end, nestedTemplateName)
             } else if (name[idx] == b'>') {
                 strs.add(String.fromUtf8(name[start..idx]).trimAscii())
+                templates.add(templateName)
                 data.add(strs)
                 return idx
             } else if (name[idx] == b',') {
@@ -102,8 +105,7 @@ class TypeTemplateParser {
     }
 }
 
-class InheritedAndExtendedMembers {
-}
+class InheritedAndExtendedMembers {}
 
 /**
  * Contains the reflective information that is common for classes, interfaces, structs and primitive types.
@@ -130,6 +132,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
 
     var _inheritedAndExtendedMembers: InheritedAndExtendedMembers = InheritedAndExtendedMembers()
 
+    var _replacedName: Option<String> = None
+
     init(cp: CPointer<Unit>) {
         _info = cp
     }
@@ -145,7 +149,13 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      * Creates the certain type info for incoming instance with 'Any' type.
      */
     public static func of(a: Any): TypeInfo {
-        getOrCreate(getTypeForAny(a))
+        var ti = getTypeForAny(a)
+        if ((isEnum(ti) || isFunction(ti)) && let sti <- getSuperTypeInfo(ti)) {
+            if (!sti.isNull()) {
+                ti = sti
+            }
+        }
+        getOrCreate(ti)
     }
 
     /**
@@ -162,11 +172,18 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      */
     public static func get(qualifiedName: String): TypeInfo {
         synchronized(TYPE_INFO_CREATE_LOCK) {
-            if (let Some(ti) <- CACHE.get(qualifiedName)) {
+            let name = normalize(qualifiedName)
+            if (let Some(ti) <- CACHE.get(name)) {
                 return ti
             }
 
-            let name = normalize(qualifiedName)
+            if (let Some(ti) <- CACHE.get(qualifiedName)) {
+                if (qualifiedName != name) {
+                    CACHE.add(name, ti)
+                }
+                return ti
+            }
+
             return if (!name.contains("<")) {
                 let (realName, typeInfoPointer) = getInfoPointerByQualifiedName(name)
                 let newQualifiedName = realName.replace("std.core.", "")
@@ -181,15 +198,63 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         }
     }
 
+    private static func stripStdCorePrefix(name: String): String {
+        const prefix = "std.core."
+        if (!name.contains(prefix)) {
+            return name
+        }
+
+        let bytes = unsafe { name.rawData() }
+        let prefixBytes = unsafe { prefix.rawData() }
+        var out = ArrayList<Byte>()
+        var idx: Int64 = 0
+        while (idx < bytes.size) {
+            if (hasPrefixAt(bytes, idx, prefixBytes) && (idx == 0 || isStdCoreBoundary(bytes[idx - 1]))) {
+                idx += prefixBytes.size
+                continue
+            }
+            out.add(bytes[idx])
+            idx += 1
+        }
+        return String.fromUtf8(out.toArray())
+    }
+
+    private static func hasPrefixAt(bytes: Array<Byte>, start: Int64, prefix: Array<Byte>): Bool {
+        if (start + prefix.size > bytes.size) {
+            return false
+        }
+        var offset: Int64 = 0
+        while (offset < prefix.size) {
+            if (bytes[start + offset] != prefix[offset]) {
+                return false
+            }
+            offset += 1
+        }
+        return true
+    }
+
+    private static func isStdCoreBoundary(ch: Byte): Bool {
+        match (ch) {
+            case b'<' => true
+            case b'>' => true
+            case b',' => true
+            case b' ' => true
+            case b'(' => true
+            case b')' => true
+            case b'[' => true
+            case b']' => true
+            case b':' => true
+            case _ => false
+        }
+    }
+
     private static func normalize(qualifiedName: String): String {
         let (isPrimitive, _, _) = checkPrimitive(qualifiedName)
-        let hasPrefix = qualifiedName.contains(".")
-        let isGeneric = qualifiedName.contains("<")
-
         // 1. primitive type should use mangled name to find type
         // 2. qualifiedName in std.core should omits prefix, but runtime need it, must complete qualifiedName here
-        let replacedName = qualifiedName.replace("::", "/")
-        let stripedName = replacedName.replace(" ", "")
+        let stripedName = qualifiedName.replace(" ", "")
+        let hasPrefix = stripedName.contains(".")
+        let isGeneric = qualifiedName.contains("<")
         match ((isPrimitive, hasPrefix, isGeneric)) {
             case (true, _, _) => unsafe { stripedName }
             case (_, _, true) => unsafe { parseGeneric(stripedName) }
@@ -204,7 +269,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             let typeInfoPointer = getTypeByQualifiedName(cstring.getChars())
             LibC.free(cstring)
             if (typeInfoPointer.isNull()) {
-                throw InfoNotFoundException("TypeInfo '${qualifiedName.replace("std.core.", "")}' not found.")
+                let displayName = stripStdCorePrefix(qualifiedName).replace("/", "::")
+                throw InfoNotFoundException("TypeInfo '${displayName}' not found.")
             }
             (qualifiedName, typeInfoPointer)
         }
@@ -260,7 +326,6 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         if (typeInfoPointer.isNull()) {
             throw InfoNotFoundException("TypeInfo not found!")
         }
-
         let isGenericTypeInfo: Bool = isGeneric(typeInfoPointer)
         synchronized(TYPE_INFO_CREATE_LOCK) {
             if (isGenericTypeInfo) {
@@ -292,22 +357,28 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             throw ReflectException("Unexpected empty qualifiedName.")
         }
 
-
-        let typeInfo = if(isPrimitive(typeInfoPointer)) {
+        let typeInfo = if (isPrimitive(typeInfoPointer)) {
             PrimitiveTypeInfo(typeInfoPointer, qualifiedName)
         } else if (isInterface(typeInfoPointer)) {
             InterfaceTypeInfo(typeInfoPointer)
+        } else if (isFunction(typeInfoPointer)) {
+            FunctionTypeInfo(typeInfoPointer)
+        } else if (isEnum(typeInfoPointer)) {
+            EnumTypeInfo(typeInfoPointer)
         } else if (isClass(typeInfoPointer)) {
             ClassTypeInfo(typeInfoPointer)
         } else if (isStruct(typeInfoPointer)) {
             StructTypeInfo(typeInfoPointer)
+        } else if (isTuple(typeInfoPointer)) {
+            TupleTypeInfo(typeInfoPointer)
         } else {
             throw ReflectException("Type \"${qualifiedName}\" is not supported.")
         }
 
         let uuidStr = uuid ?? unsafe { CPointer<Int32>(CPointer<Byte>(typeInfoPointer) + UUID_OFFSET).read().toString() }
-        typeInfo._qualifiedName = qualifiedName
-        CACHE.add(qualifiedName, typeInfo)
+        let replacedName = qualifiedName.replace("/", "::")
+        typeInfo._replacedName = replacedName
+        CACHE.add(replacedName, typeInfo)
         CACHE.add(uuidStr, typeInfo)
         typeInfo
     }
@@ -335,9 +406,15 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             match (_qualifiedName) {
                 case Some(res) => res
                 case None =>
-                    let name = getQualifiedName(_info)
-                    _qualifiedName = name
-                    name
+                    _qualifiedName = if (isBox(_info)) {
+                        let args = getTypeArgs(_info)
+                        // Get the first member from the array
+                        let typeArg = unsafe { CPointer<CPointer<Unit>>(args).read() }
+                        getQualifiedName(typeArg)
+                    } else {
+                        _replacedName.getOrDefault({=> getQualifiedName(_info)})
+                    }
+                    _qualifiedName.getOrThrow()
             }
         }
     }
@@ -345,12 +422,12 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     // return qualifiedName with space from runtime
     private static func getQualifiedName(pointer: CPointer<Unit>): String {
         let namePointer = getTypeName(pointer)
-        let qualifiedName = CString(namePointer).toString().replace("/", "::")
+        var qualifiedName = CString(namePointer).toString().replace("/", "::")
         var formatted = ArrayList<Byte>()
-        for (idx in 0 .. qualifiedName.size - 1) {
+        for (idx in 0..qualifiedName.size - 1) {
             let ch = qualifiedName[idx]
             let nextCh = qualifiedName[idx + 1]
-            let prefixCh = qualifiedName.get(idx-1) ?? b' '
+            let prefixCh = qualifiedName.get(idx - 1) ?? b' '
 
             let isOrgPrefix = (ch == b':' && nextCh == b':')
             let isOrgSuffix = (idx > 1 && ch == b':' && prefixCh == b':')
@@ -370,7 +447,8 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             }
         }
         formatted.add(qualifiedName[qualifiedName.size - 1])
-        String.fromUtf8(formatted.toArray()).replace("std.core.", "")
+        qualifiedName = stripStdCorePrefix(String.fromUtf8(formatted.toArray()))
+        return qualifiedName
     }
 
     /**
@@ -498,7 +576,14 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         if (supertype.qualifiedName == "Any") {
             return true
         }
-        isSubType(_info, supertype._info)
+        let realTi = if (isBox(supertype._info)) {
+            let args = getTypeArgs(supertype._info)
+            // Get the first member from the array
+            unsafe { CPointer<CPointer<Unit>>(args).read() }
+        } else {
+            supertype._info
+        }
+        isSubType(_info, realTi)
     }
 
     /**
@@ -558,7 +643,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
-   }
+    }
 
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
@@ -577,7 +662,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     }
 
     public func hashCode(): Int64 {
-        this._info.toUIntNative().hashCode()
+        this.qualifiedName.hashCode()
     }
 
     public func toString(): String {
@@ -592,11 +677,13 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         for (index in 0..Int64(num)) {
             let pointer = getInstanceMethodInfo(_info, UInt32(index))
             if (pointer.isNull()) {
-                throw InfoNotFoundException("TypeInfo find instance functions failed!")
+                throw InfoNotFoundException(
+                    "Failed to get instance functions for type `${qualifiedName}`: method info at index ${index} is null.")
             }
             let name = getFuncName(pointer)
             if (name.isEmpty()) {
-                throw ReflectException("Unexpected empty instance func name.")
+                throw ReflectException(
+                    "Unexpected empty instance function name for type `${qualifiedName}` at index ${index}.")
             }
             // prop func starts with $
             // need filter $toAny , which is generated by compiler
@@ -641,11 +728,13 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
         for (index in 0..Int64(num)) {
             let pointer = getStaticMethodInfo(_info, UInt32(index))
             if (pointer.isNull()) {
-                throw InfoNotFoundException("TypeInfo find static functions failed!")
+                throw InfoNotFoundException(
+                    "Failed to get static functions for type `${qualifiedName}`: method info at index ${index} is null.")
             }
             let name = getFuncName(pointer)
             if (name.isEmpty()) {
-                throw ReflectException("Unexpected empty static func name.")
+                throw ReflectException(
+                    "Unexpected empty static function name for type `${qualifiedName}` at index ${index}.")
             }
             // prop func starts with $
             if (name.startsWith("$")) {
