@@ -196,7 +196,13 @@ unwindPCForC2NStub:
     mov  x1, #0
     str  x0, [sp, #SafeStateOffset]
 #ifdef __OHOS__
-    bl   CJ_AddSingleModelC2NCount
+    bl   CJ_GetUIThreadStackTop
+    cbz  x0, .L_setstack_end
+    str  x0, [sp, #SafeStateOffset+0x8]
+    mov  x0, sp
+    bl   CJ_PushUIThreadStackTop
+    ldr  x0, [sp, #SafeStateOffset+0x8]
+.L_setstack_end:
 #endif
 
     ldp  x8, x9, [sp, #StubCalleeSaveAreaSize+0x50]
@@ -224,6 +230,11 @@ unwindPCForC2NStub:
     ldp  q6, q7, [sp, #StubCalleeSaveAreaSize+0xc0]
     cfi_restore (q6)
     cfi_restore (q7)
+
+#ifdef __OHOS__
+    cbz  x0, .L_copy
+    mov  sp, x0
+#endif
 
     // copy arg8, arg9, arg10, ... (if existed)
 .L_copy:
@@ -263,11 +274,17 @@ unwindPCForC2NStub:
 
     // restoring the SP Value. the stack which extended for invoking c method is useless now.
 #ifdef __OHOS__
-    bl   CJ_DecSingleModelC2NCount
+    bl   CJ_GetUIThreadStackTop
+    cbz  x0,  .L_restore_sp
+    mov  sp,  x0
+    bl   CJ_PopUIThreadStackTop
+    cfi_def_cfa_register (sp)
+    b    .L_restore_sp_end
 #endif
+.L_restore_sp:
     mov  sp,  x29
     cfi_def_cfa_register (sp)
-
+.L_restore_sp_end:
     ldp x0, x1, [x29, #SafeStateOffset]
     cmp x0, #0
     beq .L_none_leave
