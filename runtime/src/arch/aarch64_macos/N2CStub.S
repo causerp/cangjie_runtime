@@ -90,11 +90,9 @@
 //                 | arg9         |
 //   stub sp  -->  | arg8         | <== MCC_N2CStub frame ends at here
 
-    .text
+    .section __TEXT,__cjrt_text,regular
     .align 2
     .global _CJ_MCC_N2CStub
-    .cfi_sections .debug_frame
-
 _CJ_MCC_N2CStub:
 
     // x10 = cpStackSize, x9 = calleeAddr
@@ -307,7 +305,7 @@ _unwindPCForN2CStub:
     ret
     .cfi_endproc
 
-.text
+.section __TEXT,__cjrt_text,regular
 .align 2
 .global  _ExecuteCangjieStub
 _ExecuteCangjieStub:
@@ -320,7 +318,7 @@ _ExecuteCangjieStub:
     ret
     .cfi_endproc
 
-.text
+.section __TEXT,__cjrt_text,regular
 .align 2
 .global  _ApplyCangjieMethodStub
 .global  _ApplyCangjieMethodStubFloat32
