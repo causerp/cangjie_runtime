@@ -387,6 +387,7 @@ public open func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 异常字符串。
 
+<!--Del-->
 ## class ExclusiveScopeException
 
 ```cangjie

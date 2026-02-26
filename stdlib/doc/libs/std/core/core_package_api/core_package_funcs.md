@@ -256,7 +256,7 @@ main() {
 ```text
 width: 10, height: 20
 ```
-
+<!--Del-->
 ## func exclusiveScope\<T>(( ) -> T)
 
 ```cangjie
