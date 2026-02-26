@@ -12,8 +12,8 @@ import std.env.*
 main(): Int64 {
     println(getProcessId())
     println(getCommand())
-    println(getCommandLine().toString())
-    println(getWorkingDirectory().toString())
+    println(getCommandLine())
+    println(getWorkingDirectory())
     atExit(printText)
     exit(0)
     return 0

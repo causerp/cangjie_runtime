@@ -3891,7 +3891,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
 }
 ```
 
-Functionality: An implementation of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface based on a balanced binary search tree.
+Function: An implementation of the [OrderedMap](collection_package_interface.md#interface-orderedmapk-v) interface based on a balanced multi-way search tree.
 
 The primary purpose of this class is to provide an ordered key-value storage structure that supports fast insertion, deletion, and lookup operations.
 

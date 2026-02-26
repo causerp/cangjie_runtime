@@ -3,7 +3,7 @@
 ## interface Any
 
 ```cangjie
-public interface Any
+public interface Any {}
 ```
 
 功能：[Any](core_package_interfaces.md#interface-any) 是所有类型的父类型，所有 `interface` 都默认继承它，所有非 `interface` 类型都默认实现它。
@@ -28,6 +28,27 @@ public func isAscii(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAscii() 方法
+    let byte1: Byte = 65 // 'A' 的 ASCII 值
+    let byte2: Byte = 200 // 超出 ASCII 范围的值
+
+    println("byte1 (${byte1}) 是否在 ASCII 范围内: ${byte1.isAscii()}")
+    println("byte2 (${byte2}) 是否在 ASCII 范围内: ${byte2.isAscii()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (65) 是否在 ASCII 范围内: true
+byte2 (200) 是否在 ASCII 范围内: false
+```
+
 #### func isAsciiControl()
 
 ```cangjie
@@ -39,6 +60,30 @@ public func isAsciiControl(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 控制字符范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiControl() 方法
+    let byte1: Byte = 0x09 // 制表符 '\t'，属于 ASCII 控制字符
+    let byte2: Byte = 0x20 // 空格 ' '，不属于 ASCII 控制字符
+    let byte3: Byte = 0x7F // DEL，属于 ASCII 控制字符
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 控制字符: ${byte1.isAsciiControl()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 控制字符: ${byte2.isAsciiControl()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 控制字符: ${byte3.isAsciiControl()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x9) 是否是 ASCII 控制字符: true
+byte2 (0x32) 是否是 ASCII 控制字符: false
+byte3 (0x127) 是否是 ASCII 控制字符: true
+```
 
 #### func isAsciiGraphic()
 
@@ -52,6 +97,30 @@ public func isAsciiGraphic(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 图形字符范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiGraphic() 方法
+    let byte1: Byte = 0x21 // '!'，属于 ASCII 图形字符
+    let byte2: Byte = 0x7E // '~'，属于 ASCII 图形字符
+    let byte3: Byte = 0x20 // ' '，空格，不属于 ASCII 图形字符
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 图形字符: ${byte1.isAsciiGraphic()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 图形字符: ${byte2.isAsciiGraphic()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 图形字符: ${byte3.isAsciiGraphic()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x33) 是否是 ASCII 图形字符: true
+byte2 (0x126) 是否是 ASCII 图形字符: true
+byte3 (0x32) 是否是 ASCII 图形字符: false
+```
+
 #### func isAsciiHex()
 
 ```cangjie
@@ -63,6 +132,30 @@ public func isAsciiHex(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 十六进制数字范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiHex() 方法
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 十六进制数字
+    let byte2: Byte = 0x46 // 'F'，属于 ASCII 十六进制数字
+    let byte3: Byte = 0x67 // 'g'，不属于 ASCII 十六进制数字
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 十六进制数字: ${byte1.isAsciiHex()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 十六进制数字: ${byte2.isAsciiHex()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 十六进制数字: ${byte3.isAsciiHex()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x48) 是否是 ASCII 十六进制数字: true
+byte2 (0x70) 是否是 ASCII 十六进制数字: true
+byte3 (0x103) 是否是 ASCII 十六进制数字: false
+```
 
 #### func isAsciiLetter()
 
@@ -76,6 +169,30 @@ public func isAsciiLetter(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 拉丁字母范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiLetter() 方法
+    let byte1: Byte = 0x41 // 'A'，属于 ASCII 拉丁字母
+    let byte2: Byte = 0x7A // 'z'，属于 ASCII 拉丁字母
+    let byte3: Byte = 0x30 // '0'，数字，不属于 ASCII 拉丁字母
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 拉丁字母: ${byte1.isAsciiLetter()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 拉丁字母: ${byte2.isAsciiLetter()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 拉丁字母: ${byte3.isAsciiLetter()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x65) 是否是 ASCII 拉丁字母: true
+byte2 (0x122) 是否是 ASCII 拉丁字母: true
+byte3 (0x48) 是否是 ASCII 拉丁字母: false
+```
+
 #### func isAsciiLowerCase()
 
 ```cangjie
@@ -87,6 +204,30 @@ public func isAsciiLowerCase(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 小写拉丁字母范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiLowerCase() 方法
+    let byte1: Byte = 0x61 // 'a'，属于 ASCII 小写拉丁字母
+    let byte2: Byte = 0x7A // 'z'，属于 ASCII 小写拉丁字母
+    let byte3: Byte = 0x41 // 'A'，大写字母，不属于 ASCII 小写拉丁字母
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 小写拉丁字母: ${byte1.isAsciiLowerCase()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 小写拉丁字母: ${byte2.isAsciiLowerCase()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 小写拉丁字母: ${byte3.isAsciiLowerCase()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x97) 是否是 ASCII 小写拉丁字母: true
+byte2 (0x122) 是否是 ASCII 小写拉丁字母: true
+byte3 (0x65) 是否是 ASCII 小写拉丁字母: false
+```
 
 #### func isAsciiNumber()
 
@@ -100,17 +241,65 @@ public func isAsciiNumber(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 十进制数字范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiNumber() 方法
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 十进制数字
+    let byte2: Byte = 0x39 // '9'，属于 ASCII 十进制数字
+    let byte3: Byte = 0x41 // 'A'，字母，不属于 ASCII 十进制数字
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 十进制数字: ${byte1.isAsciiNumber()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 十进制数字: ${byte2.isAsciiNumber()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 十进制数字: ${byte3.isAsciiNumber()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x48) 是否是 ASCII 十进制数字: true
+byte2 (0x57) 是否是 ASCII 十进制数字: true
+byte3 (0x65) 是否是 ASCII 十进制数字: false
+```
+
 #### func isAsciiNumberOrLetter()
 
 ```cangjie
 public func isAsciiNumberOrLetter(): Bool
 ```
 
-功能：判断 [Byte](core_package_types.md#type-byte) 是否是在 Ascii 十进制数字和拉丁字母范围内。
+功能：判断 [Byte](core_package_types.md#type-byte) 是否是在 Ascii 十进制数字或拉丁字母范围内。
 
 返回值：
 
-- [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 十进制数字和拉丁字母范围内返回 true，否则返回 false。
+- [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 十进制数字或拉丁字母范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiNumberOrLetter() 方法
+    let byte1: Byte = 0x30 // '0'，数字，属于 ASCII 十进制数字和拉丁字母范围
+    let byte2: Byte = 0x41 // 'A'，字母，属于 ASCII 十进制数字和拉丁字母范围
+    let byte3: Byte = 0x20 // ' '，空格，不属于 ASCII 十进制数字和拉丁字母范围
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 十进制数字和拉丁字母: ${byte1.isAsciiNumberOrLetter()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 十进制数字和拉丁字母: ${byte2.isAsciiNumberOrLetter()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 十进制数字和拉丁字母: ${byte3.isAsciiNumberOrLetter()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x48) 是否是 ASCII 十进制数字和拉丁字母: true
+byte2 (0x65) 是否是 ASCII 十进制数字和拉丁字母: true
+byte3 (0x32) 是否是 ASCII 十进制数字和拉丁字母: false
+```
 
 #### func isAsciiOct()
 
@@ -124,6 +313,30 @@ public func isAsciiOct(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 八进制数字范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiOct() 方法
+    let byte1: Byte = 0x30 // '0'，属于 ASCII 八进制数字
+    let byte2: Byte = 0x37 // '7'，属于 ASCII 八进制数字
+    let byte3: Byte = 0x38 // '8'，不属于 ASCII 八进制数字
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 八进制数字: ${byte1.isAsciiOct()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 八进制数字: ${byte2.isAsciiOct()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 八进制数字: ${byte3.isAsciiOct()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x48) 是否是 ASCII 八进制数字: true
+byte2 (0x55) 是否是 ASCII 八进制数字: true
+byte3 (0x56) 是否是 ASCII 八进制数字: false
+```
+
 #### func isAsciiPunctuation()
 
 ```cangjie
@@ -135,6 +348,30 @@ public func isAsciiPunctuation(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 标点符号范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiPunctuation() 方法
+    let byte1: Byte = 0x21 // '!'，属于 ASCII 标点符号
+    let byte2: Byte = 0x2C // ','，属于 ASCII 标点符号
+    let byte3: Byte = 0x30 // '0'，数字，不属于 ASCII 标点符号
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 标点符号: ${byte1.isAsciiPunctuation()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 标点符号: ${byte2.isAsciiPunctuation()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 标点符号: ${byte3.isAsciiPunctuation()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x33) 是否是 ASCII 标点符号: true
+byte2 (0x44) 是否是 ASCII 标点符号: true
+byte3 (0x48) 是否是 ASCII 标点符号: false
+```
 
 #### func isAsciiUpperCase()
 
@@ -148,6 +385,30 @@ public func isAsciiUpperCase(): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 大写拉丁字母范围内返回 true，否则返回 false。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiUpperCase() 方法
+    let byte1: Byte = 0x41 // 'A'，属于 ASCII 大写拉丁字母
+    let byte2: Byte = 0x5A // 'Z'，属于 ASCII 大写拉丁字母
+    let byte3: Byte = 0x61 // 'a'，小写字母，不属于 ASCII 大写拉丁字母
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 大写拉丁字母: ${byte1.isAsciiUpperCase()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 大写拉丁字母: ${byte2.isAsciiUpperCase()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 大写拉丁字母: ${byte3.isAsciiUpperCase()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x65) 是否是 ASCII 大写拉丁字母: true
+byte2 (0x90) 是否是 ASCII 大写拉丁字母: true
+byte3 (0x97) 是否是 ASCII 大写拉丁字母: false
+```
+
 #### func isAsciiWhiteSpace()
 
 ```cangjie
@@ -159,6 +420,30 @@ public func isAsciiWhiteSpace(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果 [Byte](core_package_types.md#type-byte) 在 Ascii 空白字符范围内返回 true，否则返回 false。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 isAsciiWhiteSpace() 方法
+    let byte1: Byte = 0x09 // '\t'，制表符，属于 ASCII 空白字符
+    let byte2: Byte = 0x20 // ' '，空格，属于 ASCII 空白字符
+    let byte3: Byte = 0x41 // 'A'，字母，不属于 ASCII 空白字符
+
+    println("byte1 (0x${byte1}) 是否是 ASCII 空白字符: ${byte1.isAsciiWhiteSpace()}")
+    println("byte2 (0x${byte2}) 是否是 ASCII 空白字符: ${byte2.isAsciiWhiteSpace()}")
+    println("byte3 (0x${byte3}) 是否是 ASCII 空白字符: ${byte3.isAsciiWhiteSpace()}")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x9) 是否是 ASCII 空白字符: true
+byte2 (0x32) 是否是 ASCII 空白字符: true
+byte3 (0x65) 是否是 ASCII 空白字符: false
+```
 
 #### func toAsciiLowerCase()
 
@@ -172,6 +457,34 @@ public func toAsciiLowerCase(): Byte
 
 - [Byte](core_package_types.md#type-byte) - 转换后的 [Byte](core_package_types.md#type-byte)，如果无法转换则返回原来的 [Byte](core_package_types.md#type-byte)。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 toAsciiLowerCase() 方法
+    let byte1: Byte = 0x41 // 'A'，大写字母
+    let byte2: Byte = 0x5A // 'Z'，大写字母
+    let byte3: Byte = 0x30 // '0'，数字，无法转换
+
+    let lower1 = byte1.toAsciiLowerCase()
+    let lower2 = byte2.toAsciiLowerCase()
+    let lower3 = byte3.toAsciiLowerCase()
+
+    println("byte1 (0x${byte1}) 转换为小写: 0x${lower1}")
+    println("byte2 (0x${byte2}) 转换为小写: 0x${lower2}")
+    println("byte3 (0x${byte3}) 转换为小写: 0x${lower3} (保持不变)")
+}
+```
+
+运行结果：
+
+```text
+byte1 (0x65) 转换为小写: 0x97
+byte2 (0x90) 转换为小写: 0x122
+byte3 (0x48) 转换为小写: 0x48 (保持不变)
+```
+
 #### func toAsciiUpperCase()
 
 ```cangjie
@@ -184,40 +497,32 @@ public func toAsciiUpperCase(): Byte
 
 - [Byte](core_package_types.md#type-byte) - 转换后的 [Byte](core_package_types.md#type-byte)，如果无法转换则返回原来的 [Byte](core_package_types.md#type-byte)。
 
-## interface CType
-
-```cangjie
-sealed interface CType
-```
-
-功能：表示支持与 C 语言互操作的接口。
-
-[CType](core_package_interfaces.md#interface-ctype) 接口是一个语言内置的空接口，它是 [CType](core_package_interfaces.md#interface-ctype) 约束的具体实现，所有 C 互操作支持的类型都隐式地实现了该接口，因此所有 C 互操作支持的类型都可以作为 [CType](core_package_interfaces.md#interface-ctype) 类型的子类型使用。
-
-> **注意：**
->
-> - [CType](core_package_interfaces.md#interface-ctype) 接口是仓颉中的一个接口类型，它本身不满足 [CType](core_package_interfaces.md#interface-ctype) 约束。
-> - [CType](core_package_interfaces.md#interface-ctype) 接口不允许被用户继承、扩展。
-> - [CType](core_package_interfaces.md#interface-ctype) 接口不会突破子类型的使用限制。
-
 示例：
 
-<!-- run -->
+<!-- verify -->
 ```cangjie
-@C
-struct Data {}
-
-@C
-func foo() {}
-
 main() {
-    var c: CType = Data() // ok
-    c = 0 // ok
-    c = true // ok
-    c = CString(CPointer<UInt8>()) // ok
-    c = CPointer<Int8>() // ok
-    c = foo // ok
+    // 测试 toAsciiUpperCase() 方法
+    let byte1: Byte = 0x61 // 'a'，小写字母
+    let byte2: Byte = 0x7A // 'z'，小写字母
+    let byte3: Byte = 0x30 // '0'，数字，无法转换
+
+    let upper1 = byte1.toAsciiUpperCase()
+    let upper2 = byte2.toAsciiUpperCase()
+    let upper3 = byte3.toAsciiUpperCase()
+
+    println("byte1 (0x${byte1}) 转换为大写: 0x${upper1}")
+    println("byte2 (0x${byte2}) 转换为大写: 0x${upper2}")
+    println("byte3 (0x${byte3}) 转换为大写: 0x${upper3} (保持不变)")
 }
+```
+
+运行结果：
+
+```text
+byte1 (0x97) 转换为大写: 0x65
+byte2 (0x122) 转换为大写: 0x90
+byte3 (0x48) 转换为大写: 0x48 (保持不变)
 ```
 
 ## interface Collection\<T>
@@ -460,6 +765,31 @@ public operator func *(r: Duration): Duration
 
 - [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当相乘后的结果超出 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) 的表示范围时，抛出异常。
 
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Float64 * Duration 运算
+    let floatVal: Float64 = 2.5
+    let duration: Duration = Duration.second
+
+    let result = floatVal * duration
+
+    println("Float64值: ${floatVal}")
+    println("Duration值: ${duration}")
+    println("运算结果: ${result}")
+}
+```
+
+运行结果：
+
+```text
+Float64值: 2.500000
+Duration值: 1s
+运算结果: 2s500ms
+```
+
 ### extend Int64
 
 ```cangjie
@@ -489,6 +819,72 @@ public operator func *(r: Duration): Duration
 异常：
 
 - [ArithmeticException](../../core/core_package_api/core_package_exceptions.md#class-arithmeticexception) - 当相乘后的结果超出 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) 的表示范围时，抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+main() {
+    // 测试 Int64 * Duration 运算
+    let intVal: Int64 = 3
+    let duration: Duration = Duration.second
+
+    let result = intVal * duration
+
+    println("Int64值: ${intVal}")
+    println("Duration值: ${duration}")
+    println("运算结果: ${result}")
+
+    // 测试 2 * Duration.second 的示例
+    let result2 = 2 * Duration.second
+    println("2 * Duration.second = ${result2}")
+}
+```
+
+运行结果：
+
+```text
+Int64值: 3
+Duration值: 1s
+运算结果: 3s
+2 * Duration.second = 2s
+```
+
+## interface CType
+
+```cangjie
+sealed interface CType
+```
+
+功能：表示支持与 C 语言互操作的接口。
+
+[CType](core_package_interfaces.md#interface-ctype) 接口是一个语言内置的空接口，它是 [CType](core_package_interfaces.md#interface-ctype) 约束的具体实现，所有 C 互操作支持的类型都隐式地实现了该接口，因此所有 C 互操作支持的类型都可以作为 [CType](core_package_interfaces.md#interface-ctype) 类型的子类型使用。
+
+> **注意：**
+>
+> - [CType](core_package_interfaces.md#interface-ctype) 接口是仓颉中的一个接口类型，它本身不满足 [CType](core_package_interfaces.md#interface-ctype) 约束。
+> - [CType](core_package_interfaces.md#interface-ctype) 接口不允许被用户继承、扩展。
+> - [CType](core_package_interfaces.md#interface-ctype) 接口不会突破子类型的使用限制。
+
+示例：
+
+<!-- run -->
+```cangjie
+@C
+struct Data {}
+
+@C
+func foo() {}
+
+main() {
+    var c: CType = Data() // ok
+    c = 0 // ok
+    c = true // ok
+    c = CString(CPointer<UInt8>()) // ok
+    c = CPointer<Int8>() // ok
+    c = foo // ok
+}
+```
 
 ## interface Equal\<T>
 
@@ -551,32 +947,6 @@ operator func !=(other: T): Bool
 
 - [Bool](core_package_intrinsics.md#bool) - 如果不相等，返回 true，否则返回 false。
 
-## interface GreaterOrEqual\<T>
-
-```cangjie
-public interface GreaterOrEqual<T> {
-    operator func >=(other: T): Bool
-}
-```
-
-功能：该接口表示大于等于计算。
-
-### operator func >=(T)
-
-```cangjie
-operator func >=(other: T): Bool
-```
-
-功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例。
-
-参数：
-
-- other: T - 待与当前实例比较的另一个实例。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果大于等于，返回 true，否则返回 false。
-
 ## interface Greater\<T>
 
 ```cangjie
@@ -602,6 +972,32 @@ operator func >(other: T): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果大于，返回 true，否则返回 false。
+
+## interface GreaterOrEqual\<T>
+
+```cangjie
+public interface GreaterOrEqual<T> {
+    operator func >=(other: T): Bool
+}
+```
+
+功能：该接口表示大于等于计算。
+
+### operator func >=(T)
+
+```cangjie
+operator func >=(other: T): Bool
+```
+
+功能：判断当前 `T` 类型实例是否大于等于参数指向的 `T` 类型实例。
+
+参数：
+
+- other: T - 待与当前实例比较的另一个实例。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果大于等于，返回 true，否则返回 false。
 
 ## interface Hashable
 
@@ -866,32 +1262,6 @@ func iterator(): Iterator<E>
 
 - [Iterator](core_package_classes.md#class-iteratort)\<E> - 迭代器。
 
-## interface LessOrEqual\<T>
-
-```cangjie
-public interface LessOrEqual<T> {
-    operator func <=(other: T): Bool
-}
-```
-
-功能：该接口表示小于等于计算。
-
-### operator func <=(T)
-
-```cangjie
-operator func <=(other: T): Bool
-```
-
-功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例。
-
-参数：
-
-- other: T - 待与当前实例比较的另一个实例。
-
-返回值：
-
-- [Bool](core_package_intrinsics.md#bool) - 如果小于等于，返回 true，否则返回 false。
-
 ## interface Less\<T>
 
 ```cangjie
@@ -917,6 +1287,32 @@ operator func <(other: T): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果小于，返回 true，否则返回 false。
+
+## interface LessOrEqual\<T>
+
+```cangjie
+public interface LessOrEqual<T> {
+    operator func <=(other: T): Bool
+}
+```
+
+功能：该接口表示小于等于计算。
+
+### operator func <=(T)
+
+```cangjie
+operator func <=(other: T): Bool
+```
+
+功能：判断当前 `T` 类型实例是否小于等于参数指向的 `T` 类型实例。
+
+参数：
+
+- other: T - 待与当前实例比较的另一个实例。
+
+返回值：
+
+- [Bool](core_package_intrinsics.md#bool) - 如果小于等于，返回 true，否则返回 false。
 
 ## interface NotEqual\<T>
 
@@ -957,6 +1353,14 @@ public interface Resource {
 
 实现了该接口的类型可以在 `try-with-resource` 语法上下文中实现自动资源释放。
 
+### func close()
+
+```cangjie
+func close(): Unit
+```
+
+功能：关闭资源。
+
 ### func isClosed()
 
 ```cangjie
@@ -968,14 +1372,6 @@ func isClosed(): Bool
 返回值：
 
 - [Bool](core_package_intrinsics.md#bool) - 如果已经关闭返回 true，否则返回 false。
-
-### func close()
-
-```cangjie
-func close(): Unit
-```
-
-功能：关闭资源。
 
 ## interface ThreadContext
 

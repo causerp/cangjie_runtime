@@ -33,13 +33,19 @@ main() {
 // 自定义 Digest
 class MyDigest <: Digest {
     public prop size: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop blockSize: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop algorithm: String {
-        get() { "" }
+        get() {
+            ""
+        }
     }
     public func write(buffer: Array<Byte>): Unit {
         println("buffer = ${buffer}")
@@ -60,27 +66,6 @@ class MyDigest <: Digest {
 buffer = [1, 2, 3, 4, 5]
 [3, 2, 1]
 ```
-
-## func digest\<T>(T, String) where T <: Digest <sup>(deprecated)</sup>
-
-```cangjie
-public func digest<T>(algorithm: T, data: String): Array<Byte> where T <: Digest
-```
-
-功能：提供 digest 泛型函数，实现用指定的摘要算法进行摘要运算。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
-
-参数：
-
-- algorithm: T - 具体的摘要算法。
-- data: [String](../../../core/core_package_api/core_package_structs.md#struct-string) - 待进行摘要运算的数据。
-
-返回值：
-
-- [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - 摘要运算结果。
 
 ## func digest\<T>(T, InputStream) where T <: Digest
 
@@ -120,13 +105,19 @@ main() {
 // 自定义 Digest
 class MyDigest <: Digest {
     public prop size: Int64 {
-        get() { 0 }
+        get() {
+            0
+        }
     }
     public prop blockSize: Int64 {
-        get() { 2 }
+        get() {
+            2
+        }
     }
     public prop algorithm: String {
-        get() { "" }
+        get() {
+            ""
+        }
     }
     public func write(buffer: Array<Byte>): Unit {
         println("buffer = ${buffer}")
@@ -148,4 +139,85 @@ buffer = [1, 2]
 buffer = [3, 4]
 buffer = [5]
 [3, 2, 1]
+```
+
+## func digest\<T>(T, String) where T <: Digest <sup>(deprecated)</sup>
+
+```cangjie
+public func digest<T>(algorithm: T, data: String): Array<Byte> where T <: Digest
+```
+
+功能：提供 digest 泛型函数，实现用指定的摘要算法进行摘要运算。
+
+> **注意：**
+>
+> 未来版本即将废弃不再使用，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
+
+参数：
+
+- algorithm: T - 具体的摘要算法。
+- data: [String](../../../core/core_package_api/core_package_structs.md#struct-string) - 待进行摘要运算的数据。
+
+返回值：
+
+- [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - 摘要运算结果。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.crypto.digest.*
+
+main() {
+    // 创建一些测试数据
+    let data = "Hello, World!"
+
+    // 创建一个自定义的摘要算法实例
+    let mydigest = MyDigest()
+
+    // 使用digest函数处理字符串数据
+    let digestBytes = digest<MyDigest>(mydigest, data)
+
+    println("Input string: '${data}'")
+    println("Digest result: ${digestBytes}")
+}
+
+// 自定义 Digest 算法
+class MyDigest <: Digest {
+    public prop size: Int64 {
+        get() {
+            3
+        }
+    }
+    public prop blockSize: Int64 {
+        get() {
+            1
+        }
+    }
+    public prop algorithm: String {
+        get() {
+            "MyDigest"
+        }
+    }
+    public func write(buffer: Array<Byte>): Unit {
+        println("Processing buffer with ${buffer.size} bytes")
+    }
+    public func finish(to!: Array<Byte>): Unit {
+        to[0] = 1
+        to[1] = 2
+        to[2] = 3
+    }
+    public func finish(): Array<Byte> {
+        [1, 2, 3]
+    }
+    public func reset(): Unit {}
+}
+```
+
+运行结果：
+
+```text
+Processing buffer with 13 bytes
+Input string: 'Hello, World!'
+Digest result: [1, 2, 3]
 ```

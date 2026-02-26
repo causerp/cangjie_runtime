@@ -19,10 +19,10 @@ main() {
     print("d=${d.getOrThrow()} ")
     map.remove("d") // map : [("a", 13), ("e", 12)]
     var bool = map.contains("d")
-    print("bool=${bool.toString()} ")
+    print("bool=${bool} ")
     map.clear() // map: []
     var bool1 = map.contains("e")
-    print("bool1=${bool1.toString()}")
+    print("bool1=${bool1}")
     return 0
 }
 ```

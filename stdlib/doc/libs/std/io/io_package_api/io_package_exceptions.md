@@ -23,6 +23,27 @@ public init()
 
 功能：创建 [ContentFormatException](io_package_exceptions.md#class-contentformatexception) 实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.io.*
+
+main(): Unit {
+    try {
+        throw ContentFormatException()
+    } catch (e: ContentFormatException) {
+        println("捕获异常: ${e.message}")
+    }
+}
+```
+
+运行结果：
+
+```text
+捕获异常:
+```
+
 ### init(String)
 
 ```cangjie
@@ -34,6 +55,27 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.io.*
+
+main(): Unit {
+    try {
+        throw ContentFormatException("数据格式不正确")
+    } catch (e: ContentFormatException) {
+        println("捕获异常: ${e.message}")
+    }
+}
+```
+
+运行结果：
+
+```text
+捕获异常: 数据格式不正确
+```
 
 ## class IOException
 
@@ -58,6 +100,27 @@ public init()
 
 功能：创建 [IOException](io_package_exceptions.md#class-ioexception) 实例。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.io.*
+
+main(): Unit {
+    try {
+        throw IOException()
+    } catch (e: IOException) {
+        println("捕获异常: ${e.message}")
+    }
+}
+```
+
+运行结果：
+
+```text
+捕获异常:
+```
+
 ### init(String)
 
 ```cangjie
@@ -70,14 +133,23 @@ public init(message: String)
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
 
-### func getClassName()
+示例：
 
+<!-- verify -->
 ```cangjie
-protected override open func getClassName(): String
+import std.io.*
+
+main(): Unit {
+    try {
+        throw IOException("文件读取失败")
+    } catch (e: IOException) {
+        println("捕获异常: ${e.message}")
+    }
+}
 ```
 
-功能：获得类名。
+运行结果：
 
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 类名。
+```text
+捕获异常: 文件读取失败
+```
