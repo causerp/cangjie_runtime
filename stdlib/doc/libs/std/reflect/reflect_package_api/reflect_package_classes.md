@@ -883,6 +883,7 @@ public operator func ==(other: ConstructorInfo): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与另一个相等则返回 `true`，否则返回 `false`。
 
+<!--Del-->
 ## class EnumConstructorInfo
 
 ```cangjie
@@ -2198,6 +2199,8 @@ main(): Unit {
 ```text
 3
 ```
+<!-DelEnd-->
+
 ## class GenericTypeInfo
 
 ```cangjie
@@ -6269,6 +6272,7 @@ main(): Unit {
 static area: Int64
 ```
 
+<!--Del-->
 ## class TupleTypeInfo
 
 ```cangjie
@@ -6543,6 +6547,7 @@ Some(1)
 Some(0)
 Some(1)
 ```
+<!--DelEnd-->
 
 ## class TypeInfo
 

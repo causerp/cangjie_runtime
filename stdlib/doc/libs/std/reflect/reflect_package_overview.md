@@ -31,8 +31,9 @@
 | --------------------------------- |----------------------------------------|
 | [ClassTypeInfo](./reflect_package_api/reflect_package_classes.md#class-classtypeinfo) | 描述 `class` 类型的类型信息。                      |
 | [ConstructorInfo](./reflect_package_api/reflect_package_classes.md#class-constructorinfo)| 描述构造函数信息。           |
-| [EnumTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumtypeinfo)| 描述 `enum` 类型信息。           |
-| [FunctionTypeInfo](./reflect_package_api/reflect_package_classes.md#class-functiontypeinfo)| 描述函数类型信息。           |
+| <!--DelRow--> [EnumTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumtypeinfo)| 描述 `enum` 类型信息。           |
+| <!--DelRow--> [EnumConstructorTypeInfo](./reflect_package_api/reflect_package_classes.md#class-enumconstructorinfo)| 描述 `enum` 的构造子信息。           |
+| <!--DelRow--> [FunctionTypeInfo](./reflect_package_api/reflect_package_classes.md#class-functiontypeinfo)| 描述函数类型信息。           |
 | [GenericTypeInfo](./reflect_package_api/reflect_package_classes.md#class-generictypeinfo) | 描述泛型信息。|
 | [GlobalFunctionInfo](./reflect_package_api/reflect_package_classes.md#class-globalfunctioninfo) | 描述全局函数信息。                              |
 | [GlobalVariableInfo](./reflect_package_api/reflect_package_classes.md#class-globalvariableinfo) | 描述全局变量信息。                              |
@@ -47,7 +48,7 @@
 | [StaticPropertyInfo](./reflect_package_api/reflect_package_classes.md#class-staticpropertyinfo) | 描述静态成员属性信息。                            |
 | [StaticVariableInfo](./reflect_package_api/reflect_package_classes.md#class-staticvariableinfo) | 描述静态成员变量信息。                            |
 | [StructTypeInfo](./reflect_package_api/reflect_package_classes.md#class-structtypeinfo) | 描述 `struct` 类型的类型信息。                     |
-| [TupleTypeInfo](./reflect_package_api/reflect_package_classes.md#class-tupletypeinfo)| 描述 `tuple` 类型信息。           |
+| <!--DelRow--> [TupleTypeInfo](./reflect_package_api/reflect_package_classes.md#class-tupletypeinfo)| 描述 `tuple` 类型信息。           |
 | [TypeInfo](./reflect_package_api/reflect_package_classes.md#class-typeinfo) | `TypeInfo` 提供了所有数据类型通用的操作接口，支持用户进行反射操作。 |
 
 ### 枚举
