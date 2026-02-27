@@ -387,45 +387,6 @@ public open func toString(): String
 
 - [String](core_package_structs.md#struct-string) - 异常字符串。
 
-<!--Del-->
-## class ExclusiveScopeException
-
-```cangjie
-public class ExclusiveScopeException <: Exception
-```
-
-功能：自定义异常类，用于包装在独占作用域中抛出的异常。它保留了原始异常的堆栈信息，不支持主动构造该异常，但是可以被捕获到。
-
-父类型：
-
-- [Exception](#class-exception)
-
-### func toString()
-
-```cangjie
-public override func toString(): String
-```
-
-功能：获得类名。
-
-返回值：
-
-- [String](core_package_structs.md#struct-string) - 类名。
-
-示例：
-
-<!-- code_no_check -->
-```cangjie
-// 此示例只做展示，假设抛出 ExclusiveScopeException
-main() {
-    try {
-    // 假设出现内存错误
-    } catch (e: ExclusiveScopeException) {
-        println(e.message)
-    }
-}
-```
-
 ## class IllegalArgumentException
 
 ```cangjie
