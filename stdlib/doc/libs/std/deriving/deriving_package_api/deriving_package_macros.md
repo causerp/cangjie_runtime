@@ -6,7 +6,7 @@
 
 示例：
 
-参考 [Deriving 示例](../deriving_samples/deriving_user_guide.md#deriving-示例)
+参考 [Deriving 示例](../deriving_samples/deriving_user_guide.md)
 
 ## `@DeriveExclude` 宏
 
