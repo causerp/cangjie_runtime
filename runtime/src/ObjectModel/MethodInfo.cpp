@@ -10,6 +10,27 @@
 #include "ExceptionManager.inline.h"
 
 namespace MapleRuntime {
+
+// Get reflection version for backward compatibility
+static U8 GetReflectionVersion(TypeInfo* ti)
+{
+    if (!ti->ReflectIsEnable()) {
+        return 0;
+    }
+    if (ti->IsEnum() || ti->IsTempEnum()) {
+        EnumInfo* enumInfo = ti->GetEnumInfo();
+        if (enumInfo != nullptr) {
+            return enumInfo->GetReflectVersion();
+        }
+    } else {
+        ReflectInfo* reflectInfo = ti->GetReflectInfo();
+        if (reflectInfo != nullptr) {
+            return reflectInfo->GetReflectVersion();
+        }
+    }
+    return 0;
+}
+
 ScopedAllocBuffer::~ScopedAllocBuffer()
 {
     AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
@@ -515,6 +536,10 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     Value ret;
     ret.ref = nullptr;
     TypeInfo* retType = GetReturnType();
+    U8 reflectVersion = 0;
+    if (declaringTi != nullptr) {
+        reflectVersion = GetReflectionVersion(declaringTi);
+    }
     if (HasSRet()) {
         if (retType->IsGeneric()) {
             retType = GetActualTypeFromGenericType(reinterpret_cast<GenericTypeInfo*>(retType), genericArgs);
@@ -523,22 +548,25 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     }
     if (instanceObj != nullptr) {
         // When a struct is passed as 'this' parameter and its size is unknown at compile time,
-        // the passed 'this' is the struct object itself
-        if ((declaringTi->IsStruct() && !declaringTi->IsUnknownSize()) || ((declaringTi->IsEnum() ||
-            declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
+        // passed 'this' is a struct object itself
+        // For backward compatibility, version 0 uses IsGenericTypeInfo() for judgment.
+        // This logic does not cover all scenarios, version > 0 fixes this issue.
+        if ((declaringTi->IsStruct() &&
+            ((reflectVersion == 0) ? !declaringTi->IsGenericTypeInfo() : !declaringTi->IsUnknownSize())) ||
+            ((declaringTi->IsEnum() || declaringTi->IsTempEnum()) && !declaringTi->IsEnumKind1())) {
             argValues.AddInt64(reinterpret_cast<I64>(instanceObj) + TYPEINFO_PTR_SIZE);
         } else {
             argValues.AddReference(instanceObj);
         }
     } else {
-        TypeInfo* ti = declaringTi;
-        if (IsInitializer() && (ti->IsClass() || (ti->IsStruct() && ti->IsUnknownSize()))) {
-            U32 size = ti->GetInstanceSize();
+        if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() &&
+            ((reflectVersion == 0) ? declaringTi->IsGenericTypeInfo() : declaringTi->IsUnknownSize())))) {
+            U32 size = declaringTi->GetInstanceSize();
             MSize objSize = MRT_ALIGN(size + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
             instanceObj = ObjectManager::NewObject(declaringTi, objSize, AllocType::RAW_POINTER_OBJECT);
             argValues.AddReference(instanceObj);
-        } else if (IsInitializer() && ti->IsStruct()) {
-            instanceObj = reinterpret_cast<ObjRef>(MemoryAlloc(1, ti->GetInstanceSize()));
+        } else if (IsInitializer() && declaringTi->IsStruct()) {
+            instanceObj = reinterpret_cast<ObjRef>(MemoryAlloc(1, declaringTi->GetInstanceSize()));
             argValues.AddInt64(reinterpret_cast<Uptr>(instanceObj));
             argValues.AddReference(nullptr); // add bp
         }
@@ -574,7 +602,8 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
         return ret.ref;
 #endif
     }
-    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() && declaringTi->IsUnknownSize()))) {
+    if (IsInitializer() && (declaringTi->IsClass() || (declaringTi->IsStruct() &&
+        ((reflectVersion == 0) ? declaringTi->IsGenericTypeInfo() : declaringTi->IsUnknownSize())))) {
         return instanceObj;
     } else if (IsInitializer() && declaringTi->IsStruct()) {
         ret.ref = instanceObj;
