@@ -49,7 +49,7 @@ count = 1000
 >
 > 未来版本即将废弃，使用 [Condition](../sync_package_api/sync_package_interfaces.md#interface-condition) 替代。
 
-示例:
+示例：
 
 在不同线程中，使用 `Monitor` 实现挂起和唤醒线程：
 
@@ -101,7 +101,7 @@ New thread: after wait
 
 ## Mutex 的使用
 
-示例:
+示例：
 
 在不同线程中，使用 `Mutex` 锁和解锁：
 
@@ -110,7 +110,9 @@ New thread: after wait
 import std.sync.*
 
 var mt = Mutex()
-var con = synchronized(mt) { mt.condition() }
+var con = synchronized(mt) {
+    mt.condition()
+}
 var flag: Bool = true
 
 main(): Int64 {
@@ -204,7 +206,7 @@ New thread: after wait
 
 ## Timer 的使用
 
-示例:
+示例：
 
 使用 `Timer` 创建一次性和重复性任务：
 
@@ -217,8 +219,8 @@ main(): Int64 {
 
     Timer.once(50 * Duration.millisecond) {
         =>
-        println("run only once")
-        count.fetchAdd(1)
+            println("run only once")
+            count.fetchAdd(1)
     }
 
     let timer = Timer.repeat(
@@ -226,8 +228,8 @@ main(): Int64 {
         200 * Duration.millisecond,
         {
             =>
-            println("run repetitively")
-            count.fetchAdd(10)
+                println("run repetitively")
+                count.fetchAdd(10)
         }
     )
 

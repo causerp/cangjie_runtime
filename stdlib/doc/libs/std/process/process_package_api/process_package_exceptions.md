@@ -25,3 +25,27 @@ public init(message: String)
 参数：
 
 - message: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 异常提示信息。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.process.*
+
+main(): Int64 {
+    try {
+        throw ProcessException("Process failed to start")
+    } catch (e: ProcessException) {
+        println("Caught ProcessException: ${e.message}")
+        println("Exception type: ${e}")
+    }
+    return 0
+}
+```
+
+运行结果：
+
+```text
+Caught ProcessException: Process failed to start
+Exception type: ProcessException: Process failed to start
+```

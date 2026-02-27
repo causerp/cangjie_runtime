@@ -32,8 +32,7 @@ main() {
     rename(subDirPath, to: newSubDirPath)
     if (exists(newSubDirPath) && !exists(subDirPath)) {
         println(
-            "The directory './testDir/subDir' is moved successfully to the temporary directory and renamed 'subDir_new'."
-        )
+            "The directory './testDir/subDir' is moved successfully to the temporary directory and renamed 'subDir_new'.")
     }
 
     /* 将 "subDir_new" 拷贝到 "./testDir" 下并重命名为 "subDir" */

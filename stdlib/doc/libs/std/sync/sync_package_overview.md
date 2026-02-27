@@ -14,14 +14,14 @@ sync 包提供并发编程相关的能力。
 
 要创建一个新的仓颉线程，可以使用关键字 spawn 并传递一个无形参的 lambda 表达式，该 lambda 表达式即为我们想在新线程中执行的代码。
 
-示例:
+示例：
 
 通过 `spawn` 关键字创建一个仓颉线程：
 
 <!-- run -->
 
 ```cangjie
-main () {
+main() {
     spawn {
         // 在新线程中执行
         println("Thread: ${Thread.currentThread.id}")
@@ -63,7 +63,7 @@ Bool 类型和引用类型的原子操作只提供读写和交换操作，需要
 - 一个线程在进入 `synchronized` 修饰的代码块之前，会自动获取 `Lock` 实例对应的锁，如果无法获取锁，则当前线程被阻塞。
 - 一个线程在退出 `synchronized` 修饰的代码块之前（包括在代码块中使用 `break`、`continue`、`return`、`throw` 等控制转移表达式），会自动释放该 `Lock` 实例的锁。
 
-示例:
+示例：
 
 在每个 `for` 循环的线程进入 `synchronized` 代码块前，会自动获取 `mtx` 实例对应的锁，在退出代码块前，会释放 `mtx` 实例对应的锁。
 
@@ -72,14 +72,14 @@ Bool 类型和引用类型的原子操作只提供读写和交换操作，需要
 ```cangjie
 import std.sync.Mutex
 
-main () {
+main() {
     let mtx = Mutex()
     let cnt = Box<Int64>(0)
 
     for (_ in 0..5) {
         spawn {
             synchronized(mtx) {
-                cnt.value ++
+                cnt.value++
                 println("count: ${cnt.value}")
             }
         }

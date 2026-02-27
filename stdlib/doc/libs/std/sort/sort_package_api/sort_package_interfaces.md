@@ -84,6 +84,40 @@ public func sortBy(comparator!: (T, T) -> Ordering): Unit
 
 - comparator!: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 用户传入的比较函数，如，comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序那么 `t1` 与 `t2` 的位置较排序前保持不变； 如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 `t1`，`t2` 顺序不确定。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 自定义比较器：按升序排序
+    arr.sortBy(comparator: {
+        a, b => if (a < b) {
+            return Ordering.LT
+        } else if (a > b) {
+            return Ordering.GT
+        } else {
+            return Ordering.EQ
+        }
+    })
+
+    println("排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+排序后: [1, 1, 3, 4, 5]
+```
+
 #### func sortBy(Bool, (T, T) -> Ordering) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -100,6 +134,40 @@ public func sortBy(stable!: Bool, comparator!: (T, T) -> Ordering): Unit
 
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
 - comparator!: (T, T) ->[Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 用户传入的比较函数，如，comparator: (t1: T, t2: T) -> [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering)，如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为稳定排序那么 `t1` 与 `t2` 的位置较排序前保持不变； 如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，且为不稳定排序，那么 `t1`，`t2` 顺序不确定。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 使用稳定排序：按升序排序
+    arr.sortBy(stable: true, comparator: {
+        a, b => if (a < b) {
+            return Ordering.LT
+        } else if (a > b) {
+            return Ordering.GT
+        } else {
+            return Ordering.EQ
+        }
+    })
+
+    println("稳定排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+稳定排序后: [1, 1, 3, 4, 5]
+```
 
 ## interface SortExtension <sup>(deprecated)</sup>
 
@@ -198,6 +266,32 @@ public func sort(): Unit
 >
 > 未来版本即将废弃，使用 [sort](sort_package_funcs.md#func-sorttarrayt-bool-bool-where-t--comparablet) 替代。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 升序排序
+    arr.sort()
+
+    println("升序排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+升序排序后: [1, 1, 3, 4, 5]
+```
+
 #### func sort(Bool) <sup>(deprecated)</sup>
 
 ```cangjie
@@ -214,6 +308,32 @@ public func sort(stable!: Bool): Unit
 
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 使用稳定排序进行升序排序
+    arr.sort(stable: true)
+
+    println("稳定升序排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+稳定升序排序后: [1, 1, 3, 4, 5]
+```
+
 #### func sortDescending() <sup>(deprecated)</sup>
 
 ```cangjie
@@ -225,6 +345,32 @@ public func sortDescending(): Unit
 > **注意：**
 >
 > 未来版本即将废弃，使用 [sort](sort_package_funcs.md#func-sorttarrayt-bool-bool-where-t--comparablet) 替代。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 降序排序
+    arr.sortDescending()
+
+    println("降序排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+降序排序后: [5, 4, 3, 1, 1]
+```
 
 #### func sortDescending(Bool) <sup>(deprecated)</sup>
 
@@ -241,3 +387,29 @@ public func sortDescending(stable!: Bool): Unit
 参数：
 
 - stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.sort.*
+
+main() {
+    let arr = [3, 1, 4, 1, 5]
+    println("排序前: ${arr}")
+
+    // 使用稳定排序进行降序排序
+    arr.sortDescending(stable: true)
+
+    println("稳定降序排序后: ${arr}")
+
+    return 0
+}
+```
+
+运行结果：
+
+```text
+排序前: [3, 1, 4, 1, 5]
+稳定降序排序后: [5, 4, 3, 1, 1]
+```

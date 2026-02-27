@@ -30,7 +30,7 @@ main() {
     for (i in 0..pathStrArr.size) {
         let path: Path = Path(pathStrArr[i])
         // 打印 path 的整个路径字符串
-        println("Path${i}: ${path.toString()}")
+        println("Path${i}: ${path}")
         // 打印 path 的目录路径
         println("Path.parent: ${path.parent}")
         // 打印 path 的文件全名（有扩展名）

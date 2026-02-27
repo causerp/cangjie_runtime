@@ -46,18 +46,6 @@ static func getInf(): T
 
 - T - 类型 T 的无穷数。
 
-### static func getPI()
-
-```cangjie
-static func getPI(): T
-```
-
-功能：获取 T 类型的圆周率常数。
-
-返回值：
-
-- T - 类型 T 的圆周率常数。
-
 ### static func getMinDenormal()
 
 ```cangjie
@@ -93,6 +81,18 @@ static func getNaN(): T
 返回值：
 
 - T - 类型 T 的非数。
+
+### static func getPI()
+
+```cangjie
+static func getPI(): T
+```
+
+功能：获取 T 类型的圆周率常数。
+
+返回值：
+
+- T - 类型 T 的圆周率常数。
 
 ### func isInf()
 
@@ -154,6 +154,27 @@ public static func getE(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的自然常数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的自然常数 */
+    let e = Float16.getE()
+
+    /* 打印自然常数 */
+    println("Float16的自然常数E: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float16的自然常数E: 2.718750
+```
+
 #### static func getInf()
 
 ```cangjie
@@ -166,17 +187,26 @@ public static func getInf(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的无穷数值。
 
-#### static func getPI()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func getPI(): Float16
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的无穷数值 */
+    let inf = Float16.getInf()
+
+    /* 打印无穷数值 */
+    println("Float16的无穷大值: ${inf}")
+}
 ```
 
-功能：获取半精度浮点数类型的圆周率常数。
+运行结果：
 
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的圆周率常数。
+```text
+Float16的无穷大值: inf
+```
 
 #### static func getMinDenormal()
 
@@ -190,6 +220,27 @@ public static func getMinDenormal(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的最小次正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的最小次正规数 */
+    let minDenormal = Float16.getMinDenormal()
+
+    /* 打印最小次正规数 */
+    println("Float16的最小次正规数: ${minDenormal}")
+}
+```
+
+运行结果：
+
+```text
+Float16的最小次正规数: 0.000000
+```
+
 #### static func getMinNormal()
 
 ```cangjie
@@ -202,6 +253,27 @@ public static func getMinNormal(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的最小正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的最小正规数 */
+    let minNormal = Float16.getMinNormal()
+
+    /* 打印最小正规数 */
+    println("Float16的最小正规数: ${minNormal}")
+}
+```
+
+运行结果：
+
+```text
+Float16的最小正规数: 0.000061
+```
+
 #### static func getNaN()
 
 ```cangjie
@@ -213,6 +285,64 @@ public static func getNaN(): Float16
 返回值：
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的非数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的非数 */
+    let nan = Float16.getNaN()
+
+    /* 打印非数 */
+    println("Float16的非数: ${nan}")
+
+    /* 检查是否为非数 */
+    println("是否为非数: ${nan.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float16的非数: nan
+是否为非数: true
+```
+
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float16
+```
+
+功能：获取半精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的圆周率常数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数类型的圆周率常数 */
+    let pi = Float16.getPI()
+
+    /* 打印圆周率 */
+    println("Float16的圆周率PI: ${pi}")
+}
+```
+
+运行结果：
+
+```text
+Float16的圆周率PI: 3.140625
+```
 
 ### extend Float32 <: FloatingPoint\<Float32>
 
@@ -238,6 +368,27 @@ public static func getE(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的自然常数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的自然常数 */
+    let e = Float32.getE()
+
+    /* 打印自然常数 */
+    println("Float32的自然常数E: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float32的自然常数E: 2.718282
+```
+
 #### static func getInf()
 
 ```cangjie
@@ -250,17 +401,26 @@ public static func getInf(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的无穷数值。
 
-#### static func getPI()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func getPI(): Float32
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的无穷数值 */
+    let inf = Float32.getInf()
+
+    /* 打印无穷数值 */
+    println("Float32的无穷大值: ${inf}")
+}
 ```
 
-功能：获取单精度浮点数类型的圆周率常数。
+运行结果：
 
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的圆周率常数。
+```text
+Float32的无穷大值: inf
+```
 
 #### static func getMinDenormal()
 
@@ -274,6 +434,27 @@ public static func getMinDenormal(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的最小次正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的最小次正规数 */
+    let minDenormal = Float32.getMinDenormal()
+
+    /* 打印最小次正规数 */
+    println("Float32的最小次正规数: ${minDenormal}")
+}
+```
+
+运行结果：
+
+```text
+Float32的最小次正规数: 0.000000
+```
+
 #### static func getMinNormal()
 
 ```cangjie
@@ -286,6 +467,27 @@ public static func getMinNormal(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的最小正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的最小正规数 */
+    let minNormal = Float32.getMinNormal()
+
+    /* 打印最小正规数 */
+    println("Float32的最小正规数: ${minNormal}")
+}
+```
+
+运行结果：
+
+```text
+Float32的最小正规数: 0.000000
+```
+
 #### static func getNaN()
 
 ```cangjie
@@ -297,6 +499,64 @@ public static func getNaN(): Float32
 返回值：
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的非数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的非数 */
+    let nan = Float32.getNaN()
+
+    /* 打印非数 */
+    println("Float32的非数: ${nan}")
+
+    /* 检查是否为非数 */
+    println("是否为非数: ${nan.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float32的非数: nan
+是否为非数: true
+```
+
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float32
+```
+
+功能：获取单精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的圆周率常数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数类型的圆周率常数 */
+    let pi = Float32.getPI()
+
+    /* 打印圆周率 */
+    println("Float32的圆周率PI: ${pi}")
+}
+```
+
+运行结果：
+
+```text
+Float32的圆周率PI: 3.141593
+```
 
 ### extend Float64 <: FloatingPoint\<Float64>
 
@@ -322,6 +582,27 @@ public static func getE(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的自然常数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的自然常数 */
+    let e = Float64.getE()
+
+    /* 打印自然常数 */
+    println("Float64的自然常数E: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float64的自然常数E: 2.718282
+```
+
 #### static func getInf()
 
 ```cangjie
@@ -334,17 +615,26 @@ public static func getInf(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的无穷数值。
 
-#### static func getPI()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func getPI(): Float64
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的无穷数值 */
+    let inf = Float64.getInf()
+
+    /* 打印无穷数值 */
+    println("Float64的无穷大值: ${inf}")
+}
 ```
 
-功能：获取双精度浮点数类型的圆周率常数。
+运行结果：
 
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的圆周率常数。
+```text
+Float64的无穷大值: inf
+```
 
 #### static func getMinDenormal()
 
@@ -358,6 +648,27 @@ public static func getMinDenormal(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的最小次正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的最小次正规数 */
+    let minDenormal = Float64.getMinDenormal()
+
+    /* 打印最小次正规数 */
+    println("Float64的最小次正规数: ${minDenormal}")
+}
+```
+
+运行结果：
+
+```text
+Float64的最小次正规数: 0.000000
+```
+
 #### static func getMinNormal()
 
 ```cangjie
@@ -370,6 +681,27 @@ public static func getMinNormal(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的最小正规数。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的最小正规数 */
+    let minNormal = Float64.getMinNormal()
+
+    /* 打印最小正规数 */
+    println("Float64的最小正规数: ${minNormal}")
+}
+```
+
+运行结果：
+
+```text
+Float64的最小正规数: 0.000000
+```
+
 #### static func getNaN()
 
 ```cangjie
@@ -381,6 +713,64 @@ public static func getNaN(): Float64
 返回值：
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的非数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的非数 */
+    let nan = Float64.getNaN()
+
+    /* 打印非数 */
+    println("Float64的非数: ${nan}")
+
+    /* 检查是否为非数 */
+    println("是否为非数: ${nan.isNaN()}")
+}
+```
+
+运行结果：
+
+```text
+Float64的非数: nan
+是否为非数: true
+```
+
+#### static func getPI()
+
+```cangjie
+public static func getPI(): Float64
+```
+
+功能：获取双精度浮点数类型的圆周率常数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的圆周率常数。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数类型的圆周率常数 */
+    let pi = Float64.getPI()
+
+    /* 打印圆周率 */
+    println("Float64的圆周率PI: ${pi}")
+}
+```
+
+运行结果：
+
+```text
+Float64的圆周率PI: 3.141593
+```
 
 ## interface Integer\<T>
 
@@ -415,6 +805,18 @@ static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果类型是有符号的，返回 `true`；否则返回 `false`。
 
+### operator func !()
+
+```cangjie
+operator func !(): T
+```
+
+功能：位运算符，按位取反。
+
+返回值：
+
+- T - 计算所得结果。
+
 ### operator func %(T)
 
 ```cangjie
@@ -447,45 +849,17 @@ operator func &(other: T): T
 
 - T - 计算所得结果。
 
-### operator func |(T)
+### operator func <<(Int64)
 
 ```cangjie
-operator func |(other: T): T
+operator func <<(n: Int64): T
 ```
 
-功能：位运算符，按位或。
+功能：位运算符，按位左移。
 
 参数：
 
-- other: T - 运算符右边的数。
-
-返回值：
-
-- T - 计算所得结果。
-
-### operator func ^(T)
-
-```cangjie
-operator func ^(other: T): T
-```
-
-功能：位运算符，按位异或。
-
-参数：
-
-- other: T - 运算符右边的数。
-
-返回值：
-
-- T - 计算所得结果。
-
-### operator func !()
-
-```cangjie
-operator func !(): T
-```
-
-功能：位运算符，按位取反。
+- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 运算符右边的数，表示左移的位数。
 
 返回值：
 
@@ -507,17 +881,33 @@ operator func >>(n: Int64): T
 
 - T - 计算所得结果。
 
-### operator func <<(Int64)
+### operator func ^(T)
 
 ```cangjie
-operator func <<(n: Int64): T
+operator func ^(other: T): T
 ```
 
-功能：位运算符，按位左移。
+功能：位运算符，按位异或。
 
 参数：
 
-- n: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 运算符右边的数，表示左移的位数。
+- other: T - 运算符右边的数。
+
+返回值：
+
+- T - 计算所得结果。
+
+### operator func |(T)
+
+```cangjie
+operator func |(other: T): T
+```
+
+功能：位运算符，按位或。
+
+参数：
+
+- other: T - 运算符右边的数。
 
 返回值：
 
@@ -547,6 +937,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 Int16 类型是否是有符号类型 */
+    let signed = Int16.isSigned()
+
+    /* 打印结果 */
+    println("Int16 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+Int16 是有符号类型: true
+```
+
 ### extend Int32 <: Integer\<Int32>
 
 ```cangjie
@@ -570,6 +981,27 @@ public static func isSigned(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 Int32 类型是否是有符号类型 */
+    let signed = Int32.isSigned()
+
+    /* 打印结果 */
+    println("Int32 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+Int32 是有符号类型: true
+```
 
 ### extend Int64 <: Integer\<Int64>
 
@@ -595,6 +1027,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 Int64 类型是否是有符号类型 */
+    let signed = Int64.isSigned()
+
+    /* 打印结果 */
+    println("Int64 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+Int64 是有符号类型: true
+```
+
 ### extend Int8 <: Integer\<Int8>
 
 ```cangjie
@@ -618,6 +1071,27 @@ public static func isSigned(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 Int8 类型是否是有符号类型 */
+    let signed = Int8.isSigned()
+
+    /* 打印结果 */
+    println("Int8 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+Int8 是有符号类型: true
+```
 
 ### extend IntNative <: Integer\<IntNative>
 
@@ -643,6 +1117,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `true`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 IntNative 类型是否是有符号类型 */
+    let signed = IntNative.isSigned()
+
+    /* 打印结果 */
+    println("IntNative 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+IntNative 是有符号类型: true
+```
+
 ### extend UInt16 <: Integer\<UInt16>
 
 ```cangjie
@@ -666,6 +1161,27 @@ public static func isSigned(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 UInt16 类型是否是有符号类型 */
+    let signed = UInt16.isSigned()
+
+    /* 打印结果 */
+    println("UInt16 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+UInt16 是有符号类型: false
+```
 
 ### extend UInt32 <: Integer\<UInt32>
 
@@ -691,6 +1207,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 UInt32 类型是否是有符号类型 */
+    let signed = UInt32.isSigned()
+
+    /* 打印结果 */
+    println("UInt32 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+UInt32 是有符号类型: false
+```
+
 ### extend UInt64 <: Integer\<UInt64>
 
 ```cangjie
@@ -714,6 +1251,27 @@ public static func isSigned(): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 UInt64 类型是否是有符号类型 */
+    let signed = UInt64.isSigned()
+
+    /* 打印结果 */
+    println("UInt64 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+UInt64 是有符号类型: false
+```
 
 ### extend UInt8 <: Integer\<UInt8>
 
@@ -739,6 +1297,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 UInt8 类型是否是有符号类型 */
+    let signed = UInt8.isSigned()
+
+    /* 打印结果 */
+    println("UInt8 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+UInt8 是有符号类型: false
+```
+
 ### extend UIntNative <: Integer\<UIntNative>
 
 ```cangjie
@@ -763,6 +1342,27 @@ public static func isSigned(): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 总是返回 `false`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 判断 UIntNative 类型是否是有符号类型 */
+    let signed = UIntNative.isSigned()
+
+    /* 打印结果 */
+    println("UIntNative 是有符号类型: ${signed}")
+}
+```
+
+运行结果：
+
+```text
+UIntNative 是有符号类型: false
+```
+
 ## interface MathExtension\<T> <sup>(deprecated)</sup>
 
 ```cangjie
@@ -778,18 +1378,6 @@ public interface MathExtension<T> {
 >
 > 未来版本即将废弃，使用 [FloatingPoint\<T>](#interface-floatingpointt) 替代。
 
-### static func GetPI()
-
-```cangjie
-static func GetPI(): T
-```
-
-功能：获取 T 类型的圆周率常数。
-
-返回值：
-
-- T - 类型 T 的圆周率常数。
-
 ### static func GetE()
 
 ```cangjie
@@ -801,6 +1389,18 @@ static func GetE(): T
 返回值：
 
 - T - 类型 T 的自然常数。
+
+### static func GetPI()
+
+```cangjie
+static func GetPI(): T
+```
+
+功能：获取 T 类型的圆周率常数。
+
+返回值：
+
+- T - 类型 T 的圆周率常数。
 
 ### extend Float16 <: MathExtension\<Float16>
 
@@ -814,6 +1414,39 @@ extend Float16 <: MathExtension<Float16>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../../std/core/core_package_api/core_package_intrinsics.md#float16)>
 
+#### static func GetE()
+
+```cangjie
+public static func GetE(): Float16
+```
+
+功能：获取半精度浮点数的自然常数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的自然常数
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数的自然常数 */
+    let e = Float16.GetE()
+
+    /* 打印自然常数 */
+    println("Float16的自然常数: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float16的自然常数: 2.718750
+```
+
 #### static func GetPI()
 
 ```cangjie
@@ -826,17 +1459,26 @@ public static func GetPI(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的圆周率常数
 
-#### static func GetE()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func GetE(): Float16
+import std.math.*
+
+main(): Unit {
+    /* 获取半精度浮点数的圆周率常数 */
+    let pi = Float16.GetPI()
+
+    /* 打印圆周率 */
+    println("Float16的圆周率: ${pi}")
+}
 ```
 
-功能：获取半精度浮点数的自然常数。
+运行结果：
 
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 类型的自然常数
+```text
+Float16的圆周率: 3.140625
+```
 
 ### extend Float32 <: MathExtension\<Float32>
 
@@ -850,6 +1492,39 @@ extend Float32 <: MathExtension<Float32>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../../std/core/core_package_api/core_package_intrinsics.md#float32)>
 
+#### static func GetE()
+
+```cangjie
+public static func GetE(): Float32
+```
+
+功能：获取单精度浮点数的自然常数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的自然常数
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数的自然常数 */
+    let e = Float32.GetE()
+
+    /* 打印自然常数 */
+    println("Float32的自然常数: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float32的自然常数: 2.718282
+```
+
 #### static func GetPI()
 
 ```cangjie
@@ -862,17 +1537,26 @@ public static func GetPI(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的圆周率常数
 
-#### static func GetE()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func GetE(): Float32
+import std.math.*
+
+main(): Unit {
+    /* 获取单精度浮点数的圆周率常数 */
+    let pi = Float32.GetPI()
+
+    /* 打印圆周率 */
+    println("Float32的圆周率: ${pi}")
+}
 ```
 
-功能：获取单精度浮点数的自然常数。
+运行结果：
 
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 类型的自然常数
+```text
+Float32的圆周率: 3.141593
+```
 
 ### extend Float64 <: MathExtension\<Float64>
 
@@ -886,6 +1570,39 @@ extend Float64 <: MathExtension<Float64>
 
 - [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../../std/core/core_package_api/core_package_intrinsics.md#float64)>
 
+#### static func GetE()
+
+```cangjie
+public static func GetE(): Float64
+```
+
+功能：获取双精度浮点数的自然常数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的自然常数
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数的自然常数 */
+    let e = Float64.GetE()
+
+    /* 打印自然常数 */
+    println("Float64的自然常数: ${e}")
+}
+```
+
+运行结果：
+
+```text
+Float64的自然常数: 2.718282
+```
+
 #### static func GetPI()
 
 ```cangjie
@@ -898,17 +1615,26 @@ public static func GetPI(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的圆周率常数
 
-#### static func GetE()
+示例：
 
+<!-- verify -->
 ```cangjie
-public static func GetE(): Float64
+import std.math.*
+
+main(): Unit {
+    /* 获取双精度浮点数的圆周率常数 */
+    let pi = Float64.GetPI()
+
+    /* 打印圆周率 */
+    println("Float64的圆周率: ${pi}")
+}
 ```
 
-功能：获取双精度浮点数的自然常数。
+运行结果：
 
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 类型的自然常数
+```text
+Float64的圆周率: 3.141593
+```
 
 ## interface MaxMinValue\<T>
 
@@ -969,6 +1695,27 @@ public static func getMax(): Float16
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float16 类型的最大值 */
+    let max = Float16.getMax()
+
+    /* 打印最大值 */
+    println("Float16的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Float16的最大值: 65504.000000
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -980,6 +1727,27 @@ public static func getMin(): Float16
 返回值：
 
 - [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 半精度浮点数类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float16 类型的最小值 */
+    let min = Float16.getMin()
+
+    /* 打印最小值 */
+    println("Float16的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Float16的最小值: -65504.000000
+```
 
 ### extend Float32 <: MaxMinValue\<Float32>
 
@@ -1005,6 +1773,27 @@ public static func getMax(): Float32
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float32 类型的最大值 */
+    let max = Float32.getMax()
+
+    /* 打印最大值 */
+    println("Float32的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Float32的最大值: 340282346638528859811704183484516925440.000000
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1016,6 +1805,27 @@ public static func getMin(): Float32
 返回值：
 
 - [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 单精度浮点数类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float32 类型的最小值 */
+    let min = Float32.getMin()
+
+    /* 打印最小值 */
+    println("Float32的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Float32的最小值: -340282346638528859811704183484516925440.000000
+```
 
 ### extend Float64 <: MaxMinValue\<Float64>
 
@@ -1041,6 +1851,27 @@ public static func getMax(): Float64
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float64 类型的最大值 */
+    let max = Float64.getMax()
+
+    /* 打印最大值 */
+    println("Float64的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Float64的最大值: 179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1052,6 +1883,27 @@ public static func getMin(): Float64
 返回值：
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 双精度浮点数类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Float64 类型的最小值 */
+    let min = Float64.getMin()
+
+    /* 打印最小值 */
+    println("Float64的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Float64的最小值: -179769313486231570814527423731704356798070567525844996598917476803157260780028538760589558632766878171540458953514382464234321326889464182768467546703537516986049910576551282076245490090389328944075868508455133942304583236903222948165808559332123348274797826204144723168738177180919299881250404026184124858368.000000
+```
 
 ### extend Int16 <: MaxMinValue\<Int16>
 
@@ -1077,6 +1929,27 @@ public static func getMax(): Int16
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int16 类型的最大值 */
+    let max = Int16.getMax()
+
+    /* 打印最大值 */
+    println("Int16的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Int16的最大值: 32767
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1088,6 +1961,27 @@ public static func getMin(): Int16
 返回值：
 
 - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int16 类型的最小值 */
+    let min = Int16.getMin()
+
+    /* 打印最小值 */
+    println("Int16的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Int16的最小值: -32768
+```
 
 ### extend Int32 <: MaxMinValue\<Int32>
 
@@ -1113,6 +2007,27 @@ public static func getMax(): Int32
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int32 类型的最大值 */
+    let max = Int32.getMax()
+
+    /* 打印最大值 */
+    println("Int32的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Int32的最大值: 2147483647
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1124,6 +2039,27 @@ public static func getMin(): Int32
 返回值：
 
 - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int32 类型的最小值 */
+    let min = Int32.getMin()
+
+    /* 打印最小值 */
+    println("Int32的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Int32的最小值: -2147483648
+```
 
 ### extend Int64 <: MaxMinValue\<Int64>
 
@@ -1149,6 +2085,27 @@ public static func getMax(): Int64
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int64 类型的最大值 */
+    let max = Int64.getMax()
+
+    /* 打印最大值 */
+    println("Int64的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Int64的最大值: 9223372036854775807
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1160,6 +2117,27 @@ public static func getMin(): Int64
 返回值：
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int64 类型的最小值 */
+    let min = Int64.getMin()
+
+    /* 打印最小值 */
+    println("Int64的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Int64的最小值: -9223372036854775808
+```
 
 ### extend Int8 <: MaxMinValue\<Int8>
 
@@ -1185,6 +2163,27 @@ public static func getMax(): Int8
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int8 类型的最大值 */
+    let max = Int8.getMax()
+
+    /* 打印最大值 */
+    println("Int8的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+Int8的最大值: 127
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1196,6 +2195,27 @@ public static func getMin(): Int8
 返回值：
 
 - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 Int8 类型的最小值 */
+    let min = Int8.getMin()
+
+    /* 打印最小值 */
+    println("Int8的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+Int8的最小值: -128
+```
 
 ### extend IntNative <: MaxMinValue\<IntNative>
 
@@ -1221,6 +2241,27 @@ public static func getMax(): IntNative
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 IntNative 类型的最大值 */
+    let max = IntNative.getMax()
+
+    /* 打印最大值 */
+    println("IntNative的最大值: ${max}")
+}
+```
+
+可能的运行结果：
+
+```text
+IntNative的最大值: 9223372036854775807
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1232,6 +2273,27 @@ public static func getMin(): IntNative
 返回值：
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 IntNative 类型的最小值 */
+    let min = IntNative.getMin()
+
+    /* 打印最小值 */
+    println("IntNative的最小值: ${min}")
+}
+```
+
+可能的运行结果：
+
+```text
+IntNative的最小值: -9223372036854775808
+```
 
 ### extend UInt16 <: MaxMinValue\<UInt16>
 
@@ -1257,6 +2319,27 @@ public static func getMax(): UInt16
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt16 类型的最大值 */
+    let max = UInt16.getMax()
+
+    /* 打印最大值 */
+    println("UInt16的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+UInt16的最大值: 65535
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1268,6 +2351,27 @@ public static func getMin(): UInt16
 返回值：
 
 - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt16 类型的最小值 */
+    let min = UInt16.getMin()
+
+    /* 打印最小值 */
+    println("UInt16的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+UInt16的最小值: 0
+```
 
 ### extend UInt32 <: MaxMinValue\<UInt32>
 
@@ -1293,6 +2397,27 @@ public static func getMax(): UInt32
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt32 类型的最大值 */
+    let max = UInt32.getMax()
+
+    /* 打印最大值 */
+    println("UInt32的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+UInt32的最大值: 4294967295
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1304,6 +2429,27 @@ public static func getMin(): UInt32
 返回值：
 
 - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt32 类型的最小值 */
+    let min = UInt32.getMin()
+
+    /* 打印最小值 */
+    println("UInt32的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+UInt32的最小值: 0
+```
 
 ### extend UInt64 <: MaxMinValue\<UInt64>
 
@@ -1329,6 +2475,27 @@ public static func getMax(): UInt64
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt64 类型的最大值 */
+    let max = UInt64.getMax()
+
+    /* 打印最大值 */
+    println("UInt64的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+UInt64的最大值: 18446744073709551615
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1340,6 +2507,27 @@ public static func getMin(): UInt64
 返回值：
 
 - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt64 类型的最小值 */
+    let min = UInt64.getMin()
+
+    /* 打印最小值 */
+    println("UInt64的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+UInt64的最小值: 0
+```
 
 ### extend UInt8 <: MaxMinValue\<UInt8>
 
@@ -1365,6 +2553,27 @@ public static func getMax(): UInt8
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt8 类型的最大值 */
+    let max = UInt8.getMax()
+
+    /* 打印最大值 */
+    println("UInt8的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+UInt8的最大值: 255
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1376,6 +2585,27 @@ public static func getMin(): UInt8
 返回值：
 
 - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UInt8 类型的最小值 */
+    let min = UInt8.getMin()
+
+    /* 打印最小值 */
+    println("UInt8的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+UInt8的最小值: 0
+```
 
 ### extend UIntNative <: MaxMinValue\<UIntNative>
 
@@ -1401,6 +2631,27 @@ public static func getMax(): UIntNative
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) 类型的最大值。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UIntNative 类型的最大值 */
+    let max = UIntNative.getMax()
+
+    /* 打印最大值 */
+    println("UIntNative的最大值: ${max}")
+}
+```
+
+运行结果：
+
+```text
+UIntNative的最大值: 18446744073709551615
+```
+
 #### static func getMin()
 
 ```cangjie
@@ -1412,6 +2663,27 @@ public static func getMin(): UIntNative
 返回值：
 
 - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) - [UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative) 类型的最小值。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.math.*
+
+main(): Unit {
+    /* 获取 UIntNative 类型的最小值 */
+    let min = UIntNative.getMin()
+
+    /* 打印最小值 */
+    println("UIntNative的最小值: ${min}")
+}
+```
+
+运行结果：
+
+```text
+UIntNative的最小值: 0
+```
 
 ## interface Number\<T>
 
@@ -1426,38 +2698,6 @@ public interface Number<T> {
 ```
 
 功能：提供数值类型相关的方法。
-
-### operator func +(T)
-
-```cangjie
-operator func +(other: T): T
-```
-
-功能：算术运算符，计算加法。
-
-参数：
-
-- other: T - 运算符右边的数，表示另一个加数。
-
-返回值：
-
-- T - 计算所得和。
-
-### operator func -(T)
-
-```cangjie
-operator func -(other: T): T
-```
-
-功能：算术运算符，计算减法。
-
-参数：
-
-- other: T - 运算符右边的数，表示减数。
-
-返回值：
-
-- T - 计算所得差。
 
 ### operator func *(T)
 
@@ -1475,6 +2715,50 @@ operator func *(other: T): T
 
 - T - 计算所得积。
 
+### operator func +(T)
+
+```cangjie
+operator func +(other: T): T
+```
+
+功能：算术运算符，计算加法。
+
+参数：
+
+- other: T - 运算符右边的数，表示另一个加数。
+
+返回值：
+
+- T - 计算所得和。
+
+### operator func -()
+
+```cangjie
+operator func -(): T
+```
+
+功能：算术运算符，计算取负的值。
+
+返回值：
+
+- T - 取负的值。
+
+### operator func -(T)
+
+```cangjie
+operator func -(other: T): T
+```
+
+功能：算术运算符，计算减法。
+
+参数：
+
+- other: T - 运算符右边的数，表示减数。
+
+返回值：
+
+- T - 计算所得差。
+
 ### operator func /(T)
 
 ```cangjie
@@ -1490,18 +2774,6 @@ operator func /(other: T): T
 返回值：
 
 - T - 计算所得商。
-
-### operator func -()
-
-```cangjie
-operator func -(): T
-```
-
-功能：算术运算符，计算取负的值。
-
-返回值：
-
-- T - 取负的值。
 
 ### extend Float16 <: Number\<Float16>
 

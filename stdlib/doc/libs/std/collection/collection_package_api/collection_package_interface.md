@@ -107,22 +107,6 @@ public interface EquatableCollection<T> <: Collection<T> {
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
-### func contains(T)
-
-```cangjie
-func contains(element: T): Bool
-```
-
-功能：判断 Keys 是否包含指定元素。
-
-参数：
-
-- element: T - 指定元素，待判断 Keys 是否包含该元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 包含返回 true，否则返回 false。
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -138,6 +122,22 @@ func contains(all!: Collection<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 包含则返回 true，否则返回 false。
+
+### func contains(T)
+
+```cangjie
+func contains(element: T): Bool
+```
+
+功能：判断 Keys 是否包含指定元素。
+
+参数：
+
+- element: T - 指定元素，待判断 Keys 是否包含该元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 包含返回 true，否则返回 false。
 
 ## interface List\<T>
 
@@ -162,18 +162,6 @@ public interface List<T> <: ReadOnlyList<T> {
 
 - [ReadOnlyList](#interface-readonlylistt)\<T>
 
-### func add(T)
-
-```cangjie
-func add(element: T): Unit
-```
-
-功能：将指定的元素附加到此列表的末尾。
-
-参数：
-
-- element: T - 插入的元素，类型为 T。
-
 ### func add(Collection\<T>)
 
 ```cangjie
@@ -185,19 +173,6 @@ func add(all!: Collection<T>): Unit
 参数：
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要插入的元素的集合。
-
-### func add(T, Int64)
-
-```cangjie
-func add(element: T, at!: Int64): Unit
-```
-
-功能：在此列表中的指定位置插入指定元素。
-
-参数：
-
-- element: T - 要插入的 T 类型元素。
-- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入元素的目标索引。
 
 ### func add(Collection\<T>, Int64)
 
@@ -211,6 +186,31 @@ func add(all!: Collection<T>, at!: Int64): Unit
 
 - all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 要插入的 T 类型元素集合。
 - at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入集合的目标索引。
+
+### func add(T)
+
+```cangjie
+func add(element: T): Unit
+```
+
+功能：将指定的元素附加到此列表的末尾。
+
+参数：
+
+- element: T - 插入的元素，类型为 T。
+
+### func add(T, Int64)
+
+```cangjie
+func add(element: T, at!: Int64): Unit
+```
+
+功能：在此列表中的指定位置插入指定元素。
+
+参数：
+
+- element: T - 要插入的 T 类型元素。
+- at!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 插入元素的目标索引。
 
 ### func clear()
 
@@ -296,7 +296,19 @@ public interface Map<K, V> <: ReadOnlyMap<K, V> {
 
 父类型：
 
-- [ReadOnlyMap](collection_package_interface.md#interface-orderedmapk-v)\<K, V>
+- [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v)\<K, V>
+
+### func add(Collection\<(K, V)>)
+
+```cangjie
+func add(all!: Collection<(K, V)>): Unit
+```
+
+功能：将新的键值对放入 [Map](collection_package_interface.md#interface-mapk-v) 中。对于 [Map](collection_package_interface.md#interface-mapk-v) 中已有的键，该键映射的值将被新值替换。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要放入到 [Map](collection_package_interface.md#interface-mapk-v) 中的键值对集合。
 
 ### func add(K, V)
 
@@ -314,18 +326,6 @@ func add(key: K, value: V): ?V
 返回值：
 
 - ?V - 如果赋值之前 key 存在，返回旧值，否则返回 None。
-
-### func add(Collection\<(K, V)>)
-
-```cangjie
-func add(all!: Collection<(K, V)>): Unit
-```
-
-功能：将新的键值对放入 [Map](collection_package_interface.md#interface-mapk-v) 中。对于 [Map](collection_package_interface.md#interface-mapk-v) 中已有的键，该键映射的值将被新值替换。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)> - 需要放入到 [Map](collection_package_interface.md#interface-mapk-v) 中的键值对集合。
 
 ### func addIfAbsent(K, V)
 
@@ -368,6 +368,18 @@ func entryView(k: K): MapEntryView<K, V>
 
 - [MapEntryView](#interface-mapentryviewk-v)\<K, V> - 键 k 对应的视图。
 
+### func remove(Collection\<K>)
+
+```cangjie
+func remove(all!: Collection<K>): Unit
+```
+
+功能：从此映射中删除指定集合的映射（如果存在）。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的集合。
+
 ### func remove(K)
 
 ```cangjie
@@ -383,18 +395,6 @@ func remove(key: K): Option<V>
 返回值：
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<V> - 从 [Map](collection_package_interface.md#interface-mapk-v) 中移除的键对应的值。用 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装。
-
-### func remove(Collection\<K>)
-
-```cangjie
-func remove(all!: Collection<K>): Unit
-```
-
-功能：从此映射中删除指定集合的映射（如果存在）。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传入要删除的集合。
 
 ### func removeIf((K, V) -> Bool)
 
@@ -442,8 +442,8 @@ operator func [](key: K, value!: V): Unit
 
 ```cangjie
 public interface MapEntryView<K, V> {
-    public prop key: K
-    public mut prop value: ?V
+    prop key: K
+    mut prop value: ?V
 }
 ```
 
@@ -452,7 +452,7 @@ public interface MapEntryView<K, V> {
 ### prop key
 
 ```cangjie
-public prop key: K
+prop key: K
 ```
 
 功能：返回视图中的 key，如果视图的 key 不在原始映射中，则返回一个该 key 的空视图。
@@ -462,7 +462,7 @@ public prop key: K
 ### prop value
 
 ```cangjie
-public mut prop value: ?V
+mut prop value: ?V
 ```
 
 功能：读取或修改视图对应原始映射的 value。
@@ -475,13 +475,12 @@ public mut prop value: ?V
 
 ```cangjie
 public interface OrderedMap<K, V> <: Map<K, V> {
-    public prop first: ?(K, V)
-    public prop last: ?(K, V)
-    public func removeFirst(): ?(K, V)
-    public func removeLast(): ?(K, V)
-
-    public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
-    public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    prop first: ?(K, V)
+    prop last: ?(K, V)
+    func removeFirst(): ?(K, V)
+    func removeLast(): ?(K, V)
+    func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+    func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 }
 ```
 
@@ -496,7 +495,7 @@ public interface OrderedMap<K, V> <: Map<K, V> {
 ### prop first
 
 ```cangjie
-public prop first: ?(K, V)
+prop first: ?(K, V)
 ```
 
 功能：获取 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 第一个元素。
@@ -506,41 +505,17 @@ public prop first: ?(K, V)
 ### prop last
 
 ```cangjie
-public prop last: ?(K, V)
+prop last: ?(K, V)
 ```
 
 功能：获取 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 最后一个元素。
 
 类型：?(K, V)
 
-### func removeFirst()
-
-```cangjie
-public func removeFirst(): ?(K, V)
-```
-
-功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的第一个元素。
-
-返回值：
-
-- ?(K, V) - 如果当前 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的键值对，否则返回 `None`。
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?(K, V)
-```
-
-功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的最后一个元素。
-
-返回值：
-
-- ?(K, V) - 如果当前 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的键值对，否则返回 `None`。
-
 ### func backward(K, Bool)
 
 ```cangjie
-public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 功能：获取从第一个键小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
@@ -557,7 +532,7 @@ public func backward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ### func forward(K, Bool)
 
 ```cangjie
-public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
+func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 ```
 
 功能：获取从第一个键大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的键等于 mark ，那么根据 `inclusive!` 确定是否包含该键对应的节点。
@@ -571,17 +546,40 @@ public func forward(mark: K, inclusive!: Bool): Iterator<(K, V)>
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<(K, V)> - 迭代器。
 
+### func removeFirst()
+
+```cangjie
+func removeFirst(): ?(K, V)
+```
+
+功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的第一个元素。
+
+返回值：
+
+- ?(K, V) - 如果当前 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的键值对，否则返回 `None`。
+
+### func removeLast()
+
+```cangjie
+func removeLast(): ?(K, V)
+```
+
+功能：删除 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 的最后一个元素。
+
+返回值：
+
+- ?(K, V) - 如果当前 [OrderedMap](./collection_package_interface.md#interface-orderedmapk-v) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的键值对，否则返回 `None`。
+
 ## interface OrderedSet\<T>
 
 ```cangjie
 public interface OrderedSet<T> <: Set<T> {
-    public prop first: ?T
-    public prop last: ?T
-    public func removeFirst(): ?T
-    public func removeLast(): ?T
-
-    public func backward(mark: T, inclusive!: Bool): Iterator<T>
-    public func forward(mark: T, inclusive!: Bool): Iterator<T>
+    prop first: ?T
+    prop last: ?T
+    func backward(mark: T, inclusive!: Bool): Iterator<T>
+    func forward(mark: T, inclusive!: Bool): Iterator<T>
+    func removeFirst(): ?T
+    func removeLast(): ?T
 }
 ```
 
@@ -596,7 +594,7 @@ public interface OrderedSet<T> <: Set<T> {
 ### prop first
 
 ```cangjie
-public prop first: ?T
+prop first: ?T
 ```
 
 功能：获取 [OrderedSet](collection_package_interface.md#interface-orderedsett) 第一个元素。
@@ -606,41 +604,17 @@ public prop first: ?T
 ### prop last
 
 ```cangjie
-public prop last: ?T
+prop last: ?T
 ```
 
 功能：获取 [OrderedSet](collection_package_interface.md#interface-orderedsett) 最后一个元素。
 
 类型：?T
 
-### func removeFirst()
-
-```cangjie
-public func removeFirst(): ?T
-```
-
-功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的第一个元素。
-
-返回值：
-
-- ?T - 如果当前 [OrderedSet](collection_package_interface.md#interface-orderedsett) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的元素，否则返回 `None`。
-
-### func removeLast()
-
-```cangjie
-public func removeLast(): ?T
-```
-
-功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的最后一个元素。
-
-返回值：
-
-- ?T - 如果当前 [OrderedSet](collection_package_interface.md#interface-orderedsett) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的元素，否则返回 `None`。
-
 ### func backward(T, Bool)
 
 ```cangjie
-public func backward(mark: T, inclusive!: Bool): Iterator<T>
+func backward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 功能：获取从第一个元素小于等于 mark 的节点按降序遍历到 [first](./collection_package_interface.md#prop-first) 的迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
@@ -657,7 +631,7 @@ public func backward(mark: T, inclusive!: Bool): Iterator<T>
 ### func forward(T, Bool)
 
 ```cangjie
-public func forward(mark: T, inclusive!: Bool): Iterator<T>
+func forward(mark: T, inclusive!: Bool): Iterator<T>
 ```
 
 功能：获取从第一个元素大于等于 mark 的节点按升序遍历到 [last](./collection_package_interface.md#prop-last) 结束的一个迭代器。如果该节点的元素等于 mark ，那么根据 `inclusive!` 确定是否包含该元素对应的节点。
@@ -670,6 +644,30 @@ public func forward(mark: T, inclusive!: Bool): Iterator<T>
 返回值：
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 迭代器。
+
+### func removeFirst()
+
+```cangjie
+func removeFirst(): ?T
+```
+
+功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的第一个元素。
+
+返回值：
+
+- ?T - 如果当前 [OrderedSet](collection_package_interface.md#interface-orderedsett) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的元素，否则返回 `None`。
+
+### func removeLast()
+
+```cangjie
+func removeLast(): ?T
+```
+
+功能：删除 [OrderedSet](collection_package_interface.md#interface-orderedsett) 的最后一个元素。
+
+返回值：
+
+- ?T - 如果当前 [OrderedSet](collection_package_interface.md#interface-orderedsett) 不为空，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) 封装的被删除的元素，否则返回 `None`。
 
 ## interface Queue\<T>
 
@@ -819,21 +817,21 @@ public interface ReadOnlyMap<K, V> <: Collection<(K, V)> {
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<(K, V)>
 
-### func get(K)
+### func contains(Collection\<K>)
 
 ```cangjie
-func get(key: K): ?V
+func contains(all!: Collection<K>): Bool
 ```
 
-功能：根据 key 得到 [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 中映射的值。
+功能：判断是否包含指定集合键的映射。
 
 参数：
 
-- key: K - 传递 key，获取 value。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传递待判断的 的集合。
 
 返回值：
 
-- ?V - [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 中与 Key 对应的值。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
 
 ### func contains(K)
 
@@ -851,21 +849,21 @@ func contains(key: K): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
 
-### func contains(Collection\<K>)
+### func get(K)
 
 ```cangjie
-func contains(all!: Collection<K>): Bool
+func get(key: K): ?V
 ```
 
-功能：判断是否包含指定集合键的映射。
+功能：根据 key 得到 [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 中映射的值。
 
 参数：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<K> - 传递待判断的 的集合。
+- key: K - 传递 key，获取 value。
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果存在，则返回 true；否则，返回 false。
+- ?V - [ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 中与 Key 对应的值。
 
 ### func keys()
 
@@ -923,22 +921,6 @@ public interface ReadOnlySet<T> <: Collection<T> {
 
 - [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>
 
-### func contains(T)
-
-```cangjie
-func contains(element: T): Bool
-```
-
-功能：如果该集合包含指定元素，则返回 true。
-
-参数：
-
-- element: T - 需要判断的元素。
-
-返回值：
-
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含，则返回 true；否则，返回 false。
-
 ### func contains(Collection\<T>)
 
 ```cangjie
@@ -954,6 +936,22 @@ func contains(all!: Collection<T>): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该集合包含指定集合，则返回 true；否则，返回 false。
+
+### func contains(T)
+
+```cangjie
+func contains(element: T): Bool
+```
+
+功能：如果该集合包含指定元素，则返回 true。
+
+参数：
+
+- element: T - 需要判断的元素。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果包含，则返回 true；否则，返回 false。
 
 ### func subsetOf(ReadOnlySet\<T>)
 
@@ -993,6 +991,18 @@ public interface Set<T> <: ReadOnlySet<T> {
 
 - [ReadOnlySet](collection_package_interface.md#interface-readonlysett)\<T>
 
+### func add(Collection\<T>)
+
+```cangjie
+func add(all!: Collection<T>): Unit
+```
+
+功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [Set](collection_package_interface.md#interface-sett) 中，如果元素存在，则不添加。
+
+参数：
+
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+
 ### func add(T)
 
 ```cangjie
@@ -1009,17 +1019,25 @@ func add(element: T): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果添加成功，则返回 true；否则，返回 false。
 
-### func add(Collection\<T>)
+### func clear()
 
 ```cangjie
-func add(all!: Collection<T>): Unit
+func clear(): Unit
 ```
 
-功能：添加 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素至此 [Set](collection_package_interface.md#interface-sett) 中，如果元素存在，则不添加。
+功能：清除所有键值对。
+
+### func remove(Collection\<T>)
+
+```cangjie
+func remove(all!: Collection<T>): Unit
+```
+
+功能：移除此 [Set](collection_package_interface.md#interface-sett) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
 
 参数：
 
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 需要被添加的元素的集合。
+- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 传入 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>。
 
 ### func remove(T)
 
@@ -1037,18 +1055,6 @@ func remove(element: T): Bool
 
 - Bool - 集合中存在指定的元素并且删除成功返回 `true`，否则返回 `false` 。
 
-### func remove(Collection\<T>)
-
-```cangjie
-func remove(all!: Collection<T>): Unit
-```
-
-功能：移除此 [Set](collection_package_interface.md#interface-sett) 中那些也包含在指定 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont) 中的所有元素。
-
-参数：
-
-- all!: [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T> - 传入 [Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<T>。
-
 ### func removeIf((T) -> Bool)
 
 ```cangjie
@@ -1060,14 +1066,6 @@ func removeIf(predicate: (T) -> Bool): Unit
 参数：
 
 - predicate: (T) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 传入一个 lambda 表达式进行判断。
-
-### func clear()
-
-```cangjie
-func clear(): Unit
-```
-
-功能：清除所有键值对。
 
 ### func retain(Set\<T>)
 

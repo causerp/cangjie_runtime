@@ -574,9 +574,8 @@ import std.unittest.*
 import std.unittest.testmacro.*
 
 main() {
-    var buffer: Array<Byte> = Array<Byte>(8, repeat: 0)
-    let n = 0x12345678i32.
-    writeBigEndian(buffer)
+    var buffer: Array<UInt8> = Array<UInt8>(8, repeat: 0)
+    let n = 0x12345678i32.writeBigEndian(buffer)
     @Assert(n, 4)
     @Assert(buffer[..n] == [0x12u8, 0x34u8, 0x56u8, 0x78u8])
 }

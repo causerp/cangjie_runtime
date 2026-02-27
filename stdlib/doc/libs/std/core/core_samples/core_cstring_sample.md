@@ -20,6 +20,7 @@ void printCString(char *s) { printf("%s\n", s); }
 
 ```cangjie
 foreign func getCString(): CString
+
 foreign func printCString(s: CString): Unit
 
 main() {

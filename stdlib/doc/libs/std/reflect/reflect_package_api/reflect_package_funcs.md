@@ -44,12 +44,17 @@ import std.reflect.*
 class A {}
 
 main(): Unit {
-    println(parseParameterTypes("Int64, String, default.A"))
+    let types = parseParameterTypes("Int64, String, default.A")
+    for (t in types) {
+        println(t)
+    }
 }
 ```
 
 运行结果：
 
 ```text
-[Int64, String, default.A]
+Int64
+String
+default.A
 ```
