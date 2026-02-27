@@ -157,6 +157,15 @@ public static func merge(parent: Configuration, child: Configuration): Configura
 
 - [Configuration](#class-configuration) - 合并完成的配置
 
+参考示例：
+
+- [自定义性能基准测试配置](../../unittest/unittest_package_api/unittest_package_classes.md#class-benchmark)
+- [动态测试](../../unittest/unittest_samples/unittest_dynamic_tests.md#动态测试入门)
+
+对于大多数情况，你无需编程式地更改配置。请改用以下方式：
+
+[@Configure 宏](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#configure-宏)
+
 ## class ConfigurationKey
 
 ```cangjie
@@ -253,6 +262,37 @@ public abstract class PrettyPrinter {
 ```
 
 功能：拥有颜色和对齐、缩进控制的打印器。
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.common.*
+
+main() {
+    let pp = PrettyText()
+    pp.colored(Color.BLUE, "Start:").newLine()
+    pp.appendLine('-' * 40)
+    pp.appendLeftAligned("left", 40).newLine()
+    pp.appendCentered("centered", 40).newLine()
+    pp.appendRightAligned("right", 40).newLine()
+    pp.indent {
+        => pp.appendLine("isTopLevel: ${pp.isTopLevel}")
+    }
+    println(pp.toString())
+}
+```
+
+可能的运行结果：
+
+```text
+Start:
+----------------------------------------
+left                                    
+                centered                
+                                   right
+    isTopLevel: false
+```
 
 ### PrettyPrinter(UInt64,UInt64)
 
@@ -607,6 +647,29 @@ public class PrettyText <: PrettyPrinter & PrettyPrintable & ToString {
 - [PrettyPrinter](#class-prettyprinter)
 - [PrettyPrintable](unittest_common_package_interfaces.md#interface-prettyprintable)
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.common.*
+import std.unittest.testmacro.*
+
+main() {
+    let pp = PrettyText()
+    println("isEmpty: ${pp.isEmpty()}")
+    pp.append("hello world")
+    println(pp.toString())
+}
+```
+
+可能的运行结果：
+
+```text
+isEmpty: true
+hello world
+```
 
 ### init()
 

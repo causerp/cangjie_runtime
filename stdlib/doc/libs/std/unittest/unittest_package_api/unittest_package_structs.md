@@ -123,6 +123,31 @@ public struct CpuCycles <: Measurement {}
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+示例：
+
+<!-- run -->
+```cangjie
+import std.unittest.*
+import std.unittest.testmacro.*
+import std.time.*
+
+var counter: Float64 = 0.0
+
+@Test
+@Measure[CpuCycles()]
+class BenchClass {
+    @BeforeEach
+    func beforeEach() {
+        counter = 0.0
+    }
+
+    @Bench
+    func foo() {
+        counter += 1.0
+    }
+}
+```
+
 ### prop conversionTable
 
 ```cangjie
@@ -316,8 +341,10 @@ public struct KeyBaseline <: KeyFor<String> {}
 
 <!-- code_no_check -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyBaseline.baseline, "baseline")
+func example() {
+    let conf = Configuration()
+    conf.set(KeyBaseline.baseline, "baseline")
+}
 ```
 
 父类型：
@@ -1384,12 +1411,47 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 功能：支持在配置信息中指定超时处理的句柄。
 
-例如：
+示例：
 
-<!-- code_no_check -->
+<!-- run -->
 ```cangjie
-let conf = Configuration()
-conf.set(KeyTimeoutHandler.timeoutHandler, { info => /*...*/ })
+import std.unittest.*
+import std.unittest.testmacro.*
+
+@Test
+class Test {
+    @TestCase
+    @Timeout[Duration.second]
+    func assertIsACancellationPoint() {
+        sleep(Duration.second * 2)
+        @Assert(false)
+    }
+}
+
+main(): Unit {
+    let config = Configuration()
+    config.set(
+        KeyTimeoutHandler.timeoutHandler,
+        {info: TestCaseInfo => println("Timeout in ${info.suiteName}.${info.caseName}!")}
+    )
+    Test().asTestSuite().runTests(config).reportTo(ConsoleReporter())
+}
+```
+
+可能的运行结果：
+
+```text
+Timeout in Test.assertIsACancellationPoint!
+--------------------------------------------------------------------------------------------------
+TP: default, time elapsed: 2006440952 ns, RESULT:
+    TCS: Test, time elapsed: 2006435848 ns, RESULT:
+    [ FAILED ] CASE: assertIsACancellationPoint (2005625479 ns)
+    Execution time exceeded specified timeout.
+Summary: TOTAL: 1
+    PASSED: 0, SKIPPED: 0, ERROR: 0
+    FAILED: 1, listed below:
+            TCS: Test, CASE: assertIsACancellationPoint
+--------------------------------------------------------------------------------------------------
 ```
 
 父类型：
@@ -1536,6 +1598,10 @@ public struct Perf <: Measurement {
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
 
+示例：
+
+参见 [enum PerfCounter](unittest_package_enums.md#enum-perfcounter)
+
 ### prop conversionTable
 
 ```cangjie
@@ -1631,6 +1697,8 @@ public RelativeDelta(let absolute!: T, let relative!: T)
 - absolute!: T - 绝对比较部分的 delta 值。
 - relative!: T - 相对比较部分的 delta 值。
 
+参考示例：[近似相等](../../unittest/unittest_samples/unittest_basics.md#预期异常的断言)
+
 ## struct TestCaseInfo
 
 ```cangjie
@@ -1642,6 +1710,8 @@ public struct TestCaseInfo {
 ```
 
 功能：当前正在运行的测试用例的信息。通常在动态 API 的超时处理句柄中被使用。
+
+参考示例：[KeyTimeoutHandler](./unittest_package_structs.md#struct-keytimeouthandler).
 
 ### let caseName
 
@@ -1687,6 +1757,23 @@ public struct TimeNow <: Measurement {
 父类型：
 
 - [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+示例：
+
+<!-- run -->
+```cangjie
+import std.time.*
+
+@Test
+@Measure[TimeNow(Nanos)]
+public class Test_Residentsleeper {
+
+    @Bench
+    func case01(): Unit {
+        sleep(0.95 * Duration.millisecond)
+    }
+}
+```
 
 ### prop conversionTable
 
