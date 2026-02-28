@@ -853,6 +853,14 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
                 var childNode: Node<K, V> = node.getChild(sr.index).getOrThrow()
                 if (childNode.entrySize == MAX_ENTRY_SIZE) {
                     splitNode(node, childNode, sr.index)
+                    match(node.searchEntry(entry.key).replaceNode){
+                        case Some(node) =>
+                            let tmp = node.getEntry(sr.index).getOrThrow()
+                            let oldValue = tmp.value
+                            tmp.value = entry.value
+                            return oldValue
+                         case None => ()
+                    }
                     if (entry.key > node.getEntry(sr.index).getOrThrow().key) {
                         childNode = node.getChild(sr.index + 1).getOrThrow()
                     }
@@ -1221,7 +1229,7 @@ struct TreeMapEntryView<K, V> <: MapEntryView<K, V> where K <: Comparable<K> {
                 case Some(node) =>
                     let entry = node.getEntry(curNode.index).getOrThrow()
                     entry.value
-                case None => throw NoneValueException("Value does not exist!")
+                case None => None
             }
         }
         set(v) {
