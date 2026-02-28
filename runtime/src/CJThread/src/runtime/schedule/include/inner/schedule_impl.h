@@ -193,7 +193,7 @@ struct ScheduleManager {
     /* Check whether has higher priority task in event handler system */
     HasHigherPriorityTaskFunc hasHigherPriorityTaskFunc;
     /* Update arkts stack info when single model cjthread stack changed */
-    UpdateStackInfoFunc updateStackInfoFunc;
+    void* updateStackInfoFunc;
     /* Register the arkVM that be created by UI Thread */
     unsigned long long arkVM = 0;
 

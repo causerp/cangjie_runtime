@@ -794,12 +794,12 @@ int UnloadCJLibrary(const char* libName)
 
 void RegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc)
 {
-    CJRegisterStackInfoCallbacks(uFunc);
+    (void)uFunc;
 }
 
 void RegisterArkVMInRuntime(unsigned long long vm)
 {
-    CJRegisterArkVMInRuntime(vm);
+    (void)vm;
 }
 
 int CJThreadKeyCreate(CJThreadKey* key, DestructorFunc destructor)

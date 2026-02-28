@@ -1900,61 +1900,10 @@ void CJ_MCC_RemoveExportedRef(U64 id)
     Heap::GetHeap().RemoveExportObject(id);
 }
 
-
 #if defined(__OHOS__)
-void* ARKTS_CreateEngine = nullptr;
-void* ARKTS_UpdateStackInfo = nullptr;
-void* ARKTS_GetContext = nullptr;
-bool g_hasFindArkTSFunctions = false;
-bool FindArkTSFunctions()
-{
-    static SpinLock spinLock;
-    ScopedEnterSpinLock scopedEnterSpinLock(spinLock);
-    if (g_hasFindArkTSFunctions) {
-        return true;
-    }
-    void* handler = dlopen("libark_interop.z.so", RTLD_NOW | RTLD_GLOBAL);
-    if (handler == nullptr) {
-        return false;
-    }
-    ARKTS_CreateEngine = dlsym(handler, "ARKTS_CreateEngine");
-    if (ARKTS_CreateEngine == nullptr) {
-        return false;
-    }
-    ARKTS_UpdateStackInfo = dlsym(handler, "ARKTS_UpdateStackInfo");
-    if (ARKTS_UpdateStackInfo == nullptr) {
-        return false;
-    }
-    ARKTS_GetContext = dlsym(handler, "ARKTS_GetContext");
-    if (ARKTS_GetContext == nullptr) {
-        return false;
-    }
-    g_hasFindArkTSFunctions = true;
-    return true;
-}
-
 extern "C" void* CJ_MRT_ARKTS_CreateEngine()
 {
-    if (!FindArkTSFunctions()) {
-        LOG(RTLOG_ERROR, "Failed to find arkts functions.");
-        return nullptr;
-    }
-    auto res = ((void* (*)())ARKTS_CreateEngine)();
-    if (res == nullptr) {
-        LOG(RTLOG_ERROR, "Failed to create arkts engine.");
-        return res;
-    }
-    auto arkVm = ((unsigned long long (*)(void*))ARKTS_GetContext)(res);
-    if (arkVm == 0) {
-        LOG(RTLOG_ERROR, "Failed to get arkvm.");
-        return res;
-    }
-    RegisterArkVMInRuntime(arkVm);
-    RegisterStackInfoCallbacks(((UpdateStackInfoFunc)ARKTS_UpdateStackInfo));
-    if (!IsForeignThread()) {
-        UpdateArkVMStackInfo(arkVm);
-    }
-    return res;
+    return nullptr;
 }
 #endif
 } // namespace MapleRuntime

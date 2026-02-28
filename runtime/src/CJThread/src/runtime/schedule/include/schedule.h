@@ -494,11 +494,6 @@ enum TraceArgNum {
     TRACE_ARGS_2,
 };
 
-enum StackInfoOpKind : uint32_t {
-    SWITCH_TO_SUB_STACKINFO = 0,
-    SWITCH_TO_MAIN_STACKINFO,
-};
-
 /**
  * @brief Type of callback function for SchdPoll
  */
@@ -519,9 +514,6 @@ typedef bool (*PostTaskFunc)(void* taskFunc);
  */
 typedef bool (*HasHigherPriorityTaskFunc)();
 
-/* Update designate stackInfo */
-typedef void(*UpdateStackInfoFunc)(unsigned long long, void*, unsigned int);
-
 /**
  * @brief Register PostTask function and HasHigherPriorityTask function of event handler
  * to global scheduler manager.
@@ -529,18 +521,6 @@ typedef void(*UpdateStackInfoFunc)(unsigned long long, void*, unsigned int);
  * @param hFunc  [IN] The HasHigherPriorityTask function
  */
 void RegisterEventHandlerCallbacks(PostTaskFunc pFunc, HasHigherPriorityTaskFunc hFunc);
-
-/**
- * @brief Register UpdateStackInfo Func to global scheduler manager.
- * @param uFunc  [IN] The UpdateStackInfoFunc function
- */
-void CJRegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc);
-
-/**
- * @brief Register UIThread arkVM to global scheduler manager.
- * @param vm  [IN] The arkVM in UIThread
- */
-void CJRegisterArkVMInRuntime(unsigned long long vm);
 
 /**
 * @brief Default cjthread parameter assignment.
@@ -909,16 +889,31 @@ int CJThreadStateHookRegister(SchdCJThreadStateHookFunc func, CJThreadStateHook 
 
 #ifdef __OHOS__
 /**
- * @brief Add C2N count in single model cjthread, in order to decide wheater do park in this cjthread.
+ * @brief Get bottom of physical thread stack
  * @attention Only use in OHOS, and only for the spawn(Main) to Native func
+ * @retval success for bottom of stack, 0 for fail or not in OHOS
  */
-void AddSingleModelC2NCount();
+unsigned long long GetThreadStackTop();
 
 /**
- * @brief Dec C2N count in single model cjthread, in order to decide wheater do park in this cjthread.
+ * @brief Get last bottom of physical thread stack from threadStackTopList
+ * @attention Only use in OHOS, and only for the spawn(Main) to Native func
+ * @retval success for bottom of stack, 0 for fail or not in OHOS
+ */
+unsigned long long GetUIThreadStackTop();
+
+/**
+  * @brief Add bottom of physical thread stack in threadStackTopList
+  * @attention Only use in OHOS, and only for the spawn(Main) to Native func
+  * @param  stackTop  thread stack top address
+  */
+void PushUIThreadStackTop(unsigned long long stackTop);
+
+/**
+ * @brief Remove the last bottom of physical thread stack from threadStackTopList.
  * @attention Only use in OHOS, and only for the spawn(Main) to Native func
  */
-void DecSingleModelC2NCount();
+void PopUIThreadStackTop();
 #endif
 
 /**

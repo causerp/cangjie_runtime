@@ -132,6 +132,16 @@ CJ_MCC_N2CStub:
     // need to save topContext to stub slot.
     movq    %rbp, %rdi
     callq   MRT_SaveTopManagedContextToN2CStub
+#ifdef __OHOS__
+    callq   CJ_GetUIThreadStackTop
+    test    %rax, %rax
+    jz      .L_setstack_end
+    movq    %rax, -296(%rbp)
+    movq    %rsp, %rdi
+    callq   CJ_PushUIThreadStackTop
+    movq    -296(%rbp), %rax
+.L_setstack_end:
+#endif
 
     // Store rsp before coping arg6, arg7...
     movq    %rsp, -296(%rbp)
@@ -147,6 +157,13 @@ CJ_MCC_N2CStub:
     // Let the r13 register(current rbp) point to the ending point of the stack to be copied
     movq    %rbp, %r13
     addq    $32,  %r13
+
+#ifdef __OHOS__
+    // rax is the return value of CJ_GetUIThreadStackTop
+    test    %rax, %rax
+    jz      .L_copy
+    movq    %rax, %rsp
+#endif
 
     // copy arg6, arg7, ...(if existed)
 .L_copy:
@@ -214,7 +231,17 @@ unwindPCForN2CStub:
 .L_none_enter:
 
     // Restore the value of rsp before coping arg6, arg7...
+#ifdef __OHOS__
+    callq   CJ_GetUIThreadStackTop
+    test    %rax, %rax
+    jz      .L_restore_sp
+    mov     %rax, %rsp
+    callq   CJ_PopUIThreadStackTop
+    jmp     .L_restore_sp_end
+#endif
+.L_restore_sp:
     movq    -296(%rbp), %rsp
+.L_restore_sp_end:
 
     // set potential return value
     movq    -112(%rbp), %rdx
@@ -304,30 +331,12 @@ ResolveCycleRefStub:
     .size ResolveCycleRefStub, .-ResolveCycleRefStub
 
 #ifdef __OHOS__
-
-
     .text
     .align 2
     .global   CJ_MRT_ARKTS_CreateEngineStub
     .type     CJ_MRT_ARKTS_CreateEngineStub, @function
 CJ_MRT_ARKTS_CreateEngineStub:
     .cfi_startproc
-    pushq   %rbp
-    .cfi_def_cfa_offset 16
-    .cfi_offset %rbp, -16
-    movq    %rsp, %rbp
-    .cfi_def_cfa_register %rbp
-    movq    %rsp, %r12
-    callq   IsForeignThread
-    cmpq    $0, %rax
-    jne     .L_no_need_switch
-    callq   GetNativeSPForUIThread
-    movq    %rax, %rsp
-.L_no_need_switch:
-    callq   CJ_MRT_ARKTS_CreateEngine
-    movq    %r12, %rsp
-    popq    %rbp
-    .cfi_def_cfa %rsp, 8
     retq
     .cfi_endproc
     .size CJ_MRT_ARKTS_CreateEngineStub, .-CJ_MRT_ARKTS_CreateEngineStub
