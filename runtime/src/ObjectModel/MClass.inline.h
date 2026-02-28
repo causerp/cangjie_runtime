@@ -229,7 +229,7 @@ inline TypeInfo* TypeInfo::GetFieldType(U16 idx) const
     return fields[idx];
 }
 
-inline EnumInfo* TypeInfo::GetEnumInfo()
+inline EnumInfo* TypeInfo::GetEnumInfo() const
 {
     if (IsEnum() || IsTempEnum()) {
         return enumInfo;
@@ -237,7 +237,7 @@ inline EnumInfo* TypeInfo::GetEnumInfo()
     return nullptr;
 }
 
-inline EnumCtorReflectInfo* TypeInfo::GetEnumCtorReflectInfo()
+inline EnumCtorReflectInfo* TypeInfo::GetEnumCtorReflectInfo() const
 {
     if ((IsEnum() || IsTempEnum()) && IsEnumCtor()) {
         return enumCtorReflectInfo;
