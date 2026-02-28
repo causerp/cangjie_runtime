@@ -652,8 +652,9 @@ public:
     bool IsEnumKind1();
     bool ReflectIsEnable() const;
     bool ReflectInfoIsNull() const;
-    inline EnumCtorReflectInfo* GetEnumCtorReflectInfo();
+    inline EnumCtorReflectInfo* GetEnumCtorReflectInfo() const;
     ReflectInfo* GetReflectInfo() const;
+    U8 GetReflectionVersion() const;
 
     inline const char* GetName() const;
     FuncRef GetFinalizeMethod() const;
@@ -676,7 +677,7 @@ public:
 
     PackageInfo* GetPackageInfo();
     void* GetAnnotations(TypeInfo* arrayTi);
-    inline EnumInfo* GetEnumInfo();
+    inline EnumInfo* GetEnumInfo() const;
     // for generic
     void SetName(const char* name) { this->typeInfoName = name; }
     void SetType(I8 kindType) { this->type = kindType; }
