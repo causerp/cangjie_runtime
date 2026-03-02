@@ -10,27 +10,6 @@
 #include "ExceptionManager.inline.h"
 
 namespace MapleRuntime {
-
-// Get reflection version for backward compatibility
-static U8 GetReflectionVersion(TypeInfo* ti)
-{
-    if (!ti->ReflectIsEnable()) {
-        return 0;
-    }
-    if (ti->IsEnum() || ti->IsTempEnum()) {
-        EnumInfo* enumInfo = ti->GetEnumInfo();
-        if (enumInfo != nullptr) {
-            return enumInfo->GetReflectVersion();
-        }
-    } else {
-        ReflectInfo* reflectInfo = ti->GetReflectInfo();
-        if (reflectInfo != nullptr) {
-            return reflectInfo->GetReflectVersion();
-        }
-    }
-    return 0;
-}
-
 ScopedAllocBuffer::~ScopedAllocBuffer()
 {
     AllocBuffer* buffer = AllocBuffer::GetAllocBuffer();
@@ -538,7 +517,7 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     TypeInfo* retType = GetReturnType();
     U8 reflectVersion = 0;
     if (declaringTi != nullptr) {
-        reflectVersion = GetReflectionVersion(declaringTi);
+        reflectVersion = declaringTi->GetReflectionVersion();
     }
     if (HasSRet()) {
         if (retType->IsGeneric()) {

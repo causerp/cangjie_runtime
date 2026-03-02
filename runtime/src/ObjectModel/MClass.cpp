@@ -83,6 +83,25 @@ ReflectInfo* TypeInfo::GetReflectInfo() const
     return reflectInfo;
 }
 
+U8 TypeInfo::GetReflectionVersion() const
+{
+    if (!ReflectIsEnable()) {
+        return 0;
+    }
+    if (IsEnum() || IsTempEnum()) {
+        EnumInfo* enumInfo = GetEnumInfo();
+        if (enumInfo != nullptr) {
+            return enumInfo->GetReflectVersion();
+        }
+    } else {
+        ReflectInfo* reflectInfo = GetReflectInfo();
+        if (reflectInfo != nullptr) {
+            return reflectInfo->GetReflectVersion();
+        }
+    }
+    return 0;
+}
+
 TypeInfo* TypeTemplate::GetFieldType(U16 fieldIdx, U32 argSize, TypeInfo* args[])
 {
     GenericFunc genericFunc = GetFieldGenericFunc(fieldIdx);
