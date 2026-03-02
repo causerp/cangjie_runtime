@@ -592,7 +592,8 @@ void* MethodInfo::ApplyCJMethod(ObjRef instanceObj, void* genericArgs, void* act
     return any;
 }
 
-DynamicMethodInfo::DynamicMethodInfo(ObjRef obj) {
+DynamicMethodInfo::DynamicMethodInfo(ObjRef obj)
+{
     this->instanceObj = obj;
     this->functionTi = obj->GetTypeInfo();
     TypeInfo* ti = nullptr;

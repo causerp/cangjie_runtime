@@ -976,7 +976,8 @@ bool ScheduleAnyCJThreadRunning(struct Schedule *schedule)
 }
 
 // free exclusive scheduler
-void ExclusiveScheduleFree(struct Schedule *schedule) {
+void ExclusiveScheduleFree(struct Schedule *schedule)
+{
     ScheduleListRemove(schedule);
     ScheduleProcessorFree(schedule);
     MapleRuntime::NativeAllocator::NativeFree(schedule, sizeof(struct Schedule));

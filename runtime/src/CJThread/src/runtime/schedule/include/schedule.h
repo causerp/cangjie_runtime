@@ -597,7 +597,7 @@ int CJThreadAttrSpecificSet(struct CJThreadAttr *attrUser, unsigned int num, str
  * NULL indicates that the cjthread fails to be created.
  */
 CJThreadHandle ExclusiveCJThreadNew(CJThreadFunc func,
-                           const void *argStart, unsigned int argSize);
+                                    const void *argStart, unsigned int argSize);
 
 /**
  * @brief Create a cjthread. This interface must be invoked in the cjthread context.

@@ -158,7 +158,8 @@ void CjAllocData::SerializeSamples()
     }
     writer->WriteChar(']');
 }
-void CjAllocData::InitRoot() {
+void CjAllocData::InitRoot()
+{
     TraceNodeField* traceNode = new TraceNodeField();
     if (traceNode == nullptr) {
         LOG(RTLOG_ERROR, "init traceNode failed");
@@ -179,7 +180,8 @@ void CjAllocData::InitRoot() {
     CjAllocData::GetCjAllocData()->traceFunctionInfo.push_back(traceFunction);
 }
 
-void CjAllocData::InitAllocParam() {
+void CjAllocData::InitAllocParam()
+{
     sampSize = 1 * 1024 ; // default 1 * 1024 b
     InitRoot();
     HeapProfilerStream* stream = &MapleRuntime::HeapProfilerStream::GetInstance();

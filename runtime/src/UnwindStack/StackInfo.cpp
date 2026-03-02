@@ -127,7 +127,7 @@ void StackInfo::AnalyseAndSetFrameType(UnwindContext& uwContext)
         isReliableN2CStub = false;
     } else {
         // The judgment is mainly to identify the credible native call the managed code
-        // through n2c in the macor. The so of macor is a mixed code library, which cannot
+        // through n2c in the macro. The so of macor is a mixed code library, which cannot
         // be directly identified by the runtime library address.
         if (isReliableN2CStub) {
             frameInfo.SetFrameType(FrameType::RUNTIME);

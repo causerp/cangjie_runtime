@@ -21,7 +21,7 @@ extern "C" {
 #endif
 
 /**
- * @brief 0x10100000 Failed to initialize resources of the schdfd modul.
+ * @brief 0x10100000 Failed to initialize resources of the schdfd module.
  */
 #define ERRNO_SCHDFD_INIT_RESOURCE_FAILED ((MID_SCHDFD) | 0x0000)
 

@@ -44,7 +44,7 @@ main() {
 可能的运行结果：
 
 ```text
-81632 E CJNatvie Handle signal: 3.
+81632 E CJNative Handle signal: 3.
 func_1_start_3
 func_2_start_3
 end
