@@ -461,7 +461,7 @@ static void* WrapperExclusiveClosure(void* arg, unsigned int len)
     return nullptr;
 }
 
-void* MCC_NewExclusiveCJThread(void* executeClosure, void* closurePtr, void* futureTi) 
+void* MCC_NewExclusiveCJThread(void* executeClosure, void* closurePtr, void* futureTi)
 {
     LWTData data;
     data.execute = nullptr;

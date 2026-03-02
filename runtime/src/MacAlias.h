@@ -247,19 +247,27 @@ __asm__(".global _CJ_MCC_IsReflectUnsupportedType\n\t.set _CJ_MCC_IsReflectUnsup
 
 // for function
 extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfFunctionSignatureTypes(TypeInfo* funcTi);
-__asm__(".global _CJ_MCC_GetNumOfFunctionSignatureTypes\n\t.set _CJ_MCC_GetNumOfFunctionSignatureTypes, _MCC_GetNumOfFunctionSignatureTypes");
+__asm__(
+    ".global _CJ_MCC_GetNumOfFunctionSignatureTypes\n\t.set _CJ_MCC_GetNumOfFunctionSignatureTypes, "
+    "_MCC_GetNumOfFunctionSignatureTypes");
 extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetFunctionSignatureTypes(TypeInfo* funcTi);
-__asm__(".global _CJ_MCC_GetFunctionSignatureTypes\n\t.set _CJ_MCC_GetFunctionSignatureTypes, _MCC_GetFunctionSignatureTypes");
+__asm__(
+    ".global _CJ_MCC_GetFunctionSignatureTypes\n\t.set _CJ_MCC_GetFunctionSignatureTypes, "
+    "_MCC_GetFunctionSignatureTypes");
 
 // for enum
 extern "C" MRT_EXPORT U32 CJ_MCC_GetNumOfEnumConstructorInfos(TypeInfo* ti);
-__asm__(".global _CJ_MCC_GetNumOfEnumConstructorInfos\n\t.set _CJ_MCC_GetNumOfEnumConstructorInfos, _MCC_GetNumOfEnumConstructorInfos");
+__asm__(
+    ".global _CJ_MCC_GetNumOfEnumConstructorInfos\n\t.set _CJ_MCC_GetNumOfEnumConstructorInfos, "
+    "_MCC_GetNumOfEnumConstructorInfos");
 extern "C" MRT_EXPORT TypeInfo* CJ_MCC_GetEnumConstructInfo(TypeInfo* ti, U32 idx);
 __asm__(".global _CJ_MCC_GetEnumConstructorInfo\n\t.set _CJ_MCC_GetEnumConstructorInfo, _MCC_GetEnumConstructorInfo");
 extern "C" MRT_EXPORT const char* CJ_MCC_GetEnumConstructorName(EnumCtorInfo* ti);
 __asm__(".global _CJ_MCC_GetEnumConstructorName\n\t.set _CJ_MCC_GetEnumConstructorName, _MCC_GetEnumConstructorName");
 extern "C" MRT_EXPORT EnumCtorInfo* CJ_MCC_GetEnumConstructorInfoFromAny(ObjRef obj);
-__asm__(".global _CJ_MCC_GetEnumConstructorInfoFromAny\n\t.set _CJ_MCC_GetEnumConstructorInfoFromAny, _MCC_GetEnumConstructorInfoFromAny");
+__asm__(
+    ".global _CJ_MCC_GetEnumConstructorInfoFromAny\n\t.set _CJ_MCC_GetEnumConstructorInfoFromAny, "
+    "_MCC_GetEnumConstructorInfoFromAny");
 extern "C" MRT_EXPORT bool CJ_MCC_IsBox(TypeInfo* ti);
 __asm__(".global _CJ_MCC_IsBox\n\t.set _CJ_MCC_IsBox, _MCC_IsBox");
 extern "C" MRT_EXPORT TypeInfo** CJ_MCC_GetTypeArgs(TypeInfo* ti);

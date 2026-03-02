@@ -523,7 +523,7 @@ private:
         return n;
     }
 
-    // maitain the heap property for subtree with root node n. assume n->GetCount() returns 0 for now.
+    // maintain the heap property for subtree with root node n. assume n->GetCount() returns 0 for now.
     // return the new position of node n.
     Node*& MaintainHeapPropertyForZeroNode(Node*& n) const
     {
@@ -534,7 +534,7 @@ private:
         return *nodePtr;
     }
 
-    // maitain the heap property for subtree with root node n. assume n->GetCount() is less than its children.
+    // maintain the heap property for subtree with root node n. assume n->GetCount() is less than its children.
     // return the new position of node n.
     void MaintainHeapPropertyForNonZeroNode(Node*& n) const
     {

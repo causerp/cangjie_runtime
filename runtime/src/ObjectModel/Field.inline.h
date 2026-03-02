@@ -25,7 +25,7 @@ void Field<T, isAtomic>::SetFieldValue(const BaseObject* obj, T v, std::memory_o
 #if defined(CANGJIE_TSAN_SUPPORT)
         Sanitizer::TsanAtomicStore(&value, v, order);
 #else
-        // it is weired that "std::atomic_store_explicit(&value, v, order)" leads to compiling failure
+        // it is weird that "std::atomic_store_explicit(&value, v, order)" leads to compiling failure
         __atomic_store(&value, &v, order);
 #endif
     } else {
