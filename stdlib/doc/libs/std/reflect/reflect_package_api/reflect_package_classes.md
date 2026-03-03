@@ -1575,7 +1575,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 父类型：
 
@@ -1593,7 +1593,7 @@ public prop annotations: Collection<Annotation>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -1633,7 +1633,7 @@ public prop enumTypeInfo: EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[EnumTypeInfo](#class-enumtypeinfo)
 
@@ -1676,7 +1676,7 @@ public prop name: String
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1715,7 +1715,7 @@ public prop qualifiedName: String
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1754,7 +1754,7 @@ public prop parameters: ReadOnlyList<TypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -1798,7 +1798,7 @@ public static func get(qualifiedName: String): EnumConstructorInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -1847,7 +1847,7 @@ public static func of(instance: Any): EnumConstructorInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -1906,7 +1906,7 @@ public func apply(args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -1963,7 +1963,7 @@ public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2015,7 +2015,7 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2062,7 +2062,7 @@ public func findAllAnnotation<T>(): ?T where T <: Annotation
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2108,7 +2108,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2149,7 +2149,7 @@ public func hashCode(): Int64
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2190,7 +2190,7 @@ public operator func ==(other: EnumConstructorInfo): Bool
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2240,7 +2240,7 @@ public func toString(): String
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2281,7 +2281,7 @@ public class EnumTypeInfo <: TypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 父类型：
 
@@ -2297,7 +2297,7 @@ public prop constructors: Collection<EnumConstructorInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
 
@@ -2338,7 +2338,7 @@ public redef static func get(qualifiedName: String): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2388,7 +2388,7 @@ public static redef func of(instance: Any): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2437,7 +2437,7 @@ public static redef func of<T>(): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2482,7 +2482,7 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2537,7 +2537,7 @@ public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2592,7 +2592,7 @@ public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumCons
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2648,7 +2648,7 @@ public class FunctionTypeInfo <: TypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 父类型：
 
@@ -2664,7 +2664,7 @@ public prop parameters: ReadOnlyList<TypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -2704,7 +2704,7 @@ public prop returnType: TypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[TypeInfo](#class-typeinfo)
 
@@ -2742,7 +2742,7 @@ public redef static func of(instance: Any): FunctionTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -2794,7 +2794,7 @@ public static redef func of<T>(): FunctionTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -2839,7 +2839,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -12697,7 +12697,7 @@ public prop elements: ReadOnlyList<TypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -12738,7 +12738,7 @@ public redef static func of(instance: Any): TupleTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -12783,7 +12783,7 @@ public static redef func of<T>(): TupleTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 返回值：
 
@@ -12824,7 +12824,7 @@ public func construct(args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
@@ -12890,7 +12890,7 @@ public func destruct(instance: Any): ReadOnlyList<Any>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 参数：
 
