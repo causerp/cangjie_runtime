@@ -109,6 +109,7 @@ def do_build(args):
     if macos_flag:
         os.environ["ZERO_AR_DATE"] = "1"
     hwasan_flag = 1 if args.hwasan == True else 0
+    euler_flag = 1 if args.euler_flag == True else 0
     # Perform different build actions based on the target_args
     if target_args == "native":
         cmake_command = [
@@ -121,7 +122,7 @@ def do_build(args):
             "-DANDROID_FLAG=0",
             "-DIOS_FLAG=0",
             "-DIOS_SIMULATOR_FLAG=0",
-            "-DEULER_FLAG=0",
+            "-DEULER_FLAG={}".format(euler_flag),
             "-DMACOS_FLAG={}".format(macos_flag),
             "-DRUNTIME_TRACE_FLAG=1",
             "-DASAN_FLAG=0",
@@ -405,6 +406,12 @@ if __name__ == "__main__":
         choices=["asan", "tsan", "hwasan"],
         dest="sanitizer_support",
         help="Enable cangjie runtime sanitizer support."
+    )
+    b.add_argument(
+        "--enable-euler",
+        action="store_true",
+        dest="euler_flag",
+        help="Enable feature on euler os."
     )
 
     i = sub.add_parser("install", help="install the project")
