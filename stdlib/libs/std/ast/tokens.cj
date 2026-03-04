@@ -204,6 +204,10 @@ public open class Tokens <: ToString & Iterable<Token> & ToBytes {
     }
 
     public func remove(index: Int64): Tokens {
+        /** The field `tokens` of ConcatTokens is always empty. */
+        if (this is ConcatTokens) {
+            return this[..index] + this[(index + 1)..]
+        }
         tokens.remove(at: index)
         return this
     }
@@ -397,17 +401,28 @@ class ConcatTokens <: Tokens {
             throw IllegalArgumentException("Illegal step ${range.step}, step should be 1")
         }
 
-        if (range.start < 0 || range.end < range.start || range.end > size) {
+        if (range.start < 0 || range.end < range.start) {
             throw IndexOutOfBoundsException("the range is illegal or out of bound of index of the tokens")
         }
 
         let leftChildSize = leftChild.size
-        if (range.end <= leftChildSize) {
+
+        /** Real end index (inclusive) of range. */
+        let realEnd = if (range.hasEnd) {
+            range.end
+        } else {
+            size
+        } - if (range.isClosed) {
+            0
+        } else {
+            1
+        }
+        if (realEnd < leftChildSize) {
             return leftChild[range]
         } else if (range.start >= leftChildSize) {
-            return rightChild[(range.start - leftChildSize)..(range.end - leftChildSize)]
+            return rightChild[(range.start - leftChildSize)..=(realEnd - leftChildSize)]
         } else {
-            return leftChild[range.start..leftChildSize] + rightChild[0..(range.end - leftChildSize)]
+            return leftChild[range.start..leftChildSize] + rightChild[0..=(realEnd - leftChildSize)]
         }
     }
 
