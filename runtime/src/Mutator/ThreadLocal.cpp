@@ -61,7 +61,7 @@ extern "C" void MCC_CheckThreadLocalDataOffset()
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 10 + sizeof(uint64_t) * 2,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
-#else    
+#else   
     static_assert(offsetof(ThreadLocalData, tid) == sizeof(void*) * 7,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(offsetof(ThreadLocalData, foreignCJThread) == sizeof(void*) * 8,

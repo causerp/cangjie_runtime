@@ -78,7 +78,7 @@ public:
         size_t length = 0;
     };
 
-    // there is no need to use LL/SC to avoid ABA problem, becasue Nodes are all unique.
+    // there is no need to use LL/SC to avoid ABA problem, because Nodes are all unique.
     template<typename T>
     class LockFreeList {
         friend class SatbBuffer;

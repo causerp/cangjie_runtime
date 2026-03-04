@@ -500,11 +500,11 @@ I32 GetEnumTag(ObjRef obj, TypeInfo* ti)
     } else if (ti->IsOptionLikeRefEnum()) {
         U32 ctorNum = enumInfo->GetNumOfEnumCtor();
         auto field = obj->LoadRef(TYPEINFO_PTR_SIZE);
-        for (I32 idx = 0; idx < ctorNum; idx++) {
+        for (U32 idx = 0; idx < ctorNum; idx++) {
             TypeInfo* ctorTi = enumInfo->GetCtorTypeInfo(idx);
             if ((ctorTi->IsOptionLikeUnassociatedCtor() && field == nullptr) ||
                 (!ctorTi->IsOptionLikeUnassociatedCtor() && field != nullptr)) {
-                tag = idx;
+                tag = static_cast<I32>(idx);
                 break;
             }
         }
@@ -522,10 +522,10 @@ void SetEnumTag(ObjRef obj, TypeInfo* typeInfo)
     EnumInfo* enumInfo = enumTi->GetEnumInfo();
     CHECK_DETAIL(enumInfo != nullptr, "FieldInitializer: enumInfo is nullptr");
     U32 num = enumInfo->GetNumOfEnumCtor();
-    for (I32 idx = 0; idx < num; idx++) {
+    for (U32 idx = 0; idx < num; idx++) {
         TypeInfo* ctorTypeInfo = enumInfo->GetCtorTypeInfo(idx);
         if (typeInfo->GetUUID() == ctorTypeInfo->GetUUID()) {
-            obj->Store(TYPEINFO_PTR_SIZE, idx);
+            obj->Store(TYPEINFO_PTR_SIZE, static_cast<I32>(idx));
             break;
         }
     }

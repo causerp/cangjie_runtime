@@ -1145,7 +1145,7 @@ uintptr_t RegionManager::AllocPinnedFromFreeList(size_t size)
         mutatorPhase != GCPhase::GC_PHASE_CLEAR_SATB_BUFFER)) {
         return allocPtr;
     }
- 
+
     // Mark new allocated pinned object.
     BaseObject* object = reinterpret_cast<BaseObject*>(allocPtr);
     (reinterpret_cast<CopyCollector*>(&Heap::GetHeap().GetCollector()))->MarkObject(object);
