@@ -97,6 +97,14 @@ def do_build(args):
     if target_platform in ('linux'):
         shared_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN"
         exe_linker_flags = "-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
+    elif target_platform in ('android', 'android26', 'android31'):
+        # android devices may have 16 KB pages; make sure the shared
+        # object is laid out accordingly.  linker default is 4 KB.
+        shared_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN "
+                               "-Wl,-z,max-page-size=16384")
+        exe_linker_flags = ("-Wl,--disable-new-dtags,-rpath=\\$ORIGIN/../../runtime/lib/"
+                            "linux_${CMAKE_SYSTEM_PROCESSOR}_cjnative "
+                            "-Wl,-z,max-page-size=16384")
     elif target_platform in ('darwin'):
         shared_linker_flags = "-Wl,-rpath,@loader_path"
         exe_linker_flags = "-Wl,-rpath,@loader_path/../../runtime/lib/darwin_${CMAKE_SYSTEM_PROCESSOR}_cjnative"
@@ -254,6 +262,8 @@ def do_build(args):
             "-DCJ_SDK_VERSION={}".format(version),
             "-DDISABLE_VERSION_CHECK=1",
             "-DCMAKE_ANDROID_API={}".format(android_api_level if android_api_level else "31"),
+            "-DCMAKE_SHARED_LINKER_FLAGS={}".format(shared_linker_flags),
+            "-DCMAKE_EXE_LINKER_FLAGS={}".format(exe_linker_flags),
             "-S", ".", "-B", "CMakebuild"
         ]
         build_target(cmake_command)
