@@ -413,7 +413,9 @@ install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/RuntimeConfig.h
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Cangjie.h
         DESTINATION include)
 
-# install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build/scripts/envsetup.sh DESTINATION ${CMAKE_INSTALL_PREFIX})
+if (EULER_FLAG MATCHES 1)
+    install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build/scripts/envsetup.sh DESTINATION runtime)
+endif()
 
 if (WINDOWS_FLAG MATCHES 1)
     add_library(cjstart OBJECT ${CMAKE_CURRENT_SOURCE_DIR}/src/arch/x86_64_windows/Cjstart.S)
