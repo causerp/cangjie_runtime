@@ -12681,7 +12681,7 @@ public class TupleTypeInfo <: TypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS。
+> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
 
 父类型：
 
