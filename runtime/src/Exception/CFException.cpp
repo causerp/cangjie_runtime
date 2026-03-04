@@ -12,7 +12,8 @@
 #include <cinttypes>
 
 namespace MapleRuntime {
-mach_header_target* CFException::FindCoreFoundationMachHeader() {
+mach_header_target* CFException::FindCoreFoundationMachHeader()
+{
     Dl_info info;
     if (dladdr(reinterpret_cast<void*>(&CFRunLoopRun), &info) ==0) {
         LOG(RTLOG_ERROR, "can not find CFRunLoopRun function");
@@ -22,7 +23,8 @@ mach_header_target* CFException::FindCoreFoundationMachHeader() {
     }
 }
 
-char* CFException::FindExceptionBacktraceSectionAddr(unsigned long *bufferSize) {
+char* CFException::FindExceptionBacktraceSectionAddr(unsigned long *bufferSize)
+{
     mach_header_target* header = FindCoreFoundationMachHeader();
     if (header == nullptr) {
         LOG(RTLOG_ERROR, "can not find mach_header_target");
@@ -47,9 +49,11 @@ char* CFException::FindExceptionBacktraceSectionAddr(unsigned long *bufferSize) 
                 for (uint32_t sectionIndex = 0; sectionIndex < segmentCommand->nsects; ++sectionIndex) {
                     section_target* section = &sections[sectionIndex];
 
-                    if (BufferEqualsString(section->sectname, "__cf_except_bt") && BufferEqualsString(section->segname, "__DATA")) {
+                    if (BufferEqualsString(section->sectname, "__cf_except_bt") &&
+                        BufferEqualsString(section->segname, "__DATA")) {
                         *bufferSize = section->size;
-                        return reinterpret_cast<char*>(reinterpret_cast<uintptr_t>(header) + section->addr - textVmaddr);
+                        return reinterpret_cast<char*>(reinterpret_cast<uintptr_t>(header) +
+                            section->addr - textVmaddr);
                     }
                 }
             }
@@ -61,7 +65,8 @@ char* CFException::FindExceptionBacktraceSectionAddr(unsigned long *bufferSize) 
     return nullptr;
 }
 
-void CFException::WriteBacktraceToBuffer(ExceptionWrapper& eWrapper, char* buffer, unsigned long bufferSize) {
+void CFException::WriteBacktraceToBuffer(ExceptionWrapper& eWrapper, char* buffer, unsigned long bufferSize)
+{
     if (bufferSize < 2) {
         LOG(RTLOG_ERROR, "The buffer size required for backtrace is less than 2.");
         return;
@@ -94,7 +99,8 @@ void CFException::WriteBacktraceToBuffer(ExceptionWrapper& eWrapper, char* buffe
 }
 
 std::mutex CFException::writeMutex;
-void CFException::ReportBacktraceToIosIpsLog(ExceptionWrapper& eWrapper) {
+void CFException::ReportBacktraceToIosIpsLog(ExceptionWrapper& eWrapper)
+{
     unsigned long bufferSize = 0;
     char* buffer = FindExceptionBacktraceSectionAddr(&bufferSize);
     if (buffer == nullptr) {

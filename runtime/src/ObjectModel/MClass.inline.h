@@ -174,8 +174,8 @@ inline bool TypeInfo::IsFloat64() const { return type == TypeKind::TYPE_KIND_FLO
 
 inline bool TypeInfo::IsCFunc() const { return type == TypeKind::TYPE_KIND_CFUNC; }
 
-inline bool TypeInfo::IsUnknownSize() const 
-{ 
+inline bool TypeInfo::IsUnknownSize() const
+{
     return GetModifier() & MODIFIER_UNKNOWN_SIZE;
 }
 

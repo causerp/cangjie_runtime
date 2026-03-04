@@ -571,7 +571,7 @@ void Mutator::TransitionToGCPhaseExclusive(GCPhase newPhase)
     SetSafepointActive(false);
     // Clear mutator's suspend request after phase transition
     ClearSuspensionFlag(SUSPENSION_FOR_GC_PHASE);
-    mutatorPhase.store(newPhase, std::memory_order_release); // handshake between muator & mainGC thread
+    mutatorPhase.store(newPhase, std::memory_order_release); // handshake between mutator & mainGC thread
 }
 
 inline void Mutator::HandleCpuProfile()

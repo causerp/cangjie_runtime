@@ -469,7 +469,7 @@ extern "C" void CJ_MCC_SignalRaise(int sig)
 extern "C" void CJ_MCC_AddSignalHandler(int signal, struct SignalAction* sa)
 {
     if (signal == SIGABRT || signal == SIGILL) {
-        SignalStack::GetStacks()[signal].setUserSigHandler(true);
+        SignalStack::GetStacks()[signal].SetUserSigHandler(true);
     }
     // By default, block the SIGPIPE signal, and take no action on the SIGPIPE signal;
     // when the user registers a handler, unblock the SIGPIPE signal,
@@ -1206,7 +1206,8 @@ extern "C" bool MCC_IsGeneric(TypeInfo* ti) { return ti->IsGeneric(); }
 
 extern "C" bool MCC_IsEnum(TypeInfo* ti) { return ti->IsEnum() || ti->IsTempEnum(); }
 
-extern "C" bool MCC_IsFunction(TypeInfo* ti) {
+extern "C" bool MCC_IsFunction(TypeInfo* ti)
+{
     if (ti->IsFunc()) {
         return true;
     }
@@ -1240,7 +1241,8 @@ extern "C" const char* MCC_GetEnumConstructorName(EnumCtorInfo* ti)
     return ti->GetName();
 }
 
-extern "C" EnumCtorInfo* MCC_GetEnumConstructorInfoFromAny(ObjRef obj) {
+extern "C" EnumCtorInfo* MCC_GetEnumConstructorInfoFromAny(ObjRef obj)
+{
     TypeInfo* ti = obj->GetTypeInfo();
     if (!ti->IsEnum() && !ti->IsTempEnum()) {
         return nullptr;
@@ -1331,7 +1333,6 @@ extern "C" TypeInfo** MCC_GetFieldTypes(TypeInfo* ti)
 }
 
 // MCC_NewAndInitEnumTupleObject - Creates and initializes objects for enum and tuple types
-//
 // This function is specifically designed to handle object creation for:
 // 1. Enum types (including temporary enums)
 // 2. Tuple types

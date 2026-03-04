@@ -118,7 +118,7 @@ public:
             values[stackIdx++].d = value;
         }
     }
-    
+
     U32 GetGregIdx()
     {
         return gregIdx;
