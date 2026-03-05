@@ -5,7 +5,7 @@
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
     .text
-    .globl
+    .globl __CJ_Init_Start
     .p2align        2               // -- Begin function __CJ_Init_Start
 __CJ_Init_Start:                        // @__CJ_Init_Start
     .cfi_startproc
@@ -24,7 +24,7 @@ __CJ_Init_Start:                        // @__CJ_Init_Start
     .cfi_endproc
 
     .text
-    .globl
+    .globl __CJ_Fini_End
     .p2align        2               // -- Begin function __CJ_Fini_End
 __CJ_Fini_End:                        // @__CJ_Fini_End
     .cfi_startproc
