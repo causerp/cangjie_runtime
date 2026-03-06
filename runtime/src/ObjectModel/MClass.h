@@ -493,6 +493,7 @@ public:
     void* GetAnnotations(TypeInfo* arrayTi);
     bool IsEnumCtor() const { return (modifier & MODIFIER_ENUM_CTOR) != 0; }
     U32 GetModifier() const { return modifier; }
+    Uptr GetAnnotationMethod() const { return annotationMethod; }
 private:
     Uptr annotationMethod;
     U32 modifier;
