@@ -566,8 +566,24 @@ inline void Mutator::HandleGCPhase(GCPhase newPhase)
             SatbBuffer::Instance().RetireNode(satbNode);
             satbNode = nullptr;
         }
-    } else if (newPhase == GCPhase::GC_PHASE_IDLE && IsForeignThreadExit()) {
+    } else if (newPhase == GCPhase::GC_PHASE_IDLE) {
+        HandleGCPhaseIDLE();
+    }
+}
+
+inline void Mutator::HandleGCPhaseIDLE()
+{
+    if (IsForeignThreadExit()) {
         ReleaseForeignThread();
+    } else {
+#if defined(__OHOS__) && (__OHOS__ == 1)
+        if (foreignThreadInfo.allocBuffer != nullptr) {
+            auto status = GetUnwindContext().GetUnwindContextStatus();
+            if (status == UnwindContextStatus::RISKY || status == UnwindContextStatus::UNKNOWN) {
+                foreignThreadInfo.allocBuffer->FlushRegion();
+            }
+        }
+#endif
     }
 }
 

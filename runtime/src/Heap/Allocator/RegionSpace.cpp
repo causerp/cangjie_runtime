@@ -134,13 +134,7 @@ AllocBuffer* AllocBuffer::GetAllocBuffer() { return ThreadLocal::GetAllocBuffer(
 
 AllocBuffer::~AllocBuffer()
 {
-    if (LIKELY(tlRegion != RegionInfo::NullRegion()) && tlRegion != nullptr) {
-        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
-        RegionManager& manager = theAllocator.GetRegionManager();
-        manager.RemoveThreadLocalRegion(tlRegion);
-        manager.EnlistFullThreadLocalRegion(tlRegion);
-        tlRegion = RegionInfo::NullRegion();
-    }
+    FlushRegion();
 }
 
 void AllocBuffer::Init()
@@ -148,6 +142,7 @@ void AllocBuffer::Init()
     static_assert(offsetof(AllocBuffer, tlRegion) == 0,
                   "need to modify the offset of this value in llvm-project at the same time");
     tlRegion = RegionInfo::NullRegion();
+    ThreadLocal::InitializeCleaner();
     Heap::GetHeap().RegisterAllocBuffer(*this);
 }
 
@@ -304,6 +299,29 @@ void RegionSpace::FeedHungryBuffers()
         // The region is inserted in thread-local region list when allocated, we need to remove it from the list.
         regionManager.RemoveThreadLocalRegion(region);
         regionManager.CollectRegion(region);
+    }
+}
+
+void AllocBuffer::FlushRegion()
+{
+    if (LIKELY(tlRegion != RegionInfo::NullRegion()) && tlRegion != nullptr) {
+        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
+        RegionManager& manager = theAllocator.GetRegionManager();
+        manager.RemoveThreadLocalRegion(tlRegion);
+        manager.EnlistFullThreadLocalRegion(tlRegion);
+        tlRegion = RegionInfo::NullRegion();
+    }
+    RegionInfo* prepared = preparedRegion.load();
+    if (LIKELY(prepared != RegionInfo::NullRegion()) && prepared != nullptr) {
+        RegionSpace& theAllocator = reinterpret_cast<RegionSpace&>(Heap::GetHeap().GetAllocator());
+        RegionManager& manager = theAllocator.GetRegionManager();
+        manager.RemoveThreadLocalRegion(prepared);
+        if (prepared->IsEmpty()) {
+            manager.ReclaimRegion(prepared);
+        } else {
+            manager.EnlistFullThreadLocalRegion(prepared);
+        }
+        preparedRegion.store(nullptr, std::memory_order_release);
     }
 }
 } // namespace MapleRuntime
