@@ -7945,9 +7945,12 @@ Runes:
 public func split(str: String, removeEmpty!: Bool = false): Array<String>
 ```
 
-功能：对原字符串按照字符串 str 分隔符分割，指定是否删除空串。
+功能：对原字符串按照分隔符分割。可以指定是否删除空串。
 
-当 str 未出现在原字符串中，返回长度为 1 的字符串数组，唯一的元素为原字符串。
+> **说明：**
+>
+> - 原字符串为空时，返回数组长度一律为 0。
+> - 当分隔符未出现在原字符串（非空）中，返回长度为 1 的字符串数组，唯一的元素为原字符串。
 
 参数：
 
@@ -7963,24 +7966,22 @@ public func split(str: String, removeEmpty!: Bool = false): Array<String>
 <!-- verify -->
 ```cangjie
 main() {
-    // 创建一个字符串用于测试
-    let str = "apple,banana,,cherry,dates"
+    // 创建一个字符串
+    let str = "one,two,,three"
 
-    // 使用split函数分割字符串，保留空字符串
-    let result1 = str.split(",", removeEmpty: false)
+    // 使用split函数分割字符串
+    let result1 = str.split(",")
 
-    // 使用split函数分割字符串，移除空字符串
-    let result2 = str.split(",", removeEmpty: true)
-
-    println("Original string: '${str}'")
-    println("Split with empty strings kept:")
-    for (i in 0..result1.size) {
-        println("  Element ${i}: '${result1[i]}'")
+    println("原字符串: '${str}'")
+    println("分割结果:")
+    for (i in result1) {
+        println(" '${i}'")
     }
-
-    println("Split with empty strings removed:")
-    for (i in 0..result2.size) {
-        println("  Element ${i}: '${result2[i]}'")
+    // 使用split函数分割字符串，并移除空串
+    let result2 = str.split(",", removeEmpty: true)
+    println("分割结果(移除空串):")
+    for (i in result2) {
+        println(" '${i}'")
     }
 }
 ```
@@ -7988,18 +7989,16 @@ main() {
 运行结果：
 
 ```text
-Original string: 'apple,banana,,cherry,dates'
-Split with empty strings kept:
-  Element 0: 'apple'
-  Element 1: 'banana'
-  Element 2: ''
-  Element 3: 'cherry'
-  Element 4: 'dates'
-Split with empty strings removed:
-  Element 0: 'apple'
-  Element 1: 'banana'
-  Element 2: 'cherry'
-  Element 3: 'dates'
+原字符串: 'one,two,,three'
+分割结果:
+ 'one'
+ 'two'
+ ''
+ 'three'
+分割结果(移除空串):
+ 'one'
+ 'two'
+ 'three'
 ```
 
 ### func split(String, Int64, Bool)
@@ -8008,14 +8007,17 @@ Split with empty strings removed:
 public func split(str: String, maxSplits: Int64, removeEmpty!: Bool = false): Array<String>
 ```
 
-功能：对原字符串按照字符串 str 分隔符分割，指定最多分隔子串数，以及是否删除空串。
+功能：对原字符串按照分隔符分割。需指定最多分隔子串数，并可以指定是否删除空串。
 
-- 当 maxSplit 为 0 时，返回空的字符串数组；
-- 当 maxSplit 为 1 时，返回长度为 1 的字符串数组，唯一的元素为原字符串；
-- 当 maxSplit 为负数时，返回完整分割后的字符串数组；
-- 当 maxSplit 大于完整分割出来的子字符串数量时，返回完整分割的字符串数组；
-- 当 str 未出现在原字符串中，返回长度为 1 的字符串数组，唯一的元素为原字符串；
-- 当 str 为空时，对每个字符进行分割；当原字符串和分隔符都为空时，返回空字符串数组。
+> **说明：**
+>
+> - 原字符串为空时，返回数组长度一律为 0。
+> - 当最多分隔子串数为 0 时，返回空的字符串数组。
+> - 当最多分隔子串数为 1 时（原字符串非空），返回长度为 1 的字符串数组，唯一的元素为原字符串。
+> - 当最多分隔子串数为负数时，返回完整分割后的字符串数组。
+> - 当最多分隔子串数大于完整分割出来的子字符串数量时，返回完整分割的字符串数组。
+> - 当分隔符未出现在原字符串（非空）中，返回长度为 1 的字符串数组，唯一的元素为原字符串。
+> - 当分隔符为空时，对每个字符进行分割。
 
 参数：
 
@@ -8032,32 +8034,16 @@ public func split(str: String, maxSplits: Int64, removeEmpty!: Bool = false): Ar
 <!-- verify -->
 ```cangjie
 main() {
-    // 创建一个字符串用于测试
+    // 创建一个字符串
     let str = "one,two,three,four,five"
 
     // 使用split函数分割字符串，最多分割为3个子字符串
     let result1 = str.split(",", 3)
 
-    // 使用split函数分割字符串，最多分割为1个子字符串
-    let result2 = str.split(",", 1)
-
-    // 使用split函数分割字符串，maxSplits为负数
-    let result3 = str.split(",", -1)
-
-    println("Original string: '${str}'")
-    println("Split with maxSplits = 3:")
-    for (i in 0..result1.size) {
-        println("  Element ${i}: '${result1[i]}'")
-    }
-
-    println("Split with maxSplits = 1:")
-    for (i in 0..result2.size) {
-        println("  Element ${i}: '${result2[i]}'")
-    }
-
-    println("Split with maxSplits = -1:")
-    for (i in 0..result3.size) {
-        println("  Element ${i}: '${result3[i]}'")
+    println("原字符串: '${str}'")
+    println("分割结果:")
+    for (i in result1) {
+        println(" '${i}'")
     }
 }
 ```
@@ -8065,19 +8051,11 @@ main() {
 运行结果：
 
 ```text
-Original string: 'one,two,three,four,five'
-Split with maxSplits = 3:
-  Element 0: 'one'
-  Element 1: 'two'
-  Element 2: 'three,four,five'
-Split with maxSplits = 1:
-  Element 0: 'one,two,three,four,five'
-Split with maxSplits = -1:
-  Element 0: 'one'
-  Element 1: 'two'
-  Element 2: 'three'
-  Element 3: 'four'
-  Element 4: 'five'
+原字符串: 'one,two,three,four,five'
+分割结果:
+ 'one'
+ 'two'
+ 'three,four,five'
 ```
 
 ### func startsWith(String)
