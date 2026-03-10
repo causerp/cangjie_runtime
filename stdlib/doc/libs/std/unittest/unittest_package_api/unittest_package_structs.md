@@ -1411,6 +1411,10 @@ public struct KeyTimeoutHandler <: KeyFor<(TestCaseInfo) -> Unit> {}
 
 功能：支持在配置信息中指定超时处理的句柄。
 
+父类型：
+
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
+
 示例：
 
 <!-- run -->
@@ -1453,10 +1457,6 @@ Summary: TOTAL: 1
             TCS: Test, CASE: assertIsACancellationPoint
 --------------------------------------------------------------------------------------------------
 ```
-
-父类型：
-
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
 
 ### prop timeoutHandler
 
