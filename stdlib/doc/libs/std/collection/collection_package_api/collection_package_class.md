@@ -2253,10 +2253,11 @@ public func slice(range: Range<Int64>): ArrayList<T>
 
 > **注意：**
 >
-> 如果参数 range 是使用 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 构造函数构造的 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 实例，有如下行为：
+> 如果参数 range 是使用 [Range](../../core/core_package_api/core_package_structs.md#struct-ranget-where-t--countablet--comparablet--equatablet) 构造函数构造的，那么有如下行为：
 >
-> 1. start 的值就是构造函数传入的值本身，不受构造时传入的 hasStart 的值的影响。
-> 2. hasEnd 为 false 时，end 值不生效，且不受构造时传入的 isClosed 的值的影响，该数组切片取到原数组最后一个元素。
+> 1. start 的值仅在 hasStart 为 true 时生效（作为切片的起始索引）；若 hasStart 为 false，start 值会被忽略，切片从数组的 0 索引开始。
+> 2. hasEnd 为 false 时，end 值和 isClosed 值均失效，数组切片从起始索引取到原数组最后一个元素；若 hasEnd 为 true，end 值作为切片的结束索引，isClosed 决定是否包含 end 值（true=包含，false=不包含）。
+> 3. step 步长的值必须为 1。
 
 参数：
 
@@ -2280,14 +2281,18 @@ import std.collection.*
 main() {
     let list = ArrayList<Int64>([0, 1, 2, 3, 4, 5])
 
-    println("原列表: ${list}") // [0, 1, 2, 3, 4, 5]
+    println("原列表: ${list}")
 
     // 通过范围操作符切片
     let sliceList = list[1..4]
+    // let sliceList = list[1..4) // 没有开区间的语法
 
-    println("切片列表: ${sliceList}") // [1, 2, 3]
-    println("切片列表大小: ${sliceList.size}") // 3
+    println("通过范围操作符切片: ${sliceList}")
 
+    // 通过 Range 构造函数切片
+    let range = Range<Int64>(2, 4, 1, true, true, true)
+    let sliceListByRange = list.slice(range)
+    println("通过 Range 构造函数切片: ${sliceListByRange}")
     return 0
 }
 ```
@@ -2296,8 +2301,8 @@ main() {
 
 ```text
 原列表: [0, 1, 2, 3, 4, 5]
-切片列表: [1, 2, 3]
-切片列表大小: 3
+通过范围操作符切片: [1, 2, 3]
+通过 Range 构造函数切片: [2, 3, 4]
 ```
 
 ### func sortBy((T, T) -> Ordering) <sup>(deprecated)</sup>
