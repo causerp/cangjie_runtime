@@ -101,8 +101,8 @@ func receiveFrom(buffer: Array<Byte>): (SocketAddress, Int64)
 
 异常：
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - 当本机缓存过小无法读取报文时，抛出异常。
-- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - 当读取超时时，抛出异常。
+- [SocketException](net_package_exceptions.md#class-socketexception) - 当前实例已经关闭，或接收数据失败时，抛出异常。
+- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - 当超过指定的读取超时时间时，抛出异常。
 
 ### func sendTo(SocketAddress, Array\<Byte>)
 
@@ -116,6 +116,11 @@ func sendTo(address: SocketAddress, payload: Array<Byte>): Unit
 
 - address: [SocketAddress](net_package_classes.md#class-socketaddress) - 需要发送到的远端地址。
 - payload: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - 需要发送的报文内容。
+
+异常：
+
+- [SocketException](net_package_exceptions.md#class-socketexception) - 当前实例已经关闭，或发送数据失败时，抛出异常。
+- [SocketTimeoutException](net_package_exceptions.md#class-sockettimeoutexception) - 当超过指定的写入超时时间时，抛出异常。
 
 ## interface ServerSocket
 
@@ -270,7 +275,7 @@ prop remoteAddress: SocketAddress
 mut prop writeTimeout: ?Duration
 ```
 
-功能：设置和读取写超时时间。
+功能：设置和读取写入超时时间。
 
 如果设置的时间过小将会设置为最小时钟周期值；过大时将设置为最大超时时间（2<sup>63</sup>-1 纳秒）；默认值为 `None`。
 

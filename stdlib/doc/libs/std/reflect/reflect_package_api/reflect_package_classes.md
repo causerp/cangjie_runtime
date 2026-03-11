@@ -28,7 +28,7 @@ public prop constructors: Collection<ConstructorInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 构造函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ConstructorInfo](reflect_package_classes.md#class-constructorinfo)>
 
@@ -78,7 +78,7 @@ public prop instanceVariables: Collection<InstanceVariableInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 实例成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 该集合不包含任何继承而来的 `public` 实例成员变量。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo)>
@@ -180,7 +180,7 @@ public prop staticVariables: Collection<StaticVariableInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `class` 类型无任何 `public` 静态成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 该集合不包含任何继承而来的 `public` 静态成员变量。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo)>
@@ -902,7 +902,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该构造函数信息所对应的构造函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](../../ast/ast_package_api/ast_package_classes.md#class-annotation)>
 
@@ -2987,7 +2987,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该全局函数信息所对应全局函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -3817,7 +3817,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该全局变量信息所对应的全局变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -4586,7 +4586,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员函数信息所对应的实例成员函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -4713,7 +4713,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该实例成员函数无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -5712,7 +5712,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员属性信息所对应的实例成员属性，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -5769,7 +5769,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该实例成员属性无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -6688,7 +6688,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该实例成员变量信息所对应的实例成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -6741,7 +6741,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该实例成员变量无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -7879,6 +7879,10 @@ public prop parentPackage: PackageInfo
 
 类型：[PackageInfo](reflect_package_classes.md#class-packageinfo)
 
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果父包未被加载，则会抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -7902,10 +7906,6 @@ main(): Unit {
 ```text
 父包名称: default
 ```
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果父包未被加载，则会抛出异常。
 
 ### prop qualifiedName
 
@@ -7963,6 +7963,10 @@ public prop rootPackage: PackageInfo
 
 类型：[PackageInfo](reflect_package_classes.md#class-packageinfo)
 
+异常：
+
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果 `root` 包未被加载，则会抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -7986,10 +7990,6 @@ main(): Unit {
 ```text
 根包名称: default
 ```
-
-异常：
-
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果 `root` 包未被加载，则会抛出异常。
 
 ### prop subPackages
 
@@ -8743,7 +8743,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该函数形参信息所对应的函数形参，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -9554,7 +9554,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该 [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) 对应的静态成员函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -9674,7 +9674,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该静态成员函数无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 即便未被某修饰符修饰，如果拥有该修饰符的语义，该修饰符信息也将被包括在该集合中。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -10487,7 +10487,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该静态成员属性信息所对应的静态成员属性，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -10548,7 +10548,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该静态成员属性无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 目前获取到的修饰符集合内容较为混乱，尚未统一。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -11355,7 +11355,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该 [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) 对应的静态成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -11412,7 +11412,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该静态成员变量无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 目前获取到的修饰符集合内容较为混乱，尚未统一。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ModifierInfo](reflect_package_enums.md#enum-modifierinfo)>
@@ -12168,7 +12168,7 @@ public prop constructors: Collection<ConstructorInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 构造函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[ConstructorInfo](reflect_package_classes.md#class-constructorinfo)>
 
@@ -12220,7 +12220,7 @@ public prop instanceVariables: Collection<InstanceVariableInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 实例成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo)>
 
@@ -12268,7 +12268,7 @@ public prop staticVariables: Collection<StaticVariableInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 `struct` 类型无任何 `public` 静态成员变量，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo)>
 
@@ -12984,7 +12984,7 @@ public prop annotations: Collection<Annotation>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果无任何注解作用于该类型信息所对应的类型，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -13036,7 +13036,7 @@ public prop instanceFunctions: Collection<InstanceFunctionInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 实例成员函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 如果该类型信息所对应的类型是 `struct` 或 `class` 类型，则该集合不包含继承而来的实例成员函数的信息。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo)>
@@ -13089,7 +13089,7 @@ public prop instanceProperties: Collection<InstancePropertyInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 实例成员属性，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 如果该类型信息所对应的类型是 `struct` 或 `class` 类型，则该集合不包含继承而来的实例成员属性的信息。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo)>
@@ -13143,7 +13143,7 @@ public prop modifiers: Collection<ModifierInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该类型无任何修饰符，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - `interface` 类型默认拥有 `open` 语义，故返回的集合总是包含 `open` 修饰符。
 > - 由于反射功能只能对所有被 `public` 访问控制修饰符所修饰的类型进行操作，故将忽略所有访问控制修饰符。
 
@@ -13284,7 +13284,7 @@ public prop staticFunctions: Collection<StaticFunctionInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 静态成员函数，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 如果该类型信息所对应的类型是 `struct` 、`class` 或 `interface` 类型，则该集合不包含继承而来的静态成员函数的信息。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo)>
@@ -13337,7 +13337,7 @@ public prop staticProperties: Collection<StaticPropertyInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 如果该 [TypeInfo](reflect_package_classes.md#class-typeinfo) 对应的类型无任何 `public` 静态成员属性，则返回空集合。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 如果该类型信息所对应的类型是 `struct` 、`class` 或 `interface` 类型，则该集合不包含继承而来的静态成员属性的信息。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo)>
@@ -13391,7 +13391,7 @@ public prop superInterfaces: Collection<InterfaceTypeInfo>
 >
 > - 不支持平台：macOS、iOS。
 > - 所有类型均默认直接实现 interface [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) 类型。
-> - 该集合不保证遍历顺序恒定。
+> - 该集合遍历顺序取决于定义顺序。
 > - 目前， `struct` 类型只支持获取到 interface [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) 类型。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo)>
