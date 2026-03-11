@@ -231,7 +231,7 @@ public init(kind: TokenKind, value: String)
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 `kind` 与 `value` 不匹配时，抛出异常点。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当输入的 `kind` 与 `value` 不匹配时，抛出异常。
 
 ### func addPosition(UInt32, Int32, Int32)
 
