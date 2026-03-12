@@ -280,7 +280,7 @@ extend Int32 <: ArbitraryRange<Int32> {
 }
 ```
 
-功能：为 UInt32 类型实现的可以在一定范围内生成值的方法。
+功能：为 Int32 类型实现的可以在一定范围内生成值的方法。
 
 #### func arbitraryRange(RandomSource, Int32, Int32)
 
@@ -2966,7 +2966,7 @@ public func suggestIntNative(l: IntNative, r: IntNative): IntNative
 参数：
 
 - l: IntNative - 可生成范围的最小值。
-- l: IntNative - 可生成范围的最大值。
+- r: IntNative - 可生成范围的最大值。
 
 返回值：
 
@@ -3000,7 +3000,7 @@ public func suggestFloat64(l: Float64, r: Float64): Float64
 参数：
 
 - l: Float64 - 可生成范围的最小值。
-- l: Float64 - 可生成范围的最大值。
+- r: Float64 - 可生成范围的最大值。
 
 返回值：
 

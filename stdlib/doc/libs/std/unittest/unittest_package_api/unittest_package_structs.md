@@ -1853,7 +1853,7 @@ $$|x - y| \le absolute + relative * max(abs(x), abs(y))$$
 public RelativeDelta(let absolute!: T, let relative!: T)
 ```
 
-功能：RelpativeDelta 的主构造函数。
+功能：[RelativeDelta](#struct-relativedeltat) 的主构造函数。
 
 参数：
 
