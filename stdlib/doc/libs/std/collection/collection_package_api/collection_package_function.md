@@ -1502,17 +1502,15 @@ main() {
 public func step<T>(count: Int64): (Iterable<T>) -> Iterator<T>
 ```
 
-功能：迭代器每次调用 next() 指针移动的个数。例如：如果为 1，每次迭代器指针向后移动 1 位（即 next() 原本行为），如果为 2， 每次迭代器指针向后移动 2 位。
-
-当 count 小于等于 0 时，抛出异常。当 count 大于 0 时，每次调用 next() 跳过 count 次，直到迭代器为空。
+功能：该函数接收一个表示步长的整数值作为参数，返回一个转换函数，此转换函数可接收任意类型 `T` 的可迭代对象，并返回一个新的迭代器，遍历该迭代器时会按照传入的步长来间隔获取原可迭代对象中的元素。
 
 参数：
 
-- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 每次调用 next() 指针移动的个数。
+- count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 步长。
 
 返回值：
 
-- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 返回一个指针移动个数经过改变的迭代器。
+- ([Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T>) -> [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<T> - 返回一个转换函数，此转换函数可接收任意类型 `T` 的可迭代对象，并返回一个新的迭代器，遍历该迭代器时会按照传入的步长来间隔获取原可迭代对象中的元素。
 
 异常：
 

@@ -4367,8 +4367,8 @@ main() {
 ```cangjie
 public class HashMap<K, V> <: Map<K, V> where K <: Hashable & Equatable<K> {
     public init()
-    public init(elements: Array<(K, V)>)
     public init(elements: Collection<(K, V)>)
+    public init(elements: Array<(K, V)>)
     public init(capacity: Int64)
     public init(size: Int64, initElement: (Int64) -> (K, V))
 }
@@ -7129,7 +7129,7 @@ main() {
 大于3的数字个数: 3
 ```
 
-### func filterMap\<R>((T) -> ?R)
+### func filterMap\<R>((T) -> Option\<R>)
 
 ```cangjie
 public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R>

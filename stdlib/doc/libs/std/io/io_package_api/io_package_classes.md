@@ -5,8 +5,8 @@
 ```cangjie
 public class BufferedInputStream<T> <: InputStream where T <: InputStream {
     public init(input: T)
-    public init(input: T, buffer: Array<Byte>)
     public init(input: T, capacity: Int64)
+    public init(input: T, buffer: Array<Byte>)
 }
 ```
 
@@ -1999,107 +1999,6 @@ initial position: 0
 World
 12
 Error: Can't move the position before the beginning of the stream.
-```
-
-### prop length
-
-```cangjie
-public prop length: Int64
-```
-
-功能：返回当前流中的总数据量（以字节为单位）。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.io.ByteBuffer
-
-main(): Unit {
-    let buffer = ByteBuffer("Hello World".toArray())
-    println("Initial length: ${buffer.length}")
-
-    // 写入更多数据
-    buffer.write(" More Data".toArray())
-    println("Length after writing: ${buffer.length}")
-}
-```
-
-运行结果：
-
-```text
-Initial length: 11
-Length after writing: 21
-```
-
-### prop position
-
-```cangjie
-public prop position: Int64
-```
-
-功能：返回当前光标位置。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.io.ByteBuffer
-
-main(): Unit {
-    let buffer = ByteBuffer("Hello World".toArray())
-    println("Initial position: ${buffer.position}")
-
-    // 读取一些数据
-    let data = Array<Byte>(5, repeat: 0)
-    buffer.read(data)
-    println("Position after reading 5 bytes: ${buffer.position}")
-}
-```
-
-运行结果：
-
-```text
-Initial position: 0
-Position after reading 5 bytes: 5
-```
-
-### prop remainLength
-
-```cangjie
-public prop remainLength: Int64
-```
-
-功能：返回当前流中未读的数据量（以字节为单位）。
-
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
-
-示例：
-
-<!-- verify -->
-```cangjie
-import std.io.ByteBuffer
-
-main(): Unit {
-    let buffer = ByteBuffer("Hello World".toArray())
-    println("Initial remain length: ${buffer.remainLength}")
-
-    // 读取一些数据
-    let data = Array<Byte>(5, repeat: 0)
-    buffer.read(data)
-    println("Remain length after reading 5 bytes: ${buffer.remainLength}")
-}
-```
-
-运行结果：
-
-```text
-Initial remain length: 11
-Remain length after reading 5 bytes: 6
 ```
 
 ### func setLength(Int64)
