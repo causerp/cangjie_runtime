@@ -1713,7 +1713,7 @@ public struct MeasurementInfo {
 ### let conversionTable
 
 ```cangjie
-let conversionTable: MeasurementUnitTable
+public let conversionTable: MeasurementUnitTable
 ```
 
 功能：用于在性能测试报告中构建测量值的表示。
@@ -1727,7 +1727,7 @@ let conversionTable: MeasurementUnitTable
 ### let name
 
 ```cangjie
-let name: String
+public let name: String
 ```
 
 功能：当前 `Measurement` 类型的唯一显示名称。
@@ -1739,7 +1739,7 @@ let name: String
 ### let textDescription
 
 ```cangjie
-let textDescription: String
+public let textDescription: String
 ```
 
 功能：描述此测量的简单文本将显示在某些报告中。
@@ -1750,8 +1750,8 @@ let textDescription: String
 
 ```cangjie
 public struct Perf <: Measurement {
-    public init()
     public Perf(var counter: PerfCounter)
+    public init()
 }
 ```
 
@@ -1853,7 +1853,7 @@ $$|x - y| \le absolute + relative * max(abs(x), abs(y))$$
 public RelativeDelta(let absolute!: T, let relative!: T)
 ```
 
-功能：RelativeDelta 的主构造函数。
+功能：RelpativeDelta 的主构造函数。
 
 参数：
 
@@ -1910,7 +1910,7 @@ public let suiteName: String
 
 ```cangjie
 public struct Runtime <: Measurement {
-    public Runtime(counter: RuntimeInfo)
+    public Runtime(let variant: RuntimeInfo)
 }
 ```
 
@@ -1923,7 +1923,7 @@ public struct Runtime <: Measurement {
 ### prop conversionTable
 
 ```cangjie
-prop conversionTable: MeasurementUnitTable
+public prop conversionTable: MeasurementUnitTable
 ```
 
 功能：提供相应运行时指标的转换表。
@@ -1933,7 +1933,7 @@ prop conversionTable: MeasurementUnitTable
 ### prop name
 
 ```cangjie
-prop name: String
+public prop name: String
 ```
 
 功能：运行时指标的名字。
@@ -1943,7 +1943,7 @@ prop name: String
 ### prop textDescription
 
 ```cangjie
-prop textDescription: String
+public prop textDescription: String
 ```
 
 功能：在某些报告中将显示的该测量结果的简要文字描述。
@@ -1953,14 +1953,14 @@ prop textDescription: String
 ### Runtime(RuntimeInfo)
 
 ```cangjie
-public Runtime(counter: RuntimeInfo)
+public Runtime(let variant: RuntimeInfo)
 ```
 
 功能：构造函数，用于指定要测量的运行时指标。
 
 参数：
 
-- counter: [RuntimeInfo](../unittest_package_api/unittest_package_enums.md#enum-runtimeinfo) - 指定计数器。
+- variant: [RuntimeInfo](../unittest_package_api/unittest_package_enums.md#enum-runtimeinfo) - 指定统计类型。
 
 ### func measure()
 
@@ -1977,7 +1977,7 @@ public func measure(): Float64
 ### func setup()
 
 ```cangjie
-func setup()
+public func setup()
 ```
 
 功能：此测量的初始化函数。在每个基准测试步骤之前调用。
