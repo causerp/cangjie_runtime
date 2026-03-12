@@ -573,7 +573,7 @@ inline void Mutator::HandleGCPhaseIDLE()
 #if defined(__OHOS__) && (__OHOS__ == 1)
         if (foreignThreadInfo.allocBuffer != nullptr) {
             auto status = GetUnwindContext().GetUnwindContextStatus();
-            if (status == UnwindContextStatus::RISKY || status == UnwindContextStatus::UNKNOWN) {
+            if (status == UnwindContextStatus::RISKY) {
                 foreignThreadInfo.allocBuffer->FlushRegion();
             }
         }
