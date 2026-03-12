@@ -32,7 +32,7 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos" AND
     set(libname stdFFI)
     add_library(${libname} SHARED ${CANGJIE_CORE_FFI_SRC})
     if(CMAKE_BUILD_TYPE MATCHES Release)
-        target_link_options( ${libname} PRIVATE ${LINK_FLAGS} ${STRIP_FLAG} ${useld})
+        target_link_options(${libname} PRIVATE ${LINK_FLAGS} ${STRIP_FLAG} ${useld})
     else()
         target_link_options(${libname} PRIVATE ${LINK_FLAGS} ${useld})
     endif()
