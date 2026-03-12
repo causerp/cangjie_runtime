@@ -142,6 +142,7 @@ void AllocBuffer::Init()
     static_assert(offsetof(AllocBuffer, tlRegion) == 0,
                   "need to modify the offset of this value in llvm-project at the same time");
     tlRegion = RegionInfo::NullRegion();
+    ThreadLocal::InitializeCleaner();
     Heap::GetHeap().RegisterAllocBuffer(*this);
 }
 
