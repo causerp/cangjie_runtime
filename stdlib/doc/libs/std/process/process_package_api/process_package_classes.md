@@ -429,7 +429,7 @@ MY_VAR环境变量: my_value
 ## class Process
 
 ```cangjie
-public open class Process
+public open class Process {}
 ```
 
 功能：此类为进程类，提供进程操作相关功能。

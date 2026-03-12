@@ -580,10 +580,10 @@ func toArray(): Array<T>
 ```cangjie
 public interface Comparable<T> <: Equatable<T> & Less<T> & Greater<T> & LessOrEqual<T> & GreaterOrEqual<T> {
     func compare(other: T): Ordering
-    operator func <(other: T): Bool
-    operator func <=(other: T): Bool
     operator func ==(other: T): Bool
+    operator func <(other: T): Bool
     operator func >(other: T): Bool
+    operator func <=(other: T): Bool
     operator func >=(other: T): Bool
 }
 ```
@@ -853,7 +853,7 @@ Duration值: 1s
 ## interface CType
 
 ```cangjie
-sealed interface CType
+sealed interface CType {}
 ```
 
 功能：表示支持与 C 语言互操作的接口。
@@ -1344,8 +1344,8 @@ operator func !=(other: T): Bool
 
 ```cangjie
 public interface Resource {
-    func close(): Unit
     func isClosed(): Bool
+    func close(): Unit
 }
 ```
 

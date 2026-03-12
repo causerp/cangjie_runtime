@@ -11614,7 +11614,7 @@ else {
 ### func traverse(Visitor)
 
 ```cangjie
-public func traverse(v: Visitor): Unit
+public open func traverse(v: Visitor): Unit
 ```
 
 功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。

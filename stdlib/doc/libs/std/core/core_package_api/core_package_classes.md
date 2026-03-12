@@ -4194,9 +4194,6 @@ public class ThreadSnapshot <: ToString {
     public let name: String
     public let stackTrace: Array<StackTraceElement>
     public let state: ThreadState
-    public static func dumpAllThreads(): Array<ThreadSnapshot>
-    public static func dumpCurrentThread(): ThreadSnapshot
-    public func toString(): String
 }
 ```
 
