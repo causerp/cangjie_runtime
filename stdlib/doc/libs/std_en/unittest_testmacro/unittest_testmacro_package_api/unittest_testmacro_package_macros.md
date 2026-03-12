@@ -607,7 +607,7 @@ Summary: TOTAL: 2
     FAILED: 0
 --------------------------------------------------------------------------------------------------
 ```
- 
+
 ## `@Test` Macro
 
 Functionality: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
@@ -880,8 +880,8 @@ Rules:
 - `@UnittestOption` must be at the top level.
 - If an option accepts multiple types, the validator callback parameter should be `Any`. If only one type is valid, the parameter should be that specific type.
 - The validator callback returns `Bool` or `?String`.
-    - `true` indicates the option is valid; `false` indicates it is invalid.
-    - `Some<String>` contains a description of why the option is invalid; `None<String>` indicates validity.
+  - `true` indicates the option is valid; `false` indicates it is invalid.
+  - `Some<String>` contains a description of why the option is invalid; `None<String>` indicates validity.
 
 Example with `Configuration`:
 

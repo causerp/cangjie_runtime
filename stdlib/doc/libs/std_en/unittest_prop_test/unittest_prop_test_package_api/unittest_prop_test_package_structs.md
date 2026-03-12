@@ -477,10 +477,10 @@ public struct TupleWrapper4<T0, T1, T2, T3> {
 
 Function: Encapsulates a closure into a struct. The closure takes two parameters.
 
-### TupleWrapper4((T0, T1, T2, T3))
+### struct TupleWrapper4((T0, T1, T2, T3))
 
 ```cangjie
-public TupleWrapper4(public let tuple: (T0, T1, T2, T3))
+public struct TupleWrapper4(public let tuple: (T0, T1, T2, T3))
 ```
 
 Function: TupleWrapper4 constructor.
@@ -607,10 +607,10 @@ Return Value:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The retrieved value inside the tuple. Returns `None` if the index is invalid.
 
-### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3><: Arbitrary\<TupleWrapper4\<T0, T1, T2, T3>> where where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>
+### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3><: Arbitrary\<TupleWrapper4\<T0, T1, T2, T3>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>
 
 ```cangjie
-extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T0, T1, T2, T3>> where where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>
+extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T0, T1, T2, T3>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>
 ```
 
 Function: Extends [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
@@ -795,17 +795,17 @@ Return Value:
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The retrieved value inside the tuple. Returns `None` if the index is invalid.
 
-### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Arbitrary\<TupleWrapper2\<T0, T1, T2, T3, T4>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>,T4 <: Arbitrary\<T4>
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Arbitrary\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>,T4 <: Arbitrary\<T4>
 
 ```cangjie
-extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper2<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper5<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
 ```
 
 Function: Extends [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) with [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitrary) implementation.
 
 Parent Type:
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1, T2, T3, T4>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitrary)\<[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>>
 
 #### static func arbitrary(RandomSource)
 

@@ -57,7 +57,7 @@ Users can follow the [Quick Start Guide](./unittest_mock_samples/mock_framework_
 | [SyntheticField\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-syntheticfieldt) | Synthetic field. |
 | [TypedMatcher\<T>](./unittest_mock_package_api/unittest_mock_package_classes.md#class-typedmatchert) | Matches parameters by type. |
 | [UnorderedVerifier](./unittest_mock_package_api/unittest_mock_package_classes.md#class-unorderedverifier) | Collects "verification statements" for dynamic verification behaviors in `unordered` functions. |
-| [Verify](./unittest_mock_package_api/unittest_mock_package_classes.md#class-verify) | Provides static methods (e.g., `that`, `ordered`, `unorder`) to define verification actions. |
+| [Verify](./unittest_mock_package_api/unittest_mock_package_classes.md#class-verify) | Provides static methods (e.g., `that`, `ordered`, `unordered`) to define verification actions. |
 | [VerifyStatement](./unittest_mock_package_api/unittest_mock_package_classes.md#class-verifystatement) | Represents a single verification statement for a "stub signature" within a verification scope, with member functions to specify execution count. |
 
 ### Enums
