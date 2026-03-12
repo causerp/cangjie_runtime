@@ -46,11 +46,11 @@ Light
 public func toString(): String
 ```
 
-功能：[GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式字符串。
+功能：[GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式的字符串。
 
 返回值：
 
-- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式字符串。
+- [String](../../../std/core/core_package_api/core_package_structs.md#struct-string) - [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) 执行的三种不同方式的字符串。
 
 示例：
 
@@ -183,7 +183,7 @@ Seconds
 public func toString(): String
 ```
 
-功能： 将时间转换为字符串。
+功能： 将时间单位转换为字符串。
 
 返回值：
 
@@ -363,7 +363,7 @@ HW_BUS_CYCLES
 HW_STALLED_CYCLES_FRONTEND
 ```
 
-功能：CPU 周期被浪费在 CPU 管道前端阶段的等待上的数量。
+功能：CPU 周期被浪费在 CPU 流水线前端阶段的等待上的数量。
 
 ### HW_STALLED_CYCLES_BACKEND
 
