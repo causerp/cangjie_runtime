@@ -45,39 +45,6 @@ OAT.xml @xuanjz
 /stdlib/libs/std/ast/ @mini-tang
 
 #stdlib docs
-/stdlib/doc @luojianing
-
-/stdlib/doc/libs/std/argopt/ @MinamiK @luojianing
-/stdlib/doc/libs/std/env/ @MinamiK @luojianing
-/stdlib/doc/libs/std/process/ @MinamiK @luojianing
-/stdlib/doc/libs/std/reflect/ @MinamiK @luojianing
-/stdlib/doc/libs/std/runtime/ @MinamiK @luojianing
-
-/stdlib/doc/libs/std/convert/ @chongweizhi @luojianing
-/stdlib/doc/libs/std/crypto/ @chongweizhi @luojianing
-/stdlib/doc/libs/std/database/ @chongweizhi @luojianing
-/stdlib/doc/libs/std/io/ @chongweizhi @luojianing
-
-/stdlib/doc/libs/std/net/ @ovy @luojianing
-/stdlib/doc/libs/std/random/ @ovy @luojianing
-/stdlib/doc/libs/std/sync/ @ovy @luojianing
-/stdlib/doc/libs/std/net/ @ovy @luojianing
-
-/stdlib/doc/libs/std/math/ @jiyuan_99 @luojianing
-/stdlib/doc/libs/std/overflow/ @jiyuan_99 @luojianing
-
-/stdlib/doc/libs/std/binary/ @renyi43 @luojianing
-/stdlib/doc/libs/std/console/ @renyi43 @luojianing
-/stdlib/doc/libs/std/posix/ @renyi43 @luojianing
-/stdlib/doc/libs/std/sort/ @renyi43 @luojianing
-/stdlib/doc/libs/std/unicode/ @renyi43 @luojianing
-
-/stdlib/doc/libs/std/collection/ @xdst @luojianing
-/stdlib/doc/libs/std/core/ @xdst @luojianing
-/stdlib/doc/libs/std/fs/ @xdst @luojianing
-/stdlib/doc/libs/std/time/ @xdst @luojianing
-
-/stdlib/doc/libs/std/objectpool/ @ChaosJohn @luojianing
-/stdlib/doc/libs/std/regex/ @ChaosJohn @luojianing
+/stdlib/doc @luojianing @renyi43
 
 /stdlib/doc/libs/std/ast/ @mini-tang @luojianing
