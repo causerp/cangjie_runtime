@@ -290,7 +290,7 @@ public struct TupleWrapper3<T0, T1, T2> {
 }
 ```
 
-功能：将闭包封装为结构体。闭包带两个参数。
+功能：将闭包封装为结构体。闭包带三个参数。
 
 ### TupleWrapper3((T0, T1, T2))
 
@@ -477,7 +477,7 @@ public struct TupleWrapper4<T0, T1, T2, T3> {
 }
 ```
 
-功能：将闭包封装为结构体。闭包带两个参数。
+功能：将闭包封装为结构体。闭包带四个参数。
 
 ### TupleWrapper4((T0, T1, T2, T3))
 
@@ -540,14 +540,14 @@ public func toString()
 ### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3> <: Equatable\<TupleWrapper4\<T0, T1, T2, T3>>
 
 ```cangjie
-extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, T2>>
+extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3> <: Equatable<TupleWrapper4<T0, T1, T2, T3>>
 ```
 
 功能：为 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3) 扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) 实现。
 
 父类型：
 
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3)\<T0, T1, T2, T3>>
 
 #### operator func ==(TupleWrapper4\<T0, T1, T2, T3>)
 
@@ -609,10 +609,10 @@ public func getElementAsAny(index: Int64): ?Any
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 获取到的元组内的值。索引不合法时返回 `None` 。
 
-### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3><: Arbitrary\<TupleWrapper4\<T0, T1, T2, T3>> where where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>
+### extend\<T0, T1, T2, T3> TupleWrapper4\<T0, T1, T2, T3><: Arbitrary\<TupleWrapper4\<T0, T1, T2, T3>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>
 
 ```cangjie
-extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T0, T1, T2, T3>> where where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>
+extend<T0, T1, T2, T3> TupleWrapper4<T0, T1, T2, T3><: Arbitrary<TupleWrapper4<T0, T1, T2, T3>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>
 ```
 
 功能：为 [TupleWrapper4](#struct-tuplewrapper4t0-t1-t2-t3) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
@@ -665,7 +665,7 @@ public struct TupleWrapper5<T0, T1, T2, T3, T4> {
 }
 ```
 
-功能：将闭包封装为结构体。闭包带两个参数。
+功能：将闭包封装为结构体。闭包带五个参数。
 
 ### TupleWrapper5((T0, T1, T2, T3, T4))
 
@@ -728,14 +728,14 @@ public func toString()
 ### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Equatable\<TupleWrapper5\<T0, T1, T2, T3, T4>>
 
 ```cangjie
-extend<T0, T1, T2> TupleWrapper3<T0, T1, T2> <: Equatable<TupleWrapper3<T0, T1, T2>>
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Equatable<TupleWrapper5<T0, T1, T2, T3, T4>>
 ```
 
 功能：为 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) 扩展 [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet) 实现。
 
 父类型：
 
-- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TupleWrapper3](#struct-tuplewrapper3t0-t1-t2)\<T0, T1, T2>>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>>
 
 #### operator func ==(TupleWrapper5\<T0, T1, T2, T3, T4>)
 
@@ -797,17 +797,17 @@ public func getElementAsAny(index: Int64): ?Any
 
 - ?[Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 获取到的元组内的值。索引不合法时返回 `None` 。
 
-### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Arbitrary\<TupleWrapper2\<T0, T1, T2, T3, T4>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>,T4 <: Arbitrary\<T4>
+### extend\<T0, T1, T2, T3, T4> TupleWrapper5\<T0, T1, T2, T3, T4> <: Arbitrary\<TupleWrapper5\<T0, T1, T2, T3, T4>> where T0 <: Arbitrary\<T0>,T1 <: Arbitrary\<T1>,T2 <: Arbitrary\<T2>,T3 <: Arbitrary\<T3>,T4 <: Arbitrary\<T4>
 
 ```cangjie
-extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper2<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
+extend<T0, T1, T2, T3, T4> TupleWrapper5<T0, T1, T2, T3, T4> <: Arbitrary<TupleWrapper5<T0, T1, T2, T3, T4>> where T0 <: Arbitrary<T0>,T1 <: Arbitrary<T1>,T2 <: Arbitrary<T2>,T3 <: Arbitrary<T3>,T4 <: Arbitrary<T4>
 ```
 
 功能：为 [TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4) 扩展 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实现。
 
 父类型：
 
-- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper2](#struct-tuplewrapper2t0-t1)\<T0, T1, T2, T3, T4>>
+- [Arbitrary](unittest_prop_test_package_interfaces.md#interface-arbitraryt)\<[TupleWrapper5](#struct-tuplewrapper5t0-t1-t2-t3-t4)\<T0, T1, T2, T3, T4>>
 
 #### static func arbitrary(RandomSource)
 
