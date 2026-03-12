@@ -95,6 +95,107 @@ CString ULEBDecode(CString& bytes, Uptr offset)
     return result;
 }
 
+struct SingleStr {
+    const char *start;
+    size_t len;
+};
+
+void Split(const char *str, uint64_t targetSeg,
+           std::vector<SingleStr> &segments, size_t &totalLen)
+{
+    const char *p = str;
+    const char *start = str;
+    bool found = false;
+    size_t index = 0;
+    while (*p) {
+        if (*p == ',') {
+            if (index == targetSeg) {
+                size_t len = p - start;
+                segments.push_back({start, len});
+                totalLen += len;
+                found = true;
+                break;
+            }
+            index++;
+            start = p + 1;
+        }
+        ++p;
+    }
+    if (!found && index == targetSeg) {
+        size_t len = p - start;
+        segments.push_back({start, len});
+        totalLen += len;
+        found = true;
+    }
+    if (!found) {
+        LOG(RTLOG_ERROR, "string not found in stringpool");
+    }
+}
+
+CString Merge(const std::vector<SingleStr> &segments, size_t totalLen)
+{
+    auto size = totalLen + 1;
+    char *res = reinterpret_cast<char*>(malloc(size));
+    if (res == nullptr) {
+        LOG(RTLOG_FATAL, "string decode: malloc failed! (size: %zu)", size);
+    }
+    char *dst = res;
+    for (const auto &seg : segments) {
+        auto ret = memcpy_s(dst, size, seg.start, seg.len);
+        if (ret != EOK) {
+            LOG(RTLOG_FATAL, "string decode: memcpy_s failed!");
+        }
+        dst += seg.len;
+        size -= seg.len;
+    }
+    res[totalLen] = '\0';
+    CString result = res;
+    free(res);
+    return result;
+}
+
+CString FastULEBDecode(CString &bytes, Uptr offset)
+{
+    // The offsets of subdictionaries are structured in assembly as follows:
+    // .Lstr_pool_dict_offsets:
+    //      .long   dictTotalSize
+    //      .long   .Lstr_pool_dict.1-.Lstr_pool_dict_offsets
+    //      .long   .Lstr_pool_dict.2-.Lstr_pool_dict_offsets
+    //      ...
+    U32 dictTotalSize = *(reinterpret_cast<const U32*>(offset));
+    U32 strPoolDictSplitSize = GetStrPoolDictSplitSize(dictTotalSize);
+    if (strPoolDictSplitSize == 0) {
+        LOG(RTLOG_FATAL, "invalid dictionary split size in stringpool");
+        return "";
+    }
+    int p = 0;
+    std::vector<uint8_t> tempCode;
+    std::vector<SingleStr> segments;
+    size_t totalLen = 0;
+    // 50: reserve enough space to avoid reallocation
+    segments.reserve(50);
+    while (p < bytes.Length()) {
+        tempCode.push_back(bytes[p]);
+        // 0x80 means the the highest bit is valid, if not, the encoding is complete.
+        const char mask = 0x80;
+        if ((bytes[p] & mask) == 0) {
+            uint64_t decode = ULEBDecodeSingleStr(tempCode);
+            if (decode > dictTotalSize) {
+                LOG(RTLOG_ERROR, "invalid index in stringpool");
+                return Merge(segments, totalLen);
+            }
+            U32 subDictIdx = (decode - 1) / strPoolDictSplitSize + 1;
+            // 4: offset value size, 4 bytes
+            U32 subDictOffset = *(reinterpret_cast<const U32*>(offset + 4 * subDictIdx));
+            const char *subDictStr = reinterpret_cast<const char *>(offset + subDictOffset);
+            Split(subDictStr, (decode - 1) % strPoolDictSplitSize, segments, totalLen);
+            tempCode.clear();
+        }
+        p++;
+    }
+    return Merge(segments, totalLen);
+}
+
 CString MFuncDesc::GetStringFromDict(U32 offset) const
 {
     Uptr base = reinterpret_cast<Uptr>(this);
@@ -103,6 +204,6 @@ CString MFuncDesc::GetStringFromDict(U32 offset) const
         return CString();
     }
 
-    return ULEBDecode(str, dictOffsets + base);
+    return FastULEBDecode(str, dictOffsets + base);
 }
 }
