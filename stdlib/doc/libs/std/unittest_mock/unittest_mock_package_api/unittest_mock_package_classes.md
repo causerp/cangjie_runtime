@@ -956,7 +956,7 @@ public static func openSession(name: String, sessionKind: MockSessionKind): Unit
 功能：打开一个新会话。会话形成一个类似堆栈的结构。
 会话关闭的顺序与开始时的顺序相反。
 在给定会话期间创建的 `mock object` 只能在该会话或其任何内部会话内部访问。
-每个会话都保留自己的调用日志，因此对最新打开会话内进行的调用执行任何验证， 只有在会议结束时才能验证期望。
+每个会话都保留自己的调用日志，因此对最新打开会话内进行的调用执行任何验证， 只有在会话结束时才能验证期望。
 
 参数：
 
@@ -972,7 +972,7 @@ public static func closeSession(): Unit
 功能：打开一个新会话。会话形成一个类似堆栈的结构。
 会话关闭的顺序与开始时的顺序相反。
 在给定会话期间创建的 `mock object` 只能在该会话或其任何内部会话内部访问。
-每个会话都保留自己的调用日志，因此对最新打开会话内进行的调用执行任何验证， 只有在会议结束时才能验证期望。
+每个会话都保留自己的调用日志，因此对最新打开会话内进行的调用执行任何验证， 只有在会话结束时才能验证期望。
 
 异常：
 
@@ -1350,7 +1350,7 @@ public func checkThat(statement: VerifyStatement):UnorderedVerifier
 public class Verify {}
 ```
 
-功能：[Verify](unittest_mock_package_classes.md#class-verify) 提供了一系列静态方法来支持定义所需验证的动作，如 `that` 、 `ordered` 以及 `unorder` 。
+功能：[Verify](unittest_mock_package_classes.md#class-verify) 提供了一系列静态方法来支持定义所需验证的动作，如 `that` 、 `ordered` 以及 `unordered` 。
 
 一个验证动作可以包含多个由 `@Called` 生成的[验证语句](../unittest_mock_samples/mock_framework_verification.md#验证语句和-called-宏)，来描述需要验证的动作。
 通常验证的范围为所在测试用例的函数体，但 [Verify](unittest_mock_package_classes.md#class-verify) 提供了 `clearInvocationLog` 函数来清除此前的执行记录，以缩小验证范围。
@@ -1638,7 +1638,7 @@ public static func unordered(exhaustive: Exhaustiveness, statements: Array<Verif
 public class VerifyStatement {}
 ```
 
-功能：此类型表示对“桩签名”在验证范围内的单个验证验证语句（即上文中的“验证语句”），提供了成员函数指定“桩签名”的执行次数。
+功能：此类型表示对“桩签名”在验证范围内的单个验证语句（即上文中的“验证语句”），提供了成员函数指定“桩签名”的执行次数。
 该类型的对象仅可通过 `@Called` 宏调用表达式创建。
 对一个对象连续调用多个成员函数没有意义，并且会抛出异常。即，执行次数仅可被指定一次。
 当未调用成员函数指定执行次数时，将基于语句所在的验证动作类型定义默认的执行次数验证值。例如在 [Verify](unittest_mock_package_classes.md#class-verify).ordered() 中的“验证语句”默认为验证执行一次。
