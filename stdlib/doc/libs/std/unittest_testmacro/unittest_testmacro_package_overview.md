@@ -18,7 +18,7 @@ unittest.testmacro 为单元测试框架提供了用户所需的宏。
 | [BeforeEach](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#beforeeach-宏) | 声明测试类中的函数为[测试生命周期](../unittest/unittest_samples/unittest_basics.md#测试生命周期)函数。被该宏修饰的函数在每个测试用例之前运行一次。 |
 | [Bench](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#bench-宏) | 宏用于标记要执行多次的函数并计算该函数的预期执行时间。 |
 | [Configure](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#configure-宏) | 为测试类或测试函数提供配置参数。它可以放置在测试类或测试函数上。 |
-| [CustomAssertion](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) | `@CustomAssertions` 将函数指定为用户自定义断言。 |
+| [CustomAssertion](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#customassertion-宏) | `@CustomAssertion` 将函数指定为用户自定义断言。 |
 | [Expect](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expect-宏) | 声明 Expect 断言，测试函数内部使用，断言失败继续执行用例。 |
 | [ExpectThrows](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#expectthrows-宏) | 声明[预期异常的断言](../unittest/unittest_samples/unittest_basics.md#预期异常的断言)，测试函数内部使用，断言失败继续执行用例。 |
 | [Fail](./unittest_testmacro_package_api/unittest_testmacro_package_macros.md#fail-宏) | 声明[预期失败的断言](../unittest/unittest_samples/unittest_basics.md#失败断言)，测试函数内部使用，断言失败停止用例。 |

@@ -132,7 +132,7 @@ If a test function in this class is also marked with the `@Configure` macro, the
 
 ## `@CustomAssertion` Macro
 
-Function: `@CustomAssertions` specifies a function as a user-defined assertion.
+Function: `@CustomAssertion` specifies a function as a user-defined assertion.
 
 The function decorated with this macro must meet two requirements:
 

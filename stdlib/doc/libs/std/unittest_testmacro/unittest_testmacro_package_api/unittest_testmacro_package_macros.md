@@ -135,7 +135,7 @@ TP: default, time elapsed: 68610430659 ns, Result:
 
 ## `@CustomAssertion` 宏
 
-功能：`@CustomAssertions` 将函数指定为用户自定义断言。
+功能：`@CustomAssertion` 将函数指定为用户自定义断言。
 
 该宏修饰的函数应满足两个要求：
 
