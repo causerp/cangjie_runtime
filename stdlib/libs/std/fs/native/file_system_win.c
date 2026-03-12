@@ -1115,6 +1115,14 @@ static char* CJ_FS_FormatMessage(int errnoValue)
     }
     buffer = strdup((const char*)lpMsgBuf);
     LocalFree(lpMsgBuf);
+    if (buffer == NULL) {
+        return NULL;
+    }
+    int len = (int)strlen(buffer);
+    while (len > 0 && (buffer[len - 1] == '\r' || buffer[len - 1] == '\n' ||
+                        buffer[len - 1] == ' ' || buffer[len - 1] == '.')) {
+        buffer[--len] = '\0';
+    }
     return buffer;
 }
 
