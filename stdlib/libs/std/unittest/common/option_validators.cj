@@ -79,7 +79,7 @@ func checkOptionValueByNameAndGetConfigurationKey<T>(name: String, value: T): Co
     throw UnittestOptionValidationException("Option '${name}' has no validators. Use @${VALIDATOR_NAME} macro.")
 }
 
-public func registerOptionValidator(name: String, validator: Validator): Unit {
+public func registerOptionValidator(name: String, validator: (Any) -> OptionValidity): Unit {
     if (unittestOptionsRegistryClosed) {
         throw UnittestOptionValidationException("Validator registry closed. Move your validator on top level.")
     }

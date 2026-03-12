@@ -77,18 +77,6 @@ Parent Types:
 
 - [PrettyException](#class-prettyexception)
 
-## class UnnecessaryStubbingException
-
-```cangjie
-public class UnnecessaryStubbingException <: PrettyException {}
-```
-
-Function: Indicates that the tested code never triggered the [stub](../unittest_mock_samples/mock_framework_basics.md#configuration-api).
-
-Parent Types:
-
-- [PrettyException](#class-prettyexception)
-
 ## class UnstubbedInvocationException
 
 ```cangjie

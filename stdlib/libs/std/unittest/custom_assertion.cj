@@ -241,7 +241,7 @@ public class AssertionCtx {
      * @param aliases: Array<String> - String aliases for each argument in function declaration.
      *                                 Length of provided array should match with size of paramenter list
      */
-    public func setArgsAliases(aliases: Array<String>) {
+    public func setArgsAliases(aliases: Array<String>): Unit {
         _argsMap = aliases.iterator().zip(_passedArgs.iterator()) |> collectHashMap
     }
 

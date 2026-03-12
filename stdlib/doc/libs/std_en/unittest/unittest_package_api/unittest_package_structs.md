@@ -1584,8 +1584,8 @@ Type: [String](../../core/core_package_api/core_package_structs.md#struct-string
 
 ```cangjie
 public struct Perf <: Measurement {
-    public init()
     public Perf(var counter: PerfCounter)
+    public init()
 }
 ```
 

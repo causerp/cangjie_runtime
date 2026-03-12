@@ -7,6 +7,7 @@ public enum ExplicitGcType <: ToString {
     | Disabled
     | Light
     | Heavy
+    | Auto
 }
 ```
 
@@ -38,7 +39,15 @@ Heavy
 Light
 ```
 
-功能：[std.runtime.GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)(heavy: false) 将在 Benchmark 函数执行期间由框架显式调用。这是默认设置。
+功能：[std.runtime.GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)(heavy: false) 将在 Benchmark 函数执行期间由框架显式调用。
+
+### Auto
+
+```cangjie
+Auto
+```
+
+功能：Benchmark 函数执行期间由框架自行决策 GC 调用策略。这是默认设置。
 
 ### func toString()
 
@@ -460,7 +469,7 @@ public func toString(): String
 ## enum RuntimeInfo
 
 ```cangjie
-public enum RuntimeInfo <: ToString { 
+public enum RuntimeInfo {
     | GCCount
     | GCTime
     | AllocatedMemory
