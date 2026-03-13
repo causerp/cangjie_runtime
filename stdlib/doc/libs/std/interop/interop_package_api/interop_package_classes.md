@@ -17,16 +17,6 @@ public abstract class ExportedRef {
 >
 > 此类不具备任何 `public` 的成员与接口，当前只被互操作库相关的 `API` 使用，开发者请勿随意继承此类。
 
-### var handle
-
-```cangjie
-protected var handle: UInt64 = 0
-```
-
-功能：用来表示此类型实例对象的句柄, 此值只能为 [validateHandle](#func-validatehandle) 的返回值。
-
-类型：[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)
-
 ### let interopContext
 
 ```cangjie
@@ -46,6 +36,16 @@ protected let ref: Any
 功能：被此类型包装的真正被外部依赖的函数或者对象。
 
 类型：[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)
+
+### var handle
+
+```cangjie
+protected var handle: UInt64 = 0
+```
+
+功能：用来表示此类型实例对象的句柄, 此值只能为 [validateHandle](#func-validatehandle) 的返回值。
+
+类型：[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)
 
 ### init(Any, InteropContext)
 

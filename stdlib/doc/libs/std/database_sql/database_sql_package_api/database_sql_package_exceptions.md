@@ -5,8 +5,8 @@
 ```cangjie
 public open class SqlException <: Exception {
     public init()
-    public init(message: String)
     public init(message: String, sqlState: String, errorCode: Int64)
+    public init(message: String)
 }
 ```
 

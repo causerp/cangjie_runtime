@@ -219,9 +219,9 @@ main() {
 ```cangjie
 public open class Exception <: ToString {
     public init()
-    public init(causedBy: Exception)
     public init(message: String)
     public init(message: String, causedBy: Exception)
+    public init(causedBy: Exception)
 }
 ```
 <!--RP1End-->

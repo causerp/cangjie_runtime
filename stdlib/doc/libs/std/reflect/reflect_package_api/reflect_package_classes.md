@@ -8100,7 +8100,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局变量用于演示
+// 定义一些公开全局变量用于演示
 public var testVariable1: Int64 = 42
 public var testVariable2: String = "Hello"
 

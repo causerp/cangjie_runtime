@@ -279,14 +279,14 @@ operator func [](index: Int64, value!: T): Unit
 public interface Map<K, V> <: ReadOnlyMap<K, V> {
     func add(key: K, value: V): ?V
     func add(all!: Collection<(K, V)>): Unit
-    func addIfAbsent(key: K, value: V): ?V
-    func clear(): Unit
-    func entryView(k: K): MapEntryView<K, V>
     func remove(key: K): Option<V>
     func remove(all!: Collection<K>): Unit
     func removeIf(predicate: (K, V) -> Bool): Unit
-    func replace(key: K, value: V): ?V
+    func clear(): Unit
     operator func [](key: K, value!: V): Unit
+    func entryView(k: K): MapEntryView<K, V>
+    func addIfAbsent(key: K, value: V): ?V
+    func replace(key: K, value: V): ?V
 }
 ```
 
@@ -576,10 +576,10 @@ func removeLast(): ?(K, V)
 public interface OrderedSet<T> <: Set<T> {
     prop first: ?T
     prop last: ?T
-    func backward(mark: T, inclusive!: Bool): Iterator<T>
-    func forward(mark: T, inclusive!: Bool): Iterator<T>
     func removeFirst(): ?T
     func removeLast(): ?T
+    func backward(mark: T, inclusive!: Bool): Iterator<T>
+    func forward(mark: T, inclusive!: Bool): Iterator<T>
 }
 ```
 
@@ -1083,9 +1083,9 @@ func retain(all!: Set<T>): Unit
 
 ```cangjie
 public interface Stack<T> <: Collection<T> {
-    func add(element: T): Unit
     func peek(): ?T
     func remove(): ?T
+    func add(element: T): Unit
 }
 ```
 

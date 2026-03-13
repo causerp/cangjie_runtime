@@ -2704,8 +2704,8 @@ main() {
 ```cangjie
 public class LinkedBlockingQueue<E> {
     public let capacity: Int64
-    public init()
     public init(capacity: Int64)
+    public init()
     public init(capacity: Int64, elements: Array<E>)
     public init(capacity: Int64, elements: Collection<E>)
 }
