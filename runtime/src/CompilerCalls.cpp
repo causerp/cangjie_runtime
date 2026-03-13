@@ -440,7 +440,10 @@ extern "C" StackTraceData MCC_DecodeStackTraceImpl(const uint64_t ip, const uint
                                                    const TypeInfo* charArray)
 {
     StackTraceElement stackTrace;
-    StackManager::GetStackTraceByLiteFrameInfo(ip, pc, funcDesc, stackTrace);
+    {
+        ScopedEnterSaferegion checkpoint(true);
+        StackManager::GetStackTraceByLiteFrameInfo(ip, pc, funcDesc, stackTrace);
+    }
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
     DLOG(EXCEPTION, "get stack frame info");
     DLOG(EXCEPTION, "   framePc:0x%lx\t frameFuncStart:0x%lx", ip, pc);
