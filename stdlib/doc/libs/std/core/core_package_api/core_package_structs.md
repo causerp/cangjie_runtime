@@ -2924,8 +2924,8 @@ toString() result: [[1, 2], [3, 4], [5, 6]]
 
 ```cangjie
 public struct CPointerHandle<T> where T <: CType {
-    public let array: Array<T>
     public let pointer: CPointer<T>
+    public let array: Array<T>
     public init()
     public init(ptr: CPointer<T>, arr: Array<T>)
 }
@@ -4348,18 +4348,18 @@ Absolute duration: 10s
 ### func compare(Duration)
 
 ```cangjie
-public func compare(divisor: Duration): Ordering
+public func compare(other: Duration): Ordering
 ```
 
-功能：比较当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个 [Duration](core_package_structs.md#struct-duration) 实例的关系，如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT。
+功能：比较当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个 [Duration](core_package_structs.md#struct-duration) 实例的大小关系。
 
 参数：
 
-- divisor: [Duration](core_package_structs.md#struct-duration) - 参与比较的 [Duration](core_package_structs.md#struct-duration) 实例。
+- other: [Duration](core_package_structs.md#struct-duration) - 参与比较的 [Duration](core_package_structs.md#struct-duration) 实例。
 
 返回值：
 
-- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个实例的大小关系。
+- [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering) - 当前 [Duration](core_package_structs.md#struct-duration) 实例与另一个实例的大小关系。如果大于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT；如果等于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ；如果小于，返回 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT。
 
 示例：
 
@@ -5665,12 +5665,12 @@ I like Cangjie
 
 ```cangjie
 public struct Range<T> <: Iterable<T> where T <: Countable<T> & Comparable<T> & Equatable<T> {
-    public let end: T
-    public let hasEnd: Bool
-    public let hasStart: Bool
-    public let isClosed: Bool
     public let start: T
+    public let end: T
     public let step: Int64
+    public let hasStart: Bool
+    public let hasEnd: Bool
+    public let isClosed: Bool
     public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, isClosed: Bool)
 }
 ```

@@ -2005,9 +2005,9 @@ socketAddr1 == socketAddr3: false
 
 ```cangjie
 public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & LessOrEqual<IPv4Address> {
-    public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
     public static let localhost: IPv4Address = IPv4Address(0x7F, 0, 0, 0x01)
     public static let unspecified: IPv4Address = IPv4Address(0, 0, 0, 0)
+    public static let broadcast: IPv4Address = IPv4Address(0xFF, 0xFF, 0xFF, 0xFF)
     public init(bits: UInt32)
     public init(a: Byte, b: Byte, c: Byte, d: Byte)
 }
@@ -5191,8 +5191,8 @@ socketAddr1 == socketAddr3: false
 
 ```cangjie
 public class TcpServerSocket <: ServerSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: UInt16)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -7589,8 +7589,8 @@ tcpSocket1 == tcpSocket3: true
 
 ```cangjie
 public class UdpSocket <: DatagramSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: UInt16)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -9085,8 +9085,8 @@ UdpSocket toString: UdpSocket(bound at 0.0.0.0:33358)
 
 ```cangjie
 public class UnixDatagramSocket <: DatagramSocket {
-    public init(bindAt!: SocketAddress)
     public init(bindAt!: String)
+    public init(bindAt!: SocketAddress)
 }
 ```
 
@@ -11863,8 +11863,8 @@ Server socket state after close: UnixServerSocket(closed)
 
 ```cangjie
 public class UnixSocket <: StreamingSocket {
-    public init(address: SocketAddress, localAddress!: ?SocketAddress = None)
     public init(path: String, localPath!: ?String = None)
+    public init(address: SocketAddress, localAddress!: ?SocketAddress = None)
 }
 ```
 

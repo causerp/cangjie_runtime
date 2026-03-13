@@ -5,17 +5,17 @@
 ```cangjie
 public interface UnicodeRuneExtension {
     func isLetter(): Bool
-    func isLowerCase(): Bool
     func isNumber(): Bool
-    func isTitleCase(): Bool
+    func isLowerCase(): Bool
     func isUpperCase(): Bool
+    func isTitleCase(): Bool
     func isWhiteSpace(): Bool
-    func toLowerCase(): Rune
-    func toLowerCase(opt: CasingOption): Rune
-    func toTitleCase(): Rune
-    func toTitleCase(opt: CasingOption): Rune
     func toUpperCase(): Rune
+    func toLowerCase(): Rune
+    func toTitleCase(): Rune
     func toUpperCase(opt: CasingOption): Rune
+    func toLowerCase(opt: CasingOption): Rune
+    func toTitleCase(opt: CasingOption): Rune
 }
 ```
 
@@ -571,10 +571,10 @@ public interface UnicodeStringExtension {
     func toUpper(): String
     func toUpper(opt: CasingOption): String
     func trim(): String
-    func trimEnd(): String
-    func trimLeft(): String
     func trimRight(): String
+    func trimLeft(): String
     func trimStart(): String
+    func trimEnd(): String
 }
 ```
 
