@@ -54,22 +54,23 @@ public struct Token <: ToBytes {
     }
 
     // Create a new token from token kind, value, fileID, line, column.
-    init(k: TokenKind, v: String, f: UInt32, l: Int32, c: Int32) {
+    init(k: TokenKind, v: String, f: UInt32, l: Int32, c: Int32, isSingleQuote!: Bool = false) {
         kind = k
         value = v
         pos = Position(f, l, c)
+        this.isSingleQuote = isSingleQuote
     }
 
     public func addPosition(fileID: UInt32, line: Int32, colum: Int32): Token {
-        return Token(this.kind, this.value, fileID, line, colum)
+        return Token(this.kind, this.value, fileID, line, colum, isSingleQuote: this.isSingleQuote)
     }
 
     func addPosition(position: NodeFormat_Position) {
-        return Token(this.kind, this.value, position.fileId, position.line, position.column)
+        return Token(this.kind, this.value, position.fileId, position.line, position.column, isSingleQuote: this.isSingleQuote)
     }
 
     func addPosition(position: Position) {
-        return Token(this.kind, this.value, position.fileID, position.line, position.column)
+        return Token(this.kind, this.value, position.fileID, position.line, position.column, isSingleQuote: this.isSingleQuote)
     }
 
     // Returns true if and only if the two token's kind id, value, position are identical.
