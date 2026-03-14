@@ -327,7 +327,7 @@ void StackManager::InitAddressScope()
     StackManager::rtEndAddr = reinterpret_cast<Uptr>(&g_runtimeDynamicEnd);
 #endif
 #else                  // !COMPILE_DYNAMIC
-#if defined(__APPLE__) // MacOS, iOS
+#if defined(__APPLE__) || defined(_WIN64) // MacOS, iOS, Windows
     StackManager::rtStartAddr = reinterpret_cast<Uptr>(g_runtimeStaticStart);
     StackManager::rtEndAddr = reinterpret_cast<Uptr>(g_runtimeStaticEnd);
 #else
