@@ -1538,50 +1538,10 @@ public prop name: String
 ## struct MeasurementInfo
 
 ```cangjie
-public struct MeasurementInfo {
-    public let conversionTable: MeasurementUnitTable,
-    public let name: String,
-    public let textDescription: String
-}
+public struct MeasurementInfo {}
 ```
 
 功能：存储测量信息的结构体。
-
-### let conversionTable
-
-```cangjie
-let conversionTable: MeasurementUnitTable
-```
-
-功能：用于在性能测试报告中构建测量值的表示。
-包含测量单位的边界对。
-根据值的边界，使用最合适的单位。
-对于 CSV 格式报告，始终选择下限以简化结果处理。
-默认值为 `[(1.0, "")]`。
-
-类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)。
-
-### let name
-
-```cangjie
-let name: String
-```
-
-功能：当前 `Measurement` 类型的唯一显示名称。
-有助于区分报告表中的不同测量类型。
-默认值为 `Measurement`。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
-
-### let textDescription
-
-```cangjie
-let textDescription: String
-```
-
-功能：描述此测量的简单文本将显示在某些报告中。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
 
 ## struct Perf
 

@@ -644,16 +644,6 @@ sealed abstract class DataStrategyProcessor<T> {}
 
 功能：所有 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 组件的基类。该类的实例由 [@Strategy](../../unittest_testmacro/unittest_testmacro_package_api/unittest_testmacro_package_macros.md#strategy-宏) 宏或成员函数创建。
 
-### prop isInfinite
-
-```cangjie
-protected prop isInfinite: Bool 
-```
-
-功能：获取该策略是否为无限。
-
-类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)。
-
 ### func intoBenchmark(String, Configuration, (T, Int64, Int64) -> Float64)
 
 ```cangjie
