@@ -166,7 +166,7 @@ public func isAsciiWhiteSpace(): Bool
 public func toAsciiLowerCase(): Byte
 ```
 
-功能：将 [Byte](core_package_types.md#type-byte) 换为对应的 Ascii 小写字符 [Byte](core_package_types.md#type-byte)，如果无法转换则保持现状。
+功能：将 [Byte](core_package_types.md#type-byte) 转换为对应的 Ascii 小写字符 [Byte](core_package_types.md#type-byte)，如果无法转换则保持现状。
 
 返回值：
 
@@ -178,7 +178,7 @@ public func toAsciiLowerCase(): Byte
 public func toAsciiUpperCase(): Byte
 ```
 
-功能：将 [Byte](core_package_types.md#type-byte) 换为对应的 Ascii 大写字符 [Byte](core_package_types.md#type-byte)，如果无法转换则保持现状。
+功能：将 [Byte](core_package_types.md#type-byte) 转换为对应的 Ascii 大写字符 [Byte](core_package_types.md#type-byte)，如果无法转换则保持现状。
 
 返回值：
 

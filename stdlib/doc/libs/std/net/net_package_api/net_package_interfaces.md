@@ -211,7 +211,7 @@ public interface StreamingSocket <: IOStream & Resource & ToString {
 
 [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) 可以被绑定 (`bind`) 和连接 (`connect`)，用户可以通过属性设置绑定和连接的远端和本地地址。
 [StreamingSocket](net_package_interfaces.md#interface-streamingsocket) 可以有序分包传输字节流。我们会使用一段缓存空间存储读写的字节流。读取接口 (`read()`) 默认在无数据到来时阻塞式等待，直到下一次数据到达或超时。写操作 (`write()`) 会写入缓存中的数据并在后续被发出，如果缓存不足，或者写入速度快于转发速度，写操作将会阻塞等待缓存空闲，或超时。
-读写字符始终保持有序，但不保证传输过程中的分包策略及大小与发包时一致。例如：一端发送 10 字节报文后，又发送了 15 字节报文，对端可能分别收到 10 字节 和 15 字节报文，也可能一次性收到 25 字节的一个报文。
+读写字节始终保持有序，但不保证传输过程中的分包策略及大小与发包时一致。例如：一端发送 10 字节报文后，又发送了 15 字节报文，对端可能分别收到 10 字节 和 15 字节报文，也可能一次性收到 25 字节的一个报文。
 当收到一段异常报文时，将返回报文长度为 -1 。
 
 父类型：
