@@ -244,7 +244,7 @@ let e: ?Exception = @ExpectThrows[NoneValueException | IllegalMemoryException](f
 
 一些被比较的参数类型可能不能准确计算，例如浮点数，此时我们可以使用近似计算获得其是否相等的结果。
 
-本包提供了近似计算相关的接口 [NearEqutable](../unittest_package_api/unittest_package_interfaces.md#interface-nearequatablect-d) ，对于需要判断近似相等的类型，可通过扩展该接口，并在 `@Assert` `@Expect` `@PowerAssert` 等宏中使用 delta 参数，使能近似相等功能。
+本包提供了近似计算相关的接口 [NearEquatable](../unittest_package_api/unittest_package_interfaces.md#interface-nearequatablect-d) ，对于需要判断近似相等的类型，可通过扩展该接口，并在 `@Assert` `@Expect` `@PowerAssert` 等宏中使用 delta 参数，使能近似相等功能。
 
 近似相等的计算逻辑如下：
 

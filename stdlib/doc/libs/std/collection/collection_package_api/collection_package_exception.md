@@ -16,7 +16,7 @@ public class ConcurrentModificationException <: Exception {
 典型的抛出异常场景有：
 
 - 使用 for-in 遍历一个容器过程中对容器进行修改时（[HashMapIterator](collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek)的 [remove](../../posix/posix_package_api/posix_package_funcs.md#func-removestring-deprecated)() 方法除外）。
-- 在使用声明周期较短的类型，如 [MapEntryView](collection_package_interface.md#interface-mapentryviewk-v) 时，如果其所在的容器内容被修改，也会抛出异常。
+- 在使用生命周期较短的类型，如 [MapEntryView](collection_package_interface.md#interface-mapentryviewk-v) 时，如果其所在的容器内容被修改，也会抛出异常。
 
 父类型：
 

@@ -55,7 +55,7 @@ public operator func ==(that: CleanupPolicy): Bool
 public operator func !=(that: CleanupPolicy): Bool
 ```
 
-功能：对 `Enum CleanupPolicy` 判断是否不等。
+功能：判断两个对象是否不等。
 
 参数：
 

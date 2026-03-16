@@ -744,7 +744,7 @@ public func isSock(path: String): Bool
 public func isType(path: String, mode: UInt32): Bool
 ```
 
-功能：检查文件是否为指定模式的文件。如果是，返回 `ture`，否则返回 `false`。根据模式的不同值确定不同的类型。
+功能：检查文件是否为指定模式的文件。如果是，返回 `true`，否则返回 `false`。根据模式的不同值确定不同的类型。
 
 > **注意：**
 >

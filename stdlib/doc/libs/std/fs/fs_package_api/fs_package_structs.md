@@ -129,8 +129,10 @@ public prop size: Int64
 
 功能：返回当前文件大小。
 
-- 当前是文件时，表示单个文件占用磁盘空间的大小。
-- 当前是目录时，表示当前目录的所有文件占用磁盘空间的大小。
+> **说明：**
+>
+> - 当前是文件时，表示单个文件占用磁盘空间的大小。
+> - 当前是目录时，表示当前目录的所有文件占用磁盘空间的大小。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -180,10 +182,12 @@ public func canExecute(): Bool
 
 功能：判断当前用户是否有权限执行该实例对应的文件。
 
-- 对文件而言，判断用户是否有执行文件的权限。
-- 对目录而言，判断用户是否有进入目录的权限。
-- 在 Windows 环境下，用户对于文件的执行权限由文件扩展名决定；用户始终拥有对于目录的执行权限，该函数不生效，返回 true。
-- 在 Linux 和 macOS 环境下，该函数正常使用。
+> **说明：**
+>
+> - 对文件而言，判断用户是否有执行文件的权限。
+> - 对目录而言，判断用户是否有进入目录的权限。
+> - 在 Windows 环境下，用户对于文件的执行权限由文件扩展名决定而对于目录的执行权限将始终拥有并且调用该函数不会生效，固定返回 true。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。
 
 返回值：
 
@@ -201,10 +205,12 @@ public func canRead(): Bool
 
 功能：判断当前用户是否有权限读取该实例对应的文件。
 
-- 对文件而言，判断用户是否有读取文件的权限。
-- 对目录而言，判断用户是否有浏览目录的权限。
-- 在 Windows 环境下，用户始终拥有对于文件和目录的可读权限，该函数不生效，返回 true。
-- 在 Linux 和 macOS 环境下，该函数正常使用。
+> **说明：**
+>
+> - 对文件而言，判断用户是否有读取文件的权限。
+> - 对目录而言，判断用户是否有浏览目录的权限。
+> - 在 Windows 环境下，用户始终拥有对于文件和目录的可读权限，调用该函数将不会生效，固定返回 true。
+> - 在 Linux 和 macOS 环境下，该函数正常使用。
 
 返回值：
 
@@ -222,10 +228,12 @@ public func canWrite(): Bool
 
 功能：判断当前用户是否有权限写入该实例对应的文件。
 
-- 对文件而言，判断用户是否有写入文件的权限。
-- 对目录而言，判断用户是否有删除、移动、创建目录内文件的权限。
-- 在 Windows 环境下，用户对于文件的可写权限正常使用，用户始终拥有对于目录的可写权限，该函数不生效，返回 true。
-- 在 Linux 和 macOS 环境下，该函数正常使用。
+> **说明：**
+>
+> - 对文件而言，判断用户是否有写入文件的权限。
+> - 对目录而言，判断用户是否有删除、移动、创建目录内文件的权限。
+> - 在 Windows 环境下，用户对于文件的可写权限可正常使用，而对于目录的可写权限将始终拥有，调用该函数不会生效，固定返回 true。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。
 
 返回值：
 
@@ -287,8 +295,10 @@ public func isReadOnly(): Bool
 
 功能：判断当前文件是否只读。
 
-- 在 Windows 环境下，用户对于文件的只读权限正常使用；用户始终拥有对于目录的删除修改权限，该函数不生效，返回 false。
-- 在 Linux 和 macOS 环境下，该函数正常使用。
+> **说明：**
+>
+> - 在 Windows 环境下，用户对于文件的只读权限可正常使用而对于目录的删除修改权限将始终拥有，调用该函数不会生效，固定返回 false。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。
 
 返回值：
 
@@ -320,11 +330,13 @@ public func isSymbolicLink(): Bool
 public func setExecutable(executable: Bool): Bool
 ```
 
-功能：对当前实例对应的文件设置文件所有者是否可执行的权限，当前用户没有权限修改则抛出异常。
+功能：对当前实例对应的文件设置文件所有者是否可执行的权限。
 
-- 对文件而言，设置用户是否有执行文件的权限，对目录而言，设置用户是否有进入目录的权限。
-- 在 Windows 环境下，用户对于文件的执行权限由文件扩展名决定，用户始终拥有对于目录的执行权限该函数不生效，返回 false。
-- 在 Linux 和 macOS 环境下，该函数正常使用如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
+> **说明：**
+>
+> - 对文件而言，设置用户是否有执行文件的权限，对目录而言，设置用户是否有进入目录的权限。
+> - 在 Windows 环境下，用户对于文件的执行权限由文件扩展名决定而对于目录的执行权限将始终拥有，调用该函数不会生效，固定返回 false。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
 
 参数：
 
@@ -334,18 +346,24 @@ public func setExecutable(executable: Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
 
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果用户没有权限修改，则抛出异常。
+
 ### func setReadable(Bool)
 
 ```cangjie
 public func setReadable(readable: Bool): Bool
 ```
 
-功能：对当前实例对应的文件设置文件所有者是否可读取的权限，当前用户没有权限修改则抛出异常。
+功能：对当前实例对应的文件设置文件所有者是否可读取的权限。
 
-- 对文件而言，设置用户是否有读取文件的权限。
-- 对目录而言，设置用户是否有浏览目录的权限。
-- 在 Windows 环境下，用户始终拥有对于文件以及目录的可读权限，不可更改，该函数不生效当 readable 为 true 时，函数返回 true，当 readable 为 false 时，函数返回 false。
-- 在 Linux 和 macOS 环境下，该函数正常使用如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
+> **说明：**
+>
+> - 对文件而言，设置用户是否有读取文件的权限。
+> - 对目录而言，设置用户是否有浏览目录的权限。
+> - 在 Windows 环境下，用户始终拥有对于文件以及目录的可读权限，不可更改，调用该函数将不会生效。当 readable 为 true 时，函数返回 true，当 readable 为 false 时，函数返回 false。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
 
 参数：
 
@@ -355,18 +373,24 @@ public func setReadable(readable: Bool): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
 
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果用户没有权限修改，则抛出异常。
+
 ### func setWritable(Bool)
 
 ```cangjie
 public func setWritable(writable: Bool): Bool
 ```
 
-功能：对当前实例对应的文件设置文件所有者是否可写入的权限，当前用户没有权限修改则抛出异常。
+功能：对当前实例对应的文件设置文件所有者是否可写入的权限。
 
-- 对文件而言，设置用户是否有写入文件的权限。
-- 对目录而言，设置用户是否有删除、移动、创建目录内文件的权限。
-- 在 Windows 环境下，用户对于文件的可写权限正常使用；用户始终拥有对于目录的可写权限，不可更改，该函数不生效，返回 false。
-- 在 Linux 和 macOS 环境下，该函数正常使用如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
+> **说明：**
+>
+> - 对文件而言，设置用户是否有写入文件的权限。
+> - 对目录而言，设置用户是否有删除、移动、创建目录内文件的权限。
+> - 在 Windows 环境下，用户对于文件的可写权限可正常使用而对于目录的可写权限将始终拥有，不可更改，执行该函数不会生效，固定返回 false。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
 
 参数：
 
@@ -375,6 +399,10 @@ public func setWritable(writable: Bool): Bool
 返回值：
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - true，操作成功；false，操作失败。
+
+异常：
+
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果用户没有权限修改，则抛出异常。
 
 ### operator func ==(FileInfo)
 
