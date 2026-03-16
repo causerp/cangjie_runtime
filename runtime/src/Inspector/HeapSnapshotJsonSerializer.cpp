@@ -286,15 +286,24 @@ void CjHeapDataForIDE::SerializeAllObjects()
                 SerializeUnknownRoot(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_OBJECT_ARRAY_DUMP:
+            case TAG_LARGE_OBJECT_ARRAY_DUMP:
+            case TAG_UNMOVABLE_OBJECT_ARRAY_DUMP:
                 SerializeObjectArray(objectInfo.obj, objectInfo.tag);
                 break;
-            case  TAG_STRUCT_ARRAY_DUMP:
+            case TAG_STRUCT_ARRAY_DUMP:
+            case TAG_LARGE_STRUCT_ARRAY_DUMP:
+            case TAG_UNMOVABLE_STRUCT_ARRAY_DUMP:
                 SerializeStructArray(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_PRIMITIVE_ARRAY_DUMP:
+            case TAG_LARGE_PRIMITIVE_ARRAY_DUMP:
+            case TAG_UNMOVABLE_PRIMITIVE_ARRAY_DUMP:
                 SerializePrimitiveArray(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_INSTANCE_DUMP:
+            case TAG_PINNED_INSTANCE_DUMP:
+            case TAG_LARGE_INSTANCE_DUMP:
+            case TAG_UNMOVABLE_INSTANCE_DUMP:
                 SerializeInstance(objectInfo.obj, objectInfo.tag);
                 break;
             default:
