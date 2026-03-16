@@ -66,7 +66,7 @@ public open class Decl <: Node {
     init() {
         super()
     }
-    private var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
     protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
     protected var keyword_: Token = Token()
     protected var identifier_: Token = Token()
@@ -1675,27 +1675,33 @@ public open class FuncParam <: Decl {
         comma_ = comma
         isMemberParam_ = isMemberParam
     }
+
+    /**
+     * @throws ParseASTException if input tokens cannot be parsed to a FuncParam node.
+     */
     public init(inputs: Tokens) {
         super()
-        var params = ArrayList<FuncParam>()
-        // a:Int64 -> func tmp(a:Int64)/tmp(a:Int64)
-        try {
-            let tokens = Tokens()
-            tokens
-                .append(Token(IDENTIFIER))
-                .append(Token(LPAREN))
-                .append(inputs)
-                .append(Token(RPAREN))
-                .append(Token(LCURL))
-                .append(Token(RCURL))
-            params = PrimaryCtorDecl(tokens).funcParams
-        } catch (e: ASTException) {
-            throw ASTException("Cannot construct the 'FuncParam' node.")
+        var v = parseFuncParam(inputs)
+        var decl: Decl = v
+        // @ amd @! annotations are considered as macro expansion nodes
+        // extract the FuncParam node from Annotations with a loop
+        while (true) {
+            decl = match (decl as MacroExpandParam) {
+                case Some(val) =>
+                    this.annotations_.add(createCustomAnnotation(val))
+                    try {
+                        parseFuncParam(val.macroInputs)
+                    } catch (e: ParseASTException | ASTException) {
+                        throw ParseASTException("Cannot construct the 'FuncParam' node.")
+                    }
+                case None => break
+            }
         }
-        if (params.size == 0) {
-            throw ASTException("Cannot construct the 'FuncParam' node.")
+        v = match (decl as FuncParam) {
+            case Some(val) => val
+            case None => throw ParseASTException()
         }
-        let v = params[0]
+        this.annotations_.add(all: v.annotations_)
         this.not_ = checkValid(v.not_)
         this.colon_ = v.colon_
         this.paramType_ = v.paramType_
