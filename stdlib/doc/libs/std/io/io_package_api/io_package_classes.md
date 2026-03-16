@@ -757,7 +757,7 @@ public class BufferedOutputStream<T> <: OutputStream where T <: OutputStream {
 
 功能：提供带缓冲区的输出流。
 
-可将其他 [OutputStream](io_package_interfaces.md#interface-outputstream) 类型的输入流（如 [ByteBuffer](io_package_classes.md#class-bytebuffer)）绑定到 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 实例，从该实例写入数据时，先把数据写入缓冲区暂存，再从缓冲区写入数据到流中。
+可将其他 [OutputStream](io_package_interfaces.md#interface-outputstream) 类型的输出流（如 [ByteBuffer](io_package_classes.md#class-bytebuffer)）绑定到 [BufferedOutputStream](io_package_classes.md#class-bufferedoutputstreamt-where-t--outputstream) 实例，从该实例写入数据时，先把数据写入缓冲区暂存，再从缓冲区写入数据到流中。
 
 父类型：
 
@@ -1878,12 +1878,15 @@ nextByte: None
 public func reserve(additional: Int64): Unit
 ```
 
-功能：将缓冲区扩容指定大小。
+功能：以指定大小扩容缓冲区。
 
 > **说明：**
 >
-> - 当缓冲区剩余字节数大于等于 `additional` 时不发生扩容。
-> - 当缓冲区剩余字节数量小于 `additional` 时，取（`additional` + `capacity`）与（`capacity`的 1.5 倍向下取整）两个值中的最大值进行扩容。
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 

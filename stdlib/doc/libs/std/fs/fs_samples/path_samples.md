@@ -4,7 +4,7 @@
 
 打印 Path 实例的目录部分、文件全名（有扩展名）、扩展名、文件名（无扩展名），并判断 Path 实例是绝对路径还是相对路径
 
-代码如下：
+示例：
 <!-- verify -->
 
 ```cangjie
@@ -128,9 +128,9 @@ Path.fileNameWithoutExtension: 123
 Path.isAbsolute: false; Path.isRelative: true
 ```
 
-## Path 的拼接、判等、转规范化路径等操作
+## Path 的拼接、判等、规范化处理等操作
 
-代码如下：
+示例：
 <!-- verify -->
 
 ```cangjie
@@ -169,9 +169,9 @@ filePath.join: success
 canonicalize filePath: success
 ```
 
-## 通过 Path 创建文件和目录
+## 通过 Path 创建文件与目录
 
-代码如下：
+示例：
 <!-- verify -->
 
 ```cangjie

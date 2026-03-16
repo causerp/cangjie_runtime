@@ -376,7 +376,7 @@ public func max<T>(a: T, b: T, others: Array<T>): T where T <: Comparable<T>
 
 > **注意：**
 >
-> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点书中有非数 `NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func max`方法。
+> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数 `NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func max`方法。
 
 参数：
 
@@ -443,7 +443,7 @@ public func min<T>(a: T, b: T, others: Array<T>): T where T <: Comparable<T>
 
 > **注意：**
 >
-> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点书中有非数`NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min`方法。
+> 浮点数类型的比较也将按照 [Comparable](./core_package_interfaces.md#interface-comparablet) 的结果进行比较，如果浮点数中有非数`NaN`，结果将不正确，此时建议使用 [Float16](./core_package_intrinsics.md#float16)、[Float32](./core_package_intrinsics.md#float32)、[Float64](./core_package_intrinsics.md#float64) 的 `static func min`方法。
 
 参数：
 

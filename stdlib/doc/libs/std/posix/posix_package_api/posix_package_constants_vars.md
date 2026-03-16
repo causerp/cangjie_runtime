@@ -6,7 +6,7 @@
 public const AT_EMPTY_PATH: Int32 = 0x1000
 ```
 
-功能：表示在文件系统中空路径（即没有指定任何文件或目录）时返回的文件描述符，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。
+功能：表示允许空路径作为路径名参数的标志，用于引用文件描述符本身，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。
 
 > **注意：**
 >
@@ -74,7 +74,7 @@ value: -100
 public const AT_REMOVEDIR: Int32 = 0x200
 ```
 
-功能：如果指定了 [AT_REMOVEDIR](posix_package_constants_vars.md#const-at_removedir-deprecated) 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。
+功能：如果指定了 [AT_REMOVEDIR](posix_package_constants_vars.md#const-at_removedir-deprecated) 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `unlinkat`，所属函数参数 `ulflag`。
 
 > **注意：**
 >
@@ -173,7 +173,7 @@ value: 0
 public const O_APPEND: Int32
 ```
 
-功能：读取或写入文件时，数据将从文件末尾移动。即写入的数据将附加到文件的末尾，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
+功能：读取或写入文件时，数据将被写入到文件末尾，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x00000008
 - Windows：0x8
@@ -425,7 +425,7 @@ value: 256
 public const O_NOFOLLOW: Int32
 ```
 
-功能：如 `pathname` 指定的文件是单符号连接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
+功能：如 `pathname` 指定的文件是符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x00000100
 - 其他情况：0x20000
@@ -857,7 +857,7 @@ value: 4096
 public const S_IFLNK: UInt32 = 0xA000
 ```
 
-功能：文件类型为软连接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+功能：文件类型为软链接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
 
 > **注意：**
 >
@@ -1532,7 +1532,7 @@ value: 7
 public const SIGCHLD: Int32
 ```
 
-功能：子进程状态更改，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：子进程状态更改，默认操作忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x14
 - 其他情况：0x11
@@ -1567,7 +1567,7 @@ value: 17
 public const SIGCONT: Int32
 ```
 
-功能：暂停过程的继续，默认操作继续或忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：继续暂停的进程，默认操作继续或忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x13
 - 其他情况：0x12
@@ -1634,7 +1634,7 @@ value: 8
 public const SIGHUP: Int32 = 0x1
 ```
 
-功能：连接已断开，默认操作已终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：挂起信号，当终端断开连接时发送，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -1730,7 +1730,7 @@ value: 2
 public const SIGIO: Int32
 ```
 
-功能：异步 `IO`，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：异步 `IO`，默认操作忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x17
 - 其他情况：0x1D
@@ -1765,7 +1765,7 @@ value: 29
 public const SIGIOT: Int32 = 0x6
 ```
 
-功能：硬件故障，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：IOT 陷阱信号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -2023,7 +2023,7 @@ value: 16
 public const SIGSTOP: Int32
 ```
 
-功能：停止，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：停止，默认操作停止进程，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x11
 - 其他情况：0x13
@@ -2058,7 +2058,7 @@ value: 19
 public const SIGSYS: Int32
 ```
 
-功能：终止，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：非法系统调用，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0xC
 - 其他情况：0x1F
@@ -2125,7 +2125,7 @@ value: 15
 public const SIGTRAP: Int32 = 0x5
 ```
 
-功能：硬件故障，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：跟踪/断点陷阱，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -2157,7 +2157,7 @@ value: 5
 public const SIGTSTP: Int32
 ```
 
-功能：终端停止符号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：终端停止符号，默认操作停止进程，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x12
 - 其他情况：0x14
@@ -2192,7 +2192,7 @@ value: 20
 public const SIGTTIN: Int32 = 0x15
 ```
 
-功能：后台读取控件 `tty`，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：后台读取控件 `tty`，默认操作停止进程，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -2224,7 +2224,7 @@ value: 21
 public const SIGTTOU: Int32 = 0x16
 ```
 
-功能：后台写控制 `tty`，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：后台写控制 `tty`，默认操作停止进程，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -2256,7 +2256,7 @@ value: 22
 public const SIGURG: Int32
 ```
 
-功能：紧急情况（套接字），忽略默认操作，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：紧急情况（套接字），默认操作忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS 和 iOS：0x10
 - 其他情况：0x17
@@ -2393,7 +2393,7 @@ value: 26
 public const SIGWINCH: Int32 = 0x1C
 ```
 
-功能：终端窗口大小更改，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：终端窗口大小更改，默认操作忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
