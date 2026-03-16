@@ -567,7 +567,7 @@ public func prepend(element: T): LazySeq<T>
 
 - [LazySeq](#class-lazyseqt)\<T> - 处理后的序列。
 
-### static func mix(LazySeq\<T>,LazySeq\<T>)
+### static func mix(LazySeq\<T>, LazySeq\<T>)
 
 ```cangjie
 public static func mix(l1: LazySeq<T>, l2: LazySeq<T>): LazySeq<T>
@@ -586,7 +586,7 @@ public static func mix(l1: LazySeq<T>, l2: LazySeq<T>): LazySeq<T>
 
 - [LazySeq](#class-lazyseqt)\<T> - 处理后的序列。
 
-### static func mix(LazySeq\<T>,LazySeq\<T>,LazySeq\<T>)
+### static func mix(LazySeq\<T>, LazySeq\<T>, LazySeq\<T>)
 
 ```cangjie
 public static func mix(l1: LazySeq<T>, l2: LazySeq<T>, l3: LazySeq<T>): LazySeq<T>
@@ -604,7 +604,7 @@ public static func mix(l1: LazySeq<T>, l2: LazySeq<T>, l3: LazySeq<T>): LazySeq<
 
 - [LazySeq](#class-lazyseqt)\<T> - 处理后的序列。
 
-### static func mix(LazySeq\<T>,LazySeq\<T>,LazySeq\<T>,LazySeq\<T>)
+### static func mix(LazySeq\<T>, LazySeq\<T>, LazySeq\<T>, LazySeq\<T>)
 
 ```cangjie
 public static func mix(l1: LazySeq<T>, l2: LazySeq<T>, l3: LazySeq<T>, l4: LazySeq<T>): LazySeq<T>
@@ -623,7 +623,7 @@ public static func mix(l1: LazySeq<T>, l2: LazySeq<T>, l3: LazySeq<T>, l4: LazyS
 
 - [LazySeq](#class-lazyseqt)\<T> - 处理后的序列。
 
-### static func mix(LazySeq\<T>,LazySeq\<T>,LazySeq\<T>,LazySeq\<T>,LazySeq\<T>)
+### static func mix(LazySeq\<T>, LazySeq\<T>, LazySeq\<T>, LazySeq\<T>, LazySeq\<T>)
 
 ```cangjie
 public static func mix(l1: LazySeq<T>, l2: LazySeq<T>, l3: LazySeq<T>, l4: LazySeq<T>, l5: LazySeq<T>): LazySeq<T> 

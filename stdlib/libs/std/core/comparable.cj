@@ -279,8 +279,8 @@ extend Ordering <: ToString {
  * The relationship between Orderings is: Ordering.LT < Ordering.EQ < Ordering.GT
  */
 extend Ordering <: Comparable<Ordering> {
-    public func compare(that: Ordering): Ordering {
-        return match ((this, that)) {
+    public func compare(other: Ordering): Ordering {
+        return match ((this, other)) {
             case (LT, LT) | (EQ, EQ) | (GT, GT) => EQ
             case (LT, EQ) | (LT, GT) | (EQ, GT) => LT
             case _ => GT

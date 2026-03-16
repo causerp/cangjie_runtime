@@ -1650,14 +1650,14 @@ func nextInt32(): Int32
 ### func nextInt32(Int32)
 
 ```cangjie
-func nextInt32(upper: Int32): Int32
+func nextInt32(max: Int32): Int32
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
 
 参数：
 
-- upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 表示生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max]。
+- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 表示生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max]。
 
 返回值：
 
@@ -1665,7 +1665,7 @@ func nextInt32(upper: Int32): Int32
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 ### func nextInt64()
 
@@ -1682,14 +1682,14 @@ func nextInt64(): Int64
 ### func nextInt64(Int64)
 
 ```cangjie
-func nextInt64(upper: Int64): Int64
+func nextInt64(max: Int64): Int64
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
 
 参数：
 
-- upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
 
 返回值：
 
@@ -1697,7 +1697,7 @@ func nextInt64(upper: Int64): Int64
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 ### func nextInt8()
 
@@ -2290,7 +2290,7 @@ func suggestFloat16(l: Float16, r: Float16): Float16
 extend Random <: RandomSource
 ```
 
-功能： 对 Random 类型扩展 RandomSource 接口。
+功能：对 Random 类型扩展 RandomSource 接口。
 
 #### func nextBool()
 
@@ -2374,14 +2374,14 @@ public func nextInt16(): Int16
 #### func nextInt16(Int16)
 
 ```cangjie
-public func nextInt16(upper: Int16): Int16
+public func nextInt16(max: Int16): Int16
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) 类型的伪随机数。
 
 参数：
 
-- upper: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 表示生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max]。
+- max: [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) - 表示生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int16](../../core/core_package_api/core_package_intrinsics.md#int16).Max]。
 
 返回值：
 
@@ -2389,7 +2389,7 @@ public func nextInt16(upper: Int16): Int16
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 #### func nextInt32()
 
@@ -2406,14 +2406,14 @@ public func nextInt32(): Int32
 #### func nextInt32(Int32)
 
 ```cangjie
-public func nextInt32(upper: Int32): Int32
+public func nextInt32(max: Int32): Int32
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) 类型的伪随机数。
 
 参数：
 
-- upper: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 表示生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max]。
+- max: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 表示生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int32](../../core/core_package_api/core_package_intrinsics.md#int32).Max]。
 
 返回值：
 
@@ -2421,7 +2421,7 @@ public func nextInt32(upper: Int32): Int32
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 #### func nextInt64()
 
@@ -2438,14 +2438,14 @@ public func nextInt64(): Int64
 #### func nextInt64(Int64)
 
 ```cangjie
-public func nextInt64(upper: Int64): Int64
+public func nextInt64(max: Int64): Int64
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) 类型的伪随机数。
 
 参数：
 
-- upper: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
+- max: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int64](../../core/core_package_api/core_package_intrinsics.md#int64).Max]。
 
 返回值：
 
@@ -2453,7 +2453,7 @@ public func nextInt64(upper: Int64): Int64
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 #### func nextInt8()
 
@@ -2470,14 +2470,14 @@ public func nextInt8(): Int8
 #### func nextInt8(Int8)
 
 ```cangjie
-public func nextInt8(upper: Int8): Int8
+public func nextInt8(max: Int8): Int8
 ```
 
-功能：获取一个范围在 [0, `upper`) 的 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
+功能：获取一个范围在 [0, `max`) 的 [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) 类型的伪随机数。
 
 参数：
 
-- upper: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max]。
+- max: [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) - 生成的伪随机数范围上界（不包括 `max`），取值范围 (0, [Int8](../../core/core_package_api/core_package_intrinsics.md#int8).Max]。
 
 返回值：
 
@@ -2485,7 +2485,7 @@ public func nextInt8(upper: Int8): Int8
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 小于等于 0，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `max` 小于等于 0，抛出异常。
 
 #### func nextIntNative()
 
@@ -2498,134 +2498,6 @@ public func nextIntNative(): IntNative
 返回值：
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - 一个 [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) 类型的伪随机数。
-
-#### func nextUInt16()
-
-```cangjie
-public func nextUInt16(): UInt16
-```
-
-功能：获取一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
-
-返回值：
-
-- [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
-
-#### func nextUInt16(UInt16)
-
-```cangjie
-public func nextUInt16(upper: UInt16): UInt16
-```
-
-功能：获取一个范围在 [0, `upper`) 的 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
-
-参数：
-
-- upper: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16).Max]。
-
-返回值：
-
-- [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) - 一个 [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) 类型的伪随机数。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
-
-#### func nextUInt32()
-
-```cangjie
-public func nextUInt32(): UInt32
-```
-
-功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
-
-返回值：
-
-- [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
-
-#### func nextUInt32(UInt32)
-
-```cangjie
-public func nextUInt32(upper: UInt32): UInt32
-```
-
-功能：获取一个范围在 [0, `upper`) 的 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
-
-参数：
-
-- upper: [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32).Max]。
-
-返回值：
-
-- [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) - 一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
-
-#### func nextUInt64()
-
-```cangjie
-public func nextUInt64(): UInt64
-```
-
-功能：获取一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
-
-返回值：
-
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
-
-#### func nextUInt64(UInt64)
-
-```cangjie
-public func nextUInt64(upper: UInt64): UInt64
-```
-
-功能：获取一个范围在 [0, `upper`) 的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
-
-参数：
-
-- upper: [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64).Max]。
-
-返回值：
-
-- [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) - 一个 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 类型的伪随机数。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
-
-#### func nextUInt8()
-
-```cangjie
-public func nextUInt8(): UInt8
-```
-
-功能：获取一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
-
-返回值：
-
-- [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
-
-#### func nextUInt8(UInt8)
-
-```cangjie
-public func nextUInt8(upper: UInt8): UInt8
-```
-
-功能：获取一个范围在 [0, `upper`) 的 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
-
-参数：
-
-- upper: [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 生成的伪随机数范围上界（不包括 `upper`），取值范围 (0, [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8).Max]。
-
-返回值：
-
-- [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) - 一个 [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) 类型的伪随机数。
-
-异常：
-
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `upper` 等于 0，抛出异常。
 
 #### func nextUIntNative()
 
