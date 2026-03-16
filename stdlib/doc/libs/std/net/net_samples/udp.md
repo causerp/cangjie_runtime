@@ -19,8 +19,8 @@ func runUdpServer() {
         let (clientAddr, count) = serverSocket.receiveFrom(buf)
         let sender = (clientAddr as IPSocketAddress)?.address.toString() ?? ""
 
-        // Server receive 3 bytes: [1, 2, 3] from 127.0.0.1
-        println("Server receive ${count} bytes: ${buf} from ${sender}")
+        // Server received 3 bytes: [1, 2, 3] from 127.0.0.1
+        println("Server received ${count} bytes: ${buf} from ${sender}")
     }
 }
 
@@ -48,5 +48,5 @@ main(): Int64 {
 运行结果：
 
 ```text
-Server receive 3 bytes: [1, 2, 3] from 127.0.0.1
+Server received 3 bytes: [1, 2, 3] from 127.0.0.1
 ```

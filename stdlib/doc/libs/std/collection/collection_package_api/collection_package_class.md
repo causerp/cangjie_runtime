@@ -165,9 +165,15 @@ public func removeLast(): ?T
 public func reserve(additional: Int64): Unit
 ```
 
-功能：增加此双端队列的容量。
+功能：以指定大小进行扩容。
 
-将双端队列扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当此双端队列剩余容量大于等于 additional 时，不发生扩容；当此双端队列剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -576,9 +582,15 @@ public func removeIf(predicate: (T) -> Bool): Unit
 public func reserve(additional: Int64): Unit
 ```
 
-功能：增加此 [ArrayList](collection_package_class.md#class-arraylistt) 实例的容量。
+功能：以指定大小进行扩容。
 
-将 [ArrayList](collection_package_class.md#class-arraylistt) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量大于等于 additional 时，不发生扩容；当 [ArrayList](collection_package_class.md#class-arraylistt) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -795,7 +807,7 @@ public operator func !=(that: ArrayList<T>): Bool
 public func contains(element: T): Bool
 ```
 
-功能：判断当前数组中是否含有指定元素 `element`。
+功能：判断当前容器中是否包含指定元素。
 
 参数：
 
@@ -1036,9 +1048,15 @@ public func remove(): ?T
 public func reserve(additional: Int64): Unit
 ```
 
-功能：增加此队列的容量。
+功能：以指定大小进行扩容。
 
-将队列扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当此队列剩余容量大于等于 additional 时，不发生扩容；当此队列剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）两个值中的最大值进行扩容。
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -1217,7 +1235,15 @@ public func remove(): ?T
 public func reserve(additional: Int64): Unit
 ```
 
-功能：为当前 [ArrayStack](#class-arraystackt) 扩容相应的空间。当 additional 小于等于零时，不发生扩容；如果当前剩余空间大小大于等于 additional，不进行扩容操作，否则当前 [ArrayStack](#class-arraystackt) 会扩容至 size + additional 大小。
+功能：以指定大小进行扩容。
+
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -1661,9 +1687,15 @@ public func removeIf(predicate: (K, V) -> Bool): Unit
 public func reserve(additional: Int64): Unit
 ```
 
-功能：扩容当前的[HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
+功能：以指定大小进行扩容。
 
-将 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 扩容 additional 大小当 additional 小于等于零时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量大于等于 additional 时，不发生扩容；当 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -2081,7 +2113,15 @@ public func removeIf(predicate: (T) -> Bool): Unit
 public func reserve(additional: Int64): Unit
 ```
 
-功能：将 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 扩容 additional 大小，当 additional 小于等于零时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量大于等于 additional 时，不发生扩容；当 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 剩余容量小于 additional 时，取（原始容量的 1.5 倍向下取整）与（additional + 已使用容量）中的最大值进行扩容。
+功能：以指定大小进行扩容。
+
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 
@@ -2953,7 +2993,7 @@ public func contains(key: K): Bool
 public func contains(all!: Collection<K>): Bool
 ```
 
-功能：判断是否包含指定集合键的映射。
+功能：判断是否包含指定集合中所有键的映射。
 
 参数：
 

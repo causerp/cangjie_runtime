@@ -1,6 +1,6 @@
 # HashMap 的 add/remove/clear 函数
 
-此用例展示了 HashMap 的基本使用方法。
+此示例展示了 HashMap 的基本使用方法。
 
 代码如下：
 

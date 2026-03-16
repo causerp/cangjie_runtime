@@ -206,7 +206,7 @@ public func removeVariable(key: String): Unit
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 k 包含空字符时，抛出异常时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 k 包含空字符时，抛出异常。
 
 ## func setVariable(String, String)
 
@@ -218,7 +218,7 @@ public func setVariable(key: String, value: String): Unit
 
 > **说明：**
 >
-> Windows 下如果传入的参数 v 是空字符串，那么会从环境中移除变量 k。
+> Windows 下如果传入的参数 value 是空字符串，那么会从环境中移除变量 key。
 
 参数：
 

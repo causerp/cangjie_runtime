@@ -118,7 +118,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [SIGBUS <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigbus-deprecated) | 硬件故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGFPE <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigfpe-deprecated) | 算术错误，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGKILL <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigkill-deprecated) | 终止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
-| [SIGCONT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigcont-deprecated) | 暂停过程的继续，默认操作继续或忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
+| [SIGCONT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigcont-deprecated) | 暂停进程的继续，默认操作继续或忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGHUP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sighup-deprecated) | 连接已断开，默认操作已终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGINT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigint-deprecated) | 终端中断字符，默认动作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGQUIT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigquit-deprecated) | 终端退出字符，默认动作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
@@ -136,7 +136,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [SIGSTKFLT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstkflt-deprecated) | 协处理器堆栈故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` |
 | [SIGCHLD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigchld-deprecated) | 子进程状态更改，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGTSTP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigtstp-deprecated) | 终端停止符号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
-| [SIGTTIN <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttin-deprecated) | 后台读取控件 `tty`，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
+| [SIGTTIN <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttin-deprecated) | 后台进程尝试读取终端输入（TTY）时，操作系统发送的信号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGTTOU <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttou-deprecated) | 后台写控制 `tty`，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGURG <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigurg-deprecated) | 紧急情况（套接字），忽略默认操作，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
 | [SIGUSR1 <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigusr1-deprecated) | 用户定义的信号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 | `Linux` `Windows` `macOS` `iOS` |
@@ -155,7 +155,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [S_IFDIR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ifdir-deprecated) | 文件类型为目录，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
 | [S_IFCHR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ifchr-deprecated) | 文件类型为字符设备，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
 | [S_IFIFO <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ififo-deprecated) | 文件类型为 `FIFO` 文件，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
-| [S_IFLNK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iflnk-deprecated) | 文件类型为软连接，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
+| [S_IFLNK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iflnk-deprecated) | 文件类型为软链接，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
 | [S_IFSOCK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ifsock-deprecated) | 文件类型为套接字文件，适用函数 `isType`， 所属函数参数 `mode`。 | `Linux` `Windows` `macOS` `iOS` |
 | [S_IROTH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iroth-deprecated) | 表示其他用户对文件具有读权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 | `Linux` `Windows` `macOS` `iOS` |
 | [S_IRWXG <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_irwxg-deprecated) | 表示文件用户组具有读、写、执行权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 | `Linux` `Windows` `macOS` `iOS` |
