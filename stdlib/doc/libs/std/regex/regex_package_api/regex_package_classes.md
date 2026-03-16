@@ -33,7 +33,7 @@ public init(regex: Regex, input: String)
 public func allCount(): Int64
 ```
 
-功能：获取正则表示式的匹配结果总数。
+功能：获取正则表达式的匹配结果总数。
 
 默认是从头到尾匹配的结果，使用了 setRegion 后只会在设置的范围内查找。
 

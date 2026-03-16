@@ -37,7 +37,7 @@ public static func create(path: Path, recursive!: Bool = false): Unit
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 目录已存在、非递归创建时中间有不存在的目录、权限不足或其他原因导致无法创建目录时，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 目录为空、目录为当前目录、目录为根目录或目录中存在空字符时抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 目录为空、目录为工作目录、目录为根目录或目录中存在空字符时抛出异常。
 
 ### static func create(String, Bool)
 
@@ -57,7 +57,7 @@ public static func create(path: String, recursive!: Bool = false): Unit
 异常：
 
 - [FSException](fs_package_exceptions.md#class-fsexception) - 目录已存在、非递归创建时中间有不存在的目录、权限不足或其他原因导致无法创建目录时，则抛出异常。
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 目录为空、目录为当前目录、目录为根目录或目录中存在空字符时抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 目录为空、目录为工作目录、目录为根目录或目录中存在空字符时抛出异常。
 
 ### static func createTemp(Path)
 
@@ -149,17 +149,17 @@ public static func isEmpty(path: String): Bool
 public static func readFrom(path: Path): Array<FileInfo>
 ```
 
-功能：获取当前目录的子项目列表。
+功能：读取指定路径对应目录下所有子项目的信息。
 
 子项目在数组中的顺序取决于文件在系统中的排序。
 
 参数：
 
-- path: [Path](./fs_package_structs.md#struct-path) - 待读取其子项的目录对应的路径。
+- path: [Path](./fs_package_structs.md#struct-path) - 目录路径。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](fs_package_structs.md#struct-fileinfo)> - 当前目录的子项目列表。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](fs_package_structs.md#struct-fileinfo)> - 包含子项目文件信息的数组。
 
 异常：
 
@@ -172,57 +172,57 @@ public static func readFrom(path: Path): Array<FileInfo>
 public static func readFrom(path: String): Array<FileInfo>
 ```
 
-功能：获取当前目录的子项目列表。
+功能：读取指定路径对应目录下所有子项目的信息。
 
 子项目在数组中的顺序取决于文件在系统中的排序。
 
 参数：
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待读取其子项目的目录对应的路径。
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目录路径。
 
 返回值：
 
-- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](./fs_package_structs.md#struct-fileinfo)> - 当前目录的子项目列表。
+- [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](./fs_package_structs.md#struct-fileinfo)> - 包含子项目文件信息的数组。
 
 异常：
 
 - [FSException](./fs_package_exceptions.md#class-fsexception) - 当指定路径不存在、指定路径不是目录或获取目录的成员信息失败时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当指定路径为空或包含空字符时，抛出异常。
 
-### static func walk(Path, (FileInfo)->Bool)
+### static func walk(Path, (FileInfo) -> Bool)
 
 ```cangjie
-public static func walk(path: Path, f: (FileInfo)->Bool): Unit
+public static func walk(path: Path, f: (FileInfo) -> Bool): Unit
 ```
 
-功能：遍历 path 对应的目录下的子项目（非递归，即不包含子目录的子项目），对每一个子项目执行回调函数。
+功能：遍历指定目录下的子项目（非递归，即不包含子目录的子项目），对每一个子项目执行回调函数。
 
-walk 函数退出条件为遍历结束或回调函数 f 返回 false。遍历顺序取决于文件在系统中的排序。
+该函数退出条件为遍历结束或指定回调函数返回 false。遍历顺序取决于文件在系统中的排序。
 
 参数：
 
-- path: [Path](./fs_package_structs.md#struct-path) - 待遍历的目录对应的路径。
-- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 对每一个子项目执行的回调函数，入参为子项目对应的元信息，返回值表示是否继续遍历。
+- path: [Path](./fs_package_structs.md#struct-path) - 目录路径。
+- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 对每一个子项目执行的回调函数，回调函数入参为子项目对应的元信息，返回值表示是否继续遍历。
 
 异常：
 
 - [FSException](./fs_package_exceptions.md#class-fsexception) - 当指定路径不存在、指定路径不是目录或获取目录的成员信息失败时，抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当指定路径为空或包含空字符时，抛出异常。
 
-### static func walk(String, (FileInfo)->Bool)
+### static func walk(String, (FileInfo) -> Bool)
 
 ```cangjie
-public static func walk(path: String, f: (FileInfo)->Bool): Unit
+public static func walk(path: String, f: (FileInfo) -> Bool): Unit
 ```
 
-功能：遍历 path 对应的目录下的子项目（非递归，即不包含子目录的子项目），对每一个子项目执行回调函数。
+功能：遍历指定目录下的子项目（非递归，即不包含子目录的子项目），对每一个子项目执行回调函数。
 
-walk 函数退出条件为遍历结束或回调函数 f 返回 false。遍历顺序取决于文件在系统中的排序。
+该函数退出条件为遍历结束或指定回调函数返回 false。遍历顺序取决于文件在系统中的排序。
 
 参数：
 
-- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 待遍历的目录对应的路径。
-- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 对每一子项目执行的回调函数，入参为子项目对应的元信息，返回值表示是否继续遍历。
+- path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 目录路径。
+- f: ([FileInfo](./fs_package_structs.md#struct-fileinfo)) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 对每一个子项目执行的回调函数，回调函数入参为子项目对应的元信息，返回值表示是否继续遍历。
 
 异常：
 

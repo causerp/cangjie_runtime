@@ -564,7 +564,7 @@ public func toString(): String
 转换结果如下：
 
 - GT: "[Ordering](core_package_enums.md#enum-ordering).GT"。
-- LT: "[Ordering](core_package_enums.md#enum-ordering).ET"。
+- LT: "[Ordering](core_package_enums.md#enum-ordering).LT"。
 - EQ: "[Ordering](core_package_enums.md#enum-ordering).EQ"。
 
 返回值：

@@ -916,7 +916,7 @@ public let count: UInt32
 public let idle: Duration
 ```
 
-功能：允许连接空闲的时长，空闲超长将关闭连接。
+功能：允许连接空闲的时长，空闲超时将关闭连接。
 
 类型：[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 

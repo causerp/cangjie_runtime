@@ -1,6 +1,6 @@
 # ArrayList 的 get/set 函数
 
-此用例展示了如何使用 get 方法获取 ArrayList 中对应索引的值，以及如何修改值。
+此示例展示了如何使用 get 方法获取 ArrayList 中对应索引的值，以及如何修改值。
 
 代码如下：
 

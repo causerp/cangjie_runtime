@@ -204,7 +204,7 @@ public const O_NOCTTY: Int32
 public const O_NOFOLLOW: Int32
 ```
 
-功能：如 `pathname` 指定的文件是单符号连接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
+功能：如 `pathname` 指定的文件是单符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。不同系统下的值分别为：
 
 - macOS: 0x00000100
 - 其他情况：0x20000
@@ -446,7 +446,7 @@ public const SIGCHLD: Int32
 public const SIGCONT: Int32
 ```
 
-功能：暂停过程的继续，默认操作继续或忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
+功能：暂停进程的继续，默认操作继续或忽略，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。不同系统下的值分别为：
 
 - macOS: 0x13
 - 其他情况：0x12
@@ -727,7 +727,7 @@ public const SIGTSTP: Int32
 public const SIGTTIN: Int32 = 0x15
 ```
 
-功能：后台读取控件 `tty`，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
+功能：后台进程尝试读取终端输入（TTY）时，操作系统发送的信号，默认操作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。
 
 > **注意：**
 >
@@ -918,7 +918,7 @@ public const S_IFIFO: UInt32 = 0x1000
 public const S_IFLNK: UInt32 = 0xA000
 ```
 
-功能：文件类型为软连接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
+功能：文件类型为软链接，适用函数 [isType](posix_package_funcs.md#func-istypestring-uint32-deprecated)， 所属函数参数 `mode`。
 
 > **注意：**
 >

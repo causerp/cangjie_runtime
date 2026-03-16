@@ -128,7 +128,7 @@ Path.fileNameWithoutExtension: 123
 Path.isAbsolute: false; Path.isRelative: true
 ```
 
-## Path 的拼接、判等、转规范化路径等操作
+## Path 的拼接、判等、规范化处理等操作
 
 代码如下：
 <!-- verify -->
@@ -169,7 +169,7 @@ filePath.join: success
 canonicalize filePath: success
 ```
 
-## 通过 Path 创建文件和目录
+## 通过 Path 创建文件与目录
 
 代码如下：
 <!-- verify -->

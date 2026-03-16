@@ -52,9 +52,13 @@ public func canonicalize(path: String): Path
 public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
 ```
 
-功能：实现文件系统的拷贝功能，用于复制文件或目录。
+功能：文件系统的拷贝功能，可复制指定的文件或目录至目标位置。
 
-当目标位置存在且 `overwrite` 为 `true` 时，该函数要求 `sourcePath` 的类型与 `to` 的类型一致，比如，`sourcePath` 的类型是 `Directory`，`to` 的类型也应该是 `Directory`，否则函数会抛出异常 FSException。当前支持的文件类型有文件夹（Directory），常规文件（Regular file），符号链接（SymbolicLink）。
+当前支持的拷贝类型包括：目录（Directory）、常规文件（Regular file）、符号链接（SymbolicLink）。
+
+> **说明：**
+>
+> 若目标位置已存在且开启覆盖模式，要求源路径与目标路径对应的类型保持一致（例如源路径为目录类型则目标路径也需为目录类型，不可为文件类型），类型不一致时将抛出 FSException 异常。
 
 参数：
 
@@ -64,7 +68,7 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果源文件类型和目标文件类型不一致会抛出异常或者 `overwrite` 为 `false` 并且目标地址存在时抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果源文件类型和目标文件类型不一致会抛出异常或者关闭覆盖模式并且目标地址存在时抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
 
 ## func copy(String, String, Bool)
@@ -73,9 +77,13 @@ public func copy(sourcePath: Path, to!: Path, overwrite!: Bool = false): Unit
 public func copy(sourcePath: String, to!: String, overwrite!: Bool = false): Unit
 ```
 
-功能：实现文件系统的拷贝功能，用于复制文件或目录。
+功能：文件系统的拷贝功能，可复制指定的文件或目录至目标位置。
 
-当目标位置存在且 `overwrite` 为 `true` 时，该函数要求 `sourcePath` 的类型与 `to` 的类型一致，比如，`sourcePath` 的类型是 `Directory`，`to` 的类型也应该是 `Directory`，否则函数会抛出异常 FSException。当前支持的文件类型有文件夹（Directory），常规文件（Regular file），符号链接（SymbolicLink）。
+当前支持的拷贝类型包括：目录（Directory）、常规文件（Regular file）、符号链接（SymbolicLink）。
+
+> **说明：**
+>
+> 若目标位置已存在且开启覆盖模式，要求源路径与目标路径对应的类型保持一致（例如源路径为目录类型则目标路径也需为目录类型，不可为文件类型），类型不一致时将抛出 FSException 异常。
 
 参数：
 
@@ -85,7 +93,7 @@ public func copy(sourcePath: String, to!: String, overwrite!: Bool = false): Uni
 
 异常：
 
-- [FSException](fs_package_exceptions.md#class-fsexception) - 如果源文件类型和目标文件类型不一致会抛出异常或者 `overwrite` 为 `false` 并且目标地址存在时抛出异常。
+- [FSException](fs_package_exceptions.md#class-fsexception) - 如果源文件类型和目标文件类型不一致会抛出异常或者关闭覆盖模式并且目标地址存在时抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 路径为空或包含字符串结束符时抛出异常。
 
 ## func exists(Path)

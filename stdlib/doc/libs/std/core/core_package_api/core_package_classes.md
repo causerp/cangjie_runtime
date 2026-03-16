@@ -1387,9 +1387,14 @@ Some(15)
 public func skip(count: Int64): Iterator<T>
 ```
 
-功能：从前往后从当前迭代器跳过特定个数。
+功能：从迭代器中跳过指定数量的元素，并返回处理后的新迭代器。
 
-当 count 小于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回原迭代器。当 count 大于 0 并且 count 小于迭代器的大小时，跳过 count 个元素后，返回含有剩下的元素的新迭代器。当 count 大于等于迭代器的大小时，跳过所有元素，返回空迭代器。
+> **说明：**
+>
+> - 若入参 count < 0，直接抛出异常。
+> - 若 count = 0，不跳过任何元素，直接返回原迭代器。
+> - 若 count > 0 且小于迭代器的元素总数，跳过前 count 个元素后，返回包含剩余元素的新迭代器。
+> - 若 count ≥ 迭代器的元素总数，跳过所有元素，返回空迭代器。
 
 参数：
 
@@ -1677,7 +1682,7 @@ extend<T> Iterator<T> where T <: Equatable<T>
 public func contains(element: T): Bool
 ```
 
-功能：遍历所有元素，判断是否包含指定元素。此方法会重复获取并消耗迭代器中元素直到某个元素与参数 `element` 相等。
+功能：遍历所有元素，判断是否包含指定元素。此方法会重复获取并消耗迭代器中元素直到某个元素与入参元素相等。
 
 参数：
 
@@ -2177,9 +2182,9 @@ public func append(n: UInt8): Unit
 public func appendFromUtf8(arr: Array<Byte>): Unit
 ```
 
-功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入参数 `arr` 指向的字节数组。
+功能：在 [StringBuilder](core_package_classes.md#class-stringbuilder) 末尾插入指定字节数组。
 
-该函数要求参数 `arr` 符合 UTF-8 编码，如果不符合，将抛出异常。
+该函数要求入参符合 UTF-8 编码，如果不符合，将抛出异常。
 
 参数：
 
@@ -2187,7 +2192,7 @@ public func appendFromUtf8(arr: Array<Byte>): Unit
 
 异常：
 
-- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当字节数组不符合 utf8 编码规则时，抛出异常。
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当字节数组不符合 UTF-8 编码规则时，抛出异常。
 
 ### func appendFromUtf8Unchecked(Array\<Byte>)
 
@@ -2209,9 +2214,15 @@ public unsafe func appendFromUtf8Unchecked(arr: Array<Byte>): Unit
 public func reserve(additional: Int64): Unit
 ```
 
-功能：将 [StringBuilder](core_package_classes.md#class-stringbuilder) 扩容 `additional` 大小。
+功能：以指定大小进行扩容。
 
-当 `additional` 小于等于零，或剩余容量大于等于 `additional` 时，不发生扩容；当剩余容量小于 `additional` 时，扩容至当前容量的 1.5 倍（向下取整）与 `size` + `additional` 的最大值。
+> **说明：**
+>
+> - 若入参 additional ≤ 0，不执行任何扩容操作。
+> - 若当前剩余容量 ≥ additional，不进行扩容，直接返回。
+> - 若当前剩余容量 < additional，则按以下两者计算最大者执行扩容：
+>     - 1.原始容量的 1.5 倍（结果向下取整）
+>     - 2.已使用容量 + additional。
 
 参数：
 

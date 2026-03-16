@@ -2210,7 +2210,7 @@ func suggestIntNative(l: IntNative, r: IntNative): IntNative
 参数：
 
 - l: IntNative - 可生成范围的最小值。
-- r IntNative - 可生成范围的最大值。
+- r: IntNative - 可生成范围的最大值。
 
 返回值：
 
