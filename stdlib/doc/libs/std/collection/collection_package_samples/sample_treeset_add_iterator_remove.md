@@ -1,8 +1,8 @@
 # TreeSet 的 add/iterator/remove 函数
 
-此用例展示了 TreeSet 的基本使用方法。
+此示例展示了 TreeSet 的基本使用方法。
 
-代码如下：
+示例：
 
 <!-- verify -->
 

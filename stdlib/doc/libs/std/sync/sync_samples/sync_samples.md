@@ -103,7 +103,7 @@ New thread: after wait
 
 示例：
 
-在不同线程中，使用 `Mutex` 锁和解锁：
+在不同线程中，使用 `Mutex` 加锁和解锁：
 
 <!-- verify -->
 ```cangjie

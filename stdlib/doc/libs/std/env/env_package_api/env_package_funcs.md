@@ -571,7 +571,7 @@ public func setVariable(key: String, value: String): Unit
 
 > **说明：**
 >
-> Windows 下如果传入的参数 v 是空字符串，那么会从环境中移除变量 k。
+> Windows 下如果传入的参数 value 是空字符串，那么会从环境中移除变量 key。
 
 参数：
 
