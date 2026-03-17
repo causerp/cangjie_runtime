@@ -23,7 +23,7 @@ public enum OverflowStrategy <: Equatable<OverflowStrategy> & ToString {
 Saturating
 ```
 
-功能：出现溢出，当前值大于目标类型的 MAX 值，返回目标类型 MAX 值，当前值小于目标类型的 MIN 值，返回目标类型 MIN 值。
+功能：出现溢出，当前值大于目标类型的 MAX 值，返回目标类型 MAX 值；当前值小于目标类型的 MIN 值，返回目标类型 MIN 值。
 
 ### Throwing
 

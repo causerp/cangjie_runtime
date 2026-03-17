@@ -2,7 +2,7 @@
 
 ## FileInfo 一些基础操作演示
 
-代码如下：
+示例：
 <!-- verify -->
 
 ```cangjie

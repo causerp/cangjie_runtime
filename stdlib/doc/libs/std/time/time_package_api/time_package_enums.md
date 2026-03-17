@@ -848,7 +848,7 @@ public operator func +(n: Int64): Month
 
 返回值：
 
-- [Month](time_package_enums.md#enum-month) - `n` 月后的月份。
+- [Month](time_package_enums.md#enum-month) - `n` 个月后的月份。
 
 示例：
 
@@ -892,7 +892,7 @@ main() {
 public operator func -(n: Int64): Month
 ```
 
-功能：计算基于当前日历月份 `n` 个前之后（n 为正数时）的日历月份。若 `n` 为负数，则表示当月之后。
+功能：计算基于当前日历月份 `n` 个月之前（n 为正数时）的日历月份。若 `n` 为负数，则表示当月之后。
 
 参数：
 
@@ -900,7 +900,7 @@ public operator func -(n: Int64): Month
 
 返回值：
 
-- [Month](time_package_enums.md#enum-month) - `n` 月前的月份。
+- [Month](time_package_enums.md#enum-month) - `n` 个月前的月份。
 
 示例：
 

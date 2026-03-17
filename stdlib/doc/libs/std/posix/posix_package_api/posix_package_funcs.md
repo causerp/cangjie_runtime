@@ -1069,7 +1069,7 @@ Current group ID: 1000
 public unsafe func getgroups(size: Int32, gidArray: CPointer<UInt32>): Int32
 ```
 
-功能：获取当前用户所属组的代码。
+功能：获取当前用户所属组的组 ID 列表。
 
 如果 `gidArray` 参数大小的值为零，则函数仅返回表示用户所属的组数，不会向 `gidArray` 中放入 `gid`。
 
@@ -1269,7 +1269,7 @@ Process group ID: 3969041
 public func getpgrp(): Int32
 ```
 
-功能：获取调用进程的父进程 `ID`。
+功能：获取调用进程的进程组 `ID`。
 
 > **注意：**
 >
@@ -1278,7 +1278,7 @@ public func getpgrp(): Int32
 
 返回值：
 
-- [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 返回调用进程的父进程 `ID`。
+- [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 返回调用进程的进程组 `ID`。
 
 示例：
 
@@ -1684,7 +1684,7 @@ Is './test_isfifo_file.txt' a FIFO file: false
 public func isLnk(path: String): Bool
 ```
 
-功能：检查传入对象是否为软链路，返回布尔类型。
+功能：检查传入对象是否为软链接，返回布尔类型。
 
 > **注意：**
 >

@@ -1185,7 +1185,7 @@ None
 public func contains(key: K): Bool
 ```
 
-功能：判断此映射中是否包含指定键 key 的映射。
+功能：判断此映射中是否包含指定键的映射。
 
 参数：
 
@@ -1193,7 +1193,7 @@ public func contains(key: K): Bool
 
 返回值：
 
-- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否包含指定键 key 的映射，包含为 true，不包含为 false。
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否包含指定键的映射，包含为 true，不包含为 false。
 
 示例：
 
@@ -2480,7 +2480,7 @@ public func iterator(): Iterator<E>
 > **说明：**
 >
 > 遍历操作不会删除队列中的元素。
-> 遍历操作不保证原子性，如果有其他线程并发修改当前队列，不保遍历得到的元素是当前队列某一时刻的静态切片。
+> 遍历操作不保证原子性，如果有其他线程并发修改当前队列，不保证遍历得到的元素是当前队列某一时刻的静态切片。
 
 返回值：
 

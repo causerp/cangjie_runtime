@@ -133,7 +133,7 @@ public func next(bits: UInt64): UInt64
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0 ，或大于 64，超过所能截取的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 长度，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0 ，或大于 64，超过 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 所能表示的长度，则抛出异常。
 
 示例：
 
@@ -174,7 +174,7 @@ public func nextBits(bits: UInt64): UInt64
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，超过所能截取的 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 长度，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `bits` 等于 0，或大于 64，超过 [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) 所能表示的长度，则抛出异常。
 
 示例：
 

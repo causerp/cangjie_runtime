@@ -32,12 +32,12 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [fchownat(Int32, String, UInt32, UInt32, Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-fchownatint32-string-uint32-uint32-int32-deprecated) | 修改文件描述符对应的文件所有者和文件所有者所属组。 |
 | [getcwd() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getcwd-deprecated) | 获取当前执行进程工作目录的绝对路径。 |
 | [getgid() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getgid-deprecated) | 获取用户组 `ID`。 |
-| [getgroups(Int32, CPointer\<UInt32>) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getgroupsint32-cpointeruint32-deprecated) | 获取当前用户所属组的代码。 |
+| [getgroups(Int32, CPointer\<UInt32>) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getgroupsint32-cpointeruint32-deprecated) | 获取当前用户所属组的组 ID 列表。 |
 | [gethostname() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-gethostname-deprecated) | 获取主机名称，此名称通常是 `TCP/IP` 网络上主机的名称。 |
 | [getlogin() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getlogin-deprecated) | 获取当前登录名。 |
 | [getos() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getos-deprecated) | 从 `/proc/version` 文件中获取 `Linux` 系统的信息。 |
 | [getpgid(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpgidint32-deprecated) | 获取 `pid` 指定的进程的 `PGID`，如果 `pid` 为零，返回调用进程的进程 `ID`。 |
-| [getpgrp() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpgrp-deprecated) | 获取调用进程的父进程 `ID`。 |
+| [getpgrp() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpgrp-deprecated) | 获取调用进程的进程组 `ID`。 |
 | [getpid() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpid-deprecated) | 获取调用进程的进程 `ID(PID)`。 |
 | [getppid() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getppid-deprecated) | 获取调用进程的父进程 `ID`。 |
 | [getuid() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getuid-deprecated) | 获取调用进程的真实用户 `ID`。 |
@@ -45,7 +45,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [isChr(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-ischrstring-deprecated) | 检查传入对象是否为字符设备，返回布尔类型。 |
 | [isDir(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-isdirstring-deprecated) | 检查传入对象是否为文件夹，返回布尔类型。 |
 | [isFIFO(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-isfifostring-deprecated) | 检查传入对象是否为 `FIFO` 文件，返回布尔类型。 |
-| [isLnk(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-islnkstring-deprecated) | 检查传入对象是否为软链路，返回布尔类型。 |
+| [isLnk(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-islnkstring-deprecated) | 检查传入对象是否为软链接，返回布尔类型。 |
 | [isReg(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-isregstring-deprecated) | 检查传入对象是否为普通文件，返回布尔类型。 |
 | [isSock(String) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-issockstring-deprecated) | 检查传入对象是否为套接字文件，返回布尔类型。 |
 | [isType(String, UInt32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-istypestring-uint32-deprecated) | 检查文件是否为指定模式的文件。 |
@@ -86,9 +86,9 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 
 | 常量名 | 功能 |
 | ------------ | ------------ |
-| [AT_EMPTY_PATH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_empty_path-deprecated) | 表示在文件系统中空路径（即没有指定任何文件或目录）时返回的文件描述符，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
+| [AT_EMPTY_PATH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_empty_path-deprecated) | 表示允许空路径作为路径名参数的标志，用于引用文件描述符本身，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [AT_FDCWD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_fdcwd-deprecated) | 表示在文件系统中相对路径操作的特殊文件描述符常量，用于在使用 `*at()` 系列系统调用时指定相对路径的解析起点。主要用于 `fchmodat`、 `fchownat`、`linkat`、`renameat`、`symlinkat`、`unlinkat` 等函数，所属函数参数 `fd`。 |
-| [AT_REMOVEDIR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_removedir-deprecated) | 如果指定了 `AT_REMOVEDIR` 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
+| [AT_REMOVEDIR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_removedir-deprecated) | 如果指定了 `AT_REMOVEDIR` 标志，则对 `pathname` 执行等效于 `rmdir(2)` 的操作，适用函数 `unlinkat`，所属函数参数 `ulflag`。 |
 | [AT_SYMLINK_FOLLOW <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-at_symlink_follow-deprecated) | 表示一个用于控制符号链接解析行为的标志，指定在操作符号链接时是否跟随链接指向的目标文件。通常与 `AT_FDCWD` 结合使用。若无该标志，大多数系统调用会直接操作符号链接本身（如读取链接路径）。使用该标志后，系统调用会先解析符号链接，然后操作其指向的目标文件。主要用于 `linkat`、`unlinkat` 等函数，所属函数参数 `fd`。 |
 | [O_CLOEXEC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_cloexec-deprecated) | 在某些多线程程序中，使用此标志是必不可少的。因为在一个线程同时打开文件描述符，而另一个线程执行 `fork(2)` 加 `execve(2)` 场景下使用单独的 `fcntl(2)` `F_SETFD` 操作设置 `FD_CLOEXEC` 标志并不足以避免竞争条件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_DIRECTORY <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_directory-deprecated) | 如果 `pathname` 指定的文件不是目录，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
@@ -96,13 +96,13 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [O_DSYNC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_dsync-deprecated) | 每次写入都会等待物理 `I/O` 完成，但如果写操作不影响读取刚写入的数据，则不等待文件属性更新，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_EXCL <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_excl-deprecated) | 如同时设置 `O_CREAT`，则此指令检查文件是否存在。如果文件不存在，则创建文件。否则，打开文件出错。此外，如果同时设置了 `O_CREAT` 和 `O_EXCL`，并且要打开的文件是符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_NOCTTY <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_noctty-deprecated) | 如要打开的文件是终端设备，则该文件不会成为这个进程的控制终端，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
-| [O_NOFOLLOW <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_nofollow-deprecated) | 如 `pathname` 指定的文件是单符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
+| [O_NOFOLLOW <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_nofollow-deprecated) | 如 `pathname` 指定的文件是符号链接，则打开文件失败，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_NONBLOCK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_nonblock-deprecated) | 以非阻塞的方式打开文件，即 `I/O` 操作不会导致调用进程等待，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_SYNC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_sync-deprecated) | 同步打开文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_RDONLY <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_rdonly-deprecated) | 以只读方式打开文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_RDWR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_rdwr-deprecated) | 以读写模式打开文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_WRONLY <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_wronly-deprecated) | 以只写方式打开文件，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
-| [O_APPEND <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_append-deprecated) | 读取或写入文件时，数据将从文件末尾移动。即写入的数据将附加到文件的末尾，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
+| [O_APPEND <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_append-deprecated) | 读取或写入文件时，数据将被写入到文件末尾，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_RSYNC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_rsync-deprecated) | 此标志仅影响读取操作，必须与 `O_SYNC` 或 `O_DSYNC` 结合使用。如果有必要，它将导致读取调用阻塞，直到正在读取的数据（可能还有元数据）刷新到磁盘，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [O_TRUNC <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-o_trunc-deprecated) | 如果文件存在且打开可写，则此标志将文件长度清除为 0，文件中以前存储的数据消失，适用函数 `open`、`open64`、`openat`、`openat64`，所属函数参数 `oflag`。 |
 | [R_OK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-r_ok-deprecated) | 测试文件读权限，适用函数 `access`，`faccessat`，所属函数参数 `mode`。 |
@@ -116,37 +116,37 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [SIGBUS <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigbus-deprecated) | 硬件故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGFPE <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigfpe-deprecated) | 算术错误，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGKILL <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigkill-deprecated) | 终止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGCONT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigcont-deprecated) | 暂停过程的继续，默认操作继续或忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGHUP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sighup-deprecated) | 连接已断开，默认操作已终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGCONT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigcont-deprecated) | 继续暂停的进程，默认操作继续或忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGHUP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sighup-deprecated) | 挂起信号，当终端断开连接时发送，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGINT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigint-deprecated) | 终端中断字符，默认动作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGQUIT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigquit-deprecated) | 终端退出字符，默认动作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGILL <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigill-deprecated) | 硬件指令无效，默认动作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGTRAP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigtrap-deprecated) | 硬件故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGIOT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigiot-deprecated) | 硬件故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGIO <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigio-deprecated) | 异步 `IO`，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGTRAP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigtrap-deprecated) | 跟踪/断点陷阱，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGIOT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigiot-deprecated) | IOT 陷阱信号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGIO <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigio-deprecated) | 异步 `IO`，默认操作忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGPIPE <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigpipe-deprecated) | 写入未读进程的管道，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGALRM <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigalrm-deprecated) | 计时器到期，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGPWR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigpwr-deprecated) | 电源故障或重启，系统调用无效，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGSEGV <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigsegv-deprecated) | 内存引用无效，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGSTOP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstop-deprecated) | 停止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGSYS <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigsys-deprecated) | 终止，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGSTOP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstop-deprecated) | 停止，默认操作停止进程，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGSYS <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigsys-deprecated) | 非法系统调用，默认操作终止进程并生成核心转储文件（core dump），用于调试分析，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGTERM <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigterm-deprecated) | 终止，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGSTKFLT <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigstkflt-deprecated) | 协处理器堆栈故障，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGCHLD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigchld-deprecated) | 子进程状态更改，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGTSTP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigtstp-deprecated) | 终端停止符号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGTTIN <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttin-deprecated) | 后台读取控件 `tty`，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGTTOU <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttou-deprecated) | 后台写控制 `tty`，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGURG <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigurg-deprecated) | 紧急情况（套接字），忽略默认操作，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGCHLD <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigchld-deprecated) | 子进程状态更改，默认操作忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGTSTP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigtstp-deprecated) | 终端停止符号，默认操作停止进程，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGTTIN <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttin-deprecated) | 后台读取控件 `tty`，默认操作停止进程，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGTTOU <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigttou-deprecated) | 后台写控制 `tty`，默认操作停止进程，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGURG <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigurg-deprecated) | 紧急情况（套接字），默认操作忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGUSR1 <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigusr1-deprecated) | 用户定义的信号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGUSR2 <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigusr2-deprecated) | 用户定义的信号，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGVTALRM <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigvtalrm-deprecated) | 虚拟时间警报，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGPROF <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigprof-deprecated) | 摘要超时，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
-| [SIGWINCH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigwinch-deprecated) | 终端窗口大小更改，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
+| [SIGWINCH <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigwinch-deprecated) | 终端窗口大小更改，默认操作忽略，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGXCPU <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigxcpu-deprecated) | `CPU` 占用率超过上限，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [SIGXFSZ <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-sigxfsz-deprecated) | 文件长度超过上限，默认操作终止，适用函数 `kill`，`killpg`，所属函数参数 `sig`。 |
 | [S_IRUSR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_irusr-deprecated) | 表示文件所有者具有读权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 |
 | [S_IWUSR <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iwusr-deprecated) | 表示文件所有者具有写权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 |
-| [S_IRGRP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iwgrp-deprecated) | 表示文件用户组具有读权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 |
+| [S_IRGRP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_irgrp-deprecated) | 表示文件用户组具有读权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 |
 | [S_IWGRP <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_iwgrp-deprecated) | 表示文件用户组具有写权限，适用函数 `open`，`open64`，`openat`，`openat64`，`chmod(mode)`，`fchmod(mode)`，`fchmodat(mode)`，`creat`， 所属函数参数 `flag`。 |
 | [S_IFREG <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ifreg-deprecated) | 文件类型为一般文件，适用函数 `isType`， 所属函数参数 `mode`。 |
 | [S_IFBLK <sup>(deprecated)</sup>](./posix_package_api/posix_package_constants_vars.md#const-s_ifblk-deprecated) | 文件类型为块设备，适用函数 `isType`， 所属函数参数 `mode`。 |

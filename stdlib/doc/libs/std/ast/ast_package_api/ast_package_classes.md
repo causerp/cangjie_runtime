@@ -4532,8 +4532,8 @@ Visiting FeatureId
 
 ```cangjie
 public class FeaturesDirective <: Node {
+    public init(inputs: Tokens)
     public init()
-    public init(input: Tokens)
 }
 ```
 
@@ -4746,7 +4746,6 @@ Visiting FeaturesDirective
 ```cangjie
 public class FeaturesSet <: Node {
     public init()
-    public init(input: Tokens)
 }
 ```
 
