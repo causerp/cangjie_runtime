@@ -71,6 +71,23 @@ public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int6
     return (astNode, count)
 }
 
+/**
+ * @throws ASTException if input tokens cannot be parsed to a FuncParam node.
+ */
+func parseFuncParam(input: Tokens): FuncParam {
+    var params = ArrayList<FuncParam>()
+    try {
+        let tokens = quote(foo($(input)){})
+        params = PrimaryCtorDecl(tokens).funcParams
+    } catch (_: ASTException) {
+        throw ASTException("Cannot construct the 'FuncParam' node.")
+    }
+    if (params.size == 0) {
+        throw ASTException("Cannot construct the 'FuncParam' node.")
+    }
+    params[0]
+}
+
 func generateDeclAST(declNode: Option<NodeFormat_Decl>): Decl {
     var decl = match (declNode) {
         case Some(v) => v
@@ -352,10 +369,6 @@ func createFuncParam(decl: NodeFormat_Decl): Decl {
 
 func createMacroExpandParam(decl: NodeFormat_Decl): Decl {
     let pm = match (decl.GetDeclAsMacroExpandParam()) {
-        case Some(v) => v
-        case None => throw ParseASTException()
-    }
-    let fp =  match (pm.GetBase()) {
         case Some(v) => v
         case None => throw ParseASTException()
     }
