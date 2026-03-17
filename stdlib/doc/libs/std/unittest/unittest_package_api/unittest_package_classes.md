@@ -2236,7 +2236,7 @@ main() {
 ### XmlPerPackageReporter(Path)
 
 ```cangjie
-public XmlReporter(let directory: Path)
+public XmlPerPackageReporter(let directory: Path)
 ```
 
 功能：XmlPerPackageReporter 构造函数。
