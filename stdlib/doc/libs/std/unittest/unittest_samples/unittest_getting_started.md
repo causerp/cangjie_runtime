@@ -66,7 +66,7 @@ cjc add.cj add_test.cj --test -o add_test
 ```
 
 注意，对于复杂项目来说，不建议直接运行 `cjc` 编译器。
-对于结构庞大的大型项目，建议使用 `cjpm` 包管理器。
+对于结构庞大的大型项目，建议使用 `cjpm` 项目管理器。
 以 `cjpm` 项目测试为例。
 
 首先创建一个简单的 `cjpm` 项目，其中包含一个名为 `example` 的包。
@@ -87,7 +87,7 @@ cjc add.cj add_test.cj --test -o add_test
 cjpm init --name example
 ```
 
-`cjpm` 包管理器内置支持运行单元测试，所以直接运行即可：
+`cjpm` 项目管理器内置支持运行单元测试，所以直接运行即可：
 
 ```bash
 cjpm test
