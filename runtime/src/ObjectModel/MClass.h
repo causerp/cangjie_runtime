@@ -220,14 +220,13 @@ private:
 };
 struct MTableDesc {
     std::unordered_map<U32, InheritFuncTable> mTable;
-    std::vector<BaseFile*> waitedExtensionDatas;
     MTableBitmap mTableBitmap;
     std::recursive_mutex mTableMutex;
     bool pending = false;
     bool needsResolveInner = true;
     explicit MTableDesc(BIT_TYPE bitmap_);
     MTableDesc() = delete;
-    bool IsFullyHandled() const { return !NeedResolveInner() && waitedExtensionDatas.empty(); };
+    bool IsFullyHandled() const { return !NeedResolveInner(); };
     inline bool NeedResolveInner() const { return needsResolveInner; }
 };
 

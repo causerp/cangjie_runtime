@@ -157,9 +157,6 @@ void TypeInfo::TryInitMTable()
 MTableDesc::MTableDesc(BIT_TYPE bitmap_)
 {
     mTableBitmap.tag = bitmap_;
-    LoaderManager::GetInstance()->GetLoader()->VisitExtensionData(
-        [this](BaseFile* baseFile) { waitedExtensionDatas.emplace_back(baseFile); }
-    );
 }
 
 void TypeInfo::TryInitMTableNoLock()
