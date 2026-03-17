@@ -307,19 +307,27 @@ function(make_cangjie_lib target_name)
             endif()
         endforeach()
 
-        add_custom_target(
-            ${target_name} ALL
+        cj_resolve_depends(resolved_depends
+            ${CANGJIE_LIBRARY_DEPENDS}
+            ${CANGJIE_LIBRARY_CANGJIE_STD_LIB_DEPENDS}
+            ${CANGJIE_LIBRARY_CANGJIE_STD_LIB_INDIRECT_DEPENDS})
+
+        add_custom_command(
+            OUTPUT ${target_lib_full_name}
             COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/lib/${output_std_cj_lib_dir}
             COMMAND ${CMAKE_COMMAND} -E env ${set_env_path} ${clang_compiler} ${CANGJIE_LIBRARY_OBJECTS} ${force_link_archives_option}
                     ${CANGJIE_LIBRARY_FLAGS}  ${link_std_libraries_flag} ${flags_to_compile} -o ${target_lib_full_name}
-            BYPRODUCTS ${target_lib_full_name}
             DEPENDS
-                ${CANGJIE_LIBRARY_DEPENDS}
-                ${CANGJIE_LIBRARY_CANGJIE_STD_LIB_DEPENDS}
-                ${CANGJIE_LIBRARY_CANGJIE_STD_LIB_INDIRECT_DEPENDS}
+                ${resolved_depends}
                 ${CANGJIE_LIBRARY_OBJECTS}
                 boundscheck
             COMMENT "Generating ${target_lib_full_name}")
+
+        add_custom_target(
+            ${target_name} ALL
+            DEPENDS ${target_lib_full_name})
+
+        set_target_properties(${target_name} PROPERTIES CJ_LIB_OUTPUT_FILE ${target_lib_full_name})
     else()
         message(FATAL_ERROR "only support SHARED or EXE for now")
     endif()
