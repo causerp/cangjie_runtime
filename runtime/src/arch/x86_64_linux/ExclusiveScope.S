@@ -138,7 +138,13 @@ unwindPCForExclusiveStub:
     movq    -88(%rbp), %r12             // thread
     leaq    THREAD_CONTEXT_OFFSET(%r12), %r15
     
-    movq    CONTEXT_RSP(%r15), %rsp
+    movq    CONTEXT_RSP(%r15), %r11
+    testq   %r11, %r11
+    jz      .L_exc_skip_stack_switch
+    js      .L_exc_skip_stack_switch
+    cmpq    $0x1000, %r11
+    jb      .L_exc_skip_stack_switch
+    movq    %r11, %rsp
     ldmxcsr CONTEXT_MXCSR(%r15)
     fldcw   CONTEXT_FPU_CW(%r15)
 
