@@ -64,7 +64,6 @@ public:
     void GetSubPackages(PackageInfo* packageInfo, std::vector<PackageInfo*> &subPackages) override;
     void VisitExtensionData(
         TypeInfo* ti, const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const override;
-    void VisitExtensionData(const std::function<void(BaseFile*)>& f) const override;
     bool CheckPackageCompatibility(BaseFile* file) override;
     void TryThrowException(Uptr fileMetaAddr) override;
     BaseFile* GetBaseFileByMetaAddr(Uptr fileMetaAddr);
@@ -108,7 +107,6 @@ private:
     std::mutex lazyStaticGIMutex;
     std::vector<TypeInfo*> staticGIs;
     CjSemanticVersion compatibility;
-    bool lastIsFinished = true;
 };
 } // namespace MapleRuntime
 #endif // MRT_CJ_FILE_LOADER_H
