@@ -41,7 +41,7 @@ func lcmTest() {
     println("a=${a}")
 }
 
-// 整数按二进制某一位前后翻转
+// 整数按二进制某一位前后旋转
 func rotateTest() {
     let a: Int8 = rotate(Int8(92), Int8(4))
     println("a=${a}")

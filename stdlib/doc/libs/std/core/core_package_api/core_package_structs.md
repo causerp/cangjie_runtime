@@ -6553,7 +6553,7 @@ Comparing 'apple' to 'apple': Ordering.EQ
 public func contains(str: String): Bool
 ```
 
-功能：判断原字符串中是否包含字符串 str。
+功能：判断原字符串中是否包含指定字符串。
 
 参数：
 
@@ -6561,7 +6561,7 @@ public func contains(str: String): Bool
 
 返回值：
 
-- [Bool](core_package_intrinsics.md#bool) - 如果字符串 str 在原字符串中，返回 true，否则返回 false。特别地，如果 str 字符串长度为 0，返回 true。
+- [Bool](core_package_intrinsics.md#bool) - 如果指定字符串在原字符串中，返回 true，否则返回 false。特别地，如果指定字符串长度为 0，返回 true。
 
 示例：
 

@@ -1,8 +1,8 @@
 # ArrayList 的 remove/clear/slice 函数
 
-此用例展示了 ArrayList 的 remove/clear/slice 函数的使用方法。
+此示例展示了 ArrayList 的 remove/clear/slice 函数的使用方法。
 
-代码如下：
+示例：
 
 <!-- verify -->
 
