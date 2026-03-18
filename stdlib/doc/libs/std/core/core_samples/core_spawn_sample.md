@@ -24,7 +24,7 @@ main(): Int64 {
 }
 ```
 
-运行结果：
+可能的运行结果：
 
 ```text
 Main thread, number = 0
@@ -39,12 +39,6 @@ Main thread, number = 4
 New thread, number = 4
 New thread, number = 5
 ```
-
-> **注意：**
->
-> 上述打印信息仅供参考，实际结果受运行时序影响，呈现随机性。
->
-> 由于主线程不会等待新线程执行结束，因此程序退出时新线程并未执行结束。
 
 ## Future 的 get 的使用
 

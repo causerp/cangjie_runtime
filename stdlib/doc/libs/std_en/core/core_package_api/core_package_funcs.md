@@ -305,6 +305,7 @@ Output:
 Result: 42
 Executing in exclusive scope
 ```
+<!--DelEnd-->
 
 ## func ifNone\<T>(Option\<T>, () -> Unit)
 

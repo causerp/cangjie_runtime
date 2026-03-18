@@ -656,7 +656,7 @@ public class SqlBigInt <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -778,7 +778,7 @@ public class SqlBinary <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -912,7 +912,7 @@ public class SqlBlob <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1049,7 +1049,7 @@ public class SqlBool <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1171,7 +1171,7 @@ public class SqlByte <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1293,7 +1293,7 @@ public class SqlChar <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1415,7 +1415,7 @@ public class SqlClob <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1552,7 +1552,7 @@ public class SqlDate <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1681,7 +1681,7 @@ public class SqlDecimal <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1810,7 +1810,7 @@ public class SqlDouble <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -1932,7 +1932,7 @@ public class SqlInteger <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2054,7 +2054,7 @@ public class SqlInterval <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2183,7 +2183,7 @@ public class SqlNullableBigInt <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2305,7 +2305,7 @@ public class SqlNullableBinary <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2431,7 +2431,7 @@ public class SqlNullableBlob <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2570,7 +2570,7 @@ public class SqlNullableBool <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2692,7 +2692,7 @@ public class SqlNullableByte <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2814,7 +2814,7 @@ public class SqlNullableChar <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -2936,7 +2936,7 @@ public class SqlNullableClob <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3076,7 +3076,7 @@ public class SqlNullableDate <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3203,7 +3203,7 @@ public class SqlNullableDecimal <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3331,7 +3331,7 @@ public class SqlNullableDouble <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3453,7 +3453,7 @@ public class SqlNullableInteger <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3575,7 +3575,7 @@ public class SqlNullableInterval <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3699,7 +3699,7 @@ public class SqlNullableReal <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3821,7 +3821,7 @@ public class SqlNullableSmallInt <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -3943,7 +3943,7 @@ public class SqlNullableTime <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -4076,7 +4076,7 @@ public class SqlNullableTimestamp <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -4206,7 +4206,7 @@ public class SqlNullableTimeTz <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -4336,7 +4336,7 @@ public class SqlNullableVarBinary <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -4466,7 +4466,7 @@ public class SqlNullableVarchar <: SqlNullableDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5323,7 +5323,7 @@ public class SqlReal <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5445,7 +5445,7 @@ public class SqlSmallInt <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5567,7 +5567,7 @@ public class SqlTime <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5690,7 +5690,7 @@ public class SqlTimestamp <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5810,7 +5810,7 @@ public class SqlTimeTz <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -5930,7 +5930,7 @@ public class SqlVarBinary <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 
@@ -6049,7 +6049,7 @@ public class SqlVarchar <: SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用仓颉原生类型替代。
+> 未来版本即将废弃，使用仓颉原生类型替代。
 
 父类型：
 

@@ -390,7 +390,7 @@ public prop monthValue: Int64
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -2367,7 +2367,7 @@ public func toString(format: DateTimeFormat): String
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 参数：
 
