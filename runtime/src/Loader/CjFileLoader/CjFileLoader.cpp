@@ -140,7 +140,6 @@ void CJFileLoader::VisitExtensionData(
     TypeInfo* ti, const std::function<bool(ExtensionData* ed)>& f, TypeTemplate* tt) const
 {
     ti->TryInitMTable();
-    auto mtDesc = ti->GetMTableDesc();
     CHECK(loadedFiles.size() >= extensionDatas.size());
     for (auto baseFile : loadedFiles) {
         auto it1 = extensionDatas.find(baseFile);

@@ -11,6 +11,8 @@
 #          Please use `source' command to execute this script. **
 
 # Get the absolute path of the current folder
+set -e
+
 shell_path=$(readlink -f /proc/$$/exe)
 shell_name=${shell_path##*/}
 
