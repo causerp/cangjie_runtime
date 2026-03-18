@@ -355,7 +355,7 @@ func next(values: Array<SqlDbType>): Bool
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，可使用 [next()](database_sql_package_interfaces.md#func-next) 替代。
+> 未来版本即将废弃，可使用 [next()](database_sql_package_interfaces.md#func-next) 替代。
 
 参数：
 
@@ -377,7 +377,7 @@ public interface SqlDbType {
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 要扩展用户定义的类型，请继承 [SqlDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqldbtype-deprecated) 或 [SqlNullableDbType <sup>(deprecated)</sup>](database_sql_package_interfaces.md#interface-sqlnullabledbtype-deprecated)。
 
@@ -409,7 +409,7 @@ public interface SqlNullableDbType <: SqlDbType {}
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 如果为 `null` 值，`value` 属性值为 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont).None。
 
@@ -476,7 +476,7 @@ func query(params: Array<SqlDbType>): QueryResult
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，可使用 query() 替代。
+> 未来版本即将废弃，可使用 query() 替代。
 
 参数：
 
@@ -554,7 +554,7 @@ func update(params: Array<SqlDbType>): UpdateResult
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，可使用 update() 替代。
+> 未来版本即将废弃，可使用 update() 替代。
 
 参数：
 

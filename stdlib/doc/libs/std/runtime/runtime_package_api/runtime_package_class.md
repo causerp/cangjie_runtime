@@ -264,14 +264,14 @@ public const init(value: Int32, comment: String)
 
 功能：创建信号。
 
+> **注意：**
+>
+> 不支持平台：Windows。
+
 参数：
 
 - value: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - 信号值。
 - comment: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 信号描述。
-
-> **注意：**
->
-> 不支持平台：Windows。
 
 示例：
 

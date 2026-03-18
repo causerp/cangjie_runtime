@@ -2928,7 +2928,7 @@ public init()
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，可使用 [acquireArrayRawData](./core_package_funcs.md#func-acquirearrayrawdatatarrayt-where-t--ctype) 函数构造 CPointerHandle 实例。
+> 未来版本即将废弃，可使用 [acquireArrayRawData](./core_package_funcs.md#func-acquirearrayrawdatatarrayt-where-t--ctype) 函数构造 CPointerHandle 实例。
 
 示例：
 
@@ -2960,14 +2960,14 @@ public init(ptr: CPointer<T>, arr: Array<T>)
 
 功能：通过传入的 [CPointer](core_package_intrinsics.md#cpointert) 和 [Array](core_package_structs.md#struct-arrayt) 初始化一个 [CPointerHandle](core_package_structs.md#struct-cpointerhandlet-where-t--ctype)。
 
+> **注意：**
+>
+> 未来版本即将废弃，可使用 [acquireArrayRawData](./core_package_funcs.md#func-acquirearrayrawdatatarrayt-where-t--ctype) 函数构造 CPointerHandle 实例。
+
 参数：
 
 - ptr: [CPointer](core_package_intrinsics.md#cpointert)\<T> - 数组原始指针。
 - arr: [Array](core_package_structs.md#struct-arrayt)\<T> - 指针对应的仓颉数组。
-
-> **注意：**
->
-> 未来版本即将废弃不再使用，可使用 [acquireArrayRawData](./core_package_funcs.md#func-acquirearrayrawdatatarrayt-where-t--ctype) 函数构造 CPointerHandle 实例。
 
 示例：
 

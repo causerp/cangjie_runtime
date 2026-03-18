@@ -230,13 +230,13 @@ func sortDescending(stable!: Bool): Unit
 
 功能：依据传入的参数，实现对应类型的稳定或非稳定降序排序。
 
-参数：
-
-- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
-
 > **注意：**
 >
 > 未来版本即将废弃。
+
+参数：
+
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
 
 ### extend\<T> Array\<T> <: SortExtension where T <: Comparable\<T> <sup>(deprecated)</sup>
 

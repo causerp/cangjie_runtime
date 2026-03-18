@@ -708,6 +708,10 @@ public static func capture<T>(listener: ValueListener<T>): TypedMatcher<T>
 
 功能：允许 listener 值监听器对类型为 T 的传入参数值进行处理。当 capture 的类型参数未指定时，将使用值监听器的类型参数值。
 
+> **注意：**
+>
+> 值监听器不允许在 @Called 的参数范围内使用。
+
 参数：
 
 - listener: [ValueListener](unittest_mock_package_interfaces.md#interface-valuelistenert)\<T> - 值监听器。
@@ -715,8 +719,6 @@ public static func capture<T>(listener: ValueListener<T>): TypedMatcher<T>
 返回值：
 
 - [TypedMatcher](#class-typedmatchert)\<T> - 拥有值监听器的类型匹配器。
-
-注意：值监听器不允许在 @Called 的参数范围内使用。
 
 ### static func default\<T>(T)
 
