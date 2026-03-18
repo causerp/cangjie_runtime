@@ -3885,7 +3885,7 @@ public prop localAddr: RawAddress
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用 [localAddress](#prop-localaddress) 替代。
+> 未来版本即将废弃，使用 [localAddress](#prop-localaddress) 替代。
 
 类型：[RawAddress](net_package_structs.md#struct-rawaddress)
 
@@ -3978,7 +3978,7 @@ public prop remoteAddr: RawAddress
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，使用 [remoteAddress](#prop-remoteaddress) 替代。
+> 未来版本即将废弃，使用 [remoteAddress](#prop-remoteaddress) 替代。
 
 类型：[RawAddress](net_package_structs.md#struct-rawaddress)
 

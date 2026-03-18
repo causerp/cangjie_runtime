@@ -243,6 +243,10 @@ public mut prop causedBy: ?Exception
 
 功能：异常的触发原因。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+
 类型：?[Exception](core_package_exceptions.md#class-exception)
 
 示例：
@@ -281,10 +285,6 @@ func throwCause() {
 Exception: 这是一个异常
 Exception: 这是一个cause
 ```
-
-> **注意：**
->
-> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### prop message
@@ -346,6 +346,10 @@ public init(causedBy: Exception)
 
 功能：根据触发原因构造一个 [Exception](core_package_exceptions.md#class-exception) 实例，异常信息为空。
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+
 参数：
 
 - causedBy: [Exception](core_package_exceptions.md#class-exception) - 触发原因。
@@ -384,10 +388,6 @@ func throwCause() {
 Exception
 Exception: 这是一个cause
 ```
-
-> **注意：**
->
-> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### init(String)
@@ -420,6 +420,10 @@ public init(message: String, causedBy: Exception)
 ```
 
 功能：根据异常信息和触发原因构造一个 [Exception](core_package_exceptions.md#class-exception) 实例。
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
 
 参数：
 
@@ -467,10 +471,6 @@ Caused by: Exception: 这是一个cause
 	 at default::throwException()(/tmp/test-exception-chain.cj:13)
 	 ... 1 more
 ```
-
-> **注意：**
->
-> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### func getStackTrace()
@@ -619,6 +619,7 @@ main() {
     }
 }
 ```
+<!--DelEnd-->
 
 ## class IllegalArgumentException
 

@@ -979,15 +979,11 @@ public static func of(elements: Array<T>): ArrayList<T>
 
 参数：
 
-- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 传入数组，变长参数语法支持参数省略数组字面量的 `[]` 。
+- elements: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - 传入数组。
 
 返回值：
 
 - [ArrayList](#class-arraylistt)\<T> - 元素为 T 类型的 ArrayList。
-
-> **说明：**
->
-> 此函数的参数可使用变长参数方式提供，例如： `ArrayList.of(1, 2, 3)` 等价于 `ArrayList.of([1, 2, 3])` 。
 
 示例：
 
@@ -3108,13 +3104,13 @@ public func sort(stable!: Bool): Unit
 
 功能：将当前数组内元素以升序的方式排序。
 
-参数：
-
-- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
-
 > **注意：**
 >
 > 未来版本即将废弃，使用 [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) 替代。
+
+参数：
+
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
 
 示例：
 
@@ -3189,13 +3185,13 @@ public func sortDescending(stable!: Bool): Unit
 
 功能：将当前数组内元素以降序的方式排序。
 
-参数：
-
-- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
-
 > **注意：**
 >
 > 未来版本即将废弃，使用 [sort](../../sort/sort_package_api/sort_package_funcs.md#func-sorttlistt-bool-bool-where-t--comparablet) 替代。
+
+参数：
+
+- stable!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 是否使用稳定排序。
 
 示例：
 
@@ -13552,10 +13548,6 @@ public static func of(elements: Array<T>): TreeSet<T>
 返回值：
 
 - [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> - 元素为 T 类型的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
-
-> **说明：**
->
-> 此函数的参数可使用变长参数方式提供，例如： `TreeSet.of(1, 2, 3)` 等价于 `TreeSet.of([1, 2, 3])` 。
 
 示例：
 
