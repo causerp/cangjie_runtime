@@ -167,7 +167,7 @@ public prop format: String
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -211,7 +211,7 @@ public static func of(format: String): DateTimeFormat
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用。
+> 未来版本即将废弃。
 
 参数：
 

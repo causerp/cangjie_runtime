@@ -543,6 +543,10 @@ public func print(f: Float16, flush!: Bool = false): Unit
 
 功能：向控制台输出 [Float16](core_package_intrinsics.md#float16) 类型数据的小数点后六位的字符串表达，即超出六位的小数位不会输出，不足六位的小数位会补零。
 
+> **注意：**
+>
+> 仓颉采用 IEEE 754 格式表示浮点数，保存数值可能会有误差。
+
 参数：
 
 - f: [Float16](core_package_intrinsics.md#float16) - 待输出的 [Float16](core_package_intrinsics.md#float16) 类型数据。
@@ -568,10 +572,6 @@ main() {
 0.680176
 ```
 
-> **注意：**
->
-> 仓颉采用 IEEE 754 格式表示浮点数，保存数值可能会有误差。
->
 ## func print(Float32, Bool)
 
 ```cangjie

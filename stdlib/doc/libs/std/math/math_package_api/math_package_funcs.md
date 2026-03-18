@@ -3886,14 +3886,6 @@ public func log(x: Float16): Float16
 
 功能：求以 e 为底 `x` 的对数。
 
-参数：
-
-- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
-
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 e 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -3901,6 +3893,14 @@ public func log(x: Float16): Float16
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 e 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -3939,14 +3939,6 @@ public func log(x: Float32): Float32
 
 功能：求以 e 为底 `x` 的对数。
 
-参数：
-
-- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
-
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 e 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -3954,6 +3946,14 @@ public func log(x: Float32): Float32
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 e 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -3981,14 +3981,6 @@ public func log(x: Float64): Float64
 
 功能：求以 e 为底 `x` 的对数。
 
-参数：
-
-- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
-
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 e 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -3996,6 +3988,14 @@ public func log(x: Float64): Float64
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 e 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4023,14 +4023,6 @@ public func log10(x: Float16): Float16
 
 功能：求以 10 为底 `x` 的对数。
 
-参数：
-
-- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
-
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 10 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4038,6 +4030,14 @@ public func log10(x: Float16): Float16
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 10 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4065,14 +4065,6 @@ public func log10(x: Float32): Float32
 
 功能：求以 10 为底 `x` 的对数。
 
-参数：
-
-- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
-
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 10 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4080,6 +4072,14 @@ public func log10(x: Float32): Float32
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 10 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4107,14 +4107,6 @@ public func log10(x: Float64): Float64
 
 功能：求以 10 为底 `x` 的对数。
 
-参数：
-
-- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
-
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 10 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4122,6 +4114,14 @@ public func log10(x: Float64): Float64
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 10 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4149,14 +4149,6 @@ public func log2(x: Float16): Float16
 
 功能：求以 2 为底 `x` 的对数。
 
-参数：
-
-- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
-
-返回值：
-
-- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 2 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4164,6 +4156,14 @@ public func log2(x: Float16): Float16
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 真数。
+
+返回值：
+
+- [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - 返回以 2 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4191,14 +4191,6 @@ public func log2(x: Float32): Float32
 
 功能：求以 2 为底 `x` 的对数。
 
-参数：
-
-- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
-
-返回值：
-
-- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 2 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4206,6 +4198,14 @@ public func log2(x: Float32): Float32
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 真数。
+
+返回值：
+
+- [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - 返回以 2 为底 `x` 的对数。
 
 示例：
 <!-- verify -->
@@ -4233,14 +4233,6 @@ public func log2(x: Float64): Float64
 
 功能：求以 2 为底 `x` 的对数。
 
-参数：
-
-- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
-
-返回值：
-
-- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 2 为底 `x` 的对数。
-
 > **说明：**
 >
 > 返回值存在如下特殊场景：
@@ -4248,6 +4240,14 @@ public func log2(x: Float64): Float64
 > - 如果传入 `x` 小于 0 或为 [NaN](../../core/core_package_api/core_package_intrinsics.md)，返回 [NaN](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 等于 0，返回 -[Inf](../../core/core_package_api/core_package_intrinsics.md)。
 > - 如果传入 `x` 为 [Inf](../../core/core_package_api/core_package_intrinsics.md)，返回 [Inf](../../core/core_package_api/core_package_intrinsics.md)。
+
+参数：
+
+- x: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 真数。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 返回以 2 为底 `x` 的对数。
 
 示例：
 <!-- verify -->

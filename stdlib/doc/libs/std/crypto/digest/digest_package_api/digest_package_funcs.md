@@ -151,7 +151,7 @@ public func digest<T>(algorithm: T, data: String): Array<Byte> where T <: Digest
 
 > **注意：**
 >
-> 未来版本即将废弃不再使用，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
+> 未来版本即将废弃，可使用 [digest\<T>(T, Array\<Byte>) where T <: Digest](./digest_package_funcs.md#func-digesttt-arraybyte-where-t--digest) 替代。
 
 参数：
 

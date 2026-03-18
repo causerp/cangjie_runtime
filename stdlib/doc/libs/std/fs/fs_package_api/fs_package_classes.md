@@ -566,6 +566,10 @@ public class File <: Resource & IOStream & Seekable {
 
 功能：提供一些对文件进行操作的函数，包括文件的打开、创建、关闭、移动、复制、删除，文件的流式读写操作，查询属性以及一些其他函数。
 
+> **注意：**
+>
+> 创建的 [File](fs_package_classes.md#class-file) 对象会默认打开对应的文件，当使用结束后需要及时调用 [close](fs_package_classes.md#func-close) 函数关闭文件，否则会造成资源泄露。
+
 > **说明：**
 >
 > 非法路径指的是以下情况之一：
@@ -574,12 +578,8 @@ public class File <: Resource & IOStream & Seekable {
 > - 路径中包含不合法的字符，例如特殊字符、控制字符等；
 > - 路径中包含不存在的目录或文件；
 > - 路径中包含无法访问的目录或文件，例如权限不足或被锁定等。
-
-在输入路径时，应该避免使用非法字符，确保路径的合法性，以便正确地访问目标文件或目录。
-
-> **注意：**
 >
-> 创建的 [File](fs_package_classes.md#class-file) 对象会默认打开对应的文件，当使用结束后需要及时调用 [close](fs_package_classes.md#func-close) 函数关闭文件，否则会造成资源泄露。
+> 在输入路径时，应该避免使用非法字符，确保路径的合法性，以便正确地访问目标文件或目录。
 
 父类型：
 
