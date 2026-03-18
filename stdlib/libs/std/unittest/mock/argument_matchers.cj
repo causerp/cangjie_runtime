@@ -103,7 +103,7 @@ class PredicateMatcher<T> <: TypedMatcher<T> & ListeningMatcher {
  * Matcher that matches any values.
  */
 public class AnyMatcher <: ArgumentMatcher {
-    public func matchesAny(_: Any) {
+    public func matchesAny(_: Any): Bool {
         return true
     }
 }

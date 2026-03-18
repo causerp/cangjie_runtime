@@ -2117,7 +2117,7 @@ func suggestInt32(l: Int32, r: Int32): Int32
 ### func suggestUInt32(UInt32, UInt32)
 
 ```cangjie
-func suggestUInt32(UInt32, UInt32): UInt32
+func suggestUInt32(l: UInt32, r: UInt32): UInt32
 ```
 
 功能：获取一个 [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) 类型的伪随机数。
@@ -2227,7 +2227,7 @@ func suggestUIntNative(l: UIntNative, r: UIntNative): UIntNative
 参数：
 
 - l: UIntNative - 可生成范围的最小值。
-- l: UIntNative - 可生成范围的最大值。
+- r: UIntNative - 可生成范围的最大值。
 
 返回值：
 
@@ -2261,7 +2261,7 @@ func suggestFloat32(l: Float32, r: Float32): Float32
 参数：
 
 - l: Float32 - 可生成范围的最小值。
-- l: Float32 - 可生成范围的最大值。
+- r: Float32 - 可生成范围的最大值。
 
 返回值：
 
@@ -2278,7 +2278,7 @@ func suggestFloat16(l: Float16, r: Float16): Float16
 参数：
 
 - l: Float16 - 可生成范围的最小值。
-- l: Float16 - 可生成范围的最大值。
+- r: Float16 - 可生成范围的最大值。
 
 返回值：
 

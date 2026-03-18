@@ -16,7 +16,7 @@ public prop args: String
 
 功能：返回以逗号分隔的未解析的用户定义断言参数的字符串。
 
-类型: [String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop caller
 
@@ -26,7 +26,7 @@ public prop caller: String
 
 功能：获取用户定义的断言函数的标识符。
 
-类型: [String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### prop hasErrors
 
@@ -36,7 +36,7 @@ public prop hasErrors: Bool
 
 功能：如果用户定义内的任何断言失败，则为 `true` 。否则为 `false`。
 
-类型: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
+类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
 
 ### func arg(String)
 
@@ -207,7 +207,7 @@ public prop name: String
 
 功能：获取用例名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func run()
 
@@ -238,8 +238,8 @@ public static func create(
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
-- body: () -> Unit - 用例执行体。
+- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body!: () -> Unit - 用例执行体。
 
 返回值：
 
@@ -262,10 +262,10 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) - 参数数据策略。
-- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) 测量方法信息。
-- body: () -> Unit - 用例执行体。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 参数数据策略。
+- configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body!: (T) -> Unit - 用例执行体。
 
 返回值：
 
@@ -288,10 +288,10 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
-- configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
-- body: () -> Unit - 用例执行体。
+- strategy: [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 参数数据处理器。
+- configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
+- measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - 测量方法信息。
+- body!: (T) -> Unit - 用例执行体。
 
 返回值：
 
@@ -718,12 +718,12 @@ public static func start<U>(
 
 参数：
 
-- f: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<U> - 生成数据策略的闭包。
+- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<U> - 生成数据策略的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 
 返回值：
 
-- [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 数据策略处理器。
+- [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 数据策略处理器。
 
 ### static func start(() -> DataStrategy\<T>, String, Int64)
 
@@ -739,7 +739,7 @@ public static func start(
 
 参数：
 
-- s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 生成数据策略的闭包。
+- f: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 生成数据策略的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 为实现不同返回值的重构增加的参数。
 
@@ -778,7 +778,7 @@ public static func start<U>(
 
 参数：
 
-- s: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 生成数据策略处理器的闭包。
+- f: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<U> - 生成数据策略处理器的闭包。
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 为实现不同返回值的重构增加的参数。
 
@@ -840,7 +840,7 @@ public func flatMap<R>(f: (T) -> DataProvider<R>): FlatMapProcessor<T, R>
 
 - [FlatMapProcessor\<T, R>](#class-flatmapprocessortr) - 应用 `f` 后的处理器。
 
-#### func flatMapStrategy((T) -> DataStrategy\<R>)
+#### func flatMapStrategy\<R>((T) -> DataStrategy\<R>)
 
 ```cangjie
 public func flatMapStrategy<R>(f: (T) -> DataStrategy<R>): FlatMapStrategyProcessor<T, R>
@@ -856,7 +856,7 @@ public func flatMapStrategy<R>(f: (T) -> DataStrategy<R>): FlatMapStrategyProces
 
 - [FlatMapStrategyProcessor\<T, R>](#class-flatmapstrategyprocessortr) - 应用 `f` 后的处理器。
 
-#### func product(DataStrategyProcessor\<R>)
+#### func product\<R>(DataStrategyProcessor\<R>)
 
 ```cangjie
 public func product<R>(p: DataStrategyProcessor<R>): CartesianProductProcessor<T, R>
@@ -888,7 +888,7 @@ public func productWithUnit<P>(p: P): MapProcessor<(T, Unit), T> where P <: Data
 
 返回值：
 
-- | [MapProcessor\<(T, Unit),R>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
+- [MapProcessor\<(T, Unit), T>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - 处理器。
 
 ## class FlatMapProcessor\<T,R>
 
@@ -1048,7 +1048,7 @@ public func r(
 
 返回值：
 
-- [Rune](../../core/core_package_api/core_package_structs.md#struct-string) - 被记录的数据。
+- [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 被记录的数据。
 
 ### func h(Exception, String, Int64)
 
@@ -1128,7 +1128,7 @@ public prop errorCount: Int64
 
 功能：获取错误的用例个数。
 
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop caseCount
 
@@ -1138,7 +1138,7 @@ public prop caseCount: Int64
 
 功能：获取用例个数。
 
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop passedCount
 
@@ -1148,7 +1148,7 @@ public prop passedCount:   Int64
 
 功能：获取通过的用例个数。
 
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop failedCount
 
@@ -1158,7 +1158,7 @@ public prop failedCount:   Int64
 
 功能：获取失败的用例个数。
 
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ### prop skippedCount
 
@@ -1168,7 +1168,7 @@ public prop skippedCount:   Int64
 
 功能：获取跳过的用例个数。
 
-类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)。
+类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
 ## class RawStatsReporter
 
@@ -1297,7 +1297,7 @@ public prop name: String
 
 功能：获取测试组合名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func runBenchmarks()
 
@@ -1314,7 +1314,7 @@ public func runBenchmarks(): BenchReport
 ### func runBenchmarks(Configuration)
 
 ```cangjie
-public func runBenchmarks(Configuration): BenchReport
+public func runBenchmarks(configuration: Configuration): BenchReport
 ```
 
 功能：带运行配置得执行所有性能测试用例。
@@ -1395,7 +1395,7 @@ public class TestGroupBuilder {}
 
 功能：提供配置测试组合的方法的构造器。
 
-请看示例： [TestGroup](#class-testgroup).
+参考示例： [TestGroup](#class-testgroup).
 
 ### func add(Benchmark)
 
@@ -1678,7 +1678,7 @@ public prop name: String
 
 功能：获取测试套名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func runBenchmarks()
 
@@ -1776,7 +1776,7 @@ public class TestSuiteBuilder {}
 
 功能：提供配置测试套方法的测试套构造器。
 
-请看示例： [TestSuite](#class-testsuite).
+参考示例： [TestSuite](#class-testsuite).
 
 ### func add(Benchmark)
 
@@ -1914,9 +1914,9 @@ public func template(template: TestSuite): TestSuiteBuilder
 
 功能：执行此方法可为测试套件设置模板。
 
-参数
+参数：
 
-- template: TestSuite - 将作为模板的测试套件。
+- template: [TestSuite](../unittest_package_api/unittest_package_classes.md#class-testsuite) - 将作为模板的测试套件。
 
 返回值：
 
@@ -2033,7 +2033,7 @@ public prop name: String
 
 功能：获取单元测试名称。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### func run()
 
@@ -2085,9 +2085,9 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) - 参数数据策略。
+- strategy: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - 参数数据策略。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- body!: () -> Unit - 用例执行体。
+- body!: (T) -> Unit - 用例执行体。
 
 返回值：
 
@@ -2109,9 +2109,9 @@ public static func createParameterized<T>(
 参数：
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 用例名称。
-- strategy: [DataStrategyProcessor](#class-datastrategyprocessort) - 参数数据处理器。
+- strategy: [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - 参数数据处理器。
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - 用例配置信息。
-- body!: () -> Unit - 用例执行体。
+- body!: (T) -> Unit - 用例执行体。
 
 返回值：
 
