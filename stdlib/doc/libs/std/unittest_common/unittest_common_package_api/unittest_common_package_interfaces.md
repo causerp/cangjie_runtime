@@ -22,7 +22,9 @@ func provide(): Iterable<T>
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - 数据迭代器。
 
-参考示例：[DataShrinker](#interface-datashrinkert)
+示例：
+
+参考 [DataShrinker](#interface-datashrinkert)。
 
 ### extend\<T> Array\<T> <: DataProvider\<T>
 
@@ -559,4 +561,4 @@ prop name: String
 
 功能：[Configuration](./unittest_common_package_classes.md#class-configuration) 中使用的键名称的字符串表示形式。
 
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)。
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)

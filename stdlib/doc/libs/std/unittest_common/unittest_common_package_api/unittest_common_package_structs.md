@@ -53,7 +53,7 @@ public let description: ?String
 
 功能：选项描述信息。
 
-类型：?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：?[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### let name
 
@@ -63,7 +63,7 @@ public let name: String
 
 功能：选项名称。
 
-类型：[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
 ### let types
 
@@ -73,7 +73,7 @@ public let types!: HashMap<String, ?String> = HashMap()
 
 功能：从选项类型名称映射到值的含义。
 
-类型： HashMap<[String](../../../std/core/core_package_api/core_package_structs.md#struct-string), ?[String](../../../std/core/core_package_api/core_package_structs.md#struct-string)>
+类型： HashMap<[String](../../core/core_package_api/core_package_structs.md#struct-string), ?[String](../../core/core_package_api/core_package_structs.md#struct-string)>
 
 ### let userDefined
 
@@ -83,4 +83,4 @@ public let userDefined: Bool
 
 功能：选项是否已被定义。
 
-类型：[Bool](../../../std/core/core_package_api/core_package_intrinsics.md#bool)
+类型：[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)
