@@ -630,6 +630,24 @@ void RegisterEventHandlerCallbacks(PostTaskFunc pFunc, HasHigherPriorityTaskFunc
     g_scheduleManager.hasHigherPriorityTaskFunc = hFunc;
 }
 
+void CJRegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc)
+{
+    if (!g_scheduleManager.initFlag) {
+        LOG_ERROR(ERRNO_SCHD_INIT_FAILED, "schedule manager is not init");
+        return;
+    }
+    g_scheduleManager.updateStackInfoFunc = uFunc;
+}
+
+void CJRegisterArkVMInRuntime(unsigned long long vm)
+{
+    if (!g_scheduleManager.initFlag) {
+        LOG_ERROR(ERRNO_SCHD_INIT_FAILED, "schedule manager is not init");
+        return;
+    }
+    g_scheduleManager.arkVM = vm;
+}
+
 int ScheduleNetpollInit(void)
 {
     struct Schedule *schedule = ScheduleGet();

@@ -174,9 +174,6 @@
 
 #define GetCJThreadScheduler                   CJ_GetCJThreadScheduler
 #define RebindCJThread                         CJ_RebindCJThread
-#define GetUIThreadStackTop                    CJ_GetUIThreadStackTop
-#define PopUIThreadStackTop                    CJ_PopUIThreadStackTop
-#define PushUIThreadStackTop                   CJ_PushUIThreadStackTop
 #define CJThreadMemFree                        CJ_CJThreadMemFree
 #define CJThreadFree                           CJ_CJThreadFree
 #define CJThreadNewId                          CJ_CJThreadNewId
@@ -254,6 +251,12 @@
 #define CJThreadStackGrow                      CJ_CJThreadStackGrow
 #define CJThreadOldStackFree                   CJ_CJThreadOldStackFree
 #define CJThreadSetStackGrow                   CJ_CJThreadSetStackGrow
+
+#define GetUIThreadStackTop                    CJ_GetUIThreadStackTop
+#define PopUIThreadStackTop                    CJ_PopUIThreadStackTop
+#define PushUIThreadStackTop                   CJ_PushUIThreadStackTop
+#define CJRegisterSubStackInfoCallbacks        CJ_CJRegisterSubStackInfoCallbacks
+#define CJRegisterExternalVMInRuntime          CJ_CJRegisterExternalVMInRuntime
 
 /* cjthread_key */
 #define g_cjthreadKeys                         CJ_GCJThreadKeys

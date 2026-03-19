@@ -337,6 +337,22 @@ ResolveCycleRefStub:
     .type     CJ_MRT_ARKTS_CreateEngineStub, @function
 CJ_MRT_ARKTS_CreateEngineStub:
     .cfi_startproc
+    pushq   %rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset %rbp, -16
+    movq    %rsp, %rbp
+    .cfi_def_cfa_register %rbp
+    movq    %rsp, %r12
+    callq   IsForeignThread
+    cmpq    $0, %rax
+    jne     .L_no_need_switch
+    callq   GetNativeSPForUIThread
+    movq    %rax, %rsp
+.L_no_need_switch:
+    callq   CJ_MRT_ARKTS_CreateEngine
+    movq    %r12, %rsp
+    popq    %rbp
+    .cfi_def_cfa %rsp, 8
     retq
     .cfi_endproc
     .size CJ_MRT_ARKTS_CreateEngineStub, .-CJ_MRT_ARKTS_CreateEngineStub
