@@ -800,12 +800,12 @@ int UnloadCJLibrary(const char* libName)
 
 void RegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc)
 {
-    (void)uFunc;
+    CJRegisterStackInfoCallbacks(uFunc);
 }
 
 void RegisterArkVMInRuntime(unsigned long long vm)
 {
-    (void)vm;
+    CJRegisterArkVMInRuntime(vm);
 }
 
 int CJThreadKeyCreate(CJThreadKey* key, DestructorFunc destructor)

@@ -514,6 +514,9 @@ typedef bool (*PostTaskFunc)(void* taskFunc);
  */
 typedef bool (*HasHigherPriorityTaskFunc)();
 
+/* Update designate stackInfo */
+typedef void(*UpdateStackInfoFunc)(unsigned long long, void*, unsigned int);
+
 /**
  * @brief Register PostTask function and HasHigherPriorityTask function of event handler
  * to global scheduler manager.
@@ -521,6 +524,18 @@ typedef bool (*HasHigherPriorityTaskFunc)();
  * @param hFunc  [IN] The HasHigherPriorityTask function
  */
 void RegisterEventHandlerCallbacks(PostTaskFunc pFunc, HasHigherPriorityTaskFunc hFunc);
+
+/**
+ * @brief Register UpdateStackInfo Func to global scheduler manager.
+ * @param uFunc  [IN] The UpdateStackInfoFunc function
+ */
+void CJRegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc);
+
+/**
+ * @brief Register UIThread arkVM to global scheduler manager.
+ * @param vm  [IN] The arkVM in UIThread
+ */
+void CJRegisterArkVMInRuntime(unsigned long long vm);
 
 /**
 * @brief Default cjthread parameter assignment.
