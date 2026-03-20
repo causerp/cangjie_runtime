@@ -5,6 +5,7 @@
 # with Runtime Library Exception.
 #
 # See https://cangjie-lang.cn/pages/LICENSE for license information.
+set -e
 
 get_sections() {
     local file="$1"

@@ -37,7 +37,7 @@ struct ThreadLocalData {
 };
 
 struct CleanThreadLocalData {
-    CleanThreadLocalData();
+    CleanThreadLocalData() noexcept;
     ~CleanThreadLocalData();
 };
 
