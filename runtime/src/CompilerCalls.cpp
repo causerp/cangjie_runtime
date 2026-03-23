@@ -1904,6 +1904,29 @@ void CJ_MCC_RemoveExportedRef(U64 id)
     Heap::GetHeap().RemoveExportObject(id);
 }
 
+// Object memory layout for CJ_MCC_GetJSLambdaAddr obj parameter:
+// struct AutoEnvObj {
+//     TypeInfo* ti;             // [0:TYPEINFO_PTR_SIZE] - object header
+//     uintptr_t func1;          // [TYPEINFO_PTR_SIZE], universal function
+//     uintptr_t func2;          // [TYPEINFO_PTR_SIZE+8], no generic parameter closure exists, the variable exists
+//     ObjectPtr realAutoEnvObj; // [TYPEINFO_PTR_SIZE+16] - for wrapper classes
+// };
+
+extern "C" uintptr_t CJ_MCC_GetJSLambdaAddr(const ObjectPtr obj)
+{
+    ObjectPtr currentObj = obj;
+
+    // Loop to check if it's a wrapper class, if so, get realAutoEnvObj until finding a non-wrapper class
+    while (MCC_IsWrapperClassForAutoEnv(currentObj->GetTypeInfo())) {
+        // 16 = offset of realAutoEnvObj in instance data (func1: 8 bytes + func2: 8 bytes)
+        currentObj = Heap::GetBarrier().ReadReference(currentObj, currentObj->GetRefField(TYPEINFO_PTR_SIZE + 16));
+    }
+
+    // Access func1 directly from currentObj
+    uintptr_t func1 = *reinterpret_cast<uintptr_t*>(reinterpret_cast<Uptr>(currentObj) + TYPEINFO_PTR_SIZE);
+    return func1;
+}
+
 #if defined(__OHOS__)
 void* ARKTS_CreateEngine = nullptr;
 void* ARKTS_UpdateStackInfo = nullptr;
