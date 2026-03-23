@@ -174,12 +174,11 @@ unwindPCForExclusiveStub:
     cbnz    x0, .L_exc_skip_stack_switch
 
     // Switch to OS thread
-    add     x27, x23, #THREAD_CONTEXT_OFFSET
-    ldr     x0, [x27, #CONTEXT_SP]
-    cbz     x0, .L_exc_skip_stack_switch
-    tbnz    x0, #63, .L_exc_skip_stack_switch
-    cmp     x0, #0x1000
-    b.lo    .L_exc_skip_stack_switch
+    mov     x0, x23                         // arg0 = thread pointer
+    bl      ExclusiveGetThreadContext        // returns void* = &thread->context
+    cbz     x0, .L_exc_skip_stack_switch    // null thread -> skip
+    mov     x27, x0                       // x27 = &thread->context
+    ldr     x0, [x27, #CONTEXT_SP]          // reload x0: bl may clobber it
     mov     sp, x0
     ldr     w0, [x27, #CONTEXT_FPCR]
     msr     fpcr, x0
