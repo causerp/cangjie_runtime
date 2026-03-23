@@ -237,7 +237,7 @@ extern int32_t CJ_SOCKET_BufferWCopy(SocketBuffer* sockBuf, const char* arrBuf, 
     if (CJ_SocketDecreaseRef(sockBuf)) {
         return 0; // This affects subsequent operations. Therefore, return 0 directly.
     }
-    if (ret == 0) {
+    if (ret == EOK) {
         return copyLen;
     }
     return -1;
