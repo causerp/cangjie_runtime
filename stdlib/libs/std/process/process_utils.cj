@@ -75,7 +75,6 @@ const INVALID_HANDLE: IntNative = -1
 
 @When[os != "Windows"]
 func getNulFileHandle(): Option<IntNative> {
-    var nullFileHandle: Option<IntNative>
     return try {
         File("/dev/null", ReadWrite).fileDescriptor.fileHandle
     } catch (_: FSException) {

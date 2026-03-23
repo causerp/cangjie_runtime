@@ -8,7 +8,6 @@
 
 package std.database.sql
 
-import std.time.DateTime
 import std.sync.AtomicBool
 
 /**

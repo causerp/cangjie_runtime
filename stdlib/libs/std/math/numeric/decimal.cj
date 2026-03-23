@@ -10,7 +10,6 @@ package std.math.numeric
 
 import std.convert.*
 import std.math.*
-import std.random.*
 
 let UINT64_TENTH_POWER_ARRAY: Array<UInt64> = [
     1,
@@ -185,13 +184,11 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
         var val_precision: Int64 = 0
 
         var newValArr: Array<UInt8> = Array<UInt8>(val.size, repeat: 0)
-        var isPositive: Bool = true
         // process sign bit
         var offset = 0
         var newArrIndex = 0
         if (val[offset] == b'-') {
             offset++
-            isPositive = false
             newValArr[newArrIndex] = b'-'
             newArrIndex++
         } else if (val[offset] == b'+') {
@@ -851,7 +848,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
 
         let reScale = checkScaleOverFlow(Int64(this.scale) + Int64(n))
         if (this.sign == 0 && reScale <= 0) {
-            return Decimal(BigInt("0"), 0, 1)
+            return Decimal(BigInt.parse("0", radix: 10))
         }
         return Decimal(this.value, reScale, this.precision)
     }
@@ -1163,7 +1160,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
         let fmPre: Int64 = format._precision
         do {
             let temPre = max(max(xPre, expectedPre + 2), fmPre)
-            x = Decimal(BigInt("5"), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)), temPre,
+            x = Decimal(BigInt.parse("5", radix: 10), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)), temPre,
                 HalfEven)
             xPre *= 2
         } while (xPre < expectedPre + 2)
@@ -1327,7 +1324,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
      */
     public func removeTrailingZeros(): Decimal {
         if (this.sign == 0) {
-            return Decimal(BigInt("0"), 0, 1)
+            return Decimal(BigInt.parse("0", radix: 10), 0, 1)
         }
 
         var unscaledValue = this.value
@@ -2276,7 +2273,7 @@ public func sqrt(d: Decimal): Decimal {
     let fmPre: Int64 = format.precision
     do {
         let temPre = max(max(xPre, expectedPre + 2), fmPre)
-        x = Decimal(BigInt("5"), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)))
+        x = Decimal(BigInt.parse("5", radix: 10), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)))
         xPre *= 2
     } while (xPre < expectedPre + 2)
     var res: Decimal

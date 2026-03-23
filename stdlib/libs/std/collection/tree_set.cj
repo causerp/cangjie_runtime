@@ -236,7 +236,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @returns a new collection of elements that satisfy the filtering condition.
      */
     public func filter(predicate: (T) -> Bool): TreeSet<T> {
-        var newMap = myMap.filter({k, v => predicate(k)})
+        var newMap = myMap.filter({k, _ => predicate(k)})
         var res = TreeSet<T>()
         res.myMap = newMap
         return res
@@ -267,7 +267,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @param action the given operation function.
      */
     public func forEach(action: (T) -> Unit): Unit {
-        myMap.forEach({k, v => action(k)})
+        myMap.forEach({k, _ => action(k)})
     }
 
     /**
@@ -277,7 +277,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @returns true if all elements in the TreeSet satisfy the condition, otherwise returns false.
      */
     public func all(predicate: (T) -> Bool): Bool {
-        return myMap.all({k, v => predicate(k)})
+        return myMap.all({k, _ => predicate(k)})
     }
 
     /**
@@ -287,7 +287,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @returns Whether there is any element that satisfies the condition.
      */
     public func any(predicate: (T) -> Bool): Bool {
-        return myMap.any({k, v => predicate(k)})
+        return myMap.any({k, _ => predicate(k)})
     }
 
     /**
@@ -297,7 +297,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @returns Whether all elements in the current TreeSet do not satisfy the condition.
      */
     public func none(predicate: (T) -> Bool): Bool {
-        return myMap.none({k, v => predicate(k)})
+        return myMap.none({k, _ => predicate(k)})
     }
 
     /**
@@ -308,7 +308,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      * @returns the final computed value.
      */
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
-        return myMap.fold<R>(initial, {r, k, v => operation(r, k)})
+        return myMap.fold<R>(initial, {r, k, _ => operation(r, k)})
     }
 
     /**

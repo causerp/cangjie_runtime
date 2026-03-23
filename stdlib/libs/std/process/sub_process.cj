@@ -367,7 +367,7 @@ func parseExitInfoPointer(waitExitInfo_cp: CPointer<ExitInfo>, pid: Int32): Int6
 }
 
 @When[os != "Windows"]
-func getWaitExitCode(timeout: Duration, pid: Int32, handle: IntNative): Int64 {
+func getWaitExitCode(timeout: Duration, pid: Int32, _: IntNative): Int64 {
     return if (timeout > Duration.Zero) {
         let future: Future<Int64> = spawn {
             => return unsafe { CJ_OS_WaitSubProcessExit(pid) }

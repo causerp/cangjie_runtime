@@ -25,7 +25,7 @@ struct NonReentrantReadWriteMutex {
     let writeMutex: NonReentrantWriteLock
 
     init() {
-        let m = Monitor()
+        let m = Mutex()
         let useCounter = AtomicInt64(0) // positive = read count, -1 - write
 
         this.readMutex = NonReentrantReadLock(m, useCounter)
@@ -33,11 +33,17 @@ struct NonReentrantReadWriteMutex {
     }
 }
 
-struct NonReentrantReadLock <: IReentrantMutex {
+struct NonReentrantReadLock <: Lock {
+    let condition: Condition
+
     NonReentrantReadLock(
-        private let m: Monitor,
+        private let m: Mutex,
         private let useCounter: AtomicInt64
-    ) {}
+    ) {
+        synchronized(m) {
+            condition = m.condition()
+        }
+    }
 
     public override func lock(): Unit {
         if (!tryLock()) {
@@ -48,7 +54,7 @@ struct NonReentrantReadLock <: IReentrantMutex {
     private func lockSlowpath(): Unit {
         synchronized(m) {
             while (!tryLock()) {
-                m.wait()
+                condition.wait()
             }
         }
     }
@@ -70,7 +76,7 @@ struct NonReentrantReadLock <: IReentrantMutex {
     public override func unlock(): Unit {
         if (decrementAndGet() == 0) {
             synchronized(m) {
-                m.notify()
+                condition.notify()
             }
         }
     }
@@ -103,14 +109,20 @@ struct NonReentrantReadLock <: IReentrantMutex {
     }
 }
 
-struct NonReentrantWriteLock <: IReentrantMutex {
+struct NonReentrantWriteLock <: Lock {
+    let condition: Condition
+
     NonReentrantWriteLock(
-        private let m: Monitor,
+        private let m: Mutex,
         private let useCounter: AtomicInt64
-    ) {}
+    ) {
+        synchronized(m) {
+            condition = m.condition()
+        }
+    }
 
     init() {
-        this(Monitor(), AtomicInt64(0))
+        this(Mutex(), AtomicInt64(0))
     }
 
     public override func lock(): Unit {
@@ -122,7 +134,7 @@ struct NonReentrantWriteLock <: IReentrantMutex {
     private func lockSlowpath(): Unit {
         synchronized(m) {
             while (!tryLock()) {
-                m.wait()
+                condition.wait()
             }
         }
     }
@@ -146,7 +158,7 @@ struct NonReentrantWriteLock <: IReentrantMutex {
     public override func unlock(): Unit {
         useCounter.compareAndSwap(WRITER_MARK, 0)
         synchronized(m) {
-            m.notify()
+            condition.notify()
         }
     }
 

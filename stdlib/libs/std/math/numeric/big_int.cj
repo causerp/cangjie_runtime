@@ -8,7 +8,6 @@
 
 package std.math.numeric
 
-import std.convert.*
 import std.math.*
 import std.random.*
 
@@ -358,7 +357,7 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
             throw IllegalArgumentException("The bitLen of the BigInt must > 0.")
         }
         if (bitLen <= 64) {
-            int = rand.next(UInt64(bitLen))
+            int = rand.nextBits(UInt64(bitLen))
             intArr = EMPTY_ARRAY
             if (int == 0) {
                 negSign = false
@@ -374,7 +373,7 @@ public struct BigInt <: Comparable<BigInt> & Hashable & ToString {
             uInt32Arr = Array<UInt32>(arrIndex, repeat: 0)
         } else {
             uInt32Arr = Array<UInt32>(arrIndex + 1, repeat: 0)
-            uInt32Arr[arrIndex] = UInt32(rand.next(UInt64(uInt32Len)))
+            uInt32Arr[arrIndex] = UInt32(rand.nextBits(UInt64(uInt32Len)))
         }
         for (i in 0..arrIndex) {
             uInt32Arr[i] = rand.nextUInt32()
@@ -3424,7 +3423,7 @@ func knuthDivGuessQ(normalizedDividend: Array<UInt32>, normalizedDivisor: UInt64
 func witness(a: BigInt, n: BigInt): Bool {
     let (subOneInt, subOneArr) = subOne(n.int, n.intArr, false)
     let subOne = BigInt(subOneInt, normalize(subOneArr), false)
-    let t = subOne.lowestOneBit()
+    let t = trailingZeros(subOne)
     let u = subOne >> t
     // only four cases,
     //  see flowing:

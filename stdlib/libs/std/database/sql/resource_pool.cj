@@ -8,16 +8,16 @@
 
 package std.database.sql
 
-import std.collection.{Map, ArrayList}
-import std.collection.concurrent.{BlockingQueue, LinkedBlockingQueue}
+import std.collection.ArrayList
+import std.collection.concurrent.LinkedBlockingQueue
 import std.time.DateTime
-import std.sync.{Timer, CatchupStyle, AtomicBool, ReentrantMutex}
+import std.sync.{Timer, CatchupStyle, AtomicBool, Mutex}
 
 class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
 
-    let mux = ReentrantMutex()
+    let mux = Mutex()
     let entryQueue: LinkedBlockingQueue<Entry<T>>
-    let idleEntry: BlockingQueue<Entry<T>>
+    let idleEntry: LinkedBlockingQueue<Entry<T>>
     var options: Options<T>
     var ticker: Timer
     var entryCount: Int32
@@ -26,7 +26,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     public init(options: Options<T>) {
         this.options = options
         entryQueue = LinkedBlockingQueue<Entry<T>>(Int64(options.maxSize))
-        idleEntry = BlockingQueue<Entry<T>>(Int64(options.maxSize))
+        idleEntry = LinkedBlockingQueue<Entry<T>>(Int64(options.maxSize))
         entryCount = 0
         ticker = Timer.once(Duration.hour) {=> ()}
         backgroundCheckIdleLife()
@@ -103,7 +103,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
         let list = ArrayList<Entry<T>>()
 
         for (_ in 0..idleCount) {
-            let item = idleEntry.tryDequeue()
+            let item = idleEntry.tryRemove()
             match (item) {
                 case Some(v) =>
                     if (v.isValid) {
@@ -120,7 +120,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     }
 
     func getIdleEntry(timeout: Duration): Entry<T> {
-        var item = idleEntry.dequeue(timeout)
+        var item = idleEntry.remove(timeout)
 
         match (item) {
             case Some(v) =>
@@ -174,7 +174,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
             entry.isValid = false
             this.discard(entry)
         } else {
-            idleEntry.enqueue(entry)
+            idleEntry.add(entry)
         }
         return
     }
@@ -204,7 +204,7 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
             return
         }
         for (_ in 0..idleEntry.size) {
-            var item = idleEntry.tryDequeue()
+            var item = idleEntry.tryRemove()
             match (item) {
                 case Some(v) =>
                     if (v.isValid) {

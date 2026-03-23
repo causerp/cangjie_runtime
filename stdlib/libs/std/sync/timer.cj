@@ -386,18 +386,25 @@ class TimerScheduler {
 
     private let queue = TimerQueue()
     private var heap = TimerHeap()
-    private let monitor = Monitor()
+    private let mutex = Mutex()
+    private let condition: Condition
     private let isRunning = AtomicBool(false)
     private let cancelCount = AtomicInt64(0)
+
+    init() {
+        synchronized(mutex) {
+            condition = mutex.condition()
+        }
+    }
 
     func add(timer: Timer) {
         if (MonoTime.now() > timer.endTime) {
             execute(timer)
             return
         }
-        synchronized(monitor) {
+        synchronized(mutex) {
             queue.add(timer)
-            monitor.notify()
+            condition.notify()
         }
         start()
     }
@@ -427,9 +434,9 @@ class TimerScheduler {
 
     private func schedule(): Unit {
         if (heap.isEmpty) {
-            synchronized(monitor) {
+            synchronized(mutex) {
                 if (queue.isEmpty()) {
-                    monitor.wait()
+                    condition.wait()
                 }
             }
             return
@@ -447,8 +454,8 @@ class TimerScheduler {
             heap.poll()
             return
         }
-        synchronized(monitor) {
-            monitor.wait(timeout: timer.endTime - time)
+        synchronized(mutex) {
+            condition.wait(timeout: timer.endTime - time)
         }
     }
 

@@ -14,14 +14,21 @@ const MAX_TIMEOUT_NS: Int64 = 0x7FFF_FFFF_FFFF_FFFF
 let MAX_TIMEOUT_DURATION: Duration = Duration.nanosecond * MAX_TIMEOUT_NS
 
 class NotifyOnce {
-    let m = Monitor()
+    let m = Mutex()
+    let condition: Condition
     var notified: Bool = false
+
+    init() {
+        synchronized(m) {
+            condition = m.condition()
+        }
+    }
 
     func notify(): Unit {
         synchronized(m) {
             if (!notified) {
                 notified = true
-                m.notify()
+                condition.notify()
             }
         }
     }
@@ -39,7 +46,7 @@ class NotifyOnce {
         synchronized(m) {
             // In case of spurious-wakeup, we should put `wait` inside a while loop.
             while (!notified) {
-                m.wait()
+                condition.wait()
             }
         }
     }
@@ -50,7 +57,7 @@ class NotifyOnce {
             // In case of spurious-wakeup, we should put `wait` inside a while loop.
             while (!notified && restOfTimeout > Duration.Zero) {
                 let startTime = DateTime.nowUTC()
-                m.wait(timeout: timeout)
+                condition.wait(timeout: timeout)
                 let endTime = DateTime.nowUTC()
                 restOfTimeout -= (endTime - startTime)
             }
@@ -67,7 +74,7 @@ class SyncNode {
 // SyncList is used to achieve "unpark-all" behaviour
 class SyncList {
     private var head: ?SyncNode = None
-    private let m = Monitor()
+    private let m = Mutex()
 
     private func addWaiter(node: SyncNode) {
         node.next = head

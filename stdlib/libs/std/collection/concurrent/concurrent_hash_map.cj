@@ -349,10 +349,6 @@ class MutexLockGroup {
         mutexes[(index & mod)].lock()
     }
 
-    func tryLock(index: Int64): Bool {
-        mutexes[(index & mod)].tryLock()
-    }
-
     func unlock(index: Int64): Unit {
         mutexes[(index & mod)].unlock()
     }
