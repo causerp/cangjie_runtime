@@ -911,6 +911,17 @@ void ExclusiveExecutor(struct Thread* thread, struct CJThread* newCJThread)
     return;
 }
 
+// Called from ExclusiveScope.S assembly to avoid hardcoding of thread context offset,
+//  which differs across platforms due to sizeof(sem_t)
+void* ExclusiveGetThreadContext(struct Thread* thread)
+{
+    if (thread == nullptr) {
+        LOG(RTLOG_ERROR, "ExclusiveGetThreadContext received null thread.");
+        return nullptr;
+    }
+    return static_cast<void*>(&thread->context);
+}
+
 int IsExclusiveCJThread(struct CJThread* cjthread)
 {
     if (cjthread == nullptr || cjthread->schedule == nullptr) {
