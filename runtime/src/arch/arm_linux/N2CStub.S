@@ -434,15 +434,8 @@ CJ_MRT_ARKTS_CreateEngineStub:
 
     mov  r11, sp
     mov  r4, sp
-    bl  IsForeignThread
-    cmp  r0, #0
-    bne .L_no_need_switch
-    bl  GetNativeSPForUIThread
-    mov  sp, r0
-.L_no_need_switch:
     bl  CJ_MRT_ARKTS_CreateEngine
     mov  sp, r4
-
     ldr  r11, [sp]
     ldr  lr, [sp, #4]
     add  sp, sp, #8
