@@ -15,7 +15,7 @@ const UNCAPTURED_GROUP_INDEX: Int64 = -1
 
 public struct Position {
     static let empty = Position(0, 0)
-    static let uncaptured = Position(UNCAPTURED_GROUP_INDEX, UNCAPTURED_GROUP_INDEX)
+    static let UNCAPTURED = Position(UNCAPTURED_GROUP_INDEX, UNCAPTURED_GROUP_INDEX)
     Position(public let start: Int64, public let end: Int64) {}
 
     @OverflowWrapping
@@ -55,7 +55,7 @@ public struct MatchData {
         if (group < 0 || group > captureGroupCount) {
             throw IllegalArgumentException("Invalid group index.")
         }
-        let position = positions.get(group) ?? Position.uncaptured
+        let position = positions.get(group) ?? Position.UNCAPTURED
         if (position.start == UNCAPTURED_GROUP_INDEX || position.end == UNCAPTURED_GROUP_INDEX) {
             return String.empty
         }
@@ -72,7 +72,7 @@ public struct MatchData {
             throw IllegalArgumentException("Capture group not enabled.")
         }
         let index = nameToIndex(group)
-        let position = positions.get(index) ?? Position.uncaptured
+        let position = positions.get(index) ?? Position.UNCAPTURED
         if (position.start == UNCAPTURED_GROUP_INDEX || position.end == UNCAPTURED_GROUP_INDEX) {
             return String.empty
         }
@@ -100,7 +100,7 @@ public struct MatchData {
         if (group < 0 || group > captureGroupCount) {
             throw IllegalArgumentException("Invalid group index.")
         }
-        return positions.get(group) ?? Position.uncaptured
+        return positions.get(group) ?? Position.UNCAPTURED
     }
 
     /**
@@ -113,7 +113,7 @@ public struct MatchData {
             throw IllegalArgumentException("Capture group not enabled.")
         }
         let index = nameToIndex(group)
-        return positions.get(index) ?? Position.uncaptured
+        return positions.get(index) ?? Position.UNCAPTURED
     }
 
     @Deprecated[message: "Use member function `public func groupCount(): Int64` instead."]
