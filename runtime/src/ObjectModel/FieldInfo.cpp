@@ -49,10 +49,13 @@ void* InstanceFieldInfo::GetValue(TypeInfo* declaringTi, ObjRef instanceObj)
     if (fieldTi->IsRef()) {
         return Heap::GetBarrier().ReadReference(instanceObj,
             instanceObj->GetRefField(GetOffset(declaringTi) + TYPEINFO_PTR_SIZE));
-    } else if (fieldTi->IsStruct() || fieldTi->IsTuple()) {
+    } else if (fieldTi->IsStruct() || fieldTi->IsTuple() || fieldTi->IsEnum()) {
         MSize size = MRT_ALIGN(fieldTi->GetInstanceSize() + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
         MSize fieldSize = fieldTi->GetInstanceSize();
         MObject* obj = ObjectManager::NewObject(fieldTi, size);
+        if (fieldSize == 0) {
+            return obj;
+        }
         void* tmp = malloc(fieldSize);
         Heap::GetBarrier().ReadStruct(reinterpret_cast<MAddress>(tmp), instanceObj, fieldAddr, fieldSize);
         Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE, fieldSize,
@@ -93,8 +96,11 @@ void InstanceFieldInfo::SetValue(TypeInfo* declaringTypeInfo, ObjRef instanceObj
     if (fieldTi->IsRef()) {
         Heap::GetBarrier().WriteReference(instanceObj,
             instanceObj->GetRefField(TYPEINFO_PTR_SIZE + GetOffset(declaringTypeInfo)), newValue);
-    } else if (fieldTi->IsStruct() || fieldTi->IsTuple()) {
+    } else if (fieldTi->IsStruct() || fieldTi->IsTuple() || fieldTi->IsEnum()) {
         MSize fieldSize = fieldTi->GetInstanceSize();
+        if (fieldSize == 0) {
+            return;
+        }
         void* tmp = malloc(fieldSize);
         Heap::GetBarrier().ReadStruct(reinterpret_cast<MAddress>(tmp), instanceObj,
             reinterpret_cast<Uptr>(newValue) + TYPEINFO_PTR_SIZE, fieldSize);
@@ -159,10 +165,13 @@ void* StaticFieldInfo::GetValue()
     if (fieldTi->IsRef()) {
         RefField<false>* refField = reinterpret_cast<RefField<false>*>(addr);
         return Heap::GetBarrier().ReadStaticRef(*refField);
-    } else if (fieldTi->IsStruct() || fieldTi->IsTuple()) {
+    } else if (fieldTi->IsStruct() || fieldTi->IsTuple() || fieldTi->IsEnum()) {
         MSize size = MRT_ALIGN(fieldTi->GetInstanceSize() + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
         MSize fieldSize = fieldTi->GetInstanceSize();
         MObject* obj = ObjectManager::NewObject(fieldTi, size);
+        if (fieldSize == 0) {
+            return obj;
+        }
         Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
             fieldSize, addr, fieldSize);
         return obj;
@@ -199,8 +208,11 @@ void StaticFieldInfo::SetValue(ObjRef newValue)
     if (fieldTi->IsRef()) {
         RefField<>* rootField = reinterpret_cast<RefField<>*>(addr);
         Heap::GetHeap().GetBarrier().WriteStaticRef(*rootField, newValue);
-    } else if (fieldTi->IsStruct() || fieldTi->IsTuple()) {
+    } else if (fieldTi->IsStruct() || fieldTi->IsTuple() || fieldTi->IsEnum()) {
         MSize fieldSize = fieldTi->GetInstanceSize();
+        if (fieldSize == 0) {
+            return;
+        }
         Heap::GetBarrier().WriteStaticStruct(addr, fieldSize,
             reinterpret_cast<Uptr>(newValue) + TYPEINFO_PTR_SIZE, fieldSize, fieldTypeInfo->GetGCTib());
     } else if (fieldTi->IsPrimitiveType()) {
