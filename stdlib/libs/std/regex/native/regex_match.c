@@ -91,6 +91,15 @@ extern unsigned char* CJ_REGEX_GetErrorMsg(const int errorCode)
     return msg;
 }
 
+extern uint32_t CJ_REGEX_GetCaptureCount(const pcre2_code* re)
+{
+    uint32_t count;
+    (void)pcre2_pattern_info(re, /* the compiled pattern */
+        PCRE2_INFO_CAPTURECOUNT, /* number of capturing parentheses */
+        &count);                 /* where to put the answer */
+    return count;
+}
+
 static uint32_t CJ_REGEX_GetNameCount(const pcre2_code* re)
 {
     uint32_t count;

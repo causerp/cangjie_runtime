@@ -181,6 +181,27 @@ public class Regex {
     }
 
     /**
+     * lazy getter of captureGroupCount, which only depending on the compiled pattern.
+     * So this property can be got as soon as `Regex` is initialized.
+     * return UInt32 indicates the highest capture group number.
+     * if (?| is not used, this is also the total number of capture groups
+     */
+    private var _captureGroupCount: ?UInt32 = None
+    private prop captureGroupCount: UInt32 {
+        get() {
+            if (let Some(count) <- _captureGroupCount) {
+                return count
+            }
+            unsafe {
+                let count = CJ_REGEX_GetCaptureCount(this.re)
+                keepAlive(this)
+                _captureGroupCount = count
+                return count
+            }
+        }
+    }
+
+    /**
      * lazy getter of namedGroups, which only depending on the compiled pattern.
      * So this method can be invoked as soon as `Regex` is initialized.
      * return Map<String, Int64> indicates the mapping from group name to group index
@@ -286,10 +307,10 @@ public class Regex {
             let positions: Array<Position>
             if (group) {
                 positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                md = MatchData(input, positions, rc, nameToIndex: nameToIndex)
+                md = MatchData(input, positions, Int64(captureGroupCount), nameToIndex: nameToIndex)
             } else {
                 positions = [Position(ovector.read(0), ovector.read(1))]
-                md = MatchData(input, positions, rc)
+                md = MatchData(input, positions, Int64(captureGroupCount))
             }
             keepAlive(this)
             return md
@@ -379,10 +400,10 @@ public class Regex {
                 let positions: Array<Position>
                 if (group) {
                     positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                    list.add(MatchData(input, positions, rc, nameToIndex: nameToIndex))
+                    list.add(MatchData(input, positions, Int64(captureGroupCount), nameToIndex: nameToIndex))
                 } else {
                     positions = [Position(ovector.read(0), ovector.read(1))]
-                    list.add(MatchData(input, positions, rc))
+                    list.add(MatchData(input, positions, Int64(captureGroupCount)))
                 }
                 if (offset == positions[0].end) {
                     offset = positions[0].end + 1
