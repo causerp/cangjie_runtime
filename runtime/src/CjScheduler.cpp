@@ -455,7 +455,8 @@ static void* WrapperExclusiveClosure(void* arg, unsigned int len)
 #elif defined(__x86_64__)
     ExecuteExclusiveCangjieStub(&g_ut, nullptr, closureObj, executeClosure, reinterpret_cast<void*>(threadData));
 #elif defined(__arm__)
-    ExecuteExclusiveCangjieStub(&g_ut, nullptr, closureObj, executeClosure, reinterpret_cast<void*>(threadData));
+    TypeInfo* ti = closureObj->GetTypeInfo();
+    ExecuteExclusiveCangjieStub(&g_ut, ti, closureObj, executeClosure, reinterpret_cast<void*>(threadData));
 #endif
     MutatorManager::Instance().TransitMutatorToExit();
     return nullptr;
