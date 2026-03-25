@@ -19,6 +19,8 @@ endif()
 
 enable_language(ASM)
 
+include_directories(${PROJECT_SOURCE_DIR}/../../include)
+
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     set(OS_PREFIX "linux")
 elseif (CMAKE_SYSTEM_NAME MATCHES "Windows")

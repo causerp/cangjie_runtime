@@ -9,6 +9,7 @@
 #define MRT_ILOADER_H
 #include <functional>
 
+#include "Interpreter/Options.h"
 #include "Base/CString.h"
 #include "Common/TypeDef.h"
 #include "ObjectModel/ExtensionData.h"
@@ -37,6 +38,9 @@ public:
     virtual bool DoInitImage(BaseFile* baseFile) const = 0;
     virtual bool LibInit(const char*) = 0;
     virtual void* LoadCJLibrary(const char*) = 0;
+#ifdef INTERPRETER_ENABLED
+    virtual void* LoadInterpreter(const char*) = 0;
+#endif
     virtual int UnloadLibrary(const char*) = 0;
     virtual Uptr FindSymbol(const CString libName, const CString symName) const = 0;
     virtual BaseFile* GetBaseFile(CString fileName) const = 0;
@@ -50,7 +54,7 @@ public:
     virtual TypeExt* GetTypeExt(void* type) = 0;
     virtual void RegisterTypeExt(BaseFile* baseFile) = 0;
 #ifdef __OHOS__
-    virtual void RegisterLoadFunc(void* loadFunc) = 0;
+    virtual void RegisterLoadFunc(void* loadFunc, void* loadLibraryFunc) = 0;
 #endif
     static ILoader* CreateLoader();
 };

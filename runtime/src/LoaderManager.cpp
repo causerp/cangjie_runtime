@@ -5,12 +5,15 @@
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
 #ifdef __OHOS__
+#include <cstring>
 #include <dlfcn.h>
 #endif
 
-#include "LoaderManager.h"
 #include "Base/ImmortalWrapper.h"
+#include "Interpreter/Options.h"
 #include "Loader/ILoader.h"
+#include "LoaderManager.h"
+
 namespace MapleRuntime {
 bool LoaderManager::isReleased;
 LoaderManager* LoaderManager::GetInstance()
@@ -142,16 +145,32 @@ void LoaderManager::Fini()
     initStatus.store(false, std::memory_order_relaxed);
 }
 
-void* LoaderManager::LoadCJLibrary(const char* libName) const { return loader->LoadCJLibrary(libName); }
+void* LoaderManager::LoadCJLibrary(const char* libName) const
+{
+    return loader->LoadCJLibrary(libName);
+}
 
-int LoaderManager::UnLoadLibrary(const char* libName) const { return loader->UnloadLibrary(libName); }
+#ifdef INTERPRETER_ENABLED
+void* LoaderManager::LoadInterpreter(const char* libName) const
+{
+    return loader->LoadInterpreter(libName);
+}
+#endif
+
+int LoaderManager::UnLoadLibrary(const char* libName) const
+{
+    return loader->UnloadLibrary(libName);
+}
 
 Uptr LoaderManager::FindSymbol(const CString libName, const CString symbolName) const
 {
     return loader->FindSymbol(libName, symbolName);
 }
 
-bool LoaderManager::LibInit(const char* libName) const { return loader->LibInit(libName); }
+bool LoaderManager::LibInit(const char* libName) const
+{
+    return loader->LibInit(libName);
+}
 
 void LoaderManager::LoadPreLoadedImages()
 {
@@ -162,11 +181,20 @@ void LoaderManager::LoadPreLoadedImages()
     preLoadedImages.clear();
 }
 
-void LoaderManager::RegisterLoadFile(Uptr address) const { loader->RegisterLoadFile(address); }
+void LoaderManager::RegisterLoadFile(Uptr address) const
+{
+    loader->RegisterLoadFile(address);
+}
 
-void LoaderManager::UnregisterLoadFile(Uptr address) const { loader->UnregisterLoadFile(address); }
+void LoaderManager::UnregisterLoadFile(Uptr address) const
+{
+    loader->UnregisterLoadFile(address);
+}
 
-void LoaderManager::AddPreLoadedImageMetaAddr(Uptr address) { preLoadedImages.push_back(address); }
+void LoaderManager::AddPreLoadedImageMetaAddr(Uptr address)
+{
+    preLoadedImages.push_back(address);
+}
 
 void LoaderManager::RemovePreLoadedImageMetaAddr(Uptr address)
 {
@@ -185,72 +213,119 @@ bool LoaderManager::CheckPackageCompatibility(Uptr address)
 };
 
 #ifdef __OHOS__
+struct CJEnvMethods {
+    void (*initCJAppNS)(void* path) = nullptr;
+    void (*initCJSDKNS)(void* path) = nullptr;
+    void (*initCJSysNS)(void* path) = nullptr;
+    void (*initCJChipSDKNS)(void* path) = nullptr;
+    bool (*startRuntime)() = nullptr;
+    bool (*startUIScheduler)() = nullptr;
+    void* (*loadCJModule)(const char* dllName) = nullptr;
+    void* (*loadLibrary)(uint32_t kind, const char* dllName) = nullptr;
+    void* (*getSymbol)(void* handle, const char* symbol) = nullptr;
+    void* (*loadCJLibrary)(const char* dllName) = nullptr;
+    bool (*startDebugger)() = nullptr;
+    void (*registerCJUncaughtExceptionHandler)(void* uncaughtExceptionInfo) = nullptr;
+    void (*setSanitizerKindRuntimeVersion)(void* kind) = nullptr;
+    bool (*checkLoadCJLibrary)() = nullptr;
+    void (*registerArkVMInRuntime)(unsigned long long arkVM) = nullptr;
+    void (*registerStackInfoCallbacks)(void* uFunc) = nullptr;
+    void (*setAppVersion)(void* version) = nullptr;
+    void (*dumpHeapSnapshot)(int fd) = nullptr;
+    void (*forceFullGC)() = nullptr;
+};
+
+bool IsCJRomSdkNamespace()
+{
+    Dl_namespace dlns;
+    dlns_get(nullptr, &dlns);
+    return strcmp(dlns.name, "cj_rom_sdk") == 0;
+}
+
+const char* GetCJEnvFile()
+{
+#ifdef __arm__
+    return "/system/lib/platformsdk/libcj_environment.z.so";
+#else
+    return "/system/lib64/platformsdk/libcj_environment.z.so";
+#endif
+}
+
+void* OpenCJEnvFile(const char* cjEnvFile)
+{
+    void* handle = dlopen(cjEnvFile, RTLD_NOW);
+    if (handle == nullptr) {
+        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: dlopen %s fail\n", cjEnvFile);
+    }
+    return handle;
+}
+
+CJEnvMethods* CreateCJEnvMethods(void* handle)
+{
+    using GenEnvFunc = CJEnvMethods* (*)();
+    const char* createEnvFuncMangledName = "_ZN4OHOS13CJEnvironment16CreateEnvMethodsEv";
+    void* getEnvFunc = dlsym(handle, createEnvFuncMangledName);
+    if (getEnvFunc == nullptr) {
+        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: dlsym func `CJEnvironment::CreateEnvMethods()` fail\n");
+        return nullptr;
+    }
+
+    CJEnvMethods* envFuncs = reinterpret_cast<GenEnvFunc>(getEnvFunc)();
+    if (envFuncs == nullptr) {
+        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: envFuncs is nullptr\n");
+    }
+    return envFuncs;
+}
+
+bool TryGetLoadFunctions(CJEnvMethods* envFuncs, void*& loadCJLibraryFunc, void*& loadLibraryFunc)
+{
+    loadCJLibraryFunc = reinterpret_cast<void*>(envFuncs->loadCJLibrary);
+    if (loadCJLibraryFunc == nullptr) {
+        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: get loadCJLibraryFunc fail\n");
+        return false;
+    }
+
+#ifdef INTERPRETER_ENABLED
+    loadLibraryFunc = reinterpret_cast<void*>(envFuncs->loadLibrary);
+    if (loadLibraryFunc == nullptr) {
+        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: get loadLibraryFunc fail\n");
+        return false;
+    }
+#else
+    loadLibraryFunc = nullptr;
+#endif
+    return true;
+}
+
 // Due to the namespace isolation mechanism of ohos, the runtime has no
 // permission to directly open the dynamic library on the application side.
 // The runtime opens the dynamic library on the application side by using
 // the dynamic loading interface on the default namespace.
 void LoaderManager::RegisterLoadFunc()
 {
-    struct CJEnvMethods {
-        void (*initCJAppNS)(void* path) = nullptr;
-        void (*initCJSDKNS)(void* path) = nullptr;
-        void (*initCJSysNS)(void* path) = nullptr;
-        void (*initCJChipSDKNS)(void* path) = nullptr;
-        bool (*startRuntime)() = nullptr;
-        bool (*startUIScheduler)() = nullptr;
-        void* (*loadCJModule)(const char* dllName) = nullptr;
-        void* (*loadLibrary)(uint32_t kind, const char* dllName) = nullptr;
-        void* (*getSymbol)(void* handle, const char* symbol) = nullptr;
-        void* (*loadCJLibrary)(const char* dllName) = nullptr;
-        bool (*startDebugger)() = nullptr;
-        void (*registerCJUncaughtExceptionHandler)(void* uncaughtExceptionInfo) = nullptr;
-        void (*setSanitizerKindRuntimeVersion)(void* kind) = nullptr;
-        bool (*checkLoadCJLibrary)() = nullptr;
-        void (*registerArkVMInRuntime)(unsigned long long arkVM) = nullptr;
-        void (*registerStackInfoCallbacks)(void* uFunc) = nullptr;
-        void (*setAppVersion)(void* version) = nullptr;
-        void (*dumpHeapSnapshot) (int fd) = nullptr;
-        void (*forceFullGC) () = nullptr;
-    };
-    Dl_namespace dlns;
-    dlns_get(nullptr, &dlns);
-    if (strcmp(dlns.name, "cj_rom_sdk") != 0) {
+    if (!IsCJRomSdkNamespace()) {
         return;
     }
-    using GenEnvFunc = CJEnvMethods*(*)();
-#ifdef __arm__
-    const char* cjEnvFile = "/system/lib/platformsdk/libcj_environment.z.so";
-#else
-    const char* cjEnvFile = "/system/lib64/platformsdk/libcj_environment.z.so";
-#endif
-    // "CJEnvMethods* CJEnvironment::CreateEnvMethods()" mangled in c++
-    const char* createEnvFuncMangledName = "_ZN4OHOS13CJEnvironment16CreateEnvMethodsEv";
-    void* handle = dlopen(cjEnvFile, RTLD_NOW);
+
+    void* handle = OpenCJEnvFile(GetCJEnvFile());
     if (handle == nullptr) {
-        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: dlopen %s fail\n", cjEnvFile);
         return;
     }
 
-    void* getEnvFunc = dlsym(handle, createEnvFuncMangledName);
-    if (getEnvFunc == nullptr) {
-        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: dlsym func `CJEnvironment::CreateEnvMethods()` fail\n");
-        dlclose(handle);
-        return;
-    }
-
-    CJEnvMethods* envFuncs = ((GenEnvFunc)getEnvFunc)();
+    CJEnvMethods* envFuncs = CreateCJEnvMethods(handle);
     if (envFuncs == nullptr) {
-        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: envFuncs is nullptr\n");
         dlclose(handle);
         return;
     }
-    void* loadCJLibraryFunc = (void*)envFuncs->loadCJLibrary;
-    if (loadCJLibraryFunc == nullptr) {
-        LOG(RTLOG_ERROR, "LoaderManager::RegisterLoadFunc: get loadCJLibraryFunc fail\n");
+
+    void* loadCJLibraryFunc = nullptr;
+    void* loadLibraryFunc = nullptr;
+    if (!TryGetLoadFunctions(envFuncs, loadCJLibraryFunc, loadLibraryFunc)) {
         dlclose(handle);
         return;
     }
-    loader->RegisterLoadFunc(loadCJLibraryFunc);
+
+    loader->RegisterLoadFunc(loadCJLibraryFunc, loadLibraryFunc);
     dlclose(handle);
 }
 #endif

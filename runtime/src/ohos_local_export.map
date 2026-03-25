@@ -7,7 +7,7 @@
 CANGJIE {
   global: MRT_LibraryOnLoad;MRT_LibraryUnLoad;CJ_MRT_*;CJ_MCC_*;
           _ZN12MapleRuntime6Logger9GetLoggerEv;_ZN12MapleRuntime6Logger9FormatLogE10RTLogLevelbPKcz;
-          _ZN12MapleRuntime8TimeUtil11NanoSecondsEv;_ZN12MapleRuntime8TimeUtil12GetTimestampEv;InitCJRuntime;RunCJTask;RunCJTaskWithLocal;
+          _ZN12MapleRuntime8TimeUtil11NanoSecondsEv;_ZN12MapleRuntime8TimeUtil12GetTimestampEv;InitCJRuntime;InitCJInterpreter;RunCJTask;RunCJTaskWithLocal;
           RunCJTaskToSchedule;InitUIScheduler;RunUIScheduler;RegisterEventHandlerCallbacks;RegisterArkVMInRuntime;
           SuspendSchedule;ResumeSchedule;AnyTask;NetPollNotifyAdd;NetPollNotifyDel;FiniCJRuntime;SetCJCommandLineArgs;
           GetTaskRet;GetTaskRetWithTimeout;ReleaseHandle;LoadCJLibrary;FindCJSymbol;UnloadCJLibrary;

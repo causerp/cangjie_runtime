@@ -12,8 +12,14 @@
 
 #include "Common/BaseObject.h"
 #include "Common/StackType.h"
+#include "Interpreter/Options.h"
 
 namespace MapleRuntime {
+
+#ifdef INTERPRETER_ENABLED
+constexpr int INTERPRETED_FRAME_FDESC = 0;
+#endif
+
 class Mutator;
 class StackInfo {
 public:

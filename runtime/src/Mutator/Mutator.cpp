@@ -23,6 +23,8 @@
 #include "WinModuleManager.h"
 #endif
 #include "CpuProfiler/CpuProfiler.h"
+#include "Base/LogFile.h"
+#include "Interpreter/InterpreterSpecific.h"
 
 namespace MapleRuntime {
 extern "C" uintptr_t MRT_GetThreadLocalData()
@@ -118,6 +120,28 @@ extern "C" void MRT_SetStackGrow(bool enableStackScale)
 #endif
     }
 }
+
+#ifdef INTERPRETER_ENABLED
+void Mutator::InitInterpreterPart()
+{
+    if (isRuntimeMutator) {
+        return;
+    }
+
+    DLOG(INTERPRETER, "[Mutator] init interpreter part for cjThread %p\n", this);
+    InterpreterCJThreadStart(&(this->interpreterCJThreadData));
+}
+
+void Mutator::DestroyInterpreterPart()
+{
+    if (isRuntimeMutator) {
+        return;
+    }
+
+    DLOG(INTERPRETER, "[Mutator] destruct interpreter part for cjThread %p\n", this);
+    InterpreterCJThreadDestroy(&(this->interpreterCJThreadData));
+}
+#endif
 
 void Mutator::InitProtectStackAddr()
 {
@@ -392,7 +416,7 @@ void Mutator::RecordStackPtrs(std::set<BaseObject**>& resSet)
     }
 }
 
-intptr_t Mutator::FixExtendedStack(intptr_t frameBase, uint32_t adjustedSize __attribute__((unused)), void* ip)
+intptr_t Mutator::FixExtendedStack(intptr_t frameBase, uint32_t adjustedSize, void* ip)
 {
     if (!IsRuntimeThread()) {
 #if defined(_WIN64)
@@ -403,11 +427,37 @@ intptr_t Mutator::FixExtendedStack(intptr_t frameBase, uint32_t adjustedSize __a
         // When frameBase != 0, the stack check is invoked. In this case, the stack is expanded by two times by default.
         // Check whether the stack expansion meets the requirements.
         // Otherwise, the stack expansion continues to reach the limit.
+#ifdef INTERPRETER_ENABLED
+        uintptr_t currentIp = reinterpret_cast<uintptr_t>(ip);
+        bool isInterpreterC2I = IsC2IStubAddr(currentIp);
+        bool isInterpreterPrologue = !isInterpreterC2I && IsInterpreterPrologueAddr(currentIp);
+#endif
         if (frameBase == 0) {
             stackOffset = CJThreadStackGrow(CJTHREAD_MAX_STACK_SIZE);
             if (stackOffset == 0 || stackOffset == -1) {
                 return 0;
             }
+#ifdef INTERPRETER_ENABLED
+        } else if (isInterpreterC2I || isInterpreterPrologue) {
+                // The interpreter stack-grow path passes the full size that must fit below the caller
+                // frame base after StackGrowStub resumes execution in the transition stub/prologue.
+                DLOG(INTERPRETER, "Stack overflow happened in %s, stack size: %zu",
+                    isInterpreterPrologue ? "interpreter prologue" : "C2I", stackSize);
+                // SP of caller of C2I/prologue
+                uintptr_t callerFrameBase = static_cast<uintptr_t>(*reinterpret_cast<intptr_t*>(frameBase));
+                size_t requiredSize = stackBaseAddr - callerFrameBase + adjustedSize;
+                size_t newSize = stackSize + stackSize;
+                while (requiredSize > newSize - CJThreadStackReversedGet()) {
+                    newSize += newSize;
+                }
+                DLOG(INTERPRETER, "   try to grow stack size: %zu -> %zu", stackSize, newSize);
+                stackOffset = CJThreadStackGrow(newSize);
+                if (stackOffset == -1 || stackOffset == 0) {
+                    DLOG(INTERPRETER, "       stack overflow at %p", ip);
+                    ExceptionManager::StackOverflow(adjustedSize, ip);
+                    return 0;
+                }
+#endif // INTERPRETER_ENABLED
         } else {
             UnwindContext& stackGrowContext = Mutator::GetMutator()->GetUnwindContext();
             UnwindContext caller;

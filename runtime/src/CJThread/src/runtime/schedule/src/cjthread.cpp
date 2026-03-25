@@ -908,7 +908,7 @@ void ExclusiveExecutor(struct Thread* thread, struct CJThread* newCJThread)
     MapleRuntime::ThreadLocalData* tlData = reinterpret_cast<MapleRuntime::ThreadLocalData*>(threadData);
     tlData->cjthread = reinterpret_cast<uint8_t*>(newCJThread);
     MapleRuntime::Mutator* mutator = newCJThread->mutator;
-    tlData->mutator = mutator;
+    tlData->SetMutator(mutator);
     mutator->PreparedToRun(tlData);
 #if defined(__ANDROID__)
     TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXEC, CJThreadGetId(newCJThread)));
@@ -969,7 +969,7 @@ void ExclusiveRestore(struct CJThread* oldCJThread, struct Thread* thread,
 
     // Restore thread data
     thread->cjthread = oldCJThread;
-    tlData->mutator = oldCJThread->mutator;
+    tlData->SetMutator(oldCJThread->mutator);
     ProtectAddrSet(reinterpret_cast<uintptr_t>(oldCJThread->stack.stackGuard));
 
 #if defined(__ANDROID__)
@@ -1168,7 +1168,7 @@ void *CJThreadMpark(struct CJThread *parkCJThread)
             atomic_store_explicit(&parkCJThread->state, CJTHREAD_RUNNING, std::memory_order_relaxed);
             parkCJThread->result = error;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
-            tlData->mutator = mutator;
+            tlData->SetMutator(mutator);
             mutator->PreparedToRun(tlData);
             if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_UNBLOCK)) {
                 ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_UNBLOCK, TRACE_STACK_1, nullptr, 1,
@@ -1236,7 +1236,7 @@ int CJThreadParkInForeignThread(CJThread* cjthread, ParkCallbackFunc func, void 
 
     atomic_store_explicit(&cjthread->state, CJTHREAD_RUNNING, std::memory_order_relaxed);
     MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
-    tlData->mutator = mutator;
+    tlData->SetMutator(mutator);
     mutator->PreparedToRun(tlData);
     thread->state = THREAD_RUNNING;
     return cjthread->result;
@@ -1340,7 +1340,7 @@ void *CJThreadMRAW(struct CJThread *parkCJThread)
             // Execute the thread
             MapleRuntime::Mutator* mutator = nextCJThread->mutator;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
-            tlData->mutator = mutator;
+            tlData->SetMutator(mutator);
             mutator->PreparedToRun(tlData);
 #ifdef CANGJIE_ASAN_SUPPORT
             // target to next cj thread, just switch

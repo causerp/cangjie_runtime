@@ -25,6 +25,7 @@ if (BUILD_RUNTIME)
     add_subdirectory(UnwindStack)
     add_subdirectory(Sync)
     add_subdirectory(CpuProfiler)
+    add_subdirectory(Interpreter)
     if (WINDOWS_FLAG MATCHES 0)
         add_subdirectory(Signal)
     endif()
@@ -100,6 +101,7 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64") AND (WINDOWS_FLAG MATCHES 0) A
         "arch/x86_64_linux/ExclusiveScope.S"
         "arch/x86_64_linux/CalleeSavedStub.S"
         "arch/x86_64_linux/StackGrowStub.S"
+        "arch/x86_64_linux/I2NStub.S"
         "arch/x86_64_linux/HandleSafepointStub.S"
         "os/Linux/Loader.cpp"
         "os/Linux/Path.cpp"
@@ -166,6 +168,7 @@ elseif ((CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64") AND (WINDOWS_FLAG MATCHES 0))
         "CangjieRuntimeApi.cpp"
         "arch/aarch64_linux/N2CStub.S"
         "arch/aarch64_linux/C2NStub.S"
+        "arch/aarch64_linux/I2NStub.S"
         "arch/aarch64_linux/ExclusiveScope.S"
         "arch/aarch64_linux/CalleeSavedStub.S"
         "arch/aarch64_linux/StackGrowStub.S"

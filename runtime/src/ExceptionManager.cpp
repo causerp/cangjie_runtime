@@ -57,7 +57,7 @@ void ExceptionManager::OutOfMemory()
                 LOG(RTLOG_INFO, "prepare to report OOM FILEDUMPTASK");
                 const char* domain = "FRAMEWORK";
                 const char* event = "ARK_STATS_DUMP";
-                
+
                 std::map<std::string, std::string> params;
                 params["TYPE"] = "hidumper";
                 params["FILE_TYPE"] = "HEAP_DUMP";
@@ -90,7 +90,7 @@ void ExceptionManager::OutOfMemory()
         size_t activeMemory = heap.GetCurrentCapacity();
         size_t limitSize = heap.GetMaxCapacity();
         LOG(RTLOG_INFO, "OOM: activeMemory=%zu, limitSize=%zu", activeMemory, limitSize);
-        
+
         std::map<std::string, std::string> params;
         params["LIMIT_SIZE"] = std::to_string(limitSize);
         params["ACTIVE_MEMORY"] = std::to_string(activeMemory);
@@ -282,7 +282,7 @@ void ExceptionManager::DumpException()
         for (const auto& ste : stackTrace) {
 #ifdef __APPLE__
             PRINT_ERROR("\t at %s%s%s(%s:%lld)\n", ste.className.Str(), ste.className.Length() > 0 ? "." : "",
-                        ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
+                ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
 #endif
             LOG(RTLOG_ERROR, "\t at %s%s%s(%s:%ld)\n", ste.className.Str(), ste.className.Length() > 0 ? "." : "",
                 ste.methodName.Str(), ste.fileName.Str(), ste.lineNumber);
@@ -301,6 +301,10 @@ void ExceptionManager::DumpException()
     }
 }
 
+// Throw exception using managed ExceptionRaiser.
+// Since RUNRIME -> MANAGED transition is threated like N2C, stack-unwinding will stop at that managed function. See
+// `StackInfo::IsN2CContext`. Because of that, caller of this function should explicitly throw pending exception after
+// call.
 void ExceptionManager::ThrowImplicitException(ImplicitExceptionType type)
 {
     MRT_SetStackGrow(false);
@@ -312,7 +316,7 @@ void ExceptionManager::ThrowImplicitException(ImplicitExceptionType type)
     }
     uintptr_t threadData = MapleRuntime::MRT_GetThreadLocalData();
     ExecuteCangjieStub(reinterpret_cast<void*>(static_cast<intptr_t>(type)), 0, 0, reinterpret_cast<void*>(func),
-                       reinterpret_cast<void*>(threadData), 0);
+        reinterpret_cast<void*>(threadData), 0);
 }
 
 #ifndef _WIN64

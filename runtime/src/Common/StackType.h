@@ -15,6 +15,7 @@
 #include "Base/Types.h"
 #include "Common/Dataref.h"
 #include "TypeDef.h"
+#include "Interpreter/Options.h"
 
 namespace MapleRuntime {
 // Since the linker interface has not been enabled, some functions are first replaced by the
@@ -35,6 +36,13 @@ enum class FrameType {
     NATIVE = 7,
     STACKGROW = 8,
     EXSLUSIVE = 9,
+#ifdef INTERPRETER_ENABLED
+    INTERPRETER = 10,
+    INTERPRETER_C2I = 11,
+    INTERPRETER_I2I = 12,
+    INTERPRETER_I2N = 13,
+    INTERPRETER_PROLOGUE = 14
+#endif
 };
 
 enum class StackMode {
@@ -157,6 +165,18 @@ public:
 #endif
 
     bool IsRuntimeFrame() const;
+
+#ifdef INTERPRETER_ENABLED
+    bool IsInterpreterFrame() const;
+
+    bool IsC2IStubFrame() const;
+
+    bool IsI2IFrame() const;
+
+    bool IsI2NFrame() const;
+
+    bool IsInterpreterPrologueFrame() const;
+#endif
 
     bool IsN2CStubFrame() const;
 

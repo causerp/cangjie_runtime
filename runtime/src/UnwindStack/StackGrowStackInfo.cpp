@@ -11,6 +11,7 @@
 
 #include "Collector/TracingCollector.h"
 #include "Common/StackType.h"
+#include "Interpreter/InterpreterSpecific.h"
 
 namespace MapleRuntime {
 void StackGrowStackInfo::FillInStackTrace()
@@ -83,6 +84,11 @@ void StackGrowStackInfo::RecordStackPtrs(const StackPtrVisitor& traceAndFixPtrVi
                                     regSlotsMap, frame, mutator);
                 break;
             }
+#ifdef INTERPRETER_ENABLED
+            case FrameType::INTERPRETER_C2I:
+                RegRoot::RecordStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+#endif
             case FrameType::STACKGROW:
                 RegRoot::RecordRegs(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
                 break;
@@ -91,5 +97,22 @@ void StackGrowStackInfo::RecordStackPtrs(const StackPtrVisitor& traceAndFixPtrVi
             }
         }
     }
+
+#ifdef INTERPRETER_ENABLED
+    auto expansionStackVisitor = [this, &fixPtrVisitor, &derivedPtrVisitor](DYN_VisitingState state) {
+        for (const auto& frame : stack) {
+            switch (frame.GetFrameType()) {
+                case FrameType::INTERPRETER:
+                    VisitInterpreterFrameRootsExpansion(state, frame, &fixPtrVisitor, &derivedPtrVisitor);
+                    break;
+            }
+        }
+    };
+
+    IterateFramesWithState(mutator.interpreterCJThreadData, [](DYN_VisitingState state, void* ctx) {
+        auto closure = reinterpret_cast<decltype(expansionStackVisitor)*>(ctx);
+        (*closure)(state);
+    }, &expansionStackVisitor);
+#endif
 }
 } // namespace MapleRuntime

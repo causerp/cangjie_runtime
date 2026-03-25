@@ -27,6 +27,9 @@ const char* LOG_TYPE_NAMES[LOG_TYPE_NUMBER] = {
     "unwind", "exception", "signal",
 
     "cjthread",
+
+    "interpreter",
+
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
     "sanitizer",
 #endif
@@ -86,6 +89,7 @@ void LogFile::SetFlags()
     logFile[EXCEPTION].enableLog = MRT_ENABLED_LOG(MRT_LOG_EXCEPTION);
     logFile[SIGNAL].enableLog = MRT_ENABLED_LOG(MRT_LOG_SIGNAL);
     logFile[CJTHREAD].enableLog = MRT_ENABLED_LOG(MRT_LOG_CJTHREAD);
+    logFile[INTERPRETER].enableLog = MRT_ENABLED_LOG(MRT_LOG_INTERPRETER);
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
     logFile[SANITIZER].enableLog = MRT_ENABLED_LOG(MRT_LOG_SANITIZER);
 #endif

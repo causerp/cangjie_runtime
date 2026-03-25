@@ -9,6 +9,7 @@
 #define MRT_EXCEPTION_H
 
 #include <vector>
+#include <memory>
 
 #include "CalleeSavedRegisterContext.h"
 #include "Common/StackType.h"
@@ -90,6 +91,11 @@ public:
 
     uintptr_t GetTopManagedPC() const { return topManagedPC; }
 
+#ifdef INTERPRETER_ENABLED
+    void SetCurrentCatchFunctionPC(const uintptr_t ptr) { currentCatchFunctionPC = ptr; }
+
+    uintptr_t GetCurrentCatchFunctionPC() const { return currentCatchFunctionPC; }
+#endif
     void SetIsCaught(bool caught) { isCaught = caught; }
 
     bool IsCaught() const { return isCaught; }
@@ -159,7 +165,7 @@ public:
 
     void ClearEHFrameInfos() { ehFrameInfos.clear(); }
 
-    std::vector<EHFrameInfo>& GetEHFrameInfos() { return ehFrameInfos; }
+    std::vector<std::unique_ptr<IEHFrameInfo>>& GetEHFrameInfos() { return ehFrameInfos; }
 
     void Reset()
     {
@@ -170,38 +176,7 @@ public:
         topManagedPC = 0;
     }
 
-    void RestoreContext(CalleeSavedRegisterContext& context)
-    {
-#ifdef GENERAL_ASAN_SUPPORT_INTERFACE
-#if defined(__x86_64__)
-        auto oldRsp = context.rsp;
-#elif defined(__aarch64__)
-        auto oldRsp = context.sp;
-#elif defined(__arm__)
-        auto oldRsp = context.sp;
-#endif
-#endif
-        for (auto frameItor = ehFrameInfos.begin(); frameItor != ehFrameInfos.end(); ++frameItor) {
-            if (frameItor->IsCatchException()) {
-                break;
-            }
-            if (frameItor->mFrame.GetIP() == throwingSOFFramePc) {
-                frameItor->RestoreToCallerContext(context, adjustedSize);
-                adjustedSize = 0;
-            } else {
-                frameItor->RestoreToCallerContext(context);
-            }
-        }
-#ifdef GENERAL_ASAN_SUPPORT_INTERFACE
-#if defined(__x86_64__)
-        Sanitizer::HandleNoReturn(oldRsp, context.rsp);
-#elif defined(__aarch64__)
-        Sanitizer::HandleNoReturn(oldRsp, context.sp);
-#elif defined(__arm__)
-        Sanitizer::HandleNoReturn(oldRsp, context.sp);
-#endif
-#endif
-    }
+    void RestoreContext(CalleeSavedRegisterContext& context);
 
 private:
     ExceptionRef exceptionRef;
@@ -221,7 +196,7 @@ private:
     ExceptionType exceptionType = ExceptionType::UNKNOWN;
 
     // frame info vector
-    std::vector<EHFrameInfo> ehFrameInfos;
+    std::vector<std::unique_ptr<IEHFrameInfo>> ehFrameInfos;
     // stack trace pc and function start pc. vector layout is as follows.
     // function1 pc
     // function1 startpc
@@ -232,6 +207,10 @@ private:
     char* message;
     size_t messageLength;
     uintptr_t topManagedPC;
+#ifdef INTERPRETER_ENABLED
+    // PC of function which caught exception
+    uintptr_t currentCatchFunctionPC;
+#endif
 };
 
 class ExceptionHandling {
@@ -256,6 +235,7 @@ public:
 
 private:
     bool IsFromSignal() const { return sigContext != nullptr; }
+    bool ProcessEHFrame(const FrameInfo& frame, std::vector<std::unique_ptr<IEHFrameInfo>>& ehFrameInfos);
 
     FrameInfo lastRuntimeFrame;
     ExceptionWrapper* eWrapper;

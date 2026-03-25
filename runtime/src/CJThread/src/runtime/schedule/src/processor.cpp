@@ -761,7 +761,7 @@ void ProcessorSchedule(void)
             ProtectAddrSet((uintptr_t)nextCJThread->stack.stackGuard);
             MapleRuntime::Mutator* mutator = nextCJThread->mutator;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
-            tlData->mutator = mutator;
+            tlData->SetMutator(mutator);
             mutator->PreparedToRun(tlData);
             if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_START)) {
                 ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_START, -1, nullptr, 1,
@@ -794,7 +794,7 @@ void ProcessorSchedule(void)
         } else {
             MapleRuntime::Mutator* mutator = nextCJThread->mutator;
             MapleRuntime::ThreadLocalData* tlData = MapleRuntime::ThreadLocal::GetThreadLocalData();
-            tlData->mutator = mutator;
+            tlData->SetMutator(mutator);
             mutator->PreparedToRun(tlData);
             if (g_scheduleManager.trace.openType && (g_scheduleManager.trace.openType & TRACE_EV_CJTHREAD_START)) {
                 ScheduleTraceEventOrigin(TRACE_EV_CJTHREAD_START, -1, nullptr, 1,
