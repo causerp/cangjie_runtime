@@ -997,7 +997,7 @@ class MyTestSuite {
 
 ## `@TestTemplate` 宏
 
-功能：`@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模版](../../unittest/unittest_samples/unittest_test_templates.md)。
+功能：`@TestTemplate` 宏可修饰抽象类，使得它成为一个 [测试模板](../../unittest/unittest_samples/unittest_test_templates.md)。
 
 ## `@Timeout` 宏
 
