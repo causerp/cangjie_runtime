@@ -246,7 +246,7 @@
         - [Unittest 基础概念及用法](std/unittest/unittest_samples/unittest_basics.md)
         - [参数化测试](std/unittest/unittest_samples/unittest_parameterized_tests.md)
         - [动态测试](std/unittest/unittest_samples/unittest_dynamic_tests.md)
-        - [测试模版](std/unittest/unittest_samples/unittest_test_templates.md)
+        - [测试模板](std/unittest/unittest_samples/unittest_test_templates.md)
         - [基准测试](std/unittest/unittest_samples/unittest_benchmarks.md)
 - [std.unittest.mock](std/unittest_mock/unittest_mock_package_overview.md)
     - [函数](std/unittest_mock/unittest_mock_package_api/unittest_mock_package_functions.md)
