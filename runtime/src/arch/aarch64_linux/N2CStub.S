@@ -446,12 +446,6 @@ CJ_MRT_ARKTS_CreateEngineStub:
     cfi_rel_offset (x30, 8)
     mov x29, sp
     mov x19, sp
-    bl  IsForeignThread
-    cmp x0, #0
-    bne .L_no_need_switch
-    bl  GetNativeSPForUIThread
-    mov sp, x0
-.L_no_need_switch:
     bl  CJ_MRT_ARKTS_CreateEngine
     mov sp, x19
     ldp x29, x30, [sp], #16
