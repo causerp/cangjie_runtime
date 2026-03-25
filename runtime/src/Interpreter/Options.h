@@ -7,7 +7,7 @@
 #ifndef MRT_INTERPRETER_OPTIONS_H
 #define MRT_INTERPRETER_OPTIONS_H
 
-#if defined(__linux__) && (defined(__x86_64__) || defined(__aarch64__))
+#if (defined(__linux__) || defined(__IOS__)) && (defined(__x86_64__) || defined(__aarch64__))
 #define INTERPRETER_ENABLED
 #endif
 

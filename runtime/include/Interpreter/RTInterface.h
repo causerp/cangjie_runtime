@@ -95,7 +95,7 @@ typedef struct INT_InterpretedFrameInfo {
 // endregion Calling Conventions
 
 #define INT_INTERPRETER_INTERFACE_VERSION 1
-#define DYN_CJNATIVE_INTERFACE_VERSION 1
+#define DYN_CJNATIVE_INTERFACE_VERSION 2
 
 // region interpreter interface
 
@@ -220,10 +220,10 @@ typedef void (*DYN_SafePointFn)();
 // Check if safepoint is pending.
 // params:
 // - threadLocalData - pointer to current `ThreadLocalData`.
-// return: true if safepoint is pending, false otherwise.
+// return: non-zero if safepoint is pending, zero otherwise.
 // Notes:
 //  This method will be invoked by interpreter as a part of interpretation loop.
-typedef bool (*DYN_IsPendingSafePointFn)(DYN_ThreadLocalData);
+typedef int (*DYN_IsPendingSafePointFn)(DYN_ThreadLocalData);
 
 // Provide a TypeInfo for type with given signature.
 // params:
@@ -335,18 +335,18 @@ typedef DYN_ObjRef (*DYN_GetAndClearPendingExceptionFn)();
 // params:
 // - object which type will be checked
 // - pointer to TypeInfo
-// return: true if object's type is a subtype of `ti`, false otherwise.
+// return: non-zero if object's type is a subtype of `ti`, zero otherwise.
 // Notes:
 //  This method will be invoked by interpreter as a part of interpretation loop.
-typedef bool (*DYN_InstanceOfFn)(DYN_ObjRef obj, struct DYN_TypeInfo* ti);
+typedef int (*DYN_InstanceOfFn)(DYN_ObjRef obj, struct DYN_TypeInfo* ti);
 
 // Check that typeInfo is a subtype of superTypeInfo.
 // params:
 // - typeInfo - type to check
 // - superTypeInfo - base type
-// return: true if typeInfo is a subtype of superTypeInfo.
+// return: non-zero if typeInfo is a subtype of superTypeInfo.
 // Notes:
-typedef bool (*DYN_IsSubTypeFn)(struct DYN_TypeInfo* typeInfo, struct DYN_TypeInfo* superTypeInfo);
+typedef int (*DYN_IsSubTypeFn)(struct DYN_TypeInfo* typeInfo, struct DYN_TypeInfo* superTypeInfo);
 
 // Applies visitor to the given placeholder.
 // params:
@@ -419,26 +419,26 @@ typedef void (*DYN_WriteStructFieldFn)(DYN_ObjRef obj, uintptr_t dst, uintptr_t 
 
 // Read a static struct field.
 // params:
-// - dstPtr - pointer to the destination memory
+// - dst - pointer to the destination memory
 // - dstSize - size of destination memory
-// - srcPtr - pointer to the source static struct
+// - src - pointer to the source static struct
 // - srcSize - size of source struct
 // - tib - The GCTib value (can be a pointer to StdGCTib or a ShortGCTib bitmap)
 // Notes:
 // This method will be invoked by interpreter as a part of interpretation loop.
 typedef void (*DYN_ReadStaticStructFieldFn)(
-    uintptr_t dstPtr, size_t dstSize, uintptr_t srcPtr, size_t srcSize, DYN_GCTib tib);
+    uintptr_t dst, size_t dstSize, uintptr_t src, size_t srcSize, DYN_GCTib tib);
 
 // Write a static value type field (struct).
 // params:
 // - dst - pointer to the destination static struct
-// - dstLen - size of destination struct
+// - dstSize - size of destination struct
 // - src - pointer to the source memory
-// - srcLen - size of source memory
+// - srcSize - size of source memory
 // - tib - The GCTib value (can be a pointer to StdGCTib or a ShortGCTib bitmap)
 // Notes:
 // This method will be invoked by interpreter as a part of interpretation loop.
-typedef void (*DYN_WriteStaticStructFieldFn)(uintptr_t dst, size_t dstLen, uintptr_t src, size_t srcLen, DYN_GCTib tib);
+typedef void (*DYN_WriteStaticStructFieldFn)(uintptr_t dst, size_t dstSize, uintptr_t src, size_t srcSize, DYN_GCTib tib);
 
 // Read a generic field from an object.
 // Should be used if generic type resolves to struct/value at runtime, otherwise use DYN_ReadInstanceFieldFn.
@@ -495,9 +495,9 @@ typedef DYN_ThreadLocalData (*DYN_GetThreadLocalDataFn)();
 // return: opaque cjThread handle for the created thread, or null if creation or scheduling fails.
 typedef DYN_CJThreadHandle (*DYN_NewCJThreadFn)(void* execute, DYN_ObjRef future, void* scheduler);
 
-// Returns true if the GC is in an "active" phase.
+// Returns non-zero if the GC is in an "active" phase.
 // In active phase fast-path write barriers can`t be used.
-typedef bool (*DYN_IsActiveGcPhaseFn)(DYN_ThreadLocalData);
+typedef int (*DYN_IsActiveGcPhaseFn)(DYN_ThreadLocalData);
 
 // Runtime stack-growth entry used by interpreter-owned transition/prologue stubs.
 // `DYN_CJNativeInterface::stackGrowStub` is initialized by runtime with

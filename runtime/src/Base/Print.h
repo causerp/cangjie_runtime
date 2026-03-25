@@ -115,16 +115,16 @@ inline os_log_t GetOsLogger()
     return logger;
 }
 
-#define PRINT_DEBUG(...) os_log_debug(GetOsLogger(), __VA_ARGS__)
-#define PRINT_INFO(...) os_log_info(GetOsLogger(), __VA_ARGS__)
-#define PRINT_WARN(...) os_log(GetOsLogger(), __VA_ARGS__)
-#define PRINT_ERROR(...) os_log_error(GetOsLogger(), __VA_ARGS__)
-#define PRINT_FATAL(...) os_log_fault(GetOsLogger(), __VA_ARGS__)
+#define PRINT_DEBUG(...) os_log_debug(::MapleRuntime::GetOsLogger(), __VA_ARGS__)
+#define PRINT_INFO(...) os_log_info(::MapleRuntime::GetOsLogger(), __VA_ARGS__)
+#define PRINT_WARN(...) os_log(::MapleRuntime::GetOsLogger(), __VA_ARGS__)
+#define PRINT_ERROR(...) os_log_error(::MapleRuntime::GetOsLogger(), __VA_ARGS__)
+#define PRINT_FATAL(...) os_log_fault(::MapleRuntime::GetOsLogger(), __VA_ARGS__)
 
 #define PRINT_ERROR_RETURN_IF(conf, retValue, ...) \
     do { \
         if (conf) { \
-            os_log(GetOsLogger(), __VA_ARGS__); \
+            os_log(::MapleRuntime::GetOsLogger(), __VA_ARGS__); \
             return retValue; \
         } \
     } while (0)
@@ -132,7 +132,7 @@ inline os_log_t GetOsLogger()
 #define PRINT_FATAL_IF(conf, ...) \
     do { \
         if (conf) { \
-            os_log_fault(GetOsLogger(), __VA_ARGS__); \
+            os_log_fault(::MapleRuntime::GetOsLogger(), __VA_ARGS__); \
         } \
     } while (0)
 

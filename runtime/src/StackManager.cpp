@@ -29,6 +29,10 @@
 #include <dlfcn.h>
 #ifndef __IOS__
 #include <libproc.h>
+#else
+#include <mach-o/dyld.h>
+#include <mach-o/loader.h>
+#include <mach/vm_prot.h>
 #endif
 #endif
 #include "Inspector/CjHeapData.h"
@@ -372,6 +376,67 @@ static void InitAddressInfoOnDarwin(const char* dylib, Uptr& start, Uptr& end)
 }
 #endif
 
+#if defined(__APPLE__) && defined(__IOS__)
+/**
+ * @brief Initialize an iOS Mach-O executable address range from a symbol inside the image.
+ * @param symbol Address of a symbol resolved from the target image.
+ * @param start Receives the lowest executable segment start address.
+ * @param end Receives the highest executable segment end address.
+ */
+static void InitAddressInfoOnIOS(const void* symbol, Uptr& start, Uptr& end)
+{
+    if (symbol == nullptr) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressInfoOnIOS(): symbol is null");
+        return;
+    }
+
+    Dl_info info;
+    if (dladdr(symbol, &info) == 0 || info.dli_fbase == nullptr) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressInfoOnIOS(): failed to resolve Mach-O image");
+        return;
+    }
+
+    auto rawHeader = reinterpret_cast<const mach_header*>(info.dli_fbase);
+    if (rawHeader->magic != MH_MAGIC_64) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressInfoOnIOS(): unsupported Mach-O image");
+        return;
+    }
+
+    intptr_t slide = 0;
+    bool imageFound = false;
+    for (uint32_t i = 0; i < _dyld_image_count(); ++i) {
+        if (_dyld_get_image_header(i) == rawHeader) {
+            slide = _dyld_get_image_vmaddr_slide(i);
+            imageFound = true;
+            break;
+        }
+    }
+    if (!imageFound) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressInfoOnIOS(): Mach-O image is not loaded");
+        return;
+    }
+
+    auto header = reinterpret_cast<const mach_header_64*>(rawHeader);
+    auto commandPtr = reinterpret_cast<const uint8_t*>(header) + sizeof(mach_header_64);
+    for (uint32_t i = 0; i < header->ncmds; ++i) {
+        auto command = reinterpret_cast<const load_command*>(commandPtr);
+        if (command->cmd == LC_SEGMENT_64) {
+            auto segment = reinterpret_cast<const segment_command_64*>(command);
+            if ((segment->initprot & VM_PROT_EXECUTE) != 0) {
+                Uptr segmentStart = static_cast<Uptr>(static_cast<int64_t>(segment->vmaddr) + slide);
+                Uptr segmentEnd = segmentStart + static_cast<Uptr>(segment->vmsize);
+                start = segmentStart < start ? segmentStart : start;
+                end = segmentEnd > end ? segmentEnd : end;
+            }
+        }
+        commandPtr += command->cmdsize;
+    }
+    if (start == STACK_ADDR_MAX || end == 0) {
+        LOG(RTLOG_ERROR, "StackManager::InitAddressInfoOnIOS(): failed to find executable segment");
+    }
+}
+#endif
+
 #if defined(_WIN64)
 static void InitAddressInfoOnWindows(const char* lib, Uptr& start, Uptr& end)
 {
@@ -432,9 +497,16 @@ void StackManager::InitAddressScope()
 }
 
 #ifdef INTERPRETER_ENABLED
-void StackManager::InitAddressScopeForInterpreter(const char* libName)
+/**
+ * @brief Initialize the interpreter code address range for stack frame classification.
+ * @param libName Interpreter library name used for path-based lookup on Linux and macOS.
+ * @param symbol Symbol inside the interpreter image used for Mach-O lookup on iOS.
+ */
+void StackManager::InitAddressScopeForInterpreter(const char* libName, const void* symbol)
 {
-#if defined(__linux__)
+#if defined(__APPLE__) && defined(__IOS__)
+    InitAddressInfoOnIOS(symbol, StackManager::interpreterSoStartAddr, StackManager::interpreterSoEndAddr);
+#elif defined(__linux__)
     std::vector<CString> interpreterSoName = {CString(libName).Combine("\n").Str()};
     GetEachSoAddrScope(interpreterSoName);
 #elif defined(__APPLE__) && !defined(__IOS__) // MacOS
@@ -444,7 +516,7 @@ void StackManager::InitAddressScopeForInterpreter(const char* libName)
     LOG(RTLOG_FATAL, "Unsupported platform for interpreter");
 #endif
 }
-#endif
+#endif // INTERPRETER_ENABLED
 
 void InitAddressScopeForCJthreadTrace()
 {

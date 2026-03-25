@@ -15,8 +15,8 @@
 
     .text
     .align 2
-    .global CJ_MCC_StackGrowStub
-CJ_MCC_StackGrowStub:
+    .global _CJ_MCC_StackGrowStub
+_CJ_MCC_StackGrowStub:
     .cfi_startproc
     pushq   %rbp
     .cfi_def_cfa_offset 16
