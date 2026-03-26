@@ -980,7 +980,7 @@ public class FuncDecl <: Decl {
         }
         var paramTokens = try {
             genericParam.toTokens()
-        } catch (e: Exception) {
+        } catch (e: ASTException) {
             Tokens()
         }
         ret.append(paramTokens).append(lParen_)
