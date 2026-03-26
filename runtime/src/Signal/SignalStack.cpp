@@ -23,7 +23,7 @@
 #include "Cangjie.h"
 #include "securec.h"
 #ifdef COV_SIGNALHANDLE
-extern "C" void __gcov_flush(void);
+extern "C" void __gcov_dump(void);
 #endif
 namespace MapleRuntime {
 SignalStack SignalStack::stacks[_NSIG];
@@ -212,7 +212,7 @@ void SignalStack::HandlerImpl(void* args)
         } else {
             g_linkedSignalProcmask(SIG_SETMASK, &mask, nullptr);
 #ifdef COV_SIGNALHANDLE
-            __gcov_flush();
+            __gcov_dump();
 #endif
             handler(signal);
         }
