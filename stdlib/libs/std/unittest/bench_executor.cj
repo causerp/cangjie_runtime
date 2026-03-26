@@ -250,7 +250,7 @@ class BenchmarkResult {
         bootstrapped.resultSample.sample.percentile(0.5)
     }}
     prop medianCI99: Float64 { get() {
-        (bootstrapped.resultSample.sample.percentile(0.99) - bootstrapped.resultSample.sample.percentile(0.01)) / 2.0
+        (bootstrapped.medianStats.sample.percentile(0.99) - bootstrapped.medianStats.sample.percentile(0.01)) / 2.0
     }}
 
     prop mean: Float64 { get() {
