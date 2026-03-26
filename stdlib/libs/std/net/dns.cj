@@ -18,17 +18,24 @@ const DOMAIN_MAX_LEN = 255
 const SUB_DOMAIN_LIST_LEN = 63
 
 func isDomainValid(domainStr: String): Bool {
-    if (domainStr.size > DOMAIN_MAX_LEN) {
+    if (domainStr.isEmpty() || domainStr.size > DOMAIN_MAX_LEN) {
         return false
     }
-    let domainList = domainStr.split(".")
+    var domain = domainStr
+    if (domain.endsWith(".")) {
+        domain = domain[0..(domain.size - 1)]
+    }
+    if (domain.isEmpty()) {
+        return false
+    }
+    let domainList = domain.split(".")
     var numberPartCnt = 0
-    for (domain in domainList) {
-        if (domain.isEmpty() || domain.size > SUB_DOMAIN_LIST_LEN || domain.startsWith("-") || domain.endsWith("-")) {
+    for (part in domainList) {
+        if (part.isEmpty() || part.size > SUB_DOMAIN_LIST_LEN || part.startsWith("-") || part.endsWith("-")) {
             return false
         }
         var isNumber = true
-        for (b in domain) {
+        for (b in part) {
             if (!(b.isAsciiNumberOrLetter() || b == b'-')) {
                 return false
             }
@@ -40,7 +47,6 @@ func isDomainValid(domainStr: String): Bool {
             numberPartCnt++
         }
     }
-    // reject the evil domain which looks like ip
     if (numberPartCnt == domainList.size) {
         return false
     }
