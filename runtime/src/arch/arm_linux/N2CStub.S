@@ -182,6 +182,16 @@ CJ_MCC_N2CStub:
     bl  MRT_SetStackGrow
     bl  MRT_GetThreadLocalData
     str  r0, [sp, #ThreadLocalDataOffset]
+#ifdef __OHOS__
+    bl   CJ_GetUIThreadStackTop
+    cmp  r0, #0
+    beq  .L_setstack_end
+    str  r0, [sp, #ThreadLocalDataOffset+0x4]
+    mov  r0, sp
+    bl   CJ_PushUIThreadStackTop
+    ldr  r0, [sp, #ThreadLocalDataOffset+0x4]
+.L_setstack_end:
+#endif
 
     ldr  r12, [sp, #FuncAddrAndCpStacksizeOffset]  // calleeAddr
 
@@ -202,7 +212,12 @@ CJ_MCC_N2CStub:
     cfi_restore (d6)
     cfi_restore (d7)
 
-    mov  r12, sp
+#ifdef __OHOS__
+    cmp  r0, #0
+    beq  .L_copy
+    mov  sp, r0
+#endif
+
     // copy arg8, arg9, arg10, ... (if existed)
 .L_copy:
     cmp  r4, r10
@@ -222,7 +237,7 @@ CJ_MCC_N2CStub:
     mov  r1, r6
     mov  r2, r7
     mov  r3, r8
-    ldr  r9, [r12, #FuncAddrAndCpStacksizeOffset]  // calleeAddr
+    ldr  r9, [r11, #FuncAddrAndCpStacksizeOffset]  // calleeAddr
     blx  r9
     .global unwindPCForN2CStub
 unwindPCForN2CStub:
@@ -237,8 +252,19 @@ unwindPCForN2CStub:
     cfi_rel_offset(d1, StubCalleeSaveAreaSize+40)
 
     // Restore the value od rsp before copy arg8, arg9, arg10...
+#ifdef __OHOS__
+    bl   CJ_GetUIThreadStackTop
+    cmp  r0, #0
+    beq  .L_restore_sp
+    mov  sp, r0
+    bl   CJ_PopUIThreadStackTop
+    cfi_def_cfa_register (sp)
+    b    .L_restore_sp_end
+#endif
+.L_restore_sp:
     mov  sp, r11
     cfi_def_cfa_register (sp)
+.L_restore_sp_end:
 
     mov  r0, #1
     bl  MRT_SetStackGrow
@@ -408,12 +434,6 @@ CJ_MRT_ARKTS_CreateEngineStub:
 
     mov  r11, sp
     mov  r4, sp
-    bl  IsForeignThread
-    cmp  r0, #0
-    bne .L_no_need_switch
-    bl  GetNativeSPForUIThread
-    mov  sp, r0
-.L_no_need_switch:
     bl  CJ_MRT_ARKTS_CreateEngine
     mov  sp, r4
     ldr  r11, [sp]
@@ -422,7 +442,6 @@ CJ_MRT_ARKTS_CreateEngineStub:
     cfi_adjust_cfa_offset (-8)
     cfi_restore (lr)
     cfi_restore (r11)
-
     bx lr
     .cfi_endproc
     .size CJ_MRT_ARKTS_CreateEngineStub, .-CJ_MRT_ARKTS_CreateEngineStub
