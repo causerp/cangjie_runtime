@@ -1055,6 +1055,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     var pointIndex = inputStr.size - 1
     var isNative = false
     var formatBaseNum: Float64 = 10.0
+    var digitCount = 0
     match (inputStr[0]) {
         case '-' =>
             isNative = true
@@ -1069,6 +1070,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         }
         if (inputStr[index] >= b'0' && inputStr[index] <= b'9') {
             result = result * formatBaseNum + Float64(inputStr[index] - b'0')
+            digitCount++
         } else if (inputStr[index] == b' ') {
             return Failure("The string does not comply with the floating point number syntax.")
         } else if (inputStr[index] == b'.') {
@@ -1078,6 +1080,12 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         } else {
             return doParseFloatFromCffi<T>(data)
         }
+    }
+    if (pointNum > 1) {
+        return Failure("The string does not comply with the floating point number syntax.")
+    }
+    if (digitCount == 0) {
+        return Failure("The string does not comply with the floating point number syntax.")
     }
     var df = inputStr.size - pointIndex - 1
     var leftMove: Float64 = 1.0
