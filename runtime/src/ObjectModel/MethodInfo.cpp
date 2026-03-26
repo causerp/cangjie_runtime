@@ -472,7 +472,7 @@ void* MethodInfo::RetValueToAny(Value ret, void* sret, TypeInfo* retType)
 {
     if (retType->IsRef()) {
         return ret.ref;
-    } else if (retType->IsStruct() || retType->IsTuple()) {
+    } else if (retType->IsStruct() || retType->IsTuple() || retType->IsEnum()) {
         MSize typeSize = retType->GetInstanceSize();
         MSize size = MRT_ALIGN(typeSize + TYPEINFO_PTR_SIZE, TYPEINFO_PTR_SIZE);
         MObject* obj = ObjectManager::NewObject(retType, size, AllocType::RAW_POINTER_OBJECT);
@@ -482,6 +482,9 @@ void* MethodInfo::RetValueToAny(Value ret, void* sret, TypeInfo* retType)
         if (HasSRetNotGeneric()) {
             Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
                                            typeSize, reinterpret_cast<Uptr>(sret), typeSize);
+        } else if (retType->IsEnum() && !HasSRetWithKnowGenericStruct()) {
+            Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
+                                           typeSize, reinterpret_cast<Uptr>(&ret), typeSize);
         } else {
             Heap::GetBarrier().WriteStruct(obj, reinterpret_cast<Uptr>(obj) + TYPEINFO_PTR_SIZE,
                                            typeSize, reinterpret_cast<Uptr>(ret.ref), typeSize);
