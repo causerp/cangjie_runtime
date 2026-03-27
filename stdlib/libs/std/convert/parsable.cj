@@ -1093,7 +1093,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     }
     var inputStr = data.trimAscii()
     if (inputStr.isEmpty()) {
-        return Success(T.fromFloat64(0.0))
+        return Failure("The string does not comply with the floating point number syntax.")
     }
 
     var result: Float64 = 0.0
