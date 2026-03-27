@@ -61,12 +61,19 @@ func parseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt64, 
     if (isMark && formatBaseNum != 10) {
         rawDataSlice = rawData[2..]
     }
+    var digitCount: Int64 = 0
+    var lastWasUnderscore: Bool = false
     for (i in 0..rawDataSlice.size) {
         var digit: UInt64 = 0
         if (rawDataSlice[i] == b'_') {
+            if (digitCount == 0 || lastWasUnderscore) {
+                throw IllegalArgumentException("The part of value convert failed.")
+            }
+            lastWasUnderscore = true
             lineLength++
             continue
         }
+        lastWasUnderscore = false
         digit = DIGITS_UI64[Int64(rawDataSlice[i])]
         if (digit >= formatBaseNum || lineLength >= rawDataSlice.size) {
             throw IllegalArgumentException("The part of value convert failed.")
@@ -79,6 +86,10 @@ func parseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt64, 
             throw IllegalArgumentException("The part of value convert failed.")
         }
         num += digit
+        digitCount++
+    }
+    if (digitCount == 0 || lastWasUnderscore) {
+        throw IllegalArgumentException("The part of value convert failed.")
     }
     return num
 }
@@ -91,12 +102,19 @@ func tryParseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt6
     if (isMark && formatBaseNum != 10) {
         rawDatas = rawData[2..]
     }
+    var digitCount: Int64 = 0
+    var lastWasUnderscore: Bool = false
     for (i in 0..rawDatas.size) {
         var digit: UInt64 = 0
         if (rawDatas[i] == b'_') {
+            if (digitCount == 0 || lastWasUnderscore) {
+                return Failure("The part of value convert failed.")
+            }
+            lastWasUnderscore = true
             lineLength++
             continue
         }
+        lastWasUnderscore = false
         digit = DIGITS_UI64[Int64(rawDatas[i])]
         if (digit >= formatBaseNum || lineLength >= rawDatas.size) {
             return Failure("The part of value convert failed.")
@@ -109,6 +127,10 @@ func tryParseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt6
             return Failure("The part of value convert failed.")
         }
         num += digit
+        digitCount++
+    }
+    if (digitCount == 0 || lastWasUnderscore) {
+        return Failure("The part of value convert failed.")
     }
     return Success(num)
 }
