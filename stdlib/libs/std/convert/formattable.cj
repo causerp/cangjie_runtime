@@ -699,6 +699,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     func fmtFloat(arg: Float64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}")
+        }
         var negative = false
         var str = "${arg}".toRuneArray()
         /* Negative numbers, including -0.0 */
