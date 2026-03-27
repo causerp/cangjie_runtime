@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 extern double* CJ_STRTOD(char* str)
 {
@@ -15,8 +16,9 @@ extern double* CJ_STRTOD(char* str)
         return NULL;
     }
     char* p = NULL;
+    errno = 0;
     double value = strtod(str, &p);
-    if (p == NULL || strlen(p) > 0) {
+    if (p == NULL || strlen(p) > 0 || errno == ERANGE) {
         return NULL;
     }
     double* floatNumber = (double*)malloc(sizeof(double));
