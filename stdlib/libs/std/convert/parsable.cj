@@ -167,7 +167,10 @@ extend Int8 <: Parsable<Int8> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt8[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I8, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I8, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -265,7 +268,10 @@ extend UInt8 <: Parsable<UInt8> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt8[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI8, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI8, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt8(n)
@@ -356,7 +362,10 @@ extend Int16 <: Parsable<Int16> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt16[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I16, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I16, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -454,7 +463,10 @@ extend UInt16 <: Parsable<UInt16> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt16[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI16, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI16, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt16(n)
@@ -544,7 +556,10 @@ extend Int32 <: Parsable<Int32> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt32[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I32, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I32, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -642,7 +657,10 @@ extend UInt32 <: Parsable<UInt32> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt32[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI32, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI32, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt32(n)
@@ -733,7 +751,10 @@ extend Int64 <: Parsable<Int64> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt64[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I64, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I64, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -854,7 +875,10 @@ extend UInt64 <: Parsable<UInt64> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt64[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI64, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI64, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt64(n)

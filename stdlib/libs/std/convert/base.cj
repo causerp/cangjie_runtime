@@ -210,9 +210,29 @@ func getBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): 
         case 'o' | 'O' => baseInfos[isNegative][8]
         case 'x' | 'X' => baseInfos[isNegative][16]
         case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => baseInfos[isNegative][10]
-        case _ => (0, 0, 0)
+        case _ => throw IllegalArgumentException("Invalid number prefix.")
     }
     return (formatBaseNum, multmin, maxAbsVal)
+}
+
+func tryGetBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): Option<(UInt64, UInt64, UInt64)> {
+    var baseInfos = match (typeBase) {
+        case I8 => baseInfosInt8
+        case I16 => baseInfosInt16
+        case I32 => baseInfosInt32
+        case I64 => baseInfosInt64
+        case UI8 => baseInfosUInt8
+        case UI16 => baseInfosUInt16
+        case UI32 => baseInfosUInt32
+        case _ => baseInfosUInt64
+    }
+    match (rawData[1]) {
+        case 'b' | 'B' => Some(baseInfos[isNegative][2])
+        case 'o' | 'O' => Some(baseInfos[isNegative][8])
+        case 'x' | 'X' => Some(baseInfos[isNegative][16])
+        case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => Some(baseInfos[isNegative][10])
+        case _ => None
+    }
 }
 
 func getBaseInfosWithRadix(typeBase: TypeBase, isNegative: Int64, radix: Int64): (UInt64, UInt64, UInt64) {
