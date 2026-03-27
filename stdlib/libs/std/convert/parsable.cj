@@ -1063,6 +1063,9 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         case '+' => inputStr = inputStr[1..]
         case _ => ()
     }
+    if (inputStr.isEmpty()) {
+        return Failure("The string does not comply with the floating point number syntax.")
+    }
 
     for (index in 0..inputStr.size) {
         if (pointNum > 1) {
