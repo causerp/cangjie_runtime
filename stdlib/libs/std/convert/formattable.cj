@@ -21,8 +21,8 @@ public interface Formattable {
     func format(fmt: String): String
 }
 
-var signed: Bool = true
-var unsigned: Bool = false
+let signed: Bool = true
+let unsigned: Bool = false
 
 const MAX_FORMAT_WIDTH: Int64 = 100000
 const MAX_FLOAT_PRECISION: Int64 = 350
