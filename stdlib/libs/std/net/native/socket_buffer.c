@@ -100,6 +100,21 @@ static bool CJ_SocketDecreaseRef(SocketBuffer* sockBuf)
     return false;
 }
 
+static int32_t CJ_SOCKET_ClampWindowSize(size_t bufOff, int32_t requestedSize, int32_t bufSize)
+{
+    if (requestedSize <= 0 || bufSize <= 0) {
+        return 0;
+    }
+    if (bufOff >= (size_t)bufSize) {
+        return 0;
+    }
+    size_t remaining = (size_t)bufSize - bufOff;
+    if ((size_t)requestedSize > remaining) {
+        return (int32_t)remaining;
+    }
+    return requestedSize;
+}
+
 extern int32_t CJ_SOCKET_BufferRead(
     SocketBuffer* sockBuf, size_t bufOff, int32_t readSize, int64_t timeout, int32_t flags)
 {
@@ -107,9 +122,10 @@ extern int32_t CJ_SOCKET_BufferRead(
         return 0;
     }
     long long handle = atomic_load(&sockBuf->handle);
-    int32_t maxReadSize = readSize;
-    if (sockBuf->rBufSize < maxReadSize) {
-        maxReadSize = sockBuf->rBufSize;
+    int32_t maxReadSize = CJ_SOCKET_ClampWindowSize(bufOff, readSize, sockBuf->rBufSize);
+    if (maxReadSize == 0) {
+        (void)CJ_SocketDecreaseRef(sockBuf);
+        return 0;
     }
     int32_t recvLen = 0;
     if (timeout < 0) {
@@ -131,9 +147,10 @@ extern int32_t CJ_SOCKET_BufferRecvFrom(
         return 0;
     }
     long long handle = atomic_load(&sockBuf->handle);
-    int32_t maxReadSize = readSize;
-    if (sockBuf->rBufSize < maxReadSize) {
-        maxReadSize = sockBuf->rBufSize;
+    int32_t maxReadSize = CJ_SOCKET_ClampWindowSize(bufOff, readSize, sockBuf->rBufSize);
+    if (maxReadSize == 0) {
+        (void)CJ_SocketDecreaseRef(sockBuf);
+        return 0;
     }
     int32_t recvLen = 0;
 
@@ -153,12 +170,17 @@ extern int32_t CJ_SOCKET_BufferWrite(
         return 0;
     }
     long long handle = atomic_load(&sockBuf->handle);
+    int32_t maxWriteSize = CJ_SOCKET_ClampWindowSize(bufOff, writeSize, sockBuf->wBufSize);
+    if (maxWriteSize == 0) {
+        (void)CJ_SocketDecreaseRef(sockBuf);
+        return 0;
+    }
     int32_t sendLen = 0;
     if (timeout < 0) {
-        sendLen = CJ_MRT_SockSend(handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)writeSize, flags);
+        sendLen = CJ_MRT_SockSend(handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)maxWriteSize, flags);
     } else {
         sendLen = CJ_MRT_SockSendTimeout(
-            handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)writeSize, flags, (uint64_t)timeout);
+            handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)maxWriteSize, flags, (uint64_t)timeout);
     }
     (void)CJ_SocketDecreaseRef(sockBuf); // The value 0 is not returned because subsequent operations are not affected.
     return sendLen;
@@ -171,8 +193,13 @@ extern int32_t CJ_SOCKET_BufferSendto(SocketBuffer* sockBuf, size_t bufOff, int3
         return 0;
     }
     long long handle = atomic_load(&sockBuf->handle);
+    int32_t maxWriteSize = CJ_SOCKET_ClampWindowSize(bufOff, writeSize, sockBuf->wBufSize);
+    if (maxWriteSize == 0) {
+        (void)CJ_SocketDecreaseRef(sockBuf);
+        return 0;
+    }
     int32_t sendLen =
-        CJ_MRT_SockSendto(handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)writeSize, flags, addr);
+        CJ_MRT_SockSendto(handle, (const char*)sockBuf->wBuf + bufOff, (unsigned int)maxWriteSize, flags, addr);
 
     (void)CJ_SocketDecreaseRef(sockBuf); // The value 0 is not returned because subsequent operations are not affected.
     return sendLen;
@@ -182,6 +209,10 @@ extern int32_t CJ_SOCKET_BufferRCopy(SocketBuffer* sockBuf, const char* arrBuf, 
 {
     if (CJ_SocketIncreaseRef(sockBuf) || bufLen <= 0 || copyLen <= 0) {
         return 0;
+    }
+    if (copyLen > sockBuf->rBufSize || (int64_t)copyLen > bufLen) {
+        (void)CJ_SocketDecreaseRef(sockBuf);
+        return -1;
     }
     int32_t ret = memcpy_s((void*)arrBuf, (size_t)bufLen, sockBuf->rBuf, (size_t)copyLen);
     (void)CJ_SocketDecreaseRef(sockBuf); // The value 0 is not returned because subsequent operations are not affected.
@@ -196,11 +227,17 @@ extern int32_t CJ_SOCKET_BufferWCopy(SocketBuffer* sockBuf, const char* arrBuf, 
     if (CJ_SocketIncreaseRef(sockBuf) || bufLen <= 0 || copyLen <= 0) {
         return 0;
     }
-    int32_t ret = memcpy_s((void*)sockBuf->wBuf, (size_t)bufLen, arrBuf, (size_t)copyLen);
+    if (copyLen > sockBuf->wBufSize || (int64_t)copyLen > bufLen) {
+        if (CJ_SocketDecreaseRef(sockBuf)) {
+            return 0;
+        }
+        return -1;
+    }
+    int32_t ret = memcpy_s((void*)sockBuf->wBuf, (size_t)sockBuf->wBufSize, arrBuf, (size_t)copyLen);
     if (CJ_SocketDecreaseRef(sockBuf)) {
         return 0; // This affects subsequent operations. Therefore, return 0 directly.
     }
-    if (ret == 0) {
+    if (ret == EOK) {
         return copyLen;
     }
     return -1;
