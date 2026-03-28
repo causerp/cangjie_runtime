@@ -406,7 +406,7 @@ public struct Array<T> {
         if (this.len == 0) {
             return (this, this)
         }
-        let left = Array<T>(this.rawptr, this.start, this.start + mid)
+        let left = Array<T>(this.rawptr, this.start, mid)
         let right = Array<T>(this.rawptr, this.start + mid, this.len - mid)
         return (left, right)
     }
