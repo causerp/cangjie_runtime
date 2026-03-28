@@ -570,6 +570,10 @@ unsigned long long GetThreadStackTop()
 
 unsigned long long GetUIThreadStackTop()
 {
+    bool runtimeFinished = MapleRuntime::MRT_CheckRuntimeFinished();
+    if (runtimeFinished) {
+        return 0;
+    }
     Schedule* schedule = ScheduleGet();
     if (schedule == nullptr || schedule->scheduleType != SCHEDULE_UI_THREAD) {
         return 0;
