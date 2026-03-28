@@ -65,8 +65,10 @@ extend<T> CPointer<T> {
         return addPointer<T>(this, offset)
     }
 
-    @OverflowWrapping
     public unsafe operator func -(offset: Int64): CPointer<T> {
+        if (offset == Int64.Min) {
+            throw OverflowException("Pointer offset overflow: cannot negate Int64.Min")
+        }
         return addPointer<T>(this, (-1) * offset)
     }
 
