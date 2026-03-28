@@ -419,7 +419,7 @@ endif ()
 include_directories(${BOUNDSCHECK_INCLUDE})
 
 # Set coverage compilation flags.
-set(CMAKE_COV_FLAGS "-fprofile-arcs -ftest-coverage -Xclang -coverage-cfg-checksum -Xclang -coverage-no-function-names-in-data -Xclang -coverage-version=A75\\*")
+set(CMAKE_COV_FLAGS "-fprofile-arcs -ftest-coverage -O0 -fno-inline")
 
 # Set compilation option of each module.
 option(BUILD_CJTHREAD "Build cjthread module" ON)
