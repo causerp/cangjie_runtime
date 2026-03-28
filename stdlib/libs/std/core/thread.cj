@@ -363,11 +363,12 @@ public class Thread {
      */
     public prop state: ThreadState {
         get() {
-            let handle = _rtCJThreadHandle
+            let handle = acquireCJThreadHandle()
             if (handle.isNull()) {
                 return ThreadState.Terminated
             }
             let state = unsafe { CJ_MRT_GetCJThreadState(handle) }
+            releaseCJThreadHandle()
 
             return ThreadState.parse(state)
         }
