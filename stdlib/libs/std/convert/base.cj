@@ -302,15 +302,17 @@ func strToChar(data: Array<Rune>): Option<Rune> {
  * @since 0.17.4
  */
 func charToNumber(chs: Rune): UInt64 {
+    if (!((chs >= r'0' && chs <= r'9') || (chs >= r'A' && chs <= r'F') || (chs >= r'a' && chs <= r'f'))) {
+        throw IllegalArgumentException("Invalid hexadecimal digit: '${chs}'")
+    }
     var value: UInt64 = UInt64(UInt32(chs))
-    if (chs == r'A' || chs == r'B' || chs == r'C' || chs == r'D' || chs == r'E' || chs == r'F') {
+    if (chs >= r'A' && chs <= r'F') {
         return value - 65 + 10
     }
-    if (chs == r'a' || chs == r'b' || chs == r'c' || chs == r'd' || chs == r'e' || chs == r'f') {
+    if (chs >= r'a' && chs <= r'f') {
         return value - 97 + 10
-    } else {
-        return value - 48
     }
+    return value - 48
 }
 
 func checkChar(formatBaseNum: UInt64, ch: Rune): Bool {
