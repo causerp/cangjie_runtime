@@ -490,6 +490,9 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
             }
             len++
         }
+        if (len > 0) {
+            idx = start + len
+        }
         var str = fmt[start..start + len]
         width = Int64.parse(str)
         if (width > MAX_FORMAT_WIDTH) {
@@ -497,7 +500,7 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
         }
     }
     /* precision */
-    if (fmtCharArray[idx] == r'.' && idx < end) {
+    if (idx < end && fmtCharArray[idx] == r'.') {
         idx++
         var start = idx
         var len = 0
@@ -509,6 +512,9 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
             }
             len++
         }
+        if (len > 0) {
+            idx = start + len
+        }
         var str = fmt[start..start + len]
         precision = Int64.parse(str)
         if (precision > MAX_FORMAT_WIDTH) {
@@ -516,7 +522,7 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
         }
     }
     /* specifier */
-    if (fmtCharArray[idx].isAsciiLetter()) {
+    if (idx < end && fmtCharArray[idx].isAsciiLetter()) {
         specifier = fmtCharArray[idx]
     }
     return (flags, width, precision, specifier)
