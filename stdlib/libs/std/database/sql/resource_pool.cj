@@ -141,13 +141,25 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     }
 
     public func acquire(timeout: Duration): Option<Entry<T>> {
-        mux.lock()
-        if (idleEntry.size == 0 && entryCount < options.maxSize) {
-            entryCount++
-            mux.unlock()
-            return createEntry()
+        let shouldCreate: Bool
+        synchronized(mux) {
+            shouldCreate = idleEntry.size == 0 && entryCount < options.maxSize
+            if (shouldCreate) {
+                entryCount++
+            }
         }
-        mux.unlock()
+        if (shouldCreate) {
+            try {
+                return createEntry()
+            } catch (e: Exception) {
+                synchronized(mux) {
+                    if (entryCount > 0) {
+                        entryCount--
+                    }
+                }
+                throw e
+            }
+        }
         return getIdleEntry(timeout)
     }
 
