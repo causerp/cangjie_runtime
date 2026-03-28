@@ -450,6 +450,9 @@ void TypeInfo::TraverseInnerExtensionDefs(const std::function<void(TypeInfo*)> g
 
 void TypeInfo::TraverseOuterExtensionDefs(const std::function<void(TypeInfo*)> getInterface)
 {
+    if (!this->mTableDesc->NeedResolveOuter()) {
+        return;
+    }
     U16 typeArgNum = GetTypeArgNum();
     TypeInfo** typeArgs = nullptr;
     TypeInfo* componentTypeInfo = GetComponentTypeInfo();
@@ -484,6 +487,7 @@ void TypeInfo::TraverseOuterExtensionDefs(const std::function<void(TypeInfo*)> g
             return false;
         },
         sourceGeneric);
+    this->mTableDesc->needsResolveOuter = false;
 }
 
 void TypeInfo::GetInterfaces(std::vector<TypeInfo*> &itfs)
