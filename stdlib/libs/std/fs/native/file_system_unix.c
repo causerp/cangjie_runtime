@@ -444,19 +444,16 @@ extern FsError* CJ_FS_DirCreateRecursive(char* path)
     for (int i = 1; i < pathLen; i++) {
         if (IsSlash(path[i])) {
             path[i] = '\0';
-            if (access(path, F_OK) != 0 && SysMkdir(path, DEF_DIR_MODE) != 0) {
+            if (SysMkdir(path, DEF_DIR_MODE) != 0 && errno != EEXIST) {
                 return GetErrnoResult();
             }
             path[i] = SLASH;
         }
     }
-    if (pathLen > 0 && access(path, F_OK) != 0) {
-        if (SysMkdir(path, DEF_DIR_MODE) != 0) {
-            return GetErrnoResult();
-        }
+    if (pathLen > 0 && SysMkdir(path, DEF_DIR_MODE) != 0 && errno != EEXIST) {
+        return GetErrnoResult();
     }
-    FsError* result = GetDefaultResult();
-    return result;
+    return GetDefaultResult();
 }
 
 extern FsError* CJ_FS_DirCreate(const char* path)
