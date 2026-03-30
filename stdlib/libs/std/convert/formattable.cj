@@ -557,11 +557,35 @@ protected func escapeControlCharacters(str: String): String {
             case r'\f' => "\\f"
             case r'\v' => "\\v"
             case r'\0' => "\\0"
-            case _ => "${c}"
+            case _ => escapeOtherControlChar(c)
         }
         tmp = tmp + val
     }
     return tmp
+}
+
+func escapeOtherControlChar(c: Rune): String {
+    let code = UInt32(c)
+    if (code == 0x1B) {
+        "\\x1b"
+    } else if (code == 0x7F) {
+        "\\x7f"
+    } else if (code >= 0x01 && code <= 0x07) {
+        "\\x" + toHexLower(code)
+    } else if (code >= 0x0E && code <= 0x1F) {
+        "\\x" + toHexLower(code)
+    } else {
+        "${c}"
+    }
+}
+
+func toHexLower(n: UInt32): String {
+    let hexChars = "0123456789abcdef".toRuneArray()
+    let high = Int64((n >> 4) & 0x0F)
+    let low = Int64(n & 0x0F)
+    let a: Rune = hexChars[high]
+    let b: Rune = hexChars[low]
+    return "${a}${b}"
 }
 
 class FormatSpecifier {
