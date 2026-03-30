@@ -1626,6 +1626,10 @@ public func join(path: Path): Path
 - 对于路径 "a/b"，"c"，返回 "a/b/c"。
 - 对于路径 "a"，"b/c"，返回 "a/b/c"。
 
+> **注意：**
+>
+> 本方法仅进行字符串拼接，不处理 ".." 等路径遍历组件。如需安全验证，请先调用 [func canonicalize](./fs_package_funcs.md#func-canonicalizepath) 并检查路径范围。
+
 参数：
 
 - path: [Path](fs_package_structs.md#struct-path) - 另一个 [Path](fs_package_structs.md#struct-path)。
@@ -1679,6 +1683,10 @@ public func join(path: String): Path
 
 - 对于路径 "a/b"，"c"，返回 "a/b/c"。
 - 对于路径 "a"，"b/c"，返回 "a/b/c"。
+
+> **注意：**
+>
+> 本方法仅进行字符串拼接，不处理 ".." 等路径遍历组件。如需安全验证，请先调用 [func canonicalize](./fs_package_funcs.md#func-canonicalizestring) 并检查路径范围。
 
 参数：
 
