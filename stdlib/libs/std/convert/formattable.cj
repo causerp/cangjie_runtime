@@ -754,6 +754,9 @@ class FormatSpecifier {
             case r' ' => toDecimalString(u, prec)
             case _ => ""
         }
+        if (negative && val.size > 0 && val[0] == 45) {
+            negative = false
+        }
         var prefix = ""
         var len = val.size
         if ((flags == Flags.Plus) && !negative) {
