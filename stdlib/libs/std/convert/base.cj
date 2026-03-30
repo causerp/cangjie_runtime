@@ -365,7 +365,12 @@ func unicodeToChar(data: Array<Rune>): Option<Rune> {
         return None
     }
     match (charsToInteger(data[4..(data.size - 2)], 16)) {
-        case Some(n) => Some(Rune(UInt32(n)))
+        case Some(n) =>
+            if (n > 0x10FFFF || (n >= 0xD800 && n <= 0xDFFF)) {
+                None
+            } else {
+                Some(Rune(UInt32(n)))
+            }
         case None => None
     }
 }
