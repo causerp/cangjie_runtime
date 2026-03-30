@@ -568,9 +568,12 @@ extern bool CJ_FS_CreateTempDir(char* path)
 extern int CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     char buf[MAX_PATH_LEN] = "";
-    if (readlink(linkName1, buf, sizeof(buf)) == -1) {
+    // 修复 CRITICAL-03: readlink 不添加 null 终止符，需手动添加
+    ssize_t len = readlink(linkName1, buf, sizeof(buf) - 1);
+    if (len == -1) {
         return -1;
     }
+    buf[len] = '\0';
     if (symlink(buf, linkName2) != 0) {
         return -1;
     }
