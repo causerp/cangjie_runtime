@@ -1098,7 +1098,6 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
 
     var result: Float64 = 0.0
     var pointNum = 0
-    var pointIndex = inputStr.size - 1
     var isNative = false
     var formatBaseNum: Float64 = 10.0
     var digitCount = 0
@@ -1112,6 +1111,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     if (inputStr.isEmpty()) {
         return Failure("The string does not comply with the floating point number syntax.")
     }
+    var pointIndex = inputStr.size - 1
 
     for (index in 0..inputStr.size) {
         if (pointNum > 1) {
