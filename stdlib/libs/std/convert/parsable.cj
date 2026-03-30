@@ -1136,6 +1136,9 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     if (digitCount == 0) {
         return Failure("The string does not comply with the floating point number syntax.")
     }
+    if (digitCount > 17) {
+        return doParseFloatFromCffi<T>(data)
+    }
     var df = inputStr.size - pointIndex - 1
     var leftMove: Float64 = 1.0
     for (_ in 0..df) {
