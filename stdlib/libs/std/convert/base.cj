@@ -246,8 +246,11 @@ func getBaseInfosWithRadix(typeBase: TypeBase, isNegative: Int64, radix: Int64):
         case (I64, 1) => MAXVAL_I64
         case (I64, 0) => MAXABSVAL_I64
         case (UI8, 1) => MAXVAL_UI8
+        case (UI8, 0) => MAXVAL_UI8
         case (UI16, 1) => MAXVAL_UI16
+        case (UI16, 0) => MAXVAL_UI16
         case (UI32, 1) => MAXVAL_UI32
+        case (UI32, 0) => MAXVAL_UI32
         case _ => MAXVAL_UI64
     }
     let radixUint64 = UInt64(radix)
