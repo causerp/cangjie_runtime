@@ -401,7 +401,7 @@ func parseZoneTrans(
             throw InvalidDataException("Failed to parse the timezone file.")
         }
         if (Int64(transTypes[i]) >= zoneNum) {
-            InvalidDataException("Failed to parse the timezone file.")
+            throw InvalidDataException("Failed to parse the timezone file: transition type index out of range.")
         }
         transArr[i].index = transTypes[i]
     }
