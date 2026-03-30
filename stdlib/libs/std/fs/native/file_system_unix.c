@@ -487,7 +487,9 @@ static int DeleteFileOrAppendDir(
         return -1;
     }
 
-    if (S_ISDIR(statbuf.st_mode)) {
+    // 修复 CRITICAL-02: 确保是目录且不是符号链接才加入删除队列
+    // 防止符号链接指向的目录被递归删除（目录遍历攻击）
+    if (S_ISDIR(statbuf.st_mode) && !S_ISLNK(statbuf.st_mode)) {
         struct FolderNode* foldernew = NULL;
         foldernew = FolderNodeInit(folderpath);
         if (foldernew == NULL) {
