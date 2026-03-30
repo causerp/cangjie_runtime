@@ -57,7 +57,7 @@ class NotifyOnce {
             // In case of spurious-wakeup, we should put `wait` inside a while loop.
             while (!notified && restOfTimeout > Duration.Zero) {
                 let startTime = DateTime.nowUTC()
-                condition.wait(timeout: timeout)
+                condition.wait(timeout: restOfTimeout)
                 let endTime = DateTime.nowUTC()
                 restOfTimeout -= (endTime - startTime)
             }
