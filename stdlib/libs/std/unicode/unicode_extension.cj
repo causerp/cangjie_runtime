@@ -3001,6 +3001,10 @@ extend String <: UnicodeStringExtension {
         var i = 0
         while (i < itemBytes.size) {
             let (rune, num) = Rune.fromUtf8(itemBytes, i)
+            if (num <= 0) {
+                i += 1
+                continue
+            }
             let uint32arr = getUInt32Arr(ct, rune, itemBytes, (i, num))
             for (uint32 in uint32arr) {
                 for (code in Rune(uint32).toString().toArray()) {
@@ -3132,6 +3136,10 @@ extend String <: UnicodeStringExtension {
         if (left) {
             while (start < end) {
                 var (rune, num) = Rune.fromUtf8(myData, start)
+                if (num <= 0) {
+                    start += 1
+                    continue
+                }
                 if (!rune.isWhiteSpace()) {
                     break
                 }
@@ -3141,6 +3149,10 @@ extend String <: UnicodeStringExtension {
         if (right) {
             while (end > start) {
                 var (rune, num) = Rune.getPreviousFromUtf8(myData, end)
+                if (num <= 0) {
+                    end -= 1
+                    continue
+                }
                 if (!rune.isWhiteSpace()) {
                     break
                 }
