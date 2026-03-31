@@ -621,7 +621,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
      */
     @Frozen
     public func get(key: K): ?V {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         return head.load().getValue(hash, key)
     }
 
@@ -681,7 +681,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
 
     @Frozen
     public func addIfAbsent(key: K, value: V): ?V {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         tryResize(hash)
         var ret = None<V>
         var curHT = head.load()
@@ -857,7 +857,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
     /************************ Private Methods *******************************/
     @OverflowWrapping
     private func addInternal(key: K, value: V): ?V {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         tryResize(hash)
         var ret = None<V>
         var curHT = head.load()
@@ -877,7 +877,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
 
     @OverflowWrapping
     private func replaceInternel(key: K, predicate: (V) -> Bool, eval: (V) -> V): ?V {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         var ret = None<V>
         var curHT = head.load()
         var index = hash & (curHT.buckets.size - 1)
@@ -895,7 +895,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
 
     @OverflowWrapping
     private func removeInternal(key: K, predicate: (V) -> Bool): Option<V> {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         var ret = None<V>
         var curHT = head.load()
         var index = hash & (curHT.buckets.size - 1)
@@ -915,7 +915,7 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
     }
 
     func entryViewInternal(key: K, fn: (MapEntryView<K, V>) -> Unit): ?V {
-        let hash = key.hashCode()
+        let hash = getHash(key.hashCode())
         tryResize(hash) // maybe add
         var ret = None<V>
         var resize = None<Int64>
@@ -993,6 +993,11 @@ public class ConcurrentHashMap<K, V> <: ConcurrentMap<K, V> & Collection<(K, V)>
         if (ret.isNone()) {
             counts[hash & (counts.size - 1)].fetchAdd(1);
         }
+    }
+
+    private func getHash(hashCode: Int64): Int64 {
+        let h = hashCode
+        (h ^ (h >> 16) ^ (h >> 32)) & 0x7FFFFFFFFFFFFFFF
     }
 }
 
