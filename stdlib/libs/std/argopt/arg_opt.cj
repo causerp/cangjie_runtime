@@ -720,7 +720,7 @@ class ArgParser {
                 case ParseState.Start =>
                     if (cur == "--") {
                         state = ParseState.End
-                    } else if (cur[0] == b'-') {
+                    } else if (!cur.isEmpty() && cur[0] == b'-') {
                         state = ParseState.Option
                         _index -= 1
                     } else {
