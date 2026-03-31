@@ -43,6 +43,7 @@ void* ExecuteCangjieStub(void*, void*, void*, void*, void*, void*);
 void* ApplyCangjieMethodStub(void*, void*, void*, void*, void*);
 float ApplyCangjieMethodStubFloat32(void*, void*, void*, void*);
 double ApplyCangjieMethodStubFloat64(void*, void*, void*, void*);
+bool InitCJLibraryStub(void*);
 #ifdef __OHOS__
 MRT_EXPORT void* CJ_MRT_ARKTS_CreateEngineStub();
 #endif
