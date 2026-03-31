@@ -2254,7 +2254,7 @@ Special properties of read-write locks:
     - When a thread holds the read lock, it can continue to acquire the read lock. The lock is fully released only when unlock operations match the lock operations. Note: Attempting to acquire the write lock while holding the read lock will throw an exception.
 - Lock downgrade: A thread can transition from "holding the write lock" to "holding the read lock" by first acquiring the read lock and then releasing the write lock.
 - Read-write fairness: Read-write locks support two modes: "fair" and "non-fair."
-    - In non-fair mode, the order in which threads acquire locks is not guaranteed.
+    - In non-fair mode, the order in which threads acquire locks is not guaranteed.A nonfair lock that is continuously contended may indefinitely postpone one or more reader or writer threads.
     - In fair mode, when a thread attempts to acquire the read lock (and does not already hold it), if the write lock is held or there are threads waiting for the write lock, the thread will block.
     - In fair mode, releasing the write lock prioritizes waking all waiting read threads, while releasing the read lock prioritizes waking one waiting write thread. The order in which multiple waiting write threads are awakened is not guaranteed.
 
@@ -2450,7 +2450,7 @@ Special properties of read-write locks:
     - When a thread holds the read lock, it can continue to acquire the read lock. The lock is fully released only when unlock operations match the lock operations. Note: Attempting to acquire the write lock while holding the read lock will throw an exception.
 - Lock downgrade: A thread can transition from "holding the write lock" to "holding the read lock" by first acquiring the read lock and then releasing the write lock.
 - Read-write fairness: Read-write locks support two modes: "fair" and "non-fair."
-    - In non-fair mode, the order in which threads acquire locks is not guaranteed.
+    - In non-fair mode, the order in which threads acquire locks is not guaranteed.A nonfair lock that is continuously contended may indefinitely postpone one or more reader or writer threads.
     - In fair mode, when a thread attempts to acquire the read lock (and does not already hold it), if the write lock is held or there are threads waiting for the write lock, the thread will block.
     - In fair mode, releasing the write lock prioritizes waking all waiting read threads, while releasing the read lock prioritizes waking one waiting write thread. The order in which multiple waiting write threads are awakened is not guaranteed.
 
