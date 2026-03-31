@@ -1014,8 +1014,10 @@ extern HANDLE CJ_FS_CreateTempFile(char* path)
         free(wPath);
         return NULL;
     }
+    // 修复 HIGH-05: 使用 CREATE_NEW 防止竞态条件
+    // 如果文件已存在（被攻击者创建），创建失败而非覆盖
     HANDLE hFile = CreateFileW(
-        wPath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_MODE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        wPath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_MODE, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
     if (INVALID_HANDLE_VALUE == hFile) {
         free(wPath);
         return NULL;
