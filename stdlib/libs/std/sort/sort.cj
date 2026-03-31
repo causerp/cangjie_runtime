@@ -40,7 +40,11 @@ public func sort<T>(data: Array<T>, stable!: Bool = false, descending!: Bool = f
  * Sorting element T.
  *
  * @param data Array of elements to be sorted.
- * @param by Comparator.
+ * @param by Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if compare(a, b) is LT, then compare(b, a) must be GT
+ *        - Transitivity: if compare(a, b) is LT and compare(b, c) is LT, then compare(a, c) must be LT
+ *        - Consistency: multiple invocations of compare(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -67,7 +71,11 @@ public func sort<T>(data: Array<T>, by!: (T, T) -> Ordering, stable!: Bool = fal
  * Sorting element T.
  *
  * @param data Array of elements to be sorted.
- * @param lessThan Comparator.
+ * @param lessThan Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if lessThan(a, b) is true, then lessThan(b, a) must be false
+ *        - Transitivity: if lessThan(a, b) and lessThan(b, c), then lessThan(a, c) must be true
+ *        - Consistency: multiple invocations of lessThan(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -128,7 +136,11 @@ public func sort<T>(data: List<T>, stable!: Bool = false, descending!: Bool = fa
  * Sorting element T.
  *
  * @param data List of elements to be sorted.
- * @param by Comparator.
+ * @param by Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if compare(a, b) is LT, then compare(b, a) must be GT
+ *        - Transitivity: if compare(a, b) is LT and compare(b, c) is LT, then compare(a, c) must be LT
+ *        - Consistency: multiple invocations of compare(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -146,7 +158,11 @@ public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = fals
  * Sorting element T.
  *
  * @param data List of elements to be sorted.
- * @param lessThan Comparator.
+ * @param lessThan Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if lessThan(a, b) is true, then lessThan(b, a) must be false
+ *        - Transitivity: if lessThan(a, b) and lessThan(b, c), then lessThan(a, c) must be true
+ *        - Consistency: multiple invocations of lessThan(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -198,7 +214,11 @@ public func sort<T>(data: ArrayList<T>, stable!: Bool = false, descending!: Bool
  * Sorting element T.
  *
  * @param data List of elements to be sorted.
- * @param by Comparator.
+ * @param by Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if compare(a, b) is LT, then compare(b, a) must be GT
+ *        - Transitivity: if compare(a, b) is LT and compare(b, c) is LT, then compare(a, c) must be LT
+ *        - Consistency: multiple invocations of compare(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -215,7 +235,11 @@ public func sort<T>(data: ArrayList<T>, by!: (T, T) -> Ordering, stable!: Bool =
  * Sorting element T.
  *
  * @param data List of elements to be sorted.
- * @param lessThan Comparator.
+ * @param lessThan Comparator. The comparator must establish a total order:
+ *        - Antisymmetry: if lessThan(a, b) is true, then lessThan(b, a) must be false
+ *        - Transitivity: if lessThan(a, b) and lessThan(b, c), then lessThan(a, c) must be true
+ *        - Consistency: multiple invocations of lessThan(a, b) must return the same result
+ *        Violating these requirements may result in undefined behavior.
  * @param stable Whether to use stable sorting.
  * @param descending Indicates whether to use descending sorting.
  *
@@ -250,7 +274,11 @@ public interface SortByExtension<T> {
     /**
      * Incoming Sort by Condition.
      *
-     * @param comparator transfer the condition to be judged.
+     * @param comparator The comparator must establish a total order:
+     *        - Antisymmetry: if compare(a, b) is LT, then compare(b, a) must be GT
+     *        - Transitivity: if compare(a, b) is LT and compare(b, c) is LT, then compare(a, c) must be LT
+     *        - Consistency: multiple invocations of compare(a, b) must return the same result
+     *        Violating these requirements may result in undefined behavior.
      *
      * @since 0.27.3
      */
@@ -258,7 +286,11 @@ public interface SortByExtension<T> {
     /**
      * Incoming Sort by Condition.
      *
-     * @param comparator transfer the condition to be judged.
+     * @param comparator The comparator must establish a total order:
+     *        - Antisymmetry: if compare(a, b) is LT, then compare(b, a) must be GT
+     *        - Transitivity: if compare(a, b) is LT and compare(b, c) is LT, then compare(a, c) must be LT
+     *        - Consistency: multiple invocations of compare(a, b) must return the same result
+     *        Violating these requirements may result in undefined behavior.
      * @param stable Whether to use stable sorting
      *
      * @since 0.27.3
