@@ -135,8 +135,8 @@ public func sort<T>(data: List<T>, stable!: Bool = false, descending!: Bool = fa
  */
 public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = false, descending!: Bool = false): Unit {
     var dataArray = data.toArray()
-    data.clear()
     sort(dataArray, by: by, stable: stable, descending: descending)
+    data.clear()
     for (i in dataArray) {
         data.add(i)
     }
@@ -153,8 +153,8 @@ public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = fals
  */
 public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = false, descending!: Bool = false): Unit {
     var dataArray = data.toArray()
-    data.clear()
     sort(dataArray, lessThan: lessThan, stable: stable, descending: descending)
+    data.clear()
     for (i in dataArray) {
         data.add(i)
     }
@@ -171,8 +171,8 @@ public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = fa
  */
 public func sort<T, K>(data: List<T>, key!: (T) -> K, stable!: Bool = false, descending!: Bool = false): Unit where K <: Comparable<K> {
     var dataArray = data.toArray()
-    data.clear()
     sort(dataArray, key: key, stable: stable, descending: descending)
+    data.clear()
     for (i in dataArray) {
         data.add(i)
     }
