@@ -2098,6 +2098,7 @@ let SMALL_I: UInt32 = 0x0069
 let CAPITAL_I_WITH_DOT_ABOVE: UInt32 = 0x0130
 let SMALL_I_WITHOUT_DOT_ABOVE: UInt32 = 0x0131
 let CAPITAL_SIGMA: UInt32 = 0x03A3
+let SMALL_SIGMA: UInt32 = 0x03C3
 let SMALL_SIGMA_END: UInt32 = 0x03C2
 let DOT_ABOVE: UInt32 = 0x0307
 
@@ -2957,32 +2958,706 @@ extend String <: UnicodeStringExtension {
     }
 
     private func isGreekChar(rune: Rune): Bool {
-        if ((UInt32(rune) < GREECE_RUNE_LEFT_INTERVAL) || (UInt32(rune) > GREECE_RUNE_RIGHT_INTERVAL)) {
-            return false
-        }
-        if (GREECE_PUNCTUATION.contains(UInt32(rune))) {
-            return false
-        }
-        return true
-    }
-
-    private func isNeedChange(srcData: Array<UInt8>, pos: Int64, num: Int64): Bool {
-        if (pos == 0) {
-            return false
-        }
-        if (pos + num >= srcData.size) {
-            return true
-        } else {
-            let (nextChar, _) = Rune.fromUtf8(srcData, pos + num)
-            if (isGreekChar(nextChar)) {
-                return false
-            } else {
+        let runeVal = UInt32(rune)
+        if ((runeVal >= GREECE_RUNE_LEFT_INTERVAL) && (runeVal <= GREECE_RUNE_RIGHT_INTERVAL)) {
+            if (!GREECE_PUNCTUATION.contains(runeVal)) {
                 return true
             }
         }
+        if ((runeVal >= 0x1F00) && (runeVal <= 0x1FFF)) {
+            return true
+        }
+        return false
     }
 
-    private func getUInt32Arr(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>, param: (Int64, Int64)): Array<UInt32> {
+    private func isCombiningMark(rune: Rune): Bool {
+        let runeVal = UInt32(rune)
+        if ((runeVal >= 0x0300) && (runeVal <= 0x036F)) {
+            return true
+        }
+        if ((runeVal >= 0x0483) && (runeVal <= 0x0489)) {
+            return true
+        }
+        if ((runeVal >= 0x0591) && (runeVal <= 0x05BD)) {
+            return true
+        }
+        if ((runeVal >= 0x05BF) && (runeVal <= 0x05CF)) {
+            return true
+        }
+        if ((runeVal >= 0x05D6) && (runeVal <= 0x05DC)) {
+            return true
+        }
+        if ((runeVal >= 0x05DD) && (runeVal <= 0x05DF)) {
+            return true
+        }
+        if ((runeVal >= 0x05E1) && (runeVal <= 0x05E3)) {
+            return true
+        }
+        if ((runeVal >= 0x05E8) && (runeVal <= 0x05EA)) {
+            return true
+        }
+        if ((runeVal >= 0x05F0) && (runeVal <= 0x05F2)) {
+            return true
+        }
+        if ((runeVal >= 0x0610) && (runeVal <= 0x061A)) {
+            return true
+        }
+        if ((runeVal >= 0x064B) && (runeVal <= 0x065F)) {
+            return true
+        }
+        if ((runeVal >= 0x0670) && (runeVal <= 0x0670)) {
+            return true
+        }
+        if ((runeVal >= 0x06D6) && (runeVal <= 0x06DC)) {
+            return true
+        }
+        if ((runeVal >= 0x06DF) && (runeVal <= 0x06E4)) {
+            return true
+        }
+        if ((runeVal >= 0x06E7) && (runeVal <= 0x06E8)) {
+            return true
+        }
+        if ((runeVal >= 0x06EA) && (runeVal <= 0x06ED)) {
+            return true
+        }
+        if ((runeVal >= 0x0711) && (runeVal <= 0x0711)) {
+            return true
+        }
+        if ((runeVal >= 0x0730) && (runeVal <= 0x074A)) {
+            return true
+        }
+        if ((runeVal >= 0x07A6) && (runeVal <= 0x07B0)) {
+            return true
+        }
+        if ((runeVal >= 0x07EB) && (runeVal <= 0x07F3)) {
+            return true
+        }
+        if ((runeVal >= 0x0816) && (runeVal <= 0x0819)) {
+            return true
+        }
+        if ((runeVal >= 0x081B) && (runeVal <= 0x0823)) {
+            return true
+        }
+        if ((runeVal >= 0x0825) && (runeVal <= 0x0827)) {
+            return true
+        }
+        if ((runeVal >= 0x0829) && (runeVal <= 0x082D)) {
+            return true
+        }
+        if ((runeVal >= 0x0859) && (runeVal <= 0x085B)) {
+            return true
+        }
+        if ((runeVal >= 0x08D4) && (runeVal <= 0x08E1)) {
+            return true
+        }
+        if ((runeVal >= 0x08E3) && (runeVal <= 0x08FF)) {
+            return true
+        }
+        if ((runeVal >= 0x0900) && (runeVal <= 0x0902)) {
+            return true
+        }
+        if ((runeVal >= 0x093A) && (runeVal <= 0x093A)) {
+            return true
+        }
+        if ((runeVal >= 0x093C) && (runeVal <= 0x094C)) {
+            return true
+        }
+        if ((runeVal >= 0x094E) && (runeVal <= 0x094F)) {
+            return true
+        }
+        if ((runeVal >= 0x0982) && (runeVal <= 0x0983)) {
+            return true
+        }
+        if ((runeVal >= 0x09BC) && (runeVal <= 0x09BC)) {
+            return true
+        }
+        if ((runeVal >= 0x09BE) && (runeVal <= 0x09C4)) {
+            return true
+        }
+        if ((runeVal >= 0x09C7) && (runeVal <= 0x09C8)) {
+            return true
+        }
+        if ((runeVal >= 0x09CB) && (runeVal <= 0x09CD)) {
+            return true
+        }
+        if ((runeVal >= 0x09D7) && (runeVal <= 0x09D7)) {
+            return true
+        }
+        if ((runeVal >= 0x09E2) && (runeVal <= 0x09E3)) {
+            return true
+        }
+        if ((runeVal >= 0x0A01) && (runeVal <= 0x0A02)) {
+            return true
+        }
+        if ((runeVal >= 0x0A3C) && (runeVal <= 0x0A3C)) {
+            return true
+        }
+        if ((runeVal >= 0x0A41) && (runeVal <= 0x0A42)) {
+            return true
+        }
+        if ((runeVal >= 0x0A47) && (runeVal <= 0x0A48)) {
+            return true
+        }
+        if ((runeVal >= 0x0A4B) && (runeVal <= 0x0A4D)) {
+            return true
+        }
+        if ((runeVal >= 0x0A70) && (runeVal <= 0x0A71)) {
+            return true
+        }
+        if ((runeVal >= 0x0A75) && (runeVal <= 0x0A75)) {
+            return true
+        }
+        if ((runeVal >= 0x0A81) && (runeVal <= 0x0A82)) {
+            return true
+        }
+        if ((runeVal >= 0x0ABC) && (runeVal <= 0x0ABC)) {
+            return true
+        }
+        if ((runeVal >= 0x0AC1) && (runeVal <= 0x0AC5)) {
+            return true
+        }
+        if ((runeVal >= 0x0AC7) && (runeVal <= 0x0AC8)) {
+            return true
+        }
+        if ((runeVal >= 0x0ACD) && (runeVal <= 0x0ACD)) {
+            return true
+        }
+        if ((runeVal >= 0x0AE2) && (runeVal <= 0x0AE3)) {
+            return true
+        }
+        if ((runeVal >= 0x0B01) && (runeVal <= 0x0B01)) {
+            return true
+        }
+        if ((runeVal >= 0x0B3C) && (runeVal <= 0x0B3C)) {
+            return true
+        }
+        if ((runeVal >= 0x0B3E) && (runeVal <= 0x0B43)) {
+            return true
+        }
+        if ((runeVal >= 0x0B47) && (runeVal <= 0x0B48)) {
+            return true
+        }
+        if ((runeVal >= 0x0B4B) && (runeVal <= 0x0B4D)) {
+            return true
+        }
+        if ((runeVal >= 0x0B56) && (runeVal <= 0x0B56)) {
+            return true
+        }
+        if ((runeVal >= 0x0B57) && (runeVal <= 0x0B57)) {
+            return true
+        }
+        if ((runeVal >= 0x0B82) && (runeVal <= 0x0B82)) {
+            return true
+        }
+        if ((runeVal >= 0x0BBE) && (runeVal <= 0x0BC2)) {
+            return true
+        }
+        if ((runeVal >= 0x0BC6) && (runeVal <= 0x0BC8)) {
+            return true
+        }
+        if ((runeVal >= 0x0BCA) && (runeVal <= 0x0BCD)) {
+            return true
+        }
+        if ((runeVal >= 0x0BD7) && (runeVal <= 0x0BD7)) {
+            return true
+        }
+        if ((runeVal >= 0x0C01) && (runeVal <= 0x0C03)) {
+            return true
+        }
+        if ((runeVal >= 0x0C41) && (runeVal <= 0x0C44)) {
+            return true
+        }
+        if ((runeVal >= 0x0C82) && (runeVal <= 0x0C82)) {
+            return true
+        }
+        if ((runeVal >= 0x0CBE) && (runeVal <= 0x0CC4)) {
+            return true
+        }
+        if ((runeVal >= 0x0CC6) && (runeVal <= 0x0CC8)) {
+            return true
+        }
+        if ((runeVal >= 0x0CCA) && (runeVal <= 0x0CCD)) {
+            return true
+        }
+        if ((runeVal >= 0x0CD5) && (runeVal <= 0x0CD6)) {
+            return true
+        }
+        if ((runeVal >= 0x0D02) && (runeVal <= 0x0D03)) {
+            return true
+        }
+        if ((runeVal >= 0x0D3E) && (runeVal <= 0x0D43)) {
+            return true
+        }
+        if ((runeVal >= 0x0D46) && (runeVal <= 0x0D48)) {
+            return true
+        }
+        if ((runeVal >= 0x0D4A) && (runeVal <= 0x0D4D)) {
+            return true
+        }
+        if ((runeVal >= 0x0D57) && (runeVal <= 0x0D57)) {
+            return true
+        }
+        if ((runeVal >= 0x0D82) && (runeVal <= 0x0D82)) {
+            return true
+        }
+        if ((runeVal >= 0x0DCA) && (runeVal <= 0x0DCA)) {
+            return true
+        }
+        if ((runeVal >= 0x0DCF) && (runeVal <= 0x0DD4)) {
+            return true
+        }
+        if ((runeVal >= 0x0DD6) && (runeVal <= 0x0DD6)) {
+            return true
+        }
+        if ((runeVal >= 0x0DD8) && (runeVal <= 0x0DDF)) {
+            return true
+        }
+        if ((runeVal >= 0x0DF2) && (runeVal <= 0x0DF3)) {
+            return true
+        }
+        if ((runeVal >= 0x0E34) && (runeVal <= 0x0E3A)) {
+            return true
+        }
+        if ((runeVal >= 0x0E47) && (runeVal <= 0x0E4E)) {
+            return true
+        }
+        if ((runeVal >= 0x0EB4) && (runeVal <= 0x0EB9)) {
+            return true
+        }
+        if ((runeVal >= 0x0EBB) && (runeVal <= 0x0EBC)) {
+            return true
+        }
+        if ((runeVal >= 0x0EC8) && (runeVal <= 0x0ECD)) {
+            return true
+        }
+        if ((runeVal >= 0x0F18) && (runeVal <= 0x0F19)) {
+            return true
+        }
+        if ((runeVal >= 0x0F35) && (runeVal <= 0x0F35)) {
+            return true
+        }
+        if ((runeVal >= 0x0F37) && (runeVal <= 0x0F37)) {
+            return true
+        }
+        if ((runeVal >= 0x0F39) && (runeVal <= 0x0F39)) {
+            return true
+        }
+        if ((runeVal >= 0x0F71) && (runeVal <= 0x0F7E)) {
+            return true
+        }
+        if ((runeVal >= 0x0F80) && (runeVal <= 0x0F84)) {
+            return true
+        }
+        if ((runeVal >= 0x0F86) && (runeVal <= 0x0F87)) {
+            return true
+        }
+        if ((runeVal >= 0x0F90) && (runeVal <= 0x0F97)) {
+            return true
+        }
+        if ((runeVal >= 0x0F99) && (runeVal <= 0x0FBC)) {
+            return true
+        }
+        if ((runeVal >= 0x0FC6) && (runeVal <= 0x0FC6)) {
+            return true
+        }
+        if ((runeVal >= 0x102D) && (runeVal <= 0x1030)) {
+            return true
+        }
+        if ((runeVal >= 0x1032) && (runeVal <= 0x1037)) {
+            return true
+        }
+        if ((runeVal >= 0x1039) && (runeVal <= 0x103A)) {
+            return true
+        }
+        if ((runeVal >= 0x103D) && (runeVal <= 0x103E)) {
+            return true
+        }
+        if ((runeVal >= 0x1058) && (runeVal <= 0x1059)) {
+            return true
+        }
+        if ((runeVal >= 0x105E) && (runeVal <= 0x1060)) {
+            return true
+        }
+        if ((runeVal >= 0x1071) && (runeVal <= 0x1074)) {
+            return true
+        }
+        if ((runeVal >= 0x1082) && (runeVal <= 0x1082)) {
+            return true
+        }
+        if ((runeVal >= 0x1085) && (runeVal <= 0x1086)) {
+            return true
+        }
+        if ((runeVal >= 0x108D) && (runeVal <= 0x108D)) {
+            return true
+        }
+        if ((runeVal >= 0x109D) && (runeVal <= 0x109D)) {
+            return true
+        }
+        if ((runeVal >= 0x135D) && (runeVal <= 0x135F)) {
+            return true
+        }
+        if ((runeVal >= 0x1712) && (runeVal <= 0x1714)) {
+            return true
+        }
+        if ((runeVal >= 0x1732) && (runeVal <= 0x1734)) {
+            return true
+        }
+        if ((runeVal >= 0x1752) && (runeVal <= 0x1753)) {
+            return true
+        }
+        if ((runeVal >= 0x1772) && (runeVal <= 0x1773)) {
+            return true
+        }
+        if ((runeVal >= 0x17B4) && (runeVal <= 0x17B5)) {
+            return true
+        }
+        if ((runeVal >= 0x17B7) && (runeVal <= 0x17BD)) {
+            return true
+        }
+        if ((runeVal >= 0x17C6) && (runeVal <= 0x17C6)) {
+            return true
+        }
+        if ((runeVal >= 0x17C8) && (runeVal <= 0x17D3)) {
+            return true
+        }
+        if ((runeVal >= 0x17DD) && (runeVal <= 0x17DD)) {
+            return true
+        }
+        if ((runeVal >= 0x180B) && (runeVal <= 0x180D)) {
+            return true
+        }
+        if ((runeVal >= 0x18A9) && (runeVal <= 0x18A9)) {
+            return true
+        }
+        if ((runeVal >= 0x1920) && (runeVal <= 0x192B)) {
+            return true
+        }
+        if ((runeVal >= 0x1930) && (runeVal <= 0x193B)) {
+            return true
+        }
+        if ((runeVal >= 0x1946) && (runeVal <= 0x194F)) {
+            return true
+        }
+        if ((runeVal >= 0x19D0) && (runeVal <= 0x19D9)) {
+            return true
+        }
+        if ((runeVal >= 0x1A17) && (runeVal <= 0x1A1B)) {
+            return true
+        }
+        if ((runeVal >= 0x1A55) && (runeVal <= 0x1A5E)) {
+            return true
+        }
+        if ((runeVal >= 0x1A60) && (runeVal <= 0x1A7C)) {
+            return true
+        }
+        if ((runeVal >= 0x1A7F) && (runeVal <= 0x1A7F)) {
+            return true
+        }
+        if ((runeVal >= 0x1B00) && (runeVal <= 0x1B03)) {
+            return true
+        }
+        if ((runeVal >= 0x1B34) && (runeVal <= 0x1B34)) {
+            return true
+        }
+        if ((runeVal >= 0x1B36) && (runeVal <= 0x1B3A)) {
+            return true
+        }
+        if ((runeVal >= 0x1B3C) && (runeVal <= 0x1B3C)) {
+            return true
+        }
+        if ((runeVal >= 0x1B42) && (runeVal <= 0x1B42)) {
+            return true
+        }
+        if ((runeVal >= 0x1B6B) && (runeVal <= 0x1B73)) {
+            return true
+        }
+        if ((runeVal >= 0x1B80) && (runeVal <= 0x1B81)) {
+            return true
+        }
+        if ((runeVal >= 0x1BA2) && (runeVal <= 0x1BA5)) {
+            return true
+        }
+        if ((runeVal >= 0x1BA8) && (runeVal <= 0x1BA9)) {
+            return true
+        }
+        if ((runeVal >= 0x1BAB) && (runeVal <= 0x1BAD)) {
+            return true
+        }
+        if ((runeVal >= 0x1BE6) && (runeVal <= 0x1BE6)) {
+            return true
+        }
+        if ((runeVal >= 0x1BE8) && (runeVal <= 0x1BE9)) {
+            return true
+        }
+        if ((runeVal >= 0x1BEA) && (runeVal <= 0x1BEC)) {
+            return true
+        }
+        if ((runeVal >= 0x1BEE) && (runeVal <= 0x1BEE)) {
+            return true
+        }
+        if ((runeVal >= 0x1BF2) && (runeVal <= 0x1BF3)) {
+            return true
+        }
+        if ((runeVal >= 0x1C24) && (runeVal <= 0x1C2B)) {
+            return true
+        }
+        if ((runeVal >= 0x1C34) && (runeVal <= 0x1C35)) {
+            return true
+        }
+        if ((runeVal >= 0x1CE1) && (runeVal <= 0x1CE1)) {
+            return true
+        }
+        if ((runeVal >= 0x1CF2) && (runeVal <= 0x1CF3)) {
+            return true
+        }
+        if ((runeVal >= 0x2D20) && (runeVal <= 0x2D2F)) {
+            return true
+        }
+        if ((runeVal >= 0x2D30) && (runeVal <= 0x2D67)) {
+            return true
+        }
+        if ((runeVal >= 0x2D6F) && (runeVal <= 0x2D6F)) {
+            return true
+        }
+        if ((runeVal >= 0x2D80) && (runeVal <= 0x2D96)) {
+            return true
+        }
+        if ((runeVal >= 0x2DA0) && (runeVal <= 0x2DA6)) {
+            return true
+        }
+        if ((runeVal >= 0x2DA8) && (runeVal <= 0x2DAE)) {
+            return true
+        }
+        if ((runeVal >= 0x2DB0) && (runeVal <= 0x2DB6)) {
+            return true
+        }
+        if ((runeVal >= 0x2DB8) && (runeVal <= 0x2DBE)) {
+            return true
+        }
+        if ((runeVal >= 0x2DC0) && (runeVal <= 0x2DC6)) {
+            return true
+        }
+        if ((runeVal >= 0x2DC8) && (runeVal <= 0x2DCE)) {
+            return true
+        }
+        if ((runeVal >= 0x2DD0) && (runeVal <= 0x2DD6)) {
+            return true
+        }
+        if ((runeVal >= 0x2DD8) && (runeVal <= 0x2DDE)) {
+            return true
+        }
+        if ((runeVal >= 0x3029) && (runeVal <= 0x302D)) {
+            return true
+        }
+        if ((runeVal >= 0x3099) && (runeVal <= 0x309A)) {
+            return true
+        }
+        if ((runeVal >= 0xA66F) && (runeVal <= 0xA66F)) {
+            return true
+        }
+        if ((runeVal >= 0xA674) && (runeVal <= 0xA67D)) {
+            return true
+        }
+        if ((runeVal >= 0xA69F) && (runeVal <= 0xA69F)) {
+            return true
+        }
+        if ((runeVal >= 0xA6F0) && (runeVal <= 0xA6F1)) {
+            return true
+        }
+        if ((runeVal >= 0xA802) && (runeVal <= 0xA802)) {
+            return true
+        }
+        if ((runeVal >= 0xA806) && (runeVal <= 0xA806)) {
+            return true
+        }
+        if ((runeVal >= 0xA80B) && (runeVal <= 0xA80B)) {
+            return true
+        }
+        if ((runeVal >= 0xA825) && (runeVal <= 0xA826)) {
+            return true
+        }
+        if ((runeVal >= 0xA8C4) && (runeVal <= 0xA8C4)) {
+            return true
+        }
+        if ((runeVal >= 0xA8E0) && (runeVal <= 0xA8E1)) {
+            return true
+        }
+        if ((runeVal >= 0xA926) && (runeVal <= 0xA92D)) {
+            return true
+        }
+        if ((runeVal >= 0xA947) && (runeVal <= 0xA951)) {
+            return true
+        }
+        if ((runeVal >= 0xA980) && (runeVal <= 0xA982)) {
+            return true
+        }
+        if ((runeVal >= 0xA9B3) && (runeVal <= 0xA9B3)) {
+            return true
+        }
+        if ((runeVal >= 0xA9B6) && (runeVal <= 0xA9B9)) {
+            return true
+        }
+        if ((runeVal >= 0xA9BC) && (runeVal <= 0xA9BC)) {
+            return true
+        }
+        if ((runeVal >= 0xAA29) && (runeVal <= 0xAA2E)) {
+            return true
+        }
+        if ((runeVal >= 0xAA31) && (runeVal <= 0xAA32)) {
+            return true
+        }
+        if ((runeVal >= 0xAA35) && (runeVal <= 0xAA36)) {
+            return true
+        }
+        if ((runeVal >= 0xAA43) && (runeVal <= 0xAA43)) {
+            return true
+        }
+        if ((runeVal >= 0xAA4C) && (runeVal <= 0xAA4C)) {
+            return true
+        }
+        if ((runeVal >= 0xAAB0) && (runeVal <= 0xAAB0)) {
+            return true
+        }
+        if ((runeVal >= 0xAAB2) && (runeVal <= 0xAAB4)) {
+            return true
+        }
+        if ((runeVal >= 0xAAB7) && (runeVal <= 0xAAB8)) {
+            return true
+        }
+        if ((runeVal >= 0xAABE) && (runeVal <= 0xAABF)) {
+            return true
+        }
+        if ((runeVal >= 0xAAC1) && (runeVal <= 0xAAC1)) {
+            return true
+        }
+        if ((runeVal >= 0xAAEB) && (runeVal <= 0xAAEB)) {
+            return true
+        }
+        if ((runeVal >= 0xAAEE) && (runeVal <= 0xAAEF)) {
+            return true
+        }
+        if ((runeVal >= 0xAAF5) && (runeVal <= 0xAAF5)) {
+            return true
+        }
+        if ((runeVal >= 0xABE3) && (runeVal <= 0xABE4)) {
+            return true
+        }
+        if ((runeVal >= 0xABE6) && (runeVal <= 0xABE7)) {
+            return true
+        }
+        if ((runeVal >= 0xABE9) && (runeVal <= 0xABEA)) {
+            return true
+        }
+        if ((runeVal >= 0xABEC) && (runeVal <= 0xABED)) {
+            return true
+        }
+        if ((runeVal >= 0xFB1E) && (runeVal <= 0xFB1E)) {
+            return true
+        }
+        if ((runeVal >= 0xFE00) && (runeVal <= 0xFE0F)) {
+            return true
+        }
+        if ((runeVal >= 0xFE20) && (runeVal <= 0xFE26)) {
+            return true
+        }
+        if ((runeVal >= 0x10A01) && (runeVal <= 0x10A03)) {
+            return true
+        }
+        if ((runeVal >= 0x10A05) && (runeVal <= 0x10A06)) {
+            return true
+        }
+        if ((runeVal >= 0x10A0C) && (runeVal <= 0x10A0F)) {
+            return true
+        }
+        if ((runeVal >= 0x10A38) && (runeVal <= 0x10A3A)) {
+            return true
+        }
+        if ((runeVal >= 0x10A3F) && (runeVal <= 0x10A3F)) {
+            return true
+        }
+        if ((runeVal >= 0x1D167) && (runeVal <= 0x1D169)) {
+            return true
+        }
+        if ((runeVal >= 0x1D17B) && (runeVal <= 0x1D182)) {
+            return true
+        }
+        if ((runeVal >= 0x1D185) && (runeVal <= 0x1D18B)) {
+            return true
+        }
+        if ((runeVal >= 0x1D1AA) && (runeVal <= 0x1D1AD)) {
+            return true
+        }
+        if ((runeVal >= 0x1D242) && (runeVal <= 0x1D244)) {
+            return true
+        }
+        if ((runeVal >= 0x1E000) && (runeVal <= 0x1E006)) {
+            return true
+        }
+        if ((runeVal >= 0x1E008) && (runeVal <= 0x1E018)) {
+            return true
+        }
+        if ((runeVal >= 0x1E01B) && (runeVal <= 0x1E021)) {
+            return true
+        }
+        if ((runeVal >= 0x1E023) && (runeVal <= 0x1E024)) {
+            return true
+        }
+        if ((runeVal >= 0x1E026) && (runeVal <= 0x1E02A)) {
+            return true
+        }
+        if ((runeVal >= 0x1E8D0) && (runeVal <= 0x1E8D6)) {
+            return true
+        }
+        if ((runeVal >= 0x1E944) && (runeVal <= 0x1E94A)) {
+            return true
+        }
+        if (runeVal == 0x00AD) {
+            return true
+        }
+        if (runeVal == 0x034F) {
+            return true
+        }
+        if (runeVal == 0x061C) {
+            return true
+        }
+        if ((runeVal >= 0x200B) && (runeVal <= 0x200F)) {
+            return true
+        }
+        if ((runeVal >= 0x202A) && (runeVal <= 0x202E)) {
+            return true
+        }
+        if ((runeVal >= 0x2060) && (runeVal <= 0x2064)) {
+            return true
+        }
+        if ((runeVal >= 0x2066) && (runeVal <= 0x206F)) {
+            return true
+        }
+        if (runeVal == 0xFEFF) {
+            return true
+        }
+        return false
+    }
+
+    private func isNeedChange(srcData: Array<UInt8>, pos: Int64, num: Int64): Bool {
+        var i = pos + num
+        while (i < srcData.size) {
+            let (nextChar, nextNum) = Rune.fromUtf8(srcData, i)
+            if (nextNum == 0) {
+                break
+            }
+            if (!isCombiningMark(nextChar)) {
+                if (isGreekChar(nextChar)) {
+                    return false
+                } else {
+                    return true
+                }
+            }
+             i += nextNum
+         }
+         return true
+     }
+ 
+     private func getUInt32Arr(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>, param: (Int64, Int64)): Array<UInt32> {
         return match (ct) {
             case Upper => toCaseSpecialArray(rune, Upper)
             case Lower =>
