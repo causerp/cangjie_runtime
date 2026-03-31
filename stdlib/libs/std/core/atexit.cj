@@ -62,16 +62,18 @@ protected func CJ_CORE_ExecAtexitCallbacks(): Unit {
         while (true) {
             match (currPos) {
                 case Some(node) =>
-                    node.atexitCallback()
+                    try {
+                        node.atexitCallback()
+                    } catch (t: Exception) {
+                        t.printStackTrace()
+                    } catch (t: Error) {
+                        t.printStackTrace()
+                    }
                     currPos = node.next
                 case None => break
             }
         }
         atexitCallbackHead = None
-    } catch (t: Exception) {
-        t.printStackTrace()
-    } catch (t: Error) {
-        t.printStackTrace()
     } finally {
         unsafe { CJ_CORE_AtExitCallbackListUnlook() }
     }
