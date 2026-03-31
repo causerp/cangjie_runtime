@@ -381,7 +381,11 @@ class TimerScheduler {
         schedulers = Array<TimerScheduler>(SCHEDULER_COUNT) {_ => TimerScheduler()}
     }
     static func getScheduler(id: Int64) {
-        schedulers[id % SCHEDULER_COUNT]
+        if (id < 0) {
+            schedulers[(0 - id) % SCHEDULER_COUNT]
+        } else {
+            schedulers[id % SCHEDULER_COUNT]
+        }
     }
 
     private let queue = TimerQueue()
