@@ -93,19 +93,27 @@ extend CString <: ToString {
 
     public func equals(other: CString): Bool {
         let chars = getChars()
-        if (chars.isNull() || other.isNull()) {
+        let otherChars = other.getChars()
+        if (chars.isNull()) {
+            return otherChars.isNull()
+        }
+        if (otherChars.isNull()) {
             return false
         }
-        let cmpRet = unsafe { strcmp(chars, other.getChars()) }
+        let cmpRet = unsafe { strcmp(chars, otherChars) }
         return cmpRet == 0
     }
 
     public func equalsLower(other: CString): Bool {
         let chars = getChars()
-        if (chars.isNull() || other.isNull()) {
+        let otherChars = other.getChars()
+        if (chars.isNull()) {
+            return otherChars.isNull()
+        }
+        if (otherChars.isNull()) {
             return false
         }
-        let cmpRet = unsafe { strcasecmp(chars, other.getChars()) }
+        let cmpRet = unsafe { strcasecmp(chars, otherChars) }
         return cmpRet == 0
     }
 
