@@ -14,9 +14,9 @@
 
 #include "Base/HashUtils.h"
 #include "Base/Types.h"
-#include "ILoader.h"
+#include "Loader/ILoader.h"
 #include "os/Loader.h"
-#include "CjSemanticVersion/CjSemanticVersion.h"
+#include "Loader/CjSemanticVersion/CjSemanticVersion.h"
 #include "RuntimeConfig.h"
 namespace MapleRuntime {
 class CJFileLoader : public ILoader {
@@ -50,7 +50,7 @@ public:
     void* LoadCJLibrary(const char* libName) override;
     int UnloadLibrary(const char* libName) override;
     Uptr FindSymbol(const CString libName, const CString symName) const override;
-    bool DoInitImage(BaseFile* baseFile) const;
+    bool DoInitImage(BaseFile* baseFile) const override;
     BaseFile* GetBaseFile(CString fileName) const override;
     auto GetBinaryInfoFromAddressFunc() const { return binLoadApi.getBinaryInfoFromAddress; }
     TypeInfo* FindTypeInfoFromLoadedFiles(const char* className) override;

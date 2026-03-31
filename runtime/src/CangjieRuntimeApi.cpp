@@ -25,6 +25,8 @@
 #include "Heap/Collector/CollectorResources.h"
 #include "RuntimeConfig.h"
 #include "UnwindStack/MangleNameHelper.h"
+#include "Loader/CjFileLoader/CjFileLoader.h"
+#include "LoaderManager.h"
 #if defined(__OHOS__) && (__OHOS__ == 1)
 #include "Inspector/FileStream.h"
 #include "Inspector/ProfilerAgentImpl.h"
@@ -284,6 +286,13 @@ RTErrorCode InitCJRuntime(const struct RuntimeParam* param)
         scheduler = MapleRuntime::Runtime::Current().GetConcurrencyModel().GetThreadScheduler();
     }
     ScheduleSetToCurrentThread(scheduler);
+#if defined(__IOS__)
+    auto* loader = MapleRuntime::LoaderManager::GetInstance()->GetLoader();
+    loader->VisitBaseFile([loader](MapleRuntime::BaseFile* file) {
+        loader->DoInitImage(file);
+        return true;
+    });
+#endif
     return E_OK;
 }
 
