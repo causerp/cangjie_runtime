@@ -3702,11 +3702,21 @@ extend String <: UnicodeStringExtension {
     }
 
     private func isDotFollow(data: Array<UInt8>, pos: Int64): Bool {
-        if (pos >= data.size) {
-            return false
+        var i = pos
+        while (i < data.size) {
+            let (rune, num) = Rune.fromUtf8(data, i)
+            if (num == 0) {
+                break
+            }
+            if (rune == Rune(DOT_ABOVE)) {
+                return true
+            }
+            if (!isCombiningMark(rune)) {
+                break
+            }
+            i += num
         }
-        let (rune, _) = Rune.fromUtf8(data, pos)
-        return rune == Rune(DOT_ABOVE)
+        return false
     }
 
     private func dotFollowChangeI(data: Array<UInt8>, pos: Int64): (UInt32, Bool) {
@@ -3727,7 +3737,7 @@ extend String <: UnicodeStringExtension {
 
     private func getUInt32ArrWithOption(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>,
         param: (Int64, Int64), opt: CasingOption): (Array<UInt32>, Bool) {
-        var jumpNext = false
+        var skipNextDotAbove = false
         let uint32arr: Array<UInt32> = match (ct) {
             case Upper => toSpecialChange(rune, ct, opt)
             case Lower =>
@@ -3737,30 +3747,32 @@ extend String <: UnicodeStringExtension {
                     LITHUANIA_SPECIAL_RUNE.get(UInt32(rune)).getOrThrow()
                 } else if ((opt == TR || opt == AZ) && (rune == Rune(CAPITAL_I))) {
                     let (arr, needJump) = dotFollowChangeI(itemBytes, param[0] + param[1])
-                    jumpNext = needJump
+                    skipNextDotAbove = needJump
                     [arr]
                 } else {
                     toCaseSpecialArray(rune, Lower)
                 }
             case Title => toSpecialChange(rune, ct, opt)
         }
-        return (uint32arr, jumpNext)
+        return (uint32arr, skipNextDotAbove)
     }
 
     private func toCaseInternalWithOption(ct: CaseType, opt: CasingOption): String {
         let itemBytes = this.toArray()
         let result = ArrayList<UInt8>()
         var i = 0
-        var jumpNext = false
+        var skipNextDotAbove = false
         while (i < itemBytes.size) {
             let (rune, num) = Rune.fromUtf8(itemBytes, i)
-            if (jumpNext) {
+            if (skipNextDotAbove && rune == Rune(DOT_ABOVE)) {
                 i += num
-                jumpNext = false
+                skipNextDotAbove = false
                 continue
             }
-            let (uint32arr, needJumpNext) = getUInt32ArrWithOption(ct, rune, itemBytes, (i, num), opt)
-            jumpNext = needJumpNext
+            let (uint32arr, needSkipNextDotAbove) = getUInt32ArrWithOption(ct, rune, itemBytes, (i, num), opt)
+            if (needSkipNextDotAbove) {
+                skipNextDotAbove = true
+            }
             for (uint32 in uint32arr) {
                 for (code in Rune(uint32).toString().toArray()) {
                     result.add(code)
