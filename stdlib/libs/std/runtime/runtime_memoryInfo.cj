@@ -88,8 +88,63 @@ public func getUsedHeapSize(): Int64 {
 }
 
 @When[backend == "cjnative"]
+private const MAX_PATH_LENGTH: Int64 = 4096
+
+/**
+ * Security checks to prevent path injection attacks:
+ * 1. Empty path check - prevents null/empty path vulnerabilities
+ * 2. Path length check - prevents buffer overflow and DoS attacks (>4096 chars)
+ * 3. Null byte injection check - prevents path truncation attacks
+ */
+@When[backend == "cjnative"]
+func validatePathString(pathStr: String): Bool {
+    if (pathStr.isEmpty() || pathStr.size > MAX_PATH_LENGTH) {
+        return false
+    }
+    if (pathStr.contains("\0")) {
+        return false
+    }
+    return true
+}
+
+@When[backend == "cjnative"]
+func resolvePath(path: Path): Path {
+    let absolutePath = if (path.isAbsolute()) {
+        path
+    } else {
+        canonicalize(Path(".")).join(path)
+    }
+    
+    let resolvedPath = try {
+        let parentDir = absolutePath.parent
+        if (exists(parentDir)) {
+            let resolvedParent = canonicalize(parentDir)
+            let candidatePath = resolvedParent.join(absolutePath.fileName)
+            if (exists(candidatePath) && FileInfo(candidatePath).isSymbolicLink()) {
+                canonicalize(candidatePath)
+            } else {
+                candidatePath
+            }
+        } else {
+            absolutePath
+        }
+    } catch (e: Exception) {
+        absolutePath
+    }
+    
+    return resolvedPath
+}
+
+@When[backend == "cjnative"]
 public func dumpHeapData(path: Path): Unit {
-    try (file = File(path, ReadWrite)) {
+    let pathStr = path.toString()
+    if (!validatePathString(pathStr)) {
+        throw IllegalArgumentException("Heap dump path is invalid or contains forbidden characters for security reasons.")
+    }
+    
+    let resolvedPath = resolvePath(path)
+    
+    try (file = File(resolvedPath, ReadWrite)) {
         let success = dumpCjHeapData(Int32(file.fileDescriptor.fileHandle))
         if (!success) {
             throw MemoryInfoException("Failed to dump heap data.")
