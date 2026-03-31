@@ -200,11 +200,11 @@ extern const int64_t CJ_TIME_GetLocalTimeOffset()
 {
     time_t now;
     (void)time(&now);
-    struct tm* tmInfo = localtime(&now);
-    if (tmInfo == NULL) {
+    struct tm tmInfo;
+    if (localtime_r(&now, &tmInfo) == NULL) {
         return 0; // not reachable
     }
-    return tmInfo->tm_gmtoff / 60; // one minute contains 60 seconds
+    return tmInfo.tm_gmtoff / 60; // one minute contains 60 seconds
 }
 #endif
 
