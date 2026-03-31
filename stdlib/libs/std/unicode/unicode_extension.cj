@@ -2621,6 +2621,16 @@ func findCaseRange(rune: Rune): ?CaseRange {
     return None
 }
 
+const MAX_UNICODE_CODEPOINT: UInt32 = 0x10FFFF
+
+func safeAddCodepoint(codePosition: Int32, offset: Int32): UInt32 {
+    let result: Int64 = Int64(codePosition) + Int64(offset)
+    if (result < 0 || result > Int64(MAX_UNICODE_CODEPOINT)) {
+        return UInt32(codePosition)
+    }
+    return UInt32(result)
+}
+
 func findRune(rune: Rune, caseRange: CaseRange, caseType: CaseType): Rune {
     let start = caseRange.start
     let codePosition: Int32 = Int32(UInt32(rune))
@@ -2628,17 +2638,17 @@ func findRune(rune: Rune, caseRange: CaseRange, caseType: CaseType): Rune {
         case Upper => match {
             case caseRange.upper == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) & !1)))
             case caseRange.upper == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.upper))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.upper))
         }
         case Lower => match {
             case caseRange.lower == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) | 1)))
             case caseRange.lower == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.lower))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.lower))
         }
         case Title => match {
             case caseRange.title == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) & !1)))
             case caseRange.title == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.title))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.title))
         }
     }
 }
@@ -2649,19 +2659,19 @@ func caseChangeForLetterI(codePosition: Int32, caseRange: CaseRange, caseType: C
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == SMALL_I) {
                 Rune(CAPITAL_I_WITH_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.upper))
+                Rune(safeAddCodepoint(codePosition, caseRange.upper))
             }
         case Lower =>
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == CAPITAL_I) {
                 Rune(SMALL_I_WITHOUT_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.lower))
+                Rune(safeAddCodepoint(codePosition, caseRange.lower))
             }
         case Title =>
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == SMALL_I) {
                 Rune(CAPITAL_I_WITH_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.title))
+                Rune(safeAddCodepoint(codePosition, caseRange.title))
             }
     }
 }
@@ -2695,17 +2705,17 @@ func findRuneArray(rune: Rune, caseRange: CaseRange, caseType: CaseType): Array<
         case Upper => match {
             case caseRange.upper == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
             case caseRange.upper == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[2]
-            case _ => [UInt32(codePosition + caseRange.upper)]
+            case _ => [safeAddCodepoint(codePosition, caseRange.upper)]
         }
         case Lower => match {
             case caseRange.lower == UPPERLOWER => [UInt32(start + ((codePosition - start) | 1))]
             case caseRange.lower == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[0]
-            case _ => [UInt32(codePosition + caseRange.lower)]
+            case _ => [safeAddCodepoint(codePosition, caseRange.lower)]
         }
         case Title => match {
             case caseRange.title == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
             case caseRange.title == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[1]
-            case _ => [UInt32(codePosition + caseRange.title)]
+            case _ => [safeAddCodepoint(codePosition, caseRange.title)]
         }
     }
 }
