@@ -13,6 +13,7 @@ enum FILE_TIME_TYPE { CREATION, LAST_ACCESS, LAST_WRITE };
 #define DOS_DEVICE_PATH_SPECIFIER_PERIOD "\\\\.\\"
 #define DOS_DEVICE_PATH_SPECIFIER_QUESTION_MARK "\\\\?\\"
 #define DOS_DEVICE_PATH_SPECIFIER_SIZE 4
+#define NORMALIZE_PATH_BUF_SIZE (MAX_PATH + DOS_DEVICE_PATH_SPECIFIER_SIZE)  // 264
 #define WINDOWS_TICK 10000000
 #define SEC_TO_UNIX_EPOCH 11644473600LL
 #define TYPE_OFFSET 1
@@ -398,14 +399,18 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
     if (hFile == INVALID_HANDLE_VALUE) {
         return GetLastErrorResult();
     }
-    wchar_t temp[MAX_PATH] = {0};
 
-    DWORD dwRet = GetFinalPathNameByHandleW(hFile, temp, MAX_PATH, FILE_NAME_NORMALIZED);
+    // 修复 HIGH-06: 扩大缓冲区以容纳 DOS 设备路径前缀（如 \\?\）
+    wchar_t temp[NORMALIZE_PATH_BUF_SIZE] = {0};
+
+    DWORD dwRet = GetFinalPathNameByHandleW(hFile, temp, NORMALIZE_PATH_BUF_SIZE, FILE_NAME_NORMALIZED);
     CloseHandle(hFile);
 
     FsError* result = GetDefaultResult();
-    if (dwRet > MAX_PATH) {
-        return result;
+    if (dwRet > NORMALIZE_PATH_BUF_SIZE) {
+        // 路径超过缓冲区大小，返回错误
+        free(result);
+        return GetErrnoResult();
     }
     char* tempRealPath = Wchar2Char(temp);
     if (tempRealPath == NULL) {
@@ -417,9 +422,7 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
         realPath[i] = tempRealPath[i];
     }
     free((void*)tempRealPath);
-    if (dwRet < MAX_PATH) {
-        result->rtnCode = (int64_t)strlen(realPath);
-    }
+    result->rtnCode = (int64_t)strlen(realPath);
     return result;
 }
 
