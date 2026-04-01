@@ -595,18 +595,34 @@ extern int CJ_FS_CopyREF(char* dir1, char* dir2)
         return -1;
     }
 
-    int ret = (int)read(fd1, buf, sizeof(buf) - 1);
-    int sts = 0;
+    ssize_t ret = read(fd1, buf, sizeof(buf) - 1);
     while (ret > 0) {
-        sts = (int)write(fd2, buf, (size_t)ret);
+        ssize_t sts = 0;
         while (sts < ret) {
-            sts += (int)write(fd2, buf + sts, (size_t)(ret - sts));
+            ssize_t written = write(fd2, buf + sts, (size_t)(ret - sts));
+            // 修复 MEDIUM-04: 处理 write 错误，避免无限循环
+            if (written < 0) {
+                if (errno == EINTR) {
+                    continue;  // 被信号中断，重试
+                }
+                // 其他错误（磁盘满、IO错误等）
+                (void)close(fd1);
+                (void)close(fd2);
+                return -1;
+            }
+            if (written == 0) {
+                // 写入 0 字节，可能磁盘已满
+                (void)close(fd1);
+                (void)close(fd2);
+                return -1;
+            }
+            sts += written;
         }
         if (memset_s(buf, sizeof(buf), 0, sizeof(buf)) != EOK) {
             ret = -1;
             break;
         }
-        ret = (int)read(fd1, buf, sizeof(buf) - 1);
+        ret = read(fd1, buf, sizeof(buf) - 1);
     }
 
     if (ret == -1) {
