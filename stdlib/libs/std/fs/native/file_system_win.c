@@ -108,12 +108,12 @@ static wchar_t* GetWPathEndWithStar(const char* cstr)
 {
     char namebuf[MAX_PATH_LEN];
     if (snprintf_s(namebuf, MAX_PATH_LEN, MAX_PATH_LEN - 1, "%s\\*", cstr) < 0) {
-        return -1;
+        return NULL;  // 修复 MEDIUM-06: 返回 NULL 而非 -1
     }
 
     wchar_t* conv = (wchar_t*)Char2Widechar(namebuf);
     if (conv == NULL) {
-        return -1;
+        return NULL;  // 统一返回 NULL
     }
     return conv;
 }
