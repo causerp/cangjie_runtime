@@ -850,12 +850,14 @@ extern FsError* CJ_FS_Remove(const char* path, bool recursive)
 
 static FsError* GetErrnoResult(void)
 {
-    char* errMsg = CJ_FS_ErrmesGet(errno);
+    // 修复 MEDIUM-07: 立即保存 errno，避免被后续操作覆盖
+    int saved_errno = errno;
+    char* errMsg = CJ_FS_ErrmesGet(saved_errno);
     FsError* result = (FsError*)malloc(sizeof(FsError));
     if (result == NULL) {
         return NULL;
     }
-    result->rtnCode = -errno;
+    result->rtnCode = -saved_errno;
     result->msg = errMsg;
     return result;
 }
