@@ -271,7 +271,12 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        return nextUInt8() % upper
+        let threshold = UInt8.max - (UInt8.max % upper + 1) % upper
+        var r = nextUInt8()
+        while (r > threshold) {
+            r = nextUInt8()
+        }
+        return r % upper
     }
 
     /**
@@ -289,7 +294,12 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        return nextUInt16() % upper
+        let threshold = UInt16.max - (UInt16.max % upper + 1) % upper
+        var r = nextUInt16()
+        while (r > threshold) {
+            r = nextUInt16()
+        }
+        return r % upper
     }
 
     /**
@@ -307,7 +317,12 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        return nextUInt32() % upper
+        let threshold = UInt32.max - (UInt32.max % upper + 1) % upper
+        var r = nextUInt32()
+        while (r > threshold) {
+            r = nextUInt32()
+        }
+        return r % upper
     }
 
     /**
@@ -325,7 +340,12 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        return nextUInt64() % upper
+        let threshold = UInt64.max - (UInt64.max % upper + 1) % upper
+        var r = nextUInt64()
+        while (r > threshold) {
+            r = nextUInt64()
+        }
+        return r % upper
     }
 
     /**
@@ -544,7 +564,7 @@ public class Random {
                 nextGaussian = Option<Float64>.None
                 return v
             case None =>
-                let v1: Float64 = nextFloat64()
+                let v1: Float64 = 1.0 - nextFloat64()
                 let v2: Float64 = nextFloat64()
                 let r = sqrt(-2.0 * log(v1))
                 let st = 2.0 * Float64.getPI() * v2
