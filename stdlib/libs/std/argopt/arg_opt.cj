@@ -551,6 +551,9 @@ class ArgParser {
     let _shortOptionSpecs: HashMap<Rune, ArgumentSpec> = HashMap<Rune, ArgumentSpec>()
     var _nonOptionSpecs: ?ArgumentSpec = None
     var _index = 0
+    let _pendingCallbacks: ArrayList<((String) -> Unit, String)> = ArrayList<((String) -> Unit, String)>()
+    var _pendingNonOptionCallback: ?(Array<String>) -> Unit = None
+    var _pendingNonOptionArgs: ?Array<String> = None
 
     func checkDuplicateShortOption(r: Rune) {
         if (_shortOptionSpecs.contains(r) || _longOptionSpecs.contains(String(r))) {
@@ -593,7 +596,9 @@ class ArgParser {
 
     func addOptionAndExecuteAction(key: String, val: String, spec: ArgumentSpec) {
         _options.add(key, val)
-        spec.optionAction?(val)
+        if (let Some(action) <- spec.optionAction) {
+            _pendingCallbacks.add((action, val))
+        }
     }
 
     func parseLongOption(arg: String, next: ?String): Bool {
@@ -710,6 +715,16 @@ class ArgParser {
         }
     }
 
+    func executeCallbacks() {
+        for ((callback, value) in _pendingCallbacks) {
+            callback(value)
+        }
+        if (let Some(action) <- _pendingNonOptionCallback) {
+            let args = _pendingNonOptionArgs ?? Array<String>()
+            action(args)
+        }
+    }
+
     func parse(args: Array<String>, specs: Array<ArgumentSpec>): ParsedArguments {
         specs |> forEach(addSpec)
 
@@ -743,8 +758,13 @@ class ArgParser {
             }
             _index += 1
         }
-        _nonOptionSpecs?.nonOptionAction?(_nonOptions.toArray())
-        return ParsedArguments(_options, _nonOptions.toArray())
+        if (let Some(action) <- _nonOptionSpecs?.nonOptionAction) {
+            _pendingNonOptionCallback = action
+            _pendingNonOptionArgs = _nonOptions.toArray()
+        }
+        let result = ParsedArguments(_options, _nonOptions.toArray())
+        executeCallbacks()
+        return result
     }
 }
 
