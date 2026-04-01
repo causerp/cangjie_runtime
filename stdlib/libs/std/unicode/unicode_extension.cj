@@ -2704,17 +2704,29 @@ func findRuneArray(rune: Rune, caseRange: CaseRange, caseType: CaseType): Array<
     match (caseType) {
         case Upper => match {
             case caseRange.upper == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
-            case caseRange.upper == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[2]
+            case caseRange.upper == SPECIAL_UNICODE =>
+                match (SPECIAL_UNICODE_MAP.get(UInt32(rune))) {
+                    case Some(arr) => arr[2]
+                    case None => [UInt32(rune)]
+                }
             case _ => [safeAddCodepoint(codePosition, caseRange.upper)]
         }
         case Lower => match {
             case caseRange.lower == UPPERLOWER => [UInt32(start + ((codePosition - start) | 1))]
-            case caseRange.lower == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[0]
+            case caseRange.lower == SPECIAL_UNICODE =>
+                match (SPECIAL_UNICODE_MAP.get(UInt32(rune))) {
+                    case Some(arr) => arr[0]
+                    case None => [UInt32(rune)]
+                }
             case _ => [safeAddCodepoint(codePosition, caseRange.lower)]
         }
         case Title => match {
             case caseRange.title == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
-            case caseRange.title == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[1]
+            case caseRange.title == SPECIAL_UNICODE =>
+                match (SPECIAL_UNICODE_MAP.get(UInt32(rune))) {
+                    case Some(arr) => arr[1]
+                    case None => [UInt32(rune)]
+                }
             case _ => [safeAddCodepoint(codePosition, caseRange.title)]
         }
     }
@@ -3744,7 +3756,10 @@ extend String <: UnicodeStringExtension {
                 if (rune == Rune(CAPITAL_SIGMA) && isNeedChange(itemBytes, param[0], param[1])) {
                     [SMALL_SIGMA_END]
                 } else if (opt == LT && LITHUANIA_SPECIAL_RUNE.contains(UInt32(rune))) {
-                    LITHUANIA_SPECIAL_RUNE.get(UInt32(rune)).getOrThrow()
+                    match (LITHUANIA_SPECIAL_RUNE.get(UInt32(rune))) {
+                        case Some(arr) => arr
+                        case None => [UInt32(rune)]
+                    }
                 } else if ((opt == TR || opt == AZ) && (rune == Rune(CAPITAL_I))) {
                     let (arr, needJump) = dotFollowChangeI(itemBytes, param[0] + param[1])
                     skipNextDotAbove = needJump
