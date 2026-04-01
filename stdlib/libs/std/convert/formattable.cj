@@ -24,6 +24,8 @@ public interface Formattable {
 var signed: Bool = true
 var unsigned: Bool = false
 
+const MAX_FORMAT_WIDTH: Int64 = 100000
+
 protected enum Flags {
     | NoFlag
     | Minus
@@ -450,7 +452,8 @@ protected class Verify {
  *
  * @since 0.17.4
  * @throws IllegalArgumentException if the string is empty, or if the string is starting with "+",
- * or if failing to convert to Int64, or if the value after conversion is out of the Int64 range
+ * or if failing to convert to Int64, or if the value after conversion is out of the Int64 range,
+ * or if width or precision exceeds the maximum allowed value (100000)
  */
 func parser(fmt: String): FormatSpecifier {
     let (flags, width, precision, specifier) = parseFormat(fmt)
@@ -488,6 +491,9 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
         }
         var str = fmt[start..start + len]
         width = Int64.parse(str)
+        if (width > MAX_FORMAT_WIDTH) {
+            throw IllegalArgumentException("Format width ${width} exceeds maximum allowed value ${MAX_FORMAT_WIDTH}.")
+        }
     }
     /* precision */
     if (fmtCharArray[idx] == r'.' && idx < end) {
@@ -504,6 +510,9 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
         }
         var str = fmt[start..start + len]
         precision = Int64.parse(str)
+        if (precision > MAX_FORMAT_WIDTH) {
+            throw IllegalArgumentException("Format precision ${precision} exceeds maximum allowed value ${MAX_FORMAT_WIDTH}.")
+        }
     }
     /* specifier */
     if (fmtCharArray[idx].isAsciiLetter()) {
