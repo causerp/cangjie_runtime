@@ -1522,7 +1522,7 @@ Parent Type:
 public func compare(rhs: Float16): Ordering
 ```
 
-Function: Compares the current [Float16](core_package_intrinsics.md#float16) value with another specified [Float16](core_package_intrinsics.md#float16) value.
+Function: Compares the current [Float16](core_package_intrinsics.md#float16) value with another specified [Float16](core_package_intrinsics.md#float16) value. `NaN` cannot participate in the comparison, the return value is meaningless.
 
 Parameter:
 
@@ -2158,7 +2158,7 @@ Parent Type:
 public func compare(rhs: Float32): Ordering
 ```
 
-Function: Determines the relationship between the current [Float32](core_package_intrinsics.md#float32) value and the specified [Float32](core_package_intrinsics.md#float32) value.
+Function: Determines the relationship between the current [Float32](core_package_intrinsics.md#float32) value and the specified [Float32](core_package_intrinsics.md#float32) value. `NaN` cannot participate in the comparison, the return value is meaningless.
 
 Parameters:
 
@@ -2795,7 +2795,7 @@ Parent Type:
 public func compare(rhs: Float64): Ordering
 ```
 
-Function: Determines the relationship between the current [Float64](core_package_intrinsics.md#float64) value and the specified [Float64](core_package_intrinsics.md#float64) value.
+Function: Determines the relationship between the current [Float64](core_package_intrinsics.md#float64) value and the specified [Float64](core_package_intrinsics.md#float64) value. `NaN` cannot participate in the comparison, the return value is meaningless.
 
 Parameter:
 
