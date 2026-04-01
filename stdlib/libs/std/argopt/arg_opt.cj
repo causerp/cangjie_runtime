@@ -283,7 +283,7 @@ class ParserHelper {
      * @since 0.17.4
      */
     func getArgsList(): ArrayList<Int8> {
-        return this.argsList
+        return this.argsList.clone()
     }
 
     /**
