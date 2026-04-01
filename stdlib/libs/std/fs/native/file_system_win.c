@@ -471,12 +471,19 @@ extern int8_t CJ_FS_CanRead(const char* path, int64_t pathLen)
 
 static int64_t LocalStat(const char* path, struct stat* buf)
 {
+    // 修复 MEDIUM-05: 复制路径以避免修改 const 参数
+    char* pathCopy = strdup(path);
+    if (pathCopy == NULL) {
+        return -1;
+    }
+
     // Remove the delimiter at the end of the path, except for the root directory like "C:\\".
     // If `_FILE_OFFSET_BITS` is defined, `stat` is replaced with `_stat64`.
     // In Windows, `_stat64` does not support a separator at the end of a path, except for
     // the root directory like "C:\\.
-    RemoveTrailingSeparator(path);
-    wchar_t* wPath = Char2Widechar(path);
+    RemoveTrailingSeparator(pathCopy);
+    wchar_t* wPath = Char2Widechar(pathCopy);
+    free(pathCopy);
 
     if (wPath == NULL) {
         return -1;
