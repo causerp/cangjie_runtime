@@ -102,7 +102,7 @@ private func readFromConsole(): String {
     let line: CPointer<StructureString> = unsafe { CJ_CONSOLE_Readline() }
     if (line.isNull()) {
         unsafe { CJ_CONSOLE_ClearstdInerr() }
-        return build.toString()
+        throw IllegalStateException("Failed to read from console: I/O error or EOF.")
     }
     let str = unsafe { line.read() }
     var itemLen = Int64(str.length)
