@@ -373,6 +373,9 @@ class ParserHelper {
     }
 
     private func doShortParser(shortStr: String, args: Array<String>, i: Int64): (Int64, Bool) {
+        if (args[i].size < 2) {
+            return (1, true)
+        }
         var size: Int64 = shortStr.size
         var key: String = args[i][0..2]
         let index: Int64 = shortStr.indexOf(key[1]) ?? -1
