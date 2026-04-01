@@ -31,7 +31,6 @@ const LOW_4_MASK: UInt32 = 0b00001111 // 0x0f
 const LOW_3_MASK: UInt32 = 0b00000111 // 0x07
 const LOW_2_MASK: UInt32 = 0b00000011 // 0x03
 const LOW_1_MASK: UInt32 = 0b00000001 // 0x01
-const UTF8_5_MAX: UInt32 = 0x3FFFFFF
 const UTF8_4_MAX: UInt32 = 0x10FFFF
 const UTF8_3_MAX: UInt32 = 0xFFFF
 const UTF8_2_MAX: UInt32 = 0x07FF
