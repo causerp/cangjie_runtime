@@ -224,10 +224,12 @@ struct MTableDesc {
     std::recursive_mutex mTableMutex;
     bool pending = false;
     bool needsResolveInner = true;
+    bool needsResolveOuter = true;
     explicit MTableDesc(BIT_TYPE bitmap_);
     MTableDesc() = delete;
-    bool IsFullyHandled() const { return !NeedResolveInner(); };
+    bool IsFullyHandled() const { return !NeedResolveInner() && !NeedResolveOuter(); };
     inline bool NeedResolveInner() const { return needsResolveInner; }
+    inline bool NeedResolveOuter() const { return needsResolveOuter; }
 };
 
 typedef TypeInfo* (*GenericFunc)(TypeInfo**);
