@@ -25,6 +25,7 @@ var signed: Bool = true
 var unsigned: Bool = false
 
 const MAX_FORMAT_WIDTH: Int64 = 100000
+const MAX_FLOAT_PRECISION: Int64 = 350
 
 protected enum Flags {
     | NoFlag
@@ -875,6 +876,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     private func toScientificString(u: Float64, isUpper: Bool, precision: Int64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+        }
         var v: Float64 = u
         var fmt = ""
         if (isUpper) {
@@ -897,6 +901,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     private func toGeneralString(u: Float64, isUpper: Bool, precision: Int64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+        }
         var v: Float64 = u
         var fmt = ""
         if (isUpper) {
@@ -918,6 +925,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     private func toDecimalString(u: Float64, precision: Int64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+        }
         var v: Float64 = u
         var fmt = "%.${precision}f"
         return float64Formatter(v, fmt)
