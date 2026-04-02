@@ -85,18 +85,20 @@ public class Semaphore {
      */
     public func release(amount!: Int64 = 1): Unit {
         if (amount < 0 || amount > initValue) {
-            throw IllegalArgumentException("Invalid amount to acquire.")
+            throw IllegalArgumentException("Invalid amount to release.")
         }
         synchronized(monitor) {
             let oldValue = countValue.load()
-            let newValue = oldValue + amount
             // The new value to store cannot exceed the initial value.
-            if (newValue > initValue) {
-                countValue.store(initValue)
+            let newValue = if (oldValue + amount > initValue) {
+                initValue
             } else {
-                countValue.store(newValue)
+                oldValue + amount
             }
-            monitor.notifyAll()
+            countValue.store(newValue)
+            for (_ in oldValue..newValue) {
+                monitor.notify()
+            }
         }
     }
 }

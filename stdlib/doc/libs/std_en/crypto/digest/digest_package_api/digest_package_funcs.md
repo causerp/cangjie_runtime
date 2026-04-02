@@ -88,7 +88,7 @@ Returns:
 public func digest<T>(algorithm: T, input: InputStream): Array<Byte> where T <: Digest
 ```
 
-Function: Provides a generic digest function that performs digest computation on data from an InputStream using the specified digest algorithm.
+Function: Provides a generic digest function that performs digest computation on data from an InputStream using the specified digest algorithm. When the digest function calls input.read() to read data, it will stop reading when it returns 0, which means the InputStream has been read to the end.
 
 Parameters:
 
