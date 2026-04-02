@@ -272,7 +272,6 @@ func parseNumber(part: String, radix: UInt32, minDigits: UInt8, maxDigits: UInt8
     }
 }
 
-@OverflowWrapping
 func parseIPv6(src: String, origin: String): Result<IPv6Address> {
     if (src.size < 2) {
         return Err(IllegalFormatException("Parse (${origin}): address string too short."))
