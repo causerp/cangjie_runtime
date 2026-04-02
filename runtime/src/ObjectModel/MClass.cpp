@@ -234,7 +234,8 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
         }
 
         auto itfVExtensionDataStart = itf->GetvExtensionDataStart();
-        CHECK_DETAIL(itfVExtensionDataStart != nullptr, "itfVExtensionDataStart is nullptr");
+        CHECK_DETAIL(itfVExtensionDataStart != nullptr, "itfVExtensionDataStart is nullptr, ti: %s, itf: %s",
+                     GetName(), itf->GetName());
         auto itfExtData = itf->IsInterface() ? *itfVExtensionDataStart
                                             : *(itfVExtensionDataStart + itf->GetValidInheritNum() - 1);
         auto ftSize = extensionData->GetFuncTableSize();
