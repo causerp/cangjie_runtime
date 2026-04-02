@@ -1136,7 +1136,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     if (digitCount == 0) {
         return Failure("The string does not comply with the floating point number syntax.")
     }
-    if (digitCount > 17) {
+    if (digitCount > FLOAT64_MAX_DECIMAL_DIGITS) {
         return doParseFloatFromCffi<T>(data)
     }
     var df = inputStr.size - pointIndex - 1
