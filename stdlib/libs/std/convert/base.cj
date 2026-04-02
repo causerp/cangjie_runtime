@@ -47,6 +47,7 @@ let MINVAL_F16: Float16 = (Float16((1.0 + Float64((Float64(1 << 10) - 1.0) / Flo
     Float16(-1.0)
 let Float32_INF = Float32(1.0) / Float32(0.0)
 let Float16_INF = Float16(1.0) / Float16(0.0)
+const FLOAT64_MAX_DECIMAL_DIGITS: Int64 = 17
 const DECIMAL_OVERFLOW_LIMIT_I8 = MAXVAL_I8 / 10
 const DECIMAL_OVERFLOW_LIMIT_UI8 = MAXVAL_UI8 / 10
 const DECIMAL_OVERFLOW_LIMIT_I16 = MAXVAL_I16 / 10
@@ -306,7 +307,7 @@ func strToChar(data: Array<Rune>): Option<Rune> {
  */
 func charToNumber(chs: Rune): UInt64 {
     if (!((chs >= r'0' && chs <= r'9') || (chs >= r'A' && chs <= r'F') || (chs >= r'a' && chs <= r'f'))) {
-        throw IllegalArgumentException("Invalid hexadecimal digit: '${chs}'")
+        throw IllegalArgumentException("Invalid hexadecimal digit: '${chs}'.")
     }
     var value: UInt64 = UInt64(UInt32(chs))
     if (chs >= r'A' && chs <= r'F') {
