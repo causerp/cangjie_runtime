@@ -22,6 +22,7 @@ if [ "${platform}" == "macos_cangjie" ] || [ "${platform}" == "mac_x86_64_cangji
       base_obj_name=$(basename "$obj")
       if [[ ! "${base_obj_name}" =~ C2NStub|N2CStub ]]; then
         $c_compiler \
+          -mmacosx-version-min=12.0.0 \
           -isysroot ${mac_sdk_path} \
           -Wl,-r,-rename_section,__TEXT,__text,__TEXT,__cjrt_text \
           $obj \
