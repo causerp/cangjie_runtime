@@ -48,6 +48,12 @@ using USize = size_t;
 using Index = size_t;
 using Offset = size_t;
 
+#if defined(__arm__)
+    using ArchUInt = uint32_t;
+#else
+    using ArchUInt = uint64_t;
+#endif
+
 } // namespace MapleRuntime
 
 #endif // MRT_BASE_TYPES_H

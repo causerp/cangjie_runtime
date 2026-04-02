@@ -6,6 +6,12 @@
 
 cmake_minimum_required(VERSION 3.14.1)
 
+# For macos cross compile android arm targets, include toolchain before project() to set compile
+if(${TARGET} STREQUAL "android_arm_cangjie")
+    include(../../build/cmake/toolchain/config.cmake)
+    include(../../build/cmake/toolchain/${TARGET}.cmake)
+endif()
+
 project(cjthread C CXX)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
@@ -70,6 +76,12 @@ elseif(${TARGET} STREQUAL "android_x86_64_cangjie")
     include(../../build/cmake/toolchain/config.cmake)
     include(../../build/cmake/toolchain/${TARGET}.cmake)
     ADD_DEFINITIONS(-DTRACE_FOLDER_PREFIX="linux_android_x86_64")
+elseif(${TARGET} STREQUAL "android_arm_cangjie")
+    set(CMAKE_SYSTEM_NAME "Linux")
+    set(CMAKE_SYSTEM_PROCESSOR "arm")
+    include(../../build/cmake/toolchain/config.cmake)
+    include(../../build/cmake/toolchain/${TARGET}.cmake)
+    ADD_DEFINITIONS(-DTRACE_FOLDER_PREFIX="linux_android_arm")
 elseif(${TARGET} STREQUAL "windows_x86_64")
     set(CMAKE_SYSTEM_NAME "Windows")
     set(CMAKE_SYSTEM_PROCESSOR "x86_64")

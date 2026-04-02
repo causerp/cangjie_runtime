@@ -118,7 +118,12 @@ void PrintSignalHandlerStack(int sig, const siginfo_t* info, void* context)
     constexpr uint8_t threadNameLen = 16;
     constexpr uint32_t simpleSigStrSize = 256;
     char threadName[threadNameLen];
+#if defined (__arm__) && defined (__ANDROID__)
+    (void)thread;
+    prctl(PR_GET_NAME, threadName, 0, 0, 0);
+#else
     pthread_getname_np(thread, threadName, threadNameLen);
+#endif
     UnwindContext uwContext;
     const char* frameTypeStr;
     Mutator* mutator = Mutator::GetMutator();

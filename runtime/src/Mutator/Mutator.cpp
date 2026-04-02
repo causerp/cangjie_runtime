@@ -68,7 +68,7 @@ extern "C" void MRT_SetGrowFlag(bool flag)
 extern "C" intptr_t MRT_StackGrow(intptr_t frameBase, uint32_t adjustedSize, void* ip)
 {
 #ifdef __arm__
-    LOG(RTLOG_FAIL, "Unsupported stack grow for arm32");
+    LOG(RTLOG_FATAL, "Unsupported stack grow for arm32");
 #endif
     Mutator* mutator = Mutator::GetMutator();
     if (mutator == nullptr) {

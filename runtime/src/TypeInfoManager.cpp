@@ -15,11 +15,7 @@
 namespace MapleRuntime {
 void TypeGCInfo::FillTypeGCInfo(TypeInfo* ti, CString &gcTibStr, U32 &curSize)
 {
-#ifdef __arm__
-    U32 ptrSize = 4;
-#else
-    U32 ptrSize = 8;
-#endif
+    U32 ptrSize = sizeof(void*);
     U16 tiAlign = ti->IsRef() ? sizeof(BaseObject*) : ti->GetAlign();
     curSize = MRT_ALIGN(curSize, tiAlign);
     if (ti->IsRef()) {
@@ -50,11 +46,7 @@ void TypeGCInfo::FillArrayTypeGCInfo(TypeInfo* ti, CString &gcTibStr, U32 &curSi
 
 CString TypeGCInfo::GetGCTibStr(TypeInfo* ti)
 {
-#ifdef __arm__
-    U32 ptrSize = 4;
-#else
-    U32 ptrSize = 8;
-#endif
+    U32 ptrSize = sizeof(void*);
     CString gcTibStr;
     U32 curSize = 0;
     gcTibStr = CString((ti->GetInstanceSize() + ptrSize - 1) / ptrSize, '0');
@@ -390,7 +382,8 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     TypeInfo* newTypeInfo = reinterpret_cast<TypeInfo*>(Allocate(sizeof(TypeInfo)));
     size_t nameSize = typeInfoName.Length() + 1;
 #ifdef __arm__
-    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize, sizeof(TypeInfo*)));
+    // nameAddr need four-byte aligned to prevent the fields from being overwritten incorrectly.
+    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize, sizeof(uint32_t)));
 #else
     uintptr_t nameAddr = Allocate(nameSize);
 #endif
@@ -420,11 +413,8 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     } else if (tt->IsVArray()) {
         LOG(RTLOG_FATAL, "Instantiate TypeInfo for VArray is not supported");
     }
-#ifdef __arm__
-    U32 ptrSize = 4;
-#else
-    U32 ptrSize = 8;
-#endif
+
+    U32 ptrSize = sizeof(void*);
     newTypeInfo->SetFieldNum(fieldNum);
     newTypeInfo->SetTypeArgNum(typeArgNum);
     if (tt->IsArrayType() || tt->IsCPointer()) {
