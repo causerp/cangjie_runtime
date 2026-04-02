@@ -28,6 +28,8 @@ public:
 #ifdef __arm__
     static uint32_t rtStartAddr;
     static uint32_t rtEndAddr;
+    static uint32_t cjThreadStartAddr;
+    static uint32_t cjThreadEndAddr;
     static uint32_t coreSoStartAddr;
     static uint32_t coreSoEndAddr;
     static uint32_t cjcSoStartAddr;
@@ -37,6 +39,8 @@ public:
 #else
     static uint64_t rtStartAddr;
     static uint64_t rtEndAddr;
+    static uint64_t cjThreadStartAddr;
+    static uint64_t cjThreadEndAddr;
     static uint64_t coreSoStartAddr;
     static uint64_t coreSoEndAddr;
     static uint64_t cjcSoStartAddr;
