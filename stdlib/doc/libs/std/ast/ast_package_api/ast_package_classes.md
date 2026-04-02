@@ -2557,6 +2557,7 @@ Visiting Constructor
 
 ```cangjie
 public open class Decl <: Node {
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
     protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
     protected var keyword_: Token = Token()
     protected var identifier_: Token = Token()
@@ -2577,7 +2578,7 @@ public open class Decl <: Node {
 ### var annotations_
 
 ```cangjie
-protected var annotations_: ArrayList<Annotation>
+protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
 ```
 
 功能：获取或设置作用于 [Decl](ast_package_classes.md#class-decl) 节点的注解列表。

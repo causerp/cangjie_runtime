@@ -1317,6 +1317,7 @@ Parameters:
 
 ```cangjie
 public open class Decl <: Node {
+    protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
     protected var modifiers_: ArrayList<Modifier> = ArrayList<Modifier>()
     protected var keyword_: Token = Token()
     protected var identifier_: Token = Token()
@@ -1333,6 +1334,16 @@ Function: The parent class of all declaration nodes, inheriting from the [Node](
 Parent Type:
 
 - [Node](#class-node)
+
+### var annotations_
+
+```cangjie
+protected var annotations_: ArrayList<Annotation> = ArrayList<Annotation>()
+```
+
+Function: Gets or sets the list of annotations applied to the [Decl](ast_package_classes.md#class-decl) node.
+
+Type: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<[Annotation](ast_package_classes.md#class-annotation)>
 
 ### var identifier_
 
