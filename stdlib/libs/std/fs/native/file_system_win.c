@@ -945,23 +945,59 @@ extern int64_t CJ_FS_CloseFile(HANDLE fd)
  * If return == 0, read end.
  * If return < 0, read failed.
  */
+// 修复 HIGH-04: 分块读写，支持超过 4GB 的数据
 extern int64_t CJ_FS_FileRead(HANDLE fd, char* buffer, size_t maxLen)
 {
-    DWORD numOfBytesToRead = (DWORD)maxLen;
-    DWORD numOfBytesRead = 0;
-    BOOL success = ReadFile(fd, buffer, numOfBytesToRead, &numOfBytesRead, NULL);
-    if (!success) {
-        return -1;
+    const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
+    int64_t totalBytesRead = 0;
+    size_t remaining = maxLen;
+    char* currentBuffer = buffer;
+
+    while (remaining > 0) {
+        DWORD chunkSize = (remaining > MAX_CHUNK_SIZE) ? MAX_CHUNK_SIZE : (DWORD)remaining;
+        DWORD numOfBytesRead = 0;
+        BOOL success = ReadFile(fd, currentBuffer, chunkSize, &numOfBytesRead, NULL);
+        if (!success) {
+            return -1;
+        }
+        if (numOfBytesRead == 0) {
+            // 到达文件末尾
+            break;
+        }
+        totalBytesRead += numOfBytesRead;
+        currentBuffer += numOfBytesRead;
+        remaining -= numOfBytesRead;
+        
+        // 如果实际读取的字节数小于请求的数量，说明到达文件末尾
+        if (numOfBytesRead < chunkSize) {
+            break;
+        }
     }
-    return (int64_t)numOfBytesRead;
+    return totalBytesRead;
 }
 
+// 修复 HIGH-04: 分块读写，支持超过 4GB 的数据
 extern bool CJ_FS_FileWrite(HANDLE fd, const char* buffer, size_t maxLen)
 {
-    DWORD numOfBytesToWrite = (DWORD)maxLen;
-    DWORD numOfWritenBytes = 0;
-    WriteFile(fd, buffer, numOfBytesToWrite, &numOfWritenBytes, NULL);
-    return (int64_t)(numOfWritenBytes - numOfBytesToWrite) == 0;
+    const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
+    size_t remaining = maxLen;
+    const char* currentBuffer = buffer;
+
+    while (remaining > 0) {
+        DWORD chunkSize = (remaining > MAX_CHUNK_SIZE) ? MAX_CHUNK_SIZE : (DWORD)remaining;
+        DWORD numOfWrittenBytes = 0;
+        BOOL success = WriteFile(fd, currentBuffer, chunkSize, &numOfWrittenBytes, NULL);
+        if (!success) {
+            return false;
+        }
+        if (numOfWrittenBytes != chunkSize) {
+            // 写入不完整（可能磁盘满）
+            return false;
+        }
+        currentBuffer += numOfWrittenBytes;
+        remaining -= numOfWrittenBytes;
+    }
+    return true;
 }
 
 extern FsError* CJ_FS_Rename(const char* sourcePath, const char* destinationPath)
