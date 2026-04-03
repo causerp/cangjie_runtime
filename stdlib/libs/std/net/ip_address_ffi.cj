@@ -26,8 +26,13 @@ struct AddrInfo {
     var ai_socktype: Int32 = 0
     /* Protocol type. The value 0 indicates any type. */
     var ai_protocol: Int32 = 0
+
     /* Length of the socket address */
+    @When[os != "Windows"]
     var ai_addrlen: socklen_t = 0
+    @When[os == "Windows"]
+    var ai_addrlen: UIntNative = 0
+
     /**
      * ai_addr: The socket address.
      * ai_canonname: the nanonical name of service location.
