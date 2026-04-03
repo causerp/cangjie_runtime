@@ -30,7 +30,7 @@
 #define __USE_XOPEN_EXTENDED 500
 
 #define ERRNO_EINVAL (-2)
-#define ERRNO_EPERM (-4)  // 修复 MEDIUM-09: 使用不同值，避免与 ERRNO_EINVAL 冲突
+#define ERRNO_EPERM (-4)
 #define ERRNO_ESTAT (-3)
 #define DEFFILEMODE (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)                                // 0666
 #define DEF_DIR_MODE (S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IWGRP | S_IXGRP | S_IROTH | S_IWOTH | S_IXOTH) // 0777
