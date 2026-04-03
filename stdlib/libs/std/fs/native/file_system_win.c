@@ -406,7 +406,7 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
     CloseHandle(hFile);
 
     if (dwRet > NORMALIZE_PATH_BUF_SIZE) {
-        return GetErrnoResult();
+        return GetLastErrorResult();
     }
     FsError* result = GetDefaultResult();
     char* tempRealPath = Wchar2Char(temp);
