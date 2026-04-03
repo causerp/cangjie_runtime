@@ -217,8 +217,10 @@ public struct FileInfo <: Equatable<FileInfo> {
             LibC.free(cPath)
             if (ret == -1) {
                 throw FSException("Native function error return ${ret}.")
-            } else if (ret == -2) {
+            } else if (ret == -4) {
                 throw FSException("Operation not permitted!")
+            } else if (ret == -2) {
+                throw FSException("Invalid argument!")
             }
             return ret > 0
         }
