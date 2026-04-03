@@ -1915,11 +1915,13 @@ void CJ_MCC_RemoveExportedRef(U64 id)
 extern "C" uintptr_t CJ_MCC_GetJSLambdaAddr(const ObjectPtr obj)
 {
     ObjectPtr currentObj = obj;
+    // offset of realAutoEnvObj in instance data (func1: 8 bytes + func2: 8 bytes)
+    constexpr size_t realAutoEnvObjOffset = 16;
 
     // Loop to check if it's a wrapper class, if so, get realAutoEnvObj until finding a non-wrapper class
     while (MCC_IsWrapperClassForAutoEnv(currentObj->GetTypeInfo())) {
-        // 16 = offset of realAutoEnvObj in instance data (func1: 8 bytes + func2: 8 bytes)
-        currentObj = Heap::GetBarrier().ReadReference(currentObj, currentObj->GetRefField(TYPEINFO_PTR_SIZE + 16));
+        currentObj = Heap::GetBarrier().ReadReference(currentObj,
+            currentObj->GetRefField(TYPEINFO_PTR_SIZE + realAutoEnvObjOffset));
     }
 
     // Access func1 directly from currentObj
