@@ -93,19 +93,27 @@ extend CString <: ToString {
 
     public func equals(other: CString): Bool {
         let chars = getChars()
-        if (chars.isNull() || other.isNull()) {
+        let otherChars = other.getChars()
+        if (chars.isNull()) {
+            return otherChars.isNull()
+        }
+        if (otherChars.isNull()) {
             return false
         }
-        let cmpRet = unsafe { strcmp(chars, other.getChars()) }
+        let cmpRet = unsafe { strcmp(chars, otherChars) }
         return cmpRet == 0
     }
 
     public func equalsLower(other: CString): Bool {
         let chars = getChars()
-        if (chars.isNull() || other.isNull()) {
+        let otherChars = other.getChars()
+        if (chars.isNull()) {
+            return otherChars.isNull()
+        }
+        if (otherChars.isNull()) {
             return false
         }
-        let cmpRet = unsafe { strcasecmp(chars, other.getChars()) }
+        let cmpRet = unsafe { strcasecmp(chars, otherChars) }
         return cmpRet == 0
     }
 
@@ -175,6 +183,9 @@ extend CString <: ToString {
         return 0
     }
 
+    /*
+     * @throws IllegalMemoryException if memcpy_s fails.
+     */
     public func toString(): String {
         let chars = getChars()
         if (chars.isNull()) {
@@ -199,13 +210,21 @@ extend CString <: ToString {
                 var remain = len
                 var offset = 0
                 while (remain >= SECUREC_MEM_MAX_LEN) {
-                    memcpy_s(rawData.pointer + offset, UIntNative(SECUREC_MEM_MAX_LEN), chars + offset,
+                    var rc = memcpy_s(rawData.pointer + offset, UIntNative(SECUREC_MEM_MAX_LEN), chars + offset,
                         UIntNative(SECUREC_MEM_MAX_LEN))
+                    if (rc != 0) {
+                        releaseArrayRawData(rawData)
+                        throw IllegalMemoryException("The memcpy_s in toString failed with error code: ${rc}.")
+                    }
                     offset += SECUREC_MEM_MAX_LEN
                     remain -= SECUREC_MEM_MAX_LEN
                 }
                 if (remain > 0) {
-                    memcpy_s(rawData.pointer + offset, UIntNative(remain), chars + offset, UIntNative(remain))
+                    var rc = memcpy_s(rawData.pointer + offset, UIntNative(remain), chars + offset, UIntNative(remain))
+                    if (rc != 0) {
+                        releaseArrayRawData(rawData)
+                        throw IllegalMemoryException("The memcpy_s in toString failed with error code: ${rc}.")
+                    }
                 }
                 releaseArrayRawData(rawData)
             }

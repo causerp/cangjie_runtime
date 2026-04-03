@@ -1589,7 +1589,7 @@ extend Float16 <: Comparable<Float16>
 public func compare(other: Float16): Ordering
 ```
 
-功能：判断当前 [Float16](core_package_intrinsics.md#float16) 值与指定 [Float16](core_package_intrinsics.md#float16) 值的大小关系。
+功能：判断当前 [Float16](core_package_intrinsics.md#float16) 值与指定 [Float16](core_package_intrinsics.md#float16) 值的大小关系。`NaN` 无法参与比较，返回值无意义。
 
 参数：
 
@@ -2226,7 +2226,7 @@ extend Float32 <: Comparable<Float32>
 public func compare(other: Float32): Ordering
 ```
 
-功能：判断当前 [Float32](core_package_intrinsics.md#float32) 值与指定 [Float32](core_package_intrinsics.md#float32) 值的大小关系。
+功能：判断当前 [Float32](core_package_intrinsics.md#float32) 值与指定 [Float32](core_package_intrinsics.md#float32) 值的大小关系。`NaN` 无法参与比较，返回值无意义。
 
 参数：
 
@@ -2863,7 +2863,7 @@ extend Float64 <: Comparable<Float64>
 public func compare(other: Float64): Ordering
 ```
 
-功能：判断当前 [Float64](core_package_intrinsics.md#float64) 值与指定 [Float64](core_package_intrinsics.md#float64) 值的大小关系。
+功能：判断当前 [Float64](core_package_intrinsics.md#float64) 值与指定 [Float64](core_package_intrinsics.md#float64) 值的大小关系。`NaN` 无法参与比较，返回值无意义。
 
 参数：
 

@@ -122,8 +122,8 @@ extend Rune {
             var (char, _) = getPreviousFromUtf8(arr, index)
             throw IllegalArgumentException("Byte index ${index} is not a Rune boundary, it is inside '${char}'.")
         }
-        // 0b_1111_11xx is invalid UTF-8 sequence
-        if (byte >= HIGH_6_UInt8) {
+        // 0b_1111_1xxx and above are invalid UTF-8 sequences (5-6 byte sequences not allowed in Unicode)
+        if (byte >= HIGH_5_UInt8) {
             throw IllegalArgumentException("Invalid UTF-8 character.")
         }
         return utf8SizeUnchecked(byte)
@@ -132,14 +132,13 @@ extend Rune {
     // Considering the performance，this function do not check the parameters.
     // The parameter should only be the boundary of Unicode Code Point,
     // i.e. the parameter could not start with 0b10.
+    // Note: This function only handles valid UTF-8 leading bytes (1-4 bytes).
     static func utf8SizeUnchecked(byte: Byte): Int64 {
         return match {
             case byte < HIGH_1_UInt8 => 1
             case byte < HIGH_3_UInt8 => 2
             case byte < HIGH_4_UInt8 => 3
-            case byte < HIGH_5_UInt8 => 4
-            case byte < HIGH_6_UInt8 => 5
-            case _ => 6
+            case _ => 4
         }
     }
 
@@ -151,8 +150,7 @@ extend Rune {
             case ch <= UTF8_2_MAX => 2
             case ch <= UTF8_3_MAX => 3
             case ch <= UTF8_4_MAX => 4
-            case ch <= UTF8_5_MAX => 5
-            case _ => 6
+            case _ => throw IllegalArgumentException("Invalid Unicode scalar value: code point exceeds U+10FFFF.")
         }
     }
 
@@ -230,21 +228,8 @@ extend Rune {
             arr[index + 2] = UInt8(((ch >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK)
             arr[index + 3] = UInt8((ch & LOW_6_MASK) | HIGH_1_MASK)
             return 4
-        } else if (ch <= UTF8_5_MAX) {
-            arr[index] = UInt8(((ch >> SHIFT_24) & LOW_2_MASK) | HIGH_5_MASK)
-            arr[index + 1] = UInt8(((ch >> SHIFT_18) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 2] = UInt8(((ch >> SHIFT_12) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 3] = UInt8(((ch >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 4] = UInt8((ch & LOW_6_MASK) | HIGH_1_MASK)
-            return 5
         } else {
-            arr[index] = UInt8(((ch >> SHIFT_30) & LOW_1_MASK) | HIGH_6_MASK)
-            arr[index + 1] = UInt8(((ch >> SHIFT_24) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 2] = UInt8(((ch >> SHIFT_18) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 3] = UInt8(((ch >> SHIFT_12) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 4] = UInt8(((ch >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK)
-            arr[index + 5] = UInt8((ch & LOW_6_MASK) | HIGH_1_MASK)
-            return 6
+            throw IllegalArgumentException("Invalid Unicode scalar value: code point exceeds U+10FFFF.")
         }
     }
 
@@ -265,10 +250,8 @@ extend Rune {
             3
         } else if (ch <= UTF8_4_MAX) {
             4
-        } else if (ch <= UTF8_5_MAX) {
-            5
         } else {
-            6
+            throw IllegalArgumentException("Invalid Unicode scalar value: code point exceeds U+10FFFF.")
         }
         if (lengthOfCharBytes + index > arrSize) {
             throw IllegalArgumentException(

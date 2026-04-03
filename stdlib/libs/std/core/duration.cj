@@ -714,7 +714,7 @@ func getDifference(num3: Int64, num2: Int64, num1: Int64, num0: Int64): (Int64, 
     }
     if (res2 < 0) {
         res3--
-        res1 += NS_PER_SEC
+        res2 += NS_PER_SEC
     }
     return (res3, res2, res1, res0)
 }
