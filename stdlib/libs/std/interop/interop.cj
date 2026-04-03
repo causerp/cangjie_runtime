@@ -15,7 +15,7 @@ func GetExportedRef(handle: UInt64): ?ExportedRef
 func RemoveExportedRef(handle: UInt64): Unit
 
 @Intrinsic
-func CrossAccessBarrier(hadnle: UInt64): Unit
+func CrossAccessBarrier(handle: UInt64): Unit
 
 @Intrinsic
 func CreateExportHandle(ref: ExportedRef): UInt64
@@ -30,7 +30,8 @@ public abstract class InteropContext <: Equatable<InteropContext> {
 }
 
 public abstract class ExportedRef {
-    protected var handle: UInt64 = 0
+    private static let invalidHandle: UInt64 = UInt64.Max
+    protected var handle: UInt64 = invalidHandle
     protected let ref: Any
     protected let interopContext: InteropContext
 
@@ -39,8 +40,11 @@ public abstract class ExportedRef {
         interopContext = context
     }
 
+    // This interface is not concurrent safe. It can only be used when the child class is doing initialization.
     protected func validateHandle(): Unit {
-        handle = ExportTable.createExportHandle(this)
+        if (handle == invalidHandle) {
+            handle = ExportTable.createExportHandle(this)
+        }
     }
 }
 
