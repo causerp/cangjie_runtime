@@ -484,8 +484,6 @@ static int DeleteFileOrAppendDir(
         return -1;
     }
 
-    // 修复 CRITICAL-02: 确保是目录且不是符号链接才加入删除队列
-    // 防止符号链接指向的目录被递归删除（目录遍历攻击）
     if (S_ISDIR(statbuf.st_mode) && !S_ISLNK(statbuf.st_mode)) {
         struct FolderNode* foldernew = NULL;
         foldernew = FolderNodeInit(folderpath);
@@ -568,7 +566,6 @@ extern bool CJ_FS_CreateTempDir(char* path)
 extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     char buf[MAX_PATH_LEN] = "";
-    // 修复 CRITICAL-03: readlink 不添加 null 终止符，需手动添加
     ssize_t len = readlink(linkName1, buf, sizeof(buf) - 1);
     if (len == -1) {
         return -1;
@@ -581,7 +578,6 @@ extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 }
 
 /* Copy file */
-// 辅助函数：写入数据，处理错误（修复 MEDIUM-04: 处理 write 错误，避免无限循环）
 static ssize_t WriteAll(int fd, char* buf, ssize_t len)
 {
     ssize_t sts = 0;
@@ -589,12 +585,12 @@ static ssize_t WriteAll(int fd, char* buf, ssize_t len)
         ssize_t written = write(fd, buf + sts, (size_t)(len - sts));
         if (written < 0) {
             if (errno == EINTR) {
-                continue;  // 被信号中断，重试
+                continue;
             }
-            return -1;  // 其他错误（磁盘满、IO错误等）
+            return -1;
         }
         if (written == 0) {
-            return -1;  // 写入 0 字节，可能磁盘已满
+            return -1;
         }
         sts += written;
     }
@@ -854,7 +850,6 @@ extern FsError* CJ_FS_Remove(const char* path, bool recursive)
 
 static FsError* GetErrnoResult(void)
 {
-    // 修复 MEDIUM-07: 立即保存 errno，避免被后续操作覆盖
     int savedErrno = errno;
     char* errMsg = CJ_FS_ErrmesGet(savedErrno);
     FsError* result = (FsError*)malloc(sizeof(FsError));

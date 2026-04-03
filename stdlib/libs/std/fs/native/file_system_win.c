@@ -108,12 +108,12 @@ static wchar_t* GetWPathEndWithStar(const char* cstr)
 {
     char namebuf[MAX_PATH_LEN];
     if (snprintf_s(namebuf, MAX_PATH_LEN, MAX_PATH_LEN - 1, "%s\\*", cstr) < 0) {
-        return NULL;  // 修复 MEDIUM-06: 返回 NULL 而非 -1
+        return NULL;
     }
 
     wchar_t* conv = (wchar_t*)Char2Widechar(namebuf);
     if (conv == NULL) {
-        return NULL;  // 统一返回 NULL
+        return NULL;
     }
     return conv;
 }
@@ -400,18 +400,15 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
         return GetLastErrorResult();
     }
 
-    // 修复 HIGH-06: 扩大缓冲区以容纳 DOS 设备路径前缀（如 \\?\）
     wchar_t temp[NORMALIZE_PATH_BUF_SIZE] = {0};
 
     DWORD dwRet = GetFinalPathNameByHandleW(hFile, temp, NORMALIZE_PATH_BUF_SIZE, FILE_NAME_NORMALIZED);
     CloseHandle(hFile);
 
-    FsError* result = GetDefaultResult();
     if (dwRet > NORMALIZE_PATH_BUF_SIZE) {
-        // 路径超过缓冲区大小，返回错误
-        free(result);
         return GetErrnoResult();
     }
+    FsError* result = GetDefaultResult();
     char* tempRealPath = Wchar2Char(temp);
     if (tempRealPath == NULL) {
         free(result);
@@ -471,7 +468,6 @@ extern int8_t CJ_FS_CanRead(const char* path, int64_t pathLen)
 
 static int64_t LocalStat(const char* path, struct stat* buf)
 {
-    // 修复 MEDIUM-05: 复制路径以避免修改 const 参数
     char* pathCopy = strdup(path);
     if (pathCopy == NULL) {
         return -1;
@@ -945,7 +941,6 @@ extern int64_t CJ_FS_CloseFile(HANDLE fd)
  * If return == 0, read end.
  * If return < 0, read failed.
  */
-// 修复 HIGH-04: 分块读写，支持超过 4GB 的数据
 extern int64_t CJ_FS_FileRead(HANDLE fd, char* buffer, size_t maxLen)
 {
     const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
@@ -961,14 +956,12 @@ extern int64_t CJ_FS_FileRead(HANDLE fd, char* buffer, size_t maxLen)
             return -1;
         }
         if (numOfBytesRead == 0) {
-            // 到达文件末尾
             break;
         }
         totalBytesRead += numOfBytesRead;
         currentBuffer += numOfBytesRead;
         remaining -= numOfBytesRead;
         
-        // 如果实际读取的字节数小于请求的数量，说明到达文件末尾
         if (numOfBytesRead < chunkSize) {
             break;
         }
@@ -976,7 +969,6 @@ extern int64_t CJ_FS_FileRead(HANDLE fd, char* buffer, size_t maxLen)
     return totalBytesRead;
 }
 
-// 修复 HIGH-04: 分块读写，支持超过 4GB 的数据
 extern bool CJ_FS_FileWrite(HANDLE fd, const char* buffer, size_t maxLen)
 {
     const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
@@ -991,7 +983,6 @@ extern bool CJ_FS_FileWrite(HANDLE fd, const char* buffer, size_t maxLen)
             return false;
         }
         if (numOfWrittenBytes != chunkSize) {
-            // 写入不完整（可能磁盘满）
             return false;
         }
         currentBuffer += numOfWrittenBytes;
@@ -1060,8 +1051,6 @@ extern HANDLE CJ_FS_CreateTempFile(char* path)
         free(wPath);
         return NULL;
     }
-    // 修复 HIGH-05: 使用 CREATE_NEW 防止竞态条件
-    // 如果文件已存在（被攻击者创建），创建失败而非覆盖
     HANDLE hFile = CreateFileW(
         wPath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_MODE, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
     if (INVALID_HANDLE_VALUE == hFile) {
@@ -1129,7 +1118,6 @@ extern FsError* CJ_FS_Remove(const char* path, bool rescursive)
 // libc err no
 static FsError* GetErrnoResult(void)
 {
-    // 修复 MEDIUM-07: 立即保存 errno，避免被后续操作覆盖
     int savedErrno = errno;
     char* errMsg = CJ_FS_ErrmesGet(savedErrno);
     FsError* result = (FsError*)malloc(sizeof(FsError));
