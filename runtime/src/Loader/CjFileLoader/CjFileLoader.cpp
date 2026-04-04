@@ -466,7 +466,7 @@ bool CJFileLoader::DoInitImage(BaseFile* baseFile) const
         if (reinterpret_cast<void*>(func) != nullptr) {
             using FuncType = void (*)();
             FuncType initAddr = reinterpret_cast<FuncType>(func);
-#if defined(__OHOS__)
+#if defined(__OHOS__) || defined(__IOS__)
             InitCJLibraryStub(reinterpret_cast<void*>(initAddr));
 #else
             Mutator* mutator = ThreadLocal::GetMutator();
