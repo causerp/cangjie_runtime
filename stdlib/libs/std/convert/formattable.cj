@@ -520,9 +520,6 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
         idx = start + len
         var str = fmt[start..start + len]
         precision = Int64.parse(str)
-        if (precision > MAX_FLOAT_PRECISION) {
-            throw IllegalArgumentException("Format precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
-        }
     }
     /* specifier */
     if (idx < end && fmtCharArray[idx].isAsciiLetter()) {
@@ -732,6 +729,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     func fmtFloat(arg: Float64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Format precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+        }
         var negative = false
         var str = "${arg}".toRuneArray()
         /* Negative numbers, including -0.0 */

@@ -9,7 +9,6 @@
 #define _GNU_SOURCE
 #include <stdlib.h>
 #include <string.h>
-#include <errno.h>
 #include <locale.h>
 #include <stdatomic.h>
 
@@ -28,7 +27,6 @@ extern double* CJ_STRTOD(char* str)
         return NULL;
     }
     char* p = NULL;
-    errno = 0;
     double value;
 
 #if HAS_STRTOD_L
@@ -54,7 +52,7 @@ extern double* CJ_STRTOD(char* str)
     value = strtod(str, &p);
 #endif
 
-    if (p == NULL || strlen(p) > 0 || errno == ERANGE) {
+    if (p == NULL || strlen(p) > 0) {
         return NULL;
     }
     double* floatNumber = (double*)malloc(sizeof(double));
