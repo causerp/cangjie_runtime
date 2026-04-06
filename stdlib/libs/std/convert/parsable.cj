@@ -1095,6 +1095,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     if (inputStr.isEmpty()) {
         return Failure("The string does not comply with the floating point number syntax.")
     }
+    let trimmedStr = inputStr
 
     var result: Float64 = 0.0
     var pointNum = 0
@@ -1127,7 +1128,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
             pointIndex = index
             continue
         } else {
-            return doParseFloatFromCffi<T>(data)
+            return doParseFloatFromCffi<T>(trimmedStr)
         }
     }
     if (pointNum > 1) {
@@ -1137,8 +1138,9 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         return Failure("The string does not comply with the floating point number syntax.")
     }
     if (digitCount > FLOAT64_MAX_DECIMAL_DIGITS) {
-        return doParseFloatFromCffi<T>(data)
+        return doParseFloatFromCffi<T>(trimmedStr)
     }
+    
     var df = inputStr.size - pointIndex - 1
     var leftMove: Float64 = 1.0
     for (_ in 0..df) {
