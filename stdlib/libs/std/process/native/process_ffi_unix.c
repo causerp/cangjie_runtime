@@ -270,7 +270,8 @@ static int32_t UnBlockSignals(void)
 }
 
 static void ChildProcess(
-    ProcessStartInfo* info, int32_t filedes[STD_COUNT][WR_COUNT], int32_t* error, int32_t errorSize)
+    ProcessStartInfo* info, char** arguments, char** environment, 
+    int32_t filedes[STD_COUNT][WR_COUNT], int32_t* error, int32_t errorSize)
 {
     if (errorSize < WR_COUNT) {
         return;
@@ -300,25 +301,7 @@ static void ChildProcess(
         return;
     }
 
-    char** arguments = CopyTwoDimensionalArray(info->arguments, info->argSize);
-    if (arguments == NULL) {
-        WriteError(error[WRITE], &errno);
-        return;
-    }
-
-    char** environment = NULL;
-    if (info->environment != NULL) {
-        environment = CopyTwoDimensionalArray(info->environment, info->envSize);
-        if (environment == NULL) {
-            FreeTwoDimensionalArray(arguments);
-            WriteError(error[WRITE], &errno);
-            return;
-        }
-    }
-
     Execvpe(info->command, arguments, environment);
-    FreeTwoDimensionalArray(arguments);
-    FreeTwoDimensionalArray(environment);
     WriteError(error[WRITE], &errno);
 }
 
@@ -408,9 +391,37 @@ extern ProcessRtnData* CJ_OS_StartProcess(ProcessStartInfo* info)
 
     (void)fflush(stdout);
     (void)fflush(stderr);
+
+    // Allocate memory before fork() to avoid calling non-async-signal-safe functions in child process
+    char** arguments = CopyTwoDimensionalArray(info->arguments, info->argSize);
+    if (arguments == NULL) {
+        CloseFiledes(filedes);
+        (void)close(error[READ]);
+        (void)close(error[WRITE]);
+        processData->errMessage = GetErrMessage(errno);
+        processData->errCode = errno;
+        return processData;
+    }
+
+    char** environment = NULL;
+    if (info->environment != NULL) {
+        environment = CopyTwoDimensionalArray(info->environment, info->envSize);
+        if (environment == NULL) {
+            FreeTwoDimensionalArray(arguments);
+            CloseFiledes(filedes);
+            (void)close(error[READ]);
+            (void)close(error[WRITE]);
+            processData->errMessage = GetErrMessage(errno);
+            processData->errCode = errno;
+            return processData;
+        }
+    }
+
     // Create a child process.
     pid_t pid = fork();
     if (pid < 0) {
+        FreeTwoDimensionalArray(arguments);
+        FreeTwoDimensionalArray(environment);
         CloseFiledes(filedes);
         (void)close(error[READ]);
         (void)close(error[WRITE]);
@@ -420,10 +431,12 @@ extern ProcessRtnData* CJ_OS_StartProcess(ProcessStartInfo* info)
     }
 
     if (pid == 0) { // Child process.
-        ChildProcess(info, filedes, error, WR_COUNT);
+        ChildProcess(info, arguments, environment, filedes, error, WR_COUNT);
         (void)close(error[WRITE]);
         _exit(-1); // Child process should not return to Cangjie.
     } else {       // Parents process.
+        FreeTwoDimensionalArray(arguments);
+        FreeTwoDimensionalArray(environment);
         // Close redundant file descriptors in pipe mode.
         if (HandleFd(info, filedes, processData) < 0) {
             processData->errMessage = GetErrMessage(errno);
