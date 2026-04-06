@@ -319,25 +319,11 @@ func charToNumber(chs: Rune): UInt64 {
     return value - 48
 }
 
-func checkChar(formatBaseNum: UInt64, ch: Rune): Bool {
-    return match (formatBaseNum) {
-        /* ASCII: 0 => 48 9 => 57 A => 65 F => 70 a => 97 f => 102 */
-        case 16 where (ch >= r'0' && ch <= r'9') || (ch >= r'A' && ch <= r'F') || (ch >= r'a' && ch <= r'f') => true
-        case _ => false
-    }
-}
-
 func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64): Option<UInt64> {
-    /*
-     * Calculate the result of each character based on the formula
-     * and sum it up to obtain the final result.
-     */
     var maxAbsVal: UInt64 = MAXVAL_UI64
     var num: UInt64 = 0
     for (ch in chars) {
-        /* Whether the character complies with the definition of the hexadecimal type */
-        if (checkChar(formatBaseNum, ch)) {
-            /* Obtains the number corresponding to char. */
+        try {
             let digit: UInt64 = charToNumber(ch)
             if ((maxAbsVal / UInt64(formatBaseNum)) < num) {
                 return Option<UInt64>.None
@@ -349,8 +335,7 @@ func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64): Option<UInt64> {
             } else {
                 num = num + digit
             }
-        } else {
-            /* If the definition is not correct, the system returns the value. */
+        } catch (e: IllegalArgumentException) {
             return Option<UInt64>.None
         }
     }
