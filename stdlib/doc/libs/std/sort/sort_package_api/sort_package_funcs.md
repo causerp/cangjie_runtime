@@ -193,6 +193,7 @@ public func sort<T>(data: Array<T>, lessThan!: (T, T) -> Bool, stable!: Bool = f
 用户需传入自定义的比较函数 `lessThan`。如果 `lessThan` 的返回值为 `true`，排序后 `t1` 在 `t2` 前；如果 `lessThan` 的返回值为`false`，又会分为两种情况，如果 `t1` 和 `t2` 不相等，排序后 `t1` 在 `t2` 后，如果相等，`t1` 与 `t2` 的前后位置关系与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `lessThan(a, b)` 为 `true`，则 `lessThan(b, a)` 必须为 `false`
 - 传递性：如果 `lessThan(a, b)` 和 `lessThan(b, c)` 都为 `true`，则 `lessThan(a, c)` 必须为 `true`
 - 一致性：多次调用 `lessThan(a, b)` 必须返回相同结果
@@ -262,6 +263,7 @@ public func sort<T>(data: Array<T>, by!: (T, T) -> Ordering, stable!: Bool = fal
 用户需传入自定义的比较函数 `by`。如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，排序后 `t1` 与 `t2` 的位置与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `compare(a, b)` 为 `LT`，则 `compare(b, a)` 必须为 `GT`
 - 传递性：如果 `compare(a, b)` 为 `LT` 且 `compare(b, c)` 为 `LT`，则 `compare(a, c)` 必须为 `LT`
 - 一致性：多次调用 `compare(a, b)` 必须返回相同结果
@@ -398,6 +400,7 @@ public func sort<T>(data: ArrayList<T>, lessThan!: (T, T) -> Bool, stable!: Bool
 用户需传入自定义的比较函数 `lessThan`。如果 `lessThan` 的返回值为 `true`，排序后 `t1` 在 `t2` 前；如果 `lessThan` 的返回值为`false`，又会分为两种情况，如果 `t1` 和 `t2` 不相等，排序后 `t1` 在 `t2` 后，如果相等，`t1` 与 `t2` 的前后位置关系与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `lessThan(a, b)` 为 `true`，则 `lessThan(b, a)` 必须为 `false`
 - 传递性：如果 `lessThan(a, b)` 和 `lessThan(b, c)` 都为 `true`，则 `lessThan(a, c)` 必须为 `true`
 - 一致性：多次调用 `lessThan(a, b)` 必须返回相同结果
@@ -468,6 +471,7 @@ public func sort<T>(data: ArrayList<T>, by!: (T, T) -> Ordering, stable!: Bool =
 用户需传入自定义的比较函数 `by`。如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，排序后 `t1` 与 `t2` 的位置与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `compare(a, b)` 为 `LT`，则 `compare(b, a)` 必须为 `GT`
 - 传递性：如果 `compare(a, b)` 为 `LT` 且 `compare(b, c)` 为 `LT`，则 `compare(a, c)` 必须为 `LT`
 - 一致性：多次调用 `compare(a, b)` 必须返回相同结果
@@ -606,6 +610,7 @@ public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = fa
 用户需传入自定义的比较函数 `lessThan`。如果 `lessThan` 的返回值为 `true`，排序后 `t1` 在 `t2` 前；如果 `lessThan` 的返回值为`false`，又会分为两种情况，如果 `t1` 和 `t2` 不相等，排序后 `t1` 在 `t2` 后，如果相等，`t1` 与 `t2` 的前后位置关系与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `lessThan(a, b)` 为 `true`，则 `lessThan(b, a)` 必须为 `false`
 - 传递性：如果 `lessThan(a, b)` 和 `lessThan(b, c)` 都为 `true`，则 `lessThan(a, c)` 必须为 `true`
 - 一致性：多次调用 `lessThan(a, b)` 必须返回相同结果
@@ -679,6 +684,7 @@ public func sort<T>(data: List<T>, by!: (T, T) -> Ordering, stable!: Bool = fals
 用户需传入自定义的比较函数 `by`。如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `by` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，排序后 `t1` 与 `t2` 的位置与是否是稳定排序有关，稳定则较排序前保持不变，否则有可能发生改变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `compare(a, b)` 为 `LT`，则 `compare(b, a)` 必须为 `GT`
 - 传递性：如果 `compare(a, b)` 为 `LT` 且 `compare(b, c)` 为 `LT`，则 `compare(a, c)` 必须为 `LT`
 - 一致性：多次调用 `compare(a, b)` 必须返回相同结果
@@ -886,6 +892,7 @@ public func stableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Unit
 用户可传入自定义的比较函数 `comparator`，如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，排序后 `t1` 与 `t2` 的位置较排序前保持不变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `compare(a, b)` 为 `LT`，则 `compare(b, a)` 必须为 `GT`
 - 传递性：如果 `compare(a, b)` 为 `LT` 且 `compare(b, c)` 为 `LT`，则 `compare(a, c)` 必须为 `LT`
 - 一致性：多次调用 `compare(a, b)` 必须返回相同结果
@@ -1024,6 +1031,7 @@ public func unstableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Uni
 用户可传入自定义的比较函数 `comparator`，如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT，排序后 `t1` 在 `t2` 后；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT，排序后 `t1` 在 `t2` 前；如果 `comparator` 的返回值为 [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ，排序后 `t1` 与 `t2` 的位置较排序前保持不变。
 
 比较函数必须满足全序关系：
+
 - 反对称性：如果 `compare(a, b)` 为 `LT`，则 `compare(b, a)` 必须为 `GT`
 - 传递性：如果 `compare(a, b)` 为 `LT` 且 `compare(b, c)` 为 `LT`，则 `compare(a, c)` 必须为 `LT`
 - 一致性：多次调用 `compare(a, b)` 必须返回相同结果
