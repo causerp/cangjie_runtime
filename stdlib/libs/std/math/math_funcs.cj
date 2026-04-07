@@ -414,6 +414,9 @@ public func atan(x: Float16): Float16 {
  * @since 0.17.4
  */
 public func sinh(x: Float64): Float64 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Sinh(x) }
 }
 
@@ -426,6 +429,9 @@ public func sinh(x: Float64): Float64 {
  * @since 0.17.4
  */
 public func sinh(x: Float32): Float32 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Sinhf(x) }
 }
 
@@ -438,6 +444,9 @@ public func sinh(x: Float32): Float32 {
  * @since 0.17.4
  */
 public func sinh(x: Float16): Float16 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return Float16(CJ_MATH_Sinh(Float64(x))) }
 }
 
@@ -450,6 +459,9 @@ public func sinh(x: Float16): Float16 {
  * @since 0.17.4
  */
 public func cosh(x: Float64): Float64 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Cosh(x) }
 }
 
@@ -462,6 +474,9 @@ public func cosh(x: Float64): Float64 {
  * @since 0.17.4
  */
 public func cosh(x: Float32): Float32 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return Float32(CJ_MATH_Cosh(Float64(x))) }
 }
 
@@ -474,6 +489,9 @@ public func cosh(x: Float32): Float32 {
  * @since 0.17.4
  */
 public func cosh(x: Float16): Float16 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return Float16(CJ_MATH_Cosh(Float64(x))) }
 }
 
@@ -486,6 +504,9 @@ public func cosh(x: Float16): Float16 {
  * @since 0.17.4
  */
 public func tanh(x: Float64): Float64 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Tanh(x) }
 }
 
@@ -498,6 +519,9 @@ public func tanh(x: Float64): Float64 {
  * @since 0.17.4
  */
 public func tanh(x: Float32): Float32 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Tanhf(x) }
 }
 
@@ -510,6 +534,9 @@ public func tanh(x: Float32): Float32 {
  * @since 0.17.4
  */
 public func tanh(x: Float16): Float16 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return Float16(CJ_MATH_Tanh(Float64(x))) }
 }
 
@@ -522,6 +549,9 @@ public func tanh(x: Float16): Float16 {
  * @since 0.17.4
  */
 public func asinh(x: Float64): Float64 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Asinh(x) }
 }
 
@@ -534,6 +564,9 @@ public func asinh(x: Float64): Float64 {
  * @since 0.17.4
  */
 public func asinh(x: Float32): Float32 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return CJ_MATH_Asinhf(x) }
 }
 
@@ -546,6 +579,9 @@ public func asinh(x: Float32): Float32 {
  * @since 0.17.4
  */
 public func asinh(x: Float16): Float16 {
+    if (x.isNaN()) {
+        return x
+    }
     unsafe { return Float16(CJ_MATH_Asinh(Float64(x))) }
 }
 
