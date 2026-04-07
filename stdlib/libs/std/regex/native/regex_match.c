@@ -23,6 +23,9 @@
 #define ERR_MSG_LEN (256)
 #endif
 
+#define CJ_REGEX_MATCH_LIMIT (10000000)
+#define CJ_REGEX_RECURSION_LIMIT (1000000)
+
 typedef struct {
     pcre2_code* re;
     int errorCode;
@@ -59,10 +62,18 @@ extern pcre2_match_data* CJ_REGEX_CreateMatchData(const pcre2_code* re)
     return pcre2_match_data_create_from_pattern(re, NULL);
 }
 
-extern int CJ_REGEX_Match(const pcre2_code* re, const unsigned char* subject, const PCRE2_SIZE length,
+extern int64_t CJ_REGEX_Match(const pcre2_code* re, const unsigned char* subject, const PCRE2_SIZE length,
     const PCRE2_SIZE offset, pcre2_match_data* matchData)
 {
-    return pcre2_match(re, subject, length, offset, 0, matchData, NULL);
+    pcre2_match_context* mcontext = pcre2_match_context_create(NULL);
+    if (mcontext == NULL) {
+        return PCRE2_ERROR_NOMEMORY;
+    }
+    pcre2_set_match_limit(mcontext, CJ_REGEX_MATCH_LIMIT);
+    pcre2_set_recursion_limit(mcontext, CJ_REGEX_RECURSION_LIMIT);
+    int result = pcre2_match(re, subject, length, offset, 0, matchData, mcontext);
+    pcre2_match_context_free(mcontext);
+    return (int64_t)result;
 }
 
 extern PCRE2_SIZE* CJ_REGEX_GetOvector(pcre2_match_data* matchData)
@@ -134,12 +145,29 @@ extern void CJ_REGEX_FreeMatchData(pcre2_match_data* md)
 extern int64_t CJ_REGEX_Count(const pcre2_code* re, const unsigned char* subject, const PCRE2_SIZE length,
     const PCRE2_SIZE offset, const PCRE2_SIZE end, pcre2_match_data* matchData)
 {
+    pcre2_match_context* mcontext = pcre2_match_context_create(NULL);
+    if (mcontext == NULL) {
+        return PCRE2_ERROR_NOMEMORY;
+    }
+    pcre2_set_match_limit(mcontext, CJ_REGEX_MATCH_LIMIT);
+    pcre2_set_recursion_limit(mcontext, CJ_REGEX_RECURSION_LIMIT);
+    
     PCRE2_SIZE startOffset = offset;
     int64_t count = 0;
-    while (startOffset <= end && pcre2_match(re, subject, length, startOffset, 0, matchData, NULL) > 0) {
+    int matchResult;
+    while (startOffset <= end &&
+           (matchResult = pcre2_match(re, subject, length, startOffset, 0, matchData, mcontext)) > 0) {
         PCRE2_SIZE* ovector = pcre2_get_ovector_pointer(matchData);
         startOffset = ovector[1] + (startOffset == ovector[1]);
         count++;
+    }
+    pcre2_match_context_free(mcontext);
+    
+    if (matchResult == PCRE2_ERROR_MATCHLIMIT) {
+        return PCRE2_ERROR_MATCHLIMIT;
+    }
+    if (matchResult == PCRE2_ERROR_RECURSIONLIMIT) {
+        return PCRE2_ERROR_RECURSIONLIMIT;
     }
     return count;
 }

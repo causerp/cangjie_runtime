@@ -32,7 +32,7 @@ foreign func CJ_REGEX_CreateMatchData(re: Pcre2CodePtr): Pcre2MatchDataPtr
 
 @FastNative
 foreign func CJ_REGEX_Match(re: Pcre2CodePtr, cinput: CString, length: UIntNative, offset: UIntNative,
-    matchData: Pcre2MatchDataPtr): Int32
+    matchData: Pcre2MatchDataPtr): Int64
 
 @FastNative
 foreign func CJ_REGEX_GetOvector(matchData: Pcre2MatchDataPtr): Pcre2OvectorPtr
@@ -52,3 +52,8 @@ foreign func CJ_REGEX_FreeMatchData(md: Pcre2MatchDataPtr): Unit
 @FastNative
 foreign func CJ_REGEX_Count(re: Pcre2CodePtr, cinput: CString, length: UIntNative, offset: UIntNative, end: UIntNative,
     matchData: Pcre2MatchDataPtr): Int64
+
+const PCRE2_ERROR_NOMATCH = -1
+const PCRE2_ERROR_MATCHLIMIT = -47
+const PCRE2_ERROR_NOMEMORY = -48
+const PCRE2_ERROR_RECURSIONLIMIT = -53
