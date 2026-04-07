@@ -76,7 +76,7 @@ public func getVariable(key: String): ?String {
         let ck: CString = LibC.mallocCString(key)
         try {
             return synchronized(mtx) {
-                nativeGetEnv(ck) // Note: No need to free.
+                nativeGetEnv(ck)
             }
         } finally {
             LibC.free(ck)
@@ -108,8 +108,11 @@ public func setVariable(key: String, value: String): Unit {
 
     unsafe {
         try (ck = LibC.mallocCString(key).asResource(), cv = LibC.mallocCString(value).asResource()) {
-            synchronized(mtx) {
+            let errno = synchronized(mtx) {
                 nativeSetEnv(ck.value, cv.value, Int32(1))
+            }
+            if (errno != 0) {
+                throw EnvException("Failed to set variable ${key}.")
             }
         }
     }
@@ -122,8 +125,11 @@ public func removeVariable(key: String): Unit {
 
     unsafe {
         try (ck = LibC.mallocCString(key).asResource()) {
-            synchronized(mtx) {
+            let errno = synchronized(mtx) {
                 nativeRemoveEnv(ck.value)
+            }
+            if (errno != 0) {
+                throw EnvException("Failed to remove variable ${key}.")
             }
         }
     }
@@ -245,7 +251,7 @@ func getEnvirments(env: CPointer<CString>): ?Array<(String, String)> {
 }
 
 func homeDirectory(): Path {
-    let homeDir: CString = unsafe { CJ_OS_HomeDir() } // Note: no need to free.
+    let homeDir: CString = unsafe { CJ_OS_HomeDir() } // Note: no need to free homeDir.
     Path(homeDir.toString())
 }
 
@@ -262,7 +268,7 @@ func tempDirectory(): Path {
 
 @When[os == "Windows"]
 func nativeGetEnv(name: CString): Option<String> {
-    let res: CString = unsafe { CJ_OS_GetEnvVal(name) } // No need to free
+    let res: CString = unsafe { CJ_OS_GetEnvVal(name) } // No need to free name
     if (res.isNull()) {
         return None
     }
@@ -276,7 +282,7 @@ func nativeGetEnv(name: CString): Option<String> {
 
 @When[os != "Windows"]
 func nativeGetEnv(name: CString): Option<String> {
-    let res: CString = unsafe { getenv(name) } // No need to free
+    let res: CString = unsafe { getenv(name) } // No need to free name
 
     return if (res.isNull()) {
         None
