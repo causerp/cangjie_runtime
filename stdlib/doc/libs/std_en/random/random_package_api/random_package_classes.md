@@ -11,6 +11,11 @@ public class Random {
 
 Function: Provides capabilities for generating pseudo-random numbers.
 
+> **Note:**
+>
+> 1. Non-security use: This random number generator uses a pseudo-random number generation algorithm and must not be used for security-sensitive scenarios such as cryptography, token generation, key generation, verification codes, etc.
+> 2. Non-thread-safe: Instances of this class do not support concurrent access. Calling methods of the same Random instance simultaneously in a multi-threaded environment will result in undefined behavior.
+
 Example:
 <!-- verify -->
 ```cangjie

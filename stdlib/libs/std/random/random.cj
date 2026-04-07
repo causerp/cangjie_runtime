@@ -271,7 +271,7 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        let threshold = UInt8.max - (UInt8.max % upper + 1) % upper
+        let threshold = UInt8.Max - (UInt8.Max % upper + 1) % upper
         var r = nextUInt8()
         while (r > threshold) {
             r = nextUInt8()
@@ -294,7 +294,7 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        let threshold = UInt16.max - (UInt16.max % upper + 1) % upper
+        let threshold = UInt16.Max - (UInt16.Max % upper + 1) % upper
         var r = nextUInt16()
         while (r > threshold) {
             r = nextUInt16()
@@ -317,7 +317,7 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        let threshold = UInt32.max - (UInt32.max % upper + 1) % upper
+        let threshold = UInt32.Max - (UInt32.Max % upper + 1) % upper
         var r = nextUInt32()
         while (r > threshold) {
             r = nextUInt32()
@@ -340,7 +340,7 @@ public class Random {
         if (upper == 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
-        let threshold = UInt64.max - (UInt64.max % upper + 1) % upper
+        let threshold = UInt64.Max - (UInt64.Max % upper + 1) % upper
         var r = nextUInt64()
         while (r > threshold) {
             r = nextUInt64()
@@ -363,8 +363,9 @@ public class Random {
         if (upper <= 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
+        let threshold = Int8.Max - (Int8.Max % upper + 1) % upper
         var next = nextInt8()
-        while (next < 0) {
+        while (next < 0 || next > threshold) {
             next = nextInt8()
         }
         return next % upper
@@ -385,8 +386,9 @@ public class Random {
         if (upper <= 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
+        let threshold = Int16.Max - (Int16.Max % upper + 1) % upper
         var next = nextInt16()
-        while (next < 0) {
+        while (next < 0 || next > threshold) {
             next = nextInt16()
         }
         return next % upper
@@ -407,8 +409,9 @@ public class Random {
         if (upper <= 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
+        let threshold = Int32.Max - (Int32.Max % upper + 1) % upper
         var next = nextInt32()
-        while (next < 0) {
+        while (next < 0 || next > threshold) {
             next = nextInt32()
         }
         return next % upper
@@ -429,8 +432,9 @@ public class Random {
         if (upper <= 0) {
             throw IllegalArgumentException("Upper must be positive, got: ${upper}.")
         }
+        let threshold = Int64.Max - (Int64.Max % upper + 1) % upper
         var next = nextInt64()
-        while (next < 0) {
+        while (next < 0 || next > threshold) {
             next = nextInt64()
         }
         return next % upper
@@ -564,7 +568,7 @@ public class Random {
                 nextGaussian = Option<Float64>.None
                 return v
             case None =>
-                let v1: Float64 = 1.0 - nextFloat64()
+                let v1: Float64 = nextFloat64()
                 let v2: Float64 = nextFloat64()
                 let r = sqrt(-2.0 * log(v1))
                 let st = 2.0 * Float64.getPI() * v2
