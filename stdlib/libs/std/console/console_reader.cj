@@ -203,7 +203,7 @@ public class ConsoleReader <: InputStream {
         this.endIndex += itemLen
     }
 
-    @OverflowThrowing
+    @OverflowWrapping
     private func reserve(additional: Int64): Unit {
         if (this.buffer.size - this.endIndex >= additional) {
             // if have enough space, do nothing
