@@ -175,6 +175,11 @@ public static func resolve(family: AddressFamily, domain: String): Array<IPAddre
 
 功能：解析域名，得到 [IPAddress](net_package_classes.md#class-ipaddress) 列表。
 
+> **注意：**
+>
+> - 此接口只负责解析字面量 IP 或 DNS 域名，本身不提供 DNS 重绑定防护，也不会过滤回环、私网、链路本地、未指定地址或组播地址。
+> - 当 `domain` 来自不可信输入时，调用方应在发起连接前校验解析结果，例如仅允许 `isGlobalUnicast()` 的地址，以避免 SSRF、内网探测或访问本地服务等风险。
+
 参数：
 
 - family: [AddressFamily](net_package_structs.md#struct-addressfamily) - 地址族。
@@ -209,6 +214,11 @@ public static func resolve(domain: String): Array<IPAddress>
 ```
 
 功能：解析域名，得到 [IPAddress](net_package_classes.md#class-ipaddress) 列表。
+
+> **注意：**
+>
+> - 此接口只负责解析字面量 IP 或 DNS 域名，本身不提供 DNS 重绑定防护，也不会过滤回环、私网、链路本地、未指定地址或组播地址。
+> - 当 `domain` 来自不可信输入时，调用方应在发起连接前校验解析结果，例如仅允许 `isGlobalUnicast()` 的地址，以避免 SSRF、内网探测或访问本地服务等风险。
 
 参数：
 
