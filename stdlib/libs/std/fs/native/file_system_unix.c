@@ -444,19 +444,16 @@ extern FsError* CJ_FS_DirCreateRecursive(char* path)
     for (int i = 1; i < pathLen; i++) {
         if (IsSlash(path[i])) {
             path[i] = '\0';
-            if (access(path, F_OK) != 0 && SysMkdir(path, DEF_DIR_MODE) != 0) {
+            if (SysMkdir(path, DEF_DIR_MODE) != 0 && errno != EEXIST) {
                 return GetErrnoResult();
             }
             path[i] = SLASH;
         }
     }
-    if (pathLen > 0 && access(path, F_OK) != 0) {
-        if (SysMkdir(path, DEF_DIR_MODE) != 0) {
-            return GetErrnoResult();
-        }
+    if (pathLen > 0 && SysMkdir(path, DEF_DIR_MODE) != 0 && errno != EEXIST) {
+        return GetErrnoResult();
     }
-    FsError* result = GetDefaultResult();
-    return result;
+    return GetDefaultResult();
 }
 
 extern FsError* CJ_FS_DirCreate(const char* path)
@@ -487,7 +484,7 @@ static int DeleteFileOrAppendDir(
         return -1;
     }
 
-    if (S_ISDIR(statbuf.st_mode)) {
+    if (S_ISDIR(statbuf.st_mode) && !S_ISLNK(statbuf.st_mode)) {
         struct FolderNode* foldernew = NULL;
         foldernew = FolderNodeInit(folderpath);
         if (foldernew == NULL) {
@@ -569,9 +566,11 @@ extern bool CJ_FS_CreateTempDir(char* path)
 extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     char buf[MAX_PATH_LEN] = "";
-    if (readlink(linkName1, buf, sizeof(buf)) == -1) {
+    ssize_t len = readlink(linkName1, buf, sizeof(buf) - 1);
+    if (len == -1) {
         return -1;
     }
+    buf[len] = '\0';
     if (symlink(buf, linkName2) != 0) {
         return -1;
     }
@@ -579,6 +578,25 @@ extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 }
 
 /* Copy file */
+static ssize_t WriteAll(int fd, char* buf, ssize_t len)
+{
+    ssize_t sts = 0;
+    while (sts < len) {
+        ssize_t written = write(fd, buf + sts, (size_t)(len - sts));
+        if (written < 0) {
+            if (errno == EINTR) {
+                continue;
+            }
+            return -1;
+        }
+        if (written == 0) {
+            return -1;
+        }
+        sts += written;
+    }
+    return sts;
+}
+
 extern int8_t CJ_FS_CopyREF(char* dir1, char* dir2)
 {
     char buf[BUF_SIZE];
@@ -593,18 +611,18 @@ extern int8_t CJ_FS_CopyREF(char* dir1, char* dir2)
         return -1;
     }
 
-    int ret = (int)read(fd1, buf, sizeof(buf) - 1);
-    int sts = 0;
+    ssize_t ret = read(fd1, buf, sizeof(buf) - 1);
     while (ret > 0) {
-        sts = (int)write(fd2, buf, (size_t)ret);
-        while (sts < ret) {
-            sts += (int)write(fd2, buf + sts, (size_t)(ret - sts));
+        if (WriteAll(fd2, buf, ret) < 0) {
+            (void)close(fd1);
+            (void)close(fd2);
+            return -1;
         }
         if (memset_s(buf, sizeof(buf), 0, sizeof(buf)) != EOK) {
             ret = -1;
             break;
         }
-        ret = (int)read(fd1, buf, sizeof(buf) - 1);
+        ret = read(fd1, buf, sizeof(buf) - 1);
     }
 
     if (ret == -1) {
@@ -832,12 +850,13 @@ extern FsError* CJ_FS_Remove(const char* path, bool recursive)
 
 static FsError* GetErrnoResult(void)
 {
-    char* errMsg = CJ_FS_ErrmesGet(errno);
+    int savedErrno = errno;
+    char* errMsg = CJ_FS_ErrmesGet(savedErrno);
     FsError* result = (FsError*)malloc(sizeof(FsError));
     if (result == NULL) {
         return NULL;
     }
-    result->rtnCode = -errno;
+    result->rtnCode = -savedErrno;
     result->msg = errMsg;
     return result;
 }

@@ -13,6 +13,7 @@ enum FILE_TIME_TYPE { CREATION, LAST_ACCESS, LAST_WRITE };
 #define DOS_DEVICE_PATH_SPECIFIER_PERIOD "\\\\.\\"
 #define DOS_DEVICE_PATH_SPECIFIER_QUESTION_MARK "\\\\?\\"
 #define DOS_DEVICE_PATH_SPECIFIER_SIZE 4
+#define NORMALIZE_PATH_BUF_SIZE (MAX_PATH + DOS_DEVICE_PATH_SPECIFIER_SIZE)  // 264
 #define WINDOWS_TICK 10000000
 #define SEC_TO_UNIX_EPOCH 11644473600LL
 #define TYPE_OFFSET 1
@@ -107,12 +108,12 @@ static wchar_t* GetWPathEndWithStar(const char* cstr)
 {
     char namebuf[MAX_PATH_LEN];
     if (snprintf_s(namebuf, MAX_PATH_LEN, MAX_PATH_LEN - 1, "%s\\*", cstr) < 0) {
-        return -1;
+        return NULL;
     }
 
     wchar_t* conv = (wchar_t*)Char2Widechar(namebuf);
     if (conv == NULL) {
-        return -1;
+        return NULL;
     }
     return conv;
 }
@@ -398,15 +399,16 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
     if (hFile == INVALID_HANDLE_VALUE) {
         return GetLastErrorResult();
     }
-    wchar_t temp[MAX_PATH] = {0};
 
-    DWORD dwRet = GetFinalPathNameByHandleW(hFile, temp, MAX_PATH, FILE_NAME_NORMALIZED);
+    wchar_t temp[NORMALIZE_PATH_BUF_SIZE] = {0};
+
+    DWORD dwRet = GetFinalPathNameByHandleW(hFile, temp, NORMALIZE_PATH_BUF_SIZE, FILE_NAME_NORMALIZED);
     CloseHandle(hFile);
 
-    FsError* result = GetDefaultResult();
-    if (dwRet > MAX_PATH) {
-        return result;
+    if (dwRet > NORMALIZE_PATH_BUF_SIZE) {
+        return GetLastErrorResult();
     }
+    FsError* result = GetDefaultResult();
     char* tempRealPath = Wchar2Char(temp);
     if (tempRealPath == NULL) {
         free(result);
@@ -417,9 +419,7 @@ extern FsError* CJ_FS_NormalizePath(const char* path, char* realPath)
         realPath[i] = tempRealPath[i];
     }
     free((void*)tempRealPath);
-    if (dwRet < MAX_PATH) {
-        result->rtnCode = (int64_t)strlen(realPath);
-    }
+    result->rtnCode = (int64_t)strlen(realPath);
     return result;
 }
 
@@ -468,12 +468,18 @@ extern int8_t CJ_FS_CanRead(const char* path, int64_t pathLen)
 
 static int64_t LocalStat(const char* path, struct stat* buf)
 {
+    char* pathCopy = strdup(path);
+    if (pathCopy == NULL) {
+        return -1;
+    }
+
     // Remove the delimiter at the end of the path, except for the root directory like "C:\\".
     // If `_FILE_OFFSET_BITS` is defined, `stat` is replaced with `_stat64`.
     // In Windows, `_stat64` does not support a separator at the end of a path, except for
     // the root directory like "C:\\.
-    RemoveTrailingSeparator(path);
-    wchar_t* wPath = Char2Widechar(path);
+    RemoveTrailingSeparator(pathCopy);
+    wchar_t* wPath = Char2Widechar(pathCopy);
+    free(pathCopy);
 
     if (wPath == NULL) {
         return -1;
@@ -937,21 +943,52 @@ extern int64_t CJ_FS_CloseFile(HANDLE fd)
  */
 extern int64_t CJ_FS_FileRead(HANDLE fd, char* buffer, size_t maxLen)
 {
-    DWORD numOfBytesToRead = (DWORD)maxLen;
-    DWORD numOfBytesRead = 0;
-    BOOL success = ReadFile(fd, buffer, numOfBytesToRead, &numOfBytesRead, NULL);
-    if (!success) {
-        return -1;
+    const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
+    int64_t totalBytesRead = 0;
+    size_t remaining = maxLen;
+    char* currentBuffer = buffer;
+
+    while (remaining > 0) {
+        DWORD chunkSize = (remaining > MAX_CHUNK_SIZE) ? MAX_CHUNK_SIZE : (DWORD)remaining;
+        DWORD numOfBytesRead = 0;
+        BOOL success = ReadFile(fd, currentBuffer, chunkSize, &numOfBytesRead, NULL);
+        if (!success) {
+            return -1;
+        }
+        if (numOfBytesRead == 0) {
+            break;
+        }
+        totalBytesRead += numOfBytesRead;
+        currentBuffer += numOfBytesRead;
+        remaining -= numOfBytesRead;
+        
+        if (numOfBytesRead < chunkSize) {
+            break;
+        }
     }
-    return (int64_t)numOfBytesRead;
+    return totalBytesRead;
 }
 
 extern bool CJ_FS_FileWrite(HANDLE fd, const char* buffer, size_t maxLen)
 {
-    DWORD numOfBytesToWrite = (DWORD)maxLen;
-    DWORD numOfWritenBytes = 0;
-    WriteFile(fd, buffer, numOfBytesToWrite, &numOfWritenBytes, NULL);
-    return (int64_t)(numOfWritenBytes - numOfBytesToWrite) == 0;
+    const DWORD MAX_CHUNK_SIZE = 0xFFFFFFFF;  // 4GB - 1
+    size_t remaining = maxLen;
+    const char* currentBuffer = buffer;
+
+    while (remaining > 0) {
+        DWORD chunkSize = (remaining > MAX_CHUNK_SIZE) ? MAX_CHUNK_SIZE : (DWORD)remaining;
+        DWORD numOfWrittenBytes = 0;
+        BOOL success = WriteFile(fd, currentBuffer, chunkSize, &numOfWrittenBytes, NULL);
+        if (!success) {
+            return false;
+        }
+        if (numOfWrittenBytes != chunkSize) {
+            return false;
+        }
+        currentBuffer += numOfWrittenBytes;
+        remaining -= numOfWrittenBytes;
+    }
+    return true;
 }
 
 extern FsError* CJ_FS_Rename(const char* sourcePath, const char* destinationPath)
@@ -1015,7 +1052,7 @@ extern HANDLE CJ_FS_CreateTempFile(char* path)
         return NULL;
     }
     HANDLE hFile = CreateFileW(
-        wPath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_MODE, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+        wPath, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_MODE, NULL, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
     if (INVALID_HANDLE_VALUE == hFile) {
         free(wPath);
         return NULL;
@@ -1081,12 +1118,13 @@ extern FsError* CJ_FS_Remove(const char* path, bool rescursive)
 // libc err no
 static FsError* GetErrnoResult(void)
 {
-    char* errMsg = CJ_FS_ErrmesGet(errno);
+    int savedErrno = errno;
+    char* errMsg = CJ_FS_ErrmesGet(savedErrno);
     FsError* result = (FsError*)malloc(sizeof(FsError));
     if (result == NULL) {
         return NULL;
     }
-    result->rtnCode = -errno;
+    result->rtnCode = -savedErrno;
     result->msg = errMsg;
     return result;
 }
