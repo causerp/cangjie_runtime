@@ -89,16 +89,14 @@ public class Semaphore {
         }
         synchronized(monitor) {
             let oldValue = countValue.load()
+            let newValue = oldValue + amount
             // The new value to store cannot exceed the initial value.
-            let newValue = if (oldValue + amount > initValue) {
-                initValue
+            if (newValue > initValue) {
+                countValue.store(initValue)
             } else {
-                oldValue + amount
+                countValue.store(newValue)
             }
-            countValue.store(newValue)
-            for (_ in oldValue..newValue) {
-                monitor.notify()
-            }
+            monitor.notifyAll()
         }
     }
 }
