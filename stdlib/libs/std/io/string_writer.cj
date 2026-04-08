@@ -148,26 +148,23 @@ public class StringWriter<T> where T <: OutputStream {
     }
 
     public func write(v: Float64): Unit {
-        var res: Int64 = 0
         unsafe {
             let p: CPointer<UInt8> = CJ_CORE_Float64ToCPointer(v)
             if (p.isNull()) {
                 throw IOException()
             }
             let cpSize = Int64(strlen(p)) + 1 // append r'\0' in the end
-            LibC.free(p)
             ensureEnoughOutBuf(cpSize)
 
             let cp = acquireArrayRawData(this.outputBOS.outBuf)
-            res = CJ_BUFFER_Float64ToCPointer(v, cp.pointer + this.outputBOS.curPos, cpSize)
+            let copyRes = memcpy_s(cp.pointer + this.outputBOS.curPos, UIntNative(cpSize), p, UIntNative(cpSize - 1))
+            LibC.free(p)
             releaseArrayRawData(cp)
+            if (copyRes != 0) {
+                throw IOException("Error writing digit ${v}!")
+            }
+            this.outputBOS.curPos += cpSize - 1
         }
-
-        if (res < 0) {
-            throw IOException("Error writing digit ${v}!")
-        }
-
-        this.outputBOS.curPos += res
     }
 
     public func write(v: Rune): Unit {
