@@ -352,8 +352,6 @@ public func exp2(x: Float16): Float16 {
  * @return base 10 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log10(x: Float64): Float64 {
@@ -372,8 +370,6 @@ public func log10(x: Float64): Float64 {
  * @return base 10 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log10(x: Float32): Float32 {
@@ -392,8 +388,6 @@ public func log10(x: Float32): Float32 {
  * @return base 10 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log10(x: Float16): Float16 {
@@ -412,8 +406,6 @@ public func log10(x: Float16): Float16 {
  * @return base 2 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log2(x: Float64): Float64 {
@@ -432,8 +424,6 @@ public func log2(x: Float64): Float64 {
  * @return base 2 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log2(x: Float32): Float32 {
@@ -452,8 +442,6 @@ public func log2(x: Float32): Float32 {
  * @return base 2 logarithm of @p x.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log2(x: Float16): Float16 {
@@ -471,8 +459,6 @@ public func log2(x: Float16): Float16 {
  * @return \f$ \ln{x} \f$.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log(x: Float64): Float64 {
@@ -490,8 +476,6 @@ public func log(x: Float64): Float64 {
  * @return \f$ \ln{x} \f$.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log(x: Float32): Float32 {
@@ -509,8 +493,6 @@ public func log(x: Float32): Float32 {
  * @return \f$ \ln{x} \f$.
  *
  * @since 0.17.4
- *
- * @throws IllegalArgumentException if the argument `x` is not positive
  */
 @Frozen
 public func log(x: Float16): Float16 {
