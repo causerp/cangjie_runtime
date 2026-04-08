@@ -24,11 +24,19 @@ struct UnicodeRange {
     UnicodeRange(var start: Int32, var end: Int32) {}
 }
 
+struct SpecialCaseRange {
+    SpecialCaseRange(
+        var codePoint: UInt32,
+        var lower: Array<UInt32>,
+        var title: Array<UInt32>,
+        var upper: Array<UInt32>
+    ) {}
+}
+
 /**
  * Following arrays are used to determine the type of the input character according to the Unicode standard.
  * Current Unicode standard version is 13.0.0.
  */
-
 let LOWER_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X0061, 0X007A),
     UnicodeRange(0X00B5, 0X00B5),
@@ -676,7 +684,6 @@ let LOWER_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X1D7CB, 0X1D7CB),
     UnicodeRange(0X1E922, 0X1E943)
 ]
-
 let OTHER_LOWER_CASE: Array<UnicodeRange> = [
     UnicodeRange(0X00AA, 0X00AA),
     UnicodeRange(0X00BA, 0X00BA),
@@ -699,7 +706,6 @@ let OTHER_LOWER_CASE: Array<UnicodeRange> = [
     UnicodeRange(0XA7F8, 0XA7F9),
     UnicodeRange(0XAB5C, 0XAB5F)
 ]
-
 let UPPER_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X0041, 0X005A),
     UnicodeRange(0X00C0, 0X00D6),
@@ -1340,7 +1346,6 @@ let UPPER_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X1D7CA, 0X1D7CA),
     UnicodeRange(0X1E900, 0X1E921)
 ]
-
 let OTHER_UPPER_CASE: Array<UnicodeRange> = [
     UnicodeRange(0X2160, 0X216F),
     UnicodeRange(0X24B6, 0X24CF),
@@ -1348,7 +1353,6 @@ let OTHER_UPPER_CASE: Array<UnicodeRange> = [
     UnicodeRange(0X1F150, 0X1F169),
     UnicodeRange(0X1F170, 0X1F189)
 ]
-
 let TITLE_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X01C5, 0X01C5),
     UnicodeRange(0X01C8, 0X01C8),
@@ -1361,7 +1365,6 @@ let TITLE_CASE_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X1FCC, 0X1FCC),
     UnicodeRange(0X1FFC, 0X1FFC)
 ]
-
 let MODIFIER_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X02B0, 0X02C1),
     UnicodeRange(0X02C6, 0X02D1),
@@ -1425,7 +1428,6 @@ let MODIFIER_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X1E137, 0X1E13D),
     UnicodeRange(0X1E94B, 0X1E94B)
 ]
-
 let OTHER_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X00AA, 0X00AA),
     UnicodeRange(0X00BA, 0X00BA),
@@ -1917,7 +1919,6 @@ let OTHER_LETTER: Array<UnicodeRange> = [
     UnicodeRange(0X2F800, 0X2FA1D),
     UnicodeRange(0X30000, 0X3134A)
 ]
-
 let DECIMAL_NUMBER: Array<UnicodeRange> = [
     UnicodeRange(0X0030, 0X0039),
     UnicodeRange(0X0660, 0X0669),
@@ -1981,7 +1982,6 @@ let DECIMAL_NUMBER: Array<UnicodeRange> = [
     UnicodeRange(0X1E950, 0X1E959),
     UnicodeRange(0X1FBF0, 0X1FBF9)
 ]
-
 let LETTER_NUMBER: Array<UnicodeRange> = [
     UnicodeRange(0X16EE, 0X16F0),
     UnicodeRange(0X2160, 0X2182),
@@ -1996,7 +1996,6 @@ let LETTER_NUMBER: Array<UnicodeRange> = [
     UnicodeRange(0X103D1, 0X103D5),
     UnicodeRange(0X12400, 0X1246E)
 ]
-
 let OTHER_NUMBER: Array<UnicodeRange> = [
     UnicodeRange(0X00B2, 0X00B3),
     UnicodeRange(0X00B9, 0X00B9),
@@ -2083,6 +2082,448 @@ let WHITE_SPACE: Array<UnicodeRange> = [
     UnicodeRange(0X205F, 0X205F),
     UnicodeRange(0X3000, 0X3000)
 ]
+let COMBINING_MARK_RANGES: Array<UnicodeRange> = [
+    UnicodeRange(0x00AD, 0x00AD),
+    UnicodeRange(0x0300, 0x036F),
+    UnicodeRange(0x034F, 0x034F),
+    UnicodeRange(0x0483, 0x0489),
+    UnicodeRange(0x0591, 0x05BD),
+    UnicodeRange(0x05BF, 0x05CF),
+    UnicodeRange(0x0610, 0x061A),
+    UnicodeRange(0x061C, 0x061C),
+    UnicodeRange(0x064B, 0x065F),
+    UnicodeRange(0x0670, 0x0670),
+    UnicodeRange(0x06D6, 0x06DC),
+    UnicodeRange(0x06DF, 0x06E4),
+    UnicodeRange(0x06E7, 0x06E8),
+    UnicodeRange(0x06EA, 0x06ED),
+    UnicodeRange(0x0711, 0x0711),
+    UnicodeRange(0x0730, 0x074A),
+    UnicodeRange(0x07A6, 0x07B0),
+    UnicodeRange(0x07EB, 0x07F3),
+    UnicodeRange(0x0816, 0x0819),
+    UnicodeRange(0x081B, 0x0823),
+    UnicodeRange(0x0825, 0x0827),
+    UnicodeRange(0x0829, 0x082D),
+    UnicodeRange(0x0859, 0x085B),
+    UnicodeRange(0x08D4, 0x08E1),
+    UnicodeRange(0x08E3, 0x08FF),
+    UnicodeRange(0x0900, 0x0902),
+    UnicodeRange(0x093A, 0x093A),
+    UnicodeRange(0x093C, 0x094C),
+    UnicodeRange(0x094E, 0x094F),
+    UnicodeRange(0x0982, 0x0983),
+    UnicodeRange(0x09BC, 0x09BC),
+    UnicodeRange(0x09BE, 0x09C4),
+    UnicodeRange(0x09C7, 0x09C8),
+    UnicodeRange(0x09CB, 0x09CD),
+    UnicodeRange(0x09D7, 0x09D7),
+    UnicodeRange(0x09E2, 0x09E3),
+    UnicodeRange(0x0A01, 0x0A02),
+    UnicodeRange(0x0A3C, 0x0A3C),
+    UnicodeRange(0x0A41, 0x0A42),
+    UnicodeRange(0x0A47, 0x0A48),
+    UnicodeRange(0x0A4B, 0x0A4D),
+    UnicodeRange(0x0A70, 0x0A71),
+    UnicodeRange(0x0A75, 0x0A75),
+    UnicodeRange(0x0A81, 0x0A82),
+    UnicodeRange(0x0ABC, 0x0ABC),
+    UnicodeRange(0x0AC1, 0x0AC5),
+    UnicodeRange(0x0AC7, 0x0AC8),
+    UnicodeRange(0x0ACD, 0x0ACD),
+    UnicodeRange(0x0AE2, 0x0AE3),
+    UnicodeRange(0x0B01, 0x0B01),
+    UnicodeRange(0x0B3C, 0x0B3C),
+    UnicodeRange(0x0B3E, 0x0B43),
+    UnicodeRange(0x0B47, 0x0B48),
+    UnicodeRange(0x0B4B, 0x0B4D),
+    UnicodeRange(0x0B56, 0x0B56),
+    UnicodeRange(0x0B57, 0x0B57),
+    UnicodeRange(0x0B82, 0x0B82),
+    UnicodeRange(0x0BBE, 0x0BC2),
+    UnicodeRange(0x0BC6, 0x0BC8),
+    UnicodeRange(0x0BCA, 0x0BCD),
+    UnicodeRange(0x0BD7, 0x0BD7),
+    UnicodeRange(0x0C01, 0x0C03),
+    UnicodeRange(0x0C41, 0x0C44),
+    UnicodeRange(0x0C82, 0x0C82),
+    UnicodeRange(0x0CBE, 0x0CC4),
+    UnicodeRange(0x0CC6, 0x0CC8),
+    UnicodeRange(0x0CCA, 0x0CCD),
+    UnicodeRange(0x0CD5, 0x0CD6),
+    UnicodeRange(0x0D02, 0x0D03),
+    UnicodeRange(0x0D3E, 0x0D43),
+    UnicodeRange(0x0D46, 0x0D48),
+    UnicodeRange(0x0D4A, 0x0D4D),
+    UnicodeRange(0x0D57, 0x0D57),
+    UnicodeRange(0x0D82, 0x0D82),
+    UnicodeRange(0x0DCA, 0x0DCA),
+    UnicodeRange(0x0DCF, 0x0DD4),
+    UnicodeRange(0x0DD6, 0x0DD6),
+    UnicodeRange(0x0DD8, 0x0DDF),
+    UnicodeRange(0x0DF2, 0x0DF3),
+    UnicodeRange(0x0E34, 0x0E3A),
+    UnicodeRange(0x0E47, 0x0E4E),
+    UnicodeRange(0x0EB4, 0x0EB9),
+    UnicodeRange(0x0EBB, 0x0EBC),
+    UnicodeRange(0x0EC8, 0x0ECD),
+    UnicodeRange(0x0F18, 0x0F19),
+    UnicodeRange(0x0F35, 0x0F35),
+    UnicodeRange(0x0F37, 0x0F37),
+    UnicodeRange(0x0F39, 0x0F39),
+    UnicodeRange(0x0F71, 0x0F7E),
+    UnicodeRange(0x0F80, 0x0F84),
+    UnicodeRange(0x0F86, 0x0F87),
+    UnicodeRange(0x0F90, 0x0F97),
+    UnicodeRange(0x0F99, 0x0FBC),
+    UnicodeRange(0x0FC6, 0x0FC6),
+    UnicodeRange(0x102D, 0x1030),
+    UnicodeRange(0x1032, 0x1037),
+    UnicodeRange(0x1039, 0x103A),
+    UnicodeRange(0x103D, 0x103E),
+    UnicodeRange(0x1058, 0x1059),
+    UnicodeRange(0x105E, 0x1060),
+    UnicodeRange(0x1071, 0x1074),
+    UnicodeRange(0x1082, 0x1082),
+    UnicodeRange(0x1085, 0x1086),
+    UnicodeRange(0x108D, 0x108D),
+    UnicodeRange(0x109D, 0x109D),
+    UnicodeRange(0x135D, 0x135F),
+    UnicodeRange(0x1712, 0x1714),
+    UnicodeRange(0x1732, 0x1734),
+    UnicodeRange(0x1752, 0x1753),
+    UnicodeRange(0x1772, 0x1773),
+    UnicodeRange(0x17B4, 0x17B5),
+    UnicodeRange(0x17B7, 0x17BD),
+    UnicodeRange(0x17C6, 0x17C6),
+    UnicodeRange(0x17C8, 0x17D3),
+    UnicodeRange(0x17DD, 0x17DD),
+    UnicodeRange(0x180B, 0x180D),
+    UnicodeRange(0x18A9, 0x18A9),
+    UnicodeRange(0x1920, 0x192B),
+    UnicodeRange(0x1930, 0x193B),
+    UnicodeRange(0x1946, 0x194F),
+    UnicodeRange(0x19D0, 0x19D9),
+    UnicodeRange(0x1A17, 0x1A1B),
+    UnicodeRange(0x1A55, 0x1A5E),
+    UnicodeRange(0x1A60, 0x1A7C),
+    UnicodeRange(0x1A7F, 0x1A7F),
+    UnicodeRange(0x1B00, 0x1B03),
+    UnicodeRange(0x1B34, 0x1B34),
+    UnicodeRange(0x1B36, 0x1B3A),
+    UnicodeRange(0x1B3C, 0x1B3C),
+    UnicodeRange(0x1B42, 0x1B42),
+    UnicodeRange(0x1B6B, 0x1B73),
+    UnicodeRange(0x1B80, 0x1B81),
+    UnicodeRange(0x1BA2, 0x1BA5),
+    UnicodeRange(0x1BA8, 0x1BA9),
+    UnicodeRange(0x1BAB, 0x1BAD),
+    UnicodeRange(0x1BE6, 0x1BE6),
+    UnicodeRange(0x1BE8, 0x1BE9),
+    UnicodeRange(0x1BEA, 0x1BEC),
+    UnicodeRange(0x1BEE, 0x1BEE),
+    UnicodeRange(0x1BF2, 0x1BF3),
+    UnicodeRange(0x1C24, 0x1C2B),
+    UnicodeRange(0x1C34, 0x1C35),
+    UnicodeRange(0x1CE1, 0x1CE1),
+    UnicodeRange(0x1CF2, 0x1CF3),
+    UnicodeRange(0x200B, 0x200F),
+    UnicodeRange(0x202A, 0x202E),
+    UnicodeRange(0x2060, 0x2064),
+    UnicodeRange(0x2066, 0x206F),
+    UnicodeRange(0x2D20, 0x2D2F),
+    UnicodeRange(0x2D30, 0x2D67),
+    UnicodeRange(0x2D6F, 0x2D6F),
+    UnicodeRange(0x2D80, 0x2D96),
+    UnicodeRange(0x2DA0, 0x2DA6),
+    UnicodeRange(0x2DA8, 0x2DAE),
+    UnicodeRange(0x2DB0, 0x2DB6),
+    UnicodeRange(0x2DB8, 0x2DBE),
+    UnicodeRange(0x2DC0, 0x2DC6),
+    UnicodeRange(0x2DC8, 0x2DCE),
+    UnicodeRange(0x2DD0, 0x2DD6),
+    UnicodeRange(0x2DD8, 0x2DDE),
+    UnicodeRange(0x3029, 0x302D),
+    UnicodeRange(0x3099, 0x309A),
+    UnicodeRange(0xA66F, 0xA66F),
+    UnicodeRange(0xA674, 0xA67D),
+    UnicodeRange(0xA69F, 0xA69F),
+    UnicodeRange(0xA6F0, 0xA6F1),
+    UnicodeRange(0xA802, 0xA802),
+    UnicodeRange(0xA806, 0xA806),
+    UnicodeRange(0xA80B, 0xA80B),
+    UnicodeRange(0xA825, 0xA826),
+    UnicodeRange(0xA8C4, 0xA8C4),
+    UnicodeRange(0xA8E0, 0xA8E1),
+    UnicodeRange(0xA926, 0xA92D),
+    UnicodeRange(0xA947, 0xA951),
+    UnicodeRange(0xA980, 0xA982),
+    UnicodeRange(0xA9B3, 0xA9B3),
+    UnicodeRange(0xA9B6, 0xA9B9),
+    UnicodeRange(0xA9BC, 0xA9BC),
+    UnicodeRange(0xAA29, 0xAA2E),
+    UnicodeRange(0xAA31, 0xAA32),
+    UnicodeRange(0xAA35, 0xAA36),
+    UnicodeRange(0xAA43, 0xAA43),
+    UnicodeRange(0xAA4C, 0xAA4C),
+    UnicodeRange(0xAAB0, 0xAAB0),
+    UnicodeRange(0xAAB2, 0xAAB4),
+    UnicodeRange(0xAAB7, 0xAAB8),
+    UnicodeRange(0xAABE, 0xAABF),
+    UnicodeRange(0xAAC1, 0xAAC1),
+    UnicodeRange(0xAAEB, 0xAAEB),
+    UnicodeRange(0xAAEE, 0xAAEF),
+    UnicodeRange(0xAAF5, 0xAAF5),
+    UnicodeRange(0xABE3, 0xABE4),
+    UnicodeRange(0xABE6, 0xABE7),
+    UnicodeRange(0xABE9, 0xABEA),
+    UnicodeRange(0xABEC, 0xABED),
+    UnicodeRange(0xFB1E, 0xFB1E),
+    UnicodeRange(0xFE00, 0xFE0F),
+    UnicodeRange(0xFE20, 0xFE26),
+    UnicodeRange(0xFEFF, 0xFEFF),
+    UnicodeRange(0x10A01, 0x10A03),
+    UnicodeRange(0x10A05, 0x10A06),
+    UnicodeRange(0x10A0C, 0x10A0F),
+    UnicodeRange(0x10A38, 0x10A3A),
+    UnicodeRange(0x10A3F, 0x10A3F),
+    UnicodeRange(0x1D167, 0x1D169),
+    UnicodeRange(0x1D17B, 0x1D182),
+    UnicodeRange(0x1D185, 0x1D18B),
+    UnicodeRange(0x1D1AA, 0x1D1AD),
+    UnicodeRange(0x1D242, 0x1D244),
+    UnicodeRange(0x1E000, 0x1E006),
+    UnicodeRange(0x1E008, 0x1E018),
+    UnicodeRange(0x1E01B, 0x1E021),
+    UnicodeRange(0x1E023, 0x1E024),
+    UnicodeRange(0x1E026, 0x1E02A),
+    UnicodeRange(0x1E8D0, 0x1E8D6),
+    UnicodeRange(0x1E944, 0x1E94A)
+]
+
+let CASE_IGNORABLE_RANGES: Array<UnicodeRange> = [
+    UnicodeRange(0x0027, 0x0027),
+    UnicodeRange(0x002E, 0x002E),
+    UnicodeRange(0x003A, 0x003A),
+    UnicodeRange(0x0060, 0x0060),
+    UnicodeRange(0x00B7, 0x00B7),
+    UnicodeRange(0x02B0, 0x02FF),
+    UnicodeRange(0x0300, 0x036F),
+    UnicodeRange(0x034F, 0x034F),
+    UnicodeRange(0x0483, 0x0489),
+    UnicodeRange(0x0591, 0x05BD),
+    UnicodeRange(0x05BF, 0x05CF),
+    UnicodeRange(0x0610, 0x061A),
+    UnicodeRange(0x061C, 0x061C),
+    UnicodeRange(0x064B, 0x065F),
+    UnicodeRange(0x0670, 0x0670),
+    UnicodeRange(0x06D6, 0x06DC),
+    UnicodeRange(0x06DF, 0x06E4),
+    UnicodeRange(0x06E7, 0x06E8),
+    UnicodeRange(0x06EA, 0x06ED),
+    UnicodeRange(0x0711, 0x0711),
+    UnicodeRange(0x0730, 0x074A),
+    UnicodeRange(0x07A6, 0x07B0),
+    UnicodeRange(0x07EB, 0x07F3),
+    UnicodeRange(0x0816, 0x0819),
+    UnicodeRange(0x081B, 0x0823),
+    UnicodeRange(0x0825, 0x0827),
+    UnicodeRange(0x0829, 0x082D),
+    UnicodeRange(0x0859, 0x085B),
+    UnicodeRange(0x08D4, 0x08E1),
+    UnicodeRange(0x08E3, 0x08FF),
+    UnicodeRange(0x0900, 0x0902),
+    UnicodeRange(0x093A, 0x093A),
+    UnicodeRange(0x093C, 0x094C),
+    UnicodeRange(0x094E, 0x094F),
+    UnicodeRange(0x0982, 0x0983),
+    UnicodeRange(0x09BC, 0x09BC),
+    UnicodeRange(0x09BE, 0x09C4),
+    UnicodeRange(0x09C7, 0x09C8),
+    UnicodeRange(0x09CB, 0x09CD),
+    UnicodeRange(0x09D7, 0x09D7),
+    UnicodeRange(0x09E2, 0x09E3),
+    UnicodeRange(0x0A01, 0x0A02),
+    UnicodeRange(0x0A3C, 0x0A3C),
+    UnicodeRange(0x0A41, 0x0A42),
+    UnicodeRange(0x0A47, 0x0A48),
+    UnicodeRange(0x0A4B, 0x0A4D),
+    UnicodeRange(0x0A70, 0x0A71),
+    UnicodeRange(0x0A75, 0x0A75),
+    UnicodeRange(0x0A81, 0x0A82),
+    UnicodeRange(0x0ABC, 0x0ABC),
+    UnicodeRange(0x0AC1, 0x0AC5),
+    UnicodeRange(0x0AC7, 0x0AC8),
+    UnicodeRange(0x0ACD, 0x0ACD),
+    UnicodeRange(0x0AE2, 0x0AE3),
+    UnicodeRange(0x0B01, 0x0B01),
+    UnicodeRange(0x0B3C, 0x0B3C),
+    UnicodeRange(0x0B3E, 0x0B43),
+    UnicodeRange(0x0B47, 0x0B48),
+    UnicodeRange(0x0B4B, 0x0B4D),
+    UnicodeRange(0x0B56, 0x0B56),
+    UnicodeRange(0x0B57, 0x0B57),
+    UnicodeRange(0x0B82, 0x0B82),
+    UnicodeRange(0x0BBE, 0x0BC2),
+    UnicodeRange(0x0BC6, 0x0BC8),
+    UnicodeRange(0x0BCA, 0x0BCD),
+    UnicodeRange(0x0BD7, 0x0BD7),
+    UnicodeRange(0x0C01, 0x0C03),
+    UnicodeRange(0x0C41, 0x0C44),
+    UnicodeRange(0x0C82, 0x0C82),
+    UnicodeRange(0x0CBE, 0x0CC4),
+    UnicodeRange(0x0CC6, 0x0CC8),
+    UnicodeRange(0x0CCA, 0x0CCD),
+    UnicodeRange(0x0CD5, 0x0CD6),
+    UnicodeRange(0x0D02, 0x0D03),
+    UnicodeRange(0x0D3E, 0x0D43),
+    UnicodeRange(0x0D46, 0x0D48),
+    UnicodeRange(0x0D4A, 0x0D4D),
+    UnicodeRange(0x0D57, 0x0D57),
+    UnicodeRange(0x0D82, 0x0D82),
+    UnicodeRange(0x0DCA, 0x0DCA),
+    UnicodeRange(0x0DCF, 0x0DD4),
+    UnicodeRange(0x0DD6, 0x0DD6),
+    UnicodeRange(0x0DD8, 0x0DDF),
+    UnicodeRange(0x0DF2, 0x0DF3),
+    UnicodeRange(0x0E34, 0x0E3A),
+    UnicodeRange(0x0E47, 0x0E4E),
+    UnicodeRange(0x0EB4, 0x0EB9),
+    UnicodeRange(0x0EBB, 0x0EBC),
+    UnicodeRange(0x0EC8, 0x0ECD),
+    UnicodeRange(0x0F18, 0x0F19),
+    UnicodeRange(0x0F35, 0x0F35),
+    UnicodeRange(0x0F37, 0x0F37),
+    UnicodeRange(0x0F39, 0x0F39),
+    UnicodeRange(0x0F71, 0x0F7E),
+    UnicodeRange(0x0F80, 0x0F84),
+    UnicodeRange(0x0F86, 0x0F87),
+    UnicodeRange(0x0F90, 0x0F97),
+    UnicodeRange(0x0F99, 0xFBC),
+    UnicodeRange(0x0FC6, 0x0FC6),
+    UnicodeRange(0x102D, 0x1030),
+    UnicodeRange(0x1032, 0x1037),
+    UnicodeRange(0x1039, 0x103A),
+    UnicodeRange(0x103D, 0x103E),
+    UnicodeRange(0x1058, 0x1059),
+    UnicodeRange(0x105E, 0x1060),
+    UnicodeRange(0x1071, 0x1074),
+    UnicodeRange(0x1082, 0x1082),
+    UnicodeRange(0x1085, 0x1086),
+    UnicodeRange(0x108D, 0x108D),
+    UnicodeRange(0x109D, 0x109D),
+    UnicodeRange(0x135D, 0x135F),
+    UnicodeRange(0x1712, 0x1714),
+    UnicodeRange(0x1732, 0x1734),
+    UnicodeRange(0x1752, 0x1753),
+    UnicodeRange(0x1772, 0x1773),
+    UnicodeRange(0x17B4, 0x17B5),
+    UnicodeRange(0x17B7, 0x17BD),
+    UnicodeRange(0x17C6, 0x17C6),
+    UnicodeRange(0x17C8, 0x17D3),
+    UnicodeRange(0x17DD, 0x17DD),
+    UnicodeRange(0x180B, 0x180D),
+    UnicodeRange(0x18A9, 0x18A9),
+    UnicodeRange(0x1920, 0x192B),
+    UnicodeRange(0x1930, 0x193B),
+    UnicodeRange(0x1946, 0x194F),
+    UnicodeRange(0x19D0, 0x19D9),
+    UnicodeRange(0x1A17, 0x1A1B),
+    UnicodeRange(0x1A55, 0x1A5E),
+    UnicodeRange(0x1A60, 0x1A7C),
+    UnicodeRange(0x1A7F, 0x1A7F),
+    UnicodeRange(0x1B00, 0x1B03),
+    UnicodeRange(0x1B34, 0x1B34),
+    UnicodeRange(0x1B36, 0x1B3A),
+    UnicodeRange(0x1B3C, 0x1B3C),
+    UnicodeRange(0x1B42, 0x1B42),
+    UnicodeRange(0x1B6B, 0x1B73),
+    UnicodeRange(0x1B80, 0x1B81),
+    UnicodeRange(0x1BA2, 0x1BA5),
+    UnicodeRange(0x1BA8, 0x1BA9),
+    UnicodeRange(0x1BAB, 0x1BAD),
+    UnicodeRange(0x1BE6, 0x1BE6),
+    UnicodeRange(0x1BE8, 0x1BE9),
+    UnicodeRange(0x1BEA, 0x1BEC),
+    UnicodeRange(0x1BEE, 0x1BEE),
+    UnicodeRange(0x1BF2, 0x1BF3),
+    UnicodeRange(0x1C24, 0x1C2B),
+    UnicodeRange(0x1C34, 0x1C35),
+    UnicodeRange(0x1CE1, 0x1CE1),
+    UnicodeRange(0x1CF2, 0x1CF3),
+    UnicodeRange(0x200B, 0x200F),
+    UnicodeRange(0x202A, 0x202E),
+    UnicodeRange(0x2060, 0x2064),
+    UnicodeRange(0x2066, 0x206F),
+    UnicodeRange(0x2D20, 0x2D2F),
+    UnicodeRange(0x2D30, 0x2D67),
+    UnicodeRange(0x2D6F, 0x2D6F),
+    UnicodeRange(0x2D80, 0x2D96),
+    UnicodeRange(0x2DA0, 0x2DA6),
+    UnicodeRange(0x2DA8, 0x2DAE),
+    UnicodeRange(0x2DB0, 0x2DB6),
+    UnicodeRange(0x2DB8, 0x2DBE),
+    UnicodeRange(0x2DC0, 0x2DC6),
+    UnicodeRange(0x2DC8, 0x2DCE),
+    UnicodeRange(0x2DD0, 0x2DD6),
+    UnicodeRange(0x2DD8, 0x2DDE),
+    UnicodeRange(0x3029, 0x302D),
+    UnicodeRange(0x3099, 0x309A),
+    UnicodeRange(0xA66F, 0xA66F),
+    UnicodeRange(0xA674, 0xA67D),
+    UnicodeRange(0xA69F, 0xA69F),
+    UnicodeRange(0xA6F0, 0xA6F1),
+    UnicodeRange(0xA802, 0xA802),
+    UnicodeRange(0xA806, 0xA806),
+    UnicodeRange(0xA80B, 0xA80B),
+    UnicodeRange(0xA825, 0xA826),
+    UnicodeRange(0xA8C4, 0xA8C4),
+    UnicodeRange(0xA8E0, 0xA8E1),
+    UnicodeRange(0xA926, 0xA92D),
+    UnicodeRange(0xA947, 0xA951),
+    UnicodeRange(0xA980, 0xA982),
+    UnicodeRange(0xA9B3, 0xA9B3),
+    UnicodeRange(0xA9B6, 0xA9B9),
+    UnicodeRange(0xA9BC, 0xA9BC),
+    UnicodeRange(0xAA29, 0xAA2E),
+    UnicodeRange(0xAA31, 0xAA32),
+    UnicodeRange(0xAA35, 0xAA36),
+    UnicodeRange(0xAA43, 0xAA43),
+    UnicodeRange(0xAA4C, 0xAA4C),
+    UnicodeRange(0xAAB0, 0xAAB0),
+    UnicodeRange(0xAAB2, 0xAAB4),
+    UnicodeRange(0xAAB7, 0xAAB8),
+    UnicodeRange(0xAABE, 0xAABF),
+    UnicodeRange(0xAAC1, 0xAAC1),
+    UnicodeRange(0xAAEB, 0xAAEB),
+    UnicodeRange(0xAAEE, 0xAAEF),
+    UnicodeRange(0xAAF5, 0xAAF5),
+    UnicodeRange(0xABE3, 0xABE4),
+    UnicodeRange(0xABE6, 0xABE7),
+    UnicodeRange(0xABE9, 0xABEA),
+    UnicodeRange(0xABEC, 0xABED),
+    UnicodeRange(0xFB1E, 0xFB1E),
+    UnicodeRange(0xFE00, 0xFE0F),
+    UnicodeRange(0xFE20, 0xFE26),
+    UnicodeRange(0xFEFF, 0xFEFF),
+    UnicodeRange(0x10A01, 0x10A03),
+    UnicodeRange(0x10A05, 0x10A06),
+    UnicodeRange(0x10A0C, 0x10A0F),
+    UnicodeRange(0x10A38, 0x10A3A),
+    UnicodeRange(0x10A3F, 0x10A3F),
+    UnicodeRange(0x1D167, 0x1D169),
+    UnicodeRange(0x1D17B, 0x1D182),
+    UnicodeRange(0x1D185, 0x1D18B),
+    UnicodeRange(0x1D1AA, 0x1D1AD),
+    UnicodeRange(0x1D242, 0x1D244),
+    UnicodeRange(0x1E000, 0x1E006),
+    UnicodeRange(0x1E008, 0x1E018),
+    UnicodeRange(0x1E01B, 0x1E021),
+    UnicodeRange(0x1E023, 0x1E024),
+    UnicodeRange(0x1E026, 0x1E02A),
+    UnicodeRange(0x1E8D0, 0x1E8D6),
+    UnicodeRange(0x1E944, 0x1E94A)
+]
 
 /**
  * denotes a code point uppercase-lowercase pattern
@@ -2092,23 +2533,35 @@ const SPECIAL_UNICODE: Int32 = 0xFFFFFE
 const GREECE_RUNE_LEFT_INTERVAL: UInt32 = 0x0370
 const GREECE_RUNE_RIGHT_INTERVAL: UInt32 = 0x03FF
 let GREECE_PUNCTUATION: Array<UInt32> = [0x0374, 0x0375, 0x037A, 0x037E, 0x0384, 0x0385, 0x0387]
-
 let CAPITAL_I: UInt32 = 0x0049
 let SMALL_I: UInt32 = 0x0069
+let CAPITAL_J: UInt32 = 0x004A
+let SMALL_J: UInt32 = 0x006A
+let CAPITAL_I_OGONEK: UInt32 = 0x012E
+let SMALL_I_OGONEK: UInt32 = 0x012F
 let CAPITAL_I_WITH_DOT_ABOVE: UInt32 = 0x0130
 let SMALL_I_WITHOUT_DOT_ABOVE: UInt32 = 0x0131
 let CAPITAL_SIGMA: UInt32 = 0x03A3
 let SMALL_SIGMA_END: UInt32 = 0x03C2
 let DOT_ABOVE: UInt32 = 0x0307
-
-let LITHUANIA_SPECIAL_RUNE = HashMap<UInt32, Array<UInt32>>([
-    (0x0049, [0x0069, 0x0307]),
-    (0x004A, [0x006A, 0x0307]),
-    (0x012E, [0x012F, 0x0307]),
-    (0x00CC, [0x0069, 0x0307, 0x0300]),
-    (0x00CD, [0x0069, 0x0307, 0x0301]),
-    (0x0128, [0x0069, 0x0307, 0x0303])
-])
+let ABOVE_COMBINING_MARK_RANGES: Array<UnicodeRange> = [
+    UnicodeRange(0x0300, 0x0314),
+    UnicodeRange(0x0342, 0x0345),
+    UnicodeRange(0x034A, 0x034E),
+    UnicodeRange(0x0350, 0x0357),
+    UnicodeRange(0x035D, 0x0363),
+    UnicodeRange(0x0366, 0x036F),
+    UnicodeRange(0x1DC0, 0x1DFF),
+    UnicodeRange(0x20D0, 0x20F0),
+    UnicodeRange(0xFE20, 0xFE26)
+]
+let LITHUANIA_SPECIAL_RUNE = HashMap<UInt32, Array<UInt32>>(
+    [
+        (0x00CC, [0x0069, 0x0307, 0x0300]),
+        (0x00CD, [0x0069, 0x0307, 0x0301]),
+        (0x0128, [0x0069, 0x0307, 0x0303])
+    ]
+)
 
 /**
  * these case ranges are sorted by start offset, and do not overlap
@@ -2432,6 +2885,12 @@ let CASE_RANGES: Array<CaseRange> = [
     CaseRange(0xA7B2, 0xA7B2, 0, -42261, 0),
     CaseRange(0xA7B3, 0xA7B3, 0, 928, 0),
     CaseRange(0xA7B4, 0xA7B7, UPPERLOWER, UPPERLOWER, UPPERLOWER),
+    CaseRange(0xA7B8, 0xA7BF, UPPERLOWER, UPPERLOWER, UPPERLOWER),
+    CaseRange(0xA7C0, 0xA7C3, UPPERLOWER, UPPERLOWER, UPPERLOWER),
+    CaseRange(0xA7C4, 0xA7C4, 0, -48, 0),
+    CaseRange(0xA7C5, 0xA7C5, 0, -42307, 0),
+    CaseRange(0xA7C6, 0xA7C6, 0, -35384, 0),
+    CaseRange(0xA7C7, 0xA7CA, UPPERLOWER, UPPERLOWER, UPPERLOWER),
     CaseRange(0xAB53, 0xAB53, -928, 0, -928),
     CaseRange(0xAB70, 0xABBF, -38864, 0, -38864),
     CaseRange(0xFB00, 0xFB06, SPECIAL_UNICODE, SPECIAL_UNICODE, SPECIAL_UNICODE),
@@ -2449,129 +2908,111 @@ let CASE_RANGES: Array<CaseRange> = [
     CaseRange(0x1E900, 0x1E921, 0, 34, 0),
     CaseRange(0x1E922, 0x1E943, -34, 0, -34)
 ]
-
-let SPECIAL_UNICODE_MAP = HashMap<UInt32, (Array<UInt32>, Array<UInt32>, Array<UInt32>)>([
-    // The German es-zed is special--the normal mapping is to SS.
-    // Note: the titlecase should never occur in practice. It is equal to titlecase(uppercase(<es-zed>))
-    (0x00DF, ([0x00DF], [0x0053, 0x0073], [0x0053, 0x0053])), // LATIN SMALL LETTER SHARP S
-
-    // Preserve canonical equivalence for I with dot. Turkic is handled below.
-    (0x0130, ([0x0069, 0x0307], [0x0130], [0x0130])), // LATIN CAPITAL LETTER I WITH DOT ABOVE
-
-    // Ligatures
-    (0xFB00, ([0xFB00], [0x0046, 0x0066], [0x0046, 0x0046])), // LATIN SMALL LIGATURE FF
-    (0xFB01, ([0xFB01], [0x0046, 0x0069], [0x0046, 0x0049])), // LATIN SMALL LIGATURE FI
-    (0xFB02, ([0xFB02], [0x0046, 0x006C], [0x0046, 0x004C])), // LATIN SMALL LIGATURE FL
-    (0xFB03, ([0xFB03], [0x0046, 0x0066, 0x0069], [0x0046, 0x0046, 0x0049])), // LATIN SMALL LIGATURE FFI
-    (0xFB04, ([0xFB04], [0x0046, 0x0066, 0x006C], [0x0046, 0x0046, 0x004C])), // LATIN SMALL LIGATURE FFL
-    (0xFB05, ([0xFB05], [0x0053, 0x0074], [0x0053, 0x0054])), // LATIN SMALL LIGATURE LONG S T
-    (0xFB06, ([0xFB06], [0x0053, 0x0074], [0x0053, 0x0054])), // LATIN SMALL LIGATURE ST
-
-    (0x0587, ([0x0587], [0x0535, 0x0582], [0x0535, 0x0552])), // ARMENIAN SMALL LIGATURE ECH YIWN
-    (0xFB13, ([0xFB13], [0x0544, 0x0576], [0x0544, 0x0546])), // ARMENIAN SMALL LIGATURE MEN NOW
-    (0xFB14, ([0xFB14], [0x0544, 0x0565], [0x0544, 0x0535])), // ARMENIAN SMALL LIGATURE MEN ECH
-    (0xFB15, ([0xFB15], [0x0544, 0x056B], [0x0544, 0x053B])), // ARMENIAN SMALL LIGATURE MEN INI
-    (0xFB16, ([0xFB16], [0x054E, 0x0576], [0x054E, 0x0546])), // ARMENIAN SMALL LIGATURE VEW NOW
-    (0xFB17, ([0xFB17], [0x0544, 0x056D], [0x0544, 0x053D])), // ARMENIAN SMALL LIGATURE MEN XEH
-
-    // No corresponding uppercase precomposed character
-    (0x0149, ([0x0149], [0x02BC, 0x004E], [0x02BC, 0x004E])), // LATIN SMALL LETTER N PRECEDED BY APOSTROPHE
-    (0x0390, ([0x0390], [0x0399, 0x0308, 0x0301], [0x0399, 0x0308, 0x0301])), // GREEK SMALL LETTER IOTA WITH DIALYTIKA AND TONOS
-    (0x03B0, ([0x03B0], [0x03A5, 0x0308, 0x0301], [0x03A5, 0x0308, 0x0301])), // GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND TONOS
-    (0x01F0, ([0x01F0], [0x004A, 0x030C], [0x004A, 0x030C])), // LATIN SMALL LETTER J WITH CARON
-    (0x1E96, ([0x1E96], [0x0048, 0x0331], [0x0048, 0x0331])), // LATIN SMALL LETTER H WITH LINE BELOW
-    (0x1E97, ([0x1E97], [0x0054, 0x0308], [0x0054, 0x0308])), // LATIN SMALL LETTER T WITH DIAERESIS
-    (0x1E98, ([0x1E98], [0x0057, 0x030A], [0x0057, 0x030A])), // LATIN SMALL LETTER W WITH RING ABOVE
-    (0x1E99, ([0x1E99], [0x0059, 0x030A], [0x0059, 0x030A])), // LATIN SMALL LETTER Y WITH RING ABOVE
-    (0x1E9A, ([0x1E9A], [0x0041, 0x02BE], [0x0041, 0x02BE])), // LATIN SMALL LETTER A WITH RIGHT HALF RING
-    (0x1F50, ([0x1F50], [0x03A5, 0x0313], [0x03A5, 0x0313])), // GREEK SMALL LETTER UPSILON WITH PSILI
-    (0x1F52, ([0x1F52], [0x03A5, 0x0313, 0x0300], [0x03A5, 0x0313, 0x0300])), // GREEK SMALL LETTER UPSILON WITH PSILI AND VARIA
-    (0x1F54, ([0x1F54], [0x03A5, 0x0313, 0x0301], [0x03A5, 0x0313, 0x0301])), // GREEK SMALL LETTER UPSILON WITH PSILI AND OXIA
-    (0x1F56, ([0x1F56], [0x03A5, 0x0313, 0x0342], [0x03A5, 0x0313, 0x0342])), // GREEK SMALL LETTER UPSILON WITH PSILI AND PERISPOMENI
-    (0x1FB6, ([0x1FB6], [0x0391, 0x0342], [0x0391, 0x0342])), // GREEK SMALL LETTER ALPHA WITH PERISPOMENI
-    (0x1FC6, ([0x1FC6], [0x0397, 0x0342], [0x0397, 0x0342])), // GREEK SMALL LETTER ETA WITH PERISPOMENI
-    (0x1FD2, ([0x1FD2], [0x0399, 0x0308, 0x0300], [0x0399, 0x0308, 0x0300])), // GREEK SMALL LETTER IOTA WITH DIALYTIKA AND VARIA
-    (0x1FD3, ([0x1FD3], [0x0399, 0x0308, 0x0301], [0x0399, 0x0308, 0x0301])), // GREEK SMALL LETTER IOTA WITH DIALYTIKA AND OXIA
-    (0x1FD6, ([0x1FD6], [0x0399, 0x0342], [0x0399, 0x0342])), // GREEK SMALL LETTER IOTA WITH PERISPOMENI
-    (0x1FD7, ([0x1FD7], [0x0399, 0x0308, 0x0342], [0x0399, 0x0308, 0x0342])), // GREEK SMALL LETTER IOTA WITH DIALYTIKA AND PERISPOMENI
-    (0x1FE2, ([0x1FE2], [0x03A5, 0x0308, 0x0300], [0x03A5, 0x0308, 0x0300])), // GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND VARIA
-    (0x1FE3, ([0x1FE3], [0x03A5, 0x0308, 0x0301], [0x03A5, 0x0308, 0x0301])), // GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND OXIA
-    (0x1FE4, ([0x1FE4], [0x03A1, 0x0313], [0x03A1, 0x0313])), // GREEK SMALL LETTER RHO WITH PSILI
-    (0x1FE6, ([0x1FE6], [0x03A5, 0x0342], [0x03A5, 0x0342])), // GREEK SMALL LETTER UPSILON WITH PERISPOMENI
-    (0x1FE7, ([0x1FE7], [0x03A5, 0x0308, 0x0342], [0x03A5, 0x0308, 0x0342])), // GREEK SMALL LETTER UPSILON WITH DIALYTIKA AND PERISPOMENI
-    (0x1FF6, ([0x1FF6], [0x03A9, 0x0342], [0x03A9, 0x0342])), // GREEK SMALL LETTER OMEGA WITH PERISPOMENI
-
-    // All letters with YPOGEGRAMMENI (iota-subscript) or PROSGEGRAMMENI (iota adscript)
-    // have special uppercases.
-    // Note: characters with PROSGEGRAMMENI are actually titlecase, not uppercase!
-    (0x1F80, ([0x1F80], [0x1F88], [0x1F08, 0x0399])), // GREEK SMALL LETTER ALPHA WITH PSILI AND YPOGEGRAMMENI
-    (0x1F81, ([0x1F81], [0x1F89], [0x1F09, 0x0399])), // GREEK SMALL LETTER ALPHA WITH DASIA AND YPOGEGRAMMENI
-    (0x1F82, ([0x1F82], [0x1F8A], [0x1F0A, 0x0399])), // GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    (0x1F83, ([0x1F83], [0x1F8B], [0x1F0B, 0x0399])), // GREEK SMALL LETTER ALPHA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    (0x1F84, ([0x1F84], [0x1F8C], [0x1F0C, 0x0399])), // GREEK SMALL LETTER ALPHA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    (0x1F85, ([0x1F85], [0x1F8D], [0x1F0D, 0x0399])), // GREEK SMALL LETTER ALPHA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    (0x1F86, ([0x1F86], [0x1F8E], [0x1F0E, 0x0399])), // GREEK SMALL LETTER ALPHA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1F87, ([0x1F87], [0x1F8F], [0x1F0F, 0x0399])), // GREEK SMALL LETTER ALPHA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1F88, ([0x1F80], [0x1F88], [0x1F08, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH PSILI AND PROSGEGRAMMENI
-    (0x1F89, ([0x1F81], [0x1F89], [0x1F09, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH DASIA AND PROSGEGRAMMENI
-    (0x1F8A, ([0x1F82], [0x1F8A], [0x1F0A, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    (0x1F8B, ([0x1F83], [0x1F8B], [0x1F0B, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    (0x1F8C, ([0x1F84], [0x1F8C], [0x1F0C, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    (0x1F8D, ([0x1F85], [0x1F8D], [0x1F0D, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    (0x1F8E, ([0x1F86], [0x1F8E], [0x1F0E, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1F8F, ([0x1F87], [0x1F8F], [0x1F0F, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1F90, ([0x1F90], [0x1F98], [0x1F28, 0x0399])), // GREEK SMALL LETTER ETA WITH PSILI AND YPOGEGRAMMENI
-    (0x1F91, ([0x1F91], [0x1F99], [0x1F29, 0x0399])), // GREEK SMALL LETTER ETA WITH DASIA AND YPOGEGRAMMENI
-    (0x1F92, ([0x1F92], [0x1F9A], [0x1F2A, 0x0399])), // GREEK SMALL LETTER ETA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    (0x1F93, ([0x1F93], [0x1F9B], [0x1F2B, 0x0399])), // GREEK SMALL LETTER ETA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    (0x1F94, ([0x1F94], [0x1F9C], [0x1F2C, 0x0399])), // GREEK SMALL LETTER ETA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    (0x1F95, ([0x1F95], [0x1F9D], [0x1F2D, 0x0399])), // GREEK SMALL LETTER ETA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    (0x1F96, ([0x1F96], [0x1F9E], [0x1F2E, 0x0399])), // GREEK SMALL LETTER ETA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1F97, ([0x1F97], [0x1F9F], [0x1F2F, 0x0399])), // GREEK SMALL LETTER ETA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1F98, ([0x1F90], [0x1F98], [0x1F28, 0x0399])), // GREEK CAPITAL LETTER ETA WITH PSILI AND PROSGEGRAMMENI
-    (0x1F99, ([0x1F91], [0x1F99], [0x1F29, 0x0399])), // GREEK CAPITAL LETTER ETA WITH DASIA AND PROSGEGRAMMENI
-    (0x1F9A, ([0x1F92], [0x1F9A], [0x1F2A, 0x0399])), // GREEK CAPITAL LETTER ETA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    (0x1F9B, ([0x1F93], [0x1F9B], [0x1F2B, 0x0399])), // GREEK CAPITAL LETTER ETA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    (0x1F9C, ([0x1F94], [0x1F9C], [0x1F2C, 0x0399])), // GREEK CAPITAL LETTER ETA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    (0x1F9D, ([0x1F95], [0x1F9D], [0x1F2D, 0x0399])), // GREEK CAPITAL LETTER ETA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    (0x1F9E, ([0x1F96], [0x1F9E], [0x1F2E, 0x0399])), // GREEK CAPITAL LETTER ETA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1F9F, ([0x1F97], [0x1F9F], [0x1F2F, 0x0399])), // GREEK CAPITAL LETTER ETA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1FA0, ([0x1FA0], [0x1FA8], [0x1F68, 0x0399])), // GREEK SMALL LETTER OMEGA WITH PSILI AND YPOGEGRAMMENI
-    (0x1FA1, ([0x1FA1], [0x1FA9], [0x1F69, 0x0399])), // GREEK SMALL LETTER OMEGA WITH DASIA AND YPOGEGRAMMENI
-    (0x1FA2, ([0x1FA2], [0x1FAA], [0x1F6A, 0x0399])), // GREEK SMALL LETTER OMEGA WITH PSILI AND VARIA AND YPOGEGRAMMENI
-    (0x1FA3, ([0x1FA3], [0x1FAB], [0x1F6B, 0x0399])), // GREEK SMALL LETTER OMEGA WITH DASIA AND VARIA AND YPOGEGRAMMENI
-    (0x1FA4, ([0x1FA4], [0x1FAC], [0x1F6C, 0x0399])), // GREEK SMALL LETTER OMEGA WITH PSILI AND OXIA AND YPOGEGRAMMENI
-    (0x1FA5, ([0x1FA5], [0x1FAD], [0x1F6D, 0x0399])), // GREEK SMALL LETTER OMEGA WITH DASIA AND OXIA AND YPOGEGRAMMENI
-    (0x1FA6, ([0x1FA6], [0x1FAE], [0x1F6E, 0x0399])), // GREEK SMALL LETTER OMEGA WITH PSILI AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1FA7, ([0x1FA7], [0x1FAF], [0x1F6F, 0x0399])), // GREEK SMALL LETTER OMEGA WITH DASIA AND PERISPOMENI AND YPOGEGRAMMENI
-    (0x1FA8, ([0x1FA0], [0x1FA8], [0x1F68, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH PSILI AND PROSGEGRAMMENI
-    (0x1FA9, ([0x1FA1], [0x1FA9], [0x1F69, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH DASIA AND PROSGEGRAMMENI
-    (0x1FAA, ([0x1FA2], [0x1FAA], [0x1F6A, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH PSILI AND VARIA AND PROSGEGRAMMENI
-    (0x1FAB, ([0x1FA3], [0x1FAB], [0x1F6B, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH DASIA AND VARIA AND PROSGEGRAMMENI
-    (0x1FAC, ([0x1FA4], [0x1FAC], [0x1F6C, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH PSILI AND OXIA AND PROSGEGRAMMENI
-    (0x1FAD, ([0x1FA5], [0x1FAD], [0x1F6D, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH DASIA AND OXIA AND PROSGEGRAMMENI
-    (0x1FAE, ([0x1FA6], [0x1FAE], [0x1F6E, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH PSILI AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1FAF, ([0x1FA7], [0x1FAF], [0x1F6F, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH DASIA AND PERISPOMENI AND PROSGEGRAMMENI
-    (0x1FB3, ([0x1FB3], [0x1FBC], [0x0391, 0x0399])), // GREEK SMALL LETTER ALPHA WITH YPOGEGRAMMENI
-    (0x1FBC, ([0x1FB3], [0x1FBC], [0x0391, 0x0399])), // GREEK CAPITAL LETTER ALPHA WITH PROSGEGRAMMENI
-    (0x1FC3, ([0x1FC3], [0x1FCC], [0x0397, 0x0399])), // GREEK SMALL LETTER ETA WITH YPOGEGRAMMENI
-    (0x1FCC, ([0x1FC3], [0x1FCC], [0x0397, 0x0399])), // GREEK CAPITAL LETTER ETA WITH PROSGEGRAMMENI
-    (0x1FF3, ([0x1FF3], [0x1FFC], [0x03A9, 0x0399])), // GREEK SMALL LETTER OMEGA WITH YPOGEGRAMMENI
-    (0x1FFC, ([0x1FF3], [0x1FFC], [0x03A9, 0x0399])), // GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI
-
-    // Some characters with YPOGEGRAMMENI also have no corresponding titlecases
-
-    (0x1FB2, ([0x1FB2], [0x1FBA, 0x0345], [0x1FBA, 0x0399])), // GREEK SMALL LETTER ALPHA WITH VARIA AND YPOGEGRAMMENI
-    (0x1FB4, ([0x1FB4], [0x0386, 0x0345], [0x0386, 0x0399])), // GREEK SMALL LETTER ALPHA WITH OXIA AND YPOGEGRAMMENI
-    (0x1FC2, ([0x1FC2], [0x1FCA, 0x0345], [0x1FCA, 0x0399])), // GREEK SMALL LETTER ETA WITH VARIA AND YPOGEGRAMMENI
-    (0x1FC4, ([0x1FC4], [0x0389, 0x0345], [0x0389, 0x0399])), // GREEK SMALL LETTER ETA WITH OXIA AND YPOGEGRAMMENI
-    (0x1FF2, ([0x1FF2], [0x1FFA, 0x0345], [0x1FFA, 0x0399])), // GREEK SMALL LETTER OMEGA WITH VARIA AND YPOGEGRAMMENI
-    (0x1FF4, ([0x1FF4], [0x038F, 0x0345], [0x038F, 0x0399])), // GREEK SMALL LETTER OMEGA WITH OXIA AND YPOGEGRAMMENI
-
-    (0x1FB7, ([0x1FB7], [0x0391, 0x0342, 0x0345], [0x0391, 0x0342, 0x0399])), // GREEK SMALL LETTER ALPHA WITH PERISPOMENI AND YPOGEGRAMMENI
-    (0x1FC7, ([0x1FC7], [0x0397, 0x0342, 0x0345], [0x0397, 0x0342, 0x0399])), // GREEK SMALL LETTER ETA WITH PERISPOMENI AND YPOGEGRAMMENI
-    (0x1FF7, ([0x1FF7], [0x03A9, 0x0342, 0x0345], [0x03A9, 0x0342, 0x0399])) // GREEK SMALL LETTER OMEGA WITH PERISPOMENI AND YPOGEGRAMMENI
-])
+let SPECIAL_CASE_RANGES: Array<SpecialCaseRange> = [
+    SpecialCaseRange(0x00DF, [0x00DF], [0x0053, 0x0073], [0x0053, 0x0053]),
+    SpecialCaseRange(0x0130, [0x0069, 0x0307], [0x0130], [0x0130]),
+    SpecialCaseRange(0x0149, [0x0149], [0x02BC, 0x004E], [0x02BC, 0x004E]),
+    SpecialCaseRange(0x01F0, [0x01F0], [0x004A, 0x030C], [0x004A, 0x030C]),
+    SpecialCaseRange(0x0390, [0x0390], [0x0399, 0x0308, 0x0301], [0x0399, 0x0308, 0x0301]),
+    SpecialCaseRange(0x03B0, [0x03B0], [0x03A5, 0x0308, 0x0301], [0x03A5, 0x0308, 0x0301]),
+    SpecialCaseRange(0x0587, [0x0587], [0x0535, 0x0582], [0x0535, 0x0552]),
+    SpecialCaseRange(0x1E96, [0x1E96], [0x0048, 0x0331], [0x0048, 0x0331]),
+    SpecialCaseRange(0x1E97, [0x1E97], [0x0054, 0x0308], [0x0054, 0x0308]),
+    SpecialCaseRange(0x1E98, [0x1E98], [0x0057, 0x030A], [0x0057, 0x030A]),
+    SpecialCaseRange(0x1E99, [0x1E99], [0x0059, 0x030A], [0x0059, 0x030A]),
+    SpecialCaseRange(0x1E9A, [0x1E9A], [0x0041, 0x02BE], [0x0041, 0x02BE]),
+    SpecialCaseRange(0x1F50, [0x1F50], [0x03A5, 0x0313], [0x03A5, 0x0313]),
+    SpecialCaseRange(0x1F52, [0x1F52], [0x03A5, 0x0313, 0x0300], [0x03A5, 0x0313, 0x0300]),
+    SpecialCaseRange(0x1F54, [0x1F54], [0x03A5, 0x0313, 0x0301], [0x03A5, 0x0313, 0x0301]),
+    SpecialCaseRange(0x1F56, [0x1F56], [0x03A5, 0x0313, 0x0342], [0x03A5, 0x0313, 0x0342]),
+    SpecialCaseRange(0x1F80, [0x1F80], [0x1F88], [0x1F08, 0x0399]),
+    SpecialCaseRange(0x1F81, [0x1F81], [0x1F89], [0x1F09, 0x0399]),
+    SpecialCaseRange(0x1F82, [0x1F82], [0x1F8A], [0x1F0A, 0x0399]),
+    SpecialCaseRange(0x1F83, [0x1F83], [0x1F8B], [0x1F0B, 0x0399]),
+    SpecialCaseRange(0x1F84, [0x1F84], [0x1F8C], [0x1F0C, 0x0399]),
+    SpecialCaseRange(0x1F85, [0x1F85], [0x1F8D], [0x1F0D, 0x0399]),
+    SpecialCaseRange(0x1F86, [0x1F86], [0x1F8E], [0x1F0E, 0x0399]),
+    SpecialCaseRange(0x1F87, [0x1F87], [0x1F8F], [0x1F0F, 0x0399]),
+    SpecialCaseRange(0x1F88, [0x1F80], [0x1F88], [0x1F08, 0x0399]),
+    SpecialCaseRange(0x1F89, [0x1F81], [0x1F89], [0x1F09, 0x0399]),
+    SpecialCaseRange(0x1F8A, [0x1F82], [0x1F8A], [0x1F0A, 0x0399]),
+    SpecialCaseRange(0x1F8B, [0x1F83], [0x1F8B], [0x1F0B, 0x0399]),
+    SpecialCaseRange(0x1F8C, [0x1F84], [0x1F8C], [0x1F0C, 0x0399]),
+    SpecialCaseRange(0x1F8D, [0x1F85], [0x1F8D], [0x1F0D, 0x0399]),
+    SpecialCaseRange(0x1F8E, [0x1F86], [0x1F8E], [0x1F0E, 0x0399]),
+    SpecialCaseRange(0x1F8F, [0x1F87], [0x1F8F], [0x1F0F, 0x0399]),
+    SpecialCaseRange(0x1F90, [0x1F90], [0x1F98], [0x1F28, 0x0399]),
+    SpecialCaseRange(0x1F91, [0x1F91], [0x1F99], [0x1F29, 0x0399]),
+    SpecialCaseRange(0x1F92, [0x1F92], [0x1F9A], [0x1F2A, 0x0399]),
+    SpecialCaseRange(0x1F93, [0x1F93], [0x1F9B], [0x1F2B, 0x0399]),
+    SpecialCaseRange(0x1F94, [0x1F94], [0x1F9C], [0x1F2C, 0x0399]),
+    SpecialCaseRange(0x1F95, [0x1F95], [0x1F9D], [0x1F2D, 0x0399]),
+    SpecialCaseRange(0x1F96, [0x1F96], [0x1F9E], [0x1F2E, 0x0399]),
+    SpecialCaseRange(0x1F97, [0x1F97], [0x1F9F], [0x1F2F, 0x0399]),
+    SpecialCaseRange(0x1F98, [0x1F90], [0x1F98], [0x1F28, 0x0399]),
+    SpecialCaseRange(0x1F99, [0x1F91], [0x1F99], [0x1F29, 0x0399]),
+    SpecialCaseRange(0x1F9A, [0x1F92], [0x1F9A], [0x1F2A, 0x0399]),
+    SpecialCaseRange(0x1F9B, [0x1F93], [0x1F9B], [0x1F2B, 0x0399]),
+    SpecialCaseRange(0x1F9C, [0x1F94], [0x1F9C], [0x1F2C, 0x0399]),
+    SpecialCaseRange(0x1F9D, [0x1F95], [0x1F9D], [0x1F2D, 0x0399]),
+    SpecialCaseRange(0x1F9E, [0x1F96], [0x1F9E], [0x1F2E, 0x0399]),
+    SpecialCaseRange(0x1F9F, [0x1F97], [0x1F9F], [0x1F2F, 0x0399]),
+    SpecialCaseRange(0x1FA0, [0x1FA0], [0x1FA8], [0x1F68, 0x0399]),
+    SpecialCaseRange(0x1FA1, [0x1FA1], [0x1FA9], [0x1F69, 0x0399]),
+    SpecialCaseRange(0x1FA2, [0x1FA2], [0x1FAA], [0x1F6A, 0x0399]),
+    SpecialCaseRange(0x1FA3, [0x1FA3], [0x1FAB], [0x1F6B, 0x0399]),
+    SpecialCaseRange(0x1FA4, [0x1FA4], [0x1FAC], [0x1F6C, 0x0399]),
+    SpecialCaseRange(0x1FA5, [0x1FA5], [0x1FAD], [0x1F6D, 0x0399]),
+    SpecialCaseRange(0x1FA6, [0x1FA6], [0x1FAE], [0x1F6E, 0x0399]),
+    SpecialCaseRange(0x1FA7, [0x1FA7], [0x1FAF], [0x1F6F, 0x0399]),
+    SpecialCaseRange(0x1FA8, [0x1FA0], [0x1FA8], [0x1F68, 0x0399]),
+    SpecialCaseRange(0x1FA9, [0x1FA1], [0x1FA9], [0x1F69, 0x0399]),
+    SpecialCaseRange(0x1FAA, [0x1FA2], [0x1FAA], [0x1F6A, 0x0399]),
+    SpecialCaseRange(0x1FAB, [0x1FA3], [0x1FAB], [0x1F6B, 0x0399]),
+    SpecialCaseRange(0x1FAC, [0x1FA4], [0x1FAC], [0x1F6C, 0x0399]),
+    SpecialCaseRange(0x1FAD, [0x1FA5], [0x1FAD], [0x1F6D, 0x0399]),
+    SpecialCaseRange(0x1FAE, [0x1FA6], [0x1FAE], [0x1F6E, 0x0399]),
+    SpecialCaseRange(0x1FAF, [0x1FA7], [0x1FAF], [0x1F6F, 0x0399]),
+    SpecialCaseRange(0x1FB2, [0x1FB2], [0x1FBA, 0x0345], [0x1FBA, 0x0399]),
+    SpecialCaseRange(0x1FB3, [0x1FB3], [0x1FBC], [0x0391, 0x0399]),
+    SpecialCaseRange(0x1FB4, [0x1FB4], [0x0386, 0x0345], [0x0386, 0x0399]),
+    SpecialCaseRange(0x1FB6, [0x1FB6], [0x0391, 0x0342], [0x0391, 0x0342]),
+    SpecialCaseRange(0x1FB7, [0x1FB7], [0x0391, 0x0342, 0x0345], [0x0391, 0x0342, 0x0399]),
+    SpecialCaseRange(0x1FBC, [0x1FB3], [0x1FBC], [0x0391, 0x0399]),
+    SpecialCaseRange(0x1FC2, [0x1FC2], [0x1FCA, 0x0345], [0x1FCA, 0x0399]),
+    SpecialCaseRange(0x1FC3, [0x1FC3], [0x1FCC], [0x0397, 0x0399]),
+    SpecialCaseRange(0x1FC4, [0x1FC4], [0x0389, 0x0345], [0x0389, 0x0399]),
+    SpecialCaseRange(0x1FC6, [0x1FC6], [0x0397, 0x0342], [0x0397, 0x0342]),
+    SpecialCaseRange(0x1FC7, [0x1FC7], [0x0397, 0x0342, 0x0345], [0x0397, 0x0342, 0x0399]),
+    SpecialCaseRange(0x1FCC, [0x1FC3], [0x1FCC], [0x0397, 0x0399]),
+    SpecialCaseRange(0x1FD2, [0x1FD2], [0x0399, 0x0308, 0x0300], [0x0399, 0x0308, 0x0300]),
+    SpecialCaseRange(0x1FD3, [0x1FD3], [0x0399, 0x0308, 0x0301], [0x0399, 0x0308, 0x0301]),
+    SpecialCaseRange(0x1FD6, [0x1FD6], [0x0399, 0x0342], [0x0399, 0x0342]),
+    SpecialCaseRange(0x1FD7, [0x1FD7], [0x0399, 0x0308, 0x0342], [0x0399, 0x0308, 0x0342]),
+    SpecialCaseRange(0x1FE2, [0x1FE2], [0x03A5, 0x0308, 0x0300], [0x03A5, 0x0308, 0x0300]),
+    SpecialCaseRange(0x1FE3, [0x1FE3], [0x03A5, 0x0308, 0x0301], [0x03A5, 0x0308, 0x0301]),
+    SpecialCaseRange(0x1FE4, [0x1FE4], [0x03A1, 0x0313], [0x03A1, 0x0313]),
+    SpecialCaseRange(0x1FE6, [0x1FE6], [0x03A5, 0x0342], [0x03A5, 0x0342]),
+    SpecialCaseRange(0x1FE7, [0x1FE7], [0x03A5, 0x0308, 0x0342], [0x03A5, 0x0308, 0x0342]),
+    SpecialCaseRange(0x1FF2, [0x1FF2], [0x1FFA, 0x0345], [0x1FFA, 0x0399]),
+    SpecialCaseRange(0x1FF3, [0x1FF3], [0x1FFC], [0x03A9, 0x0399]),
+    SpecialCaseRange(0x1FF4, [0x1FF4], [0x038F, 0x0345], [0x038F, 0x0399]),
+    SpecialCaseRange(0x1FF6, [0x1FF6], [0x03A9, 0x0342], [0x03A9, 0x0342]),
+    SpecialCaseRange(0x1FF7, [0x1FF7], [0x03A9, 0x0342, 0x0345], [0x03A9, 0x0342, 0x0399]),
+    SpecialCaseRange(0x1FFC, [0x1FF3], [0x1FFC], [0x03A9, 0x0399]),
+    SpecialCaseRange(0xFB00, [0xFB00], [0x0046, 0x0066], [0x0046, 0x0046]),
+    SpecialCaseRange(0xFB01, [0xFB01], [0x0046, 0x0069], [0x0046, 0x0049]),
+    SpecialCaseRange(0xFB02, [0xFB02], [0x0046, 0x006C], [0x0046, 0x004C]),
+    SpecialCaseRange(0xFB03, [0xFB03], [0x0046, 0x0066, 0x0069], [0x0046, 0x0046, 0x0049]),
+    SpecialCaseRange(0xFB04, [0xFB04], [0x0046, 0x0066, 0x006C], [0x0046, 0x0046, 0x004C]),
+    SpecialCaseRange(0xFB05, [0xFB05], [0x0053, 0x0074], [0x0053, 0x0054]),
+    SpecialCaseRange(0xFB06, [0xFB06], [0x0053, 0x0074], [0x0053, 0x0054]),
+    SpecialCaseRange(0xFB13, [0xFB13], [0x0544, 0x0576], [0x0544, 0x0546]),
+    SpecialCaseRange(0xFB14, [0xFB14], [0x0544, 0x0565], [0x0544, 0x0535]),
+    SpecialCaseRange(0xFB15, [0xFB15], [0x0544, 0x056B], [0x0544, 0x053B]),
+    SpecialCaseRange(0xFB16, [0xFB16], [0x054E, 0x0576], [0x054E, 0x0546]),
+    SpecialCaseRange(0xFB17, [0xFB17], [0x0544, 0x056D], [0x0544, 0x053D])
+]
 
 enum CaseType {
     Upper | Lower | Title
@@ -2620,6 +3061,34 @@ func findCaseRange(rune: Rune): ?CaseRange {
     return None
 }
 
+func findSpecialCaseRange(codePoint: UInt32): ?SpecialCaseRange {
+    var leftInterval: Int64 = 0
+    var rightInterval: Int64 = SPECIAL_CASE_RANGES.size
+    while ((rightInterval > leftInterval)) {
+        var intervalMid = (leftInterval + rightInterval) / 2
+        let caseRange = SPECIAL_CASE_RANGES[intervalMid]
+        if (codePoint == caseRange.codePoint) {
+            return caseRange
+        }
+        if (codePoint < caseRange.codePoint) {
+            rightInterval = intervalMid
+        } else {
+            leftInterval = intervalMid + 1
+        }
+    }
+    return None
+}
+
+const MAX_UNICODE_CODEPOINT: UInt32 = 0x10FFFF
+
+func safeAddCodepoint(codePosition: Int32, offset: Int32): UInt32 {
+    let result: Int64 = Int64(codePosition) + Int64(offset)
+    if (result < 0 || result > Int64(MAX_UNICODE_CODEPOINT)) {
+        return UInt32(codePosition)
+    }
+    return UInt32(result)
+}
+
 func findRune(rune: Rune, caseRange: CaseRange, caseType: CaseType): Rune {
     let start = caseRange.start
     let codePosition: Int32 = Int32(UInt32(rune))
@@ -2627,17 +3096,17 @@ func findRune(rune: Rune, caseRange: CaseRange, caseType: CaseType): Rune {
         case Upper => match {
             case caseRange.upper == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) & !1)))
             case caseRange.upper == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.upper))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.upper))
         }
         case Lower => match {
             case caseRange.lower == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) | 1)))
             case caseRange.lower == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.lower))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.lower))
         }
         case Title => match {
             case caseRange.title == UPPERLOWER => Rune(UInt32(start + ((codePosition - start) & !1)))
             case caseRange.title == SPECIAL_UNICODE => rune
-            case _ => Rune(UInt32(codePosition + caseRange.title))
+            case _ => Rune(safeAddCodepoint(codePosition, caseRange.title))
         }
     }
 }
@@ -2648,19 +3117,19 @@ func caseChangeForLetterI(codePosition: Int32, caseRange: CaseRange, caseType: C
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == SMALL_I) {
                 Rune(CAPITAL_I_WITH_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.upper))
+                Rune(safeAddCodepoint(codePosition, caseRange.upper))
             }
         case Lower =>
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == CAPITAL_I) {
                 Rune(SMALL_I_WITHOUT_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.lower))
+                Rune(safeAddCodepoint(codePosition, caseRange.lower))
             }
         case Title =>
             if ((opt == TR || opt == AZ) && UInt32(codePosition) == SMALL_I) {
                 Rune(CAPITAL_I_WITH_DOT_ABOVE)
             } else {
-                Rune(UInt32(codePosition + caseRange.title))
+                Rune(safeAddCodepoint(codePosition, caseRange.title))
             }
     }
 }
@@ -2693,18 +3162,27 @@ func findRuneArray(rune: Rune, caseRange: CaseRange, caseType: CaseType): Array<
     match (caseType) {
         case Upper => match {
             case caseRange.upper == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
-            case caseRange.upper == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[2]
-            case _ => [UInt32(codePosition + caseRange.upper)]
+            case caseRange.upper == SPECIAL_UNICODE => match (findSpecialCaseRange(UInt32(rune))) {
+                case Some(specialCase) => specialCase.upper
+                case None => [UInt32(rune)]
+            }
+            case _ => [safeAddCodepoint(codePosition, caseRange.upper)]
         }
         case Lower => match {
             case caseRange.lower == UPPERLOWER => [UInt32(start + ((codePosition - start) | 1))]
-            case caseRange.lower == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[0]
-            case _ => [UInt32(codePosition + caseRange.lower)]
+            case caseRange.lower == SPECIAL_UNICODE => match (findSpecialCaseRange(UInt32(rune))) {
+                case Some(specialCase) => specialCase.lower
+                case None => [UInt32(rune)]
+            }
+            case _ => [safeAddCodepoint(codePosition, caseRange.lower)]
         }
         case Title => match {
             case caseRange.title == UPPERLOWER => [UInt32(start + ((codePosition - start) & !1))]
-            case caseRange.title == SPECIAL_UNICODE => SPECIAL_UNICODE_MAP.get(UInt32(rune)).getOrThrow()[1]
-            case _ => [UInt32(codePosition + caseRange.title)]
+            case caseRange.title == SPECIAL_UNICODE => match (findSpecialCaseRange(UInt32(rune))) {
+                case Some(specialCase) => specialCase.title
+                case None => [UInt32(rune)]
+            }
+            case _ => [safeAddCodepoint(codePosition, caseRange.title)]
         }
     }
 }
@@ -2778,11 +3256,8 @@ extend Rune <: UnicodeRuneExtension {
      * In Unicode, Letter includes Uppercase_Letter, Lowercase_Letter, Titlecase_Letter, Modifier_Letter and Other_Letter.
      */
     public func isLetter(): Bool {
-        return isRuneInRange(LOWER_CASE_LETTER, this) ||
-               isRuneInRange(UPPER_CASE_LETTER, this) ||
-               isRuneInRange(TITLE_CASE_LETTER, this) ||
-               isRuneInRange(MODIFIER_LETTER, this) ||
-               isRuneInRange(OTHER_LETTER, this)
+        return isRuneInRange(LOWER_CASE_LETTER, this) || isRuneInRange(UPPER_CASE_LETTER, this) || isRuneInRange(
+            TITLE_CASE_LETTER, this) || isRuneInRange(MODIFIER_LETTER, this) || isRuneInRange(OTHER_LETTER, this)
     }
 
     /**
@@ -2790,9 +3265,8 @@ extend Rune <: UnicodeRuneExtension {
      * In Unicode, Number includes Decimal_Number, Letter_Number and Other_Number.
      */
     public func isNumber(): Bool {
-        return isRuneInRange(DECIMAL_NUMBER, this) ||
-               isRuneInRange(LETTER_NUMBER, this) ||
-               isRuneInRange(OTHER_NUMBER,this)
+        return isRuneInRange(DECIMAL_NUMBER, this) || isRuneInRange(LETTER_NUMBER, this) || isRuneInRange(OTHER_NUMBER,
+            this)
     }
 
     /** Returns true if this Unicode character is Lowercase. */
@@ -2957,29 +3431,81 @@ extend String <: UnicodeStringExtension {
     }
 
     private func isGreekChar(rune: Rune): Bool {
-        if ((UInt32(rune) < GREECE_RUNE_LEFT_INTERVAL) || (UInt32(rune) > GREECE_RUNE_RIGHT_INTERVAL)) {
-            return false
-        }
-        if (GREECE_PUNCTUATION.contains(UInt32(rune))) {
-            return false
-        }
-        return true
-    }
-
-    private func isNeedChange(srcData: Array<UInt8>, pos: Int64, num: Int64): Bool {
-        if (pos == 0) {
-            return false
-        }
-        if (pos + num >= srcData.size) {
-            return true
-        } else {
-            let (nextChar, _) = Rune.fromUtf8(srcData, pos + num)
-            if (isGreekChar(nextChar)) {
-                return false
-            } else {
+        let runeVal = UInt32(rune)
+        if ((runeVal >= GREECE_RUNE_LEFT_INTERVAL) && (runeVal <= GREECE_RUNE_RIGHT_INTERVAL)) {
+            if (!GREECE_PUNCTUATION.contains(runeVal)) {
                 return true
             }
         }
+        if ((runeVal >= 0x1F00) && (runeVal <= 0x1FFF)) {
+            return true
+        }
+        return false
+    }
+
+    private func isCombiningMark(rune: Rune): Bool {
+        return isRuneInRange(COMBINING_MARK_RANGES, rune)
+    }
+
+    private func isCaseIgnorable(rune: Rune): Bool {
+        return isRuneInRange(CASE_IGNORABLE_RANGES, rune)
+    }
+
+    private func isAboveCombiningMark(rune: Rune): Bool {
+        return isRuneInRange(ABOVE_COMBINING_MARK_RANGES, rune)
+    }
+
+    private func isCasedGreek(rune: Rune): Bool {
+        let runeVal = UInt32(rune)
+        if (runeVal >= 0x0370 && runeVal <= 0x03FF) {
+            if (GREECE_PUNCTUATION.contains(runeVal)) {
+                return false
+            }
+            return isRuneInRange(UPPER_CASE_LETTER, rune) || isRuneInRange(LOWER_CASE_LETTER, rune) || isRuneInRange(
+                TITLE_CASE_LETTER, rune)
+        }
+        if (runeVal >= 0x1F00 && runeVal <= 0x1FFF) {
+            return isRuneInRange(UPPER_CASE_LETTER, rune) || isRuneInRange(LOWER_CASE_LETTER, rune) || isRuneInRange(
+                TITLE_CASE_LETTER, rune)
+        }
+        return false
+    }
+
+    private func isCased(rune: Rune): Bool {
+        return isRuneInRange(UPPER_CASE_LETTER, rune) || isRuneInRange(LOWER_CASE_LETTER, rune) || isRuneInRange(
+            TITLE_CASE_LETTER, rune)
+    }
+
+    private func isNeedChange(srcData: Array<UInt8>, pos: Int64, num: Int64): Bool {
+        var hasCasedBefore = false
+        var i = pos - 1
+        while (i >= 0 && srcData[i] >= UInt8(0x80) && srcData[i] < UInt8(0xC0)) {
+            i -= 1
+        }
+        while (i >= 0) {
+            let (prevChar, prevNum) = Rune.fromUtf8(srcData, i)
+            if (!isCaseIgnorable(prevChar)) {
+                if (isCased(prevChar)) {
+                    hasCasedBefore = true
+                }
+                break
+            }
+            i -= prevNum
+        }
+
+        i = pos + num
+        while (i < srcData.size) {
+            let (nextChar, nextNum) = Rune.fromUtf8(srcData, i)
+            if (!isCaseIgnorable(nextChar)) {
+                if (isCased(nextChar)) {
+                    return false
+                } else {
+                    return hasCasedBefore
+                }
+            }
+            i += nextNum
+        }
+        return hasCasedBefore
     }
 
     private func getUInt32Arr(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>, param: (Int64, Int64)): Array<UInt32> {
@@ -3013,11 +3539,33 @@ extend String <: UnicodeStringExtension {
     }
 
     private func isDotFollow(data: Array<UInt8>, pos: Int64): Bool {
-        if (pos >= data.size) {
-            return false
+        var i = pos
+        while (i < data.size) {
+            let (rune, num) = Rune.fromUtf8(data, i)
+            if (rune == Rune(DOT_ABOVE)) {
+                return true
+            }
+            if (!isCombiningMark(rune) || isAboveCombiningMark(rune)) {
+                break
+            }
+            i += num
         }
-        let (rune, _) = Rune.fromUtf8(data, pos)
-        return rune == Rune(DOT_ABOVE)
+        return false
+    }
+
+    private func isMoreAbove(data: Array<UInt8>, pos: Int64): Bool {
+        var i = pos
+        while (i < data.size) {
+            let (rune, num) = Rune.fromUtf8(data, i)
+            if (isAboveCombiningMark(rune)) {
+                return true
+            }
+            if (!isCombiningMark(rune)) {
+                break
+            }
+            i += num
+        }
+        return false
     }
 
     private func dotFollowChangeI(data: Array<UInt8>, pos: Int64): (UInt32, Bool) {
@@ -3036,42 +3584,55 @@ extend String <: UnicodeStringExtension {
         }
     }
 
-    private func getUInt32ArrWithOption(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>,
-        param: (Int64, Int64), opt: CasingOption): (Array<UInt32>, Bool) {
-        var jumpNext = false
+    private func getUInt32ArrWithOption(ct: CaseType, rune: Rune, itemBytes: Array<UInt8>, param: (Int64, Int64),
+        opt: CasingOption): (Array<UInt32>, Bool) {
+        var skipNextDotAbove = false
         let uint32arr: Array<UInt32> = match (ct) {
             case Upper => toSpecialChange(rune, ct, opt)
             case Lower =>
                 if (rune == Rune(CAPITAL_SIGMA) && isNeedChange(itemBytes, param[0], param[1])) {
                     [SMALL_SIGMA_END]
+                } else if ((opt == TR || opt == AZ) && (rune == Rune(CAPITAL_I_WITH_DOT_ABOVE))) {
+                    [SMALL_I]
                 } else if (opt == LT && LITHUANIA_SPECIAL_RUNE.contains(UInt32(rune))) {
-                    LITHUANIA_SPECIAL_RUNE.get(UInt32(rune)).getOrThrow()
+                    match (LITHUANIA_SPECIAL_RUNE.get(UInt32(rune))) {
+                        case Some(arr) => arr
+                        case None => [UInt32(rune)]
+                    }
+                } else if (opt == LT && rune == Rune(CAPITAL_I) && isMoreAbove(itemBytes, param[0] + param[1])) {
+                    [SMALL_I, DOT_ABOVE]
+                } else if (opt == LT && rune == Rune(CAPITAL_J) && isMoreAbove(itemBytes, param[0] + param[1])) {
+                    [SMALL_J, DOT_ABOVE]
+                } else if (opt == LT && rune == Rune(CAPITAL_I_OGONEK) && isMoreAbove(itemBytes, param[0] + param[1])) {
+                    [SMALL_I_OGONEK, DOT_ABOVE]
                 } else if ((opt == TR || opt == AZ) && (rune == Rune(CAPITAL_I))) {
                     let (arr, needJump) = dotFollowChangeI(itemBytes, param[0] + param[1])
-                    jumpNext = needJump
+                    skipNextDotAbove = needJump
                     [arr]
                 } else {
                     toCaseSpecialArray(rune, Lower)
                 }
             case Title => toSpecialChange(rune, ct, opt)
         }
-        return (uint32arr, jumpNext)
+        return (uint32arr, skipNextDotAbove)
     }
 
     private func toCaseInternalWithOption(ct: CaseType, opt: CasingOption): String {
         let itemBytes = this.toArray()
         let result = ArrayList<UInt8>()
         var i = 0
-        var jumpNext = false
+        var skipNextDotAbove = false
         while (i < itemBytes.size) {
             let (rune, num) = Rune.fromUtf8(itemBytes, i)
-            if (jumpNext) {
+            if (skipNextDotAbove && rune == Rune(DOT_ABOVE)) {
                 i += num
-                jumpNext = false
+                skipNextDotAbove = false
                 continue
             }
-            let (uint32arr, needJumpNext) = getUInt32ArrWithOption(ct, rune, itemBytes, (i, num), opt)
-            jumpNext = needJumpNext
+            let (uint32arr, needSkipNextDotAbove) = getUInt32ArrWithOption(ct, rune, itemBytes, (i, num), opt)
+            if (needSkipNextDotAbove) {
+                skipNextDotAbove = true
+            }
             for (uint32 in uint32arr) {
                 for (code in Rune(uint32).toString().toArray()) {
                     result.add(code)
