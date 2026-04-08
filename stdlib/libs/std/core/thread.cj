@@ -318,11 +318,11 @@ public class Thread {
         set(newName) {
             _name.store(newName)
             // Assign the name to the underlying CJ thread if possible.
-            let handle = unsafe { acquireArrayRawData(name.rawData()) }
+            let handle = unsafe { acquireArrayRawData(newName.rawData()) }
             let rtCJThreadHandle = acquireCJThreadHandle()
             if (!rtCJThreadHandle.isNull()) {
                 unsafe {
-                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, UIntNative(name.size))
+                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, UIntNative(newName.size))
                 }
                 releaseCJThreadHandle()
             }
@@ -362,11 +362,12 @@ public class Thread {
      */
     public prop state: ThreadState {
         get() {
-            let handle = _rtCJThreadHandle
+            let handle = acquireCJThreadHandle()
             if (handle.isNull()) {
                 return ThreadState.Terminated
             }
             let state = unsafe { CJ_MRT_GetCJThreadState(handle) }
+            releaseCJThreadHandle()
 
             return ThreadState.parse(state)
         }
