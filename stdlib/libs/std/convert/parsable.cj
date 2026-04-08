@@ -61,12 +61,19 @@ func parseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt64, 
     if (isMark && formatBaseNum != 10) {
         rawDataSlice = rawData[2..]
     }
+    var digitCount: Int64 = 0
+    var lastWasUnderscore: Bool = false
     for (i in 0..rawDataSlice.size) {
         var digit: UInt64 = 0
         if (rawDataSlice[i] == b'_') {
+            if (digitCount == 0 || lastWasUnderscore) {
+                throw IllegalArgumentException("The part of value convert failed.")
+            }
+            lastWasUnderscore = true
             lineLength++
             continue
         }
+        lastWasUnderscore = false
         digit = DIGITS_UI64[Int64(rawDataSlice[i])]
         if (digit >= formatBaseNum || lineLength >= rawDataSlice.size) {
             throw IllegalArgumentException("The part of value convert failed.")
@@ -79,6 +86,10 @@ func parseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt64, 
             throw IllegalArgumentException("The part of value convert failed.")
         }
         num += digit
+        digitCount++
+    }
+    if (digitCount == 0 || lastWasUnderscore) {
+        throw IllegalArgumentException("The part of value convert failed.")
     }
     return num
 }
@@ -91,12 +102,19 @@ func tryParseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt6
     if (isMark && formatBaseNum != 10) {
         rawDatas = rawData[2..]
     }
+    var digitCount: Int64 = 0
+    var lastWasUnderscore: Bool = false
     for (i in 0..rawDatas.size) {
         var digit: UInt64 = 0
         if (rawDatas[i] == b'_') {
+            if (digitCount == 0 || lastWasUnderscore) {
+                return Failure("The part of value convert failed.")
+            }
+            lastWasUnderscore = true
             lineLength++
             continue
         }
+        lastWasUnderscore = false
         digit = DIGITS_UI64[Int64(rawDatas[i])]
         if (digit >= formatBaseNum || lineLength >= rawDatas.size) {
             return Failure("The part of value convert failed.")
@@ -109,6 +127,10 @@ func tryParseCompInt(rawData: Array<Byte>, formatBaseNum: UInt64, multmin: UInt6
             return Failure("The part of value convert failed.")
         }
         num += digit
+        digitCount++
+    }
+    if (digitCount == 0 || lastWasUnderscore) {
+        return Failure("The part of value convert failed.")
     }
     return Success(num)
 }
@@ -167,7 +189,10 @@ extend Int8 <: Parsable<Int8> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt8[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I8, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I8, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -265,7 +290,10 @@ extend UInt8 <: Parsable<UInt8> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt8[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI8, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI8, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt8(n)
@@ -356,7 +384,10 @@ extend Int16 <: Parsable<Int16> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt16[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I16, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I16, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -454,7 +485,10 @@ extend UInt16 <: Parsable<UInt16> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt16[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI16, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI16, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt16(n)
@@ -544,7 +578,10 @@ extend Int32 <: Parsable<Int32> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt32[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I32, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I32, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -642,7 +679,10 @@ extend UInt32 <: Parsable<UInt32> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt32[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI32, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI32, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt32(n)
@@ -733,7 +773,10 @@ extend Int64 <: Parsable<Int64> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosInt64[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.I64, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.I64, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) =>
@@ -854,7 +897,10 @@ extend UInt64 <: Parsable<UInt64> {
         }
         var (formatBaseNum, multmin, maxAbsVal): (UInt64, UInt64, UInt64) = baseInfosUInt64[isNegative][10]
         if (rawData.size > 1 && rawData[0] == b'0') {
-            (formatBaseNum, multmin, maxAbsVal) = getBaseInfos(TypeBase.UI64, isNegative, rawData)
+            match (tryGetBaseInfos(TypeBase.UI64, isNegative, rawData)) {
+                case Some(info) => (formatBaseNum, multmin, maxAbsVal) = info
+                case None => return None
+            }
         }
         match (tryParseCompInt(rawData, formatBaseNum, multmin, maxAbsVal)) {
             case Success(n) => UInt64(n)
@@ -1047,14 +1093,15 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
     }
     var inputStr = data.trimAscii()
     if (inputStr.isEmpty()) {
-        return Success(T.fromFloat64(0.0))
+        return Failure("The string does not comply with the floating point number syntax.")
     }
+    let trimmedStr = inputStr
 
     var result: Float64 = 0.0
     var pointNum = 0
-    var pointIndex = inputStr.size - 1
     var isNative = false
     var formatBaseNum: Float64 = 10.0
+    var digitCount = 0
     match (inputStr[0]) {
         case '-' =>
             isNative = true
@@ -1062,6 +1109,10 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         case '+' => inputStr = inputStr[1..]
         case _ => ()
     }
+    if (inputStr.isEmpty()) {
+        return Failure("The string does not comply with the floating point number syntax.")
+    }
+    var pointIndex = inputStr.size - 1
 
     for (index in 0..inputStr.size) {
         if (pointNum > 1) {
@@ -1069,6 +1120,7 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
         }
         if (inputStr[index] >= b'0' && inputStr[index] <= b'9') {
             result = result * formatBaseNum + Float64(inputStr[index] - b'0')
+            digitCount++
         } else if (inputStr[index] == b' ') {
             return Failure("The string does not comply with the floating point number syntax.")
         } else if (inputStr[index] == b'.') {
@@ -1076,9 +1128,19 @@ func doParseFloat<T>(data: String): ConvertResult<T> where T <: FloatParsable<T>
             pointIndex = index
             continue
         } else {
-            return doParseFloatFromCffi<T>(data)
+            return doParseFloatFromCffi<T>(trimmedStr)
         }
     }
+    if (pointNum > 1) {
+        return Failure("The string does not comply with the floating point number syntax.")
+    }
+    if (digitCount == 0) {
+        return Failure("The string does not comply with the floating point number syntax.")
+    }
+    if (digitCount > FLOAT64_MAX_DECIMAL_DIGITS) {
+        return doParseFloatFromCffi<T>(trimmedStr)
+    }
+    
     var df = inputStr.size - pointIndex - 1
     var leftMove: Float64 = 1.0
     for (_ in 0..df) {
