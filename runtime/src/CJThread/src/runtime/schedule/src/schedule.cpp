@@ -630,7 +630,7 @@ void CJRegisterStackInfoCallbacks(UpdateStackInfoFunc uFunc)
     }
     g_scheduleManager.updateStackInfoFunc = uFunc;
 }
- 
+
 void CJRegisterArkVMInRuntime(unsigned long long vm)
 {
     if (!g_scheduleManager.initFlag) {
@@ -670,25 +670,6 @@ void ScheduleNetpollDestroy(void)
 void StoreNativeSPForUIThread(void* sp)
 {
     g_scheduleManager.nativeSPForUIThread = sp;
-}
-
-void UpdateArkVMStackInfo(unsigned long long arkvm)
-{
-    // update stack info for arkts, thus use __OHOS__ macro.
-    UpdateStackInfoFunc UpdateStackInfo = g_scheduleManager.updateStackInfoFunc;
-    if (UpdateStackInfo == nullptr) {
-        LOG(RTLOG_ERROR, "UpdateStackInfoFunc is not registered");
-        return;
-    }
-    CJThread* cjthread = CJThreadGet();
-    if (cjthread == nullptr) {
-        LOG(RTLOG_ERROR, "cjthread is nullptr when UpdateArkVMStackInfo");
-        return;
-    }
-    if (g_scheduleManager.arkVM == 0) {
-        g_scheduleManager.arkVM = arkvm;
-    }
-    UpdateStackInfo(g_scheduleManager.arkVM, &(cjthread->stackInfo), SWITCH_TO_SUB_STACKINFO);
 }
 
 void* GetNativeSPForUIThread()
@@ -1509,44 +1490,6 @@ int AddToCJSingleModeThreadList(struct CJThread *cjthread)
     return 0;
 }
 
-void RunCJSingleModeThread()
-{
-    pthread_mutex_lock(&g_scheduleManager.cjSingleModeThreadListLock);
-    struct Dulink* scheduleCJUIThreadNode = (&(g_scheduleManager.cjSingleModeThreadList))->prev;
-    struct CJThread* cjthread = DULINK_ENTRY(scheduleCJUIThreadNode, struct CJThread, cjSingleModeThreadDulink);
-    if (cjthread == nullptr) {
-        pthread_mutex_unlock(&g_scheduleManager.cjSingleModeThreadListLock);
-        LOG(RTLOG_ERROR, "cj single mode thread is nullptr.");
-        return;
-    }
-    DulinkRemove(&(cjthread->cjSingleModeThreadDulink));
-    pthread_mutex_unlock(&g_scheduleManager.cjSingleModeThreadListLock);
-
-    Schedule* schedule = cjthread->schedule;
-    CJThreadSet(reinterpret_cast<CJThread*>(schedule->thread0->cjthread0));
-    ScheduleSet(schedule);
-    ScheduleGlobalWrite(&cjthread, 1);
-
-#ifdef __OHOS__
-    // update stack info for arkts, thus use __OHOS__ macro.
-    UpdateStackInfoFunc UpdateStackInfo = g_scheduleManager.updateStackInfoFunc;
-    if (UpdateStackInfo != nullptr) {
-        UpdateStackInfo(g_scheduleManager.arkVM, &(cjthread->stackInfo), SWITCH_TO_SUB_STACKINFO);
-    }
-#endif
-
-    ProcessorWake(schedule, nullptr);
-    ScheduleStartNoWait(0);
-
-#ifdef __OHOS__
-    // update stack info for arkts, thus use __OHOS__ macro.
-    if (UpdateStackInfo != nullptr) {
-        UpdateStackInfo(g_scheduleManager.arkVM, &(cjthread->stackInfo), SWITCH_TO_MAIN_STACKINFO);
-    }
-#endif
-    return;
-}
-
 extern "C" void CJ_MRT_RolveCycleRef();
 
 void RunResolveCycle(void* funcPtr)
@@ -1576,7 +1519,6 @@ void TryRunCJSingleModeThread()
     }
     pthread_mutex_unlock(&g_scheduleManager.cjSingleModeThreadListLock);
     while (true) {
-        // if have reruned 3 times, just run it directly.
         // if TryRunCJSingleModeThread run for 10ms or 5 times or there are more higher priority tasks,
         // then stop it and trigger event handler func.
         if (g_scheduleManager.cjSingleModeThreadRetryTime.load() < MAX_RETRY_CJSINGLETHREAD_COUNT &&
@@ -1589,7 +1531,18 @@ void TryRunCJSingleModeThread()
         }
         
         g_scheduleManager.cjSingleModeThreadRetryTime.store(0);
-        RunCJSingleModeThread();
+        pthread_mutex_lock(&g_scheduleManager.cjSingleModeThreadListLock);
+        struct Dulink* scheduleCJUIThreadNode = (&(g_scheduleManager.cjSingleModeThreadList))->prev;
+        struct CJThread* cjthread = DULINK_ENTRY(scheduleCJUIThreadNode, struct CJThread, cjSingleModeThreadDulink);
+        DulinkRemove(&(cjthread->cjSingleModeThreadDulink));
+        pthread_mutex_unlock(&g_scheduleManager.cjSingleModeThreadListLock);
+
+        Schedule* schedule = cjthread->schedule;
+        CJThreadSet(reinterpret_cast<CJThread*>(schedule->thread0->cjthread0));
+        ScheduleSet(schedule);
+        ScheduleGlobalWrite(&cjthread, 1);
+        ProcessorWake(schedule, nullptr);
+        ScheduleStartNoWait(0);
         runCount++;
         pthread_mutex_lock(&g_scheduleManager.cjSingleModeThreadListLock);
         if (DulinkIsEmpty(&(g_scheduleManager.cjSingleModeThreadList))) {

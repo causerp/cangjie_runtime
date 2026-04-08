@@ -1461,9 +1461,7 @@ extern "C" void* CJ_MRT_ARKTS_CreateEngine()
     }
     RegisterArkVMInRuntime(arkVm);
     RegisterStackInfoCallbacks(((UpdateStackInfoFunc)ARKTS_UpdateStackInfo));
-    if (!IsForeignThread()) {
-        UpdateArkVMStackInfo(arkVm);
-    }
+
     return res;
 }
 #endif
