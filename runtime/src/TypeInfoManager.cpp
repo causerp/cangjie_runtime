@@ -381,12 +381,7 @@ void TypeInfoManager::CreatedTypeInfoImpl(GenericTiDesc* &tiDesc, TypeTemplate* 
     CString typeInfoName = tt->GetTypeInfoName(argSize, args);
     TypeInfo* newTypeInfo = reinterpret_cast<TypeInfo*>(Allocate(sizeof(TypeInfo)));
     size_t nameSize = typeInfoName.Length() + 1;
-#ifdef __arm__
-    // nameAddr need four-byte aligned to prevent the fields from being overwritten incorrectly.
-    uintptr_t nameAddr = Allocate(MRT_ALIGN(nameSize, sizeof(uint32_t)));
-#else
     uintptr_t nameAddr = Allocate(nameSize);
-#endif
     MapleRuntime::MemoryCopy(nameAddr, nameSize, reinterpret_cast<uintptr_t>(typeInfoName.Str()), nameSize);
     newTypeInfo->SetName(reinterpret_cast<const char*>(nameAddr));
 
@@ -702,7 +697,7 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
     GCTib gcTib;
     constexpr uint8_t alignSize = sizeof(uint64_t);
     // create StdGCTib
-    U16 num = gcTibStr.Length() / alignSize;
+    U16 num = MRT_ALIGN(gcTibStr.Length(), alignSize) / alignSize;
     U16 needSpace = sizeof(U32) + sizeof(U8) * num;
     StdGCTib* stdGCTib = reinterpret_cast<StdGCTib*>(Allocate(needSpace));
     stdGCTib->nBitmapWords = num;
@@ -716,6 +711,9 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
             stdGCTib->bitmapWords[curIdx++] = value;
             value = 0;
         }
+    }
+    if (len % alignSize != 0) {
+        stdGCTib->bitmapWords[curIdx] = value;
     }
     gcTib.gctib = stdGCTib;
     typeInfo->SetGCTib(gcTib);
@@ -740,6 +738,8 @@ void TypeInfoManager::CalculateGCTib(TypeInfo* typeInfo)
         typeInfo->SetGCTib(gcTib);
     } else {
         // create StdGCTib
+        // NOTE: If length is not divided by alignSize, special processing
+        // is required for the assignment of num and bitmapWords.
         U16 num = gcTibStr.Length() / alignSize;
         U16 needSpace = sizeof(U32) + sizeof(U8) * num;
         StdGCTib* stdGCTib = reinterpret_cast<StdGCTib*>(Allocate(needSpace));
@@ -911,6 +911,10 @@ U32 TypeInfoManager::GetTypeSize(TypeInfo* ti)
 
 uintptr_t TypeInfoManager::Allocate(size_t size)
 {
+// TypeInfo related content needs four-byte aligned to prevent fields from being overwritten incorrectly.
+#ifdef __arm__
+    size = MRT_ALIGN(size, sizeof(uint32_t))
+#endif
     uintptr_t addr = position.fetch_add(size);
     if (addr + size > endAddress) {
         NewMMap(mapMemory);
