@@ -51,6 +51,7 @@ TARGET_DICTIONARY = {
     "android-aarch64": "aarch64-linux-android",
     "android31-aarch64": "aarch64-linux-android31",
     "android26-aarch64": "aarch64-linux-android26",
+    "android23-arm": "arm-linux-android23",
     "android-x86_64": "x86_64-linux-android",
     "android31-x86_64": "x86_64-linux-android31",
     "android26-x86_64": "x86_64-linux-android26"
@@ -102,6 +103,8 @@ def generate_cmake_defs(args):
             toolchain_file = "android_aarch64_toolchain.cmake"
         elif "x86_64-linux-android" in args.target:
             toolchain_file = "android_x86_64_toolchain.cmake"
+        elif "arm-linux-android" in args.target:
+            toolchain_file = "android_arm_toolchain.cmake"
     else:
         args.target = None
         if IS_WINDOWS:
@@ -136,6 +139,11 @@ def generate_cmake_defs(args):
         result.append("-DCMAKE_ANDROID_NDK=" + os.path.join(args.target_toolchain, "../../../../.."))
         result.append("-DCMAKE_ANDROID_API=" + (android_api_level if android_api_level else ""))
 
+    if args.target and "arm-linux-android" in args.target:
+        android_api_level = "23"
+        result.append("-DCMAKE_ANDROID_NDK=" + os.path.join(args.target_toolchain, "../../../../.."))
+        result.append("-DCMAKE_ANDROID_API=" + (android_api_level if android_api_level else ""))
+
     if args.sanitizer_support:
         result.append("-DCANGJIE_SANITIZER_SUPPORT=" + args.sanitizer_support)
     return result
@@ -158,7 +166,7 @@ def build(args):
         # ${OHOS_ROOT}/prebuilts/clang/ohos/linux-x86_64/llvm/bin/. Six /.. can bring us to the root.
         os.environ["OHOS_ROOT"] = os.path.join(args.target_toolchain, "../../../../../..")
 
-    if args.target and "aarch64-linux-android" in args.target:
+    if args.target and "linux-android" in args.target:
         os.environ["ANDROID_NDK_ROOT"] = os.path.join(args.target_toolchain, "../../../../..")
 
     if IS_MACOS:
