@@ -78,6 +78,8 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos" AND
         endif()
         if(IOS AND IOS_PLATFORM MATCHES "SIMULATOR")
             string(TOLOWER "ios_simulator_${CMAKE_SYSTEM_PROCESSOR}_${CJNATIVE_BACKEND}" tmpdir)
+        elseif(ANDROID AND "${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "armv7-a")
+            string(TOLOWER "linux_android23_arm_${CJNATIVE_BACKEND}" tmpdir)    
         else()
             string(TOLOWER "${target_folder_name}_${CMAKE_SYSTEM_PROCESSOR}_${CJNATIVE_BACKEND}" tmpdir)
         endif()
