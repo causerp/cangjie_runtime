@@ -568,7 +568,7 @@ public class Random {
                 nextGaussian = Option<Float64>.None
                 return v
             case None =>
-                let v1: Float64 = nextFloat64()
+                let v1: Float64 = 1.0 - nextFloat64()
                 let v2: Float64 = nextFloat64()
                 let r = sqrt(-2.0 * log(v1))
                 let st = 2.0 * Float64.getPI() * v2
