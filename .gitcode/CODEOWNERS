@@ -45,6 +45,6 @@ OAT.xml @xuanjz
 /stdlib/libs/std/ast/ @mini-tang
 
 #stdlib docs
-/stdlib/doc @luojianing @renyi43
+/stdlib/doc/ @luojianing @renyi43
 
 /stdlib/doc/libs/std/ast/ @mini-tang @luojianing
