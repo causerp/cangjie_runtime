@@ -511,7 +511,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
      * @throws ArithmeticException if the result of year in Local is outside the range [-999,999,999, 999,999,999]
      */
     public func inTimeZone(timeZone: TimeZone): DateTime {
-        let offset = timeZone.lookup(d.sec + SECS_OF_UNIX_TO_AD1)[1]
+        let offset = timeZone.lookup(d.sec - SECS_OF_UNIX_TO_AD1)[1]
         checkResultYear(d.sec + offset)
         DateTime(d.sec, d.ns, timeZone)
     }
@@ -773,7 +773,7 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
             throw ArithmeticException(YEAR_OUT_OF_RANGE)
         }
         let seconds = d.sec + n
-        let offset = this.tz.lookup(second)[1]
+        let offset = this.tz.lookup(seconds - SECS_OF_UNIX_TO_AD1)[1]
         checkResultYear(seconds + offset)
         return DateTime(seconds, d.ns, this.tz)
     }
