@@ -525,6 +525,8 @@ public func removeVariable(key: String): Unit
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 包含空字符时，抛出异常。
 
+- [EnvException](./env_package_exceptions.md#class-envexception) - 当移除环境变量失败时，抛出异常。
+
 示例：
 
 <!-- verify -->
@@ -581,6 +583,8 @@ public func setVariable(key: String, value: String): Unit
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当函数参数 key 或 value 中包含空字符时，抛出异常。
+
+- [EnvException](./env_package_exceptions.md#class-envexception) - 当设置环境变量失败时，抛出异常。
 
 示例：
 

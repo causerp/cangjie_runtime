@@ -149,6 +149,9 @@ Parameters:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameter `k` contains a null character.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the environment variable cannot be removed.
+
+
 
 ### func setEnv(String, String)
 
@@ -170,6 +173,7 @@ Parameters:
 Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if parameters `k` or `v` contain null characters.
+- [ProcessException](process_package_exceptions.md#class-processexception) - Thrown if the environment variable cannot be set.
 
 ## class Process
 
