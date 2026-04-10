@@ -37,6 +37,9 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
         let lastIdx = findLastNoneZeroIdx(path)
         _len = lastIdx
         _isAbstract = lastIdx > 0 && path[0] == 0
+        if (_len > MAX_UDS_PATH_LENGTH) {
+            throw IllegalArgumentException("Path size(${_len}) is too long, expect <= ${MAX_UDS_PATH_LENGTH}.")
+        }
 
         if (!_isAbstract && lastIdx > 0) {
             for (i in 0..lastIdx) {
