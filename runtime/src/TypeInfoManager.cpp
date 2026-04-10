@@ -913,7 +913,7 @@ uintptr_t TypeInfoManager::Allocate(size_t size)
 {
 // TypeInfo related content needs four-byte aligned to prevent fields from being overwritten incorrectly.
 #ifdef __arm__
-    size = MRT_ALIGN(size, sizeof(uint32_t))
+    size = MRT_ALIGN(size, sizeof(uint32_t));
 #endif
     uintptr_t addr = position.fetch_add(size);
     if (addr + size > endAddress) {
