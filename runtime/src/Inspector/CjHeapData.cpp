@@ -74,11 +74,13 @@ void CjHeapData::DumpHeap(bool needStopTheWorld)
             // dump to current path
             fp = fopen(dumpFile.Str(), "wb");
             LOG(RTLOG_INFO, "Heap dump log is writing into .%s%s ...\n", separator, dumpFile.Str());
+            PRINT_INFO("Heap dump log is writing into .%s%s ...\n", separator, dumpFile.Str());
         } else {
             // dump to specified path
             dumpFile = specifiedPath + separator + dumpFile;
             fp = fopen(dumpFile.Str(), "wb");
             LOG(RTLOG_INFO, "Heap dump log is writing into %s ...\n", dumpFile.Str());
+            PRINT_INFO("Heap dump log is writing into %s ...\n", dumpFile.Str());
         }
     } else {
         // dump for cjprof
