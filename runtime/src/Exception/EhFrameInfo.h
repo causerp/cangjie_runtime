@@ -182,7 +182,7 @@ public:
             bitsLen = VarInt::BitsLen::FORTH_STEP_VAR_BITS;
         }
         bitsMask = static_cast<uint32_t>((1UL << bitsLen) - 1);
-        res = *reinterpret_cast<ArchUInt*>(*point) >> (tagLen * validPos) & bitsMask;
+        res = (*reinterpret_cast<ArchUInt*>(*point) >> (tagLen * validPos)) & bitsMask;
         uint32_t byteLen = bitsLen >> 3; // 8 bits per byte
         *point = reinterpret_cast<Uptr*>(reinterpret_cast<uint8_t*>(*point) + byteLen);
         return res;
