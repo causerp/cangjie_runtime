@@ -130,6 +130,8 @@ func writeBufferAppendInt(buffer: Array<Byte>, int: UInt64) {
     return digits
 }
 
+const MAX_JSON_PARSE_DEPTH = 100
+
 /**
  * @brief Get rows and columns of the error position
  *
@@ -189,17 +191,18 @@ func handleErrChr(errChr: Rune): String {
 }
 
 enum NumberSystem {
-    Binary
-    | Octal
-    | Decimal
-    | Hex
+    Binary |
+    Octal |
+    Decimal |
+    Hex
 }
 
 class JsonParser {
     let data: Array<Byte>
     let size: Int64
     var offset: Int64
-    let cache: Array<JsonValue>
+    var depth: Int64
+    var cache: Array<JsonValue>
     var cacheSize: Int64
     let strCache: ArrayList<Byte>
 
@@ -207,6 +210,7 @@ class JsonParser {
         this.data = unsafe { str.rawData() }
         this.size = data.size
         this.offset = 0
+        this.depth = 0
         if ((size >> 1) > 16) {
             this.cache = Array<JsonValue>(size >> 1, repeat: JsonNull())
         } else {
@@ -217,7 +221,46 @@ class JsonParser {
     }
 }
 
+func requireCurrentByte(parser: JsonParser): Byte {
+    if (parser.offset >= parser.size) {
+        throw JsonException()
+    }
+    return parser.data[parser.offset]
+}
+
+func ensureCacheCapacity(parser: JsonParser, addition: Int64): Unit {
+    let minCapacity = parser.cacheSize + addition
+    if (minCapacity <= parser.cache.size) {
+        return
+    }
+    var newCapacity = parser.cache.size
+    while (newCapacity < minCapacity) {
+        newCapacity = newCapacity << 1
+    }
+    let newCache = Array<JsonValue>(newCapacity, repeat: JsonNull())
+    parser.cache.copyTo(newCache, 0, 0, parser.cacheSize)
+    parser.cache = newCache
+}
+
+func isHighSurrogate(num: UInt32): Bool {
+    return num >= 0xD800u32 && num <= 0xDBFFu32
+}
+
+func isLowSurrogate(num: UInt32): Bool {
+    return num >= 0xDC00u32 && num <= 0xDFFFu32
+}
+
+func ensureFiniteJsonFloat(value: Float64): Float64 {
+    if (value.isNaN() || value.isInf()) {
+        throw JsonException("Invalid float dectected.")
+    }
+    return value
+}
+
 func skipWhiteSpace(parser: JsonParser): Unit {
+    if (parser.offset >= parser.size) {
+        return
+    }
     var tmp = parser.data[parser.offset]
     while (tmp == b' ' || tmp == b'\t' || tmp == b'\n' || tmp == b'\r') {
         parser.offset++
@@ -242,7 +285,7 @@ func parseString(str: String): JsonValue {
         let (errChr, _) = Rune.fromUtf8(parser.data, parser.offset)
         let errStr = handleErrChr(errChr)
         let errMsg: String = "Parse Error: [Line]: ${errRowAndCol[0]}, [Pos]: ${errRowAndCol[1]}, [Error]: Unexpected character: \'${errStr}\'."
-        throw JsonException("the json data is Non-standard, please check:\n${errMsg}")
+        throw JsonException("The json data is Non-standard, please check:\n${errMsg}")
     }
     return res
 }
@@ -250,10 +293,10 @@ func parseString(str: String): JsonValue {
 func parseJson(parser: JsonParser): JsonValue {
     try {
         skipWhiteSpace(parser)
-        let start = parser.data[parser.offset]
+        let start = requireCurrentByte(parser)
         match {
-            case start == b'{' => return parseJsonObject(parser)
-            case start == b'[' => return parseJsonArray(parser)
+            case start == b'{' => return parseNestedJson(parser, {=> parseJsonObject(parser)})
+            case start == b'[' => return parseNestedJson(parser, {=> parseJsonArray(parser)})
             case start == b'n' => return parseJsonNull(parser)
             case start == b't' => return parseJsonTrue(parser)
             case start == b'f' => return parseJsonFalse(parser)
@@ -272,8 +315,20 @@ func parseJson(parser: JsonParser): JsonValue {
             let (errChr, _) = Rune.fromUtf8(strArr, errPos)
             let errStr = handleErrChr(errChr)
             let errMsg: String = "Parse Error: [Line]: ${errRowAndCol[0]}, [Pos]: ${errRowAndCol[1]}, [Error]: Unexpected character: \'${errStr}\'."
-            throw JsonException("the json data is Non-standard, please check:\n${errMsg}")
+            throw JsonException("The json data is Non-standard, please check:\n${errMsg}")
         }
+    }
+}
+
+func parseNestedJson(parser: JsonParser, block: () -> JsonValue): JsonValue {
+    parser.depth++
+    if (parser.depth > MAX_JSON_PARSE_DEPTH) {
+        throw JsonException("Json nested depth exceeds ${MAX_JSON_PARSE_DEPTH}.")
+    }
+    try {
+        return block()
+    } finally {
+        parser.depth--
     }
 }
 
@@ -282,10 +337,10 @@ func parseJsonObject(parser: JsonParser): JsonObject {
     skipWhiteSpace(parser)
     var count = 0
     var first = true
-    while (parser.data[parser.offset] != b'}') {
+    while (requireCurrentByte(parser) != b'}') {
         if (first) {
             first = false
-        } else if (parser.data[parser.offset] == b',') {
+        } else if (requireCurrentByte(parser) == b',') {
             parser.offset++
         } else {
             throw JsonException()
@@ -293,12 +348,13 @@ func parseJsonObject(parser: JsonParser): JsonObject {
         skipWhiteSpace(parser)
         let key = parseJsonString(parser)
         skipWhiteSpace(parser)
-        if (parser.data[parser.offset] != b':') {
+        if (requireCurrentByte(parser) != b':') {
             throw JsonException()
         }
         parser.offset++
         let value = parseJson(parser)
         skipWhiteSpace(parser)
+        ensureCacheCapacity(parser, 2)
         parser.cache[parser.cacheSize] = key
         parser.cache[parser.cacheSize + 1] = value
         count++
@@ -320,16 +376,17 @@ func parseJsonArray(parser: JsonParser): JsonArray {
     skipWhiteSpace(parser)
     var count = 0
     var first = true
-    while (parser.data[parser.offset] != b']') {
+    while (requireCurrentByte(parser) != b']') {
         if (first) {
             first = false
-        } else if (parser.data[parser.offset] == b',') {
+        } else if (requireCurrentByte(parser) == b',') {
             parser.offset++
         } else {
             throw JsonException()
         }
         let item = parseJson(parser)
         skipWhiteSpace(parser)
+        ensureCacheCapacity(parser, 1)
         parser.cache[parser.cacheSize] = item
         count++
         parser.cacheSize++
@@ -345,19 +402,19 @@ func parseJsonArray(parser: JsonParser): JsonArray {
 }
 
 func parseJsonNull(parser: JsonParser): JsonNull {
-    if (parser.data[parser.offset] != b'n') {
+    if (requireCurrentByte(parser) != b'n') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'u') {
+    if (requireCurrentByte(parser) != b'u') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'l') {
+    if (requireCurrentByte(parser) != b'l') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'l') {
+    if (requireCurrentByte(parser) != b'l') {
         throw JsonException()
     }
     parser.offset++
@@ -365,19 +422,19 @@ func parseJsonNull(parser: JsonParser): JsonNull {
 }
 
 func parseJsonTrue(parser: JsonParser): JsonBool {
-    if (parser.data[parser.offset] != b't') {
+    if (requireCurrentByte(parser) != b't') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'r') {
+    if (requireCurrentByte(parser) != b'r') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'u') {
+    if (requireCurrentByte(parser) != b'u') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'e') {
+    if (requireCurrentByte(parser) != b'e') {
         throw JsonException()
     }
     parser.offset++
@@ -385,23 +442,23 @@ func parseJsonTrue(parser: JsonParser): JsonBool {
 }
 
 func parseJsonFalse(parser: JsonParser): JsonBool {
-    if (parser.data[parser.offset] != b'f') {
+    if (requireCurrentByte(parser) != b'f') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'a') {
+    if (requireCurrentByte(parser) != b'a') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'l') {
+    if (requireCurrentByte(parser) != b'l') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b's') {
+    if (requireCurrentByte(parser) != b's') {
         throw JsonException()
     }
     parser.offset++
-    if (parser.data[parser.offset] != b'e') {
+    if (requireCurrentByte(parser) != b'e') {
         throw JsonException()
     }
     parser.offset++
@@ -425,19 +482,19 @@ func parseJsonNumber(parser: JsonParser): JsonValue {
     rightIndex = parser.offset
     let numStr = unsafe { String.fromUtf8Unchecked(parser.data[leftIndex..rightIndex]) }
     if (isFloat) {
-        return JsonFloat(Float64.parse(numStr))
+        return JsonFloat(ensureFiniteJsonFloat(Float64.parse(numStr)))
     }
     return JsonInt(Int64.parse(numStr))
 }
 
 func parseSign(parser: JsonParser): Unit {
-    if (parser.data[parser.offset] == b'-') {
+    if (parser.offset < parser.size && parser.data[parser.offset] == b'-') {
         parser.offset++
     }
 }
 
 func parseNumberSystem(parser: JsonParser): NumberSystem {
-    if (parser.data[parser.offset] == b'0') {
+    if (requireCurrentByte(parser) == b'0') {
         parser.offset++
         if (parser.offset >= parser.size) {
             parser.offset--
@@ -453,8 +510,7 @@ func parseNumberSystem(parser: JsonParser): NumberSystem {
             case 'x' | 'X' =>
                 parser.offset++
                 return Hex
-            case _ =>
-                parser.offset--
+            case _ => parser.offset--
         }
     }
     return Decimal
@@ -466,13 +522,14 @@ func checkNumberSystem(numSystem: NumberSystem): (Byte) -> Bool {
         case Octal => return {byte: Byte => byte >= b'0' && byte <= b'7'}
         case Decimal => return {byte: Byte => byte >= b'0' && byte <= b'9'}
         case Hex => return {
-            byte: Byte => byte >= b'0' && byte <= b'9' || byte >= b'a' && byte <= b'f' || byte >= b'A' && byte <= b'F'
+            byte: Byte => byte >= b'0' && byte <= b'9' || byte >= b'a' &&
+                byte <= b'f' || byte >= b'A' && byte <= b'F'
         }
     }
 }
 
 func parseInteger(parser: JsonParser, isNumber: (Byte) -> Bool): Unit {
-    var nextByte = parser.data[parser.offset]
+    var nextByte = requireCurrentByte(parser)
     var hasNumber = false
     if (nextByte == b'0') {
         parser.offset++
@@ -510,7 +567,7 @@ func parseExponent(parser: JsonParser, numSystem: NumberSystem): Bool {
     if (parser.offset >= parser.size) {
         return false
     }
-    var nextByte = parser.data[parser.offset]
+    var nextByte = requireCurrentByte(parser)
     if (nextByte != b'e' && nextByte != b'E') {
         return false
     }
@@ -519,7 +576,7 @@ func parseExponent(parser: JsonParser, numSystem: NumberSystem): Bool {
         case _ => throw JsonException()
     }
     parser.offset++
-    nextByte = parser.data[parser.offset]
+    nextByte = requireCurrentByte(parser)
     if (nextByte == b'+' || nextByte == b'-') {
         parser.offset++
     }
@@ -527,7 +584,7 @@ func parseExponent(parser: JsonParser, numSystem: NumberSystem): Bool {
 }
 
 func parseDigit(parser: JsonParser): Bool {
-    var nextByte = parser.data[parser.offset]
+    var nextByte = requireCurrentByte(parser)
     var hasNumber = false
     while (nextByte >= b'0' && nextByte <= b'9') {
         hasNumber = true
@@ -544,19 +601,20 @@ func parseDigit(parser: JsonParser): Bool {
 }
 
 func isHexNum(char: UInt8): Bool {
-    if (!((char >= b'0' && char <= b'9') || (char >= b'a' && char <= b'f') || (char >= b'A' && char <= b'F'))) {
+    if (!((char >= b'0' && char <= b'9') || (char >= b'a' && char <= b'f') ||
+        (char >= b'A' && char <= b'F'))) {
         return false
     }
     return true
 }
 
 func parseJsonString(parser: JsonParser): JsonString {
-    if (parser.data[parser.offset] != b'\"') {
+    if (requireCurrentByte(parser) != b'\"') {
         throw JsonException("Fail to parseJsonString")
     }
     parser.offset++
     let start = parser.offset
-    var next = parser.data[parser.offset]
+    var next = requireCurrentByte(parser)
     var needEscape = false
     var tmpStart = start
     while (next != b'\"') {
@@ -570,7 +628,7 @@ func parseJsonString(parser: JsonParser): JsonString {
             tmpStart = parser.offset + 1
         }
         parser.offset++
-        next = parser.data[parser.offset]
+        next = requireCurrentByte(parser)
     }
     parser.offset++
     if (!needEscape) {
@@ -585,7 +643,7 @@ func parseJsonString(parser: JsonParser): JsonString {
 
 func getNextHexNum(parser: JsonParser): Byte {
     parser.offset++
-    let byte = parser.data[parser.offset]
+    let byte = requireCurrentByte(parser)
     if (!isHexNum(byte)) {
         throw JsonException()
     }
@@ -593,7 +651,7 @@ func getNextHexNum(parser: JsonParser): Byte {
 }
 
 func handleEscape(parser: JsonParser): Unit {
-    match (parser.data[parser.offset]) {
+    match (requireCurrentByte(parser)) {
         case '\"' => parser.strCache.add(b'\"')
         case '\\' => parser.strCache.add(b'\\')
         case '/' => parser.strCache.add(b'/')
@@ -607,7 +665,8 @@ func handleEscape(parser: JsonParser): Unit {
             let byte2 = getNextHexNum(parser)
             let byte3 = getNextHexNum(parser)
             let byte4 = getNextHexNum(parser)
-            let arr: Array<Byte> = [b'\'', b'\\', b'u', b'{', byte1, byte2, byte3, byte4, b'}', b'\'']
+            let arr: Array<Byte> = [b'\'', b'\\', b'u', b'{',
+                byte1, byte2, byte3, byte4, b'}', b'\'']
             try {
                 let chr = unsafe { Rune.parse(String.fromUtf8Unchecked(arr)) }
                 if (UInt32(chr) <= 127) {
@@ -618,11 +677,11 @@ func handleEscape(parser: JsonParser): Unit {
                 }
             } catch (_: Exception) {
                 parser.offset++
-                if (parser.data[parser.offset] != b'\\') {
+                if (requireCurrentByte(parser) != b'\\') {
                     throw JsonException()
                 }
                 parser.offset++
-                if (parser.data[parser.offset] != b'u') {
+                if (requireCurrentByte(parser) != b'u') {
                     throw JsonException()
                 }
                 let byte5 = getNextHexNum(parser)
