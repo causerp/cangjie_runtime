@@ -130,7 +130,7 @@ void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, s
 } // namespace
 
 extern "C" {
-ParseRes* CJ_AST_Lex(void* fptr, const char* code)
+ParseRes* CJ_AST_Lex(void* fptr, const char* code, int64_t codeLen)
 {
     Cangjie::ICE::TriggerPointSetter iceSetter(CompileStage::PARSE);
     DiagnosticEngine diag;
@@ -138,7 +138,7 @@ ParseRes* CJ_AST_Lex(void* fptr, const char* code)
     diag.SetSourceManager(&sm);
     diag.SetDiagnoseStatus(true);
     diag.SetDisableWarning(true);
-    std::string cangjieCode(code);
+    std::string cangjieCode(code, static_cast<size_t>(codeLen));
     Lexer lex(cangjieCode, diag, sm, false, false);
     std::vector<Token> tokens{};
 
