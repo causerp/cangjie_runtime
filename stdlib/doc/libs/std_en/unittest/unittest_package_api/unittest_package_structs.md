@@ -1093,34 +1093,6 @@ public prop name: String
 
 Function: The name of the configuration item's key value.
 
-## struct KeyOptimizeMocksForBench
-
-```cangjie
-public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
-```
-
-Function: Used as the key for corresponding configuration items in [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration)
-
-Parent Types:
-
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
-
-### prop optimizeMocksForBench
-
-```cangjie
-public static prop optimizeMocksForBench: keyOptimizeMocksForBench
-```
-
-Function: The key value of the configuration item.
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-Function: The name of the configuration item's key value.
-
 ## struct KeyParallel
 
 ```cangjie
