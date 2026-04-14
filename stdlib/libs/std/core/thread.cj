@@ -322,7 +322,7 @@ public class Thread {
             let rtCJThreadHandle = acquireCJThreadHandle()
             if (!rtCJThreadHandle.isNull()) {
                 unsafe {
-                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, UIntNative(newName.size))
+                    CJ_MRT_SetCJThreadName(rtCJThreadHandle, handle.pointer, newName.size)
                 }
                 releaseCJThreadHandle()
             }
