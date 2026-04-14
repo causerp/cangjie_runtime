@@ -506,6 +506,10 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
             exponent++
         }
 
+        if (Int32(Int64(exponent)) != exponent) {
+            throw OverflowException("Scale overflow.")
+        }
+
         var val_bigint: BigInt = BigInt(f_sign * fraction)
         // calculate val_bigint
         var val_scale: Int32 = 0
@@ -513,7 +517,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
             val_bigint = val_bigint * (BigInt(2) ** (UInt64(exponent)))
         } else {
             val_bigint = val_bigint * (BigInt(5) ** (UInt64(abs(exponent))))
-            val_scale = abs(exponent)
+            val_scale = checkScaleOverFlow(Int64(abs(exponent)))
         }
 
         var val_precision: Int64 = calcNumberOfDigits(val_bigint)
