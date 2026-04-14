@@ -1204,38 +1204,6 @@ public prop name: String
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
-## struct KeyOptimizeMocksForBench
-
-```cangjie
-public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
-```
-
-功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
-
-父类型：
-
-- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
-
-### prop optimizeMocksForBench
-
-```cangjie
-public static prop optimizeMocksForBench: KeyOptimizeMocksForBench
-```
-
-功能：配置项的键值。
-
-类型：[KeyOptimizeMocksForBench](#struct-keyoptimizemocksforbench)
-
-### prop name
-
-```cangjie
-public prop name: String
-```
-
-功能：配置项的键值的名称。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
 ## struct KeyParallel
 
 ```cangjie
