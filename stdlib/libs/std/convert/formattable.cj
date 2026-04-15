@@ -21,8 +21,11 @@ public interface Formattable {
     func format(fmt: String): String
 }
 
-var signed: Bool = true
-var unsigned: Bool = false
+let signed: Bool = true
+let unsigned: Bool = false
+
+const MAX_FORMAT_WIDTH: Int64 = 100000 /* Maximum format width to prevent memory exhaustion. */
+const MAX_FLOAT_PRECISION: Int64 = 350 /* Maximum float precision; covers Float64's full range (~1.8e308). */
 
 protected enum Flags {
     | NoFlag
@@ -450,7 +453,10 @@ protected class Verify {
  *
  * @since 0.17.4
  * @throws IllegalArgumentException if the string is empty, or if the string is starting with "+",
- * or if failing to convert to Int64, or if the value after conversion is out of the Int64 range
+ * or if failing to convert to Int64, or if the value after conversion is out of the Int64 range,
+ * or if width exceeds the maximum allowed value (100000),
+ * or if precision exceeds the maximum allowed value (350),
+ * or if precision string is empty (e.g., format string ends with '.' or contains '.' followed by non-digit characters)
  */
 func parser(fmt: String): FormatSpecifier {
     let (flags, width, precision, specifier) = parseFormat(fmt)
@@ -486,11 +492,17 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
             }
             len++
         }
+        if (len > 0) {
+            idx = start + len
+        }
         var str = fmt[start..start + len]
         width = Int64.parse(str)
+        if (width > MAX_FORMAT_WIDTH) {
+            throw IllegalArgumentException("Format width ${width} exceeds maximum allowed value ${MAX_FORMAT_WIDTH}.")
+        }
     }
     /* precision */
-    if (fmtCharArray[idx] == r'.' && idx < end) {
+    if (idx < end && fmtCharArray[idx] == r'.') {
         idx++
         var start = idx
         var len = 0
@@ -502,11 +514,15 @@ protected func parseFormat(fmt: String): (Flags, Int64, Int64, Rune) {
             }
             len++
         }
+        if (len == 0) {
+            throw IllegalArgumentException("Empty precision string in format.")
+        }
+        idx = start + len
         var str = fmt[start..start + len]
         precision = Int64.parse(str)
     }
     /* specifier */
-    if (fmtCharArray[idx].isAsciiLetter()) {
+    if (idx < end && fmtCharArray[idx].isAsciiLetter()) {
         specifier = fmtCharArray[idx]
     }
     return (flags, width, precision, specifier)
@@ -541,11 +557,35 @@ protected func escapeControlCharacters(str: String): String {
             case r'\f' => "\\f"
             case r'\v' => "\\v"
             case r'\0' => "\\0"
-            case _ => "${c}"
+            case _ => escapeOtherControlChar(c)
         }
         tmp = tmp + val
     }
     return tmp
+}
+
+func escapeOtherControlChar(c: Rune): String {
+    let code = UInt32(c)
+    if (code == 0x1B) {
+        "\\x1b"
+    } else if (code == 0x7F) {
+        "\\x7f"
+    } else if (code >= 0x01 && code <= 0x07) {
+        "\\x" + toHexLower(code)
+    } else if (code >= 0x0E && code <= 0x1F) {
+        "\\x" + toHexLower(code)
+    } else {
+        "${c}"
+    }
+}
+
+func toHexLower(n: UInt32): String {
+    let hexChars = "0123456789abcdef".toRuneArray()
+    let high = Int64((n >> 4) & 0x0F)
+    let low = Int64(n & 0x0F)
+    let a: Rune = hexChars[high]
+    let b: Rune = hexChars[low]
+    return "${a}${b}"
 }
 
 class FormatSpecifier {
@@ -689,6 +729,9 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     func fmtFloat(arg: Float64): String {
+        if (precision > MAX_FLOAT_PRECISION) {
+            throw IllegalArgumentException("Format precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+        }
         var negative = false
         var str = "${arg}".toRuneArray()
         /* Negative numbers, including -0.0 */
@@ -710,6 +753,9 @@ class FormatSpecifier {
             case r'E' => toScientificString(u, true, prec)
             case r' ' => toDecimalString(u, prec)
             case _ => ""
+        }
+        if (negative && val.size > 0 && val[0] == 45) {
+            negative = false
         }
         var prefix = ""
         var len = val.size

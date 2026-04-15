@@ -47,6 +47,7 @@ let MINVAL_F16: Float16 = (Float16((1.0 + Float64((Float64(1 << 10) - 1.0) / Flo
     Float16(-1.0)
 let Float32_INF = Float32(1.0) / Float32(0.0)
 let Float16_INF = Float16(1.0) / Float16(0.0)
+const FLOAT64_MAX_DECIMAL_DIGITS: Int64 = 17
 const DECIMAL_OVERFLOW_LIMIT_I8 = MAXVAL_I8 / 10
 const DECIMAL_OVERFLOW_LIMIT_UI8 = MAXVAL_UI8 / 10
 const DECIMAL_OVERFLOW_LIMIT_I16 = MAXVAL_I16 / 10
@@ -210,9 +211,29 @@ func getBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): 
         case 'o' | 'O' => baseInfos[isNegative][8]
         case 'x' | 'X' => baseInfos[isNegative][16]
         case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => baseInfos[isNegative][10]
-        case _ => (0, 0, 0)
+        case _ => throw IllegalArgumentException("Invalid number prefix.")
     }
     return (formatBaseNum, multmin, maxAbsVal)
+}
+
+func tryGetBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): Option<(UInt64, UInt64, UInt64)> {
+    var baseInfos = match (typeBase) {
+        case I8 => baseInfosInt8
+        case I16 => baseInfosInt16
+        case I32 => baseInfosInt32
+        case I64 => baseInfosInt64
+        case UI8 => baseInfosUInt8
+        case UI16 => baseInfosUInt16
+        case UI32 => baseInfosUInt32
+        case _ => baseInfosUInt64
+    }
+    match (rawData[1]) {
+        case 'b' | 'B' => Some(baseInfos[isNegative][2])
+        case 'o' | 'O' => Some(baseInfos[isNegative][8])
+        case 'x' | 'X' => Some(baseInfos[isNegative][16])
+        case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => Some(baseInfos[isNegative][10])
+        case _ => None
+    }
 }
 
 func getBaseInfosWithRadix(typeBase: TypeBase, isNegative: Int64, radix: Int64): (UInt64, UInt64, UInt64) {
@@ -226,8 +247,11 @@ func getBaseInfosWithRadix(typeBase: TypeBase, isNegative: Int64, radix: Int64):
         case (I64, 1) => MAXVAL_I64
         case (I64, 0) => MAXABSVAL_I64
         case (UI8, 1) => MAXVAL_UI8
+        case (UI8, 0) => MAXVAL_UI8
         case (UI16, 1) => MAXVAL_UI16
+        case (UI16, 0) => MAXVAL_UI16
         case (UI32, 1) => MAXVAL_UI32
+        case (UI32, 0) => MAXVAL_UI32
         case _ => MAXVAL_UI64
     }
     let radixUint64 = UInt64(radix)
@@ -282,36 +306,24 @@ func strToChar(data: Array<Rune>): Option<Rune> {
  * @since 0.17.4
  */
 func charToNumber(chs: Rune): UInt64 {
+    if (!((chs >= r'0' && chs <= r'9') || (chs >= r'A' && chs <= r'F') || (chs >= r'a' && chs <= r'f'))) {
+        throw IllegalArgumentException("Invalid hexadecimal digit: '${chs}'.")
+    }
     var value: UInt64 = UInt64(UInt32(chs))
-    if (chs == r'A' || chs == r'B' || chs == r'C' || chs == r'D' || chs == r'E' || chs == r'F') {
+    if (chs >= r'A' && chs <= r'F') {
         return value - 65 + 10
     }
-    if (chs == r'a' || chs == r'b' || chs == r'c' || chs == r'd' || chs == r'e' || chs == r'f') {
+    if (chs >= r'a' && chs <= r'f') {
         return value - 97 + 10
-    } else {
-        return value - 48
     }
-}
-
-func checkChar(formatBaseNum: UInt64, ch: Rune): Bool {
-    return match (formatBaseNum) {
-        /* ASCII: 0 => 48 9 => 57 A => 65 F => 70 a => 97 f => 102 */
-        case 16 where (ch >= r'0' && ch <= r'9') || (ch >= r'A' && ch <= r'F') || (ch >= r'a' && ch <= r'f') => true
-        case _ => false
-    }
+    return value - 48
 }
 
 func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64): Option<UInt64> {
-    /*
-     * Calculate the result of each character based on the formula
-     * and sum it up to obtain the final result.
-     */
     var maxAbsVal: UInt64 = MAXVAL_UI64
     var num: UInt64 = 0
     for (ch in chars) {
-        /* Whether the character complies with the definition of the hexadecimal type */
-        if (checkChar(formatBaseNum, ch)) {
-            /* Obtains the number corresponding to char. */
+        try {
             let digit: UInt64 = charToNumber(ch)
             if ((maxAbsVal / UInt64(formatBaseNum)) < num) {
                 return Option<UInt64>.None
@@ -323,8 +335,7 @@ func charsToInteger(chars: Array<Rune>, formatBaseNum: UInt64): Option<UInt64> {
             } else {
                 num = num + digit
             }
-        } else {
-            /* If the definition is not correct, the system returns the value. */
+        } catch (e: IllegalArgumentException) {
             return Option<UInt64>.None
         }
     }
@@ -343,7 +354,12 @@ func unicodeToChar(data: Array<Rune>): Option<Rune> {
         return None
     }
     match (charsToInteger(data[4..(data.size - 2)], 16)) {
-        case Some(n) => Some(Rune(UInt32(n)))
+        case Some(n) =>
+            if (n > 0x10FFFF || (n >= 0xD800 && n <= 0xDFFF)) {
+                None
+            } else {
+                Some(Rune(UInt32(n)))
+            }
         case None => None
     }
 }
