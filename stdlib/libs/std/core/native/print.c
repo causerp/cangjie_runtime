@@ -38,6 +38,7 @@ static int64_t PrintUtf8(FILE* handle, const uint8_t* str, int64_t len, bool new
 static int64_t ConsoleWriteW(HANDLE fd, const uint8_t* str, const int64_t len, bool newLine)
 {
     int64_t remainingLen = len;
+    const uint8_t* currentPos = str;
     size_t writelen = 0;
     while (remainingLen > 0) {
         if (remainingLen < INT32_MAX) {
@@ -45,15 +46,16 @@ static int64_t ConsoleWriteW(HANDLE fd, const uint8_t* str, const int64_t len, b
         } else {
             writelen = INT32_MAX;
         }
-        int wstrlen = MultiByteToWideChar(CP_UTF8, 0, str, len, NULL, 0);
+        int wstrlen = MultiByteToWideChar(CP_UTF8, 0, currentPos, writelen, NULL, 0);
         wchar_t* wstr = (wchar_t*)malloc(sizeof(wchar_t) * wstrlen);
         if (wstr == NULL) {
             return -1;
         }
-        MultiByteToWideChar(CP_UTF8, 0, str, len, wstr, wstrlen);
+        MultiByteToWideChar(CP_UTF8, 0, currentPos, writelen, wstr, wstrlen);
         // win32 API
         (void)WriteConsoleW(fd, wstr, wstrlen, NULL, NULL);
         free(wstr);
+        currentPos += writelen;
         remainingLen -= writelen;
     }
 
