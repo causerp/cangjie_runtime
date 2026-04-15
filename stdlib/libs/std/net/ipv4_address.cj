@@ -65,7 +65,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
         return _octets[0] == 127
     }
     public func isMulticast(): Bool {
-        return _octets[0] >= 224 && _octets[1] <= 239
+        return _octets[0] >= 224 && _octets[0] <= 239
     }
     public func isPrivate(): Bool {
         if (_octets[0] == 10) {
@@ -105,15 +105,14 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
     }
 }
 
-extend<T> Array<T> where T <: LessOrEqual<T> {
-    operator func <=(rhs: Array<T>): Bool {
-        var loq = true
-        for (i in 0..this.size) {
-            if (!(this[i] <= rhs[i])) {
-                loq = false
-                break
+extend<T> Array<T> where T <: LessOrEqual<T> & Equatable<T> {
+    operator func <=(other: Array<T>): Bool {
+        let minSize = if (this.size < other.size) { this.size } else { other.size }
+        for (i in 0..minSize) {
+            if (this[i] != other[i]) {
+                return this[i] <= other[i]
             }
         }
-        return loq
+        return this.size <= other.size
     }
 }
