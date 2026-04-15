@@ -71,6 +71,14 @@ Function: Sorts an array using a custom comparison function. Can specify whether
 
 The user needs to provide a custom comparison function `by`. If `by` returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will appear after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will appear before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ, the relative positions of `t1` and `t2` will depend on whether stable sorting is used - maintaining original order if stable, otherwise potentially changing.
 
+The comparison function must establish a total order:
+
+- Antisymmetry: if `compare(a, b)` is `LT`, then `compare(b, a)` must be `GT`
+- Transitivity: if `compare(a, b)` is `LT` and `compare(b, c)` is `LT`, then `compare(a, c)` must be `LT`
+- Consistency: multiple invocations of `compare(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
+
 Parameters:
 
 - data: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - The array to be sorted.
@@ -138,6 +146,14 @@ public func sort<T>(data: Array<T>, lessThan!: (T, T) -> Bool, stable!: Bool = f
 Function: Sorts an array using a custom comparison function. Can specify whether to perform stable sorting and whether to sort in ascending or descending order via parameters.
 
 The user needs to provide a custom comparison function `lessThan`. If `lessThan` returns `true`, `t1` will appear before `t2` after sorting; if it returns `false`, there are two cases: if `t1` and `t2` are not equal, `t1` will appear after `t2`; if equal, their relative positions will depend on whether stable sorting is used - maintaining original order if stable, otherwise potentially changing.
+
+The comparison function must establish a total order:
+
+- Antisymmetry: if `lessThan(a, b)` is `true`, then `lessThan(b, a)` must be `false`
+- Transitivity: if `lessThan(a, b)` and `lessThan(b, c)` are both `true`, then `lessThan(a, c)` must be `true`
+- Consistency: multiple invocations of `lessThan(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
 
 Parameters:
 
@@ -322,6 +338,14 @@ Function: Sorts an `ArrayList` using a comparison function. Parameters can speci
 
 The user must provide a custom comparison function `by`. If `by` returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will be placed after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will be placed before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ, the relative positions of `t1` and `t2` will depend on whether stable sorting is enabled (maintaining original order if stable, otherwise potentially changing).
 
+The comparison function must establish a total order:
+
+- Antisymmetry: if `compare(a, b)` is `LT`, then `compare(b, a)` must be `GT`
+- Transitivity: if `compare(a, b)` is `LT` and `compare(b, c)` is `LT`, then `compare(a, c)` must be `LT`
+- Consistency: multiple invocations of `compare(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
+
 Parameters:
 
 - data: [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt)\<T> - The `ArrayList` to be sorted.
@@ -390,6 +414,14 @@ public func sort<T>(data: ArrayList<T>, lessThan!: (T, T) -> Bool, stable!: Bool
 Function: Sorts an `ArrayList` using a comparison function. Parameters can specify whether to perform stable sorting and whether to sort in ascending or descending order.
 
 The user must provide a custom comparison function `lessThan`. If `lessThan` returns `true`, `t1` will be placed before `t2` after sorting; if it returns `false`, there are two cases: if `t1` and `t2` are not equal, `t1` will be placed after `t2`; if equal, their relative positions depend on whether stable sorting is enabled (maintaining original order if stable, otherwise potentially changing).
+
+The comparison function must establish a total order:
+
+- Antisymmetry: if `lessThan(a, b)` is `true`, then `lessThan(b, a)` must be `false`
+- Transitivity: if `lessThan(a, b)` and `lessThan(b, c)` are both `true`, then `lessThan(a, c)` must be `true`
+- Consistency: multiple invocations of `lessThan(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
 
 Parameters:
 
@@ -528,6 +560,14 @@ Function: Sorts a `List` using a comparison function. Parameters can specify whe
 
 The user must provide a custom comparison function `by`. If `by` returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will be placed after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will be placed before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ, the relative positions of `t1` and `t2` will depend on whether stable sorting is enabled (maintaining original order if stable, otherwise potentially changing).
 
+The comparison function must establish a total order:
+
+- Antisymmetry: if `compare(a, b)` is `LT`, then `compare(b, a)` must be `GT`
+- Transitivity: if `compare(a, b)` is `LT` and `compare(b, c)` is `LT`, then `compare(a, c)` must be `LT`
+- Consistency: multiple invocations of `compare(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
+
 Parameters:
 
 - data: [List](../../collection/collection_package_api/collection_package_interface.md#interface-Listt)\<T> - The `List` to be sorted.
@@ -544,6 +584,14 @@ public func sort<T>(data: List<T>, lessThan!: (T, T) -> Bool, stable!: Bool = fa
 Function: Sorts a `List` using a comparison function. Parameters can specify whether to perform stable sorting and whether to sort in ascending or descending order.
 
 The user must provide a custom comparison function `lessThan`. If `lessThan` returns `true`, `t1` will be placed before `t2` after sorting; if it returns `false`, there are two cases: if `t1` and `t2` are not equal, `t1` will be placed after `t2`; if equal, their relative positions depend on whether stable sorting is enabled (maintaining original order if stable, otherwise potentially changing).
+
+The comparison function must establish a total order:
+
+- Antisymmetry: if `lessThan(a, b)` is `true`, then `lessThan(b, a)` must be `false`
+- Transitivity: if `lessThan(a, b)` and `lessThan(b, c)` are both `true`, then `lessThan(a, c)` must be `true`
+- Consistency: multiple invocations of `lessThan(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
 
 Parameters:
 
@@ -595,6 +643,14 @@ Function: Performs stable sorting on an array.
 
 The user can provide a custom comparison function `comparator`. If `comparator` returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will be placed after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will be placed before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ, the relative positions of `t1` and `t2` will maintain their original order.
 
+The comparison function must establish a total order:
+
+- Antisymmetry: if `compare(a, b)` is `LT`, then `compare(b, a)` must be `GT`
+- Transitivity: if `compare(a, b)` is `LT` and `compare(b, c)` is `LT`, then `compare(a, c)` must be `LT`
+- Consistency: multiple invocations of `compare(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
+
 > **Note:**
 >
 > This will be deprecated in future versions. Use [sort](sort_package_funcs.md#func-sorttarrayt-t-t---ordering-bool-bool) instead.Parameters:
@@ -627,6 +683,14 @@ public func unstableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Uni
 Function: Performs unstable sort on the array.
 
 Users can provide a custom comparison function `comparator`. If `comparator` returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).GT, `t1` will be placed after `t2` after sorting; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).LT, `t1` will be placed before `t2`; if it returns [Ordering](../../core/core_package_api/core_package_enums.md#enum-ordering).EQ, the relative positions of `t1` and `t2` will remain unchanged from before sorting.
+
+The comparison function must establish a total order:
+
+- Antisymmetry: if `compare(a, b)` is `LT`, then `compare(b, a)` must be `GT`
+- Transitivity: if `compare(a, b)` is `LT` and `compare(b, c)` is `LT`, then `compare(a, c)` must be `LT`
+- Consistency: multiple invocations of `compare(a, b)` must return the same result
+
+Violating these requirements may result in undefined behavior.
 
 > **Note:**
 >
