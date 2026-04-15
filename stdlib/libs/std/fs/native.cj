@@ -30,9 +30,9 @@ foreign {
     func CJ_FS_CanWrite(path: CString): Int8 // -1: error, 0: false, 1: true
     func CJ_FS_CanExecute(path: CString): Int8 // -1: error, 0: false, 1: true
 
-    func CJ_FS_SetExecutable(path: CString, executable: Bool): Int8 // -2: Operation not permitted, -1: Other Errors, 0: false, 1: true
-    func CJ_FS_SetReadable(path: CString, readable: Bool): Int8 // -2: Operation not permitted, -1: Other Errors, 0: false, 1: true
-    func CJ_FS_SetWritable(path: CString, writable: Bool): Int8 // -2: Operation not permitted, -1: Other Errors, 0: false, 1: true
+    func CJ_FS_SetExecutable(path: CString, executable: Bool): Int8 // -4: Operation not permitted (ERRNO_EPERM), -2: Invalid argument (ERRNO_EINVAL), -1: Other Errors, 0: false, 1: true
+    func CJ_FS_SetReadable(path: CString, readable: Bool): Int8 // -4: Operation not permitted (ERRNO_EPERM), -2: Invalid argument (ERRNO_EINVAL), -1: Other Errors, 0: false, 1: true
+    func CJ_FS_SetWritable(path: CString, writable: Bool): Int8 // -4: Operation not permitted (ERRNO_EPERM), -2: Invalid argument (ERRNO_EINVAL), -1: Other Errors, 0: false, 1: true
 
     // Directory
     func CJ_FS_ISDirEmpty(path: CString): Int8 // -1: error, 0: false, 1: true

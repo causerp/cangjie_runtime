@@ -41,10 +41,10 @@ public unsafe func readStringUnchecked<T>(from: T): String where T <: InputStrea
     String.fromUtf8Unchecked(data)
 }
 
-@OverflowWrapping
 public func readToEnd<T>(from: T): Array<Byte> where T <: InputStream & Seekable {
     let sum = from.length
-    if (sum <= 0) {
+    const MAX_DIRECT_ALLOC_SIZE: Int64 = 1 << 30  // 1 GB
+    if (sum <= 0 || sum > MAX_DIRECT_ALLOC_SIZE) {
         let tempSize: Int64 = BLOCK_SIZE
         let temp: Array<Byte> = Array<Byte>(tempSize, repeat: 0)
         var buffer: ByteBuffer = ByteBuffer(tempSize)
