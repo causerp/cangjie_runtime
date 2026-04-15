@@ -120,34 +120,57 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     }
 
     func getIdleEntry(timeout: Duration): Entry<T> {
-        var item = idleEntry.dequeue(timeout)
-
-        match (item) {
-            case Some(v) =>
+        if (let Some(v) <- idleEntry.remove(timeout)) {
             if (v.isValid) {
                 return v
-            } else {
-                mux.lock()
-                if (entryCount < options.maxSize) {
-                    entryCount++
-                    mux.unlock()
-                    return createEntry()
-                }
-                mux.unlock()
-                throw SqlException("Acquired entries exceed maxSize(${maxSize})")
             }
-            case None => throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        } else {
+            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        }
+
+        let canCreate = synchronized(mux) {
+            if (entryCount >= options.maxSize) {
+                false
+            } else {
+                entryCount++
+                true
+            }
+        }
+
+        if (!canCreate) {
+            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        }
+
+        try {
+            return createEntry()
+        } catch (e: Exception) {
+            synchronized(mux) {
+                entryCount--
+            }
+            throw e
         }
     }
 
     public func acquire(timeout: Duration): Option<Entry<T>> {
-        mux.lock()
-        if (idleEntry.size == 0 && entryCount < options.maxSize) {
-            entryCount++
-            mux.unlock()
-            return createEntry()
+        let shouldCreate: Bool
+        synchronized(mux) {
+            shouldCreate = idleEntry.size == 0 && entryCount < options.maxSize
+            if (shouldCreate) {
+                entryCount++
+            }
         }
-        mux.unlock()
+        if (shouldCreate) {
+            try {
+                return createEntry()
+            } catch (e: Exception) {
+                synchronized(mux) {
+                    if (entryCount > 0) {
+                        entryCount--
+                    }
+                }
+                throw e
+            }
+        }
         return getIdleEntry(timeout)
     }
 
