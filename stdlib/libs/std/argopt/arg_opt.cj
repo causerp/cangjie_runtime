@@ -283,7 +283,7 @@ class ParserHelper {
      * @since 0.17.4
      */
     func getArgsList(): ArrayList<Int8> {
-        return this.argsList
+        return this.argsList.clone()
     }
 
     /**
@@ -373,6 +373,9 @@ class ParserHelper {
     }
 
     private func doShortParser(shortStr: String, args: Array<String>, i: Int64): (Int64, Bool) {
+        if (args[i].size < 2) {
+            return (1, true)
+        }
         var size: Int64 = shortStr.size
         var key: String = args[i][0..2]
         let index: Int64 = shortStr.indexOf(key[1]) ?? -1
@@ -508,6 +511,20 @@ public enum ArgumentSpec {
         }
     }
 
+    prop optionKey: String {
+        get() {
+            match (this) {
+                case Short(r, _) => r.toString()
+                case Short(r, _, _) => r.toString()
+                case Long(s, _) => s
+                case Long(s, _, _) => s
+                case Full(s, _, _) => s
+                case Full(s, _, _, _) => s
+                case NonOptions(_) => throw NoneValueException()
+            }
+        }
+    }
+
     prop nonOptionAction: ?(Array<String>) -> Unit {
         get() {
             match (this) {
@@ -551,6 +568,9 @@ class ArgParser {
     let _shortOptionSpecs: HashMap<Rune, ArgumentSpec> = HashMap<Rune, ArgumentSpec>()
     var _nonOptionSpecs: ?ArgumentSpec = None
     var _index = 0
+    let _pendingCallbacks: ArrayList<((String) -> Unit, String)> = ArrayList<((String) -> Unit, String)>()
+    var _pendingNonOptionCallback: ?(Array<String>) -> Unit = None
+    var _pendingNonOptionArgs: ?Array<String> = None
 
     func checkDuplicateShortOption(r: Rune) {
         if (_shortOptionSpecs.contains(r) || _longOptionSpecs.contains(String(r))) {
@@ -593,7 +613,18 @@ class ArgParser {
 
     func addOptionAndExecuteAction(key: String, val: String, spec: ArgumentSpec) {
         _options.add(key, val)
-        spec.optionAction?(val)
+        match (spec.name) {
+            case (Some(longKey), Some(shortKey)) =>
+                if (key == String(shortKey)) {
+                    _options.add(longKey, val)
+                } else if (key == longKey) {
+                    _options.add(String(shortKey), val)
+                }
+            case _ => ()
+        }
+        if (let Some(action) <- spec.optionAction) {
+            _pendingCallbacks.add((action, val))
+        }
     }
 
     func parseLongOption(arg: String, next: ?String): Bool {
@@ -622,7 +653,7 @@ class ArgParser {
         let arr: ArrayList<ArgumentSpec> = ArrayList<ArgumentSpec>()
         let set = HashSet<Rune>() // cjlint-ignore !G.VAR.02
         for ((idx, c) in enumerate(runeArray.iterator())) {
-            if (let Some(spec) <- _shortOptionSpecs.get(c) && !set.contains(c) && !_options.contains(c.toString()) &&
+            if (let Some(spec) <- _shortOptionSpecs.get(c) && !set.contains(c) && !_options.contains(spec.optionKey) &&
                 spec.mode == NoValue) { // cjlint-ignore !G.EXP.03 
                 arr.add(spec)
                 set.add(c)
@@ -644,22 +675,24 @@ class ArgParser {
         if (runeArray.size - 1 == noValueSpecs.size) { // for last rune
             let spec = _shortOptionSpecs.get(runeArray[runeArray.size - 1]) ?? throw ArgumentParseException(
                 "Unknown option: ${cur}.")
+            let key = String(runeArray[runeArray.size - 1])
             match (spec.mode) {
-                case OptionalValue => addOptionAndExecuteAction(spec.name[1]?.toString() ?? "", "", spec)
+                case OptionalValue => addOptionAndExecuteAction(key, "", spec)
                 case RequiredValue =>
                     let value = next ?? throw ArgumentParseException("Missing option value for ${cur}.")
                     _index += 1
-                    addOptionAndExecuteAction(spec.name[1]?.toString() ?? "", value, spec)
+                    addOptionAndExecuteAction(key, value, spec)
                 case NoValue => throw ArgumentParseException("Should never reach here becauese of previously check.")
             }
         } else if (runeArray.size - 1 > noValueSpecs.size) { // for not last rune
             let spec = _shortOptionSpecs.get(runeArray[noValueSpecs.size]) ?? throw ArgumentParseException(
                 "Unknown option: ${runeArray[noValueSpecs.size]}.")
+            let key = String(runeArray[noValueSpecs.size])
             if (spec.mode == RequiredValue && noValueSpecs.size < runeArray.size - 2) {
-                addOptionAndExecuteAction(spec.name[1]?.toString() ?? "", String(runeArray[noValueSpecs.size + 1..]),
+                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]),
                     spec)
             } else if (spec.mode == OptionalValue) {
-                addOptionAndExecuteAction(spec.name[1]?.toString() ?? "", String(runeArray[noValueSpecs.size + 1..]),
+                addOptionAndExecuteAction(key, String(runeArray[noValueSpecs.size + 1..]),
                     spec)
             } else {
                 throw ArgumentParseException("Unknown option: ${runeArray[noValueSpecs.size]}.")
@@ -673,6 +706,7 @@ class ArgParser {
         let cur = runeArray.get(0).getOrThrow()
 
         if (let Some(spec) <- _shortOptionSpecs.get(cur)) {
+            let key = String(cur)
             match (spec.mode) {
                 case OptionalValue =>
                     let value = if (runeSize > 1) {
@@ -680,7 +714,7 @@ class ArgParser {
                     } else {
                         ""
                     }
-                    addOptionAndExecuteAction(cur.toString(), value, spec)
+                    addOptionAndExecuteAction(key, value, spec)
                 case RequiredValue =>
                     let value = if (runeSize == 1) { // -o v
                         _index += 1
@@ -688,7 +722,7 @@ class ArgParser {
                     } else { // -ov
                         String(runeArray[1..])
                     }
-                    addOptionAndExecuteAction(cur.toString(), value, spec)
+                    addOptionAndExecuteAction(key, value, spec)
                 case NoValue => parseNoValueForShortOption(runeArray, next)
             }
         } else {
@@ -710,6 +744,16 @@ class ArgParser {
         }
     }
 
+    func executeCallbacks() {
+        for ((callback, value) in _pendingCallbacks) {
+            callback(value)
+        }
+        if (let Some(action) <- _pendingNonOptionCallback) {
+            let args = _pendingNonOptionArgs ?? Array<String>()
+            action(args)
+        }
+    }
+
     func parse(args: Array<String>, specs: Array<ArgumentSpec>): ParsedArguments {
         specs |> forEach(addSpec)
 
@@ -720,7 +764,7 @@ class ArgParser {
                 case ParseState.Start =>
                     if (cur == "--") {
                         state = ParseState.End
-                    } else if (cur[0] == b'-') {
+                    } else if (!cur.isEmpty() && cur[0] == b'-') {
                         state = ParseState.Option
                         _index -= 1
                     } else {
@@ -743,8 +787,13 @@ class ArgParser {
             }
             _index += 1
         }
-        _nonOptionSpecs?.nonOptionAction?(_nonOptions.toArray())
-        return ParsedArguments(_options, _nonOptions.toArray())
+        if (let Some(action) <- _nonOptionSpecs?.nonOptionAction) {
+            _pendingNonOptionCallback = action
+            _pendingNonOptionArgs = _nonOptions.toArray()
+        }
+        let result = ParsedArguments(_options, _nonOptions.toArray())
+        executeCallbacks()
+        return result
     }
 }
 
