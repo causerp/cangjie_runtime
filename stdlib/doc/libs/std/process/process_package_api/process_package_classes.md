@@ -333,6 +333,7 @@ public func removeEnv(k: String): Unit
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当入参包含空字符时，抛出异常。
+- [ProcessException](process_package_exceptions.md#class-processexception) - 当移除环境变量失败时，抛出异常。
 
 示例：
 
@@ -396,6 +397,7 @@ public func setEnv(k: String, v: String): Unit
 异常：
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 当入参包含空字符时，抛出异常。
+- [ProcessException](process_package_exceptions.md#class-processexception) - 当设置环境变量失败时，抛出异常。
 
 示例：
 
