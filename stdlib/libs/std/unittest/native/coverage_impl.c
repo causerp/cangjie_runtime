@@ -346,16 +346,20 @@ MICROFUZZ_API Float64 CJ_MICROFUZZ_GLOBAL_EDGE_COVERAGE_EST(void)
 
 MICROFUZZ_API Float32 CJ_MICROFUZZ_FLIP_BIT_FLOAT(Float32 value, UInt8 bit)
 {
-    UInt64 floatBits = *(UInt32*)(UInt8*)(&value);
-    floatBits = floatBits ^ (1 << (bit % (sizeof(Float32) * CHAR_BIT)));
-    return *(Float32*)(UInt8*)(&floatBits);
+    UInt32 floatBits = 0;
+    __builtin_memcpy(&floatBits, &value, sizeof(value));
+    floatBits = floatBits ^ (((UInt32)1) << (bit % (sizeof(Float32) * CHAR_BIT)));
+    __builtin_memcpy(&value, &floatBits, sizeof(value));
+    return value;
 }
 
 MICROFUZZ_API Float64 CJ_MICROFUZZ_FLIP_BIT_DOUBLE(Float64 value, UInt8 bit)
 {
-    UInt64 floatBits = *(UInt64*)(UInt8*)(&value);
-    floatBits = floatBits ^ (1 << (bit % (sizeof(Float64) * CHAR_BIT)));
-    return *(Float64*)(UInt8*)(&floatBits);
+    UInt64 floatBits = 0;
+    __builtin_memcpy(&floatBits, &value, sizeof(value));
+    floatBits = floatBits ^ (((UInt64)1) << (bit % (sizeof(Float64) * CHAR_BIT)));
+    __builtin_memcpy(&value, &floatBits, sizeof(value));
+    return value;
 }
 
 /**
