@@ -13,10 +13,6 @@
 #define HIGH_2_MASK 0b11000000 /* 0xc0 */
 #define HIGH_3_MASK 0b11100000 /* 0xe0 */
 #define HIGH_4_MASK 0b11110000 /* 0xf0 */
-#define HIGH_5_MASK 0b11111000 /* 0xf8 */
-#define HIGH_6_MASK 0b11111100 /* 0xfc */
-#define SHIFT_30 30
-#define SHIFT_24 24
 #define SHIFT_18 18
 #define SHIFT_12 12
 #define SHIFT_6 6
@@ -24,10 +20,6 @@
 #define LOW_5_MASK 0b00011111 /* 0x1f */
 #define LOW_4_MASK 0b00001111 /* 0x0f */
 #define LOW_3_MASK 0b00000111 /* 0x07 */
-#define LOW_2_MASK 0b00000011 /* 0x03 */
-#define LOW_1_MASK 0b00000001 /* 0x01 */
-#define UTF8_6_MAX 0x7FFFFFFF
-#define UTF8_5_MAX 0x3FFFFFF
 #define UTF8_4_MAX 0x10FFFF
 #define UTF8_3_MAX 0xFFFF
 #define UTF8_2_MAX 0x07FF
@@ -36,14 +28,10 @@
 #define SUBSCRIPT_1 1
 #define SUBSCRIPT_2 2
 #define SUBSCRIPT_3 3
-#define SUBSCRIPT_4 4
-#define SUBSCRIPT_5 5
 #define LENTH_1 1
 #define LENTH_2 2
 #define LENTH_3 3
 #define LENTH_4 4
-#define LENTH_5 5
-#define LENTH_6 6
 
 int64_t CJ_CORE_FromCharToUtf8(uint32_t c, uint8_t* itemBytes)
 {
@@ -65,21 +53,6 @@ int64_t CJ_CORE_FromCharToUtf8(uint32_t c, uint8_t* itemBytes)
         itemBytes[SUBSCRIPT_2] = (uint8_t)(((c >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK);
         itemBytes[SUBSCRIPT_3] = (uint8_t)((c & LOW_6_MASK) | HIGH_1_MASK);
         return LENTH_4;
-    } else if (c <= UTF8_5_MAX) {
-        itemBytes[SUBSCRIPT_0] = (uint8_t)(((c >> SHIFT_24) & LOW_2_MASK) | HIGH_5_MASK);
-        itemBytes[SUBSCRIPT_1] = (uint8_t)(((c >> SHIFT_18) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_2] = (uint8_t)(((c >> SHIFT_12) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_3] = (uint8_t)(((c >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_4] = (uint8_t)((c & LOW_6_MASK) | HIGH_1_MASK);
-        return LENTH_5;
-    } else if (c <= UTF8_6_MAX) {
-        itemBytes[SUBSCRIPT_0] = (uint8_t)(((c >> SHIFT_30) & LOW_1_MASK) | HIGH_6_MASK);
-        itemBytes[SUBSCRIPT_1] = (uint8_t)(((c >> SHIFT_24) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_2] = (uint8_t)(((c >> SHIFT_18) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_3] = (uint8_t)(((c >> SHIFT_12) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_4] = (uint8_t)(((c >> SHIFT_6) & LOW_6_MASK) | HIGH_1_MASK);
-        itemBytes[SUBSCRIPT_5] = (uint8_t)((c & LOW_6_MASK) | HIGH_1_MASK);
-        return LENTH_6;
     }
     return -1;
 }
