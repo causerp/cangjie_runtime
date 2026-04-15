@@ -1547,14 +1547,6 @@ public func registerBench(bench: () -> Benchmark): Unit
 
 - bench: () -> [Benchmark](#class-benchmark) - 性能用例生成闭包。
 
-### func enableOptimizedMockForBench()
-
-```cangjie
-public func enableOptimizedMockForBench(): Unit
-```
-
-功能：启用优化以在测试中同时使用模拟和基准测试。
-
 ## class TestReport
 
 ```cangjie

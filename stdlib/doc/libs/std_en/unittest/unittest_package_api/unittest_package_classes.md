@@ -1616,14 +1616,6 @@ Parameters:
 
 - bench: () -> [Benchmark](#class-benchmark) - Benchmark case generation closure.
 
-### func enableOptimizedMockForBench()
-
-```cangjie
-public func enableOptimizedMockForBench(): Unit
-```
-
-Function: Enables optimization to use both mocks and benchmarks in tests.
-
 ## class TestReport
 
 ```cangjie
