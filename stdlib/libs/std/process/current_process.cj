@@ -127,8 +127,11 @@ public class CurrentProcess <: Process {
 
         unsafe {
             try (ck = LibC.mallocCString(k).asResource(), cv = LibC.mallocCString(v).asResource()) {
-                synchronized(mtx) {
+                let errno = synchronized(mtx) {
                     nativeSetEnv(ck.value, cv.value, Int32(1))
+                }
+                if (errno != 0) {
+                    throw ProcessException("Failed to set env ${k}.")
                 }
             }
         }
@@ -141,8 +144,11 @@ public class CurrentProcess <: Process {
 
         unsafe {
             try (ck = LibC.mallocCString(k).asResource()) {
-                synchronized(mtx) {
+                let errno = synchronized(mtx) {
                     nativeRemoveEnv(ck.value)
+                }
+                if (errno != 0) {
+                    throw ProcessException("Failed to remove env ${k}.")
                 }
             }
         }
