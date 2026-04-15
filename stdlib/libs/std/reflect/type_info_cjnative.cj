@@ -102,9 +102,6 @@ class TypeTemplateParser {
     }
 }
 
-class InheritedAndExtendedMembers {
-}
-
 /**
  * Contains the reflective information that is common for classes, interfaces, structs and primitive types.
  */
@@ -127,9 +124,6 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
     var _modifiers: Option<Collection<ModifierInfo>> = None
     var typeTemplate: TypeTemplate = TypeTemplate(CPointer<Unit>())
     var genericParams: Array<TypeInfo> = Array<TypeInfo>()
-
-    var _inheritedAndExtendedMembers: InheritedAndExtendedMembers = InheritedAndExtendedMembers()
-
     init(cp: CPointer<Unit>) {
         _info = cp
     }
