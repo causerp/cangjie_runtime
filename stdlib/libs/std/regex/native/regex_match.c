@@ -154,7 +154,7 @@ extern int64_t CJ_REGEX_Count(const pcre2_code* re, const unsigned char* subject
     
     PCRE2_SIZE startOffset = offset;
     int64_t count = 0;
-    int matchResult;
+    int matchResult = 0;
     while (startOffset <= end &&
            (matchResult = pcre2_match(re, subject, length, startOffset, 0, matchData, mcontext)) > 0) {
         PCRE2_SIZE* ovector = pcre2_get_ovector_pointer(matchData);
