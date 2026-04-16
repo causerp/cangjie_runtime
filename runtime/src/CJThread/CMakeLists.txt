@@ -6,8 +6,8 @@
 
 cmake_minimum_required(VERSION 3.14.1)
 
-# For macos cross compile android arm targets, include toolchain before project() to set compile
-if(${TARGET} STREQUAL "android_arm_cangjie")
+# For macos cross compile android targets(android-ndk-27d), include toolchain before project() to set compile
+if(${TARGET} STREQUAL "android_arm_cangjie" OR ${TARGET} STREQUAL "android_aarch64_cangjie" OR ${TARGET} STREQUAL "android_x86_64_cangjie")
     include(../../build/cmake/toolchain/config.cmake)
     include(../../build/cmake/toolchain/${TARGET}.cmake)
 endif()
