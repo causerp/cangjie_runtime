@@ -120,23 +120,34 @@ class ResourcePool<T> <: Pool<T> & Equatable<ResourcePool<T>> {
     }
 
     func getIdleEntry(timeout: Duration): Entry<T> {
-        var item = idleEntry.remove(timeout)
-
-        match (item) {
-            case Some(v) =>
+        if (let Some(v) <- idleEntry.remove(timeout)) {
             if (v.isValid) {
                 return v
-            } else {
-                mux.lock()
-                if (entryCount < options.maxSize) {
-                    entryCount++
-                    mux.unlock()
-                    return createEntry()
-                }
-                mux.unlock()
-                throw SqlException("Acquired entries exceed maxSize(${maxSize})")
             }
-            case None => throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        } else {
+            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        }
+
+        let canCreate = synchronized(mux) {
+            if (entryCount >= options.maxSize) {
+                false
+            } else {
+                entryCount++
+                true
+            }
+        }
+
+        if (!canCreate) {
+            throw SqlException("Acquired entries exceed maxSize(${maxSize})")
+        }
+
+        try {
+            return createEntry()
+        } catch (e: Exception) {
+            synchronized(mux) {
+                entryCount--
+            }
+            throw e
         }
     }
 
