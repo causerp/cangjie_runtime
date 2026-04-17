@@ -12,6 +12,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <map>
 #ifndef _WIN64
 #include <csignal>
 #endif
@@ -140,6 +141,12 @@ struct CJErrorObject {
 struct CJUncaughtExceptionInfo {
     const char* hapPath;
     std::function<void(const char* summary, const CJErrorObject errorObj)> uncaughtTask;
+};
+
+struct CJEventReportInfo  {
+    const char* hapPath;
+    std::function<void(const char* domain, const char* event, size_t hiSysEventType,
+        const std::map<std::string, std::string>& params)> reportInfoTask;
 };
 #endif
 
@@ -749,6 +756,7 @@ MRT_EXPORT void RemoveHandlerFromSignalStack(int signal, bool (*fn)(int, siginfo
  */
 #ifdef __cplusplus
 MRT_EXPORT void RegisterUncaughtExceptionHandler(const CJUncaughtExceptionInfo& handle);
+MRT_EXPORT void RegisterEventHandler(const CJEventReportInfo& handle);
 #endif
 
 /*
