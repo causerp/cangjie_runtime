@@ -72,6 +72,10 @@ void ExceptionHandling::BuildEHFrameInfo()
                 eWrapper->SetLandingPad(ehFrameInfo.GetLandingPad());
                 break;
             }
+#ifdef __arm__
+        } else if (frame.GetFrameType() == FrameType::STACKGROW) {
+            continue;
+#endif
         } else {
             lastRuntimeFrame = frame;
         }

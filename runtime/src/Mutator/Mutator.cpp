@@ -67,14 +67,29 @@ extern "C" void MRT_SetGrowFlag(bool flag)
 
 extern "C" intptr_t MRT_StackGrow(intptr_t frameBase, uint32_t adjustedSize, void* ip)
 {
+    // arm32 only do stack check and try to throw StackOverFlow Expection.
 #ifdef __arm__
-    LOG(RTLOG_FATAL, "Unsupported stack grow for arm32");
-#endif
+    if (adjustedSize != 0) {
+        LOG(RTLOG_FAIL, "Unsupported stack grow for arm32");
+    }
+    uintptr_t threadData = MRT_GetThreadLocalData();
+    uint32_t protectAddr = reinterpret_cast<uint32_t>(reinterpret_cast<ThreadLocalData*>(threadData)->protectAddr);
+    // for runtime we could not add sp asm, keep a PRESERVE_SIZE to avoid stepping on illegal memory
+    constexpr uint32_t PRESERVE_SIZE = 256;
+    if (protectAddr >= frameBase - PRESERVE_SIZE) {
+        void* fa = __builtin_frame_address(0);
+        static_cast<FrameAddress*>(fa)->returnAddress = static_cast<uint32_t*>(ip);
+        ExceptionManager::StackOverflow(adjustedSize, ip);
+        return 0;
+    }
+    return 0;
+#else
     Mutator* mutator = Mutator::GetMutator();
     if (mutator == nullptr) {
         return false;
     }
     return mutator->FixExtendedStack(frameBase, adjustedSize, ip);
+#endif
 }
 
 extern "C" void MRT_FreeOldStack(intptr_t offset)
