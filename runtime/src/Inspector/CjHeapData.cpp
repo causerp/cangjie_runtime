@@ -176,27 +176,55 @@ void CjHeapData::ProcessHeapObject(BaseObject* obj)
         return;
     }
 
+    DumpObject dumpObject = { obj, 0, 0, 0 };
+
     if (obj->IsRawArray()) {
         MArray* mArray = reinterpret_cast<MArray*>(obj);
         TypeInfo* componentTypeInfo = mArray->GetComponentTypeInfo();
         if (componentTypeInfo->IsPrimitiveType()) {
-            DumpObject dumpObject = { obj, TAG_PRIMITIVE_ARRAY_DUMP, 0, 0 };
+            dumpObject.tag = TAG_PRIMITIVE_ARRAY_DUMP;
+            auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+            if (regionInfo->IsLargeRegion()) {
+                dumpObject.tag = TAG_LARGE_PRIMITIVE_ARRAY_DUMP;
+            } else if (regionInfo->IsUnmovableFromRegion()) {
+                dumpObject.tag = TAG_UNMOVABLE_PRIMITIVE_ARRAY_DUMP;
+            }
             dumpObjects.push_back(dumpObject);
         } else if (componentTypeInfo->IsStructType()) {
-            DumpObject dumpObject = { obj, TAG_STRUCT_ARRAY_DUMP, 0, 0 };
+            dumpObject.tag = TAG_STRUCT_ARRAY_DUMP;
+            auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+            if (regionInfo->IsLargeRegion()) {
+                dumpObject.tag = TAG_LARGE_STRUCT_ARRAY_DUMP;
+            } else if (regionInfo->IsUnmovableFromRegion()) {
+                dumpObject.tag = TAG_UNMOVABLE_STRUCT_ARRAY_DUMP;
+            }
             dumpObjects.push_back(dumpObject);
             ProcessStructClass(obj->GetTypeInfo());
             return;
         } else if (componentTypeInfo->IsObjectType() ||
                    componentTypeInfo->IsArrayType() ||
                    componentTypeInfo->IsInterface()) {
-            DumpObject dumpObject = { obj, TAG_OBJECT_ARRAY_DUMP, 0, 0 };
-            dumpObjects.push_back(dumpObject);
+                dumpObject.tag = TAG_OBJECT_ARRAY_DUMP;
+                auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+                if (regionInfo->IsLargeRegion()) {
+                    dumpObject.tag = TAG_LARGE_OBJECT_ARRAY_DUMP;
+                } else if (regionInfo->IsUnmovableFromRegion()) {
+                    dumpObject.tag = TAG_UNMOVABLE_OBJECT_ARRAY_DUMP;
+                }
+                dumpObjects.push_back(dumpObject);
         } else {
             LOG(RTLOG_ERROR, "array object %p has wrong component type", mArray);
         }
     } else if (obj->GetTypeInfo()->IsVaildType()) {
-        DumpObject dumpObject = { obj, TAG_INSTANCE_DUMP, 0, 0 };
+        dumpObject.tag = TAG_INSTANCE_DUMP;
+        auto regionInfo = RegionInfo::GetRegionInfoAt(reinterpret_cast<MAddress>(obj));
+        if (regionInfo->IsPinnedRegion()) {
+            dumpObject.tag = TAG_PINNED_INSTANCE_DUMP;
+        } else if (regionInfo->IsLargeRegion()) {
+            dumpObject.tag = TAG_LARGE_INSTANCE_DUMP;
+        } else if (regionInfo->IsUnmovableFromRegion()) {
+            dumpObject.tag = TAG_UNMOVABLE_INSTANCE_DUMP;
+        }
         dumpObjects.push_back(dumpObject);
     } else {
         LOG(RTLOG_ERROR, "object %p has wrong component type", obj);
@@ -386,15 +414,24 @@ void CjHeapData::WriteAllObjects()
                 WriteUnknownRoot(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_OBJECT_ARRAY_DUMP:
+            case TAG_LARGE_OBJECT_ARRAY_DUMP:
+            case TAG_UNMOVABLE_OBJECT_ARRAY_DUMP:
                 WriteObjectArray(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_STRUCT_ARRAY_DUMP:
+            case TAG_LARGE_STRUCT_ARRAY_DUMP:
+            case TAG_UNMOVABLE_STRUCT_ARRAY_DUMP:
                 WriteStructArray(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_PRIMITIVE_ARRAY_DUMP:
+            case TAG_LARGE_PRIMITIVE_ARRAY_DUMP:
+            case TAG_UNMOVABLE_PRIMITIVE_ARRAY_DUMP:
                 WritePrimitiveArray(objectInfo.obj, objectInfo.tag);
                 break;
             case TAG_INSTANCE_DUMP:
+            case TAG_PINNED_INSTANCE_DUMP:
+            case TAG_LARGE_INSTANCE_DUMP:
+            case TAG_UNMOVABLE_INSTANCE_DUMP:
                 WriteInstance(objectInfo.obj, objectInfo.tag);
                 break;
             default:
