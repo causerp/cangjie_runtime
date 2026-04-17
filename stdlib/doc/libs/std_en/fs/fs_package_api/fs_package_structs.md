@@ -327,7 +327,7 @@ Function: Sets whether the file owner has execute permission for the file corres
 - For files, sets execute permission.
 - For directories, sets permission to enter the directory.
 - On Windows, execute permission for files is determined by the file extension; users always have execute permission for directories, and this function returns false without effect.
-- On Linux and macOS, this function works as expected. If the file entity corresponding to this [FileInfo](fs_package_structs.md#struct-fileinfo) is modified by other users or processes during this function call, race conditions may cause other modifications to fail.
+- On Linux and macOS, this function works as expected. If the file entity corresponding to this [FileInfo](fs_package_structs.md#struct-fileinfo) is modified by other users or processes during this function call, race conditions may cause other modifications to fail. Processes running as a privileged user may bypass this permission setting.
 
 Parameters:
 
@@ -348,7 +348,7 @@ Function: Sets whether the file owner has read permission for the file correspon
 - For files, sets read permission.
 - For directories, sets permission to browse the directory.
 - On Windows, users always have read permission for files and directories, and this function returns true if `readable` is true, otherwise false.
-- On Linux and macOS, this function works as expected. If the file entity corresponding to this [FileInfo](fs_package_structs.md#struct-fileinfo) is modified by other users or processes during this function call, race conditions may cause other modifications to fail.
+- On Linux and macOS, this function works as expected. If the file entity corresponding to this [FileInfo](fs_package_structs.md#struct-fileinfo) is modified by other users or processes during this function call, race conditions may cause other modifications to fail. Processes running as a privileged user may bypass this permission setting.
 
 Parameters:
 
