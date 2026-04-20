@@ -18,7 +18,7 @@
 
 #define MAX_BUF_LENGTH 64
 
-char* CJ_TIME_GetLocalTimeZoneProperty()
+char* CJ_TIME_GetLocalTimeZoneProperty(void)
 {
 #ifdef __android__
     FILE *fp = popen("getprop persist.sys.timezone", "r");
