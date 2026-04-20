@@ -54,7 +54,7 @@ set(CMAKE_C_FLAGS
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=arm-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fvisibility=hidden -fPIC -fgnu89-inline -Wfloat-equal -pipe -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
+     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fPIC -fgnu89-inline -Wfloat-equal -pipe -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -66,7 +66,7 @@ set(CMAKE_CXX_FLAGS
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=arm-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fvisibility=hidden -fPIC -Wfloat-equal -fno-exceptions -pipe -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
+     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fPIC -Wfloat-equal -fno-exceptions -pipe -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 set(OHOS_INCLUDE "-I$ENV{OHOS_ROOT}/third_party/openssl/include")

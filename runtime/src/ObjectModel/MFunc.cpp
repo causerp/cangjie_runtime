@@ -66,7 +66,7 @@ CString ULEBDecode(CString& bytes, Uptr offset)
     U32 dictTotalSize = *(reinterpret_cast<const U32*>(offset));
     U32 strPoolDictSplitSize = GetStrPoolDictSplitSize(dictTotalSize);
     CString result;
-    int p = 0;
+    size_t p = 0;
     std::vector<uint8_t> tempCode;
     while (p < bytes.Length()) {
         tempCode.push_back(bytes[p]);
