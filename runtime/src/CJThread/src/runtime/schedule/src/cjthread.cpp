@@ -1419,7 +1419,7 @@ __attribute__((noinline)) int CJThreadResched(void)
         cjthread->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return 0;
     }
-    if (cjthread->boundThread) {
+    if (UNLIKELY(cjthread->boundThread)) {
         return 0;
     }
 #ifdef CANGJIE_ASAN_SUPPORT
