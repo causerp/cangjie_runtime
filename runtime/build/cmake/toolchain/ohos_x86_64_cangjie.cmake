@@ -46,20 +46,27 @@ set(CMAKE_RANLIB "$ENV{OHOS_ROOT}/prebuilts/clang/ohos/${cmake_host_system_name}
 # compile flags for common
 set(CMAKE_C_FLAGS
     "-Wdeprecated-copy -fno-strict-aliasing --param=ssp-buffer-size=4  -flto -fvisibility=default -fsanitize=cfi -fno-sanitize=cfi-nvcall,cfi-icall \
+     -std=c11 \
+     -Wdate-time -Wformat=2 -Wswitch-default -Wunused \
+     -Wcast-qual \
+     -Wstrict-prototypes \
      -Wno-builtin-macro-redefined -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -funwind-tables -fcolor-diagnostics \
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=x86_64-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -fPIC -fgnu89-inline -Wfloat-equal"
+     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fvisibility=hidden -fPIC -fgnu89-inline -Wfloat-equal -pipe"
 )
 
 set(CMAKE_CXX_FLAGS
     "-Wdeprecated-copy -fno-strict-aliasing --param=ssp-buffer-size=4  -flto -fvisibility=default -fsanitize=cfi -fno-sanitize=cfi-nvcall,cfi-icall \
+     -std=gnu++14 \
+     -Wdate-time -Wformat=2 -Wswitch-default -Wunused \
+     -Wcast-qual -Woverloaded-virtual -Wnon-virtual-dtor -Wdelete-non-virtual-dtor \
      -Wno-builtin-macro-redefined -D__DATE__= -D__TIME__= -D__TIMESTAMP__= -funwind-tables -fcolor-diagnostics \
      -fmerge-all-constants -Xclang -mllvm -Xclang -instcombine-lower-dbg-declare=0 -no-canonical-prefixes \
      -ffunction-sections -fno-short-enums --target=x86_64-linux-ohos -Wextra -Wthread-safety \
      -fdata-sections -ffunction-sections -fno-omit-frame-pointer -g2 -ggnu-pubnames -fno-common -Wheader-hygiene \
-     -Wstring-conversion -Wtautological-overlap-compare -fPIC -Wfloat-equal -fno-exceptions"
+     -Wstring-conversion -Wtautological-overlap-compare -Wframe-larger-than=10240 -fvisibility=hidden -fPIC -Wfloat-equal -fno-exceptions -pipe"
 )
 
 set(OHOS_INCLUDE "-I$ENV{OHOS_ROOT}/third_party/openssl/include")
@@ -115,15 +122,8 @@ set(CMAKE_ASM_FLAGS_RELEASE "")
 add_compile_definitions(
     "_LARGEFILE_SOURCE"
     "_FILE_OFFSET_BITS=64"
-    "VOS_OS_VER=VOS_LINUX"
-    "VOS_HARDWARE_PLATFORM=VOS_X86"
     "MRT_HARDWARE_PLATFORM=MRT_X86"
-    "VOS_CPU_TYPE=VOS_X86"
     "VOS_WORDSIZE=64"
-    "VOS_BYTE_ORDER=VOS_LITTLE_ENDIAN"
-    "USE___THREAD"
-    "$<$<CONFIG:Debug>:VOS_BUILD_DEBUG=1>"
-    "$<$<CONFIG:Release>:VOS_BUILD_RELEASE=1>"
     "TLS_COMMON_DYNAMIC"
     "CANGJIE"
     "OPENSSL_X86_64_PLATFORM"
@@ -133,7 +133,9 @@ add_compile_definitions(
 
 # link flags
 set(CMAKE_SHARED_LINKER_FLAGS
-    "-rdynamic \
+    "-Wl,-Bsymbolic \
+    -Wl,--no-undefined \
+    -rdynamic \
     -Wl,-z,noexecstack \
     -Wl,-z,relro \
     -Wl,-z,now \

@@ -19,8 +19,8 @@ set(CMAKE_RANLIB "${ANDROID_ROOT}/llvm/prebuilt/${cmake_host_system_name}-x86_64
 
 set(OS "linux")
 set(CPU_FAMILY "arm")
-set(CPU_CORE "arm64")
-set(PLATFORM_NAME "ANDROID_arm64_cangjie")
+set(CPU_CORE "arm32")
+set(PLATFORM_NAME "android_arm_cangjie")
 # The compile flags for common
 set(CMAKE_C_FLAGS
     "-Wall \
@@ -36,7 +36,7 @@ set(CMAKE_C_FLAGS
     -Wundef \
     -Wcast-qual \
     -Wstrict-prototypes \
-    -m64 \
+    -m32 \
     -std=c11 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
@@ -48,7 +48,8 @@ set(CMAKE_C_FLAGS
     -fstack-protector-strong \
     -Wframe-larger-than=10240 \
     -fPIC \
-    -pipe"
+    -pipe \
+    -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -67,7 +68,7 @@ set(CMAKE_CXX_FLAGS
     -Woverloaded-virtual \
     -Wnon-virtual-dtor \
     -Wdelete-non-virtual-dtor \
-    -m64 \
+    -m32 \
     -std=gnu++14 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
@@ -78,18 +79,18 @@ set(CMAKE_CXX_FLAGS
     -fstack-protector-strong \
     -Wframe-larger-than=10240 \
     -fPIC \
-    -pipe"
+    -pipe \
+    -mfpu=neon -mfloat-abi=softfp -march=armv7-a"
 )
 
 add_compile_definitions(
     "_LARGEFILE_SOURCE"
-    "_FILE_OFFSET_BITS=64"
+    "_FILE_OFFSET_BITS=32"
     "MRT_HARDWARE_PLATFORM=MRT_ARM"
-    "VOS_WORDSIZE=64"
-    "__WORDSIZE=64"
+    "VOS_WORDSIZE=32"
+    "__WORDSIZE=32"
     "TLS_COMMON_DYNAMIC"
     "CANGJIE"
-    "AARCH64_LINUX_GNU"
     "MRT_LINUX"
     "__ANDROID__"
 )

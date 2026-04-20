@@ -8,7 +8,6 @@
 #	__OHOS__ : Using Open Harmony Operating System tool chain.
 #	__AARCH64_LINUX_GNU__ : Using Aarch64 Linux GNU tool chain.
 #	MRT_DEBUG : Indicates whether to use the debug mode.
-#	MRT_USE_CJTHREAD : Indicates whether to use CJThread.
 #	MRT_USE_CJTHREAD_RENAME ：Indicates whether to use CJThread Rename.
 #	MRT_USE_COPYGC ： Indicates whether to use copyGC.
 #	MRT_DUMP_ADDRESS ：Indicates whether the runtime dumps the address in the log.
@@ -296,29 +295,30 @@ if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
     )
 elseif (WINDOWS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=hidden -fno-exceptions \
-        -fno-rtti -Wall -fstack-protector-strong -Wunused-variable -Wno-inconsistent-dllimport")
+        -fno-rtti -Wall -fstack-protector-strong -Wno-inconsistent-dllimport -fno-strict-aliasing -fno-common")
 elseif (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2)
     message("android toolchain, clang version=${CLANG_VERSION_STRING}")
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer \
     -fvisibility=hidden -fno-exceptions -fno-rtti -ffunction-sections -Wall \
-        -fstack-protector-strong -fPIC -Wunused-variable ${ANDROID_INCLUDE}"
+        -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common ${ANDROID_INCLUDE}"
     )
 elseif (IOS_SIMULATOR_FLAG MATCHES 2)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-            -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target x86_64-apple-ios11-simulator")
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common -target x86_64-apple-ios11-simulator")
 elseif (IOS_SIMULATOR_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-            -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target arm64-apple-ios11-simulator")
+            -fno-rtti -Wall -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common -target arm64-apple-ios11-simulator")
 elseif (IOS_FLAG MATCHES 1)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-        -fno-rtti -Wall -fstack-protector-strong -fPIC -Wunused-variable -target arm64-apple-ios11")
+        -fno-rtti -Wall -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common -target arm64-apple-ios11")
 else ()
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \
-        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -fPIC -Wunused-variable")
+        -fno-rtti -ffunction-sections -Wall -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common")
 endif ()
 set(ASAN_FLAGS "-fsanitize=address -fno-omit-frame-pointer")
 set(HWASAN_FLAGS "-shared-libsan -fsanitize=hwaddress -fno-omit-frame-pointer -fno-emulated-tls -fno-lto -fno-sanitize=cfi -mllvm -hwasan-globals=0 -fno-whole-program-vtables")
-set(CMAKE_INIT_FLAGS "${CMAKE_INIT_FLAGS} -Wfloat-equal -Wextra -Wno-unused-parameter -Wno-sign-compare")
+set(CMAKE_INIT_FLAGS "${CMAKE_INIT_FLAGS} -pipe -Wdate-time -Wformat=2 -Wfloat-equal -Wextra \
+    -Wswitch-default -Wunused -Wcast-qual -Wno-unused-parameter -Wno-sign-compare -fno-common")
 
 if (NOT CMAKE_AR_PATH)
     # The command "which llvm-ar" to obtain ar path
@@ -333,7 +333,7 @@ endif ()
 message(STATUS "CMAKE_AR : ${CMAKE_AR}")
 
 # Set C flags
-set(CMAKE_C_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_C_FLAGS} -std=c99")
+set(CMAKE_C_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_C_FLAGS} -std=c11 -Wstrict-prototypes")
 set(CMAKE_C_FLAGS_DEBUG "-O0 -gdwarf-4 -DMRT_DEBUG=1")
 if (CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
     set(CMAKE_C_FLAGS_RELEASE "-Os -D_FORTIFY_SOURCE=2 -gdwarf-4")
@@ -346,9 +346,11 @@ set(CMAKE_C_FLAGS_MINSIZERELWITHDEBINFO "-Os -D_FORTIFY_SOURCE=2 -gdwarf-4")
 # Set CXX flags
 if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2 OR
     IOS_SIMULATOR_FLAG MATCHES 1)
-    set(CMAKE_CXX_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_CXX_FLAGS} -std=c++14")
+    set(CMAKE_CXX_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_CXX_FLAGS} -std=c++14 -Woverloaded-virtual \
+        -Wnon-virtual-dtor -Wdelete-non-virtual-dtor")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_CXX_FLAGS} -std=gnu++14")
+    set(CMAKE_CXX_FLAGS "${CMAKE_INIT_FLAGS} ${CMAKE_CXX_FLAGS} -std=gnu++14 -Woverloaded-virtual \
+        -Wnon-virtual-dtor -Wdelete-non-virtual-dtor")
 endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -gdwarf-4 -DMRT_DEBUG=1")
