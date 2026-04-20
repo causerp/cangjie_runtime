@@ -41,16 +41,21 @@ set(CMAKE_C_FLAGS
     -Wvla \
     -Wunused \
     -Wundef \
+    -Wcast-qual \
+    -Wstrict-prototypes \
     -m64 \
+    -std=c11 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
     -fgnu89-inline \
     -fsigned-char \
     -fno-common \
     -fstack-protector-strong \
+    -Wframe-larger-than=10240 \
     -D_WIN32_WINNT=_WIN32_WINNT_VISTA \
     -Wno-inconsistent-dllimport \
-    -Wno-pointer-to-int-cast"
+    -Wno-pointer-to-int-cast \
+    -pipe"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -66,16 +71,23 @@ set(CMAKE_CXX_FLAGS
     -Wvla \
     -Wunused \
     -Wundef \
+    -Wcast-qual \
+    -Woverloaded-virtual \
+    -Wnon-virtual-dtor \
+    -Wdelete-non-virtual-dtor \
     -m64 \
+    -std=gnu++14 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
     -fsigned-char \
     -fno-common \
     -fstack-protector-strong \
+    -Wframe-larger-than=10240 \
     -D_WIN32_WINNT=_WIN32_WINNT_VISTA \
     -Wno-inconsistent-dllimport \
     -fno-exceptions \
-    -Wno-pointer-to-int-cast"
+    -Wno-pointer-to-int-cast \
+    -pipe"
 )
 
 if("${BUILDING_STAGE}")
@@ -109,15 +121,8 @@ set(CMAKE_ASM_FLAGS_RELEASE "")
 add_compile_definitions(
    "_LARGEFILE_SOURCE"
    "_FILE_OFFSET_BITS=64"
-   "VOS_OS_VER=VOS_WINDOWS"
-   "VOS_HARDWARE_PLATFORM=VOS_X86"
    "MRT_HARDWARE_PLATFORM=MRT_WINDOWS_X86"
-   "VOS_CPU_TYPE=VOS_X86"
    "VOS_WORDSIZE=64"
-   "VOS_BYTE_ORDER=VOS_LITTLE_ENDIAN"
-   "USE___THREAD"
-   "$<$<CONFIG:Debug>:VOS_BUILD_DEBUG=1>"
-   "$<$<CONFIG:Release>:VOS_BUILD_RELEASE=1>"
    "_CRT_RAND_S"
    "MRT_WINDOWS"
    "TLS_COMMON_DYNAMIC"
@@ -132,7 +137,10 @@ set(openssl_link "-lcrypto -lssl")
 # link flags
 set(CMAKE_SHARED_LINKER_FLAGS
     "--target=x86_64-pc-windows-gnu \
-    -m64"
+    -m64 \
+    -rdynamic \
+    -Wl,-Bsymbolic \
+    -Wl,--no-undefined"
 )
 
 link_libraries(ssp pthread Ws2_32)

@@ -85,8 +85,8 @@ void ExceptionHandling::BuildEHFrameInfo()
         DLOG(EXCEPTION, "parse eh stack");
         DLOG(EXCEPTION, "EHFrameInfos size : %zu", ehFrameInfos.size());
         DLOG(EXCEPTION, "Layer\tFA\t\tIP\t\tTTpyeIndex\t\tLandingPad\tCatch\t");
-        for (int i = 0; i < ehFrameInfos.size(); ++i) {
-            DLOG(EXCEPTION, "#%x\t%x\t%x\t%x\t0x%p\t%x", i, ehFrameInfos[i].mFrame.GetFA(),
+        for (size_t i = 0; i < ehFrameInfos.size(); ++i) {
+            DLOG(EXCEPTION, "#%zx\t%x\t%x\t%x\t0x%p\t%x", i, ehFrameInfos[i].mFrame.GetFA(),
                  ehFrameInfos[i].mFrame.GetIP(), ehFrameInfos[i].GetTTypeIndex(),
                  reinterpret_cast<void*>(ehFrameInfos[i].GetLandingPad()),
                  ehFrameInfos[i].IsCatchException());
