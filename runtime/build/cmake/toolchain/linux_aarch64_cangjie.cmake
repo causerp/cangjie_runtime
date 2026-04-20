@@ -43,6 +43,9 @@ set(CMAKE_C_FLAGS
     -Wundef \
     -Wdate-time \
     -Wformat=2 \
+    -Wcast-qual \
+    -Wstrict-prototypes \
+    -std=c11 \
     -fgnu89-inline \
     -fno-common \
     -fno-strict-aliasing \
@@ -52,6 +55,7 @@ set(CMAKE_C_FLAGS
     -march=armv8-a \
     -mtune=cortex-a72 \
     -pipe \
+    -Wframe-larger-than=10240 \
     -fPIC \
     -fstack-protector-strong \
     --param=ssp-buffer-size=4 \
@@ -72,6 +76,11 @@ set(CMAKE_CXX_FLAGS
     -Wundef \
     -Wdate-time \
     -Wformat=2 \
+    -Wcast-qual \
+    -Woverloaded-virtual \
+    -Wnon-virtual-dtor \
+    -Wdelete-non-virtual-dtor \
+    -std=gnu++14 \
     -fno-common \
     -fno-strict-aliasing \
     -fno-builtin \
@@ -80,6 +89,7 @@ set(CMAKE_CXX_FLAGS
     -march=armv8-a \
     -mtune=cortex-a72 \
     -pipe \
+    -Wframe-larger-than=10240 \
     -fPIC \
     -fstack-protector-strong \
     --param=ssp-buffer-size=4 \
@@ -131,12 +141,8 @@ set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "-g -D_FORTIFY_SOURCE=2 -O2")
 # compile definitions
 add_compile_definitions(
    "GLIBC_VERSION_CODE"
-   "VOS_OS_VER=VOS_LINUX"
-   "VOS_HARDWARE_PLATFORM=VOS_ARM"
    "MRT_HARDWARE_PLATFORM=MRT_ARM"
    "VOS_WORDSIZE=64"
-   "VOS_CPU_TYPE=VOS_CORTEXA72"
-   "VOS_BYTE_ORDER=VOS_LITTLE_ENDIAN"
    "VOS_BUILD_RELEASE"
    "TLS_COMMON_DYNAMIC"
    "CANGJIE"
@@ -145,7 +151,9 @@ add_compile_definitions(
 
 # link flags
 set(CMAKE_SHARED_LINKER_FLAGS
-    "-rdynamic \
+    "-Wl,-Bsymbolic \
+    -Wl,--no-undefined \
+    -rdynamic \
     -Wl,-EL \
     -Wl,-z,relro,-z,noexecstack \
     -Wl,-z,now \
