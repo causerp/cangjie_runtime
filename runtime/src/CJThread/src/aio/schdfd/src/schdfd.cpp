@@ -24,43 +24,84 @@ const int PROTOCOL_BUF_SIZE = 32;
 bool g_iocpCompleteSkipFlag = false;
 #endif
 
+static inline struct SchdfdSlot **SchdfdLoadLayerSlots(struct SchdfdManager *schdfdManager, int layerIndex)
+{
+    // Keep the layer slots visible with the pointer.
+    return __atomic_load_n(&schdfdManager->slots[layerIndex], __ATOMIC_ACQUIRE);
+}
+
+static inline void SchdfdStoreLayerSlots(
+    struct SchdfdManager *schdfdManager, int layerIndex, struct SchdfdSlot **layerSlots)
+{
+    // Make the initialized layer slots visible before the pointer.
+    __atomic_store_n(&schdfdManager->slots[layerIndex], layerSlots, __ATOMIC_RELEASE);
+}
+
+static inline struct SchdfdSlot *SchdfdLoadLineSlots(struct SchdfdSlot **layerSlots, int lineIndex)
+{
+    // Keep the slot line visible with the pointer.
+    return __atomic_load_n(&layerSlots[lineIndex], __ATOMIC_ACQUIRE);
+}
+
+static inline void SchdfdStoreLineSlots(struct SchdfdSlot **layerSlots, int lineIndex, struct SchdfdSlot *lineSlots)
+{
+    // Make the initialized slot line visible before the pointer.
+    __atomic_store_n(&layerSlots[lineIndex], lineSlots, __ATOMIC_RELEASE);
+}
+
 /* init Shcdfd management structure. */
 int SchdfdInit(int layerIndex, int lineIndex)
 {
     struct SchdfdManager *schdfdManager = g_scheduleManager.schdfdManager;
+    struct SchdfdSlot **layerSlots = nullptr;
+    struct SchdfdSlot *lineSlots = nullptr;
     int ret;
     unsigned int size;
 
-    if (schdfdManager->slots[layerIndex] != nullptr && schdfdManager->slots[layerIndex][lineIndex] != nullptr) {
-        return 0;
+    // Fast path: avoid taking initLock once the layer/line pointers are already published.
+    layerSlots = SchdfdLoadLayerSlots(schdfdManager, layerIndex);
+    if (layerSlots != nullptr) {
+        lineSlots = SchdfdLoadLineSlots(layerSlots, lineIndex);
+        if (lineSlots != nullptr) {
+            return 0;
+        }
     }
 
     pthread_mutex_lock(&schdfdManager->initLock);
-    if (schdfdManager->slots[layerIndex] != nullptr && schdfdManager->slots[layerIndex][lineIndex] != nullptr) {
+    // Check again after taking initLock in case another thread has finished initialization.
+    layerSlots = SchdfdLoadLayerSlots(schdfdManager, layerIndex);
+    if (layerSlots != nullptr) {
+        lineSlots = SchdfdLoadLineSlots(layerSlots, lineIndex);
+    }
+    if (layerSlots != nullptr && lineSlots != nullptr) {
         pthread_mutex_unlock(&schdfdManager->initLock);
         return 0;
     }
 
-    if (schdfdManager->slots[layerIndex] == nullptr) {
+    if (layerSlots == nullptr) {
         size = (unsigned int)(sizeof(struct SchdfdSlot *) * SCHDFD_SLOTS_LAYER_MAX_LINE_NUM);
-        schdfdManager->slots[layerIndex] = reinterpret_cast<struct SchdfdSlot **>(malloc(size));
-        if (schdfdManager->slots[layerIndex] == nullptr) {
+        layerSlots = reinterpret_cast<struct SchdfdSlot **>(malloc(size));
+        if (layerSlots == nullptr) {
             ret = errno;
             pthread_mutex_unlock(&schdfdManager->initLock);
             LOG_ERROR(ret, "malloc failed, size: %u, layerIndex: %d", size, layerIndex);
             return ERRNO_SCHDFD_INIT_RESOURCE_FAILED;
         }
-        memset_s(schdfdManager->slots[layerIndex], size, 0, size);
+        memset_s(layerSlots, size, 0, size);
+        SchdfdStoreLayerSlots(schdfdManager, layerIndex, layerSlots);
     }
-    size = (unsigned int)(sizeof(struct SchdfdSlot) * SCHDFD_SLOTS_LINE_MAX_FD_NUM);
-    schdfdManager->slots[layerIndex][lineIndex] = reinterpret_cast<struct SchdfdSlot *>(malloc(size));
-    if (schdfdManager->slots[layerIndex][lineIndex] == nullptr) {
-        ret = errno;
-        pthread_mutex_unlock(&schdfdManager->initLock);
-        LOG_ERROR(ret, "malloc failed, size: %u, lineIndex: %d", size, lineIndex);
-        return ERRNO_SCHDFD_INIT_RESOURCE_FAILED;
+    if (lineSlots == nullptr) {
+        size = (unsigned int)(sizeof(struct SchdfdSlot) * SCHDFD_SLOTS_LINE_MAX_FD_NUM);
+        lineSlots = reinterpret_cast<struct SchdfdSlot *>(malloc(size));
+        if (lineSlots == nullptr) {
+            ret = errno;
+            pthread_mutex_unlock(&schdfdManager->initLock);
+            LOG_ERROR(ret, "malloc failed, size: %u, lineIndex: %d", size, lineIndex);
+            return ERRNO_SCHDFD_INIT_RESOURCE_FAILED;
+        }
+        memset_s(lineSlots, size, 0, size);
+        SchdfdStoreLineSlots(layerSlots, lineIndex, lineSlots);
     }
-    memset_s(schdfdManager->slots[layerIndex][lineIndex], size, 0, size);
 
     pthread_mutex_unlock(&schdfdManager->initLock);
     return 0;
