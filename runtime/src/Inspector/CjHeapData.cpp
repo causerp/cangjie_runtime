@@ -772,7 +772,7 @@ void CjHeapData::HandleAddU2(const u2* value, size_t count)
     size_t oldSize = buffer.size();
     buffer.resize(oldSize + count * sizeof(u2));
     uint8_t* dst = buffer.data() + oldSize;
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; ++i) {
         u2 val = *value++;
         // 0: Stores 2th byte
         dst[0] = static_cast<uint8_t>((val >> SECOND_BYTE) & 0xFF);
@@ -787,7 +787,7 @@ void CjHeapData::HandleAddU4(const u4* value, size_t count)
     size_t oldSize = buffer.size();
     buffer.resize(oldSize + count * sizeof(u4));
     uint8_t* dst = buffer.data() + oldSize;
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; ++i) {
         u4 val = *value++;
         // 0: Stores 4th byte
         dst[0] = static_cast<uint8_t>((val >> FOURTH_BYTE) & 0xFF);
@@ -806,7 +806,7 @@ void CjHeapData::HandleAddU8(const u8* value, size_t count)
     size_t oldSize = buffer.size();
     buffer.resize(oldSize + count * sizeof(u8));
     uint8_t* dst = buffer.data() + oldSize;
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; ++i) {
         u8 val = *value++;
         // 0: Stores 8th byte
         dst[0] = static_cast<uint8_t>((val >> EIGHTH_BYTE) & 0xFF);

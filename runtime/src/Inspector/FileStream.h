@@ -75,7 +75,7 @@ public:
         }
         int dstSize = chunkSize_ - current_;
         // To ensure that the character string is continuously written, write the data in buffer first.
-        if (len > dstSize) {
+        if (len > static_cast<size_t>(dstSize)) {
             End();
         }
         WriteString(str);
