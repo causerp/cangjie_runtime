@@ -520,10 +520,12 @@ extern "C" ArrayRef MCC_FillInStackTraceImpl(const TypeInfo* arrayInfo, const Ar
         sofSize *= frameInfoPairLen;
         // When a stack is folded, an additional element is added behind liteFrameInfos to record the folding.
         // At this time, the size of liteFrameInfos is changed to 3n+1.
-        if (sofSize > 0 && liteFrameInfos.size() > sofSize + coreOrFiltFuncSize + topFiltFrameSize) {
+        if (sofSize > 0 &&
+            liteFrameInfos.size() > static_cast<size_t>(sofSize + coreOrFiltFuncSize + topFiltFrameSize)) {
             liteFrameInfos.erase(liteFrameInfos.begin() + sofSize + coreOrFiltFuncSize, liteFrameInfos.end());
             liteFrameInfos.push_back(static_cast<uint64_t>(SofStackFlag::BOTTOM_FOLDED));
-        } else if (sofSize < 0 && liteFrameInfos.size() > coreOrFiltFuncSize + topFiltFrameSize - sofSize) {
+        } else if (sofSize < 0 &&
+                   liteFrameInfos.size() > static_cast<size_t>(coreOrFiltFuncSize + topFiltFrameSize - sofSize)) {
             sofSize -= topFiltFrameSize;
             liteFrameInfos.erase(liteFrameInfos.begin(), liteFrameInfos.end() + sofSize);
             liteFrameInfos.push_back(static_cast<uint64_t>(SofStackFlag::TOP_FOLDED));

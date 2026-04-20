@@ -268,8 +268,9 @@ RTErrorCode InitCJRuntime(const struct RuntimeParam* param)
     ScheduleHandle scheduler = NULL;
 #if defined(__linux__) || defined(hongmeng) || defined(__APPLE__)
     // PTHREAD_STACK_MIN is not supported in Windows.
-    if (stackSize < PTHREAD_STACK_MIN) {
-        stackSize = PTHREAD_STACK_MIN;
+    const size_t minStackSize = static_cast<size_t>(PTHREAD_STACK_MIN);
+    if (stackSize < minStackSize) {
+        stackSize = minStackSize;
     }
 #endif
     CHECK_PTHREAD_CALL(pthread_attr_init, (&attr), "init pthread attr");

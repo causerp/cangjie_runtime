@@ -115,7 +115,8 @@ void Logger::GetLogPath(const char* env, CString& logPath)
     }
     CString s = CString(envPath).RemoveBlankSpace();
     envPath = s.Str();
-    if (strlen(envPath) < 2 || (strlen(envPath) >= PATH_MAX)) { // 2 is path minimum size
+    size_t envPathLen = strlen(envPath);
+    if (envPathLen < 2 || envPathLen >= PATH_MAX) { // 2 is path minimum size
         LOG(RTLOG_ERROR, "Unsupported %s parameter. The length should be in [2, 4096).\n", env);
         return;
     }
@@ -132,13 +133,14 @@ void Logger::GetLogPath(const char* env, CString& logPath)
     }
 
     char pathBuf[PATH_MAX + 1] = { 0x00 };
-    if (pos != (strlen(envPath) - 1)) {
+    if (pos != static_cast<int>(envPathLen - 1)) {
         // path ends with name (could be a directory or a file)
         CString path = CString(envPath).SubStr(0, pos + 1);
         CString name = CString(envPath).SubStr(pos + 1);
         if ((!name.IsEmpty()) && Os::Path::GetRealPath(path.Str(), pathBuf)) {
             logPath = CString(pathBuf);
-            if (logPath.RFind(separator) != (logPath.Length() - 1)) {
+            int separatorPos = logPath.RFind(separator);
+            if (separatorPos < 0 || separatorPos != static_cast<int>(logPath.Length() - 1)) {
                 logPath.Append(separator);
             }
             logPath.Append(name);
