@@ -140,8 +140,8 @@ int64_t CJ_CORE_IndexOfString(
             uint32_t hash = 0;
             uint32_t pow = 0;
             CJ_CORE_HashStr(subStr, subSize, &hash, &pow);
-            Strptr org = {(uint8_t*)orgStr + start, orgSize - start};
-            Strptr sub = {(uint8_t*)subStr, subSize};
+            Strptr org = {(const uint8_t*)orgStr + start, orgSize - start};
+            Strptr sub = {(const uint8_t*)subStr, subSize};
             n = CJ_CORE_RabinKarp(&org, &sub, hash, pow);
         }
     }
@@ -161,8 +161,8 @@ int64_t CJ_CORE_LastIndexOfString(
         uint32_t hash = 0;
         uint32_t pow = 0;
         CJ_CORE_HashStrRev(subStr, subSize, &hash, &pow);
-        Strptr org = {(uint8_t*)orgStr + start, orgSize - start};
-        Strptr sub = {(uint8_t*)subStr, subSize};
+        Strptr org = {(const uint8_t*)orgStr + start, orgSize - start};
+        Strptr sub = {(const uint8_t*)subStr, subSize};
         n = CJ_CORE_RabinKarpR(&org, &sub, hash, pow);
     }
     return (n < 0) ? -1 : n + start;
@@ -192,9 +192,9 @@ int64_t CJ_CORE_CountString(const uint8_t* orgStr, const uint8_t* subStr, int64_
         uint32_t hash = 0;
         uint32_t pow = 0;
         CJ_CORE_HashStr(subStr, subSize, &hash, &pow);
-        Strptr sub = {(uint8_t*)subStr, subSize};
+        Strptr sub = {(const uint8_t*)subStr, subSize};
         while (i < orgSize) {
-            Strptr org = {(uint8_t*)orgStr + i, orgSize - i};
+            Strptr org = {(const uint8_t*)orgStr + i, orgSize - i};
             n = CJ_CORE_RabinKarp(&org, &sub, hash, pow);
             if (n < 0) {
                 return total;
@@ -236,9 +236,9 @@ int64_t* CJ_CORE_CountAndIndexString(const uint8_t* orgStr, const uint8_t* subSt
         uint32_t hash = 0;
         uint32_t pow = 0;
         CJ_CORE_HashStr(subStr, subSize, &hash, &pow);
-        Strptr sub = {(uint8_t*)subStr, subSize};
+        Strptr sub = {(const uint8_t*)subStr, subSize};
         while (i < orgSize) {
-            Strptr org = {(uint8_t*)orgStr + i, orgSize - i};
+            Strptr org = {(const uint8_t*)orgStr + i, orgSize - i};
             n = CJ_CORE_RabinKarp(&org, &sub, hash, pow);
             if (n < 0) {
                 result[0] = total;
@@ -259,8 +259,8 @@ extern int64_t CJ_CORE_StringSize(const uint8_t* str, int64_t len)
         return FastSize(str, len);
     } else {
         int64_t size = 0;
-        uint8_t* tmp = (uint8_t*)str;
-        uint8_t* end = (uint8_t*)str + len;
+        const uint8_t* tmp = (const uint8_t*)str;
+        const uint8_t* end = (const uint8_t*)str + len;
         for (; tmp < end; ++tmp) {
             if ((*tmp & 0xc0) != 0x80) {
                 size += 1;

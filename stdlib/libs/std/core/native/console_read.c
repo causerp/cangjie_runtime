@@ -36,7 +36,7 @@ typedef struct StructureString {
  * - Returns a pointer to a `StructureString` containing the read input.
  * - If an error occurs (e.g., memory allocation failure) or no data is read, it returns NULL.
  */
-static StructureString* ConsoleReadLine()
+static StructureString* ConsoleReadLine(void)
 {
     StructureString* str = (StructureString*)malloc(sizeof(StructureString));
     if (str == NULL) {

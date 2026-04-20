@@ -20,6 +20,8 @@ if (BUILD_TYPE STREQUAL "Debug")
     unset(BUILD_TYPE)
 endif()
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu14")
+
 execute_process(
     COMMAND
         ${CMAKE_COMMAND}

@@ -247,7 +247,7 @@ int64_t FastStrstr(const uint8_t* org, int64_t ol, const uint8_t* sub, int64_t s
         case SIZE_0:
             return SIZE_0;
         case SIZE_1: {
-            const uint8_t* res = (const uint8_t*)strchr((char*)org, sub[0]);
+            const uint8_t* res = (const uint8_t*)strchr((const char*)org, sub[0]);
             return ((res != NULL) && (res < org + ol)) ? res - org : -1;
         }
         case SIZE_2:
@@ -329,8 +329,8 @@ inline __attribute__((always_inline)) static int64_t StringSize(const uint8_t* s
         uint32_t mask = (uint32_t)_mm256_movemask_epi8(_mm256_cmpgt_epi8(vStr32, uint191));
         size += __builtin_popcount(mask);
     }
-    uint8_t* tmp = (uint8_t*)str + i;
-    uint8_t* end = (uint8_t*)str + len;
+    const uint8_t* tmp = (const uint8_t*)str + i;
+    const uint8_t* end = (const uint8_t*)str + len;
     for (; tmp < end; ++tmp) {
         if ((*tmp & 0xc0) != 0x80) {
             size++;
