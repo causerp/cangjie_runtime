@@ -153,7 +153,7 @@ extern void CJ_OS_FreeProcessStartInfo(ProcessStartInfo* startInfo)
     free(startInfo);
 }
 
-extern DWORD CJ_OS_GetCurrentPid()
+extern DWORD CJ_OS_GetCurrentPid(void)
 {
     return GetCurrentProcessId();
 }
@@ -576,7 +576,7 @@ static char* GetProcessCommand(HANDLE processHandle)
     return cmdLine;
 }
 
-static char** GetProcessCommandLine()
+static char** GetProcessCommandLine(void)
 {
     wchar_t* cmdLineW = GetCommandLineW();
     if (cmdLineW == NULL) {
@@ -614,7 +614,7 @@ static char** GetProcessCommandLine()
     return commandLine;
 }
 
-static char* GetProcessWorkingDir()
+static char* GetProcessWorkingDir(void)
 {
     DWORD bufLen = BUF_LEN;
     wchar_t* workingDirW = (char*)calloc(bufLen, sizeof(wchar_t));
@@ -642,7 +642,7 @@ static char* GetProcessWorkingDir()
     return workingDir;
 }
 
-static char** GetProcessEnvironment()
+static char** GetProcessEnvironment(void)
 {
     wchar_t* envW = GetEnvironmentStringsW();
     if (envW == NULL) {
@@ -781,7 +781,7 @@ extern intptr_t CJ_OS_GetStdHandle(int32_t fd)
     }
 }
 
-extern HANDLE CJ_OS_GetNulFileHandle()
+extern HANDLE CJ_OS_GetNulFileHandle(void)
 {
     HANDLE hFile = CreateFile("NUL", // FileName
         GENERIC_WRITE,               // DesiredAccess, only write operation in nul pipe.
@@ -819,7 +819,7 @@ static wchar_t* GetWPath(const char* cstr)
     return wstr;
 }
 
-extern HANDLE CJ_OS_OpenFile()
+extern HANDLE CJ_OS_OpenFile(void)
 {
     const wchar_t* wPath = GetWPath("NUL");
     if (wPath == NULL) {
@@ -881,7 +881,7 @@ extern char* CJ_OS_GetEnvVal(char* envName)
     return GetEnvValByName(envName);
 }
 
-extern char* CJ_OS_GetSystemDirectory()
+extern char* CJ_OS_GetSystemDirectory(void)
 {
     wchar_t systemDir[MAX_PATH];
     DWORD result = GetSystemDirectoryW(systemDir, MAX_PATH);
@@ -892,7 +892,7 @@ extern char* CJ_OS_GetSystemDirectory()
     return Wchar2Char(systemDir);
 }
 
-extern char* CJ_OS_GetWindowsDirectory()
+extern char* CJ_OS_GetWindowsDirectory(void)
 {
     wchar_t windowsDir[MAX_PATH];
     DWORD result = GetWindowsDirectoryW(windowsDir, MAX_PATH);

@@ -33,7 +33,7 @@ typedef struct WindowsOsVersion {
 } WindowsOsVersion;
 
 typedef NTSTATUS(WINAPI* RtlGetVersionPtr)(PRTL_OSVERSIONINFOW);
-WindowsOsVersion GetOSVersion()
+WindowsOsVersion GetOSVersion(void)
 {
     HMODULE hMod = GetModuleHandleA("ntdll.dll");
     RTL_OSVERSIONINFOW osVersionInfo = {0};
