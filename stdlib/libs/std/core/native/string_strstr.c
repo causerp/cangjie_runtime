@@ -65,7 +65,7 @@ int64_t CJ_CORE_RabinKarp(Strptr* org, Strptr* sub, uint32_t hashP, uint32_t pow
     for (i = 0; i < sub->size; ++i) {
         hashO = hashO * PRIME_RK + (uint32_t)(org->ptr)[i];
     }
-    uint8_t* itemOrgStr = org->ptr;
+    const uint8_t* itemOrgStr = org->ptr;
     if (hashP == hashO && memcmp(itemOrgStr, sub->ptr, (size_t)sub->size) == 0) {
         return 0;
     }
@@ -92,14 +92,14 @@ int64_t CJ_CORE_RabinKarpR(Strptr* org, Strptr* sub, uint32_t hashP, uint32_t po
     for (i = org->size - 1; i >= org->size - sub->size; --i) {
         hashO = hashO * PRIME_RK + (uint32_t)(org->ptr)[i];
     }
-    uint8_t* itemOrgStr = (uint8_t*)org->ptr + org->size - sub->size;
+    const uint8_t* itemOrgStr = org->ptr + org->size - sub->size;
     if (hashP == hashO && memcmp(itemOrgStr, sub->ptr, (size_t)sub->size) == 0) {
         return org->size - sub->size;
     }
     for (i = (org->size - sub->size) - 1; i >= 0; --i) {
         hashO = hashO * PRIME_RK + (uint32_t)(org->ptr)[i];
         hashO -= pow * (uint32_t)(org->ptr)[i + sub->size];
-        itemOrgStr = (uint8_t*)org->ptr + i;
+        itemOrgStr = org->ptr + i;
         if (hashP == hashO && memcmp(itemOrgStr, sub->ptr, (size_t)sub->size) == 0) {
             return i;
         }
@@ -125,8 +125,8 @@ int64_t CJ_CORE_LastIndexOfByte(const uint8_t* orgStr, int64_t orgSize, uint8_t 
     if (orgSize < 0) {
         return -1;
     }
-    uint8_t* start = (uint8_t*)orgStr + orgSize - 1;
-    uint8_t* end = (uint8_t*)orgStr;
+    const uint8_t* start = (const uint8_t*)orgStr + orgSize - 1;
+    const uint8_t* end = (const uint8_t*)orgStr;
     for (; start >= end; start--) {
         if (*start == pat) {
             return start - orgStr;

@@ -368,7 +368,7 @@ static char** GetCommandLine(char* command, char** arguments)
  * @return The boot time in milliseconds since the Unix epoch, or:
  *         - `ERROR_NOT_FIND_BOOTTIME` if the `btime` value cannot be found or read.
  */
-static int64_t GetBootTime()
+static int64_t GetBootTime(void)
 {
     FILE* fp = fopen("/proc/stat", "r");
     if (fp == NULL) {
