@@ -19,8 +19,10 @@
 #include "Inspector/CjHeapData.h"
 namespace MapleRuntime {
 std::mutex ExceptionManager::gUncaughtExceptionHandlerMtx;
+#if defined(__OHOS__) && (__OHOS__ == 1)
 std::mutex ExceptionManager::gEventMtx;
 CJEventReportInfo ExceptionManager::eventReportHandler = {nullptr, nullptr};
+#endif
 
 void ExceptionManager::OutOfMemory()
 {
