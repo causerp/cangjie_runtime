@@ -151,7 +151,7 @@ int main(int argc, char* argv[])
     bool isDetailed = CheckOption(args, "-l");
     bool isObfuscated = CheckOption(args, "-f");
     bool isType = CheckOption(args, "-T");
-    for (int i = 1; i < args.size(); ++i) {
+    for (size_t i = 1; i < args.size(); ++i) {
         if (args[i] == "-l" || args[i] == "-f" || args[i] == "-T") {
             continue;
         }

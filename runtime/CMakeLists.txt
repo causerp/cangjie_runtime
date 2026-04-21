@@ -186,7 +186,6 @@ if (BUILD_RUNTIME)
 include_directories(${DOPRA_INCLUDE})
 
 if (DOPRA_FLAG MATCHES 1)
-    add_definitions(-DMRT_USE_CJTHREAD)
     add_definitions(-DMRT_USE_CJTHREAD_RENAME)
 endif ()
 if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2)
@@ -280,7 +279,8 @@ endif()
 if (MACOS_FLAG MATCHES 1 OR IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 2)
     set(COMMON_LINK_FLAGS "-rdynamic")
 else()
-    set(COMMON_LINK_FLAGS "-Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -Wl,--gc-sections -rdynamic ${LINK_SCRIPTS}")
+    set(COMMON_LINK_FLAGS "-Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -Wl,--gc-sections \
+        -Wl,-Bsymbolic -Wl,--no-undefined -rdynamic ${LINK_SCRIPTS}")
 endif()
 
 if (COV MATCHES 1)

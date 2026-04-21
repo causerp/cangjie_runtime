@@ -66,7 +66,7 @@ CString ULEBDecode(CString& bytes, Uptr offset)
     U32 dictTotalSize = *(reinterpret_cast<const U32*>(offset));
     U32 strPoolDictSplitSize = GetStrPoolDictSplitSize(dictTotalSize);
     CString result;
-    int p = 0;
+    size_t p = 0;
     std::vector<uint8_t> tempCode;
     while (p < bytes.Length()) {
         tempCode.push_back(bytes[p]);
@@ -168,7 +168,7 @@ CString FastULEBDecode(CString &bytes, Uptr offset)
         LOG(RTLOG_FATAL, "invalid dictionary split size in stringpool");
         return "";
     }
-    int p = 0;
+    size_t p = 0;
     std::vector<uint8_t> tempCode;
     std::vector<SingleStr> segments;
     size_t totalLen = 0;

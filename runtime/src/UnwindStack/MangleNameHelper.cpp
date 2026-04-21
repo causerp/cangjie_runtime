@@ -16,7 +16,7 @@ CString MangleNameHelper::RemoveGenericTypeName(const MapleRuntime::CString& raw
 {
     MapleRuntime::CString name;
     int preBracketNum = 0;
-    for (int i = 0; i < rawName.Length(); ++i) {
+    for (size_t i = 0; i < rawName.Length(); ++i) {
         if (preBracketNum == 0) {
             if (rawName[i] == '<') {
                 ++preBracketNum;
