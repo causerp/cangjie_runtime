@@ -785,7 +785,7 @@ void CjHeapData::HandleAddU1(const u1* value, uint8_t count) { buffer.insert(buf
 
 void CjHeapData::HandleAddU2(const u2* value, uint8_t count)
 {
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; i++) {
         buffer.push_back(static_cast<uint8_t>((*value >> SECOND_BYTE) & 0xFF));
         buffer.push_back(static_cast<uint8_t>((*value >> FIRST_BYTE) & 0xFF));
         value++;
@@ -794,7 +794,7 @@ void CjHeapData::HandleAddU2(const u2* value, uint8_t count)
 
 void CjHeapData::HandleAddU4(const u4* value, uint8_t count)
 {
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; i++) {
         buffer.push_back(static_cast<uint8_t>((*value >> FOURTH_BYTE) & 0xFF));
         buffer.push_back(static_cast<uint8_t>((*value >> THIRD_BYTE) & 0xFF));
         buffer.push_back(static_cast<uint8_t>((*value >> SECOND_BYTE) & 0xFF));
@@ -813,7 +813,7 @@ void CjHeapData::HandleAddU8(const u8* value, uint8_t count)
     // 40: offset for 6st byte
     // 48: offset for 7st byte
     // 56: offset for 8st byte
-    for (int i = 0; i < count; i++) {
+    for (size_t i = 0; i < count; i++) {
         buffer.push_back(static_cast<uint8_t>((*value >> EIGHTH_BYTE) & 0xFF));
         buffer.push_back(static_cast<uint8_t>((*value >> SEVENTH_BYTE) & 0xFF));
         buffer.push_back(static_cast<uint8_t>((*value >> SIXTH_BYTE) & 0xFF));

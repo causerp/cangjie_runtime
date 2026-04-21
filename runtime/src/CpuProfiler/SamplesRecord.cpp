@@ -387,7 +387,8 @@ void SamplesRecord::ParseSampleData(uint64_t previousTimeStemp)
         if (task.finishParsed) {
             continue;
         }
-        for (int i = task.checkPoint; i < task.frameCnt; ++i) {
+        const int frameCnt = static_cast<int>(task.frameCnt);
+        for (int i = task.checkPoint; i < frameCnt; ++i) {
             GetDemangleName(task.funcDescRefs[i]);
             GetUrl(task.funcDescRefs[i]);
             // Avoid taking too long time to parse symbol.
@@ -422,7 +423,7 @@ void SamplesRecord::Post(uint64_t mutatorId, std::vector<uint64_t>& FuncDescRefs
 std::vector<CodeInfo> SamplesRecord::GetCodeInfos(SampleTask& task)
 {
     std::vector<CodeInfo> codeInfos;
-    for (int i = 0; i < task.frameCnt; ++i) {
+    for (uint64_t i = 0; i < task.frameCnt; ++i) {
         CodeInfo codeInfo;
         codeInfo.lineNumber = task.lineNumbers[i];
         codeInfo.frameType = task.frameTypes[i];

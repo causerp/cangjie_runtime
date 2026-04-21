@@ -34,7 +34,10 @@ set(CMAKE_C_FLAGS
     -Wvla \
     -Wunused \
     -Wundef \
+    -Wcast-qual \
+    -Wstrict-prototypes \
     -m64 \
+    -std=c11 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
     -fgnu89-inline \
@@ -43,7 +46,9 @@ set(CMAKE_C_FLAGS
     -fno-exceptions \
     -fno-rtti \
     -fstack-protector-strong \
-    -fPIC"
+    -Wframe-larger-than=10240 \
+    -fPIC \
+    -pipe"
 )
 
 set(CMAKE_CXX_FLAGS
@@ -58,7 +63,12 @@ set(CMAKE_CXX_FLAGS
     -Wvla \
     -Wunused \
     -Wundef \
+    -Wcast-qual \
+    -Woverloaded-virtual \
+    -Wnon-virtual-dtor \
+    -Wdelete-non-virtual-dtor \
     -m64 \
+    -std=gnu++14 \
     -fno-strict-aliasing \
     -fno-omit-frame-pointer \
     -fsigned-char \
@@ -66,22 +76,17 @@ set(CMAKE_CXX_FLAGS
     -fno-exceptions \
     -fno-rtti \
     -fstack-protector-strong \
-    -fPIC"
+    -Wframe-larger-than=10240 \
+    -fPIC \
+    -pipe"
 )
 
 add_compile_definitions(
     "_LARGEFILE_SOURCE"
     "_FILE_OFFSET_BITS=64"
-    "VOS_OS_VER=VOS_LINUX"
-    "VOS_HARDWARE_PLATFORM=VOS_ARM"
     "MRT_HARDWARE_PLATFORM=MRT_ARM"
-    "VOS_CPU_TYPE=VOS_ARM"
     "VOS_WORDSIZE=64"
     "__WORDSIZE=64"
-    "VOS_BYTE_ORDER=VOS_LITTLE_ENDIAN"
-    "USE___THREAD"
-    "$<$<CONFIG:Debug>:VOS_BUILD_DEBUG=1>"
-    "$<$<CONFIG:Release>:VOS_BUILD_RELEASE=1>"
     "TLS_COMMON_DYNAMIC"
     "CANGJIE"
     "AARCH64_LINUX_GNU"
@@ -91,7 +96,9 @@ add_compile_definitions(
 
 # The link flags
 set(CMAKE_SHARED_LINKER_FLAGS
-    "-rdynamic \
+    "-Wl,-Bsymbolic \
+    -Wl,--no-undefined \
+    -rdynamic \
     -lboundscheck \
     -Wl,-z,noexecstack \
     -Wl,-z,relro \
