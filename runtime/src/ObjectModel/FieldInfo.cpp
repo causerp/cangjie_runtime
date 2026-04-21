@@ -207,7 +207,7 @@ void StaticFieldInfo::SetValue(ObjRef newValue)
     TypeInfo* fieldTi = GetFieldType();
     if (fieldTi->IsRef()) {
         RefField<>* rootField = reinterpret_cast<RefField<>*>(addr);
-        Heap::GetHeap().GetBarrier().WriteStaticRef(*rootField, newValue);
+        Heap::GetBarrier().WriteStaticRef(*rootField, newValue);
     } else if (fieldTi->IsStruct() || fieldTi->IsTuple() || fieldTi->IsEnum()) {
         MSize fieldSize = fieldTi->GetInstanceSize();
         if (fieldSize == 0) {
