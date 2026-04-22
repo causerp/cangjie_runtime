@@ -12,7 +12,9 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#if defined(__OHOS__) && (__OHOS__ == 1)
 #include <map>
+#endif
 #ifndef _WIN64
 #include <csignal>
 #endif
@@ -143,11 +145,13 @@ struct CJUncaughtExceptionInfo {
     std::function<void(const char* summary, const CJErrorObject errorObj)> uncaughtTask;
 };
 
+#if defined(__OHOS__) && (__OHOS__ == 1)
 struct CJEventReportInfo  {
     const char* hapPath;
     std::function<void(const char* domain, const char* event, size_t hiSysEventType,
         const std::map<std::string, std::string>& params)> reportInfoTask;
 };
+#endif
 #endif
 
 /* CJThread state type. */
@@ -756,7 +760,9 @@ MRT_EXPORT void RemoveHandlerFromSignalStack(int signal, bool (*fn)(int, siginfo
  */
 #ifdef __cplusplus
 MRT_EXPORT void RegisterUncaughtExceptionHandler(const CJUncaughtExceptionInfo& handle);
+#if defined(__OHOS__) && (__OHOS__ == 1)
 MRT_EXPORT void RegisterEventHandler(const CJEventReportInfo& handle);
+#endif
 #endif
 
 /*
