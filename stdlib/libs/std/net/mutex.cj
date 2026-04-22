@@ -28,21 +28,18 @@ struct NonReentrantReadWriteMutex {
         let m = Mutex()
         let useCounter = AtomicInt64(0) // positive = read count, -1 - write
 
-        this.readMutex = NonReentrantReadLock(m, useCounter)
-        this.writeMutex = NonReentrantWriteLock(m, useCounter)
+        let condition = synchronized(m) { m.condition() }
+        this.readMutex = NonReentrantReadLock(m, useCounter, condition)
+        this.writeMutex = NonReentrantWriteLock(m, useCounter, condition)
     }
 }
 
 struct NonReentrantReadLock <: Lock {
-    let condition: Condition
-
     NonReentrantReadLock(
         private let m: Mutex,
-        private let useCounter: AtomicInt64
+        private let useCounter: AtomicInt64,
+        private let condition: Condition
     ) {
-        synchronized(m) {
-            condition = m.condition()
-        }
     }
 
     public override func lock(): Unit {
@@ -75,9 +72,19 @@ struct NonReentrantReadLock <: Lock {
 
     public override func unlock(): Unit {
         if (decrementAndGet() == 0) {
-            synchronized(m) {
-                condition.notify()
-            }
+            // we need to notify only when the last reader leaves its lock so that's why it's under the if-check
+            notifyWriters()
+        }
+    }
+
+    private func notifyWriters() {
+        synchronized(m) {
+            // if we are unlocking the read lock, it means that the other readers would't block at all
+            // so there are no readers to notify
+            // however, there can be writer candidates waiting for all active readers to leave the read lock
+            // only one writer can work concurrently so it's safe to notify only a single one
+            // that's why we don't need notifyAll here
+            condition.notify()
         }
     }
 
@@ -110,19 +117,17 @@ struct NonReentrantReadLock <: Lock {
 }
 
 struct NonReentrantWriteLock <: Lock {
-    let condition: Condition
-
     NonReentrantWriteLock(
         private let m: Mutex,
-        private let useCounter: AtomicInt64
+        private let useCounter: AtomicInt64,
+        private let condition: Condition
     ) {
-        synchronized(m) {
-            condition = m.condition()
-        }
     }
 
     init() {
-        this(Mutex(), AtomicInt64(0))
+        this.m = Mutex()
+        this.useCounter = AtomicInt64(0)
+        this.condition = synchronized(m) { m.condition() }
     }
 
     public override func lock(): Unit {
@@ -158,7 +163,8 @@ struct NonReentrantWriteLock <: Lock {
     public override func unlock(): Unit {
         useCounter.compareAndSwap(WRITER_MARK, 0)
         synchronized(m) {
-            condition.notify()
+            // note: there can be multiple read lock candidates, we need to notify them all
+            condition.notifyAll()
         }
     }
 
