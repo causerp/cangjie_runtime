@@ -968,6 +968,8 @@ void ExclusiveRestore(struct CJThread* oldCJThread, struct Thread* thread,
     // Restore thread data
     thread->cjthread = oldCJThread;
     tlData->mutator = oldCJThread->mutator;
+    ProtectAddrSet(reinterpret_cast<uintptr_t>(oldCJThread->stack.stackGuard));
+
 #if defined(__ANDROID__)
     TRACE_FINISH();
     TRACE_START(MapleRuntime::TraceInfoFormat(TRACE_CJTHREAD_EXIT, CJThreadGetId(newCJThread)));
