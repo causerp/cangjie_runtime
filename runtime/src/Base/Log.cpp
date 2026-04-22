@@ -561,6 +561,7 @@ SignpostWrapper::SignpostWrapper()
 
 SignpostWrapper::~SignpostWrapper()
 {
+    isAvailable = false;
     if (libHandle) {
         dlclose(libHandle);
         libHandle = nullptr;
