@@ -294,7 +294,7 @@ int TcpsockKeepAliveSet(SOCKET fd, const struct SockKeepAliveCfg *cfg)
 {
     int ret;
 
-    ret = setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, (char *)&cfg->keepAlive, sizeof(BOOL));
+    ret = setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, reinterpret_cast<const char *>(&cfg->keepAlive), sizeof(BOOL));
     if (ret == SOCKET_ERROR) {
         ret = WSAGetLastError();
         LOG_ERROR(ret, "setsockopt failed, fd: %d, val: %u", fd, cfg->keepAlive);
