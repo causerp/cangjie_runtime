@@ -801,7 +801,7 @@ struct IocpOperation *SchdfdUpdateIocpOperationInlock(SignedSocket fd, SchdpollE
 
     atomic_store(waiter, PD_NOWAIT);
     atomic_store(&operation->iocpComplete, false);
-    operation->iocpBuf.buf = (char *)buf;
+    operation->iocpBuf.buf = const_cast<char *>(static_cast<const char *>(buf));
     operation->iocpBuf.len = static_cast<unsigned long>(len);
     operation->error = 0;
     memset_s(&operation->overlapped, sizeof(OVERLAPPED), 0, sizeof(OVERLAPPED));
