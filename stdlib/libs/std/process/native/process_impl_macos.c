@@ -269,7 +269,7 @@ char** GetCommandline(char* argv, size_t len, size_t argc, char** envStartAddr)
     }
 
     char* cp = argv;
-    int argumentCount = 0;
+    size_t argumentCount = 0;
     for (char* start = cp; argumentCount < argc && cp < argv + len; ++cp) {
         if (*cp == '\0') {
             size_t argNLen = cp - start;
