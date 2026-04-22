@@ -55,7 +55,8 @@ endif()
 set(LINK_FLAGS "")
 set(STRIP_FLAG "-s")
 
-set(C_FLAGS "${WARNINGS_SETTINGS} ${C_OTHER_FLAGS} ${OTHER_FLAGS}")
+set(EXTRA_C_FLAGS "-std=gnu11 -Wextra -Wno-unused-parameter -Wformat=2 -Wstrict-prototypes -Wshadow -Wframe-larger-than=100000 -Wvla -Wunused -Wundef -Wnon-virtual-dtor -Wdelete-non-virtual-dtor -Woverloaded-virtual")
+set(C_FLAGS "${WARNINGS_SETTINGS} ${C_OTHER_FLAGS} ${OTHER_FLAGS} ${EXTRA_C_FLAGS}")
 set(CPP_FLAGS "${WARNINGS_SETTINGS} ${CXX_OTHER_FLAGS} ${OTHER_FLAGS}")
 
 set(CMAKE_C_FLAGS "${C_FLAGS}")
