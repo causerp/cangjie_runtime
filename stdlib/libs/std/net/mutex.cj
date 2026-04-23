@@ -146,7 +146,7 @@ struct NonReentrantWriteLock <: IReentrantMutex {
     public override func unlock(): Unit {
         useCounter.compareAndSwap(WRITER_MARK, 0)
         synchronized(m) {
-            m.notify()
+            m.notifyAll()
         }
     }
 
