@@ -267,7 +267,7 @@ public func exclusiveScope<T>(fn: () -> T): T
 
 > **注意：**
 >
-> 不支持平台：Windows、macOS、OpenHarmony、HarmonyOS、iOS。
+> 不支持平台：Windows、macOS、OpenHarmony。
 
 参数：
 
