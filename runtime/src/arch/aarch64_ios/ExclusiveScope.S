@@ -40,7 +40,6 @@
 #define CONTEXT_FPCR                0xb8
 
 // Thread structure offset to context
-#define THREAD_CONTEXT_OFFSET       0x78
 #define THREAD_PROCESSOR_OFFSET     0x38
 #define ExclusiveScopeFrameSize     (16 * 16)
 
@@ -175,7 +174,10 @@ _unwindPCForExclusiveStub:
     cbnz    w0, .L_exc_skip_stack_switch
 
     // Switch to OS thread
-    add     x27, x23, #THREAD_CONTEXT_OFFSET
+    mov     x0, x23                     // arg0 = thread pointer
+    bl      _ExclusiveGetThreadContext  // returns void* = &thread->context
+    cbz     x0, .L_exc_skip_stack_switch
+    mov     x27, x0
     ldr     x0, [x27, #CONTEXT_SP]
     cbz     x0, .L_exc_skip_stack_switch
     tst     x0, x0
