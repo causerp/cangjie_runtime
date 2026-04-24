@@ -40,7 +40,6 @@
 #define CONTEXT_FPCR                0xb8
 
 // Thread structure offset to context
-#define THREAD_CONTEXT_OFFSET       0x78
 #define THREAD_PROCESSOR_OFFSET     0x38
 #define ExclusiveScopeFrameSize     (16 * 16)
 

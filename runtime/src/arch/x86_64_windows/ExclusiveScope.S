@@ -18,7 +18,6 @@
 #define CONTEXT_MXCSR               0x40
 #define CONTEXT_FPU_CW              0x44
 
-#define THREAD_CONTEXT_OFFSET       0x78
 #define THREAD_PROCESSOR_OFFSET     0x38
 #define ExclusiveScopeFrameSize     (8 * 22)
 
@@ -47,8 +46,12 @@ ExclusiveScopeDebugInfo:
     testq   %r12, %r12
     jz      .L_debug_no_thread
     
-    // Get thread->context.rsp
-    leaq    THREAD_CONTEXT_OFFSET(%r12), %r13
+    // Get thread->context via ExclusiveGetThreadContext
+    movq    %r12, %rcx
+    callq   ExclusiveGetThreadContext
+    testq   %rax, %rax
+    jz      .L_debug_no_thread
+    movq    %rax, %r13          // &thread->context
     movq    CONTEXT_RSP(%r13), %r14
     
     // Print values (placeholder - would need actual printf)
@@ -181,11 +184,14 @@ unwindPCForExclusiveStub:
     testl   %eax, %eax
     jnz     .L_exc_no_os_stack
 
-    // Load parameters into registers BEFORE switching stack
-    movq    -88(%rbp), %r12     // thread
+    // Get thread context via ExclusiveGetThreadContext (avoid hardcoded offset)
+    movq    -88(%rbp), %rcx     // thread
+    callq   ExclusiveGetThreadContext
+    testq   %rax, %rax
+    jz      .L_exc_no_os_stack  // null context -> skip
+    movq    %rax, %r15          // r15 = &thread->context
     
     // Check if thread->context.rsp is valid
-    leaq    THREAD_CONTEXT_OFFSET(%r12), %r15
     movq    CONTEXT_RSP(%r15), %rax
     testq   %rax, %rax
     jz      .L_exc_no_os_stack  // rsp is 0, don't switch stacks
