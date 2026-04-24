@@ -805,6 +805,10 @@ public init(pattern: String, flags: Array<RegexFlag>)
 
 功能：创建 [Regex](regex_package_classes.md#class-regex) 实例。
 
+> **说明：**
+>
+> 处理非 ASCII 字符时必须使用 [Unicode](./regex_package_enums.md#unicode) 匹配模式。
+
 参数：
 
 - pattern: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 正则表达式。
@@ -813,6 +817,7 @@ public init(pattern: String, flags: Array<RegexFlag>)
 异常：
 
 - [RegexException](regex_package_exceptions.md#class-regexexception) - 当初始化失败时，抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 处理非 ASCII 字符并且没有指定 [Unicode](./regex_package_enums.md#unicode) 匹配模式时，可能抛出该异常。
 
 示例：
 
@@ -830,6 +835,13 @@ main(): Unit {
         case Some(matchData) => println("匹配成功: ${matchData.matchString()}")
         case None => println("未找到匹配")
     }
+
+    // 匹配非 ASCII 字符必须加 Unicode 标志，否则可能会报 UTF-8 错误
+    let regex2 = Regex(#"[仓 - 颉]+"#, [Unicode])
+    match (regex2.find("你好！仓颉")) {
+        case Some(matchData) => println("匹配成功：${matchData.matchString()}")
+        case None => println("未匹配")
+    }
 }
 ```
 
@@ -837,6 +849,7 @@ main(): Unit {
 
 ```text
 匹配成功: Hello
+匹配成功：仓颉
 ```
 
 ### init(String, RegexOption) <sup>(deprecated)</sup>
