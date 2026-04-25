@@ -510,7 +510,7 @@ uint8_t CJ_AST_DiagReport(
     auto invocation = macCall->GetInvocation().get();
 
     auto begin = invocation->atPos;
-    auto end = invocation->identifierPos + invocation->fullName.size();
+    auto end = invocation->macroCallDiagInfo.identifierPos + invocation->macroCallDiagInfo.fullName.size();
     // we optimize the display length because the printout doesn't look good caused by the last NL token.
     auto tokensEndPos = (tokens.empty()) ? end : tokens.back().End();
     if (!tokens.empty() && tokens.back().kind == TokenKind::NL) {
