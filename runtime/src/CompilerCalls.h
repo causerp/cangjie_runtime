@@ -33,7 +33,8 @@ extern "C" ObjRef MCC_NewFinalizer(const TypeInfo* classInfo, MSize size);
 extern "C" ObjRef MCC_OnFinalizerCreated(ObjRef ref);
 extern "C" ObjRef MCC_NewPinnedObject(const TypeInfo* classInfo, MSize size, bool isFinalizer);
 extern "C" void MCC_WriteRefField(const ObjectPtr ref, const ObjectPtr obj, RefField<false>* field);
-extern "C" void MCC_WriteStructField(const ObjectPtr obj, MAddress dst, size_t dstLen, MAddress src, size_t srcLen);
+extern "C" void MCC_WriteStructField(const ObjectPtr obj, MAddress dst, size_t dstLen, MAddress src, size_t srcLen,
+                                     GCTib gctib);
 extern "C" void MCC_WriteStaticRef(const ObjectPtr ref, RefField<false>* field);
 extern "C" void MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src, size_t srcLen, const GCTib gcTib);
 extern "C" void MCC_AtomicWriteReference(const ObjectPtr ref, const ObjectPtr obj, RefField<true>* field,
@@ -135,7 +136,8 @@ extern "C" MRT_EXPORT void CJ_MCC_ArrayCopyStruct(const ObjectPtr dstObj, MAddre
                                                   const ObjectPtr srcObj, MAddress srcField, size_t srcSize);
 extern "C" MRT_EXPORT ObjectPtr CJ_MCC_ReadRefField(const ObjectPtr obj, RefField<false>* filed);
 extern "C" MRT_EXPORT ObjectPtr CJ_MCC_ReadWeakRef(const ObjectPtr obj, RefField<false>* filed);
-extern "C" MRT_EXPORT void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress srcField, size_t size);
+extern "C" MRT_EXPORT void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress srcField, size_t size,
+                                                  GCTib gctib);
 extern "C" MRT_EXPORT ObjectPtr CJ_MCC_ReadStaticRef(RefField<false>* field);
 extern "C" MRT_EXPORT void CJ_MCC_ReadStaticStruct(MAddress dstPtr, size_t dstSize, MAddress srcPtr, size_t srcSize,
                                                    GCTib gctib);

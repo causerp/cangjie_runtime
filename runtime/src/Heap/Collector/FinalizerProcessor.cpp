@@ -207,7 +207,7 @@ void FinalizerProcessor::ProcessFinalizableList()
         ScopedObjectAccess soa;
         CHECK_DETAIL(ExceptionManager::GetPendingException() == nullptr, "should not exist pending exception");
         RefField<> tmpField(reinterpret_cast<MAddress>(*itor));
-        BaseObject* finalizeObjAddr = Heap::GetHeap().GetBarrier().ReadStaticRef(tmpField);
+        BaseObject* finalizeObjAddr = Heap::GetBarrier().ReadStaticRef(tmpField);
 
         TypeInfo* classInfo = reinterpret_cast<MObject*>(finalizeObjAddr)->GetTypeInfo();
         FuncRef finalizerMethod = classInfo->GetFinalizeMethod();
@@ -274,7 +274,7 @@ void FinalizerProcessor::LogAfterProcess()
 void FinalizerProcessor::RegisterFinalizer(BaseObject* obj)
 {
     RefField<> tmpField(nullptr);
-    Heap::GetHeap().GetBarrier().WriteStaticRef(tmpField, obj);
+    Heap::GetBarrier().WriteStaticRef(tmpField, obj);
     std::lock_guard<std::mutex> l(listLock);
     finalizers.push_back(reinterpret_cast<BaseObject*>(tmpField.GetFieldValue()));
 }
