@@ -405,6 +405,7 @@ func parseZoneTrans(
         return Array<TransTime>(1, repeat: TransTime(Int64.Min, 0))
     }
 
+    var prevTrans: Int64 = Int64.Min
     for (i in 0..timeNum) {
         if (timeSize == 4) {
             let when = ttReader.getNext(4)
@@ -428,6 +429,10 @@ func parseZoneTrans(
         if (Int64(transTypes[i]) >= zoneNum) {
             throw InvalidDataException("Failed to parse the timezone file: transition type index out of range.")
         }
+        if (i > 0 && transArr[i].trans <= prevTrans) {
+            throw InvalidDataException("Failed to parse the timezone file: transition times must be strictly increasing.")
+        }
+        prevTrans = transArr[i].trans
         transArr[i].index = transTypes[i]
     }
     return transArr
