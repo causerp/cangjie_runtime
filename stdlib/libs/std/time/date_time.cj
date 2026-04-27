@@ -2037,7 +2037,10 @@ struct DateTimeParser {
         var slash = false
         for (i in this.index..this.value.size) {
             var character = value[i]
-            if (character.isAsciiLetter() || (!slash && character == r'/') || character >= r'A' || character == r'_') {
+            // Accept only the supported timezone ID character subset here;
+            // full timezone ID validation is delegated to TimeZone.load.
+            if (character.isAsciiLetter() || character.isAsciiNumber() || 
+                (!slash && character == r'/') || character == r'_' || character == r'-') {
                 if (character == r'/') {
                     slash = true
                 }
