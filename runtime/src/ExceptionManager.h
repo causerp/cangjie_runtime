@@ -17,6 +17,9 @@
 
 namespace MapleRuntime {
 using ExceptionRaiser = void (*)(int, void*);
+#if defined(__OHOS__) && (__OHOS__ == 1)
+using ExceptionCallbackFunc = void(*)();
+#endif
 class ExceptionManager {
 public:
     ExceptionManager() {}
@@ -105,6 +108,8 @@ public:
     {
         return eventReportHandler;
     }
+    static void RegisterExceptionCallback(ExceptionCallbackFunc callback);
+    static ExceptionCallbackFunc GetExceptionCallback();
 #endif
 
 private:
@@ -119,6 +124,7 @@ private:
 #if defined(__OHOS__) && (__OHOS__ == 1)
     static std::mutex gEventMtx;
     static CJEventReportInfo eventReportHandler;
+    static ExceptionCallbackFunc exceptionCallback;
 #endif
 };
 } // namespace MapleRuntime
