@@ -21,6 +21,11 @@
 #include "Inspector/CjHeapData.h"
 namespace MapleRuntime {
 std::mutex ExceptionManager::gUncaughtExceptionHandlerMtx;
+#if defined(__OHOS__) && (__OHOS__ == 1)
+std::mutex ExceptionManager::gEventMtx;
+CJEventReportInfo ExceptionManager::eventReportHandler = {nullptr, nullptr};
+#endif
+
 void ExceptionManager::OutOfMemory()
 {
     ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
@@ -36,17 +41,53 @@ void ExceptionManager::OutOfMemory()
         env = s.Str();
         if (env && !strcmp(env, "on")) {
 #if defined(__OHOS__) && (__OHOS__ == 1)
-            LOG(RTLOG_INFO, "start child process for OOM heap dump");
-            pid_t childPid = CjHeapData::ForkAndDumpHeap(-1, true);
-            if (childPid < 0) {
-                LOG(RTLOG_ERROR, "Failed to start child process for OOM heap dump");
+            // Check cjHeapDumpLog environment variable to trigger oom file dump event
+            LOG(RTLOG_INFO, "Check cjHeapDumpLog environment variable to trigger oom file dump event");
+            const char* cjHeapDumpLogEnv = std::getenv("cjHeapDumpLog");
+            if (cjHeapDumpLogEnv == nullptr || strlen(cjHeapDumpLogEnv) == 0) {
+                LOG(RTLOG_INFO, "prepare to report OOM FILEDUMPTASK");
+                const char* domain = "FRAMEWORK";
+                const char* event = "ARK_STATS_DUMP";
+                
+                std::map<std::string, std::string> params;
+                params["TYPE"] = "hidumper";
+                params["FILE_TYPE"] = "HEAP_DUMP";
+                params["DUMP_REASON"] = "OOM";
+                params["DUMP_LOG_PATH"] = "EMPTY";
+
+                TriggerEventReport(domain, event, HiSysEventType::FAULT, params);
+                LOG(RTLOG_ERROR, "finish reporting OOM FILEDUMPTASK");
+                LOG(RTLOG_INFO, "start sleep 5s to wait filedump event to heapdump");
+                std::this_thread::sleep_for(std::chrono::seconds(5)); // wait 5s for child process to dump heap
+            } else {
+                LOG(RTLOG_INFO, "start child process for OOM heap dump");
+                pid_t childPid = CjHeapData::ForkAndDumpHeap(-1, true);
+                if (childPid < 0) {
+                    LOG(RTLOG_ERROR, "Failed to start child process for OOM heap dump");
+                } else {
+                    LOG(RTLOG_INFO, "start sleep 5s to wait child process finishing OOM heapdump");
+                    std::this_thread::sleep_for(std::chrono::seconds(5)); // wait 5s for child process to dump heap
+                }
             }
-            LOG(RTLOG_INFO, "start sleep 5s to wait child process finishing heapdump");
-            std::this_thread::sleep_for(std::chrono::seconds(5)); // wait 5s for child process to dump heap
 #else
             Heap::GetHeap().GetCollectorResources().RequestHeapDump(GCTask::TaskType::TASK_TYPE_DUMP_HEAP_OOM);
 #endif
         }
+#if defined(__OHOS__) && (__OHOS__ == 1)
+        // Trigger OOM event reporting
+        const char* domain = "FRAMEWORK";
+        const char* event = "CJ_OOM";
+        Heap& heap = Heap::GetHeap();
+        size_t activeMemory = heap.GetCurrentCapacity();
+        size_t limitSize = heap.GetMaxCapacity();
+        LOG(RTLOG_INFO, "OOM: activeMemory=%zu, limitSize=%zu", activeMemory, limitSize);
+        
+        std::map<std::string, std::string> params;
+        params["LIMIT_SIZE"] = std::to_string(limitSize);
+        params["ACTIVE_MEMORY"] = std::to_string(activeMemory);
+        TriggerEventReport(domain, event, HiSysEventType::FAULT, params);
+        LOG(RTLOG_ERROR, "OOM event reporting finished");
+#endif
         ThrowImplicitException(OOM);
     } else {
         std::vector<uint64_t>& liteFrameInfos = eWrapper.GetLiteFrameInfos();
@@ -103,6 +144,21 @@ void ExceptionManager::RegisterUncaughtExceptionHandler(const CJUncaughtExceptio
 {
     std::lock_guard<std::mutex> lock(gUncaughtExceptionHandlerMtx);
     uncaughtExceptionHandler = handler;
+}
+
+void ExceptionManager::RegisterEventHandler(const CJEventReportInfo& handler)
+{
+    std::lock_guard<std::mutex> lock(gEventMtx);
+    eventReportHandler = handler;
+}
+
+void ExceptionManager::TriggerEventReport(const char* domain, const char* event, size_t hiSysEventType,
+    const std::map<std::string, std::string>& params)
+{
+    std::lock_guard<std::mutex> lock(gEventMtx);
+    if (eventReportHandler.reportInfoTask != nullptr) {
+        eventReportHandler.reportInfoTask(domain, event, hiSysEventType, params);
+    }
 }
 #endif
 
