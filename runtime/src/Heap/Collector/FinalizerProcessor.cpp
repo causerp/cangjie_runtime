@@ -318,6 +318,15 @@ void FinalizerProcessor::RegisterFinalizer(BaseObject* obj)
     finalizers.push_back(reinterpret_cast<BaseObject*>(tmpField.GetFieldValue()));
 }
 
+void FinalizerProcessor::RegisterFinalizers(ManagedList<BaseObject*>& objs)
+{
+    if (objs.empty()) {
+        return;
+    }
+    std::lock_guard<std::mutex> l(listLock);
+    finalizers.splice(finalizers.end(), objs);
+}
+
 void FinalizerProcessor::ReclaimHeapGarbage()
 {
     ScopedEntryTrace trace("CJRT_GC_RECLAIM");

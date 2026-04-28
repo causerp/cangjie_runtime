@@ -14,6 +14,7 @@
 #include "Collector/CopyCollector.h"
 #include "Common/ScopedObjectAccess.h"
 #include "Concurrency/ConcurrencyModel.h"
+#include "Heap/Collector/FinalizerProcessor.h"
 #include "ObjectModel/RefField.inline.h"
 #include "MutatorManager.h"
 #include "StackManager.h"
@@ -614,6 +615,10 @@ inline void Mutator::HandleGCPhase(GCPhase newPhase)
             satbNode->Clear();
         }
     } else if (newPhase == GCPhase::GC_PHASE_ENUM) {
+        auto& localFins = GetLocalFinalizers();
+        if (!localFins.empty()) {
+            Heap::GetHeap().GetFinalizerProcessor().RegisterFinalizers(localFins);
+        }
         GcPhaseEnum(newPhase);
     } else if (newPhase == GCPhase::GC_PHASE_PREFORWARD) {
         GCPhasePreForward(newPhase);

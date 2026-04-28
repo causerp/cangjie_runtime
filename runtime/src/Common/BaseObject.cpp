@@ -7,6 +7,7 @@
 #include "BaseObject.h"
 #include "Heap/Allocator/RegionInfo.h"
 #include "Heap/Collector/FinalizerProcessor.h"
+#include "Mutator/Mutator.h"
 #include "ObjectModel/MArray.h"
 #include "ObjectModel/MArray.inline.h"
 #include "ObjectModel/MObject.h"
@@ -151,9 +152,13 @@ size_t BaseObject::GetSize() const
 void BaseObject::OnFinalizerCreated()
 {
     Heap& heap = Heap::GetHeap();
-    // every newly-created object is marked during gc for mark-sweep gc.
     heap.GetCollector().MarkNewObject(this);
-    heap.GetFinalizerProcessor().RegisterFinalizer(this);
+    Mutator* mutator = Mutator::GetMutator();
+    if (mutator != nullptr) {
+        mutator->AddLocalFinalizer(this);
+    } else {
+        heap.GetFinalizerProcessor().RegisterFinalizer(this);
+    }
 }
 
 bool BaseObject::IsInTraceRegion() const

@@ -29,6 +29,8 @@ extern "C" MRT_EXPORT bool MRT_EnterSaferegion(bool updateUnwindContext);
 extern "C" MRT_EXPORT bool MRT_LeaveSaferegion();
 extern "C" MRT_EXPORT bool MRT_CheckRuntimeFinished();
 
+class BaseObject;
+
 class Mutator {
 public:
     // flag which indicates the reason why mutator should suspend. flag is set by some external thread.
@@ -425,6 +427,12 @@ public:
         rawObject.object = nullptr;
         return obj;
     }
+
+    void AddLocalFinalizer(BaseObject* obj)
+    {
+        localFinalizers.push_back(obj);
+    }
+
     void MutatorLock() { mutatorLock.lock(); }
 
     void MutatorUnlock() { mutatorLock.unlock(); }
@@ -511,6 +519,7 @@ private:
             }
         }
     }
+    ManagedList<BaseObject*>& GetLocalFinalizers() { return localFinalizers; }
     // Indicate the current mutator phase and use which barrier in concurrent gc
     // ATTENTION: THE LAYOUT FOR GCPHASE MUST NOT BE CHANGED!
     std::atomic<GCPhase> mutatorPhase = { GCPhase::GC_PHASE_UNDEF };
@@ -542,6 +551,8 @@ private:
     // Indicate the state of mutator's phase transition
     std::atomic<GCPhaseTransitionState> transitionState = { NO_TRANSITION };
     ObjectRef rawObject{ nullptr };
+
+    ManagedList<BaseObject*> localFinalizers;
 
     SatbBuffer::Node* satbNode = nullptr;
 #if defined(GCINFO_DEBUG) && GCINFO_DEBUG
