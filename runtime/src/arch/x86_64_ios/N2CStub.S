@@ -237,6 +237,25 @@ _unwindPCForN2CStub:
 
     .text
     .align 2
+    .global   _InitCJLibraryStub
+_InitCJLibraryStub:
+    .cfi_startproc
+    pushq   %rbp
+    .cfi_def_cfa_offset 16
+    .cfi_offset %rbp, -16
+    movq    %rsp, %rbp
+    .cfi_def_cfa_register %rbp
+    movq    %rdi, %r11
+    pushq   %r11
+    pushq   $0
+    callq   _CJ_MCC_N2CStub
+    popq    %rbp
+    .cfi_def_cfa %rsp, 8
+    retq
+    .cfi_endproc
+
+    .text
+    .align 2
     .global   _ExecuteCangjieStub
 _ExecuteCangjieStub:
     .cfi_startproc

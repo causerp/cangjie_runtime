@@ -310,6 +310,27 @@ _unwindPCForN2CStub:
 
 .section __TEXT,__cjrt_text,regular
 .align 2
+.global  _InitCJLibraryStub
+_InitCJLibraryStub:
+    .cfi_startproc
+    stp x29, x30, [sp, #-16]!
+    cfi_adjust_cfa_offset (16)
+    cfi_rel_offset (x29, 0)
+    cfi_rel_offset (x30, 8)
+    mov x29, sp
+    mov x9,  x0
+    mov x10, #0
+    stp x9, x10, [sp, #-16]!
+    bl _CJ_MCC_N2CStub
+    ldp x29, x30, [sp], #16
+    cfi_adjust_cfa_offset (-16)
+    cfi_restore (x29)
+    cfi_restore (x30)
+    ret
+    .cfi_endproc
+
+.section __TEXT,__cjrt_text,regular
+.align 2
 .global  _ExecuteCangjieStub
 _ExecuteCangjieStub:
     .cfi_startproc
