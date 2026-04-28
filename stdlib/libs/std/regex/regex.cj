@@ -83,6 +83,7 @@ public class Regex {
 
     var pattern: String
     var flags: Array<RegexFlag>
+    var captureGroupCount: Int64 = 0
 
     private var namedGroups: Option<HashMap<String, Int64>> = None
 
@@ -120,6 +121,7 @@ public class Regex {
                 }
             }
             this.re = result.re
+            this.captureGroupCount = Int64(CJ_REGEX_GetCaptureCount(this.re))
             keepAlive(this)
         }
     }
@@ -177,27 +179,6 @@ public class Regex {
             release(inputCString)
             release(pcre2md)
             return isMatch
-        }
-    }
-
-    /**
-     * lazy getter of captureGroupCount, which only depending on the compiled pattern.
-     * So this property can be got as soon as `Regex` is initialized.
-     * return UInt32 indicates the highest capture group number.
-     * if (?| is not used, this is also the total number of capture groups
-     */
-    private var _captureGroupCount: ?UInt32 = None
-    private prop captureGroupCount: UInt32 {
-        get() {
-            if (let Some(count) <- _captureGroupCount) {
-                return count
-            }
-            unsafe {
-                let count = CJ_REGEX_GetCaptureCount(this.re)
-                keepAlive(this)
-                _captureGroupCount = count
-                return count
-            }
         }
     }
 
@@ -307,10 +288,10 @@ public class Regex {
             let positions: Array<Position>
             if (group) {
                 positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                md = MatchData(input, positions, Int64(captureGroupCount), nameToIndex: nameToIndex)
+                md = MatchData(input, positions, this.captureGroupCount, nameToIndex: nameToIndex)
             } else {
                 positions = [Position(ovector.read(0), ovector.read(1))]
-                md = MatchData(input, positions, Int64(captureGroupCount))
+                md = MatchData(input, positions, this.captureGroupCount)
             }
             keepAlive(this)
             return md
@@ -400,10 +381,10 @@ public class Regex {
                 let positions: Array<Position>
                 if (group) {
                     positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                    list.add(MatchData(input, positions, Int64(captureGroupCount), nameToIndex: nameToIndex))
+                    list.add(MatchData(input, positions, this.captureGroupCount, nameToIndex: nameToIndex))
                 } else {
                     positions = [Position(ovector.read(0), ovector.read(1))]
-                    list.add(MatchData(input, positions, Int64(captureGroupCount)))
+                    list.add(MatchData(input, positions, this.captureGroupCount))
                 }
                 if (offset == positions[0].end) {
                     offset = positions[0].end + 1
