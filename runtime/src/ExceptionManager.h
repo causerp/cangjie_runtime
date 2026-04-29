@@ -33,6 +33,9 @@ public:
 #ifdef __IOS__
     static void DefaultUncaughtTask(const char* sunmary, const CJErrorObject errorObj);
 #endif
+#if defined(__ANDROID__)
+    static void AndroidDefaultUncaughtTask(const char* summary, const CJErrorObject errorObj);
+#endif
 
     // runtime required lifecycle interfaces
     void Init()
@@ -40,6 +43,9 @@ public:
         uncaughtExceptionHandler.hapPath = nullptr;
 #ifdef __IOS__
         uncaughtExceptionHandler.uncaughtTask = DefaultUncaughtTask;
+#endif
+#if defined(__ANDROID__)
+        uncaughtExceptionHandler.uncaughtTask = AndroidDefaultUncaughtTask;
 #endif
     };
     void Fini() const {};
