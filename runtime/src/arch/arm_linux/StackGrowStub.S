@@ -9,7 +9,7 @@
 #define cfi_restore(reg)		.cfi_restore reg
 #define cfi_def_cfa_register(reg)	.cfi_def_cfa_register reg
 
-#define SignalStubFrameSize           (0xD0)
+#define SignalStubFrameSize           (0xE0)
 
 // for arm32, do stack check and try to throw StackOverFlow Expection.
 
