@@ -154,7 +154,7 @@ function(add_cangjie_library target_name)
     if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
         list(APPEND cangjie_compile_flags "--output-type=staticlib")
     endif()
-    if(TRIPLE STREQUAL "arm-linux-ohos")
+    if(TRIPLE STREQUAL "arm-linux-ohos" OR TRIPLE STREQUAL "arm-linux-android23")
         list(APPEND cangjie_compile_flags "--disable-reflection")
     endif()
 
