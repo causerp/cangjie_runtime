@@ -83,9 +83,10 @@ public class Regex {
 
     var pattern: String
     var flags: Array<RegexFlag>
-    var captureGroupCount: Int64 = 0
 
     private var namedGroups: Option<HashMap<String, Int64>> = None
+
+    var captureGroupCount: Int64 = 0
 
     public init(pattern: String, flags: Array<RegexFlag>) {
         this.pattern = pattern
