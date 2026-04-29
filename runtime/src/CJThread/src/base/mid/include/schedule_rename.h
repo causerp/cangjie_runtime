@@ -204,7 +204,6 @@
 #define CJThreadId                             CJ_CJThreadId
 #define CJThreadGetId                          CJ_CJThreadGetId
 #define CJThreadGetHandle                      CJ_CJThreadGetHandle
-#define GetCJThreadStackInfo                   CJ_GetCJThreadStackInfo
 #define CJThreadSetName                        CJ_CJThreadSetName
 #define CJThreadGetInfo                        CJ_CJThreadGetInfo
 #define CJThreadStackReversedSet               CJ_CJThreadStackReversedSet

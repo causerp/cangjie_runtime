@@ -144,11 +144,7 @@ void CJFile::LoadLinuxCJFileMeta()
     cJFileMeta.gcFlagsTbl.hasStackPointerMap =
         reinterpret_cast<CJGCFlagsTable*>(begin + header->tables[GC_FLAGS_TABLE].tableOffset)->hasStackPointerMap;
     cJFileMeta.gcRootsAddr = begin + header->tables[GC_ROOT_TABLE].tableOffset;
-#ifdef __arm__
-    cJFileMeta.gcRootSize = header->tables[GC_ROOT_TABLE].tableSize / sizeof(U32);
-#else
-    cJFileMeta.gcRootSize = header->tables[GC_ROOT_TABLE].tableSize / sizeof(U64);
-#endif
+    cJFileMeta.gcRootSize = header->tables[GC_ROOT_TABLE].tableSize / sizeof(ArchUInt);
     cJFileMeta.packageInfoTbl.packageInfoBasePtr = begin + header->tables[PACKINFO_TABLE].tableOffset;
     cJFileMeta.packageInfoTbl.packageInfoTotalSize = header->tables[PACKINFO_TABLE].tableSize;
     cJFileMeta.typeExtTbl.typeExtBasePtr =

@@ -301,11 +301,8 @@ public:
     {
 #if defined(_WIN64)
         return startProc;
-#elif defined(__arm__)
-        return reinterpret_cast<const uint32_t*>(*(reinterpret_cast<uint32_t*>(mFrame.fa) - 1) -
-                                                 START_PC_OFFSET_IN_STACK);
 #else
-        return reinterpret_cast<const uint32_t*>(*(reinterpret_cast<uint64_t*>(mFrame.fa) - 1) -
+        return reinterpret_cast<const uint32_t*>(*(reinterpret_cast<ArchUInt*>(mFrame.fa) - 1) -
                                                  START_PC_OFFSET_IN_STACK);
 #endif
     }
@@ -321,6 +318,8 @@ protected:
 #if defined(__x86_64__)
     static constexpr uint32_t START_PC_OFFSET_IN_STACK = 9;
 #elif defined(__arm__)
+    // 12 means: After execute stmdb sp!,{pc}, the difference between the pc stored by sp
+    // and the pc of the function entry
     static constexpr uint32_t START_PC_OFFSET_IN_STACK = 12;
 #else
     static constexpr uint32_t START_PC_OFFSET_IN_STACK = 0;

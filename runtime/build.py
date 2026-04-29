@@ -54,6 +54,8 @@ def do_build(args):
     # Adjust CMAKE_INSTALL_PREFIX based on target_args
     if target_platform == "ohos":
         install_prefix = os.path.join(prefix_path, f"linux_ohos_{mode}")
+    elif target_platform == "android23":
+        install_prefix = os.path.join(prefix_path, f"linux_android23_{mode}")
     elif target_platform == "android26":
         install_prefix = os.path.join(prefix_path, f"linux_android_{mode}")
     elif target_platform == "android31" or target_platform == "android":
@@ -78,8 +80,9 @@ def do_build(args):
 
     if target_args in ('native'):
         target_arch = host_arch
-    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'ohos-arm', 'windows-x86_64', 'android-x86_64', 'android-aarch64',
-                         'android26-aarch64', 'android31-aarch64', 'ios-aarch64', 'ios-simulator-aarch64', 'ios-simulator-x86_64'):
+    elif target_args in ('ohos-x86_64', 'ohos-aarch64', 'ohos-arm', 'windows-x86_64',
+                         'android-x86_64', 'android-aarch64', 'android26-aarch64', 'android31-aarch64', 'android23-arm',
+                         'ios-aarch64', 'ios-simulator-aarch64', 'ios-simulator-x86_64'):
         target_arch = target_args.rsplit('-', 1)[1]
     else:
         target_arch = None
@@ -193,16 +196,13 @@ def do_build(args):
             sys.exit(1)
         if target_args == "ohos-aarch64":
             ohos_flag = "1"
+            target_arch = "aarch64"
         elif target_args == "ohos-x86_64":
             ohos_flag = "2"
+            target_arch = "x86_64"
         elif target_args == "ohos-arm":
             ohos_flag = "3"
-        if target_args == "ohos-aarch64":
-            target_arch = "aarch64"
-        elif target_args == "ohos-arm":
             target_arch = "arm"
-        elif target_args == "ohos-x86_64":
-            target_arch = "x86_64"
         ptrauth_flags = [
             "-DRUNTIME_FORWARD_PTRAUTH_CFI=1",
             "-DRUNTIME_BACKWARD_PTRAUTH_CFI=1",
@@ -231,16 +231,20 @@ def do_build(args):
         ] + ptrauth_flags
         build_target(cmake_command)
 
-    elif target_args in ["android-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64"]:
+    elif target_args in ["android-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64", "android23-arm"]:
         if args.target_toolchain == None:
             print("Please configure android toolchain, for example '/root/workspace/android_dep_files/'")
             sys.exit(1)
         android_api_level = 31
-        android_flag = "1" if (target_args == "android26-aarch64" or target_args == "android31-aarch64" or target_args == "android-aarch64") else "2"
         if target_args == "android-aarch64" or target_args == "android26-aarch64" or target_args == "android31-aarch64":
+            android_flag = "1"
             target_arch = "aarch64"
         elif target_args == "android-x86_64":
+            android_flag = "2"
             target_arch = "x86_64"
+        elif target_args == "android23-arm":
+            android_flag = "3"
+            target_arch = "arm"
         android_api_level = re.match(r"android(\d{2})?", target_args).group(1)
         cmake_command = [
             "cmake",
@@ -310,7 +314,8 @@ def do_build(args):
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
-               ohos-arm, android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, ios-aarch64, ios-simulator-aarch64, ios-simulator-x86_64")
+               ohos-arm, android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm, \
+               ios-aarch64, ios-simulator-aarch64, ios-simulator-x86_64")
         sys.exit(1)
 
 def build_target(cmake_command):
@@ -374,11 +379,13 @@ if __name__ == "__main__":
             "android-aarch64",
             "android26-aarch64",
             "android31-aarch64",
-            "android-x86_64"
+            "android-x86_64",
+            "android23-arm"
         ],
         metavar="TARGET",
         default="native",
-        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-arm, ohos-x86_64"
+        help="Target platform: native, windows-x86_64, ohos-aarch64, ohos-x86_64, ohos-arm, ios-simulator-aarch64, ios-simulator-x86_64, \
+              ios-aarch64, android-aarch64, android26-aarch64, android31-aarch64, android-x86_64, android23-arm"
     )
     b.add_argument(
         "-t", "--build-type",
