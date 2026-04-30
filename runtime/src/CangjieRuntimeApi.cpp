@@ -710,6 +710,12 @@ void RegisterUncaughtExceptionHandler(const CJUncaughtExceptionInfo& handler)
     MapleRuntime::ExceptionManager& exceptionManager = MapleRuntime::Runtime::Current().GetExceptionManager();
     exceptionManager.RegisterUncaughtExceptionHandler(handler);
 }
+
+void RegisterEventHandler(const CJEventReportInfo& handler)
+{
+    MapleRuntime::ExceptionManager& exceptionManager = MapleRuntime::Runtime::Current().GetExceptionManager();
+    exceptionManager.RegisterEventHandler(handler);
+}
 #endif
 
 char* CJ_MRT_DemangleHandle(const char* functionName)
