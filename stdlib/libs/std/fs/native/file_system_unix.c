@@ -563,7 +563,7 @@ extern bool CJ_FS_CreateTempDir(char* path)
 }
 
 /* Copy symbolic link */
-extern int CJ_FS_CopyLink(char* linkName1, char* linkName2)
+extern int8_t CJ_FS_CopyLink(char* linkName1, char* linkName2)
 {
     char buf[MAX_PATH_LEN] = "";
     ssize_t len = readlink(linkName1, buf, sizeof(buf) - 1);

@@ -16,8 +16,8 @@
 #include <netdb.h>
 #endif
 
-int CJ_SockOptionGet(int64_t sock, int level, int optname, void* optval, socklen_t* optlen);
-int CJ_SockOptionSet(long long sock, int level, int optname, const void* optval, socklen_t optlen);
+int CJ_SockOptionGet(int64_t sock, int level, int optname, void* optval, int* optlen);
+int CJ_SockOptionSet(int64_t sock, int level, int optname, const void* optval, int optlen);
 
 // copied from ytls
 struct SockAddr {
