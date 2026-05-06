@@ -178,7 +178,8 @@ unwindPCForExclusiveStub:
     bl      ExclusiveGetThreadContext        // returns void* = &thread->context
     cbz     x0, .L_exc_skip_stack_switch    // null thread -> skip
     mov     x27, x0                       // x27 = &thread->context
-    ldr     x0, [x27, #CONTEXT_SP]          // reload x0: bl may clobber it
+    ldr     x0, [x27, #CONTEXT_SP]          // load OS thread's saved sp
+    cbz     x0, .L_exc_skip_stack_switch    // sp=0 means context never saved (foreign thread)
     mov     sp, x0
     ldr     w0, [x27, #CONTEXT_FPCR]
     msr     fpcr, x0
