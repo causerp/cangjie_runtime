@@ -39,8 +39,8 @@ OAT.xml @xuanjz
 /stdlib/libs/std/regex/ @ChaosJohn
 
 
-/stdlib/libs/std/deriving/ @JasmineZhu
-/stdlib/libs/std/unittest/ @JasmineZhu
+/stdlib/libs/std/deriving/ @belyaev-mikhail
+/stdlib/libs/std/unittest/ @belyaev-mikhail
 
 /stdlib/libs/std/ast/ @mini-tang
 
