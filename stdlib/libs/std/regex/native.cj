@@ -41,6 +41,9 @@ foreign func CJ_REGEX_GetOvector(matchData: Pcre2MatchDataPtr): Pcre2OvectorPtr
 foreign func CJ_REGEX_GetErrorMsg(errorCode: Int32): CString
 
 @FastNative
+foreign func CJ_REGEX_GetCaptureCount(re: Pcre2CodePtr): UInt32
+
+@FastNative
 foreign func CJ_REGEX_GetNameTableInfo(re: Pcre2CodePtr): CPointer<NameTableInfo>
 
 @FastNative

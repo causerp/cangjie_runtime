@@ -93,10 +93,10 @@ class Template {
 
             let field = variable.matchString(1)
             let values = values.getIndexed(field, index) ?? return None
-            if (variable.groupNumber() == 1) {
+            let substitutionName = variable.matchString(2)
+            if (substitutionName.isEmpty()) {
                 data.append(values.render())
             } else {
-                let substitutionName = variable.matchString(2)
                 if (!templates.contains(substitutionName)) {
                     data.append("<Error: subtemplate \"${substitutionName}\" not found.>")
                 } else {

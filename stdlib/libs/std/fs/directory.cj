@@ -96,8 +96,8 @@ public class Directory {
         let fileInfos = ArrayList<FileInfo>()
         walk(path) {
             info =>
-            fileInfos.add(info)
-            true
+                fileInfos.add(info)
+                true
         }
         return fileInfos.toArray()
     }
@@ -130,17 +130,19 @@ public class Directory {
         }
 
         // firstFile only has value on windows
-        if (!firstFile.isNull() && !walkFuncWrapper(firstFile)) {
-            unsafe { CJ_FS_CloseDirHandle(dirHandle) }
-            return
-        }
-    
-        while (true) {
-            let cstr = unsafe { CJ_FS_ReadDirHandle(dirHandle) }
-            if (cstr.isNull() || !walkFuncWrapper(cstr)) {
-                unsafe { CJ_FS_CloseDirHandle(dirHandle) }
+        try {
+            if (!firstFile.isNull() && !walkFuncWrapper(firstFile)) {
                 return
             }
+
+            while (true) {
+                let cstr = unsafe { CJ_FS_ReadDirHandle(dirHandle) }
+                if (cstr.isNull() || !walkFuncWrapper(cstr)) {
+                    return
+                }
+            }
+        } finally {
+            unsafe { CJ_FS_CloseDirHandle(dirHandle) }
         }
     }
 
@@ -184,39 +186,40 @@ public class Directory {
         let (curSrcDir, curDestDir) = (srcQueue[index], destQueue[index])
         walk(curSrcDir) {
             info =>
-            var fName = info.path.fileName
-            if (fName.isEmpty()) {
-                throw FSException("File name is empty!")
-            }
-            if (info.isDirectory()) {
-                let destPath = Path(curDestDir).join(fName)
-                var destPathStr = if (exists(destPath)) {
-                    destPath.toString()
-                } else {
-                    createSubDirectory(curDestDir, fName)
+                var fName = info.path.fileName
+                if (fName.isEmpty()) {
+                    throw FSException("File name is empty!")
                 }
-                destQueue.add(destPathStr)
-                srcQueue.add(info.path.toString())
+                if (info.isDirectory()) {
+                    let destPath = Path(curDestDir).join(fName)
+                    var destPathStr = if (exists(destPath)) {
+                        destPath.toString()
+                    } else {
+                        createSubDirectory(curDestDir, fName)
+                    }
+                    destQueue.add(destPathStr)
+                    srcQueue.add(info.path.toString())
+                    return true
+                }
+                unsafe {
+                    var srcPath = info.path.toString()
+                    var destPath = Path(curDestDir).join(fName).toString()
+                    try (srcString = LibC.mallocCString(srcPath).asResource(), destString = LibC
+                        .mallocCString(destPath)
+                        .asResource()) {
+                        var ret: Int8 = -1
+                        if (info.isRegular()) {
+                            ret = CJ_FS_CopyREF(srcString.value, destString.value)
+                        } else if (info.isSymbolicLink()) {
+                            ret = CJ_FS_CopyLink(srcString.value, destString.value)
+                        }
+                        if (ret < 0) {
+                            fail.value = true
+                            return false
+                        }
+                    }
+                }
                 return true
-            }
-            unsafe {
-                var srcPath = info.path.toString()
-                var destPath = Path(curDestDir).join(fName).toString()
-                try (srcString = LibC.mallocCString(srcPath).asResource(),
-                    destString = LibC.mallocCString(destPath).asResource()) {
-                    var ret: Int8 = -1
-                    if (info.isRegular()) {
-                        ret = CJ_FS_CopyREF(srcString.value, destString.value)
-                    } else if (info.isSymbolicLink()) {
-                        ret = CJ_FS_CopyLink(srcString.value, destString.value)
-                    }
-                    if (ret < 0) {
-                        fail.value = true
-                        return false
-                    }
-                }
-            }
-            return true
         }
     }
 
