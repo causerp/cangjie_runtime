@@ -21,13 +21,14 @@ int CJThreadKeyCreateInner(CJThreadKey *key, DestructorFunc destructor)
         return ERRNO_SCHD_CJTHREAD_KEY_INVALID;
     }
 
-    index = atomic_fetch_add(&g_cjthreadKeys.count, 1u);
-    if (index >= CJTHREAD_KEYS_MAX) {
-        atomic_fetch_sub(&g_cjthreadKeys.count, 1u);
-        return ERRNO_SCHD_CJTHREAD_KEY_FULL;
-    }
-    *key = index;
+    index = atomic_load(&g_cjthreadKeys.count);
+    do {
+        if (index >= CJTHREAD_KEYS_MAX) {
+            return ERRNO_SCHD_CJTHREAD_KEY_FULL;
+        }
+    } while (!atomic_compare_exchange_weak(&g_cjthreadKeys.count, &index, index + 1u));
     atomic_store(&g_cjthreadKeys.keyDestructor[index], (uintptr_t)destructor);
+    *key = index;
 
     return 0;
 }
@@ -37,6 +38,9 @@ int CJThreadSetspecificInner(CJThreadKey key, void *value)
     struct CJThread *cjthread = CJThreadGet();
     if (cjthread == nullptr) {
         return ERRNO_SCHD_CJTHREAD_NULL;
+    }
+    if (key >= CJTHREAD_KEYS_MAX) {
+        return ERRNO_SCHD_CJTHREAD_KEY_INVALID;
     }
     if (key >= g_cjthreadKeys.count) {
         return ERRNO_SCHD_CJTHREAD_KEY_INVALID;
@@ -51,6 +55,9 @@ void *CJThreadGetspecificInner(CJThreadKey key)
     if (cjthread == nullptr) {
         return nullptr;
     }
+    if (key >= CJTHREAD_KEYS_MAX) {
+        return nullptr;
+    }
     if (key >= g_cjthreadKeys.count) {
         return nullptr;
     }
@@ -61,7 +68,12 @@ void CJThreadKeysClean(struct CJThread *cjthread)
 {
     unsigned int i;
     DestructorFunc func;
-    for (i = 0; i < g_cjthreadKeys.count; i++) {
+    unsigned int count = atomic_load(&g_cjthreadKeys.count);
+    if (UNLIKELY(count > CJTHREAD_KEYS_MAX)) {
+        HILOG_FATAL(ERRNO_SCHD_CJTHREAD_KEY_FULL,
+                    "cjthread key count %u exceeds max %u", count, CJTHREAD_KEYS_MAX);
+    }
+    for (i = 0; i < count; i++) {
         func = reinterpret_cast<DestructorFunc>(atomic_load(&g_cjthreadKeys.keyDestructor[i]));
         if (cjthread->localData[i] != nullptr) {
             if (func != nullptr) {
