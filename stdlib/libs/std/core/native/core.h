@@ -23,7 +23,7 @@
 #endif
 
 typedef struct StrptrParameter {
-    uint8_t* ptr;
+    const uint8_t* ptr;
     int64_t size;
 } Strptr;
 
