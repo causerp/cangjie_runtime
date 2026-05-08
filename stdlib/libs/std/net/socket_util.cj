@@ -11,11 +11,6 @@
  */
 package std.net
 
-import std.time.*
-import std.io.*
-import std.sync.*
-import std.math.*
-
 const OS_WINDOWS = "windows"
 const OS_MACOS = "macOS"
 const OS_OTHERS = "others"

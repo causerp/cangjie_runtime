@@ -238,7 +238,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func filter(predicate: (T) -> Bool): TreeSet<T> {
-        var newMap = myMap.filter({k, v => predicate(k)})
+        var newMap = myMap.filter({k, _ => predicate(k)})
         var res = TreeSet<T>()
         res.myMap = newMap
         return res
@@ -271,7 +271,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func forEach(action: (T) -> Unit): Unit {
-        myMap.forEach({k, v => action(k)})
+        myMap.forEach({k, _ => action(k)})
     }
 
     /**
@@ -282,7 +282,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func all(predicate: (T) -> Bool): Bool {
-        return myMap.all({k, v => predicate(k)})
+        return myMap.all({k, _ => predicate(k)})
     }
 
     /**
@@ -293,7 +293,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func any(predicate: (T) -> Bool): Bool {
-        return myMap.any({k, v => predicate(k)})
+        return myMap.any({k, _ => predicate(k)})
     }
 
     /**
@@ -304,7 +304,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func none(predicate: (T) -> Bool): Bool {
-        return myMap.none({k, v => predicate(k)})
+        return myMap.none({k, _ => predicate(k)})
     }
 
     /**
@@ -316,7 +316,7 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     @When[env != "ohos"]
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
-        return myMap.fold<R>(initial, {r, k, v => operation(r, k)})
+        return myMap.fold<R>(initial, {r, k, _ => operation(r, k)})
     }
 
     /**

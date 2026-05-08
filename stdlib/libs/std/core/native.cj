@@ -36,7 +36,6 @@ foreign func CJ_CORE_PrintSigned(i: Int64, newLine: Bool, flush: Bool): Unit
 @FastNative
 foreign func CJ_CORE_PrintUnsigned(i: UInt64, newLine: Bool, flush: Bool): Unit
 
-@FastNative
 foreign func CJ_CONSOLE_Readline(): CPointer<StructureString>
 
 @FastNative
