@@ -65,7 +65,7 @@ import std.ast.*
 main() {
     // 构造默认的 Position
     let pos = Position()
-    
+
     println("pos.fileID: ${pos.fileID}")
     println("pos.line: ${pos.line}")
     println("pos.column: ${pos.column}")
@@ -103,7 +103,7 @@ import std.ast.*
 main() {
     // 构造默认的 Position
     let pos = Position(1, 2, 3)
-    
+
     println("pos.fileID: ${pos.fileID}")
     println("pos.line: ${pos.line}")
     println("pos.column: ${pos.column}")
@@ -135,7 +135,7 @@ import std.ast.*
 main() {
     // 构造 Position
     let pos = Position(1, 2, 3)
-    
+
     println("pos.dump():")
     pos.dump()
 }
@@ -170,7 +170,7 @@ main() {
     // 构造默认的 Position
     let pos0 = Position()
     let pos1 = Position(1, 2, 3)
-    
+
     println("pos0.isEmpty(): ${pos0.isEmpty()}")
     println("pos1.isEmpty(): ${pos1.isEmpty()}")
 }
@@ -204,7 +204,7 @@ import std.ast.*
 main() {
     // 构造 Position
     let pos = Position(1, 2, 3)
-    
+
     println("pos.toBytes(): ${pos.toBytes()}")
 }
 ```
@@ -241,7 +241,7 @@ main() {
     // 构造默认的 Position
     let pos0 = Position()
     let pos1 = Position(1, 2, 3)
-    
+
     println("pos0 != pos1: ${pos0 != pos1}")
 }
 ```
@@ -278,7 +278,7 @@ main() {
     // 构造默认的 Position
     let pos0 = Position()
     let pos1 = Position(1, 2, 3)
-    
+
     println("pos0 == pos1: ${pos0 == pos1}")
 }
 ```
@@ -378,7 +378,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token()
-    
+
     println("token.dump():")
     token.dump()
 }
@@ -412,7 +412,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token(TokenKind.AT)
-    
+
     println("token.dump():")
     token.dump()
 }
@@ -451,7 +451,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token(TokenKind.IDENTIFIER, "hello")
-    
+
     println("token.dump():")
     token.dump()
 }
@@ -491,7 +491,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token(TokenKind.IDENTIFIER, "hello").addPosition(1, 2, 3)
-    
+
     println("token.dump():")
     token.dump()
 }
@@ -521,7 +521,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token(TokenKind.IDENTIFIER, "hello")
-    
+
     println("token.dump():")
     token.dump()
 }
@@ -555,7 +555,7 @@ import std.ast.*
 main() {
     // 构造默认的 Token
     let token = Token(TokenKind.IDENTIFIER, "hello").addPosition(1, 2, 3)
-    
+
     println("token.toBytes(): ${token.toBytes()}")
 }
 ```
@@ -592,7 +592,7 @@ main() {
     // 构造默认的 Token
     let token0 = Token(TokenKind.AT)
     let token1 = Token(TokenKind.AT).addPosition(1, 2, 3)
-    
+
     println("token0 != token1: ${token0 != token1}")
 }
 ```
@@ -632,7 +632,7 @@ main() {
 
     // 将两个 Token 拼接为 Tokens
     let tokens = token0 + token1
-    
+
     println("tokens.dump()")
     tokens.dump()
 }
@@ -674,7 +674,7 @@ main() {
     let tokens = quote(flag0 && flag1)
 
     let newTokens = token + tokens
-    
+
     println("newTokens.dump()")
     newTokens.dump()
 }
@@ -716,7 +716,7 @@ main() {
     // 构造默认的 Token
     let token0 = Token(TokenKind.AT)
     let token1 = Token(TokenKind.AT).addPosition(1, 2, 3)
-    
+
     println("token0 == token1: ${token0 == token1}")
 }
 ```

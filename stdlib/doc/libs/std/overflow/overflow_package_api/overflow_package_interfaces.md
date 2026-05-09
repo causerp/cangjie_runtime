@@ -4,16 +4,16 @@
 
 ```cangjie
 public interface CarryingOp<T> {
-  func carryingAdd(y: T): (Bool, T)
-  func carryingSub(y: T): (Bool, T)
-  func carryingMul(y: T): (Bool, T)
-  func carryingDiv(y: T): (Bool, T)
-  func carryingMod(y: T): (Bool, T)
-  func carryingInc(): (Bool, T)
-  func carryingDec(): (Bool, T)
-  func carryingNeg(): (Bool, T)
-  func carryingShl(y: UInt64): (Bool, T)
-  func carryingShr(y: UInt64): (Bool, T)
+    func carryingAdd(y: T): (Bool, T)
+    func carryingSub(y: T): (Bool, T)
+    func carryingMul(y: T): (Bool, T)
+    func carryingDiv(y: T): (Bool, T)
+    func carryingMod(y: T): (Bool, T)
+    func carryingInc(): (Bool, T)
+    func carryingDec(): (Bool, T)
+    func carryingNeg(): (Bool, T)
+    func carryingShl(y: UInt64): (Bool, T)
+    func carryingShr(y: UInt64): (Bool, T)
 }
 ```
 
@@ -4767,7 +4767,7 @@ Overflow occurred: true
 
 ```cangjie
 public interface CarryingPow {
-  func carryingPow(y: UInt64): (Bool, Int64)
+    func carryingPow(y: UInt64): (Bool, Int64)
 }
 ```
 

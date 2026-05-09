@@ -121,8 +121,7 @@ protected open override func getClassName(): String
 ## class UnittestTimeoutException
 
 ```cangjie
-public class UnittestTimeoutException <: Exception {
-}
+public class UnittestTimeoutException <: Exception {}
 ```
 
 功能：运行超时时抛出的异常。仅可被框架使用。

@@ -44,7 +44,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -138,7 +140,9 @@ import std.collection.*
 class EntityGenerator {
     var array: ArrayList<Int>
     mut prop str: String {
-        get() { "generator" }
+        get() {
+            "generator"
+        }
         set(x) {}
     }
 
@@ -146,9 +150,15 @@ class EntityGenerator {
         this.array = ArrayList<Int>()
     }
 
-    func getNumber(): Int { 42 }
-    func getOption(): Option<Int> { Some(42) }
-    func getHashMap(): HashMap<String, String> { HashMap() }
+    func getNumber(): Int {
+        42
+    }
+    func getOption(): Option<Int> {
+        Some(42)
+    }
+    func getHashMap(): HashMap<String, String> {
+        HashMap()
+    }
 }
 
 @Test

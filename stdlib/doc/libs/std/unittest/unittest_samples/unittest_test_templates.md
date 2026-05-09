@@ -11,6 +11,7 @@
 public class DbConnection {
     func close() {}
 }
+
 @TestTemplate
 abstract class DbTest {
     public prop dbConnection: DbConnection
