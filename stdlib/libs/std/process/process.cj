@@ -696,7 +696,7 @@ func buildCommandLine(command: String, arguments: Array<String>): CStringResourc
 @When[os == "Windows"]
 func escapeArgument(arg: String): String {
     if (arg.size == 0) {
-        return ""
+        return "\"\""
     }
 
     var needBackslash: Bool = false
