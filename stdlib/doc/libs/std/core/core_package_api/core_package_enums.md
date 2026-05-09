@@ -1103,7 +1103,7 @@ public enum ThreadState <: ToString {
     | Ready
     | Running
     | Pending
-    | Terminated 
+    | Terminated
     | ...
 }
 ```

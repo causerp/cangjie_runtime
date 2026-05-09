@@ -16,6 +16,7 @@
 func add(a: Int64, b: Int64) {
     a + b
 }
+
 @Test
 class AddTests {
     @TestCase
@@ -58,6 +59,7 @@ cjpm test success
 func add(a: Int64, b: Int64) {
     a + b
 }
+
 @Test
 func testAddIncorrect() {
     @Expect(add(3, 3), 5)
@@ -81,6 +83,7 @@ func testAddIncorrect() {
 func add(a: Int64, b: Int64) {
     a + b
 }
+
 @Test
 func testAddIncorrect() {
     @Expect(add(3, 3), 5)
@@ -110,6 +113,7 @@ func testAddIncorrect() {
 func add(a: Int64, b: Int64) {
     a + b
 }
+
 @Test
 func testAddIncorrectAssert() {
     @Assert(add(3, 3), 5)
@@ -186,19 +190,19 @@ func validate_even_number_generator() {
 ```cangjie
 // No.1
 @AssertThrows(throw Exception())
- 
+
 // 语义上与 No.1 相同
 @AssertThrows[Exception](throw Exception())
- 
+
 @AssertThrows[IllegalStateException | NoneValueException](random.seed = 42u64)
- 
+
 @ExpectThrows[OutOfMemoryError](foo())
- 
+
 @ExpectThrows({
     foo()
     boo()
 })
- 
+
 @ExpectThrows[OutOfMemoryError]({
     for (i in list) {
         foo(i)
@@ -275,7 +279,7 @@ func test1() {
 }
 // 自定义类型
 class Point <: NearEquatable<Point, Point> {
-    Point(let x: Int64, let y: Int64) { }
+    Point(let x: Int64, let y: Int64) {}
 
     public func isNear(obj: Point, delta!: Point): Bool {
         if (x < 0 || y < 0) {

@@ -91,7 +91,6 @@ class ArrayBenchmarks {
         Array(10, repeat: 0)
     }
 }
-
 ```
 
 当对 `createArray` 进行基准测试时，每次触发 GC 都会涉及到遍历 `data_1` 和 `data_2` 元素，即便它们与除 `hashCode` 基准测试外的其他测试都无关。特别是在处理大量对象时，可能会导致基准测试不稳定，从而影响最终结果的准确性。

@@ -40,7 +40,7 @@ Verify.that(@Called(foo.bar())) // 验证 bar 至少被调用一次
 <!--compile.onlyformat-->
 ```cangjie
 @Called(foo.bar(1, _)) // 匹配 bar 方法调用的验证语句，其中第一个参数为 '1'
-@Called(Foo.baz)       // 匹配 baz 静态属性 getter 调用的验证语句
+@Called(Foo.baz) // 匹配 baz 静态属性 getter 调用的验证语句
 ```
 
 `VerifyStatement` 类提供的 API 类似于桩配置时可用的基数说明符。

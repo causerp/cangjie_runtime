@@ -293,7 +293,7 @@ main() {
         return 42
     }
     println("结果: ${result}")
-    
+
     // 也可以执行无返回值的操作
     exclusiveScope<Unit> {
         println("在独占作用域中执行")

@@ -85,7 +85,7 @@ class BenchGCLight {
     @BeforeAll
     func before() {
         prevGC = getGCCount()
-    } 
+    }
 
     @Bench
     func foo() {
@@ -98,7 +98,7 @@ class BenchGCLight {
     @AfterAll
     func after() {
         let diff = getGCCount() - prevGC
-        @Assert(diff >= 35) 
+        @Assert(diff >= 35)
         @Assert(diff <= 60)
     }
 }
@@ -109,7 +109,7 @@ class BenchGCWait {
     @BeforeAll
     func before() {
         prevGC = getGCCount()
-    } 
+    }
 
     @Bench
     func foo() {
@@ -125,7 +125,6 @@ class BenchGCWait {
         @Assert(diff >= 45)
     }
 }
-
 ```
 
 ## enum TimeUnit
@@ -221,7 +220,6 @@ class Test_Configure_Running_Case_01 {
         count2.fetchAdd(1)
     }
 }
-
 ```
 
 ## enum PerfCounter
@@ -266,7 +264,6 @@ import std.unittest.testmacro.*
 import std.time.*
 
 var counter: Float64 = 0.0
-
 let perf0 = Perf(PerfCounter.HW_CPU_CYCLES)
 let perf1 = Perf(PerfCounter.HW_INSTRUCTIONS)
 let perf2 = Perf(PerfCounter.HW_CACHE_REFERENCES)
@@ -292,13 +289,12 @@ class Test_CPU_01 {
     func beforeEach() {
         counter = 0.0
     }
-    
+
     @Bench
     func foo() {
         counter += 1.0
     }
 }
-
 ```
 
 ### HW_CPU_CYCLES
