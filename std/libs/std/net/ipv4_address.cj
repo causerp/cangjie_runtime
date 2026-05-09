@@ -65,7 +65,7 @@ public class IPv4Address <: IPAddress & ToString & Equatable<IPv4Address> & Less
         return _octets[0] == 127
     }
     public func isMulticast(): Bool {
-        return _octets[0] >= 224 && _octets[1] <= 239
+        return _octets[0] >= 224 && _octets[0] <= 239
     }
     public func isPrivate(): Bool {
         if (_octets[0] == 10) {
