@@ -12,7 +12,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    public func print(message: String): Bool { return true }
+    public func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -43,7 +45,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Hasher {
-    public func hash(message: String): Int { return -1 }
+    public func hash(message: String): Int {
+        return -1
+    }
 }
 
 @Test
@@ -53,7 +57,7 @@ func test() {
     @On(hasher.hash("hello")).returns(1)
     @On(hasher.hash("world")).returnsConsecutively(1, 2, 3)
     @On(hasher.hash("")).throws(TimeoutException())
-    @On(hasher.hash("answer")).returns({ => 42 })
+    @On(hasher.hash("answer")).returns({=> 42})
 
     @Expect(hasher.hash("hello"), 1)
     @Expect(hasher.hash("hello"), 1)

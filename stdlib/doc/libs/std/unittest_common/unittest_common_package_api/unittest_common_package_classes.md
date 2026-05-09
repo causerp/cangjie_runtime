@@ -169,7 +169,7 @@ public static func merge(parent: Configuration, child: Configuration): Configura
 ## class ConfigurationKey
 
 ```cangjie
-abstract sealed class ConfigurationKey <: Equatable<ConfigurationKey> & Hashable {}
+sealed abstract class ConfigurationKey <: Equatable<ConfigurationKey> & Hashable {}
 ```
 
 功能：配置项的键值对象。提供判等及 hashCode 方法。
