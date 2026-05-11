@@ -22,6 +22,17 @@ std::mutex ExceptionManager::gUncaughtExceptionHandlerMtx;
 #if defined(__OHOS__) && (__OHOS__ == 1)
 std::mutex ExceptionManager::gEventMtx;
 CJEventReportInfo ExceptionManager::eventReportHandler = {nullptr, nullptr};
+ExceptionCallbackFunc ExceptionManager::exceptionCallback = nullptr;
+
+void ExceptionManager::RegisterExceptionCallback(ExceptionCallbackFunc callback)
+{
+    exceptionCallback = callback;
+}
+
+ExceptionCallbackFunc ExceptionManager::GetExceptionCallback()
+{
+    return exceptionCallback;
+}
 #endif
 
 void ExceptionManager::OutOfMemory()

@@ -180,6 +180,7 @@ extern "C" MRT_EXPORT void CJ_MCC_RemoveExportedRef(U64 id);
 extern "C" MRT_EXPORT void CJ_MRT_RolveCycleRef();
 #ifdef __OHOS__
 extern "C" void* CJ_MRT_ARKTS_CreateEngine();
+extern "C" void CJ_MRT_RegisterExceptionCallback(void(*callback)());
 #endif
 
 #ifdef __APPLE__
