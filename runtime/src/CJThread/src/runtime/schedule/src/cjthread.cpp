@@ -1421,6 +1421,9 @@ __attribute__((noinline)) int CJThreadResched(void)
         cjthread->schedule->scheduleType == SCHEDULE_EXCLUSIVE) {
         return 0;
     }
+    if (UNLIKELY(cjthread->boundThread)) {
+        return 0;
+    }
 #ifdef CANGJIE_ASAN_SUPPORT
     MapleRuntime::Sanitizer::AsanStartSwitchThreadContext(CJThreadGet(), ThreadGet()->cjthread0);
 #endif
