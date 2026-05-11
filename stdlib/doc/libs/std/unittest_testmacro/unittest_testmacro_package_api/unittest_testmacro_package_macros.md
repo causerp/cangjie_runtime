@@ -136,9 +136,10 @@ class Foo {
 <!-- compile -->
 
 ```cangjie
-func sortArray<T>(arr: Array<T>): Unit
-        where T <: Comparable<T> {
-    if (arr.size < 2) { return }
+func sortArray<T>(arr: Array<T>): Unit where T <: Comparable<T> {
+    if (arr.size < 2) {
+        return
+    }
     var minIndex = 0
     for (i in 1..arr.size) {
         if (arr[i] < arr[minIndex]) {
@@ -151,18 +152,16 @@ func sortArray<T>(arr: Array<T>): Unit
 
 @Test
 @Configure[baseline: "test1"]
-class ArrayBenchmarks{
+class ArrayBenchmarks {
     @Bench
-    func test1(): Unit
-    {
-        let arr = Array(10) { i: Int64 => i }
+    func test1(): Unit {
+        let arr = Array(10) {i: Int64 => i}
         sortArray(arr)
     }
 
     @Bench[x in 10..20]
-    func test2(x:Int64): Unit
-    {
-        let arr = Array(x) { i: Int64 => i.toString() }
+    func test2(x: Int64): Unit {
+        let arr = Array(x) {i: Int64 => i.toString()}
         sortArray(arr)
     }
 }
@@ -276,7 +275,7 @@ class DatabaseBenchmark {
         let result = simulateDatabaseQuery()
         @Assert(!result.isEmpty())
     }
-    
+
     private func simulateDatabaseQuery(): String {
         sleep(Duration.microsecond * 500)
         "data_result"
@@ -390,7 +389,10 @@ public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
 public func checkA(ctx: AssertionCtx, value: A): Unit {
     /* ... */
 }
-func maybeReturnsSomeObject() { Option<A>.None }
+
+func maybeReturnsSomeObject() {
+    Option<A>.None
+}
 
 @Test
 func testfunc() {
@@ -425,7 +427,7 @@ public func checkNotNone<T>(ctx: AssertionCtx, value: ?T): T {
 
 @CustomAssertion
 func iterableWithoutNone<T>(ctx: AssertionCtx, iter: Iterable<?T>): Array<T> {
-    iter |> map { it: ?T => @Assert[checkNotNone](it)} |> collectArray
+    iter |> map {it: ?T => @Assert[checkNotNone](it)} |> collectArray
 }
 
 @Test
@@ -817,7 +819,7 @@ class MyTestSuite {
 @Test
 @Tag[Unittest]
 public class UnittestClass {
-    @TestCase[x in [1, 2, 3, 4, 5]]
+    @TestCase[x in [ 1, 2, 3, 4, 5 ]]
     @Tag[JiraTask3271]
     func caseA(x: Int64) {}
 
@@ -833,7 +835,7 @@ public class UnittestClass {
 @Test
 @Tag[Unittest]
 public class UnittestClass {
-    @TestCase[x in [1, 2, 3, 4, 5]]
+    @TestCase[x in [ 1, 2, 3, 4, 5 ]]
     @Tag[Unittest]
     @Tag[JiraTask3271]
     func caseA(x: Int64) {}

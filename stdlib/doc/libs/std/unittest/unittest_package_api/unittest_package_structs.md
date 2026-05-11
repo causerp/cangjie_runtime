@@ -1966,7 +1966,6 @@ import std.time.*
 @Test
 @Measure[TimeNow(Nanos)]
 public class Test_Residentsleeper {
-
     @Bench
     func case01(): Unit {
         sleep(0.95 * Duration.millisecond)

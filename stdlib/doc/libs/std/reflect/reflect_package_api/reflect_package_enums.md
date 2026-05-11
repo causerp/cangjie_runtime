@@ -3,7 +3,7 @@
 ## enum ModifierInfo
 
 ```cangjie
-public enum ModifierInfo <: Equatable<ModifierInfo> & Hashable & ToString  {
+public enum ModifierInfo <: Equatable<ModifierInfo> & Hashable & ToString {
     | Open
     | Override
     | Redef

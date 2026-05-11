@@ -144,7 +144,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -165,7 +167,6 @@ func test() {
     Verify.that(@Called(printer.print("xyz")).atLeastTimes(0))
     Verify.that(@Called(printer.print("xyz")).never())
 }
-
 ```
 
 ### func anyTimes()
@@ -372,7 +373,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -558,7 +561,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -1045,7 +1050,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 func printMessage(printer: Printer) {
@@ -1187,10 +1194,14 @@ import std.unittest.mock.mockmacro.*
 
 class Printer {
     mut prop name: String {
-        get() { "nop" }
+        get() {
+            "nop"
+        }
         set(x) {}
     }
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -1290,7 +1301,7 @@ public func value(): T
 ## class UnorderedVerifier
 
 ```cangjie
-public class UnorderedVerifier{}
+public class UnorderedVerifier {}
 ```
 
 功能：此类型用于收集 “验证语句”， 可在 [unordered](#static-func-unorderedarrayverifystatement) 函数中动态传入验证行为。
@@ -1303,7 +1314,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 func printMessage(printer: Printer) {
@@ -1394,7 +1407,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test
@@ -1653,7 +1668,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Printer {
-    func print(message: String): Bool { return true }
+    func print(message: String): Bool {
+        return true
+    }
 }
 
 @Test

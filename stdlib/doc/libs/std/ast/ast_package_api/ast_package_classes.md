@@ -95,7 +95,7 @@ main(): Unit {
 
     // 设置 Annotation 的属性
     annotation.identifier = Token(TokenKind.IDENTIFIER, "Anno")
-    
+
     // 输出 Annotation 节点转化成的 Tokens
     println("annotation.toTokens(): ${annotation.toTokens()}")
 }
@@ -297,7 +297,7 @@ main(): Unit {
     // 构造一个默认的 Argument 对象
     let argument = Argument()
     argument.expr = RefExpr(quote(value))
-    
+
     // 将 Argument 转化为 Tokens 并输出
     println("argument.toTokens(): ${argument.toTokens()}")
 }
@@ -331,12 +331,12 @@ main(): Unit {
     let argument = Argument()
     let identifierToken = Token(TokenKind.IDENTIFIER, "arg")
     let colonToken = Token(TokenKind.COLON, ":")
-    
+
     // 设置 Argument 的属性
     argument.identifier = identifierToken
     argument.colon = colonToken
     argument.expr = RefExpr(quote(value))
-    
+
     // 将 Argument 转化为 Tokens 并输出
     println("argument.toTokens(): ${argument.toTokens()}")
 }
@@ -375,7 +375,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     let argument = Argument()
     argument.expr = RefExpr(quote(value))
-    
+
     // 使用自定义访问器遍历 Argument 节点
     argument.traverse(MyVisitor())
 }
@@ -463,7 +463,7 @@ main(): Unit {
     // 设置 ArrayLiteral 的属性
     arrayLiteral.lSquare = Token(TokenKind.LSQUARE, "[")
     arrayLiteral.rSquare = Token(TokenKind.RSQUARE, "]")
-    
+
     println("arrayLiteral.toTokens(): ${arrayLiteral.toTokens()}")
 }
 ```
@@ -496,10 +496,10 @@ public init(inputs: Tokens)
 ```cangjie
 import std.ast.*
 
-main(): Unit {    
+main(): Unit {
     // 从 Tokens 创建 ArrayLiteral 对象
     let arrayLiteral = ArrayLiteral(quote([1, 2, 3]))
-    
+
     println("arrayLiteral.toTokens(): ${arrayLiteral.toTokens()}")
 }
 ```
@@ -530,12 +530,12 @@ import std.ast.*
 
 main(): Unit {
     let arrayLiteral = ArrayLiteral()
-    
+
     // 设置数组字面量的属性
     arrayLiteral.lSquare = Token(TokenKind.LSQUARE, "[")
     arrayLiteral.rSquare = Token(TokenKind.RSQUARE, "]")
     arrayLiteral.elements.add(RefExpr(quote(item)))
-    
+
     // 转化为 Tokens 并输出
     println("arrayLiteral.toTokens(): ${arrayLiteral.toTokens()}")
 }
@@ -573,7 +573,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let arrayLiteral = ArrayLiteral(quote([1, 2]))
-    
+
     // 使用自定义访问器遍历 ArrayLiteral 节点
     arrayLiteral.traverse(MyVisitor())
 }
@@ -653,12 +653,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 AsExpr 对象
     let asExpr = AsExpr()
-    
+
     // 设置 AsExpr 的属性
     asExpr.expr = RefExpr(quote(x))
     asExpr.keyword = Token(TokenKind.AS, "as")
     asExpr.shiftType = RefType(quote(A))
-    
+
     println("asExpr.toTokens(): ${asExpr.toTokens()}")
 }
 ```
@@ -694,7 +694,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 AsExpr 对象
     let asExpr = AsExpr(quote(value as Int64))
-    
+
     println("asExpr.toTokens(): ${asExpr.toTokens()}")
 }
 ```
@@ -726,7 +726,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 AsExpr 对象
     let asExpr = AsExpr(quote(value as Int64))
-    
+
     // 转化为 Tokens 并输出
     println("asExpr.toTokens(): ${asExpr.toTokens()}")
 }
@@ -764,7 +764,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let asExpr = AsExpr(quote(a as Int32))
-    
+
     // 使用自定义访问器遍历 AsExpr 节点
     asExpr.traverse(MyVisitor())
 }
@@ -844,12 +844,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 AssignExpr 对象
     let assignExpr = AssignExpr()
-    
+
     // 设置 AssignExpr 的属性
     assignExpr.leftExpr = RefExpr(quote(a))
     assignExpr.assign = Token(TokenKind.ASSIGN, "=")
     assignExpr.rightExpr = RefExpr(quote(b))
-    
+
     println("assignExpr.toTokens(): ${assignExpr.toTokens()}")
 }
 ```
@@ -885,7 +885,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 AssignExpr 对象
     let assignExpr = AssignExpr(quote(x = 10))
-    
+
     println("assignExpr.toTokens(): ${assignExpr.toTokens()}")
 }
 ```
@@ -916,12 +916,12 @@ import std.ast.*
 
 main(): Unit {
     let assignExpr = AssignExpr()
-    
+
     // 设置 AssignExpr 的属性
     assignExpr.leftExpr = RefExpr(quote(x))
     assignExpr.assign = Token(TokenKind.ASSIGN, "=")
     assignExpr.rightExpr = LitConstExpr(quote(42))
-    
+
     // 转化为 Tokens 并输出
     println("assignExpr.toTokens(): ${assignExpr.toTokens()}")
 }
@@ -959,7 +959,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let assignExpr = AssignExpr(quote(x = 10))
-    
+
     // 使用自定义访问器遍历 AssignExpr 节点
     assignExpr.traverse(MyVisitor())
 }
@@ -1040,7 +1040,7 @@ main(): Unit {
     binaryExpr.leftExpr = RefExpr(quote(x))
     binaryExpr.op = Token(TokenKind.ADD, "+")
     binaryExpr.rightExpr = RefExpr(quote(y))
-    
+
     println("binaryExpr.toTokens(): ${binaryExpr.toTokens()}")
 }
 ```
@@ -1076,7 +1076,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 BinaryExpr 对象
     let binaryExpr = BinaryExpr(quote(5 + 3))
-    
+
     println("binaryExpr.toTokens(): ${binaryExpr.toTokens()}")
 }
 ```
@@ -1108,12 +1108,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 BinaryExpr 对象
     let binaryExpr = BinaryExpr()
-    
+
     // 设置 BinaryExpr 的属性
     binaryExpr.leftExpr = RefExpr(quote(a))
     binaryExpr.op = Token(TokenKind.MUL, "*")
     binaryExpr.rightExpr = RefExpr(quote(b))
-    
+
     // 转化为 Tokens 并输出
     println("binaryExpr.toTokens(): ${binaryExpr.toTokens()}")
 }
@@ -1151,7 +1151,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let binaryExpr = BinaryExpr(quote(1 + 1))
-    
+
     // 使用自定义访问器遍历 BinaryExpr 节点
     binaryExpr.traverse(MyVisitor())
 }
@@ -1242,7 +1242,7 @@ main(): Unit {
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 转化为 Tokens 并输出
     println("block.toTokens(): ${block.toTokens()}")
 }
@@ -1275,13 +1275,13 @@ import std.ast.*
 
 main(): Unit {
     let block = Block()
-    
+
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
     let expr = CallExpr(quote(foo()))
     block.nodes.add(expr)
-    
+
     // 转化为 Tokens 并输出
     println("block.toTokens(): ${block.toTokens()}")
 }
@@ -1325,7 +1325,7 @@ main(): Unit {
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 Block 节点
     block.traverse(MyVisitor())
 }
@@ -1447,7 +1447,7 @@ main(): Unit {
     let decls = ArrayList<Decl>()
     // 将变量声明添加到列表中
     decls.add(VarDecl(quote(let x: Int64 = 10)))
-    
+
     // 使用声明列表创建 Body 对象
     let body = Body(decls)
     // 输出转换后的 Tokens
@@ -1489,11 +1489,11 @@ main(): Unit {
     body.decls.add(VarDecl(quote(let x: Int64 = 10)))
     // 将函数声明添加到 Body 中
     body.decls.add(FuncDecl(quote(func foo() {})))
-    
+
     // 设置左右花括号
     body.lBrace = Token(TokenKind.LCURL, "{")
     body.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 转换为 Tokens 并输出
     println("body.toTokens(): ${body.toTokens()}")
 }
@@ -1541,7 +1541,7 @@ main(): Unit {
     // 设置 Body 的属性
     body.lBrace = Token(TokenKind.LCURL, "{")
     body.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 Body 节点
     body.traverse(MyVisitor())
 }
@@ -1710,22 +1710,22 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 CallExpr 对象
     let callExpr = CallExpr()
-    
+
     // 设置 CallExpr 的属性
     callExpr.callFunc = RefExpr(quote(bar))
     callExpr.lParen = Token(TokenKind.LPAREN, "(")
     callExpr.rParen = Token(TokenKind.RPAREN, ")")
-    
+
     // 创建第一个参数并添加到调用表达式中
     let arg1 = Argument()
     arg1.expr = LitConstExpr(quote(true))
     callExpr.arguments.add(arg1)
-    
+
     // 创建第二个参数并添加到调用表达式中
     let arg2 = Argument()
     arg2.expr = LitConstExpr(quote(3.14))
     callExpr.arguments.add(arg2)
-    
+
     // 转化为 Tokens 并输出
     println("callExpr.toTokens(): ${callExpr.toTokens()}")
 }
@@ -1763,7 +1763,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let callExpr = CallExpr(quote(foo(42)))
-    
+
     // 使用自定义访问器遍历 CallExpr 节点
     callExpr.traverse(MyVisitor())
 }
@@ -1934,13 +1934,13 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 ClassDecl 对象
     let classDecl = ClassDecl()
-    
+
     // 设置 ClassDecl 的属性
     classDecl.keyword = Token(TokenKind.CLASS, "class")
     classDecl.identifier = Token(TokenKind.IDENTIFIER, "A")
     let varDecl = VarDecl(quote(let x: Int64 = 10))
     classDecl.body = Body(ArrayList<Decl>([varDecl]))
-    
+
     // 转化为 Tokens 并输出
     println("classDecl.toTokens(): ${classDecl.toTokens()}")
 }
@@ -1981,7 +1981,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 ClassDecl 对象
     let classDecl = ClassDecl(quote(class Test {}))
-    
+
     // 使用自定义访问器遍历 ClassDecl 节点
     classDecl.traverse(MyVisitor())
 }
@@ -2063,7 +2063,7 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 CommandTypePattern 对象
     let commandTypePattern = CommandTypePattern()
-    
+
     // 设置 CommandTypePattern 的属性
     commandTypePattern.colon = Token(TokenKind.COLON, ":")
     commandTypePattern.pattern = WildcardPattern()
@@ -2139,7 +2139,7 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 CommandTypePattern 对象
     let commandTypePattern = CommandTypePattern()
-    
+
     // 设置 CommandTypePattern 的属性
     commandTypePattern.colon = Token(TokenKind.COLON, ":")
     commandTypePattern.pattern = WildcardPattern()
@@ -2183,7 +2183,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 CommandTypePattern 对象
     let commandTypePattern = CommandTypePattern(quote(e: MyEffect))
-    
+
     // 使用自定义访问器遍历 CommandTypePattern 节点
     commandTypePattern.traverse(MyVisitor())
 }
@@ -2314,7 +2314,7 @@ main(): Unit {
 
     // 设置 ConstPattern 的属性
     constPattern.litConstExpr = LitConstExpr(quote(3.14))
-    
+
     // 转化为 Tokens 并输出
     println("constPattern.toTokens(): ${constPattern.toTokens()}")
 }
@@ -2353,7 +2353,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 ConstPattern 对象
     let constPattern = ConstPattern(quote(100))
-    
+
     // 使用自定义访问器遍历ConstPattern节点
     constPattern.traverse(MyVisitor())
 }
@@ -2460,7 +2460,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 Constructor 对象
     let constructor = Constructor()
-    
+
     // 设置 Constructor 的属性
     constructor.identifier = Token(TokenKind.IDENTIFIER, "Con")
 
@@ -2496,10 +2496,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 Constructor 对象
     let constructor = Constructor()
-    
+
     // 设置 Constructor 的属性
     constructor.identifier = Token(TokenKind.IDENTIFIER, "Year")
-    
+
     // 转化为 Tokens 并输出
     println("constructor.toTokens(): ${constructor.toTokens()}")
 }
@@ -2538,10 +2538,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 Constructor 对象
     let constructor = Constructor()
-    
+
     // 设置 Constructor 的属性
     constructor.identifier = Token(TokenKind.IDENTIFIER, "Month")
-    
+
     // 使用自定义访问器遍历 Constructor 节点
     constructor.traverse(MyVisitor())
 }
@@ -2871,7 +2871,7 @@ import std.collection.*
 main(): Unit {
     // 创建 Decl 节点
     let decl = ClassDecl(quote(class A {}))
-    
+
     // 转化为 Tokens 并输出
     println("decl.toTokens(): ${decl.toTokens()}")
 }
@@ -2912,7 +2912,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Decl 节点（以 ClassDecl 为例）
     let decl = ClassDecl(quote(class A {}))
-    
+
     // 使用自定义访问器遍历 Decl 节点
     decl.traverse(MyVisitor())
 }
@@ -3032,7 +3032,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 DoWhileExpr 对象
     let doWhileExpr = DoWhileExpr()
-    
+
     // 设置 DoWhileExpr 的属性
     doWhileExpr.keywordD = Token(TokenKind.DO, "do")
     doWhileExpr.keywordW = Token(TokenKind.WHILE, "while")
@@ -3043,7 +3043,7 @@ main(): Unit {
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
     doWhileExpr.block = block
-    
+
     // 转化为 Tokens 并输出
     println("doWhileExpr.toTokens(): ${doWhileExpr.toTokens()}")
 }
@@ -3117,7 +3117,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 DoWhileExpr 对象
     let doWhileExpr = DoWhileExpr()
-    
+
     // 设置 DoWhileExpr 的属性
     doWhileExpr.keywordD = Token(TokenKind.DO, "do")
     doWhileExpr.keywordW = Token(TokenKind.WHILE, "while")
@@ -3128,7 +3128,7 @@ main(): Unit {
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
     doWhileExpr.block = block
-    
+
     // 转化为 Tokens 并输出
     println("doWhileExpr.toTokens(): ${doWhileExpr.toTokens()}")
 }
@@ -3168,7 +3168,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let doWhileExpr = DoWhileExpr(quote(do {} while (false)))
-    
+
     // 使用自定义访问器遍历 DoWhileExpr 节点
     doWhileExpr.traverse(MyVisitor())
 }
@@ -3314,7 +3314,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 EnumDecl 对象
     let enumDecl = EnumDecl()
-    
+
     // 设置 EnumDecl 的属性
     enumDecl.keyword = Token(TokenKind.ENUM, "enum")
     enumDecl.identifier = Token(TokenKind.IDENTIFIER, "status")
@@ -3323,7 +3323,7 @@ main(): Unit {
     enumDecl.constructors.add(constructor)
     enumDecl.lBrace = Token(TokenKind.LCURL, "{")
     enumDecl.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 转化为 Tokens 并输出
     println("enumDecl.toTokens(): ${enumDecl.toTokens()}")
 }
@@ -3400,23 +3400,23 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 EnumDecl 对象
     let enumDecl = EnumDecl()
-    
+
     // 设置 EnumDecl 的属性
     enumDecl.keyword = Token(TokenKind.ENUM, "enum")
     enumDecl.identifier = Token(TokenKind.IDENTIFIER, "status")
     let constructor = Constructor()
     constructor.identifier = Token(TokenKind.IDENTIFIER, "Active")
     enumDecl.constructors.add(constructor)
-    
+
     // 创建函数声明
     let funcDecl = FuncDecl(quote(func getValue(): Int64 { 0 }))
     // 将函数声明添加到EnumDecl中
     enumDecl.decls.add(funcDecl)
-    
+
     // 设置左右花括号
     enumDecl.lBrace = Token(TokenKind.LCURL, "{")
     enumDecl.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 转化为 Tokens 并输出
     println("enumDecl.toTokens(): ${enumDecl.toTokens()}")
 }
@@ -3459,7 +3459,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let enumDecl = EnumDecl(quote(enum Status { Pending | Completed }))
-    
+
     // 使用自定义访问器遍历 EnumDecl 节点
     enumDecl.traverse(MyVisitor())
 }
@@ -3567,14 +3567,14 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 EnumPattern 对象
     let enumPattern = EnumPattern()
-    
+
     // 设置 EnumPattern 的属性
     enumPattern.constructor = RefExpr(quote(Status))
     enumPattern.lParen = Token(TokenKind.LPAREN, "(")
     enumPattern.rParen = Token(TokenKind.RPAREN, ")")
     let pattern = WildcardPattern()
     enumPattern.patterns.add(pattern)
-    
+
     // 转化为 Tokens 并输出
     println("enumPattern.toTokens(): ${enumPattern.toTokens()}")
 }
@@ -3645,17 +3645,17 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 EnumPattern 对象
     let enumPattern = EnumPattern()
-    
+
     // 设置 EnumPattern 的属性
     enumPattern.constructor = RefExpr(quote(Status))
     enumPattern.lParen = Token(TokenKind.LPAREN, "(")
     enumPattern.rParen = Token(TokenKind.RPAREN, ")")
-    
+
     // 创建模式
     let pattern = WildcardPattern()
     // 将模式添加到 EnumPattern 中
     enumPattern.patterns.add(pattern)
-    
+
     // 转化为 Tokens 并输出
     println("enumPattern.toTokens(): ${enumPattern.toTokens()}")
 }
@@ -3694,7 +3694,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 EnumPattern 对象
     let enumPattern = EnumPattern(quote(Error(code)))
-    
+
     // 使用自定义访问器遍历 EnumPattern 节点
     enumPattern.traverse(MyVisitor())
 }
@@ -3774,13 +3774,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ExceptTypePattern 对象
     let exceptTypePattern = ExceptTypePattern()
-    
+
     // 设置 ExceptTypePattern 的属性
     exceptTypePattern.colon = Token(TokenKind.COLON, ":")
     exceptTypePattern.pattern = WildcardPattern()
     let ioExceptionType = RefType(quote(IOException))
     exceptTypePattern.types.add(ioExceptionType)
-    
+
     // 转化为 Tokens 并输出
     println("exceptTypePattern.toTokens(): ${exceptTypePattern.toTokens()}")
 }
@@ -3851,20 +3851,20 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 ExceptTypePattern 对象
     let exceptTypePattern = ExceptTypePattern()
-    
+
     // 设置 ExceptTypePattern 的属性
     exceptTypePattern.colon = Token(TokenKind.COLON, ":")
     exceptTypePattern.pattern = WildcardPattern()
-    
+
     // 创建第一个类型
     let ioExceptionType = RefType(quote(IOException))
     // 创建第二个类型
     let fileExceptionType = RefType(quote(FileException))
-    
+
     // 将类型添加到 ExceptTypePattern 中
     exceptTypePattern.types.add(ioExceptionType)
     exceptTypePattern.types.add(fileExceptionType)
-    
+
     // 转化为 Tokens 并输出
     println("exceptTypePattern.toTokens(): ${exceptTypePattern.toTokens()}")
 }
@@ -3903,7 +3903,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 ExceptTypePattern 对象
     let exceptTypePattern = ExceptTypePattern(quote(err: RuntimeException))
-    
+
     // 使用自定义访问器遍历 ExceptTypePattern 节点
     exceptTypePattern.traverse(MyVisitor())
 }
@@ -4063,7 +4063,7 @@ import std.ast.*
 main(): Unit {
     // 创建 Expr 节点
     let expr = BinaryExpr(quote(1 + 1))
-    
+
     // 转化为 Tokens 并输出
     println("expr.toTokens(): ${expr.toTokens()}")
 }
@@ -4103,7 +4103,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Expr 节点（以 BinaryExpr 为例）
     let expr = BinaryExpr(quote(1 + 1))
-    
+
     // 使用自定义访问器遍历 Expr 节点
     expr.traverse(MyVisitor())
 }
@@ -4224,12 +4224,12 @@ main(): Unit {
 
     // 设置 ExtendDecl 的属性
     extendDecl.extendType = RefType(quote(B))
-    
+
     let body = Body()
     let funcDecl = FuncDecl(quote(func bar() { println("Hello from bar") }))
     body.decls.add(funcDecl)
     extendDecl.body = body
-    
+
     // 转化为 Tokens 并输出
     println("extendDecl.toTokens(): ${extendDecl.toTokens()}")
 }
@@ -4270,7 +4270,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ExtendDecl 对象
     let extendDecl = ExtendDecl(quote(extend A { func foo() {} }))
-    
+
     // 转化为 Tokens 并输出
     println("extendDecl.toTokens(): ${extendDecl.toTokens()}")
 }
@@ -4306,15 +4306,15 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ExtendDecl 对象
     let extendDecl = ExtendDecl()
-    
+
     // 设置 ExtendDecl 的属性
     extendDecl.extendType = RefType(quote(B))
-    
+
     let body = Body()
     let funcDecl = FuncDecl(quote(func bar() { println("Hello from bar") }))
     body.decls.add(funcDecl)
     extendDecl.body = body
-    
+
     // 转化为 Tokens 并输出
     println("extendDecl.toTokens(): ${extendDecl.toTokens()}")
 }
@@ -4516,7 +4516,7 @@ main(): Unit {
     // 设置 FeatureId 的属性
     featureId.identifiers = quote(a b c)
     featureId.dots = quote(. .)
-    
+
     // 使用自定义访问器遍历 FeatureId 节点
     featureId.traverse(MyVisitor())
 }
@@ -4599,7 +4599,7 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 FeaturesDirective 对象
     let featuresDirective = FeaturesDirective()
-    
+
     // 设置 FeaturesDirective 的属性
     featuresDirective.keyword = Token(TokenKind.FEATURES, "features")
     let featuresSet = FeaturesSet()
@@ -4680,7 +4680,7 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 FeaturesDirective 对象
     let featuresDirective = FeaturesDirective()
-    
+
     // 设置 FeaturesDirective 的属性
     featuresDirective.keyword = Token(TokenKind.FEATURES, "features")
     let featuresSet = FeaturesSet()
@@ -4729,7 +4729,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 用 Tokens 创建一个 FeaturesDirective 对象
     let featuresDirective = FeaturesDirective(quote(features {a, b.c}))
-    
+
     // 使用自定义访问器遍历 FeaturesDirective 节点
     featuresDirective.traverse(MyVisitor())
 }
@@ -4837,7 +4837,7 @@ main(): Unit {
     // 设置 FeaturesSet 的属性
     let featureId = FeatureId()
     featureId.identifiers = quote(ftr)
-    
+
     featuresSet.content = ArrayList<FeatureId>([featureId])
     featuresSet.lCurl = Token(TokenKind.LCURL, "{")
     featuresSet.rCurl = Token(TokenKind.RCURL, "}")
@@ -4880,7 +4880,7 @@ main(): Unit {
     let featureId = FeatureId()
     featureId.identifiers = quote(a b c)
     featureId.dots = quote(. .)
-    
+
     featuresSet.content = ArrayList<FeatureId>([featureId])
     featuresSet.lCurl = Token(TokenKind.LCURL, "{")
     featuresSet.rCurl = Token(TokenKind.RCURL, "}")
@@ -4931,7 +4931,7 @@ main(): Unit {
     featuresSet.content = ArrayList<FeatureId>([featureId])
     featuresSet.lCurl = Token(TokenKind.LCURL, "{")
     featuresSet.rCurl = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 FeaturesSet 节点
     featuresSet.traverse(MyVisitor())
 }
@@ -5091,25 +5091,25 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ForInExpr 对象
     let forInExpr = ForInExpr()
-    
+
     // 设置 ForInExpr 的属性
     forInExpr.keywordF = Token(TokenKind.FOR, "for")
     forInExpr.pattern = VarPattern(Token(TokenKind.IDENTIFIER, "x"))
     forInExpr.keywordI = Token(TokenKind.IN, "in")
     forInExpr.expr = RefExpr(quote(arr))
-    
+
     // 创建块
     let block = Block()
-    
+
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 添加一个表达式节点
     let expr = CallExpr(quote(foo()))
     block.nodes.add(expr)
     forInExpr.block = block
-    
+
     // 转化为 Tokens 并输出
     println("forInExpr.toTokens(): ${forInExpr.toTokens()}")
 }
@@ -5148,7 +5148,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ForInExpr 对象
     let forInExpr = ForInExpr(quote(for (i in 1..10) { println(i) }))
-    
+
     // 转化为 Tokens 并输出
     println("forInExpr.toTokens(): ${forInExpr.toTokens()}")
 }
@@ -5183,25 +5183,25 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ForInExpr 对象
     let forInExpr = ForInExpr()
-    
+
     // 设置 ForInExpr 的属性
     forInExpr.keywordF = Token(TokenKind.FOR, "for")
     forInExpr.pattern = VarPattern(Token(TokenKind.IDENTIFIER, "x"))
     forInExpr.keywordI = Token(TokenKind.IN, "in")
     forInExpr.expr = RefExpr(quote(arr))
-    
+
     // 创建块
     let block = Block()
-    
+
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 添加一个表达式节点
     let expr = CallExpr(quote(foo()))
     block.nodes.add(expr)
     forInExpr.block = block
-    
+
     // 转化为 Tokens 并输出
     println("forInExpr.toTokens(): ${forInExpr.toTokens()}")
 }
@@ -5242,7 +5242,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 ForInExpr 对象
     let forInExpr = ForInExpr(quote(for (i in 1..10) { println(i) }))
-    
+
     // 使用自定义访问器遍历 ForInExpr 节点
     forInExpr.traverse(MyVisitor())
 }
@@ -5374,19 +5374,19 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 FuncDecl 对象
     let funcDecl = FuncDecl()
-    
+
     // 设置 FuncDecl 的属性
     funcDecl.keyword = Token(TokenKind.FUNC, "func")
     funcDecl.identifier = Token(TokenKind.IDENTIFIER, "foo")
     funcDecl.lParen = Token(TokenKind.LPAREN, "(")
     funcDecl.rParen = Token(TokenKind.RPAREN, ")")
-    
+
     // 创建函数体
     let block = Block()
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
     funcDecl.block = block
-    
+
     // 转化为 Tokens 并输出
     println("funcDecl.toTokens(): ${funcDecl.toTokens()}")
 }
@@ -5424,7 +5424,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 FuncDecl 对象
     let funcDecl = FuncDecl(quote(func add(a: Int64, b: Int64): Int64 { return a + b }))
-    
+
     // 转化为 Tokens 并输出
     println("funcDecl.toTokens(): ${funcDecl.toTokens()}")
 }
@@ -5459,7 +5459,7 @@ import std.ast.*
 main(): Unit {
     let funcDecl1 = FuncDecl(quote(func foo() { println("Hello") }))
     let funcDecl2 = FuncDecl(quote(const func bar() { println("World") }))
-    
+
     println("funcDecl1.isConst(): ${funcDecl1.isConst()}")
     println("funcDecl2.isConst(): ${funcDecl2.isConst()}")
 }
@@ -5494,7 +5494,7 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 FuncDecl 对象
     let funcDecl = FuncDecl()
-    
+
     // 设置 FuncDecl 的属性
     funcDecl.keyword = Token(TokenKind.FUNC, "func")
     funcDecl.identifier = Token(TokenKind.IDENTIFIER, "foo")
@@ -5502,12 +5502,12 @@ main(): Unit {
     funcDecl.rParen = Token(TokenKind.RPAREN, ")")
     funcDecl.colon = Token(TokenKind.COLON, ":")
     funcDecl.declType = PrimitiveType(quote(Int64))
-    
+
     // 创建函数参数
     let param = FuncParam(quote(x: Int64))
-    
+
     funcDecl.funcParams = ArrayList<FuncParam>([param])
-    
+
     // 创建函数体
     let block = Block()
     block.lBrace = Token(TokenKind.LCURL, "{")
@@ -5515,7 +5515,7 @@ main(): Unit {
     let expr = BinaryExpr(quote(x + 1))
     block.nodes.add(expr)
     funcDecl.block = block
-    
+
     // 转化为 Tokens 并输出
     println("funcDecl.toTokens(): ${funcDecl.toTokens()}")
 }
@@ -5556,7 +5556,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 FuncDecl 对象
     let funcDecl = FuncDecl(quote(func foo() { println("Hello") }))
-    
+
     // 使用自定义访问器遍历 FuncDecl 节点
     funcDecl.traverse(MyVisitor())
 }
@@ -5668,14 +5668,14 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 FuncParam 对象
     let funcParam = FuncParam()
-    
+
     // 设置 FuncParam 的属性
     funcParam.identifier = Token(TokenKind.IDENTIFIER, "b")
     funcParam.colon = Token(TokenKind.COLON, ":")
     funcParam.paramType = PrimitiveType(quote(Float32))
     funcParam.assign = Token(TokenKind.ASSIGN, "=")
     funcParam.expr = RefExpr(quote(defaultValue))
-    
+
     // 转化为 Tokens 并输出
     println("funcParam.toTokens(): ${funcParam.toTokens()}")
 }
@@ -5712,7 +5712,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 FuncParam 对象
     let funcParam = FuncParam(quote(a: Int64))
-    
+
     println("funcParam.toTokens(): ${funcParam.toTokens()}")
 }
 ```
@@ -5747,7 +5747,9 @@ import std.ast.*
 
 // 在子类中调用
 class MyParam <: FuncParam {
-    public init(input: Tokens) { super(input) }
+    public init(input: Tokens) {
+        super(input)
+    }
     public func myDump(): String {
         dump(1)
     }
@@ -5840,14 +5842,14 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 FuncParam 对象
     let funcParam = FuncParam()
-    
+
     // 设置 FuncParam 的属性
     funcParam.identifier = Token(TokenKind.IDENTIFIER, "b")
     funcParam.colon = Token(TokenKind.COLON, ":")
     funcParam.paramType = PrimitiveType(quote(Float32))
     funcParam.assign = Token(TokenKind.ASSIGN, "=")
     funcParam.expr = RefExpr(quote(defaultValue))
-    
+
     // 转化为 Tokens 并输出
     println("funcParam.toTokens(): ${funcParam.toTokens()}")
 }
@@ -5886,7 +5888,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 FuncParam 对象
     let funcParam = FuncParam(quote(b!: Float64))
-    
+
     // 使用自定义访问器遍历 FuncParam 节点
     funcParam.traverse(MyVisitor())
 }
@@ -6018,19 +6020,19 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 FuncType 对象
     let funcType = FuncType()
-    
+
     // 设置 FuncType 的属性
     funcType.lParen = Token(TokenKind.LPAREN, "(")
     funcType.rParen = Token(TokenKind.RPAREN, ")")
     funcType.arrow = Token(TokenKind.ARROW, "->")
-    
+
     // 设置参数类型
     let paramTypes = ArrayList<TypeNode>()
     funcType.types = paramTypes
-    
+
     // 设置返回类型
     funcType.returnType = RefType(quote(String))
-    
+
     // 转化为 Tokens 并输出
     println("funcType.toTokens(): ${funcType.toTokens()}")
 }
@@ -6067,7 +6069,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 FuncType 对象
     let funcType = FuncType(quote((Int32, Float64) -> String))
-    
+
     // 转化为 Tokens 并输出
     println("funcType.toTokens(): ${funcType.toTokens()}")
 }
@@ -6101,21 +6103,21 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 FuncType 对象
     let funcType = FuncType()
-    
+
     // 设置 FuncType 的属性
     funcType.lParen = Token(TokenKind.LPAREN, "(")
     funcType.rParen = Token(TokenKind.RPAREN, ")")
     funcType.arrow = Token(TokenKind.ARROW, "->")
-    
+
     // 设置参数类型
     let paramTypes = ArrayList<TypeNode>()
     paramTypes.add(PrimitiveType(quote(Int64)))
     paramTypes.add(PrimitiveType(quote(Bool)))
     funcType.types = paramTypes
-    
+
     // 设置返回类型
     funcType.returnType = RefType(quote(String))
-    
+
     // 转化为 Tokens 并输出
     println("funcType.toTokens(): ${funcType.toTokens()}")
 }
@@ -6154,7 +6156,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 FuncType 对象
     let funcType = FuncType(quote((Int32) -> Unit))
-    
+
     // 使用自定义访问器遍历 FuncType 节点
     funcType.traverse(MyVisitor())
 }
@@ -6265,16 +6267,16 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 GenericConstraint 对象
     let genericConstraint = GenericConstraint()
-    
+
     // 设置 GenericConstraint 的属性
     genericConstraint.keyword = Token(TokenKind.WHERE, "where")
     genericConstraint.typeArgument = RefType(quote(U))
     genericConstraint.upperBound = Token(TokenKind.UPPERBOUND, "<:")
-    
+
     let upperBounds = ArrayList<TypeNode>()
     upperBounds.add(RefType(quote(Bound)))
     genericConstraint.upperBounds = upperBounds
-    
+
     // 转化为 Tokens 并输出
     println("genericConstraint.toTokens(): ${genericConstraint.toTokens()}")
 }
@@ -6308,16 +6310,16 @@ import std.collection.*
 main(): Unit {
     // 构造一个默认的 GenericConstraint 对象
     let genericConstraint = GenericConstraint()
-    
+
     // 设置 GenericConstraint 的属性
     genericConstraint.keyword = Token(TokenKind.WHERE, "where")
     genericConstraint.typeArgument = RefType(quote(U))
     genericConstraint.upperBound = Token(TokenKind.UPPERBOUND, "<:")
-    
+
     let upperBounds = ArrayList<TypeNode>()
     upperBounds.add(RefType(quote(Bound)))
     genericConstraint.upperBounds = upperBounds
-    
+
     // 转化为 Tokens 并输出
     println("genericConstraint.toTokens(): ${genericConstraint.toTokens()}")
 }
@@ -6356,16 +6358,16 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 GenericConstraint 对象
     let genericConstraint = GenericConstraint()
-    
+
     // 设置 GenericConstraint 的属性
     genericConstraint.keyword = Token(TokenKind.WHERE, "where")
     genericConstraint.typeArgument = RefType(quote(U))
     genericConstraint.upperBound = Token(TokenKind.UPPERBOUND, "<:")
-    
+
     let upperBounds = ArrayList<TypeNode>()
     upperBounds.add(RefType(quote(Bound)))
     genericConstraint.upperBounds = upperBounds
-    
+
     // 使用自定义访问器遍历 GenericConstraint 节点
     genericConstraint.traverse(MyVisitor())
 }
@@ -6453,12 +6455,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 GenericParam 对象
     let genericParam = GenericParam()
-    
+
     // 设置 GenericParam 的属性
     genericParam.lAngle = Token(TokenKind.LT, "<")
     genericParam.rAngle = Token(TokenKind.GT, ">")
     genericParam.parameters = quote(A B)
-    
+
     // 转化为 Tokens 并输出
     println("genericParam.toTokens(): ${genericParam.toTokens()}")
 }
@@ -6491,7 +6493,7 @@ import std.ast.*
 main(): Unit {
     // 使用 Tokens 构造 GenericParam
     let genericParam = GenericParam(quote(T U V))
-    
+
     // 转化为 Tokens 并输出
     println("genericParam.toTokens(): ${genericParam.toTokens()}")
 }
@@ -6524,12 +6526,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 GenericParam 对象
     let genericParam = GenericParam()
-    
+
     // 设置 GenericParam 的属性
     genericParam.lAngle = Token(TokenKind.LT, "<")
     genericParam.rAngle = Token(TokenKind.GT, ">")
     genericParam.parameters = quote(A B)
-    
+
     // 转化为 Tokens 并输出
     println("genericParam.toTokens(): ${genericParam.toTokens()}")
 }
@@ -6568,7 +6570,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 使用 Tokens 构造 GenericParam
     let genericParam = GenericParam(quote(T, U))
-    
+
     // 使用自定义访问器遍历 GenericParam 节点
     genericParam.traverse(MyVisitor())
 }
@@ -6583,8 +6585,7 @@ Visiting GenericParam
 ## class Handler
 
 ```cangjie
-public class Handler {
-}
+public class Handler {}
 ```
 
 功能：表示一个 `handle` 子句，其中包含一个命令模式和要执行的代码块。
@@ -6716,13 +6717,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 IfExpr 对象
     let ifExpr = IfExpr()
-    
+
     // 设置 IfExpr 的属性
     ifExpr.keywordI = Token(TokenKind.IF, "if")
     ifExpr.lParen = Token(TokenKind.LPAREN, "(")
     ifExpr.rParen = Token(TokenKind.RPAREN, ")")
     ifExpr.condition = RefExpr(quote(cond))
-    
+
     // 创建 if 块
     let ifBlock = Block()
     ifBlock.lBrace = Token(TokenKind.LCURL, "{")
@@ -6730,7 +6731,7 @@ main(): Unit {
     let expr1 = LitConstExpr(quote(1))
     ifBlock.nodes.add(expr1)
     ifExpr.ifBlock = ifBlock
-    
+
     // 转化为 Tokens 并输出
     println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
 }
@@ -6769,7 +6770,7 @@ import std.ast.*
 main(): Unit {
     // 使用 Tokens 构造 IfExpr
     let ifExpr = IfExpr(quote(if (x > 0) { println("Positive") } else { println("Negative") }))
-    
+
     // 转化为 Tokens 并输出
     println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
 }
@@ -6807,13 +6808,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 IfExpr 对象
     let ifExpr = IfExpr()
-    
+
     // 设置 IfExpr 的属性
     ifExpr.keywordI = Token(TokenKind.IF, "if")
     ifExpr.lParen = Token(TokenKind.LPAREN, "(")
     ifExpr.rParen = Token(TokenKind.RPAREN, ")")
     ifExpr.condition = RefExpr(quote(condition))
-    
+
     // 创建 if 块
     let ifBlock = Block()
     ifBlock.lBrace = Token(TokenKind.LCURL, "{")
@@ -6821,7 +6822,7 @@ main(): Unit {
     let expr1 = CallExpr(quote(println("Condition is true")))
     ifBlock.nodes.add(expr1)
     ifExpr.ifBlock = ifBlock
-    
+
     // 转化为 Tokens 并输出
     println("ifExpr.toTokens(): ${ifExpr.toTokens()}")
 }
@@ -6862,7 +6863,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 使用 Tokens 构造 IfExpr
     let ifExpr = IfExpr(quote(if (a < b) { println(a) } else { println(b) }))
-    
+
     // 使用自定义访问器遍历 IfExpr 节点
     ifExpr.traverse(MyVisitor())
 }
@@ -7045,7 +7046,7 @@ main(): Unit {
     importContent.prefixPaths = quote(std collection)
     importContent.prefixDots = quote(. .)
     importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
-    
+
     // 转化为 Tokens 并输出
     println("importContent.toTokens(): ${importContent.toTokens()}")
 }
@@ -7080,7 +7081,7 @@ main(): Unit {
     let importContent = ImportContent()
     importContent.importKind = ImportKind.Alias
     importContent.importAlias = quote(as myAlias)
-    
+
     println("importContent.isImportAlias(): ${importContent.isImportAlias()}")
 }
 ```
@@ -7113,7 +7114,7 @@ main(): Unit {
     // 创建一个全导入的 ImportContent
     let importContent = ImportContent()
     importContent.importKind = ImportKind.All
-    
+
     println("importContent.isImportAll(): ${importContent.isImportAll()}")
 }
 ```
@@ -7146,7 +7147,7 @@ main(): Unit {
     // 创建一个多导入的 ImportContent
     let importContent = ImportContent()
     importContent.importKind = ImportKind.Multi
-    
+
     println("importContent.isImportMulti(): ${importContent.isImportMulti()}")
 }
 ```
@@ -7179,7 +7180,7 @@ main(): Unit {
     // 创建一个单导入的 ImportContent
     let importContent = ImportContent()
     importContent.importKind = ImportKind.Single
-    
+
     println("importContent.isImportSingle(): ${importContent.isImportSingle()}")
 }
 ```
@@ -7219,7 +7220,7 @@ main(): Unit {
     importContent.prefixPaths = quote(std collection)
     importContent.prefixDots = quote(.)
     importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
-    
+
     // 转化为 Tokens 并输出
     println("importContent.toTokens(): ${importContent.toTokens()}")
 }
@@ -7266,7 +7267,7 @@ main(): Unit {
     importContent.prefixPaths = quote(std collection)
     importContent.prefixDots = quote(.)
     importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
-    
+
     // 使用自定义访问器遍历 ImportContent 节点
     importContent.traverse(MyVisitor())
 }
@@ -7346,19 +7347,19 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ImportList 对象
     let importList = ImportList()
-    
+
     // 设置 ImportList 的属性
     importList.keywordI = Token(TokenKind.IMPORT, "import")
-    
+
     // 创建并设置 ImportContent
     let importContent = ImportContent()
     importContent.importKind = ImportKind.Single
     importContent.prefixPaths = quote(std collection)
     importContent.prefixDots = quote(.)
     importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
-    
+
     importList.content = importContent
-    
+
     // 转化为 Tokens 并输出
     println("importList.toTokens(): ${importList.toTokens()}")
 }
@@ -7395,7 +7396,7 @@ import std.ast.*
 main(): Unit {
     // 使用 Tokens 构造 ImportList
     let importList = ImportList(quote(import std.collection.*))
-    
+
     // 转化为 Tokens 并输出
     println("importList.toTokens(): ${importList.toTokens()}")
 }
@@ -7428,7 +7429,7 @@ import std.ast.*
 main(): Unit {
     let singleImport = ImportList(quote(import std.ast.RefType))
     let multiImport = ImportList(quote(import std.ast.{RefType, CallExpr}))
-    
+
     println("singleImport.isImportMulti(): ${singleImport.isImportMulti()}")
     println("multiImport.isImportMulti(): ${multiImport.isImportMulti()}")
 }
@@ -7462,10 +7463,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ImportList 对象
     let importList = ImportList()
-    
+
     // 设置 ImportList 的属性
     importList.keywordI = Token(TokenKind.IMPORT, "import")
-    
+
     // 创建并设置 ImportContent
     let importContent = ImportContent()
     importContent.importKind = ImportKind.Single
@@ -7473,7 +7474,7 @@ main(): Unit {
     importContent.prefixDots = quote(.)
     importContent.identifier = Token(TokenKind.IDENTIFIER, "ArrayList")
     importList.content = importContent
-    
+
     // 转化为 Tokens 并输出
     println("importList.toTokens(): ${importList.toTokens()}")
 }
@@ -7512,7 +7513,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 用 Tokens 创建 ImportList
     let importList = ImportList(quote(import std.ast.RefType as RT))
-    
+
     // 使用自定义访问器遍历 ImportList 节点
     importList.traverse(MyVisitor())
 }
@@ -7576,11 +7577,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 IncOrDecExpr 对象
     let incOrDecExpr = IncOrDecExpr()
-    
+
     // 设置 IncOrDecExpr 的属性
     incOrDecExpr.expr = RefExpr(quote(counter))
     incOrDecExpr.op = Token(TokenKind.DECR, "--")
-    
+
     // 转化为 Tokens 并输出
     println("incOrDecExpr.toTokens(): ${incOrDecExpr.toTokens()}")
 }
@@ -7650,11 +7651,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 IncOrDecExpr 对象
     let incOrDecExpr = IncOrDecExpr()
-    
+
     // 设置 IncOrDecExpr 的属性
     incOrDecExpr.expr = RefExpr(quote(counter))
     incOrDecExpr.op = Token(TokenKind.INCR, "++")
-    
+
     // 转化为 Tokens 并输出
     println("incOrDecExpr.toTokens(): ${incOrDecExpr.toTokens()}")
 }
@@ -7693,7 +7694,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 使用 Tokens 构造 IncOrDecExpr
     let incOrDecExpr = IncOrDecExpr(quote(x--))
-    
+
     // 使用自定义访问器遍历 IncOrDecExpr 节点
     incOrDecExpr.traverse(MyVisitor())
 }
@@ -7787,17 +7788,17 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 InterfaceDecl 对象
     let interfaceDecl = InterfaceDecl()
-    
+
     // 设置 InterfaceDecl 的属性
     interfaceDecl.identifier = Token(TokenKind.IDENTIFIER, "Shape")
     interfaceDecl.keyword = Token(TokenKind.INTERFACE, "interface")
-    
+
     // 创建并设置 body
     let body = Body()
     let funcDecl = FuncDecl(quote(func area(): Float64))
     body.decls.add(funcDecl)
     interfaceDecl.body = body
-    
+
     // 转化为 Tokens 并输出
     println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
 }
@@ -7836,7 +7837,7 @@ import std.ast.*
 main(): Unit {
     // 使用 Tokens 构造 InterfaceDecl
     let interfaceDecl = InterfaceDecl(quote(interface MyInterface { func foo(): Int64 }))
-    
+
     // 转化为 Tokens 并输出
     println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
 }
@@ -7871,17 +7872,17 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 InterfaceDecl 对象
     let interfaceDecl = InterfaceDecl()
-    
+
     // 设置 InterfaceDecl 的属性
     interfaceDecl.identifier = Token(TokenKind.IDENTIFIER, "Shape")
     interfaceDecl.keyword = Token(TokenKind.INTERFACE, "interface")
-    
+
     // 创建并设置 body
     let body = Body()
     let funcDecl = FuncDecl(quote(func area(): Float64))
     body.decls.add(funcDecl)
     interfaceDecl.body = body
-    
+
     // 转化为 Tokens 并输出
     println("interfaceDecl.toTokens(): ${interfaceDecl.toTokens()}")
 }
@@ -7922,7 +7923,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 使用 Tokens 构造 InterfaceDecl
     let interfaceDecl = InterfaceDecl(quote(interface MyInterface { func foo(): Int64 }))
-    
+
     // 使用自定义访问器遍历 InterfaceDecl 节点
     interfaceDecl.traverse(MyVisitor())
 }
@@ -8002,12 +8003,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 IsExpr 对象
     let isExpr = IsExpr()
-    
+
     // 设置 IsExpr 的属性
     isExpr.expr = RefExpr(quote(x))
     isExpr.keyword = Token(TokenKind.IS)
     isExpr.shiftType = PrimitiveType(quote(Int8))
-    
+
     // 转化为 Tokens 并输出
     println("isExpr.toTokens(): ${isExpr.toTokens()}")
 }
@@ -8044,7 +8045,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 IsExpr 对象
     let isExpr = IsExpr(quote(x is String))
-    
+
     // 转化为 Tokens 并输出
     println("isExpr.toTokens(): ${isExpr.toTokens()}")
 }
@@ -8077,7 +8078,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 IsExpr 对象
     let isExpr = IsExpr(quote(x is String))
-    
+
     // 转化为 Tokens 并输出
     println("isExpr.toTokens(): ${isExpr.toTokens()}")
 }
@@ -8116,7 +8117,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 IsExpr 对象
     let isExpr = IsExpr(quote(x is String))
-    
+
     // 使用自定义访问器遍历 IsExpr 节点
     isExpr.traverse(MyVisitor())
 }
@@ -8170,10 +8171,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 JumpExpr 对象
     let jumpExpr = JumpExpr()
-    
+
     // 设置 JumpExpr 的属性
     jumpExpr.keyword = Token(TokenKind.BREAK)
-    
+
     // 转化为 Tokens 并输出
     println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
 }
@@ -8210,7 +8211,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 JumpExpr 对象
     let jumpExpr = JumpExpr(quote(break))
-    
+
     // 转化为 Tokens 并输出
     println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
 }
@@ -8243,7 +8244,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 JumpExpr 对象
     let jumpExpr = JumpExpr(quote(break))
-    
+
     // 转化为 Tokens 并输出
     println("jumpExpr.toTokens(): ${jumpExpr.toTokens()}")
 }
@@ -8282,7 +8283,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 JumpExpr 对象
     let jumpExpr = JumpExpr(quote(break))
-    
+
     // 使用自定义访问器遍历 JumpExpr 节点
     jumpExpr.traverse(MyVisitor())
 }
@@ -8390,7 +8391,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 LambdaExpr 对象
     let lambdaExpr = LambdaExpr()
-    
+
     // 设置 LambdaExpr 的属性
     lambdaExpr.lBrace = Token(TokenKind.LCURL)
     lambdaExpr.rBrace = Token(TokenKind.RCURL)
@@ -8401,7 +8402,7 @@ main(): Unit {
     let nodes = ArrayList<Node>()
     nodes.add(BinaryExpr(quote(x + 1)))
     lambdaExpr.nodes = nodes
-    
+
     // 转化为 Tokens 并输出
     println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
 }
@@ -8440,7 +8441,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LambdaExpr 对象
     let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
-    
+
     // 转化为 Tokens 并输出
     println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
 }
@@ -8475,7 +8476,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LambdaExpr 对象
     let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
-    
+
     // 转化为 Tokens 并输出
     println("lambdaExpr.toTokens(): ${lambdaExpr.toTokens()}")
 }
@@ -8516,7 +8517,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 LambdaExpr 对象
     let lambdaExpr = LambdaExpr(quote({x: Int64 => x + 1}))
-    
+
     // 使用自定义访问器遍历 LambdaExpr 节点
     lambdaExpr.traverse(MyVisitor())
 }
@@ -8610,13 +8611,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 LetPatternExpr 对象
     let letPatternExpr = LetPatternExpr()
-    
+
     // 设置 LetPatternExpr 的属性
     letPatternExpr.keyword = Token(TokenKind.LET)
     letPatternExpr.pattern = EnumPattern(quote(Some(v)))
     letPatternExpr.backArrow = Token(TokenKind.BACKARROW)
     letPatternExpr.expr = RefExpr(quote(x))
-    
+
     // 转化为 Tokens 并输出
     println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
 }
@@ -8653,7 +8654,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LetPatternExpr 对象
     let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
-    
+
     // 转化为 Tokens 并输出
     println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
 }
@@ -8686,7 +8687,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LetPatternExpr 对象
     let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
-    
+
     // 转化为 Tokens 并输出
     println("letPatternExpr.toTokens(): ${letPatternExpr.toTokens()}")
 }
@@ -8725,7 +8726,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 LetPatternExpr 对象
     let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
-    
+
     // 使用自定义访问器遍历 LetPatternExpr 节点
     letPatternExpr.traverse(MyVisitor())
 }
@@ -8781,10 +8782,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 LitConstExpr 对象
     let litConstExpr = LitConstExpr()
-    
+
     // 设置 LitConstExpr 的属性
     litConstExpr.literal = Token(TokenKind.INTEGER_LITERAL, "123")
-    
+
     // 转化为 Tokens 并输出
     println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
 }
@@ -8821,7 +8822,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LitConstExpr 对象
     let litConstExpr = LitConstExpr(quote(123))
-    
+
     // 转化为 Tokens 并输出
     println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
 }
@@ -8854,7 +8855,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 LitConstExpr 对象
     let litConstExpr = LitConstExpr(quote(123))
-    
+
     // 转化为 Tokens 并输出
     println("litConstExpr.toTokens(): ${litConstExpr.toTokens()}")
 }
@@ -8893,7 +8894,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 LitConstExpr 对象
     let litConstExpr = LitConstExpr(quote(123))
-    
+
     // 使用自定义访问器遍历 LitConstExpr 节点
     litConstExpr.traverse(MyVisitor())
 }
@@ -9015,7 +9016,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MacroDecl 对象
     let macroDecl = MacroDecl()
-    
+
     // 设置 MacroDecl 的属性
     macroDecl.keyword = quote(macro)[0]
     macroDecl.identifier = quote(testMacro)[0]
@@ -9027,7 +9028,7 @@ main(): Unit {
     macroDecl.colon = Token(TokenKind.COLON)
     macroDecl.declType = RefType(quote(Tokens))
     macroDecl.block = Block()
-    
+
     // 转化为 Tokens 并输出
     println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
 }
@@ -9064,7 +9065,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MacroDecl 对象
     let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
-    
+
     // 转化为 Tokens 并输出
     println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
 }
@@ -9098,7 +9099,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MacroDecl 对象
     let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
-    
+
     // 转化为 Tokens 并输出
     println("macroDecl.toTokens(): ${macroDecl.toTokens()}")
 }
@@ -9138,7 +9139,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 MacroDecl 对象
     let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
-    
+
     // 使用自定义访问器遍历 MacroDecl 节点
     macroDecl.traverse(MyVisitor())
 }
@@ -9294,7 +9295,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MacroExpandDecl 对象
     let macroExpandDecl = MacroExpandDecl()
-    
+
     // 设置 MacroExpandDecl 的属性
     macroExpandDecl.keyword = quote(@)[0]
     macroExpandDecl.fullIdentifier = quote(testMacro)[0]
@@ -9305,7 +9306,7 @@ main(): Unit {
     macroExpandDecl.rParen = Token(RPAREN)
     macroExpandDecl.macroInputs = Tokens()
     macroExpandDecl.macroInputDecl = FuncDecl(quote(func test() {}))
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
 }
@@ -9344,7 +9345,7 @@ import std.ast.*
 main() {
     // 从 Tokens 创建 MacroExpandDecl 对象
     let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
 }
@@ -9379,7 +9380,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MacroExpandDecl 对象
     let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandDecl.toTokens(): ${macroExpandDecl.toTokens()}")
 }
@@ -9420,7 +9421,7 @@ class MyVisitor <: Visitor {
 main() {
     // 从 Tokens 创建 MacroExpandDecl 对象
     let macroExpandDecl = MacroExpandDecl(quote(@M class A {}))
-    
+
     // 使用自定义访问器遍历 MacroExpandDecl 节点
     macroExpandDecl.traverse(MyVisitor())
 }
@@ -9566,7 +9567,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MacroExpandExpr 对象
     let macroExpandExpr = MacroExpandExpr()
-    
+
     // 设置 MacroExpandExpr 的属性
     macroExpandExpr.at = Token(TokenKind.AT)
     macroExpandExpr.identifier = Token(TokenKind.IDENTIFIER, "M")
@@ -9613,7 +9614,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MacroExpandExpr 对象
     let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandExpr.toTokens(): ${macroExpandExpr.toTokens()}")
 }
@@ -9646,7 +9647,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MacroExpandExpr 对象
     let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandExpr.toTokens(): ${macroExpandExpr.toTokens()}")
 }
@@ -9685,7 +9686,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 MacroExpandExpr 对象
     let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
-    
+
     // 使用自定义访问器遍历 MacroExpandExpr 节点
     macroExpandExpr.traverse(MyVisitor())
 }
@@ -9840,7 +9841,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MacroExpandParam 对象
     let macroExpandParam = MacroExpandParam()
-    
+
     // 设置 MacroExpandParam 的属性
     macroExpandParam.keyword = Token(TokenKind.AT, "@")
     macroExpandParam.fullIdentifier = Token(TokenKind.IDENTIFIER, "M")
@@ -9849,7 +9850,7 @@ main(): Unit {
     macroExpandParam.rSquare = Token(TokenKind.RSQUARE)
     macroExpandParam.macroAttrs = quote(123)
     macroExpandParam.macroInputs = quote(a: Int64)
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandParam.toTokens(): ${macroExpandParam.toTokens()}")
 }
@@ -9883,7 +9884,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MacroExpandParam 对象
     let macroExpandParam = MacroExpandParam()
-    
+
     // 设置 MacroExpandParam 的属性
     macroExpandParam.keyword = Token(TokenKind.AT, "@")
     macroExpandParam.fullIdentifier = Token(TokenKind.IDENTIFIER, "M")
@@ -9892,7 +9893,7 @@ main(): Unit {
     macroExpandParam.rSquare = Token(TokenKind.RSQUARE)
     macroExpandParam.macroAttrs = quote(123)
     macroExpandParam.macroInputs = quote(a: Int64)
-    
+
     // 转化为 Tokens 并输出
     println("macroExpandParam.toTokens(): ${macroExpandParam.toTokens()}")
 }
@@ -9932,12 +9933,12 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 MacroExpandParam 对象
     let macroExpandParam = MacroExpandParam()
-    
+
     // 设置 MacroExpandParam 的属性
     macroExpandParam.keyword = Token(TokenKind.AT, "@")
     macroExpandParam.identifier = Token(TokenKind.IDENTIFIER, "M")
     macroExpandParam.macroInputs = quote(any)
-    
+
     // 使用自定义访问器遍历 MacroExpandParam 节点
     macroExpandParam.traverse(MyVisitor())
 }
@@ -10405,7 +10406,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MainDecl 对象
     let mainDecl = MainDecl()
-    
+
     // 设置 MainDecl 的属性
     mainDecl.keyword = quote(main)[0]
     mainDecl.colon = Token(TokenKind.COLON)
@@ -10419,7 +10420,7 @@ main(): Unit {
     block.lBrace = Token(TokenKind.LCURL)
     block.rBrace = Token(TokenKind.RCURL)
     mainDecl.block = block
-    
+
     // 转化为 Tokens 并输出
     println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
 }
@@ -10457,7 +10458,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MainDecl 对象
     let mainDecl = MainDecl(quote(main() { println("Hello World") }))
-    
+
     // 转化为 Tokens 并输出
     println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
 }
@@ -10492,7 +10493,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 MainDecl 对象
     let mainDecl = MainDecl(quote(main() { println("Hello World") }))
-    
+
     // 通过toTokens()将实例输出
     println("mainDecl.toTokens(): ${mainDecl.toTokens()}")
 }
@@ -10533,7 +10534,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 从 Tokens 创建 MainDecl 对象
     let mainDecl = MainDecl(quote(main() { println("Hello World") }))
-    
+
     // 使用自定义访问器遍历 MainDecl 节点
     mainDecl.traverse(MyVisitor())
 }
@@ -10687,7 +10688,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MatchCase 对象
     let matchCase = MatchCase()
-    
+
     // 设置 MatchCase 的属性
     matchCase.keywordC = Token(CASE)
     matchCase.expr = BinaryExpr(quote(a > 1))
@@ -10729,7 +10730,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MatchCase 对象
     let matchCase = MatchCase()
-    
+
     // 设置 MatchCase 的属性
     matchCase.keywordC = Token(CASE)
     matchCase.expr = BinaryExpr(quote(a > 1))
@@ -10738,7 +10739,7 @@ main(): Unit {
     let block = Block()
     block.nodes.add(LitConstExpr(quote(true)))
     matchCase.block = block
-    
+
     // 转化为 Tokens 并输出
     println("matchCase.toTokens(): ${matchCase.toTokens()}")
 }
@@ -10777,7 +10778,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 MatchCase 对象
     let matchCase = MatchCase()
-    
+
     // 设置 MatchCase 的属性
     matchCase.keywordC = Token(CASE)
     matchCase.expr = BinaryExpr(quote(a > 1))
@@ -10786,7 +10787,7 @@ main(): Unit {
     let block = Block()
     block.nodes.add(LitConstExpr(quote(true)))
     matchCase.block = block
-    
+
     // 使用自定义访问器遍历 MatchCase 节点
     matchCase.traverse(MyVisitor())
 }
@@ -10926,7 +10927,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MatchExpr 对象
     let matchExpr = MatchExpr()
-    
+
     // 设置 MatchExpr 的属性
     matchExpr.keyword = Token(TokenKind.MATCH)
     matchExpr.lBrace = Token(TokenKind.LCURL)
@@ -10943,7 +10944,7 @@ main(): Unit {
     block.nodes.add(LitConstExpr(quote(true)))
     matchCase.block = block
     matchExpr.matchCases.add(matchCase)
-    
+
     // 转化为 Tokens 并输出
     println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
 }
@@ -10982,7 +10983,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MatchExpr 对象
     let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
-    
+
     // 转化为 Tokens 并输出
     println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
 }
@@ -11017,10 +11018,10 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 MatchExpr 对象
     let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
-    
+
     // 调用 toTokens 方法将 MatchExpr 转化为 Tokens
     let tokens = matchExpr.toTokens()
-    
+
     // 转化为 Tokens 并输出
     println("matchExpr.toTokens(): ${matchExpr.toTokens()}")
 }
@@ -11061,7 +11062,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MatchExpr 对象
     let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
-    
+
     // 使用自定义访问器遍历 MatchExpr 节点
     matchExpr.traverse(MyVisitor())
 }
@@ -11193,7 +11194,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 MemberAccess 对象
     let memberAccess = MemberAccess()
-    
+
     // 设置 MemberAccess 的属性
     memberAccess.baseExpr = RefExpr(quote(obj))
     memberAccess.dot = Token(TokenKind.DOT)
@@ -11202,7 +11203,7 @@ main(): Unit {
     memberAccess.lAngle = Token(TokenKind.LT)
     memberAccess.rAngle = Token(TokenKind.GT)
     memberAccess.typeArguments = ArrayList<TypeNode>()
-    
+
     // 转化为 Tokens 并输出
     println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
 }
@@ -11239,7 +11240,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 MemberAccess 对象
     let memberAccess = MemberAccess(quote(obj.field))
-    
+
     // 转化为 Tokens 并输出
     println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
 }
@@ -11272,7 +11273,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 MemberAccess 对象
     let memberAccess = MemberAccess(quote(obj.field))
-    
+
     // 转化为 Tokens 并输出
     println("memberAccess.toTokens(): ${memberAccess.toTokens()}")
 }
@@ -11311,7 +11312,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MemberAccess 对象
     let memberAccess = MemberAccess(quote(obj.field))
-    
+
     // 使用自定义访问器遍历 MemberAccess 节点
     memberAccess.traverse(MyVisitor())
 }
@@ -11367,10 +11368,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 Modifier 对象
     let modifier = Modifier()
-    
+
     // 设置 Modifier 的属性
     modifier.keyword = Token(TokenKind.PUBLIC, "public")
-    
+
     // 转化为 Tokens 并输出
     println("modifier.toTokens(): ${modifier.toTokens()}")
 }
@@ -11403,7 +11404,7 @@ import std.ast.*
 main(): Unit {
     // 使用 Token 构造 Modifier 对象
     let modifier = Modifier(Token(TokenKind.PUBLIC, "public"))
-    
+
     // 转化为 Tokens 并输出
     println("modifier.toTokens(): ${modifier.toTokens()}")
 }
@@ -11437,7 +11438,7 @@ main(): Unit {
     // 创建一个带实际值的 Modifier 对象
     let token = Token(TokenKind.PUBLIC, "public")
     let modifier = Modifier(token)
-    
+
     // 转化为 Tokens 并输出
     println("modifier.toTokens(): ${modifier.toTokens()}")
 }
@@ -11476,7 +11477,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 Modifier 对象
     let modifier = Modifier(Token(TokenKind.PUBLIC, "public"))
-    
+
     // 使用自定义访问器遍历 Modifier 节点
     modifier.traverse(MyVisitor())
 }
@@ -11491,7 +11492,7 @@ Visiting Modifier
 ## class Node
 
 ```cangjie
-abstract sealed class Node <: ToTokens {}
+sealed abstract class Node <: ToTokens {}
 ```
 
 功能：所有仓颉语法树节点的父类。
@@ -11547,7 +11548,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 Node 子类对象 (使用 IfExpr 作为示例)
     let ifExpr = IfExpr()
-    
+
     // 设置 IfExpr 的条件
     ifExpr.condition = LitConstExpr(quote(true))
     ifExpr.keywordI = Token(TokenKind.IF)
@@ -11557,7 +11558,7 @@ main(): Unit {
     block.lBrace = Token(TokenKind.LCURL)
     block.rBrace = Token(TokenKind.RCURL)
     ifExpr.ifBlock = block
-    
+
     // 调用 dump 方法输出节点信息
     ifExpr.dump()
 }
@@ -11605,7 +11606,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 Node 子类对象 (使用 IfExpr 作为示例)
     let node = IfExpr(quote(if (x > 0) { x = x + 1 } else { x = x - 1 }))
-    
+
     // 输出 Tokens 信息
     println("node.toTokens(): ${node.toTokens()}")
 }
@@ -11650,7 +11651,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Node 节点（以 ClassDecl 为例）
     let node = ClassDecl(quote(class A {}))
-    
+
     // 使用自定义访问器遍历 Node 节点
     node.traverse(MyVisitor())
 }
@@ -11720,11 +11721,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 OptionalExpr 对象
     let optionalExpr = OptionalExpr()
-    
+
     // 设置 OptionalExpr 的属性
     optionalExpr.baseExpr = RefExpr(quote(a))
     optionalExpr.quest = Token(TokenKind.QUEST)
-    
+
     // 转化为 Tokens 并输出
     println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
 }
@@ -11761,7 +11762,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 OptionalExpr 对象
     let optionalExpr = OptionalExpr(quote(a?))
-    
+
     // 转化为 Tokens 并输出
     println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
 }
@@ -11794,7 +11795,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 OptionalExpr 对象
     let optionalExpr = OptionalExpr(quote(a?))
-    
+
     // 转化为 Tokens 并输出
     println("optionalExpr.toTokens(): ${optionalExpr.toTokens()}")
 }
@@ -11833,7 +11834,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 OptionalExpr 对象
     let optionalExpr = OptionalExpr(quote(a?))
-    
+
     // 使用自定义访问器遍历 OptionalExpr 节点
     optionalExpr.traverse(MyVisitor())
 }
@@ -11983,12 +11984,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PackageHeader 对象
     let packageHeader = PackageHeader()
-    
+
     // 设置 PackageHeader 的属性
     packageHeader.keywordP = Token(TokenKind.PACKAGE)
     packageHeader.packageIdentifier = Token(TokenKind.IDENTIFIER, "myPackage")
     packageHeader.accessible = Token(TokenKind.PUBLIC)
-    
+
     // 转化为 Tokens 并输出
     println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
 }
@@ -12025,7 +12026,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 PackageHeader 对象
     let packageHeader = PackageHeader(quote(package myPackage))
-    
+
     // 转化为 Tokens 并输出
     println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
 }
@@ -12058,7 +12059,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 PackageHeader 对象
     let packageHeader = PackageHeader(quote(package myPackage))
-    
+
     // 转化为 Tokens 并输出
     println("packageHeader.toTokens(): ${packageHeader.toTokens()}")
 }
@@ -12097,7 +12098,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PackageHeader 对象
     let packageHeader = PackageHeader(quote(package myPackage))
-    
+
     // 使用自定义访问器遍历 PackageHeader 节点
     packageHeader.traverse(MyVisitor())
 }
@@ -12181,12 +12182,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ParenExpr 对象
     let parenExpr = ParenExpr()
-    
+
     // 设置 ParenExpr 的属性
     parenExpr.lParen = Token(TokenKind.LPAREN)
     parenExpr.parenthesizedExpr = LitConstExpr(quote(1))
     parenExpr.rParen = Token(TokenKind.RPAREN)
-    
+
     // 转化为 Tokens 并输出
     println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
 }
@@ -12223,7 +12224,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ParenExpr 对象
     let parenExpr = ParenExpr(quote((1 + 2)))
-    
+
     // 转化为 Tokens 并输出
     println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
 }
@@ -12256,7 +12257,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 ParenExpr 对象
     let parenExpr = ParenExpr(quote((1 + 2)))
-    
+
     // 转化为 Tokens 并输出
     println("parenExpr.toTokens(): ${parenExpr.toTokens()}")
 }
@@ -12295,7 +12296,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 ParenExpr 对象
     let parenExpr = ParenExpr(quote((1 + 2)))
-    
+
     // 使用自定义访问器遍历 ParenExpr 节点
     parenExpr.traverse(MyVisitor())
 }
@@ -12379,12 +12380,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ParenType 对象
     let parenType = ParenType()
-    
+
     // 设置 ParenType 的属性
     parenType.lParen = Token(TokenKind.LPAREN)
     parenType.parenthesizedType = PrimitiveType(quote(Int8))
     parenType.rParen = Token(TokenKind.RPAREN)
-    
+
     // 转化为 Tokens 并输出
     println("parenType.toTokens(): ${parenType.toTokens()}")
 }
@@ -12421,7 +12422,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ParenType 对象
     let parenType = ParenType(quote((Int32)))
-    
+
     // 转化为 Tokens 并输出
     println("parenType.toTokens(): ${parenType.toTokens()}")
 }
@@ -12454,7 +12455,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 ParenType 对象
     let parenType = ParenType(quote((Int32)))
-    
+
     // 转化为 Tokens 并输出
     println("parenType.toTokens(): ${parenType.toTokens()}")
 }
@@ -12493,7 +12494,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 ParenType 对象
     let parenType = ParenType(quote((Int32)))
-    
+
     // 使用自定义访问器遍历 ParenType 节点
     parenType.traverse(MyVisitor())
 }
@@ -12548,7 +12549,7 @@ extend VarPattern {
 main(): Unit {
     // 创建一个 Pattern 子类对象 (使用 VarPattern 作为示例)
     let pattern = VarPattern(quote(e)[0])
-    
+
     // 调用 dump 方法输出节点信息
     let result = pattern.myDump()
     println("Pattern dump result: ${result}")
@@ -12588,7 +12589,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 Pattern 子类对象 (使用 VarPattern 作为示例)
     let pattern = VarPattern(quote(e)[0])
-    
+
     // 输出 Pattern 节点转化成的 Tokens
     println("pattern.toTokens(): ${pattern.toTokens()}")
 }
@@ -12628,7 +12629,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Pattern 节点（以 VarPattern 为例）
     let pattern = VarPattern(quote(e)[0])
-    
+
     // 使用自定义访问器遍历 Pattern 节点
     pattern.traverse(MyVisitor())
 }
@@ -12698,11 +12699,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PerformExpr 对象
     let performExpr = PerformExpr()
-    
+
     // 设置 PerformExpr 的属性
     performExpr.keyword = Token(TokenKind.PERFORM)
     performExpr.expr = CallExpr(quote(Effect()))
-    
+
     // 转化为 Tokens 并输出
     println("performExpr.toTokens(): ${performExpr.toTokens()}")
 }
@@ -12744,7 +12745,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 PerformExpr 对象
     let performExpr = PerformExpr(quote(perform Effect()))
-    
+
     // 转化为 Tokens 并输出
     println("performExpr.toTokens(): ${performExpr.toTokens()}")
 }
@@ -12777,11 +12778,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PerformExpr 对象
     let performExpr = PerformExpr()
-    
+
     // 设置 PerformExpr 的属性
     performExpr.keyword = Token(TokenKind.PERFORM)
     performExpr.expr = CallExpr(quote(Eff()))
-    
+
     // 转化为 Tokens 并输出
     println("performExpr.toTokens(): ${performExpr.toTokens()}")
 }
@@ -12820,11 +12821,11 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 PerformExpr 对象
     let performExpr = PerformExpr()
-    
+
     // 设置 PerformExpr 的属性
     performExpr.keyword = Token(TokenKind.PERFORM)
     performExpr.expr = CallExpr(quote(Effect()))
-    
+
     // 使用自定义访问器遍历 PerformExpr 节点
     performExpr.traverse(MyVisitor())
 }
@@ -12890,11 +12891,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PrefixType 对象
     let prefixType = PrefixType()
-    
+
     // 设置 PrefixType 的属性
     prefixType.prefixOps = quote(?)
     prefixType.baseType = PrimitiveType(quote(Int8))
-    
+
     // 转化为 Tokens 并输出
     println("prefixType.toTokens(): ${prefixType.toTokens()}")
 }
@@ -12931,7 +12932,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 PrefixType 对象
     let prefixType = PrefixType(quote(?Int32))
-    
+
     // 转化为 Tokens 并输出
     println("prefixType.toTokens(): ${prefixType.toTokens()}")
 }
@@ -12964,7 +12965,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 PrefixType 对象
     let prefixType = PrefixType(quote(?Int32))
-    
+
     // 转化为 Tokens 并输出
     println("prefixType.toTokens(): ${prefixType.toTokens()}")
 }
@@ -13003,7 +13004,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrefixType 对象
     let prefixType = PrefixType(quote(?Int32))
-    
+
     // 使用自定义访问器遍历 PrefixType 节点
     prefixType.traverse(MyVisitor())
 }
@@ -13097,7 +13098,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl()
-    
+
     // 设置 PrimaryCtorDecl 的属性
     primaryCtorDecl.identifier = quote(Ctor)[0]
     primaryCtorDecl.lParen = Token(TokenKind.LPAREN)
@@ -13106,13 +13107,13 @@ main(): Unit {
     // 设置参数
     let param1 = FuncParam(quote(x: Int8))
     primaryCtorDecl.funcParams = ArrayList<FuncParam>([param1])
-    
+
     // 设置代码块
     let block = Block()
     block.lBrace = Token(TokenKind.LCURL)
     block.rBrace = Token(TokenKind.RCURL)
     primaryCtorDecl.block = block
-    
+
     // 转化为 Tokens 并输出
     println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
 }
@@ -13150,7 +13151,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
-    
+
     // 转化为 Tokens 并输出
     println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
 }
@@ -13185,7 +13186,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl()
-    
+
     println("primaryCtorDecl.isConst(): ${primaryCtorDecl.isConst()}")
 }
 ```
@@ -13217,7 +13218,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
-    
+
     // 转化为 Tokens 并输出
     println("primaryCtorDecl.toTokens(): ${primaryCtorDecl.toTokens()}")
 }
@@ -13258,7 +13259,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
-    
+
     // 使用自定义访问器遍历 PrimaryCtorDecl 节点
     primaryCtorDecl.traverse(MyVisitor())
 }
@@ -13314,10 +13315,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PrimitiveType 对象
     let primitiveType = PrimitiveType()
-    
+
     // 设置 PrimitiveType 的属性
     primitiveType.keyword = Token(TokenKind.INT8, "Int8")
-    
+
     // 输出 PrimitiveType 节点转化成的 Tokens
     println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
 }
@@ -13354,10 +13355,10 @@ import std.ast.*
 main(): Unit {
     // 使用 quote 宏创建 Tokens
     let tokens = quote(Int8)
-    
+
     // 使用 Tokens 构造 PrimitiveType 对象
     let primitiveType = PrimitiveType(tokens)
-    
+
     // 输出 PrimitiveType 节点转化成的 Tokens
     println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
 }
@@ -13390,7 +13391,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 PrimitiveType 对象
     let primitiveType = PrimitiveType(quote(Int8))
-    
+
     // 输出 PrimitiveType 节点转化成的 Tokens
     println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
 }
@@ -13429,10 +13430,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimitiveType 对象
     let primitiveType = PrimitiveType(quote(Int8))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrimitiveType 节点
     primitiveType.traverse(visitor)
 }
@@ -13488,10 +13489,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PrimitiveTypeExpr 对象
     let primitiveTypeExpr = PrimitiveTypeExpr()
-    
+
     // 设置 PrimitiveTypeExpr 的属性
     primitiveTypeExpr.keyword = Token(TokenKind.INT8, "Int8")
-    
+
     // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
     println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
 }
@@ -13528,10 +13529,10 @@ import std.ast.*
 main(): Unit {
     // 使用 quote 宏创建 Tokens
     let tokens = quote(Int8)
-    
+
     // 使用 Tokens 构造 PrimitiveTypeExpr 对象
     let primitiveTypeExpr = PrimitiveTypeExpr(tokens)
-    
+
     // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
     println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
 }
@@ -13564,7 +13565,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 PrimitiveTypeExpr 对象
     let primitiveTypeExpr = PrimitiveTypeExpr(quote(Int8))
-    
+
     // 输出 PrimitiveTypeExpr 节点转化成的 Tokens
     println("primitiveTypeExpr.toTokens(): ${primitiveTypeExpr.toTokens()}")
 }
@@ -13603,10 +13604,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimitiveTypeExpr 对象
     let primitiveTypeExpr = PrimitiveTypeExpr(quote(Int8))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrimitiveTypeExpr 节点
     primitiveTypeExpr.traverse(visitor)
 }
@@ -13696,12 +13697,12 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 Program 对象
     let program = Program()
-    
+
     // 设置 Program 的属性
     program.packageHeader = PackageHeader(quote(package test))
     program.importLists = ArrayList<ImportList>()
     program.decls = ArrayList<Decl>()
-    
+
     // 转化为 Tokens 并输出
     println("program.toTokens(): ${program.toTokens()}")
 }
@@ -13738,7 +13739,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 Program 对象
     let program = Program(quote(let a = 1))
-    
+
     // 转化为 Tokens 并输出
     println("program.toTokens(): ${program.toTokens()}")
 }
@@ -13771,7 +13772,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 Program 对象
     let program = Program(quote(let a = 1))
-    
+
     // 转化为 Tokens 并输出
     println("program.toTokens(): ${program.toTokens()}")
 }
@@ -13810,7 +13811,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 Program 对象
     let program = Program(quote(let a = 1))
-    
+
     // 使用自定义访问器遍历 Program 节点
     program.traverse(MyVisitor())
 }
@@ -13936,7 +13937,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 PropDecl 对象
     let propDecl = PropDecl()
-    
+
     // 设置 PropDecl 的属性
     propDecl.keyword = quote(prop)[0]
     propDecl.identifier = quote(testProp)[0]
@@ -13945,7 +13946,7 @@ main(): Unit {
 
     propDecl.lBrace = Token(TokenKind.LCURL)
     propDecl.rBrace = Token(TokenKind.RCURL)
-    
+
     // 转化为 Tokens 并输出
     println("propDecl.toTokens(): ${propDecl.toTokens()}")
 }
@@ -13983,7 +13984,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 PropDecl 对象
     let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
-    
+
     // 转化为 Tokens 并输出
     println("propDecl.toTokens(): ${propDecl.toTokens()}")
 }
@@ -14020,7 +14021,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 PropDecl 对象
     let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
-    
+
     // 转化为 Tokens 并输出
     println("propDecl.toTokens(): ${propDecl.toTokens()}")
 }
@@ -14063,7 +14064,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PropDecl 对象
     let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
-    
+
     // 使用自定义访问器遍历 PropDecl 节点
     propDecl.traverse(MyVisitor())
 }
@@ -14195,7 +14196,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 QualifiedType 对象
     let qualifiedType = QualifiedType()
-    
+
     // 设置 QualifiedType 的属性
     qualifiedType.baseType = RefType(quote(Package))
     qualifiedType.identifier = Token(TokenKind.IDENTIFIER, "Type")
@@ -14204,7 +14205,7 @@ main(): Unit {
     qualifiedType.lAngle = Token(TokenKind.LT)
     qualifiedType.rAngle = Token(TokenKind.GT)
     qualifiedType.typeArguments = ArrayList<TypeNode>()
-    
+
     // 转化为 Tokens 并输出
     println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
 }
@@ -14241,7 +14242,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 QualifiedType 对象
     let qualifiedType = QualifiedType(quote(Package.Type))
-    
+
     // 转化为 Tokens 并输出
     println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
 }
@@ -14274,7 +14275,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 QualifiedType 对象
     let qualifiedType = QualifiedType(quote(Package.Type))
-    
+
     // 转化为 Tokens 并输出
     println("qualifiedType.toTokens(): ${qualifiedType.toTokens()}")
 }
@@ -14313,7 +14314,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 QualifiedType 对象
     let qualifiedType = QualifiedType(quote(Package.Type))
-    
+
     // 使用自定义访问器遍历 QualifiedType 节点
     qualifiedType.traverse(MyVisitor())
 }
@@ -14411,13 +14412,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 QuoteExpr 对象
     let quoteExpr = QuoteExpr()
-    
+
     // 设置 QuoteExpr 的属性
     quoteExpr.keyword = Token(TokenKind.QUOTE)
     quoteExpr.lParen = Token(TokenKind.LPAREN)
     quoteExpr.rParen = Token(TokenKind.RPAREN)
     quoteExpr.exprs = ArrayList<Expr>()
-    
+
     // 转化为 Tokens 并输出
     println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
 }
@@ -14454,7 +14455,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 QuoteExpr 对象
     let quoteExpr = QuoteExpr(quote(quote(x + 1)))
-    
+
     // 转化为 Tokens 并输出
     println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
 }
@@ -14487,7 +14488,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个带实际值的 QuoteExpr 对象
     let quoteExpr = QuoteExpr(quote(quote(x + 1)))
-    
+
     // 转化为 Tokens 并输出
     println("quoteExpr.toTokens(): ${quoteExpr.toTokens()}")
 }
@@ -14526,7 +14527,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 QuoteExpr 对象
     let quoteExpr = QuoteExpr(quote(quote(x + 1)))
-    
+
     // 使用自定义访问器遍历 QuoteExpr 节点
     quoteExpr.traverse(MyVisitor())
 }
@@ -14581,13 +14582,13 @@ import std.ast.*
 main(): Unit {
     // 使用 quote 宏创建 Tokens
     let tokens = quote(quote(x + 1))
-    
+
     // 使用 Tokens 构造 QuoteExpr 对象
     let quoteExpr = QuoteExpr(tokens)
 
     // 获取一个 QuoteToken 对象
     let quoteToken = quoteExpr.exprs[0]
-    
+
     // 转化为 Tokens 并输出
     println("quoteToken.toTokens(): ${quoteToken.toTokens()}")
 }
@@ -14960,10 +14961,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 RefExpr 对象
     let refExpr = RefExpr()
-    
+
     // 设置 RefExpr 的属性
     refExpr.identifier = Token(TokenKind.IDENTIFIER, "myRef")
-    
+
     // 转化为 Tokens 并输出
     println("refExpr.toTokens(): ${refExpr.toTokens()}")
 }
@@ -15000,7 +15001,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 RefExpr 对象
     let refExpr = RefExpr(quote(myRef))
-    
+
     // 转化为 Tokens 并输出
     println("refExpr.toTokens(): ${refExpr.toTokens()}")
 }
@@ -15032,7 +15033,7 @@ import std.ast.*
 
 main(): Unit {
     let refExpr = RefExpr(quote(testRef))
-    
+
     // 转化为 Tokens 并输出
     println("refExpr.toTokens(): ${refExpr.toTokens()}")
 }
@@ -15070,7 +15071,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let refExpr = RefExpr(quote(myRef))
-    
+
     // 使用自定义访问器遍历 RefExpr 节点
     refExpr.traverse(MyVisitor())
 }
@@ -15178,10 +15179,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 RefType 对象
     let refType = RefType()
-    
+
     // 设置 RefType 的属性
     refType.identifier = Token(TokenKind.IDENTIFIER, "MyType")
-    
+
     // 转化为 Tokens 并输出
     println("refType.toTokens(): ${refType.toTokens()}")
 }
@@ -15218,7 +15219,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 RefType 对象
     let refType = RefType(quote(MyType))
-    
+
     // 转化为 Tokens 并输出
     println("refType.toTokens(): ${refType.toTokens()}")
 }
@@ -15250,7 +15251,7 @@ import std.ast.*
 
 main(): Unit {
     let refType = RefType(quote(TestType))
-    
+
     // 转化为 Tokens 并输出
     println("refType.toTokens(): ${refType.toTokens()}")
 }
@@ -15288,7 +15289,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let refType = RefType(quote(MyType))
-    
+
     // 使用自定义访问器遍历 RefType 节点
     refType.traverse(MyVisitor())
 }
@@ -15397,11 +15398,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ResumeExpr 对象
     let resumeExpr = ResumeExpr()
-    
+
     // 设置 ResumeExpr 的属性
     resumeExpr.throwingExpr = Some(CallExpr(quote(Exception("Error from effect"))))
     resumeExpr.keywordT = Token(TokenKind.THROWING, "throwing")
-    
+
     // 转化为 Tokens 并输出
     println("resumeExpr.toTokens(): ${resumeExpr.toTokens()}")
 }
@@ -15443,7 +15444,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ResumeExpr 对象
     let resumeExpr = ResumeExpr(quote(resume throwing Exception("Error from effect")))
-    
+
     // 转化为 Tokens 并输出
     println("resumeExpr.toTokens(): ${resumeExpr.toTokens()}")
 }
@@ -15476,11 +15477,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ResumeExpr 对象
     let resumeExpr = ResumeExpr()
-    
+
     // 设置 ResumeExpr 的属性
     resumeExpr.throwingExpr = Some(CallExpr(quote(Exception())))
     resumeExpr.keywordT = Token(TokenKind.THROWING, "throwing")
-    
+
     // 转化为 Tokens 并输出
     println("resumeExpr.toTokens(): ${resumeExpr.toTokens()}")
 }
@@ -15519,11 +15520,11 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 ResumeExpr 对象
     let resumeExpr = ResumeExpr()
-    
+
     // 设置 ResumeExpr 的属性
     resumeExpr.throwingExpr = Some(CallExpr(quote(Exception())))
     resumeExpr.keywordT = Token(TokenKind.THROWING, "throwing")
-    
+
     // 使用自定义访问器遍历 ResumeExpr 节点
     resumeExpr.traverse(MyVisitor())
 }
@@ -15597,10 +15598,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ReturnExpr 对象
     let returnExpr = ReturnExpr()
-    
+
     // 设置 ReturnExpr 的属性
     returnExpr.expr = LitConstExpr(quote(42))
-    
+
     // 转化为 Tokens 并输出
     println("returnExpr.toTokens(): ${returnExpr.toTokens()}")
 }
@@ -15637,7 +15638,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ReturnExpr 对象
     let returnExpr = ReturnExpr(quote(return 100))
-    
+
     // 转化为 Tokens 并输出
     println("returnExpr.toTokens(): ${returnExpr.toTokens()}")
 }
@@ -15669,7 +15670,7 @@ import std.ast.*
 
 main(): Unit {
     let returnExpr = ReturnExpr(quote(return "hello"))
-    
+
     // 转化为 Tokens 并输出
     println("returnExpr.toTokens(): ${returnExpr.toTokens()}")
 }
@@ -15707,7 +15708,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let returnExpr = ReturnExpr(quote(return))
-    
+
     // 使用自定义访问器遍历 ReturnExpr 节点
     returnExpr.traverse(MyVisitor())
 }
@@ -15819,7 +15820,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 SpawnExpr 对象
     let spawnExpr = SpawnExpr()
-    
+
     // 设置 SpawnExpr 的属性
     spawnExpr.lambdaExpr = LambdaExpr(quote({ => println("New thread") }))
 
@@ -15861,7 +15862,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 SpawnExpr 对象
     let spawnExpr = SpawnExpr(quote(spawn { add(1, 2) }))
-    
+
     // 转化为 Tokens 并输出
     println("spawnExpr.toTokens(): ${spawnExpr.toTokens()}")
 }
@@ -15894,7 +15895,7 @@ import std.ast.*
 
 main(): Unit {
     let spawnExpr = SpawnExpr(quote(spawn { add(1, 2) }))
-    
+
     // 转化为 Tokens 并输出
     println("spawnExpr.toTokens(): ${spawnExpr.toTokens()}")
 }
@@ -15933,7 +15934,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let spawnExpr = SpawnExpr(quote(spawn { add(1, 2) }))
-    
+
     // 使用自定义访问器遍历 SpawnExpr 节点
     spawnExpr.traverse(MyVisitor())
 }
@@ -16027,7 +16028,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 StructDecl 对象
     let structDecl = StructDecl()
-    
+
     // 设置 StructDecl 的属性
     structDecl.identifier = Token(TokenKind.IDENTIFIER, "Point")
     structDecl.keyword = Token(TokenKind.STRUCT)
@@ -16070,7 +16071,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 StructDecl 对象
     let structDecl = StructDecl(quote(struct Person { let name: String }))
-    
+
     // 转化为 Tokens 并输出
     println("structDecl.toTokens(): ${structDecl.toTokens()}")
 }
@@ -16104,7 +16105,7 @@ import std.ast.*
 
 main(): Unit {
     let structDecl = StructDecl(quote(struct Data { let value: Int64 }))
-    
+
     // 转化为 Tokens 并输出
     println("structDecl.toTokens(): ${structDecl.toTokens()}")
 }
@@ -16144,7 +16145,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let structDecl = StructDecl(quote(struct Test {}))
-    
+
     // 使用自定义访问器遍历 StructDecl 节点
     structDecl.traverse(MyVisitor())
 }
@@ -16238,11 +16239,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 SubscriptExpr 对象
     let subscriptExpr = SubscriptExpr()
-    
+
     // 设置 SubscriptExpr 的属性
     subscriptExpr.baseExpr = RefExpr(quote(arr))
     subscriptExpr.indexList = ArrayList<Expr>([LitConstExpr(quote(0))])
-    
+
     // 转化为 Tokens 并输出
     println("subscriptExpr.toTokens(): ${subscriptExpr.toTokens()}")
 }
@@ -16279,7 +16280,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 SubscriptExpr 对象
     let subscriptExpr = SubscriptExpr(quote(arr[1]))
-    
+
     // 转化为 Tokens 并输出
     println("subscriptExpr.toTokens(): ${subscriptExpr.toTokens()}")
 }
@@ -16311,7 +16312,7 @@ import std.ast.*
 
 main(): Unit {
     let subscriptExpr = SubscriptExpr(quote(data[2]))
-    
+
     // 转化为 Tokens 并输出
     println("subscriptExpr.toTokens(): ${subscriptExpr.toTokens()}")
 }
@@ -16349,7 +16350,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let subscriptExpr = SubscriptExpr(quote(arr[0]))
-    
+
     // 使用自定义访问器遍历 SubscriptExpr 节点
     subscriptExpr.traverse(MyVisitor())
 }
@@ -16457,7 +16458,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 SynchronizedExpr 对象
     let synchronizedExpr = SynchronizedExpr()
-    
+
     // 设置 SynchronizedExpr 的属性
     synchronizedExpr.structuredMutex = RefExpr(quote(lock))
 
@@ -16503,7 +16504,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 SynchronizedExpr 对象
     let synchronizedExpr = SynchronizedExpr(quote(synchronized(mutex) { }))
-    
+
     // 转化为 Tokens 并输出
     println("synchronizedExpr.toTokens(): ${synchronizedExpr.toTokens()}")
 }
@@ -16536,7 +16537,7 @@ import std.ast.*
 
 main(): Unit {
     let synchronizedExpr = SynchronizedExpr(quote(synchronized(obj) { }))
-    
+
     // 转化为 Tokens 并输出
     println("synchronizedExpr.toTokens(): ${synchronizedExpr.toTokens()}")
 }
@@ -16575,7 +16576,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let synchronizedExpr = SynchronizedExpr(quote(synchronized(lock) { }))
-    
+
     // 使用自定义访问器遍历 SynchronizedExpr 节点
     synchronizedExpr.traverse(MyVisitor())
 }
@@ -16629,7 +16630,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ThisType 对象
     let thisType = ThisType()
-    
+
     // 转化为 Tokens 并输出
     println("thisType.toTokens(): ${thisType.toTokens()}")
 }
@@ -16666,7 +16667,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ThisType 对象
     let thisType = ThisType(quote(This))
-    
+
     // 转化为 Tokens 并输出
     println("thisType.toTokens(): ${thisType.toTokens()}")
 }
@@ -16698,7 +16699,7 @@ import std.ast.*
 
 main(): Unit {
     let thisType = ThisType(quote(This))
-    
+
     // 转化为 Tokens 并输出
     println("thisType.toTokens(): ${thisType.toTokens()}")
 }
@@ -16736,7 +16737,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let thisType = ThisType(quote(This))
-    
+
     // 使用自定义访问器遍历 ThisType 节点
     thisType.traverse(MyVisitor())
 }
@@ -16806,10 +16807,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 ThrowExpr 对象
     let throwExpr = ThrowExpr()
-    
+
     // 设置 ThrowExpr 的属性
     throwExpr.expr = CallExpr(quote(Exception("Error message")))
-    
+
     // 转化为 Tokens 并输出
     println("throwExpr.toTokens(): ${throwExpr.toTokens()}")
 }
@@ -16846,7 +16847,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 ThrowExpr 对象
     let throwExpr = ThrowExpr(quote(throw Exception("Error message")))
-    
+
     // 转化为 Tokens 并输出
     println("throwExpr.toTokens(): ${throwExpr.toTokens()}")
 }
@@ -16878,7 +16879,7 @@ import std.ast.*
 
 main(): Unit {
     let throwExpr = ThrowExpr(quote(throw Exception("Error message")))
-    
+
     // 转化为 Tokens 并输出
     println("throwExpr.toTokens(): ${throwExpr.toTokens()}")
 }
@@ -16916,7 +16917,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let throwExpr = ThrowExpr(quote(throw Exception("Error message")))
-    
+
     // 使用自定义访问器遍历 ThrowExpr 节点
     throwExpr.traverse(MyVisitor())
 }
@@ -16983,11 +16984,11 @@ import std.ast.*
 
 main(): Unit {
     let tokens = Tokens()
-    
+
     // 添加 token
     tokens.append(Token(TokenKind.IDENTIFIER, "hello"))
     tokens.append(Token(TokenKind.IDENTIFIER, "world"))
-    
+
     // 输出 tokens
     println("tokens.toString(): ${tokens.toString()}")
 }
@@ -17136,7 +17137,7 @@ import std.ast.*
 main(): Unit {
     let tokens = Tokens()
     let token = Token(TokenKind.IDENTIFIER, "test")
-    
+
     // 追加 token
     let result = tokens.append(token)
     println("result.toString(): ${result.toString()}")
@@ -17173,7 +17174,7 @@ import std.ast.*
 
 main(): Unit {
     let tokens = Tokens()
-    
+
     // 追加 tokens
     let toks = quote(123)
     let result = tokens.append(toks)
@@ -17682,7 +17683,7 @@ import std.ast.*
 main(): Unit {
     let tokens = quote(hello world)
     let iter = TokensIterator(tokens)
-    
+
     // 获取下一个 token
     let nextToken = iter.next()
     match (nextToken) {
@@ -17832,11 +17833,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TrailingClosureExpr 对象
     let trailingClosureExpr = TrailingClosureExpr()
-    
+
     // 设置 TrailingClosureExpr 的属性
     trailingClosureExpr.expr = CallExpr(quote(f(a)))
     trailingClosureExpr.lambdaExpr = LambdaExpr(quote({x => x + 1}))
-    
+
     // 转化为 Tokens 并输出
     println("trailingClosureExpr.toTokens(): ${trailingClosureExpr.toTokens()}")
 }
@@ -17875,7 +17876,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TrailingClosureExpr 对象
     let trailingClosureExpr = TrailingClosureExpr(quote(f(a){ i => i * i }))
-    
+
     // 转化为 Tokens 并输出
     println("trailingClosureExpr.toTokens(): ${trailingClosureExpr.toTokens()}")
 }
@@ -17909,7 +17910,7 @@ import std.ast.*
 
 main(): Unit {
     let trailingClosureExpr = TrailingClosureExpr(quote(f(a){ i }))
-    
+
     // 转化为 Tokens 并输出
     println("trailingClosureExpr.toTokens(): ${trailingClosureExpr.toTokens()}")
 }
@@ -17948,7 +17949,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let trailingClosureExpr = TrailingClosureExpr(quote(f(a){ i => i * i }))
-    
+
     // 使用自定义访问器遍历 TrailingClosureExpr 节点
     trailingClosureExpr.traverse(MyVisitor())
 }
@@ -18100,7 +18101,7 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TryExpr 对象
     let tryExpr = TryExpr()
-    
+
     // 设置 TryExpr 的属性
     tryExpr.keywordT = Token(TokenKind.TRY, "try")
 
@@ -18166,7 +18167,7 @@ main(): Unit {
         println(e)
     })
     let tryExpr = TryExpr(inputs)
-    
+
     // 转化为 Tokens 并输出
     println("tryExpr.toTokens(): ${tryExpr.toTokens()}")
 }
@@ -18201,12 +18202,13 @@ public func toTokens(): Tokens
 import std.ast.*
 
 main(): Unit {
-    let tryExpr = TryExpr(quote(try {
+    let tryExpr = TryExpr(
+        quote(try {
         throw Exception("I am an Exception!")
     } catch (e: Exception) {
         println(e)
     }))
-    
+
     // 转化为 Tokens 并输出
     println("tryExpr.toTokens(): ${tryExpr.toTokens()}")
 }
@@ -18247,12 +18249,13 @@ class MyVisitor <: Visitor {
 }
 
 main(): Unit {
-    let tryExpr = TryExpr(quote(try {
+    let tryExpr = TryExpr(
+        quote(try {
         throw Exception("I am an Exception!")
     } catch (e: Exception) {
         println(e)
     }))
-    
+
     // 使用自定义访问器遍历 TryExpr 节点
     tryExpr.traverse(MyVisitor())
 }
@@ -18336,10 +18339,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TupleLiteral 对象
     let tupleLiteral = TupleLiteral()
-    
+
     // 设置 TupleLiteral 的属性
     tupleLiteral.elements = ArrayList<Expr>([LitConstExpr(quote(1))])
-    
+
     // 转化为 Tokens 并输出
     println("tupleLiteral.toTokens(): ${tupleLiteral.toTokens()}")
 }
@@ -18376,7 +18379,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TupleLiteral 对象
     let tupleLiteral = TupleLiteral(quote((1, 2)))
-    
+
     // 转化为 Tokens 并输出
     println("tupleLiteral.toTokens(): ${tupleLiteral.toTokens()}")
 }
@@ -18408,7 +18411,7 @@ import std.ast.*
 
 main(): Unit {
     let tupleLiteral = TupleLiteral(quote(("a", "b")))
-    
+
     // 转化为 Tokens 并输出
     println("tupleLiteral.toTokens(): ${tupleLiteral.toTokens()}")
 }
@@ -18446,7 +18449,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tupleLiteral = TupleLiteral(quote((1, 2)))
-    
+
     // 使用自定义访问器遍历 TupleLiteral 节点
     tupleLiteral.traverse(MyVisitor())
 }
@@ -18544,10 +18547,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TuplePattern 对象
     let tuplePattern = TuplePattern()
-    
+
     // 设置 TuplePattern 的属性
     tuplePattern.patterns = ArrayList<Pattern>([VarPattern(Token(TokenKind.IDENTIFIER, "a"))])
-    
+
     // 转化为 Tokens 并输出
     println("tuplePattern.toTokens(): ${tuplePattern.toTokens()}")
 }
@@ -18584,7 +18587,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TuplePattern 对象
     let tuplePattern = TuplePattern(quote((a, b)))
-    
+
     // 转化为 Tokens 并输出
     println("tuplePattern.toTokens(): ${tuplePattern.toTokens()}")
 }
@@ -18616,7 +18619,7 @@ import std.ast.*
 
 main(): Unit {
     let tuplePattern = TuplePattern(quote((x, y)))
-    
+
     // 转化为 Tokens 并输出
     println("tuplePattern.toTokens(): ${tuplePattern.toTokens()}")
 }
@@ -18654,7 +18657,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tuplePattern = TuplePattern(quote((a, b)))
-    
+
     // 使用自定义访问器遍历 TuplePattern 节点
     tuplePattern.traverse(MyVisitor())
 }
@@ -18738,10 +18741,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TupleType 对象
     let tupleType = TupleType()
-    
+
     // 设置 TupleType 的属性
     tupleType.types = ArrayList<TypeNode>([PrimitiveType(quote(Int64))])
-    
+
     // 转化为 Tokens 并输出
     println("tupleType.toTokens(): ${tupleType.toTokens()}")
 }
@@ -18778,7 +18781,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TupleType 对象
     let tupleType = TupleType(quote((Int64, String)))
-    
+
     // 转化为 Tokens 并输出
     println("tupleType.toTokens(): ${tupleType.toTokens()}")
 }
@@ -18810,7 +18813,7 @@ import std.ast.*
 
 main(): Unit {
     let tupleType = TupleType(quote((Bool, Float64)))
-    
+
     // 转化为 Tokens 并输出
     println("tupleType.toTokens(): ${tupleType.toTokens()}")
 }
@@ -18848,7 +18851,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tupleType = TupleType(quote((Int64, String)))
-    
+
     // 使用自定义访问器遍历 TupleType 节点
     tupleType.traverse(MyVisitor())
 }
@@ -18965,7 +18968,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TypeAliasDecl 对象
     let typeAliasDecl = TypeAliasDecl(quote(type Alias = Int64))
-    
+
     // 转化为 Tokens 并输出
     println("typeAliasDecl.toTokens(): ${typeAliasDecl.toTokens()}")
 }
@@ -18997,7 +19000,7 @@ import std.ast.*
 
 main(): Unit {
     let typeAliasDecl = TypeAliasDecl(quote(type MyString = String))
-    
+
     // 转化为 Tokens 并输出
     println("typeAliasDecl.toTokens(): ${typeAliasDecl.toTokens()}")
 }
@@ -19035,7 +19038,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let typeAliasDecl = TypeAliasDecl(quote(type Test = Int64))
-    
+
     // 使用自定义访问器遍历 TypeAliasDecl 节点
     typeAliasDecl.traverse(MyVisitor())
 }
@@ -19129,11 +19132,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 TypeConvExpr 对象
     let typeConvExpr = TypeConvExpr()
-    
+
     // 设置 TypeConvExpr 的属性
     typeConvExpr.targetType = PrimitiveType(quote(Int8))
     typeConvExpr.expr = LitConstExpr(quote(42))
-    
+
     // 转化为 Tokens 并输出
     println("typeConvExpr.toTokens(): ${typeConvExpr.toTokens()}")
 }
@@ -19170,7 +19173,7 @@ import std.ast.*
 main(): Unit {
     // 从 Tokens 创建 TypeConvExpr 对象
     let typeConvExpr = TypeConvExpr(quote(Int8(42)))
-    
+
     // 转化为 Tokens 并输出
     println("typeConvExpr.toTokens(): ${typeConvExpr.toTokens()}")
 }
@@ -19202,7 +19205,7 @@ import std.ast.*
 
 main(): Unit {
     let typeConvExpr = TypeConvExpr(quote(Int8(42)))
-    
+
     // 转化为 Tokens 并输出
     println("typeConvExpr.toTokens(): ${typeConvExpr.toTokens()}")
 }
@@ -19240,7 +19243,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let typeConvExpr = TypeConvExpr(quote(Int8(42)))
-    
+
     // 使用自定义访问器遍历 TypeConvExpr 节点
     typeConvExpr.traverse(MyVisitor())
 }
@@ -19365,7 +19368,7 @@ import std.ast.*
 main(): Unit {
     // 创建一个 TypeNode 子类对象 (使用 FuncType 作为示例)
     let typeNode = FuncType(quote((Int64) -> Float64))
-    
+
     // 输出 Tokens 信息
     println("typeNode.toTokens(): ${typeNode.toTokens()}")
 }
@@ -19405,7 +19408,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 TypeNode 节点（以 FuncType 为例）
     let typeNode = FuncType(quote((Int64) -> Float64))
-    
+
     // 使用自定义访问器遍历 TypeNode 节点
     typeNode.traverse(MyVisitor())
 }
@@ -19484,10 +19487,10 @@ import std.ast.*
 
 main(): Unit {
     let typePattern = TypePattern()
-    
+
     // 设置待匹配的模式类型节点
     typePattern.patternType = PrimitiveType(quote(Int64))
-    
+
     // 设置类型节点的参数
     typePattern.pattern = VarPattern(Token(TokenKind.IDENTIFIER, "a"))
 
@@ -19660,13 +19663,13 @@ import std.ast.*
 
 main(): Unit {
     let unaryExpr = UnaryExpr()
-    
+
     // 设置一元表达式操作符
     unaryExpr.op = Token(TokenKind.NOT, "!")
 
     // 设置操作数
     unaryExpr.expr = parseExpr(quote(true))
-    
+
     // 输出 UnaryExpr 节点转化成的 Tokens
     println("unaryExpr.toTokens(): ${unaryExpr.toTokens()}")
 }
@@ -19894,13 +19897,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VarDecl 对象
     let varDecl = VarDecl()
-    
+
     // 设置 VarDecl 的属性
     varDecl.keyword = Token(TokenKind.VAR, "var")
     varDecl.identifier = Token(TokenKind.IDENTIFIER, "counter")
     varDecl.assign = Token(TokenKind.ASSIGN, "=")
     varDecl.expr = parseExpr(quote(0))
-    
+
     // 转化为 Tokens 并输出
     println("varDecl.toTokens(): ${varDecl.toTokens()}")
 }
@@ -20094,10 +20097,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VarOrEnumPattern 对象
     let varOrEnumPattern = VarOrEnumPattern()
-    
+
     // 设置 VarOrEnumPattern 的属性
     varOrEnumPattern.identifier = Token(TokenKind.IDENTIFIER, "GREEN")
-    
+
     // 转化为 Tokens 并输出
     println("varOrEnumPattern.toTokens(): ${varOrEnumPattern.toTokens()}")
 }
@@ -20260,10 +20263,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VarPattern 对象
     let varPattern = VarPattern()
-    
+
     // 设置 VarPattern 的属性
     varPattern.identifier = Token(TokenKind.IDENTIFIER, "index")
-    
+
     // 转化为 Tokens 并输出
     println("varPattern.toTokens(): ${varPattern.toTokens()}")
 }
@@ -20464,11 +20467,11 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VArrayExpr 对象
     let varrayExpr = VArrayExpr()
-    
+
     // 设置 VArrayExpr 的属性
     varrayExpr.lParen = Token(TokenKind.LPAREN, "(")
     varrayExpr.rParen = Token(TokenKind.RPAREN, ")")
-    
+
     let argument = Argument()
     argument.expr = parseExpr(quote({ i => i }))
     varrayExpr.arguments.add(argument)
@@ -20702,13 +20705,13 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VArrayType 对象
     let varrayType = VArrayType()
-    
+
     // 设置 VArrayType 的属性
     varrayType.dollar = Token(TokenKind.DOLLAR, "$")
     varrayType.keyword = Token(TokenKind.VARRAY, "VArray")
     varrayType.elementTy = PrimitiveType(quote(Int32))
     varrayType.size = Token(TokenKind.INTEGER_LITERAL, "10")
-    
+
     // 转化为 Tokens 并输出
     println("varrayType.toTokens(): ${varrayType.toTokens()}")
 }
@@ -20871,10 +20874,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VarOrEnumPattern 对象
     let varOrEnumPattern = VarOrEnumPattern()
-    
+
     // 设置 VarOrEnumPattern 的属性
     varOrEnumPattern.identifier = Token(TokenKind.IDENTIFIER, "GREEN")
-    
+
     // 转化为 Tokens 并输出
     println("varOrEnumPattern.toTokens(): ${varOrEnumPattern.toTokens()}")
 }
@@ -21037,10 +21040,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 VarPattern 对象
     let varPattern = VarPattern()
-    
+
     // 设置 VarPattern 的属性
     varPattern.identifier = Token(TokenKind.IDENTIFIER, "index")
-    
+
     // 转化为 Tokens 并输出
     println("varPattern.toTokens(): ${varPattern.toTokens()}")
 }
@@ -21212,7 +21215,7 @@ main(): Unit {
             func foo(a: Int64) {}
         }
     ))
-    
+
     // 使用自定义访问器遍历 ClassDecl 节点
     classDecl.traverse(MyVisitor())
 }
@@ -21345,7 +21348,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     let argument = Argument()
     argument.expr = RefExpr(quote(value))
-    
+
     // 使用自定义访问器遍历 Argument 节点
     argument.traverse(MyVisitor())
 }
@@ -21383,7 +21386,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let arrayLiteral = ArrayLiteral(quote([1, 2]))
-    
+
     // 使用自定义访问器遍历 ArrayLiteral 节点
     arrayLiteral.traverse(MyVisitor())
 }
@@ -21421,7 +21424,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let asExpr = AsExpr(quote(a as Int32))
-    
+
     // 使用自定义访问器遍历 AsExpr 节点
     asExpr.traverse(MyVisitor())
 }
@@ -21459,7 +21462,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let assignExpr = AssignExpr(quote(x = 10))
-    
+
     // 使用自定义访问器遍历 AssignExpr 节点
     assignExpr.traverse(MyVisitor())
 }
@@ -21497,7 +21500,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let binaryExpr = BinaryExpr(quote(1 + 1))
-    
+
     // 使用自定义访问器遍历 BinaryExpr 节点
     binaryExpr.traverse(MyVisitor())
 }
@@ -21539,7 +21542,7 @@ main(): Unit {
     // 设置 Block 的属性
     block.lBrace = Token(TokenKind.LCURL, "{")
     block.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 Block 节点
     block.traverse(MyVisitor())
 }
@@ -21583,7 +21586,7 @@ main(): Unit {
     // 设置 Body 的属性
     body.lBrace = Token(TokenKind.LCURL, "{")
     body.rBrace = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 Body 节点
     body.traverse(MyVisitor())
 }
@@ -21621,7 +21624,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let callExpr = CallExpr(quote(foo(42)))
-    
+
     // 使用自定义访问器遍历CallExpr节点
     callExpr.traverse(MyVisitor())
 }
@@ -21659,7 +21662,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let classDecl = ClassDecl(quote(class Test {}))
-    
+
     // 使用自定义访问器遍历 ClassDecl 节点
     classDecl.traverse(MyVisitor())
 }
@@ -21697,7 +21700,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let commandTypePattern = CommandTypePattern(quote(e: MyEffect))
-    
+
     // 使用自定义访问器遍历 CommandTypePattern 节点
     commandTypePattern.traverse(MyVisitor())
 }
@@ -21735,7 +21738,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let constPattern = ConstPattern(quote(100))
-    
+
     // 使用自定义访问器遍历ConstPattern节点
     constPattern.traverse(MyVisitor())
 }
@@ -21776,7 +21779,7 @@ main(): Unit {
     let constructor = Constructor()
     // 设置标识符为 Month
     constructor.identifier = Token(TokenKind.IDENTIFIER, "Month")
-    
+
     // 使用自定义访问器遍历 Constructor 节点
     constructor.traverse(MyVisitor())
 }
@@ -21816,7 +21819,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Decl 节点（以 ClassDecl 为例）
     let decl = ClassDecl(quote(class A {}))
-    
+
     // 使用自定义访问器遍历 Decl 节点
     decl.traverse(MyVisitor())
 }
@@ -21854,7 +21857,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let doWhileExpr = DoWhileExpr(quote(do {} while (false)))
-    
+
     // 使用自定义访问器遍历 DoWhileExpr 节点
     doWhileExpr.traverse(MyVisitor())
 }
@@ -21892,7 +21895,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let enumDecl = EnumDecl(quote(enum Status { Pending | Completed }))
-    
+
     // 使用自定义访问器遍历 EnumDecl 节点
     enumDecl.traverse(MyVisitor())
 }
@@ -21930,7 +21933,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let enumPattern = EnumPattern(quote(Error(code)))
-    
+
     // 使用自定义访问器遍历 EnumPattern 节点
     enumPattern.traverse(MyVisitor())
 }
@@ -21968,7 +21971,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let exceptTypePattern = ExceptTypePattern(quote(err: RuntimeException))
-    
+
     // 使用自定义访问器遍历 ExceptTypePattern 节点
     exceptTypePattern.traverse(MyVisitor())
 }
@@ -22008,7 +22011,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Expr 节点（以 BinaryExpr 为例）
     let expr = BinaryExpr(quote(1 + 1))
-    
+
     // 使用自定义访问器遍历 Expr 节点
     expr.traverse(MyVisitor())
 }
@@ -22089,7 +22092,7 @@ main(): Unit {
     // 设置 FeatureId 的属性
     featureId.identifiers = quote(a b c)
     featureId.dots = quote(. .)
-    
+
     // 使用自定义访问器遍历 FeatureId 节点
     featureId.traverse(MyVisitor())
 }
@@ -22128,7 +22131,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 用 Tokens 创建一个 FeaturesDirective 对象
     let featuresDirective = FeaturesDirective(quote(features {a, b.c}))
-    
+
     // 使用自定义访问器遍历 FeaturesDirective 节点
     featuresDirective.traverse(MyVisitor())
 }
@@ -22175,7 +22178,7 @@ main(): Unit {
     featuresSet.content = ArrayList<FeatureId>([featureId])
     featuresSet.lCurl = Token(TokenKind.LCURL, "{")
     featuresSet.rCurl = Token(TokenKind.RCURL, "}")
-    
+
     // 使用自定义访问器遍历 FeaturesSet 节点
     featuresSet.traverse(MyVisitor())
 }
@@ -22213,7 +22216,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let forInExpr = ForInExpr(quote(for (i in 1..10) { println(i) }))
-    
+
     // 使用自定义访问器遍历 ForInExpr 节点
     forInExpr.traverse(MyVisitor())
 }
@@ -22251,7 +22254,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let funcDecl = FuncDecl(quote(func foo() { println("Hello") }))
-    
+
     // 使用自定义访问器遍历 FuncDecl 节点
     funcDecl.traverse(MyVisitor())
 }
@@ -22289,7 +22292,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let funcParam = FuncParam(quote(b!: Float64))
-    
+
     // 使用自定义访问器遍历 FuncParam 节点
     funcParam.traverse(MyVisitor())
 }
@@ -22327,7 +22330,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let funcType = FuncType(quote((Int32) -> Unit))
-    
+
     // 使用自定义访问器遍历 FuncType 节点
     funcType.traverse(MyVisitor())
 }
@@ -22365,7 +22368,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let genericConstraint = GenericConstraint()
-    
+
     // 使用自定义访问器遍历 GenericConstraint 节点
     genericConstraint.traverse(MyVisitor())
 }
@@ -22403,7 +22406,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let genericParam = GenericParam(quote(T, U))
-    
+
     // 使用自定义访问器遍历 GenericParam 节点
     genericParam.traverse(MyVisitor())
 }
@@ -22441,7 +22444,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let ifExpr = IfExpr(quote(if (a < b) { println(a) } else { println(b) }))
-    
+
     // 使用自定义访问器遍历 IfExpr 节点
     ifExpr.traverse(MyVisitor())
 }
@@ -22479,7 +22482,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let importContent = ImportContent()
-    
+
     // 使用自定义访问器遍历 ImportContent 节点
     importContent.traverse(MyVisitor())
 }
@@ -22517,7 +22520,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let importList = ImportList(quote(import std.ast.RefType as RT))
-    
+
     // 使用自定义访问器遍历 ImportList 节点
     importList.traverse(MyVisitor())
 }
@@ -22555,7 +22558,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let incOrDecExpr = IncOrDecExpr(quote(x--))
-    
+
     // 使用自定义访问器遍历 IncOrDecExpr 节点
     incOrDecExpr.traverse(MyVisitor())
 }
@@ -22593,7 +22596,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let interfaceDecl = InterfaceDecl(quote(interface MyInterface { func foo(): Int64 }))
-    
+
     // 使用自定义访问器遍历 InterfaceDecl 节点
     interfaceDecl.traverse(MyVisitor())
 }
@@ -22632,10 +22635,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 IsExpr 对象
     let isExpr = IsExpr(quote(x is String))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 IsExpr 节点
     isExpr.traverse(visitor)
 }
@@ -22674,10 +22677,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 JumpExpr 对象
     let jumpExpr = JumpExpr(quote(break))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 JumpExpr 节点
     jumpExpr.traverse(visitor)
 }
@@ -22716,10 +22719,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 LambdaExpr 对象
     let lambdaExpr = LambdaExpr(quote({x: Int => x + 1}))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 LambdaExpr 节点
     lambdaExpr.traverse(visitor)
 }
@@ -22758,10 +22761,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 LetPatternExpr 对象
     let letPatternExpr = LetPatternExpr(quote(let Some(v) <- x))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 LetPatternExpr 节点
     letPatternExpr.traverse(visitor)
 }
@@ -22800,10 +22803,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 LitConstExpr 对象
     let litConstExpr = LitConstExpr(quote(123))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 LitConstExpr 节点
     litConstExpr.traverse(visitor)
 }
@@ -22842,10 +22845,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MacroDecl 对象
     let macroDecl = MacroDecl(quote(public macro M(input: Tokens): Tokens {}))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MacroDecl 节点
     macroDecl.traverse(visitor)
 }
@@ -22925,10 +22928,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MacroExpandExpr 对象
     let macroExpandExpr = MacroExpandExpr(quote(@M (a is Int64)))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MacroExpandExpr 节点
     macroExpandExpr.traverse(visitor)
 }
@@ -22967,12 +22970,12 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 MacroExpandParam 对象
     let macroExpandParam = MacroExpandParam()
-    
+
     // 设置 MacroExpandParam 的属性
     macroExpandParam.keyword = Token(TokenKind.AT, "@")
     macroExpandParam.identifier = Token(TokenKind.IDENTIFIER, "M")
     macroExpandParam.macroInputs = quote(any)
-    
+
     // 使用自定义访问器遍历 MacroExpandParam 节点
     macroExpandParam.traverse(MyVisitor())
 }
@@ -23011,10 +23014,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MainDecl 对象
     let mainDecl = MainDecl(quote(main() { println("Hello World") }))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MainDecl 节点
     mainDecl.traverse(visitor)
 }
@@ -23053,7 +23056,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 通过init()创建一个空的 MatchCase 实例
     let matchCase = MatchCase()
-    
+
     // 为实例的各个属性赋值
     matchCase.keywordC = Token(CASE)
     matchCase.expr = BinaryExpr(quote(a > 1))
@@ -23062,10 +23065,10 @@ main(): Unit {
     let block = Block()
     block.nodes.add(LitConstExpr(quote(true)))
     matchCase.block = block
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MatchCase 节点
     matchCase.traverse(visitor)
 }
@@ -23104,10 +23107,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MatchExpr 对象
     let matchExpr = MatchExpr(quote(match (x) { case _ => 2 }))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MatchExpr 节点
     matchExpr.traverse(visitor)
 }
@@ -23146,10 +23149,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 MemberAccess 对象
     let memberAccess = MemberAccess(quote(obj.field))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 MemberAccess 节点
     memberAccess.traverse(visitor)
 }
@@ -23188,10 +23191,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 Modifier 对象
     let modifier = Modifier(Token(TokenKind.PUBLIC, "public"))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 Modifier 节点
     modifier.traverse(visitor)
 }
@@ -23231,7 +23234,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Node 节点（以 ClassDecl 为例）
     let node = ClassDecl(quote(class A {}))
-    
+
     // 使用自定义访问器遍历 Node 节点
     node.traverse(MyVisitor())
 }
@@ -23270,10 +23273,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 OptionalExpr 对象
     let optionalExpr = OptionalExpr(quote(a?))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 OptionalExpr 节点
     optionalExpr.traverse(visitor)
 }
@@ -23312,10 +23315,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PackageHeader 对象
     let packageHeader = PackageHeader(quote(package myPackage))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PackageHeader 节点
     packageHeader.traverse(visitor)
 }
@@ -23354,10 +23357,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 ParenExpr 对象
     let parenExpr = ParenExpr(quote((1 + 2)))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 ParenExpr 节点
     parenExpr.traverse(visitor)
 }
@@ -23396,10 +23399,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 ParenType 对象
     let parenType = ParenType(quote((Int32)))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 ParenType 节点
     parenType.traverse(visitor)
 }
@@ -23439,7 +23442,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 Pattern 节点（以 VarPattern 为例）
     let pattern = VarPattern(quote(e)[0])
-    
+
     // 使用自定义访问器遍历 Pattern 节点
     pattern.traverse(MyVisitor())
 }
@@ -23478,11 +23481,11 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 PerformExpr 对象
     let performExpr = PerformExpr()
-    
+
     // 设置 PerformExpr 的属性
     performExpr.keyword = Token(TokenKind.PERFORM)
     performExpr.expr = CallExpr(quote(Effect()))
-    
+
     // 使用自定义访问器遍历 PerformExpr 节点
     performExpr.traverse(MyVisitor())
 }
@@ -23521,10 +23524,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrefixType 对象
     let prefixType = PrefixType(quote(?Int32))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrefixType 节点
     prefixType.traverse(visitor)
 }
@@ -23563,10 +23566,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimaryCtorDecl 对象
     let primaryCtorDecl = PrimaryCtorDecl(quote(Ctor(x: Int8) { super(x) }))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrimaryCtorDecl 节点
     primaryCtorDecl.traverse(visitor)
 }
@@ -23605,10 +23608,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimitiveType 对象
     let primitiveType = PrimitiveType(quote(Int8))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrimitiveType 节点
     primitiveType.traverse(visitor)
 }
@@ -23647,10 +23650,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PrimitiveTypeExpr 对象
     let primitiveTypeExpr = PrimitiveTypeExpr(quote(Int8))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PrimitiveTypeExpr 节点
     primitiveTypeExpr.traverse(visitor)
 }
@@ -23689,10 +23692,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 Program 对象
     let program = Program(quote(let a = 1))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 Program 节点
     program.traverse(visitor)
 }
@@ -23731,10 +23734,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 PropDecl 对象
     let propDecl = PropDecl(quote(prop x: Int32 { get() { 0 } }))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 PropDecl 节点
     propDecl.traverse(visitor)
 }
@@ -23773,10 +23776,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 QualifiedType 对象
     let qualifiedType = QualifiedType(quote(Package.Type))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 QualifiedType 节点
     qualifiedType.traverse(visitor)
 }
@@ -23815,10 +23818,10 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建一个 QuoteExpr 对象
     let quoteExpr = QuoteExpr(quote(quote(x + 1)))
-    
+
     // 创建自定义访问器
     let visitor = MyVisitor()
-    
+
     // 遍历 QuoteExpr 节点
     quoteExpr.traverse(visitor)
 }
@@ -23935,7 +23938,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let refExpr = RefExpr(quote(myRef))
-    
+
     // 对 RefExpr 节点进行遍历
     refExpr.traverse(MyVisitor())
 }
@@ -23973,7 +23976,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let refType = RefType(quote(MyType))
-    
+
     // 对 RefType 节点进行遍历
     refType.traverse(MyVisitor())
 }
@@ -24012,11 +24015,11 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 构造一个默认的 ResumeExpr 对象
     let resumeExpr = ResumeExpr()
-    
+
     // 设置 ResumeExpr 的属性
     resumeExpr.throwingExpr = Some(CallExpr(quote(Exception())))
     resumeExpr.keywordT = Token(TokenKind.THROWING, "throwing")
-    
+
     // 使用自定义访问器遍历 ResumeExpr 节点
     resumeExpr.traverse(MyVisitor())
 }
@@ -24054,7 +24057,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let returnExpr = ReturnExpr(quote(return))
-    
+
     // 对 ReturnExpr 节点进行遍历
     returnExpr.traverse(MyVisitor())
 }
@@ -24092,7 +24095,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let spawnExpr = SpawnExpr(quote(spawn { add(1, 2) }))
-    
+
     // 对 SpawnExpr 节点进行遍历
     spawnExpr.traverse(MyVisitor())
 }
@@ -24130,7 +24133,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let structDecl = StructDecl(quote(struct Test {}))
-    
+
     // 对 StructDecl 节点进行遍历
     structDecl.traverse(MyVisitor())
 }
@@ -24168,7 +24171,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let subscriptExpr = SubscriptExpr(quote(arr[0]))
-    
+
     // 对 SubscriptExpr 节点进行遍历
     subscriptExpr.traverse(MyVisitor())
 }
@@ -24206,7 +24209,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let synchronizedExpr = SynchronizedExpr(quote(synchronized(lock) { }))
-    
+
     // 对 SynchronizedExpr 节点进行遍历
     synchronizedExpr.traverse(MyVisitor())
 }
@@ -24244,7 +24247,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let thisType = ThisType(quote(This))
-    
+
     // 对 ThisType 节点进行遍历
     thisType.traverse(MyVisitor())
 }
@@ -24282,7 +24285,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let throwExpr = ThrowExpr(quote(throw Exception("Error message")))
-    
+
     // 对 ThrowExpr 节点进行遍历
     throwExpr.traverse(MyVisitor())
 }
@@ -24320,7 +24323,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let trailingClosureExpr = TrailingClosureExpr(quote(f(a){ i => i * i }))
-    
+
     // 对 TrailingClosureExpr 节点进行遍历
     trailingClosureExpr.traverse(MyVisitor())
 }
@@ -24357,12 +24360,13 @@ class MyVisitor <: Visitor {
 }
 
 main(): Unit {
-    let tryExpr = TryExpr(quote(try {
+    let tryExpr = TryExpr(
+        quote(try {
         throw Exception("I am an Exception!")
     } catch (e: Exception) {
         println(e)
     }))
-    
+
     // 对 TryExpr 节点进行遍历
     tryExpr.traverse(MyVisitor())
 }
@@ -24400,7 +24404,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tupleLiteral = TupleLiteral(quote((1, 2)))
-    
+
     // 对 TupleLiteral 节点进行遍历
     tupleLiteral.traverse(MyVisitor())
 }
@@ -24438,7 +24442,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tuplePattern = TuplePattern(quote((a, b)))
-    
+
     // 对 TuplePattern 节点进行遍历
     tuplePattern.traverse(MyVisitor())
 }
@@ -24476,7 +24480,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let tupleType = TupleType(quote((Int64, String)))
-    
+
     // 对 TupleType 节点进行遍历
     tupleType.traverse(MyVisitor())
 }
@@ -24514,7 +24518,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let typeAliasDecl = TypeAliasDecl(quote(type Test = Int64))
-    
+
     // 对 TypeAliasDecl 节点进行遍历
     typeAliasDecl.traverse(MyVisitor())
 }
@@ -24552,7 +24556,7 @@ class MyVisitor <: Visitor {
 
 main(): Unit {
     let typeConvExpr = TypeConvExpr(quote(Int8(42)))
-    
+
     // 对 TypeConvExpr 节点进行遍历
     typeConvExpr.traverse(MyVisitor())
 }
@@ -24592,7 +24596,7 @@ class MyVisitor <: Visitor {
 main(): Unit {
     // 创建 TypeNode 节点（以 FuncType 为例）
     let typeNode = FuncType(quote((Int64) -> Float64))
-    
+
     // 使用自定义访问器遍历 TypeNode 节点
     typeNode.traverse(MyVisitor())
 }
@@ -25080,18 +25084,18 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 WhileExpr 对象
     let whileExpr = WhileExpr()
-    
+
     // 设置 WhileExpr 的属性
     whileExpr.keyword = Token(TokenKind.WHILE, "while")
     whileExpr.condition = parseExpr(quote(true))
     whileExpr.lParen = Token(TokenKind.LPAREN, "(")
     whileExpr.rParen = Token(TokenKind.RPAREN, ")")
-    
+
     let block = Block()
     block.lBrace = Token(TokenKind.LCURL)
     block.rBrace = Token(TokenKind.RCURL)
     whileExpr.block = block
-    
+
     // 转化为 Tokens 并输出
     println("whileExpr.toTokens(): ${whileExpr.toTokens()}")
 }
@@ -25260,10 +25264,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 WildcardExpr 对象
     let wildcardExpr = WildcardExpr()
-    
+
     // 设置 WildcardExpr 的属性
     wildcardExpr.keyword = Token(TokenKind.WILDCARD, "_")
-    
+
     // 转化为 Tokens 并输出
     println("wildcardExpr.toTokens(): ${wildcardExpr.toTokens()}")
 }
@@ -25430,10 +25434,10 @@ import std.ast.*
 main(): Unit {
     // 构造一个默认的 WildcardPattern 对象
     let wildcardPattern = WildcardPattern()
-    
+
     // 设置 WildcardPattern 的属性
     wildcardPattern.wildcard = Token(TokenKind.WILDCARD, "_")
-    
+
     // 转化为 Tokens 并输出
     println("wildcardPattern.toTokens(): ${wildcardPattern.toTokens()}")
 }
