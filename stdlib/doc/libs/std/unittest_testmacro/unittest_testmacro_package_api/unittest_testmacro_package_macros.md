@@ -819,7 +819,7 @@ class MyTestSuite {
 @Test
 @Tag[Unittest]
 public class UnittestClass {
-    @TestCase[x in [ 1, 2, 3, 4, 5 ]]
+    @TestCase[x in [1, 2, 3, 4, 5]]
     @Tag[JiraTask3271]
     func caseA(x: Int64) {}
 
@@ -835,7 +835,7 @@ public class UnittestClass {
 @Test
 @Tag[Unittest]
 public class UnittestClass {
-    @TestCase[x in [ 1, 2, 3, 4, 5 ]]
+    @TestCase[x in [1, 2, 3, 4, 5]]
     @Tag[Unittest]
     @Tag[JiraTask3271]
     func caseA(x: Int64) {}
