@@ -1967,7 +1967,6 @@ After the conversion of tryParse, "255" became Some(255)
 
 ```cangjie
 public interface RadixConvertible<T> {
-    
     static func parse(value: String, radix!: Int64): T
 
     static func tryParse(value: String, radix!: Int64): Option<T>

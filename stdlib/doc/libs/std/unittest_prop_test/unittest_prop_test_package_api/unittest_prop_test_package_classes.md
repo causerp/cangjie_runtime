@@ -95,7 +95,7 @@ public static func mapped<T, R>(random: RandomSource, body: (T) -> R): Generator
 ### static func mapped\<T1, T2, R>(RandomSource, (T1, T2) -> R)
 
 ```cangjie
- public static func mapped<T1, T2, R>(random: RandomSource, body: (T1, T2) -> R): Generator<R> where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>
+public static func mapped<T1, T2, R>(random: RandomSource, body: (T1, T2) -> R): Generator<R> where T1 <: Arbitrary<T1>, T2 <: Arbitrary<T2>
 ```
 
 功能：获取 T1，T2 的 [Arbitrary](./unittest_prop_test_package_interfaces.md#interface-arbitraryt) 实例提供的生成器，并使用函数体生成 R 类型的值。
@@ -336,7 +336,7 @@ public override func shrink(value: T): Iterable<T>
 ## class RandomDataStrategy\<T>
 
 ```cangjie
-public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T>{}
+public class RandomDataStrategy<T> <: DataStrategy<T> where T <: Arbitrary<T> {}
 ```
 
 功能：使用随机数据生成的 [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) 接口的实现。

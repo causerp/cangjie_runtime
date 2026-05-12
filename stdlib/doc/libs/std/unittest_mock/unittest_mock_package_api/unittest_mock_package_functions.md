@@ -20,7 +20,9 @@ public func mock<T>(): T
 import std.unittest.mock.*
 
 class Generator {
-    public func generate(): Int { return 0 }
+    public func generate(): Int {
+        return 0
+    }
 }
 
 @Test
@@ -98,8 +100,12 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class GreetingBuilder {
-    func date(): String { "January 1st" }
-    func greet(name: String): String { "Hello, ${name}. Today is ${date()}." }
+    func date(): String {
+        "January 1st"
+    }
+    func greet(name: String): String {
+        "Hello, ${name}. Today is ${date()}."
+    }
 }
 
 @Test

@@ -394,7 +394,6 @@ public macro inner(input: Tokens) {
 }
 
 public macro outer(input: Tokens) {
-    
     return input
 }
 ```
@@ -540,7 +539,7 @@ main() {
 
     // 从第一个 FuncDecl 后继续
     let (funcDecl1, _) = parseDeclFragment(tokens, startFrom: mid)
-    
+
     // 输出两次 parse 的结果
     println("funcDecl0.toTokens(): ${funcDecl0.toTokens()}")
     println("funcDecl1.toTokens(): ${funcDecl1.toTokens()}")
@@ -587,7 +586,7 @@ import std.ast.*
 
 main() {
     let expr = parseExpr(quote(a + b))
-    
+
     // 输出 parse 的结果
     println("expr is BinaryExpr: ${expr is BinaryExpr}")
     println("expr.toTokens(): ${expr.toTokens()}")
@@ -634,7 +633,7 @@ main() {
 
     // 跳过逗号
     let (binaryExpr1, _) = parseExprFragment(tokens, startFrom: mid + 1)
-    
+
     // 输出两次 parse 的结果
     println("binaryExpr0.toTokens(): ${binaryExpr0.toTokens()}")
     println("binaryExpr1.toTokens(): ${binaryExpr1.toTokens()}")
@@ -676,7 +675,7 @@ import std.ast.*
 
 main() {
     let pattern = parsePattern(quote((A(a), B(b))))
-    
+
     // 输出 parse 的结果
     println("pattern is TuplePattern: ${pattern is TuplePattern}")
     println("pattern.toTokens(): ${pattern.toTokens()}")
@@ -720,7 +719,7 @@ import std.ast.*
 main() {
     let tokens = quote(case A(a) => println(a))
     let (enumPattern, mid) = parsePatternFragment(tokens, startFrom: 1)
-    
+
     // 输出 parse 的结果
     println("enumPattern is EnumPattern: ${enumPattern is EnumPattern}")
     println("enumPattern.toTokens(): ${enumPattern.toTokens()}")
@@ -827,7 +826,7 @@ import std.ast.*
 
 main() {
     let refType = parseType(quote(MyClass))
-    
+
     // 输出 parse 的结果
     println("refType is RefType: ${refType is RefType}")
     println("refType.toTokens(): ${refType.toTokens()}")
@@ -871,7 +870,7 @@ import std.ast.*
 main() {
     let tokens = quote(a is Int64)
     let (primitiveType, mid) = parseTypeFragment(tokens, startFrom: 2)
-    
+
     // 输出 parse 的结果
     println("primitiveType is PrimitiveType: ${primitiveType is PrimitiveType}")
     println("primitiveType.toTokens(): ${primitiveType.toTokens()}")
