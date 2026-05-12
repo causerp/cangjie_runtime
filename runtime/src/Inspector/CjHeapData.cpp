@@ -29,12 +29,35 @@
 namespace MapleRuntime {
 static bool g_oomIsTrigged = false;
 
+void CjHeapData::SerializedIdWrapper::Init(size_t maxCapacity, MAddress startAddr)
+{
+    use4ByteId = (maxCapacity <= CjHeapData::HEAP_SIZE_THRESHOLD_4GB);
+    heapStartAddr = use4ByteId ? startAddr : 0;
+}
+
+void CjHeapData::SerializedIdWrapper::WriteId(CjHeapData& heapData, u8 value) const
+{
+    if (use4ByteId) {
+        heapData.AddU4(static_cast<CjHeapData::u4>(value));
+    } else {
+        heapData.AddU8(value);
+    }
+}
+
+bool CjHeapData::SerializedIdWrapper::Use4ByteId() const
+{
+    return use4ByteId;
+}
+
+MAddress CjHeapData::SerializedIdWrapper::GetHeapStartAddr() const
+{
+    return heapStartAddr;
+}
+
 void CjHeapData::WriteHeap()
 {
     WriteFixedHeader();
     WriteString();
-    WriteAllClassLoad();
-    WriteAllStructClassLoad();
     WriteStackTrace();
     WriteStartThread();
     WriteHeapDump();
@@ -53,6 +76,12 @@ void CjHeapData::ProcessHeap()
     auto dumpVisitor = [this](BaseObject* obj) { ProcessHeapObject(obj); };
     bool ret = Heap::GetHeap().ForEachObj(dumpVisitor, false);
     CHECK_E(UNLIKELY(!ret), "theAllocator.ForEachObj() in DumpHeap() return false.");
+}
+
+void CjHeapData::InitSerializedIdWrapper()
+{
+    Heap& heap = Heap::GetHeap();
+    serializedIdWrapper.Init(heap.GetMaxCapacity(), heap.GetStartAddress());
 }
 
 void CjHeapData::DumpHeap(bool needStopTheWorld)
@@ -91,6 +120,7 @@ void CjHeapData::DumpHeap(bool needStopTheWorld)
         LOG(RTLOG_ERROR, "Failed to open heap dump file, stop dumping heap info, %s", strerror(errno));
         return;
     }
+    InitSerializedIdWrapper();
     // step2 - write file
     if (needStopTheWorld) {
         ScopedStopTheWorld scopedStopTheWorld("dump heap to file");
@@ -140,6 +170,7 @@ bool CjHeapData::DumpHeap(int fd, bool needStopTheWorld)
         return false;
     }
 
+    InitSerializedIdWrapper();
     if (needStopTheWorld) {
         ScopedStopTheWorld scopedStopTheWorld("dump heap to fd");
         size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
@@ -299,10 +330,13 @@ void CjHeapData::ProcessRootLocal()
             if (obj == nullptr || !Heap::IsHeapAddress(obj)) {
                 return;
             }
+            FrameInfo* currentFrame = recordStackInfo->GetCurrentFramePtr();
+            CjHeapDataStackFrameId frameId = (currentFrame != nullptr && frames.find(currentFrame) != frames.end())
+                ? frames[currentFrame] : 0;
             DumpObject dumpObject = {obj,
                 TAG_ROOT_LOCAL,
                 threadId,
-                recordStackInfo->GetCurrentFrame()
+                static_cast<u4>(frameId)
             };
             dumpObjects.push_back(dumpObject);
         };
@@ -446,9 +480,7 @@ void CjHeapData::WriteAllObjects()
 void CjHeapData::WriteGlobalRoot(BaseObject*& obj, const u1 tag)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    CString name = obj->GetTypeInfo()->GetName();
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
 }
 
 /*
@@ -459,8 +491,7 @@ void CjHeapData::WriteGlobalRoot(BaseObject*& obj, const u1 tag)
 void CjHeapData::WriteUnknownRoot(BaseObject*& obj, const u1 tag)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
 }
 
 /*
@@ -470,11 +501,10 @@ void CjHeapData::WriteUnknownRoot(BaseObject*& obj, const u1 tag)
  *     u4 threadIdx;   // thread serial number
  *     u4 frame;       // frame number in stack trace (-1 for empty)
  */
-void CjHeapData::WriteLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u1 depth)
+void CjHeapData::WriteLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
     AddU4(tid);
     AddU4(depth);
 }
@@ -490,8 +520,7 @@ void CjHeapData::WriteLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, co
 void CjHeapData::WriteThreadObjectRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 stackTraceIdx)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
     AddU4(tid);
     AddU4(stackTraceIdx);
 }
@@ -509,20 +538,18 @@ void CjHeapData::WriteThreadObjectRoot(BaseObject*& obj, const u1 tag, const u4 
 void CjHeapData::WriteObjectArray(BaseObject*& obj, const u1 tag)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
     // take array length and content.
     MArray* mArray = reinterpret_cast<MArray*>(obj);
     MIndex arrayLengthVal = mArray->GetLength();
     RefField<>* arrayContent = reinterpret_cast<RefField<>*>(mArray->ConvertToCArray());
-    // for each object in array.
-    std::vector<u8> VAL(arrayLengthVal);
+    std::vector<BaseObject*> elements(arrayLengthVal);
     for (MIndex i = 0; i < arrayLengthVal; ++i) {
-        VAL[i] = reinterpret_cast<CjHeapDataID>(arrayContent[i].GetTargetObject());
+        elements[i] = arrayContent[i].GetTargetObject();
     }
     AddU4(static_cast<u4>(arrayLengthVal));
-    AddStringId(reinterpret_cast<CjHeapDataID>(obj->GetTypeInfo()));
-    AddU8List(VAL.data(), VAL.size());
+    AddU4(obj->GetTypeInfo()->GetUUID());
+    AddObjectIdList(elements);
 }
 
 /*
@@ -536,17 +563,18 @@ void CjHeapData::WriteObjectArray(BaseObject*& obj, const u1 tag)
  *
  */
 
- void CjHeapData::WriteStructArray(BaseObject*& obj, const u1 tag)
+void CjHeapData::WriteStructArray(BaseObject*& obj, const u1 tag)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
     u4 num = 0;
-    std::vector<u8> VAL;
-    RefFieldVisitor visitor = [&VAL, &num](RefField<>& arrayContent) {
-        VAL.push_back(reinterpret_cast<CjHeapDataID>(arrayContent.GetTargetObject()));
+    std::vector<BaseObject*> elements;
+
+    RefFieldVisitor visitor = [&elements, &num](RefField<>& arrayContent) {
+        elements.push_back(arrayContent.GetTargetObject());
         num++;
     };
+
     // take array length and content.
     MArray* mArray = reinterpret_cast<MArray*>(obj);
     MIndex arrayLengthVal = mArray->GetLength();
@@ -554,7 +582,7 @@ void CjHeapData::WriteObjectArray(BaseObject*& obj, const u1 tag)
     GCTib gcTib = componentTypeInfo->GetGCTib();
     MAddress contentAddr = reinterpret_cast<Uptr>(mArray) + MArray::GetContentOffset();
     if (componentTypeInfo->HasRefField()) {
-        VAL.reserve(arrayLengthVal);
+        elements.reserve(arrayLengthVal);
         for (MIndex i = 0; i < arrayLengthVal; ++i) {
             gcTib.ForEachBitmapWord(contentAddr, visitor);
             contentAddr += mArray->GetElementSize();
@@ -562,8 +590,8 @@ void CjHeapData::WriteObjectArray(BaseObject*& obj, const u1 tag)
     }
     AddU4(arrayLengthVal);
     AddU4(num);
-    AddStringId(reinterpret_cast<CjHeapDataID>(obj->GetTypeInfo()));
-    AddU8List(VAL.data(), VAL.size());
+    AddU4(obj->GetTypeInfo()->GetUUID());
+    AddObjectIdList(elements);
 }
 
 /*
@@ -581,8 +609,7 @@ void CjHeapData::WritePrimitiveArray(BaseObject*& obj, const u1 tag)
         return;
     }
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
+    AddID(GetObjectId(obj));
     MArray* mArray = reinterpret_cast<MArray*>(obj);
     AddU4(mArray->GetLength());
     switch (componentSize) {
@@ -608,15 +635,17 @@ void CjHeapData::WritePrimitiveArray(BaseObject*& obj, const u1 tag)
 }
 
 /*
- * Record Struct Class Info:
+ * Record StructClass Info:
  *     u1 tag;          // denoting the type of this sub-record
- *     ID classObjId;   // class object ID
+ *     ID classObjId;   // class object ID (from uuid)
+ *     ID classNameId;  // class name string ID
  *     u4 size;         // instance size (in bytes)
  */
 void CjHeapData::WriteStructClass(TypeInfo* klass, CjHeapDataStringId klassId, const u1 tag)
 {
     AddU1(tag);
-    AddStringId(reinterpret_cast<u8>(klass));
+    AddU4(klass->GetUUID());
+    AddStringId(klassId);
     TypeInfo* componentKlass = klass->GetComponentTypeInfo();
     // No alignment required
     u4 size = componentKlass->GetInstanceSize();
@@ -626,13 +655,15 @@ void CjHeapData::WriteStructClass(TypeInfo* klass, CjHeapDataStringId klassId, c
 /*
  * Record Class Info:
  *     u1 tag;          // denoting the type of this sub-record
- *     ID classObjId;   // class object ID
+ *     ID classObjId;   // class object ID (from uuid)
+ *     ID classNameId;  // class name string ID
  *     u4 size;         // instance size (in bytes)
  */
 void CjHeapData::WriteClass(TypeInfo* klass, CjHeapDataStringId klassId, const u1 tag)
 {
     AddU1(tag);
-    AddStringId(reinterpret_cast<u8>(klass));
+    AddU4(klass->GetUUID());
+    AddStringId(klassId);
     // 8-byte alignment
     if (!klass->IsObjectType()) {
         AddU4(0);
@@ -654,41 +685,43 @@ void CjHeapData::WriteClass(TypeInfo* klass, CjHeapDataStringId klassId, const u
 void CjHeapData::WriteInstance(BaseObject*& obj, const u1 tag)
 {
     AddU1(tag);
-    CjHeapDataID objId = (reinterpret_cast<CjHeapDataID>(obj));
-    AddStringId(objId);
-    AddStringId(reinterpret_cast<CjHeapDataID>(obj->GetTypeInfo()));
+    AddID(GetObjectId(obj));
+    AddU4(obj->GetTypeInfo()->GetUUID());
     u4 num = 0;
-    std::vector<u8> VAL;
-    VAL.reserve(obj->GetTypeInfo()->GetFieldNum());
-    RefFieldVisitor visitor = [&VAL, &num](RefField<>& fieldAddr) {
-        VAL.push_back(reinterpret_cast<u8>(fieldAddr.GetTargetObject()));
+    std::vector<BaseObject*> elements;
+
+    RefFieldVisitor visitor = [&elements, &num](RefField<>& fieldAddr) {
+        elements.push_back(fieldAddr.GetTargetObject());
         num++;
     };
+
     TypeInfo* currentClass = obj->GetTypeInfo();
     if (obj->HasRefField()) {
+        elements.reserve(obj->GetTypeInfo()->GetFieldNum());
         GCTib gcTib = currentClass->GetGCTib();
         MAddress objAddr = reinterpret_cast<MAddress>(obj) + TYPEINFO_PTR_SIZE;
         gcTib.ForEachBitmapWord(objAddr, visitor);
     }
     AddU4(num);
-    AddU8List(VAL.data(), VAL.size());
+    AddObjectIdList(elements);
 }
 
 /*
  * Record String Info:
- *     RecordHeader header;
- *     ID id;      // ID for this string
+ *     u1 tag;     // TAG_STRING_IN_UTF8
+ *     u4 length;  // stringId + UTF8 bytes
+ *     u4 id;      // ID for this string
  *     u1 str[];   // UTF8 characters for string (NOT NULL terminated)
  */
 void CjHeapData::WriteString()
 {
     for (const auto& string : strings) {
-        WriteRecordHeader(TAG_STRING_IN_UTF8, kCjHeapDataTime);
+        AddU1(TAG_STRING_IN_UTF8);
         CjHeapDataStringId id = string.second;
-        AddStringId(id);
         const CString str = string.first;
+        AddU4(static_cast<u4>(sizeof(SerializedStringId) + str.Length()));
+        AddStringId(id);
         AddU1List(reinterpret_cast<const uint8_t*>(str.Str()), str.Length());
-        ModifyLength();
         EndRecord();
     }
 }
@@ -753,9 +786,8 @@ void CjHeapData::WriteStackTrace()
 
 /*
  * Record Record Header Info:
- *     u1 tag;    // denoting the type of the record
- *     u4 time;   // number of microseconds since the time stamp in the header
- *     u4 length; // number of bytes that follow this u4 field and belong to this record
+ *     u1 tag;       // denoting the type of the record
+ *     u8 length;    // number of bytes that follow this field and belong to this record
  */
 void CjHeapData::WriteRecordHeader(const u1 tag, const u4 time)
 {
@@ -773,7 +805,10 @@ void CjHeapData::AddU4(const u4 value) { AddU4List(&value, 1); }
 
 void CjHeapData::AddU8(const u8 value) { AddU8List(&value, 1); }
 
-void CjHeapData::AddID(const u8 value) { AddU8List(&value, 1); }
+void CjHeapData::AddID(const u8 value)
+{
+    serializedIdWrapper.WriteId(*this, value);
+}
 
 void CjHeapData::AddU1List(const u1* value, size_t count)
 {
@@ -872,7 +907,42 @@ void CjHeapData::HandleAddU8(const u8* value, size_t count)
     }
 }
 
-void CjHeapData::AddStringId(CjHeapData::CjHeapDataStringId value) { AddID(static_cast<const u8>(value)); }
+void CjHeapData::AddStringId(CjHeapData::CjHeapDataStringId value)
+{
+    AddU4(static_cast<SerializedStringId>(value));
+}
+
+CjHeapData::u8 CjHeapData::GetObjectId(BaseObject* obj) const
+{
+    if (obj == nullptr) {
+        return CjHeapData::NULL_OBJECT_ID;  // Special ID for null object references
+    }
+    if (serializedIdWrapper.Use4ByteId()) {
+        MAddress objAddr = reinterpret_cast<MAddress>(obj);
+        return static_cast<CjHeapData::u4>(objAddr - serializedIdWrapper.GetHeapStartAddr());
+    }
+    return reinterpret_cast<CjHeapData::u8>(obj);
+}
+
+void CjHeapData::AddObjectIdList(const std::vector<BaseObject*>& objects)
+{
+    if (serializedIdWrapper.Use4ByteId()) {
+        std::vector<u4> serializedIds;
+        serializedIds.reserve(objects.size());
+        for (BaseObject* obj : objects) {
+            serializedIds.push_back(static_cast<u4>(GetObjectId(obj)));
+        }
+        AddU4List(serializedIds.data(), serializedIds.size());
+        return;
+    }
+
+    std::vector<u8> serializedIds;
+    serializedIds.reserve(objects.size());
+    for (BaseObject* obj : objects) {
+        serializedIds.push_back(GetObjectId(obj));
+    }
+    AddU8List(serializedIds.data(), serializedIds.size());
+}
 
 void CjHeapData::EndRecord()
 {
@@ -884,9 +954,9 @@ void CjHeapData::EndRecord()
 
 void CjHeapData::WriteFixedHeader()
 {
-    const char ident[] = "CANGJIE PROFILE 1.0.1";
+    const char ident[] = "CANGJIE PROFILE 1.0.2";
     AddU1List(reinterpret_cast<const uint8_t*>(ident), sizeof(ident));
-    const u4 idSize = sizeof(CjHeapDataID);
+    const u4 idSize = serializedIdWrapper.Use4ByteId() ? sizeof(u4) : sizeof(u8);
     AddU4(idSize);
     struct timeval timeNow {};
     gettimeofday(&timeNow, nullptr);
@@ -895,33 +965,6 @@ void CjHeapData::WriteFixedHeader()
     const uint32_t timeLow = static_cast<uint32_t>(msecsTime & 0xFFFFFFFF);
     AddU4(timeHigh);
     AddU4(timeLow);
-    EndRecord();
-}
-void CjHeapData::WriteAllClassLoad()
-{
-    for (const auto& klassInfo : dumpClassMap) {
-        WriteClassLoad(klassInfo.first, klassInfo.second, TAG_CLASS_LOAD);
-    }
-}
-
-void CjHeapData::WriteAllStructClassLoad()
-{
-    for (const auto& klassInfo : dumpStructClassMap) {
-        WriteClassLoad(klassInfo.first, klassInfo.second, TAG_CLASS_LOAD);
-    }
-}
-
-/*
- * Record Class Load Info:
- *     ID class object ID
- *     ID  class name string ID
- */
-void CjHeapData::WriteClassLoad(TypeInfo* klass, CjHeapDataStringId klassId, const u1 tag)
-{
-    WriteRecordHeader(tag, kCjHeapDataTime);
-    AddID(reinterpret_cast<u8>(klass));
-    AddStringId(klassId);
-    ModifyLength();
     EndRecord();
 }
 

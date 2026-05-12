@@ -116,7 +116,7 @@ void RecordStackInfo::VisitStackRoots(const RootVisitor &func, Mutator &mutator)
         FrameInfo &ref = *frame;
         switch (frame->GetFrameType()) {
             case FrameType::MANAGED: {
-                currentFrame++;
+                currentFramePtr = frame;
                 TracingCollector::VisitStackRoots(func, regSlotsMap, ref, mutator);
                 break;
             }

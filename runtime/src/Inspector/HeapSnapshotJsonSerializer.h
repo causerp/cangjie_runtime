@@ -35,7 +35,7 @@ public:
     void SerializeAllObjects();
     void SerializeGlobalRoot(BaseObject*& obj, const u1 tag);
     void SerializeUnknownRoot(BaseObject*& obj, const u1 tag);
-    void SerializeLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u1 depth);
+    void SerializeLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth);
     void SerializeThreadObjectRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 stackTraceIdx);
     void SerializeObjectArray(BaseObject*& obj, const u1 tag);
     void SerializeStructArray(BaseObject*& obj, const u1 tag);
