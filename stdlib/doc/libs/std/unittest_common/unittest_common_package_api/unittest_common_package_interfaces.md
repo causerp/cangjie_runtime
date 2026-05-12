@@ -101,18 +101,17 @@ import std.unittest.prop_test.*
 import std.collection.*
 import std.random.*
 
-
 class Person <: ToString {
     let name: String
     let age: Int64
     let email: String
-    
+
     init(name: String, age: Int64, email: String) {
         this.name = name
         this.age = age
         this.email = email
     }
-    
+
     public func toString(): String {
         return "Person(name='${name}', age=${age}, email='${email}')"
     }
@@ -121,10 +120,10 @@ class Person <: ToString {
 class PersonShrinker <: DataShrinker<Person> {
     public func shrink(value: Person): Iterable<Person> {
         let results = ArrayList<Person>()
-        
+
         // 策略 1：空值/默认值
         results.add(Person("", 0, ""))
-        
+
         // 策略 2：单独简化每个字段
         if (value.name.size > 0) {
             results.add(Person("a", value.age, value.email))
@@ -135,18 +134,18 @@ class PersonShrinker <: DataShrinker<Person> {
         if (value.email.size > 0) {
             results.add(Person(value.name, value.age, "a@b"))
         }
-        
+
         // 策略 3：数值减半
         if (value.age > 1) {
             results.add(Person(value.name, value.age / 2, value.email))
         }
-        
+
         // 策略 4：缩短姓名
         if (value.name.size > 1) {
             let halfName = value.name[0..(value.name.size / 2)]
             results.add(Person(halfName, value.age, value.email))
         }
-        
+
         return results
     }
 }
@@ -158,19 +157,18 @@ extend Person <: Arbitrary<Person> {
         // 使用提供的 RandomSource 生成随机人员
         let randomIndex = Int64(random.nextUInt32()) % Int64(sampleNames.size)
         let randomDomainIndex = Int64(random.nextUInt32()) % Int64(sampleDomains.size)
-        let randomAge = Int64(random.nextUInt32()) % 80  // 年龄 0-79
-        
+        let randomAge = Int64(random.nextUInt32()) % 80 // 年龄 0-79
+
         let name = sampleNames[randomIndex] + " Smith"
         let email = sampleNames[randomIndex] + "@" + sampleDomains[randomDomainIndex]
-        
-        return Generators.generate { Person(name, randomAge, email) }
+
+        return Generators.generate {Person(name, randomAge, email)}
     }
 }
 
-
 class PersonStrategy <: DataStrategy<Person> {
     let samplePeople: Array<Person>
-    
+
     init() {
         this.samplePeople = [
             Person("John Doe", 25, "john@example.com"),
@@ -180,15 +178,17 @@ class PersonStrategy <: DataStrategy<Person> {
             Person("Diana Prince", 35, "diana@justice.com")
         ]
     }
-    
+
     public prop isInfinite: Bool {
-        get() { return false }
+        get() {
+            return false
+        }
     }
-    
+
     public func provider(configuration: Configuration): DataProvider<Person> {
         return samplePeople
     }
-    
+
     public func shrinker(configuration: Configuration): DataShrinker<Person> {
         return PersonShrinker()
     }
@@ -200,44 +200,44 @@ class PersonTests {
     func testPersonShrinker() {
         let shrinker = PersonShrinker()
         let original = Person("John Doe", 35, "john.doe@example.com")
-        
+
         println("原始人员：${original}")
         println("缩减版本：")
-        
+
         for (shrunk in shrinker.shrink(original)) {
             println("  - ${shrunk}")
-        }   
-        
+        }
+
         @Assert(shrinker.shrink(original).iterator().next().isSome())
     }
-    
+
     @TestCase
     func testPersonWithStrategy() {
         let personStrategy = PersonStrategy()
         let provider = personStrategy.provider(defaultConfiguration())
-        
+
         println("使用确定性策略测试：")
         for (person in provider.provide()) {
             println("  - ${person}")
             @Assert(person.age <= 70)
         }
     }
-    
+
     @TestCase
     func testPersonWithRandomData() {
         // 使用 Random 测试多个随机人员
         for (i in 0..5) {
-            let random = Random(UInt64(i))  // 使用种子保证可重现性
+            let random = Random(UInt64(i)) // 使用种子保证可重现性
             let generator = Person.arbitrary(random)
-            let person = generator.next()  // 调用生成器获取 Person
-            
+            let person = generator.next() // 调用生成器获取 Person
+
             println("测试随机人员 ${i}：${person}")
-            
+
             // 测试：如果人员年龄过大则失败
             @Assert(person.age <= 50)
         }
     }
-    
+
     @TestCase[person in random<Person>()]
     func testPersonWithBuiltInRandomSyntax(person: Person) {
         println("使用内置随机语法测试人员：${person}")

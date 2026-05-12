@@ -1695,7 +1695,7 @@ value: 4
 ## const SIGINT <sup>(deprecated)</sup>
 
 ```cangjie
-public const SIGINT: Int32 =  0x2
+public const SIGINT: Int32 = 0x2
 ```
 
 功能：终端中断字符，默认动作终止，适用函数 [kill](posix_package_funcs.md#func-killint32-int32-deprecated)，[killpg](posix_package_funcs.md#func-killpgint32-int32-deprecated)，所属函数参数 `sig`。

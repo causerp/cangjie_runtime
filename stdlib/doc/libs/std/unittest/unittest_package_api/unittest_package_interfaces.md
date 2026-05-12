@@ -408,7 +408,7 @@ prop info: MeasurementInfo
 ```cangjie
 public interface NearEquatable<CT, D> {
     func isNear(obj: CT, delta!: D): Bool
-} 
+}
 ```
 
 功能：判断某个对象是否基于这个 delta 近似相等。
@@ -619,7 +619,7 @@ public func isNear(obj: Float64, delta!: RelativeDelta<Float64>): Bool
 ## interface Reporter\<TReport, TReturn>
 
 ```cangjie
-sealed interface Reporter <TReport, TReturn> {}
+sealed interface Reporter<TReport, TReturn> {}
 ```
 
 功能：报告器基础接口。

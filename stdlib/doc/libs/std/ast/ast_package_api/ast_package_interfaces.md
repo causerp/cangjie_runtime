@@ -40,7 +40,7 @@ public class A <: ToBytes {
 
 main() {
     let a = A()
-    
+
     // 输出 toBytes() 的结果
     println("a.toBytes(): ${a.toBytes()}")
 }
@@ -90,7 +90,7 @@ public class A <: ToTokens {
 
 main() {
     let a = A()
-    
+
     // 输出 toTokens() 的结果
     println("a.toTokens().dump():")
     a.toTokens().dump()
@@ -137,7 +137,7 @@ import std.ast.*
 
 main() {
     let arr: Array<Int64> = [1, 2]
-    
+
     // 输出 toTokens() 的结果
     println("arr.toTokens(): ${arr.toTokens()}")
 }
@@ -183,7 +183,7 @@ import std.collection.ArrayList
 main() {
     let expr0 = BinaryExpr(quote(1 + 1))
     let arr = ArrayList<Node>([expr0])
-    
+
     // 输出 toTokens() 的结果
     println("arr.toTokens().dump():")
     arr.toTokens().dump()
@@ -231,7 +231,7 @@ import std.ast.*
 
 main() {
     let boolean = false
-    
+
     // 输出 toTokens() 的结果
     println("boolean.toTokens().dump():")
     boolean.toTokens().dump()
@@ -277,7 +277,7 @@ import std.ast.*
 
 main() {
     let float16: Float16 = 1.0625
-    
+
     // 输出 toTokens() 的结果
     println("float16.toTokens().dump():")
     float16.toTokens().dump()
@@ -323,7 +323,7 @@ import std.ast.*
 
 main() {
     let float32: Float32 = 3.14
-    
+
     // 输出 toTokens() 的结果
     println("float32.toTokens().dump():")
     float32.toTokens().dump()
@@ -369,7 +369,7 @@ import std.ast.*
 
 main() {
     let float64: Float64 = 3.1415926
-    
+
     // 输出 toTokens() 的结果
     println("float64.toTokens().dump():")
     float64.toTokens().dump()
@@ -415,7 +415,7 @@ import std.ast.*
 
 main() {
     let int16: Int16 = 42
-    
+
     // 输出 toTokens() 的结果
     println("int16.toTokens().dump():")
     int16.toTokens().dump()
@@ -461,7 +461,7 @@ import std.ast.*
 
 main() {
     let int32: Int32 = 42
-    
+
     // 输出 toTokens() 的结果
     println("int32.toTokens().dump():")
     int32.toTokens().dump()
@@ -507,7 +507,7 @@ import std.ast.*
 
 main() {
     let int64: Int64 = 2147483648
-    
+
     // 输出 toTokens() 的结果
     println("int64.toTokens().dump():")
     int64.toTokens().dump()
@@ -553,7 +553,7 @@ import std.ast.*
 
 main() {
     let int8: Int8 = 127
-    
+
     // 输出 toTokens() 的结果
     println("int8.toTokens().dump():")
     int8.toTokens().dump()
@@ -599,7 +599,7 @@ import std.ast.*
 
 main() {
     let rune: Rune = 'X'
-    
+
     // 输出 toTokens() 的结果
     println("rune.toTokens().dump():")
     rune.toTokens().dump()
@@ -645,7 +645,7 @@ import std.ast.*
 
 main() {
     let string: String = "hello world"
-    
+
     // 输出 toTokens() 的结果
     println("string.toTokens().dump():")
     string.toTokens().dump()
@@ -691,7 +691,7 @@ import std.ast.*
 
 main() {
     let token: Token = Token(TokenKind.AT, "@")
-    
+
     // 输出 toTokens() 的结果
     println("token.toTokens().dump():")
     token.toTokens().dump()
@@ -737,7 +737,7 @@ import std.ast.*
 
 main() {
     let tokens: Tokens = quote(1 + 1)
-    
+
     // 输出 toTokens() 的结果
     println("tokens.toTokens().dump():")
     tokens.toTokens().dump()
@@ -785,7 +785,7 @@ import std.ast.*
 
 main() {
     let uint16: UInt16 = 65535
-    
+
     // 输出 toTokens() 的结果
     println("uint16.toTokens().dump():")
     uint16.toTokens().dump()
@@ -831,7 +831,7 @@ import std.ast.*
 
 main() {
     let uint32: UInt32 = 4294967295
-    
+
     // 输出 toTokens() 的结果
     println("uint32.toTokens().dump():")
     uint32.toTokens().dump()
@@ -877,7 +877,7 @@ import std.ast.*
 
 main() {
     let uint64: UInt64 = 4294967295
-    
+
     // 输出 toTokens() 的结果
     println("uint64.toTokens().dump():")
     uint64.toTokens().dump()
@@ -923,7 +923,7 @@ import std.ast.*
 
 main() {
     let uint8: UInt8 = 255
-    
+
     // 输出 toTokens() 的结果
     println("uint8.toTokens().dump():")
     uint8.toTokens().dump()

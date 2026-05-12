@@ -36,7 +36,8 @@ abstract class AnimalUi {
 
 let animals = [Animal("Smokey", "Cat, age: 5"), Animal("Daisy", "Dog, age: 9")]
 
-@Test func testAnimal(): Unit {
+@Test
+func testAnimal(): Unit {
     let ui = mock<AnimalUi>()
     // 定义了一个值监听器：检查每个值，当值不满足条件时抛出异常。
     let listener = ValueListener<Animal>.onEach { animal =>
@@ -62,7 +63,9 @@ import std.unittest.mock.*
 import std.unittest.mock.mockmacro.*
 
 class Processor {
-    func process(name: String): String { return name.toAsciiTitle() }
+    func process(name: String): String {
+        return name.toAsciiTitle()
+    }
 }
 
 @Test

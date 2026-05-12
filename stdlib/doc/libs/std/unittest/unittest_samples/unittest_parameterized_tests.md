@@ -242,9 +242,9 @@ import std.sort.*
 
 @Test[array in [
  [ ],
- [ "1","2","3" ],
- [ "1","2","3","4","5" ],
- [ "5","4","3","2","1" ]
+ [ "1", "2", "3" ],
+ [ "1", "2", "3", "4", "5" ],
+ [ "5", "4", "3", "2", "1" ]
  ]
 ]
 func testDifferentArraysString(array: Array<String>) {
@@ -392,8 +392,8 @@ func generateUniqArray(len: Int64, start: UInt64) {
         len,
         {
             _ =>
-            counter += rng.nextInt64() % step
-            counter
+                counter += rng.nextInt64() % step
+                counter
         }
     )
 }
@@ -431,8 +431,8 @@ func generateUniqArray(start: UInt64): ArrayList<Int64> {
         len,
         {
             _ =>
-            counter += rng.nextInt64() % step
-            counter
+                counter += rng.nextInt64() % step
+                counter
         }
     )
 }
