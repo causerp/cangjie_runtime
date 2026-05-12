@@ -130,17 +130,19 @@ public class Directory {
         }
 
         // firstFile only has value on windows
-        if (!firstFile.isNull() && !walkFuncWrapper(firstFile)) {
-            unsafe { CJ_FS_CloseDirHandle(dirHandle) }
-            return
-        }
-    
-        while (true) {
-            let cstr = unsafe { CJ_FS_ReadDirHandle(dirHandle) }
-            if (cstr.isNull() || !walkFuncWrapper(cstr)) {
-                unsafe { CJ_FS_CloseDirHandle(dirHandle) }
+        try {
+            if (!firstFile.isNull() && !walkFuncWrapper(firstFile)) {
                 return
             }
+
+            while (true) {
+                let cstr = unsafe { CJ_FS_ReadDirHandle(dirHandle) }
+                if (cstr.isNull() || !walkFuncWrapper(cstr)) {
+                    return
+                }
+            }
+        } finally {
+            unsafe { CJ_FS_CloseDirHandle(dirHandle) }
         }
     }
 
