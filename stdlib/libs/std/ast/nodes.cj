@@ -1291,6 +1291,11 @@ public class PackageHeader <: Node {
             keyword_ = v
         }
     }
+
+    /**
+     * @brief Organization name of the package.
+     * @throws ASTException if the input token 'v' has empty value.
+     */
     public mut prop orgName: Token {
         get() {
             orgName_
@@ -1306,6 +1311,11 @@ public class PackageHeader <: Node {
             orgName_ = v
         }
     }
+
+    /**
+     * @brief The DOUBLE_COLON token separating org name and package path.
+     * @throws ASTException if the input token 'v' has empty value or 'orgName_' is not valid.
+     */
     public mut prop orgSeparator: Token {
         get() {
             orgToken_
@@ -1464,6 +1474,11 @@ public class ImportContent <: Node {
             importKind_ = v
         }
     }
+
+    /**
+     * @brief Organization name of the package.
+     * @throws ASTException if the input token 'v' has empty value.
+     */
     public mut prop orgName: Token {
         get() {
             orgName_
@@ -1479,6 +1494,11 @@ public class ImportContent <: Node {
             orgName_ = v
         }
     }
+
+    /**
+     * @brief The DOUBLE_COLON token separating org name and package path.
+     * @throws ASTException if the input token 'v' has empty value or 'orgName_' is not valid.
+     */
     public mut prop orgSeparator: Token {
         get() {
             orgToken_
