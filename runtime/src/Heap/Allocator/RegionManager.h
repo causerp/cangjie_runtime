@@ -354,7 +354,7 @@ public:
 
     size_t GetUsedUnitCount() const
     {
-         return
+        return
             fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() +
             recentFullRegionList.GetUnitCount() + oldLargeRegionList.GetUnitCount() +
             recentLargeRegionList.GetUnitCount() + oldPinnedRegionList.GetUnitCount() +
