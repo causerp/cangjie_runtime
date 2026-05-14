@@ -348,6 +348,7 @@ public class Thread {
         Thread.exceptionHandler.store(exHandler)
     }
 
+    @When[env != "ohos"]
     public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit {
         Thread.errorHandler.store(erHandler)
     }

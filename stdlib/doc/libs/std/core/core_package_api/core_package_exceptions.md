@@ -215,6 +215,7 @@ main() {
 
 ## class Exception
 
+<!--RP1-->
 ```cangjie
 public open class Exception <: ToString {
     public init()
@@ -223,6 +224,7 @@ public open class Exception <: ToString {
     public init(causedBy: Exception)
 }
 ```
+<!--RP1End-->
 
 功能：[Exception](core_package_exceptions.md#class-exception) 是所有异常类的父类。
 
@@ -232,6 +234,7 @@ public open class Exception <: ToString {
 
 - [ToString](core_package_interfaces.md#interface-tostring)
 
+<!--Del-->
 ### prop causedBy
 
 ```cangjie
@@ -278,6 +281,11 @@ func throwCause() {
 Exception: 这是一个异常
 Exception: 这是一个cause
 ```
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### prop message
 
@@ -329,6 +337,7 @@ main() {
 }
 ```
 
+<!--Del-->
 ### init(Exception)
 
 ```cangjie
@@ -376,6 +385,11 @@ Exception
 Exception: 这是一个cause
 ```
 
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
+
 ### init(String)
 
 ```cangjie
@@ -398,6 +412,7 @@ main() {
 }
 ```
 
+<!--Del-->
 ### init(String, Exception)
 
 ```cangjie
@@ -452,6 +467,11 @@ Caused by: Exception: 这是一个cause
 	 at default::throwException()(/tmp/test-exception-chain.cj:13)
 	 ... 1 more
 ```
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
+<!--DelEnd-->
 
 ### func getStackTrace()
 
