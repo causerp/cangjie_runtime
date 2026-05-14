@@ -322,6 +322,10 @@ Function: Cause of exception.
 
 Type: ?[Exception](core_package_exceptions.md#class-exception)
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Example:
 
 <!-- verify -->
@@ -427,6 +431,10 @@ public init(causedBy: Exception)
 
 Function: Constructs a [Exception](core_package_exceptions.md#class-exception) instance with the specified cause and empty default exception message.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - causedBy: [Exception](core_package_exceptions.md#class-exception) - Cause of exception.
@@ -505,6 +513,10 @@ public init(message: String, causedBy: Exception)
 
 Function: Construct a [Exception](core_package_exceptions.md#class-exception) instance with the specified exception message and cause。
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - message: [String](core_package_structs.md#struct-string) - Exception message.
