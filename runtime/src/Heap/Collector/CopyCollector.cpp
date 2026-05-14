@@ -20,6 +20,7 @@
 namespace MapleRuntime {
 void CopyCollector::PostGarbageCollection(uint64_t gcIndex)
 {
+    reinterpret_cast<RegionSpace&>(theAllocator).DumpRegionStats("region statistics when gc ends");
     TracingCollector::PostGarbageCollection(gcIndex);
     MutatorManager::Instance().DestroyExpiredMutators();
 }
