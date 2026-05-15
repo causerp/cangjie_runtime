@@ -469,7 +469,6 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList containing all elements extracted from the source ArrayList at intervals.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func step(count: Int64): ArrayList<T> {
         if (count <= 0) {
             throw IllegalArgumentException("Step count must be greater than 0!")
@@ -497,7 +496,6 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList with the specified number of elements taken.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func take(count: Int64): ArrayList<T> {
         if (count == 0) {
             return ArrayList<T>()
@@ -520,7 +518,6 @@ public class ArrayList<T> <: List<T> {
      * @returns a new ArrayList with the specified number of elements skipped.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func skip(count: Int64): ArrayList<T> {
         if (count < 0) {
             throw IllegalArgumentException("skip count must be greater than 0!")
@@ -544,7 +541,6 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns a new collection containing elements that satisfy the filtering condition.
      */
-    @When[env != "ohos"]
     public func filter(predicate: (T) -> Bool): ArrayList<T> {
         if (mySize == 0) {
             return ArrayList<T>()
@@ -566,7 +562,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns a new ArrayList.
      */
-    @When[env != "ohos"]
     public func map<R>(transform: (T) -> R): ArrayList<R> {
         if (mySize == 0) {
             return ArrayList<R>()
@@ -584,7 +579,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns a new ArrayList after filtering and mapping.
      */
-    @When[env != "ohos"]
     public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R> {
         var newList :ArrayList<R> = ArrayList<R>()
         for(i in 0..mySize){
@@ -601,7 +595,6 @@ public class ArrayList<T> <: List<T> {
      * @param transform the given mapping function.
      * @returns the new ArrayList after being "mapped" and "flattened".
      */
-    @When[env != "ohos"]
     public func filterMap<R>(transform: (T) -> ?R): ArrayList<R> {
         if (mySize == 0) {
             return ArrayList<R>()
@@ -625,7 +618,6 @@ public class ArrayList<T> <: List<T> {
      * @param separator the given element.
      * @returns a new ArrayList.
      */
-    @When[env != "ohos"]
     public func intersperse(separator: T): ArrayList<T> {
         if (mySize < 2) {
             var newData: Array<T> = myData.clone()
@@ -646,7 +638,6 @@ public class ArrayList<T> <: List<T> {
      * 
      * @param action the given operation function.
      */
-    @When[env != "ohos"]
     public func forEach(action: (T) -> Unit): Unit {
         for (i in 0..mySize) {
             action(myData[i])
@@ -659,7 +650,6 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns true if all elements in the ArrayList satisfy the condition, otherwise returns false.
      */
-    @When[env != "ohos"]
     public func all(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
             if (!predicate(myData[i])) {
@@ -675,7 +665,6 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @When[env != "ohos"]
     public func any(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
             if (predicate(myData[i])) {
@@ -691,7 +680,6 @@ public class ArrayList<T> <: List<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current ArrayList do not satisfy the condition.
      */
-    @When[env != "ohos"]
     public func none(predicate: (T) -> Bool): Bool {
         for (i in 0..mySize) {
             if (predicate(myData[i])) {
@@ -708,7 +696,6 @@ public class ArrayList<T> <: List<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
         for (i in 0..mySize) {
@@ -723,7 +710,6 @@ public class ArrayList<T> <: List<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (mySize == 0) {
             return None<T>
@@ -1119,7 +1105,6 @@ extend<T> ArrayList<T> {
      * @param other one of the ArrayList to be merged.
      * @returns a new ArrayList.
      */
-    @When[env != "ohos"]
     public func zip<R>(other: ArrayList<R>): ArrayList<(T, R)> {
         let newSize: Int64 = min(mySize, other.size)
         if (newSize == 0) {
@@ -1137,7 +1122,6 @@ extend<T> ArrayList<T> {
      * 
      * @returns a new ArrayList with indices.
      */
-    @When[env != "ohos"]
     public func enumerate(): ArrayList<(Int64, T)> {
         if (mySize == 0) {
             return ArrayList<(Int64, T)>()

@@ -270,7 +270,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param transform The mapping closure to apply to each element.
      * @returns A new HashSet containing the transformed elements from the original HashSet.
      */
-    @When[env != "ohos"]
     public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equatable<R> {
         let entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
@@ -289,7 +288,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns a new HashSet containing elements that satisfy the filtering condition.
      */
-    @When[env != "ohos"]
     public func filter(predicate: (T) -> Bool): HashSet<T> {
         let entries = myMap.entries
         var result: HashSet<T> = HashSet<T>()
@@ -308,7 +306,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param transform the given mapping function.
      * @returns a new HashSet after filtering and mapping.
      */
-    @When[env != "ohos"]
     public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Hashable & Equatable<R> {
         let entries = myMap.entries
         var result: HashSet<R> = HashSet<R>()
@@ -329,7 +326,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * 
      * @param action the given operation function.
      */
-    @When[env != "ohos"]
     public func forEach(action: (T) -> Unit): Unit {
         let entries = myMap.entries
         let len = entries.size
@@ -346,7 +342,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns true if all elements in the HashSet satisfy the condition, otherwise returns false.
      */
-    @When[env != "ohos"]
     public func all(predicate: (T) -> Bool): Bool {
         let entries = myMap.entries
         let len = entries.size
@@ -364,7 +359,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @When[env != "ohos"]
     public func any(predicate: (T) -> Bool): Bool {
         let entries = myMap.entries
         let len = entries.size
@@ -382,7 +376,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current HashSet do not satisfy the condition.
      */
-    @When[env != "ohos"]
     public func none(predicate: (T) -> Bool): Bool {
         let entries = myMap.entries
         let len = entries.size
@@ -401,7 +394,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
         let entries = myMap.entries
@@ -420,7 +412,6 @@ public class HashSet<T> <: Set<T> where T <: Hashable & Equatable<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (size <= 0) {
             return None<T>

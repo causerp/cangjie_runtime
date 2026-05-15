@@ -19,7 +19,6 @@ package std.core
  * @return The return value of @param fn.
  * @throws ExclusiveScopeException if an exception occurs during execution.
  */
-@When[env != "ohos"]
 public func exclusiveScope<T>(fn: () -> T): T {
     let cl = ExclusiveScope<T>()
     cl.run(fn)
@@ -59,7 +58,6 @@ private class ExclusiveScope<T> {
  * This exception preserves the original exception's stack trace and information.
  * It is thrown when an exception occurs within an exclusive scope execution.
  */
-@When[env != "ohos"]
 public class ExclusiveScopeException <: Exception {
     ExclusiveScopeException(cause: Exception) {
         super(cause)
@@ -69,13 +67,13 @@ public class ExclusiveScopeException <: Exception {
         return "ExclusiveScopeException"
     }
 
-    /*
+    /**
     * Returns a string representation of the exception including its stack trace.
     * This method overrides the base toString method to provide detailed information
     * about the wrapped exception.
     *
-     * @return A string representation of the exception with its stack trace
-     */
+    * @return A string representation of the exception with its stack trace
+    */
     public override func toString(): String {
         let className: String = getClassName()
         if (let Some(cause) <- causedBy) {

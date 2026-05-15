@@ -1189,11 +1189,6 @@ public func all(predicate: (T) -> Bool): Bool
 
 功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 中所有元素是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -1241,11 +1236,6 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 是否存在任意一个满足条件的元素。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -1380,11 +1370,6 @@ public func filter(predicate: (T) -> Bool): ArrayList<T>
 
 功能： 返回一个满足筛选条件的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)\<T>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -1426,11 +1411,6 @@ public func filterMap<R>(transform: (T) -> ?R): ArrayList<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -1481,11 +1461,6 @@ public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R>
 
 功能：对 [ArrayList](collection_package_class.md#class-arraylistt) 中的每个元素应用一个转换闭包（transform），该闭包返回一个新的 [ArrayList](collection_package_class.md#class-arraylistt)，然后将所有返回的 [ArrayList](collection_package_class.md#class-arraylistt)“压平”（flatten）并连接成一个单一的结果 [ArrayList](collection_package_class.md#class-arraylistt)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (T) -> [ArrayList](collection_package_class.md#class-arraylistt)\<R> - 给定的映射函数。
@@ -1530,11 +1505,6 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 功能：使用指定初始值，从左向右计算。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - initial: R - 给定的 R 类型的初始值。
@@ -1577,11 +1547,6 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -1724,11 +1689,6 @@ public func intersperse(separator: T): ArrayList<T>
 
 功能：返回每两个元素之间插入一个给定的新元素后的新 [ArrayList](collection_package_class.md#class-arraylistt) 。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - separator: T - 给定的元素。
@@ -1856,11 +1816,6 @@ public func map<R>(transform: (T) -> R): ArrayList<R>
 
 功能：对此 [ArrayList](collection_package_class.md#class-arraylistt) 进行映射并返回一个新 [ArrayList](collection_package_class.md#class-arraylistt)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (T) -> R - 给定的映射函数。
@@ -1909,11 +1864,6 @@ public func none(predicate: (T) -> Bool): Bool
 
 功能：判断 [ArrayList](collection_package_class.md#class-arraylistt) 中所有元素是否都不满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -1961,11 +1911,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -2262,11 +2207,6 @@ public func skip(count: Int64): ArrayList<T>
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源 [ArrayList](collection_package_class.md#class-arraylistt) 所有元素的新 [ArrayList](collection_package_class.md#class-arraylistt) 。当 count 大于 0 小于源 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，跳过前 count 个元素，返回包含剩下的元素的新 [ArrayList](collection_package_class.md#class-arraylistt)。当 count 大于等于 [ArrayList](collection_package_class.md#class-arraylistt) 的大小时，返回空 [ArrayList](collection_package_class.md#class-arraylistt)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要跳过的个数。
@@ -2488,11 +2428,6 @@ public func step(count: Int64): ArrayList<T>
 
 当 count 小于等于 0 时，抛出异常
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 选取的间隔
@@ -2540,11 +2475,6 @@ public func take(count: Int64): ArrayList<T>
 功能： 从数组取出特定个数元素并返回一个新数组。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空数组。当 count 大于 0 小于源数组的大小时，取前 count 个元素，返回新数组。当 count 大于等于数组的大小时，取所有元素，返回新数组。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -2796,11 +2726,6 @@ public func enumerate(): ArrayList<(Int64, T)>
 ```
 
 功能：用于获取带索引的 [ArrayList](collection_package_class.md#class-arraylistt) 。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 返回值：
 
@@ -4893,11 +4818,6 @@ public func all(predicate: (K, V) -> Bool): Bool
 
 功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中所有键值对是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -4947,11 +4867,6 @@ public func any(predicate: (K, V) -> Bool): Bool
 ```
 
 功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 是否存在任意一个满足条件的键值对。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -5237,11 +5152,6 @@ public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
 
 功能： 返回一个满足筛选条件的键值对的新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -5285,11 +5195,6 @@ public func fold<R>(initial: R, operation: (R, K, V) -> R): R
 ```
 
 功能：使用指定初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -5335,11 +5240,6 @@ public func forEach(action: (K, V) -> Unit): Unit
 ```
 
 功能：遍历所有键值对，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -5572,11 +5472,6 @@ public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R>
 
 功能：对此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 进行映射并返回一个新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (K, V) -> R - 给定的映射函数。
@@ -5621,11 +5516,6 @@ public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
 
 功能：对此 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 进行映射并返回一个新 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (V) -> R - 给定的映射函数。
@@ -5667,11 +5557,6 @@ public func none(predicate: (K, V) -> Bool): Bool
 ```
 
 功能：判断 [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 中所有键值对是否都不满足条件。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -5718,11 +5603,6 @@ public func reduce(operation: (V, V) -> V): Option<V>
 ```
 
 功能：使用第一个值作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -6962,11 +6842,6 @@ public func all(predicate: (T) -> Bool): Bool
 
 功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -7012,11 +6887,6 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 是否存在任意一个满足条件的元素。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -7250,11 +7120,6 @@ public func filter(predicate: (T) -> Bool): HashSet<T>
 
 功能： 返回一个满足筛选条件的元素的新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -7299,11 +7164,6 @@ public func filterMap<R>(transform: (T) -> Option<R>): HashSet<R> where R <: Has
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -7350,11 +7210,6 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 功能：使用指定初始值，从左向右计算。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - initial: R - 给定的 R 类型的初始值。
@@ -7400,11 +7255,6 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -7541,11 +7391,6 @@ public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equata
 
 功能：将当前 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 内所有 T 类型元素根据 transform 映射为 R 类型的元素，组成新的 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (T) -> R - 映射函数。
@@ -7592,11 +7437,6 @@ public func none(predicate: (T) -> Bool): Bool
 
 功能：判断 [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) 中所有元素是否都不满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -7642,11 +7482,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9085,11 +8920,6 @@ public func all(predicate: (T) -> Bool): Bool
 
 功能：判断链表中所有元素是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -9142,11 +8972,6 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断此链表是否存在任意一个满足条件的元素。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9291,11 +9116,6 @@ public func filter(predicate: (T) -> Bool): LinkedList<T>
 
 功能： 返回一个满足筛选条件的元素的新链表。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -9341,11 +9161,6 @@ public func filterMap<R>(transform: (T) -> ?R): LinkedList<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新 [LinkedList](collection_package_class.md#class-linkedlistt)。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9393,11 +9208,6 @@ public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R>
 ```
 
 功能：对链表中的每个元素应用一个转换闭包（transform），该闭包返回一个新的链表，然后将所有返回的链表“压平”（flatten）并连接成一个单一的结果链表。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9447,11 +9257,6 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 ```
 
 功能：使用指定初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9510,11 +9315,6 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9608,11 +9408,6 @@ public func intersperse(separator: T): LinkedList<T>
 ```
 
 功能：返回每两个元素之间插入一个给定的新元素后的新 [LinkedList](collection_package_class.md#class-linkedlistt) 。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -9744,11 +9539,6 @@ public func map<R>(transform: (T) -> R): LinkedList<R>
 
 功能：对此 [LinkedList](collection_package_class.md#class-linkedlistt) 进行映射并返回一个新 [LinkedList](collection_package_class.md#class-linkedlistt)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (T) ->R - 给定的映射函数。
@@ -9861,11 +9651,6 @@ public func none(predicate: (T) -> Bool): Bool
 
 功能：判断此链表中所有元素是否都不满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -9918,11 +9703,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -10214,11 +9994,6 @@ public func skip(count: Int64): LinkedList<T>
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源链表所有元素的新链表。当 count 大于 0 小于源链表的大小时，跳过前 count 个元素，返回包含剩下的元素的新链表。当 count 大于等于源链表的大小时，返回空链表。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 要跳过的个数。
@@ -10331,11 +10106,6 @@ public func step(count: Int64): LinkedList<T>
 
 当 count 小于等于 0 时，抛出异常
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - count: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 选取的间隔
@@ -10392,11 +10162,6 @@ public func take(count: Int64): LinkedList<T>
 功能： 从链表取出特定个数元素并返回一个新链表。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空链表。当 count 大于 0 小于源链表的大小时，取前 count 个元素，返回新链表。当 count 大于等于源链表的大小时，取所有元素，返回新链表。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -10494,11 +10259,6 @@ public func enumerate(): LinkedList<(Int64, T)>
 ```
 
 功能：用于获取带索引的链表。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 返回值：
 
@@ -11451,11 +11211,6 @@ public func all(predicate: (K, V) -> Bool): Bool
 
 功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中所有键值对是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -11511,11 +11266,6 @@ public func any(predicate: (K, V) -> Bool): Bool
 ```
 
 功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 是否存在任意一个满足条件的键值对。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -11900,11 +11650,6 @@ public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
 
 功能： 返回一个满足筛选条件的键值对的新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -11956,11 +11701,6 @@ public func fold<R>(initial: R, operation: (R, K, V) -> R): R
 ```
 
 功能：使用指定初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -12019,11 +11759,6 @@ public func forEach(action: (K, V) -> Unit): Unit
 ```
 
 功能：遍历所有键值对，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -12361,11 +12096,6 @@ public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R>
 
 功能：对此 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 进行映射并返回一个新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (K, V) -> R - 给定的映射函数。
@@ -12411,11 +12141,6 @@ public func mapValues<R>(transform: (V) -> R): TreeMap<K, R>
 
 功能：对此 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> 进行映射并返回一个新 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (V) -> R - 给定的映射函数。
@@ -12460,11 +12185,6 @@ public func none(predicate: (K, V) -> Bool): Bool
 
 功能：判断 [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) 中所有键值对是否都不满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -12508,11 +12228,6 @@ public func reduce(operation: (V, V) -> V): Option<V>
 ```
 
 功能：使用第一个值作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -13619,11 +13334,6 @@ public func all(predicate: (T) -> Bool): Bool
 
 功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素是否都满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -13671,11 +13381,6 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 是否存在任意一个满足条件的元素。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -13952,11 +13657,6 @@ public func filter(predicate: (T) -> Bool): TreeSet<T>
 
 功能： 返回一个满足筛选条件的元素的新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T>。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -14000,11 +13700,6 @@ public func filterMap<R>(transform: (T) -> Option<R>): TreeSet<R> where R <: Com
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -14054,11 +13749,6 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 功能：使用指定初始值，从左向右计算。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - initial: R - 给定的 R 类型的初始值。
@@ -14103,11 +13793,6 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 
@@ -14285,11 +13970,6 @@ public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R>
 
 功能：将当前 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 内所有 T 类型元素根据 transform 映射为 R 类型的元素，组成新的 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - transform: (T)->R - 映射函数。
@@ -14334,11 +14014,6 @@ public func none(predicate: (T) -> Bool): Bool
 
 功能：判断 [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) 中所有元素是否都不满足条件。
 
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 给定的条件。
@@ -14382,11 +14057,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
-
-
-> **注意：**
->
-> 不支持平台：OpenHarmony。
 
 参数：
 

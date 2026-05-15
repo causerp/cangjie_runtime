@@ -3934,10 +3934,6 @@ When multiple threads terminate due to exceptions concurrently, the handler will
 
 The handler's parameter is the uncaught [Error](core_package_exceptions.md#class-error).
 
-
-> **Note：**
->
-> Unsupported platform：OpenHarmony
 Parameters:
 
 - erHandler: ([Error](core_package_exceptions.md#class-error)) -> [Unit](core_package_intrinsics.md#unit) - The handler function to register.

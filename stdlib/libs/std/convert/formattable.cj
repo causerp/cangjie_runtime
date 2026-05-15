@@ -300,7 +300,7 @@ protected class Verify {
     var size: Int64
     var index: Int64 = 0
 
-    protected init(fmt: String) {
+    public init(fmt: String) {
         this.data = fmt.toRuneArray()
         this.size = data.size
     }
