@@ -266,7 +266,6 @@ public class LinkedList<T> <: Collection<T> {
      * @returns a new LinkedList containing all elements extracted from the source LinkedList at intervals.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func step(count: Int64): LinkedList<T> {
         if (count <= 0) {
             throw IllegalArgumentException("Step count must be greater than 0!")
@@ -294,7 +293,6 @@ public class LinkedList<T> <: Collection<T> {
      * @returns a new linked list with the specified number of elements taken.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func take(count: Int64): LinkedList<T> {
         if (count == 0) {
             return LinkedList<T>()
@@ -320,7 +318,6 @@ public class LinkedList<T> <: Collection<T> {
      * @returns a new linked list with the specified number of elements skipped.
      * @throws IllegalArgumentException, if count < 0.
      */
-    @When[env != "ohos"]
     public func skip(count: Int64): LinkedList<T> {
         if (count < 0) {
             throw IllegalArgumentException("skip count must be greater than 0!")
@@ -346,7 +343,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param predicate the given condition.
      * @returns a new linked list containing elements that satisfy the filtering condition.
      */
-    @When[env != "ohos"]
     public func filter(predicate: (T) -> Bool): LinkedList<T> {
         if (size == 0) {
             return LinkedList<T>()
@@ -369,7 +365,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param transform the given mapping function.
      * @returns a new linked list.
      */
-    @When[env != "ohos"]
     public func map<R>(transform: (T) -> R): LinkedList<R> {
         if (size == 0) {
             return LinkedList<R>()
@@ -390,7 +385,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param transform the given mapping function.
      * @returns the new linked list after being "mapped" and "flattened".
      */
-    @When[env != "ohos"]
     public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R> {
         var result = LinkedList<R>()
 
@@ -413,7 +407,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param transform the given mapping function
      * @returns a new linked list.
      */
-    @When[env != "ohos"]
     public func filterMap<R>(transform: (T) -> ?R): LinkedList<R> {
         if (size == 0) {
             return LinkedList<R>()
@@ -437,7 +430,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param separator the given element.
      * @returns a new linked list.
      */
-    @When[env != "ohos"]
     public func intersperse(separator: T): LinkedList<T> {
         if (size == 0) {
             return LinkedList<T>()
@@ -458,7 +450,6 @@ public class LinkedList<T> <: Collection<T> {
      *
      * @param action the given operation function.
      */
-    @When[env != "ohos"]
     public func forEach(action: (T) -> Unit): Unit {
         var node = _head
         while (let Some(n) <- node) {
@@ -473,7 +464,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param predicate the given condition.
      * @returns true if all elements in this linked list satisfy the condition, otherwise returns false.
      */
-    @When[env != "ohos"]
     public func all(predicate: (T) -> Bool): Bool {
         var node = _head
         while (let Some(n) <- node) {
@@ -493,7 +483,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param predicate the given condition.
      * @returns Whether there is any element that satisfies the condition.
      */
-    @When[env != "ohos"]
     public func any(predicate: (T) -> Bool): Bool {
         var node = _head
         while (let Some(n) <- node) {
@@ -513,7 +502,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param predicate the given condition.
      * @returns Whether all elements in the current linked list do not satisfy the condition.
      */
-    @When[env != "ohos"]
     public func none(predicate: (T) -> Bool): Bool {
         var node = _head
         while (let Some(n) <- node) {
@@ -534,7 +522,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func fold<R>(initial: R, operation: (R, T) -> R): R {
         var result: R = initial
         var node = _head
@@ -551,7 +538,6 @@ public class LinkedList<T> <: Collection<T> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
-    @When[env != "ohos"]
     public func reduce(operation: (T, T) -> T): Option<T> {
         if (size == 0) {
             return None<T>
@@ -699,7 +685,6 @@ extend<T> LinkedList<T> {
      * @param other one of the linked lists to be merged.
      * @returns a new linked list.
      */
-    @When[env != "ohos"]
     public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)> {
         var result = LinkedList<(T, R)>()
 
@@ -719,7 +704,6 @@ extend<T> LinkedList<T> {
      *
      * @returns a new LinkedList with indices.
      */
-    @When[env != "ohos"]
     public func enumerate(): LinkedList<(Int64, T)> {
         var result = LinkedList<(Int64, T)>()
         var node = _head
