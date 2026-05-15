@@ -854,14 +854,6 @@ IDENTIFIER
 
 功能：构造一个表示*标识符*的枚举实例。
 
-### PACKAGE_IDENTIFIER
-
-```cangjie
-PACKAGE_IDENTIFIER
-```
-
-功能：构造一个表示*包标识符*的枚举实例。
-
 ### IF
 
 ```cangjie

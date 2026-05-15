@@ -4753,7 +4753,7 @@ public class FeaturesSet <: Node {
 
 > **注意：**
 >
-> featuresSet 必须开被 `{}` 包裹。featureSet 包含一组 [featuresId](ast_package_classes.md#class-featureid)。
+> featuresSet 必须开被 `{}` 包裹。featuresSet 包含一组 [featureId](ast_package_classes.md#class-featureid)。
 
 父类型：
 
@@ -20021,7 +20021,7 @@ varDecl.toTokens(): var age = 25
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -20187,7 +20187,7 @@ varOrEnumPattern.toTokens(): YELLOW
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -20353,7 +20353,7 @@ varPattern.toTokens(): value
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -20567,7 +20567,7 @@ varrayExpr.toTokens(): VArray < Int64, $5 >(repeat: 0)
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -20798,7 +20798,7 @@ varrayType.toTokens(): VArray < Int64, $5 >
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -20964,7 +20964,7 @@ varOrEnumPattern.toTokens(): YELLOW
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -21130,7 +21130,7 @@ varPattern.toTokens(): value
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -25186,7 +25186,7 @@ whileExpr.toTokens(): while(x < 10) {
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -25354,7 +25354,7 @@ wildcardExpr.toTokens(): _
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
@@ -25524,7 +25524,7 @@ wildcardPattern.toTokens(): _
 public func traverse(v: Visitor): Unit
 ```
 
-功能：遍历当前语法树节点及其子节点。若提前终止遍历子节点的行为，可重写 `visit` 函数并调用 `breakTraverse` 函数提前终止遍历行为，请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
+功能：遍历当前语法树节点及其子节点。若要提前终止子节点遍历，可重写 `visit` 函数并调用 `breakTraverse` 函数。请参见[自定义访问函数遍历 AST 对象示例](../ast_samples/traverse.md)。
 
 参数：
 
