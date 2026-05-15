@@ -295,6 +295,7 @@ main() {
 
 ## class Exception
 
+<!--RP1-->
 ```cangjie
 public open class Exception <: ToString {
     public init()
@@ -303,6 +304,7 @@ public open class Exception <: ToString {
     public init(message: String, causedBy: Exception)
 }
 ```
+<!--RP1End-->
 
 Function: [Exception](core_package_exceptions.md#class-exception) is the parent class of all exception classes.
 
@@ -312,6 +314,7 @@ Parent Types:
 
 - [ToString](core_package_interfaces.md#interface-tostring)
 
+<!--Del-->
 ### prop causedBy
 
 ```cangjie
@@ -359,6 +362,11 @@ Execution Result:
 Exception: This is an exception
 Exception: This is a cause
 ```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### prop message
 
@@ -419,6 +427,7 @@ Default exception message: ''
 Exception class name: Exception
 ```
 
+<!--Del-->
 ### init(Exception)
 
 ```cangjie
@@ -466,6 +475,11 @@ Exception
 Exception: This is a cause
 ```
 
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
+
 ### init(String)
 
 ```cangjie
@@ -497,6 +511,7 @@ Exception message: Custom exception message
 Exception class name: Exception: Custom exception message
 ```
 
+<!--Del-->
 ### init(String, Exception)
 
 ```cangjie
@@ -551,6 +566,11 @@ Caused by: Exception: This is a cause
      at default::throwException()(/tmp/test-exception-chain.cj:13)
      ... 1 more
 ```
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
+<!--DelEnd-->
 
 ### func getClassName()
 

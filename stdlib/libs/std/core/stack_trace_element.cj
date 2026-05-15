@@ -28,12 +28,19 @@ public open class StackTraceElement <: ToString {
      */
     public func toString(): String { 
         if (declaringClass.isEmpty() && methodName.isEmpty()) {
-                return("${fileName}:${lineNumber}")
+            return("${fileName}:${lineNumber}")
         } else {
             let packageDelimiter: String = if (declaringClass.isEmpty()) { "" } else { "." }
             return(
                 "${declaringClass}${packageDelimiter}${methodName}(${fileName}:${lineNumber})")
         }
+    }
+
+    func equals(other: StackTraceElement): Bool {
+        return this.declaringClass == other.declaringClass &&
+            this.methodName == other.methodName &&
+            this.fileName == other.fileName &&
+            this.lineNumber == other.lineNumber
     }
 }
 
