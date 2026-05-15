@@ -3923,6 +3923,7 @@ main(): Int64 {
 Current thread state: 'Running'
 ```
 
+<!--Del-->
 ### static func handleUncaughtErrorBy((Error) -> Unit)
 
 ```cangjie
@@ -3996,6 +3997,7 @@ An exception has occurred:
     Out of memory
 ```
 
+<!--DelEnd-->
 ### static func handleUncaughtExceptionBy((Thread, Exception) -> Unit)
 
 ```cangjie
