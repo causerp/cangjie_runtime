@@ -1204,6 +1204,10 @@ public func all(predicate: (T) -> Bool): Bool
 
 Function: Determines whether all elements in this [ArrayList](collection_package_class.md#class-arraylistt) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -1220,6 +1224,10 @@ public func any(predicate: (T) -> Bool): Bool
 
 Function: Determines whether any element in this [ArrayList](collection_package_class.md#class-arraylistt) satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -1326,6 +1334,10 @@ public func filter(predicate: (T) -> Bool): ArrayList<T>
 
 Function: Returns a new [ArrayList](collection_package_class.md#class-arraylistt)\<T> containing elements that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -1342,6 +1354,10 @@ public func filterMap<R>(transform: (T) -> ?R): ArrayList<R>
 
 Function: Performs both filtering and mapping operations, returning a new [ArrayList](collection_package_class.md#class-arraylistt).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> ?R - The mapping function. A return value of Some corresponds to predicate being true, None corresponds to false.
@@ -1358,6 +1374,10 @@ public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R>
 
 Function: Applies a transform closure to each element of this [ArrayList](collection_package_class.md#class-arraylistt), where the closure returns a new [ArrayList](collection_package_class.md#class-arraylistt), then flattens and concatenates all returned ArrayLists into a single result [ArrayList](collection_package_class.md#class-arraylistt).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> [ArrayList](collection_package_class.md#class-arraylistt)\<R> - The mapping function.
@@ -1374,6 +1394,10 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 Function: Accumulates values starting from the specified initial value, processing elements from left to right.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The initial value of type R.
@@ -1391,6 +1415,10 @@ public func forEach(action: (T) -> Unit): Unit
 
 Function: Performs the given action on each element.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The action to be performed.
@@ -1528,6 +1556,10 @@ public func intersperse(separator: T): ArrayList<T>
 
 Function: Returns a new [ArrayList](collection_package_class.md#class-arraylistt) with the given element inserted between every two existing elements.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - separator: T - The element to be inserted.
@@ -1623,6 +1655,10 @@ public func map<R>(transform: (T) -> R): ArrayList<R>
 
 Function: Applies a transformation to this [ArrayList](collection_package_class.md#class-arraylistt) and returns a new [ArrayList](collection_package_class.md#class-arraylistt).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) ->R - The transformation function to apply.
@@ -1639,6 +1675,10 @@ public func none(predicate: (T) -> Bool): Bool
 
 Function: Determines whether none of the elements in the [ArrayList](collection_package_class.md#class-arraylistt) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to test against.
@@ -1655,6 +1695,10 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 Function: Computes from left to right using the first element as the initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (T, T) -> T - The computation function to apply.
@@ -1976,6 +2020,10 @@ Function: Skips a specified number of elements and returns a new [ArrayList](col
 
 Throws an exception when count is less than or equal to 0. When count equals 0, it effectively skips no elements and returns a new [ArrayList](collection_package_class.md#class-arraylistt) containing all elements of the source [ArrayList](collection_package_class.md#class-arraylistt). When count is greater than 0 but less than the size of the source [ArrayList](collection_package_class.md#class-arraylistt), it skips the first count elements and returns a new [ArrayList](collection_package_class.md#class-arraylistt) containing the remaining elements. When count is greater than or equal to the size of the [ArrayList](collection_package_class.md#class-arraylistt), it returns an empty [ArrayList](collection_package_class.md#class-arraylistt).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to skip.
@@ -2112,6 +2160,10 @@ Function: Extracts elements from the [ArrayList](collection_package_class.md#cla
 
 Throws an exception when count is less than or equal to 0.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The extraction interval.
@@ -2133,6 +2185,10 @@ Function: Takes a specified number of elements from the array and returns a new 
 
 Throws an exception when count is less than or equal to 0. When count equals 0, no elements are taken, and an empty array is returned. When count is greater than 0 but less than the size of the source array, the first count elements are taken and returned in a new array. When count is greater than or equal to the size of the array, all elements are taken and returned in a new array.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to take.
@@ -2380,6 +2436,11 @@ public func zip<R>(other: ArrayList<R>): ArrayList<(T, R)>
 ```
 
 Function: Merges two [ArrayList](collection_package_class.md#class-arraylistt)s into a new [ArrayList](collection_package_class.md#class-arraylistt) (length determined by the shorter [ArrayList](collection_package_class.md#class-arraylistt)).
+
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 
 Parameters:
 
@@ -4578,6 +4639,10 @@ public func all(predicate: (K, V) -> Bool): Bool
 
 Function: Determines whether all key-value pairs in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -4594,6 +4659,10 @@ public func any(predicate: (K, V) -> Bool): Bool
 
 Function: Determines whether any key-value pair in the [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -4843,6 +4912,10 @@ public func filter(predicate: (K, V) -> Bool): HashMap<K, V>
 
 Function: Returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek)\<K, V> containing key-value pairs that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -4859,6 +4932,10 @@ public func fold<R>(initial: R, operation: (R, K, V) -> R): R
 
 Function: Accumulates values starting from the given initial value, processing from left to right.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The initial value of type R.
@@ -4876,6 +4953,10 @@ public func forEach(action: (K, V) -> Unit): Unit
 
 Function: Performs the given action on each key-value pair.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given action function.
@@ -5080,6 +5161,10 @@ public func mapValues<R>(transform: (K, V) -> R): HashMap<K, R>
 
 Function: Transforms this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) and returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (K, V) -> R - The given transformation function.
@@ -5096,6 +5181,10 @@ public func mapValues<R>(transform: (V) -> R): HashMap<K, R>
 
 Function: Transforms this [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) and returns a new [HashMap](collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (V) -> R - The given transformation function.
@@ -5112,6 +5201,10 @@ public func none(predicate: (K, V) -> Bool): Bool
 
 Function: Returns true if no key-value pairs satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -5128,6 +5221,10 @@ public func reduce(operation: (V, V) -> V): Option<V>
 
 Function: Accumulates values using the first value as initial value, processing from left to right.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (V, V) -> V - The given accumulation function.
@@ -6128,6 +6225,10 @@ public func all(predicate: (T) -> Bool): Bool
 
 Function: Determines whether all elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to test.
@@ -6143,6 +6244,10 @@ public func any(predicate: (T) -> Bool): Bool
 
 Function: Determines whether there exists any element in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) that satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -6423,6 +6528,10 @@ public func filter(predicate: (T) -> Bool): HashSet<T>
 
 Function: Returns a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet)\<T> containing elements that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -6439,6 +6548,10 @@ public func filterMap<R>(transform: (T) -> ?R): HashSet<R>
 
 Function: Performs both filtering and mapping operations, returning a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> ?R - The specified mapping function. A return value of Some corresponds to a predicate of true for filtering, while None indicates false.
@@ -6455,6 +6568,10 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 Function: Computes from left to right using the specified initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The initial value of type R.
@@ -6472,6 +6589,10 @@ public func forEach(action: (T) -> Unit): Unit
 
 Function: Iterates over all elements, executing the given action.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The specified action function.
@@ -6595,6 +6716,10 @@ public func map<R>(transform: (T) -> R): HashSet<R> where R <: Hashable & Equata
 
 Function: Maps all elements of type T in the current [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) to elements of type R according to the transform function, forming a new [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T)->R - The mapping function.
@@ -6611,6 +6736,10 @@ public func none(predicate: (T) -> Bool): Bool
 
 Function: Determines whether none of the elements in the [HashSet](collection_package_class.md#class-hashsett-where-t--hashable--equatablet) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -6627,6 +6756,10 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 Function: Computes from left to right using the first element as the initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (T, T) -> T - The specified computation function.
@@ -8805,6 +8938,10 @@ public func all(predicate: (T) -> Bool): Bool
 
 Function: Determines whether all elements in the linked list satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -8821,6 +8958,10 @@ public func any(predicate: (T) -> Bool): Bool
 
 Function: Determines whether any element in the linked list satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -8864,6 +9005,10 @@ public func filter(predicate: (T) -> Bool): LinkedList<T>
 
 Function: Returns a new linked list containing elements that satisfy the filtering condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -8894,6 +9039,10 @@ public func flatMap<R>(transform: (T) -> LinkedList<R>): LinkedList<R>
 
 Function: Applies a transform closure to each element in the linked list, which returns a new linked list, then flattens and concatenates all returned linked lists into a single resulting linked list.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> [LinkedList](collection_package_class.md#class-linkedlistt)\<R> - The given mapping function.
@@ -8910,6 +9059,10 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 Function: Computes from left to right using the specified initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The given initial value of type R.
@@ -8927,6 +9080,10 @@ public func forEach(action: (T) -> Unit): Unit
 
 Function: Iterates over all elements and executes the given action.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given action function.
@@ -8959,6 +9116,10 @@ public func intersperse(separator: T): LinkedList<T>
 
 Function: Returns a new [LinkedList](collection_package_class.md#class-linkedlistt) with the given new element inserted between every two existing elements.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - separator: T - The given element.
@@ -9097,6 +9258,10 @@ public func map<R>(transform: (T) -> R): LinkedList<R>
 
 Function: Maps this [LinkedList](collection_package_class.md#class-linkedlistt) and returns a new [LinkedList](collection_package_class.md#class-linkedlistt).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> R - The given mapping function.
@@ -9202,6 +9367,10 @@ public func none(predicate: (T) -> Bool): Bool
 
 Function: Determines whether none of the elements in this linked list satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -9218,6 +9387,10 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 Function: Computes from left to right using the first element as the initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (T, T) -> T - The given computation function.
@@ -9739,6 +9912,10 @@ Function: Skips a specified number of elements and returns a new linked list.
 
 Throws an exception when count is less than or equal to 0. When count equals 0, it effectively skips no elements and returns a new list containing all elements of the source list. When count is greater than 0 but less than the size of the source list, it skips the first 'count' elements and returns a new list containing the remaining elements. When count is greater than or equal to the size of the source list, returns an empty list.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to skip.
@@ -9860,6 +10037,10 @@ Function: Extracts elements from the linked list at specified intervals and retu
 
 Throws an exception when count is less than or equal to 0.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The extraction interval.
@@ -9881,6 +10062,10 @@ Function: Takes a specified number of elements from the linked list and returns 
 
 Throws an exception when count is less than or equal to 0. When count equals 0, takes no elements and returns an empty list. When count is greater than 0 but less than the size of the source list, takes the first 'count' elements and returns a new list. When count is greater than or equal to the size of the source list, takes all elements and returns a new list.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to take.
@@ -10205,6 +10390,11 @@ public func zip<R>(other: LinkedList<R>): LinkedList<(T, R)>
 ```
 
 Function: Combines two [LinkedList](./collection_package_class.md#class-linkedlistt) instances into a new [LinkedList](./collection_package_class.md#class-linkedlistt) (length determined by the shorter list).
+
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 
 Parameters:
 
@@ -10845,6 +11035,10 @@ public func all(predicate: (K, V) -> Bool): Bool
 
 Function: Determines whether all key-value pairs in [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to be evaluated.
@@ -10861,6 +11055,10 @@ public func any(predicate: (K, V) -> Bool): Bool
 
 Function: Determines whether any key-value pair in [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to be evaluated.
@@ -11290,6 +11488,10 @@ public func filter(predicate: (K, V) -> Bool): TreeMap<K, V>
 
 Function: Returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, V> containing key-value pairs that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -11306,6 +11508,10 @@ public func fold<R>(initial: R, operation: (R, K, V) -> R): R
 
 Function: Computes from left to right using the specified initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The given initial value of type R.
@@ -11323,6 +11529,10 @@ public func forEach(action: (K, V) -> Unit): Unit
 
 Function: Iterates over all key-value pairs and executes the given action.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (K, V) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given action function.
@@ -11665,6 +11875,10 @@ public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R>
 
 Function: Maps this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) and returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (K, V) -> R - The given mapping function.
@@ -11681,6 +11895,10 @@ public func mapValues<R>(transform: (V) -> R): TreeMap<K, R>
 
 Function: Maps this [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R> and returns a new [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek)\<K, R>.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (V) -> R - The given mapping function.
@@ -11697,6 +11915,10 @@ public func none(predicate: (K, V) -> Bool): Bool
 
 Function: Determines whether none of the key-value pairs in the [TreeMap](collection_package_class.md#class-treemapk-v-where-k--comparablek) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (K, V) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -11713,6 +11935,10 @@ public func reduce(operation: (V, V) -> V): Option<V>
 
 Function: Computes from left to right using the first value as the initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (V, V) -> V - The given computation function.
@@ -13005,6 +13231,10 @@ public func all(predicate: (T) -> Bool): Bool
 
 Function: Determines whether all elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -13021,6 +13251,10 @@ public func any(predicate: (T) -> Bool): Bool
 
 Function: Determines whether any element in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfies the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -13297,6 +13531,10 @@ public func filter(predicate: (T) -> Bool): TreeSet<T>
 
 Function: Returns a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet)\<T> containing elements that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified condition.
@@ -13329,6 +13567,10 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 Function: Computes a value by applying an operation from left to right with the specified initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The initial value of type R.
@@ -13346,6 +13588,10 @@ public func forEach(action: (T) -> Unit): Unit
 
 Function: Iterates over all elements and applies the given action.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The specified action function.
@@ -13513,6 +13759,10 @@ public func map<R>(transform: (T) -> R): TreeSet<R> where R <: Comparable<R>
 
 Function: Transforms all elements of type T in the current [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) into elements of type R using the transform function, forming a new [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet).
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T)->R - The transformation function.
@@ -13529,6 +13779,10 @@ public func none(predicate: (T) -> Bool): Bool
 
 Function: Determines whether none of the elements in the [TreeSet](collection_package_class.md#class-treesett-where-t--comparablet) satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -13545,6 +13799,10 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 Function: Uses the first element as the initial value and computes from left to right.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (T, T) -> T - The given computation function.

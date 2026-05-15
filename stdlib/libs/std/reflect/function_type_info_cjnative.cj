@@ -13,6 +13,7 @@ import std.collection.ArrayList
 /**
  * Reflective information about function types.
  */
+@When[env != "ohos"]
 public class FunctionTypeInfo <: TypeInfo {
     var _parameters: ?ReadOnlyList<TypeInfo> = None<ReadOnlyList<TypeInfo>>
     var _returnType: ?TypeInfo = None<TypeInfo>

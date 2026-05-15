@@ -263,6 +263,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param transform the given mapping function.
      * @returns a new TreeMap.
      */
+    @When[env != "ohos"]
     public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R> {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -293,6 +294,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param transform the given mapping function.
      * @returns a new TreeMap.
      */
+    @When[env != "ohos"]
     public func mapValues<R>(transform: (V) -> R): TreeMap<K, R> {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -323,6 +325,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given mapping function.
      * @returns a new collection of key-value pairs that satisfy the filtering condition.
      */
+    @When[env != "ohos"]
     public func filter(predicate: (K, V) -> Bool): TreeMap<K, V> {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -354,6 +357,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      *
      * @param action the given operation function.
      */
+    @When[env != "ohos"]
     public func forEach(action: (K, V) -> Unit): Unit {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -380,6 +384,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
      */
+    @When[env != "ohos"]
     public func all(predicate: (K, V) -> Bool): Bool {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -409,6 +414,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns Whether there is any key-value pair that satisfies the condition.
      */
+    @When[env != "ohos"]
     public func any(predicate: (K, V) -> Bool): Bool {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -438,6 +444,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param predicate the given condition.
      * @returns Whether all key-value pairs in the current TreeMap do not satisfy the condition.
      */
+    @When[env != "ohos"]
     public func none(predicate: (K, V) -> Bool): Bool {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
@@ -468,6 +475,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
+    @When[env != "ohos"]
     public func fold<R>(initial: R, operation: (R, K, V) -> R): R {
         var result = initial
         let curNode: Node<K, V> = this.root
@@ -496,6 +504,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      * @param operation the given computation function.
      * @returns the final computed value.
      */
+    @When[env != "ohos"]
     public func reduce(operation: (V, V) -> V): Option<V> {
         if (this.size <= 0) {
             return None<V>

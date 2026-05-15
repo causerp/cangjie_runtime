@@ -206,6 +206,10 @@ public func all(predicate: (T) -> Bool): Bool
 
 Function: Determines whether all elements in the array satisfy the condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Given condition.
@@ -222,6 +226,10 @@ public func any(predicate: (T) -> Bool): Bool
 
 Function: Determines whether any element in the array satisfies the condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Given condition.
@@ -490,6 +498,10 @@ public func filter(predicate: (T) -> Bool): Array<T>
 
 Function: Returns a new array containing elements that satisfy the given predicate.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -506,6 +518,10 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 
 Function: Performs both filtering and mapping operations, returning a new array.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> ?R - The given transformation function. A return value of Some corresponds to predicate being true in filter, while None indicates false.
@@ -522,6 +538,10 @@ public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
 
 Function: Applies a transformation closure (transform) to each element in the array, where the closure returns an array, then flattens and concatenates all returned arrays into a single result array.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - transform: (T) -> [Array](core_package_structs.md#struct-arrayt)\<R> - The given transformation function.
@@ -538,6 +558,10 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 Function: Computes from left to right using the specified initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - initial: R - The initial value of type R.
@@ -555,6 +579,10 @@ public func forEach(action: (T) -> Unit): Unit
 
 Function: Iterates through all elements and executes the given action.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - action: (T) -> [Unit](../../core/core_package_api/core_package_intrinsics.md#unit) - The given action function.
@@ -604,6 +632,10 @@ public func intersperse(separator: T): Array<T>
 
 Function: Returns a new array with the given element inserted between every two existing elements.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - separator: T - The given element.
@@ -665,6 +697,10 @@ public func none(predicate: (T) -> Bool): Bool
 
 Function: Determines whether none of the elements in the array satisfy the given condition.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - predicate: (T) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The given condition.
@@ -681,6 +717,10 @@ public func reduce(operation: (T, T) -> T): Option<T>
 
 Function: Computes from left to right using the first element as the initial value.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - operation: (T, T) -> T - The given computation function.
@@ -790,6 +830,10 @@ Function: Skips a specified number of elements and returns a new array.
 
 Throws an exception if count is less than 0. When count equals 0, no elements are skipped, returning a new array with all elements. When count is greater than 0 but less than the array size, skips the first count elements and returns a new array with the remaining elements. When count is greater than or equal to the array size, returns an empty array.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to skip.
@@ -925,6 +969,10 @@ Function: Extracts elements from the array at specified intervals and returns a 
 
 Throws an exception if `count` is less than or equal to 0.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The extraction interval.
@@ -995,6 +1043,10 @@ Function: Extracts a specified number of elements from the array and returns a n
 
 Throws an exception if `count` is less than 0. If `count` is 0, returns an empty array. If `count` is greater than 0 but less than the source array size, extracts the first `count` elements and returns a new array. If `count` is greater than or equal to the array size, extracts all elements and returns a new array.
 
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 Parameters:
 
 - count: [Int64](core_package_intrinsics.md#int64) - The number of elements to extract.
@@ -1218,6 +1270,11 @@ public func zip<R>(other: Array<R>): Array<(T, R)>
 ```
 
 Function: Merges two arrays into a new array (length determined by the shorter array).
+
+
+> **Note：**
+>
+> Unsupported platform：OpenHarmony
 
 Parameters:
 
