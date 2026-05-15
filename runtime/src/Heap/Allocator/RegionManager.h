@@ -130,7 +130,7 @@ public:
     void DumpRegionInfo() const;
 #endif
 
-    void DumpRegionStats(const char* msg) const;
+    void DumpRegionStats(const char* msg, bool dumpToError = false) const;
 
     uintptr_t GetInactiveZone() const { return inactiveZone; }
 
@@ -257,7 +257,12 @@ public:
 
     void CollectFromSpaceGarbage()
     {
-        garbageRegionList.MergeRegionList(fromRegionList, RegionInfo::RegionType::GARBAGE_REGION);
+        // bypass garbageList — reclaim from-regions directly to freeTree.
+        RegionInfo* region = fromRegionList.TakeHeadRegion();
+        while (region != nullptr) {
+            ReclaimRegion(region);
+            region = fromRegionList.TakeHeadRegion();
+        }
     }
 
     size_t GetThreadLocalRegionSize() const
@@ -271,7 +276,8 @@ public:
              region->GetLiveByteCount(), region->GetRegionEnd(), region->GetRegionType());
 
         region->LockWriteRegion();
-        garbageRegionList.PrependRegion(region, RegionInfo::RegionType::GARBAGE_REGION);
+        // bypass garbageList — reclaim directly to freeTree.
+        ReclaimRegion(region);
         region->UnlockWriteRegion();
 
         if (region->IsLargeRegion()) {
@@ -348,12 +354,13 @@ public:
 
     size_t GetUsedUnitCount() const
     {
-        return fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() +
+        return
+            fromRegionList.GetUnitCount() + unmovableFromRegionList.GetUnitCount() +
             recentFullRegionList.GetUnitCount() + oldLargeRegionList.GetUnitCount() +
             recentLargeRegionList.GetUnitCount() + oldPinnedRegionList.GetUnitCount() +
             recentPinnedRegionList.GetUnitCount() + rawPointerPinnedRegionList.GetUnitCount() +
             largeTraceRegions.GetUnitCount() + fullTraceRegions.GetUnitCount() +
-            Heap::GetHeap().GetAllocator().GetAllocBufersCount() + tlRegionList.GetUnitCount();
+            tlRegionList.GetUnitCount();
     }
 
     size_t GetDirtyUnitCount() const { return freeRegionManager.GetDirtyUnitCount(); }
@@ -384,7 +391,7 @@ public:
             recentLargeRegionList.GetAllocatedSize() + oldPinnedRegionList.GetAllocatedSize() +
             recentPinnedRegionList.GetAllocatedSize() + rawPointerPinnedRegionList.GetAllocatedSize() +
             largeTraceRegions.GetAllocatedSize() + fullTraceRegions.GetAllocatedSize() +
-            tlRegionList.GetAllocatedSize() + threadLocalSize;
+            threadLocalSize;
     }
 
     inline size_t GetFromSpaceSize() const { return fromRegionList.GetAllocatedSize(); }
