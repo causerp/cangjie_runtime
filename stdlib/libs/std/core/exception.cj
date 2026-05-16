@@ -68,14 +68,12 @@ public open class Exception <: ToString {
         pcArray = fillInStackTrace(RawArray<UInt64>(1, repeat: 0), detailMessage.toArray().rawptr)
     }
 
-    @When[env != "ohos"]
     public init(message: String, causedBy: Exception) {
         detailMessage = message
         innerCause = causedBy
         pcArray = fillInStackTrace(RawArray<UInt64>(1, repeat: 0), detailMessage.toArray().rawptr)
     }
 
-    @When[env != "ohos"]
     public init(causedBy: Exception) {
         innerCause = causedBy
         pcArray = fillInStackTrace(RawArray<UInt64>(1, repeat: 0), detailMessage.toArray().rawptr)
@@ -91,12 +89,6 @@ public open class Exception <: ToString {
         }
     }
 
-    /*
-     * Cause of this exception, which may be null. The cause is the exception that caused this exception to get thrown.
-     * It is possible that `printStackTrace` will recurse infinitely and eventually cause a stack overflow. Be careful.
-     * To fix it, Exception should implement `Hashable & Equatable` and check if a cause has already been printed.
-     */
-    @When[env != "ohos"]
     public mut prop causedBy: ?Exception {
         get() {
             return innerCause
@@ -130,7 +122,7 @@ public open class Exception <: ToString {
         let trace = getStackTrace()
         var ourSize = trace.size - 1
         var enclosingSize = enclosingTrace.size - 1
-        while (ourSize >= 0 && enclosingSize >= 0 && trace[ourSize].equals(enclosingTrace[enclosingSize])) {
+        while (ourSize >= 0 && enclosingSize >= 0 && trace[ourSize].fileName == enclosingTrace[enclosingSize].fileName && trace[ourSize].lineNumber == enclosingTrace[enclosingSize].lineNumber) {
             ourSize--
             enclosingSize--
         }
