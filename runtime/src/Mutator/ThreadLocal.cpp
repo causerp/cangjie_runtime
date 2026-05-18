@@ -26,7 +26,7 @@ void ThreadLocal::InitializeCleaner()
     (void)cleaner;
 }
 
-CleanThreadLocalData::CleanThreadLocalData()
+CleanThreadLocalData::CleanThreadLocalData() noexcept
 {
     // Add a side effect to make sure the constructor wont be optimized out.
     std::atomic_thread_fence(std::memory_order_seq_cst);
