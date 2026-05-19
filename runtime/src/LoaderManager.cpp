@@ -9,13 +9,17 @@
 #endif
 
 #include "LoaderManager.h"
+#include "Base/ImmortalWrapper.h"
 #include "Loader/ILoader.h"
 namespace MapleRuntime {
 bool LoaderManager::isReleased;
 LoaderManager* LoaderManager::GetInstance()
 {
-    static LoaderManager loaderManager;
-    return &loaderManager;
+    // Keep the process-wide singleton alive until process exit. Exit-time static
+    // destruction can race with still-running CJ threads that lazily query
+    // loader state during shutdown.
+    static ImmortalWrapper<LoaderManager> loaderManager;
+    return &*loaderManager;
 }
 
 LoaderManager::LoaderManager() noexcept
@@ -28,12 +32,20 @@ LoaderManager::LoaderManager() noexcept
 
 LoaderManager::~LoaderManager() noexcept
 {
+    LOG(RTLOG_WARNING, "LoaderManager destructor invoked for %p, loader=%p.", this, loader);
     delete loader;
     loader = nullptr;
     isReleased = true;
 }
 
-ILoader* LoaderManager::GetLoader() const { return loader; }
+ILoader* LoaderManager::GetLoader() const
+{
+    if (UNLIKELY(loader == nullptr)) {
+        LOG(RTLOG_ERROR, "LoaderManager::GetLoader returns nullptr, this=%p, isReleased=%d, initStatus=%d.",
+            this, static_cast<int>(isReleased), static_cast<int>(GetInitStatus()));
+    }
+    return loader;
+}
 
 TypeInfo* LoaderManager::FindTypeInfoFromLoadedFiles(const char* typeInfoName)
 {
