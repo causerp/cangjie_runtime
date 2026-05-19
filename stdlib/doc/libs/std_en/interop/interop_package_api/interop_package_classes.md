@@ -175,7 +175,7 @@ Function: This class encapsulates functions for handling circular references in 
 
 Parent type:
 
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-InteropContext)>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[InteropContext](#class-interopcontext)>
 
 ### init((ExportedRef, ForeignProxy) -> Unit)
 
