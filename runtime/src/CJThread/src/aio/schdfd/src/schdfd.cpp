@@ -272,6 +272,22 @@ int SchdfdRegister(SignedSocket fd)
     return 0;
 }
 
+/* Dispatch a ready cjthread back to its owning scheduler before running it */
+static inline void SchdfdDispatchReadyCJThread(struct CJThread *cjthread)
+{
+    if (cjthread == nullptr) {
+        return;
+    }
+
+    struct Schedule *schedule = cjthread->schedule;
+    if (ScheduleGet() != schedule || CJThreadGet() == nullptr) {
+        ScheduleGlobalWrite(&cjthread, 1);
+    } else {
+        ProcessorLocalWrite(cjthread);
+    }
+    ProcessorWake(schedule, nullptr);
+}
+
 /* Wake up all possible cjthread that may block the fd */
 void SchdfdWakeall(struct SchdfdFd *schdFd)
 {
@@ -284,14 +300,8 @@ void SchdfdWakeall(struct SchdfdFd *schdFd)
     }
     readCJThread = SchdpollReady(schdFd->pd, SHCDPOLL_READ, false);
     writeCJThread = SchdpollReady(schdFd->pd, SHCDPOLL_WRITE, false);
-    if (readCJThread != nullptr) {
-        ProcessorLocalWrite(readCJThread);
-        ProcessorWake(readCJThread->schedule, nullptr);
-    }
-    if (writeCJThread != nullptr) {
-        ProcessorLocalWrite(writeCJThread);
-        ProcessorWake(writeCJThread->schedule, nullptr);
-    }
+    SchdfdDispatchReadyCJThread(readCJThread);
+    SchdfdDispatchReadyCJThread(writeCJThread);
 }
 
 int SchdfdFdValidCheck(SignedSocket fd)
@@ -492,10 +502,7 @@ void SchdfdReadTimeout(struct SchdfdFd *schdFd)
     // who started the timer to determine which situation it is.
     readCJThread = SchdpollReady(schdFd->pd, SHCDPOLL_READ, true);
     (void)FreeSchdfdTimer(schdFd, SHCDPOLL_READ);
-    if (readCJThread != nullptr) {
-        ProcessorLocalWrite(readCJThread);
-        ProcessorWake(readCJThread->schedule, nullptr);
-    }
+    SchdfdDispatchReadyCJThread(readCJThread);
 }
 
 void SchdfdWriteTimeout(struct SchdfdFd *schdFd)
@@ -504,10 +511,7 @@ void SchdfdWriteTimeout(struct SchdfdFd *schdFd)
 
     writeCJThread = SchdpollReady(schdFd->pd, SHCDPOLL_WRITE, true);
     (void)FreeSchdfdTimer(schdFd, SHCDPOLL_WRITE);
-    if (writeCJThread != nullptr) {
-        ProcessorLocalWrite(writeCJThread);
-        ProcessorWake(writeCJThread->schedule, nullptr);
-    }
+    SchdfdDispatchReadyCJThread(writeCJThread);
 }
 
 /* SchdfdWait with timeout. */
