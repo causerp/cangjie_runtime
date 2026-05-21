@@ -863,7 +863,10 @@ bool TypeTemplate::IsEnumCtor() const
     if (!IsEnum() && !IsTempEnum()) {
         return false;
     }
-    return enumInfo != nullptr ? (enumInfo->GetModifier() & MODIFIER_ENUM_CTOR) : false;
+    if (enumInfo == nullptr) {
+        return true;
+    }
+    return false;
 }
 
 void* ReflectInfo::GetAnnotations(TypeInfo* arrayTi)
@@ -888,7 +891,10 @@ bool TypeInfo::IsEnumCtor() const
     if (!IsEnum() && !IsTempEnum()) {
         return false;
     }
-    return enumInfo != nullptr ? (enumInfo->GetModifier() & MODIFIER_ENUM_CTOR) : false;
+    if (enumInfo == nullptr) {
+        return true;
+    }
+    return false;
 }
 
 bool TypeInfo::IsOptionLikeRefEnum()
@@ -1188,6 +1194,6 @@ void EnumCtorInfo::SetName(const char* pName)
 
 void* EnumCtorReflectInfo::GetAnnotations(TypeInfo* arrayTi)
 {
-    return MapleRuntime::GetAnnotations(annotationMethod, arrayTi);
+    return MapleRuntime::GetAnnotations(0, arrayTi);
 }
 } // namespace MapleRuntime
