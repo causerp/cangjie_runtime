@@ -280,8 +280,7 @@ void CjHeapData::ProcessStacktrace(RecordStackInfo* recordStackInfo)
 
 void CjHeapData::ProcessRootLocal()
 {
-    MutatorManager::Instance().VisitAllMutators([this](Mutator &mutator) {
-        // skip finalizer
+    MutatorManager::Instance().VisitAllMutatorsExceptFinalizer([this](Mutator &mutator) {
         if (!mutator.IsVaildCJThread()) {
             return;
         }

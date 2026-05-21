@@ -431,7 +431,8 @@ struct CJThread *CJThreadMemAlloc(struct Schedule *schedule, struct StackAttr *s
 
 /* Alloc CJThread. */
 struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAttr,
-                               struct StackAttr *stackAttr, CJThreadBuf coBuf)
+                               struct StackAttr *stackAttr, CJThreadBuf coBuf,
+                               CJThreadCreateSource createSource)
 {
     int error;
     struct CJThread *newCJThread = nullptr;
@@ -470,7 +471,7 @@ struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAtt
         // co_buf is used to determine whether cjthread0 is used. cjthread0 is not put
         // in the list.
         if (addToList) {
-            if (ScheduleAllCJThreadListAdd(newCJThread) != 0) {
+            if (ScheduleAllCJThreadListAdd(newCJThread, createSource) != 0) {
                 CJThreadMemFree(newCJThread);
                 return nullptr;
             }
@@ -832,7 +833,7 @@ MRT_INLINE static void CJThreadNewSetAttr(const struct CJThreadAttrInner *attr,
 }
 
 struct CJThread* CJThreadBuild(ScheduleHandle schedule, const struct CJThreadAttr *attrUser, CJThreadFunc func,
-                               const void *argStart, unsigned int argSize, bool isSignal)
+                               const void *argStart, unsigned int argSize, CJThreadCreateSource createSource)
 {
     struct StackAttr stackAttr;
     struct CJThread *newCJThread;
@@ -859,7 +860,8 @@ struct CJThread* CJThreadBuild(ScheduleHandle schedule, const struct CJThreadAtt
     CJThreadNewSetAttr(attr, scheduleCJThread, &stackAttr);
     // Method of obtaining the cjthread control block
     CJThreadBuf buf =
-        (CJThreadGet() == nullptr || currentSchedule != targetSchedule || isSignal) ? GLOBAL_BUF : LOCAL_BUF;
+        (CJThreadGet() == nullptr || currentSchedule != targetSchedule ||
+         createSource == CJTHREAD_CREATE_SOURCE_SIGNAL) ? GLOBAL_BUF : LOCAL_BUF;
 
     // scheduleCJThread increases by 1. The count is calculated when the cjthread upper limit
     // exists. The count is mandatory for a non-default scheduler. The count is used to
@@ -867,7 +869,7 @@ struct CJThread* CJThreadBuild(ScheduleHandle schedule, const struct CJThreadAtt
     if (targetSchedule->scheduleType != SCHEDULE_DEFAULT) {
         atomic_fetch_add(&scheduleCJThread->cjthreadNum, 1ULL);
     }
-    newCJThread = CJThreadAlloc(targetSchedule, &argAttr, &stackAttr, buf);
+    newCJThread = CJThreadAlloc(targetSchedule, &argAttr, &stackAttr, buf, createSource);
     if (newCJThread == nullptr) {
         if (targetSchedule->scheduleType != SCHEDULE_DEFAULT) {
             atomic_fetch_sub(&scheduleCJThread->cjthreadNum, 1ULL);
@@ -1014,7 +1016,7 @@ CJThreadHandle ExclusiveCJThreadNew(CJThreadFunc func,
 
 /* Create a cjthread in the cjthread context. */
 CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *attrUser, CJThreadFunc func,
-                           const void *argStart, unsigned int argSize, bool isSignal)
+                           const void *argStart, unsigned int argSize, CJThreadCreateSource createSource)
 {
     unsigned long long cjthreadId = CJThreadNewId();
 #ifdef __OHOS__
@@ -1027,15 +1029,15 @@ CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *a
     struct Schedule *targetSchedule = (struct Schedule *)schedule;
     struct ScheduleCJThread *scheduleCJThread = &targetSchedule->schdCJThread;
     currentSchedule = ScheduleGet();
-    struct CJThread* newCJThread = CJThreadBuild(schedule, attrUser, func, argStart, argSize, isSignal);
+    struct CJThread* newCJThread = CJThreadBuild(schedule, attrUser, func, argStart, argSize, createSource);
     if (newCJThread == nullptr) {
         HILOG_ERROR(ERRNO_SCHD_CJTHREAD_NULL, "build cjthread failed");
         return nullptr;
     }
     // Set cjthread id in CJThreadNew
     CJThreadSetId(newCJThread, cjthreadId);
-    CJThreadBuf buf =
-        (CJThreadGet() == nullptr || currentSchedule != targetSchedule || isSignal) ? GLOBAL_BUF : LOCAL_BUF;
+    CJThreadBuf buf = (CJThreadGet() == nullptr || currentSchedule != targetSchedule ||
+                       createSource == CJTHREAD_CREATE_SOURCE_SIGNAL) ? GLOBAL_BUF : LOCAL_BUF;
 #ifdef __OHOS__
     TRACE_FINISH_ASYNC(TRACE_CJTHREAD_NEW, cjthreadId);
 #elif defined(__ANDROID__)
@@ -1079,13 +1081,14 @@ CJThreadHandle CJThreadNew(ScheduleHandle schedule, const struct CJThreadAttr *a
 
 /* Submit tasks from an external thread to the scheduling framework. */
 CJThreadHandle CJThreadNewToSchedule(ScheduleHandle schedule, const struct CJThreadAttr *attr,
-                                     CJThreadFunc func, const void *argStart, unsigned int argSize, bool isSignal)
+                                     CJThreadFunc func, const void *argStart, unsigned int argSize,
+                                     CJThreadCreateSource createSource)
 {
     if (schedule == nullptr) {
         LOG_ERROR(ERRNO_SCHD_INVALID, "schedule null invalid");
         return nullptr;
     }
-    return CJThreadNew(schedule, attr, func, argStart, argSize, isSignal);
+    return CJThreadNew(schedule, attr, func, argStart, argSize, createSource);
 }
 
 CJThreadHandle CJThreadNewToDefault(const struct CJThreadAttr *attr, CJThreadFunc func,
@@ -1248,11 +1251,9 @@ int CJThreadPark(ParkCallbackFunc func, TraceEvent waitReason, void *arg)
     cjthread = CJThreadGet();
     if (UNLIKELY(cjthread == nullptr)) {
         MapleRuntime::ThreadType threadType = MapleRuntime::ThreadLocal::GetThreadType();
-        const char* threadTypeInfo = threadType == MapleRuntime::ThreadType::FP_THREAD ?
-                                                  "finalizer thread" :
-                                                  "normal thread";
         HILOG_FATAL(ERRNO_SCHD_CJTHREAD_PARK_FAILED,
-                    "cjthread park failed because of null cjthread and current thread is %s", threadTypeInfo);
+                    "cjthread park failed because of null cjthread, current thread type is %d",
+                    static_cast<int>(threadType));
     }
     cjthread->result = 0;
 

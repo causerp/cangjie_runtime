@@ -455,7 +455,8 @@ ScheduleHandle GetScheduler()
 }
 
 CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJThreadSpecificDataInner* data = nullptr,
-                             ScheduleHandle schedule = nullptr, bool isSignal = false)
+                             ScheduleHandle schedule = nullptr,
+                             CJThreadCreateSource createSource = CJTHREAD_CREATE_SOURCE_DEFAULT)
 {
     MapleRuntime::ScopedEntryTrace trace("CJRT_INVOKE_CJTASK_ASYNC");
     if (!CheckRuntimeValid(func)) {
@@ -470,7 +471,7 @@ CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJT
         LOG(RTLOG_ERROR, "new future failed.\n");
         return nullptr;
     }
-    if (isSignal) {
+    if (createSource == CJTHREAD_CREATE_SOURCE_SIGNAL) {
         fi->autoRelease = true;  // Mark for auto-release after signal task execution
     }
     {
@@ -495,7 +496,7 @@ CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJT
     lwtData.threadObject = nullptr;
     lwtData.obj = fi;
     CJThreadHandle handle = CJThreadNewToSchedule(scheduler, (const struct CJThreadAttr*)(&attr), UserFuncExecutor,
-                                                  &lwtData, sizeof(lwtData), isSignal);
+                                                  &lwtData, sizeof(lwtData), createSource);
     if (handle == nullptr) {
         LOG(RTLOG_ERROR, "failed to create cjthread.\n");
         std::lock_guard<std::mutex> lck(g_mtx);
@@ -511,7 +512,7 @@ CJThreadHandle RunCJTaskImpl(const CJTaskFunc func, void* args, int num = 0, CJT
 CJThreadHandle RunCJTask(const CJTaskFunc func, void* args) { return RunCJTaskImpl(func, args); }
 CJThreadHandle RunCJTaskSignal(const CJTaskFunc func, void* args)
 {
-    return RunCJTaskImpl(func, args, 0, nullptr, nullptr, true);
+    return RunCJTaskImpl(func, args, 0, nullptr, nullptr, CJTHREAD_CREATE_SOURCE_SIGNAL);
 }
 
 CJThreadHandle RunCJTaskToSchedule(const CJTaskFunc func, void* args, ScheduleHandle schedule)
