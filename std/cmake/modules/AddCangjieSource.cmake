@@ -321,3 +321,11 @@ function(install_cangjie_library_ffi_s lib_name)
         install(TARGETS ${lib_name} DESTINATION runtime/lib/${output_lib_dir}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
     endif()
 endfunction()
+
+function(install_ast_library_ffi lib_name)
+    # set install dir
+    string(TOLOWER ${TARGET_TRIPLE_DIRECTORY_PREFIX} output_lib_dir)
+    if(CANGJIE_CODEGEN_CJNATIVE_BACKEND)
+        install(FILES ${lib_name} DESTINATION lib/${output_lib_dir}_${CJNATIVE_BACKEND}${SANITIZER_SUBPATH})
+    endif()
+endfunction()

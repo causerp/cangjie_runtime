@@ -513,7 +513,7 @@ endif()
 
 make_cangjie_lib(
     std-ast IS_SHARED ${STD_AST_ALLOW_UNDEFINED}
-    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI
+    DEPENDS cangjie${BACKEND_TYPE}AST cangjie-std-astFFI-objs
     CANGJIE_STD_LIB_DEPENDS
         std-core
         std-collection
@@ -522,7 +522,7 @@ make_cangjie_lib(
         std-math
     OBJECTS ${output_cj_object_dir}/std/ast.o
     FLAGS
-        -lcangjie-std-astFFI
+        $<TARGET_OBJECTS:cangjie-std-astFFI-objs>
         -lcangjie-ast-support
         ${STDCPP_FLAG}
         ${GCC_S_FLAG}
