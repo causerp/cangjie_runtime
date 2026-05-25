@@ -37,7 +37,7 @@ Function: Gets the total number of matches for the regular expression.
 
 By default, it matches from start to end. After using setRegion, it only searches within the specified range.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The total number of matches.
 
@@ -51,7 +51,7 @@ Function: Starting from the current string offset position, finds the first matc
 
 Each call to find advances the current offset position to the first character after the latest matched subsequence. Subsequent calls start matching from this new position.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> if a match is found; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None.
 
@@ -67,7 +67,7 @@ public func find(index: Int64): Option<MatchData>
 
 Function: Resets the matcher's index position and starts matching the input sequence from the specified index, returning the matched subsequence.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> if a match is found; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None.
 
@@ -84,7 +84,7 @@ public func findAll(): Option<Array<MatchData>>
 
 Function: Matches the entire input sequence and finds all matching subsequences.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[MatchData](regex_package_structs.md#struct-matchdata)>> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[MatchData](regex_package_structs.md#struct-matchdata)>> if matches are found; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[MatchData](regex_package_structs.md#struct-matchdata)>>.None.
 
@@ -100,7 +100,7 @@ public func fullMatch(): Option<MatchData>
 
 Function: Matches the entire input sequence.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> if the entire sequence matches successfully; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None.
 
@@ -116,7 +116,7 @@ public func getString(): String
 
 Function: Gets the matched sequence.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The matched sequence.
 
@@ -128,7 +128,7 @@ public func matchStart(): Option<MatchData>
 
 Function: Matches the beginning of the input sequence.
 
-Return value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> if the match is successful; otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None.
 
@@ -144,7 +144,7 @@ public func region(): Position
 
 Function: Returns the matcher's region settings.
 
-Return value:
+Returns:
 
 - [Position](regex_package_structs.md#struct-position) - The matcher's region settings.
 
@@ -160,7 +160,7 @@ Parameters:
 
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replacement string.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replaced string.
 
@@ -177,7 +177,7 @@ Parameters:
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replacement string.
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position for matching.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replaced string.
 
@@ -197,7 +197,7 @@ Parameters:
 
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replacement string.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replaced string.
 
@@ -214,7 +214,7 @@ Parameters:
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replacement string.
 - limit: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum number of replacements. If limit is 0, returns the original sequence; if limit is negative, replaces as many times as possible.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The replaced string.
 
@@ -226,7 +226,7 @@ public func resetRegion(): Matcher
 
 Function: Resets the matcher's start and end positions.
 
-Return value:
+Returns:
 
 - [Matcher](#class-matcher-deprecated) - The matcher itself.
 
@@ -242,7 +242,7 @@ Parameters:
 
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The new matching sequence.
 
-Return value:
+Returns:
 
 - [Matcher](#class-matcher-deprecated) - The matcher itself.
 
@@ -259,7 +259,7 @@ Parameters:
 - beginIndex: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The start position of the region.
 - endIndex: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The end position of the region.
 
-Return value:
+Returns:
 
 - [Matcher](#class-matcher-deprecated) - The matcher itself.
 
@@ -275,7 +275,7 @@ public func split(): Array<String>
 
 Function: Splits the given input sequence into as many subsequences as possible based on the regular expression.
 
-Return value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - An array of subsequences.
 
@@ -291,7 +291,7 @@ Parameters:
 
 - limit: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum number of substrings to split into.
 
-Return value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - If limit > 0, returns up to 'limit' substrings; if limit <= 0, returns the maximum possible number of substrings.
 
@@ -359,7 +359,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - group!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Specifies whether to enable capture group extraction.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)> if matched, otherwise returns [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[MatchData](regex_package_structs.md#struct-matchdata)>.None.
 
@@ -407,7 +407,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - group!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Specifies whether to enable capture group extraction.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Array storing matching results. Returns empty array if no match is found.
 
@@ -452,7 +452,7 @@ public func getNamedGroups(): Map<String, Int64>
 
 Function: Gets the name-to-index mapping of named capture groups.
 
-Return Value:
+Returns:
 
 - [Map](../../collection/collection_package_api/collection_package_interface.md#interface-mapk-v)\<[String](../../core/core_package_api/core_package_structs.md#struct-string), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)> - Name-to-index mapping of named capture groups.
 
@@ -500,7 +500,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - group!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Specifies whether to enable capture group extraction.
 
-Return Value:
+Returns:
 
 - [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[MatchData](regex_package_structs.md#struct-matchdata)> - Matching iterator.
 
@@ -555,7 +555,7 @@ Parameters:
 
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be matched.
 
-Return Value:
+Returns:
 
 - [Matcher](#class-matcher-deprecated) - The created matcher.
 
@@ -571,7 +571,7 @@ Parameters:
 
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string to be matched.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if matched, otherwise returns false.
 
@@ -606,7 +606,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The specified replacement string.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string after replacement.
 
@@ -642,7 +642,7 @@ Parameters:
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The specified replacement string.
 - index: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The starting position for matching.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string after replacement.
 
@@ -681,7 +681,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The specified replacement string.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string after replacement.
 
@@ -717,7 +717,7 @@ Parameters:
 - replacement: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The specified replacement string.
 - limit: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The number of replacements. If `limit` is 0, the original sequence is returned; if `limit` is negative, replacements will be performed as many times as possible.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string after replacement.
 
@@ -751,7 +751,7 @@ Parameters:
 
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - An array of subsequences.
 
@@ -790,7 +790,7 @@ Parameters:
 - input: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The sequence to be matched.
 - limit: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The maximum number of substrings to split into.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - If `limit > 0`, returns up to `limit` substrings; if `limit <= 0`, returns the maximum possible number of substrings.
 
@@ -802,7 +802,7 @@ public func string(): String
 
 Function: Get the input sequence of the regular expression.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The input sequence.
 
@@ -840,7 +840,7 @@ public func ignoreCase(): RegexOption
 
 Function: Modify the [RegexOption](#class-regexoption-deprecated) to set the matching mode to case-insensitive (IGNORECASE).
 
-Return Value:
+Returns:
 
 - [RegexOption](#class-regexoption-deprecated) - The modified [RegexOption](#class-regexoption-deprecated).
 
@@ -852,7 +852,7 @@ public func multiLine(): RegexOption
 
 Function: Modify the [RegexOption](#class-regexoption-deprecated) to set the matching mode to multi-line text mode (MULTILINE).
 
-Return Value:
+Returns:
 
 - [RegexOption](#class-regexoption-deprecated) - The modified [RegexOption](#class-regexoption-deprecated).
 
@@ -864,6 +864,6 @@ public func toString(): String
 
 Function: Get the current regular expression matching mode represented by the [RegexOption](#class-regexoption-deprecated).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The regular expression matching mode.

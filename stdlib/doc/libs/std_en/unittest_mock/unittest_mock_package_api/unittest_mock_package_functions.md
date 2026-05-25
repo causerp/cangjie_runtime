@@ -9,7 +9,7 @@ public func mock<T>(): T
 Function: Creates a [`mock object`](../unittest_mock_samples/mock_framework_basics.md#creating-mock-objects) of type T. By default, all member functions, properties, or operator overload functions of this object have no concrete implementations.  
 The behavior of member functions, properties, or operator overload functions can be specified using `@On`.
 
-Return Value:
+Returns:
 
 - T - A `mock object` of type T.
 
@@ -42,7 +42,7 @@ Parameters:
 
 - modes: Array\<StubMode> - Specifies the stub modes (multiple modes can be provided).
 
-Return Value:
+Returns:
 
 - T - A `mock object` of type T.
 
@@ -86,7 +86,7 @@ Parameters:
 
 - objectToSpyOn: T - The instance object to spy on (default implementations will use this object's implementations).
 
-Return Value:
+Returns:
 
 - T - A `spy object` of type T.
 

@@ -15,7 +15,7 @@ public struct AddressFamily <: ToString & Equatable<AddressFamily> {
 }
 ```
 
-Functionality: [AddressFamily](net_package_structs.md#struct-addressfamily) is used to indicate the addressing scheme of a `Socket`, with commonly used families being `INET` / `INET6` / `UNIX`. The address family identifiers were originally defined in [RFC 2453](https://datatracker.ietf.org/doc/html/rfc2453).
+Function: [AddressFamily](net_package_structs.md#struct-addressfamily) is used to indicate the addressing scheme of a `Socket`, with commonly used families being `INET` / `INET6` / `UNIX`. The address family identifiers were originally defined in [RFC 2453](https://datatracker.ietf.org/doc/html/rfc2453).
 
 Parent Types:
 
@@ -28,7 +28,7 @@ Parent Types:
 public static const INET = AddressFamily("INET", 2)
 ```
 
-Functionality: IPv4 address family.
+Function: IPv4 address family.
 
 Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -38,7 +38,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public static const INET6: AddressFamily
 ```
 
-Functionality: IPv6 address family. Values vary by system:
+Function: IPv6 address family. Values vary by system:
 
 - macOS: AddressFamily("INET6", 30)
 - Windows: AddressFamily("INET6", 23)
@@ -52,7 +52,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public static const NETLINK: AddressFamily
 ```
 
-Functionality: NetLink address family, supported only on Linux:
+Function: NetLink address family, supported only on Linux:
 
 - Linux: AddressFamily("NETLINK", 16)
 
@@ -64,7 +64,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public static const UNIX = AddressFamily("UNIX", 1)
 ```
 
-Functionality: Unix domain socket address family.
+Function: Unix domain socket address family.
 
 Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -74,7 +74,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public static const UNSPEC = AddressFamily("UNSPEC", 0)
 ```
 
-Functionality: Unspecified address family.
+Function: Unspecified address family.
 
 Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -84,7 +84,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public let name: String
 ```
 
-Functionality: Address family name.
+Function: Address family name.
 
 Type: [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string)
 
@@ -94,7 +94,7 @@ Type: [String](../../../std_en/core/core_package_api/core_package_structs.md#str
 public let value: UInt16
 ```
 
-Functionality: Address family value.
+Function: Address family value.
 
 Type: [UInt16](../../../std_en/core/core_package_api/core_package_intrinsics.md#uint16)
 
@@ -104,7 +104,7 @@ Type: [UInt16](../../../std_en/core/core_package_api/core_package_intrinsics.md#
 public const init(name: String, value: UInt16)
 ```
 
-Functionality: Constant constructor for creating [AddressFamily](net_package_structs.md#struct-addressfamily) objects.
+Function: Constant constructor for creating [AddressFamily](net_package_structs.md#struct-addressfamily) objects.
 
 Parameters:
 
@@ -117,9 +117,9 @@ Parameters:
 public func toString(): String
 ```
 
-Functionality: Gets the name corresponding to the address family.
+Function: Gets the name corresponding to the address family.
 
-Return Value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - Name of the current address family.
 
@@ -129,13 +129,13 @@ Return Value:
 public operator func ==(rhs: AddressFamily): Bool
 ```
 
-Functionality: Compares whether address family values are equal.
+Function: Compares whether address family values are equal.
 
 Parameters:
 
 - rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - The [AddressFamily](net_package_structs.md#struct-addressfamily) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [AddressFamily](net_package_structs.md#struct-addressfamily) objects are equal; otherwise, returns `false`.
 
@@ -145,13 +145,13 @@ Return Value:
 public operator func !=(rhs: AddressFamily): Bool
 ```
 
-Functionality: Compares whether address family values are unequal.
+Function: Compares whether address family values are unequal.
 
 Parameters:
 
 - rhs: [AddressFamily](net_package_structs.md#struct-addressfamily) - The [AddressFamily](net_package_structs.md#struct-addressfamily) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [AddressFamily](net_package_structs.md#struct-addressfamily) objects are unequal; otherwise, returns `false`.
 
@@ -168,7 +168,7 @@ public struct OptionLevel {
 }
 ```
 
-Functionality: Provides commonly used socket option levels.
+Function: Provides commonly used socket option levels.
 
 ### static const ICMP
 
@@ -176,7 +176,7 @@ Functionality: Provides commonly used socket option levels.
 public static const ICMP: Int32 = 1
 ```
 
-Functionality: Socket option level for controlling `ICMP` protocol behavior.
+Function: Socket option level for controlling `ICMP` protocol behavior.
 
 Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -186,7 +186,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const IP: Int32 = 0
 ```
 
-Functionality: Socket option level for controlling [IP]() protocol behavior.
+Function: Socket option level for controlling [IP]() protocol behavior.
 
 Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -196,7 +196,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const RAW: Int32 = 255
 ```
 
-Functionality: Socket option level for controlling `RAW` protocol behavior.
+Function: Socket option level for controlling `RAW` protocol behavior.
 
 Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -206,7 +206,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const SOCKET: Int32
 ```
 
-Functionality: Socket option level for controlling basic socket behavior. Values vary by system:
+Function: Socket option level for controlling basic socket behavior. Values vary by system:
 
 - macOS: 0xFFFF
 - Windows: 0xFFFF
@@ -220,7 +220,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const TCP: Int32 = 6
 ```
 
-Functionality: Socket option level for controlling `TCP` protocol behavior.
+Function: Socket option level for controlling `TCP` protocol behavior.
 
 Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -230,7 +230,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const UDP: Int32 = 17
 ```
 
-Functionality: Socket option level for controlling `UDP` protocol behavior.
+Function: Socket option level for controlling `UDP` protocol behavior.
 
 Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 
@@ -261,7 +261,7 @@ public struct OptionName {
 }
 ```
 
-Functionality: Provides commonly used socket options.
+Function: Provides commonly used socket options.
 
 ### static const IP_HDRINCL
 
@@ -269,7 +269,7 @@ Functionality: Provides commonly used socket options.
 public static const IP_HDRINCL: Int32
 ```
 
-Functionality: Socket option for specifying whether the [IP]() header is provided by the application when sending packets. Values vary by system:
+Function: Socket option for specifying whether the [IP]() header is provided by the application when sending packets. Values vary by system:
 
 - macOS: 0x0002
 - Windows: 0x0002
@@ -283,7 +283,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const IP_TOS: Int32
 ```
 
-Functionality: Socket option for specifying packet service type and priority. Values vary by system:
+Function: Socket option for specifying packet service type and priority. Values vary by system:
 
 - macOS: 0x0003
 - Windows: 0x0003
@@ -297,7 +297,7 @@ Type: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32)
 public static const IP_TTL: Int32
 ```
 
-Functionality: Socket option for limiting the maximum number of hops an [IP]() packet can traverse in the network. Values vary by system:- macOS: 0x0004
+Function: Socket option for limiting the maximum number of hops an [IP]() packet can traverse in the network. Values vary by system:- macOS: 0x0004
 - Windows: 0x0004
 - Other cases: 0x0002
 
@@ -644,7 +644,7 @@ public func hashCode(): Int64
 
 Function: Returns the hash value of the current [ProtocolType](net_package_structs.md#struct-protocoltype) instance.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the current [ProtocolType](net_package_structs.md#struct-protocoltype) instance.
 
@@ -656,7 +656,7 @@ public func toString(): String
 
 Function: Returns the string representation of the current [ProtocolType](net_package_structs.md#struct-protocoltype) instance.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [ProtocolType](net_package_structs.md#struct-protocoltype) instance.
 
@@ -672,7 +672,7 @@ Parameters:
 
 - r: [ProtocolType](net_package_structs.md#struct-protocoltype) - The [ProtocolType](net_package_structs.md#struct-protocoltype) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values they represent are not equal; otherwise, returns `false`.
 
@@ -688,7 +688,7 @@ Parameters:
 
 - r: [ProtocolType](net_package_structs.md#struct-protocoltype) - The [ProtocolType](net_package_structs.md#struct-protocoltype) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values they represent are equal; otherwise, returns `false`.
 
@@ -830,7 +830,7 @@ public func hashCode(): Int64
 
 Function: Returns the hash value of the current [SocketDomain](net_package_structs.md#struct-socketdomain) instance.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the current [SocketDomain](net_package_structs.md#struct-socketdomain) instance.
 
@@ -842,7 +842,7 @@ public func toString(): String
 
 Function: Returns the string representation of the current [SocketDomain](net_package_structs.md#struct-socketdomain) instance.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [SocketDomain](net_package_structs.md#struct-socketdomain) instance.
 
@@ -858,7 +858,7 @@ Parameters:
 
 - r: [SocketDomain](net_package_structs.md#struct-socketdomain) - The [SocketDomain](net_package_structs.md#struct-socketdomain) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values they represent are not equal; otherwise, returns `false`.
 
@@ -874,7 +874,7 @@ Parameters:
 
 - r: [SocketDomain](net_package_structs.md#struct-socketdomain) - The [SocketDomain](net_package_structs.md#struct-socketdomain) instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values they represent are equal; otherwise, returns `false`.
 
@@ -951,7 +951,7 @@ public override func toString(): String
 
 Function: Converts TCP KeepAlive configuration properties to a string.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
 
@@ -967,7 +967,7 @@ Parameters:
 
 - other: [SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig) - The instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if unequal, otherwise `false`.
 
@@ -983,7 +983,7 @@ Parameters:
 
 - other: [SocketKeepAliveConfig](net_package_structs.md#struct-socketkeepaliveconfig) - The instance to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal, otherwise `false`.
 
@@ -1255,7 +1255,7 @@ public func hashCode(): Int64
 
 Function: Returns the hash value of the current [SocketType](net_package_structs.md#struct-sockettype) instance.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the current [SocketType](net_package_structs.md#struct-sockettype) instance.
 
@@ -1267,7 +1267,7 @@ public func toString(): String
 
 Function: Returns the string representation of the current [SocketType](net_package_structs.md#struct-sockettype) instance.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [SocketType](net_package_structs.md#struct-sockettype) instance.
 
@@ -1283,7 +1283,7 @@ Parameters:
 
 - r: [SocketType](net_package_structs.md#struct-sockettype) - The [SocketType](net_package_structs.md#struct-sockettype) instance to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` when the represented [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values are not equal; otherwise, returns `false`.
 
@@ -1299,6 +1299,6 @@ Parameters:
 
 - r: [SocketType](net_package_structs.md#struct-sockettype) - The [SocketType](net_package_structs.md#struct-sockettype) instance to compare.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` when the represented [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) values are equal; otherwise, returns `false`.

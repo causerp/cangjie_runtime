@@ -6,7 +6,7 @@
 public class ConsoleReader <: InputStream
 ```
 
-Functionality: Provides the capability to read data from the console and convert it into characters or strings.
+Function: Provides the capability to read data from the console and convert it into characters or strings.
 
 This type cannot be instantiated directly; instances can only be obtained via [getStdIn()](./env_package_funcs.md#func-getStdIn).  
 Read operations are synchronous, with an internal buffer storing console input content. When the end of the console input stream is reached, console reading functions will return `None`.
@@ -29,9 +29,9 @@ Parent Type:
 public func read(): ?Rune
 ```
 
-Functionality: Reads the next character from standard input.
+Function: Reads the next character from standard input.
 
-Return Value:
+Returns:
 
 - ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - Returns the read character as ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune), or `None` if no character is read.
 
@@ -69,7 +69,7 @@ Input received: a
 public func read(arr: Array<Byte>): Int64
 ```
 
-Functionality: Reads from standard input and stores the data in `arr`.
+Function: Reads from standard input and stores the data in `arr`.
 
 > **Warning:**
 >
@@ -79,7 +79,7 @@ Parameters:
 
 - arr: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The target array.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the number of bytes read.
 
@@ -113,11 +113,11 @@ Resulting array: 567
 public func readToEnd(): ?String
 ```
 
-Functionality: Reads all characters from standard input.
+Function: Reads all characters from standard input.
 
 Reading continues until the end-of-file marker `EOF` is encountered, or until `Ctrl+D` is pressed in Linux or `Ctrl+Z` + Enter in Windows. Returns the read characters as ?[String](../../core/core_package_api/core_package_structs.md#struct-string), or `None` if no characters are read. This interface does not throw exceptions; even if the input is not a valid `UTF-8` encoded string, it will construct and return a [String](../../core/core_package_api/core_package_structs.md#struct-string), behaving equivalently to [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>).
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns all read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -127,7 +127,7 @@ Return Value:
 public func readUntil(predicate: (Rune) -> Bool): ?String
 ```
 
-Functionality: Reads data from standard input until a character satisfies the `predicate` condition.
+Function: Reads data from standard input until a character satisfies the `predicate` condition.
 
 The character that satisfies predicate: (Rune) -> [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) is included in the result. Returns `None` if reading fails.
 
@@ -135,7 +135,7 @@ Parameters:
 
 - predicate: (Rune) ->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The condition to terminate reading.
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -168,7 +168,7 @@ Input received: abcde
 public func readUntil(ch: Rune): ?String
 ```
 
-Functionality: Reads data from standard input until the character `ch` is encountered.
+Function: Reads data from standard input until the character `ch` is encountered.
 
 `ch` is included in the result. If the end-of-file marker EOF is encountered, all read information is returned. Returns `None` if reading fails.
 
@@ -176,7 +176,7 @@ Parameters:
 
 - ch: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The terminating character.
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - Returns the read data as ?[String](../../core/core_package_api/core_package_structs.md#struct-string).
 
@@ -210,11 +210,11 @@ Input received: ab
 public func readln(): ?String
 ```
 
-Functionality: Reads a line of text from standard input.
+Function: Reads a line of text from standard input.
 
 Returns the read characters as ?[String](../../core/core_package_api/core_package_structs.md#struct-string), excluding the trailing newline character. This interface does not throw exceptions; even if the input is not a valid `UTF-8` encoded string, it will construct and return a [String](../../core/core_package_api/core_package_structs.md#struct-string), behaving equivalently to [String](../../core/core_package_api/core_package_structs.md#struct-string).[fromUtf8Uncheck](../../core/core_package_api/core_package_structs.md#static-func-fromutf8uncheckedarrayuint8)([Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>).
 
-Return Value:
+Returns:
 
 - ?[String](../../core/core_package_api/core_package_structs.md#struct-string) - The read line of data, or `None` if reading fails.
 
@@ -248,7 +248,7 @@ Input received: abc
 public class ConsoleWriter <: OutputStream
 ```
 
-Functionality: This class provides thread-safe standard output functionality.
+Function: This class provides thread-safe standard output functionality.
 
 Each `write` call produces complete output to the console, and results from different `write` function calls will not be interleaved.  
 This type cannot be instantiated directly; instances can only be obtained via [getStdOut()](./env_package_funcs.md#func-getStdOut) for standard output or [getStdErr()](./env_package_funcs.md#func-getStdErr) for standard error.
@@ -263,7 +263,7 @@ Parent Type:
 public func flush(): Unit
 ```
 
-Functionality: Flushes the output stream.
+Function: Flushes the output stream.
 
 ### func write(Array\<Byte>)
 
@@ -271,7 +271,7 @@ Functionality: Flushes the output stream.
 public func write(buffer: Array<Byte>): Unit
 ```
 
-Functionality: Writes the specified byte array `buffer` to standard output or standard error stream.
+Function: Writes the specified byte array `buffer` to standard output or standard error stream.
 
 Parameters:
 
@@ -283,7 +283,7 @@ Parameters:
 public func write(v: Bool): Unit
 ```
 
-Functionality: Writes the text representation of the specified boolean value to standard output or standard error stream.
+Function: Writes the text representation of the specified boolean value to standard output or standard error stream.
 
 Parameters:
 
@@ -295,7 +295,7 @@ Parameters:
 public func write(v: Float16): Unit
 ```
 
-Functionality: Writes the text representation of the specified 16-bit floating-point value to standard output or standard error stream.
+Function: Writes the text representation of the specified 16-bit floating-point value to standard output or standard error stream.
 
 Parameters:- v: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The value to be written.
 

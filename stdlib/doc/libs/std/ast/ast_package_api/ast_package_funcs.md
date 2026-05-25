@@ -145,7 +145,7 @@ tokens.toString(): let x = 10
 public func compareTokens(tokens1: Tokens, tokens2: Tokens): Bool
 ```
 
-功能：用于比较两个 [Tokens](ast_package_classes.md#class-tokens) 是否一致。
+功能：用于比较两个[Tokens](ast_package_classes.md#class-tokens)是否一致。
 
 参数：
 

@@ -29,7 +29,7 @@ Parameters:
 
 - idx: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The index value of the element.
 
-Return Value:
+Returns:
 
 - T - The element value.
 
@@ -255,6 +255,10 @@ Purpose: This interface enables detection of `BenchInputProvider<T>` when `T` is
 public interface Measurement {
     func setup(): Unit
     func measure(): Float64
+    prop conversionTable: MeasurementUnitTable
+    prop name: String
+    prop textDescription: String
+    prop info: MeasurementInfo
 }
 ```
 
@@ -377,14 +381,14 @@ func measure(): Float64
 
 Purpose: Method for measuring execution time that will be used for statistical analysis.
 
-Return Value:
+Returns:
 
 - [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The measured data.
 
 ### func setup()
 
 ```cangjie
-func setup()
+func setup(): Unit
 ```
 
 Purpose: Initialization routine for this measurement. Called before each benchmark step.
@@ -458,7 +462,7 @@ Parameters:
 - obj: CT - The object being compared.
 - delta!: D - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -479,7 +483,7 @@ Parameters:
 - obj: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The object being compared.
 - delta!: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -504,7 +508,7 @@ Parameters:
 - obj: [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) - The object being compared.
 - delta!: [RelativeDelta](../unittest_package_api/unittest_package_structs.md#struct-relativedeltat)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)> - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -529,7 +533,7 @@ Parameters:
 - obj: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The object being compared.
 - delta!: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -554,7 +558,7 @@ Parameters:
 - obj: [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) - The object being compared.
 - delta!: [RelativeDelta](../unittest_package_api/unittest_package_structs.md#struct-relativedeltat)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)> - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -579,7 +583,7 @@ Parameters:
 - obj: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The object being compared.
 - delta!: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -604,7 +608,7 @@ Parameters:
 - obj: [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - The object being compared.
 - delta!: [RelativeDelta](../unittest_package_api/unittest_package_structs.md#struct-relativedeltat)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)> - The delta for approximate equality comparison.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the objects are approximately equal.
 
@@ -638,6 +642,6 @@ func asTestSuite(): TestSuite
 
 Function: Method to create [TestSuite](./unittest_package_classes.md#class-testsuite).
 
-Return value:
+Returns:
 
 - [TestSuite](./unittest_package_classes.md#class-testsuite) - The test suite object.

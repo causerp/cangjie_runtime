@@ -8,7 +8,7 @@ public class ObjectPool<T> where T <: Object {
 }
 ```
 
-Functionality: This class provides a thread-safe object caching type that can store allocated but unused objects.
+Function: This class provides a thread-safe object caching type that can store allocated but unused objects.
 
 When an object is no longer needed, it can be stored in [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). When the object is needed again, it can be retrieved from the same [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated).
 
@@ -60,7 +60,7 @@ id: 30, name: A
 public init(newFunc: () -> T, resetFunc!: Option<(T) -> T> = None)
 ```
 
-Functionality: Creates a new [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) object.
+Function: Creates a new [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) object.
 
 Parameters:
 
@@ -73,9 +73,9 @@ Parameters:
 public func get(): T
 ```
 
-Functionality: Attempts to retrieve an object from [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). If retrieval fails, calls newFunc to create and return a new object. Objects obtained via get should be returned to [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) using put when no longer needed.
+Function: Attempts to retrieve an object from [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). If retrieval fails, calls newFunc to create and return a new object. Objects obtained via get should be returned to [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) using put when no longer needed.
 
-Return value:
+Returns:
 
 - T - The object retrieved from [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated) or a new object created by calling newFunc.
 
@@ -85,7 +85,7 @@ Return value:
 public func put(item: T): Unit
 ```
 
-Functionality: Attempts to return an object to [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). There is no guarantee the object will actually be stored in [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). After calling put on an object, no further operations should be performed on that object, as this may lead to undefined behavior.
+Function: Attempts to return an object to [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). There is no guarantee the object will actually be stored in [ObjectPool](objectpool_package_classes.md#class-objectpoolt-where-t--object-deprecated). After calling put on an object, no further operations should be performed on that object, as this may lead to undefined behavior.
 
 Parameters:
 

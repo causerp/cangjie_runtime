@@ -13,7 +13,7 @@ Parameters:
 - algorithm: T - The specific digest algorithm.
 - data: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Data to be processed for digest computation.
 
-Return Value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - The result of digest computation.
 
@@ -78,7 +78,7 @@ Parameters:
 - algorithm: T - The specific digest algorithm.
 - data: [String](../../../core/core_package_api/core_package_structs.md#struct-string) - Data to be processed for digest computation.
 
-Return Value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - The result of digest computation.
 
@@ -95,7 +95,7 @@ Parameters:
 - algorithm: T - The specific digest algorithm.
 - input: [InputStream](../../../io/io_package_api/io_package_interfaces.md#interface-inputstream) - InputStream containing data to be processed for digest computation.
 
-Return Value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - The result of digest computation.
 

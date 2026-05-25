@@ -475,7 +475,7 @@ void ExclusiveScheduleFree(struct Schedule *schedule);
  * @param cjthread [IN] cjthread to be added
  * @retval 0 or -1
  */
-int ScheduleAllCJThreadListAdd(struct CJThread *cjthread);
+int ScheduleAllCJThreadListAdd(struct CJThread *cjthread, CJThreadCreateSource createSource);
 
 /**
  * @brief  Add cjSingleModeThread to cjSingleModeThreadList.

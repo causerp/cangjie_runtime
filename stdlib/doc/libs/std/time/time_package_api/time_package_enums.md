@@ -19,7 +19,7 @@ public enum DayOfWeek <: ToString & Equatable<DayOfWeek> {
 父类型：
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[DayOfWeek](time_package_enums.md#enum-dayofweek)>
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[DayOfWeek](time_package_enums.md#enum-dayofweek)>
 
 ### Friday
 
@@ -493,8 +493,8 @@ public enum Month <: ToString & Equatable<Month> {
 
 父类型：
 
-- [ToString](../../../std/core/core_package_api/core_package_interfaces.md#interface-tostring)
-- [Equatable](../../../std/core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[Month](time_package_enums.md#enum-month)>
+- [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
+- [Equatable](../../core/core_package_api/core_package_interfaces.md#interface-equatablet)\<[Month](time_package_enums.md#enum-month)>
 
 ### April
 

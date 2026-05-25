@@ -49,7 +49,7 @@ bool MachineFrame::IsExclusiveStubFrame() const
 {
 #if defined(ENABLE_BACKWARD_PTRAUTH_CFI)
     return PtrauthStripInstPointer(reinterpret_cast<Uptr>(ip)) ==
-	    reinterpret_cast<uintptr_t>(&unwindPCForExclusiveStub);
+        reinterpret_cast<uintptr_t>(&unwindPCForExclusiveStub);
 #else
     return reinterpret_cast<uintptr_t>(ip) == reinterpret_cast<uintptr_t>(&unwindPCForExclusiveStub);
 #endif

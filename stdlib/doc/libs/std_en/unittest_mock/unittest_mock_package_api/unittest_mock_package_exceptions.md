@@ -61,7 +61,7 @@ Parameters:
 
 - to: [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - A printer that adds color and indentation.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-prettyprinter) - A printer with added color and indentation.
 
@@ -72,18 +72,6 @@ public class UnhandledCallException <: PrettyException {}
 ```
 
 Function: Indicates that none of the provided [stubs](../unittest_mock_samples/mock_framework_basics.md#configuration-api) handled the call.
-
-Parent Types:
-
-- [PrettyException](#class-prettyexception)
-
-## class UnnecessaryStubbingException
-
-```cangjie
-public class UnnecessaryStubbingException <: PrettyException {}
-```
-
-Function: Indicates that the tested code never triggered the [stub](../unittest_mock_samples/mock_framework_basics.md#configuration-api).
 
 Parent Types:
 

@@ -172,22 +172,6 @@ extend Directory {
     }
 }
 
-func min<T>(a: T, b: T): T where T <: Comparable<T> {
-    if (a > b) {
-        b
-    } else {
-        a
-    }
-}
-
-func max<T>(a: T, b: T): T where T <: Comparable<T> {
-    if (a < b) {
-        b
-    } else {
-        a
-    }
-}
-
 func mapParallelOrdered<T, V>(bufferSize: Int64, f: (T) -> V): (Iterable<T>) -> Iterator<V> {
     { iter =>
         let futuresIter = iter |> map{ x => spawn { f(x) } }

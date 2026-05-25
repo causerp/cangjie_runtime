@@ -973,7 +973,7 @@ public static func run(
 - stdIn!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准输入，默认继承当前进程标准输入。
 - stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准输出，默认继承当前进程标准输出。
 - stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - 命名可选参数，指定子进程重定向标准错误，默认继承当前进程标准错误。
-- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 命名可选参数，指定等待子进程超时时间，默认为不超时，`timeout` 指定为 `0` 或负值时表示不超时。
+- timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - 命名可选参数，指定等待子进程超时时间，默认为不超时, `timeout` 指定为 `0` 或负值时表示不超时。
 
 返回值：
 
@@ -1249,13 +1249,11 @@ public class SubProcess <: Process {}
 >
 > 不支持平台：iOS。
 
-> **说明：**
->
-> 提供功能具体如下：
->
-> - 提供获取子进程标准流（`stdIn`、`stdOut`、`stdErr`）机制。
-> - 提供等待子进程执行返回退出状态码机制，允许设置等待超时时长。
-> - 提供等待子进程执行返回输出结果（包含运行正常、异常结果）机制，允许设置等待超时时长。
+提供功能具体如下：
+
+- 提供获取子进程标准流（`stdIn`、`stdOut`、`stdErr`）机制。
+- 提供等待子进程执行返回退出状态码机制，允许设置等待超时时长。
+- 提供等待子进程执行返回输出结果(包含运行正常、异常结果)机制，允许设置等待超时时长。
 
 父类型：
 
@@ -1462,18 +1460,16 @@ main(): Int64 {
 public func wait(timeout!: ?Duration = None): Int64
 ```
 
-功能：阻塞当前进程等待子进程任务执行完成并返回子进程退出状态码，允许指定等待超时时间。对于需要操作标准流的场景（Pipe 模式），使用者需要优先处理标准流，避免子进程标准流缓冲区满后调用本函数产生死锁。
+功能：阻塞当前进程等待子进程任务执行完成并返回子进程退出状态码，允许指定等待超时时间。对于需要操作标准流的场景(Pipe 模式)，使用者需要优先处理标准流，避免子进程标准流缓冲区满后调用本函数产生死锁。
 
 > **注意：**
 >
 > 不支持平台：iOS。
 
-> **说明：**
->
-> 超时时间处理机制：
->
-> - 未传参、 `timeout` 值为 `None` 或值小于等于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待直至子进程执行返回。
-> - `timeout` 值大于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待子进程执行返回或等待超时后抛出超时异常。
+超时时间处理机制：
+
+- 未传参、 `timeout` 值为 `None` 或值小于等于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待直至子进程执行返回。
+- `timeout` 值大于 [Duration](../../core/core_package_api/core_package_structs.md#struct-duration).Zero 时，阻塞等待子进程执行返回或等待超时后抛出超时异常。
 
 参数：
 
@@ -1517,7 +1513,7 @@ main(): Int64 {
 public func waitOutput(): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-功能：阻塞当前进程等待子进程任务执行完成，并返回子进程退出状态码、返回结果（包含输出流和错误流返回结果）。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 wait 函数自行处理。
+功能：阻塞当前进程等待子进程任务执行完成，并返回子进程退出状态码、返回结果(包含输出流和错误流返回结果)。输出流、错误流中包含大量输出的场景不适用于本函数，建议通过 [SubProcess](process_package_classes.md#class-subprocess) 中提供的标准流属性结合 wait 函数自行处理。
 
 > **注意：**
 >

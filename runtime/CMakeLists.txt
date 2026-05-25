@@ -14,6 +14,7 @@ endif()
 
 # 1 means android_aarch64, 2 means android_x86_64, 3 means android_arm
 if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2 OR ANDROID_FLAG MATCHES 3)
+    set(ANDROID_OS "linux")
     if (CMAKE_ANDROID_API MATCHES 26)
         set(ANDROID_TARGET_API "android26")
     elseif (CMAKE_ANDROID_API MATCHES 31)
@@ -27,7 +28,6 @@ if (ANDROID_FLAG MATCHES 1 OR ANDROID_FLAG MATCHES 2 OR ANDROID_FLAG MATCHES 3)
     else ()
         message(FATAL_ERROR "ANDROID_TARGET_API is not set, please check the target option.")
     endif()
-    set(ANDROID_OS "linux")
     set(CMAKE_SYSTEM_NAME Linux)
     set(CMAKE_C_COMPILER_WORKS 1)
     set(CMAKE_CXX_COMPILER_WORKS 1)
@@ -78,11 +78,11 @@ if (ASAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjasan")
     add_compile_definitions(CANGJIE_ASAN_SUPPORT)
     add_compile_definitions(GENERAL_ASAN_SUPPORT_INTERFACE)
-    set(SANITIZER_SUBPATH /asan)
+    set(SANITIZER_SUBPATH "/asan")
 elseif (TSAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjtsan")
     add_compile_definitions(CANGJIE_TSAN_SUPPORT)
-    set(SANITIZER_SUBPATH /tsan)
+    set(SANITIZER_SUBPATH "/tsan")
 elseif (HWASAN_SUPPORT_FLAG MATCHES 1)
     set(CJTHREAD_SAN_PRARM "cjhwasan")
     add_compile_definitions(CANGJIE_HWASAN_SUPPORT)
@@ -710,12 +710,12 @@ if (IOS_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MATCHES 1 OR IOS_SIMULATOR_FLAG MAT
                 ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
             COMPONENT cangjie-runtime)
     else()
-        install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} -D --rename-section .text=.text_runtime \
+        install(CODE "execute_process(COMMAND ${OBJCOPY_PROGRAM} --rename-section .text=.text_runtime \
                     ${CMAKE_INSTALL_PREFIX}/lib/${TARGET_ARCH}${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
                 COMPONENT cangjie-runtime)
     endif()
     if(CMAKE_BUILD_TYPE MATCHES "Release" OR CMAKE_BUILD_TYPE MATCHES "MinSizeRel")
-        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} -D --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
+        install(CODE "execute_process(COMMAND ${STRIP_PROGRAM} --strip-unneeded ${CMAKE_INSTALL_PREFIX}/lib${SANITIZER_SUBPATH}/libcangjie-runtime.a)"
             COMPONENT cangjie-runtime)
     endif()
 endif()

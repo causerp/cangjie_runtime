@@ -12,20 +12,6 @@ import std.unittest.mock.*
 import std.collection.ArrayList
 import std.random.Random
 
-func runTestStep(
-    caseId: TestCaseId, f: () -> Unit
-): Unit {
-    Framework.runCatching {
-        MockFramework.openSession("test case ${caseId.caseName}", Verifiable)
-        f()
-    }
-
-    // there is no point in additionally showing mock verification errors here
-    // because they most likely will be just a consequence of existing errors
-    Framework.withCurrentContext { ctx => ctx.suppressIfHasFailures() }
-    MockFramework.closeSession()
-}
-
 /**
  * None of these configuration parameters are intended as public API for now.
  */
@@ -216,10 +202,8 @@ class TestCaseExecutor<T> <: Executor {
         let executeBody = { arg: T, input: Array<InputParameter> =>
             let step = CaseStep(argDescription(input))
             lastInput.value = input
-            Framework.runStepBody(step, Test(1)) {
-                runTestStep(result.caseId) {
-                    actualBody(arg)
-                }
+            Framework.runStepBody(step, Test(1), result.caseId.caseName) {
+                actualBody(arg)
             }
         }
 

@@ -47,7 +47,7 @@ Parameters:
 
 - input: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Data to be encrypted.
 
-Return Value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Encrypted result.
 
@@ -63,7 +63,7 @@ Parameters:
 
 - input: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Data to be decrypted.
 
-Return Value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Decrypted result.
 
@@ -80,7 +80,7 @@ Parameters:
 - input: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Data to be encrypted.
 - to!: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Output array.
 
-Return Value:
+Returns:
 
 - [Int64](../../../core/core_package_api/core_package_intrinsics.md#int64) - Output length.
 
@@ -97,6 +97,6 @@ Parameters:
 - input: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Data to be decrypted.
 - to!: [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Output array.
 
-Return Value:
+Returns:
 
 - [Int64](../../../core/core_package_api/core_package_intrinsics.md#int64) - Output length.

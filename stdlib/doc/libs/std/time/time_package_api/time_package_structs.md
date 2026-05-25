@@ -891,13 +891,13 @@ public static func of(
 
 参数：
 
-- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围 [-999,999,999, 999,999,999]。
-- month!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 月，范围 [1, 12]。
-- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围 [1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
-- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围 [0, 23]。
-- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围 [0, 59]。
-- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围 [0, 59]。
-- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围 [0, 999,999,999]。
+- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围[-999,999,999, 999,999,999]。
+- month!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 月，范围[1, 12]。
+- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围[1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
+- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围[0, 23]。
+- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围[0, 59]。
+- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围[0, 59]。
+- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围[0, 999,999,999]。
 - timeZone!: [TimeZone](time_package_classes.md#class-timezone) - 时区。
 
 返回值：
@@ -972,13 +972,13 @@ public static func of(
 
 参数：
 
-- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围 [-999,999,999, 999,999,999]。
+- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围[-999,999,999, 999,999,999]。
 - month!: [Month](time_package_enums.md#enum-month) - 月，[Month](time_package_enums.md#enum-month) 类型。
-- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围 [1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
-- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围 [0, 23]。
-- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围 [0, 59]。
-- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围 [0, 59]。
-- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围 [0, 999,999,999]。
+- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围[1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
+- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围[0, 23]。
+- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围[0, 59]。
+- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围[0, 59]。
+- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围[0, 999,999,999]。
 - timeZone!: [TimeZone](time_package_classes.md#class-timezone) - 时区。
 
 返回值：
@@ -1113,13 +1113,13 @@ public static func ofUTC(
 
 参数：
 
-- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围 [-999,999,999, 999,999,999]。
-- month!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 月，范围 [1, 12]。
-- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围 [1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
-- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围 [0, 23]。
-- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围 [0, 59]。
-- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围 [0, 59]。
-- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围 [0, 999,999,999]。
+- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围[-999,999,999, 999,999,999]。
+- month!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 月，范围[1, 12]。
+- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围[1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
+- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围[0, 23]。
+- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围[0, 59]。
+- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围[0, 59]。
+- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围[0, 999,999,999]。
 
 返回值：
 
@@ -1191,13 +1191,13 @@ public static func ofUTC(
 
 参数：
 
-- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围 [-999,999,999, 999,999,999]。
+- year!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 年，范围[-999,999,999, 999,999,999]。
 - month!: [Month](time_package_enums.md#enum-month) - 月，[Month](time_package_enums.md#enum-month) 类型。
-- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日，范围 [1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
-- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围 [0, 23]。
-- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围 [0, 59]。
-- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围 [0, 59]。
-- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围 [0, 999,999,999]。
+- dayOfMonth!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 日, 范围[1, 31]，最大取值需要跟 month 匹配，可能是 28、29、30、31。
+- hour!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 时，范围[0, 23]。
+- minute!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 分，范围[0, 59]。
+- second!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 秒，范围[0, 59]。
+- nanosecond!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 纳秒，范围[0, 999,999,999]。
 
 返回值：
 
@@ -1261,7 +1261,7 @@ public static func parse(str: String): DateTime
 
 参数：
 
-- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，格式为 `RFC3339` 中 `date-time` 格式，可包含小数秒，如 "2023-04-10T08:00:00[.123456]+08:00"（`[]` 中的内容表示可选项）。
+- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，格式为 `RFC3339` 中 `date-time` 格式，可包含小数秒，如 "2023-04-10T08:00:00[.123456]+08:00"(`[]` 中的内容表示可选项)。
 
 返回值：
 
@@ -1443,7 +1443,7 @@ public static func tryParse(str: String): Option<DateTime>
 
 参数：
 
-- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，格式为 `RFC3339` 中 `date-time` 格式，可包含小数秒，如 "2023-04-10T08:00:00[.123456]+08:00"（`[]` 中的内容表示可选项）。
+- str: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 时间字符串，格式为 `RFC3339` 中 `date-time` 格式，可包含小数秒，如 "2023-04-10T08:00:00[.123456]+08:00"(`[]` 中的内容表示可选项)。
 
 返回值：
 

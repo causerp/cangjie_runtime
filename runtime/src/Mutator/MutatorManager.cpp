@@ -246,6 +246,11 @@ void MutatorManager::VisitAllMutators(MutatorVisitor func)
     }
 }
 
+void MutatorManager::VisitAllMutatorsExceptFinalizer(MutatorVisitor func)
+{
+    ScheduleAllCJThreadVisitMutator(VisitMuatorHelper, &func);
+}
+
 void MutatorManager::StopTheWorld(bool syncGCPhase, GCPhase phase)
 {
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
@@ -535,9 +540,8 @@ void MutatorManager::TransitionAllMutatorsToCpuProfile()
         }
     }
     std::list<Mutator*> undoneMutators;
-    VisitAllMutators([&undoneMutators](Mutator& mutator) {
-        if (mutator.GetTid() != Heap::GetHeap().GetFinalizerProcessor().GetTid() &&
-            mutator.GetCjthreadPtr() == MutatorManager::Instance().GetMainThreadHandle()) {
+    VisitAllMutatorsExceptFinalizer([&undoneMutators](Mutator& mutator) {
+        if (mutator.GetCjthreadPtr() == MutatorManager::Instance().GetMainThreadHandle()) {
             mutator.SetSuspensionFlag(Mutator::SuspensionType::SUSPENSION_FOR_CPU_PROFILE);
             mutator.SetSafepointActive(true);
             undoneMutators.push_back(&mutator);

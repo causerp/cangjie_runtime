@@ -1291,7 +1291,7 @@ public class PackageHeader <: Node {
             keyword_ = v
         }
     }
-    
+
     /**
      * @brief Organization name of the package.
      * @throws ASTException if the input token 'v' has empty value.
@@ -1421,7 +1421,7 @@ public class PackageHeader <: Node {
 }
 
 public enum ImportKind <: ToString {
-    | Single
+    | Single 
     | Alias
     | All
     | Multi

@@ -9,7 +9,7 @@ public class RegexException <: Exception {
 }
 ```
 
-Functionality: Provides exception handling for regular expressions.
+Function: Provides exception handling for regular expressions.
 
 Parent Type:
 
@@ -21,7 +21,7 @@ Parent Type:
 public init()
 ```
 
-Functionality: Creates a [RegexException](regex_package_exceptions.md#class-regexexception) instance.
+Function: Creates a [RegexException](regex_package_exceptions.md#class-regexexception) instance.
 
 ### init(String)
 
@@ -29,7 +29,7 @@ Functionality: Creates a [RegexException](regex_package_exceptions.md#class-rege
 public init(message: String)
 ```
 
-Functionality: Creates a [RegexException](regex_package_exceptions.md#class-regexexception) instance with exception message.
+Function: Creates a [RegexException](regex_package_exceptions.md#class-regexexception) instance with exception message.
 
 Parameters:
 

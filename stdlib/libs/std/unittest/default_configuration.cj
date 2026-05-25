@@ -22,7 +22,7 @@ func fillAbsentValues(config: Configuration) {
     config.setIfAbsent(KeyBatchSize.batchSize, 1..MAX_BATCH_SIZE)
     config.setIfAbsent(KeyMinDuration.minDuration, Duration.second * 5)
     config.setIfAbsent(KeyMinBatches.minBatches, 10)
-    config.setIfAbsent(KeyExplicitGC.explicitGC, ExplicitGcType.Light)
+    config.setIfAbsent(KeyExplicitGC.explicitGC, ExplicitGcType.Auto)
     config.setIfAbsent(KeyMeasurementInfo.measurementInfo, TimeNow().info)
 }
 
@@ -238,27 +238,65 @@ func registerUnittestOption<T>(
     }
 }
 
-let _ = { =>
-    registerUnittestOption<Bool>(KeyHelp.help)
-    registerUnittestOption<Bool>(KeyNoColor.noColor, typeDescription: ("Bool", "Print the output colorless"))
-    registerUnittestOption<Int64>(KeyRandomSeed.randomSeed,
-        typeDescription: ("Int64", "Seed for deterministic test reproduction"))
-    registerUnittestOption<RandomSource>(KeyRandom.random)
+@When[os != "iOS"]
+func registerParallelOption() {
     registerUnittestOption<Bool>(KeyParallel.parallel, description: "Specify parallelism of tests execution",
         typeDescription: ("Bool", "Run tests in parallel"))
     registerUnittestOption<Int64>(KeyParallel.parallel,
         typeDescription: ("Int64", "Run tests in parallel on %n processes"))
     registerUnittestOption<String>(KeyParallel.parallel,
         typeDescription: ("String", "Run tests in parallel on %n * actual number of cores, e.g. '--parallel=0.5nCores'"))
+}
+
+@When[os == "iOS"]
+func registerParallelOption() {
+}
+
+@When[os != "iOS"]
+func registerTimeoutEachOption() {
+    registerUnittestOption<String>(KeyTimeoutEach.timeoutEach,
+        typeDescription: ("String",
+            "Execution time limit for each test case ('millis' | 's' | 'm' | 'h'), e.g. '10s', '9millis'"))
+}
+
+@When[os == "iOS"]
+func registerTimeoutEachOption() {
+}
+
+@When[os != "iOS"]
+func registerCaptureOutputOption() {
+    registerUnittestOption<Bool>(KeyCaptureOutput.captureOutput,
+        typeDescription: ("Bool", "Disable immediate printing of test output, useful with --parallel"))
+}
+
+@When[os == "iOS"]
+func registerCaptureOutputOption() {
+}
+
+@When[os != "iOS"]
+func registerDeathAwareOption() {
+    registerUnittestOption<Bool>(KeyDeathAware.deathAware,
+        typeDescription: ("Bool", "Handle abnormal tests exits, e.g. `Process.current.exit(42)`"))
+}
+
+@When[os == "iOS"]
+func registerDeathAwareOption() {
+}
+
+let _ = { =>
+    registerUnittestOption<Bool>(KeyHelp.help)
+    registerUnittestOption<Bool>(KeyNoColor.noColor, typeDescription: ("Bool", "Print the output colorless"))
+    registerUnittestOption<Int64>(KeyRandomSeed.randomSeed,
+        typeDescription: ("Int64", "Seed for deterministic test reproduction"))
+    registerUnittestOption<RandomSource>(KeyRandom.random)
+    registerParallelOption()
     registerUnittestOption<Int64>(KeyInternalWorkerId.internalWorkerId)
     registerUnittestOption<Int64>(KeyInternalNWorkers.internalNWorkers)
     registerUnittestOption<Int64>(KeyInternalWorkerSkipNTests.internalWorkerSkipNTests)
     registerUnittestOption<UInt16>(KeyInternalMainProcessPort.internalMainProcessPort)
     registerUnittestOption<String>(KeyInternalTestrunnerInputPath.internalTestrunnerInputPath)
     registerUnittestOption<Duration>(KeyTimeout.timeout)
-    registerUnittestOption<String>(KeyTimeoutEach.timeoutEach,
-        typeDescription: ("String",
-            "Execution time limit for each test case ('millis' | 's' | 'm' | 'h'), e.g. '10s', '9millis'"))
+    registerTimeoutEachOption()
     registerUnittestOption<(TestCaseInfo) -> Unit>(KeyTimeoutHandler.timeoutHandler)
     registerUnittestOption<Array<String>>(KeyTags.tags)
     registerUnittestOption<String>(KeyFilter.filter,
@@ -267,8 +305,7 @@ let _ = { =>
         typeDescription: ("String", "Include only tests with tags e.g. '--include-tags=Unittest+Smoke'"))
     registerUnittestOption<String>(KeyExcludeTags.excludeTags,
         typeDescription: ("String", "Exclude tests with tags e.g. '--exclude-tags=Performance,Network'"))
-    registerUnittestOption<Bool>(KeyCaptureOutput.captureOutput,
-        typeDescription: ("Bool", "Disable immediate printing of test output, useful with --parallel"))
+    registerCaptureOutputOption()
     registerUnittestOption<Bool>(KeyNoCaptureOutput.noCaptureOutput,
         typeDescription: ("Bool", "Immediately print test output"))
     registerUnittestOption<Bool>(KeyShowAllOutput.showAllOutput,
@@ -286,8 +323,7 @@ let _ = { =>
     registerUnittestOption<Int64>(KeyCoverageGuidedBaselineScore.coverageGuidedBaselineScore)
     registerUnittestOption<Int64>(KeyCoverageGuidedNewCoverageScore.coverageGuidedNewCoverageScore)
     registerUnittestOption<Int64>(KeyCoverageGuidedNewCoverageBonus.coverageGuidedNewCoverageBonus)
-    registerUnittestOption<Bool>(KeyDeathAware.deathAware,
-        typeDescription: ("Bool", "Handle abnormal tests exits, e.g. `Process.current.exit(42)`"))
+    registerDeathAwareOption()
     registerUnittestOption<String>(KeyReportPath.reportPath,
         typeDescription: ("String", "Path where to create report file"))
     registerUnittestOption<String>(KeyReportFormat.reportFormat,
@@ -315,4 +351,6 @@ let _ = { =>
     registerUnittestOption<Int64>(KeyProgressEntriesLimit.progressEntriesLimit,
         typeDescription: ("Int64", "Limit value. Value 0 means no limit. Default: 0"),
         description: "Limit the entries amount displayed in the progress report. Has lower precedence than `--progress-brief`")
+    registerUnittestOption<Bool>(KeyOptimizeMocksForBench.optimizeMocksForBench,
+        typeDescription: ("Bool", "Optimize mocks when using benchmarks"))
 }()

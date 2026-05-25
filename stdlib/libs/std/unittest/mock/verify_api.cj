@@ -211,7 +211,7 @@ public class VerifyStatement {
         objName: Option<String>,
         declarationName: String,
         callDescription: String,
-        lineNumber: Int64
+        _: Int64
     ): VerifyStatement {
         let recordingInfo = RecordingInfo(VerifyStatementStub, objName, declarationName)
         let recordedCall = MockFramework.recordCall(recordingInfo, stubCall)
@@ -219,11 +219,7 @@ public class VerifyStatement {
             matchers,
             recordedCall.typeArgs,
             recordedCall.stubId,
-            StubDescription(
-                callDescription,
-                objName,
-                recordedCall.location.forceLineNumber(lineNumber)
-            )
+            StubDescription(callDescription, objName, recordedCall.location)
         )
         let statement = VerifyStatement(invocationMatcher)
         checkMatchersConsistency(statement)

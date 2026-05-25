@@ -268,8 +268,9 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                 }
                 bool hasOuterTiFast = extensionData->HasOuterTiFastPath();
                 size_t newFtSize = hasOuterTiFast ? itfFtSize * sizeof(FuncPtr) + itfFtSize * sizeof(OuterTiUnion)
-                                                  : itfFtSize * sizeof(FuncPtr);
-                FuncPtr* newFt = reinterpret_cast<FuncPtr*>(TypeInfoManager::GetTypeInfoManager().Allocate(newFtSize));
+                                     : itfFtSize * sizeof(FuncPtr);
+                FuncPtr* newFt = reinterpret_cast<FuncPtr*>(
+                    TypeInfoManager::GetTypeInfoManager().Allocate(newFtSize));
                 if (ftSize > 0) {
                     CHECK(memcpy_s(reinterpret_cast<void*>(newFt),
                                    sizeof(FuncPtr) * ftSize,
@@ -284,10 +285,10 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                     break;
                 }
                 if (ftSize > 0) {
-                    CHECK(memcpy_s(reinterpret_cast<void*>(newFt + itfFtSize),
-                                   sizeof(OuterTiUnion) * ftSize,
-                                   reinterpret_cast<void*>(extensionData->GetFuncTable() + ftSize),
-                                   sizeof(OuterTiUnion) * ftSize) == EOK);
+                        CHECK(memcpy_s(reinterpret_cast<void*>(newFt + itfFtSize),
+                                       sizeof(OuterTiUnion) * ftSize,
+                                       reinterpret_cast<void*>(extensionData->GetFuncTable() + ftSize),
+                                       sizeof(OuterTiUnion) * ftSize) == EOK);
                 }
                 CHECK(memset_s(reinterpret_cast<void*>(newFt + itfFtSize + ftSize),
                                sizeof(OuterTiUnion) * incrementalSize,
@@ -295,7 +296,6 @@ void TypeInfo::TryUpdateExtensionData(TypeInfo* itf, ExtensionData* extensionDat
                 extensionData->UpdateFuncTable(itfFtSize, newFt);
                 break;
             }
-            mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
         }
         mTable.find(itfUUID)->second.ResetAtomicInfoArray(itfFtSize);
         extensionData->SetFuncTableUpdated();
@@ -586,7 +586,7 @@ FuncPtr* TypeInfo::GetMTable(TypeInfo* itf)
     }
     auto extensionData = FindExtensionData(itf, true);
     if (UNLIKELY(extensionData == nullptr)) {
-        LOG(RTLOG_FATAL, "funcTable is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
+        LOG(RTLOG_FATAL, "extensionData is nullptr, ti: %s, itf: %s", GetName(), itf->GetName());
     }
     if (UNLIKELY(!extensionData->IsFuncTableUpdated())) {
         TryUpdateExtensionData(itf, extensionData);

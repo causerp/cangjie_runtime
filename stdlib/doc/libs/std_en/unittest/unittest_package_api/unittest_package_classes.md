@@ -50,7 +50,7 @@ Parameters:
 
 - key: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The identifier in the function parameter list.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the parameter value corresponding to the identifier.
 
@@ -217,7 +217,7 @@ public func run(): BenchReport
 
 Function: Runs the performance test case.
 
-Return Value:
+Returns:
 
 - [BenchReport](#class-benchreport) - The execution result report.
 
@@ -241,7 +241,7 @@ Parameters:
 - measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - The measurement method information.
 - body: () -> Unit - The test case execution body.
 
-Return Value:
+Returns:
 
 - [Benchmark](#class-benchmark) - The performance test case object.
 
@@ -267,7 +267,7 @@ Parameters:
 - measurement!: [Measurement](unittest_package_interfaces.md#interface-measurement) - The measurement method information.
 - body: () -> Unit - The test case execution body.
 
-Return Value:
+Returns:
 
 - [Benchmark](#class-benchmark) - The performance test case object.
 
@@ -293,7 +293,7 @@ Parameters:
 - measurement: [Measurement](unittest_package_interfaces.md#interface-measurement) - The measurement method information.
 - body: () -> Unit - The test case execution body.
 
-Return Value:
+Returns:
 
 - [Benchmark](#class-benchmark) - The performance test case object.
 
@@ -652,7 +652,9 @@ protected prop isInfinite: Bool
 
 Function: Gets whether this strategy is infinite.
 
-Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).### func intoBenchmark(String, Configuration, (T, Int64, Int64) -> Float64)
+Type: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool).
+
+### func intoBenchmark(String, Configuration, (T, Int64, Int64) -> Float64)
 
 ```cangjie
 public func intoBenchmark(
@@ -670,7 +672,7 @@ Parameters:
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 - doRun!: (T, Int64, Int64) -> Float64 - Performance test case execution body.
 
-Return Value:
+Returns:
 
 - [Benchmark](#class-benchmark) - Performance test case object.
 
@@ -692,7 +694,7 @@ Parameters:
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 - doRun!: (T) -> Unit - Test case execution body.
 
-Return Value:
+Returns:
 
 - [UnitTestCase](#class-unittestcase) - Test case object.
 
@@ -704,7 +706,7 @@ protected func lastItemInfo(): Array<InputParameter>
 
 Function: Retrieves information about the last processed item.
 
-Return Value:
+Returns:
 
 - Array\<[InputParameter](./unittest_package_classes.md#class-inputparameter)> - Information about the last processed item.
 
@@ -720,7 +722,7 @@ Parameters:
 
 - configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Processing strategy configuration information.
 
-Return Value:
+Returns:
 
 - T - The last processed item.
 
@@ -736,7 +738,7 @@ Parameters:
 
 - configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Processing strategy configuration information.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -753,7 +755,7 @@ Parameters:
 - configuration: [Configuration](./../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 - engine: [LazyCyclicNode](./unittest_package_classes.md#class-lazycyclicnode) - Lazy node.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Shrunk data iterator.
 
@@ -770,7 +772,7 @@ Parameters:
 - s: [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<T> - Data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
-Return Value:
+Returns:
 
 - [SimpleProcessor\<T>](#class-simpleprocessort) - Test case processor.
 
@@ -790,7 +792,7 @@ Parameters:
 - s: () -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<U> - Closure that generates a data strategy.
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
-Return Value:
+Returns:
 
 - [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - Data strategy processor.
 
@@ -812,7 +814,7 @@ Parameters:
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Additional parameter added for refactoring to achieve different return values.
 
-Return Value:
+Returns:
 
 - [SimpleProcessor\<T>](#class-simpleprocessort) - Test case processor.
 
@@ -829,7 +831,7 @@ Parameters:
 - s: () -> [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - Closure that generates a data strategy processor.
 - _: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 
-Return Value:
+Returns:
 
 - [DataStrategyProcessor](#class-datastrategyprocessort)\<T> - Data strategy processor.
 
@@ -851,7 +853,7 @@ Parameters:
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test case name.
 - x!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Additional parameter added for refactoring to achieve different return values.
 
-Return Value:
+Returns:
 
 - [DataStrategyProcessor](#class-datastrategyprocessort)\<U> where U <: [BenchInputProvider](./unittest_package_interfaces.md#interface-benchinputprovidert)\<T> - Data strategy processor.
 
@@ -873,7 +875,7 @@ Parameters:
 
 - f: (T) -> R - Additional processing logic function to be applied.
 
-Return Value:
+Returns:
 
 - [MapProcessor\<T, R>](#class-mapprocessortr) - Processor after applying `f`.
 
@@ -889,7 +891,7 @@ Parameters:
 
 - f: (T, Configuration) -> R - Additional processing logic function to be applied.
 
-Return Value:
+Returns:
 
 - [MapProcessor\<T, R>](#class-mapprocessortr) - Processor after applying `f`.
 
@@ -905,7 +907,7 @@ Parameters:
 
 - f: (T) -> [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<R> - Additional processing logic function to be applied.
 
-Return Value:
+Returns:
 
 - [FlatMapProcessor\<T, R>](#class-flatmapprocessortr) - Processor after applying `f`.
 
@@ -921,7 +923,7 @@ Parameters:
 
 - f: (T) -> [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt)\<R> - Additional processing logic function to be applied.
 
-Return Value:
+Returns:
 
 - [FlatMapStrategyProcessor\<T, R>](#class-flatmapstrategyprocessortr) - Processor after applying `f`.
 
@@ -939,7 +941,7 @@ Parameters:
 
 - p: [DataStrategyProcessor](#class-datastrategyprocessort)\<R> - Data strategy processor.
 
-Return Value:
+Returns:
 
 - [CartesianProductProcessor\<T, R>](#class-cartesianproductprocessort0t1) - Cartesian product processor.
 
@@ -955,7 +957,7 @@ Parameters:
 
 - p: [P](#class-datastrategyprocessort) - Data strategy processor.
 
-Return Value:
+Returns:
 
 - [MapProcessor\<(T, Unit),T>](../unittest_package_api/unittest_package_classes.md#class-mapprocessortr) - Processor.
 
@@ -1007,7 +1009,7 @@ protected open func advance(): ?Unit
 
 Function: Advances one value.
 
-Return Value:
+Returns:
 
 - ?Unit - Returns None when unable to advance, otherwise returns Unit.
 
@@ -1071,7 +1073,7 @@ Parameters:
 - exprAsText: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Expression string.
 - position: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Position information.
 
-Return Value:
+Returns:
 
 - T - Recorded data.
 
@@ -1093,7 +1095,7 @@ Parameters:
 - exprAsText: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Expression string.
 - position: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Position information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Recorded data.
 
@@ -1115,7 +1117,7 @@ Parameters:
 - exprAsText: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Expression string.
 - position: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Position information.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_structs.md#struct-string) - Recorded data.
 
@@ -1148,11 +1150,11 @@ Function: Returns a success result when the test case passes; throws an exceptio
 Parameters:
 
 - passed: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the test case passed.
- 
+
 ## class Report
 
 ```cangjie
-abstract sealed class Report {}
+sealed abstract class Report {}
 ```
 
 Function: Base class for printing test case result reports.
@@ -1376,7 +1378,7 @@ public func runBenchmarks(): BenchReport
 
 Function: Runs all benchmark test cases.
 
-Return Value:
+Returns:
 
 - [BenchReport](#class-benchreport) - Benchmark test case report.
 
@@ -1392,7 +1394,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Runtime configuration.
 
-Return Value:
+Returns:
 
 - [BenchReport](#class-benchreport) - Benchmark test case report.
 
@@ -1404,7 +1406,7 @@ public func runTests(): TestReport
 
 Function: Executes all unit test cases.
 
-Return Value:
+Returns:
 
 - [TestReport](#class-testreport) - Unit test case report.
 
@@ -1420,7 +1422,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Runtime configuration.
 
-Return Value:
+Returns:
 
 - [TestReport](#class-testreport) - Unit test case report.
 
@@ -1436,7 +1438,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test group name.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1452,7 +1454,7 @@ Parameters:
 
 - group: [TestGroup](#class-testgroup) - Test group.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1478,7 +1480,7 @@ Parameters:
 
 - benchmark: [Benchmark](#class-benchmark) - Benchmark test case.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1494,7 +1496,7 @@ Parameters:
 
 - suite: [TestSuite](#class-testsuite) - Test suite.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1510,7 +1512,7 @@ Parameters:
 
 - test: [UnitTestCase](#class-unittestcase) - Unit test case.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1522,7 +1524,7 @@ public func build(): TestGroup
 
 Function: Builds the test group object after configuration.
 
-Return Value:
+Returns:
 
 - [TestGroup](#class-testgroup) - Test group.
 
@@ -1538,7 +1540,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1554,7 +1556,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Name.
 
-Return Value:
+Returns:
 
 - [TestGroupBuilder](#class-testgroupbuilder) - Test group builder.
 
@@ -1616,6 +1618,14 @@ Parameters:
 
 - bench: () -> [Benchmark](#class-benchmark) - Benchmark case generation closure.
 
+### func enableOptimizedMockForBench()
+
+```cangjie
+public func enableOptimizedMockForBench(): Unit
+```
+
+Function: Enables optimization to use both mocks and benchmarks in tests.
+
 ## class TestReport
 
 ```cangjie
@@ -1640,7 +1650,7 @@ Parameters:
 
 - reporter: [Reporter](#class-report)\<[TestReport](#class-testreport), T> - Unit test report printer.
 
-Return Value:
+Returns:
 
 - T - Print return value, typically Unit.
  
@@ -1749,7 +1759,7 @@ public func runBenchmarks(): BenchReport
 
 Purpose: Runs all benchmark test cases.
 
-Return value:
+Returns:
 
 - [BenchReport](#class-benchreport) - Benchmark test execution results.
 
@@ -1765,7 +1775,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Execution configuration.
 
-Return value:
+Returns:
 
 - [BenchReport](#class-benchreport) - Benchmark test execution results.
 
@@ -1777,7 +1787,7 @@ public func runTests(): TestReport
 
 Purpose: Executes the test suite.
 
-Return value:
+Returns:
 
 - [TestReport](#class-testreport) - Test suite execution results.
 
@@ -1793,7 +1803,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Execution configuration.
 
-Return value:
+Returns:
 
 - [TestReport](#class-testreport) - Test suite execution results.
 
@@ -1809,7 +1819,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test suite name.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1825,7 +1835,7 @@ Parameters:
 
 - suite: [TestSuite](#class-testsuite) - Test suite.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1851,7 +1861,7 @@ Parameters:
 
 - benchmark: [Benchmark](#class-benchmark) - Benchmark test case.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1867,7 +1877,7 @@ Parameters:
 
 - test: [UnitTestCase](#class-unittestcase) - Unit test case.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1883,7 +1893,7 @@ Parameters:
 
 - body: () -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1899,7 +1909,7 @@ Parameters:
 
 - body: () -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1915,7 +1925,7 @@ Parameters:
 
 - body: (String) -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1931,7 +1941,7 @@ Parameters:
 
 - body: () -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1947,7 +1957,7 @@ Parameters:
 
 - body: () -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1963,7 +1973,7 @@ Parameters:
 
 - body: (String) -> Unit - Execution body.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1979,7 +1989,7 @@ Parameters:
 
 - template: TestSuite - The test suite to use as template.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -1991,7 +2001,7 @@ public func build(): TestSuite
 
 Purpose: Constructs the test suite after configuration.
 
-Return value:
+Returns:
 
 - [TestSuite](#class-testsuite) - The test suite.
 
@@ -2007,7 +2017,7 @@ Parameters:
 
 - configuration: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Test configuration.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -2023,7 +2033,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Test suite name.
 
-Return value:
+Returns:
 
 - [TestSuiteBuilder](#class-testsuitebuilder) - Test suite builder.
 
@@ -2104,7 +2114,7 @@ public func run(): TestReport
 
 Purpose: Executes the unit test case.
 
-Return value:
+Returns:
 
 - [TestReport](#class-testreport) - Unit test execution report.
 
@@ -2126,7 +2136,7 @@ Parameters:
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Test case configuration.
 - body!: () -> Unit - Test case execution body.
 
-Return value:
+Returns:
 
 - [UnitTestCase](#class-unittestcase) - Unit test case object.
 
@@ -2150,7 +2160,7 @@ Parameters:
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Test case configuration.
 - body!: () -> Unit - Test case execution body.
 
-Return value:
+Returns:
 
 - [UnitTestCase](#class-unittestcase) - Unit test case object.
 
@@ -2174,9 +2184,11 @@ Parameters:
 - configuration!: [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Test case configuration.
 - body!: () -> Unit - Test case execution body.
 
-Return value:
+Returns:
 
-- [UnitTestCase](#class-unittestcase) - Unit test case object.## class XmlReporter
+- [UnitTestCase](#class-unittestcase) - Unit test case object.
+ 
+## class XmlReporter
 
 ```cangjie
 public class XmlReporter <: Reporter<TestReport, Unit> {

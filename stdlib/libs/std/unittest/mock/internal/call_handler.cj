@@ -13,10 +13,7 @@ private var staticCallHandlers = ArrayList<CallHandler>()
 
 public interface CallHandler {
     func onCall(call: Call): OnCall
-
-    // Should be called inside a dummyCall lambda
-    @When[backend == "cjnative"]
-    func requireMockObject<T>(obj: T): T
+    func throwNotAMockObject(): Nothing
 
     static func recordStatic(callHandler: CallHandler) {
         staticCallHandlers.add(callHandler)
@@ -36,7 +33,10 @@ public enum OnCall {
     ReturnZero | Return(Any) | Throw(Exception) | CallBase | ReturnDefault
 }
 
-@When[backend == "cjnative"]
 protected func requireMockObject<T>(obj: T): T {
-    CallHandler.currentStatic().requireMockObject(obj)
+    if (obj is Mocked) {
+        return obj
+    } else {
+        CallHandler.currentStatic().throwNotAMockObject()
+    }
 }

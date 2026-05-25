@@ -114,7 +114,7 @@ public func GC(heavy!: Bool = false): Unit
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [gc](runtime_package_funcs.md#func-gcbool) 替代。
+> 未来版本即将废弃，使用[gc](runtime_package_funcs.md#func-gcbool) 替代。
 
 参数：
 
@@ -439,7 +439,7 @@ main() {
 public func getUsedHeapSize(): Int64
 ```
 
-功能：在 Linux、OpenHarmony、HarmonyOS、Android 平台下获取仓颉堆实际占用的物理内存大小，单位为 byte。在 Windows、macOS、iOS 平台下获取仓颉进程实际占用的物理内存大小，单位为 byte。
+功能：在 Linux、OpenHarmony、HarmonyOS、Android 平台下获取仓颉堆实际占用的物理内存大小, 单位为 byte。在 Windows、macOS、iOS 平台下获取仓颉进程实际占用的物理内存大小, 单位为 byte。
 
 返回值：
 
@@ -464,6 +464,37 @@ main() {
 
 ```text
 当前使用的堆内存大小: 614400 字节
+```
+
+## func isGCRunning()
+
+```cangjie
+public func isGCRunning(): Bool
+```
+
+功能：GC 状态查询函数，用于检测当前虚拟机中是否有垃圾回收过程正在执行。
+
+返回值：
+
+- [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 正在执行返回 `true`，否则返回 `false`。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.runtime.*
+
+main() {
+    // 调用GC状态查询函数
+    let gcStatus = isGCRunning()
+    println("当前GC运行状态: ${gcStatus}")
+}
+```
+
+运行结果：
+
+```text
+当前GC运行状态: false
 ```
 
 ## func registerSignalHandler(Signal, SignalHandlerFunc)
@@ -659,7 +690,7 @@ public func SetGCThreshold(value: UInt64): Unit
 
 > **注意：**
 >
-> 未来版本即将废弃，使用 [setGCThreshold(UInt64)](./runtime_package_funcs.md#func-setgcthresholduint64) 替代。
+> 未来版本即将废弃，使用[setGCThreshold(UInt64)](./runtime_package_funcs.md#func-setgcthresholduint64) 替代。
 
 参数：
 
@@ -688,11 +719,11 @@ public func startCPUProfiling(): Unit
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 与 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath) 两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
 
 异常：
 
-- ProfilingInfoException - 若调用了 [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 后，没有调用 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了 [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 则抛出异常。
+- ProfilingInfoException - 若调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)后，没有调用[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)，而是又调用了[startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)则抛出异常。
 
 示例：
 
@@ -731,7 +762,7 @@ public func stopCPUProfiling(path: Path): Unit
 
 > **注意：**
 >
-> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling) 与 [stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath) 两个函数必须一一对应。
+> [startCPUProfiling](./runtime_package_funcs.md#func-startcpuprofiling)与[stopCPUProfiling(Path)](./runtime_package_funcs.md#func-stopcpuprofilingpath)两个函数必须一一对应。
 
 参数：
 
@@ -775,7 +806,6 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 ```cangjie
 import std.runtime.*
 import std.env.*
-import std.posix.*
 
 func signalHandler1(sigValue: Int32): Bool {
     println("signalHandler1 接收到信号: ${sigValue}")

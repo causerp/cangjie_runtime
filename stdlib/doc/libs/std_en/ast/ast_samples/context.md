@@ -74,7 +74,6 @@ The macro calls are as follows:
 
 ```cangjie
 // macro_call.cj
-import std.ast.*
 import macro_definition.*
 
 main() {

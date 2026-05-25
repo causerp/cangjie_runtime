@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ANDROID__)
 #define MAX_READ_LENGTH 4096
 #include <sys/types.h>
 #include <unistd.h>

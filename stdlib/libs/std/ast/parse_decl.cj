@@ -71,19 +71,15 @@ public func parseDeclFragment(input: Tokens, startFrom!: Int64 = 0): (Decl, Int6
     return (astNode, count)
 }
 
+/**
+ * @throws ASTException if input tokens cannot be parsed to a FuncParam node.
+ */
 func parseFuncParam(input: Tokens): FuncParam {
     var params = ArrayList<FuncParam>()
     try {
-        let tokens = Tokens()
-        tokens
-            .append(Token(IDENTIFIER))
-            .append(Token(LPAREN))
-            .append(input)
-            .append(Token(RPAREN))
-            .append(Token(LCURL))
-            .append(Token(RCURL))
+        let tokens = quote(foo($(input)){})
         params = PrimaryCtorDecl(tokens).funcParams
-    } catch (e: ASTException) {
+    } catch (_: ASTException) {
         throw ASTException("Cannot construct the 'FuncParam' node.")
     }
     if (params.size == 0) {

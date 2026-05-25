@@ -136,6 +136,7 @@ public unsafe func readStringUnchecked<T>(from: T): String where T <: InputStrea
 ```cangjie
 import std.io.ByteBuffer
 import std.io.readStringUnchecked
+import std.io.ContentFormatException
 
 main(): Unit {
     let inputStream = ByteBuffer()

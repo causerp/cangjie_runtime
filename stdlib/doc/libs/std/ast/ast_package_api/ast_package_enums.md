@@ -80,14 +80,6 @@ public enum ImportKind <: ToString {
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
-### Single
-
-```cangjie
-Single
-```
-
-功能：表示单导入，如 `import a.b`。
-
 ### Alias
 
 ```cangjie
@@ -111,6 +103,14 @@ Multi
 ```
 
 功能：表示多导入，如 `import a.{b, c, d}`。
+
+### Single
+
+```cangjie
+Single
+```
+
+功能：表示单导入，如 `import a.b`。
 
 ### func toString()
 
@@ -486,14 +486,6 @@ BITXOR_ASSIGN
 
 功能：构造一个表示 `^=` 的枚举实例。
 
-### BOOLEAN
-
-```cangjie
-BOOLEAN
-```
-
-功能：构造一个表示 `bool` 的枚举实例。
-
 ### BOOL_LITERAL
 
 ```cangjie
@@ -501,6 +493,14 @@ BOOL_LITERAL
 ```
 
 功能：构造一个表示*布尔类型字面量*的枚举实例。
+
+### BOOLEAN
+
+```cangjie
+BOOLEAN
+```
+
+功能：构造一个表示 `bool` 的枚举实例。
 
 ### BREAK
 
@@ -854,14 +854,6 @@ IDENTIFIER
 
 功能：构造一个表示*标识符*的枚举实例。
 
-### PACKAGE_IDENTIFIER
-
-```cangjie
-PACKAGE_IDENTIFIER
-```
-
-功能：构造一个表示*包标识符*的枚举实例。
-
 ### IF
 
 ```cangjie
@@ -1110,6 +1102,14 @@ MUL
 
 功能：构造一个表示 `*` 的枚举实例。
 
+### MUL_ASSIGN
+
+```cangjie
+MUL_ASSIGN
+```
+
+功能：构造一个表示 `*=` 的枚举实例。
+
 ### MULTILINE_RAW_STRING
 
 ```cangjie
@@ -1125,14 +1125,6 @@ MULTILINE_STRING
 ```
 
 功能：构造一个表示*多行字符串字面量*的枚举实例。
-
-### MUL_ASSIGN
-
-```cangjie
-MUL_ASSIGN
-```
-
-功能：构造一个表示 `*=` 的枚举实例。
 
 ### MUT
 
@@ -1158,6 +1150,14 @@ NOT
 
 功能：构造一个表示 `!` 的枚举实例。
 
+### NOT_IN
+
+```cangjie
+NOT_IN
+```
+
+功能：构造一个表示 `!in` 的枚举实例。
+
 ### NOTEQ
 
 ```cangjie
@@ -1173,14 +1173,6 @@ NOTHING
 ```
 
 功能：构造一个表示 `nothing` 的枚举实例。
-
-### NOT_IN
-
-```cangjie
-NOT_IN
-```
-
-功能：构造一个表示 `!in` 的枚举实例。
 
 ### OPEN
 
@@ -1229,6 +1221,14 @@ PACKAGE
 ```
 
 功能：构造一个表示 `package` 的枚举实例。
+
+### PACKAGE_IDENTIFIER
+
+```cangjie
+PACKAGE_IDENTIFIER
+```
+
+功能：构造一个表示*包标识符*的枚举实例。
 
 ### PERFORM
 

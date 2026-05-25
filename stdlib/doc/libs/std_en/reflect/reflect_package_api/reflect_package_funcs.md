@@ -22,7 +22,7 @@ Parameters:
 
 - parameters: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of function parameter types.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)> - The parameter type information corresponding to the string.
 

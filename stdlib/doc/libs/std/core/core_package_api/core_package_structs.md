@@ -198,7 +198,6 @@ String array with repeated value: [Hello, Hello, Hello]
 Boolean array with repeated value: [true, true, true, true]
 ```
 
-<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -206,6 +205,7 @@ public func all(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断数组所有元素是否都满足条件。
+
 
 > **注意：**
 >
@@ -247,9 +247,7 @@ main() {
 所有元素都是偶数: true
 所有元素都大于5: false
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -257,6 +255,7 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断数组是否存在任意一个满足条件的元素。
+
 
 > **注意：**
 >
@@ -298,7 +297,6 @@ main() {
 存在偶数: true
 存在大于10的元素: false
 ```
-<!--DelEnd-->
 
 ### func clone()
 
@@ -552,7 +550,6 @@ Before partial fill: [1, 2, 3, 4, 5]
 After partial fill: [1, -1, -1, -1, 5]
 ```
 
-<!--Del-->
 ### func filter((T) -> Bool)
 
 ```cangjie
@@ -560,6 +557,7 @@ public func filter(predicate: (T) -> Bool): Array<T>
 ```
 
 功能： 返回一个满足筛选条件的元素的新数组。
+
 
 > **注意：**
 >
@@ -595,9 +593,7 @@ main() {
 原数组: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 偶数: [2, 4, 6, 8, 10]
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -605,6 +601,7 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新数组。
+
 
 > **注意：**
 >
@@ -647,9 +644,7 @@ main() {
 原数组: [123, abcd, 45, ]
 非空字符串的长度: [3, 4, 2]
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func flatMap\<R>((T) -> Array\<R>)
 
 ```cangjie
@@ -657,6 +652,7 @@ public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
 ```
 
 功能：对数组中的每个元素应用一个转换闭包（transform），该闭包返回一个数组，然后将所有返回的数组“压平”（flatten）并连接成一个单一的结果数组。
+
 
 > **注意：**
 >
@@ -694,9 +690,7 @@ main() {
 原数组: [1, 2, 3]
 扩展后: [数字: 1, 数字的平方: 1, 数字: 2, 数字的平方: 4, 数字: 3, 数字的平方: 9]
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -704,6 +698,7 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 ```
 
 功能：使用指定初始值，从左向右计算。
+
 
 > **注意：**
 >
@@ -740,9 +735,7 @@ main() {
 原数组: [1, 2, 3, 4, 5]
 数组元素之和: 15
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -750,6 +743,7 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
+
 
 > **注意：**
 >
@@ -786,7 +780,6 @@ main() {
  banana
  cherry
 ```
-<!--DelEnd-->
 
 ### func get(Int64)
 
@@ -825,7 +818,6 @@ main() {
 Some(0)
 ```
 
-<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -833,6 +825,7 @@ public func intersperse(separator: T): Array<T>
 ```
 
 功能：返回每两个元素之间插入一个给定的新元素后的新数组
+
 
 > **注意：**
 >
@@ -868,7 +861,6 @@ main() {
 原数组: [1, 2, 3, 4]
 插入分隔符0后: [1, 0, 2, 0, 3, 0, 4]
 ```
-<!--DelEnd-->
 
 ### func map\<R>((T)->R)
 
@@ -915,7 +907,6 @@ Mapped array (each element + 1): [2, 3, 4, 5, 6]
 String array: [Number: 1, Number: 2, Number: 3, Number: 4, Number: 5]
 ```
 
-<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -923,6 +914,7 @@ public func none(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断数组中所有元素是否都不满足条件。
+
 
 > **注意：**
 >
@@ -964,9 +956,7 @@ main() {
 没有偶数: true
 没有大于10的数: true
 ```
-<!--DelEnd-->
 
-<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -974,6 +964,7 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
+
 
 > **注意：**
 >
@@ -1013,7 +1004,6 @@ main() {
 原数组: [1, 2, 3, 4, 5]
 数组元素之和: 15
 ```
-<!--DelEnd-->
 
 ### func repeat(Int64)
 
@@ -1106,16 +1096,16 @@ Original string array: [Hello, World, Cangjie]
 Reversed string array: [Cangjie, World, Hello]
 ```
 
-<!--Del-->
 ### func skip(Int64)
 
 ```cangjie
 public func skip(count: Int64): Array<T>
 ```
 
-功能：跳过特定个数元素并返回一个新数组。
+功能： 跳过特定个数元素并返回一个新数组。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源数组所有元素的新数组。当 count 大于 0 小于源数组的大小时，跳过前 count 个元素，返回包含剩下的元素的新数组。当 count 大于等于数组的大小时，返回空数组。
+
 
 > **注意：**
 >
@@ -1166,7 +1156,6 @@ main() {
 跳过前0个元素后: [1, 2, 3, 4, 5, 6, 7, 8]
 跳过前10个元素后: []
 ```
-<!--DelEnd-->
 
 ### func slice(Int64, Int64)
 
@@ -1182,7 +1171,7 @@ public func slice(start: Int64, len: Int64): Array<T>
 
 参数：
 
-- start: [Int64](core_package_intrinsics.md#int64) - 切片的起始位置，取值需大于 0，且 start + len 小于等于当前 [Array](core_package_structs.md#struct-arrayt) 实例的长度。
+- start: [Int64](core_package_intrinsics.md#int64) - 切片的起始位置，取值需大于等于 0，且 start + len 小于等于当前 [Array](core_package_structs.md#struct-arrayt) 实例的长度。
 - len: [Int64](core_package_intrinsics.md#int64) - 切片的长度，取值需大于 0。
 
 返回值：
@@ -1283,7 +1272,6 @@ Left slice: [-1, 1, 2]
 Right slice: [3, 4, 5]
 ```
 
-<!--Del-->
 ### func step(Int64)
 
 ```cangjie
@@ -1291,6 +1279,9 @@ public func step(count: Int64): Array<T>
 ```
 
 功能：以指定的间隔从数组中提取元素，并返回一个新数组。
+
+当 count 小于等于 0 时，抛出异常
+
 
 > **注意：**
 >
@@ -1330,7 +1321,6 @@ main() {
 原数组: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 步长为3提取的元素: [1, 4, 7, 10]
 ```
-<!--DelEnd-->
 
 ### func swap(Int64, Int64)
 
@@ -1380,7 +1370,6 @@ After swapping indices 1 and 3: [1, 4, 3, 2, 5]
 After swapping index 2 with itself: [1, 4, 3, 2, 5]
 ```
 
-<!--Del-->
 ### func take(Int64)
 
 ```cangjie
@@ -1390,6 +1379,7 @@ public func take(count: Int64): Array<T>
 功能： 从数组取出特定个数元素并返回一个新数组。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空数组。当 count 大于 0 小于源数组的大小时，取前 count 个元素，返回新数组。当 count 大于等于数组的大小时，取所有元素，返回新数组。
+
 
 > **注意：**
 >
@@ -1435,7 +1425,6 @@ main() {
 取前3个元素: [1, 2, 3]
 取前10个元素: [1, 2, 3, 4, 5, 6, 7, 8]
 ```
-<!--DelEnd-->
 
 ### operator func \[](Int64)
 
@@ -1659,7 +1648,6 @@ main(): Int64 {
 [1, 2, 3, 4]
 ```
 
-<!--Del-->
 ### extend\<T> Array\<T>
 
 ```cangjie
@@ -1675,6 +1663,7 @@ public func enumerate(): Array<(Int64, T)>
 ```
 
 功能：用于获取带索引的数组。
+
 
 > **注意：**
 >
@@ -1724,10 +1713,6 @@ public func zip<R>(other: Array<R>): Array<(T, R)>
 
 功能：将两个数组合并成一个新数组（长度取决于短的那个数组）。
 
-> **注意：**
->
-> 不支持平台：OpenHarmony。
-
 参数：
 
 - other: [Array](core_package_structs.md#struct-arrayt)\<R> - 要合并的其中一个数组。
@@ -1769,7 +1754,6 @@ main() {
  (3, cherry)
  (4, date)
 ```
-<!--DelEnd-->
 
 ### extend\<T> Array\<T> <: Collection\<T>
 
@@ -3987,8 +3971,8 @@ public struct Duration <: ToString & Hashable & Comparable<Duration> {
 
 > **说明：**
 >
-> - [Duration](core_package_structs.md#struct-duration) 表示范围为 [Duration](core_package_structs.md#struct-duration).Min 至 [Duration](core_package_structs.md#struct-duration).Max，数值表示为 [-2<sup>63</sup>, 2<sup>63</sup>)（单位为秒），精度为纳秒。
-> - [Duration](core_package_structs.md#struct-duration) 每个时间单位均用整数表示，如果实际值不为整数，则向绝对值小的方向取整。例如表示 `1 小时 30 分 46 秒` 的 [Duration](core_package_structs.md#struct-duration) 实例调用 `toHours` 方法，将返回结果 1 而不是 1.5 或 2。
+> - [Duration](core_package_structs.md#struct-duration) 表示范围为 [Duration](core_package_structs.md#struct-duration).Min 至 [Duration](core_package_structs.md#struct-duration).Max，数值表示为[-2<sup>63</sup>, 2<sup>63</sup>)（单位为秒），精度为纳秒。
+> - [Duration](core_package_structs.md#struct-duration) 每个时间单位均用整数表示，如果实际值不为整数，则向绝对值小的方向取整。例如表示 `1小时30分46秒` 的 [Duration](core_package_structs.md#struct-duration) 实例调用 `toHours` 方法，将返回结果 1 而不是 1.5 或 2。
 
 父类型：
 
@@ -5905,7 +5889,7 @@ public const init(start: T, end: T, step: Int64, hasStart: Bool, hasEnd: Bool, i
 
 异常：
 
-- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当 [step](#let-step) 等于 0 时，抛出异常。
+- [IllegalArgumentException](core_package_exceptions.md#class-illegalargumentexception) - 当 [step](#let-step) 等于 0 时, 抛出异常。
 
 示例：
 

@@ -45,7 +45,8 @@ public:
         while (tryDirtyTree || tryReleasedTree) {
             // first try to get a dirty region.
             if (tryDirtyTree && dirtyUnitTreeMutex.try_lock()) {
-                if (dirtyUnitTree.TakeUnits(num, idx)) {
+                bool dirtyOk = dirtyUnitTree.TakeUnitsLowAddr(num, idx);
+                if (dirtyOk) {
                     DLOG(REGION, "c-tree %p alloc dirty units[%u+%u, %u) @[0x%zx, 0x%zx), %u dirty-units left",
                         &dirtyUnitTree, idx, num, idx + num, RegionInfo::GetUnitAddress(idx),
                         RegionInfo::GetUnitAddress(idx + num), dirtyUnitTree.GetTotalCount());
@@ -62,7 +63,8 @@ public:
 
             // then try to get a released region.
             if (tryReleasedTree && releasedUnitTreeMutex.try_lock()) {
-                if (releasedUnitTree.TakeUnits(num, idx)) {
+                bool releasedOk = releasedUnitTree.TakeUnitsLowAddr(num, idx);
+                if (releasedOk) {
 #ifdef _WIN64
                     MemMap::CommitMemory(
                         reinterpret_cast<void*>(RegionInfo::GetUnitAddress(idx)), num * RegionInfo::UNIT_SIZE);
@@ -103,8 +105,41 @@ public:
         }
     }
 
-    UnitCount GetDirtyUnitCount() const { return dirtyUnitTree.GetTotalCount(); }
-    UnitCount GetReleasedUnitCount() const { return releasedUnitTree.GetTotalCount(); }
+    UnitCount GetDirtyUnitCount() const
+    {
+        std::lock_guard<std::mutex> lg(dirtyUnitTreeMutex);
+        return dirtyUnitTree.GetTotalCount();
+    }
+
+    UnitCount GetReleasedUnitCount() const
+    {
+        std::lock_guard<std::mutex> lg(releasedUnitTreeMutex);
+        return releasedUnitTree.GetTotalCount();
+    }
+
+    // Return the largest contiguous block in released/dirty tree (root node = max-heap top)
+    UnitCount GetReleasedMaxBlock() const
+    {
+        std::lock_guard<std::mutex> lg(releasedUnitTreeMutex);
+        const auto* r = releasedUnitTree.RootNode();
+        return r ? r->GetCount() : 0;
+    }
+    UnitCount GetDirtyMaxBlock() const
+    {
+        std::lock_guard<std::mutex> lg(dirtyUnitTreeMutex);
+        const auto* r = dirtyUnitTree.RootNode();
+        return r ? r->GetCount() : 0;
+    }
+    size_t GetReleasedNodeCount() const
+    {
+        std::lock_guard<std::mutex> lg(releasedUnitTreeMutex);
+        return releasedUnitTree.GetNodeCount();
+    }
+    size_t GetDirtyNodeCount() const
+    {
+        std::lock_guard<std::mutex> lg(dirtyUnitTreeMutex);
+        return dirtyUnitTree.GetNodeCount();
+    }
 
 #if defined(MRT_DEBUG)
     void DumpReleasedUnitTree() const { releasedUnitTree.DumpTree("released-unit tree"); }
@@ -124,11 +159,11 @@ private:
     RegionManager& regionManager;
 
     // physical pages of released units are probably released and they are prepared for allocation.
-    std::mutex releasedUnitTreeMutex;
+    mutable std::mutex releasedUnitTreeMutex;
     CartesianTree releasedUnitTree;
 
     // dirty units are neither cleared nor released, thus must be zeroed explicitly for allocation.
-    std::mutex dirtyUnitTreeMutex;
+    mutable std::mutex dirtyUnitTreeMutex;
     CartesianTree dirtyUnitTree;
 };
 } // namespace MapleRuntime

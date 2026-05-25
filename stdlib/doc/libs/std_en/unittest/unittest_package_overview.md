@@ -116,6 +116,7 @@ The following APIs are re-exported from other packages, allowing users to utiliz
 | [TestSuiteBuilder](./unittest_package_api/unittest_package_classes.md#class-testsuitebuilder) | Builder for configuring test suite methods. |
 | [UnitTestCase](./unittest_package_api/unittest_package_classes.md#class-unittestcase) | Provides methods for creating and executing unit test cases. |
 | [XmlReporter](./unittest_package_api/unittest_package_classes.md#class-xmlreporter) | Prints unit test results to XML files. |
+| [XmlPerPackageReporter](./unittest_package_api/unittest_package_classes.md#class-xmlperpackagereporter) | Prints unit test results to XML files per package. |
 
 ### Enums
 

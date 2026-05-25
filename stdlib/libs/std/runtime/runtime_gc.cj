@@ -27,6 +27,9 @@ func getCjGCFreedSize(): UIntNative
 @Intrinsic
 func setCjGCThreshold(value: UInt64): Unit
 
+@When[backend == "cjnative"]
+foreign func CJ_MCC_IsGCRunning(): Bool
+
 @Deprecated[message: "Use 'public func gc(heavy!: Bool = false): Unit' instead."]
 public func GC(heavy!: Bool = false): Unit {
     return gc(heavy: heavy)
@@ -63,4 +66,9 @@ public func getGCTime(): Int64 {
 @When[backend == "cjnative"]
 public func getGCFreedSize(): Int64 {
     return Int64(getCjGCFreedSize())
+}
+
+@When[backend == "cjnative"]
+public func isGCRunning(): Bool {
+    unsafe { CJ_MCC_IsGCRunning() }
 }

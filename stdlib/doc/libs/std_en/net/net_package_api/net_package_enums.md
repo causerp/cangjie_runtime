@@ -49,7 +49,7 @@ public func toString(): String
 
 Function: Converts enum value to string.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted string.
 
@@ -65,7 +65,7 @@ Parameters:
 
 - that: [SocketNet](net_package_enums.md#enum-socketnet) - The input [SocketNet](net_package_enums.md#enum-socketnet).
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if not equal; otherwise, returns `false`.
 
@@ -81,6 +81,6 @@ Parameters:
 
 - that: [SocketNet](net_package_enums.md#enum-socketnet) - The input [SocketNet](net_package_enums.md#enum-socketnet).
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if equal; otherwise, returns `false`.

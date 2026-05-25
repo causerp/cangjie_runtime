@@ -102,7 +102,7 @@ void LogWrite(ThreadLogLevel level,
 
 void HiLogWrite(RTLogLevel level, const char *fmt, ...)
 {
-#if defined (__OHOS__) || defined(__ANDROID__)
+#if defined (__OHOS__) || defined(__ANDROID__) || defined(__IOS__)
     va_list args;
     va_start(args, fmt);
     MapleRuntime::HiLogForCJThread(level, fmt, args);

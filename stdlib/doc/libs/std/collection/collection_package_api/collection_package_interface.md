@@ -811,7 +811,7 @@ public interface ReadOnlyMap<K, V> <: Collection<(K, V)> {
 
 功能：[ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 接口提供了一种将键映射到值的方式。它允许我们使用键来查找值，因此可以用于存储键值对。
 
-[ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v) 不能包含重复的 key，每个 key 最多只能映射到一个 value。
+[ReadOnlyMap](collection_package_interface.md#interface-readonlymapk-v)不能包含重复的 key，每个 key 最多只能映射到一个 value。
 
 父类型：
 

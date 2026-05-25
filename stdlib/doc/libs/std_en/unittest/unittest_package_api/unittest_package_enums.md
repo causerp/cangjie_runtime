@@ -7,6 +7,7 @@ public enum ExplicitGcType <: ToString {
     | Disabled
     | Light
     | Heavy
+    | Auto
 }
 ```
 
@@ -38,7 +39,15 @@ Function: [std.runtime.GC](../../runtime/runtime_package_api/runtime_package_fun
 Light
 ```
 
-Function: [std.runtime.GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)(heavy: false) will be explicitly invoked by the framework during Benchmark function execution. This is the default setting.
+Function: [std.runtime.GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool)(heavy: false) will be explicitly invoked by the framework during Benchmark function execution.
+
+### Auto
+
+```cangjie
+Auto
+```
+
+Function: GC will be invoked by the framework during Benchmark function execution, and the strategy is choosed by framework. This is the default setting.
 
 ### func toString()
 
@@ -48,7 +57,7 @@ public func toString(): String
 
 Function: String representation of the three different [GC](../../runtime/runtime_package_api/runtime_package_funcs.md#func-gcbool) execution modes.
 
-Return Value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - String representation of the three different GC execution modes.
 
@@ -181,7 +190,7 @@ public func toString(): String
 
 Function: Converts time to string representation.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - String composed of four different time representations.
 
@@ -449,6 +458,6 @@ public func toString(): String
 
 Function: Converts counter to string representation.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - String representation of the processor counter.

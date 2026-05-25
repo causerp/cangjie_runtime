@@ -18,7 +18,6 @@
 #define CONTEXT_MXCSR               0x40
 #define CONTEXT_FPU_CW              0x44
 
-#define THREAD_CONTEXT_OFFSET       0x78
 #define ExclusiveScopeFrameSize     (8 * 22)
 
 
@@ -135,9 +134,12 @@ unwindPCForExclusiveStub:
     jnz     .L_exc_skip_stack_switch
 
     // ==================== switch to OS thread ====================
-    movq    -88(%rbp), %r12             // thread
-    leaq    THREAD_CONTEXT_OFFSET(%r12), %r15
-    
+    movq    -88(%rbp), %rdi             // arg0 = thread pointer
+    callq   ExclusiveGetThreadContext@PLT  // returns void* = &thread->context
+    testq   %rax, %rax
+    jz      .L_exc_skip_stack_switch
+    movq    %rax, %r15
+
     movq    CONTEXT_RSP(%r15), %r11
     testq   %r11, %r11
     jz      .L_exc_skip_stack_switch

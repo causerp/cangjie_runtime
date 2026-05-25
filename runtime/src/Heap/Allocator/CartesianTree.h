@@ -122,6 +122,16 @@ public:
         return TakeUnitsImpl(num, idx, refreshRegionInfo);
     }
 
+    // find the lowest-address node with at least 'num' units (for MAIN defragmentation)
+    bool TakeUnitsLowAddr(Count num, Index& idx, bool refreshRegionInfo = true)
+    {
+        if (root == nullptr || num == 0) {
+            return false;
+        }
+
+        return TakeUnitsLowAddrImpl(num, idx, refreshRegionInfo);
+    }
+
     struct Node {
         Node(Index idx, Count num, bool refreshRegionInfo) : l(nullptr), r(nullptr), index(idx), count(num)
         {
@@ -250,6 +260,7 @@ public:
 
     inline bool Empty() const { return root == nullptr; }
     inline const Node* RootNode() const { return root; }
+    size_t GetNodeCount() const;
 
     // root node records the largest block of memory.
     void ReleaseRootNode()
@@ -404,66 +415,15 @@ private:
         return newRoot;
     }
 
-    bool TakeUnitsImpl(Count num, Index& idx, bool refershRegionInfo)
-    {
-        ForwardIterator it(*this);
-        Node** nodePtr = it.Next(); // pointer to root node
-        if (UNLIKELY(nodePtr == nullptr)) {
-            return false;
-        }
-        Node* node = *nodePtr;
-        if (node != nullptr && node->GetCount() < num) {
-            DLOG(REGION, "c-tree %p fail to take %u free units", this, num);
-            return false;
-        }
-        Node** nextNodePtr = nullptr;
-        while ((nextNodePtr = it.Next()) != nullptr) {
-            Node* nextNode = *nextNodePtr;
-            if (nextNode != nullptr && nextNode->GetCount() < num) {
-                break;
-            }
+    bool TakeUnitsImpl(Count num, Index& idx, bool refershRegionInfo);
 
-            nodePtr = nextNodePtr;
-        }
+    // Best-fit with lowest-address tiebreaker.
+    Node** FindBestFitLowAddrPtr(Node** nodePtr, Count num, Node** best);
 
-        node = *nodePtr;
-        idx = node->GetIndex();
-        auto count = node->GetCount();
+    // Best-fit allocation with lowest-address tiebreaker.
+    bool TakeUnitsLowAddrImpl(Count num, Index& idx, bool refreshRegionInfo);
 
-        node->UpdateNode(idx + num, count - num, refershRegionInfo);
-        DecTotalCount(num);
-
-        if (node->GetCount() == 0) {
-            RemoveZeroNode(*nodePtr);
-        } else {
-            LowerNonZeroNode(*nodePtr);
-        }
-
-        CTREE_CHECK_PARENT_AND_LCHILD(*nodePtr);
-        CTREE_CHECK_PARENT_AND_RCHILD(*nodePtr);
-
-        return true;
-    }
-
-    bool AllocateLowestAddressFromNode(Node*& node, Count count, Index& index)
-    {
-        Count nodeCount = node->GetCount();
-        if (nodeCount < count) {
-            return false;
-        }
-
-        index = node->GetIndex();
-        DLOG(REGION, "c-tree %p v-alloc %u units from [%u+%u, %u)", this, count, index, nodeCount, index + nodeCount);
-
-        node->UpdateNode(index + count, nodeCount - count, false);
-        DecTotalCount(count);
-        if (node->GetCount() == 0) {
-            RemoveZeroNode(node);
-        } else {
-            LowerNonZeroNode(node);
-        }
-        return true;
-    }
+    bool AllocateLowestAddressFromNode(Node*& node, Count count, Index& index);
 
     // move node n down in the tree to maintain the heap property
     ATTR_NO_INLINE Node* LowerNode(Node* n)

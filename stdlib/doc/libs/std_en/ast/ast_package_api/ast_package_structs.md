@@ -86,7 +86,7 @@ public func isEmpty(): Bool
 
 Function: Determines whether both the line number and column number are `0`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true when both the line number and column number are `0`.
 
@@ -98,7 +98,7 @@ public func toBytes(): Array<UInt8>
 
 Function: Serializes the Position type.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The serialized byte sequence.
 
@@ -114,7 +114,7 @@ Parameters:
 
 - r: [Position](ast_package_structs.md#struct-position) - Another position instance to compare with the current position.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true when the two [Position](ast_package_structs.md#struct-position) instances are not completely equal.
 
@@ -130,7 +130,7 @@ Parameters:
 
 - r: [Position](ast_package_structs.md#struct-position) - Another position instance to compare with the current position.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true when the two [Position](ast_package_structs.md#struct-position) instances are completely equal.
 
@@ -196,6 +196,16 @@ Function: The number of '#' symbols in a multi-line string.
 
 Type: [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)
 
+### prop isSingleQuote
+
+```cangjie
+public mut prop isSingleQuote: Bool
+```
+
+Function: Indicates whether the lexical token is single quote.
+
+Type: Bool
+
 ### init()
 
 ```cangjie
@@ -247,7 +257,7 @@ Parameters:
 - line: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The line number where the [Token](ast_package_structs.md#struct-token) is located.
 - colum: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The column number where the [Token](ast_package_structs.md#struct-token) is located.
 
-Return Value:
+Returns:
 
 - [Token](ast_package_structs.md#struct-token) - The [Token](ast_package_structs.md#struct-token) object with supplemented position information.
 
@@ -267,7 +277,7 @@ public func toBytes(): Array<UInt8>
 
 Function: Serializes the Token type.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The serialized byte sequence.
 
@@ -283,7 +293,7 @@ Parameters:
 
 - r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true when the `ID`, value, and position of the two lexical tokens are not identical.
 
@@ -297,7 +307,9 @@ Function: Adds a [Token](ast_package_structs.md#struct-token) to the current [To
 
 Parameters:
 
-- r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to add.Return Value:
+- r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to add.
+
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The collection of lexical units after adding new [Tokens](ast_package_classes.md#class-tokens).
 
@@ -313,7 +325,7 @@ Parameters:
 
 - r: [Tokens](ast_package_classes.md#class-tokens) - Another collection of [Token](ast_package_structs.md#struct-token) objects to be added.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The collection of lexical units after adding new [Tokens](ast_package_classes.md#class-tokens).
 
@@ -329,6 +341,6 @@ Parameters:
 
 - r: [Token](ast_package_structs.md#struct-token) - Another [Token](ast_package_structs.md#struct-token) object to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the `ID` types, values, and positions of the two lexical units are identical.

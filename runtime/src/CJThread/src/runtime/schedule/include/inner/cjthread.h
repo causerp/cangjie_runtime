@@ -217,7 +217,8 @@ void CJThreadFree(struct CJThread *cjthread, bool reuse);
 * @retval cjthread
  */
 struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAttr,
-                               struct StackAttr *stackAttr, CJThreadBuf coBuf);
+                               struct StackAttr *stackAttr, CJThreadBuf coBuf,
+                               CJThreadCreateSource createSource = CJTHREAD_CREATE_SOURCE_DEFAULT);
 
 /**
  * @brief Invoke the registered destructor to clear the local variables of the cjthread.
@@ -230,7 +231,7 @@ struct CJThread *CJThreadAlloc(struct Schedule *schedule, struct ArgAttr *argAtt
 void CJThreadKeysClean(struct CJThread *cjthread);
 
 struct CJThread* CJThreadBuild(ScheduleHandle schedule, const struct CJThreadAttr *attrUser, CJThreadFunc func,
-                               const void *argStart, unsigned int argSize, bool isSignal = false);
+                               const void *argStart, unsigned int argSize, CJThreadCreateSource createSource);
 
 /**
  * @brief Add cjthreads to the queue in batches.

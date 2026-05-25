@@ -77,18 +77,6 @@ public class UnhandledCallException <: PrettyException {}
 
 - [PrettyException](#class-prettyexception)
 
-## class UnnecessaryStubbingException
-
-```cangjie
-public class UnnecessaryStubbingException <: PrettyException {}
-```
-
-功能：指示被测试的代码从未触发[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)。
-
-父类型：
-
-- [PrettyException](#class-prettyexception)
-
 ## class UnstubbedInvocationException
 
 ```cangjie

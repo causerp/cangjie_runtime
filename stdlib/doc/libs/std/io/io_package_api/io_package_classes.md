@@ -599,7 +599,7 @@ Position: 11
 public prop remainLength: Int64
 ```
 
-功能：返回当前流中未读的数据量（以字节为单位）。
+功能：返回当前流中未读的数据量（以字节为单位，不包含缓冲区中的数据）。
 
 类型：[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -2168,11 +2168,11 @@ public init(input: Array<T>)
 import std.io.*
 
 main(): Unit {
-    // 创建多个ByteBuffer作为输入流
+    // 创建多个 ByteBuffer 作为输入流
     let buffer1 = ByteBuffer("Hello ".toArray())
     let buffer2 = ByteBuffer("World".toArray())
 
-    // 使用init创建ChainedInputStream
+    // 使用 init 创建 ChainedInputStream
     let inputStreams = [buffer1, buffer2]
     let chainedStream = ChainedInputStream(inputStreams)
     println("ChainedInputStream created successfully")
@@ -2221,12 +2221,12 @@ public func read(buffer: Array<Byte>): Int64
 import std.io.*
 
 main(): Unit {
-    // 创建多个ByteBuffer作为输入流
+    // 创建多个 ByteBuffer 作为输入流
     let buffer1 = ByteBuffer("Hello ".toArray())
     let buffer2 = ByteBuffer("World".toArray())
     let buffer3 = ByteBuffer("!".toArray())
 
-    // 创建ChainedInputStream
+    // 创建 ChainedInputStream
     let inputStreams = [buffer1, buffer2, buffer3]
     let chainedStream = ChainedInputStream(inputStreams)
 
@@ -2291,11 +2291,11 @@ public init(output: Array<T>)
 import std.io.*
 
 main(): Unit {
-    // 创建多个ByteBuffer作为输出流
+    // 创建多个 ByteBuffer 作为输出流
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
 
-    // 使用init创建MultiOutputStream
+    // 使用 init 创建 MultiOutputStream
     let outputStreams = [buffer1, buffer2]
     let multiStream = MultiOutputStream(outputStreams)
     println("MultiOutputStream created successfully")
@@ -2332,11 +2332,11 @@ public func flush(): Unit
 import std.io.*
 
 main(): Unit {
-    // 创建多个ByteBuffer作为输出流
+    // 创建多个 ByteBuffer 作为输出流
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
 
-    // 创建MultiOutputStream
+    // 创建 MultiOutputStream
     let outputStreams = [buffer1, buffer2]
     let multiStream = MultiOutputStream(outputStreams)
 
@@ -2379,12 +2379,12 @@ public func write(buffer: Array<Byte>): Unit
 import std.io.*
 
 main(): Unit {
-    // 创建多个ByteBuffer作为输出流
+    // 创建多个 ByteBuffer 作为输出流
     let buffer1 = ByteBuffer()
     let buffer2 = ByteBuffer()
     let buffer3 = ByteBuffer()
 
-    // 创建MultiOutputStream
+    // 创建 MultiOutputStream
     let outputStreams = [buffer1, buffer2, buffer3]
     let multiStream = MultiOutputStream(outputStreams)
 
@@ -2442,10 +2442,10 @@ public init(input: T)
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
 
-    // 使用init创建StringReader
+    // 使用 init 创建 StringReader
     let stringReader = StringReader(buffer)
 }
 ```
@@ -2481,13 +2481,13 @@ public func lines(): Iterator<String>
 import std.io.*
 
 main(): Unit {
-    // 创建一个包含多行文本的ByteBuffer作为输入流
+    // 创建一个包含多行文本的 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用lines()方法读取所有行
+    // 使用 lines() 方法读取所有行
     let lineIterator = stringReader.lines()
     for (line in lineIterator) {
         println(line)
@@ -2513,7 +2513,7 @@ public func read(): ?Rune
 
 返回值：
 
-- ?[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)>.Some(c)，c 为该次读出的字符；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)>.None。
+- ?[Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 读取成功，返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.Some(c)，c 为该次读出的字符；否则返回 [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)>.None。
 
 异常：
 
@@ -2526,13 +2526,13 @@ public func read(): ?Rune
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用read()方法逐个读取字符
+    // 使用 read() 方法逐个读取字符
     while (true) {
         let char = stringReader.read()
         if (char == None) {
@@ -2576,13 +2576,13 @@ public func readln(): Option<String>
 import std.io.*
 
 main(): Unit {
-    // 创建一个包含多行文本的ByteBuffer作为输入流
+    // 创建一个包含多行文本的 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello\nWorld\nCangjie".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用readln()方法逐行读取
+    // 使用 readln() 方法逐行读取
     while (true) {
         let line = stringReader.readln()
         if (line == None) {
@@ -2624,13 +2624,13 @@ public func readToEnd(): String
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用readToEnd()方法读取所有剩余数据
+    // 使用 readToEnd() 方法读取所有剩余数据
     let content = stringReader.readToEnd()
     println(content)
 }
@@ -2652,7 +2652,7 @@ public func readUntil(predicate: (Rune) -> Bool): Option<String>
 
 参数：
 
-- predicate: ([Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune))->Bool - 满足一定条件返回 `true` 的表达式。
+- predicate: ([Rune](../../core/core_package_api/core_package_intrinsics.md#rune))->Bool - 满足一定条件返回 `true` 的表达式。
 
 返回值：
 
@@ -2668,13 +2668,13 @@ public func readUntil(predicate: (Rune) -> Bool): Option<String>
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello World".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用readUntil()方法读取到空格字符
+    // 使用 readUntil() 方法读取到空格字符
     let result = stringReader.readUntil({rune => rune == r' '})
     println(result.getOrThrow())
 }
@@ -2696,7 +2696,7 @@ public func readUntil(v: Rune): Option<String>
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - 指定字符。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - 指定字符。
 
 返回值：
 
@@ -2713,13 +2713,13 @@ public func readUntil(v: Rune): Option<String>
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello,World".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用readUntil()方法读取到逗号字符
+    // 使用 readUntil() 方法读取到逗号字符
     let result = stringReader.readUntil(r',')
     println(result.getOrThrow())
 }
@@ -2737,11 +2737,11 @@ Hello,
 public func runes(): Iterator<Rune>
 ```
 
-功能：获得 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
+功能：获得 [StringReader](io_package_classes.md#class-stringreadert-where-t--inputstream) 的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
 
 返回值：
 
-- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)> - 字符串的 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
+- [Iterator](../../core/core_package_api/core_package_classes.md#class-iteratort)\<[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)> - 字符串的 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 迭代器。
 
 异常：
 
@@ -2754,13 +2754,13 @@ public func runes(): Iterator<Rune>
 import std.io.*
 
 main(): Unit {
-    // 创建一个ByteBuffer作为输入流
+    // 创建一个 ByteBuffer 作为输入流
     let buffer = ByteBuffer("Hello".toArray())
 
-    // 创建StringReader
+    // 创建 StringReader
     let stringReader = StringReader(buffer)
 
-    // 使用runes()方法获取字符迭代器
+    // 使用 runes() 方法获取字符迭代器
     let runeIterator = stringReader.runes()
     for (rune in runeIterator) {
         print(rune)
@@ -3160,7 +3160,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Bool值 */
+    /* 写入 Bool 值 */
     stringWriter.write(true)
     stringWriter.write(false)
 
@@ -3199,7 +3199,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float16值 */
+    /* 写入 Float16 值 */
     stringWriter.write(3.14f16)
 
     stringWriter.flush()
@@ -3236,7 +3236,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float32值 */
+    /* 写入 Float32 值 */
     stringWriter.write(3.14159f32)
 
     stringWriter.flush()
@@ -3273,7 +3273,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float64值 */
+    /* 写入 Float64 值 */
     stringWriter.write(3.141592653589793)
 
     stringWriter.flush()
@@ -3310,7 +3310,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int16值 */
+    /* 写入 Int16 值 */
     stringWriter.write(100i16)
 
     stringWriter.flush()
@@ -3347,7 +3347,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int32值 */
+    /* 写入 Int32 值 */
     stringWriter.write(100000i32)
 
     stringWriter.flush()
@@ -3384,7 +3384,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int64值 */
+    /* 写入 Int64 值 */
     stringWriter.write(10000000000)
 
     stringWriter.flush()
@@ -3421,7 +3421,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int8值 */
+    /* 写入 Int8 值 */
     stringWriter.write(100i8)
 
     stringWriter.flush()
@@ -3443,11 +3443,11 @@ main(): Unit {
 public func write(v: Rune): Unit
 ```
 
-功能：写入 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型。
+功能：写入 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
 
 示例：
 
@@ -3459,7 +3459,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Rune值 */
+    /* 写入 Rune 值 */
     stringWriter.write(r'A')
     stringWriter.write(r'中')
 
@@ -3537,7 +3537,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt16值 */
+    /* 写入 UInt16 值 */
     stringWriter.write(100u16)
 
     stringWriter.flush()
@@ -3575,7 +3575,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt32值 */
+    /* 写入 UInt32 值 */
     stringWriter.write(100000u32)
 
     stringWriter.flush()
@@ -3613,7 +3613,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt64值 */
+    /* 写入 UInt64 值 */
     stringWriter.write(10000000000u64)
 
     stringWriter.flush()
@@ -3651,7 +3651,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt8值 */
+    /* 写入 UInt8 值 */
     stringWriter.write(100u8)
 
     stringWriter.flush()
@@ -3689,7 +3689,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入ToString类型的值 */
+    /* 写入 ToString 类型的值 */
     stringWriter.write(123.456)
     stringWriter.write(true)
 
@@ -3769,7 +3769,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Bool值并换行 */
+    /* 写入 Bool 值并换行 */
     stringWriter.writeln(true)
     stringWriter.writeln(false)
 
@@ -3808,7 +3808,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float16值并换行 */
+    /* 写入 Float16 值并换行 */
     stringWriter.writeln(3.14f16)
 
     stringWriter.flush()
@@ -3845,7 +3845,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float32值并换行 */
+    /* 写入 Float32 值并换行 */
     stringWriter.writeln(3.14159f32)
 
     stringWriter.flush()
@@ -3882,7 +3882,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Float64值并换行 */
+    /* 写入 Float64 值并换行 */
     stringWriter.writeln(3.141592653589793)
 
     stringWriter.flush()
@@ -3919,7 +3919,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int16值并换行 */
+    /* 写入 Int16 值并换行 */
     stringWriter.writeln(100i16)
 
     stringWriter.flush()
@@ -3956,7 +3956,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int32值并换行 */
+    /* 写入 Int32 值并换行 */
     stringWriter.writeln(100000i32)
 
     stringWriter.flush()
@@ -3993,7 +3993,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int64值并换行 */
+    /* 写入 Int64 值并换行 */
     stringWriter.writeln(10000000000)
 
     stringWriter.flush()
@@ -4030,7 +4030,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Int8值并换行 */
+    /* 写入 Int8 值并换行 */
     stringWriter.writeln(100i8)
 
     stringWriter.flush()
@@ -4051,11 +4051,11 @@ main(): Unit {
 public func writeln(v: Rune): Unit
 ```
 
-功能：写入 [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型 + 换行符。
+功能：写入 [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型 + 换行符。
 
 参数：
 
-- v: [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
+- v: [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) 类型的实例。
 
 示例：
 
@@ -4067,7 +4067,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入Rune值并换行 */
+    /* 写入 Rune 值并换行 */
     stringWriter.writeln(r'A')
 
     stringWriter.flush()
@@ -4141,7 +4141,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt16值并换行 */
+    /* 写入 UInt16 值并换行 */
     stringWriter.writeln(100u16)
 
     stringWriter.flush()
@@ -4178,7 +4178,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt32值并换行 */
+    /* 写入 UInt32 值并换行 */
     stringWriter.writeln(100000u32)
 
     stringWriter.flush()
@@ -4215,7 +4215,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt64值并换行 */
+    /* 写入 UInt64 值并换行 */
     stringWriter.writeln(10000000000u64)
 
     stringWriter.flush()
@@ -4252,7 +4252,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入UInt8值并换行 */
+    /* 写入 UInt8 值并换行 */
     stringWriter.writeln(100u8)
 
     stringWriter.flush()
@@ -4289,7 +4289,7 @@ main(): Unit {
     let byteBuffer = ByteBuffer()
     let stringWriter = StringWriter(byteBuffer)
 
-    /* 写入ToString类型的值并换行 */
+    /* 写入 ToString 类型的值并换行 */
     stringWriter.writeln(123.456)
 
     stringWriter.flush()
@@ -4427,7 +4427,7 @@ main(): Unit {
     let testStream = TestStream()
     let stringWriter = StringWriter(testStream)
 
-    /* 使用try-with-resource语法获取资源 */
+    /* 使用 try-with-resource 语法获取资源 */
     try (r = stringWriter) {
         println("Get the resource")
         let data = "Hello World".toArray()
@@ -4496,7 +4496,7 @@ public func seek(sp: SeekPosition): Int64
 import std.io.*
 
 /**
- * 自定义实现 OutputStream 和 Seekable 接口的类A
+ * 自定义实现 OutputStream 和 Seekable 接口的类 A
  */
 public class A <: OutputStream & Seekable {
     public var outputStream: ByteBuffer = ByteBuffer()
@@ -4527,7 +4527,7 @@ main(): Unit {
         println("Error: " + e.message)
     }
 
-    /* 将光标移动到第一个单词之后，读取后续的数据（输入流已经作为String进入） */
+    /* 将光标移动到第一个单词之后，读取后续的数据（输入流已经作为 String 进入） */
     stringWriter.seek(SeekPosition.Begin(29))
     println(String.fromUtf8(readToEnd(seekableStream.outputStream)))
 }

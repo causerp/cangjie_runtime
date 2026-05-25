@@ -903,7 +903,7 @@ public func setExecutable(executable: Bool): Bool
 >
 > - 对文件而言，设置用户是否有执行文件的权限，对目录而言，设置用户是否有进入目录的权限。
 > - 在 Windows 环境下，用户对于文件的执行权限由文件扩展名决定而对于目录的执行权限将始终拥有，调用该函数不会生效，固定返回 false。
-> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。以特权用户运行的进程可能绕过此权限设置。
 
 参数：
 
@@ -961,7 +961,7 @@ public func setReadable(readable: Bool): Bool
 > - 对文件而言，设置用户是否有读取文件的权限。
 > - 对目录而言，设置用户是否有浏览目录的权限。
 > - 在 Windows 环境下，用户始终拥有对于文件以及目录的可读权限，不可更改，调用该函数将不会生效。当 readable 为 true 时，函数返回 true，当 readable 为 false 时，函数返回 false。
-> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。
+> - 在 Linux 和 macOS 环境下，该函数可正常使用。如果在此函数调用期间，该 [FileInfo](fs_package_structs.md#struct-fileinfo) 对应的文件实体被其他用户或者进程修改，有可能因为竞争条件(Race Condition)导致其他修改不能生效。以特权用户运行的进程可能绕过此权限设置。
 
 参数：
 

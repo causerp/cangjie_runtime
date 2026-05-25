@@ -158,7 +158,7 @@
 
 ### 约束
 
-当前暂不支持 Windows 环境内对仓颉编程语言标准库进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的标准库产物，详见[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见 [平台支持计划](#平台支持计划)。
+当前暂不支持 Windows 环境内对仓颉编程语言标准库进行构建，需要在 Linux 环境内通过交叉编译方式生成可在 Windows 平台运行的标准库产物，详见[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。未来支持计划具体见[平台支持计划](#平台支持计划)。
 
 ### 编译构建
 
