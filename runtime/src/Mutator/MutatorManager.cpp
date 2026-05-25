@@ -166,10 +166,12 @@ Mutator* MutatorManager::CreateRuntimeMutator(ThreadType threadType)
     ThreadLocal::SetMutator(mutator);
     ThreadLocal::SetThreadType(threadType);
     ThreadLocal::SetCJProcessorFlag(true);
+    MutatorManagementRUnlock();
     ThreadLocalData* threadData = reinterpret_cast<ThreadLocalData*>(MRT_GetThreadLocalData());
+    // Managed-entry setup may block on sync/STW, so do not hold the mutator
+    // management lock across it.
     MRT_PreRunManagedCode(mutator, 2, threadData); // 2 layers
     // only running mutator can enter saferegion.
-    MutatorManagementRUnlock();
     return mutator;
 }
 
