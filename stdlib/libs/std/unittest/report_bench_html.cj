@@ -907,23 +907,14 @@ extend TestGroupResult {
     }
 }
 
-// creates json model suitable for the Measurement subtemplate for one benchmark result
-func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Float64, JsonObject) {
+func processPercentiles(step: BenchStepEntry, directory: Path): JsonObject {
     let measurementValue = JsonObject()
-    let mName = step.measurementInfo.name
     let stats = step.result
-    let converter = step.measurementInfo.conversionTable 
 
-    let linregFile = "${mName}_${step.arg.stepIndex}_linreg.svg"
-    try {
-        stats.draw(directory.join(linregFile), step.measurementInfo.conversionTable[0][1])
-    } catch (e: Exception) {
-        eprintln("Error: Failed to draw ${e.toString()}")
-    }
-
-    let hasTwoKdes = stats.bootstrapped.allPoints.isSome()
-
-    func processPercentiles(bootstrapped: BootstrapResult): String {
+    func addPercentiles(bootstrapped: BootstrapResult): String {
+        let converter = step.measurementInfo.conversionTable 
+        let mName = step.measurementInfo.name
+        let hasTwoKdes = stats.bootstrapped.allPoints.isSome()   
         let sample = bootstrapped.resultSample
 
         let file = "${mName}_${step.arg.stepIndex}_kde_${bootstrapped.separateGc.toString().toSafeFileName()}.svg"
@@ -940,16 +931,31 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
 
         file
     }
-    let percentiles = spawn {
-        let kdeFile = processPercentiles(stats.bootstrapped)
-        measurementValue.put("kdeImage", JsonString(kdeFile))
+    
+    let kdeFile = addPercentiles(stats.bootstrapped)
+    measurementValue.put("kdeImage", JsonString(kdeFile))
 
-        if (let Some(all) <- stats.bootstrapped.allPoints) {
-            measurementValue.put("displayKde", JsonBool(true))
-            processPercentiles(all)
-            
-        }  
-    } 
+    if (let Some(all) <- stats.bootstrapped.allPoints) {
+        measurementValue.put("displayKde", JsonBool(true))
+        addPercentiles(all)
+        
+    }  
+    measurementValue
+}
+
+// creates json model suitable for the Measurement subtemplate for one benchmark result
+func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Float64, JsonObject) {   
+    let mName = step.measurementInfo.name
+    let stats = step.result
+    
+    let linregFile = "${mName}_${step.arg.stepIndex}_linreg.svg"
+    try {
+        stats.draw(directory.join(linregFile), step.measurementInfo.conversionTable[0][1])
+    } catch (e: Exception) {
+        eprintln("Error: Failed to draw ${e.toString()}")
+    }
+
+    let percentiles = spawn { processPercentiles(step, directory) } 
 
     let imgDir = directory.join("${mName}_${step.arg.stepIndex}")
     Directory.ensureExists(imgDir)
@@ -975,7 +981,7 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
     }
 
     // wait before others to prevent data race
-    percentiles.get()
+    let measurementValue = percentiles.get()
 
     let start = DateTime.now()
     for (rowFut in futures) {
@@ -1038,7 +1044,17 @@ extend StatisticsSample {
         result.put("link", JsonString("${parentDir}/${fileName}"))
         result
     }
+    
+    func writeDataToFile(folder: Path, kde: ArrayList<(Float64, Float64)>, digits: Int64): Path {
+        let dataFile = File.createTemp(folder)
 
+        for (i in 0..kde.size) {
+            dataFile.write("${kde[i][0].format(".6g")} ${kde[i][1].format(".${digits}")}\n".toArray())
+        }
+        dataFile.close()
+        dataFile.info.path
+    }
+    
     func drawKde(into: Path, second!: ?StatisticsSample = None) {
         if (!gnuplotAvailable) {
             return
@@ -1048,29 +1064,17 @@ extend StatisticsSample {
         let kde2 = second?.kde
 
         let (mode, maxDensity) = kde.iterator().maxBy{ a => a[1] }
-
         if (!maxDensity.isNormal()) {
             println("Error for kde on data: ${sample.data}")
             return
         }
+
         let digits = max(-Int64(floor(log10(maxDensity))) + 3, 1)
-
-        func writeDataToFile(kde: ArrayList<(Float64, Float64)>): Path {
-            let dataFile = File.createTemp(into.parent)
-
-            for (i in 0..kde.size) {
-                dataFile.write("${kde[i][0].format(".6g")} ${kde[i][1].format(".${digits}")}\n".toArray())
-            }
-            dataFile.close()
-            dataFile.info.path
-        }
-
-        let noGcFile = writeDataToFile(kde)
+        let noGcFile = writeDataToFile(into.parent, kde, digits)
 
         var gcData = ""
-
         if (let Some(kdeGc) <- kde2) {
-            let withGcFile = writeDataToFile(kdeGc)
+            let withGcFile = writeDataToFile(into.parent, kdeGc, digits)
             gcData = "'${withGcFile}' using 1:2 with lines title \"kde(full)\" smooth mcsplines, "
         }
 
@@ -1108,6 +1112,16 @@ extend StatisticsSample {
 }
 
 extend BenchmarkResult {
+    func writeDataToFile(folder: Path, upperBound: Float64): Path {
+        let dataFile = File.createTemp(folder)
+
+        for ((batchSize, timeNanos, gc) in this.data) {
+            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, upperBound))} ${gc}\n".toArray())
+        }
+        dataFile.close()
+        dataFile.info.path
+    }
+
     func draw(into: Path, mName: String) {
         if (!gnuplotAvailable) {
             return
@@ -1123,11 +1137,7 @@ extend BenchmarkResult {
         let upperBound = min(max(maxx * result * 1.4 + overhead, max98 * 1.2), maxy + (maxy-miny)*0.5) + 0.000001
         let lowerBound = miny*0.99
 
-        let dataFile = File.createTemp(into.parent)
-        for ((batchSize, timeNanos, gc) in this.data) {
-            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, upperBound))} ${gc}\n".toArray())
-        }
-        dataFile.close()
+        let dataFile = writeDataToFile(into.parent, upperBound)
 
         let name = bootstrapped.separateGc
         var lines = "    x*${result}+${overhead} with lines lc rgb \"red\" title \"median(${bootstrapped.separateGc})\",\n"
@@ -1140,12 +1150,11 @@ extend BenchmarkResult {
         }
 
         var data  = ""
-        data += "'${dataFile.info.path}' using 1:(($3 == 1) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88ca336d' title \"with GC\",\n"
-        data += "'${dataFile.info.path}' using 1:(($3 == 0) ? $2 : (1/0)) with points pointtype 2 lc rgb '#889d00ff' title \"without GC\",\n"
+        data += "'${dataFile}' using 1:(($3 == 1) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88ca336d' title \"with GC\",\n"
+        data += "'${dataFile}' using 1:(($3 == 0) ? $2 : (1/0)) with points pointtype 2 lc rgb '#889d00ff' title \"without GC\",\n"
         if (this.data.iterator().any { x => x[2] > 1.99 }) {
-            data += "'${dataFile.info.path}' using 1:(($3 >= 2) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88000000' title \"double GC\",\n"
+            data += "'${dataFile}' using 1:(($3 >= 2) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88000000' title \"double GC\",\n"
         }
-        
 
         let script = """
             set key at screen 1.03,0.5 reverse center right Left;
@@ -1166,7 +1175,7 @@ extend BenchmarkResult {
         if (rc != 0) {
             eprintln("Error: gnuplot call failed.")
         }
-        remove(dataFile.info.path)
+        remove(dataFile)
     }
 }
 
