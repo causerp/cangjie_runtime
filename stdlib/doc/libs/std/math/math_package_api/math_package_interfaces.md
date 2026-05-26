@@ -1412,7 +1412,7 @@ extend Float16 <: MathExtension<Float16>
 
 父类型：
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../../std/core/core_package_api/core_package_intrinsics.md#float16)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)>
 
 #### static func GetE()
 
@@ -1490,7 +1490,7 @@ extend Float32 <: MathExtension<Float32>
 
 父类型：
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../../std/core/core_package_api/core_package_intrinsics.md#float32)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)>
 
 #### static func GetE()
 
@@ -1568,7 +1568,7 @@ extend Float64 <: MathExtension<Float64>
 
 父类型：
 
-- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../../std/core/core_package_api/core_package_intrinsics.md#float64)>
+- [MathExtension <sup>(deprecated)</sup>](#interface-mathextensiont-deprecated)\<[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)>
 
 #### static func GetE()
 

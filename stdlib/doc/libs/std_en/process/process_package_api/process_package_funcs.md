@@ -30,7 +30,7 @@ Parameters:
 - stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the standard error redirection for the child process. Defaults to inheriting the current process's standard error.
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Named optional parameter specifying the timeout for waiting for the child process. Defaults to no timeout. If `timeout` is set to `0` or a negative value, it indicates no timeout.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the child process exit status. If the child process exits normally, returns the exit code. If the child process is killed by a signal, returns the signal number that caused the termination.
 
@@ -72,7 +72,7 @@ Parameters:
 - stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the standard output redirection for the child process. Defaults to inheriting the current process's standard output.
 - stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the standard error redirection for the child process. Defaults to inheriting the current process's standard error.
 
-Return Value:
+Returns:
 
 - ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - The execution result of the child process, including the exit status (if the child process exits normally, returns the exit code; if killed by a signal, returns the signal number), standard output, and standard error.
 
@@ -105,7 +105,7 @@ Parameters:
 
 - pid: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The process `id`.
 
-Return Value:
+Returns:
 
 - [Process](process_package_classes.md#class-process) - Returns the process instance corresponding to the process `id`.
 
@@ -138,7 +138,7 @@ Parameters:
 - stdOut!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the standard output redirection for the child process. Defaults to inheriting the current process's standard output.
 - stdErr!: [ProcessRedirect](process_package_enums.md#enum-processredirect) - Named optional parameter specifying the standard error redirection for the child process. Defaults to inheriting the current process's standard error.
 
-Return Value:
+Returns:
 
 - [SubProcess](process_package_classes.md#class-subprocess) - Returns a child process instance.
 

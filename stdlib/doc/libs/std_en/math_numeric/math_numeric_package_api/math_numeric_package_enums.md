@@ -49,7 +49,7 @@ public func toString(): String
 
 Function: Generates a string representation of the overflow strategy name.
 
-Return Value:
+Returns:
 
 - [String](../../../std_en/core/core_package_api/core_package_structs.md#struct-string) - The string representation of the overflow strategy name.
 
@@ -65,6 +65,6 @@ Parameters:
 
 - that: [OverflowStrategy](#enum-overflowstrategy) - The overflow strategy to be compared.
 
-Return Value:
+Returns:
 
 - [Bool](../../../std_en/core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the overflow strategies are identical; otherwise, returns false.

@@ -6,7 +6,7 @@
 sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & BigEndianOrder<IPAddress>
 ```
 
-Functionality: This class represents an Internet Protocol (IP) address. An Internet Protocol address (IP address) is a numerical label, such as *192.0.2.1* or *2001:0db8:0000:0000:0000:ff00:0042:8329*, assigned to devices connected to a computer network that uses the Internet Protocol for communication. IP addresses serve two main functions: network interface identification and location addressing.
+Function: This class represents an Internet Protocol (IP) address. An Internet Protocol address (IP address) is a numerical label, such as *192.0.2.1* or *2001:0db8:0000:0000:0000:ff00:0042:8329*, assigned to devices connected to a computer network that uses the Internet Protocol for communication. IP addresses serve two main functions: network interface identification and location addressing.
 
 Parent Types:
 
@@ -21,7 +21,7 @@ Parent Types:
 public prop hostName: ?String
 ```
 
-Functionality: Returns the hostname corresponding to the current [IPAddress](net_package_classes.md#class-ipaddress) object, or None if resolution fails (currently unimplemented).
+Function: Returns the hostname corresponding to the current [IPAddress](net_package_classes.md#class-ipaddress) object, or None if resolution fails (currently unimplemented).
 
 Exceptions:
 
@@ -35,7 +35,7 @@ Type: ?[String](../../core/core_package_api/core_package_structs.md#struct-strin
 public prop size: Int64
 ```
 
-Functionality: Gets the byte length of the IP address object.
+Function: Gets the byte length of the IP address object.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -45,13 +45,13 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public static func parse(s: String): IPAddress
 ```
 
-Functionality: Converts an IP protocol socket string to an [IPAddress](net_package_classes.md#class-ipaddress) object.
+Function: Converts an IP protocol socket string to an [IPAddress](net_package_classes.md#class-ipaddress) object.
 
 Parameters:
 
 - s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP protocol socket string.
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - [IPAddress](net_package_classes.md#class-ipaddress) object.
 
@@ -81,7 +81,7 @@ main() {
 public static func readBigEndian(buffer: Array<Byte>): IPAddress
 ```
 
-Functionality: Reads an [IPAddress](net_package_classes.md#class-ipaddress) object from a byte array in big-endian order.
+Function: Reads an [IPAddress](net_package_classes.md#class-ipaddress) object from a byte array in big-endian order.
 
 Parameters:
 
@@ -91,7 +91,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the buffer is too small to read an [IPAddress](net_package_classes.md#class-ipaddress) value.
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - [IPAddress](net_package_classes.md#class-ipaddress) object.
 
@@ -120,7 +120,7 @@ main() {
 public static func resolve(family: AddressFamily, domain: String): Array<IPAddress>
 ```
 
-Functionality: Resolves a domain name to obtain a list of [IPAddress](net_package_classes.md#class-ipaddress) objects.
+Function: Resolves a domain name to obtain a list of [IPAddress](net_package_classes.md#class-ipaddress) objects.
 
 > **Note:**
 >
@@ -132,7 +132,7 @@ Parameters:
 - family: [AddressFamily](net_package_structs.md#struct-addressfamily) - Address family.
 - domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Domain name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[IPAddress](net_package_classes.md#class-ipaddress)> - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[IPAddress](net_package_classes.md#class-ipaddress)> object.
 
@@ -155,7 +155,7 @@ main() {
 public static func resolve(domain: String): Array<IPAddress>
 ```
 
-Functionality: Resolves a domain name to obtain a list of [IPAddress](net_package_classes.md#class-ipaddress) objects.
+Function: Resolves a domain name to obtain a list of [IPAddress](net_package_classes.md#class-ipaddress) objects.
 
 > **Note:**
 >
@@ -166,7 +166,7 @@ Parameters:
 
 - domain: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Domain name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[IPAddress](net_package_classes.md#class-ipaddress)> - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[IPAddress](net_package_classes.md#class-ipaddress)> object.
 
@@ -189,13 +189,13 @@ main() {
 public static func tryParse(s: String): ?IPAddress
 ```
 
-Functionality: Converts an IP address string to an [IPAddress](net_package_classes.md#class-ipaddress) object, returning `None` if the string is invalid.
+Function: Converts an IP address string to an [IPAddress](net_package_classes.md#class-ipaddress) object, returning `None` if the string is invalid.
 
 Parameters:
 
 - s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - IP address string.
 
-Return Value:
+Returns:
 
 - ?[IPAddress](net_package_classes.md#class-ipaddress) - ?[IPAddress](net_package_classes.md#class-ipaddress) object.
 
@@ -221,9 +221,9 @@ main() {
 public func getAddressBytes(): Array<Byte>
 ```
 
-Functionality: Returns the raw IP address of this [IPAddress](net_package_classes.md#class-ipaddress) object.
+Function: Returns the raw IP address of this [IPAddress](net_package_classes.md#class-ipaddress) object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
 
@@ -252,7 +252,7 @@ main() {
 public open func getPrefix(prefixLen: UInt8): IPPrefix
 ```
 
-Functionality: Creates a network prefix object from this [IPAddress](net_package_classes.md#class-ipaddress) object based on the specified network prefix length.
+Function: Creates a network prefix object from this [IPAddress](net_package_classes.md#class-ipaddress) object based on the specified network prefix length.
 
 Parameters:
 
@@ -262,7 +262,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if prefixLen is out of range.
 
-Return Value:
+Returns:
 
 - [IPPrefix](net_package_classes.md#class-ipprefix) - Network prefix object.
 
@@ -286,9 +286,9 @@ main() {
 public func hashCode(): Int64
 ```
 
-Functionality: Gets the `hashcode` value.
+Function: Gets the `hashcode` value.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - `hashcode` value.
 
@@ -298,9 +298,9 @@ Return Value:
 public open func isGlobalUnicast(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a global unicast address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a global unicast address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a global unicast address, otherwise false.
 
@@ -324,9 +324,9 @@ main() {
 public func isIPv4(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an IPv4 address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an IPv4 address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv4 address, otherwise false.
 
@@ -349,9 +349,9 @@ main() {
 public func isIPv6(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an IPv6 address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an IPv6 address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an IPv6 address, otherwise false.
 
@@ -374,9 +374,9 @@ main() {
 public open func isLinkLocal(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a link-local address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a link-local address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a link-local address, otherwise false.
 
@@ -402,9 +402,9 @@ main() {
 public open func isLoopback(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a loopback address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a loopback address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a loopback address, otherwise false.
 
@@ -428,9 +428,9 @@ main() {
 public open func isMulticast(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a multicast address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a multicast address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a multicast address, otherwise false.
 
@@ -440,9 +440,9 @@ Return Value:
 public open func isPrivate(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a private address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is a private address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is a private address, otherwise false.
 
@@ -452,9 +452,9 @@ Return Value:
 public open func isUnspecified(): Bool
 ```
 
-Functionality: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an "unspecified" IP address.
+Function: Determines whether this [IPAddress](net_package_classes.md#class-ipaddress) object is an "unspecified" IP address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if it is an "unspecified" IP address, otherwise false.
 
@@ -478,7 +478,7 @@ main() {
 public open func writeBigEndian(buffer: Array<Byte>): Int64
 ```
 
-Functionality: Writes this [IPAddress](net_package_classes.md#class-ipaddress) object to a byte array in big-endian order.
+Function: Writes this [IPAddress](net_package_classes.md#class-ipaddress) object to a byte array in big-endian order.
 
 Parameters:
 
@@ -488,7 +488,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the buffer is too small to write an [IPv4Address](net_package_classes.md#class-ipv4address) or [IPv6Address](net_package_classes.md#class-ipv6address) value.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Number of bytes written.
 
@@ -557,7 +557,7 @@ Exceptions:
 
 - [IllegalFormatException](../../core/core_package_api/core_package_exceptions.md#class-illegalformatexception) - Throws an exception if the string is not valid.
 
-Return Value:
+Returns:
 
 - [IPPrefix](net_package_classes.md#class-ipprefix) - The [IPPrefix](net_package_classes.md#class-ipprefix) object.
 
@@ -589,7 +589,7 @@ Parameters:
 
 - s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
-Return Value:
+Returns:
 
 - ?[IPPrefix](net_package_classes.md#class-ipprefix) - The optional [IPPrefix](net_package_classes.md#class-ipprefix) object.
 
@@ -616,7 +616,7 @@ public open func broadcast(): IPAddress
 
 Function: Returns the broadcast address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - The broadcast address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
@@ -632,7 +632,7 @@ Parameters:
 
 - rhs: [IPAddress](net_package_classes.md#class-ipaddress) - The specified [IPAddress](net_package_classes.md#class-ipaddress).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPAddress](net_package_classes.md#class-ipaddress) is contained, otherwise `false`.
 
@@ -648,7 +648,7 @@ Parameters:
 
 - rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the specified [IPPrefix](net_package_classes.md#class-ipprefix) is contained, otherwise `false`.
 
@@ -660,7 +660,7 @@ public open func hostmask(): IPAddress
 
 Function: Returns the hostmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - The hostmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
@@ -672,7 +672,7 @@ public open func masked(): IPPrefix
 
 Function: Returns the masked [IPPrefix](net_package_classes.md#class-ipprefix) based on the prefix length. For example, `192.168.12.34/16` returns `192.168.0.0/16`, and `fc00::1:2:3:4/16` returns `fc00::/16`.
 
-Return Value:
+Returns:
 
 - [IPPrefix](net_package_classes.md#class-ipprefix) - The masked [IPPrefix](net_package_classes.md#class-ipprefix) based on the prefix length.
 
@@ -684,7 +684,7 @@ public open func netmask(): IPAddress
 
 Function: Returns the netmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - The netmask address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
@@ -696,7 +696,7 @@ public open func network(): IPAddress
 
 Function: Returns the network address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [IPAddress](net_package_classes.md#class-ipaddress) - The network address of this [IPPrefix](net_package_classes.md#class-ipprefix).
 
@@ -712,7 +712,7 @@ Parameters:
 
 - rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The specified [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if there is an overlap, otherwise `false`.
 
@@ -724,7 +724,7 @@ public func toString(): String
 
 Function: Returns the string representation of the current [IPPrefix](net_package_classes.md#class-ipprefix).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of the current [IPPrefix](net_package_classes.md#class-ipprefix), e.g., `192.168.0.0/16` or `fc00::/16`.
 
@@ -756,7 +756,7 @@ Parameters:
 
 - rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The [IPPrefix](net_package_classes.md#class-ipprefix) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the objects are equal, otherwise `false`.
 
@@ -772,7 +772,7 @@ Parameters:
 
 - rhs: [IPPrefix](net_package_classes.md#class-ipprefix) - The [IPPrefix](net_package_classes.md#class-ipprefix) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the objects are not equal, otherwise `false`.
 
@@ -892,7 +892,7 @@ Parameters:
 
 - s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
-Return Value:
+Returns:
 
 - [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - The [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) object.
 
@@ -932,7 +932,7 @@ Parameters:
 
 - s: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The IP protocol Socket string.
 
-Return Value:
+Returns:
 
 - ?[IPSocketAddress](net_package_classes.md#class-ipsocketaddress) - The optional [IPSocketAddress](net_package_classes.md#class-ipsocketaddress) object.
 
@@ -1040,7 +1040,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown when the buffer is too small to read an [IPv4Address](net_package_classes.md#class-ipv4address) value.
 
-Return Value:
+Returns:
 
 - [IPv4Address](net_package_classes.md#class-ipv4address) - [IPv4Address](net_package_classes.md#class-ipv4address) object.
 
@@ -1060,7 +1060,7 @@ Exceptions:
 
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if prefixLen is out of range.
 
-Return Value:
+Returns:
 
 - [IPPrefix](net_package_classes.md#class-ipprefix) - Network prefix object.
 
@@ -1072,7 +1072,7 @@ public func isBroadcast(): Bool
 
 Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a broadcast address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a broadcast address; otherwise, returns `false`.
 
@@ -1084,7 +1084,7 @@ public func isGlobalUnicast(): Bool
 
 Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a global unicast address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a global unicast address; otherwise, returns `false`.
 
@@ -1096,7 +1096,7 @@ public func isLinkLocal(): Bool
 
 Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a link-local address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a link-local address; otherwise, returns `false`.
 
@@ -1108,7 +1108,7 @@ public func isLoopback(): Bool
 
 Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a loopback address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a loopback address; otherwise, returns `false`.
 
@@ -1120,7 +1120,7 @@ public func isMulticast(): Bool
 
 Function: Determines whether this [IPv4Address](net_package_classes.md#class-ipv4address) object is a multicast address.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if it is a multicast address; otherwise, returns `false`.
 
@@ -1163,7 +1163,7 @@ public class RawSocket {
 }
 ```
 
-Functionality: [RawSocket](net_package_classes.md#class-rawsocket) provides basic socket functionality.
+Function: [RawSocket](net_package_classes.md#class-rawsocket) provides basic socket functionality.
 
 It allows access to sockets with specific combinations of communication domain, type, and protocol. The Socket package already supports common network protocols such as TCP and UDP, hence this type is suitable for other network programming requirements.
 
@@ -1178,7 +1178,7 @@ It allows access to sockets with specific combinations of communication domain, 
 public prop localAddr: RawAddress
 ```
 
-Functionality: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 > **Note:**
 >
@@ -1196,7 +1196,7 @@ Exceptions:
 public prop localAddress: RawAddress
 ```
 
-Functionality: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Retrieves the local address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
@@ -1210,7 +1210,7 @@ Exceptions:
 public mut prop readTimeout: ?Duration
 ```
 
-Functionality: Gets or sets the read timeout duration for the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Gets or sets the read timeout duration for the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -1225,7 +1225,7 @@ Exceptions:
 public prop remoteAddr: RawAddress
 ```
 
-Functionality: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 > **Note:**
 >
@@ -1243,7 +1243,7 @@ Exceptions:
 public prop remoteAddress: RawAddress
 ```
 
-Functionality: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Retrieves the peer address of the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: [RawAddress](net_package_structs.md#struct-rawaddress)
 
@@ -1257,7 +1257,7 @@ Exceptions:
 public mut prop writeTimeout: ?Duration
 ```
 
-Functionality: Gets or sets the write timeout duration for the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Gets or sets the write timeout duration for the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Type: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -1272,7 +1272,7 @@ Exceptions:
 public init(domain: SocketDomain, `type`: SocketType, protocol: ProtocolType)
 ```
 
-Functionality: Creates a socket with a specific combination of communication domain, type, and protocol.
+Function: Creates a socket with a specific combination of communication domain, type, and protocol.
 
 Parameters:
 
@@ -1290,13 +1290,13 @@ Exceptions:
 public func accept(timeout!: ?Duration = None): RawSocket
 ```
 
-Functionality: Accepts the first connection request in the pending connection queue of the current listening [RawSocket](net_package_classes.md#class-rawsocket) instance and returns a new [RawSocket](net_package_classes.md#class-rawsocket) for communication.
+Function: Accepts the first connection request in the pending connection queue of the current listening [RawSocket](net_package_classes.md#class-rawsocket) instance and returns a new [RawSocket](net_package_classes.md#class-rawsocket) for communication.
 
 Parameters:
 
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - The maximum time to wait for a connection request. The default value `None` means wait indefinitely.
 
-Return Value:
+Returns:
 
 - [RawSocket](net_package_classes.md#class-rawsocket) - A new [RawSocket](net_package_classes.md#class-rawsocket) instance for communication.
 
@@ -1311,7 +1311,7 @@ Exceptions:
 public func bind(addr: RawAddress): Unit
 ```
 
-Functionality: Binds the current [RawSocket](net_package_classes.md#class-rawsocket) instance to the specified socket address.
+Function: Binds the current [RawSocket](net_package_classes.md#class-rawsocket) instance to the specified socket address.
 
 Parameters:
 
@@ -1327,7 +1327,7 @@ Exceptions:
 public func close(): Unit
 ```
 
-Functionality: Closes the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Closes the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 ### func connect(RawAddress, ?Duration)
 
@@ -1335,7 +1335,7 @@ Functionality: Closes the current [RawSocket](net_package_classes.md#class-rawso
 public func connect(addr: RawAddress, timeout!: ?Duration = None): Unit
 ```
 
-Functionality: Sends a connection request to the target address.
+Function: Sends a connection request to the target address.
 
 Parameters:
 
@@ -1353,7 +1353,7 @@ Exceptions:
 public unsafe func getSocketOption(level: Int32, option: Int32, value: CPointer<Byte>, len: CPointer<Int32>): Unit
 ```
 
-Functionality: Retrieves the value of a socket option.
+Function: Retrieves the value of a socket option.
 
 Parameters:
 
@@ -1372,7 +1372,7 @@ Exceptions:
 public func listen(backlog: Int32): Unit
 ```
 
-Functionality: Listens on the address bound to the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Listens on the address bound to the current [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Parameters:
 
@@ -1388,14 +1388,14 @@ Exceptions:
 public func receive(buffer: Array<Byte>, flags: Int32): Int64
 ```
 
-Functionality: Receives data sent from the connected peer.
+Function: Receives data sent from the connected peer.
 
 Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The array to store received data.
 - flags: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Flags specifying function behavior.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The length of the data.
 
@@ -1410,14 +1410,14 @@ Exceptions:
 public func receiveFrom(buffer: Array<Byte>, flags: Int32): (RawAddress, Int64)
 ```
 
-Functionality: Receives data from another [RawSocket](net_package_classes.md#class-rawsocket) instance.
+Function: Receives data from another [RawSocket](net_package_classes.md#class-rawsocket) instance.
 
 Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The array to store received data.
 - flags: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Flags specifying function behavior.
 
-Return Value:
+Returns:
 
 - ([RawAddress](net_package_structs.md#struct-rawaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The source address of the data and its length.
 
@@ -1432,7 +1432,7 @@ Exceptions:
 public func send(buffer: Array<Byte>, flags: Int32): Unit
 ```
 
-Functionality: Sends data to the connected peer.
+Function: Sends data to the connected peer.
 
 Parameters:
 
@@ -1450,7 +1450,7 @@ Exceptions:
 public func sendTo(addr: RawAddress, buffer: Array<Byte>, flags: Int32): Unit
 ```
 
-Functionality: Sends data to the target address. If the [RawSocket](net_package_classes.md#class-rawsocket) is of type `DATAGRAM`, the data packet size must not exceed 65507 bytes.
+Function: Sends data to the target address. If the [RawSocket](net_package_classes.md#class-rawsocket) is of type `DATAGRAM`, the data packet size must not exceed 65507 bytes.
 
 Parameters:
 
@@ -1469,7 +1469,7 @@ Exceptions:
 public unsafe func setSocketOption(level: Int32, option: Int32, value: CPointer<Byte>, len: Int32): Unit
 ```
 
-Functionality: Sets a socket option.
+Function: Sets a socket option.
 
 Parameters:
 
@@ -1488,7 +1488,7 @@ Exceptions:
 sealed abstract class SocketAddress <: ToString & Equatable<SocketAddress> & Hashable
 ```
 
-Functionality: This class represents a protocol-independent Socket address. It provides an immutable object used for socket binding, connection, or as a return value.
+Function: This class represents a protocol-independent Socket address. It provides an immutable object used for socket binding, connection, or as a return value.
 
 Parent Types:
 
@@ -1502,7 +1502,7 @@ Parent Types:
 public prop size: Int64
 ```
 
-Functionality: The raw byte length of the current [SocketAddress](net_package_classes.md#class-socketaddress) object.
+Function: The raw byte length of the current [SocketAddress](net_package_classes.md#class-socketaddress) object.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -1512,7 +1512,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop family: AddressFamily
 ```
 
-Functionality: The address family of the current [SocketAddress](net_package_classes.md#class-socketaddress) object.
+Function: The address family of the current [SocketAddress](net_package_classes.md#class-socketaddress) object.
 
 Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -1522,9 +1522,9 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public func getAddressBytes(): Array<Byte>
 ```
 
-Functionality: Returns the raw IP address of this [SocketAddress](net_package_classes.md#class-socketaddress) object.
+Function: Returns the raw IP address of this [SocketAddress](net_package_classes.md#class-socketaddress) object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - An [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> representation of the raw IP address.
 
@@ -1534,13 +1534,13 @@ Return Value:
 public operator func ==(rhs: SocketAddress): Bool
 ```
 
-Functionality: Determines whether two [SocketAddress](net_package_classes.md#class-socketaddress) objects are equal.
+Function: Determines whether two [SocketAddress](net_package_classes.md#class-socketaddress) objects are equal.
 
 Parameters:
 
 - rhs: [SocketAddress](net_package_classes.md#class-socketaddress) - The [SocketAddress](net_package_classes.md#class-socketaddress) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [SocketAddress](net_package_classes.md#class-socketaddress)
 
@@ -1696,7 +1696,7 @@ public override func accept(): TcpSocket
 
 Function: Listens for or accepts client connections. Blocks until a connection is established.
 
-Return Value:
+Returns:
 
 - [TcpSocket](net_package_classes.md#class-tcpsocket) - The client socket.
 
@@ -1716,7 +1716,7 @@ Parameters:
 
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Timeout duration.
 
-Return Value:
+Returns:
 
 - [TcpSocket](net_package_classes.md#class-tcpsocket) - The client socket.
 
@@ -1786,7 +1786,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
 
@@ -1810,7 +1810,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The retrieved socket option value.
 
@@ -1826,7 +1826,7 @@ public override func isClosed(): Bool
 
 Function: Checks if the socket is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if closed, otherwise `false`.
 
@@ -1906,7 +1906,7 @@ public override func toString(): String
 
 Function: Returns the status information of the current [TcpServerSocket](net_package_classes.md#class-tcpserversocket).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string containing the status information of the current [TcpServerSocket](net_package_classes.md#class-tcpserversocket).
 
@@ -2203,7 +2203,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The read option value.
 
@@ -2227,7 +2227,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The option value.
 
@@ -2243,7 +2243,7 @@ public override func hashCode(): Int64
 
 Function: Gets the hash value of the current [TcpSocket](net_package_classes.md#class-tcpsocket) instance.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of the [TcpSocket](net_package_classes.md#class-tcpsocket) instance.
 
@@ -2255,7 +2255,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the socket has been explicitly closed by calling `close`.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed by calling `close`; otherwise, returns `false`.
 
@@ -2277,7 +2277,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store the read data.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The length of the read data.
 
@@ -2361,7 +2361,7 @@ public override func toString(): String
 
 Function: Returns the status information of the current [TcpSocket](net_package_classes.md#class-tcpsocket).
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string containing the status information of the current [TcpSocket](net_package_classes.md#class-tcpsocket).
 
@@ -2627,7 +2627,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - The specified socket option. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-`0 => true`.
 
@@ -2651,7 +2651,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The value of the specified socket option.
 
@@ -2667,7 +2667,7 @@ public override func isClosed(): Bool
 
 Function: Determines whether the socket has been explicitly closed via `close`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed via `close`; otherwise, returns `false`.
 
@@ -2683,7 +2683,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store received datagrams.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the received datagram.
 
@@ -2699,7 +2699,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The buffer to store received datagrams.
 
-Return Value:
+Returns:
 
 - ([SocketAddress](net_package_classes.md#class-socketaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The sender's address of the received datagram and the actual size of the received datagram, which may be 0 or larger than the size of the `buffer` parameter.
 
@@ -2817,7 +2817,7 @@ public override func toString(): String
 
 Function: Returns the status information of the current [UdpSocket](net_package_classes.md#class-udpsocket).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string containing the status information of the current [UdpSocket](net_package_classes.md#class-udpsocket).## class UnixDatagramSocket
 
@@ -3079,7 +3079,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The specified socket option value.
 
@@ -3095,7 +3095,7 @@ public override func isClosed(): Bool
 
 Function: Checks whether the socket has been explicitly closed by calling `close`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed by calling `close`; otherwise, returns `false`.
 
@@ -3111,7 +3111,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The address to store the received packets.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The size of the received packet.
 
@@ -3127,7 +3127,7 @@ Parameters:
 
 - buffer: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - The address to store the received packets.
 
-Return Value:
+Returns:
 
 - ([SocketAddress](net_package_classes.md#class-socketaddress), [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)) - The sender address of the received packet and the actual size of the received packet, which may be 0 or larger than the size of the `buffer` parameter.
 
@@ -3253,7 +3253,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - The option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 -## class UnixServerSocket
 
@@ -3372,7 +3372,7 @@ public override func accept(): UnixSocket
 
 Function: Waits to accept a client connection or reads a connection from the queue.
 
-Return Value:
+Returns:
 
 - [UnixSocket](net_package_classes.md#class-unixsocket) - The connected client socket.
 
@@ -3388,7 +3388,7 @@ Parameters:
 
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Timeout duration.
 
-Return Value:
+Returns:
 
 - [UnixSocket](net_package_classes.md#class-unixsocket) - The connected client socket.
 
@@ -3459,7 +3459,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns the specified socket option value. Converted from [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative). `0 => false`, non-zero => `true`.
 
@@ -3483,7 +3483,7 @@ Parameters:
 - level: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Level, e.g., `SOL_SOCKET`.
 - option: [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) - Option, e.g., `SO_KEEPALIVE`.
 
-Return Value:
+Returns:
 
 - [IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative) - The specified socket option value.
 
@@ -3499,7 +3499,7 @@ public override func isClosed(): Bool
 
 Function: Determines whether the socket has been explicitly closed via `close`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the socket has been explicitly closed via `close`; otherwise, returns `false`.
 
@@ -3579,7 +3579,7 @@ public override func toString(): String
 
 Function: Returns the status information of the current [UnixServerSocket](net_package_classes.md#class-unixserversocket).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string containing the status information of the current [UnixServerSocket](net_package_classes.md#class-unixserversocket).
 
@@ -3728,7 +3728,7 @@ public class UnixSocketAddress <: SocketAddress & Equatable<UnixSocketAddress> {
 }
 ```
 
-Functionality: This class implements Unix Domain Socket addresses. A UnixSocketAddress encapsulates the filesystem path to which a Unix Domain Socket is bound or connected, with the path length not exceeding 108 bytes.
+Function: This class implements Unix Domain Socket addresses. A UnixSocketAddress encapsulates the filesystem path to which a Unix Domain Socket is bound or connected, with the path length not exceeding 108 bytes.
 
 If the path is an empty string, it represents an `unnamed` address. If the path starts with `\0`, it represents an `abstract` address. The path must not contain `\0` in the middle.
 
@@ -3743,7 +3743,7 @@ Parent Types:
 public prop family: AddressFamily
 ```
 
-Functionality: Gets the address family of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, always returns [AddressFamily.UNIX](net_package_structs.md#static-const-unix).
+Function: Gets the address family of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, always returns [AddressFamily.UNIX](net_package_structs.md#static-const-unix).
 
 Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 
@@ -3753,7 +3753,7 @@ Type: [AddressFamily](net_package_structs.md#struct-addressfamily)
 public prop size: Int64
 ```
 
-Functionality: Gets the raw byte length of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object.
+Function: Gets the raw byte length of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -3763,7 +3763,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init(path: Array<Byte>)
 ```
 
-Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path represented as an [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
+Function: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path represented as an [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
 
 Parameters:
 
@@ -3779,7 +3779,7 @@ Exceptions:
 public init(path: String)
 ```
 
-Functionality: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path string.
+Function: Constructs a [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) from a filesystem path string.
 
 Parameters:
 
@@ -3795,9 +3795,9 @@ Exceptions:
 public func getAddressBytes(): Array<Byte>
 ```
 
-Functionality: Returns the raw IP address of this [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, with content layout matching the `sockaddr_un` format.
+Function: Returns the raw IP address of this [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object, with content layout matching the `sockaddr_un` format.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)> - Raw IP address represented as [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>.
 
@@ -3821,9 +3821,9 @@ main() {
 public func hashCode(): Int64
 ```
 
-Functionality: Gets the `hashcode` value.
+Function: Gets the `hashcode` value.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The `hashcode` value.
 
@@ -3833,9 +3833,9 @@ Return Value:
 public func toString(): String
 ```
 
-Functionality: Returns the string representation of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress).
+Function: Returns the string representation of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress).
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - Text representation string of the current [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress), e.g. `/tmp/socket1`.
 
@@ -3898,13 +3898,13 @@ main() {
 public operator func ==(rhs: UnixSocketAddress): Bool
 ```
 
-Functionality: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are equal.
+Function: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are equal.
 
 Parameters:
 
 - rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - The [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are equal; otherwise, returns `false`.
 
@@ -3914,12 +3914,12 @@ Return Value:
 public operator func !=(rhs: UnixSocketAddress): Bool
 ```
 
-Functionality: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are not equal.
+Function: Determines whether two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are not equal.
 
 Parameters:
 
 - rhs: [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) - The [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) object to compare.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the two [UnixSocketAddress](net_package_classes.md#class-unixsocketaddress) objects are not equal; otherwise, returns `false`.

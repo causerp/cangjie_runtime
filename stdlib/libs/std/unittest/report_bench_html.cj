@@ -13,6 +13,7 @@ import std.collection.*
 import std.unittest.common.*
 import std.process.*
 import std.math.*
+import std.env.*
 import std.regex.Regex
 import std.time.DateTime
 
@@ -58,7 +59,7 @@ h4 {
 
 h5 {
     font-size: 18px
-}
+    }
 
 h6 {
     font-size: 16px
@@ -142,7 +143,7 @@ table {
 }
 
 table td, table th {
-    padding: 8px 8px;
+    padding: 4px 4px;
     display: table-cell;
     text-align: left;
     vertical-align: top;
@@ -150,6 +151,10 @@ table td, table th {
 
 table th:first-child,table td:first-child {
     padding-left: 16px;
+}
+
+td.text-center button {
+    margin: -2px!important
 }
 
 .left-button {
@@ -407,14 +412,40 @@ let CASE_TEMPLATE = """
         <td class="text-center">$estimate</td>
         <td class="opaque text-left">$upper</td>
         <td>$change</td>
-        <!-- <td class="w3-display-container"> <a class="w3-btn w3-round w3-padding-small w3-border w3-display-topmiddle" href="$link">Show</a>   </td> -->
+        {!
         <td class="text-center">
             <button onclick="openModal(this)">Show</button>
             <div class="modal">
                 <object class="modal-content" data="$link" type="image/svg+xml"></object>
             </div>
         </td>
+        !}
     </tr>
+    }}
+    {{ResultRow
+        <tr>
+            {!<td>$name</td>!}
+            <td>$p10</td>
+            <td>$median</td>
+            <td>$p90</td>
+            <td>$p95</td>
+            <td>$p99</td>
+            <td>$mean</td>
+            <td>$mode</td>
+            <td>$mode2</td>
+            <td>$stddev</td>
+            <td>$skewness</td>
+            {!
+            <td class="text-center">
+                <button onclick="openModal(this)">Show</button>
+                <div class="modal">
+                    <object class="modal-content" data="$kdePath" type="image/svg+xml"></object>
+                </div>
+            </td>
+            !}
+        </tr>
+    }}
+    {{Empty
     }}
     {{Measurement
         <div class="container">
@@ -458,8 +489,28 @@ let CASE_TEMPLATE = """
 
             <div class="container">
                 <div style="max-width: 1000px;">
+                    
+                    <h6>Bootstrapped estimations</h6>
+                    <table>
+                        <tr>
+                            {! <th></th>  $displayKde:Empty !}
+                            <th>p10</th>
+                            <th>median</th>
+                            <th>p90</th>
+                            <th>p95</th>
+                            <th>p99</th>
+                            <th>mean</th>
+                            <th>mode</th>
+                            <th>second mode</th>
+                            <th>stddev</th>
+                            <th>skewness</th>
+                            {! <th>KDE</th> $displayKde:Empty !}
+                        </tr>
+                        {! $result:ResultRow !}
+                    </table>
+                    <div class="spacer"></div>
 
-                    <h6>Additional statistics</h6>
+                    <h6>Regression statistics</h6>
                     <table>
                         <tr>
                         <th></th>
@@ -784,12 +835,13 @@ extend TestGroupResult {
         result.add(envRow("CPU", tryGetNative(getCpuName)))
         result.add(envRow("Compiler", tryGetNative(getCompilerVersion)))
         result.add(envRow("target", tryGetNative(getTargetTriple)))
-        if (let Some(env) <- Process.current.getEnv("cjHeapSize")) {
-            result.add(envRow("ENV: cjHeapSize", env))
+
+        for ((env, value) in getVariables()) {
+            if (env.toAsciiLower().startsWith("cj")) {
+                result.add(envRow("ENV: ${env}", value))
+            }
         }
-        if (let Some(env) <- Process.current.getEnv("cjEnableGC")) {
-            result.add(envRow("ENV: cjEnableGC", env))
-        }
+
         result
     }
 
@@ -801,7 +853,7 @@ extend TestGroupResult {
         }
     }
 
-    // creates json model suitable for the template for all benchmark
+    // creates json model suitable for the template for all benchmarks
     func collectAllResults(directory: Path): HashMap<TestCaseId, JsonValue> {
         let env = collectEnvironment()
         let results = HashMap<TestCaseId, JsonValue>()
@@ -860,6 +912,7 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
     let measurementValue = JsonObject()
     let mName = step.measurementInfo.name
     let stats = step.result
+    let converter = step.measurementInfo.conversionTable 
 
     let linregFile = "${mName}_${step.arg.stepIndex}_linreg.svg"
     try {
@@ -868,33 +921,75 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
         eprintln("Error: Failed to draw ${e.toString()}")
     }
 
-    let kdeFile = "${mName}_${step.arg.stepIndex}_kde.svg"
-    stats.valuesSample().drawKde(directory.join(kdeFile))
+    let hasTwoKdes = stats.bootstrapped.allPoints.isSome()
+
+    func processPercentiles(bootstrapped: BootstrapResult): String {
+        let sample = bootstrapped.resultSample
+
+        let file = "${mName}_${step.arg.stepIndex}_kde_${bootstrapped.separateGc.toString().toSafeFileName()}.svg"
+        sample.drawKde(directory.join(file))
+
+        let result1 = sample.createPercentilesRow(converter)
+        if (hasTwoKdes) {
+            result1.put("kdePath", JsonString(file))
+            result1.put("name", JsonString("${bootstrapped.separateGc}:"))
+        } else {
+            result1.put("name", JsonNull())
+        }
+        measurementValue.arrayFieldAppend("result", result1)
+
+        file
+    }
+    let percentiles = spawn {
+        let kdeFile = processPercentiles(stats.bootstrapped)
+        measurementValue.put("kdeImage", JsonString(kdeFile))
+
+        if (let Some(all) <- stats.bootstrapped.allPoints) {
+            measurementValue.put("displayKde", JsonBool(true))
+            processPercentiles(all)
+            
+        }  
+    } 
 
     let imgDir = directory.join("${mName}_${step.arg.stepIndex}")
     Directory.ensureExists(imgDir)
+    let name = if (stats.bootstrapped.separateGc.hasSeparation()) {
+        "(${stats.bootstrapped.separateGc})"
+    } else {
+        ""
+    }
+    let futures = ArrayList([
+        spawn { stats.bootstrapped.meanStats.createStatsRow("mean slope${name}", imgDir) },
+        spawn { stats.bootstrapped.medianStats.createStatsRow("median slope${name}", imgDir) },
+        spawn { stats.bootstrapped.overhead.createStatsRow("overhead${name}", imgDir) },
+        spawn { stats.bootstrapped.r2Stats.createStatsRow("R-squared${name}", imgDir) }
+    ])
 
-    measurementValue.put("anchor", JsonString("parameter${step.arg.stepIndex}+measure${index}"))
-    measurementValue.put("linregImage", JsonString(linregFile))
-    measurementValue.put("kdeImage", JsonString(kdeFile))
+    if (let Some(separated) <- stats.bootstrapped.allPoints) {
+        futures.add(all: [
+            spawn { separated.meanStats.createStatsRow("mean slope", imgDir) },
+            spawn { separated.medianStats.createStatsRow("median slope", imgDir) },
+            spawn { separated.overhead.createStatsRow("overhead", imgDir) },
+            spawn { separated.r2Stats.createStatsRow("R-squared", imgDir) }
+        ])
+    }
 
-    let futures = [
-        spawn { stats.bootstrapped.meanStats.createStatsRow("mean", imgDir) },
-        spawn { stats.bootstrapped.medianStats.createStatsRow("median", imgDir) },
-        spawn { stats.bootstrapped.meanOverheadStats.createStatsRow("overhead", imgDir) },
-        spawn { stats.bootstrapped.r2Stats.createStatsRow("R-squared", imgDir) }
-    ]
+    // wait before others to prevent data race
+    percentiles.get()
 
     let start = DateTime.now()
-    for (row in futures) {
+    for (rowFut in futures) {
         try {
             let remaining = Duration.second * 20 - (DateTime.now() - start)
-            measurementValue.arrayFieldAppend("stats", row.get(remaining))
+            let row = rowFut.get(remaining) ?? continue
+            measurementValue.arrayFieldAppend("stats", row)
         } catch (_: TimeoutException) {
             println("Warning: analysis takes too long")
         }
     }
 
+    measurementValue.put("anchor", JsonString("parameter${step.arg.stepIndex}+measure${index}"))
+    measurementValue.put("linregImage", JsonString(linregFile)) 
     measurementValue.put("name", JsonString(mName))
     measurementValue.put("description", JsonString(step.measurementInfo.textDescription))
     measurementValue.put("additionalInfo", JsonString(""))
@@ -903,10 +998,34 @@ func measurementModel(step: BenchStepEntry, directory: Path, index: Int64): (Flo
 }
 
 extend StatisticsSample {
-    func createStatsRow(name: String, dir: Path, change!: ?Float64 = None): JsonObject {
+    func createPercentilesRow(converter: MeasurementUnitTable): JsonObject {
+        let result = JsonObject()
+        if (isEmpty()) { return result }
+        result.put("p10", JsonString(converter.toString(this.sample.percentile(0.10))))
+        result.put("median", JsonString(converter.toString(this.sample.percentile(0.50))))
+        result.put("p90", JsonString(converter.toString(this.sample.percentile(0.90))))
+        result.put("p95", JsonString(converter.toString(this.sample.percentile(0.95))))
+        result.put("p99", JsonString(converter.toString(this.sample.percentile(0.99))))
+        result.put("mean", JsonString(converter.toString(this.sample.mean())))
+        result.put("mode", JsonString(converter.toString(this.mode)))
+        result.put("stddev", JsonString(converter.toString(this.sample.stddev())))
+        result.put("skewness", JsonString([(1.0, "")].toString(this.sample.skewness())))
+        let mode2 = this.mode2()
+        if (mode2.isNormal()) {
+            result.put("mode2", JsonString(converter.toString(mode2)))
+        } else {
+            result.put("mode2", JsonString("-"))
+        }
+        result
+    }
+    func createStatsRow(name: String, dir: Path, change!: ?Float64 = None): ?JsonObject {
         let fileName = name.replace(" ", "") + ".svg"
         Directory.ensureExists(dir)
-        this.drawKde(dir.join(fileName))
+        try {
+            this.drawKde(dir.join(fileName))
+        } catch (e: Exception) {
+            return None
+        }
         let parentDir = dir.fileName
 
         let converter = [(1.0, "")]
@@ -920,19 +1039,13 @@ extend StatisticsSample {
         result
     }
 
-    func drawKde(into: Path) {
+    func drawKde(into: Path, second!: ?StatisticsSample = None) {
         if (!gnuplotAvailable) {
             return
         }
 
-        let kde = try {
-            this.sample.kde(0.4)
-        } catch (e: Exception) {
-            println(e.toString())
-            return
-        }
-
-        let dataFile = File.createTemp(into.parent)
+        let kde = this.kde
+        let kde2 = second?.kde
 
         let (mode, maxDensity) = kde.iterator().maxBy{ a => a[1] }
 
@@ -940,14 +1053,26 @@ extend StatisticsSample {
             println("Error for kde on data: ${sample.data}")
             return
         }
-
         let digits = max(-Int64(floor(log10(maxDensity))) + 3, 1)
 
-        for (i in 0..kde.size) {
-            dataFile.write("${kde[i][0].format(".3g")} ${kde[i][1].format(".${digits}")}\n".toArray())
+        func writeDataToFile(kde: ArrayList<(Float64, Float64)>): Path {
+            let dataFile = File.createTemp(into.parent)
+
+            for (i in 0..kde.size) {
+                dataFile.write("${kde[i][0].format(".6g")} ${kde[i][1].format(".${digits}")}\n".toArray())
+            }
+            dataFile.close()
+            dataFile.info.path
         }
 
-        dataFile.close()
+        let noGcFile = writeDataToFile(kde)
+
+        var gcData = ""
+
+        if (let Some(kdeGc) <- kde2) {
+            let withGcFile = writeDataToFile(kdeGc)
+            gcData = "'${withGcFile}' using 1:2 with lines title \"kde(full)\" smooth mcsplines, "
+        }
 
         let maxy = (maxDensity * 1.05).format(".${digits}");
 
@@ -965,19 +1090,20 @@ extend StatisticsSample {
             set datafile missing "nan";
             set output \"${into}\";
             set yrange [0.0:${maxy}];
-            plot '${dataFile.info.path}' using 1:2 with lines title "kde" smooth mcsplines,
-                [t=0:${maxy}] '+' using (${mode}):(t) with lines lw 1 title "mode",
+            plot '${noGcFile}' using 1:2 with lines title "kde" smooth mcsplines,
+                ${gcData}
                 [t=0:${maxy}] '+' using (${median}):(t) with lines lw 1 title "median",
                 [t=0:${maxy}] '+' using (${mean}):(t) with lines lw 1 title "mean",
+                [t=0:${maxy}] '+' using (${mode}):(t) with lines lw 1 title "mode",
                 ${mode2line}
-                [t=0:${maxy}] '+' using (${sample.percentile(0.95)}):(t) with lines lw 1 title "95%";
+                [t=0:${maxy}] '+' using (${sample.percentile(0.95)}):(t) with lines lw 1 title "p95";
             """
         let (rc, _, _) = Process.runOutput("gnuplot", ["-e", script])
 
         if (rc != 0) {
-            eprintln("Error: gnuplot call failed. ${script}")
+            eprintln("Error: gnuplot call failed.")
         }
-        remove(dataFile.info.path)
+        remove(noGcFile)
     }
 }
 
@@ -988,36 +1114,53 @@ extend BenchmarkResult {
         }
         let maxx = this.data.iterator().maxBy{ x => x[0] }[0]
         let miny = this.data.iterator().minBy{ x => x[1] }[1]
-        let (maxyPos, maxy) = this.data.iterator().maxBy { x => x[1] }
-        let max95 = Sample(this.data |> map { x: BenchRawMeasurement => x[1] } |> collectArrayList).percentile(0.98)
-        let result = median
-        let overhead = medianOverhead
+        let (maxyPos, maxy, _) = this.data.iterator().maxBy { x => x[1] }
+        let max98 = Sample(this.data |> map { x: BenchRawMeasurement => x[1] } |> collectArrayList).percentile(0.98)
+        let result = bootstrapped.medianStats.median
+        let overhead = bootstrapped.medianOverheadStats.mean
 
         // prevent major outliers to ruin whole image
-        let bound = max(maxx * result * 1.4 + overhead, max95 * 1.2) |> ceil
+        let upperBound = min(max(maxx * result * 1.4 + overhead, max98 * 1.2), maxy + (maxy-miny)*0.5) + 0.000001
+        let lowerBound = miny*0.99
 
         let dataFile = File.createTemp(into.parent)
-        for (m in this.data) {
-            let (batchSize, timeNanos) = m
-            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, bound))} \n".toArray())
+        for ((batchSize, timeNanos, gc) in this.data) {
+            dataFile.write("${Int64(batchSize)} ${Int64(min(timeNanos, upperBound))} ${gc}\n".toArray())
         }
         dataFile.close()
-        var lines = "    x*${result}+${overhead} with lines lc rgb \"red\" title \"Median\",\n"
+
+        let name = bootstrapped.separateGc
+        var lines = "    x*${result}+${overhead} with lines lc rgb \"red\" title \"median(${bootstrapped.separateGc})\",\n"
+        lines += "    x*${bootstrapped.meanStats.mean}+${bootstrapped.meanOverheadStats.mean} with lines lc rgb \"green\" title \"OLS(${bootstrapped.separateGc})\" "
+
+        if (let Some(separated) <- bootstrapped.allPoints) {
+            lines += ",\n"
+            lines += "    x*${separated.medianStats.mean}+${separated.medianOverheadStats.mean} with lines lc rgb \"yellow\" title \"median(all)\",\n"
+            lines += "    x*${separated.meanStats.mean}+${separated.medianOverheadStats.mean} with lines lc rgb \"orange\" title \"OLS(all)\" "
+        }
+
+        var data  = ""
+        data += "'${dataFile.info.path}' using 1:(($3 == 1) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88ca336d' title \"with GC\",\n"
+        data += "'${dataFile.info.path}' using 1:(($3 == 0) ? $2 : (1/0)) with points pointtype 2 lc rgb '#889d00ff' title \"without GC\",\n"
+        if (this.data.iterator().any { x => x[2] > 1.99 }) {
+            data += "'${dataFile.info.path}' using 1:(($3 >= 2) ? $2 : (1/0)) with points pointtype 2 lc rgb '#88000000' title \"double GC\",\n"
+        }
+        
 
         let script = """
-            set key at screen 1.01,0.5 reverse center right Left;
+            set key at screen 1.03,0.5 reverse center right Left;
             set term svg size 1200,800 dynamic mouse standalone font "Arial,23";
             set output "${into}";
             set lmargin at screen 0.090;
             set rmargin at screen 0.77;
             set label "${mName}" at graph 0.0, 1.0 right front offset character -1,0.3;
-            set label "max=${maxy.format(".2g")}" at first ${maxyPos}, ${min(bound, maxy)} left front offset character 0,0.4 font "Arial,18";
-            set object circle at first ${maxyPos}, ${min(bound, maxy)} radius char 0.5 front noclip fillstyle empty border lc rgb '#aa1100';
+            set label "max=${maxy.format(".2g")}" at first ${maxyPos}, ${min(upperBound, maxy)} left front offset character 0,0.4 font "Arial,18";
+            set object circle at first ${maxyPos}, ${min(upperBound, maxy)} radius char 0.5 front noclip fillstyle empty border lc rgb '#aa1100';
             set label "batch size" at graph 1.0, 0.0 left front offset character 3,-1;
-            set yrange [${miny}:${Int64(bound)}];
-            plot '${dataFile.info.path}' using 1:2 with points pointtype 2 lc rgb "#669955FF" title "Measurement",
-            ${lines}
-                x*${mean}+${meanOverhead} with lines lc rgb "green" title "Mean(OLS)";
+            set yrange [${lowerBound}:${upperBound}];
+            plot
+                ${data}
+                ${lines};
             """
         let (rc, _, _) = Process.runOutput("gnuplot", ["-e", script])
         if (rc != 0) {

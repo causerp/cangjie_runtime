@@ -45,7 +45,7 @@ add_subdirectory(console)
 add_subdirectory(crypto)
 add_subdirectory(ast)
 # No need to cross-compile ast and testmacro because they are always used on host platforms.
-if(NOT CMAKE_CROSSCOMPILING)
+if(NOT CMAKE_CROSSCOMPILING OR OHOS)
     add_subdirectory(unittest/testmacro)
 endif() # not cross-compiling
 #No need if verify-only

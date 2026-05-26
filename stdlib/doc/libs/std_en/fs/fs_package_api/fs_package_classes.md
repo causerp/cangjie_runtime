@@ -6,7 +6,7 @@
 public class Directory {}
 ```
 
-Functionality: Represents a directory in the file system, providing capabilities for creation, movement, copying, deletion, attribute querying, and directory traversal.
+Function: Represents a directory in the file system, providing capabilities for creation, movement, copying, deletion, attribute querying, and directory traversal.
 
 > **Note:**
 >
@@ -25,7 +25,7 @@ When inputting paths, avoid using illegal characters to ensure path validity for
 public static func create(path: Path, recursive!: Bool = false): Unit
 ```
 
-Functionality: Creates a directory.
+Function: Creates a directory.
 
 Specifies whether to create recursively. If recursive creation is required, non-existent directories in the path will be created level by level.
 
@@ -45,7 +45,7 @@ Exceptions:
 public static func create(path: String, recursive!: Bool = false): Unit
 ```
 
-Functionality: Creates a directory.
+Function: Creates a directory.
 
 Specifies whether to create recursively. If recursive creation is required, non-existent directories in the path will be created level by level.
 
@@ -65,13 +65,13 @@ Exceptions:
 public static func createTemp(directoryPath: Path): Path
 ```
 
-Functionality: Creates a temporary directory under the specified directory.
+Function: Creates a temporary directory under the specified directory.
 
 Parameters:
 
 - directoryPath: [Path](fs_package_structs.md#struct-path) - The directory path in [Path](fs_package_structs.md#struct-path) format.
 
-Return Value:
+Returns:
 
 - [Path](./fs_package_structs.md#struct-path) - The path corresponding to the temporary directory.
 
@@ -86,13 +86,13 @@ Exceptions:
 public static func createTemp(directoryPath: String): Path
 ```
 
-Functionality: Creates a temporary directory under the specified directory.
+Function: Creates a temporary directory under the specified directory.
 
 Parameters:
 
 - directoryPath: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The directory path string.
 
-Return Value:
+Returns:
 
 - [Path](./fs_package_structs.md#struct-path) - The path corresponding to the temporary directory.
 
@@ -107,13 +107,13 @@ Exceptions:
 public static func isEmpty(path: Path): Bool
 ```
 
-Functionality: Checks if the specified directory is empty.
+Function: Checks if the specified directory is empty.
 
 Parameters:
 
 - path: [Path](./fs_package_structs.md#struct-path) - The path corresponding to the directory to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the directory is empty, false otherwise.
 
@@ -128,13 +128,13 @@ Exceptions:
 public static func isEmpty(path: String): Bool
 ```
 
-Functionality: Checks if the specified directory is empty.
+Function: Checks if the specified directory is empty.
 
 Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string corresponding to the directory to be checked.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns true if the directory is empty, false otherwise.
 
@@ -149,7 +149,7 @@ Exceptions:
 public static func readFrom(path: Path): Array<FileInfo>
 ```
 
-Functionality: Retrieves the list of sub-items in the current directory.
+Function: Retrieves the list of sub-items in the current directory.
 
 The order of sub-items in the array depends on the system's file sorting.
 
@@ -157,7 +157,7 @@ Parameters:
 
 - path: [Path](./fs_package_structs.md#struct-path) - The path corresponding to the directory whose sub-items are to be read.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](fs_package_structs.md#struct-fileinfo)> - The list of sub-items in the current directory.
 
@@ -172,7 +172,7 @@ Exceptions:
 public static func readFrom(path: String): Array<FileInfo>
 ```
 
-Functionality: Retrieves the list of sub-items in the current directory.
+Function: Retrieves the list of sub-items in the current directory.
 
 The order of sub-items in the array depends on the system's file sorting.
 
@@ -180,7 +180,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The path string corresponding to the directory whose sub-items are to be read.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[FileInfo](./fs_package_structs.md#struct-fileinfo)> - The list of sub-items in the current directory.
 
@@ -195,7 +195,7 @@ Exceptions:
 public static func walk(path: Path, f: (FileInfo)->Bool): Unit
 ```
 
-Functionality: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
+Function: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
 
 The `walk` function exits when traversal completes or the callback function `f` returns false. The traversal order depends on the system's file sorting.
 
@@ -215,7 +215,7 @@ Exceptions:
 public static func walk(path: String, f: (FileInfo)->Bool): Unit
 ```
 
-Functionality: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
+Function: Traverses sub-items (non-recursive, excluding sub-directories' sub-items) under the directory corresponding to `path` and executes a callback function for each sub-item.
 
 The `walk` function exits when traversal completes or the callback function `f` returns false. The traversal order depends on the system's file sorting.
 
@@ -238,7 +238,7 @@ public class File <: Resource & IOStream & Seekable {
 }
 ```
 
-Functionality: Provides functions for file operations, including opening, creating, closing, moving, copying, deleting, stream-based read/write operations, attribute querying, and other functions.
+Function: Provides functions for file operations, including opening, creating, closing, moving, copying, deleting, stream-based read/write operations, attribute querying, and other functions.
 
 > **Note:**
 >
@@ -267,7 +267,7 @@ Parent Types:
 public prop fileDescriptor: FileDescriptor
 ```
 
-Functionality: Retrieves file descriptor information.
+Function: Retrieves file descriptor information.
 
 Type: [FileDescriptor](fs_package_structs.md#struct-filedescriptor)
 
@@ -277,7 +277,7 @@ Type: [FileDescriptor](fs_package_structs.md#struct-filedescriptor)
 public prop info: FileInfo
 ```
 
-Functionality: Retrieves file metadata information.
+Function: Retrieves file metadata information.
 
 Type: [FileInfo](fs_package_structs.md#struct-fileinfo)
 
@@ -287,7 +287,7 @@ Type: [FileInfo](fs_package_structs.md#struct-fileinfo)
 public prop length: Int64
 ```
 
-Functionality: Retrieves the byte count of data from the file header to the file tail.
+Function: Retrieves the byte count of data from the file header to the file tail.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -297,7 +297,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public init(path: Path, mode: OpenMode)
 ```
 
-Functionality: Creates a [File](fs_package_classes.md#class-file) object.
+Function: Creates a [File](fs_package_classes.md#class-file) object.
 
 Specifies the file path and opening mode (read/write permissions). The path supports both relative and absolute paths.
 
@@ -317,7 +317,7 @@ Exceptions:
 public init(path: String, mode: OpenMode)
 ```
 
-Functionality: Creates a [File](fs_package_classes.md#class-file) object.
+Function: Creates a [File](fs_package_classes.md#class-file) object.
 
 Specifies the file path and opening mode (read/write permissions). The path supports both relative and absolute paths.
 
@@ -337,7 +337,7 @@ Exceptions:
 public static func appendTo(path: Path, buffer: Array<Byte>): Unit
 ```
 
-Functionality: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
+Function: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
 
 Parameters:
 
@@ -355,7 +355,7 @@ Exceptions:
 public static func appendTo(path: String, buffer: Array<Byte>): Unit
 ```
 
-Functionality: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
+Function: Opens the file at the specified path and writes the buffer in append mode. Creates the file if it does not exist.
 
 Parameters:
 
@@ -373,13 +373,13 @@ Exceptions:
 public static func create(path: Path): File
 ```
 
-Functionality: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
+Function: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
 
 Parameters:
 
 - path: [Path](fs_package_structs.md#struct-path) - The file path.
 
-Return Value:
+Returns:
 
 - [File](fs_package_classes.md#class-file) - The [File](fs_package_classes.md#class-file) instance.
 
@@ -394,13 +394,13 @@ Exceptions:
 public static func create(path: String): File
 ```
 
-Functionality: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
+Function: Creates a file at the specified path and returns a [File](#class-file) instance in write-only mode.
 
 Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The file path string.
 
-Return Value:
+Returns:
 
 - [File](fs_package_classes.md#class-file) - The [File](fs_package_classes.md#class-file) instance.
 
@@ -415,7 +415,7 @@ Exceptions:
 public static func createTemp(directoryPath: Path): File
 ```
 
-Functionality: Creates a temporary file under the specified directory.
+Function: Creates a temporary file under the specified directory.
 
 ## class HardLink
 
@@ -526,7 +526,7 @@ Parameters:
 - path: [Path](fs_package_structs.md#struct-path) - Address of the symbolic link.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively read the target address. Default is 'false'.
 
-Return Value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - Target address of the symbolic link.
 
@@ -548,7 +548,7 @@ Parameters:
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Address of the symbolic link.
 - recursive!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether to recursively read the target address. Default is 'false'.
 
-Return Value:
+Returns:
 
 - [Path](fs_package_structs.md#struct-path) - Target address of the symbolic link.
 

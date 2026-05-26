@@ -10,30 +10,15 @@ package std.unittest
 import std.unittest.common.*
 import std.collection.*
 
-const MIN_COLUMN_WIDTH = 6
 // const MAX_COLUMN_WIDTH = 30
 class PrettyTable <: PrettyPrintable {
     let columnSizes: ArrayList<Int64>
     let rows = ArrayList<ArrayList<(String, Color)>>()
     var column: Int64 = 0
     let leftAlignedColumns = HashSet<Int64>()
+    let names: ArrayList<String> = ArrayList()
 
-    PrettyTable(
-        let names: ArrayList<String>
-    ) {
-        this.columnSizes = ArrayList<Int64>(names.size, { _ => MIN_COLUMN_WIDTH })
-
-        this.nextRow()
-        for (name in names) {
-            this.addCell(name)
-        }
-        rows.add(ArrayList<(String, Color)>(columnSizes.size, { _ =>
-            ("", DEFAULT_COLOR)
-        }))
-    }
-
-    init() {
-        names = ArrayList()
+    PrettyTable(let sep!: String = "|", let separateColumnsNames!: Bool = true, let leftAligneAll!: Bool = false, let minColumnWidth!: Int64 = 6) {
         columnSizes = ArrayList()
         this.nextRow()
         this.nextRow()
@@ -48,7 +33,7 @@ class PrettyTable <: PrettyPrintable {
     func addColumn(name: String) {
         rows[0].add((" ${name} ", DEFAULT_COLOR))
         rows[1].add(("", DEFAULT_COLOR))
-        columnSizes.add(max(MIN_COLUMN_WIDTH, name.runes() |> count))
+        columnSizes.add(max(minColumnWidth, name.runes() |> count))
     }
 
     func removeLastColumn() {
@@ -69,10 +54,6 @@ class PrettyTable <: PrettyPrintable {
     func nextRow() {
         this.column = 0
         rows.add(ArrayList())
-    }
-
-    func removeCurrentRow() {
-        rows.remove(at: rows.size - 1)
     }
 
     func addCell(value: String, color!: Color = DEFAULT_COLOR) {
@@ -100,20 +81,23 @@ class PrettyTable <: PrettyPrintable {
             for (col in 0..columnSizes.size) {
                 var (data, color) = rows[row][col]
                 let width = columnSizes[col] + 2
-                let alignLeft = leftAlignedColumns.contains(col)
+                let alignLeft = leftAligneAll || leftAlignedColumns.contains(col)
 
-                if (row == 1 && alignLeft) {
+                if (row == 1 && separateColumnsNames && alignLeft) {
                     data = ":" + String.fromUtf8(Array(width - 1, repeat: b'-'))
                 }
-                if (row == 1 && !alignLeft) {
+                if (row == 1 && separateColumnsNames && !alignLeft) {
                     data = String.fromUtf8(Array(width - 1, repeat: b'-')) + ":"
                 }
-
-                pp.append("|")
-                printCell(pp, data, width, color, alignLeft)
+                if (row != 1 || separateColumnsNames) {
+                    pp.append(sep)
+                    printCell(pp, data, width, color, alignLeft)
+                }
             }
-            pp.append("|")
-            pp.newLine()
+            if (row != 1 || separateColumnsNames) {
+                pp.append(sep)
+                pp.newLine()
+            }
         }
         pp
     }

@@ -6,7 +6,7 @@
 public class CurrentProcess <: Process
 ```
 
-Functionality: This class represents the current process, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to the current process.
+Function: This class represents the current process, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to the current process.
 
 Features include:
 
@@ -28,7 +28,7 @@ Parent Type:
 public prop arguments: Array<String>
 ```
 
-Functionality: Returns the argument list of the current process. For example, if the command line is `a.out ab cd ef` where `a.out` is the program name, the returned list contains three elements: ab, cd, ef.
+Function: Returns the argument list of the current process. For example, if the command line is `a.out ab cd ef` where `a.out` is the program name, the returned list contains three elements: ab, cd, ef.
 
 > **Note:**
 >
@@ -42,7 +42,7 @@ Type: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)
 public prop homeDirectory: Path
 ```
 
-Functionality: Gets the path to the home directory.
+Function: Gets the path to the home directory.
 
 Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 
@@ -52,7 +52,7 @@ Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 public prop stdErr: OutputStream
 ```
 
-Functionality: Gets the standard error stream of the current process.
+Function: Gets the standard error stream of the current process.
 
 Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -62,7 +62,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop stdIn: InputStream
 ```
 
-Functionality: Gets the standard input stream of the current process.
+Function: Gets the standard input stream of the current process.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -72,7 +72,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdOut: OutputStream
 ```
 
-Functionality: Gets the standard output stream of the current process.
+Function: Gets the standard output stream of the current process.
 
 Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -82,7 +82,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop tempDirectory: Path
 ```
 
-Functionality: Gets the path to the temporary directory. Retrieves environment variables `TMPDIR`, `TMP`, `TEMP`, and `TEMPDIR`. If none exist, defaults to `/tmp`.
+Function: Gets the path to the temporary directory. Retrieves environment variables `TMPDIR`, `TMP`, `TEMP`, and `TEMPDIR`. If none exist, defaults to `/tmp`.
 
 Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 
@@ -92,7 +92,7 @@ Type: [Path](../../fs/fs_package_api/fs_package_structs.md#struct-path)
 public func atExit(callback: () -> Unit): Unit
 ```
 
-Functionality: Registers a callback function to be executed upon process exit.
+Function: Registers a callback function to be executed upon process exit.
 
 > **Note:**
 >
@@ -108,7 +108,7 @@ Parameters:
 public func exit(code: Int64): Nothing
 ```
 
-Functionality: Terminates the current process immediately with the specified exit status code.
+Function: Terminates the current process immediately with the specified exit status code.
 
 Parameters:
 
@@ -120,7 +120,7 @@ Parameters:
 public func getEnv(k: String): Option<String>
 ```
 
-Functionality: Gets the value of the specified environment variable.
+Function: Gets the value of the specified environment variable.
 
 Parameters:
 
@@ -140,7 +140,7 @@ Exceptions:
 public func removeEnv(k: String): Unit
 ```
 
-Functionality: Removes the specified environment variable by name.
+Function: Removes the specified environment variable by name.
 
 Parameters:
 
@@ -159,7 +159,7 @@ Exceptions:
 public func setEnv(k: String, v: String): Unit
 ```
 
-Functionality: Sets an environment variable pair. If an existing variable with the same name exists, its value will be overwritten.
+Function: Sets an environment variable pair. If an existing variable with the same name exists, its value will be overwritten.
 
 > **Note:**
 >
@@ -181,7 +181,7 @@ Exceptions:
 public open class Process
 ```
 
-Functionality: This class represents a process, providing process-related operations.
+Function: This class represents a process, providing process-related operations.
 
 > **Note:**
 >
@@ -199,7 +199,7 @@ Functionality: This class represents a process, providing process-related operat
 public static prop current: CurrentProcess
 ```
 
-Functionality: Gets the current process instance.
+Function: Gets the current process instance.
 
 > **Note:**
 >
@@ -213,7 +213,7 @@ Type: [CurrentProcess](process_package_classes.md#class-currentprocess-deprecate
 public open prop arguments: Array<String>
 ```
 
-Functionality: Gets process arguments. On Windows, this property cannot be retrieved without privileged API access.
+Function: Gets process arguments. On Windows, this property cannot be retrieved without privileged API access.
 
 > **Note:**
 >
@@ -231,7 +231,7 @@ Exceptions:
 public prop command: String
 ```
 
-Functionality: Gets the process command.
+Function: Gets the process command.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -245,7 +245,7 @@ Exceptions:
 public prop commandLine: Array<String>
 ```
 
-Functionality: Gets the command line of the current process. On Windows, only the current process command line can be retrieved; other scenarios require privileged API access.
+Function: Gets the command line of the current process. On Windows, only the current process command line can be retrieved; other scenarios require privileged API access.
 
 > **Note:**
 >
@@ -263,7 +263,7 @@ Exceptions:
 public prop environment: Map<String, String>
 ```
 
-Functionality: Gets the environment variables of the current process. On Windows, only the current process environment variables can be retrieved; other scenarios require privileged API access.
+Function: Gets the environment variables of the current process. On Windows, only the current process environment variables can be retrieved; other scenarios require privileged API access.
 
 > **Note:**
 >
@@ -281,7 +281,7 @@ Exceptions:
 public prop name: String
 ```
 
-Functionality: Gets the process name.
+Function: Gets the process name.
 
 Type: [String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -295,7 +295,7 @@ Exceptions:
 public prop pid: Int64
 ```
 
-Functionality: Gets the process ID.
+Function: Gets the process ID.
 
 Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 
@@ -305,7 +305,7 @@ Type: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64)
 public prop startTime: DateTime
 ```
 
-Functionality: Gets the process start time. Returns [DateTime.UnixEpoch](../../time/time_package_api/time_package_structs.md#static-prop-unixepoch) on failure.
+Function: Gets the process start time. Returns [DateTime.UnixEpoch](../../time/time_package_api/time_package_structs.md#static-prop-unixepoch) on failure.
 
 Type: [DateTime](../../time/time_package_api/time_package_structs.md#struct-datetime)
 
@@ -315,7 +315,7 @@ Type: [DateTime](../../time/time_package_api/time_package_structs.md#struct-date
 public prop systemTime: Duration
 ```
 
-Functionality: Gets the process system time. Returns -1ms on failure.
+Function: Gets the process system time. Returns -1ms on failure.
 
 Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -325,7 +325,7 @@ Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-dura
 public prop userTime: Duration
 ```
 
-Functionality: Gets the process user time. Returns -1ms on failure.
+Function: Gets the process user time. Returns -1ms on failure.
 
 Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration)
 
@@ -335,7 +335,7 @@ Type: [Duration](../../core/core_package_api/core_package_structs.md#struct-dura
 public prop workingDirectory: Path
 ```
 
-Functionality: Gets the working directory of the process. On Windows, this only applies to the current process; other scenarios require privileged API access.
+Function: Gets the working directory of the process. On Windows, this only applies to the current process; other scenarios require privileged API access.
 
 > **Note:**
 >
@@ -353,7 +353,7 @@ Exceptions:
 public func isAlive(): Bool
 ```
 
-Functionality: Checks if the process is alive.
+Function: Checks if the process is alive.
 
 Returns:
 
@@ -365,7 +365,7 @@ Returns:
 public static func of(pid: Int64): Process
 ```
 
-Functionality: Binds a process instance by process ID.
+Function: Binds a process instance by process ID.
 
 > **Note:**
 >
@@ -397,7 +397,7 @@ public static func run(command: String,
                       timeout!: ?Duration = None): Int64
 ```
 
-Functionality: Creates and runs a child process based on input parameters, waits for completion, and returns the exit status.
+Function: Creates and runs a child process based on input parameters, waits for completion, and returns the exit status.
 
 > **Note:**
 >
@@ -436,7 +436,7 @@ public static func runOutput(command: String,
                             stdErr!: ProcessRedirect = Pipe): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-Functionality: Creates and runs a child process, waits for completion, and returns exit status, stdout, and stderr. Not suitable for large outputs—use [SubProcess](process_package_classes.md#class-subprocess) with `wait` instead.
+Function: Creates and runs a child process, waits for completion, and returns exit status, stdout, and stderr. Not suitable for large outputs—use [SubProcess](process_package_classes.md#class-subprocess) with `wait` instead.
 
 > **Note:**
 >
@@ -462,7 +462,7 @@ public static func start(command: String,
                         stdErr!: ProcessRedirect = Inherit): SubProcess
 ```
 
-Functionality: Creates and runs a child process, returning a child process instance. Call `wait` or `waitOutput` to avoid zombie processes.
+Function: Creates and runs a child process, returning a child process instance. Call `wait` or `waitOutput` to avoid zombie processes.
 
 > **Note:**
 >
@@ -482,7 +482,7 @@ Exceptions: (Same as `run` function)
 public func terminate(force!: Bool = false): Unit
 ```
 
-Functionality: Terminates the process.
+Function: Terminates the process.
 
 Parameters:
 
@@ -492,7 +492,7 @@ Parameters:
 public class SubProcess <: Process
 ```
 
-Functionality: This class represents a subprocess, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to subprocess management.
+Function: This class represents a subprocess, inheriting from the [Process](process_package_classes.md#class-process) class, providing operations related to subprocess management.
 
 > **Note:**
 >
@@ -512,7 +512,7 @@ Parent Type:
 public prop stdErr: InputStream
 ```
 
-Functionality: Gets the input stream connected to the subprocess's standard error stream.
+Function: Gets the input stream connected to the subprocess's standard error stream.
 
 > **Warning:**
 >
@@ -526,7 +526,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdErrPipe: InputStream
 ```
 
-Functionality: Gets the input stream connected to the subprocess's standard error stream.
+Function: Gets the input stream connected to the subprocess's standard error stream.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -536,7 +536,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdIn: OutputStream
 ```
 
-Functionality: Gets the output stream connected to the subprocess's standard input stream.
+Function: Gets the output stream connected to the subprocess's standard input stream.
 
 > **Warning:**
 >
@@ -550,7 +550,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop stdInPipe: OutputStream
 ```
 
-Functionality: Gets the output stream connected to the subprocess's standard input stream.
+Function: Gets the output stream connected to the subprocess's standard input stream.
 
 Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-outputstream)
 
@@ -560,7 +560,7 @@ Type: [OutputStream](../../io/io_package_api/io_package_interfaces.md#interface-
 public prop stdOut: InputStream
 ```
 
-Functionality: Gets the input stream connected to the subprocess's standard output stream.
+Function: Gets the input stream connected to the subprocess's standard output stream.
 
 > **Warning:**
 >
@@ -574,7 +574,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public prop stdOutPipe: InputStream
 ```
 
-Functionality: Gets the input stream connected to the subprocess's standard output stream.
+Function: Gets the input stream connected to the subprocess's standard output stream.
 
 Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-inputstream)
 
@@ -584,7 +584,7 @@ Type: [InputStream](../../io/io_package_api/io_package_interfaces.md#interface-i
 public func wait(timeout!: ?Duration = None): Int64
 ```
 
-Functionality: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code, with configurable timeout duration. For scenarios requiring standard stream operations (Pipe mode), users should prioritize handling standard streams to avoid deadlocks when the subprocess's stream buffer becomes full before calling this function.
+Function: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code, with configurable timeout duration. For scenarios requiring standard stream operations (Pipe mode), users should prioritize handling standard streams to avoid deadlocks when the subprocess's stream buffer becomes full before calling this function.
 
 > **Note:**
 >
@@ -597,7 +597,7 @@ Parameters:
 
 - timeout!: ?[Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Named optional parameter specifying the timeout duration for waiting on the subprocess. Defaults to `None`.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Returns the subprocess exit status. If the subprocess exits normally, returns the exit code; if terminated by a signal, returns the signal number that caused termination.
 
@@ -611,9 +611,9 @@ Exceptions:
 public func waitOutput(): (Int64, Array<Byte>, Array<Byte>)
 ```
 
-Functionality: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code along with output results (including standard output and error streams). This function is not suitable for scenarios with large output volumes in standard/error streams. It's recommended to use the standard stream properties provided in [SubProcess](process_package_classes.md#class-subprocess) combined with the wait function for custom handling.
+Function: Blocks the current process to wait for the subprocess task to complete and returns the subprocess exit status code along with output results (including standard output and error streams). This function is not suitable for scenarios with large output volumes in standard/error streams. It's recommended to use the standard stream properties provided in [SubProcess](process_package_classes.md#class-subprocess) combined with the wait function for custom handling.
 
-Return Value:
+Returns:
 
 - ([Int64](../../core/core_package_api/core_package_intrinsics.md#int64), [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>, [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../core/core_package_api/core_package_types.md#type-byte)>) - Subprocess execution results, including exit status (exit code if normal termination, signal number if terminated by signal), standard output results, and error output results.
 

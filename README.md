@@ -105,7 +105,7 @@ The Cangjie programming language’s standard library (std) is an officially pro
 The Cangjie Standard Library has three key characteristics and goals:
 
 - Convenience: The standard library is distributed with the compiler and toolchain, requiring no additional downloads from users, making it ready to use right out of the box.
-- Universal Functionality: The standard library provides the most commonly used library capabilities for developers, aiming to solve most basic problems.
+- Universal Function: The standard library provides the most commonly used library capabilities for developers, aiming to solve most basic problems.
 - Quality Benchmark: The standard library strives to set an example and benchmark for other Cangjie libraries in terms of performance, code style, etc.
 
 For a detailed introduction and usage of the standard library, please refer to the [official standard library documentation](https://cangjie-lang.cn/docs?url=%2F1.0.0%2Flibs%2Fstd%2Fstd_module_overview.html).
@@ -159,7 +159,7 @@ The main directories are as follows:
 
 ### Constraints
 
-Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env_zh.md).
+Building the Cangjie runtime is supported on Ubuntu/MacOS (x86_64, aarch64) environments. For more details on environment and tool dependencies, please refer to the [Build Dependency Tools](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md).
 
 Currently, building the Cangjie Programming Language Standard Library within the Windows environment is not supported. To generate Standard Library artifacts that can run on the Windows platform, cross-compilation in a Linux environment is required. For detailed information, please refer to  [Cangjie SDK Integration and Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md). For specific future support plans, please see [Platform Support Plan](#platform-support-plan).
 

@@ -18,7 +18,7 @@ func toBytes(): Array<UInt8>
 
 Function: Provides serialization capability for the corresponding type.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)> - The serialized byte sequence.
 
@@ -40,7 +40,7 @@ func toTokens(): Tokens
 
 Function: Converts instances of corresponding types to [Tokens](ast_package_classes.md#class-tokens).
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -64,7 +64,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> type to [Tokens](ast_package_classes.md#class-tokens) type, supporting only numeric types, [Rune](../../core/core_package_api/core_package_intrinsics.md#rune), [Bool](../../core/core_package_api/core_package_intrinsics.md#bool), and [String](../../core/core_package_api/core_package_structs.md#struct-string) types.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -88,7 +88,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [ArrayList](../../collection/collection_package_api/collection_package_class.md#class-arraylistt) type to [Tokens](ast_package_classes.md#class-tokens) type. Currently supported types include [Decl](ast_package_classes.md#class-decl), [Node](ast_package_classes.md#class-node), [Constructor](ast_package_classes.md#class-constructor), [Argument](ast_package_classes.md#class-argument), [FuncParam](ast_package_classes.md#class-funcparam), [MatchCase](ast_package_classes.md#class-matchcase), [Modifier](ast_package_classes.md#class-modifier), [Annotation](ast_package_classes.md#class-annotation), [ImportList](ast_package_classes.md#class-importlist), [Pattern](ast_package_classes.md#class-pattern), [TypeNode](ast_package_classes.md#class-typenode), etc.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -112,7 +112,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -136,7 +136,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Float16](../../core/core_package_api/core_package_intrinsics.md#float16) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -160,7 +160,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Float32](../../core/core_package_api/core_package_intrinsics.md#float32) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -184,7 +184,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -208,7 +208,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Int16](../../core/core_package_api/core_package_intrinsics.md#int16) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -232,7 +232,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Int32](../../core/core_package_api/core_package_intrinsics.md#int32) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -256,7 +256,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -280,7 +280,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Int8](../../core/core_package_api/core_package_intrinsics.md#int8) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -304,7 +304,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -328,7 +328,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [String](../../core/core_package_api/core_package_structs.md#struct-string) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -352,7 +352,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Token](ast_package_structs.md#struct-token) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -376,7 +376,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [Tokens](ast_package_classes.md#class-tokens) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -400,7 +400,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from [UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16) type to [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).### extend UInt32 <: ToTokens
 
@@ -422,7 +422,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from the [UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32) type to the [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -446,7 +446,7 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from the [UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64) type to the [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).
 
@@ -470,6 +470,6 @@ public func toTokens(): Tokens
 
 Function: Implements conversion from the [UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8) type to the [Tokens](ast_package_classes.md#class-tokens) type.
 
-Return Value:
+Returns:
 
 - [Tokens](ast_package_classes.md#class-tokens) - The converted [Tokens](ast_package_classes.md#class-tokens).

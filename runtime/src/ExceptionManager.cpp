@@ -94,8 +94,10 @@ void ExceptionManager::OutOfMemory()
         std::map<std::string, std::string> params;
         params["LIMIT_SIZE"] = std::to_string(limitSize);
         params["ACTIVE_MEMORY"] = std::to_string(activeMemory);
+        params["TYPE"] = "OOMDump";
+        params["EVENT_CONFIG"] = "event";
         TriggerEventReport(domain, event, HiSysEventType::FAULT, params);
-        LOG(RTLOG_ERROR, "OOM event reporting finished");
+        LOG(RTLOG_INFO, "OOM event reporting finished");
 #endif
         ThrowImplicitException(OOM);
     } else {

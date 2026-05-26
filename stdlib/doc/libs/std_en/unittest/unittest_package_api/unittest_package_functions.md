@@ -74,7 +74,7 @@ public func defaultConfiguration(): Configuration
 
 Function: Generates default configuration information.
 
-Return value:
+Returns:
 
 - [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) - Configuration information.
 
@@ -90,7 +90,7 @@ Parameters:
 
 - testPackage: [TestPackage](./unittest_package_classes.md#class-testpackage) - Test package object.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - Execution result.
 
@@ -204,7 +204,7 @@ Parameters:
 - assert: ([AssertionCtx](./unittest_package_classes.md#class-assertionctx)) -> T - Captures assertion calls with correct parameters.
 - optParentCtx!: [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[AssertionCtx](./unittest_package_classes.md#class-assertionctx)> - Context for storing nested assertion failure messages.
 
-Return value:
+Returns:
 
 - T - Value returned by the user-defined assertion.
 
@@ -248,7 +248,7 @@ Parameters:
 - delta!: D - Delta value used for approximate equality comparison.
 - cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Comparison type.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether approximately equal.
 
@@ -274,6 +274,6 @@ Parameters:
 - cmpType!: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Comparison type.
 - overloadHack!: [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Additional parameter added to enable function overloading, default value is true.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether approximately equal.

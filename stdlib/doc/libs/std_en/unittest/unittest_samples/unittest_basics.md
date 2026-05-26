@@ -482,7 +482,10 @@ This option specifies the directory path for generating test reports after execu
 
 This option specifies the format of the test report generated after execution.
 
-Currently, unit tests only support the default `xml` format.
+Unittests support:
+
+- `xml`: xml format with files corresponding to test suites, it is the default format. 
+- `xml-per-package`: xml format with files corresponding to test packages.
 
 Benchmark tests support:
 

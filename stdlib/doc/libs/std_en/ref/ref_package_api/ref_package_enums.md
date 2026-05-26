@@ -41,7 +41,7 @@ Parameters:
 
 - that: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - The enum instance to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current cleanup policy is the same as `that` cleanup policy, otherwise returns `false`.
 
@@ -57,6 +57,6 @@ Parameters:
 
 - CleanupPolicy: [CleanupPolicy](ref_package_enums.md#enum-cleanuppolicy) - The enum instance to compare with.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the current cleanup policy differs from `that` cleanup policy, otherwise returns `false`.

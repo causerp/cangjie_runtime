@@ -31,7 +31,7 @@ func isLetter(): Bool
 
 Function: Determines whether the type is a Unicode letter character.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode letter character, otherwise returns `false`.
 
@@ -43,7 +43,7 @@ func isLowerCase(): Bool
 
 Function: Determines whether the type is a Unicode lowercase character.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode lowercase character, otherwise returns `false`.
 
@@ -55,7 +55,7 @@ func isNumber(): Bool
 
 Function: Determines whether the type is a Unicode numeric character.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode numeric character, otherwise returns `false`.
 
@@ -71,7 +71,7 @@ Titlecase characters in Unicode refer to special letter forms used in certain la
 
 Titlecase characters include: `0x01C5`, `0x01C8`, `0x01CB`, `0x01F2`, `0x1F88 - 0x1F8F`, `0x1F98 - 0x1F9F`, `0x1F98 - 0x1F9F`, `0x1FA8 - 0x1FAF`, `0x1FBC`, `0x1FCC`, `0x1FFC`
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode titlecase character, otherwise returns `false`.
 
@@ -83,7 +83,7 @@ func isUpperCase(): Bool
 
 Function: Determines whether the type is a Unicode uppercase character.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode uppercase character, otherwise returns `false`.
 
@@ -97,7 +97,7 @@ Function: Determines whether the type is a Unicode whitespace character.
 
 Whitespace characters include: `0x0009`, `0x000A`, `0x000B`, `0x000C`, `0x000D`, `0x0020`, `0x0085`, `0x00A0`, `0x1680`, `0x2000`, `0x2001`, `0x2002`, `0x2003`, `0x2004`, `0x2005`, `0x2006`, `0x2007`, `0x2008`, `0x2009`, `0x200A`, `0x2028`, `0x2029`, `0x202F`, `0x205F`, `0x3000`.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the type is a Unicode whitespace character, otherwise returns `false`.
 
@@ -109,7 +109,7 @@ func toLowerCase(): Rune
 
 Function: Gets the corresponding Unicode lowercase character for this type.
 
-Return value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current type.
 
@@ -121,7 +121,7 @@ func toTitleCase(): Rune
 
 Function: Gets the corresponding Unicode titlecase character for this type.
 
-Return value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The titlecase character corresponding to the current type.
 
@@ -133,7 +133,7 @@ func toUpperCase(): Rune
 
 Function: Gets the corresponding Unicode uppercase character for this type.
 
-Return value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The uppercase character corresponding to the current type.
 
@@ -147,7 +147,7 @@ Function: Gets the corresponding Unicode lowercase character for this type.
 
 Parameters:
 
-- opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.Return Value:
+- opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current type.
 
@@ -163,7 +163,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The title case character corresponding to the current type.
 
@@ -179,7 +179,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current type.
 
@@ -203,7 +203,7 @@ public func isLetter(): Bool
 
 Function: Determines whether the character is a `Unicode` letter character.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` letter character, otherwise returns `false`.
 
@@ -233,7 +233,7 @@ public func isLowerCase(): Bool
 
 Function: Determines whether the character is a `Unicode` lowercase character.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` lowercase character, otherwise returns `false`.
 
@@ -263,7 +263,7 @@ public func isNumber(): Bool
 
 Function: Determines whether the character is a `Unicode` numeric character.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` numeric character, otherwise returns `false`.
 
@@ -295,7 +295,7 @@ Function: Determines whether the character is a `Unicode` title case character.
 
 In `Unicode`, title case characters refer to a special form of letters used in certain languages to represent the initial uppercase form of each word in titles. These characters are represented by special symbols, such as U+01C5 (ǅ) and U+01F1 (Ǳ). They are commonly used in some Eastern European languages like Croatian and Serbian.
 
-Title case characters include: `0x01C5`, `0x01C8`, `0x01CB`, `0x01F2`, `0x1F88 - 0x1F8F`, `0x1F98 - 0x1F9F`, `0x1F98 - 0x1F9F`, `0x1FA8 - 0x1FAF`, `0x1FBC`, `0x1FCC`, `0x1FFC`Return Value:
+Title case characters include: `0x01C5`, `0x01C8`, `0x01CB`, `0x01F2`, `0x1F88 - 0x1F8F`, `0x1F98 - 0x1F9F`, `0x1F98 - 0x1F9F`, `0x1FA8 - 0x1FAF`, `0x1FBC`, `0x1FCC`, `0x1FFC`Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` titlecase character, otherwise returns `false`.
 
@@ -323,7 +323,7 @@ public func isUpperCase(): Bool
 
 Function: Determines whether the character is a `Unicode` uppercase character.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` uppercase character, otherwise returns `false`.
 
@@ -355,7 +355,7 @@ Function: Determines whether the character is a `Unicode` whitespace character.
 
 Whitespace characters include `0x0009`, `0x000A`, `0x000B`, `0x000C`, `0x000D`, `0x0020`, `0x0085`, `0x00A0`, `0x1680`, `0x2000`, `0x2001`, `0x2002`, `0x2003`, `0x2004`, `0x2005`, `0x2006`, `0x2007`, `0x2008`, `0x2009`, `0x200A`, `0x2028`, `0x2029`, `0x202F`, `0x205F`, `0x3000`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the character is a `Unicode` whitespace character, otherwise returns `false`.
 
@@ -383,7 +383,7 @@ public func toLowerCase(): Rune
 
 Function: Retrieves the corresponding `Unicode` lowercase character for this character.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current character.
 
@@ -415,7 +415,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The language enumeration to be passed.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current character.
 
@@ -443,7 +443,7 @@ public func toTitleCase(): Rune
 
 Function: Retrieves the corresponding `Unicode` titlecase character for this character.
 
-Return Value:- [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The titlecase character corresponding to the current character.
+Returns:- [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The titlecase character corresponding to the current character.
 
 Example:
 <!-- verify -->
@@ -473,7 +473,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The titlecase character corresponding to the current character.
 
@@ -501,7 +501,7 @@ public func toUpperCase(): Rune
 
 Function: Gets the corresponding `Unicode` uppercase character.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current character.
 
@@ -533,7 +533,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) - The lowercase character corresponding to the current character.
 
@@ -586,7 +586,7 @@ Function: Determines whether the current string is empty or contains only whites
 
 Whitespace characters include `0x0009`, `0x000A`, `0x000B`, `0x000C`, `0x000D`, `0x0020`, `0x0085`, `0x00A0`, `0x1680`, `0x2000`, `0x2001`, `0x2002`, `0x2003`, `0x2004`, `0x2005`, `0x2006`, `0x2007`, `0x2008`, `0x2009`, `0x200A`, `0x2028`, `0x2029`, `0x202F`, `0x205F`, `0x3000`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the string is empty or contains only whitespace characters; otherwise, returns `false`.
 
@@ -598,7 +598,7 @@ func toLower(): String
 
 Function: Converts all uppercase characters within the current string's `Unicode` character set range to lowercase.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-lowercase string.
 
@@ -618,7 +618,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-lowercase string.
 
@@ -634,7 +634,7 @@ func toTitle(): String
 
 Function: Converts characters in the current string that can be transformed to title case within the `Unicode` character set range to title case.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted title case string.
 
@@ -654,7 +654,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted title case string.
 
@@ -670,7 +670,7 @@ func toUpper(): String
 
 Function: Converts all lowercase characters within the current string's `Unicode` character set range to uppercase.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-uppercase string.
 
@@ -690,7 +690,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-uppercase string.
 
@@ -706,7 +706,7 @@ func trim(): String
 
 Function: Removes leading and trailing whitespace characters from the string. Whitespace characters are defined by the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string with leading and trailing whitespace removed.
 
@@ -722,7 +722,7 @@ func trimEnd(): String
 
 Function: Removes trailing whitespace characters from the string. Whitespace characters are defined by the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string with trailing whitespace removed.
 
@@ -740,7 +740,7 @@ Function: Removes leading whitespace characters from the string. Whitespace char
 
 > **Note:**
 >
-> This function will be deprecated in future versions. Use [trimStart](./unicode_package_interfaces.md#func-trimstart) instead.Return Value:
+> This function will be deprecated in future versions. Use [trimStart](./unicode_package_interfaces.md#func-trimstart) instead.Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string with leading whitespace characters removed.
 
@@ -760,7 +760,7 @@ Function: Removes trailing whitespace characters from the string. Whitespace cha
 >
 > This will be deprecated in future versions. Use [trimEnd](./unicode_package_interfaces.md#func-trimend) instead.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string with trailing whitespace characters removed.
 
@@ -776,7 +776,7 @@ func trimStart(): String
 
 Function: Removes leading whitespace characters from the string. Whitespace characters are defined by the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string with leading whitespace characters removed.
 
@@ -806,7 +806,7 @@ Function: Determines whether the current string is empty or consists solely of w
 
 Whitespace characters include `0x0009`, `0x000A`, `0x000B`, `0x000C`, `0x000D`, `0x0020`, `0x0085`, `0x00A0`, `0x1680`, `0x2000`, `0x2001`, `0x2002`, `0x2003`, `0x2004`, `0x2005`, `0x2006`, `0x2007`, `0x2008`, `0x2009`, `0x200A`, `0x2028`, `0x2029`, `0x202F`, `0x205F`, `0x3000`.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the string is empty or contains only whitespace characters; otherwise, returns `false`.
 
@@ -834,7 +834,7 @@ public func toLower(): String
 
 Function: Converts all uppercase characters in the current string within the `Unicode` character set range to lowercase.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-lowercase string.
 
@@ -870,7 +870,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The language enumeration parameter.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted all-lowercase string.
 
@@ -902,7 +902,7 @@ public func toTitle(): String
 
 Function: Converts characters within the current string that can be transformed to title case within the `Unicode` character set to title case.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted title case string.
 
@@ -938,7 +938,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted title case string.
 
@@ -970,7 +970,7 @@ public func toUpper(): String
 
 Function: Converts all lowercase characters within the current string that fall within the `Unicode` character set to uppercase.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted uppercase string.
 
@@ -1006,7 +1006,7 @@ Parameters:
 
 - opt: [CasingOption](./unicode_package_enums.md#enum-casingoption) - The input language enumeration.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The converted uppercase string.
 
@@ -1038,7 +1038,7 @@ public func trim(): String
 
 Function: Removes whitespace characters from the beginning and end of the string. The definition of whitespace characters can be found in the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return Value:- [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with leading and trailing whitespace removed.
+Returns:- [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with leading and trailing whitespace removed.
 
 Exceptions:
 
@@ -1069,7 +1069,7 @@ public func trimEnd(): String
 
 Function: Removes trailing whitespace characters from the string. Whitespace characters are defined by the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../../std_en/core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with trailing whitespace removed.
 
@@ -1106,7 +1106,7 @@ Function: Removes leading whitespace characters from the string. Whitespace char
 >
 > This method will be deprecated in future versions. Use [trimStart](./unicode_package_interfaces.md#func-trimend) instead.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with leading whitespace removed.
 
@@ -1143,7 +1143,7 @@ Function: Removes trailing whitespace characters from the string. Whitespace cha
 >
 > This method will be deprecated in future versions. Use [trimEnd](./unicode_package_interfaces.md#func-trimend) instead.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with trailing whitespace removed.
 
@@ -1176,7 +1176,7 @@ public func trimStart(): String
 
 Function: Removes leading whitespace characters from the string. Whitespace characters are defined by the extension function [isWhiteSpace](#func-iswhitespace) of the [Rune](../../core/core_package_api/core_package_intrinsics.md#rune) type.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - A string with leading whitespace removed.
 

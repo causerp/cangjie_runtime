@@ -80,14 +80,6 @@ public enum ImportKind <: ToString {
 
 - [ToString](../../core/core_package_api/core_package_interfaces.md#interface-tostring)
 
-### Single
-
-```cangjie
-Single
-```
-
-功能：表示单导入，如 `import a.b`。
-
 ### Alias
 
 ```cangjie
@@ -111,6 +103,14 @@ Multi
 ```
 
 功能：表示多导入，如 `import a.{b, c, d}`。
+
+### Single
+
+```cangjie
+Single
+```
+
+功能：表示单导入，如 `import a.b`。
 
 ### func toString()
 
@@ -158,172 +158,172 @@ kind3.toString(): Single
 
 ```cangjie
 public enum TokenKind <: ToString {
-    | DOT                          /*  "."           */
-    | COMMA                        /*  ","           */
-    | LPAREN                       /*  "("           */
-    | RPAREN                       /*  ")"           */
-    | LSQUARE                      /*  "["           */
-    | RSQUARE                      /*  "]"           */
-    | LCURL                        /*  "{"           */
-    | RCURL                        /*  "}"           */
-    | EXP                          /*  "**"          */
-    | MUL                          /*  "*"           */
-    | MOD                          /*  "%"           */
-    | DIV                          /*  "/"           */
-    | ADD                          /*  "+"           */
-    | SUB                          /*  "-"           */
-    | INCR                         /*  "++"          */
-    | DECR                         /*  "--"          */
-    | AND                          /*  "&&"          */
-    | OR                           /*  "||"          */
-    | COALESCING                   /*  "??"          */
-    | PIPELINE                     /*  "|>"          */
-    | COMPOSITION                  /*  "~>"          */
-    | NOT                          /*  "!"           */
-    | BITAND                       /*  "&"           */
-    | BITOR                        /*  "|"           */
-    | BITXOR                       /*  "^"           */
-    | BITNOT                       /*  "~"           */
-    | LSHIFT                       /*  "<<"          */
-    | RSHIFT                       /*  ">>"          */
-    | COLON                        /*  ":"           */
-    | SEMI                         /*  ";"           */
-    | ASSIGN                       /*  "="           */
-    | ADD_ASSIGN                   /*  "+="          */
-    | SUB_ASSIGN                   /*  "-="          */
-    | MUL_ASSIGN                   /*  "*="          */
-    | EXP_ASSIGN                   /*  "**="         */
-    | DIV_ASSIGN                   /*  "/="          */
-    | MOD_ASSIGN                   /*  "%="          */
-    | AND_ASSIGN                   /*  "&&="         */
-    | OR_ASSIGN                    /*  "||="         */
-    | BITAND_ASSIGN                /*  "&="          */
-    | BITOR_ASSIGN                 /*  "|="          */
-    | BITXOR_ASSIGN                /*  "^="          */
-    | LSHIFT_ASSIGN                /*  "<<="         */
-    | RSHIFT_ASSIGN                /*  ">>="         */
-    | ARROW                        /*  "->"          */
-    | BACKARROW                    /*  "<-"          */
-    | DOUBLE_ARROW                 /*  "=>"          */
-    | RANGEOP                      /*  ".."          */
-    | CLOSEDRANGEOP                /*  "..="         */
-    | ELLIPSIS                     /*  "..."         */
-    | HASH                         /*  "#"           */
-    | AT                           /*  "@"           */
-    | QUEST                        /*  "?"           */
-    | LT                           /*  "<"           */
-    | GT                           /*  ">"           */
-    | LE                           /*  "<="          */
-    | GE                           /*  ">="          */
-    | IS                           /*  "is"          */
-    | AS                           /*  "as"          */
-    | NOTEQ                        /*  "!="          */
-    | EQUAL                        /*  "=="          */
-    | WILDCARD                     /*  "_"           */
-    | INT8                         /*  "Int8"        */
-    | INT16                        /*  "Int16"       */
-    | INT32                        /*  "Int32"       */
-    | INT64                        /*  "Int64"       */
-    | INTNATIVE                    /*  "IntNative"   */
-    | UINT8                        /*  "UInt8"       */
-    | UINT16                       /*  "UInt16"      */
-    | UINT32                       /*  "UInt32"      */
-    | UINT64                       /*  "UInt64"      */
-    | UINTNATIVE                   /*  "UIntNative"  */
-    | FLOAT16                      /*  "Float16"     */
-    | FLOAT32                      /*  "Float32"     */
-    | FLOAT64                      /*  "Float64"     */
-    | RUNE                         /*  "Rune"        */
-    | BOOLEAN                      /*  "Bool"        */
-    | NOTHING                      /*  "Nothing"     */
-    | UNIT                         /*  "Unit"        */
-    | STRUCT                       /*  "struct"      */
-    | ENUM                         /*  "enum"        */
-    | VARRAY                       /*  "VArray"      */
-    | THISTYPE                     /*  "This"        */
-    | PACKAGE                      /*  "package"     */
-    | IMPORT                       /*  "import"      */
-    | CLASS                        /*  "class"       */
-    | INTERFACE                    /*  "interface"   */
-    | FUNC                         /*  "func"        */
-    | MACRO                        /*  "macro"       */
-    | QUOTE                        /*  "quote"       */
-    | DOLLAR                       /*  "$"           */
-    | LET                          /*  "let"         */
-    | VAR                          /*  "var"         */
-    | CONST                        /*  "const"       */
-    | TYPE                         /*  "type"        */
-    | INIT                         /*  "init"        */
-    | THIS                         /*  "this"        */
-    | SUPER                        /*  "super"       */
-    | IF                           /*  "if"          */
-    | ELSE                         /*  "else"        */
-    | CASE                         /*  "case"        */
-    | TRY                          /*  "try"         */
-    | CATCH                        /*  "catch"       */
-    | FINALLY                      /*  "finally"     */
-    | FOR                          /*  "for"         */
-    | DO                           /*  "do"          */
-    | WHILE                        /*  "while"       */
-    | THROW                        /*  "throw"       */
-    | RETURN                       /*  "return"      */
-    | CONTINUE                     /*  "continue"    */
-    | BREAK                        /*  "break"       */
-    | IN                           /*  "in"          */
-    | NOT_IN                       /*  "!in"         */
-    | MATCH                        /*  "match"       */
-    | WHERE                        /*  "where"       */
-    | EXTEND                       /*  "extend"      */
-    | WITH                         /*  "with"        */
-    | PROP                         /*  "prop"        */
-    | STATIC                       /*  "static"      */
-    | PUBLIC                       /*  "public"      */
-    | PRIVATE                      /*  "private"     */
-    | INTERNAL                     /*  "internal"    */
-    | PROTECTED                    /*  "protected"   */
-    | OVERRIDE                     /*  "override"    */
-    | REDEF                        /*  "redef"       */
-    | ABSTRACT                     /*  "abstract"    */
-    | SEALED                       /*  "sealed"      */
-    | OPEN                         /*  "open"        */
-    | FOREIGN                      /*  "foreign"     */
-    | INOUT                        /*  "inout"       */
-    | MUT                          /*  "mut"         */
-    | UNSAFE                       /*  "unsafe"      */
-    | OPERATOR                     /*  "operator"    */
-    | SPAWN                        /*  "spawn"       */
-    | SYNCHRONIZED                 /*  "synchronized" */
-    | UPPERBOUND                   /*  "<:"          */
-    | MAIN                         /*  "main"        */
-    | IDENTIFIER                   /*  "x"           */
-    | PACKAGE_IDENTIFIER           /*  e.g. "x-y"    */
-    | INTEGER_LITERAL              /*  e.g. "1"      */
-    | RUNE_BYTE_LITERAL            /*  e.g. "b'x'"   */
-    | FLOAT_LITERAL                /*  e.g. "'1.0'"  */
-    | COMMENT                      /*  e.g. "/*xx*/" */
-    | NL                           /*  newline       */
-    | END                          /*  end of file   */
-    | SENTINEL                     /*  ";"           */
-    | RUNE_LITERAL                 /*  e.g. "r'x'"   */
-    | STRING_LITERAL               /*  e.g. ""xx""   */
+    | DOT /*  "."           */
+    | COMMA /*  ","           */
+    | LPAREN /*  "("           */
+    | RPAREN /*  ")"           */
+    | LSQUARE /*  "["           */
+    | RSQUARE /*  "]"           */
+    | LCURL /*  "{"           */
+    | RCURL /*  "}"           */
+    | EXP /*  "**"          */
+    | MUL /*  "*"           */
+    | MOD /*  "%"           */
+    | DIV /*  "/"           */
+    | ADD /*  "+"           */
+    | SUB /*  "-"           */
+    | INCR /*  "++"          */
+    | DECR /*  "--"          */
+    | AND /*  "&&"          */
+    | OR /*  "||"          */
+    | COALESCING /*  "??"          */
+    | PIPELINE /*  "|>"          */
+    | COMPOSITION /*  "~>"          */
+    | NOT /*  "!"           */
+    | BITAND /*  "&"           */
+    | BITOR /*  "|"           */
+    | BITXOR /*  "^"           */
+    | BITNOT /*  "~"           */
+    | LSHIFT /*  "<<"          */
+    | RSHIFT /*  ">>"          */
+    | COLON /*  ":"           */
+    | SEMI /*  ";"           */
+    | ASSIGN /*  "="           */
+    | ADD_ASSIGN /*  "+="          */
+    | SUB_ASSIGN /*  "-="          */
+    | MUL_ASSIGN /*  "*="          */
+    | EXP_ASSIGN /*  "**="         */
+    | DIV_ASSIGN /*  "/="          */
+    | MOD_ASSIGN /*  "%="          */
+    | AND_ASSIGN /*  "&&="         */
+    | OR_ASSIGN /*  "||="         */
+    | BITAND_ASSIGN /*  "&="          */
+    | BITOR_ASSIGN /*  "|="          */
+    | BITXOR_ASSIGN /*  "^="          */
+    | LSHIFT_ASSIGN /*  "<<="         */
+    | RSHIFT_ASSIGN /*  ">>="         */
+    | ARROW /*  "->"          */
+    | BACKARROW /*  "<-"          */
+    | DOUBLE_ARROW /*  "=>"          */
+    | RANGEOP /*  ".."          */
+    | CLOSEDRANGEOP /*  "..="         */
+    | ELLIPSIS /*  "..."         */
+    | HASH /*  "#"           */
+    | AT /*  "@"           */
+    | QUEST /*  "?"           */
+    | LT /*  "<"           */
+    | GT /*  ">"           */
+    | LE /*  "<="          */
+    | GE /*  ">="          */
+    | IS /*  "is"          */
+    | AS /*  "as"          */
+    | NOTEQ /*  "!="          */
+    | EQUAL /*  "=="          */
+    | WILDCARD /*  "_"           */
+    | INT8 /*  "Int8"        */
+    | INT16 /*  "Int16"       */
+    | INT32 /*  "Int32"       */
+    | INT64 /*  "Int64"       */
+    | INTNATIVE /*  "IntNative"   */
+    | UINT8 /*  "UInt8"       */
+    | UINT16 /*  "UInt16"      */
+    | UINT32 /*  "UInt32"      */
+    | UINT64 /*  "UInt64"      */
+    | UINTNATIVE /*  "UIntNative"  */
+    | FLOAT16 /*  "Float16"     */
+    | FLOAT32 /*  "Float32"     */
+    | FLOAT64 /*  "Float64"     */
+    | RUNE /*  "Rune"        */
+    | BOOLEAN /*  "Bool"        */
+    | NOTHING /*  "Nothing"     */
+    | UNIT /*  "Unit"        */
+    | STRUCT /*  "struct"      */
+    | ENUM /*  "enum"        */
+    | VARRAY /*  "VArray"      */
+    | THISTYPE /*  "This"        */
+    | PACKAGE /*  "package"     */
+    | IMPORT /*  "import"      */
+    | CLASS /*  "class"       */
+    | INTERFACE /*  "interface"   */
+    | FUNC /*  "func"        */
+    | MACRO /*  "macro"       */
+    | QUOTE /*  "quote"       */
+    | DOLLAR /*  "$"           */
+    | LET /*  "let"         */
+    | VAR /*  "var"         */
+    | CONST /*  "const"       */
+    | TYPE /*  "type"        */
+    | INIT /*  "init"        */
+    | THIS /*  "this"        */
+    | SUPER /*  "super"       */
+    | IF /*  "if"          */
+    | ELSE /*  "else"        */
+    | CASE /*  "case"        */
+    | TRY /*  "try"         */
+    | CATCH /*  "catch"       */
+    | FINALLY /*  "finally"     */
+    | FOR /*  "for"         */
+    | DO /*  "do"          */
+    | WHILE /*  "while"       */
+    | THROW /*  "throw"       */
+    | RETURN /*  "return"      */
+    | CONTINUE /*  "continue"    */
+    | BREAK /*  "break"       */
+    | IN /*  "in"          */
+    | NOT_IN /*  "!in"         */
+    | MATCH /*  "match"       */
+    | WHERE /*  "where"       */
+    | EXTEND /*  "extend"      */
+    | WITH /*  "with"        */
+    | PROP /*  "prop"        */
+    | STATIC /*  "static"      */
+    | PUBLIC /*  "public"      */
+    | PRIVATE /*  "private"     */
+    | INTERNAL /*  "internal"    */
+    | PROTECTED /*  "protected"   */
+    | OVERRIDE /*  "override"    */
+    | REDEF /*  "redef"       */
+    | ABSTRACT /*  "abstract"    */
+    | SEALED /*  "sealed"      */
+    | OPEN /*  "open"        */
+    | FOREIGN /*  "foreign"     */
+    | INOUT /*  "inout"       */
+    | MUT /*  "mut"         */
+    | UNSAFE /*  "unsafe"      */
+    | OPERATOR /*  "operator"    */
+    | SPAWN /*  "spawn"       */
+    | SYNCHRONIZED /*  "synchronized" */
+    | UPPERBOUND /*  "<:"          */
+    | MAIN /*  "main"        */
+    | IDENTIFIER /*  "x"           */
+    | PACKAGE_IDENTIFIER /*  e.g. "x-y"    */
+    | INTEGER_LITERAL /*  e.g. "1"      */
+    | RUNE_BYTE_LITERAL /*  e.g. "b'x'"   */
+    | FLOAT_LITERAL /*  e.g. "'1.0'"  */
+    | COMMENT /*  e.g. "/*xx*/" */
+    | NL /*  newline       */
+    | END /*  end of file   */
+    | SENTINEL /*  ";"           */
+    | RUNE_LITERAL /*  e.g. "r'x'"   */
+    | STRING_LITERAL /*  e.g. ""xx""   */
     | SINGLE_QUOTED_STRING_LITERAL /*  e.g. "'xx'"   */
-    | JSTRING_LITERAL              /*  e.g. "J"xx""  */
-    | MULTILINE_STRING             /*  e.g. """"aaa"""" */
-    | MULTILINE_RAW_STRING         /*  e.g. "#"aaa"#" */
-    | BOOL_LITERAL                 /*  "true" or "false" */
-    | UNIT_LITERAL                 /*  "()"          */
-    | DOLLAR_IDENTIFIER            /*  e.g. "$x"     */
-    | ANNOTATION                   /*  e.g. "@When"  */
-    | AT_EXCL                      /*  e.g. "@!"     */
+    | JSTRING_LITERAL /*  e.g. "J"xx""  */
+    | MULTILINE_STRING /*  e.g. """"aaa"""" */
+    | MULTILINE_RAW_STRING /*  e.g. "#"aaa"#" */
+    | BOOL_LITERAL /*  "true" or "false" */
+    | UNIT_LITERAL /*  "()"          */
+    | DOLLAR_IDENTIFIER /*  e.g. "$x"     */
+    | ANNOTATION /*  e.g. "@When"  */
+    | AT_EXCL /*  e.g. "@!"     */
     | ILLEGAL
-    | COMMON                       /*  "common"       */
-    | SPECIFIC                     /*  "specific"     */
-    | HANDLE                       /*  "handle"      */
-    | PERFORM                      /*  "perform"     */
-    | RESUME                       /*  "resume"      */
-    | THROWING                     /*  "throwing"    */
-    | DOUBLE_COLON                 /*  "::"          */
-    | FEATURES                     /*  "features"    */
+    | COMMON /*  "common"       */
+    | SPECIFIC /*  "specific"     */
+    | HANDLE /*  "handle"      */
+    | PERFORM /*  "perform"     */
+    | RESUME /*  "resume"      */
+    | THROWING /*  "throwing"    */
+    | DOUBLE_COLON /*  "::"          */
+    | FEATURES /*  "features"    */
     | ...
 }
 ```
@@ -486,14 +486,6 @@ BITXOR_ASSIGN
 
 功能：构造一个表示 `^=` 的枚举实例。
 
-### BOOLEAN
-
-```cangjie
-BOOLEAN
-```
-
-功能：构造一个表示 `bool` 的枚举实例。
-
 ### BOOL_LITERAL
 
 ```cangjie
@@ -501,6 +493,14 @@ BOOL_LITERAL
 ```
 
 功能：构造一个表示*布尔类型字面量*的枚举实例。
+
+### BOOLEAN
+
+```cangjie
+BOOLEAN
+```
+
+功能：构造一个表示 `bool` 的枚举实例。
 
 ### BREAK
 
@@ -854,14 +854,6 @@ IDENTIFIER
 
 功能：构造一个表示*标识符*的枚举实例。
 
-### PACKAGE_IDENTIFIER
-
-```cangjie
-PACKAGE_IDENTIFIER
-```
-
-功能：构造一个表示*包标识符*的枚举实例。
-
 ### IF
 
 ```cangjie
@@ -1110,6 +1102,14 @@ MUL
 
 功能：构造一个表示 `*` 的枚举实例。
 
+### MUL_ASSIGN
+
+```cangjie
+MUL_ASSIGN
+```
+
+功能：构造一个表示 `*=` 的枚举实例。
+
 ### MULTILINE_RAW_STRING
 
 ```cangjie
@@ -1125,14 +1125,6 @@ MULTILINE_STRING
 ```
 
 功能：构造一个表示*多行字符串字面量*的枚举实例。
-
-### MUL_ASSIGN
-
-```cangjie
-MUL_ASSIGN
-```
-
-功能：构造一个表示 `*=` 的枚举实例。
 
 ### MUT
 
@@ -1158,6 +1150,14 @@ NOT
 
 功能：构造一个表示 `!` 的枚举实例。
 
+### NOT_IN
+
+```cangjie
+NOT_IN
+```
+
+功能：构造一个表示 `!in` 的枚举实例。
+
 ### NOTEQ
 
 ```cangjie
@@ -1173,14 +1173,6 @@ NOTHING
 ```
 
 功能：构造一个表示 `nothing` 的枚举实例。
-
-### NOT_IN
-
-```cangjie
-NOT_IN
-```
-
-功能：构造一个表示 `!in` 的枚举实例。
 
 ### OPEN
 
@@ -1229,6 +1221,14 @@ PACKAGE
 ```
 
 功能：构造一个表示 `package` 的枚举实例。
+
+### PACKAGE_IDENTIFIER
+
+```cangjie
+PACKAGE_IDENTIFIER
+```
+
+功能：构造一个表示*包标识符*的枚举实例。
 
 ### PERFORM
 

@@ -37,6 +37,9 @@ void MRT_SemAcquire(void* sem, bool isPushToHead);
 void MRT_SemRelease(void* sem);
 int64_t MRT_GetCurrentThreadID();
 
+void* NewFinalizerCJThread();
+void EndFinalizerCJThread();
+
 #ifdef __cplusplus
 };
 #endif

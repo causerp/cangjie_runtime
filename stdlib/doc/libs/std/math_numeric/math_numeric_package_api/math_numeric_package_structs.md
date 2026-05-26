@@ -3001,7 +3001,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
 }
 ```
 
-功能：[Decimal](math_numeric_package_structs.md#struct-decimal) 用于表示任意精度的有符号的十进制数。允许操作过程指定结果精度及舍入规则。提供基础类型（Int、UInt、[String](../../core/core_package_api/core_package_structs.md#struct-string)、Float 等）与 [BigInt](math_numeric_package_structs.md#struct-bigint) 类型互相转换能力，支持 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象基本属性查询等能力，支持基础数学运算操作，提供对象比较、hash、字符串打印等基础能力。
+功能：[Decimal](math_numeric_package_structs.md#struct-decimal) 用于表示任意精度的有符号的十进制数。允许操作过程指定结果精度及舍入规则。提供基础类型 (Int、UInt、[String](../../core/core_package_api/core_package_structs.md#struct-string)、Float 等) 与 [BigInt](math_numeric_package_structs.md#struct-bigint) 类型互相转换能力，支持 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象基本属性查询等能力，支持基础数学运算操作，提供对象比较、hash、字符串打印等基础能力。
 
 父类型：
 
@@ -3457,7 +3457,7 @@ main() {
 public init(val: IntNative)
 ```
 
-功能：通过 32 位或 64 位（具体长度与平台相关）有符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
+功能：通过 32 位或 64 位 (具体长度与平台相关) 有符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
 
 参数：
 
@@ -3670,7 +3670,7 @@ main() {
 public init(val: UIntNative)
 ```
 
-功能：通过 32 位或 64 位（具体长度与平台相关）无符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
+功能：通过 32 位或 64 位 (具体长度与平台相关) 无符号整数构建 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象。默认采用精度值为 0，即无限精度进行构建。
 
 参数：
 
@@ -4213,7 +4213,7 @@ main() {
 public func toEngString(): String
 ```
 
-功能：以工程计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，指数为 3 的倍数，当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
+功能：以工程计数法的形式打印输出 [Decimal](math_numeric_package_structs.md#struct-decimal) 对象，指数为 3 的倍数, 当值小于 0 时以 “-” 开头后跟十进制数字，大于等于 0 时，直接打印输出数字，不额外添加 “+”。指数小于 0 时同样遵循以上规则。
 
 返回值：
 

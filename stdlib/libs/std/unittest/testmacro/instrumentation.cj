@@ -41,7 +41,7 @@ class InstrumentedBench <: InstrumentedFunction {
         quote($strategyVar.intoBenchmark )
     }
 
-    public func invocationLambda(funIdent: Tokens, argNames: Array<String>, argTypes: Array<Tokens>): Tokens {
+    public func creationArgs(funIdent: Tokens, argNames: Array<String>, argTypes: Array<Tokens>): Tokens {
         let namesTokens = argNames |> map{ x => Token(IDENTIFIER, x) } |> collectArray<Token>
         let reset = TokensBuilder()
         let get = TokensBuilder()
@@ -51,31 +51,53 @@ class InstrumentedBench <: InstrumentedFunction {
             let ty = argTypes[i]
             reset.append(quote(
                 var $name = ImmutableInputProvider<$ty>.createOrExisting($name)
-                $name.reset(max___)
+                $name.reset(min(batchSize___, max___))
             ))
             get.append(quote(
-                var $name = $name.get(q___)
+                var $name = $name.get(q___-start)
             ))
         }
 
         let destructuring = nestedTuple(namesTokens).ifEmpty(quote(_))
 
-        quote({ prov___, count___: Int64, max___: Int64 =>
+        let isOriginalTopLevel = original.loadRepeatable(TEST_MACRO).size == 1
 
+        let doCall = quote(
+                if (q___ < count) {
+                    var x___ = $funIdent($(commaSeparated(namesTokens)))
+                    blackBox(x___)
+                }
+            )
+
+        quote(
+            measurement: m___,
+            doRun: 
+            @OverflowWrapping
+            { prov___, count___: Int64, max___: Int64, batchSize___: Int64,  m___: Measurement =>
+
+                var start = 0
+                var end = 0
+                var result = 0.0
                 m___.setup()
                 let $destructuring = prov___
-                do {
+
+                while (start < max___) {
+                    end = end + blackBox(batchSize___)
+                    if (end > max___) { end = max___ }
+                    var count = blackBox(count___)
+
                     $(reset.toTokens())
                     let tmp_ = m___.measure()
-                    for (q___ in 0..max___) {
+                    for(q___ in start .. end) {
                         $(get.toTokens())
-                        if (q___ < count___) {
-                            $funIdent($(commaSeparated(namesTokens)))
-                        }
+
+                        $doCall
                     }
-                    return m___.measure() - tmp_
-                } while (false)
-                0.0
+
+                    result += m___.measure() - tmp_
+                    start += batchSize___
+                }
+                return result
             })
     }
 
@@ -125,14 +147,14 @@ open class InstrumentedFunction {
     }
 
     public open func caseInitializerName(strategyVar: Tokens): Tokens {
-        quote( $strategyVar.intoUnitTestCase )
+        quote( $strategyVar.intoUnitTestCase)
     }
 
-    public open func invocationLambda(funIdent: Tokens, argNames: Array<String>, argTypes: Array<Tokens>): Tokens {
+    public open func creationArgs(funIdent: Tokens, argNames: Array<String>, argTypes: Array<Tokens>): Tokens {
         let namesTokens = argNames |> map{ x => Token(IDENTIFIER, x) } |> collectArray<Token>
         let argType = nestedTuple(argTypes).ifEmpty(quote(Unit))
         let destructuring = nestedTuple(namesTokens).ifEmpty(quote(_))
-        quote({ x___: $argType =>
+        quote(doRun: { x___: $argType =>
                 let $destructuring = x___
                 $funIdent($(commaSeparated(namesTokens))); ()
             })
@@ -163,7 +185,7 @@ open class InstrumentedFunction {
 
         buildDataStrategy(dataDSL, argNames, argTypes, strategyVariableName, builder: tb)
 
-        let lambda = invocationLambda(funIdent, argNames, argTypes)
+        let args = creationArgs(funIdent, argNames, argTypes)
 
         let initializer = caseInitializerName(strategyVariableName.toTokens())
 
@@ -171,7 +193,7 @@ open class InstrumentedFunction {
             suiteBuilder.add(
                 $initializer(
                     caseName: $caseName,
-                    doRun: $lambda,
+                    $args,
                     configuration: $configurationVariableName
                 )
             )
@@ -528,7 +550,10 @@ class InstrumentedClass {
                 }
                 buildConstructor(tb, modifiers + quote(init), paramList, body)
                 numConstructors.value++
-            case funcDecl: FuncDecl => LifecycleStages.transformFunction(funcDecl, tb)
+            case funcDecl: FuncDecl where funcDecl.getDeprecatedLifecycleStage().isSome() =>
+                LifecycleStages.transformFunction(funcDecl, tb)
+            case funcDecl: FuncDecl where funcDecl.has(BENCH_MACRO) =>
+                tb.append(funcDecl).append(NL)
             // temporary solution until insideParentContext("Test") is fixed on cjvm
             case varDecl: VarDecl where varDecl.getAttrs().size >= 1 && varDecl.getAttrs()[0].value == "Strategy" =>
                 tb.append(quote(
@@ -568,6 +593,8 @@ class InstrumentedClass {
         tb.curlyBraces { tb =>
             let numConstructors = Box(0)
 
+            buildAsTestSuiteFunction(body, tb)
+
             for (bodyDecl in body) {
                 transformBodyDecl(tb, bodyDecl, hasDefaultConstructor, numConstructors)
             }
@@ -578,8 +605,6 @@ class InstrumentedClass {
             }
 
             buildConfigurationFunc(tb)
-
-            buildAsTestSuiteFunction(body, tb)
 
             buildCheckInheritingTemplate(this.original.superTypes, tb)
         }

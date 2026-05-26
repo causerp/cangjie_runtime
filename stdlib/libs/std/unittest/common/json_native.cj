@@ -690,8 +690,13 @@ func handleEscape(parser: JsonParser): Unit {
                 let byte8 = getNextHexNum(parser)
                 let str1 = unsafe { String.fromUtf8Unchecked([b'0', b'x', byte1, byte2, byte3, byte4]) }
                 let str2 = unsafe { String.fromUtf8Unchecked([b'0', b'x', byte5, byte6, byte7, byte8]) }
-                let num1 = UInt16.parse(str1) & 0b0000001111111111
-                let num2 = UInt16.parse(str2) & 0b0000001111111111
+                let rawNum1 = UInt32.parse(str1)
+                let rawNum2 = UInt32.parse(str2)
+                if (!isHighSurrogate(rawNum1) || !isLowSurrogate(rawNum2)) {
+                    throw JsonException()
+                }
+                let num1 = rawNum1 & 0b0000001111111111
+                let num2 = rawNum2 & 0b0000001111111111
                 let str = Rune((((UInt32(num1)) << 10) | (UInt32(num2))) + 0x10000).toString()
                 unsafe { parser.strCache.add(all: str.rawData()) }
             }

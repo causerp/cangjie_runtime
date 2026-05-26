@@ -59,16 +59,11 @@ public class ConfigureMock {
         prefixRefName: Option<String>,
         declarationName: String,
         callDescription: String,
-        lineNumber: Int64
+        _: Int64
     ): Scenario {
         let recordingInfo = RecordingInfo(MethodStub, prefixRefName, declarationName)
         let recordedCall = MockFramework.recordCall(recordingInfo, stubCall)
-        let description = StubDescription(
-            callDescription,
-            prefixRefName,
-            recordedCall.location.forceLineNumber(lineNumber)
-        )
-
+        let description = StubDescription(callDescription, prefixRefName, recordedCall.location)
         let invocationMatcher = InvocationMatcher(
             matchers,
             recordedCall.typeArgs,
@@ -91,8 +86,4 @@ public class ConfigureMock {
             chain.addScenario(session)
         }
     }
-}
-
-func requireObject(ref: Any, name: String): Object {
-    (ref as Object) ?? illegalInput("${name} must be an Object")
 }

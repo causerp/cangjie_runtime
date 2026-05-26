@@ -92,15 +92,19 @@ void CjHeapData::DumpHeap(bool needStopTheWorld)
         return;
     }
     // step2 - write file
-    size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
-    // 40: Statistical ratio of heap size to object count, used to estimate container capacity
-    const size_t estimateSize = 40;
-    dumpObjects.reserve(allocatedSize / estimateSize);
     if (needStopTheWorld) {
         ScopedStopTheWorld scopedStopTheWorld("dump heap to file");
+        size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
+        // 40: Statistical ratio of heap size to object count, used to estimate container capacity
+        const size_t estimateSize = 40;
+        dumpObjects.reserve(allocatedSize / estimateSize);
         ProcessHeap();
         WriteHeap();
     } else {
+        size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
+        // 40: Statistical ratio of heap size to object count, used to estimate container capacity
+        const size_t estimateSize = 40;
+        dumpObjects.reserve(allocatedSize / estimateSize);
         ProcessHeap();
         WriteHeap();
     }
@@ -136,15 +140,19 @@ bool CjHeapData::DumpHeap(int fd, bool needStopTheWorld)
         return false;
     }
 
-    size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
-    // 40: Statistical ratio of heap size to object count, used to estimate container capacity
-    const size_t estimateSize = 40;
-    dumpObjects.reserve(allocatedSize / estimateSize);
     if (needStopTheWorld) {
         ScopedStopTheWorld scopedStopTheWorld("dump heap to fd");
+        size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
+        // 40: Statistical ratio of heap size to object count, used to estimate container capacity
+        const size_t estimateSize = 40;
+        dumpObjects.reserve(allocatedSize / estimateSize);
         ProcessHeap();
         WriteHeap();
     } else {
+        size_t allocatedSize = Heap::GetHeap().GetAllocatedSize();
+        // 40: Statistical ratio of heap size to object count, used to estimate container capacity
+        const size_t estimateSize = 40;
+        dumpObjects.reserve(allocatedSize / estimateSize);
         ProcessHeap();
         WriteHeap();
     }
@@ -272,8 +280,7 @@ void CjHeapData::ProcessStacktrace(RecordStackInfo* recordStackInfo)
 
 void CjHeapData::ProcessRootLocal()
 {
-    MutatorManager::Instance().VisitAllMutators([this](Mutator &mutator) {
-        // skip finalizer
+    MutatorManager::Instance().VisitAllMutatorsExceptFinalizer([this](Mutator &mutator) {
         if (!mutator.IsVaildCJThread()) {
             return;
         }
@@ -377,21 +384,21 @@ void CjHeapData::WriteStartThread()
 
 void CjHeapData::WriteAllClass()
 {
-    for (auto klassInfo : dumpClassMap) {
+    for (const auto& klassInfo : dumpClassMap) {
         WriteClass(klassInfo.first, klassInfo.second, TAG_CLASS_DUMP);
     }
 }
 
 void CjHeapData::WriteAllStructClass()
 {
-    for (auto klassInfo : dumpStructClassMap) {
+    for (const auto& klassInfo : dumpStructClassMap) {
         WriteStructClass(klassInfo.first, klassInfo.second, TAG_CLASS_DUMP);
     }
 }
 
 void CjHeapData::WriteAllObjects()
 {
-    for (auto objectInfo : dumpObjects) {
+    for (auto& objectInfo : dumpObjects) {
         switch (objectInfo.tag) {
             case TAG_ROOT_THREAD_OBJECT:
                 WriteThreadObjectRoot(objectInfo.obj, objectInfo.tag, objectInfo.threadId, 0);
@@ -892,14 +899,14 @@ void CjHeapData::WriteFixedHeader()
 }
 void CjHeapData::WriteAllClassLoad()
 {
-    for (auto klassInfo : dumpClassMap) {
+    for (const auto& klassInfo : dumpClassMap) {
         WriteClassLoad(klassInfo.first, klassInfo.second, TAG_CLASS_LOAD);
     }
 }
 
 void CjHeapData::WriteAllStructClassLoad()
 {
-    for (auto klassInfo : dumpStructClassMap) {
+    for (const auto& klassInfo : dumpStructClassMap) {
         WriteClassLoad(klassInfo.first, klassInfo.second, TAG_CLASS_LOAD);
     }
 }

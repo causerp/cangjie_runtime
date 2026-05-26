@@ -4,6 +4,8 @@
 
 The ast package primarily contains the syntax parser for Cangjie source code and Cangjie syntax tree nodes, providing syntax parsing functions. It can parse lexical units ([Tokens](./ast_package_api/ast_package_classes.md#class-tokens)) of Cangjie source code into Abstract Syntax Tree (AST) node objects.
 
+For iOS platform scenarios, this package only supports running on iOS 12 and above.
+
 The Cangjie ast package provides `Macro With Context` related functions for obtaining contextual information during macro expansion. In nested macro scenarios, inner macros can call the library function [assertParentContext(String)](./ast_package_api/ast_package_funcs.md#func-assertparentcontextstring) to ensure the inner macro call is always nested within a specific outer macro call. If this function is called without being nested within the given outer macro call, it will throw an error. Additionally, the function [insideParentContext(String)](./ast_package_api/ast_package_funcs.md#func-insideparentcontextstring) checks whether an inner macro call is nested within a specific outer macro call, returning a boolean value. `Macro With Context` related functions can only be called directly as functions and cannot be assigned to variables, passed as arguments, or returned as values.
 
 `Macro With Context` related functions include:
@@ -75,9 +77,9 @@ The Cangjie ast package provides `Macro With Context` related functions for obta
 | [ExceptTypePattern](./ast_package_api/ast_package_classes.md#class-excepttypepattern) | Represents nodes used in exception pattern states. |
 | [Expr](./ast_package_api/ast_package_classes.md#class-expr) | Parent class of all expression nodes, inheriting from `Node`. |
 | [ExtendDecl](./ast_package_api/ast_package_classes.md#class-extenddecl) | Represents extension definition nodes. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featureid) | Represents a feature name node. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featuresdirective) | Represents a features directive node. |
-| [ForInExpr](./ast_package_api/ast_package_classes.md#class-featuresset) | Represents a features set which contains names of featurs. |
+| [FeatureId](./ast_package_api/ast_package_classes.md#class-featureid) | Represents a feature name node. |
+| [FeaturesDirective](./ast_package_api/ast_package_classes.md#class-featuresdirective) | Represents a features directive node. |
+| [FeaturesSet](./ast_package_api/ast_package_classes.md#class-featuresset) | Represents a features set which contains names of featurs. |
 | [ForInExpr](./ast_package_api/ast_package_classes.md#class-forinexpr) | Represents `for-in` expressions. |
 | [FuncDecl](./ast_package_api/ast_package_classes.md#class-funcdecl) | Represents function definition nodes. |
 | [FuncParam](./ast_package_api/ast_package_classes.md#class-funcparam) | Represents function parameter nodes, including unnamed and named parameters. |

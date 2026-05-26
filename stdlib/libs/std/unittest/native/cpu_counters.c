@@ -5,7 +5,6 @@
  *
  * See https://cangjie-lang.cn/pages/LICENSE for license information.
  */
-
 #include "cpu_counters.h"
 
 #ifdef __linux__
@@ -52,13 +51,9 @@ int g_fd = 0;
 int InitPerf(int counter)
 {
     const int supportedCounters = sizeof(COUNTER_MAP) / sizeof(uint64_t);
-    static int counterId = -1;
 
     if (counter >= supportedCounters || counter < 0) {
         return -1;
-    }
-    if (counterId == counter) {
-        return 0;
     }
 
     struct perf_event_attr pe = {0};
@@ -66,7 +61,6 @@ int InitPerf(int counter)
         ioctl(g_fd, PERF_EVENT_IOC_DISABLE, 0);
         close(g_fd);
         g_fd = 0;
-        counterId = -1;
     }
     // Configure the event to count
     pe.type = (unsigned int)MapType(counter);
@@ -76,7 +70,7 @@ int InitPerf(int counter)
     pe.exclude_kernel = 1; // Do not measure instructions executed in the kernel
     pe.exclude_hv = 1;
 
-    g_fd = (int)syscall(SYS_perf_event_open, &pe, getpid(), -1, -1, 0);
+    g_fd = (int)syscall(SYS_perf_event_open, &pe, 0, -1, -1, 0);
     if (g_fd < 0) {
         fprintf(stderr, "error: Open perf event failed %d.\n", errno);
         return errno;
@@ -84,7 +78,6 @@ int InitPerf(int counter)
 
     ioctl(g_fd, PERF_EVENT_IOC_RESET, 0);
     ioctl(g_fd, PERF_EVENT_IOC_ENABLE, 0);
-    counterId = counter;
 
     return 0;
 }

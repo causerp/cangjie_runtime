@@ -7,7 +7,7 @@
  */
 package std.unittest
 
-import std.collection.ArrayList
+import std.collection.*
 
 public class TestSuite {
     TestSuite(
@@ -43,7 +43,7 @@ public class TestSuite {
     }
 
     func run(configuration: Configuration, mode: ExecutionMode): TestGroupResult {
-        fakeGroup(this).run(configuration, mode)
+        fakeGroup({ => this }).run(configuration, mode)
     }
 
     func execute(groupName: String, runConfiguration: Configuration, filterService: FilterService): TestSuiteResult {
@@ -121,7 +121,7 @@ public class TestGroup {
 }
 
 public class TestGroupBuilder {
-    private let suites = ArrayList<TestSuite>()
+    private let suites = ArrayList<() -> TestSuite>()
     private var configuration = Configuration()
 
     TestGroupBuilder(
@@ -139,22 +139,35 @@ public class TestGroupBuilder {
     }
 
     public func add(test: UnitTestCase): TestGroupBuilder {
-        suites.add(fakeSuite(Case(test)))
-        this
+        add(fakeSuite(Case(test)))
     }
 
     public func add(benchmark: Benchmark): TestGroupBuilder {
-        suites.add(fakeSuite(Bench(benchmark)))
+        add(fakeSuite(Bench(benchmark)))
         this
     }
 
     public func add(suite: TestSuite): TestGroupBuilder {
+        enableOptimizedMockForBenchIfNeeded(suite)
+        add({ => suite })
+    }
+
+    func add(suite: () -> TestSuite): TestGroupBuilder {
         suites.add(suite)
         this
     }
 
     public func build(): TestGroup {
-        TestGroup(name, suites.toArray(), configuration)
+        let suites = suites.iterator().map{ x => x() }.inspect{ s => enableOptimizedMockForBenchIfNeeded(s) } |> collectArray
+        TestGroup(name, suites, configuration)
+    }
+
+    private func enableOptimizedMockForBenchIfNeeded(suite: TestSuite) {
+        let optimizedMocksForBenchEnabled =
+            configuration.get(KeyOptimizeMocksForBench.optimizeMocksForBench) ?? false
+        if (optimizedMocksForBenchEnabled) {
+            suite.suiteConfiguration.set(KeyOptimizeMocksForBench.optimizeMocksForBench, true)
+        }
     }
 }
 
@@ -259,19 +272,31 @@ public class UnitTestCase {
         fakeGroup(fakeSuite(Case(this))).run(Configuration(), OnlyTests).asTestReport(caseConfiguration)
     }
 
-    public static func createParameterized<T>(name: String, strategy: DataStrategy<T>,
-        configuration!: Configuration = Configuration(), body!: (T) -> Unit): UnitTestCase {
+    public static func createParameterized<T>(
+        name: String,
+        strategy: DataStrategy<T>,
+        configuration!: Configuration = Configuration(),
+        body!: (T) -> Unit
+    ): UnitTestCase {
         let processor = DataStrategyProcessor<T>.start(strategy, "args")
         createParameterized<T>(name, processor, configuration: configuration, body: body)
     }
 
-    public static func createParameterized<T>(name: String, strategy: DataStrategyProcessor<T>,
-        configuration!: Configuration = Configuration(), body!: (T) -> Unit): UnitTestCase {
+    public static func createParameterized<T>(
+        name: String,
+        strategy: DataStrategyProcessor<T>,
+        configuration!: Configuration = Configuration(),
+        body!: (T) -> Unit
+    ): UnitTestCase {
         let executor = TestCaseExecutor(strategy, body)
         UnitTestCase(name, configuration, executor)
     }
 
-    public static func create(name: String, configuration!: Configuration = Configuration(), body!: () -> Unit): UnitTestCase {
+    public static func create(
+        name: String,
+        configuration!: Configuration = Configuration(),
+        body!: () -> Unit
+    ): UnitTestCase {
         createParameterized<Unit>(name, noArgsProcessor(), configuration: configuration, body: { _ => body() })
     }
 }
@@ -293,9 +318,10 @@ public class Benchmark {
         name: String,
         strategy: DataStrategyProcessor<T>,
         configuration: Configuration,
-        optLambda: (T, Int64, Int64) -> Float64
+        measurement: Measurement,
+        optLambda: (T, Int64, Int64, Int64, Measurement) -> Float64
     ): Benchmark {
-        Benchmark(name, configuration, BenchExecutor<T>(strategy, optLambda))
+        Benchmark(name, configuration, BenchExecutor<T>(strategy, measurement, optLambda))
     }
 
     // Creates parameterized benchmark with provided data strategy.
@@ -325,7 +351,7 @@ public class Benchmark {
         body!: (T) -> Unit
     ): Benchmark {
         configuration.set(KeyMeasurementInfo.measurementInfo, measurement.info)
-        createWithExplicitLoop<T>(name, strategy, configuration, createBenchmarkLoop<T>(measurement, body))
+        createWithExplicitLoop<T>(name, strategy, configuration, measurement, createBenchmarkLoop<T>(measurement, body))
     }
 
     // Creates parameterized benchmark from given lambda.
@@ -348,8 +374,8 @@ public class Benchmark {
     private static func createBenchmarkLoop<T>(
         measurement: Measurement,
         singleRun: (T) -> Unit
-    ): (T, Int64, Int64) -> Float64 {
-        { value, count: Int64, max: Int64 =>
+    ): (T, Int64, Int64, Int64, Measurement) -> Float64 {
+        { value, count: Int64, max: Int64, batchSize___: Int64,  measurement: Measurement =>
             let start = measurement.measure()
             for (i in 0..max) {
                 if (i < count) {
@@ -431,6 +457,7 @@ public interface TestClass {
 }
 
 // NOTE: this class is used internally by the compiler and is considered implementation details
+// TODO: rename to __TestRegister
 public class TestPackage {
     private let builder: TestGroupBuilder
 
@@ -445,11 +472,17 @@ public class TestPackage {
     }
 
     public func registerSuite(suite: () -> TestSuite): Unit {
-        builder.add(suite())
+        builder.add(suite)
     }
 
     public func registerBench(bench: () -> Benchmark): Unit {
         builder.add(bench())
+    }
+
+    public func enableOptimizedMockForBench(): Unit {
+        let mockOptimizedConfiguration = Configuration()
+        mockOptimizedConfiguration.set(KeyOptimizeMocksForBench(), true)
+        builder.configure(mockOptimizedConfiguration)
     }
 
     func build(): TestGroup {
@@ -509,16 +542,18 @@ enum CaseOrBench {
     }
 }
 
-private func fakeSuite(test: CaseOrBench): TestSuite {
-    TestSuite("TestCase_${test.name}", [test], Configuration(),
-        [], [], [], [], None
-    )
+private func fakeSuite(test: CaseOrBench): () -> TestSuite {
+    { =>
+        TestSuite("TestCase_${test.name}", [test], Configuration(),
+            [], [], [], [], None
+        )
+    }
 }
 
-private func fakeGroup(testSuite: TestSuite): TestGroup {
+private func fakeGroup(testSuite: () -> TestSuite): TestGroup {
     TestGroup(
         "default",
-        [testSuite], Configuration()
+        [testSuite()], Configuration()
     )
 }
 

@@ -610,7 +610,7 @@ Summary: TOTAL: 2
 
 ## `@Test` Macro
 
-Functionality: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
+Function: The `@Test` macro is applied to top-level functions or top-level classes to convert them into unit test classes.
 
 If applied to a top-level function, it creates a new class containing a single test case for framework use, while the function remains callable as a normal function.
 
@@ -657,9 +657,23 @@ Summary: TOTAL: 2
 --------------------------------------------------------------------------------------------------
 ```
 
+## `@Strategy` Macro
+
+Function: Using `@Strategy` on a function creates a new [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) from that function. It is a convenient API for combining, mapping, and reusing strategies.
+
+Functions marked with `@Strategy` must satisfy the following conditions:
+
+1. Must explicitly specify a return type.
+2. Parameters must correspond to the DSL specified in the macro arguments.
+3. Can be used both inside and outside of classes marked with `@Test`.
+
+> Implementation note: The macro expansion results in a variable with the function name and type [DataStrategyProcessor](../../unittest/unittest_package_api/unittest_package_classes.md#class-datastrategyprocessort). This variable can be used anywhere a [DataStrategy](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-datastrategyt) can be used.
+
+For examples of `@Strategy` macro usage and its application in parameterized benchmarking, refer to the [Parameterized Benchmarking](../../unittest/unittest_samples/unittest_benchmarks.md#parameterized-benchmarking) section.
+
 ## `@TestBuilder` Macro
 
-Functionality: Declares a [dynamic test suite](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests).
+Function: Declares a [dynamic test suite](../../unittest/unittest_samples/unittest_dynamic_tests.md#dynamic-tests).
 
 Example:
 
@@ -697,7 +711,7 @@ Summary: TOTAL: 4
 
 ## `@TestCase` Macro
 
-Functionality: The `@TestCase` macro marks functions within a unit test class as test cases for unit testing.
+Function: The `@TestCase` macro marks functions within a unit test class as test cases for unit testing.
 
 Functions marked with `@TestCase` must satisfy the following conditions:
 
@@ -761,11 +775,11 @@ The `random()` function supports the following types by default:
 
 ## `@TestTemplate` Macro
 
-Functionality: The `@TestTemplate` macro marks an abstract class as a [test template](../../unittest/unittest_samples/unittest_test_templates.md).
+Function: The `@TestTemplate` macro marks an abstract class as a [test template](../../unittest/unittest_samples/unittest_test_templates.md).
 
 ## `@Timeout` Macro
 
-Functionality: The `@Timeout` macro specifies that a test should terminate after a given duration. It is useful for testing complex algorithms that may run for extended periods or enter infinite loops.
+Function: The `@Timeout` macro specifies that a test should terminate after a given duration. It is useful for testing complex algorithms that may run for extended periods or enter infinite loops.
 
 Syntax: `@Timeout[expr]`
 
@@ -811,7 +825,7 @@ Summary: TOTAL: 2
 
 ## `@Types` Macro
 
-Functionality: The `@Types` macro provides type parameters for test classes or test functions. It can be placed on test classes or test functions.
+Function: The `@Types` macro provides type parameters for test classes or test functions. It can be placed on test classes or test functions.
 
 Syntax: `@Types[Id1 in <Type1, Type2, Type3>, Id2 in <Type4, Type5> ...]`  
 Here, `Id1`, `Id2`, etc., are valid type parameter identifiers, and `Type1`, `Type2`, etc., are valid Cangjie types.

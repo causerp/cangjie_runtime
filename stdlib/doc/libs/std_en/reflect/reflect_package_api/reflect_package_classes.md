@@ -343,7 +343,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The variable name.
 
-Return Value:
+Returns:
 
 - [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - Returns information about the static member variable if successfully matched.
 
@@ -388,7 +388,7 @@ public func isAbstract(): Bool
 
 Function: Determines whether the `class` type corresponding to this [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) is abstract.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the `class` type corresponding to this [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) is abstract, otherwise returns `false`.
 
@@ -404,7 +404,7 @@ Function: Determines whether the `class` type corresponding to this [ClassTypeIn
 >
 > Not only `class` type definitions modified by the `open` modifier have `open` semantics. For example: `abstract class` will have `open` semantics regardless of whether it is modified by the `open` modifier.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the `class` type corresponding to this [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) has `open` semantics, otherwise returns `false`.
 
@@ -416,7 +416,7 @@ public func isSealed(): Bool
 
 Function: Determines whether the `class` type corresponding to this [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) has `sealed` semantics.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the `class` type corresponding to this [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) has `sealed` semantics, otherwise returns `false`.
 
@@ -432,7 +432,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return Value:
+Returns:
 
 - [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - The type information corresponding to the type with the qualified name `qualifiedName`.
 
@@ -476,7 +476,7 @@ Parameters:
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - An instance of any type.
 
-Return Value:
+Returns:
 
 - [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - The type information corresponding to the runtime type of instance `a`.
 
@@ -521,7 +521,7 @@ Parameters:
 
 - a: [Object](../../core/core_package_api/core_package_classes.md#class-object) - An instance of a `class` type.
 
-Return Value:
+Returns:
 
 - [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - The `class` type information corresponding to the runtime type of the `class` type instance `a`.
 
@@ -561,7 +561,7 @@ public redef static func of<T>(): ClassTypeInfo
 
 Function: Retrieves the type information corresponding to the given type `T`.
 
-Return Value:
+Returns:
 
 - [ClassTypeInfo](reflect_package_classes.md#class-classtypeinfo) - The type information corresponding to type `T`.
 
@@ -692,7 +692,7 @@ Parameters:
 
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The instance constructed by this constructor.
 
@@ -711,7 +711,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -723,7 +723,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, returns `None` in case of duplicate annotations or matching failure.
 
@@ -735,7 +735,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -747,7 +747,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this constructor information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this constructor information.
 
@@ -759,7 +759,7 @@ public func toString(): String
 
 Function: Retrieves a string representation of this constructor information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this constructor information.
 
@@ -775,7 +775,7 @@ Parameters:
 
 - that: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - The other constructor information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this constructor information is not equal to `that`; otherwise, returns `false`.
 
@@ -791,7 +791,7 @@ Parameters:
 
 - that: [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - The other constructor information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this constructor information is equal to `that`; otherwise, returns `false`.
 
@@ -1966,6 +1966,59 @@ String
 Bool
 ```
 
+### func apply(Any, Array\<Any>)
+
+```cangjie
+public func apply(instance: Any, args: Array<Any>): Any
+```
+
+Function: Invokes the function with the given argument list in parameter order and returns the invocation result.
+
+> **Note:**
+>
+> Unsupported platforms: macOS, iOS.
+
+Parameters:
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Function instance.
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - Argument list.
+
+Returns:
+
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - Invocation result.
+
+Exceptions:
+
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - Thrown if the number of elements in `args` does not match the number of function parameters.
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - Thrown if the runtime type of any element in `args` does not match the declared type of the corresponding function parameter.
+
+Example:
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+func add(a: Int64, b: Int64): Int64 {
+    a + b
+}
+
+main(): Unit {
+    let f: (Int64, Int64) -> Int64 = add
+    let info = FunctionTypeInfo.of(f)
+    let res = (info.apply(f, [1, 2]) as Int64).getOrThrow()
+    println(res)
+    return
+}
+```
+
+Execution Result:
+
+```text
+3
+```
+
 ## class GenericTypeInfo
 
 ```cangjie
@@ -1991,7 +2044,7 @@ Parameters:
 
 - that: [GenericTypeInfo](reflect_package_classes.md#class-generictypeinfo) - The other generic type information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this generic type information is equal to `that`; otherwise, returns `false`.
 
@@ -2092,7 +2145,7 @@ Parameters:
 
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of this global function.
 
@@ -2120,7 +2173,7 @@ Parameters:
 - genericTypeArgs: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](./reflect_package_classes.md#class-typeinfo)> - The generic type argument list.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of this global function.
 
@@ -2141,7 +2194,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -2153,7 +2206,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the matched annotation if successful, returns `None` in case of duplicate annotations or matching failure.
 
@@ -2165,7 +2218,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -2177,7 +2230,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this global function information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this global function information.
 
@@ -2189,7 +2242,7 @@ public func toString(): String
 
 Function: Retrieves a string representation of this global function information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this global function information.
 
@@ -2205,7 +2258,7 @@ Parameters:
 
 - that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - The other global function information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this global function information is equal to `that`; otherwise, returns `false`.
 
@@ -2221,7 +2274,7 @@ Parameters:
 
 - that: [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - The other global function information to compare for inequality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this global function information is not equal to `that`; otherwise, returns `false`.
 
@@ -2282,7 +2335,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -2294,7 +2347,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, returns `None` in case of duplicate annotations or failed matching.
 
@@ -2306,7 +2359,7 @@ public func getValue(): Any
 
 Function: Gets the value of the global variable corresponding to this [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo).
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value of the global variable.
 
@@ -2318,7 +2371,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -2330,7 +2383,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this global variable information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this global variable information.
 
@@ -2347,7 +2400,7 @@ Function: Determines whether the global variable corresponding to this [GlobalVa
 > - If the instance member variable is modified by `var`, the global variable is mutable.
 > - If the instance member variable is modified by `let`, the global variable is immutable.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the global variable is mutable; otherwise, returns `false`.
 
@@ -2376,7 +2429,7 @@ public func toString(): String
 
 Function: Retrieves a string representation of this global variable information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this global variable information.
 
@@ -2392,7 +2445,7 @@ Parameters:
 
 - that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - The other global variable information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this global variable information is equal to `that`; otherwise, returns `false`.
 
@@ -2408,7 +2461,7 @@ Parameters:
 
 - that: [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - The other global variable information to compare for inequality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this global variable information is not equal to `that`; otherwise, returns `false`.
 
@@ -2527,7 +2580,7 @@ Parameters:
 - instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The instance.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of the instance member function.
 
@@ -2558,7 +2611,7 @@ Parameters:
 - genericTypeArgs: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](./reflect_package_classes.md#class-typeinfo)> - The list of generic parameter type information.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The list of generic arguments.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of the generic instance function.
 
@@ -2615,7 +2668,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -2627,7 +2680,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the matched annotation if successful, or `None` in case of duplicate annotations or matching failure.
 
@@ -2639,7 +2692,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -2651,7 +2704,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this instance member function information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this instance member function information.
 
@@ -2663,7 +2716,7 @@ public func isAbstract(): Bool
 
 Function: Determines whether the corresponding instance member function of [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) has `abstract` semantics.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member function has `abstract` semantics, otherwise returns `false`.
 
@@ -2675,7 +2728,7 @@ public func isOpen(): Bool
 
 Function: Determines whether the corresponding instance member function of this [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) has `open` semantics.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member function has `open` semantics, otherwise returns `false`.
 
@@ -2691,7 +2744,7 @@ public func toString(): String
 
 Function: Retrieves the string representation of this instance member function information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this instance member function information.
 
@@ -2707,7 +2760,7 @@ Parameters:
 
 - that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - The other instance member function information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member function information is equal to `that`, otherwise returns `false`.
 
@@ -2723,7 +2776,7 @@ Parameters:
 
 - that: [InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo) - The other instance member function information to compare for inequality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member function information is not equal to `that`, otherwise returns `false`.
 
@@ -2800,7 +2853,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -2812,7 +2865,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, or `None` in case of duplicate annotations or matching failure.
 
@@ -2824,7 +2877,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -2840,7 +2893,7 @@ Parameters:
 
 - instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The instance.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value of the instance member property in the instance `instance`.
 
@@ -2891,7 +2944,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of this instance member property information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this instance member property information.
 
@@ -2903,7 +2956,7 @@ public func isAbstract(): Bool
 
 Function: Determines whether the instance member property corresponding to this [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) is abstract.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member property corresponding to this [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) is abstract, otherwise returns `false`.
 
@@ -2915,7 +2968,7 @@ public func isOpen(): Bool
 
 Function: Determines whether the instance member property corresponding to this [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) has `open` semantics.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member property corresponding to this [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) has `open` semantics, otherwise returns `false`.
 
@@ -2931,7 +2984,7 @@ Function: Determines whether the instance member property corresponding to this 
 >
 > If the instance member property is modified by the `mut` modifier, it can be modified; otherwise, it cannot.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member property corresponding to this instance member property information can be modified, otherwise returns `false`.
 
@@ -2962,7 +3015,7 @@ public func toString(): String
 
 Function: Gets a string representation of this instance member property information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this instance member property information.
 
@@ -2978,7 +3031,7 @@ Parameters:
 
 - that: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - The other instance member property information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member property information is not equal to `that`, otherwise returns `false`.
 
@@ -2994,7 +3047,7 @@ Parameters:
 
 - that: [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - The other instance member property information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member property information is equal to `that`, otherwise returns `false`.
 
@@ -3071,7 +3124,7 @@ public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the specified qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -3083,7 +3136,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve the annotation with the given qualified name that applies to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, or `None` in case of duplicate annotations or failed matching.
 
@@ -3095,7 +3148,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations that apply to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations that apply to this object.
 
@@ -3111,7 +3164,7 @@ Parameters:
 
 - instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The instance.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value of this instance member variable in the given `instance`.
 
@@ -3157,7 +3210,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash code of this instance member variable information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash code of this instance member variable information.
 
@@ -3174,7 +3227,7 @@ Function: Determines whether the instance member variable corresponding to this 
 > - If the instance member variable is modified by the `var` modifier, it is mutable.
 > - If the instance member variable is modified by the `let` modifier, it is immutable.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the instance member variable corresponding to this information is mutable, otherwise returns `false`.
 
@@ -3205,7 +3258,7 @@ public func toString(): String
 
 Function: Gets the string representation of this instance member variable information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this instance member variable information.
 
@@ -3221,7 +3274,7 @@ Parameters:
 
 - that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - Another instance member variable information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member variable information equals `that`, otherwise returns `false`.
 
@@ -3237,7 +3290,7 @@ Parameters:
 
 - that: [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - Another instance member variable information to compare for inequality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this instance member variable information does not equal `that`, otherwise returns `false`.
 
@@ -3276,7 +3329,7 @@ public func isSealed(): Bool
 
 Function: Determines whether the `interface` type corresponding to this [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) has `sealed` semantics.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this `interface` type has `sealed` semantics, otherwise returns `false`.
 
@@ -3292,7 +3345,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return Value:
+Returns:
 
 - [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) - The type information of the `Interface` type corresponding to the qualified name `qualifiedName`.
 
@@ -3336,7 +3389,7 @@ Parameters:
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - An instance of any type.
 
-Return Value:
+Returns:
 
 - [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) - The type information corresponding to the runtime type of instance `a`.
 
@@ -3353,7 +3406,7 @@ public redef static func of<T>(): InterfaceTypeInfo
 
 Function: Gets the type information corresponding to the given type `T`.
 
-Return Value:
+Returns:
 
 - [InterfaceTypeInfo](reflect_package_classes.md#class-interfacetypeinfo) - The type information corresponding to type `T`.
 
@@ -3526,7 +3579,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return Value:
+Returns:
 
 - [PackageInfo](./reflect_package_classes.md#class-packageinfo) - The package information corresponding to the qualified name `qualifiedName`.
 
@@ -3551,7 +3604,7 @@ Parameters:
 
 - path: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The absolute or relative path to the shared library file.
 
-Return Value:
+Returns:
 
 - [PackageInfo](reflect_package_classes.md#class-packageinfo) - The package information of the specified Cangjie dynamic library.
 
@@ -3575,7 +3628,7 @@ Parameters:
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the global function.
 - parameterTypes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)> - The list of parameter type information.
 
-Return Value:
+Returns:
 
 - [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) - If a match is found, returns the function information for the globally defined `public` type.
 
@@ -3595,7 +3648,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the global function.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo)> - An array of information for all `public` global functions matching the given function name.
 
@@ -3611,7 +3664,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the subpackage.
 
-Return Value:
+Returns:
 
 - [PackageInfo](reflect_package_classes.md#class-packageinfo) - The package information of the subpackage.
 
@@ -3632,7 +3685,7 @@ Parameters:
 
 - qualifiedTypeName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return Value:
+Returns:
 
 - [TypeInfo](reflect_package_classes.md#class-typeinfo) - If a match is found, returns the type information for the globally defined `public` type.
 
@@ -3652,7 +3705,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The name of the global variable.
 
-Return Value:
+Returns:
 
 - [GlobalVariableInfo](reflect_package_classes.md#class-globalvariableinfo) - If a match is found, returns the variable information for the globally defined `public` type.
 
@@ -3668,7 +3721,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this package information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this package information.
 
@@ -3684,7 +3737,7 @@ Function: Retrieves a string representation of this package information.
 >
 > The internal implementation returns the qualified name string of this package information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this package information.
 
@@ -3704,7 +3757,7 @@ Parameters:
 
 - that: [PackageInfo](reflect_package_classes.md#class-packageinfo) - The other package information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this package information is not equal to `that`, otherwise returns `false`.
 
@@ -3724,7 +3777,7 @@ Parameters:
 
 - that: [PackageInfo](reflect_package_classes.md#class-packageinfo) - The other package information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this package information is equal to `that`, otherwise returns `false`.
 
@@ -3799,7 +3852,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -3811,7 +3864,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, returns `None` in case of duplicate annotations or matching failure.
 
@@ -3823,7 +3876,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -3835,7 +3888,7 @@ public func hashCode(): Int64
 
 Function: Retrieves the hash value of this function parameter information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this function parameter information.
 
@@ -3847,7 +3900,7 @@ public func toString(): String
 
 Function: Retrieves a string representation of this function parameter information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this function parameter information.
 
@@ -3863,7 +3916,7 @@ Parameters:
 
 - that: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - The other function parameter information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this function parameter information is not equal to `that`, otherwise returns `false`.
 
@@ -3879,7 +3932,7 @@ Parameters:
 
 - that: [ParameterInfo](reflect_package_classes.md#class-parameterinfo) - The other function parameter information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this function parameter information is equal to `that`, otherwise returns `false`.
 
@@ -3913,7 +3966,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return Value:
+Returns:
 
 - [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo) - The type information corresponding to the type specified by the qualified name `qualifiedName`.
 
@@ -3955,7 +4008,7 @@ Parameters:
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - An instance of any type.
 
-Return Value:
+Returns:
 
 - [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo) - The type information corresponding to the runtime type of instance `a`.
 
@@ -3992,7 +4045,7 @@ public static redef func of<T>(): PrimitiveTypeInfo
 
 Function: Retrieves the type information corresponding to the given type `T`.
 
-Return Value:
+Returns:
 
 - [PrimitiveTypeInfo](reflect_package_classes.md#class-primitivetypeinfo) - The type information corresponding to type `T`.
 
@@ -4134,7 +4187,7 @@ Parameters:
 - thisType: [TypeInfo](./reflect_package_classes.md#class-typeinfo) - The class to which this method belongs.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of the static member function.
 
@@ -4198,7 +4251,7 @@ Parameters:
 - genericTypeArgs: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](./reflect_package_classes.md#class-typeinfo)> - The generic type argument list.
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The invocation result of the static member function.
 
@@ -4221,7 +4274,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -4233,7 +4286,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the matched annotation if successful, or `None` in case of duplicate annotations or matching failure.
 
@@ -4245,7 +4298,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -4257,7 +4310,7 @@ public func hashCode(): Int64
 
 Function: Retrieve the hash value of this static member function information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this static member function information.
 
@@ -4269,7 +4322,7 @@ public func toString(): String
 
 Function: Retrieve a string representation of this static member function information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this static member function information.
 
@@ -4285,7 +4338,7 @@ Parameters:
 
 - that: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - The other static member function information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member function information is not equal to `that`, otherwise returns `false`.
 
@@ -4301,7 +4354,7 @@ Parameters:
 
 - that: [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - The other static member function information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member function information is equal to `that`, otherwise returns `false`.
 
@@ -4378,7 +4431,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -4390,7 +4443,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the matched annotation if successful, or `None` in case of duplicate annotations or no match.
 
@@ -4402,7 +4455,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -4418,7 +4471,7 @@ Function: Gets the value of the static member property corresponding to this [St
 >
 > If the static member property lacks a valid implementation, such as an abstract static member property in an `interface` type, it should throw an [UnsupportedException](../../core/core_package_api/core_package_exceptions.md#class-unsupportedexception). However, this is not yet implemented due to lack of backend support.
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value of the static member property.
 
@@ -4466,7 +4519,7 @@ public func hashCode(): Int64
 
 Function: Gets the hash value of this static member property information.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this static member property information.
 
@@ -4478,7 +4531,7 @@ public func isMutable(): Bool
 
 Function: Determines whether the static member property corresponding to this static member property information can be modified.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the static member property can be modified, otherwise returns `false`.
 
@@ -4552,7 +4605,7 @@ public func toString(): String
 
 Function: Gets the string representation of this static member property information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this static member property information.
 
@@ -4568,7 +4621,7 @@ Parameters:
 
 - that: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - Another static member property information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member property information is not equal to `that`, otherwise returns `false`.
 
@@ -4584,7 +4637,7 @@ Parameters:
 
 - that: [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - Another static member property information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member property information is equal to `that`, otherwise returns `false`.
 
@@ -4661,7 +4714,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -4673,7 +4726,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, returns `None` in case of duplicate annotations or matching failure.
 
@@ -4685,7 +4738,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -4697,7 +4750,7 @@ public func getValue(): Any
 
 Function: Gets the value of the static member variable corresponding to this [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo).
 
-Return Value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - The value of the static member variable.
 
@@ -4739,7 +4792,7 @@ public func hashCode(): Int64
 
 Function: Get the hash value of this static member variable information.
 
-Return value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash value of this static member variable information.
 
@@ -4756,7 +4809,7 @@ Function: Determine whether the static member variable corresponding to this [St
 > - If the static member variable is modified by the `var` modifier, it can be modified.
 > - If the static member variable is modified by the `let` modifier, it cannot be modified.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the static member variable corresponding to this static member variable information can be modified, otherwise returns `false`.
 
@@ -4817,7 +4870,7 @@ public func toString(): String
 
 Function: Get the string representation of this static member variable information.
 
-Return value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The string representation of this static member variable information.
 
@@ -4833,7 +4886,7 @@ Parameters:
 
 - that: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - Another static member variable information to compare for equality.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member variable information is not equal to `that`, otherwise returns `false`.
 
@@ -4849,7 +4902,7 @@ Parameters:
 
 - that: [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - Another static member variable information to compare for equality.
 
-Return value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this static member variable information is equal to `that`, otherwise returns `false`.
 
@@ -4940,7 +4993,7 @@ Parameters:
 
 - args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - The argument list.
 
-Return value:
+Returns:
 
 - [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - An instance of the `struct` type.
 
@@ -4993,7 +5046,7 @@ Parameters:
 
 - parameterTypes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)> - The parameter type information list.
 
-Return value:
+Returns:
 
 - [ConstructorInfo](reflect_package_classes.md#class-constructorinfo) - Returns the information of the `public` constructor if successfully matched.
 
@@ -5013,7 +5066,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The variable name.
 
-Return value:
+Returns:
 
 - [InstanceVariableInfo](reflect_package_classes.md#class-instancevariableinfo) - Returns the information of the instance member variable if successfully matched.
 
@@ -5065,7 +5118,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The variable name.
 
-Return value:
+Returns:
 
 - [StaticVariableInfo](reflect_package_classes.md#class-staticvariableinfo) - Returns information about the static member variable if successfully matched.
 
@@ -5114,7 +5167,7 @@ Parameters:
 
 - qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The qualified name of the type.
 
-Return value:
+Returns:
 
 - [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - The type information corresponding to the `Struct` type specified by the qualified name `qualifiedName`.
 
@@ -5159,7 +5212,7 @@ Parameters:
 
 - a: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - An instance of any type.
 
-Return value:
+Returns:
 
 - [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - The type information corresponding to the runtime type of instance `a`.
 
@@ -5200,7 +5253,7 @@ public static redef func of<T>(): StructTypeInfo
 
 Function: Retrieves the type information corresponding to the given type `T`.
 
-Return value:
+Returns:
 
 - [StructTypeInfo](reflect_package_classes.md#class-structtypeinfo) - The type information corresponding to type `T`.
 
@@ -5837,7 +5890,7 @@ public func findAllAnnotatios<T>(): Array<T> where T <: Annotation
 
 Function: Retrieves all annotations with the given qualified name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<T> - Returns an empty array if no annotations of type T are found; otherwise returns an array containing all annotation objects of the specified type.
 
@@ -5849,7 +5902,7 @@ public func findAnnotation<T>(): ?T where T <: Annotation
 
 Function: Attempts to retrieve an annotation with the given qualified name that is applied to this object.
 
-Return Value:
+Returns:
 
 - ?T - Returns the annotation if successfully matched, or `None` in case of duplicate annotations or matching failure.
 
@@ -5861,7 +5914,7 @@ public func getAllAnnotations(): Array<Annotation>
 
 Function: Retrieves all annotations applied to this object.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Annotation](./reflect_package_types.md#type-annotation--object)> - All annotations applied to this object.
 
@@ -5929,7 +5982,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The function name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[InstanceFunctionInfo](reflect_package_classes.md#class-instancefunctioninfo)> - Returns information of all matched instance member functions if successfully matched.
 
@@ -5976,7 +6029,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The property name.
 
-Return Value:
+Returns:
 
 - [InstancePropertyInfo](reflect_package_classes.md#class-instancepropertyinfo) - Returns information of the instance member property if successfully matched.
 
@@ -6029,7 +6082,7 @@ Parameters:
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The function name.
 - parameterTypes: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[TypeInfo](reflect_package_classes.md#class-typeinfo)> - The type information list corresponding to the function parameter types.
 
-Return Value:
+Returns:
 
 - [StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo) - Returns information of the static member function if successfully matched.
 
@@ -6079,7 +6132,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The function name.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[StaticFunctionInfo](reflect_package_classes.md#class-staticfunctioninfo)> - Returns information of all matched static member functions if successfully matched.
 
@@ -6125,7 +6178,7 @@ Parameters:
 
 - name: [String](../../core/core_package_api/core_package_structs.md#struct-string) - The property name.
 
-Return Value:
+Returns:
 
 - [StaticPropertyInfo](reflect_package_classes.md#class-staticpropertyinfo) - Returns information of the static member property if successfully matched.
 
@@ -6179,7 +6232,7 @@ Function: Gets the hash code of this type information.
 >
 > Internal implementation uses the hash code of the type's qualified name string.
 
-Return Value:
+Returns:
 
 - [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - The hash code of this type information.
 
@@ -6195,7 +6248,7 @@ Parameters:
 
 - supertype: [TypeInfo](reflect_package_classes.md#class-typeinfo) - The target type's type information.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if this [TypeInfo](reflect_package_classes.md#class-typeinfo)'s type is a subtype of `supertype`'s type, otherwise returns `false`.
 
@@ -6238,7 +6291,7 @@ Function: Retrieves the type information in string format.
 >
 > The internal implementation returns the qualified name string of this type information.
 
-Return Value:
+Returns:
 
 - [String](../../core/core_package_api/core_package_structs.md#struct-string) - The type information in string format.
 
@@ -6254,7 +6307,7 @@ Parameters:
 
 - that: [TypeInfo](reflect_package_classes.md#class-typeinfo) - The other type information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the qualified name of this type information is not equal to `that`, otherwise returns `false`.
 
@@ -6270,6 +6323,6 @@ Parameters:
 
 - that: [TypeInfo](reflect_package_classes.md#class-typeinfo) - The other type information to compare for equality.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if the qualified name of this type information is equal to `that`, otherwise returns `false`.

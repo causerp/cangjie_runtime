@@ -1204,6 +1204,38 @@ public prop name: String
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
+## struct KeyOptimizeMocksForBench
+
+```cangjie
+public struct KeyOptimizeMocksForBench <: KeyFor<Bool> {}
+```
+
+功能：用于在 [Configuration](../../unittest_common/unittest_common_package_api/unittest_common_package_classes.md#class-configuration) 中作为对应配置项的键值
+
+父类型：
+
+- [KeyFor](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-keyfort)
+
+### prop optimizeMocksForBench
+
+```cangjie
+public static prop optimizeMocksForBench: KeyOptimizeMocksForBench
+```
+
+功能：配置项的键值。
+
+类型：[KeyOptimizeMocksForBench](#struct-keyoptimizemocksforbench)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：配置项的键值的名称。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
 ## struct KeyParallel
 
 ```cangjie
@@ -1833,6 +1865,82 @@ public let suiteName: String
 功能：用例的测试套名称。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+## struct Runtime
+
+```cangjie
+public struct Runtime <: Measurement {
+    public Runtime(let variant: RuntimeInfo)
+}
+```
+
+功能：统计 Cangjie 运行时提供的指标值。
+
+父类型：
+
+- [Measurement](unittest_package_interfaces.md#interface-measurement)
+
+### prop conversionTable
+
+```cangjie
+public prop conversionTable: MeasurementUnitTable
+```
+
+功能：提供相应运行时指标的转换表。
+
+类型：[MeasurementUnitTable](../unittest_package_api/unittest_package_types.md#type-measurementunittable)
+
+### prop name
+
+```cangjie
+public prop name: String
+```
+
+功能：运行时指标的名字。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+### prop textDescription
+
+```cangjie
+public prop textDescription: String
+```
+
+功能：在某些报告中将显示的该测量结果的简要文字描述。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string).
+
+### Runtime(RuntimeInfo)
+
+```cangjie
+public Runtime(let variant: RuntimeInfo)
+```
+
+功能：构造函数，用于指定要测量的运行时指标。
+
+参数：
+
+- variant: [RuntimeInfo](../unittest_package_api/unittest_package_enums.md#enum-runtimeinfo) - 指定统计类型。
+
+### func measure()
+
+```cangjie
+public func measure(): Float64
+```
+
+功能：返回指定运行时指标的值。
+
+返回值：
+
+- [Float64](../../core/core_package_api/core_package_intrinsics.md#float64) - 用于统计分析的计算数据。
+
+### func setup()
+
+```cangjie
+public func setup()
+```
+
+功能：此测量的初始化函数。在每个基准测试步骤之前调用。
 
 ## struct TimeNow
 

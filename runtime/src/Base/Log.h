@@ -34,6 +34,12 @@ namespace MapleRuntime {
 
 void HiLogForCJThread(RTLogLevel level, const char* format, va_list args);
 
+void ATraceBeginAsync(const char* name, int32_t taskId);
+
+void ATraceEndAsync(const char* name, int32_t taskId);
+
+void ATraceSetCounter(const char* name, int64_t value);
+
 #if defined(__ANDROID__)
 class ATraceWrapper {
 public:

@@ -28,7 +28,7 @@ public static func drivers(): Array<String>
 
 Function: Returns a list of registered database driver names (sorted lexicographically). This method is thread-safe.
 
-Return Value:
+Returns:
 
 - [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[String](../../core/core_package_api/core_package_structs.md#struct-string)> - List of database driver names.
 
@@ -44,7 +44,7 @@ Parameters:
 
 - driverName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - Driver name.
 
-Return Value:
+Returns:
 
 - [Option](../../core/core_package_api/core_package_enums.md#enum-optiont)\<[Driver](database_sql_package_interfaces.md#interface-driver)> - Returns driver instance wrapped in [Option](../../core/core_package_api/core_package_enums.md#enum-optiont) if exists, otherwise returns `None`.
 
@@ -172,7 +172,7 @@ public func connect(): Connection
 
 Function: Acquires a connection.
 
-Return Value:
+Returns:
 
 - [Connection](./database_sql_package_interfaces.md#interface-connection) - The acquired connection.
 
@@ -184,7 +184,7 @@ public func isClosed(): Bool
 
 Function: Determines whether the connection is closed.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Whether the connection is closed.
 

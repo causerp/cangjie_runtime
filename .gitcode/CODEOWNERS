@@ -1,10 +1,9 @@
+/.gitcode/ @xuanjz
 OAT.xml @xuanjz
+
 *.md @luojianing
 
-/.gitcode/ @xuanjz
-
 # stdlib
-/stdlib/ @ChaosJohn
 
 /stdlib/libs/std/argopt/ @MinamiK
 /stdlib/libs/std/env/ @MinamiK
@@ -39,5 +38,13 @@ OAT.xml @xuanjz
 /stdlib/libs/std/objectpool/ @ChaosJohn
 /stdlib/libs/std/regex/ @ChaosJohn
 
+
+/stdlib/libs/std/deriving/ @belyaev-mikhail
+/stdlib/libs/std/unittest/ @belyaev-mikhail
+
+/stdlib/libs/std/ast/ @mini-tang
+
 #stdlib docs
-/stdlib/doc @luojianing @renyi43
+/stdlib/doc/ @luojianing @renyi43
+
+/stdlib/doc/libs/std/ast/ @mini-tang @luojianing

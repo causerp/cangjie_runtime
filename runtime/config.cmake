@@ -314,7 +314,7 @@ elseif (ANDROID_FLAG MATCHES 3)
     message("android toolchain, clang version=${CLANG_VERSION_STRING}")
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer \
     -fvisibility=hidden -fno-exceptions -fno-rtti -ffunction-sections -Wall \
-        -fstack-protector-strong -fPIC -Wunused-variable ${ANDROID_COMPILE_OPTION} ${ANDROID_INCLUDE}"
+        -fstack-protector-strong -fPIC -fno-strict-aliasing -fno-common ${ANDROID_COMPILE_OPTION} ${ANDROID_INCLUDE}"
     )
 elseif (IOS_SIMULATOR_FLAG MATCHES 2)
     set(CMAKE_INIT_FLAGS "-Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions \

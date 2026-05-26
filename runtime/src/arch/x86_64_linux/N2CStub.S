@@ -120,7 +120,7 @@ CJ_MCC_N2CStub:
 
     // store whether new CJThread result in -60(%rbp)
     // and use it after calling Cangjie function.
-    callq   MRT_TryNewAndRunCJThread
+    callq   MRT_NewForeignCJThread
     mov     %al,  -60(%rbp)
 
     // mutator mustn't be in safe region before setting context.
@@ -219,7 +219,7 @@ unwindPCForN2CStub:
     mov     -60(%rbp), %al
     cmp     $0, %al
     je      .L_no_need_end
-    callq   MRT_EndCJThread
+    callq   MRT_EndForeignCJThread
     cmpq    $1, %rax
     je      .L_none_enter
 .L_no_need_end:

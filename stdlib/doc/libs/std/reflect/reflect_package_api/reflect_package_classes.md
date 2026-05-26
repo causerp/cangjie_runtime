@@ -778,7 +778,7 @@ public func isOpen(): Bool
 > **注意：**
 >
 > - 不支持平台：macOS、iOS。
-> - 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如：`abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
+> - 并不是只有被 `open` 修饰符所修饰的 `class` 类型定义才拥有 `open` 语义，如: `abstract class` 无论是否被 `open` 修饰符修饰都会拥有 `open` 语义。
 
 返回值：
 
@@ -1564,18 +1564,68 @@ public operator func ==(other: ConstructorInfo): Bool
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - 如果该构造器信息与另一个相等则返回 `true`，否则返回 `false`。
 
-<!--Del-->
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public class Rectangular {
+    public var length = 4
+    public var width = 5
+    public var myName = ""
+
+    public init() {}
+
+    public init(name: String) {
+        myName = name
+    }
+}
+
+main(): Unit {
+    // 获取 Rectangular 类型信息
+    let ty = ClassTypeInfo.get("test.Rectangular")
+
+    // 获取所有构造函数
+    let constructors = ty.constructors.toArray()
+
+    // 收集两个构造函数
+    let firstConstructor: ConstructorInfo = constructors[0]
+    let secondConstructor: ConstructorInfo = constructors[1]
+
+    // 比较不同的构造函数
+    let result = firstConstructor == secondConstructor
+    println("两个不同构造函数相等: ${result}")
+
+    // 比较相同的构造函数
+    let firstConstructor1: ConstructorInfo = ClassTypeInfo.get("test.Rectangular").constructors.toArray()[0]
+    let result2 = firstConstructor == firstConstructor1
+    println("相同构造函数相等: ${result2}")
+
+    return
+}
+```
+
+运行结果：
+
+```text
+两个不同构造函数相等: false
+相同构造函数相等: true
+```
+
 ## class EnumConstructorInfo
 
 ```cangjie
-public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
+public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString {}
 ```
 
-功能：描述枚举构造子信息，可用于查询构造子参数类型、注解，并根据构造子进行构造/拆解枚举实例。
+功能：描述枚举构造器信息，可用于查询构造器参数类型、注解，并根据构造器进行构造/拆解枚举实例。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -1589,11 +1639,11 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
 public prop annotations: Collection<Annotation>
 ```
 
-功能：获取所有作用于该枚举构造子上的注解集合。
+功能：获取所有作用于该枚举构造器上的注解集合。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[Annotation](./reflect_package_types.md#type-annotation--object)>
 
@@ -1629,11 +1679,11 @@ main(): Unit {
 public prop enumTypeInfo: EnumTypeInfo
 ```
 
-功能：获取该枚举构造子所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
+功能：获取该枚举构造器所属枚举类型的 [EnumTypeInfo](#class-enumtypeinfo)。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[EnumTypeInfo](#class-enumtypeinfo)
 
@@ -1672,11 +1722,11 @@ test.E
 public prop name: String
 ```
 
-功能：获取该枚举构造子的名称（不包含包名前缀）。
+功能：获取该枚举构造器的名称（不包含包名前缀）。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
 
@@ -1705,56 +1755,17 @@ main(): Unit {
 M2
 ```
 
-### prop qualifiedName
-
-```cangjie
-public prop qualifiedName: String
-```
-
-功能：获取该枚举构造子的限定名称。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
-
-类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M2(Int64)
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
-    println(ctor.qualifiedName)
-    return
-}
-```
-
-运行结果：
-
-```text
-test.E.M2<Int64>
-```
-
 ### prop parameters
 
 ```cangjie
 public prop parameters: ReadOnlyList<TypeInfo>
 ```
 
-功能：获取该枚举构造子的参数类型列表，按声明顺序返回。
+功能：获取该枚举构造器的参数类型列表，按声明顺序返回。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -1788,6 +1799,45 @@ Int64
 String
 ```
 
+### prop qualifiedName
+
+```cangjie
+public prop qualifiedName: String
+```
+
+功能：获取该枚举构造器的限定名称。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+类型：[String](../../core/core_package_api/core_package_structs.md#struct-string)
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    println(ctor.qualifiedName)
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M2<Int64>
+```
+
 ### static func get(String)
 
 ```cangjie
@@ -1798,15 +1848,15 @@ public static func get(qualifiedName: String): EnumConstructorInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
-- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造子的限定名称，例如 `default.E.M2<Int64>`。
+- qualifiedName: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 枚举构造器的限定名称，例如 `default.E.M2<Int64>`。
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - 与 `qualifiedName` 对应的枚举构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 与 `qualifiedName` 对应的枚举构造器信息。
 
 异常：
 
@@ -1843,11 +1893,11 @@ test.E.M2<Int64>
 public static func of(instance: Any): EnumConstructorInfo
 ```
 
-功能：获取给定枚举实例所属的构造子信息。
+功能：获取给定枚举实例所属的构造器信息。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -1855,11 +1905,11 @@ public static func of(instance: Any): EnumConstructorInfo
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - `instance` 所属构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 入参实例所属构造器信息。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是该枚举的实例，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是该枚举的实例，则抛出异常。
 
 示例：
 
@@ -1906,19 +1956,19 @@ public func apply(args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
-- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子参数的实参列表，顺序需与构造子声明一致。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造器参数的实参列表，顺序需与构造器声明一致。
 
 返回值：
 
-- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 由该构造子创建的枚举实例。
+- [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 由该构造器创建的枚举实例。
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 当实参个数与构造子参数个数不一致，或任一实参的运行时类型与对应形参类型不匹配时抛出。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 当实参个数与构造器参数个数不一致，或任一实参的运行时类型与对应形参类型不匹配时抛出。
 
 示例：
 
@@ -1953,69 +2003,17 @@ main(): Unit {
 M2(7)
 ```
 
-### func getAssociatedValues(Any)
-
-```cangjie
-public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
-```
-
-功能：获取给定枚举实例的关联值列表。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
-
-参数：
-
-- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
-
-返回值：
-
-- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 关联值列表，按声明顺序返回。
-
-异常：
-
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是通过该构造子与创建的，则抛出异常。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M2(Int64)
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
-    let values = ctor.getAssociatedValues(E.M2(7))
-    println(values.size)
-    println(values[0] as Int64)
-    return
-}
-```
-
-运行结果：
-
-```text
-1
-Some(7)
-```
-
 ### func findAllAnnotations\<T>()
 
 ```cangjie
 public func findAllAnnotations<T>(): Array<T> where T <: Annotation
 ```
 
-功能：获取该构造子上的所有类型为 `T` 的注解实例。
+功能：获取该构造器上的所有类型为 `T` 的注解实例。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2052,17 +2050,17 @@ main(): Unit {
 0
 ```
 
-### func findAllAnnotation\<T>()
+### func findAnnotation\<T>()
 
 ```cangjie
-public func findAllAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
-功能：获取该构造子上的任意一个类型为 `T` 的注解实例。
+功能：获取该构造器上的任意一个类型为 `T` 的注解实例。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2087,7 +2085,7 @@ public enum E {
 
 main(): Unit {
     let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.findAllAnnotation<A1>().isNone())
+    println(ctor.findAnnotation<A1>().isNone())
     return
 }
 ```
@@ -2104,11 +2102,11 @@ true
 public func getAllAnnotations(): Array<Annotation>
 ```
 
-功能：获取该构造子上的所有注解实例数组。
+功能：获取该构造器上的所有注解实例数组。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2139,17 +2137,69 @@ main(): Unit {
 0
 ```
 
+### func getAssociatedValues(Any)
+
+```cangjie
+public func getAssociatedValues(instance: Any): ReadOnlyList<Any>
+```
+
+功能：获取给定枚举实例的关联值列表。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+参数：
+
+- instance: [Any](../../core/core_package_api/core_package_interfaces.md#interface-any) - 枚举实例。
+
+返回值：
+
+- [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 关联值列表，按声明顺序返回。
+
+异常：
+
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是通过该构造器创建的，则抛出异常。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M2(Int64)
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M2", argsCount: 1)
+    let values = ctor.getAssociatedValues(E.M2(7))
+    println(values.size)
+    println(values[0] as Int64)
+    return
+}
+```
+
+运行结果：
+
+```text
+1
+Some(7)
+```
+
 ### func hashCode()
 
 ```cangjie
 public func hashCode(): Int64
 ```
 
-功能：获取该构造子信息的哈希值。
+功能：获取该构造器信息的哈希值。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2180,21 +2230,62 @@ main(): Unit {
 true
 ```
 
+### func toString()
+
+```cangjie
+public func toString(): String
+```
+
+功能：获取该构造器信息的字符串表示，等价于 `qualifiedName`。
+
+> **注意：**
+>
+> 不支持平台：macOS、iOS。
+
+返回值：
+
+- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串表示。
+
+示例：
+
+<!-- verify -->
+```cangjie
+package test
+
+import std.reflect.*
+
+public enum E {
+    | M1
+}
+
+main(): Unit {
+    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
+    println(ctor.toString())
+    return
+}
+```
+
+运行结果：
+
+```text
+test.E.M1
+```
+
 ### operator func ==(EnumConstructorInfo)
 
 ```cangjie
 public operator func ==(other: EnumConstructorInfo): Bool
 ```
 
-功能：判断该构造子信息与另一个构造子信息是否相等。
+功能：判断该构造器信息与另一个构造器信息是否相等。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
-- other: [EnumConstructorInfo](#class-enumconstructorinfo) - 另一个构造子信息。
+- other: [EnumConstructorInfo](#class-enumconstructorinfo) - 另一个构造器信息。
 
 返回值：
 
@@ -2230,58 +2321,17 @@ true
 false
 ```
 
-### func toString()
-
-```cangjie
-public func toString(): String
-```
-
-功能：获取该构造子信息的字符串表示，等价于 `qualifiedName`。
-
-> **注意：**
->
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
-
-返回值：
-
-- [String](../../core/core_package_api/core_package_structs.md#struct-string) - 字符串表示。
-
-示例：
-
-<!-- verify -->
-```cangjie
-package test
-
-import std.reflect.*
-
-public enum E {
-    | M1
-}
-
-main(): Unit {
-    let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.toString())
-    return
-}
-```
-
-运行结果：
-
-```text
-test.E.M1
-```
-
 ## class EnumTypeInfo
 
 ```cangjie
-public class EnumTypeInfo <: TypeInfo
+public class EnumTypeInfo <: TypeInfo {}
 ```
 
 功能：`Enum` 类型的类型信息。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -2293,11 +2343,11 @@ public class EnumTypeInfo <: TypeInfo
 public prop constructors: Collection<EnumConstructorInfo>
 ```
 
-功能：获取该 [EnumTypeInfo](#class-enumtypeinfo) 对应的所有枚举构造子信息，返回对应集合。
+功能：获取该 [EnumTypeInfo](#class-enumtypeinfo) 对应的所有枚举构造器信息，返回对应集合。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[Collection](../../core/core_package_api/core_package_interfaces.md#interface-collectiont)\<[EnumConstructorInfo](#class-enumconstructorinfo)>
 
@@ -2331,14 +2381,14 @@ main(): Unit {
 ### static func get(String)
 
 ```cangjie
-public redef static func get(qualifiedName: String): EnumTypeInfo
+public static redef func get(qualifiedName: String): EnumTypeInfo
 ```
 
 功能：获取给定限定名称所对应类型的 [EnumTypeInfo](#class-enumtypeinfo)。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2350,7 +2400,7 @@ public redef static func get(qualifiedName: String): EnumTypeInfo
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是枚举类型或者 qaulifiedName 对应的定义不存在，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果获取到的类型信息不是枚举类型或者 qualifiedName 对应的定义不存在，则抛出异常。
 
 示例：
 
@@ -2388,7 +2438,7 @@ public static redef func of(instance: Any): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2396,11 +2446,11 @@ public static redef func of(instance: Any): EnumTypeInfo
 
 返回值：
 
-- [EnumTypeInfo](#class-enumtypeinfo) - `instance` 所属枚举类型的类型信息。
+- [EnumTypeInfo](#class-enumtypeinfo) - 入参实例所属枚举类型的类型信息。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是枚举类型，则抛出异常。
 
 示例：
 
@@ -2437,7 +2487,7 @@ public static redef func of<T>(): EnumTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2478,16 +2528,16 @@ E
 public func construct(constructor: String, args: Array<Any>): Any
 ```
 
-功能：根据构造子签名和实参列表构造该枚举的实例并返回。
+功能：根据构造器签名和实参列表构造该枚举的实例并返回。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子签名。
-- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造子实参列表。
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器签名。
+- args: [Array](../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)> - 构造器实参列表。
 
 返回值：
 
@@ -2495,7 +2545,7 @@ public func construct(constructor: String, args: Array<Any>): Any
 
 异常：
 
-- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果 `args` 的数量或类型与构造子参数不匹配或者指定的构造子不存在，则抛出异常。
+- [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果构造器实参列表的数量或类型与构造器参数不匹配或者指定的构造器不存在，则抛出异常。
 
 示例：
 
@@ -2533,11 +2583,11 @@ main(): Unit {
 public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 ```
 
-功能：拆解给定枚举实例，返回其构造子信息和关联值列表。
+功能：拆解给定枚举实例，返回其构造器信息和关联值列表。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2545,11 +2595,11 @@ public func destruct(instance: Any): (EnumConstructorInfo, ReadOnlyList<Any>)
 
 返回值：
 
-- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - 构造子信息与关联值列表。
+- ([EnumConstructorInfo](#class-enumconstructorinfo), [ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[Any](../../core/core_package_api/core_package_interfaces.md#interface-any)>) - 构造器信息与关联值列表。
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 不是枚举类型实例，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例不是枚举类型实例，则抛出异常。
 
 示例：
 
@@ -2588,24 +2638,24 @@ Some(7)
 public func getConstructor(constructor: String, argsCount!: Int64 = 0): EnumConstructorInfo
 ```
 
-功能：按构造子名与参数个数查询构造子信息。
+功能：按构造器名与参数个数查询构造器信息。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
-- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造子名（不含参数签名），例如 `M2`。
+- constructor: [String](../../core/core_package_api/core_package_structs.md#struct-string) - 构造器名（不含参数签名），例如 `M2`。
 - argsCount!: [Int64](../../core/core_package_api/core_package_intrinsics.md#int64) - 参数个数；为 `0` 时不限制参数个数。
 
 返回值：
 
-- [EnumConstructorInfo](#class-enumconstructorinfo) - 匹配到的构造子信息。
+- [EnumConstructorInfo](#class-enumconstructorinfo) - 匹配到的构造器信息。
 
 异常：
 
-- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果未找到匹配的构造子，则抛出异常。
+- [InfoNotFoundException](reflect_package_exceptions.md#class-infonotfoundexception) - 如果未找到匹配的构造器，则抛出异常。
 
 示例：
 
@@ -2641,14 +2691,14 @@ test.E.M2<Int64, Int64>
 ## class FunctionTypeInfo
 
 ```cangjie
-public class FunctionTypeInfo <: TypeInfo
+public class FunctionTypeInfo <: TypeInfo {}
 ```
 
 功能：描述函数类型（函数值/闭包）的类型信息，可用于获取参数与返回值的类型信息。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -2664,7 +2714,7 @@ public prop parameters: ReadOnlyList<TypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -2677,7 +2727,7 @@ package test
 import std.reflect.*
 
 main(): Unit {
-    let f = { x: Int64, y: UInt8 => x + Int64(y) }
+    let f = {x: Int64, y: UInt8 => x + Int64(y)}
     let info = FunctionTypeInfo.of(f)
     println(info.parameters.size)
     println(info.parameters[0].name)
@@ -2704,7 +2754,7 @@ public prop returnType: TypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[TypeInfo](#class-typeinfo)
 
@@ -2717,7 +2767,7 @@ package test
 import std.reflect.*
 
 main(): Unit {
-    let f = { x: Int64, y: Int64 => x + y }
+    let f = {x: Int64, y: Int64 => x + y}
     let info = FunctionTypeInfo.of(f)
     println(info.returnType.name)
     return
@@ -2733,7 +2783,7 @@ Int64
 ### static func of(Any)
 
 ```cangjie
-public redef static func of(instance: Any): FunctionTypeInfo
+public static redef func of(instance: Any): FunctionTypeInfo
 ```
 
 功能：获取给定实例的运行时类型所对应的 [FunctionTypeInfo](#class-functiontypeinfo)。
@@ -2742,7 +2792,7 @@ public redef static func of(instance: Any): FunctionTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2750,7 +2800,7 @@ public redef static func of(instance: Any): FunctionTypeInfo
 
 返回值：
 
-- [FunctionTypeInfo](#class-functiontypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+- [FunctionTypeInfo](#class-functiontypeinfo) - 入参实例运行时类型所对应的类型信息。
 
 异常：
 
@@ -2794,7 +2844,7 @@ public static redef func of<T>(): FunctionTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -2839,7 +2889,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -2852,8 +2902,8 @@ public func apply(instance: Any, args: Array<Any>): Any
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与函数参数个数不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表的数量与函数参数个数不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中任一元素类型与对应函数参数类型不匹配，则抛出异常。
 
 示例：
 
@@ -2881,7 +2931,6 @@ main(): Unit {
 ```text
 3
 ```
-<!--DelEnd-->
 
 ## class GenericTypeInfo
 
@@ -2981,7 +3030,7 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
 public prop annotations: Collection<Annotation>
 ```
 
-功能：获取所有 [GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的全局函数的自定义注解，返回对应集合。
+功能：获取所有[GlobalFunctionInfo](reflect_package_classes.md#class-globalfunctioninfo) 对应的全局函数的自定义注解，返回对应集合。
 
 > **注意：**
 >
@@ -4956,7 +5005,7 @@ public func apply(instance: Any, args: Array<Any>): Any
 - [InvocationTargetException](../reflect_package_api/reflect_package_exceptions.md#class-invocationtargetexception) - 如果存在泛型参数的函数调用了该方法，则抛出异常。
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该实例成员函数信息所对应的实例成员函数是抽象的，或不存在相应的函数实现，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该实例成员函数信息所对应的实例成员函数的形参列表中的形参的数目不等，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该实例成员函数信息所对应的实例成员函数所属的类型不相同，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中的任何一个实参的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果被调用的实例成员函数信息所对应的实例成员函数内部抛出异常，则该异常将被封装为 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 异常并抛出。
 
@@ -5043,7 +5092,7 @@ public func apply(instance: Any, genericTypeArgs: Array<TypeInfo>, args: Array<A
 
 - [InvocationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果该函数信息对应的成员函数是 `abstract` 或不存在函数体，则会抛出异常。
 - [InvacationTargetException](reflect_package_exceptions.md#class-invocationtargetexception) - 如果非泛型函数调用了此方法，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实例 `instance` 的运行时类型与该成员函数信息所对应的成员函数所属的类型不相同，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例运行时类型与该成员函数信息所对应的成员函数所属的类型不相同，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表中的实参的数目与该成员函数信息所对应的成员函数的形参列表中的形参的数目不等，则抛出异常。
 - [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果函数泛型参数列表 `genericTypeArgs` 中的参数数目与该成员函数信息所对应的成员函数的泛型参数列表 `genericParams` 中的参数数目不等，则抛出异常。
 - [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果参数列表中的任何一个参数的运行时类型不是该实例成员函数信息所对应的实例成员函数的对应形参的声明类型的子类型，则抛出异常。
@@ -7757,7 +7806,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局函数用于演示
+// 定义一些公开全局函数用于演示
 public func testFunction1(): String {
     return "Hello from testFunction1"
 }
@@ -8519,7 +8568,7 @@ package abc.test
 
 import std.reflect.*
 
-// 定义一些公共全局变量用于演示
+// 定义一些公开全局变量用于演示
 public var testVariable: Int64 = 42
 
 main(): Unit {
@@ -9383,7 +9432,7 @@ public class PrimitiveTypeInfo <: TypeInfo {}
 
 功能：描述原始数据类型的类型信息。
 
-原始数据类型包括无类型（`Nothing`）、单元类型（[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)）、字符类型（[Rune](../../../std/core/core_package_api/core_package_intrinsics.md#rune)）、布尔类型（[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)），整形类型（[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)，[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)，[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)，[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)，[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)，[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)，[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)，[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)，[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)，[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)）和浮点类型（[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)，[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)，[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)）。
+原始数据类型包括无类型（`Nothing`）、单元类型（[Unit](../../core/core_package_api/core_package_intrinsics.md#unit)）、字符类型（[Rune](../../core/core_package_api/core_package_intrinsics.md#rune)）、布尔类型（[Bool](../../core/core_package_api/core_package_intrinsics.md#bool)），整形类型（[Int8](../../core/core_package_api/core_package_intrinsics.md#int8)，[Int16](../../core/core_package_api/core_package_intrinsics.md#int16)，[Int32](../../core/core_package_api/core_package_intrinsics.md#int32)，[Int64](../../core/core_package_api/core_package_intrinsics.md#int64)，[IntNative](../../core/core_package_api/core_package_intrinsics.md#intnative)，[UInt8](../../core/core_package_api/core_package_intrinsics.md#uint8)，[UInt16](../../core/core_package_api/core_package_intrinsics.md#uint16)，[UInt32](../../core/core_package_api/core_package_intrinsics.md#uint32)，[UInt64](../../core/core_package_api/core_package_intrinsics.md#uint64)，[UIntNative](../../core/core_package_api/core_package_intrinsics.md#uintnative)）和浮点类型（[Float16](../../core/core_package_api/core_package_intrinsics.md#float16)，[Float32](../../core/core_package_api/core_package_intrinsics.md#float32)，[Float64](../../core/core_package_api/core_package_intrinsics.md#float64)）。
 
 > **注意：**
 >
@@ -10585,7 +10634,7 @@ main(): Unit {
 
     // 获取修饰符数量
     let modifiers = staticProperty.modifiers
-    println("公共静态属性修饰符数量: ${modifiers.size}")
+    println("公开静态属性修饰符数量: ${modifiers.size}")
 
     return
 }
@@ -10594,7 +10643,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态属性修饰符数量: 1
+公开静态属性修饰符数量: 1
 ```
 
 ### prop name
@@ -11441,7 +11490,7 @@ main(): Unit {
 
     // 获取修饰符数量
     let modifiers = staticVariable.modifiers
-    println("公共静态变量修饰符数量: ${modifiers.size}")
+    println("公开静态变量修饰符数量: ${modifiers.size}")
 
     return
 }
@@ -11450,7 +11499,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态变量修饰符数量: 1
+公开静态变量修饰符数量: 1
 ```
 
 ### prop name
@@ -12670,18 +12719,17 @@ main(): Unit {
 static area: Int64
 ```
 
-<!--Del-->
 ## class TupleTypeInfo
 
 ```cangjie
-public class TupleTypeInfo <: TypeInfo
+public class TupleTypeInfo <: TypeInfo {}
 ```
 
 功能：描述元组类型的类型信息。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 父类型：
 
@@ -12697,7 +12745,7 @@ public prop elements: ReadOnlyList<TypeInfo>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 类型：[ReadOnlyList](../../collection/collection_package_api/collection_package_interface.md#interface-readonlylistt)\<[TypeInfo](#class-typeinfo)>
 
@@ -12731,14 +12779,14 @@ Bool
 ### static func of(Any)
 
 ```cangjie
-public redef static func of(instance: Any): TupleTypeInfo
+public static redef func of(instance: Any): TupleTypeInfo
 ```
 
 功能：获取给定实例的运行时类型所对应的 [TupleTypeInfo](#class-tupletypeinfo)。
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -12746,7 +12794,7 @@ public redef static func of(instance: Any): TupleTypeInfo
 
 返回值：
 
-- [TupleTypeInfo](#class-tupletypeinfo) - 实例 `instance` 的运行时类型所对应的类型信息。
+- [TupleTypeInfo](#class-tupletypeinfo) - 入参实例运行时类型所对应的类型信息。
 
 异常：
 
@@ -12783,7 +12831,7 @@ public static redef func of<T>(): TupleTypeInfo
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 返回值：
 
@@ -12824,7 +12872,7 @@ public func construct(args: Array<Any>): Any
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -12836,8 +12884,8 @@ public func construct(args: Array<Any>): Any
 
 异常：
 
-- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果 `args` 的数量与元组元素数量不一致，则抛出异常。
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `args` 中任一元素类型与对应元组元素类型不匹配，则抛出异常。
+- [IllegalArgumentException](../../core/core_package_api/core_package_exceptions.md#class-illegalargumentexception) - 如果实参列表的数量与元组元素数量不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果实参列表中任一元素类型与对应元组元素类型不匹配，则抛出异常。
 
 示例：
 
@@ -12890,7 +12938,7 @@ public func destruct(instance: Any): ReadOnlyList<Any>
 
 > **注意：**
 >
-> 不支持平台：macOS、iOS、OpenHarmony、HarmonyOS。
+> 不支持平台：macOS、iOS。
 
 参数：
 
@@ -12902,7 +12950,7 @@ public func destruct(instance: Any): ReadOnlyList<Any>
 
 异常：
 
-- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果 `instance` 的运行时类型与该 [TupleTypeInfo](#class-tupletypeinfo) 不一致，则抛出异常。
+- [IllegalTypeException](reflect_package_exceptions.md#class-illegaltypeexception) - 如果入参实例的运行时类型与该 [TupleTypeInfo](#class-tupletypeinfo) 不一致，则抛出异常。
 
 示例：
 
@@ -12946,7 +12994,6 @@ Some(1)
 Some(0)
 Some(1)
 ```
-<!--DelEnd-->
 
 ## class TypeInfo
 
@@ -13065,7 +13112,7 @@ main(): Unit {
 
     // 获取实例函数信息
     let instanceFunctions = typeInfo.instanceFunctions
-    println("公共实例函数数量: ${instanceFunctions.size}")
+    println("公开实例函数数量: ${instanceFunctions.size}")
 
     return
 }
@@ -13074,7 +13121,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共实例函数数量: 1
+公开实例函数数量: 1
 ```
 
 ### prop instanceProperties
@@ -13119,7 +13166,7 @@ main(): Unit {
 
     // 获取实例属性信息
     let instanceProperties = typeInfo.instanceProperties
-    println("公共实例属性数量: ${instanceProperties.size}")
+    println("公开实例属性数量: ${instanceProperties.size}")
 
     return
 }
@@ -13128,7 +13175,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共实例属性数量: 1
+公开实例属性数量: 1
 ```
 
 ### prop modifiers
@@ -13313,7 +13360,7 @@ main(): Unit {
 
     // 获取静态函数信息
     let staticFunctions = typeInfo.staticFunctions
-    println("公共静态函数数量: ${staticFunctions.size}")
+    println("公开静态函数数量: ${staticFunctions.size}")
 
     return
 }
@@ -13322,7 +13369,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态函数数量: 1
+公开静态函数数量: 1
 ```
 
 ### prop staticProperties
@@ -13367,7 +13414,7 @@ main(): Unit {
 
     // 获取静态属性信息
     let staticProperties = typeInfo.staticProperties
-    println("公共静态属性数量: ${staticProperties.size}")
+    println("公开静态属性数量: ${staticProperties.size}")
 
     return
 }
@@ -13376,7 +13423,7 @@ main(): Unit {
 运行结果：
 
 ```text
-公共静态属性数量: 1
+公开静态属性数量: 1
 ```
 
 ### prop superInterfaces

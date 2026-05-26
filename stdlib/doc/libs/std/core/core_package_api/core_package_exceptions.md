@@ -243,11 +243,11 @@ public mut prop causedBy: ?Exception
 
 功能：异常的触发原因。
 
+类型：?[Exception](core_package_exceptions.md#class-exception)
+
 > **注意：**
 >
 > 不支持平台：OpenHarmony
-
-类型：?[Exception](core_package_exceptions.md#class-exception)
 
 示例：
 
@@ -285,6 +285,10 @@ func throwCause() {
 Exception: 这是一个异常
 Exception: 这是一个cause
 ```
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### prop message
@@ -388,6 +392,10 @@ func throwCause() {
 Exception
 Exception: 这是一个cause
 ```
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### init(String)
@@ -471,6 +479,10 @@ Caused by: Exception: 这是一个cause
 	 at default::throwException()(/tmp/test-exception-chain.cj:13)
 	 ... 1 more
 ```
+
+> **注意：**
+>
+> 不支持平台：OpenHarmony
 <!--DelEnd-->
 
 ### func getStackTrace()
@@ -581,11 +593,10 @@ main() {
 带消息异常的字符串表示: Exception: 自定义异常信息
 ```
 
-<!--Del-->
 ## class ExclusiveScopeException
 
 ```cangjie
-public class ExclusiveScopeException <: Exception
+public class ExclusiveScopeException <: Exception {}
 ```
 
 功能：自定义异常类，用于包装在独占作用域中抛出的异常。它保留了原始异常的堆栈信息，不支持主动构造该异常，但是可以被捕获到。
@@ -619,7 +630,6 @@ main() {
     }
 }
 ```
-<!--DelEnd-->
 
 ## class IllegalArgumentException
 

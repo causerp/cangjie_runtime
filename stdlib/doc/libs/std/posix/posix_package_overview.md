@@ -35,7 +35,7 @@ posix 包封装 POSIX 系统调用，提供跨平台的系统操作接口。
 | [getgroups(Int32, CPointer\<UInt32>) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getgroupsint32-cpointeruint32-deprecated) | 获取当前用户所属组的组 ID 列表。 |
 | [gethostname() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-gethostname-deprecated) | 获取主机名称，此名称通常是 `TCP/IP` 网络上主机的名称。 |
 | [getlogin() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getlogin-deprecated) | 获取当前登录名。 |
-| [getos() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getos-deprecated) | 从 `/proc/version` 文件中获取 `Linux` 系统的信息。 |
+| [getos() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getos-deprecated) | 从 `/proc/version` 文件中获取 Linux 系统的信息。|
 | [getpgid(Int32) <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpgidint32-deprecated) | 获取 `pid` 指定的进程的 `PGID`，如果 `pid` 为零，返回调用进程的进程 `ID`。 |
 | [getpgrp() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpgrp-deprecated) | 获取调用进程的进程组 `ID`。 |
 | [getpid() <sup>(deprecated)</sup>](./posix_package_api/posix_package_funcs.md#func-getpid-deprecated) | 获取调用进程的进程 `ID(PID)`。 |

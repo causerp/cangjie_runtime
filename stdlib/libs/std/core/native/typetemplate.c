@@ -552,7 +552,6 @@ DECLARE_TYPE_INFO(CString_ti,
         .reflection = NULL,
     }))
 #endif
-
 // GlobalVarible for TypeTemplate defined in core package
 DECLARE_TYPE_TEMPLATE(Tuple_tt,
     ((TypeTemplate){

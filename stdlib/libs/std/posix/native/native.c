@@ -65,7 +65,7 @@ extern char* CJ_OS_Getlogin(void)
     return getlogin();
 }
 
-#if defined(__linux__) || defined(__APPLE__) || defined(__ohos__)
+#if defined(__linux__) || defined(__APPLE__) || defined(__ohos__) || defined(__ANDROID__)
 extern ssize_t CJ_OS_Pread(int32_t fd, uint8_t* buf, size_t count, int32_t offset)
 {
     return pread(fd, buf, count, offset);

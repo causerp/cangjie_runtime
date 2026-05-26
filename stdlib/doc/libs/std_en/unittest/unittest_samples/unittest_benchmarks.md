@@ -272,7 +272,7 @@ class Bench {
 
 Out-of-the-box measurement tools provided by the framework include:
 
-- `TimeNow`: Uses `DateTime.now` to measure real-time. Configurable with specific time units to ensure consistent reporting.
+- `TimeNow`: Uses `MonoTime.now` to measure real-time. Configurable with specific time units to ensure consistent reporting.
 - `CpuCycles`: Measures bare-metal CPU instruction cycles. Available only on platforms with such instructions executable in user space.
 - `Perf`: Uses Linux's `perf_event_open` system call to measure various hardware/software CPU counters.
 

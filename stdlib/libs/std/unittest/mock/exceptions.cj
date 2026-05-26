@@ -55,17 +55,6 @@ public open class ExpectationFailedException <: PrettyException {
 }
 
 /**
- * Indicates that a stub was never triggered by the code under test.
- */
-public class UnnecessaryStubbingException <: PrettyException {
-    UnnecessaryStubbingException(
-        text: PrettyText
-    ) {
-        super(text)
-    }
-}
-
-/**
  * No stubs that match this invocation were provided.
  */
 public class UnstubbedInvocationException <: PrettyException {

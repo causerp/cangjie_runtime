@@ -38,4 +38,4 @@ math.numeric 包对基础类型可表达范围之外提供扩展能力。
 |                结构体              |                功能                 |
 | ---------------------------------- | ---------------------------------- |
 | [BigInt](./math_numeric_package_api/math_numeric_package_structs.md#struct-bigint) | BigInt 定义为任意精度（二进制）的有符号整数。仓颉的 struct BigInt 用于任意精度有符号整数的计算，类型转换等。 |
-| [Decimal](./math_numeric_package_api/math_numeric_package_structs.md#struct-decimal) | Decimal 用于表示任意精度的有符号的十进制数。允许操作过程指定上下文，指定结果精度及舍入规则。提供基础类型（Int、UInt、String、Float 等）与 BigInt 类型互相转换能力，支持 Decimal 对象基本属性查询等能力，支持基础数学运算操作，提供对象比较、hash、字符串打印等基础能力。|
+| [Decimal](./math_numeric_package_api/math_numeric_package_structs.md#struct-decimal) | Decimal 用于表示任意精度的有符号的十进制数。允许操作过程指定上下文，指定结果精度及舍入规则。提供基础类型 （Int、UInt、String、Float 等）与 BigInt 类型互相转换能力，支持 Decimal 对象基本属性查询等能力，支持基础数学运算操作，提供对象比较、hash、字符串打印等基础能力。|

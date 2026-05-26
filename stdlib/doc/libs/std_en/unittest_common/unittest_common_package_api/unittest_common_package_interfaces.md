@@ -18,7 +18,7 @@ func provide(): Iterable<T>
 
 Function: Retrieves a data iterator.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -38,7 +38,7 @@ public func provide(): Iterable<T>
 
 Function: Retrieves a data iterator.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -58,7 +58,7 @@ public func provide(): Iterable<T>
 
 Function: Retrieves a data iterator.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Data iterator.
 
@@ -86,7 +86,7 @@ Parameters:
 
 - value: T - The value to be shrunk.
 
-Return Value:
+Returns:
 
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)\<T> - Collection of smaller values, returns an empty collection when data can no longer be shrunk.
 
@@ -325,7 +325,7 @@ Parameters:
 
 - configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovider)\<T> - Component object for providing test data.
 
@@ -341,7 +341,7 @@ Parameters:
 
 - configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataShrinker](#interface-datashrinkert)\<T> - Component object for shrinking test data.
 
@@ -375,7 +375,7 @@ Parameters:
 
 - _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - Component object for providing test data.
 
@@ -391,7 +391,7 @@ Parameters:
 
 - configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataShrinker](#interface-datashrinkert)\<T> - Component object for shrinking test data.
 
@@ -425,7 +425,7 @@ Parameters:
 
 - _: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataProvider](../../unittest_common/unittest_common_package_api/unittest_common_package_interfaces.md#interface-dataprovidert)\<T> - Component object for providing test data.
 
@@ -441,7 +441,7 @@ Parameters:
 
 - configuration: [Configuration](unittest_common_package_classes.md#class-configuration) - Configuration information.
 
-Return Value:
+Returns:
 
 - [DataShrinker](#interface-datashrinkert)\<T> - Component object for shrinking test data.
 
@@ -487,7 +487,7 @@ Parameters:
 
 - to: [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
@@ -511,7 +511,7 @@ Parameters:
 
 - to: [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
@@ -535,7 +535,7 @@ Parameters:
 
 - to: [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 
-Return Value:
+Returns:
 
 - [PrettyPrinter](./unittest_common_package_classes.md#class-prettyprinter) - Printer.
 

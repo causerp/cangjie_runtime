@@ -54,7 +54,7 @@ func finish(): Array<Byte>
 
 Function: Returns the generated digest value.
 
-Return value:
+Returns:
 
 - [Array](../../../core/core_package_api/core_package_structs.md#struct-arrayt)\<[Byte](../../../core/core_package_api/core_package_types.md#type-byte)> - Returns the generated digest value.
 

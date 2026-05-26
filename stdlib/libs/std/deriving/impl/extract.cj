@@ -106,7 +106,7 @@ extend EnumDecl {
     }
 
     func allProperties(): Array<PropDecl> {
-        decls |> filterIsInstance<Decl, PropDecl> |> collectArray
+        declsUnwrapped() |> filterIsInstance<Decl, PropDecl> |> collectArray
     }
 
     private static func argsToField(args: Iterable<TypeNode>): Array<TargetEnumField> {

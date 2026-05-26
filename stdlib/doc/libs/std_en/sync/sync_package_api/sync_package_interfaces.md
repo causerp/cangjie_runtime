@@ -73,7 +73,7 @@ Parameters:
 
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension time, default value is [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if awakened by another thread's [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated); returns `false` if timeout occurs.
 
@@ -121,7 +121,7 @@ Parameters:
 - predicate: ()->[Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Condition to wait for becoming true.
 - timeout!: [Duration](../../core/core_package_api/core_package_structs.md#struct-duration) - Suspension time, default value is [Duration.Max](../../core/core_package_api/core_package_structs.md#static-const-max).
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns `true` if awakened by another thread's [Monitor <sup>(deprecated)</sup>](sync_package_classes.md#class-monitor-deprecated) and `predicate` evaluates to `true`; returns `false` if timeout occurs.
 
@@ -165,7 +165,7 @@ func tryLock(): Bool
 
 Function: Attempts to lock the mutex.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns false if the mutex is already locked; otherwise locks the mutex and returns true.
 
@@ -217,7 +217,7 @@ func tryLock(): Bool
 
 Function: Attempts to lock the mutex.
 
-Return Value:
+Returns:
 
 - [Bool](../../core/core_package_api/core_package_intrinsics.md#bool) - Returns false if the mutex is already locked; otherwise locks the mutex and returns true.
 
@@ -259,7 +259,7 @@ Function: Creates a [Condition](#interface-condition) associated with this [Lock
 
 Can be used to implement "single Lock with multiple wait queues" concurrency primitives.
 
-Return Value:
+Returns:
 
 - [Condition](#interface-condition) - The created [Condition](#interface-condition) instance associated with this [Lock](#interface-lock).
 

@@ -89,7 +89,7 @@ collection 包提供的集合类型都不支持并发安全，并发安全的集
 | [ArrayDeque\<T>](./collection_package_api/collection_package_class.md#class-arraydequet)| 根据可调整大小的循环数组实现的双端队列。|
 | [ArrayList\<T>](./collection_package_api/collection_package_class.md#class-arraylistt) | 提供可变长度的数组的功能。 |
 | [ArrayQueue\<T>](./collection_package_api/collection_package_class.md#class-arrayqueuet)| 基于数组实现的循环队列数据结构。|
-| [ArrayStack\<T>](./collection_package_api/collection_package_class.md#class-arraystackt) | 基于数组实现的栈 [Stack](./collection_package_api/collection_package_interface.md#interface-stackt) 数据结构。 |
+| [ArrayStack\<T>](./collection_package_api/collection_package_class.md#class-arraystackt) | 基于数组实现的栈[Stack](./collection_package_api/collection_package_interface.md#interface-stackt) 数据结构。 |
 | [HashMapIterator\<K, V> where K <: Hashable & Equatable\<K>](./collection_package_api/collection_package_class.md#class-hashmapiteratork-v-where-k--hashable--equatablek) | 此类主要实现 HashMap 的迭代器功能。 |
 | [HashMap\<K, V> where K <: Hashable & Equatable\<K>](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) |  [Map\<K, V>](./collection_package_api/collection_package_interface.md#interface-mapk-v) 接口的哈希表实现。 |
 | [HashSet\<T> where T <: Hashable & Equatable\<T>](./collection_package_api/collection_package_class.md#class-hashsett-where-t--hashable--equatablet) | 基于  [HashMap\<K, V>](./collection_package_api/collection_package_class.md#class-hashmapk-v-where-k--hashable--equatablek) 实现的 [Set\<T>](./collection_package_api/collection_package_interface.md#interface-sett) 接口的实例。 |

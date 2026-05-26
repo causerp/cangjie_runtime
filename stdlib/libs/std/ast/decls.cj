@@ -1675,6 +1675,10 @@ public open class FuncParam <: Decl {
         comma_ = comma
         isMemberParam_ = isMemberParam
     }
+
+    /**
+     * @throws ParseASTException if input tokens cannot be parsed to a FuncParam node.
+     */
     public init(inputs: Tokens) {
         super()
         var v = parseFuncParam(inputs)
