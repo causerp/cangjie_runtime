@@ -206,7 +206,6 @@ public func all(predicate: (T) -> Bool): Bool
 
 功能：判断数组所有元素是否都满足条件。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -255,7 +254,6 @@ public func any(predicate: (T) -> Bool): Bool
 ```
 
 功能：判断数组是否存在任意一个满足条件的元素。
-
 
 > **注意：**
 >
@@ -558,7 +556,6 @@ public func filter(predicate: (T) -> Bool): Array<T>
 
 功能： 返回一个满足筛选条件的元素的新数组。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -601,7 +598,6 @@ public func filterMap<R>(transform: (T) -> ?R): Array<R>
 ```
 
 功能：同时进行筛选操作和映射操作，返回一个新数组。
-
 
 > **注意：**
 >
@@ -653,7 +649,6 @@ public func flatMap<R>(transform: (T) -> Array<R>): Array<R>
 
 功能：对数组中的每个元素应用一个转换闭包（transform），该闭包返回一个数组，然后将所有返回的数组“压平”（flatten）并连接成一个单一的结果数组。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -699,7 +694,6 @@ public func fold<R>(initial: R, operation: (R, T) -> R): R
 
 功能：使用指定初始值，从左向右计算。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -743,7 +737,6 @@ public func forEach(action: (T) -> Unit): Unit
 ```
 
 功能：遍历所有元素，执行给定的操作。
-
 
 > **注意：**
 >
@@ -825,7 +818,6 @@ public func intersperse(separator: T): Array<T>
 ```
 
 功能：返回每两个元素之间插入一个给定的新元素后的新数组
-
 
 > **注意：**
 >
@@ -915,7 +907,6 @@ public func none(predicate: (T) -> Bool): Bool
 
 功能：判断数组中所有元素是否都不满足条件。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -964,7 +955,6 @@ public func reduce(operation: (T, T) -> T): Option<T>
 ```
 
 功能：使用第一个元素作为初始值，从左向右计算。
-
 
 > **注意：**
 >
@@ -1105,7 +1095,6 @@ public func skip(count: Int64): Array<T>
 功能： 跳过特定个数元素并返回一个新数组。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，相当没有跳过任何元素，返回包含源数组所有元素的新数组。当 count 大于 0 小于源数组的大小时，跳过前 count 个元素，返回包含剩下的元素的新数组。当 count 大于等于数组的大小时，返回空数组。
-
 
 > **注意：**
 >
@@ -1282,7 +1271,6 @@ public func step(count: Int64): Array<T>
 
 当 count 小于等于 0 时，抛出异常
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。
@@ -1379,7 +1367,6 @@ public func take(count: Int64): Array<T>
 功能： 从数组取出特定个数元素并返回一个新数组。
 
 当 count 小于等于 0 时，抛出异常。当 count 等于 0 时，不取元素，返回空数组。当 count 大于 0 小于源数组的大小时，取前 count 个元素，返回新数组。当 count 大于等于数组的大小时，取所有元素，返回新数组。
-
 
 > **注意：**
 >
@@ -1663,7 +1650,6 @@ public func enumerate(): Array<(Int64, T)>
 ```
 
 功能：用于获取带索引的数组。
-
 
 > **注意：**
 >

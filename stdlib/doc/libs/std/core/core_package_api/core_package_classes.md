@@ -3942,7 +3942,6 @@ public static func handleUncaughtErrorBy(erHandler: (Error) -> Unit): Unit
 
 处理函数的参数类型为 [Error](core_package_exceptions.md#class-error)，是线程未处理的错误。
 
-
 > **注意：**
 >
 > 不支持平台：OpenHarmony。

@@ -292,7 +292,8 @@ let perf16 = Perf(PerfCounter.SW_PAGE_FAULTS_MAJ)
 let perf17 = Perf(PerfCounter.SW_EMULATION_FAULTS)
 
 @Test
-@Measure[perf0, perf1, perf2, perf3, perf4, perf5, perf6, perf8, perf9, perf10, perf11, perf12, perf13, perf14, perf15, perf16, perf17]
+@Measure[perf0, perf1, perf2, perf3, perf4, perf5, perf6, perf8, perf9, perf10, perf11, perf12, perf13, perf14, perf15,
+    perf16, perf17]
 class Test_CPU_01 {
     @BeforeEach
     func beforeEach() {

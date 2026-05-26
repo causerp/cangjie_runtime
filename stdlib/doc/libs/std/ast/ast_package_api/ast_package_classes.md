@@ -21165,7 +21165,7 @@ Visiting VarPattern
 ## class Visitor
 
 ```cangjie
-public abstract class Visitor{}
+public abstract class Visitor {}
 ```
 
 功能：一个抽象类，其内部默认定义了访问不同类型 AST 节点访问（`visit`）函数。

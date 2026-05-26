@@ -1488,6 +1488,7 @@ public static func ordered(statements: Array<VerifyStatement>): Unit
 
 举例来说:
 
+<!-- code_no_check -->
 ```cangjie
 for (i in 0..4) {
     foo.bar(i % 2)
