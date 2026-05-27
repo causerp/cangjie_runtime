@@ -30,7 +30,7 @@ Possible execution results (where "main" represents the current process executio
 28481
 main
 [./main]
-/root/code/workpalce/cangjie
+/root/code/workplace/cangjie
 hello cangjie!
 ```
 

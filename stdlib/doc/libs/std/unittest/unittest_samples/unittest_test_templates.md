@@ -157,4 +157,4 @@ Summary: TOTAL: 2
 
 - `@Parallel` 不能与 `@TestTemplate` 同时使用。
 - `@Types` 不能与 `@TestTemplate` 同时使用。
-- `@Bench` 可在模版中使用, 在指定 `--bench` 时下执行，就像基准被放置在继承类本身中一样。
+- `@Bench` 可在模板中使用, 在指定 `--bench` 时下执行，就像基准被放置在继承类本身中一样。
