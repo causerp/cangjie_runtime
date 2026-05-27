@@ -694,11 +694,13 @@ void MRT_SemRelease(void* sem)
 
 int64_t MRT_GetCurrentThreadID() { return static_cast<int64_t>(CJThreadId()); }
 
+// prctl(PR_SET_NAME) thread name limit: 16 chars (incl. null terminator)
+constexpr uint8_t SUB_SCHEDULER_NAME_LEN = 16;
 struct SubSchedulerContextData {
     ScheduleHandle schedule;
     std::condition_variable* conditionVar;
     std::atomic_bool* inited;
-    std::string threadName;
+    char threadName[SUB_SCHEDULER_NAME_LEN];
 };
 
 void* MRT_StartSubScheduler(void* args)
@@ -707,9 +709,9 @@ void* MRT_StartSubScheduler(void* args)
     struct SubSchedulerContextData* data = static_cast<struct SubSchedulerContextData*>(args);
     void* schedule = runtime->CreateSubSchedulerAndInit();
 #ifdef __APPLE__
-    CHECK_PTHREAD_CALL(pthread_setname_np, (data->threadName.c_str()), "set sub-scheduler thread name");
+    CHECK_PTHREAD_CALL(pthread_setname_np, (data->threadName), "set sub-scheduler thread name");
 #elif defined(__linux__) || defined(hongmeng)
-    CHECK_PTHREAD_CALL(prctl, (PR_SET_NAME, data->threadName.c_str()), "set sub-scheduler thread name");
+    CHECK_PTHREAD_CALL(prctl, (PR_SET_NAME, data->threadName), "set sub-scheduler thread name");
 #endif
     data->schedule = schedule;
     data->inited->store(true);
@@ -744,25 +746,29 @@ const void* MRT_RuntimeNewSubScheduler()
     std::condition_variable conditionVariable;
     std::atomic_bool subScheduleInited = ATOMIC_VAR_INIT(false);
     std::mutex mtx;
-    struct SubSchedulerContextData args = {
-        .schedule = nullptr,
-        .conditionVar = &conditionVariable,
-        .inited = &subScheduleInited,
-        .threadName = ""
-    };
+    struct SubSchedulerContextData args = {};
+    args.conditionVar = &conditionVariable;
+    args.inited = &subScheduleInited;
+    errno_t ret = snprintf_s(args.threadName, SUB_SCHEDULER_NAME_LEN,
+        (SUB_SCHEDULER_NAME_LEN - 1), "sub-schedule%d", id++);
+    CHECK_E(ret < 0, "snprintf_s threadName in MRT_RuntimeNewSubScheduler return %d.", ret);
 
     pthread_t thread;
     pthread_attr_t attr;
     size_t stackSize = CangjieRuntime::GetConcurrencyParam().thStackSize * MapleRuntime::KB;
-    std::string threadName = "sub-schedule" + std::to_string(id++);
-    args.threadName = threadName;
+#if defined(__linux__) || defined(hongmeng) || defined(__APPLE__)
+    const size_t minStackSize = static_cast<size_t>(PTHREAD_STACK_MIN);
+    if (stackSize < minStackSize) {
+        stackSize = minStackSize;
+    }
+#endif
 
     CHECK_PTHREAD_CALL(pthread_attr_init, (&attr), "init pthread attr");
     CHECK_PTHREAD_CALL(pthread_attr_setdetachstate, (&attr, PTHREAD_CREATE_JOINABLE), "set pthread joinable");
     CHECK_PTHREAD_CALL(pthread_attr_setstacksize, (&attr, stackSize), "set pthread stacksize");
     CHECK_PTHREAD_CALL(pthread_create, (&thread, &attr, MRT_StartSubScheduler, &args), "create sub-scheduler thread");
 #ifdef __WIN64
-    CHECK_PTHREAD_CALL(pthread_setname_np, (thread, threadName.c_str()), "set sub-scheduler thread name");
+    CHECK_PTHREAD_CALL(pthread_setname_np, (thread, args.threadName), "set sub-scheduler thread name");
 #endif
     CHECK_PTHREAD_CALL(pthread_attr_destroy, (&attr), "destroy pthread attr");
     // Waiting for runtime initialize completely before continue.
