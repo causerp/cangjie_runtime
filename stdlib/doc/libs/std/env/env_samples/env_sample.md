@@ -30,7 +30,7 @@ func printText(): Unit {
 28481
 main
 [./main]
-/root/code/workpalce/cangjie
+/root/code/workplace/cangjie
 hello cangjie!
 ```
 
