@@ -1,6 +1,6 @@
 # 类型别名
 
-## type SignalHandlerFunc = (Int32) -> Bool
+## type SignalHandlerFunc
 
 ```cangjie
 public type SignalHandlerFunc = (Int32) -> Bool
