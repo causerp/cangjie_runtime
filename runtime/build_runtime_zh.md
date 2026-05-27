@@ -2,7 +2,7 @@
 
 ## 构建准备
 
-构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)。
+构建前需要根据目标产物完成编译环境的搭建，详情请查看[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)。
 
 ## 构建步骤
 

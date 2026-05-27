@@ -1,6 +1,6 @@
 # Build Cangjie Runtime
 
-To build the Cangjie Runtime, please refer to [Build Cangjie Runtime](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/build_runtime_zh.md).
+To build the Cangjie Runtime, please refer to [Build Cangjie Runtime](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/linux.md).
 
 ## Build Preparation
 

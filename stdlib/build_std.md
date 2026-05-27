@@ -2,7 +2,7 @@
 
 ## Build Preparation
 
-The Cangjie standard library can be built in Ubuntu/MacOS (x86_64, aarch64) environments. Before building, you need to set up the compilation environment. For details, please check the [Build dependency tool](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md).
+The Cangjie standard library can be built in Ubuntu/MacOS (x86_64, aarch64) environments. Before building, you need to set up the compilation environment. For details, please check the [Build dependency tool](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env.md).
 
 ## Build Steps
 
@@ -57,7 +57,7 @@ output
 
 The build functionality of build.py provides the following additional options:
 
-- `--target`: Specifies the build platform, defaults to native build, supported targets are shown below(For cross-compilation, please refer to [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)):
+- `--target`: Specifies the build platform, defaults to native build, supported targets are shown below(For cross-compilation, please refer to [Cangjie SDK Integration Build Guide](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)):
     - `native` (default value)
     - `ohos-aarch64`: Cross-compile for ohos(ohos-aarch64)
     - `ohos-x86_64`: Cross-compile for ohos(ohos-x86_64)
@@ -74,7 +74,7 @@ The install functionality of build.py provides the following additional options:
 - `--prefix`: Specifies the installation directory
 - `--host`: Specifies which target platform to install for
 
-You can also refer to [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) or use the `--help` option to learn more about compilation options:
+You can also refer to [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/main/stdlib/build.py) or use the `--help` option to learn more about compilation options:
 
 ```shell
 python3 build.py --help
