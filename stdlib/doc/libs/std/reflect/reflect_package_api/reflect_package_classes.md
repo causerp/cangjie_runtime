@@ -1568,7 +1568,7 @@ public operator func ==(other: ConstructorInfo): Bool
 ## class EnumConstructorInfo
 
 ```cangjie
-public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString
+public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & ToString {}
 ```
 
 功能：描述枚举构造子信息，可用于查询构造子参数类型、注解，并根据构造子进行构造/拆解枚举实例。
@@ -2052,10 +2052,10 @@ main(): Unit {
 0
 ```
 
-### func findAllAnnotation\<T>()
+### func findAnnotation\<T>()
 
 ```cangjie
-public func findAllAnnotation<T>(): ?T where T <: Annotation
+public func findAnnotation<T>(): ?T where T <: Annotation
 ```
 
 功能：获取该构造子上的任意一个类型为 `T` 的注解实例。
@@ -2087,7 +2087,7 @@ public enum E {
 
 main(): Unit {
     let ctor = EnumTypeInfo.get("test.E").getConstructor("M1")
-    println(ctor.findAllAnnotation<A1>().isNone())
+    println(ctor.findAnnotation<A1>().isNone())
     return
 }
 ```
@@ -2274,7 +2274,7 @@ test.E.M1
 ## class EnumTypeInfo
 
 ```cangjie
-public class EnumTypeInfo <: TypeInfo
+public class EnumTypeInfo <: TypeInfo {}
 ```
 
 功能：`Enum` 类型的类型信息。
@@ -2641,7 +2641,7 @@ test.E.M2<Int64, Int64>
 ## class FunctionTypeInfo
 
 ```cangjie
-public class FunctionTypeInfo <: TypeInfo
+public class FunctionTypeInfo <: TypeInfo {}
 ```
 
 功能：描述函数类型（函数值/闭包）的类型信息，可用于获取参数与返回值的类型信息。
@@ -12674,7 +12674,7 @@ static area: Int64
 ## class TupleTypeInfo
 
 ```cangjie
-public class TupleTypeInfo <: TypeInfo
+public class TupleTypeInfo <: TypeInfo {}
 ```
 
 功能：描述元组类型的类型信息。
