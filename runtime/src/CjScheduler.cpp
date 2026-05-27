@@ -544,9 +544,11 @@ void* NewFinalizerCJThread()
     mutator->SetManagedContext(false);
     MutatorManager::Instance().BindMutator(*mutator);
     ThreadLocal::SetMutator(mutator);
-    ThreadLocalData* threadData = reinterpret_cast<ThreadLocalData*>(MRT_GetThreadLocalData());
-    MRT_PreRunManagedCode(mutator, 2, threadData); // 2 layers
     MutatorManager::Instance().MutatorManagementRUnlock();
+    ThreadLocalData* threadData = reinterpret_cast<ThreadLocalData*>(MRT_GetThreadLocalData());
+    // Managed-entry setup may block on sync/STW, so do not hold the mutator
+    // management lock across it.
+    MRT_PreRunManagedCode(mutator, 2, threadData); // 2 layers
 
     SetSchedulerState(1);
     return cjthread;
