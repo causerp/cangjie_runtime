@@ -2,7 +2,7 @@
 
 ## 构建准备
 
-仓颉标准库支持在 Ubuntu/MacOS（x86_64, aarch64）环境中编译构建。构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/dev/docs/env_zh.md)
+仓颉标准库支持在 Ubuntu/MacOS（x86_64, aarch64）环境中编译构建。构建前需要完成编译环境的搭建，详情请查看[构建依赖工具](https://gitcode.com/Cangjie/cangjie_build/blob/main/docs/env.md)
 
 ## 构建步骤
 
@@ -57,7 +57,7 @@ output
 
 `build.py` 的 `build` 功能提供如下额外选项：
 
-- `--target`：指定构建平台，默认为 native，支持的 target 如下所示（交叉编译请参考[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/dev/README_zh.md)）：
+- `--target`：指定构建平台，默认为 native，支持的 target 如下所示（交叉编译请参考[仓颉 SDK 集成构建指导书](https://gitcode.com/Cangjie/cangjie_build/blob/main/README_zh.md)）：
     - `native`（默认值）
     - `ohos-aarch64` ： 交叉编译 ohos(aarch64)
     - `ohos-x86_64` ：交叉编译 ohos(x86_64)
@@ -74,7 +74,7 @@ output
 - `--prefix`：指定安装目录
 - `--host`：指定为哪个 target 平台安装
 
-您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/dev/std/build.py) 或通过 `--help` 选项了解更多编译选项：
+您也可以参阅 [build.py](https://gitcode.com/Cangjie/cangjie_runtime/blob/main/stdlib/build.py) 或通过 `--help` 选项了解更多编译选项：
 
 ```shell
 python3 build.py --help
