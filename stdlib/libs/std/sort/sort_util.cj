@@ -15,24 +15,25 @@ extend<T> Array<T> where T <: Comparable<T> {
         var a: T = this[i1]
         var b: T = this[i2]
         var c: T = this[i3]
+        var t: T = a
         if (a > b) {
-            var temp = a
+            t = a
             a = b
-            b = temp
+            b = t
         }
-        if (c < a) {
-            this[i1] = c
-            this[i2] = a
-            this[i3] = b
-        } else if (c < b) {
-            this[i1] = a
-            this[i2] = c
-            this[i3] = b
-        } else {
-            this[i1] = a
-            this[i2] = b
-            this[i3] = c
+        if (a > c) {
+            t = a
+            a = c
+            c = t
         }
+        if (b > c) {
+            t = b
+            b = c
+            c = t
+        }
+        this[i1] = a
+        this[i2] = b
+        this[i3] = c
     }
 
     func insertionSort(begin: Int64, end: Int64): Unit {
@@ -410,24 +411,31 @@ extend<T> Array<T> {
         var a: T = this[i1]
         var b: T = this[i2]
         var c: T = this[i3]
-        if (comparator(a, b) == GT) {
-            var temp = a
-            a = b
-            b = temp
+        var t: T = a
+        match (comparator(a, b)) {
+            case GT =>
+                t = a
+                a = b
+                b = t
+            case _ => ()
         }
-        if (comparator(c, a) == LT) {
-            this[i1] = c
-            this[i2] = a
-            this[i3] = b
-        } else if (comparator(c, b) == LT) {
-            this[i1] = a
-            this[i2] = c
-            this[i3] = b
-        } else {
-            this[i1] = a
-            this[i2] = b
-            this[i3] = c
+        match (comparator(a, c)) {
+            case GT =>
+                t = a
+                a = c
+                c = t
+            case _ => ()
         }
+        match (comparator(b, c)) {
+            case GT =>
+                t = b
+                b = c
+                c = t
+            case _ => ()
+        }
+        this[i1] = a
+        this[i2] = b
+        this[i3] = c
     }
 
     @OverflowWrapping
