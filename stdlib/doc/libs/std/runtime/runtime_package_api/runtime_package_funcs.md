@@ -503,7 +503,7 @@ main() {
 public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 ```
 
-功能：注册信号的处理函数。同一个信号可以注册多个函数，信号触发时函数按照先进先出策略执行。如果 [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc--int32---bool) 的返回值是 `true` 则停止后续函数的执行，否则继续执行后续函数，直到所有注册的函数执行完。
+功能：注册信号的处理函数。同一个信号可以注册多个函数，信号触发时函数按照先进先出策略执行。如果 [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc) 的返回值是 `true` 则停止后续函数的执行，否则继续执行后续函数，直到所有注册的函数执行完。
 
 > **注意：**
 >
@@ -515,7 +515,7 @@ public func registerSignalHandler(sig: Signal, handler: SignalHandlerFunc): Unit
 参数：
 
 - sig: [Signal](./runtime_package_class.md#class-signal) - 目标信号。
-- handler: [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc--int32---bool) - 信号处理函数。
+- handler: [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc) - 信号处理函数。
 
 异常：
 
@@ -794,7 +794,7 @@ public func unregisterSignalHandler(sig: Signal, handler: SignalHandlerFunc): Un
 参数：
 
 - sig: [Signal](./runtime_package_class.md#class-signal) - 需要取消注册的信号。
-- handler: [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc--int32---bool) - 需要取消注册的信号处理函数。
+- handler: [SignalHandlerFunc](./runtime_package_types.md#type-signalhandlerfunc) - 需要取消注册的信号处理函数。
 
 异常：
 
