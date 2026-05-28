@@ -96,7 +96,7 @@ Function: Prohibits the use of [stubs](../unittest_mock_samples/mock_framework_b
 ### Stateless
 
 Function: Only allows stateless [stubs](../unittest_mock_samples/mock_framework_basics.md#configuration-api).  
-Prohibits inherently stateful operations such as `returnsConsequively` and cardinality specifiers (expressions specifying expected execution counts).
+Prohibits inherently stateful operations such as `returnsConsecutively` and cardinality specifiers (expressions specifying expected execution counts).
 
 ### Verifiable
 

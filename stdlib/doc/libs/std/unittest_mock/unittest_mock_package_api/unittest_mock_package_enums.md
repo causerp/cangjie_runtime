@@ -108,7 +108,7 @@ Stateless
 ```
 
 功能：只允许无状态的[桩](../unittest_mock_samples/mock_framework_basics.md#配置-api)。
-不允许本质上有状态的操作，例如 returnsConsequively 和基数说明符（ cardinality specifier， 指定预期执行次数的表达式）。
+不允许本质上有状态的操作，例如 returnsConsecutively 和基数说明符（ cardinality specifier， 指定预期执行次数的表达式）。
 
 ### Verifiable
 

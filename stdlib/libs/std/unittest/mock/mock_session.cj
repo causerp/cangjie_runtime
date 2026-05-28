@@ -12,7 +12,7 @@ import std.collection.*
 /**
  * Controls what kind of stubs are allowed inside a given *MockSession*.
  * Forbidden - no stubs allowed.
- * Stateless - only stateless are allowed (inherently stateful actions like returnsConsequitively and cardinality specifiers are disallowed).
+ * Stateless - only stateless are allowed (inherently stateful actions like returnsConsecutively and cardinality specifiers are disallowed).
  * Verifiable - any stub is allowed.
  *
  * Expectations can only be verified for stubs created in *Verifiable* sessions.
@@ -26,7 +26,7 @@ public enum MockSessionKind {
 /**
  * All stubs are only active during a session they were defined in.
  * Expectations specified by the stubs will be verified when the session is closed.
- * Test framework is responsibe for opening and closing the session implcitly.
+ * Test framework is responsible for opening and closing the session implicitly.
  */
 class MockSession {
     MockSession(
