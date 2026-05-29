@@ -91,10 +91,10 @@ class Template {
             let field = variable.matchString(1)
             hadArrays = hadArrays || values.getOrNull(field) is JsonArray
             let values = values.getIndexed(field, index) ?? return None
-            let substitutionName = variable.matchString(2)
-            if (substitutionName.isEmpty()) {
+            if (variable.groupNumber() == 1) {
                 data.append(values.render())
             } else {
+                let substitutionName = variable.matchString(2)
                 if (!templates.contains(substitutionName)) {
                     data.append("<Error: subtemplate \"${substitutionName}\" not found.>")
                 } else {
