@@ -86,8 +86,6 @@ public class Regex {
 
     private var namedGroups: Option<HashMap<String, Int64>> = None
 
-    var captureGroupCount: Int64 = 0
-
     public init(pattern: String, flags: Array<RegexFlag>) {
         this.pattern = pattern
         this.flags = flags
@@ -122,7 +120,6 @@ public class Regex {
                 }
             }
             this.re = result.re
-            this.captureGroupCount = Int64(CJ_REGEX_GetCaptureCount(this.re))
             keepAlive(this)
         }
     }
@@ -289,10 +286,10 @@ public class Regex {
             let positions: Array<Position>
             if (group) {
                 positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                md = MatchData(input, positions, this.captureGroupCount, nameToIndex: nameToIndex)
+                md = MatchData(input, positions, rc, nameToIndex: nameToIndex)
             } else {
                 positions = [Position(ovector.read(0), ovector.read(1))]
-                md = MatchData(input, positions, this.captureGroupCount)
+                md = MatchData(input, positions, rc)
             }
             keepAlive(this)
             return md
@@ -382,10 +379,10 @@ public class Regex {
                 let positions: Array<Position>
                 if (group) {
                     positions = Array<Position>(rc, {i => Position(ovector.read(2 * i), ovector.read(2 * i + 1))})
-                    list.add(MatchData(input, positions, this.captureGroupCount, nameToIndex: nameToIndex))
+                    list.add(MatchData(input, positions, rc, nameToIndex: nameToIndex))
                 } else {
                     positions = [Position(ovector.read(0), ovector.read(1))]
-                    list.add(MatchData(input, positions, this.captureGroupCount))
+                    list.add(MatchData(input, positions, rc))
                 }
                 if (offset == positions[0].end) {
                     offset = positions[0].end + 1
