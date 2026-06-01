@@ -52,7 +52,7 @@ namespace MapleRuntime {
 
 static bool IsGlobalStruct(const ObjectPtr basePtr, MAddress field)
 {
-#ifdef __aarch64__
+#if defined(__aarch64__) && !defined(__ANDROID__)
     // On aarch64, flag of the global variable is recorded on the highest bit of "field".
     // This has no impact on the consistency of versions.
     constexpr uintptr_t globalFlag = 1ULL << 63;
