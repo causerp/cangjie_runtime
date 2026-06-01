@@ -10,6 +10,12 @@ package std.ast
 
 import std.collection.ArrayList
 
+private func traverseNodes<N>(v: Visitor, nodes: ArrayList<N>) where N <: Node {
+    for (node in nodes) {
+        node.traverse(v)
+    }
+}
+
 public open class Decl <: Node {
     init(annotations: ArrayList<Annotation>, modifiers: ArrayList<Modifier>, keyword: Token, identifier: Token,
         genericParam: Option<GenericParam>, constraint: ArrayList<GenericConstraint>, constraintCommas: Tokens,
@@ -222,12 +228,8 @@ public open class Decl <: Node {
 
     // Traverse annotations, modifiers and generic parameters.
     func traverseCommonChild(v: Visitor) {
-        for (anno in this.annotations_) {
-            anno.traverse(v)
-        }
-        for (modifier in modifiers_) {
-            modifier.traverse(v)
-        }
+        traverseNodes(v, this.annotations_)
+        traverseNodes(v, modifiers_)
         match (this.genericParam_) {
             case Some(node) => node.traverse(v)
             case _ => ()
@@ -307,12 +309,8 @@ public class ClassDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         classbody_.traverse(v)
         return
     }
@@ -403,12 +401,8 @@ public class StructDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         structbody_.traverse(v)
         return
     }
@@ -499,12 +493,8 @@ public class InterfaceDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         interfacetbody_.traverse(v)
         return
     }
@@ -687,18 +677,10 @@ public class EnumDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
-        for (constructor in constructors_) {
-            constructor.traverse(v)
-        }
-        for (decl in decls_) {
-            decl.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
+        traverseNodes(v, constructors_)
+        traverseNodes(v, decls_)
         return
     }
 
@@ -824,12 +806,8 @@ public class ExtendDecl <: Decl {
         }
         this.traverseCommonChild(v)
         extendType_.traverse(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         body_.traverse(v)
         return
     }
@@ -1009,16 +987,12 @@ public class FuncDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         match (retTy_) {
             case Some(node) => node.traverse(v)
             case None => ()
         }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
@@ -1038,10 +1012,7 @@ public class FuncDecl <: Decl {
                     "overloadOp: ${overloadedOperators_[0].value + overloadedOperators_[1].value}"
             }
         }
-        for (i in 0..funcParams.size) {
-            ret += getIndent(currentIndent) + "-funcParams: ${i}, "
-            ret += funcParams[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-funcParams", funcParams, currentIndent)
 
         match (retTy_) {
             case Some(v) =>
@@ -1169,9 +1140,7 @@ public class MainDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         match (retTy_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -1187,10 +1156,7 @@ public class MainDecl <: Decl {
             currentIndent++
         }
         ret += super.dump(currentIndent)
-        for (i in 0..funcParams.size) {
-            ret += getIndent(currentIndent) + "-funcParams: ${i}, "
-            ret += funcParams[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-funcParams", funcParams, currentIndent)
         match (retTy_) {
             case Some(v) =>
                 ret += getIndent(currentIndent) + "-declType: "
@@ -1315,13 +1281,9 @@ public class MacroDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         declType.traverse(v)
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
@@ -1449,12 +1411,8 @@ public class PrimaryCtorDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, params_)
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
