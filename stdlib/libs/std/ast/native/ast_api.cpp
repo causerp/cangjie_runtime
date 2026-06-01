@@ -27,6 +27,15 @@ enum class ParseKind : uint8_t { EXPR, DECL, PROGRAM, PATTERN };
 
 const std::string INVALID_POSITION_MSG = "There is a token with invalid position in the input.\n";
 
+void InitParseDiagnostic(DiagnosticEngine& diag, SourceManager& sm)
+{
+    diag.SetSourceManager(&sm);
+    diag.SetDiagnoseStatus(true);
+    diag.DisableScopeCheck();
+    diag.SetDisableWarning(true);
+    diag.EnableCheckRangeErrorCodeRatherICE();
+}
+
 /// get the compileCjd compile option from MacroCall* if not null
 bool GetCompileCjd(void* fptr)
 {
@@ -190,11 +199,7 @@ ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* toke
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto expr = parser.ParseExprLibast();
     while (parser.Skip(TokenKind::NL) || parser.Skip(TokenKind::SEMI)) {
@@ -239,11 +244,7 @@ ParseRes* CJ_AST_ParseAnnotationArguments(const uint8_t* tokensBytes)
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, false);
     auto node = parser.ParseCustomAnnotation();
 
@@ -264,11 +265,7 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto node = parser.ParsePattern();
 
@@ -311,11 +308,7 @@ ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* toke
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     diag.EmitCategoryDiagnostics(DiagCategory::PARSE);
     auto node = parser.ParseType();
@@ -419,11 +412,7 @@ ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes)
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto file = parser.ParseTopLevel();
     ParseRes* result = (ParseRes*)malloc(sizeof(ParseRes));
