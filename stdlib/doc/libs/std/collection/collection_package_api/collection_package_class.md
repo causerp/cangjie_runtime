@@ -1181,6 +1181,7 @@ main() {
 列表大小: 3
 ```
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -1233,6 +1234,9 @@ main() {
 添加奇数后所有元素都是偶数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -1285,6 +1289,7 @@ main() {
 添加偶数后存在偶数: true
 ```
 
+<!--DelEnd-->
 ### func clear()
 
 ```cangjie
@@ -1370,6 +1375,7 @@ main() {
 克隆列表保持不变: [1, 2, 3]
 ```
 
+<!--Del-->
 ### func filter((T) -> Bool)
 
 ```cangjie
@@ -1416,6 +1422,9 @@ main() {
 偶数列表: [2, 4, 6]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -1469,6 +1478,9 @@ main() {
 类型检查: true
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> ArrayList\<R>)
 
 ```cangjie
@@ -1517,6 +1529,9 @@ main() {
 压平映射后: [1, 1, 2, 4, 3, 9]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -1564,6 +1579,9 @@ main() {
 元素乘积: 24
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -1617,6 +1635,7 @@ main() {
 元素总和: 15
 ```
 
+<!--DelEnd-->
 ### func get(Int64)
 
 ```cangjie
@@ -1709,6 +1728,7 @@ main() {
 原始数组大小: 16
 ```
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -1765,6 +1785,7 @@ main() {
 数字插入分隔符后: [1, 0, 2, 0, 3, 0, 4]
 ```
 
+<!--DelEnd-->
 ### func isEmpty()
 
 ```cangjie
@@ -1840,6 +1861,7 @@ main() {
 3
 ```
 
+<!--Del-->
 ### func map\<R>((T) -> R)
 
 ```cangjie
@@ -1892,6 +1914,9 @@ main() {
 转换为字符串: [1, 2, 3, 4, 5]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -1944,6 +1969,9 @@ main() {
 添加偶数后所有元素都不是偶数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -2009,6 +2037,7 @@ main() {
 空列表的最大值: None
 ```
 
+<!--DelEnd-->
 ### func remove(Int64)
 
 ```cangjie
@@ -2241,6 +2270,7 @@ main() {
 反转后: [3, 2, 1, 0]
 ```
 
+<!--Del-->
 ### func skip(Int64)
 
 ```cangjie
@@ -2299,6 +2329,7 @@ main() {
 跳过10个元素后: []
 ```
 
+<!--DelEnd-->
 ### func slice(Range\<Int64>)
 
 ```cangjie
@@ -2466,6 +2497,7 @@ main() {
 稳定排序后: [4, 3, 2, 1]
 ```
 
+<!--Del-->
 ### func step(Int64)
 
 ```cangjie
@@ -2518,6 +2550,9 @@ main() {
 步长为3: [0, 3, 6]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func take(Int64)
 
 ```cangjie
@@ -2576,6 +2611,7 @@ main() {
 取10个元素: [0, 1, 2, 3, 4, 5]
 ```
 
+<!--DelEnd-->
 ### func toArray()
 
 ```cangjie
@@ -2767,6 +2803,7 @@ main() {
 切片列表大小: 3
 ```
 
+<!--Del-->
 ### extend\<T> ArrayList\<T>
 
 ```cangjie
@@ -2875,6 +2912,7 @@ Bob 的年龄是 30 岁
 Charlie 的年龄是 35 岁
 ```
 
+<!--DelEnd-->
 ### extend\<T> ArrayList\<T> <: Equatable\<ArrayList\<T>> where T <: Equatable\<T>
 
 ```cangjie
@@ -4870,6 +4908,7 @@ main() {
 当前 'first' 的值: 200
 ```
 
+<!--Del-->
 ### func all((K, V) -> Bool)
 
 ```cangjie
@@ -4924,6 +4963,9 @@ main() {
 所有值都大于25: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((K, V) -> Bool)
 
 ```cangjie
@@ -4978,6 +5020,7 @@ main() {
 存在值大于50的键值对: false
 ```
 
+<!--DelEnd-->
 ### func clear()
 
 ```cangjie
@@ -5212,6 +5255,7 @@ main() {
 修改后键 'key1' 的值为: 150
 ```
 
+<!--Del-->
 ### func filter((K, V) -> Bool)
 
 ```cangjie
@@ -5260,6 +5304,9 @@ main() {
 筛选后: [(c, 30), (d, 40)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, K, V) -> R)
 
 ```cangjie
@@ -5309,6 +5356,9 @@ main() {
 值的总和: 100
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((K, V) -> Unit)
 
 ```cangjie
@@ -5352,6 +5402,7 @@ main() {
   d: 40
 ```
 
+<!--DelEnd-->
 ### func get(K)
 
 ```cangjie
@@ -5544,6 +5595,7 @@ main() {
 包含键 'b'
 ```
 
+<!--Del-->
 ### func mapValues\<R>((K, V) -> R)
 
 ```cangjie
@@ -5592,6 +5644,9 @@ main() {
 字符串映射: [(a, 10), (b, 20), (c, 30), (d, 40)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
@@ -5638,6 +5693,9 @@ main() {
 平方映射: [(a, 100), (b, 400), (c, 900), (d, 1600)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((K, V) -> Bool)
 
 ```cangjie
@@ -5688,6 +5746,9 @@ main() {
 所有值都不大于35: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((V, V) -> V)
 
 ```cangjie
@@ -5753,6 +5814,7 @@ main() {
 空映射的最大值: None
 ```
 
+<!--DelEnd-->
 ### func remove(Collection\<K>)
 
 ```cangjie
@@ -6930,6 +6992,7 @@ main() {
 集合大小: 1
 ```
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -6980,6 +7043,9 @@ main() {
 添加奇数后所有元素都是偶数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -7029,6 +7095,7 @@ main() {
 存在长度大于10的字符串: false
 ```
 
+<!--DelEnd-->
 ### func clear()
 
 ```cangjie
@@ -7216,6 +7283,7 @@ main() {
 不包含 'grape'
 ```
 
+<!--Del-->
 ### func filter((T) -> Bool)
 
 ```cangjie
@@ -7265,6 +7333,9 @@ main() {
 大于3的数字个数: 3
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> Option\<R>)
 
 ```cangjie
@@ -7314,6 +7385,9 @@ main() {
 检查其中元素是否都是Int64类型: true
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -7364,6 +7438,9 @@ main() {
 所有元素的乘积: 24
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -7409,6 +7486,7 @@ main() {
 元素: cherry, 长度: 6
 ```
 
+<!--DelEnd-->
 ### func isEmpty()
 
 ```cangjie
@@ -7503,6 +7581,7 @@ main() {
  orange
 ```
 
+<!--Del-->
 ### func map\<R>((T)->R)
 
 ```cangjie
@@ -7553,6 +7632,9 @@ main() {
 大写集合: [APPLE, BANANA, CHERRY]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -7603,6 +7685,9 @@ main() {
 添加偶数后没有偶数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -7653,6 +7738,7 @@ main() {
 空集合的所有元素的和: None
 ```
 
+<!--DelEnd-->
 ### func remove(Collection\<T>)
 
 ```cangjie
@@ -9044,6 +9130,7 @@ main() {
 链表中的所有元素: [第一个, 第二个, 第三个]
 ```
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -9101,6 +9188,9 @@ main() {
 添加负数后所有元素都为正数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -9159,6 +9249,7 @@ main() {
 添加正数后存在正数: true
 ```
 
+<!--DelEnd-->
 ### func backward(LinkedListNode\<T>)
 
 ```cangjie
@@ -9248,6 +9339,7 @@ main() {
 清除后是否为空: true
 ```
 
+<!--Del-->
 ### func filter((T) -> Bool)
 
 ```cangjie
@@ -9298,6 +9390,9 @@ main() {
 大于3的数字: [4, 5, 6]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> ?R)
 
 ```cangjie
@@ -9349,6 +9444,9 @@ main() {
 偶数的平方: [4, 16, 36]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func flatMap\<R>((T) -> LinkedList\<R>)
 
 ```cangjie
@@ -9402,6 +9500,9 @@ main() {
 每个元素的2倍和3倍数: [2, 3, 4, 6, 6, 9]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -9464,6 +9565,9 @@ main() {
 最大值: 5
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -9508,6 +9612,7 @@ main() {
  葡萄
 ```
 
+<!--DelEnd-->
 ### func forward(LinkedListNode\<T>)
 
 ```cangjie
@@ -9561,6 +9666,7 @@ main() {
 30 40 50
 ```
 
+<!--Del-->
 ### func intersperse(T)
 
 ```cangjie
@@ -9605,6 +9711,7 @@ main() {
 插入分隔符后的链表: [苹果, |, 香蕉, |, 橙子]
 ```
 
+<!--DelEnd-->
 ### func isEmpty()
 
 ```cangjie
@@ -9695,6 +9802,7 @@ main() {
 苹果 香蕉 橙子 葡萄
 ```
 
+<!--Del-->
 ### func map\<R>((T) -> R)
 
 ```cangjie
@@ -9745,6 +9853,7 @@ main() {
 转换为字符串后的链表: [数字_1, 数字_2, 数字_3, 数字_4, 数字_5]
 ```
 
+<!--DelEnd-->
 ### func nodeAt(Int64)
 
 ```cangjie
@@ -9811,6 +9920,7 @@ main() {
 索引-1没有节点（负索引）
 ```
 
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -9868,6 +9978,9 @@ main() {
 添加正数后没有正数: false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -9920,6 +10033,7 @@ main() {
 求和结果: Some(10)
 ```
 
+<!--DelEnd-->
 ### func remove(LinkedListNode\<T>)
 
 ```cangjie
@@ -10160,6 +10274,7 @@ main() {
 反转后的链表: [第五个, 第四个, 第三个, 第二个, 第一个]
 ```
 
+<!--Del-->
 ### func skip(Int64)
 
 ```cangjie
@@ -10220,6 +10335,7 @@ main() {
 跳过10个元素后的链表: []
 ```
 
+<!--DelEnd-->
 ### func splitOff(LinkedListNode\<T>)
 
 ```cangjie
@@ -10276,6 +10392,7 @@ main() {
 新的链表: [3, 4, 5, 6]
 ```
 
+<!--Del-->
 ### func step(Int64)
 
 ```cangjie
@@ -10337,6 +10454,9 @@ main() {
 大步长(15)的链表: [1]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func take(Int64)
 
 ```cangjie
@@ -10394,6 +10514,7 @@ main() {
 从空链表取2个元素后大小: []
 ```
 
+<!--DelEnd-->
 ### func toArray()
 
 ```cangjie
@@ -10432,6 +10553,7 @@ main() {
 数组内容: [苹果, 香蕉, 橙子, 葡萄, 草莓]
 ```
 
+<!--Del-->
 ### extend\<T> LinkedList\<T>
 
 ```cangjie
@@ -10542,6 +10664,7 @@ main() {
 合并后链表大小: 3
 ```
 
+<!--DelEnd-->
 ### extend\<T> LinkedList\<T> <: Equatable\<LinkedList\<T>> where T <: Equatable\<T>
 
 ```cangjie
@@ -11395,6 +11518,7 @@ main() {
 最终的TreeMap: [(apple, 15), (banana, 20)]
 ```
 
+<!--Del-->
 ### func all((K, V) -> Bool)
 
 ```cangjie
@@ -11455,6 +11579,9 @@ TreeMap内容: [(apple, 10), (banana, 20), (cherry, 30)]
 所有键都包含字母'a': false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((K, V) -> Bool)
 
 ```cangjie
@@ -11514,6 +11641,7 @@ TreeMap内容: [(apple, 10), (banana, 20), (cherry, 30)]
 存在键包含字母'e': true
 ```
 
+<!--DelEnd-->
 ### func backward(K, Bool)
 
 ```cangjie
@@ -11842,6 +11970,7 @@ TreeMap内容: [(apple, 10), (banana, 20), (cherry, 30)]
 获取到不存在的grape的引用视图: grape - None
 ```
 
+<!--Del-->
 ### func filter((K, V) -> Bool)
 
 ```cangjie
@@ -11898,6 +12027,9 @@ main() {
 键包含字母'a'的键值对: [(apple, 10), (banana, 20), (date, 5)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, K, V) -> R)
 
 ```cangjie
@@ -11960,6 +12092,9 @@ main() {
 所有键组成的字符串: apple,banana,cherry,date
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((K, V) -> Unit)
 
 ```cangjie
@@ -12012,6 +12147,7 @@ main() {
   键 'date' 的值是 5
 ```
 
+<!--DelEnd-->
 ### func forward(K, Bool)
 
 ```cangjie
@@ -12300,6 +12436,7 @@ main() {
 TreeMap的大小: 4
 ```
 
+<!--Del-->
 ### func mapValues\<R>((K, V) -> R)
 
 ```cangjie
@@ -12349,6 +12486,9 @@ main() {
 描述字符串映射: [(apple, 水果apple的数量是10), (banana, 水果banana的数量是20), (cherry, 水果cherry的数量是30)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func mapValues\<R>((V) -> R)
 
 ```cangjie
@@ -12397,6 +12537,9 @@ main() {
 值的描述字符串映射: [(apple, 数值: 10), (banana, 数值: 20), (cherry, 数值: 30)]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((K, V) -> Bool)
 
 ```cangjie
@@ -12445,6 +12588,9 @@ main() {
 没有任何值大于100: true
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((V, V) -> V)
 
 ```cangjie
@@ -12497,6 +12643,7 @@ main() {
 所有值的总和: 60
 ```
 
+<!--DelEnd-->
 ### func remove(Collection\<K>)
 
 ```cangjie
@@ -13554,6 +13701,7 @@ main() {
 最终集合: [apple, banana, cherry]
 ```
 
+<!--Del-->
 ### func all((T) -> Bool)
 
 ```cangjie
@@ -13606,6 +13754,9 @@ TreeSet内容: [apple, banana, cherry, date]
 所有元素都包含字母'a': false
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func any((T) -> Bool)
 
 ```cangjie
@@ -13652,6 +13803,7 @@ TreeSet内容: [apple, banana, cherry, date]
 存在包含字母'y'的元素: true
 ```
 
+<!--DelEnd-->
 ### func backward(T, Bool)
 
 ```cangjie
@@ -13885,6 +14037,7 @@ main() {
 包含'elderberry': false
 ```
 
+<!--Del-->
 ### func filter((T) -> Bool)
 
 ```cangjie
@@ -13933,6 +14086,9 @@ main() {
 长度大于5的元素: [banana, cherry, elderberry]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func filterMap\<R>((T) -> Option\<R>)
 
 ```cangjie
@@ -13985,6 +14141,9 @@ main() {
 非空字符串的长度: [5, 6]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func fold\<R>(R, (R, T) -> R)
 
 ```cangjie
@@ -14034,6 +14193,9 @@ main() {
 所有字符串的总长度: 17
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func forEach((T) -> Unit)
 
 ```cangjie
@@ -14080,6 +14242,7 @@ main() {
  cherry
 ```
 
+<!--DelEnd-->
 ### func forward(T, Bool)
 
 ```cangjie
@@ -14214,6 +14377,7 @@ main() {
   date
 ```
 
+<!--Del-->
 ### func map\<R>((T)->R)
 
 ```cangjie
@@ -14262,6 +14426,9 @@ main() {
 长度集合: [5, 6]
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func none((T) -> Bool)
 
 ```cangjie
@@ -14310,6 +14477,9 @@ TreeSet内容: [apple, banana, cherry, date]
 没有长度大于10的元素: true
 ```
 
+<!--DelEnd-->
+
+<!--Del-->
 ### func reduce((T, T) -> T)
 
 ```cangjie
@@ -14361,6 +14531,7 @@ main() {
 连接结果: apple_banana_cherry
 ```
 
+<!--DelEnd-->
 ### func remove(Collection\<T>)
 
 ```cangjie

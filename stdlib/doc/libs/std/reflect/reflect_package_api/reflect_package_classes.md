@@ -1615,6 +1615,7 @@ main(): Unit {
 相同构造函数相等: true
 ```
 
+<!--Del-->
 ## class EnumConstructorInfo
 
 ```cangjie
@@ -2321,6 +2322,7 @@ true
 false
 ```
 
+<!--DelEnd-->
 ## class EnumTypeInfo
 
 ```cangjie
@@ -12719,6 +12721,7 @@ main(): Unit {
 static area: Int64
 ```
 
+<!--Del-->
 ## class TupleTypeInfo
 
 ```cangjie
@@ -12995,6 +12998,7 @@ Some(0)
 Some(1)
 ```
 
+<!--DelEnd-->
 ## class TypeInfo
 
 ```cangjie

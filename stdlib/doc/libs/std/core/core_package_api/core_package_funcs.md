@@ -257,6 +257,7 @@ main() {
 width: 10, height: 20
 ```
 
+<!--Del-->
 ## func exclusiveScope\<T>(( ) -> T)
 
 ```cangjie
@@ -307,6 +308,7 @@ main() {
 在独占作用域中执行
 ```
 
+<!--DelEnd-->
 ## func ifNone\<T>(Option\<T>, () -> Unit)
 
 ```cangjie
