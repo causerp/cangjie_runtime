@@ -114,6 +114,19 @@ static char* CloneString(const std::string s, const size_t size)
     return ret;
 }
 
+bool TrySetInvalidPositionError(DiagnosticEngine& diag, ParseRes* result)
+{
+    std::string errMsg;
+    result->node = nullptr;
+    auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
+    if (ret == DiagEngineErrorCode::NO_ERRORS) {
+        return false;
+    }
+    diag.DisableCheckRangeErrorCodeRatherICE();
+    result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+    return true;
+}
+
 void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, std::vector<Token>& outputTokens)
 {
     auto token0 = inputTokens[0];
@@ -211,15 +224,10 @@ ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* toke
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::EXPR);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::EXPR);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -275,15 +283,10 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::PATTERN);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::PATTERN);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -364,15 +367,10 @@ ParseRes* CJ_ParseDeclCommon(void* fptr, const uint8_t* tokensBytes, ScopeKind s
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::DECL, scopeKind);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::DECL, scopeKind);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -421,15 +419,10 @@ ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes)
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::PROGRAM);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::PROGRAM);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
