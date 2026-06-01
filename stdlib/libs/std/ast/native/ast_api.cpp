@@ -127,6 +127,17 @@ bool TrySetInvalidPositionError(DiagnosticEngine& diag, ParseRes* result)
     return true;
 }
 
+ParseRes* FillSuccessParseRes(ParseRes* result, Ptr<AST::Node> node, int64_t* tokenCounter, size_t processedTokens)
+{
+    NodeSerialization::NodeWriter nodeWriter(node);
+    if (tokenCounter) {
+        *tokenCounter = static_cast<int64_t>(processedTokens);
+    }
+    result->node = nodeWriter.ExportNode();
+    result->eMsg = nullptr;
+    return result;
+}
+
 void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, std::vector<Token>& outputTokens)
 {
     auto token0 = inputTokens[0];
@@ -296,13 +307,7 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
         result->eMsg[errMsg.size()] = '\0';
         return result;
     }
-    NodeSerialization::NodeWriter nodeWriter(node.get());
-    if (tokenCounter) {
-        *tokenCounter = static_cast<int64_t>(parser.GetProcessedTokens());
-    }
-    result->node = nodeWriter.ExportNode();
-    result->eMsg = nullptr;
-    return result;
+    return FillSuccessParseRes(result, node.get(), tokenCounter, parser.GetProcessedTokens());
 }
 
 ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter)
@@ -333,13 +338,7 @@ ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* toke
         }
         return result;
     }
-    NodeSerialization::NodeWriter nodeWriter(node.get());
-    if (tokenCounter) {
-        *tokenCounter = static_cast<int64_t>(parser.GetProcessedTokens());
-    }
-    result->node = nodeWriter.ExportNode();
-    result->eMsg = nullptr;
-    return result;
+    return FillSuccessParseRes(result, node.get(), tokenCounter, parser.GetProcessedTokens());
 }
 
 ParseRes* CJ_ParseDeclCommon(void* fptr, const uint8_t* tokensBytes, ScopeKind scopeKind, int64_t* tokenCounter)
