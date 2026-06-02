@@ -54,7 +54,7 @@ public:
     uint32_t GetStackTid() { return tid; }
     CString GetThreadName() { return name; }
     int GetThreadState() { return state; }
-    uint32_t GetCurrentFrame() { return currentFrame; }
+    FrameInfo* GetCurrentFramePtr() { return currentFramePtr; }
     void FillInStackTrace() override;
     void VisitStackRoots(const RootVisitor &func, Mutator &mutator);
 
@@ -63,7 +63,7 @@ public:
 private:
     uint32_t tid = 0;
     CString name;
-    uint32_t currentFrame = 0;
+    FrameInfo* currentFramePtr = nullptr;
     int state;
 };
 

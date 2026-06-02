@@ -357,7 +357,7 @@ void CjHeapDataForIDE::SerializeUnknownRoot(BaseObject*& obj, const u1 tag)
  *     u4 threadIdx;   // thread serial number
  *     u4 frame;       // frame number in stack trace (-1 for empty)
  */
-void CjHeapDataForIDE::SerializeLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u1 depth)
+void CjHeapDataForIDE::SerializeLocalRoot(BaseObject*& obj, const u1 tag, const u4 tid, const u4 depth)
 {
     writer->WriteChar('[');
     writer->WriteNumber(tag);
