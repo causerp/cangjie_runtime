@@ -71,14 +71,11 @@ struct ParseRes {
     let errMsg: CString = CString(CPointer<UInt8>())
 }
 
-unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<ParseRes>): NodeFormat_Node {
-    let tokensBytes: Array<UInt8> = input.toBytes()
-    let pTokensBytes: CPointer<UInt8> = unsafePointerCastFromUint8Array(tokensBytes)
-    let parseResultRaw: CPointer<ParseRes> = nativeParse(pTokensBytes)
-    if (parseResultRaw.isNull()) {
-        LibC.free(pTokensBytes)
-        throw ParseASTException("Unable to get parseResult.")
-    }
+// Releases parse result resources on all paths; pNode and pTokensBytes remain owned by genNodeFormatNode on success.
+private unsafe func getParsedNodeAndReleaseParseResult(
+    parseResultRaw: CPointer<ParseRes>,
+    pTokensBytes: CPointer<UInt8>
+): CPointer<UInt8> {
     let pNode = parseResultRaw.read().node
     let pErrorMsg = parseResultRaw.read().errMsg
     try {
@@ -90,10 +87,22 @@ unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<Pars
                 throw ParseASTException(errorMsg)
             }
         }
+        return pNode
     } finally {
         LibC.free(pErrorMsg)
         LibC.free(parseResultRaw)
     }
+}
+
+unsafe func parse(input: Tokens, nativeParse: (CPointer<UInt8>) -> CPointer<ParseRes>): NodeFormat_Node {
+    let tokensBytes: Array<UInt8> = input.toBytes()
+    let pTokensBytes: CPointer<UInt8> = unsafePointerCastFromUint8Array(tokensBytes)
+    let parseResultRaw: CPointer<ParseRes> = nativeParse(pTokensBytes)
+    if (parseResultRaw.isNull()) {
+        LibC.free(pTokensBytes)
+        throw ParseASTException("Unable to get parseResult.")
+    }
+    let pNode = getParsedNodeAndReleaseParseResult(parseResultRaw, pTokensBytes)
     /*
      * If not use isNull(), there will be segfault for some cases for cjnative backend.
      * isNull() API only exists for cjnative.
@@ -122,21 +131,11 @@ unsafe func parseFragment(
         throw ParseASTException("Unable to get parseResult.")
     }
     tokenCounter = sizeRef.read()
-    let pNode = parseResultRaw.read().node
-    let pErrorMsg = parseResultRaw.read().errMsg
+    var pNode = CPointer<UInt8>()
     try {
-        if (!pErrorMsg.isNull()) {
-            let errorMsg = pErrorMsg.toString()
-            if (errorMsg.size > 0) {
-                LibC.free(pTokensBytes)
-                LibC.free(pNode)
-                throw ParseASTException(errorMsg)
-            }
-        }
+        pNode = getParsedNodeAndReleaseParseResult(parseResultRaw, pTokensBytes)
     } finally {
         LibC.free(sizeRef)
-        LibC.free(pErrorMsg)
-        LibC.free(parseResultRaw)
     }
     /*
      * If not use isNull(), there will be segfault for some cases for cjnative backend.
