@@ -68,7 +68,7 @@
 //                 | arg7         |
 //   stub rsp  --> | arg6         | <== MCC_C2NStub frame ends at here
 
-    .text
+    .section __TEXT,__cjrt_text,regular
     .align 2
     .global _CJ_MCC_C2NStub
 _CJ_MCC_C2NStub:
