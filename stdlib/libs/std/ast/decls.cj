@@ -2023,6 +2023,55 @@ public class TypeAliasDecl <: Decl {
     }
 }
 
+private func appendMacroQualifiedIdentifier(ret: Tokens, pkgIdentifier: Token): Tokens {
+    var out = ret
+    let identArray = pkgIdentifier.value.split(".")
+    let identPos = pkgIdentifier.pos
+    var identColumn = identPos.column
+    for (i in 0..identArray.size - 1) {
+        let identifier = identArray[i]
+        out = out.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
+        identColumn = identColumn + Int32(identifier.size)
+        out = out.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
+        identColumn++
+    }
+    if (identArray.size > 0) {
+        let identifier = identArray[identArray.size - 1]
+        out = out + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
+    }
+    out
+}
+
+private func appendMacroAttrs(ret: Tokens, lSquare: Token, macroAttrs: Tokens, rSquare: Token): Tokens {
+    var out = ret
+    if (isValidToken(lSquare) && isValidToken(rSquare)) {
+        out.append(lSquare).append(macroAttrs).append(rSquare)
+    }
+    out
+}
+
+private func appendDeclMacroInputTokens(ret: Tokens, lParen: Token, macroInputs: Tokens, rParen: Token,
+    macroInputDecl: Option<Decl>): Tokens {
+    var out = ret
+    if (isValidToken(lParen) && isValidToken(rParen)) {
+        out.append(lParen).append(macroInputs).append(rParen).append(Token(NL))
+    } else {
+        match (macroInputDecl) {
+            case Some(v) => out.append(Token(NL)).append(v)
+            case None => ()
+        }
+    }
+    out
+}
+
+private func traverseDeclMacroExpandChildren(decl: Decl, v: Visitor, macroInputDecl: Option<Decl>) {
+    decl.traverseCommonChild(v)
+    match (macroInputDecl) {
+        case Some(node) => node.traverse(v)
+        case None => ()
+    }
+}
+
 public class MacroExpandDecl <: Decl {
     init(at: Token, fullIdentifier: Token, identifier: Token, lSquare: Token, macroAttrs: Tokens, rSquare: Token,
         lParen: Token, macroInputs: Tokens, rParen: Token, macroInputDecl: Option<Decl>, hasParenthesis: Bool,
@@ -2179,31 +2228,9 @@ public class MacroExpandDecl <: Decl {
             ret.append(annotations[i].toTokens())
         }
         ret.append(keyword)
-        let identArray = pkgIdentifier_.value.split(".")
-        let identPos = pkgIdentifier_.pos
-        var identColumn = identPos.column
-        for (i in 0..identArray.size - 1) {
-            let identifier = identArray[i]
-            ret = ret.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
-            identColumn = identColumn + Int32(identifier.size)
-            ret = ret.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
-            identColumn++
-        }
-        if (identArray.size > 0) {
-            let identifier = identArray[identArray.size - 1]
-            ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
-        }
-        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
-            ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
-        }
-        if (isValidToken(lParen_) && isValidToken(rParen_)) {
-            ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
-        } else {
-            match (macroInputDecl_) {
-                case Some(v) => ret.append(Token(NL)).append(v)
-                case None => ()
-            }
-        }
+        ret = appendMacroQualifiedIdentifier(ret, pkgIdentifier_)
+        ret = appendMacroAttrs(ret, lSquare_, macroAttrs_, rSquare_)
+        ret = appendDeclMacroInputTokens(ret, lParen_, macroInputs_, rParen_, macroInputDecl_)
         ret
     }
 
@@ -2213,11 +2240,7 @@ public class MacroExpandDecl <: Decl {
         if (v.needBreakTraverse()) {
             return
         }
-        this.traverseCommonChild(v)
-        match (macroInputDecl_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
+        traverseDeclMacroExpandChildren(this, v, macroInputDecl_)
         return
     }
 
@@ -2378,31 +2401,9 @@ public class MacroExpandParam <: FuncParam {
             ret.append(annotations[i].toTokens())
         }
         ret.append(keyword)
-        let identArray = pkgIdentifier_.value.split(".")
-        let identPos = pkgIdentifier_.pos
-        var identColumn = identPos.column
-        for (i in 0..identArray.size - 1) {
-            let identifier = identArray[i]
-            ret = ret.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
-            identColumn = identColumn + Int32(identifier.size)
-            ret = ret.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
-            identColumn++
-        }
-        if (identArray.size > 0) {
-            let identifier = identArray[identArray.size - 1]
-            ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
-        }
-        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
-            ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
-        }
-        if (isValidToken(lParen_) && isValidToken(rParen_)) {
-            ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
-        } else {
-            match (macroInputDecl_) {
-                case Some(v) => ret.append(Token(NL)).append(v)
-                case None => ()
-            }
-        }
+        ret = appendMacroQualifiedIdentifier(ret, pkgIdentifier_)
+        ret = appendMacroAttrs(ret, lSquare_, macroAttrs_, rSquare_)
+        ret = appendDeclMacroInputTokens(ret, lParen_, macroInputs_, rParen_, macroInputDecl_)
         ret
     }
 
@@ -2412,11 +2413,7 @@ public class MacroExpandParam <: FuncParam {
         if (v.needBreakTraverse()) {
             return
         }
-        this.traverseCommonChild(v)
-        match (macroInputDecl_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
+        traverseDeclMacroExpandChildren(this, v, macroInputDecl_)
         return
     }
 
