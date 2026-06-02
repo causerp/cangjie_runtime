@@ -26,6 +26,31 @@ public open class Pattern <: Node {
     }
 }
 
+private func getTypePatternTokens(
+    pattern: Pattern,
+    colon: Token,
+    types: ArrayList<TypeNode>,
+    bitOr: Tokens
+): (Tokens, Tokens) {
+    let ret = Tokens().append(pattern).append(colon)
+    var bitOrTokens = bitOr
+    if (bitOrTokens.size == 0) {
+        bitOrTokens = Tokens(Array(types.size - 1, repeat: Token(TokenKind.BITOR)))
+    }
+    for (i in 0..types.size - 1) {
+        ret.append(types[i]).append(bitOrTokens[i])
+    }
+    ret.append(types[types.size - 1])
+    return (ret, bitOrTokens)
+}
+
+private func traverseTypePatternChildren(v: Visitor, pattern: Pattern, types: ArrayList<TypeNode>): Unit {
+    pattern.traverse(v)
+    for (ty in types) {
+        ty.traverse(v)
+    }
+}
+
 public class ConstPattern <: Pattern {
     init(litConstExpr: LitConstExpr) {
         litConstExpr_ = litConstExpr
@@ -275,14 +300,9 @@ public class ExceptTypePattern <: Pattern {
         }
     }
     public func toTokens(): Tokens {
-        var ret = Tokens().append(pattern_).append(colon_)
-        if (bitOr_.size == 0) {
-            bitOr_ = Tokens(Array(types_.size - 1, repeat: Token(TokenKind.BITOR)))
-        }
-        for (i in 0..types_.size - 1) {
-            ret.append(types_[i]).append(bitOr_[i])
-        }
-        ret.append(types_[types_.size - 1])
+        let (ret, bitOr) = getTypePatternTokens(pattern_, colon_, types_, bitOr_)
+        bitOr_ = bitOr
+        ret
     }
 
     public func traverse(v: Visitor): Unit {
@@ -291,10 +311,7 @@ public class ExceptTypePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
-        pattern_.traverse(v)
-        for (ty in types_) {
-            ty.traverse(v)
-        }
+        traverseTypePatternChildren(v, pattern_, types_)
         return
     }
 
@@ -375,14 +392,9 @@ public class CommandTypePattern <: Pattern {
         }
     }
     public func toTokens(): Tokens {
-        var ret = Tokens().append(pattern_).append(colon_)
-        if (bitOr_.size == 0) {
-            bitOr_ = Tokens(Array(types_.size - 1, repeat: Token(TokenKind.BITOR)))
-        }
-        for (i in 0..types_.size - 1) {
-            ret.append(types_[i]).append(bitOr_[i])
-        }
-        ret.append(types_[types_.size - 1])
+        let (ret, bitOr) = getTypePatternTokens(pattern_, colon_, types_, bitOr_)
+        bitOr_ = bitOr
+        ret
     }
 
     public func traverse(v: Visitor): Unit {
@@ -391,10 +403,7 @@ public class CommandTypePattern <: Pattern {
         if (v.needBreakTraverse()) {
             return
         }
-        pattern_.traverse(v)
-        for (ty in types_) {
-            ty.traverse(v)
-        }
+        traverseTypePatternChildren(v, pattern_, types_)
         return
     }
 
