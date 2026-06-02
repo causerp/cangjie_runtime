@@ -307,10 +307,7 @@ public class ExceptTypePattern <: Pattern {
         ret += getIndent(currentIndent) + "-pattern: "
         ret += pattern_.dump(currentIndent)
         ret += getTokenIndent("-colon", colon_, currentIndent)
-        for (i in 0..types_.size) {
-            ret += getIndent(currentIndent) + "-types: ${i}, "
-            ret += types_[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-types", types_, currentIndent)
         ret += getIndent(indent) + "}\n"
         ret
     }
@@ -410,10 +407,7 @@ public class CommandTypePattern <: Pattern {
         ret += getIndent(currentIndent) + "-pattern: "
         ret += pattern_.dump(currentIndent)
         ret += getTokenIndent("-colon", colon_, currentIndent)
-        for (i in 0..types_.size) {
-            ret += getIndent(currentIndent) + "-types: ${i}, "
-            ret += types_[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-types", types_, currentIndent)
         ret += getIndent(indent) + "}\n"
         ret
     }

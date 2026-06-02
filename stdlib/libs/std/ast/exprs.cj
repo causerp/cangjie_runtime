@@ -3062,10 +3062,7 @@ public class ArrayLiteral <: Expr {
         if (indent != 0 || beginNode) {
             currentIndent++
         }
-        for (i in 0..elements_.size) {
-            ret += getIndent(currentIndent) + "-elements: ${i}, "
-            ret += elements_[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-elements", elements_, currentIndent)
         ret += getIndent(indent) + "}\n"
         ret
     }
@@ -3163,10 +3160,7 @@ public class TupleLiteral <: Expr {
         if (indent != 0 || beginNode) {
             currentIndent++
         }
-        for (i in 0..elements_.size) {
-            ret += getIndent(currentIndent) + "-elements: ${i}, "
-            ret += elements_[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-elements", elements_, currentIndent)
         ret += getIndent(indent) + "}\n"
         ret
     }
