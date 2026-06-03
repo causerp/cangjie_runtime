@@ -2023,6 +2023,8 @@ public class TypeAliasDecl <: Decl {
     }
 }
 
+// Appends a qualified macro name to ret as IDENTIFIER (DOT IDENTIFIER)* tokens.
+// DOT positions are derived from the original pkgIdentifier token.
 private func appendMacroQualifiedIdentifier(ret: Tokens, pkgIdentifier: Token): Tokens {
     var out = ret
     let identArray = pkgIdentifier.value.split(".")

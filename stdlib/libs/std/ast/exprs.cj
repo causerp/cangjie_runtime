@@ -653,6 +653,7 @@ public class LitConstExpr <: Expr {
     }
 }
 
+// Appends "<...>" type arguments and synthesizes missing comma tokens between adjacent type nodes.
 private func appendExprTypeArguments(ret: Tokens, lAngle: Token, typeArgs: ArrayList<TypeNode>, commas: Tokens,
     rAngle: Token): Tokens {
     if (!typeArgs.isEmpty()) {
