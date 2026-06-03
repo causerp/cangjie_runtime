@@ -6,6 +6,7 @@
 
 
 #include "StackManager.h"
+#include <cstring>
 #include <cstdint>
 
 #include "Base/SysCall.h"
@@ -20,6 +21,10 @@
 #include "UnwindStack/StackGrowStackInfo.h"
 #ifdef _WIN64
 #include "UnwindWin.h"
+#endif
+#if (defined(__linux__) || defined(__OHOS__) || defined(__ANDROID__)) && !defined(_WIN64)
+#include <dlfcn.h>
+#include <link.h>
 #endif
 #ifdef __APPLE__
 #include <dlfcn.h>
@@ -67,6 +72,8 @@ extern "C" uintptr_t g_cjThreadStaticStart;
 extern "C" uintptr_t g_cjThreadStaticEnd;
 #endif
 #endif
+
+extern "C" void MRT_LibraryOnLoad(uint64_t address, bool enableGC);
 
 StackManager::StackManager() {}
 
@@ -217,7 +224,7 @@ std::vector<FrameInfo> GetCurrentStack(StackMode mode)
 }
 #endif
 
-#if defined(__linux__) || defined(hongmeng) || defined(__arm__)
+#if defined(__linux__) || defined(hongmeng) || defined(__arm__) || defined(__OHOS__) || defined(__ANDROID__)
 static void GetSoAddrScope(const CString& str, Uptr& startAddr, Uptr& endAddr)
 {
     int pos1 = str.Find('-');
@@ -264,6 +271,61 @@ static void GetEachSoAddrScope(std::vector<CString>& soNameVec)
     }
     std::fclose(file);
 }
+
+#if defined(COMPILE_DYNAMIC) && (defined(__OHOS__) || defined(__ANDROID__))
+// On Android, extractNativeLibs=false lets bionic map the shared object directly
+// from APK. /proc/self/maps then records the APK path instead of a plain so path,
+// so basename matching cannot reliably find libcangjie-runtime.so. Use a known
+// exported runtime symbol as an anchor to locate the loaded ELF image instead.
+static bool GetSoTextAddrScopeFromSymbol(const void* symbol, Uptr& startAddr, Uptr& endAddr)
+{
+    Dl_info info;
+    if (dladdr(symbol, &info) == 0 || info.dli_fbase == nullptr) {
+        return false;
+    }
+
+    // dli_fbase is the runtime load base of the shared object that owns symbol.
+    // Program headers are mapped at base + e_phoff for ET_DYN objects, so they can
+    // be parsed directly from process memory without reopening the so file.
+    const auto baseAddr = reinterpret_cast<Uptr>(info.dli_fbase);
+    const auto* ehdr = reinterpret_cast<const ElfW(Ehdr)*>(baseAddr);
+    if (memcmp(ehdr->e_ident, ELFMAG, SELFMAG) != 0 || ehdr->e_phoff == 0 || ehdr->e_phnum == 0) {
+        return false;
+    }
+
+    // Runtime frame detection only needs the executable code mapping. ELF loaders
+    // describe this mapping as PT_LOAD with PF_X; it corresponds to the text segment,
+    // not necessarily to the section named ".text".
+    Uptr textStart = STACK_ADDR_MAX;
+    Uptr textEnd = 0;
+    const auto* phdr = reinterpret_cast<const ElfW(Phdr)*>(baseAddr + ehdr->e_phoff);
+    for (uint16_t i = 0; i < ehdr->e_phnum; ++i) {
+        if (phdr[i].p_type != PT_LOAD || (phdr[i].p_flags & PF_X) == 0) {
+            continue;
+        }
+        Uptr segStart = baseAddr + static_cast<Uptr>(phdr[i].p_vaddr);
+        Uptr segEnd = segStart + static_cast<Uptr>(phdr[i].p_memsz);
+        textStart = segStart < textStart ? segStart : textStart;
+        textEnd = segEnd > textEnd ? segEnd : textEnd;
+    }
+
+    Uptr symbolAddr = reinterpret_cast<Uptr>(symbol);
+#if defined(__arm__)
+    // ARM32 may use the low bit to mark Thumb state. Clear it before comparing
+    // the function pointer against the executable segment address range.
+    symbolAddr &= ~static_cast<Uptr>(1);
+#endif
+    // Guard against accidentally using a symbol resolved from another object or a
+    // malformed ELF image. The anchor symbol must live inside the executable load.
+    if (textStart == STACK_ADDR_MAX || textEnd == 0 || symbolAddr < textStart || symbolAddr >= textEnd) {
+        return false;
+    }
+
+    startAddr = textStart;
+    endAddr = textEnd;
+    return true;
+}
+#endif
 #endif
 
 #if defined(__APPLE__) and !(defined(__IOS__) && !defined(COMPILE_DYNAMIC))
@@ -326,8 +388,11 @@ void StackManager::InitAddressScope()
 #endif
 // For iOS, use `dladdr` to obtain the dylib name and perform string comparison.
 #elif defined(__OHOS__) || defined(__ANDROID__) // OHOS, ANDROID
-    std::vector<CString> rtSoNameVec = { LIBCANGJIE_RUNTIME ".so\n" };
-    GetEachSoAddrScope(rtSoNameVec);
+    if (!GetSoTextAddrScopeFromSymbol(reinterpret_cast<const void*>(&MRT_LibraryOnLoad),
+        StackManager::rtStartAddr, StackManager::rtEndAddr)) {
+        std::vector<CString> rtSoNameVec = { LIBCANGJIE_RUNTIME ".so\n" };
+        GetEachSoAddrScope(rtSoNameVec);
+    }
 #else                                                            // Linux
     StackManager::rtStartAddr = reinterpret_cast<Uptr>(&g_runtimeDynamicStart);
     StackManager::rtEndAddr = reinterpret_cast<Uptr>(&g_runtimeDynamicEnd);
