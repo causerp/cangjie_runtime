@@ -219,7 +219,6 @@ unwindPCForC2RStubStart:
     CalleeSavedRegistersStub MCC_NewArray64 CJ_MCC_NewArray64
     CalleeSavedRegistersStub MCC_InvokeGCImpl CJ_MCC_InvokeGC
     CalleeSavedRegistersStub MCC_FillInStackTraceImpl CJ_MCC_FillInStackTrace
-    CalleeSavedRegistersAndStackArgsStub MCC_DecodeStackTraceImpl CJ_MCC_DecodeStackTrace
     CalleeSavedRegistersStub MCC_GetAllThreadSnapshotImpl CJ_MCC_GetAllThreadSnapshot
     CalleeSavedRegistersStub MCC_GetCurrentThreadSnapshotImpl CJ_MCC_GetCurrentThreadSnapshot
     CalleeSavedRegistersStub CJ_SchedulePreemptCheck CJ_SchedulePreemptCheckStub
@@ -246,6 +245,11 @@ unwindPCForC2RStubStart:
     CalleeSavedRegistersStub MCC_DumpCJHeapData CJ_MCC_DumpCJHeapData
     CalleeSavedRegistersStub MCC_NewAndInitEnumTupleObject CJ_MCC_NewAndInitEnumTupleObject
     CalleeSavedRegistersStub MCC_GetAssociatedValues CJ_MCC_GetAssociatedValues
+    .global unwindPCForC2RStackArgsStubStart
+unwindPCForC2RStackArgsStubStart:
+    CalleeSavedRegistersAndStackArgsStub MCC_DecodeStackTraceImpl CJ_MCC_DecodeStackTrace
+    .global unwindPCForC2RStackArgsStubEnd
+unwindPCForC2RStackArgsStubEnd:
 #if defined(ENABLE_BACKWARD_PTRAUTH_CFI)
     CalleeSavedRegistersStub MCC_ThrowException CJ_MCC_ThrowException
     CalleeSavedRegistersStub MCC_ThrowStackOverflowError CJ_MCC_ThrowStackOverflowError
