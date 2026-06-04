@@ -10,6 +10,12 @@ package std.ast
 
 import std.collection.ArrayList
 
+private func traverseNodes<N>(v: Visitor, nodes: ArrayList<N>) where N <: Node {
+    for (node in nodes) {
+        node.traverse(v)
+    }
+}
+
 public open class Decl <: Node {
     init(annotations: ArrayList<Annotation>, modifiers: ArrayList<Modifier>, keyword: Token, identifier: Token,
         genericParam: Option<GenericParam>, constraint: ArrayList<GenericConstraint>, constraintCommas: Tokens,
@@ -222,12 +228,8 @@ public open class Decl <: Node {
 
     // Traverse annotations, modifiers and generic parameters.
     func traverseCommonChild(v: Visitor) {
-        for (anno in this.annotations_) {
-            anno.traverse(v)
-        }
-        for (modifier in modifiers_) {
-            modifier.traverse(v)
-        }
+        traverseNodes(v, this.annotations_)
+        traverseNodes(v, modifiers_)
         match (this.genericParam_) {
             case Some(node) => node.traverse(v)
             case _ => ()
@@ -307,12 +309,8 @@ public class ClassDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         classbody_.traverse(v)
         return
     }
@@ -403,12 +401,8 @@ public class StructDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         structbody_.traverse(v)
         return
     }
@@ -499,12 +493,8 @@ public class InterfaceDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         interfacetbody_.traverse(v)
         return
     }
@@ -687,18 +677,10 @@ public class EnumDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
-        for (constructor in constructors_) {
-            constructor.traverse(v)
-        }
-        for (decl in decls_) {
-            decl.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
+        traverseNodes(v, constructors_)
+        traverseNodes(v, decls_)
         return
     }
 
@@ -824,12 +806,8 @@ public class ExtendDecl <: Decl {
         }
         this.traverseCommonChild(v)
         extendType_.traverse(v)
-        for (ty in superTypes_) {
-            ty.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, superTypes_)
+        traverseNodes(v, genericConstraint)
         body_.traverse(v)
         return
     }
@@ -1009,16 +987,12 @@ public class FuncDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         match (retTy_) {
             case Some(node) => node.traverse(v)
             case None => ()
         }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
@@ -1038,10 +1012,7 @@ public class FuncDecl <: Decl {
                     "overloadOp: ${overloadedOperators_[0].value + overloadedOperators_[1].value}"
             }
         }
-        for (i in 0..funcParams.size) {
-            ret += getIndent(currentIndent) + "-funcParams: ${i}, "
-            ret += funcParams[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-funcParams", funcParams, currentIndent)
 
         match (retTy_) {
             case Some(v) =>
@@ -1169,9 +1140,7 @@ public class MainDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         match (retTy_) {
             case Some(node) => node.traverse(v)
             case None => ()
@@ -1187,10 +1156,7 @@ public class MainDecl <: Decl {
             currentIndent++
         }
         ret += super.dump(currentIndent)
-        for (i in 0..funcParams.size) {
-            ret += getIndent(currentIndent) + "-funcParams: ${i}, "
-            ret += funcParams[i].dump(currentIndent)
-        }
+        ret += dumpNodes("-funcParams", funcParams, currentIndent)
         match (retTy_) {
             case Some(v) =>
                 ret += getIndent(currentIndent) + "-declType: "
@@ -1315,13 +1281,9 @@ public class MacroDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
+        traverseNodes(v, params_)
         declType.traverse(v)
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
@@ -1449,12 +1411,8 @@ public class PrimaryCtorDecl <: Decl {
             return
         }
         this.traverseCommonChild(v)
-        for (param in params_) {
-            param.traverse(v)
-        }
-        for (constraint in genericConstraint) {
-            constraint.traverse(v)
-        }
+        traverseNodes(v, params_)
+        traverseNodes(v, genericConstraint)
         block_.traverse(v)
         return
     }
@@ -2065,6 +2023,57 @@ public class TypeAliasDecl <: Decl {
     }
 }
 
+// Appends a qualified macro name to ret as IDENTIFIER (DOT IDENTIFIER)* tokens.
+// DOT positions are derived from the original pkgIdentifier token.
+private func appendMacroQualifiedIdentifier(ret: Tokens, pkgIdentifier: Token): Tokens {
+    var out = ret
+    let identArray = pkgIdentifier.value.split(".")
+    let identPos = pkgIdentifier.pos
+    var identColumn = identPos.column
+    for (i in 0..identArray.size - 1) {
+        let identifier = identArray[i]
+        out = out.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
+        identColumn = identColumn + Int32(identifier.size)
+        out = out.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
+        identColumn++
+    }
+    if (identArray.size > 0) {
+        let identifier = identArray[identArray.size - 1]
+        out = out + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
+    }
+    out
+}
+
+private func appendMacroAttrs(ret: Tokens, lSquare: Token, macroAttrs: Tokens, rSquare: Token): Tokens {
+    var out = ret
+    if (isValidToken(lSquare) && isValidToken(rSquare)) {
+        out.append(lSquare).append(macroAttrs).append(rSquare)
+    }
+    out
+}
+
+private func appendDeclMacroInputTokens(ret: Tokens, lParen: Token, macroInputs: Tokens, rParen: Token,
+    macroInputDecl: Option<Decl>): Tokens {
+    var out = ret
+    if (isValidToken(lParen) && isValidToken(rParen)) {
+        out.append(lParen).append(macroInputs).append(rParen).append(Token(NL))
+    } else {
+        match (macroInputDecl) {
+            case Some(v) => out.append(Token(NL)).append(v)
+            case None => ()
+        }
+    }
+    out
+}
+
+private func traverseDeclMacroExpandChildren(decl: Decl, v: Visitor, macroInputDecl: Option<Decl>) {
+    decl.traverseCommonChild(v)
+    match (macroInputDecl) {
+        case Some(node) => node.traverse(v)
+        case None => ()
+    }
+}
+
 public class MacroExpandDecl <: Decl {
     init(at: Token, fullIdentifier: Token, identifier: Token, lSquare: Token, macroAttrs: Tokens, rSquare: Token,
         lParen: Token, macroInputs: Tokens, rParen: Token, macroInputDecl: Option<Decl>, hasParenthesis: Bool,
@@ -2221,31 +2230,9 @@ public class MacroExpandDecl <: Decl {
             ret.append(annotations[i].toTokens())
         }
         ret.append(keyword)
-        let identArray = pkgIdentifier_.value.split(".")
-        let identPos = pkgIdentifier_.pos
-        var identColumn = identPos.column
-        for (i in 0..identArray.size - 1) {
-            let identifier = identArray[i]
-            ret = ret.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
-            identColumn = identColumn + Int32(identifier.size)
-            ret = ret.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
-            identColumn++
-        }
-        if (identArray.size > 0) {
-            let identifier = identArray[identArray.size - 1]
-            ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
-        }
-        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
-            ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
-        }
-        if (isValidToken(lParen_) && isValidToken(rParen_)) {
-            ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
-        } else {
-            match (macroInputDecl_) {
-                case Some(v) => ret.append(Token(NL)).append(v)
-                case None => ()
-            }
-        }
+        ret = appendMacroQualifiedIdentifier(ret, pkgIdentifier_)
+        ret = appendMacroAttrs(ret, lSquare_, macroAttrs_, rSquare_)
+        ret = appendDeclMacroInputTokens(ret, lParen_, macroInputs_, rParen_, macroInputDecl_)
         ret
     }
 
@@ -2255,11 +2242,7 @@ public class MacroExpandDecl <: Decl {
         if (v.needBreakTraverse()) {
             return
         }
-        this.traverseCommonChild(v)
-        match (macroInputDecl_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
+        traverseDeclMacroExpandChildren(this, v, macroInputDecl_)
         return
     }
 
@@ -2420,31 +2403,9 @@ public class MacroExpandParam <: FuncParam {
             ret.append(annotations[i].toTokens())
         }
         ret.append(keyword)
-        let identArray = pkgIdentifier_.value.split(".")
-        let identPos = pkgIdentifier_.pos
-        var identColumn = identPos.column
-        for (i in 0..identArray.size - 1) {
-            let identifier = identArray[i]
-            ret = ret.append(Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos))
-            identColumn = identColumn + Int32(identifier.size)
-            ret = ret.append(Token(TokenKind.DOT).addPosition(identPos.fileID, identPos.line, identColumn))
-            identColumn++
-        }
-        if (identArray.size > 0) {
-            let identifier = identArray[identArray.size - 1]
-            ret = ret + Token(TokenKind.IDENTIFIER, identifier).addPosition(identPos.fileID, identPos.line, identColumn)
-        }
-        if (isValidToken(lSquare_) && isValidToken(rSquare_)) {
-            ret.append(lSquare_).append(macroAttrs_).append(rSquare_)
-        }
-        if (isValidToken(lParen_) && isValidToken(rParen_)) {
-            ret.append(lParen_).append(macroInputs_).append(rParen_).append(Token(NL))
-        } else {
-            match (macroInputDecl_) {
-                case Some(v) => ret.append(Token(NL)).append(v)
-                case None => ()
-            }
-        }
+        ret = appendMacroQualifiedIdentifier(ret, pkgIdentifier_)
+        ret = appendMacroAttrs(ret, lSquare_, macroAttrs_, rSquare_)
+        ret = appendDeclMacroInputTokens(ret, lParen_, macroInputs_, rParen_, macroInputDecl_)
         ret
     }
 
@@ -2454,11 +2415,7 @@ public class MacroExpandParam <: FuncParam {
         if (v.needBreakTraverse()) {
             return
         }
-        this.traverseCommonChild(v)
-        match (macroInputDecl_) {
-            case Some(node) => node.traverse(v)
-            case None => ()
-        }
+        traverseDeclMacroExpandChildren(this, v, macroInputDecl_)
         return
     }
 

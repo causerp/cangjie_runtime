@@ -27,6 +27,15 @@ enum class ParseKind : uint8_t { EXPR, DECL, PROGRAM, PATTERN };
 
 const std::string INVALID_POSITION_MSG = "There is a token with invalid position in the input.\n";
 
+void InitParseDiagnostic(DiagnosticEngine& diag, SourceManager& sm)
+{
+    diag.SetSourceManager(&sm);
+    diag.SetDiagnoseStatus(true);
+    diag.DisableScopeCheck();
+    diag.SetDisableWarning(true);
+    diag.EnableCheckRangeErrorCodeRatherICE();
+}
+
 /// get the compileCjd compile option from MacroCall* if not null
 bool GetCompileCjd(void* fptr)
 {
@@ -103,6 +112,30 @@ static char* CloneString(const std::string s, const size_t size)
     std::copy(s.begin(), s.end(), ret);
     ret[size - 1] = '\0';
     return ret;
+}
+
+bool TrySetInvalidPositionError(DiagnosticEngine& diag, ParseRes* result)
+{
+    std::string errMsg;
+    result->node = nullptr;
+    auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
+    if (ret == DiagEngineErrorCode::NO_ERRORS) {
+        return false;
+    }
+    diag.DisableCheckRangeErrorCodeRatherICE();
+    result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+    return true;
+}
+
+ParseRes* FillSuccessParseRes(ParseRes* result, Ptr<AST::Node> node, int64_t* tokenCounter, size_t processedTokens)
+{
+    NodeSerialization::NodeWriter nodeWriter(node);
+    if (tokenCounter) {
+        *tokenCounter = static_cast<int64_t>(processedTokens);
+    }
+    result->node = nodeWriter.ExportNode();
+    result->eMsg = nullptr;
+    return result;
 }
 
 void TryCombineDoubleArrow(MacroCall* macCall, std::vector<Token> inputTokens, std::vector<Token>& outputTokens)
@@ -190,11 +223,7 @@ ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* toke
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto expr = parser.ParseExprLibast();
     while (parser.Skip(TokenKind::NL) || parser.Skip(TokenKind::SEMI)) {
@@ -206,15 +235,10 @@ ParseRes* CJ_AST_ParseExpr(void* fptr, const uint8_t* tokensBytes, int64_t* toke
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::EXPR);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::EXPR);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -239,11 +263,7 @@ ParseRes* CJ_AST_ParseAnnotationArguments(const uint8_t* tokensBytes)
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, false);
     auto node = parser.ParseCustomAnnotation();
 
@@ -264,11 +284,7 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto node = parser.ParsePattern();
 
@@ -278,15 +294,10 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::PATTERN);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::PATTERN);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -296,13 +307,7 @@ ParseRes* CJ_AST_ParsePattern(void* fptr, const uint8_t* tokensBytes, int64_t* t
         result->eMsg[errMsg.size()] = '\0';
         return result;
     }
-    NodeSerialization::NodeWriter nodeWriter(node.get());
-    if (tokenCounter) {
-        *tokenCounter = static_cast<int64_t>(parser.GetProcessedTokens());
-    }
-    result->node = nodeWriter.ExportNode();
-    result->eMsg = nullptr;
-    return result;
+    return FillSuccessParseRes(result, node.get(), tokenCounter, parser.GetProcessedTokens());
 }
 
 ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* tokenCounter)
@@ -311,11 +316,7 @@ ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* toke
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     diag.EmitCategoryDiagnostics(DiagCategory::PARSE);
     auto node = parser.ParseType();
@@ -337,13 +338,7 @@ ParseRes* CJ_AST_ParseType(void* fptr, const uint8_t* tokensBytes, int64_t* toke
         }
         return result;
     }
-    NodeSerialization::NodeWriter nodeWriter(node.get());
-    if (tokenCounter) {
-        *tokenCounter = static_cast<int64_t>(parser.GetProcessedTokens());
-    }
-    result->node = nodeWriter.ExportNode();
-    result->eMsg = nullptr;
-    return result;
+    return FillSuccessParseRes(result, node.get(), tokenCounter, parser.GetProcessedTokens());
 }
 
 ParseRes* CJ_ParseDeclCommon(void* fptr, const uint8_t* tokensBytes, ScopeKind scopeKind, int64_t* tokenCounter)
@@ -371,15 +366,10 @@ ParseRes* CJ_ParseDeclCommon(void* fptr, const uint8_t* tokensBytes, ScopeKind s
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::DECL, scopeKind);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::DECL, scopeKind);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
@@ -419,11 +409,7 @@ ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes)
     std::vector<Token> tokens = TokenSerialization::GetTokensFromBytes(tokensBytes);
     DiagnosticEngine diag;
     SourceManager sm;
-    diag.SetSourceManager(&sm);
-    diag.SetDiagnoseStatus(true);
-    diag.DisableScopeCheck();
-    diag.SetDisableWarning(true);
-    diag.EnableCheckRangeErrorCodeRatherICE();
+    InitParseDiagnostic(diag, sm);
     Parser parser(tokens, diag, sm, false, GetCompileCjd(fptr));
     auto file = parser.ParseTopLevel();
     ParseRes* result = (ParseRes*)malloc(sizeof(ParseRes));
@@ -432,15 +418,10 @@ ParseRes* CJ_AST_ParseTopLevel(void* fptr, const uint8_t* tokensBytes)
         return nullptr;
     }
     if (diag.GetErrorCount()) {
-        std::string errMsg;
-        result->node = nullptr;
-        auto ret = diag.GetCategoryDiagnosticsString(DiagCategory::PARSE, errMsg);
-        if (ret != DiagEngineErrorCode::NO_ERRORS) {
-            diag.DisableCheckRangeErrorCodeRatherICE();
-            result->eMsg = CloneString(INVALID_POSITION_MSG, INVALID_POSITION_MSG.size() + 1);
+        if (TrySetInvalidPositionError(diag, result)) {
             return result;
         }
-        errMsg = ParseWithError(fptr, tokens, ParseKind::PROGRAM);
+        std::string errMsg = ParseWithError(fptr, tokens, ParseKind::PROGRAM);
         result->eMsg = (char*)malloc((errMsg.size() + 1) * sizeof(char));
         // result free on cangjie side
         if (result->eMsg == nullptr) {
