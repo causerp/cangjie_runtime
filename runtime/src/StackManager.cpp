@@ -272,7 +272,8 @@ static void GetEachSoAddrScope(std::vector<CString>& soNameVec)
     std::fclose(file);
 }
 
-#if defined(COMPILE_DYNAMIC) && (defined(__OHOS__) || defined(__ANDROID__))
+#if defined(__OHOS__) || defined(__ANDROID__)
+// The runtime does not support static linking on OHOS and Android.
 // On Android, extractNativeLibs=false lets bionic map the shared object directly
 // from APK. /proc/self/maps then records the APK path instead of a plain so path,
 // so basename matching cannot reliably find libcangjie-runtime.so. Use a known
