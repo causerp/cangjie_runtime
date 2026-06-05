@@ -82,6 +82,8 @@ set(EXPORT_MAP export.map)
 if (GLOBAL_EXPORT_FLAG MATCHES 0)
     if (OHOS_FLAG MATCHES 1)
         set(EXPORT_MAP ohos_local_export.map)
+    elseif (ANDROID_FLAG MATCHES 3) # arm
+        set(EXPORT_MAP arm_local_export.map)
     else()
         set(EXPORT_MAP local_export.map)
     endif()
