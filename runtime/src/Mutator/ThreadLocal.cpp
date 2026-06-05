@@ -10,11 +10,20 @@
 #include "Common/Runtime.h"
 #include "schedule.h"
 #include "Base/Globals.h"
+#include "Mutator/Mutator.h"
 
 namespace MapleRuntime {
 RwLock ThreadLocal::tlEnableLock;
 MRT_EXPORT thread_local uint64_t threadLocalData[sizeof(ThreadLocalData) / sizeof(uint64_t)];
 thread_local CleanThreadLocalData cleaner;
+
+void ThreadLocalData::SetMutator(Mutator* newMutator)
+{
+    mutator = newMutator;
+#ifdef INTERPRETER_ENABLED
+    interpreterCJThreadData = newMutator != nullptr ? newMutator->interpreterCJThreadData : nullptr;
+#endif
+}
 
 ThreadLocalData* ThreadLocal::GetThreadLocalData()
 {
@@ -74,15 +83,29 @@ extern "C" void MCC_CheckThreadLocalDataOffset()
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(offsetof(ThreadLocalData, foreignCJThread) == sizeof(void*) * 6 + sizeof(uint64_t) * 2,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#ifdef INTERPRETER_ENABLED
+    static_assert(offsetof(ThreadLocalData, interpreterCJThreadData) == sizeof(void*) * 7 + sizeof(uint64_t) * 2,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+    static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 11 + sizeof(uint64_t) * 2,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#else
     static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 10 + sizeof(uint64_t) * 2,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
-#else   
+#endif
+#else
     static_assert(offsetof(ThreadLocalData, tid) == sizeof(void*) * 7,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
     static_assert(offsetof(ThreadLocalData, foreignCJThread) == sizeof(void*) * 8,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#ifdef INTERPRETER_ENABLED
+    static_assert(offsetof(ThreadLocalData, interpreterCJThreadData) == sizeof(void*) * 9,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+    static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 12,
+                  "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#else
     static_assert(sizeof(ThreadLocalData) == sizeof(void*) * 11,
                   "need to modify the offset of this value in llvm-project and cjthread at the same time");
+#endif
 #endif
 }
 

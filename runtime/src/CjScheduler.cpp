@@ -4,10 +4,13 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #include "CjScheduler.h"
 
+#include <cstdlib>
+#include <cstring>
+#include <new>
 #include <thread>
+#include <vector>
 #if defined(_WIN64)
 #include <windows.h>
 #elif defined(__APPLE__)
@@ -16,6 +19,7 @@
 #include "sys/sysinfo.h"
 #endif
 
+#include "Base/LogFile.h"
 #include "Base/CString.h"
 #include "Sync/Sync.h"
 #include "Base/Panic.h"
@@ -28,7 +32,9 @@
 #include "ExceptionManager.h"
 #include "ExceptionManager.inline.h"
 #include "Mutator/Mutator.inline.h"
-#include "schedule.h"
+#include "Interpreter/InterpreterSpecific.h"
+#include "Interpreter/RuntimeAPI.h"
+#include "securec.h"
 #if defined(CANGJIE_SANITIZER_SUPPORT)
 #include "Sanitizer/SanitizerInterface.h"
 #endif
@@ -103,8 +109,10 @@ static size_t InitHeapSize(size_t defaultParam)
     if (size >= minSize && size <= maxSize) {
         return size;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported cjHeapSize parameter. The unit must be added when configuring, "
-            "it supports 'kb', 'mb', 'gb'. Valid cjHeapSize range is [%zuMB, system memory size].\n", minSize / KB);
+        LOG(RTLOG_ERROR,
+            "Unsupported cjHeapSize parameter. The unit must be added when configuring, "
+            "it supports 'kb', 'mb', 'gb'. Valid cjHeapSize range is [%zuMB, system memory size].\n",
+            minSize / KB);
     }
     return defaultParam;
 }
@@ -138,8 +146,7 @@ static double InitPercentParameterIncl(const char* name, double minSize, double 
     if (size - minSize >= 0 && maxSize - size >= 0) {
         return size;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is [%f, %f].\n",
-            name, name, minSize, maxSize);
+        LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is [%f, %f].\n", name, name, minSize, maxSize);
     }
     return defaultParam;
 }
@@ -152,8 +159,7 @@ static double InitPercentParameter(const char* name, double minSize, double maxS
         if (parameter - minSize > 0 && maxSize - parameter >= 0) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is (%f, %f].\n",
-                name, name, minSize, maxSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is (%f, %f].\n", name, name, minSize, maxSize);
         }
     }
     return defaultParam;
@@ -167,8 +173,8 @@ static size_t InitSizeParameter(const char* name, size_t minSize, size_t default
         if (parameter > minSize) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n",
-                name, name, minSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n", name, name,
+                minSize);
         }
     }
     return defaultParam;
@@ -182,8 +188,8 @@ static uint64_t InitTimeParameter(const char* name, uint64_t minSize, uint64_t d
         if (parameter > minSize) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n",
-                name, name, minSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n", name, name,
+                minSize);
         }
     }
     return defaultParam;
@@ -197,8 +203,8 @@ static double InitDecParameter(const char* name, double minSize, double defaultP
         if (parameter - minSize > 0) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %f.\n",
-                name, name, minSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %f.\n", name, name,
+                minSize);
         }
     }
     return defaultParam;
@@ -218,7 +224,7 @@ static size_t InitCoStackSize()
 #elif defined(CANGJIE_SANITIZER_SUPPORT)
     // cus sanitizer calls tons of instrumentation, which use more stack memory than normal does
     size_t defaultStackSize = 2048; // default 2MB in sanitizer version, measured in KB
-#elif defined(__OHOS__) || defined(__ANDROID__) || defined (__APPLE__)
+#elif defined(__OHOS__) || defined(__ANDROID__) || defined(__APPLE__)
     size_t defaultStackSize = 1024; // default 1MB in OHOS/ANDROID/MACOS, measured in KB
 #else
     size_t defaultStackSize = 128; // default 128KB, measured in KB
@@ -238,9 +244,10 @@ static size_t InitCoStackSize()
     if (stackSize >= minStackSize && stackSize <= maxStackSize) {
         return stackSize;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported cjStackSize parameter. The unit must be added when configuring, "
-        "it supports 'kb', 'mb', 'gb'. "
-        "Valid cjStackSize range is [128kb, 1gb] in Windows or [64kb, 1gb] in other system.\n");
+        LOG(RTLOG_ERROR,
+            "Unsupported cjStackSize parameter. The unit must be added when configuring, "
+            "it supports 'kb', 'mb', 'gb'. "
+            "Valid cjStackSize range is [128kb, 1gb] in Windows or [64kb, 1gb] in other system.\n");
     }
     return defaultStackSize;
 }
@@ -266,12 +273,59 @@ static uint32_t InitProcessorNum()
         if (custom > 0 && custom <= (cpus * maxMultiple)) {
             return custom;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported cjProcessorNum parameter. Valid cjProcessorNum range is"
-            "(0, 2 * hardware_concurrency].\n");
+            LOG(RTLOG_ERROR,
+                "Unsupported cjProcessorNum parameter. Valid cjProcessorNum range is"
+                "(0, 2 * hardware_concurrency].\n");
         }
     }
     return defaultProcs;
 }
+
+#ifdef INTERPRETER_ENABLED
+// Parse INTERPRETER_ARGS env variable and return null-terminated array of strings.
+// params:
+// - tokenCount - will be set to the number of strings in the array
+static INT_InterpreterArgs InitInterpreterArgs(int& tokenCount)
+{
+    tokenCount = 0;
+    const char* env = std::getenv("INTERPRETER_ARGS");
+
+    if (!env) {
+        return nullptr;
+    }
+
+    CString source(env);
+    std::vector<CString> tempTokens = CString::Split(source, ' ');
+
+    tokenCount = static_cast<int>(tempTokens.size());
+    if (tokenCount == 0) {
+        return nullptr;
+    }
+
+    INT_InterpreterArg* tokens = new (std::nothrow) INT_InterpreterArg[tokenCount + 1];
+    CHECK_DETAIL(tokens != nullptr, "new tokens array failed: size=%d", tokenCount + 1);
+
+    for (int i = 0; i < tokenCount; ++i) {
+        size_t tokenLen = tempTokens[i].Length();
+        char* token = new (std::nothrow) char[tokenLen + 1];
+        CHECK_DETAIL(token != nullptr, "new token #%d failed: size=%zu bytes", i, tokenLen + 1);
+        CHECK_DETAIL(strcpy_s(token, tokenLen + 1, tempTokens[i].Str()) == EOK, "strcpy_s failed");
+        tokens[i] = token;
+    }
+    tokens[tokenCount] = nullptr;
+
+    return tokens;
+}
+
+static const char* InitInterpreterLibName()
+{
+    const char* env = std::getenv("INTERPRETER_LIB_NAME");
+    if (env == nullptr) {
+        return nullptr;
+    }
+    return strdup(env);
+}
+#endif
 
 void* StartMainTask(void* arg, unsigned int len)
 {
@@ -350,7 +404,7 @@ void* WrapperTask(void* arg, unsigned int len)
 void* MCC_NewCJThread(void* execute, void* future, void* scheduler)
 {
 #if defined(CANGJIE_TSAN_SUPPORT)
-    void *pc = __builtin_return_address(0);
+    void* pc = __builtin_return_address(0);
     MapleRuntime::Sanitizer::TsanFuncEntry(pc);
 #endif
     LWTData data;
@@ -389,8 +443,8 @@ bool MRT_NewForeignCJThread()
         CJThreadAttrInit(&attr);
         CJThreadAttrNameSet(&attr, "cangjie");
         LWTData data = {};
-        CJThreadHandle cjthread = CJThreadNewToSchedule(scheduler, (const struct CJThreadAttr*)(&attr),
-                                                        WrapperTask, &data, sizeof(LWTData));
+        CJThreadHandle cjthread =
+            CJThreadNewToSchedule(scheduler, (const struct CJThreadAttr*)(&attr), WrapperTask, &data, sizeof(LWTData));
         MutatorManager::Instance().SetMainThreadHandle(cjthread);
         CJThreadPreemptOffCntAdd();
         RebindCJThread(cjthread);
@@ -400,7 +454,7 @@ bool MRT_NewForeignCJThread()
         ScheduleNetpollInit(); // Initializes netpool only on the first execution.
     }
 
-    void *cjthread = ThreadLocal::GetForeignCJThread();
+    void* cjthread = ThreadLocal::GetForeignCJThread();
     ThreadLocal::SetCJThread(cjthread);
     Mutator* mutator = reinterpret_cast<Mutator*>(CJThreadGetMutator());
     MutatorManager::Instance().BindMutator(*mutator);
@@ -629,60 +683,99 @@ static RuntimeParam InitRuntimeParam()
     RuntimeParam param = {
         .heapParam = {
 #if defined(__OHOS__) || defined(__ANDROID__)
-            // Default region size is 1024KB.
-            .regionSize = InitRegionSize(1024UL),
+                // Default region size is 1024KB.
+                .regionSize = InitRegionSize(1024UL),
 #else
-            // Default region size is 64KB.
-            .regionSize = InitRegionSize(64UL),
+                // Default region size is 64KB.
+                .regionSize = InitRegionSize(64UL),
 #endif
-            // Default heap size is 256MB if system memory size is greater than 1GB, otherwise is 64MB.
-            .heapSize = initHeapSize,
-            /*
-             * The minimux live region threshold is 0% of region,
-             * the maximum is 100% of region, default to 80% of region.
-             */
-            .exemptionThreshold = InitPercentParameter("cjExemptionThreshold", 0.0, 1.0, 0.8),
-            /*
-             * The minimux heap utilization is 0% of heap,
-             * the maximum is 100% of heap, default to 80% of heap.
-             */
-            .heapUtilization = InitPercentParameter("cjHeapUtilization", 0.0, 1.0, 0.8),
-            // Default heap growth is (1 + 0.15) = 1.15.
-            .heapGrowth = InitDecParameter("cjHeapGrowth", 0.0, 0.15),
-            // Default allocation rate is 10240MB/s.
-            .allocationRate = InitDecParameter("cjAllocationRate", 0.0, 10240),
-            // Default allocation wait time is 1000ns.
-            .allocationWaitTime = static_cast<size_t>(InitTimeParameter("cjAllocationWaitTime", 0, 1000)),
-        },
+                // Default heap size is 256MB if system memory size is greater than 1GB, otherwise is 64MB.
+                .heapSize = initHeapSize,
+                /*
+                 * The minimux live region threshold is 0% of region,
+                 * the maximum is 100% of region, default to 80% of region.
+                 */
+                .exemptionThreshold = InitPercentParameter("cjExemptionThreshold", 0.0, 1.0, 0.8),
+                /*
+                 * The minimux heap utilization is 0% of heap,
+                 * the maximum is 100% of heap, default to 80% of heap.
+                 */
+                .heapUtilization = InitPercentParameter("cjHeapUtilization", 0.0, 1.0, 0.8),
+                // Default heap growth is (1 + 0.15) = 1.15.
+                .heapGrowth = InitDecParameter("cjHeapGrowth", 0.0, 0.15),
+                // Default allocation rate is 10240MB/s.
+                .allocationRate = InitDecParameter("cjAllocationRate", 0.0, 10240),
+                // Default allocation wait time is 1000ns.
+                .allocationWaitTime = static_cast<size_t>(InitTimeParameter("cjAllocationWaitTime", 0, 1000)),
+            },
         .gcParam = {
-            // Default gc threshold is heapSize.
-            .gcThreshold = InitSizeParameter("cjGCThreshold", 0, initHeapSize) * KB,
-            // Default garbage ration is 50% of from space.
-            .garbageThreshold = InitPercentParameterIncl("cjGarbageThreshold", 0.0, 1.0, 0.5),
-            // Default GC interval is 150ms.
-            .gcInterval = InitTimeParameter("cjGCInterval", 0, 150 * MILLI_SECOND_TO_NANO_SECOND),
-            // Default backup GC interval is 240s.
-            .backupGCInterval = InitTimeParameter("cjBackupGCInterval", 0, 240 * SECOND_TO_NANO_SECOND),
-            // Default GC thread factor is 2.
-            .gcThreads = 2,
-        },
+                // Default gc threshold is heapSize.
+                .gcThreshold = InitSizeParameter("cjGCThreshold", 0, initHeapSize) * KB,
+                // Default garbage ration is 50% of from space.
+                .garbageThreshold = InitPercentParameterIncl("cjGarbageThreshold", 0.0, 1.0, 0.5),
+                // Default GC interval is 150ms.
+                .gcInterval = InitTimeParameter("cjGCInterval", 0, 150 * MILLI_SECOND_TO_NANO_SECOND),
+                // Default backup GC interval is 240s.
+                .backupGCInterval = InitTimeParameter("cjBackupGCInterval", 0, 240 * SECOND_TO_NANO_SECOND),
+                // Default GC thread factor is 2.
+                .gcThreads = 2,
+            },
         .logParam = {
             .logLevel = LogFile::GetLogLevel(),
         },
         .coParam = {
-            // Default thread stack size is 1 * KB KB = 1MB.
-            .thStackSize = 1 * KB,
-            .coStackSize = InitCoStackSize(),
-            .processorNum = InitProcessorNum(),
-        }
+                // Default thread stack size is 1 * KB KB = 1MB.
+                .thStackSize = 1 * KB,
+                .coStackSize = InitCoStackSize(),
+                .processorNum = InitProcessorNum(),
+            },
     };
     return param;
 }
+
+#ifdef INTERPRETER_ENABLED
+static InterpreterParam InitInterpreterParam()
+{
+    int interpreterArgsCount = 0;
+    INT_InterpreterArgs interpreterArgs = InitInterpreterArgs(interpreterArgsCount);
+    InterpreterParam interpreterParam = {
+        .interpreterLibName = InitInterpreterLibName(),
+        .interpreterArgsCount = interpreterArgsCount,
+        .interpreterArgs = interpreterArgs,
+        .appLibHandle = nullptr,
+    };
+    return interpreterParam;
+}
+
+static void DestroyInterpreterParam(InterpreterParam& interpreterParam)
+{
+    INT_InterpreterArgs interpreterArgs = interpreterParam.interpreterArgs;
+    if (interpreterArgs != nullptr) {
+        for (int i = 0; i < interpreterParam.interpreterArgsCount && interpreterArgs[i] != nullptr; ++i) {
+            delete[] interpreterArgs[i];
+        }
+        delete[] interpreterArgs;
+    }
+
+    if (interpreterParam.interpreterLibName != nullptr) {
+        std::free(const_cast<char*>(interpreterParam.interpreterLibName));
+    }
+    interpreterParam.interpreterLibName = nullptr;
+    interpreterParam.interpreterArgsCount = 0;
+    interpreterParam.interpreterArgs = nullptr;
+    interpreterParam.appLibHandle = nullptr;
+}
+#endif
 
 void MRT_CjRuntimeInit()
 {
     RuntimeParam param = InitRuntimeParam();
     CangjieRuntime::CreateAndInit(param);
+#ifdef INTERPRETER_ENABLED
+    InterpreterParam interpreterParam = InitInterpreterParam();
+    InitCJInterpreter(&interpreterParam);
+    DestroyInterpreterParam(interpreterParam);
+#endif
     RTErrorCode rtCode = SetRuntimeInitFlag();
     if (rtCode != E_OK) {
         LOG(RTLOG_FATAL, "Init cj runtime failed for %d\n", rtCode);
@@ -877,7 +970,7 @@ __asm__(
 MRT_EXPORT void* CJ_MCC_NewCJThreadNoReturn(void* executeClosure, void* closurePtr, void* scheduler);
 __asm__(
     ".global _CJ_MCC_NewCJThreadNoReturn\n\t.set _CJ_MCC_NewCJThreadNoReturn, "
-    "_MCC_NewCJThreadNoReturn");
+        "_MCC_NewCJThreadNoReturn");
 MRT_EXPORT void CJ_MRT_SetCommandLineArgs(int argc, const char* argv[]);
 __asm__(".global _CJ_MRT_SetCommandLineArgs\n\t.set _CJ_MRT_SetCommandLineArgs, _MRT_SetCommandLineArgs");
 MRT_EXPORT const char** CJ_MRT_GetCommandLineArgs();

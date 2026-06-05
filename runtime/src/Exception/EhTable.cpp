@@ -109,7 +109,7 @@ void EHTable::BuildEHTable(const uint8_t* lsda)
     uint8_t callSiteEncoding = *curPtr++;
     (void)lpStartEncoding;  // eliminate compilation warning
     (void)callSiteEncoding; // eliminate compilation warning
-    DLOG(EXCEPTION, "creat eh table lpStartEncoding : %u ttypeEncoding : %u callSiteEncoding : %u",
+    DLOG(EXCEPTION, "create eh table lpStartEncoding : %u ttypeEncoding : %u callSiteEncoding : %u",
          static_cast<uint32_t>(lpStartEncoding), static_cast<uint32_t>(*ttypeEncoding),
          static_cast<uint32_t>(callSiteEncoding));
     uint64_t callSiteTableLength = EHTable::ReadULEB128(&curPtr);

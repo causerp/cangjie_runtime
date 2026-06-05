@@ -20,6 +20,8 @@
 #ifdef _WIN64
 #include "UnwindWin.h"
 #endif
+#include "Interpreter/Options.h"
+#include "Interpreter/RTInterface.h"
 
 
 namespace MapleRuntime {
@@ -63,6 +65,10 @@ public:
         observerCnt = 0;
         mutatorPhase.store(GCPhase::GC_PHASE_IDLE);
         inManagedContext.store(true);
+
+#ifdef INTERPRETER_ENABLED
+        InitInterpreterPart();
+#endif
     }
 
     ~Mutator()
@@ -73,6 +79,10 @@ public:
             SatbBuffer::Instance().RetireNode(satbNode);
             satbNode = nullptr;
         }
+
+#ifdef INTERPRETER_ENABLED
+        DestroyInterpreterPart();
+#endif
     }
 
     static Mutator* NewMutator()
@@ -554,6 +564,21 @@ private:
         AllocBuffer* allocBuffer = { nullptr };
         ScheduleHandle schedule = { nullptr };
     } foreignThreadInfo;
+
+public:
+#ifdef INTERPRETER_ENABLED
+    void InitInterpreterPart();
+    void DestroyInterpreterPart();
+
+    // Pointer to data used during hotfix interpreter execution
+    DYN_CJThreadSpecificData interpreterCJThreadData;
+    bool isRuntimeMutator = false;
+
+    void markAsRuntimeMutator()
+    {
+        isRuntimeMutator = true;
+    }
+#endif
 };
 
 // This function is mainly used to initialize the context of mutator.

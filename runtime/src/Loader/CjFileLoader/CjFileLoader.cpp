@@ -399,9 +399,10 @@ bool CJFileLoader::LibInit(const char* libName)
 }
 
 #ifdef __OHOS__
-void CJFileLoader::RegisterLoadFunc(void* loadFunc)
+void CJFileLoader::RegisterLoadFunc(void* loadFunc, void* loadLibraryFunc)
 {
     binLoadApi.binLoad = (void*(*)(const char*))(loadFunc);
+    binLoadApi.binLoadLib = (void*(*)(LibraryKind, const char*))(loadLibraryFunc);
 }
 #endif
 
@@ -421,6 +422,17 @@ void* CJFileLoader::LoadCJLibrary(const char* libName)
     }
     return handler;
 }
+
+#ifdef INTERPRETER_ENABLED
+void* CJFileLoader::LoadInterpreter(const char* libName)
+{
+    if (binLoadApi.binLoadLib == nullptr) {
+        return nullptr;
+    }
+    
+    return binLoadApi.binLoadLib(LibraryKind::APP, libName);
+}
+#endif
 
 int CJFileLoader::UnloadLibrary(const char* libName)
 {

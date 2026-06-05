@@ -4,7 +4,6 @@
 //
 // See https://cangjie-lang.cn/pages/LICENSE for license information.
 
-
 #include "StackInfo.h"
 
 #include <cstdint>
@@ -14,6 +13,7 @@
 #include "Collector/TracingCollector.h"
 #include "Common/StackType.h"
 #include "Common/TypeDef.h"
+#include "Interpreter/InterpreterSpecific.h"
 #include "MangleNameHelper.h"
 #include "StackMap/StackMap.h"
 #include "UnwindStack/StackMetadataHelper.h"
@@ -100,9 +100,7 @@ void StackInfo::AnalyseAndSetFrameType(UnwindContext& uwContext)
     if (mFrame.IsN2CStubFrame()) {
         MRT_Check(lastFrameType == FrameType::MANAGED, "");
         N2CSlotData* n2cSlotData = N2CFrame::GetSlotData(mFrame.GetFA());
-        if (n2cSlotData->status == UnwindContextStatus::RELIABLE) {
-            isReliableN2CStub = true;
-        }
+        isReliableN2CStub |= (n2cSlotData->status == UnwindContextStatus::RELIABLE);
         frameInfo.SetFrameType(FrameType::N2C_STUB);
     } else if (mFrame.IsSafepointHandlerStubFrame()) {
         isReliableN2CStub = false;
@@ -125,6 +123,26 @@ void StackInfo::AnalyseAndSetFrameType(UnwindContext& uwContext)
     } else if (mFrame.IsRuntimeFrame()) {
         frameInfo.SetFrameType(FrameType::RUNTIME);
         isReliableN2CStub = false;
+#ifdef INTERPRETER_ENABLED
+    } else if (mFrame.IsInterpreterFrame()) {
+        if (mFrame.IsC2IStubFrame()) {
+            DLOG(INTERPRETER, "[Analyzer] INTERPRETER_C2I frame, address: %p", mFrame.GetIP());
+            frameInfo.SetFrameType(FrameType::INTERPRETER_C2I);
+        } else if (mFrame.IsI2IFrame()) {
+            DLOG(INTERPRETER, "[Analyzer] INTERPRETER_I2I frame, address: %p", mFrame.GetIP());
+            frameInfo.SetFrameType(FrameType::INTERPRETER_I2I);
+        } else if (mFrame.IsI2NFrame()) {
+            DLOG(INTERPRETER, "[Analyzer] INTERPRETER_I2N frame, address: %p", mFrame.GetIP());
+            frameInfo.SetFrameType(FrameType::INTERPRETER_I2N);
+        } else if (mFrame.IsInterpreterPrologueFrame()) {
+            DLOG(INTERPRETER, "[Analyzer] INTERPRETER_PROLOGUE frame, address: %p", mFrame.GetIP());
+            frameInfo.SetFrameType(FrameType::INTERPRETER_PROLOGUE);
+        } else {
+            DLOG(INTERPRETER, "[Analyzer] INTERPRETER frame, address: %p", mFrame.GetIP());
+            frameInfo.SetFrameType(FrameType::INTERPRETER);
+        }
+        isReliableN2CStub = false;
+#endif
     } else {
         // The judgment is mainly to identify the credible native call the managed code
         // through n2c in the macro. The so of macor is a mixed code library, which cannot
@@ -173,17 +191,42 @@ void StackInfo::ExtractLiteFrameInfoFromStack(std::vector<uint64_t>& liteFrameIn
 {
     size_t count = 1;
     for (const auto& frameInfo : stack) {
-        if (count <= steps) {
-            liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.mFrame.GetIP()));
-            liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.GetFuncStartPC()));
-#ifdef __APPLE__
-            FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(frameInfo.mFrame.GetFA());
-#else
-            FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(frameInfo.GetFuncStartPC()));
-#endif
-            liteFrameInfos.push_back(reinterpret_cast<uint64_t>(funcDesc));
-            count++;
+        if (count > steps) {
+            break;
         }
+
+        switch (frameInfo.GetFrameType()) {
+            case FrameType::MANAGED: {
+                liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.mFrame.GetIP()));
+                liteFrameInfos.push_back(reinterpret_cast<uint64_t>(frameInfo.GetFuncStartPC()));
+#ifdef __APPLE__
+                FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(frameInfo.mFrame.GetFA());
+#else
+                FuncDescRef funcDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(frameInfo.GetFuncStartPC()));
+#endif
+                liteFrameInfos.push_back(reinterpret_cast<uint64_t>(funcDesc));
+                break;
+            }
+#ifdef INTERPRETER_ENABLED
+            case FrameType::INTERPRETER_C2I:
+            case FrameType::INTERPRETER_I2I:
+            case FrameType::INTERPRETER_I2N:
+            case FrameType::INTERPRETER_PROLOGUE: {
+                liteFrameInfos.push_back(reinterpret_cast<uint64_t>(
+                    frameInfo.mFrame.GetIP())); // consumed by interpreter frame info provider
+                liteFrameInfos.push_back(reinterpret_cast<uint64_t>(
+                    frameInfo.mFrame.GetFA()));                    // consumed by interpreter frame info provider
+                liteFrameInfos.push_back(INTERPRETED_FRAME_FDESC); // marks this triple as "non-cjnative"
+                break;
+            }
+#endif
+            default: {
+                LOG(RTLOG_FATAL, "Unknown type of method in lite frame info.");
+                break;
+            }
+        }
+
+        count++;
     }
 }
 
@@ -205,11 +248,28 @@ void StackInfo::GetStackTraceByLiteFrameInfos(const std::vector<uint64_t>& liteF
     }
 }
 
-void StackInfo::GetStackTraceByLiteFrameInfo(const uint64_t ip, const uint64_t pc, const uint64_t funcDesc,
+void StackInfo::GetStackTraceByLiteFrameInfo(const uint64_t v1, const uint64_t v2, const uint64_t v3,
                                              StackTraceElement& ste)
 {
-    StackMetadataHelper stackMetadataHelper(reinterpret_cast<uint32_t*>(ip), reinterpret_cast<uint32_t*>(pc),
-                                            reinterpret_cast<uint64_t*>(funcDesc));
+#ifdef INTERPRETER_ENABLED
+    if (v3 == INTERPRETED_FRAME_FDESC) {
+        // handle interpreter frame
+        INT_InterpretedFrameInfo info;
+
+        uint64_t ip = v1;
+        uint64_t fa = v2;
+        FillInterpretedFrameInfo(fa, ip, &info);
+
+        ste.lineNumber = info.lineNumber;
+        ste.methodName = info.methodName;
+        ste.className = info.className;
+        ste.fileName = info.fileName;
+        return;
+    }
+#endif
+
+    StackMetadataHelper stackMetadataHelper(reinterpret_cast<uint32_t*>(v1), reinterpret_cast<uint32_t*>(v2),
+                                            reinterpret_cast<uint64_t*>(v3));
     stackMetadataHelper.GetMangleNameHelper()->Demangle();
 
     if (stackMetadataHelper.IsNeedFiltExceptionCreationLayer()) {

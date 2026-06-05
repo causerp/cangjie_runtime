@@ -10,6 +10,7 @@ set(SRC_LIST
     "MutatorManager.cpp"
     "ThreadLocal.cpp"
 )
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Interpreter)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Heap)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../)
 add_library(Mutator STATIC ${SRC_LIST})

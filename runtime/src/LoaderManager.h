@@ -12,6 +12,7 @@
 #include <mutex>
 #include <vector>
 
+#include "Interpreter/Options.h"
 #include "Base/CString.h"
 #include "ObjectModel/MClass.h"
 #include "Loader/ILoader.h"
@@ -32,6 +33,9 @@ public:
     void LoadFile(Uptr address);
     void UnloadFile(Uptr address);
     void* LoadCJLibrary(const char* libName) const;
+#ifdef INTERPRETER_ENABLED
+    void* LoadInterpreter(const char* libName) const;
+#endif
     int UnLoadLibrary(const char* libName) const;
     Uptr FindSymbol(const CString libName, const CString symbolName) const;
     bool LibInit(const char* libName) const;

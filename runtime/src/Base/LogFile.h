@@ -14,6 +14,7 @@
 #include "Base/Macros.h"
 #include "Base/TimeUtils.h"
 #include "Cangjie.h"
+#include "Interpreter/Options.h"
 
 namespace MapleRuntime {
 enum LogType {
@@ -49,6 +50,8 @@ enum LogType {
     SIGNAL,
 
     CJTHREAD,
+
+    INTERPRETER,
 
 #if defined(CANGJIE_SANITIZER_SUPPORT) || defined(CANGJIE_GWPASAN_SUPPORT)
     SANITIZER,
@@ -140,6 +143,10 @@ enum LogType {
 #ifndef DEFAULT_MRT_LOG_CJTHREAD
 #define DEFAULT_MRT_LOG_CJTHREAD 0
 #endif // DEFAULT_MRT_LOG_CJTHREAD
+
+#ifndef DEFAULT_MRT_LOG_INTERPRETER
+#define DEFAULT_MRT_LOG_INTERPRETER 0
+#endif // DEFAULT_MRT_LOG_INTERPRETER
 
 #ifndef DEFAULT_MRT_LOG2STDOUT
 #define DEFAULT_MRT_LOG2STDOUT 0

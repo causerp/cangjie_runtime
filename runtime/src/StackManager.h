@@ -47,6 +47,11 @@ public:
     static uint64_t cjcSoEndAddr;
     static uint64_t traceSoStartAddr;
     static uint64_t traceSoEndAddr;
+
+    #ifdef INTERPRETER_ENABLED
+    static uint64_t interpreterSoStartAddr;
+    static uint64_t interpreterSoEndAddr;
+    #endif
 #endif
 
     // debug interface for runtime to get all stack trace.
@@ -79,6 +84,10 @@ public:
 #endif
 
     static bool IsRuntimeFrame(Uptr pc);
+#ifdef INTERPRETER_ENABLED
+    static void InitAddressScopeForInterpreter(const char* libName);
+    static bool IsInterpreterCodeAddr(Uptr pc);
+#endif
     friend class MachineFrame;
 
 private:

@@ -12,6 +12,7 @@
 #include <mutex>
 #include <unordered_set>
 
+#include "Interpreter/Options.h"
 #include "Base/HashUtils.h"
 #include "Base/Types.h"
 #include "Loader/ILoader.h"
@@ -48,6 +49,9 @@ public:
     void VisitBaseFile(const std::function<bool(BaseFile*)>& f) const override;
     bool LibInit(const char* libName) override;
     void* LoadCJLibrary(const char* libName) override;
+#ifdef INTERPRETER_ENABLED
+    void* LoadInterpreter(const char* libName) override;
+#endif
     int UnloadLibrary(const char* libName) override;
     Uptr FindSymbol(const CString libName, const CString symName) const override;
     bool DoInitImage(BaseFile* baseFile) const override;
@@ -73,7 +77,7 @@ public:
     TypeExt* GetTypeExt(void* type) override;
     void RegisterTypeExt(BaseFile* baseFile) override;
 #ifdef __OHOS__
-    void RegisterLoadFunc(void* loadFunc) override;
+    void RegisterLoadFunc(void* loadFunc, void* loadLibraryFunc) override;
 #endif
 
 protected:

@@ -73,14 +73,14 @@ void MutatorManager::BindMutator(Mutator& mutator) const
     }
     mutator.SetSafepointStatePtr(&tlData->safepointState);
     mutator.SetSafepointActive(false);
-    tlData->mutator = &mutator;
+    tlData->SetMutator(&mutator);
 }
 
 void MutatorManager::UnbindMutator(Mutator& mutator) const
 {
     ThreadLocalData* tlData = ThreadLocal::GetThreadLocalData();
     MRT_ASSERT(tlData->mutator == &mutator, "mutator in ThreadLocalData doesn't match in cjthread");
-    tlData->mutator = nullptr;
+    tlData->SetMutator(nullptr);
     mutator.SetSafepointStatePtr(nullptr);
 }
 
@@ -157,6 +157,9 @@ Mutator* MutatorManager::CreateRuntimeMutator(ThreadType threadType)
     }
     CHECK_DETAIL(mutator != nullptr, "create mutator out of native memory");
     MutatorManagementRLock();
+#ifdef INTERPRETER_ENABLED
+    mutator->markAsRuntimeMutator();
+#endif
     mutator->Init();
     mutator->InitTid();
     mutator->InitProtectStackAddr();
