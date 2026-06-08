@@ -163,6 +163,7 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
         findAnnotation<T>(annotations)
     }
 
+    // Return all matching annotations for this instance variable.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }
@@ -276,6 +277,7 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      * @throw IllegalTypeException, if the input newValue type is different from the static variable type.
      */
     public func setValue(newValue: Any): Unit {
+        // Keep the mutability check before the type check to preserve the existing error order.
         if (!isMutable()) {
             throw IllegalSetException("Attempt to modify immutable variable '${name}'.")
         }
@@ -310,6 +312,7 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
         variableToString(modifiers, name, typeInfo)
     }
 
+    // Static variable identity is represented by the runtime variable info pointer.
     public func hashCode(): Int64 {
         this._info.toUIntNative().hashCode()
     }
@@ -377,6 +380,7 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
      *
      * @throw IllegalSetException, if the global variable is immutable.
      * @throw IllegalTypeException, if the input newValue type is different from the global variable type.
+     * The mutability check is performed before the type check, so immutable variables fail consistently.
      */
     public func setValue(newValue: Any): Unit {
         if (!isMutable()) {
@@ -387,7 +391,7 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
     }
 
     /**
-     * Searches the global variable's annotation by incoming name.
+     * Finds an annotation declared on this global variable by annotation type.
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(this.annotations)

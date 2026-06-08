@@ -133,7 +133,6 @@ func checkArgsSizeAndType(parameters: ReadOnlyList<TypeInfo>, args: Array<Any>):
     }
 }
 
-
 func checkValueType(newValue: Any, typeInfo: TypeInfo): Unit {
     let valueTypeInfo = TypeInfo.of(newValue)
     if (!valueTypeInfo.isSubtypeOf(typeInfo)) {

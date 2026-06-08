@@ -233,7 +233,7 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     }
 
     /**
-     * Returns the list of parameters of instance function.
+     * Returns the parameters accepted by this instance function.
      */
     public prop parameters: ReadOnlyList<ParameterInfo> {
         get() {
@@ -244,7 +244,7 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     }
 
     /**
-     * Returns the return type of instance function.
+     * Returns the value type produced by this instance function.
      */
     public prop returnType: TypeInfo {
         get() {
@@ -255,7 +255,7 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     }
 
     /**
-     * Returns the collection of modifiers of instance function.
+     * Returns modifiers attached to this instance function.
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
@@ -266,7 +266,7 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     }
 
     /**
-     * Returns the collection of annotations of instance function.
+     * Returns annotations attached to this instance function.
      */
     public prop annotations: Collection<Annotation> {
         get() {
@@ -312,7 +312,6 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
         } catch (_: InfoNotFoundException) {
             throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
         }
-
         checkArgsSizeAndType(parameters, args)
         checkMethodDeclaringClassType(instance, _declaringTypeInfo)
 
@@ -337,12 +336,13 @@ public class InstanceFunctionInfo <: Equatable<InstanceFunctionInfo> & Hashable 
     }
 
     /**
-     * Searches the instance function's annotation by incoming name.
+     * Searches annotations declared on this instance function by annotation type.
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
     }
 
+    // Return all matching annotations while preserving the native metadata order.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }
@@ -394,7 +394,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     }
 
     /**
-     * Returns the name of static function.
+     * Returns the declared name of this static function.
      */
     public prop name: String {
         get() {
@@ -403,7 +403,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     }
 
     /**
-     * Returns the list of parameters of static function.
+     * Returns the parameter list accepted by this static function.
      */
     public prop parameters: ReadOnlyList<ParameterInfo> {
         get() {
@@ -414,7 +414,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     }
 
     /**
-     * Returns the return type of static function.
+     * Returns the value type produced by this static function.
      */
     public prop returnType: TypeInfo {
         get() {
@@ -425,7 +425,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     }
 
     /**
-     * Returns the collection of modifiers of static function.
+     * Returns modifiers attached to this static function.
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
@@ -436,7 +436,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
     }
 
     /**
-     * Returns the collection of annotations of static function.
+     * Returns annotations attached to this static function.
      */
     public prop annotations: Collection<Annotation> {
         get() {
@@ -468,7 +468,6 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         }
 
         checkStaticDeclaringType(thisType, _declaringTypeInfo)
-
         checkArgsSizeAndType(parameters, args)
         applyCJStaticMethod(_info, args, thisType._info)
     }
@@ -481,7 +480,6 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         }
 
         checkStaticDeclaringType(thisType, _declaringTypeInfo)
-
         checkParamaterSize(genericParams, parameters.size, genericTypeArgs, args)
 
         let gArgs = getGenericTypeArgInfos(genericTypeArgs)
@@ -497,6 +495,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         findAnnotation<T>(annotations)
     }
 
+    // Static functions expose the annotation collection from their native metadata.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }
@@ -517,6 +516,7 @@ public class StaticFunctionInfo <: Equatable<StaticFunctionInfo> & Hashable & To
         functionToString(modifiers, name, parameters, returnType)
     }
 
+    // Static function identity is represented by the runtime function info pointer.
     public func hashCode(): Int64 {
         this._info.toUIntNative().hashCode()
     }
@@ -550,7 +550,7 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
     }
 
     /**
-     * Returns the return type of instance property.
+     * Gets the type reported by the getter of the instance property.
      */
     public prop typeInfo: TypeInfo {
         get() {
@@ -561,7 +561,7 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
     }
 
     /**
-     * Returns the collection of modifiers of instance property.
+     * Gets the modifier list for the instance property, including mutability synthesized from the setter.
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
@@ -572,7 +572,7 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
     }
 
     /**
-     * Returns the collection of annotations of instance property.
+     * Gets annotations attached to the getter that represents the instance property.
      */
     public prop annotations: Collection<Annotation> {
         get() {
@@ -635,12 +635,13 @@ public class InstancePropertyInfo <: Equatable<InstancePropertyInfo> & Hashable 
     }
 
     /**
-     * Searches the instance property's annotation by incoming name.
+     * Finds an annotation declared on the getter that represents this instance property.
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(this.annotations)
     }
 
+    // Return all matching instance getter annotations in metadata order.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(this.annotations)
     }
@@ -701,7 +702,7 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     }
 
     /**
-     * Returns the return type of static property.
+     * Gets the type reported by the getter of the static property.
      */
     public prop typeInfo: TypeInfo {
         get() {
@@ -712,7 +713,7 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     }
 
     /**
-     * Returns the collection of modifiers of static property.
+     * Gets the modifier list for the static property, including mutability synthesized from the setter.
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
@@ -723,7 +724,7 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     }
 
     /**
-     * Returns the collection of annotations of static property.
+     * Gets annotations attached to the getter that represents the static property.
      */
     public prop annotations: Collection<Annotation> {
         get() {
@@ -763,12 +764,13 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     }
 
     /**
-     * Searches the static property's annotation by incoming name.
+     * Finds an annotation declared on the getter that represents this static property.
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(this.annotations)
     }
 
+    // Return all matching static getter annotations in metadata order.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(this.annotations)
     }
@@ -776,6 +778,7 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
     public func getAllAnnotations(): Array<Annotation> {
         this.annotations.toArray()
     }
+
     public operator func ==(other: StaticPropertyInfo): Bool {
         let left = this._getterInfo.getOrThrow()._info
         left == other._getterInfo.getOrThrow()._info
@@ -789,6 +792,7 @@ public class StaticPropertyInfo <: Equatable<StaticPropertyInfo> & Hashable & To
         propertyToString(modifiers, name, typeInfo)
     }
 
+    // Static property identity follows its getter function info.
     public func hashCode(): Int64 {
         this._getterInfo.getOrThrow()._info.toUIntNative().hashCode()
     }
@@ -878,6 +882,7 @@ public class ConstructorInfo <: Equatable<ConstructorInfo> & Hashable & ToString
         findAnnotation<T>(annotations)
     }
 
+    // Constructor annotations are stored with the constructor metadata.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }
@@ -981,7 +986,6 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
         } catch (_: InfoNotFoundException) {
             throw InvocationTargetException("The generic function cannot be applied without `genericTypeArgs`.")
         }
-
         checkArgsSizeAndType(parameters, args)
         applyCJStaticMethod(_info, args, CPointer<Unit>())
     }
@@ -1002,6 +1006,7 @@ public class GlobalFunctionInfo <: Equatable<GlobalFunctionInfo> & Hashable & To
         findAnnotation<T>(annotations)
     }
 
+    // Global functions read annotations from their own native metadata entry.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }

@@ -67,7 +67,7 @@ public class ClassTypeInfo <: TypeInfo {
     }
 
     /**
-     * Returns the collection of public instance variables of type info.
+     * Returns public instance variables declared on this class type.
      */
     public prop instanceVariables: Collection<InstanceVariableInfo> {
         get() {
@@ -82,7 +82,7 @@ public class ClassTypeInfo <: TypeInfo {
     }
 
     /**
-     * Returns the collection of public static variables of type info.
+     * Returns public static variables declared on this class type.
      */
     public prop staticVariables: Collection<StaticVariableInfo> {
         get() {
