@@ -19,6 +19,7 @@ import std.io.*
 @When[os != "iOS"]
 public class SubProcess <: Process {
     var _stdIn: OutputStream
+    // Non-iOS exposes streams from fields initialized by the constructor.
     var _stdOut: InputStream
     var _stdErr: InputStream
 
@@ -28,6 +29,7 @@ public class SubProcess <: Process {
         command: ?String,
         arguments: ?Array<String>,
         commandLine: ?Array<String>,
+        // Non-iOS stores directory and environment metadata directly on Process.
         workingDirectory: ?Path,
         environment: ?Map<String, String>,
         stdIn: OutputStream,
@@ -35,6 +37,7 @@ public class SubProcess <: Process {
         stdErr: InputStream
     ) {
         super(pid, name, command, arguments, commandLine, workingDirectory, environment)
+        // Non-iOS stores stream objects directly on the process wrapper.
         this._stdIn = stdIn
         this._stdOut = stdOut
         this._stdErr = stdErr
@@ -82,23 +85,10 @@ public class SubProcess <: Process {
         }
     }
 
-    /**
-     * wait func developer should read the outputStream or errStream first and then invoke this func.
-     * if developer invoke wait func first and then read stream, it can be occur unexpected concurrency results.
-     *
-     * @param timeout
-     * @return Int64
-     */
     public func wait(timeout!: ?Duration = None): Int64 {
         subProcessWait(this, timeout)
     }
 
-    /**
-     * waitOutput func is applicable to scenarios where number of bytes in output or error stream is small.
-     * If you need to deal with big size within output or error stream, please use stdOut or stdErr prop and wait func.
-     *
-     * @return (exitCode: Int64, out: Array<Byte>, err: Array<Byte>)
-     */
     public func waitOutput(): (Int64, Array<Byte>, Array<Byte>) {
         subProcessWaitOutput(this)
     }
@@ -112,6 +102,7 @@ public class SubProcess <: Process {
 @Deprecated
 public class SubProcess <: Process {
     var _stdIn: OutputStream
+    // iOS keeps pipe storage behind native accessors.
     var _stdOut: InputStream
     var _stdErr: InputStream
 
@@ -128,6 +119,7 @@ public class SubProcess <: Process {
         stdErr: InputStream
     ) {
         super(pid, name, command, arguments, commandLine, workingDirectory, environment)
+        // iOS stores stream objects through native accessors for the deprecated wrapper.
         setSubProcessStreams(this, stdIn, stdOut, stdErr)
     }
 
@@ -173,13 +165,6 @@ public class SubProcess <: Process {
         }
     }
 
-    /**
-     * wait func developer should read the outputStream or errStream first and then invoke this func.
-     * if developer invoke wait func first and then read stream, it can be occur unexpected concurrency results.
-     *
-     * @param timeout
-     * @return Int64
-     */
     public func wait(timeout!: ?Duration = None): Int64 {
         return subProcessWait(this, timeout)
     }
@@ -228,7 +213,6 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let outByteArrStream: ByteBuffer = readToByteBuffer(process._stdOut)
             return readToEnd(outByteArrStream)
         } catch (_: ProcessException) {
-                // processException while read outputStream means it is invalid.
             throw ProcessException("OutputStream is invalid, not allow to read.")
         }
     }
@@ -238,7 +222,6 @@ private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Arr
             let errByteArrStream: ByteBuffer = readToByteBuffer(process._stdErr)
             return readToEnd(errByteArrStream)
         } catch (_: ProcessException) {
-                // processException while read errStream means it is invalid.
             throw ProcessException("ErrorStream is invalid, not allow to read.")
         }
     }

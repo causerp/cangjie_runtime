@@ -81,7 +81,6 @@ class PipeOutputStream <: OutputStream & Resource {
         if (!isHandleValid(handle)) {
             return
         }
-
         this.flush()
         closePipeHandle(handle)
         this._fileDescriptor._fileHandle = INVALID_HANDLE

@@ -130,64 +130,25 @@ extern int64_t GetProcessTime(int32_t pid, int8_t kind)
     }
 }
 
-/**
- * @brief Retrieves the start time of a process in milliseconds since the Unix epoch.
- *
- * Combines the system boot time and the process's start time relative to the boot
- * to calculate the absolute start time in Unix epoch milliseconds.
- *
- * @param pid The process ID (PID) of the target process.
- * @return The process start time in milliseconds since the Unix epoch, or:
- *         - `ERROR_GET_PROCESS_TIME_FAILED` if either the boot time or process time cannot be retrieved.
- */
+// macOS reports the process creation timestamp directly in Unix epoch milliseconds.
 extern int64_t CJ_OS_GetStartTimeFromUnixEpoch(int32_t pid)
 {
     return GetProcessTime(pid, TIMEKIND_CREATE);
 }
 
-/**
- * @brief Retrieves the kernel-mode CPU time used by a process in milliseconds.
- *
- * This function provides the total kernel-mode CPU time consumed by the process.
- *
- * @param pid The process ID (PID) of the target process.
- * @return The kernel-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`
- *         if the process does not exist.
- */
+// Returns the kernel-mode CPU time consumed by the process.
 extern int64_t CJ_OS_GetSystemTime(int32_t pid)
 {
     return GetProcessTime(pid, TIMEKIND_SYSTEM);
 }
 
-/**
- * @brief Retrieves the user-mode CPU time used by a process in milliseconds.
- *
- * This function provides the total user-mode CPU time consumed by the process.
- *
- * @param pid The process ID (PID) of the target process.
- * @return The user-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`
- *         if the process does not exist.
- */
+// Returns the user-mode CPU time consumed by the process.
 extern int64_t CJ_OS_GetUserTime(int32_t pid)
 {
     return GetProcessTime(pid, TIMEKIND_USER);
 }
 
-/**
- * @brief Checks the alive status of a process based on its PID and last known start time.
- *
- * This function determines if a process is still running, if its PID has been reused,
- * or if it no longer exists by comparing the process's current start time to a given
- * last known start time.
- *
- * @param pid The process ID (PID) of the target process.
- * @param lastTime The last known start time of the process (in milliseconds since boot).
- *                 If `lastTime` is 0, it is treated as unknown.
- * @return One of the following status codes:
- *         - `PROCESS_STATUS_ALIVE` (0): The process is alive, and its start time matches the `lastTime`.
- *         - `PROCESS_STATUS_PID_REUSED` (1): The PID has been reused by a new process (new start time detected).
- *         - `PROCESS_STATUS_NOT_EXIST` (2): The process does not exist.
- */
+// Checks whether the pid still identifies the same process observed by the caller.
 extern int8_t CJ_OS_GetProcessAliveStatus(int32_t pid, int64_t lastTime)
 {
     int64_t newTime = CJ_OS_GetStartTimeFromUnixEpoch(pid);

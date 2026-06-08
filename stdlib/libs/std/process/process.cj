@@ -960,8 +960,17 @@ private func launchImpl(
 }
 
 /**
- * func execute is combine the launch and wait.
- * provide a convenient way for user, which want start a subprocess and wait the command exec return code.
+ * start a new subProcess using command and arguments which provide by user.
+ *
+ * @param command - vaild system command, should not be empty string and can not include Null character.
+ * @param arguments - command arguments, each of the arguments should not be empty string and can not include Null character.
+ * @param workingDirectory - command working directory, if None, means inherit current process working directory.
+ * @param environment - command working environment, if None, means inherit current process environment.
+ * @param stdIn - stdIn redirect mode.
+ * @param stdOut - stdOut redirect mode.
+ * @param stdErr - stdErr redirect mode.
+ *
+ * @return SubProcess - a new subProcess instance.
  */
 @When[os != "iOS"]
 public func launch(
@@ -990,6 +999,10 @@ public func launch(
     launchImpl(command, arguments, workingDirectory, environment, stdIn, stdOut, stdErr)
 }
 
+/**
+ * func execute is combine the launch and wait.
+ * provide a convenient way for user, which want start a subprocess and wait the command exec return code.
+ */
 @When[os != "iOS"]
 public func execute(
     command: String,
