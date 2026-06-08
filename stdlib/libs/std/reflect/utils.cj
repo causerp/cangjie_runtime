@@ -15,6 +15,13 @@ import std.collection.*
  */
 public type Annotation = Object
 
+func getTypeAnnotations(info: CPointer<Unit>): Collection<Annotation> {
+    match (getTypeInfoAnnotations(info, TypeInfo.of<Array<Object>>()._info)) {
+        case arr: Array<Annotation> => arr
+        case _ => Array<Annotation>()
+    }
+}
+
 /**
  * Parses the input string as a TypeInfo array
  *

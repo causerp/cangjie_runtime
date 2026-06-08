@@ -64,18 +64,7 @@ public class StructTypeInfo <: TypeInfo {
             match (_instanceVariables) {
                 case Some(res) => res
                 case None =>
-                    let num = getNumOfInstanceFieldInfos(_info)
-                    let infos = Array<InstanceVariableInfo>(
-                        Int64(num),
-                        {
-                            index =>
-                            let pointer = getInstanceFieldInfo(_info, UInt32(index))
-                            if (pointer.isNull()) {
-                                throw InfoNotFoundException("StructTypeInfo find instanceVariables failed!")
-                            }
-                            InstanceVariableInfo(pointer, _info, isStruct: true)
-                        }
-                    )
+                    let infos = getInstanceVariableInfos(_info, "StructTypeInfo", true)
                     _instanceVariables = infos
                     infos
             }
@@ -90,18 +79,7 @@ public class StructTypeInfo <: TypeInfo {
             match (_staticVariables) {
                 case Some(res) => res
                 case None =>
-                    let num = getNumOfStaticFieldInfos(_info)
-                    let infos = Array<StaticVariableInfo>(
-                        Int64(num),
-                        {
-                            index =>
-                            let pointer = getStaticFieldInfo(_info, UInt32(index))
-                            if (pointer.isNull()) {
-                                throw InfoNotFoundException("StructTypeInfo find staticVariables failed!")
-                            }
-                            StaticVariableInfo(pointer, _info)
-                        }
-                    )
+                    let infos = getStaticVariableInfos(_info, "StructTypeInfo")
                     _staticVariables = infos
                     infos
             }

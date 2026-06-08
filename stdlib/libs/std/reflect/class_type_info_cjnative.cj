@@ -74,18 +74,7 @@ public class ClassTypeInfo <: TypeInfo {
             match (_instanceVariables) {
                 case Some(res) => res
                 case None =>
-                    let num = getNumOfInstanceFieldInfos(_info)
-                    let infos = Array<InstanceVariableInfo>(
-                        Int64(num),
-                        {
-                            index =>
-                            let pointer = getInstanceFieldInfo(_info, UInt32(index))
-                            if (pointer.isNull()) {
-                                throw InfoNotFoundException("ClassTypeInfo find instanceVariables failed!")
-                            }
-                            InstanceVariableInfo(pointer, _info)
-                        }
-                    )
+                    let infos = getInstanceVariableInfos(_info, "ClassTypeInfo", false)
                     _instanceVariables = infos
                     infos
             }
@@ -100,18 +89,7 @@ public class ClassTypeInfo <: TypeInfo {
             match (_staticVariables) {
                 case Some(res) => res
                 case None =>
-                    let num = getNumOfStaticFieldInfos(_info)
-                    let infos = Array<StaticVariableInfo>(
-                        Int64(num),
-                        {
-                            index =>
-                            let pointer = getStaticFieldInfo(_info, UInt32(index))
-                            if (pointer.isNull()) {
-                                throw InfoNotFoundException("ClassTypeInfo find staticVariables failed!")
-                            }
-                            StaticVariableInfo(pointer, _info)
-                        }
-                    )
+                    let infos = getStaticVariableInfos(_info, "ClassTypeInfo")
                     _staticVariables = infos
                     infos
             }

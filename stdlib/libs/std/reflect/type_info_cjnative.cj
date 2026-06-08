@@ -532,10 +532,7 @@ sealed abstract class TypeInfo <: Equatable<TypeInfo> & Hashable & ToString {
             match (_annotations) {
                 case Some(res) => res
                 case None =>
-                    let infos = match (getTypeInfoAnnotations(_info, TypeInfo.of<Array<Object>>()._info)) {
-                        case arr: Array<Annotation> => arr
-                        case _ => Array<Annotation>()
-                    }
+                    let infos = getTypeAnnotations(_info)
                     _annotations = infos
                     infos
             }
