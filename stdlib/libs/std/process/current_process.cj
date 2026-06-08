@@ -47,9 +47,7 @@ public class CurrentProcess <: Process {
 
     @When[os == "Windows"]
     ~init() {
-        if (this._handle != INVALID_HANDLE) {
-            unsafe { CJ_OS_CloseProcessHandle(this._handle) }
-        }
+        closeProcessHandleIfNeeded(this._handle)
     }
 
     public prop stdErr: OutputStream {

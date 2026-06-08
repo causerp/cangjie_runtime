@@ -111,8 +111,8 @@ void FreeTwoDimensionalArray(char** strArray)
         return;
     }
 
-    for (char** p = strArray; *p; ++p) {
-        free(*p);
+    for (char** item = strArray; *item; ++item) {
+        free(*item);
     }
     free(strArray);
 }

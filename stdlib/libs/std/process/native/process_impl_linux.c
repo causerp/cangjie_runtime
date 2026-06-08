@@ -550,29 +550,29 @@ extern void CJ_OS_CloseProcessHandle(size_t handle)
 
 extern ProcessInfo* CJ_OS_GetProcessInfoByPid(int32_t pid)
 {
-    int64_t firstTime = CJ_OS_GetStartTimeFromBoot(pid);
-    if (firstTime == ERROR_GET_PROCESS_TIME_FAILED) {
+    int64_t linuxStartTime = CJ_OS_GetStartTimeFromBoot(pid);
+    if (linuxStartTime == ERROR_GET_PROCESS_TIME_FAILED) {
         return NULL;
     }
 
-    ProcessInfo* result = (ProcessInfo*)calloc(1, sizeof(ProcessInfo));
-    if (result == NULL) {
+    ProcessInfo* linuxInfo = (ProcessInfo*)calloc(1, sizeof(ProcessInfo));
+    if (linuxInfo == NULL) {
         return NULL;
     }
 
     size_t cmdLen = 0;
     char* cmdInfo = GetProcessCmdline(pid, &cmdLen);
-    result->environment = GetEnvironment(pid);
-    result->workingDirectory = GetWorkingDirectory(pid);
-    result->command = GetCommand(cmdInfo, cmdLen);
-    result->arguments = GetArguments(cmdInfo, cmdLen);
-    result->commandLine = GetCommandLine(result->command, result->arguments);
+    linuxInfo->environment = GetEnvironment(pid);
+    linuxInfo->workingDirectory = GetWorkingDirectory(pid);
+    linuxInfo->command = GetCommand(cmdInfo, cmdLen);
+    linuxInfo->arguments = GetArguments(cmdInfo, cmdLen);
+    linuxInfo->commandLine = GetCommandLine(linuxInfo->command, linuxInfo->arguments);
     free(cmdInfo);
     int64_t lastTime = CJ_OS_GetStartTimeFromBoot(pid);
-    if (firstTime != lastTime || lastTime == ERROR_GET_PROCESS_TIME_FAILED) {
-        CJ_OS_FreeProcessInfo(result);
+    if (linuxStartTime != lastTime || lastTime == ERROR_GET_PROCESS_TIME_FAILED) {
+        CJ_OS_FreeProcessInfo(linuxInfo);
         return NULL;
     }
 
-    return result;
+    return linuxInfo;
 }

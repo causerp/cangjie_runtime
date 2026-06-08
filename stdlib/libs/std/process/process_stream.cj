@@ -77,16 +77,13 @@ class PipeOutputStream <: OutputStream & Resource {
     }
 
     public func close(): Unit {
-        if (isClosed()) {
+        let handle = _fileDescriptor._fileHandle
+        if (!isHandleValid(handle)) {
             return
         }
 
         this.flush()
-
-        /* Call the close() in the C Language */
-        if (unsafe { CJ_OS_CloseFile(this._fileDescriptor._fileHandle) } < 0) {
-            throw ProcessException("Failed to close stream.")
-        }
+        closePipeHandle(handle)
         this._fileDescriptor._fileHandle = INVALID_HANDLE
     }
 
@@ -143,14 +140,11 @@ class PipeInputStream <: InputStream & Resource {
     }
 
     public func close(): Unit {
-        if (isClosed()) {
+        let handle = _fileDescriptor._fileHandle
+        if (!isHandleValid(handle)) {
             return
         }
-
-        /* Call the close() in the C Language */
-        if (unsafe { CJ_OS_CloseFile(this._fileDescriptor._fileHandle) } < 0) {
-            throw ProcessException("Failed to close stream.")
-        }
+        closePipeHandle(handle)
         this._fileDescriptor._fileHandle = INVALID_HANDLE
     }
 
@@ -192,4 +186,10 @@ class NullProcessStream <: IOStream & Resource {
     }
 
     public func close(): Unit {}
+}
+
+func closePipeHandle(handle: IntNative): Unit {
+    if (unsafe { CJ_OS_CloseFile(handle) } < 0) {
+        throw ProcessException("Failed to close stream.")
+    }
 }

@@ -42,9 +42,7 @@ public class SubProcess <: Process {
 
     @When[os == "Windows"]
     ~init() {
-        if (this._handle != INVALID_HANDLE) {
-            unsafe { CJ_OS_CloseProcessHandle(this._handle) }
-        }
+        closeProcessHandleIfNeeded(this._handle)
     }
 
     public prop stdInPipe: OutputStream {
@@ -92,10 +90,7 @@ public class SubProcess <: Process {
      * @return Int64
      */
     public func wait(timeout!: ?Duration = None): Int64 {
-        // implement func for wait subprocess exec result and return statuscode
-        let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(this.pid), this._handle)
-        closeStdStream()
-        return exitCode
+        subProcessWait(this, timeout)
     }
 
     /**
@@ -105,66 +100,11 @@ public class SubProcess <: Process {
      * @return (exitCode: Int64, out: Array<Byte>, err: Array<Byte>)
      */
     public func waitOutput(): (Int64, Array<Byte>, Array<Byte>) {
-        let outStreamFuture: Future<Array<Byte>> = spawn {
-            => try {
-                let outByteArrStream: ByteBuffer = readToByteBuffer(this._stdOut)
-                return readToEnd(outByteArrStream)
-            } catch (_: ProcessException) {
-                // processException while read outputStream means it is invalid.
-                throw ProcessException("OutputStream is invalid, not allow to read.")
-            }
-        }
-
-        let errStreamFuture: Future<Array<Byte>> = spawn {
-            => try {
-                let errByteArrStream: ByteBuffer = readToByteBuffer(this._stdErr)
-                return readToEnd(errByteArrStream)
-            } catch (_: ProcessException) {
-                // processException while read errStream means it is invalid.
-                throw ProcessException("ErrorStream is invalid, not allow to read.")
-            }
-        }
-
-        let outArr: Array<Byte> = outStreamFuture.get()
-        let errArr: Array<Byte> = errStreamFuture.get()
-
-        // implement func for wait subprocess exec result and return statuscode, stdOut and stdErr
-        let exitCode: Int64 = getWaitExitCode(Duration.Zero, Int32(this.pid), this._handle)
-
-        closeStdStream()
-        return (exitCode, outArr, errArr)
+        subProcessWaitOutput(this)
     }
 
     func closeStdStream(): Unit {
-        if (let Some(stdInStream) <- (this._stdIn as ProcessOutputStream)) {
-            if (let Some(stdInPipeOutputStream) <- (stdInStream.outputStream as PipeOutputStream)) {
-                try {
-                    stdInPipeOutputStream.close()
-                } finally {
-                    stdInStream.outputStream = NullProcessStream()
-                }
-            }
-        }
-
-        if (let Some(stdOutStream) <- (this._stdOut as ProcessInputStream)) {
-            if (let Some(stdOutPipeInputStream) <- (stdOutStream.inputStream as PipeInputStream)) {
-                try {
-                    stdOutPipeInputStream.close()
-                } finally {
-                    stdOutStream.inputStream = NullProcessStream()
-                }
-            }
-        }
-
-        if (let Some(stdErrStream) <- (this._stdErr as ProcessInputStream)) {
-            if (let Some(stdErrPipeInputStream) <- (stdErrStream.inputStream as PipeInputStream)) {
-                try {
-                    stdErrPipeInputStream.close()
-                } finally {
-                    stdErrStream.inputStream = NullProcessStream()
-                }
-            }
-        }
+        subProcessCloseStdStream(this)
     }
 }
 
@@ -188,52 +128,48 @@ public class SubProcess <: Process {
         stdErr: InputStream
     ) {
         super(pid, name, command, arguments, commandLine, workingDirectory, environment)
-        this._stdIn = stdIn
-        this._stdOut = stdOut
-        this._stdErr = stdErr
+        setSubProcessStreams(this, stdIn, stdOut, stdErr)
     }
 
     @When[os == "Windows"]
     ~init() {
-        if (this._handle != INVALID_HANDLE) {
-            unsafe { CJ_OS_CloseProcessHandle(this._handle) }
-        }
+        closeProcessHandleIfNeeded(this._handle)
     }
 
     public prop stdInPipe: OutputStream {
         get() {
-            this._stdIn
+            subProcessStdInPipe(this)
         }
     }
     public prop stdOutPipe: InputStream {
         get() {
-            this._stdOut
+            subProcessStdOutPipe(this)
         }
     }
     public prop stdErrPipe: InputStream {
         get() {
-            this._stdErr
+            subProcessStdErrPipe(this)
         }
     }
 
     @Deprecated[message: "Use `public prop stdErrPipe: InputStream` instead."]
     public prop stdErr: InputStream {
         get() {
-            this._stdErr
+            subProcessStdErrPipe(this)
         }
     }
 
     @Deprecated[message: "Use `public prop stdOutPipe: InputStream` instead."]
     public prop stdOut: InputStream {
         get() {
-            this._stdOut
+            subProcessStdOutPipe(this)
         }
     }
 
     @Deprecated[message: "Use `public prop stdInPipe: OutputStream` instead."]
     public prop stdIn: OutputStream {
         get() {
-            this._stdIn
+            subProcessStdInPipe(this)
         }
     }
 
@@ -245,77 +181,103 @@ public class SubProcess <: Process {
      * @return Int64
      */
     public func wait(timeout!: ?Duration = None): Int64 {
-        // implement func for wait subprocess exec result and return statuscode
-        let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(this.pid), this._handle)
-        closeStdStream()
-        return exitCode
+        return subProcessWait(this, timeout)
     }
 
-    /**
-     * waitOutput func is applicable to scenarios where number of bytes in output or error stream is small.
-     * If you need to deal with big size within output or error stream, please use stdOut or stdErr prop and wait func.
-     *
-     * @return (exitCode: Int64, out: Array<Byte>, err: Array<Byte>)
-     */
     public func waitOutput(): (Int64, Array<Byte>, Array<Byte>) {
-        let outStreamFuture: Future<Array<Byte>> = spawn {
-            => try {
-                let outByteArrStream: ByteBuffer = readToByteBuffer(this._stdOut)
-                return readToEnd(outByteArrStream)
-            } catch (_: ProcessException) {
-                // processException while read outputStream means it is invalid.
-                throw ProcessException("OutputStream is invalid, not allow to read.")
-            }
-        }
-
-        let errStreamFuture: Future<Array<Byte>> = spawn {
-            => try {
-                let errByteArrStream: ByteBuffer = readToByteBuffer(this._stdErr)
-                return readToEnd(errByteArrStream)
-            } catch (_: ProcessException) {
-                // processException while read errStream means it is invalid.
-                throw ProcessException("ErrorStream is invalid, not allow to read.")
-            }
-        }
-
-        let outArr: Array<Byte> = outStreamFuture.get()
-        let errArr: Array<Byte> = errStreamFuture.get()
-
-        // implement func for wait subprocess exec result and return statuscode, stdOut and stdErr
-        let exitCode: Int64 = getWaitExitCode(Duration.Zero, Int32(this.pid), this._handle)
-
-        closeStdStream()
-        return (exitCode, outArr, errArr)
+        return subProcessWaitOutput(this)
     }
 
     func closeStdStream(): Unit {
-        if (let Some(stdInStream) <- (this._stdIn as ProcessOutputStream)) {
-            if (let Some(stdInPipeOutputStream) <- (stdInStream.outputStream as PipeOutputStream)) {
-                try {
-                    stdInPipeOutputStream.close()
-                } finally {
-                    stdInStream.outputStream = NullProcessStream()
-                }
+        subProcessCloseStdStream(this)
+    }
+}
+
+private func setSubProcessStreams(
+    process: SubProcess,
+    stdIn: OutputStream,
+    stdOut: InputStream,
+    stdErr: InputStream
+): Unit {
+    process._stdIn = stdIn
+    process._stdOut = stdOut
+    process._stdErr = stdErr
+}
+
+private func subProcessStdInPipe(process: SubProcess): OutputStream {
+    process._stdIn
+}
+
+private func subProcessStdOutPipe(process: SubProcess): InputStream {
+    process._stdOut
+}
+
+private func subProcessStdErrPipe(process: SubProcess): InputStream {
+    process._stdErr
+}
+
+private func subProcessWait(process: SubProcess, timeout: ?Duration): Int64 {
+    let exitCode: Int64 = getWaitExitCode(timeout ?? Duration.Zero, Int32(process.pid), process._handle)
+    process.closeStdStream()
+    return exitCode
+}
+
+private func subProcessWaitOutput(process: SubProcess): (Int64, Array<Byte>, Array<Byte>) {
+    let outStreamFuture: Future<Array<Byte>> = spawn {
+        => try {
+            let outByteArrStream: ByteBuffer = readToByteBuffer(process._stdOut)
+            return readToEnd(outByteArrStream)
+        } catch (_: ProcessException) {
+                // processException while read outputStream means it is invalid.
+            throw ProcessException("OutputStream is invalid, not allow to read.")
+        }
+    }
+
+    let errStreamFuture: Future<Array<Byte>> = spawn {
+        => try {
+            let errByteArrStream: ByteBuffer = readToByteBuffer(process._stdErr)
+            return readToEnd(errByteArrStream)
+        } catch (_: ProcessException) {
+                // processException while read errStream means it is invalid.
+            throw ProcessException("ErrorStream is invalid, not allow to read.")
+        }
+    }
+
+    let outArr: Array<Byte> = outStreamFuture.get()
+    let errArr: Array<Byte> = errStreamFuture.get()
+    let exitCode: Int64 = getWaitExitCode(Duration.Zero, Int32(process.pid), process._handle)
+
+    process.closeStdStream()
+    return (exitCode, outArr, errArr)
+}
+
+private func subProcessCloseStdStream(process: SubProcess): Unit {
+    if (let Some(stdInStream) <- (process._stdIn as ProcessOutputStream)) {
+        if (let Some(stdInPipeOutputStream) <- (stdInStream.outputStream as PipeOutputStream)) {
+            try {
+                stdInPipeOutputStream.close()
+            } finally {
+                stdInStream.outputStream = NullProcessStream()
             }
         }
+    }
 
-        if (let Some(stdOutStream) <- (this._stdOut as ProcessInputStream)) {
-            if (let Some(stdOutPipeInputStream) <- (stdOutStream.inputStream as PipeInputStream)) {
-                try {
-                    stdOutPipeInputStream.close()
-                } finally {
-                    stdOutStream.inputStream = NullProcessStream()
-                }
+    if (let Some(stdOutStream) <- (process._stdOut as ProcessInputStream)) {
+        if (let Some(stdOutPipeInputStream) <- (stdOutStream.inputStream as PipeInputStream)) {
+            try {
+                stdOutPipeInputStream.close()
+            } finally {
+                stdOutStream.inputStream = NullProcessStream()
             }
         }
+    }
 
-        if (let Some(stdErrStream) <- (this._stdErr as ProcessInputStream)) {
-            if (let Some(stdErrPipeInputStream) <- (stdErrStream.inputStream as PipeInputStream)) {
-                try {
-                    stdErrPipeInputStream.close()
-                } finally {
-                    stdErrStream.inputStream = NullProcessStream()
-                }
+    if (let Some(stdErrStream) <- (process._stdErr as ProcessInputStream)) {
+        if (let Some(stdErrPipeInputStream) <- (stdErrStream.inputStream as PipeInputStream)) {
+            try {
+                stdErrPipeInputStream.close()
+            } finally {
+                stdErrStream.inputStream = NullProcessStream()
             }
         }
     }
