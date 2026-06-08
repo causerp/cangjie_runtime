@@ -177,12 +177,11 @@ extend<T> Array<T> <: Equatable<Array<T>> where T <: Equatable<T> {
     }
 
     /**
-     * Returns the index of the first occurrence of the elements in the src Array.
+     * Returns the index of the first occurrence of a subarray in this Array.
      *
-     * @params element - The target element.
+     * @params elements - The target subarray.
      *
-     * @return Index of the first occurrence of the element in the Array, or None if the the element does not occur.
-     * @throws IllegalArgumentException - If the start less than 0.
+     * @return Index of the first occurrence of @p elements, or None if the subarray does not occur.
      */
     @Frozen
     public func indexOf(elements: Array<T>): Option<Int64> {
@@ -198,12 +197,11 @@ extend<T> Array<T> <: Equatable<Array<T>> where T <: Equatable<T> {
     }
 
     /**
-     * Returns the index of the first occurrence of the elements in the src Array.
+     * Returns the index of the first occurrence of a subarray at or after @p fromIndex.
      *
-     * @params element - The target element.
+     * @params elements - The target subarray.
      *
-     * @return Index of the first occurrence of the element in the Array, or None if the the element does not occur.
-     * @throws IllegalArgumentException - If the start less than 0.
+     * @return Index of the first occurrence of @p elements from the starting position, or None if it does not occur.
      */
     @Frozen
     public func indexOf(elements: Array<T>, fromIndex: Int64): Option<Int64> {

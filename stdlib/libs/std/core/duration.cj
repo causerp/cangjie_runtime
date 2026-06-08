@@ -819,10 +819,10 @@ extend UInt32 {
 
 extend Float64 {
     /**
-     * Multiply by a duration Instance.
+     * Multiplies this floating-point factor by a Duration instance.
      *
-     * @param r - a duration Instance.
-     * @return Duration - New duration instance after multiplication.
+     * @param r - the duration to scale.
+     * @return Duration - New duration instance after floating-point multiplication.
      *
      * @throws ArithmeticException - If the multiplied value in nanoseconds is out of range for 'Duration'.
      */

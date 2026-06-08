@@ -309,8 +309,8 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     }
 
     /**
-     * Construct a instance of DateTime with specified parameters.
-     * The start time is set to unix epoch time.
+     * Constructs a DateTime in the specified time zone using a numeric month.
+     * The resulting value is checked against the target calendar rules.
      *
      * @param year year A.D, ranges in [-999,999,999, 999,999,999].
      * @param month month value of year, ranges in [1, 12].
@@ -339,11 +339,11 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     }
 
     /**
-     * Construct a instance of DateTime with specified parameters.
-     * The start time is set to unix epoch time.
+     * Constructs a DateTime in the specified time zone using a Month enum value.
+     * The enum month is converted to its calendar number before validation.
      *
      * @param year year A.D, ranges in [-999,999,999, 999,999,999].
-     * @param month month of year.
+     * @param month enum month of the target year.
      * @param dayOfMonth days of month, ranges in [1, 31], the maximum depends on month and year.
      * @param hour hours of day, ranges in [0, 23].
      * @param minute minutes of hour, ranges in [0, 59].
@@ -377,8 +377,8 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     }
 
     /**
-     * Construct a instance of DateTime with specified parameters.
-     * The start time is set to unix epoch time.
+     * Constructs a UTC DateTime using a numeric month.
+     * The result is created in TimeZone.UTC after validating all date-time fields.
      *
      * @param year year A.D, ranges in [-999,999,999, 999,999,999].
      * @param month month value of year, ranges in [1, 12].
@@ -405,11 +405,11 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     }
 
     /**
-     * Construct a instance of DateTime with specified parameters.
-     * The start time is set to unix epoch time.
+     * Constructs a UTC DateTime using a Month enum value.
+     * The enum month is converted to its calendar number before UTC construction.
      *
      * @param year year A.D, ranges in [-999,999,999, 999,999,999].
-     * @param month month of year.
+     * @param month enum month of the UTC date.
      * @param dayOfMonth days of month, ranges in [1, 31], the maximum depends on month and year.
      * @param hour hours of day, ranges in [0, 23].
      * @param minute minutes of hour, ranges in [0, 59].
@@ -2036,6 +2036,8 @@ struct DateTimeParser {
         var slash = false
         for (i in this.index..this.value.size) {
             var character = value[i]
+            // Accept only the supported timezone ID character subset here;
+            // full timezone ID validation is delegated to TimeZone.load.
             if (character.isAsciiLetter() || character.isAsciiNumber() || (!slash && character == r'/') || character ==
                 r'_' || character == r'-') {
                 if (character == r'/') {

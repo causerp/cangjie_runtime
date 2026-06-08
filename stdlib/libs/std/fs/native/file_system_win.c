@@ -1180,16 +1180,20 @@ static char* CJ_FS_ErrmesGet(int errnoValue)
 
 static bool InitWideLinkPaths(const char* linkPath, char* originPath, wchar_t** wLinkPath, wchar_t** wOriginPath)
 {
+    *wLinkPath = Char2Widechar(linkPath);
     if (*wLinkPath == NULL) {
         return false;
     }
 
     for (char* p = originPath; *p != '\0'; p++) {
         if (*p == '/') {
+            *p = '\\';
         }
     }
+    *wOriginPath = Char2Widechar(originPath);
     if (*wOriginPath == NULL) {
         free(*wLinkPath);
+        *wLinkPath = NULL;
         return false;
     }
     return true;
