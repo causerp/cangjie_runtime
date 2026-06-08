@@ -1748,33 +1748,33 @@ public func gcd(x: UInt16, y: UInt16): UInt16 {
         return y
     }
 
-    var x_ = x;
-    var y_ = y;
-    var counter = 0;
-    while (x_ != y_) {
-        if (x_ < y_) {
-            x_ = x_ ^ y_
-            y_ = x_ ^ y_
-            x_ = x_ ^ y_
+    var left = x;
+    var right = y;
+    var commonPower = 0;
+    while (left != right) {
+        if (left < right) {
+            left = left ^ right
+            right = left ^ right
+            left = left ^ right
         }
 
-        if (UInt16(x_ & 1) == 1) {
-            if (UInt16(y_ & 1) == 1) {
-                y_ = (x_ - y_) >> 1
-                x_ -= y_
+        if (UInt16(left & 1) == 1) {
+            if (UInt16(right & 1) == 1) {
+                right = (left - right) >> 1
+                left -= right
             } else {
-                y_ >>= 1
+                right >>= 1
             }
         } else {
-            x_ >>= 1
-            if (UInt16(y_ & 1) != 1) {
-                y_ >>= 1
-                counter++;
+            left >>= 1
+            if (UInt16(right & 1) != 1) {
+                right >>= 1
+                commonPower++;
             }
         }
     }
 
-    x_ << counter;
+    left << commonPower;
 }
 
 /**
@@ -1796,33 +1796,33 @@ public func gcd(x: UInt32, y: UInt32): UInt32 {
         return y
     }
 
-    var x_ = x;
-    var y_ = y;
-    var counter = 0;
-    while (x_ != y_) {
-        if (x_ < y_) {
-            x_ = x_ ^ y_
-            y_ = x_ ^ y_
-            x_ = x_ ^ y_
+    var lhs = x;
+    var rhs = y;
+    var shift = 0;
+    while (lhs != rhs) {
+        if (lhs < rhs) {
+            lhs = lhs ^ rhs
+            rhs = lhs ^ rhs
+            lhs = lhs ^ rhs
         }
 
-        if (UInt32(x_ & 1) == 1) {
-            if (UInt32(y_ & 1) == 1) {
-                y_ = (x_ - y_) >> 1
-                x_ -= y_
+        if (UInt32(lhs & 1) == 1) {
+            if (UInt32(rhs & 1) == 1) {
+                rhs = (lhs - rhs) >> 1
+                lhs -= rhs
             } else {
-                y_ >>= 1
+                rhs >>= 1
             }
         } else {
-            x_ >>= 1
-            if (UInt32(y_ & 1) != 1) {
-                y_ >>= 1
-                counter++;
+            lhs >>= 1
+            if (UInt32(rhs & 1) != 1) {
+                rhs >>= 1
+                shift++;
             }
         }
     }
 
-    x_ << counter;
+    lhs << shift;
 }
 
 /**
@@ -1844,33 +1844,33 @@ public func gcd(x: UInt64, y: UInt64): UInt64 {
         return y
     }
 
-    var x_ = x;
-    var y_ = y;
-    var counter = 0;
-    while (x_ != y_) {
-        if (x_ < y_) {
-            x_ = x_ ^ y_
-            y_ = x_ ^ y_
-            x_ = x_ ^ y_
+    var a = x;
+    var b = y;
+    var shiftCount = 0;
+    while (a != b) {
+        if (a < b) {
+            a = a ^ b
+            b = a ^ b
+            a = a ^ b
         }
 
-        if (UInt64(x_ & 1) == 1) {
-            if (UInt64(y_ & 1) == 1) {
-                y_ = (x_ - y_) >> 1
-                x_ -= y_
+        if (UInt64(a & 1) == 1) {
+            if (UInt64(b & 1) == 1) {
+                b = (a - b) >> 1
+                a -= b
             } else {
-                y_ >>= 1
+                b >>= 1
             }
         } else {
-            x_ >>= 1
-            if (UInt64(y_ & 1) != 1) {
-                y_ >>= 1
-                counter++;
+            a >>= 1
+            if (UInt64(b & 1) != 1) {
+                b >>= 1
+                shiftCount++;
             }
         }
     }
 
-    x_ << counter;
+    a << shiftCount;
 }
 
 /**
@@ -2145,13 +2145,16 @@ public func clamp(v: Float16, min: Float16, max: Float16): Float16 {
  * @throws IllegalArgumentException if the argument `min` is larger than `max`, or `min` or `max` is NaN
  */
 public func clamp(v: Float32, min: Float32, max: Float32): Float32 {
-    match {
-        case !isEqual(min, min) || !isEqual(max, max) || min > max => throw IllegalArgumentException(
-            "Check parameter min:'${min}' or max:'${max}'.\n")
-        case v < min => min
-        case v > max => max
-        case _ => v
+    if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
+        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
     }
+    if (v < min) {
+        return min
+    }
+    if (v > max) {
+        return max
+    }
+    return v
 }
 
 /**
@@ -2237,24 +2240,23 @@ public func round(x: Float32): Float32 {
     if (x.isNaN()) {
         return Float32.NaN
     }
-    var result: Float32 = abs(x)
-    // note: if result >= 1e8, Float32(1e8) + 1 != ceil(Float32(1e8) + 0.9)
-    if (result >= 1e8) {
+    var rounded: Float32 = abs(x)
+    if (rounded >= 1e8) {
         return x
     }
 
-    let integer: Float32 = floor(result)
-    let decimal: Float32 = result - integer
-    result = match {
-        case decimal < 0.5 => integer
-        case decimal > 0.5 => integer + 1.0
-        case Int64(integer) % 2 == 0 => integer
-        case _ => integer + 1.0
+    let whole: Float32 = floor(rounded)
+    let fraction: Float32 = rounded - whole
+    rounded = match {
+        case fraction < 0.5 => whole
+        case fraction > 0.5 => whole + 1.0
+        case Int64(whole) % 2 == 0 => whole
+        case _ => whole + 1.0
     }
 
     return match (x < 0.0) {
-        case true => -result
-        case false => result
+        case true => -rounded
+        case false => rounded
     }
 }
 
@@ -2276,24 +2278,23 @@ public func round(x: Float16): Float16 {
     if (x.isNaN()) {
         return Float16.NaN
     }
-    var result: Float16 = abs(x)
-    // note: if result >= 1e4, Float16(1e4) + 1 != ceil(Float16(1e4) + 0.5)
-    if (result >= 1e4) {
+    var nearest: Float16 = abs(x)
+    if (nearest >= 1e4) {
         return x
     }
 
-    let integer: Float16 = floor(result)
-    let decimal: Float16 = result - integer
-    result = match {
-        case decimal < 0.5 => integer
-        case decimal > 0.5 => integer + 1.0
-        case Int64(integer) % 2 == 0 => integer
-        case _ => integer + 1.0
+    let integral: Float16 = floor(nearest)
+    let remainder: Float16 = nearest - integral
+    nearest = match {
+        case remainder < 0.5 => integral
+        case remainder > 0.5 => integral + 1.0
+        case Int64(integral) % 2 == 0 => integral
+        case _ => integral + 1.0
     }
 
     return match (x < 0.0) {
-        case true => -result
-        case false => result
+        case true => -nearest
+        case false => nearest
     }
 }
 
