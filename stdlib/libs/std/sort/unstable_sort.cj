@@ -205,10 +205,10 @@ extend<T> Array<T> where T <: Comparable<T> {
                         break
                     }
                 }
-                var tb: T = pivot
+                var leftPivotCandidate: T = pivot
                 while (b < e) {
-                    tb = this[b]
-                    if (tb != pivot) {
+                    leftPivotCandidate = this[b]
+                    if (leftPivotCandidate != pivot) {
                         b++
                     } else {
                         break
@@ -218,7 +218,7 @@ extend<T> Array<T> where T <: Comparable<T> {
                     break
                 }
                 this[b] = te
-                this[e] = tb
+                this[e] = leftPivotCandidate
                 b++
                 e--
             }
@@ -234,179 +234,179 @@ extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     // end - begin >= 1
     @OverflowWrapping
-    private func getPartition(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): (Int64, Int64) {
-        let len: Int64 = end - begin + 1
-        let mid: Int64 = (len >> 1) + begin
-        if (len >= 64) {
-            let off: Int64 = len >> 2
-            this.compareSwap3(begin, begin + off, mid, comparator)
-            this.compareSwap3(mid, mid + off, end, comparator)
+    private func getPartition(begin: Int64, end: Int64, compareBy: (T, T) -> Ordering): (Int64, Int64) {
+        let spanLen: Int64 = end - begin + 1
+        let pivotIndex: Int64 = (spanLen >> 1) + begin
+        if (spanLen >= 64) {
+            let sampleOffset: Int64 = spanLen >> 2
+            this.compareSwap3(begin, begin + sampleOffset, pivotIndex, compareBy)
+            this.compareSwap3(pivotIndex, pivotIndex + sampleOffset, end, compareBy)
         }
-        this.compareSwap3(begin, mid, end, comparator)
-        let pivot: T = this[mid]
+        this.compareSwap3(begin, pivotIndex, end, compareBy)
+        let pivotValue: T = this[pivotIndex]
 
-        // swap mid and end
-        let temp = this[end]
-        this[end] = pivot
-        this[mid] = temp
-        var pointNum = 0
-        var b = begin
-        var e = end - 1
+        // swap pivotIndex and end
+        let savedValue = this[end]
+        this[end] = pivotValue
+        this[pivotIndex] = savedValue
+        var pivotEqualCount = 0
+        var leftScan = begin
+        var rightScan = end - 1
 
-        // query the first value equal to pivot
-        var first: Int64 = b
-        while (b < e) {
-            let tb = this[b]
-            match (comparator(tb, pivot)) {
-                case LT => b++
+        // query the firstPivotEqual value equal to pivotValue
+        var firstPivotEqual: Int64 = leftScan
+        while (leftScan < rightScan) {
+            let leftValue = this[leftScan]
+            match (compareBy(leftValue, pivotValue)) {
+                case LT => leftScan++
                 case EQ =>
-                    pointNum++
-                    first = b
-                    b++
+                    pivotEqualCount++
+                    firstPivotEqual = leftScan
+                    leftScan++
                     break
                 case GT =>
-                    var continueBreak = false
-                    while (b < e) {
-                        let te = this[e]
-                        match (comparator(pivot, te)) {
-                            case LT => e--
+                    var foundBoundary = false
+                    while (leftScan < rightScan) {
+                        let rightValue = this[rightScan]
+                        match (compareBy(pivotValue, rightValue)) {
+                            case LT => rightScan--
                             case EQ =>
-                                pointNum++
-                                this[b] = te
-                                this[e] = tb
-                                e--
-                                first = b
-                                b++
-                                continueBreak = true
+                                pivotEqualCount++
+                                this[leftScan] = rightValue
+                                this[rightScan] = leftValue
+                                rightScan--
+                                firstPivotEqual = leftScan
+                                leftScan++
+                                foundBoundary = true
                                 break
                             case GT =>
-                                this[b] = te
-                                this[e] = tb
-                                b++
-                                e--
+                                this[leftScan] = rightValue
+                                this[rightScan] = leftValue
+                                leftScan++
+                                rightScan--
                                 break
                         }
                     }
-                    if (continueBreak) {
+                    if (foundBoundary) {
                         break
                     }
             }
         }
 
-        // find partition pivot
-        while (b < e) {
-            var tb: T = pivot
-            while (b < e) {
-                tb = this[b]
-                match (comparator(tb, pivot)) {
-                    case LT => b++
+        // find partition pivotValue
+        while (leftScan < rightScan) {
+            var leftValue: T = pivotValue
+            while (leftScan < rightScan) {
+                leftValue = this[leftScan]
+                match (compareBy(leftValue, pivotValue)) {
+                    case LT => leftScan++
                     case EQ =>
-                        pointNum++
-                        b++
+                        pivotEqualCount++
+                        leftScan++
                     case GT => break
                 }
             }
-            var te: T = pivot
-            while (b < e) {
-                te = this[e]
-                match (comparator(pivot, te)) {
-                    case LT => e--
+            var rightValue: T = pivotValue
+            while (leftScan < rightScan) {
+                rightValue = this[rightScan]
+                match (compareBy(pivotValue, rightValue)) {
+                    case LT => rightScan--
                     case EQ =>
-                        pointNum++
+                        pivotEqualCount++
                         break
                     case GT => break
                 }
             }
-            if (b >= e) {
+            if (leftScan >= rightScan) {
                 break
             }
-            this[b] = te
-            this[e] = tb
-            b++
-            e--
+            this[leftScan] = rightValue
+            this[rightScan] = leftValue
+            leftScan++
+            rightScan--
         }
 
-        match (comparator(this[b], pivot)) {
+        match (compareBy(this[leftScan], pivotValue)) {
             case GT => ()
-            case _ => b++
+            case _ => leftScan++
         }
-        this.swap(b, end)
-        if (b - first >= pointNum * pointNum) {
-            return (b - 1, b + 1)
+        this.swap(leftScan, end)
+        if (leftScan - firstPivotEqual >= pivotEqualCount * pivotEqualCount) {
+            return (leftScan - 1, leftScan + 1)
         } else {
-            // When the number of traversal times is less than the square of the number of pivot
-            // merge a large number of values that are the same as pivot
-            let hi = b
-            b = first
-            e = hi - 1
-            while (b < e) {
-                var te: T = pivot
-                while (b < e) {
-                    te = this[e]
-                    match (comparator(pivot, te)) {
-                        case EQ => e--
+            // When the number of traversal times is less than the square of the number of pivotValue
+            // merge a large number of values that are the same as pivotValue
+            let upperPivotBound = leftScan
+            leftScan = firstPivotEqual
+            rightScan = upperPivotBound - 1
+            while (leftScan < rightScan) {
+                var rightValue: T = pivotValue
+                while (leftScan < rightScan) {
+                    rightValue = this[rightScan]
+                    match (compareBy(pivotValue, rightValue)) {
+                        case EQ => rightScan--
                         case _ => break
                     }
                 }
-                var tb: T = pivot
-                while (b < e) {
-                    tb = this[b]
-                    match (comparator(tb, pivot)) {
+                var leftPivotCandidate: T = pivotValue
+                while (leftScan < rightScan) {
+                    leftPivotCandidate = this[leftScan]
+                    match (compareBy(leftPivotCandidate, pivotValue)) {
                         case EQ => break
-                        case _ => b++
+                        case _ => leftScan++
                     }
                 }
-                if (b >= e) {
+                if (leftScan >= rightScan) {
                     break
                 }
-                this[b] = te
-                this[e] = tb
-                b++
-                e--
+                this[leftScan] = rightValue
+                this[rightScan] = leftPivotCandidate
+                leftScan++
+                rightScan--
             }
-            match (comparator(this[b], pivot)) {
-                case EQ => b--
+            match (compareBy(this[leftScan], pivotValue)) {
+                case EQ => leftScan--
                 case _ => ()
             }
-            return (b, hi + 1)
+            return (leftScan, upperPivotBound + 1)
         }
     }
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func introSort(begin: Int64, end: Int64, depth: Int64, comparator: (T, T) -> Ordering): Unit {
-        var b: Int64 = begin
-        var e: Int64 = end
-        var d: Int64 = depth
-        while (b < e) {
-            let len = e - b + 1
-            if (len <= 16) {
-                if (len == 1) {
+    func introSort(begin: Int64, end: Int64, depth: Int64, compareBy: (T, T) -> Ordering): Unit {
+        var leftScan: Int64 = begin
+        var rightScan: Int64 = end
+        var depthLeft: Int64 = depth
+        while (leftScan < rightScan) {
+            let spanLen = rightScan - leftScan + 1
+            if (spanLen <= 16) {
+                if (spanLen == 1) {
                     return
-                } else if (len == 2) {
-                    this.compareSwap2(b, e, comparator)
-                } else if (len == 3) {
-                    this.compareSwap3(b, b + 1, e, comparator)
+                } else if (spanLen == 2) {
+                    this.compareSwap2(leftScan, rightScan, compareBy)
+                } else if (spanLen == 3) {
+                    this.compareSwap3(leftScan, leftScan + 1, rightScan, compareBy)
                 } else {
-                    this.insertionSort(b, e, comparator)
+                    this.insertionSort(leftScan, rightScan, compareBy)
                 }
                 return
             }
-            if (d == 0) {
-                this.heapSort(b, e, comparator)
+            if (depthLeft == 0) {
+                this.heapSort(leftScan, rightScan, compareBy)
                 return
             }
-            d--
-            let (lo, hi) = this.getPartition(b, e, comparator)
+            depthLeft--
+            let (lowerPivotBound, upperPivotBound) = this.getPartition(leftScan, rightScan, compareBy)
 
             // Let the smaller side do recursion
             // Let the bigger side do loop
-            if (lo - b < e - hi) {
-                this.introSort(b, lo, d, comparator)
-                b = hi
+            if (lowerPivotBound - leftScan < rightScan - upperPivotBound) {
+                this.introSort(leftScan, lowerPivotBound, depthLeft, compareBy)
+                leftScan = upperPivotBound
             } else {
-                this.introSort(hi, e, d, comparator)
-                e = lo
+                this.introSort(upperPivotBound, rightScan, depthLeft, compareBy)
+                rightScan = lowerPivotBound
             }
         }
     }
