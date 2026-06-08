@@ -233,9 +233,8 @@ public struct DateTime <: ToString & Hashable & Comparable<DateTime> & Formattab
     public prop time: (Int64, Int64, Int64) {
         get() {
             let second = Int64(getYearAndSecond()[1])
-            return (second % SECS_PER_DAY / SECS_PER_HOUR,
-                    second % SECS_PER_HOUR / SECS_PER_MINUTE,
-                    second % SECS_PER_MINUTE)
+            return (second % SECS_PER_DAY / SECS_PER_HOUR, second % SECS_PER_HOUR / SECS_PER_MINUTE, second %
+                    SECS_PER_MINUTE)
         }
     }
 
@@ -2037,10 +2036,8 @@ struct DateTimeParser {
         var slash = false
         for (i in this.index..this.value.size) {
             var character = value[i]
-            // Accept only the supported timezone ID character subset here;
-            // full timezone ID validation is delegated to TimeZone.load.
-            if (character.isAsciiLetter() || character.isAsciiNumber() || 
-                (!slash && character == r'/') || character == r'_' || character == r'-') {
+            if (character.isAsciiLetter() || character.isAsciiNumber() || (!slash && character == r'/') || character ==
+                r'_' || character == r'-') {
                 if (character == r'/') {
                     slash = true
                 }

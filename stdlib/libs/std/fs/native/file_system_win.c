@@ -1178,21 +1178,28 @@ static char* CJ_FS_ErrmesGet(int errnoValue)
     return msg;
 }
 
-extern FsError* CJ_FS_Link(const char* linkPath, char* originPath)
+static bool InitWideLinkPaths(const char* linkPath, char* originPath, wchar_t** wLinkPath, wchar_t** wOriginPath)
 {
-    wchar_t* wLinkPath = Char2Widechar(linkPath);
-    if (wLinkPath == NULL) {
-        return NULL;
+    if (*wLinkPath == NULL) {
+        return false;
     }
 
-    for (int i = 0; i < strlen(originPath); i++) {
-        if (originPath[i] == '/') {
-            originPath[i] = '\\';
+    for (char* p = originPath; *p != '\0'; p++) {
+        if (*p == '/') {
         }
     }
-    wchar_t* wOriginPath = Char2Widechar(originPath);
-    if (wOriginPath == NULL) {
-        free(wLinkPath);
+    if (*wOriginPath == NULL) {
+        free(*wLinkPath);
+        return false;
+    }
+    return true;
+}
+
+extern FsError* CJ_FS_Link(const char* linkPath, char* originPath)
+{
+    wchar_t* wLinkPath = NULL;
+    wchar_t* wOriginPath = NULL;
+    if (!InitWideLinkPaths(linkPath, originPath, &wLinkPath, &wOriginPath)) {
         return NULL;
     }
 
@@ -1207,19 +1214,9 @@ extern FsError* CJ_FS_Link(const char* linkPath, char* originPath)
 
 extern FsError* CJ_FS_SymLink(const char* linkPath, char* originPath)
 {
-    wchar_t* wLinkPath = Char2Widechar(linkPath);
-    if (wLinkPath == NULL) {
-        return NULL;
-    }
-
-    for (int i = 0; i < strlen(originPath); i++) {
-        if (originPath[i] == '/') {
-            originPath[i] = '\\';
-        }
-    }
-    wchar_t* wOriginPath = Char2Widechar(originPath);
-    if (wOriginPath == NULL) {
-        free(wLinkPath);
+    wchar_t* wLinkPath = NULL;
+    wchar_t* wOriginPath = NULL;
+    if (!InitWideLinkPaths(linkPath, originPath, &wLinkPath, &wOriginPath)) {
         return NULL;
     }
 

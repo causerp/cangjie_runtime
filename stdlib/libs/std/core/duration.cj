@@ -684,12 +684,14 @@ func durDiv(secs: UInt64, nanos: UInt32, divisor: UInt64): (Int64, Int64) {
         let dividend2 = UInt64(dd4) * DUR_BASE + UInt64(dd3)
         var res1 = divAndMod(dividend2, dd2, ds2, ds1)
         var (p3, p2, p1, p0) = u32ThreeMul(ds2, ds1, ds0, res1)
-        var (c3, c2, c1, c0) = (Int64(dd4) - Int64(p3), Int64(dd3) - Int64(p2), Int64(dd2) - Int64(p1), Int64(dd1) - Int64(p0))
+        var (c3, c2, c1, c0) = (Int64(dd4) - Int64(p3), Int64(dd3) - Int64(p2), Int64(dd2) - Int64(p1), Int64(dd1) -
+                Int64(p0))
         var (d3, d2, d1, d0) = getDifference(c3, c2, c1, c0)
         if (d3 < 0) {
             res1--
             (p3, p2, p1, p0) = u32ThreeMul(ds2, ds1, ds0, res1)
-            (c3, c2, c1, c0) = (Int64(dd4) - Int64(p3), Int64(dd3) - Int64(p2), Int64(dd2) - Int64(p1), Int64(dd1) - Int64(p0))
+            (c3, c2, c1, c0) = (Int64(dd4) - Int64(p3), Int64(dd3) - Int64(p2), Int64(dd2) - Int64(p1), Int64(dd1) -
+                    Int64(p0))
             (d3, d2, d1, d0) = getDifference(c3, c2, c1, c0)
         }
         let dividend1 = UInt64(d2) * DUR_BASE + UInt64(d1)
@@ -697,7 +699,9 @@ func durDiv(secs: UInt64, nanos: UInt32, divisor: UInt64): (Int64, Int64) {
         (p3, p2, p1, p0) = u32ThreeMul(ds2, ds1, ds0, res0)
         (c3, c2, c1, c0) = (Int64(d2) - Int64(p3), Int64(d1) - Int64(p2), Int64(d0) - Int64(p1), Int64(dd0) - Int64(p0))
         (d3, d2, d1, d0) = getDifference(c3, c2, c1, c0)
-        if (d3 < 0) { res0-- }
+        if (d3 < 0) {
+            res0--
+        }
         return (Int64(res1), Int64(res0))
     }
 }
