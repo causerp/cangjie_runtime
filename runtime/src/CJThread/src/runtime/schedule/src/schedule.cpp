@@ -2178,8 +2178,9 @@ void CJForeignThreadExit(CJThreadHandle foreignThread)
     }
     MapleRuntime::Mutator* mutator = foreignCJThread->mutator;
     if (mutator != nullptr && mutator->IsForeignThread()) {
-        mutator->SetForeignCJThreadExit();
+        mutator->ReleaseForeignThread();
     }
+    ScheduleNonDefaultFree(schedule);
 }
 
 #ifdef __IOS__
