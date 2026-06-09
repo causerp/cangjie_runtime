@@ -306,7 +306,12 @@ bool CangjieRuntime::FiniSubScheduler(void* scheduler)
     return true;
 }
 
-extern "C" bool MRT_CJLibInit(const char* libName) { return LoaderManager::GetInstance()->LibInit(libName); }
+extern "C" uintptr_t MRT_CJLibInit(const char* libName)
+{
+    LoaderManager* loaderManager = LoaderManager::GetInstance();
+    return loaderManager->LibInit(libName) ? 1 : 0;
+}
+
 #ifdef __APPLE__
 extern "C" MRT_EXPORT void CJ_MRT_LibraryOnLoad(uint64_t address, bool enableGC);
 __asm__(".global _CJ_MRT_LibraryOnLoad\n\t.set _CJ_MRT_LibraryOnLoad, _MRT_LibraryOnLoad");

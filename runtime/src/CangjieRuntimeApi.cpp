@@ -797,8 +797,7 @@ int InitCJLibrary(const char* libName)
         return E_ARGS;
     }
 #if defined(__OHOS__)
-    bool ret = MapleRuntime::MRT_CJLibInit(const_cast<char*>(libName));
-    return ret ? E_OK : E_ARGS;
+    uintptr_t ret = MapleRuntime::MRT_CJLibInit(const_cast<char*>(libName));
 #else
     // run cj func should execute within cjthread environment,
     CJThreadHandle future =
@@ -807,14 +806,11 @@ int InitCJLibrary(const char* libName)
         LOG(RTLOG_ERROR, "InitCJLibrary fail. as RunCJTask return null\n");
         return E_ARGS;
     }
-    void* ret = nullptr;
+    uintptr_t ret = 0;
     GetTaskRet(future, reinterpret_cast<void**>(&ret));
     ReleaseHandle(future);
-    if (ret != nullptr) {
-        return E_OK;
-    }
-    return E_ARGS;
 #endif
+    return ret ? E_OK : E_ARGS;
 }
 
 void* FindCJSymbol(const char* libName, const char* symbolName)
