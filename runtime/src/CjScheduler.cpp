@@ -110,8 +110,8 @@ static size_t InitHeapSize(size_t defaultParam)
         return size;
     } else {
         LOG(RTLOG_ERROR,
-            "Unsupported cjHeapSize parameter. The unit must be added when configuring, "
-            "it supports 'kb', 'mb', 'gb'. Valid cjHeapSize range is [%zuMB, system memory size].\n",
+            "Unsupported cjHeapSize parameter. The unit must be added when configuring with positive integer value, "
+            "it supports 'KB', 'MB', 'GB'. Valid cjHeapSize range is [%zuMB, system memory size].\n",
             minSize / KB);
     }
     return defaultParam;
@@ -131,7 +131,9 @@ static size_t InitRegionSize(size_t defaultParam)
     if (size >= minSize && size <= maxSize) {
         return size;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported cjRegionSize parameter. Valid cjRegionSize range is [%zuKB, 2048KB].\n", minSize);
+        LOG(RTLOG_ERROR, "Unsupported cjRegionSize parameter. The unit must be added "
+            "when configuring with positive integer value. "
+            "Valid cjRegionSize range is [%zuKB, 2048KB].\n", minSize);
     }
     return defaultParam;
 }
@@ -146,7 +148,8 @@ static double InitPercentParameterIncl(const char* name, double minSize, double 
     if (size - minSize >= 0 && maxSize - size >= 0) {
         return size;
     } else {
-        LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is [%f, %f].\n", name, name, minSize, maxSize);
+        LOG(RTLOG_ERROR, "Unsupported %s parameter. The value must be a positive decimal. "
+                "Valid %s range is [%f, %f].\n", name, name, minSize, maxSize);
     }
     return defaultParam;
 }
@@ -159,7 +162,8 @@ static double InitPercentParameter(const char* name, double minSize, double maxS
         if (parameter - minSize > 0 && maxSize - parameter >= 0) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter.Valid %s range is (%f, %f].\n", name, name, minSize, maxSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. The value must be a positive decimal. "
+                "Valid %s range is (%f, %f].\n", name, name, minSize, maxSize);
         }
     }
     return defaultParam;
@@ -173,8 +177,10 @@ static size_t InitSizeParameter(const char* name, size_t minSize, size_t default
         if (parameter > minSize) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n", name, name,
-                minSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. The unit must be added "
+                "when configuring with positive integer value. "
+                "Valid %s range must be greater than %zuKB.\n",
+                name, name, minSize);
         }
     }
     return defaultParam;
@@ -188,8 +194,10 @@ static uint64_t InitTimeParameter(const char* name, uint64_t minSize, uint64_t d
         if (parameter > minSize) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %zu.\n", name, name,
-                minSize);
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. The unit must be added "
+                "when configuring with positive integer value. "
+                "Valid %s range must be greater than %lluns.\n", name, name,
+                static_cast<unsigned long long>(minSize));
         }
     }
     return defaultParam;
@@ -203,7 +211,8 @@ static double InitDecParameter(const char* name, double minSize, double defaultP
         if (parameter - minSize > 0) {
             return parameter;
         } else {
-            LOG(RTLOG_ERROR, "Unsupported %s parameter. Valid %s range must be greater than %f.\n", name, name,
+            LOG(RTLOG_ERROR, "Unsupported %s parameter. The value must be a positive decimal. "
+                "Valid %s range must be greater than %f.\n", name, name,
                 minSize);
         }
     }
@@ -245,9 +254,9 @@ static size_t InitCoStackSize()
         return stackSize;
     } else {
         LOG(RTLOG_ERROR,
-            "Unsupported cjStackSize parameter. The unit must be added when configuring, "
-            "it supports 'kb', 'mb', 'gb'. "
-            "Valid cjStackSize range is [128kb, 1gb] in Windows or [64kb, 1gb] in other system.\n");
+            "Unsupported cjStackSize parameter. The unit must be added when configuring with positive integer value, "
+            "it supports 'KB', 'MB', 'GB'. "
+            "Valid cjStackSize range is [128KB, 1GB] in Windows or [64KB, 1GB] in other systems.\n");
     }
     return defaultStackSize;
 }
@@ -274,8 +283,8 @@ static uint32_t InitProcessorNum()
             return custom;
         } else {
             LOG(RTLOG_ERROR,
-                "Unsupported cjProcessorNum parameter. Valid cjProcessorNum range is"
-                "(0, 2 * hardware_concurrency].\n");
+                "Unsupported cjProcessorNum parameter. The value must be a positive integer. "
+                "Valid cjProcessorNum range is (0, 2 * hardware_concurrency].\n");
         }
     }
     return defaultProcs;
