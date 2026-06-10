@@ -30,21 +30,22 @@ uintptr_t RegionInfo::UnitInfo::heapStartAddress = 0;
 
 static size_t GetPageSize() noexcept
 {
+    size_t pageSize = 0;
 #if defined(_WIN64)
     SYSTEM_INFO systeminfo;
     GetSystemInfo(&systeminfo);
     if (systeminfo.dwPageSize != 0) {
-        return systeminfo.dwPageSize;
+        pageSize = systeminfo.dwPageSize;
     } else {
         // default page size is 4KB if get system page size failed.
-        return 4 * KB;
+        pageSize = 4 * KB;
     }
 #elif defined(__APPLE__)
-    // default page size is 16KB in MacOS
-    return 16 * KB;
+    pageSize = static_cast<size_t>(sysconf(_SC_PAGESIZE));
 #else
-    return getpagesize();
+    pageSize = getpagesize();
 #endif
+    return pageSize;
 }
 
 // System default page size
