@@ -810,7 +810,7 @@ int InitCJLibrary(const char* libName)
     GetTaskRet(future, reinterpret_cast<void**>(&ret));
     ReleaseHandle(future);
 #endif
-    return ret ? E_OK : E_ARGS;
+    return ret != 0 ? E_OK : E_ARGS;
 }
 
 void* FindCJSymbol(const char* libName, const char* symbolName)
