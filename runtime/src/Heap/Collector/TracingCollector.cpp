@@ -280,6 +280,23 @@ void TracingCollector::RecordStubCalleeSaved(RegSlotsMap& regSlotsMap, Uptr fp)
     RegRoot::RecordStubCalleeSaved(regSlotsMap, fp);
 }
 
+#ifdef __arm__
+void TracingCollector::RecordC2NStubCalleeSaved(RegSlotsMap& regSlotsMap, Uptr fp)
+{
+    RegRoot::RecordC2NStubCalleeSaved(regSlotsMap, fp);
+}
+
+void TracingCollector::RecordC2RStackArgsStubCalleeSaved(RegSlotsMap& regSlotsMap, Uptr fp)
+{
+    RegRoot::RecordC2RStackArgsStubCalleeSaved(regSlotsMap, fp);
+}
+
+void TracingCollector::RecordExclusiveStubCalleeSaved(RegSlotsMap& regSlotsMap, Uptr fp)
+{
+    RegRoot::RecordExclusiveStubCalleeSaved(regSlotsMap, fp);
+}
+#endif
+
 void TracingCollector::RecordStubAllRegister(RegSlotsMap& regSlotsMap, Uptr fp)
 {
     RegRoot::RecordStubAllRegister(regSlotsMap, fp);
