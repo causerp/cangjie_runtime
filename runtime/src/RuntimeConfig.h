@@ -71,7 +71,7 @@ double ApplyCangjieMethodStubFloat64(...);
 void MRT_DumpAllStackTrace();
 #endif
 
-MRT_EXPORT uintptr_t MRT_CJLibInit(const char* libName);
+MRT_EXPORT bool MRT_CJLibInit(const char* libName);
 MRT_EXPORT int LoadCJLibraryWithInit(const char* libName);
 MRT_EXPORT int MRT_IsLoadedFile(const char* libName);
 #ifdef __cplusplus
