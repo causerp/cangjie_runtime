@@ -13,28 +13,117 @@
 #include "Interpreter/InterpreterSpecific.h"
 
 namespace MapleRuntime {
-void GCStackInfo::FillInStackTrace()
+#ifdef __arm__
+static void RecordArmC2RStubCalleeSaved(RegSlotsMap& regSlotsMap, const MachineFrame& frame)
 {
-    UnwindContext uwContext;
-    // Top unwind context can only be runtime or Cangjie context.
+    Uptr fp = reinterpret_cast<Uptr>(frame.GetFA());
+    if (frame.IsC2RStackArgsStubFrame()) {
+        TracingCollector::RecordC2RStackArgsStubCalleeSaved(regSlotsMap, fp);
+        return;
+    }
+    TracingCollector::RecordStubCalleeSaved(regSlotsMap, fp);
+}
 
-    CheckTopUnwindContextAndInit(uwContext);
-    while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
-        AnalyseAndSetFrameType(uwContext);
-        stack.emplace_back(uwContext.frameInfo);
-        UnwindContext caller;
-        lastFrameType = uwContext.frameInfo.GetFrameType();
-#ifndef _WIN64
-        if (uwContext.UnwindToCallerContext(caller) == false) {
-#else
-        if (uwContext.UnwindToCallerContext(caller, uwCtxStatus) == false) {
-#endif
-            return;
+void GCStackInfo::VisitStackRoots(const RootVisitor& func, Mutator& mutator) const
+{
+    RegSlotsMap regSlotsMap;
+    for (const auto& frame : stack) {
+        switch (frame.GetFrameType()) {
+            case FrameType::MANAGED: {
+                TracingCollector::VisitStackRoots(func, regSlotsMap, frame, mutator);
+                break;
+            }
+            case FrameType::STACKGROW:
+                LOG(RTLOG_FATAL, "STACKGROW frame is not supported in VisitStackRoots");
+                break;
+            case FrameType::SAFEPOINT:
+                TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            case FrameType::C2R_STUB:
+                RecordArmC2RStubCalleeSaved(regSlotsMap, frame.mFrame);
+                break;
+            case FrameType::C2N_STUB:
+                TracingCollector::RecordC2NStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            case FrameType::EXSLUSIVE:
+                TracingCollector::RecordExclusiveStubCalleeSaved(regSlotsMap,
+                                                                 reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            default: {
+                break;
+            }
         }
-        uwContext = caller;
     }
 }
 
+void GCStackInfo::VisitHeapReferencesOnStack(const RootVisitor& rootVisitor, const DerivedPtrVisitor& derivedPtrVisitor,
+                                             Mutator& mutator) const
+{
+    RegSlotsMap regSlotsMap;
+    for (const auto& frame : stack) {
+        switch (frame.GetFrameType()) {
+            case FrameType::MANAGED: {
+                TracingCollector::VisitHeapReferencesOnStack(rootVisitor, derivedPtrVisitor, regSlotsMap, frame,
+                                                             mutator);
+                break;
+            }
+            case FrameType::C2R_STUB:
+                RecordArmC2RStubCalleeSaved(regSlotsMap, frame.mFrame);
+                break;
+            case FrameType::C2N_STUB:
+                TracingCollector::RecordC2NStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            case FrameType::EXSLUSIVE:
+                TracingCollector::RecordExclusiveStubCalleeSaved(regSlotsMap,
+                                                                 reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            case FrameType::STACKGROW:
+                LOG(RTLOG_FATAL, "STACKGROW frame is not supported in VisitHeapReferencesOnStack");
+                break;
+            case FrameType::SAFEPOINT:
+                TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame.mFrame.GetFA()));
+                break;
+            default: {
+                break;
+            }
+        }
+    }
+}
+
+void RecordStackInfo::VisitStackRoots(const RootVisitor &func, Mutator &mutator)
+{
+    RegSlotsMap regSlotsMap;
+    for (auto frame : stacks) {
+        FrameInfo &ref = *frame;
+        switch (frame->GetFrameType()) {
+            case FrameType::MANAGED: {
+                currentFramePtr = frame;
+                TracingCollector::VisitStackRoots(func, regSlotsMap, ref, mutator);
+                break;
+            }
+            case FrameType::STACKGROW:
+                LOG(RTLOG_FATAL, "STACKGROW frame is not supported in VisitStackRoots");
+                break;
+            case FrameType::SAFEPOINT:
+                TracingCollector::RecordStubAllRegister(regSlotsMap, reinterpret_cast<Uptr>(frame->mFrame.GetFA()));
+                break;
+            case FrameType::C2R_STUB:
+                RecordArmC2RStubCalleeSaved(regSlotsMap, frame->mFrame);
+                break;
+            case FrameType::C2N_STUB:
+                TracingCollector::RecordC2NStubCalleeSaved(regSlotsMap, reinterpret_cast<Uptr>(frame->mFrame.GetFA()));
+                break;
+            case FrameType::EXSLUSIVE:
+                TracingCollector::RecordExclusiveStubCalleeSaved(regSlotsMap,
+                                                                 reinterpret_cast<Uptr>(frame->mFrame.GetFA()));
+                break;
+            default: {
+                break;
+            }
+        }
+    }
+}
+#else
 void GCStackInfo::VisitStackRoots(const RootVisitor& func, Mutator& mutator) const
 {
     RegSlotsMap regSlotsMap;
@@ -137,28 +226,6 @@ void GCStackInfo::VisitHeapReferencesOnStack(const RootVisitor& rootVisitor, con
 #endif
 }
 
-void RecordStackInfo::FillInStackTrace()
-{
-    UnwindContext uwContext;
-    // Top unwind context can only be runtime or Cangjie context.
-    CheckTopUnwindContextAndInit(uwContext);
-    while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
-        AnalyseAndSetFrameType(uwContext);
-        FrameInfo* f = new FrameInfo(uwContext.frameInfo);
-        stacks.emplace_back(f);
-        UnwindContext caller;
-        lastFrameType = uwContext.frameInfo.GetFrameType();
-#ifndef _WIN64
-        if (uwContext.UnwindToCallerContext(caller) == false) {
-#else
-        if (uwContext.UnwindToCallerContext(caller, uwCtxStatus) == false) {
-#endif
-            return;
-        }
-        uwContext = caller;
-    }
-}
-
 void RecordStackInfo::VisitStackRoots(const RootVisitor &func, Mutator &mutator)
 {
     RegSlotsMap regSlotsMap;
@@ -183,6 +250,51 @@ void RecordStackInfo::VisitStackRoots(const RootVisitor &func, Mutator &mutator)
                 break;
             }
         }
+    }
+}
+#endif
+
+void GCStackInfo::FillInStackTrace()
+{
+    UnwindContext uwContext;
+    // Top unwind context can only be runtime or Cangjie context.
+
+    CheckTopUnwindContextAndInit(uwContext);
+    while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
+        AnalyseAndSetFrameType(uwContext);
+        stack.emplace_back(uwContext.frameInfo);
+        UnwindContext caller;
+        lastFrameType = uwContext.frameInfo.GetFrameType();
+#ifndef _WIN64
+        if (uwContext.UnwindToCallerContext(caller) == false) {
+#else
+        if (uwContext.UnwindToCallerContext(caller, uwCtxStatus) == false) {
+#endif
+            return;
+        }
+        uwContext = caller;
+    }
+}
+
+void RecordStackInfo::FillInStackTrace()
+{
+    UnwindContext uwContext;
+    // Top unwind context can only be runtime or Cangjie context.
+    CheckTopUnwindContextAndInit(uwContext);
+    while (!uwContext.frameInfo.mFrame.IsAnchorFrame(anchorFA)) {
+        AnalyseAndSetFrameType(uwContext);
+        FrameInfo* f = new FrameInfo(uwContext.frameInfo);
+        stacks.emplace_back(f);
+        UnwindContext caller;
+        lastFrameType = uwContext.frameInfo.GetFrameType();
+#ifndef _WIN64
+        if (uwContext.UnwindToCallerContext(caller) == false) {
+#else
+        if (uwContext.UnwindToCallerContext(caller, uwCtxStatus) == false) {
+#endif
+            return;
+        }
+        uwContext = caller;
     }
 }
 
