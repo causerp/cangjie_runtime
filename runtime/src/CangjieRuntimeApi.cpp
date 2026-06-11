@@ -807,13 +807,14 @@ int InitCJLibrary(const char* libName)
         LOG(RTLOG_ERROR, "InitCJLibrary fail. as RunCJTask return null\n");
         return E_ARGS;
     }
-    void* ret = nullptr;
-    GetTaskRet(future, reinterpret_cast<void**>(&ret));
+    union {
+        bool asBool;
+        void* asPtr;
+    } ret = {};
+    ret.asPtr = nullptr;
+    GetTaskRet(future, reinterpret_cast<void**>(&ret.asPtr));
     ReleaseHandle(future);
-    if (ret != nullptr) {
-        return E_OK;
-    }
-    return E_ARGS;
+    return ret.asBool ? E_OK : E_ARGS;
 #endif
 }
 
