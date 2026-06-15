@@ -18,5 +18,10 @@ extern "C" MRT_EXPORT void MRT_SaveC2NContext(const uint32_t* pc, void* fa, Thre
 extern "C" MRT_EXPORT void MRT_DeleteC2NContext(ThreadLocalData* tlData);
 extern "C" MRT_EXPORT void MRT_UpdateUwContext(const uint32_t* pc, void* fa, UnwindContextStatus status,
                                                ThreadLocalData* tlData);
+extern "C" MRT_EXPORT bool MRT_C2N_Enter(const uint32_t* pc, void* fa, ThreadLocalData* tlData);
+extern "C" MRT_EXPORT ThreadLocalData* MRT_C2N_Leave(bool safeState, unsigned long long stackTop);
+#ifdef __OHOS__
+extern "C" MRT_EXPORT unsigned long long MRT_UpdateStackTop(unsigned long long stackTop);
+#endif
 } // namespace MapleRuntime
 #endif // MRT_UNWIND_API_H

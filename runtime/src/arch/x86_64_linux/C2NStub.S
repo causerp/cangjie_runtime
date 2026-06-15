@@ -116,7 +116,7 @@ CJ_MCC_C2NStub:
     cmpq    %rax, %rsp
     jbe     .L_stack_check_fail
 
-    movq    %rbp,  %rsi
+    movq    %rbp,  %rsi            // fa = rbp (frame address)
     // Get the current pc address through the following two assembly instructions.
     call    .L_current_pc
 .L_current_pc:
@@ -124,18 +124,12 @@ CJ_MCC_C2NStub:
 unwindPCForC2NStub:
     pop     %rdi
     mov     %r15, %rdx
-    callq   MRT_SaveC2NContext@PLT
-    movq    $0, %rdi
-    callq   MRT_EnterSaferegion@PLT
-    movq    %rax, -232(%rbp)
+    callq   MRT_C2N_Enter@PLT      // merged: SaveC2NContext + EnterSaferegion
+    movb    %al, -232(%rbp)
 #ifdef __OHOS__
-    callq   CJ_GetUIThreadStackTop
-    test    %rax, %rax
-    jz      .L_setstack_end
-    movq    %rax, -240(%rbp)
+    movl    $0, -228(%rbp)        // stack top updated flag
     movq    %rsp, %rdi
-    callq   CJ_PushUIThreadStackTop
-    movq    -240(%rbp), %rax
+    callq   MRT_UpdateStackTop@PLT
 .L_setstack_end:
 #endif
 
@@ -159,6 +153,7 @@ unwindPCForC2NStub:
     TEST    %rax, %rax
     jz      .L_copy
     movq    %rax, %rsp
+    movl    $1, -228(%rbp)       // use high 32bit as flag to indicate that the stack is updated
 #endif
     // copy arg6, arg7, ...(if existed)
 .L_copy:
@@ -197,31 +192,15 @@ unwindPCForC2NStub:
     movapd  %xmm0, -80(%rbp)
     movapd  %xmm1, -96(%rbp)
 
-    movq   -232(%rbp), %rax
-    cmpq    $0, %rax
-    je     .L_none_leave
-    callq   MRT_LeaveSaferegion@PLT
-    callq   MRT_GetThreadLocalData@PLT
-    movq    %rax, -8(%rbp)
-.L_none_leave:
-    movq    %rax, %rdi
-    callq   MRT_DeleteC2NContext@PLT
-
-    mov     $0, %rdi
-    callq   MRT_ThrowPendingException@PLT
-
     // Restore the value of rsp before coping arg6, arg7...
-#ifdef __OHOS__
-    callq   CJ_GetUIThreadStackTop
-    test    %rax, %rax
-    jz      .L_restore_sp
-    mov     %rax, %rsp
-    callq   CJ_PopUIThreadStackTop
-    jmp     .L_restore_sp_end
-#endif
-.L_restore_sp:
     movq    -240(%rbp), %rsp
-.L_restore_sp_end:
+    movzbl  -232(%rbp), %edi
+#ifdef __OHOS__
+    movl    -228(%rbp), %esi
+#endif
+    // Call merged leave function: (PopUIThreadStackTop) + LeaveSaferegion + DeleteC2NContext + ThrowPendingException
+    callq   MRT_C2N_Leave@PLT          // return: thread local data
+    movq    %rax, -8(%rbp)
 
     // set potential return value
     movq    -48(%rbp), %rdx
