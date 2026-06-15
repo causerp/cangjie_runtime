@@ -47,6 +47,10 @@ func loadTZifData(name: String, source: String): Array<UInt8> {
 }
 
 func loadTZifData(path: String): Array<UInt8> {
+    readZoneInfoFile(path, false)
+}
+
+func readZoneInfoFile(path: String, keepTerminator: Bool): Array<UInt8> {
     unsafe {
         let cPath: CPointerHandle<UInt8> = acquireArrayRawData(path.rawData())
         let pathLen: Int64 = path.size
@@ -66,7 +70,11 @@ func loadTZifData(path: String): Array<UInt8> {
         if (readNum != fileSize) {
             throw InvalidDataException("An error occurred when reading data from file `${path}`!")
         }
-        arr.slice(0, fileSize)
+        if (keepTerminator) {
+            arr
+        } else {
+            arr.slice(0, fileSize)
+        }
     }
 }
 
@@ -76,24 +84,7 @@ func loadTimeZoneFromTzData(name: String, source: String): TimeZone {
 
 func loadTZData(name: String, path: String): Array<UInt8> {
     unsafe {
-        let cPath: CPointerHandle<UInt8> = acquireArrayRawData(path.rawData())
-        let pathLen: Int64 = path.size
-        let fileSize = CJ_TIME_GetFileSize(cPath.pointer, pathLen)
-        releaseArrayRawData(cPath)
-        if (fileSize < 0) {
-            throw InvalidDataException("An error occurred when accessing file `${path}`!")
-        }
-        let bufLen: Int64 = fileSize + 1
-        var arr: Array<UInt8> = Array<UInt8>(fileSize + 1, repeat: 0)
-
-        let cPath2: CPointerHandle<UInt8> = acquireArrayRawData(path.rawData())
-        var arrPtr: CPointerHandle<UInt8> = acquireArrayRawData(arr)
-        var readNum = CJ_TIME_ReadAllBytesFromFile(cPath2.pointer, pathLen, arrPtr.pointer, bufLen)
-        releaseArrayRawData(arrPtr)
-        releaseArrayRawData(cPath2)
-        if (readNum != fileSize) {
-            throw InvalidDataException("An error occurred when reading data from file `${path}`!")
-        }
+        let arr = readZoneInfoFile(path, true)
         var buffer = ByteBuffer(arr)
         // do not need the first 12 bytes,so move the buffer's read position forward by 12 bytes to skip them
         buffer.seek(Begin(12))
@@ -183,8 +174,9 @@ func parseTZinfoData(data: Array<UInt8>): (Array<LocalTime>, Array<TransTime>, S
      */
     var timeSize = 4
     if (version > 1) {
-        arrReader.skip(fields[timeCnt] * timeSize + fields[timeCnt] + fields[typeCnt] * 6 + fields[charCnt] +
-                       fields[leapCnt] * (4 + timeSize) + fields[isStdCnt] + fields[isUTCnt])
+        arrReader.skip(
+            fields[timeCnt] * timeSize + fields[timeCnt] + fields[typeCnt] * 6 + fields[charCnt] + fields[leapCnt] * (4 +
+                timeSize) + fields[isStdCnt] + fields[isUTCnt])
 
         /*
          * In the version 2+ data block, present only in version 2 and 3 files,
@@ -273,10 +265,8 @@ func parseFields(arrReader: ArrReader): Array<Int64> {
     let fields = Array<Int64>(6, repeat: 0)
     let fieldCnt = 6
     for (i in 0..fieldCnt) {
-        fields[i] = Int64(Int32((UInt32(arrReader.arr[arrReader.index + 3]) | 
-                                (UInt32(arrReader.arr[arrReader.index + 2]) << 8) | 
-                                (UInt32(arrReader.arr[arrReader.index + 1]) << 16) | 
-                                (UInt32(arrReader.arr[arrReader.index]) << 24))))
+        fields[i] = Int64(Int32((UInt32(arrReader.arr[arrReader.index + 3]) | (UInt32(arrReader.arr[arrReader.index + 2]) <<
+            8) | (UInt32(arrReader.arr[arrReader.index + 1]) << 16) | (UInt32(arrReader.arr[arrReader.index]) << 24))))
         arrReader.skip(4) // Jump 4 bytes of one UInt32
     }
 
@@ -333,10 +323,8 @@ func parseZones(zoneNum: Int64, typeRecords: Array<UInt8>, zoneDes: Array<UInt8>
     let maxUTOff = 93599
     for (i in 0..zoneNum) {
         let utoffArr = zonedata.getNext(4)
-        let utoff = Int32((UInt32(utoffArr[3])) |
-                          (UInt32(utoffArr[2]) << 8) |
-                          (UInt32(utoffArr[1]) << 16) |
-                          (UInt32(utoffArr[0]) << 24))
+        let utoff = Int32((UInt32(utoffArr[3])) | (UInt32(utoffArr[2]) << 8) | (UInt32(utoffArr[1]) << 16) | (UInt32(utoffArr[0]) <<
+            24))
         if (Int64(utoff) < minUTOff || Int64(utoff) > maxUTOff) {
             throw InvalidDataException("Failed to parse the timezone file.")
         }
@@ -409,20 +397,13 @@ func parseZoneTrans(
     for (i in 0..timeNum) {
         if (timeSize == 4) {
             let when = ttReader.getNext(4)
-            transArr[i].trans = Int64(Int32((UInt32(when[3])) |
-                                            (UInt32(when[2]) << 8) |
-                                            (UInt32(when[1]) << 16) |
-                                            (UInt32(when[0]) << 24)))
+            transArr[i].trans = Int64(Int32((UInt32(when[3])) | (UInt32(when[2]) << 8) | (UInt32(when[1]) << 16) | (UInt32(when[0]) <<
+                24)))
         } else if (timeSize == 8) {
             let when = ttReader.getNext(8)
-            transArr[i].trans = Int64((UInt64(when[7])) |
-            (UInt64(when[6]) << 8) |
-            (UInt64(when[5]) << 16) |
-            (UInt64(when[4]) << 24) |
-            (UInt64(when[3]) << 32) |
-            (UInt64(when[2]) << 40) |
-            (UInt64(when[1]) << 48) |
-            (UInt64(when[0]) << 56))
+            transArr[i].trans = Int64((UInt64(when[7])) | (UInt64(when[6]) << 8) | (UInt64(when[5]) << 16) | (UInt64(when[4]) <<
+                24) | (UInt64(when[3]) << 32) | (UInt64(when[2]) << 40) | (UInt64(when[1]) << 48) | (UInt64(when[0]) <<
+                56))
         } else {
             throw InvalidDataException("Failed to parse the timezone file.")
         }
@@ -430,7 +411,8 @@ func parseZoneTrans(
             throw InvalidDataException("Failed to parse the timezone file: transition type index out of range.")
         }
         if (i > 0 && transArr[i].trans <= prevTrans) {
-            throw InvalidDataException("Failed to parse the timezone file: transition times must be strictly increasing.")
+            throw InvalidDataException(
+                "Failed to parse the timezone file: transition times must be strictly increasing.")
         }
         prevTrans = transArr[i].trans
         transArr[i].index = transTypes[i]
