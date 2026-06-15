@@ -150,7 +150,7 @@ def do_build(args):
             "-DCMAKE_EXE_LINKER_FLAGS={}".format(exe_linker_flags),
             "-S", ".", "-B", "CMakebuild"
         ]
-        build_target(cmake_command)
+        build_target(cmake_command, args)
 
     elif target_args == "windows-x86_64":
         if args.target_toolchain == None:
@@ -188,7 +188,7 @@ def do_build(args):
             "-DCMAKE_EXE_LINKER_FLAGS={}".format(exe_linker_flags),
             "-S", ".", "-B", "CMakebuild"
         ]
-        build_target(cmake_command)
+        build_target(cmake_command, args)
 
     elif target_args in ["ohos-aarch64", "ohos-arm", "ohos-x86_64"]:
         if args.target_toolchain == None:
@@ -229,7 +229,7 @@ def do_build(args):
             "-DDISABLE_VERSION_CHECK=1",
             "-S", ".", "-B", "CMakebuild"
         ] + ptrauth_flags
-        build_target(cmake_command)
+        build_target(cmake_command, args)
 
     elif target_args in ["android-aarch64", "android26-aarch64", "android31-aarch64", "android-x86_64", "android23-arm"]:
         if args.target_toolchain == None:
@@ -271,7 +271,7 @@ def do_build(args):
             "-DCMAKE_EXE_LINKER_FLAGS={}".format(exe_linker_flags),
             "-S", ".", "-B", "CMakebuild"
         ]
-        build_target(cmake_command)
+        build_target(cmake_command, args)
 
     elif target_args in ["ios-aarch64", "ios-simulator-aarch64", "ios-simulator-x86_64"]:
         if args.target_toolchain == None:
@@ -310,7 +310,7 @@ def do_build(args):
             "-DDISABLE_VERSION_CHECK=1",
             "-S", ".", "-B", "CMakebuild"
         ]
-        build_target(cmake_command)
+        build_target(cmake_command, args)
 
     else:
         print("Invalid build target, build targets include: native, windows-x86_64, ohos-aarch64, ohos-x86_64, \
@@ -318,7 +318,9 @@ def do_build(args):
                ios-aarch64, ios-simulator-aarch64, ios-simulator-x86_64")
         sys.exit(1)
 
-def build_target(cmake_command):
+def build_target(cmake_command, args=None):
+    if args and args.gcc_toolchain and args.target == "native":
+        cmake_command.append("-DBUILD_GCC_TOOLCHAIN={}".format(args.gcc_toolchain))
     try:
         subprocess.run(cmake_command, check=True)
 
@@ -428,6 +430,9 @@ if __name__ == "__main__":
         action="store_true",
         dest="euler_flag",
         help="Enable feature on euler os."
+    )
+    b.add_argument(
+        "--gcc-toolchain", dest="gcc_toolchain", help="Specify GCC toolchain for Clang to use"
     )
 
     i = sub.add_parser("install", help="install the project")

@@ -132,7 +132,9 @@ def generate_cmake_defs(args):
         "-DCANGJIE_BUILD_ARGS=" + (";".join(args.build_args) if args.build_args else ""),
         "-DCANGJIE_INCLUDE=" + (";".join(args.include) if args.include else ""),
         "-DCANGJIE_BUILD_STDLIB_WITH_COVERAGE=" + bool_to_opt(args.stdlib_coverage),
-        "-DCANGJIE_ENABLE_ASAN_COV=" + bool_to_opt(args.asancov)]
+        "-DCANGJIE_ENABLE_ASAN_COV=" + bool_to_opt(args.asancov),
+        "-DBUILD_GCC_TOOLCHAIN=" + (args.gcc_toolchain if args.gcc_toolchain and args.target is None else ""),
+    ]
 
     if args.target and "aarch64-linux-android" in args.target:
         android_api_level = re.match(r'aarch64-linux-android(\d{2})?', args.target).group(1)
@@ -154,6 +156,10 @@ def build(args):
         args.target = TARGET_DICTIONARY[args.target]
 
     check_compiler(args)
+
+    if args.gcc_toolchain and args.target:
+        LOG.warning("--gcc-toolchain won't take effect when --target is specified, "
+                     "because HOST and TARGET need different toolchains in cross compilation")
 
     """build cangjie compiler"""
     LOG.info("begin build...")
@@ -421,6 +427,9 @@ def main():
         dest="build_args",
         action='append', default=[],
         help="ther arguments directly passed to cjc"
+    )
+    parser_build.add_argument(
+        "--gcc-toolchain", dest="gcc_toolchain", help="Specify GCC toolchain for Clang to use"
     )
     parser_build.set_defaults(func=build)
 
