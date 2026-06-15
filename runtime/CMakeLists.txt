@@ -57,6 +57,13 @@ endif ()
 
 # project name: CangjieRuntime
 project(CangjieRuntime C CXX ASM)
+
+if(BUILD_GCC_TOOLCHAIN AND (CMAKE_C_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
+    message(STATUS "Add compile option for clang, --gcc-toolchain=${BUILD_GCC_TOOLCHAIN}")
+    add_compile_options(--gcc-toolchain=${BUILD_GCC_TOOLCHAIN})
+    add_link_options(--gcc-toolchain=${BUILD_GCC_TOOLCHAIN})
+endif()
+
 include(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake)
 include(${CMAKE_CURRENT_SOURCE_DIR}/SetupAr.cmake)
 
