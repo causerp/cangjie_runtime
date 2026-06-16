@@ -586,6 +586,8 @@ public:
 extern "C" void MRT_PreRunManagedCode(Mutator* mutator, int layers,
                                       ThreadLocalData* threadData);
 extern "C" void MRT_SetStackGrow(bool enableStackScale);
+
+extern "C" int8_t MRT_StopSubScheduler(void* schedule);
 } // namespace MapleRuntime
 
 #endif // MRT_MUTATOR_H

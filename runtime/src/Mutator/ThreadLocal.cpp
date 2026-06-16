@@ -58,6 +58,7 @@ CleanThreadLocalData::~CleanThreadLocalData()
         return;
     }
 
+    MRT_StopSubScheduler(local->schedule);
     CJForeignThreadExit(reinterpret_cast<CJThreadHandle>(local->foreignCJThread));
     ThreadLocal::UnlockRdLock();
 }
