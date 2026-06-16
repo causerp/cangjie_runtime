@@ -154,9 +154,7 @@ CJ_MCC_C2NStub:
 unwindPCForC2NStub:
     pop     %rcx
     movq    %r15, %r8
-    callq   MRT_SaveC2NContext
-    movq    $0, %rcx
-    callq   MRT_EnterSaferegion
+    callq   MRT_C2N_Enter      // merged: SaveC2NContext + EnterSaferegion
     movq    %rax, -328(%rbp)
 
     // rbx = cpStackSize, r12 = calleeAddr
@@ -212,18 +210,10 @@ unwindPCForC2NStub:
     movq    %rax,  -64(%rbp)
     movapd  %xmm0, -80(%rbp)
 
-    movq    -328(%rbp), %rax
-    cmpq    $0, %rax
-    je      .L_none_leave
-    callq   MRT_LeaveSaferegion
-    callq   MRT_GetThreadLocalData
+    // Call merged leave function: LeaveSaferegion + DeleteC2NContext + ThrowPendingException
+    movq    -328(%rbp), %rcx
+    callq   MRT_C2N_Leave      // return: thread local data
     movq    %rax, -8(%rbp)
-.L_none_leave:
-    movq    %rax, %rcx
-    callq   MRT_DeleteC2NContext
-
-    mov     $0, %rcx
-    callq   MRT_ThrowPendingException
     .global unwindPCForTPE
 unwindPCForTPE:
 

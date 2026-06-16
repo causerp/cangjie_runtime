@@ -184,25 +184,18 @@ CJ_MCC_C2NStub:
     // x19 <- previous sp + cpStackSize
     add  x19, x28, x19
 
-    // save last managed context
+    // save last managed context and enter saferegion (merged)
     mov  x1, x29
     adr  x0, #4
     .global unwindPCForC2NStub
 unwindPCForC2NStub:
 
-    bl   MRT_SaveC2NContext
-    mov  x0, #0
-    bl   MRT_EnterSaferegion
-    mov  x1, #0
+    bl   MRT_C2N_Enter                 // merged: SaveC2NContext + EnterSaferegion
     str  x0, [sp, #SafeStateOffset]
 #ifdef __OHOS__
-    bl   CJ_GetUIThreadStackTop
-    cbz  x0, .L_setstack_end
-    str  x0, [sp, #SafeStateOffset+0x8]
     mov  x0, sp
-    bl   CJ_PushUIThreadStackTop
-    ldr  x0, [sp, #SafeStateOffset+0x8]
-.L_setstack_end:
+    bl   MRT_UpdateStackTop        // merged: GetUIThreadStackTop + PushUIThreadStackTop
+    str  x0, [sp, #SafeStateOffset+0x8]
 #endif
 
     ldp  x8, x9, [sp, #StubCalleeSaveAreaSize+0x50]
@@ -273,29 +266,12 @@ unwindPCForC2NStub:
     cfi_rel_offset (d3, StubCalleeSaveAreaSize+0x78)
 
     // restoring the SP Value. the stack which extended for invoking c method is useless now.
-#ifdef __OHOS__
-    bl   CJ_GetUIThreadStackTop
-    cbz  x0,  .L_restore_sp
-    mov  sp,  x0
-    bl   CJ_PopUIThreadStackTop
-    cfi_def_cfa_register (sp)
-    b    .L_restore_sp_end
-#endif
-.L_restore_sp:
     mov  sp,  x29
     cfi_def_cfa_register (sp)
-.L_restore_sp_end:
-    ldp x0, x1, [x29, #SafeStateOffset]
-    cmp x0, #0
-    beq .L_none_leave
-    bl  MRT_LeaveSaferegion
-.L_none_leave:
-    bl  MRT_GetThreadLocalData
+    // Call merged leave function: (PopUIThreadStackTop) + LeaveSaferegion + DeleteC2NContext + ThrowPendingException
+    ldp  x0, x1, [x29, #SafeStateOffset]
+    bl   MRT_C2N_Leave                   // return: thread local data
     str x0, [sp, #StubCalleeSaveAreaSize+0x48]
-    bl  MRT_DeleteC2NContext
-
-    mov x0, #0
-    bl  MRT_ThrowPendingException
 
 #if defined(ENABLE_BACKWARD_PTRAUTH_CFI)
     .global unwindPCForC2NStubExceptionReturn

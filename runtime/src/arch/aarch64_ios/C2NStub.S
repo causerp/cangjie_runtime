@@ -176,11 +176,8 @@ _CJ_MCC_C2NStub:
     .global _unwindPCForC2NStub
 _unwindPCForC2NStub:
 
-    bl   _MRT_SaveC2NContext
-    mov  x0, #0
-    bl   _MRT_EnterSaferegion
-    mov  x1, #0
-    stp  x0, x1, [sp, #SafeStateOffset]
+    bl   _MRT_C2N_Enter                  // merged: SaveC2NContext + EnterSaferegion
+    str  x0, [sp, #SafeStateOffset]
 
 
     ldp  x8, x9, [sp, #StubCalleeSaveAreaSize+0x50]
@@ -243,17 +240,10 @@ _unwindPCForC2NStub:
     cfi_rel_offset (d2, StubCalleeSaveAreaSize+0x70)
     cfi_rel_offset (d3, StubCalleeSaveAreaSize+0x78)
 
-    ldp x0, x1, [x29, #SafeStateOffset]
-    cmp x0, #0
-    beq .L_none_leave
-    bl  _MRT_LeaveSaferegion
-.L_none_leave:
-    bl  _MRT_GetThreadLocalData
+    // Call merged leave function: LeaveSaferegion + DeleteC2NContext + ThrowPendingException
+    ldr x0, [x29, #SafeStateOffset]
+    bl  _MRT_C2N_Leave             // return: thread local data
     str x0, [sp, #StubCalleeSaveAreaSize+0x48]
-    bl  _MRT_DeleteC2NContext
-
-    mov x0, #0
-    bl  _MRT_ThrowPendingException
 
     /* set potential return value */
     mov  x0, x21
