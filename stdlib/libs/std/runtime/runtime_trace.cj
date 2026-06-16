@@ -110,7 +110,8 @@ func traceStartByConfig(): Bool {
     }
 
     try {
-        let file = File(cjTracePath, Write)
+        let resolvedPath = resolvePath(Path(cjTracePath))
+        let file = File(resolvedPath, Write)
         return Trace.start(TraceType.all, file)
     } catch (e: Exception) {
         return false
