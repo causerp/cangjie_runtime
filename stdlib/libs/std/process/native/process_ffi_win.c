@@ -111,8 +111,8 @@ void FreeTwoDimensionalArray(char** strArray)
         return;
     }
 
-    for (char** p = strArray; *p; ++p) {
-        free(*p);
+    for (char** item = strArray; *item; ++item) {
+        free(*item);
     }
     free(strArray);
 }
@@ -445,9 +445,9 @@ extern int64_t CJ_OS_GetStartTimeFromUnixEpoch(int32_t pid)
 }
 
 /**
- * @brief Retrieves the kernel-mode CPU time used by a process in milliseconds.
+ * @brief Retrieves Windows kernel-mode CPU time for a process in milliseconds.
  *
- * This function provides the total amount of time the process has spent in kernel-mode.
+ * This function reads the system-time field returned by the Windows process time query.
  *
  * @param pid The process ID (PID) of the target process.
  * @return The kernel-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`
@@ -459,9 +459,9 @@ extern int64_t CJ_OS_GetSystemTime(int32_t pid)
 }
 
 /**
- * @brief Retrieves the user-mode CPU time used by a process in milliseconds.
+ * @brief Retrieves Windows user-mode CPU time for a process in milliseconds.
  *
- * This function provides the total amount of time the process has spent in user-mode.
+ * This function reads the user-time field returned by the Windows process time query.
  *
  * @param pid The process ID (PID) of the target process.
  * @return The user-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`

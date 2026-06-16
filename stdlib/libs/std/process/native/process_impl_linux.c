@@ -473,9 +473,9 @@ extern int64_t CJ_OS_GetStartTimeFromUnixEpoch(int32_t pid)
 }
 
 /**
- * @brief Retrieves the kernel-mode CPU time used by a process in milliseconds.
+ * @brief Retrieves Linux kernel-mode CPU time for a process in milliseconds.
  *
- * This function provides the total kernel-mode CPU time consumed by the process.
+ * This function converts the process system-time counter to milliseconds.
  *
  * @param pid The process ID (PID) of the target process.
  * @return The kernel-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`
@@ -487,9 +487,9 @@ extern int64_t CJ_OS_GetSystemTime(int32_t pid)
 }
 
 /**
- * @brief Retrieves the user-mode CPU time used by a process in milliseconds.
+ * @brief Retrieves Linux user-mode CPU time for a process in milliseconds.
  *
- * This function provides the total user-mode CPU time consumed by the process.
+ * This function converts the process user-time counter to milliseconds.
  *
  * @param pid The process ID (PID) of the target process.
  * @return The user-mode time in milliseconds, or `ERROR_GET_PROCESS_TIME_FAILED`
@@ -501,11 +501,10 @@ extern int64_t CJ_OS_GetUserTime(int32_t pid)
 }
 
 /**
- * @brief Checks the alive status of a process based on its PID and last known start time.
+ * @brief Checks whether a Linux process still matches the known start time.
  *
- * This function determines if a process is still running, if its PID has been reused,
- * or if it no longer exists by comparing the process's current start time to a given
- * last known start time.
+ * This function reads the current boot-based start time and compares it with
+ * the caller's previous observation to detect PID reuse or process exit.
  *
  * @param pid The process ID (PID) of the target process.
  * @param lastTime The last known start time of the process (in milliseconds since boot).
@@ -550,29 +549,29 @@ extern void CJ_OS_CloseProcessHandle(size_t handle)
 
 extern ProcessInfo* CJ_OS_GetProcessInfoByPid(int32_t pid)
 {
-    int64_t firstTime = CJ_OS_GetStartTimeFromBoot(pid);
-    if (firstTime == ERROR_GET_PROCESS_TIME_FAILED) {
+    int64_t linuxStartTime = CJ_OS_GetStartTimeFromBoot(pid);
+    if (linuxStartTime == ERROR_GET_PROCESS_TIME_FAILED) {
         return NULL;
     }
 
-    ProcessInfo* result = (ProcessInfo*)calloc(1, sizeof(ProcessInfo));
-    if (result == NULL) {
+    ProcessInfo* linuxInfo = (ProcessInfo*)calloc(1, sizeof(ProcessInfo));
+    if (linuxInfo == NULL) {
         return NULL;
     }
 
     size_t cmdLen = 0;
     char* cmdInfo = GetProcessCmdline(pid, &cmdLen);
-    result->environment = GetEnvironment(pid);
-    result->workingDirectory = GetWorkingDirectory(pid);
-    result->command = GetCommand(cmdInfo, cmdLen);
-    result->arguments = GetArguments(cmdInfo, cmdLen);
-    result->commandLine = GetCommandLine(result->command, result->arguments);
+    linuxInfo->environment = GetEnvironment(pid);
+    linuxInfo->workingDirectory = GetWorkingDirectory(pid);
+    linuxInfo->command = GetCommand(cmdInfo, cmdLen);
+    linuxInfo->arguments = GetArguments(cmdInfo, cmdLen);
+    linuxInfo->commandLine = GetCommandLine(linuxInfo->command, linuxInfo->arguments);
     free(cmdInfo);
     int64_t lastTime = CJ_OS_GetStartTimeFromBoot(pid);
-    if (firstTime != lastTime || lastTime == ERROR_GET_PROCESS_TIME_FAILED) {
-        CJ_OS_FreeProcessInfo(result);
+    if (linuxStartTime != lastTime || lastTime == ERROR_GET_PROCESS_TIME_FAILED) {
+        CJ_OS_FreeProcessInfo(linuxInfo);
         return NULL;
     }
 
-    return result;
+    return linuxInfo;
 }
