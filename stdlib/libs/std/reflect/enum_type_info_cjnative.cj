@@ -72,8 +72,7 @@ public class EnumTypeInfo <: TypeInfo {
                     "Expected enum type `${qualifiedName}`, but got `${other.qualifiedName}`.")
             }
         } catch (e: InfoNotFoundException) {
-            throw IllegalTypeException(
-                "Expected an enum type name (e.g. `default.E`), but got `${qualifiedName}`.")
+            throw IllegalTypeException("Expected an enum type name (e.g. `default.E`), but got `${qualifiedName}`.")
         }
     }
 
@@ -143,8 +142,7 @@ public class EnumTypeInfo <: TypeInfo {
 
         let ctorInfo = getEnumConstructorInfoFromAny(instance)
         if (ctorInfo.isNull()) {
-            throw IllegalTypeException(
-                "Failed to destruct enum `${qualifiedName}`: enum constructor info is null.")
+            throw IllegalTypeException("Failed to destruct enum `${qualifiedName}`: enum constructor info is null.")
         }
         let ctor = getCachedConstructor(ctorInfo) ?? EnumConstructorInfo(ctorInfo, _info,
             ctorName: CString(getEnumConstructorName(ctorInfo)))
@@ -237,16 +235,12 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
      */
     public prop annotations: Collection<Annotation> {
         get() {
-            match (_annotations) {
-                case Some(res) => res
-                case None =>
-                    let infos = match (getTypeInfoAnnotations(_info, TypeInfo.of<Array<Object>>()._info)) {
-                        case arr: Array<Annotation> => arr
-                        case _ => Array<Annotation>()
-                    }
-                    _annotations = infos
-                    infos
+            if (let Some(res) <- _annotations) {
+                return res
             }
+            let infos = getTypeAnnotations(_info)
+            _annotations = infos
+            return infos
         }
     }
 
@@ -336,7 +330,7 @@ public class EnumConstructorInfo <: Equatable<EnumConstructorInfo> & Hashable & 
             enumInfo.getConstructorBySignature(signature)
         } catch (e: Exception) {
             throw IllegalTypeException("Enum constructor `${qualifiedName}` not found: ${e.message.removeSuffix('.')}.")
-        } 
+        }
     }
 
     /**

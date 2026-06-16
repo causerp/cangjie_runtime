@@ -8,6 +8,44 @@
 
 package std.reflect
 
+func getInstanceFieldNameString(info: CPointer<Unit>, declaringTypeInfo: CPointer<Unit>): String {
+    let pointer = getInstanceFieldName(info, declaringTypeInfo)
+    if (pointer.isNull()) {
+        throw IllegalStateException("getFieldName Null Pointer!")
+    }
+    CString(pointer).toString()
+}
+
+func getStaticFieldNameString(info: CPointer<Unit>, message: String): String {
+    let pointer = getStaticFieldName(info)
+    if (pointer.isNull()) {
+        throw IllegalStateException(message)
+    }
+    CString(pointer).toString()
+}
+
+func getInstanceFieldTypeInfo(info: CPointer<Unit>, declaringTypeInfo: CPointer<Unit>): TypeInfo {
+    TypeInfo.getOrCreate(getInstanceFieldType(info, declaringTypeInfo))
+}
+
+func getStaticFieldTypeInfo(info: CPointer<Unit>): TypeInfo {
+    TypeInfo.getOrCreate(getStaticFieldType(info))
+}
+
+func getInstanceFieldAnnotationInfos(info: CPointer<Unit>): Collection<Annotation> {
+    match (getInstanceFieldAnnotations(info, TypeInfo.of<Array<Object>>()._info)) {
+        case arr: Array<Annotation> => arr
+        case _ => Array<Annotation>()
+    }
+}
+
+func getStaticFieldAnnotationInfos(info: CPointer<Unit>): Collection<Annotation> {
+    match (getStaticFieldAnnotations(info, TypeInfo.of<Array<Object>>()._info)) {
+        case arr: Array<Annotation> => arr
+        case _ => Array<Annotation>()
+    }
+}
+
 /**
  * Contains the reflective information about instance variables.
  */
@@ -32,16 +70,8 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      */
     public prop name: String {
         get() {
-            match (_name) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getInstanceFieldName(_info, _declaringTypeInfo)
-                    if (pointer.isNull()) {
-                        throw IllegalStateException("getFieldName Null Pointer!")
-                    }
-                    let variableName = CString(pointer).toString()
-                    _name = variableName
-                    variableName
+            getCachedReflectInfo(_name, {=> getInstanceFieldNameString(_info, _declaringTypeInfo)}) {
+                variableName: String => _name = variableName
             }
         }
     }
@@ -51,13 +81,8 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      */
     public prop typeInfo: TypeInfo {
         get() {
-            match (_typeInfo) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getInstanceFieldType(_info, _declaringTypeInfo)
-                    let ti = TypeInfo.getOrCreate(pointer)
-                    _typeInfo = ti
-                    ti
+            getCachedReflectInfo(_typeInfo, {=> getInstanceFieldTypeInfo(_info, _declaringTypeInfo)}) {
+                ti: TypeInfo => _typeInfo = ti
             }
         }
     }
@@ -67,12 +92,8 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
-            match (_modifiers) {
-                case Some(res) => res
-                case None =>
-                    let infos = ModifierInfo.byMask(getInstanceFieldModifier(_info))
-                    _modifiers = infos
-                    infos
+            getCachedReflectInfo(_modifiers, {=> ModifierInfo.byMask(getInstanceFieldModifier(_info))}) {
+                infos: Collection<ModifierInfo> => _modifiers = infos
             }
         }
     }
@@ -82,15 +103,8 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      */
     public prop annotations: Collection<Annotation> {
         get() {
-            match (_annotations) {
-                case Some(res) => res
-                case None =>
-                    let infos = match (getInstanceFieldAnnotations(_info, TypeInfo.of<Array<Object>>()._info)) {
-                        case arr: Array<Annotation> => arr
-                        case _ => Array<Annotation>()
-                    }
-                    _annotations = infos
-                    infos
+            getCachedReflectInfo(_annotations, {=> getInstanceFieldAnnotationInfos(_info)}) {
+                infos: Collection<Annotation> => _annotations = infos
             }
         }
     }
@@ -99,12 +113,8 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
      * Returns true if instance variable is 'mut'
      */
     public func isMutable(): Bool {
-        match (_mutable) {
-            case Some(res) => res
-            case None =>
-                let mutable = ModifierInfo.isMutable(getInstanceFieldModifier(_info))
-                _mutable = mutable
-                mutable
+        getCachedReflectInfo(_mutable, {=> ModifierInfo.isMutable(getInstanceFieldModifier(_info))}) {
+            mutable: Bool => _mutable = mutable
         }
     }
 
@@ -153,6 +163,7 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
         findAnnotation<T>(annotations)
     }
 
+    // Return all matching annotations for this instance variable.
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
         findAllAnnotations<T>(annotations)
     }
@@ -174,15 +185,7 @@ public class InstanceVariableInfo <: Equatable<InstanceVariableInfo> & Hashable 
     }
 
     public func toString(): String {
-        let sb = StringBuilder()
-        for (m in modifiers) {
-            sb.append(m)
-            sb.append(" ")
-        }
-        sb.append(name)
-        sb.append(": ")
-        sb.append(typeInfo)
-        sb.toString()
+        variableToString(modifiers, name, typeInfo)
     }
 }
 
@@ -210,16 +213,8 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      */
     public prop name: String {
         get() {
-            match (_name) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getStaticFieldName(_info)
-                    if (pointer.isNull()) {
-                        throw IllegalStateException("GetStaticFieldName failed: null pointer!")
-                    }
-                    let variableName = CString(pointer).toString()
-                    _name = variableName
-                    variableName
+            getCachedReflectInfo(_name, {=> getStaticFieldNameString(_info, "GetStaticFieldName failed: null pointer!")}) {
+                variableName: String => _name = variableName
             }
         }
     }
@@ -229,13 +224,8 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      */
     public prop typeInfo: TypeInfo {
         get() {
-            match (_typeInfo) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getStaticFieldType(_info)
-                    let ti = TypeInfo.getOrCreate(pointer)
-                    _typeInfo = ti
-                    ti
+            getCachedReflectInfo(_typeInfo, {=> getStaticFieldTypeInfo(_info)}) {
+                ti: TypeInfo => _typeInfo = ti
             }
         }
     }
@@ -245,12 +235,8 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      */
     public prop modifiers: Collection<ModifierInfo> {
         get() {
-            match (_modifiers) {
-                case Some(res) => res
-                case None =>
-                    let infos = ModifierInfo.byMask(getStaticFieldModifier(_info))
-                    _modifiers = infos
-                    infos
+            getCachedReflectInfo(_modifiers, {=> ModifierInfo.byMask(getStaticFieldModifier(_info))}) {
+                infos: Collection<ModifierInfo> => _modifiers = infos
             }
         }
     }
@@ -260,15 +246,8 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      */
     public prop annotations: Collection<Annotation> {
         get() {
-            match (_annotations) {
-                case Some(res) => res
-                case None =>
-                    let infos = match (getStaticFieldAnnotations(_info, TypeInfo.of<Array<Object>>()._info)) {
-                        case arr: Array<Annotation> => arr
-                        case _ => Array<Annotation>()
-                    }
-                    _annotations = infos
-                    infos
+            getCachedReflectInfo(_annotations, {=> getStaticFieldAnnotationInfos(_info)}) {
+                infos: Collection<Annotation> => _annotations = infos
             }
         }
     }
@@ -277,12 +256,8 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      * Returns true if static variable is 'mut'
      */
     public func isMutable(): Bool {
-        match (_mutable) {
-            case Some(res) => res
-            case None =>
-                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info))
-                _mutable = mutable
-                mutable
+        getCachedReflectInfo(_mutable, {=> ModifierInfo.isMutable(getStaticFieldModifier(_info))}) {
+            mutable: Bool => _mutable = mutable
         }
     }
 
@@ -302,6 +277,7 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      * @throw IllegalTypeException, if the input newValue type is different from the static variable type.
      */
     public func setValue(newValue: Any): Unit {
+        // Keep the mutability check before the type check to preserve the existing error order.
         if (!isMutable()) {
             throw IllegalSetException("Attempt to modify immutable variable '${name}'.")
         }
@@ -314,14 +290,14 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
         findAnnotation<T>(annotations)
-   }
-
-    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
-        findAllAnnotations<T>(annotations)
     }
 
     public func getAllAnnotations(): Array<Annotation> {
         annotations.toArray()
+    }
+
+    public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
+        findAllAnnotations<T>(annotations)
     }
 
     public operator func ==(other: StaticVariableInfo): Bool {
@@ -332,20 +308,13 @@ public class StaticVariableInfo <: Equatable<StaticVariableInfo> & Hashable & To
         !(this == other)
     }
 
-    public func hashCode(): Int64 {
-        this._info.toUIntNative().hashCode()
+    public func toString(): String {
+        variableToString(modifiers, name, typeInfo)
     }
 
-    public func toString(): String {
-        let sb = StringBuilder()
-        for (m in modifiers) {
-            sb.append(m)
-            sb.append(" ")
-        }
-        sb.append(name)
-        sb.append(": ")
-        sb.append(typeInfo)
-        sb.toString()
+    // Static variable identity is represented by the runtime variable info pointer.
+    public func hashCode(): Int64 {
+        this._info.toUIntNative().hashCode()
     }
 }
 
@@ -368,16 +337,8 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
      */
     public prop name: String {
         get() {
-            match (_name) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getStaticFieldName(_info)
-                    if (pointer.isNull()) {
-                        throw IllegalStateException("GetFieldName Null Pointer!")
-                    }
-                    let variableName = CString(pointer).toString()
-                    _name = variableName
-                    variableName
+            getCachedReflectInfo(_name, {=> getStaticFieldNameString(_info, "GetFieldName Null Pointer!")}) {
+                variableName: String => _name = variableName
             }
         }
     }
@@ -385,13 +346,8 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
     // variable type
     public prop typeInfo: TypeInfo {
         get() {
-            match (_typeInfo) {
-                case Some(res) => res
-                case None =>
-                    let pointer = getStaticFieldType(_info)
-                    let ti = TypeInfo.getOrCreate(pointer)
-                    _typeInfo = ti
-                    ti
+            getCachedReflectInfo(_typeInfo, {=> getStaticFieldTypeInfo(_info)}) {
+                ti: TypeInfo => _typeInfo = ti
             }
         }
     }
@@ -399,27 +355,16 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
     // Annotation, when there is no data, size is 0. Note that this api does not guarantee a constant traversal order.
     public prop annotations: Collection<Annotation> {
         get() {
-            match (_annotations) {
-                case Some(res) => res
-                case None =>
-                    let infos = match (getStaticFieldAnnotations(_info, TypeInfo.of<Array<Object>>()._info)) {
-                        case arr: Array<Annotation> => arr
-                        case _ => Array<Annotation>()
-                    }
-                    _annotations = infos
-                    infos
+            getCachedReflectInfo(_annotations, {=> getStaticFieldAnnotationInfos(_info)}) {
+                infos: Collection<Annotation> => _annotations = infos
             }
         }
     }
 
     // Whether it is a variable modified by var. Calling setValue on a variable modified by let will throw an exception.
     public func isMutable(): Bool {
-        match (_mutable) {
-            case Some(res) => res
-            case None =>
-                let mutable = ModifierInfo.isMutable(getStaticFieldModifier(_info))
-                _mutable = mutable
-                mutable
+        getCachedReflectInfo(_mutable, {=> ModifierInfo.isMutable(getStaticFieldModifier(_info))}) {
+            mutable: Bool => _mutable = mutable
         }
     }
 
@@ -435,6 +380,7 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
      *
      * @throw IllegalSetException, if the global variable is immutable.
      * @throw IllegalTypeException, if the input newValue type is different from the global variable type.
+     * The mutability check is performed before the type check, so immutable variables fail consistently.
      */
     public func setValue(newValue: Any): Unit {
         if (!isMutable()) {
@@ -445,18 +391,18 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
     }
 
     /**
-     * Searches the global variable's annotation by incoming name.
+     * Finds an annotation declared on this global variable by annotation type.
      */
     public func findAnnotation<T>(): ?T where T <: Annotation {
-        findAnnotation<T>(annotations)
-   }
+        findAnnotation<T>(this.annotations)
+    }
 
     public func findAllAnnotations<T>(): Array<T> where T <: Annotation {
-        findAllAnnotations<T>(annotations)
+        findAllAnnotations<T>(this.annotations)
     }
 
     public func getAllAnnotations(): Array<Annotation> {
-        annotations.toArray()
+        this.annotations.toArray()
     }
 
     public operator func ==(other: GlobalVariableInfo): Bool {
@@ -482,4 +428,43 @@ public class GlobalVariableInfo <: Equatable<GlobalVariableInfo> & Hashable & To
 
 func getFieldDeclaringClassType(declaringTypeInfo: CPointer<Unit>): TypeInfo {
     TypeInfo.getOrCreate(declaringTypeInfo)
+}
+
+func variableToString(modifiers: Collection<ModifierInfo>, name: String, typeInfo: TypeInfo): String {
+    let sb = StringBuilder()
+    appendModifiers(sb, modifiers)
+    sb.append(name)
+    sb.append(": ")
+    sb.append(typeInfo)
+    sb.toString()
+}
+
+func getInstanceVariableInfos(info: CPointer<Unit>, typeName: String, isStruct: Bool): Array<InstanceVariableInfo> {
+    let num = getNumOfInstanceFieldInfos(info)
+    return Array<InstanceVariableInfo>(
+        Int64(num),
+        {
+            index =>
+                let pointer = getInstanceFieldInfo(info, UInt32(index))
+                if (pointer.isNull()) {
+                    throw InfoNotFoundException("${typeName} find instanceVariables failed!")
+                }
+                InstanceVariableInfo(pointer, info, isStruct: isStruct)
+        }
+    )
+}
+
+func getStaticVariableInfos(info: CPointer<Unit>, typeName: String): Array<StaticVariableInfo> {
+    let num = getNumOfStaticFieldInfos(info)
+    return Array<StaticVariableInfo>(
+        Int64(num),
+        {
+            index =>
+                let pointer = getStaticFieldInfo(info, UInt32(index))
+                if (pointer.isNull()) {
+                    throw InfoNotFoundException("${typeName} find staticVariables failed!")
+                }
+                StaticVariableInfo(pointer, info)
+        }
+    )
 }
