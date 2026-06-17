@@ -1919,7 +1919,7 @@ public func kill(pid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -1969,7 +1969,7 @@ public func killpg(pgid: Int32, sig: Int32): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -2304,7 +2304,7 @@ public func nice(inc: Int32): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -3188,7 +3188,7 @@ public func setgid(id: UInt32): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -3240,7 +3240,7 @@ public func sethostname(buf: String): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
@@ -3391,7 +3391,7 @@ public func setuid(id: UInt32): Int32
 
 > **注意：**
 >
-> - 不支持平台：Windows、iOS。
+> - 不支持平台：Windows、iOS、HarmonyOS。
 > - 未来版本即将废弃。
 
 参数：
