@@ -119,8 +119,9 @@ public class SubProcess <: Process {
         stdErr: InputStream
     ) {
         super(pid, name, command, arguments, commandLine, workingDirectory, environment)
-        // iOS stores stream objects through native accessors for the deprecated wrapper.
-        setSubProcessStreams(this, stdIn, stdOut, stdErr)
+        this._stdIn = stdIn
+        this._stdOut = stdOut
+        this._stdErr = stdErr
     }
 
     @When[os == "Windows"]
