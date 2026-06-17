@@ -216,7 +216,12 @@ void ExceptionManager::DumpException()
 #endif
 #if defined(__APPLE__) && (__IOS__ == 1) || (__ANDROID__)
         LOG(RTLOG_ERROR, summary);
-        LOG(RTLOG_ERROR, exceptionMsg.Str());
+        CString exceptionInfo(clsName);
+        if (!exceptionMsg.IsEmpty()) {
+            exceptionInfo += ": ";
+            exceptionInfo += exceptionMsg;
+        }
+        LOG(RTLOG_ERROR, exceptionInfo.Str());
 #endif
         CString exceptionStack;
         const int strLen = 10;
