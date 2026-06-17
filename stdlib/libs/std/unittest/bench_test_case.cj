@@ -172,12 +172,16 @@ func measureInternal<T>(m: T, f:() -> Unit): Float64 where T <: Measurement{
     m.measure() - x
 }
 
+@When[env != "ohos"]
 func waitGCFinish() {
     if (isGCRunning()) {
         let gcCount = getGCCount()
         while (getGCCount() <= gcCount) {}
     }
 }
+
+@When[env == "ohos"]
+func waitGCFinish() { }
 
 class BenchRunner {
     var benchmark: BenchmarkWrapper = EmptyBenchmark()
