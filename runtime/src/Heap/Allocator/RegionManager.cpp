@@ -909,7 +909,7 @@ void RegionManager::DumpRegionStats(const char* msg, bool dumpToError) const
     TRACE_COUNT("CJRT_GC_releasedUnits", releasedUnits);
     TRACE_COUNT("CJRT_GC_dirtyUnits", dirtyUnits);
     TRACE_COUNT("CJRT_GC_listedUnits", totalUnitCount);
-    constexpr size_t decimalPrecision = 10000;
+    [[maybe_unused]] constexpr size_t decimalPrecision = 10000;
     TRACE_COUNT("CJRT_GC_objectCapacity", static_cast<size_t>(objectCapacity * decimalPrecision));
     TRACE_COUNT("CJRT_GC_unitCapacity", static_cast<size_t>(unitCapacity * decimalPrecision));
 }

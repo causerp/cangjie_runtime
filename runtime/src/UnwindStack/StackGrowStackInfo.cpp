@@ -105,6 +105,9 @@ void StackGrowStackInfo::RecordStackPtrs(const StackPtrVisitor& traceAndFixPtrVi
                 case FrameType::INTERPRETER:
                     VisitInterpreterFrameRootsExpansion(state, frame, &fixPtrVisitor, &derivedPtrVisitor);
                     break;
+                default: {
+                    break;
+                }
             }
         }
     };

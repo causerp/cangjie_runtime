@@ -1966,14 +1966,6 @@ void CJ_MCC_RemoveExportedRef(U64 id)
     Heap::GetHeap().RemoveExportObject(id);
 }
 
-// Object memory layout for CJ_MCC_GetJSLambdaAddr obj parameter:
-// struct AutoEnvObj {
-//     TypeInfo* ti;             // [0:TYPEINFO_PTR_SIZE] - object header
-//     uintptr_t func1;          // [TYPEINFO_PTR_SIZE], universal function
-//     uintptr_t func2;          // [TYPEINFO_PTR_SIZE+8], no generic parameter closure exists, the variable exists
-//     ObjectPtr realAutoEnvObj; // [TYPEINFO_PTR_SIZE+16] - for wrapper classes
-// };
-
 extern "C" uintptr_t CJ_MCC_GetJSLambdaAddr(const ObjectPtr obj)
 {
     ObjectPtr currentObj = obj;

@@ -200,7 +200,7 @@ void Barrier::ReadStaticStruct(MAddress dst, MAddress src, size_t size, const GC
     size_t srcSize = size;
     CHECK_DETAIL(memcpy_s(reinterpret_cast<void*>(dst), dstSize, reinterpret_cast<void*>(src), srcSize) == EOK,
                  "read struct memcpy_s failed");
-    gctib.ForEachBitmapWord(dst, [=](RefField<>& refField) {
+    gctib.ForEachBitmapWord(dst, [this](RefField<>& refField) {
         BaseObject* toVersion = nullptr;
         theCollector.TryUpdateRefField(nullptr, refField, toVersion);
     });

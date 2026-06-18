@@ -272,10 +272,10 @@ bool IsPendingSafePoint(DYN_ThreadLocalData tlData)
 void ThrowException(DYN_ObjRef exception)
 {
     ExceptionRef exceptionRef = static_cast<ExceptionRef>(exception);
-    const char* exceptionTypeName = (exceptionRef != nullptr && exceptionRef->GetTypeInfo() != nullptr)
-        ? exceptionRef->GetTypeInfo()->GetName()
-        : "<null>";
-    DLOG(INTERPRETER, "ThrowException: exception=%p, type=%s", exceptionRef, exceptionTypeName);
+    DLOG(INTERPRETER, "ThrowException: exception=%p, type=%s", exceptionRef,
+        (exceptionRef != nullptr && exceptionRef->GetTypeInfo() != nullptr) ?
+        exceptionRef->GetTypeInfo()->GetName() : "<null>");
+
     ExceptionManager::ThrowException(exceptionRef);
 }
 
@@ -450,7 +450,13 @@ DYN_ThreadLocalData GetThreadLocalData()
 bool IsActiveGCPhase(DYN_ThreadLocalData tld)
 {
     ThreadLocalData* threadLocalData = static_cast<ThreadLocalData*>(tld);
+    if (threadLocalData == nullptr) {
+        return false;
+    }
     Mutator* mutator = threadLocalData->mutator;
+    if (mutator == nullptr) {
+        return false;
+    }
     return mutator->GetMutatorPhase() >= GCPhase::GC_PHASE_ENUM;
 }
 
