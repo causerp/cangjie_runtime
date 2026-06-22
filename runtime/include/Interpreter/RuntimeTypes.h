@@ -24,9 +24,6 @@ extern "C" {
 
 #define EXTENSION_DATA_ATTRS __attribute__((__aligned__(4), __packed__))
 
-struct TYPE_INFO_ATTRS DYN_TypeInfo;
-struct TYPE_INFO_ATTRS DYN_ExtensionData;
-
 typedef void* DYN_MTableDesc;
 typedef void* DYN_FuncPtr;
 

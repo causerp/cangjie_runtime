@@ -64,8 +64,11 @@ void ExceptionWrapper::RestoreContext(CalleeSavedRegisterContext& context)
             framePtr->IsCatchException() ? "true" : "false");
         if (framePtr->IsCatchException()) {
 #ifdef INTERPRETER_ENABLED
-            ExceptionWrapper& mExceptionWrapper = Mutator::GetMutator()->GetExceptionWrapper();
-            mExceptionWrapper.SetCurrentCatchFunctionPC(reinterpret_cast<uintptr_t>(framePtr->GetIP()));
+            Mutator* mutator = Mutator::GetMutator();
+            if (mutator != nullptr) {
+                mutator->GetExceptionWrapper().SetCurrentCatchFunctionPC(
+                    reinterpret_cast<uintptr_t>(framePtr->GetIP()));
+            }
 #endif
             break;
         }

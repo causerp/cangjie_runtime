@@ -94,27 +94,10 @@ typedef struct INT_InterpretedFrameInfo {
 
 // endregion Calling Conventions
 
-// Collection of callbacks implemented by interpreter. See detailed description below.
-struct INT_InterpreterInterface;
-
-// Collection of callbacks implemented by CJNative. See detailed description below.
-struct DYN_CJNativeInterface;
-
 #define INT_INTERPRETER_INTERFACE_VERSION 1
 #define DYN_CJNATIVE_INTERFACE_VERSION 1
 
 // region interpreter interface
-
-// Initalize interpreter and fill it`s interface.
-// params:
-// - interpreterInterface - [OUT] Pointer to `INT_InterpreterInterface` which filled by callee.
-// - cjnativeInterface - Pointer to `DYN_CJNativeInterface`. Pointer owned by caller, callee should copy the content.
-// - interpreterArgsCount - Number of interpreter arguments in `interpreterArgs`.
-// - interpreterArgs - Interpreter arguments array (null-terminated).
-//                     Pointer owned by caller, callee should copy the content.
-// return: 0 on success.
-typedef int (*INT_InitInterpreter)(struct INT_InterpreterInterface* interpreterInterface,
-    struct DYN_CJNativeInterface* cjnativeInterface, int interpreterArgsCount, INT_InterpreterArgs interpreterArgs);
 
 // Prepares state and calls callback with initialized state and provided context. After callback returns, performs
 // necessary cleanup of the state.
@@ -582,6 +565,7 @@ typedef void (*DYN_NativeLoggerFn)(int logLevel, char* tag, char* message);
 
 // region Interfaces
 
+// Collection of callbacks implemented by interpreter.
 struct INT_InterpreterInterface {
     // current supported version is INT_INTERPRETER_INTERFACE_VERSION
     int64_t version;
@@ -610,6 +594,7 @@ struct INT_InterpreterInterface {
     INT_LandingPadFn landingPad;
 };
 
+// Collection of callbacks implemented by CJNative.
 struct DYN_CJNativeInterface {
     // current supported version is DYN_CJNATIVE_INTERFACE_VERSION
     int64_t version;
@@ -671,6 +656,17 @@ struct DYN_CJNativeInterface {
 
     DYN_NativeLoggerFn nativeLogger;
 };
+
+// Initalize interpreter and fill it`s interface.
+// params:
+// - interpreterInterface - [OUT] Pointer to `INT_InterpreterInterface` which filled by callee.
+// - cjnativeInterface - Pointer to `DYN_CJNativeInterface`. Pointer owned by caller, callee should copy the content.
+// - interpreterArgsCount - Number of interpreter arguments in `interpreterArgs`.
+// - interpreterArgs - Interpreter arguments array (null-terminated).
+//                     Pointer owned by caller, callee should copy the content.
+// return: 0 on success.
+typedef int (*INT_InitInterpreter)(struct INT_InterpreterInterface* interpreterInterface,
+    struct DYN_CJNativeInterface* cjnativeInterface, int interpreterArgsCount, INT_InterpreterArgs interpreterArgs);
 
 #ifdef __cplusplus
 } // extern "C"
