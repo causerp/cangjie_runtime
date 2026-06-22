@@ -430,6 +430,7 @@ public:
 
     void AddLocalFinalizer(BaseObject* obj)
     {
+        CHECK_DETAIL(!Heap::GetHeap().GetCollector().IsFromObject(obj), "finalizer object %p is a from object");
         localFinalizers.push_back(obj);
     }
 
