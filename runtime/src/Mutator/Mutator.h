@@ -22,6 +22,7 @@
 #endif
 #include "Interpreter/Options.h"
 #include "Interpreter/RTInterface.h"
+#include "ObjectModel/RefField.h"
 
 
 namespace MapleRuntime {
@@ -322,6 +323,8 @@ public:
     inline void GCPhasePreForward(GCPhase newPhase);
     inline void HandleGCPhase(GCPhase newPhase);
     inline void HandleGCPhaseIDLE();
+    void ForwardLocalFinalizers(Collector& collector);
+    static DerivedPtrVisitor MakePreForwardDerivedVisitor(Collector& collector);
 
     inline void HandleCpuProfile();
 
@@ -431,7 +434,9 @@ public:
     void AddLocalFinalizer(BaseObject* obj)
     {
         CHECK_DETAIL(!Heap::GetHeap().GetCollector().IsFromObject(obj), "finalizer object %p is a from object");
-        localFinalizers.push_back(obj);
+        RefField<> tmpField(nullptr);
+        Heap::GetBarrier().WriteStaticRef(tmpField, obj);
+        localFinalizers.push_back(reinterpret_cast<BaseObject*>(tmpField.GetFieldValue()));
     }
 
     void MutatorLock() { mutatorLock.lock(); }

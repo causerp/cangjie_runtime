@@ -15,6 +15,7 @@
 #include "Common/ScopedObjectAccess.h"
 #include "Concurrency/ConcurrencyModel.h"
 #include "Heap/Collector/FinalizerProcessor.h"
+#include "Heap/WCollector/WCollector.h"
 #include "ObjectModel/RefField.inline.h"
 #include "MutatorManager.h"
 #include "StackManager.h"
@@ -592,7 +593,13 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
         }
     };
 
-    DerivedPtrVisitor derivedPtrVisitor = [&collector](BasePtrType basePtr, DerivedPtrType& derivedPtr) {
+    VisitHeapReferences(visitor, MakePreForwardDerivedVisitor(collector));
+    ForwardLocalFinalizers(collector);
+}
+
+DerivedPtrVisitor Mutator::MakePreForwardDerivedVisitor(Collector& collector)
+{
+    return [&collector](BasePtrType basePtr, DerivedPtrType& derivedPtr) {
         BaseObject* fromVersion = reinterpret_cast<BaseObject*>(basePtr);
         if (!Heap::IsHeapAddress(fromVersion) || !collector.IsGhostFromObject(fromVersion) ||
             collector.IsUnmovableFromObject(fromVersion)) {
@@ -604,7 +611,15 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
             derivedPtr = toDerived;
         }
     };
-    VisitHeapReferences(visitor, derivedPtrVisitor);
+}
+
+void Mutator::ForwardLocalFinalizers(Collector& collector)
+{
+    WCollector& wcollector = reinterpret_cast<WCollector&>(collector);
+    RootVisitor visitor = [&wcollector](ObjectRef& root) { wcollector.ForwardUpdateRawRef(root); };
+    for (BaseObject*& obj : localFinalizers) {
+        visitor(reinterpret_cast<ObjectRef&>(obj));
+    }
 }
 
 inline void Mutator::HandleGCPhase(GCPhase newPhase)
