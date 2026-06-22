@@ -30,16 +30,17 @@ public:
 
     explicit StackMetadataHelper(const FrameInfo& frameInfo)
         : funcPC(frameInfo.mFrame.GetIP()), funcStartAddress(reinterpret_cast<uintptr_t>(frameInfo.GetFuncStartPC()))
-    {
 #ifdef __APPLE__
-        FuncDescRef tmpFuncDesc = MFuncDesc::GetFuncDesc(frameInfo.mFrame.GetFA());
+        , funcDesc(reinterpret_cast<uint64_t*>(MFuncDesc::GetFuncDesc(frameInfo.mFrame.GetFA())))
 #else
-        FuncDescRef tmpFuncDesc = MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(frameInfo.GetFuncStartPC()));
+        , funcDesc(reinterpret_cast<uint64_t*>(
+              MFuncDesc::GetFuncDesc(reinterpret_cast<Uptr>(frameInfo.GetFuncStartPC()))))
 #endif
+    {
+        FuncDescRef tmpFuncDesc = reinterpret_cast<FuncDescRef>(funcDesc);
         mangleNameHelper = new (std::nothrow)
             MangleNameHelper(tmpFuncDesc->GetFuncName(), StackTraceFormatFlag(tmpFuncDesc->GetStackTraceFormat()));
         CHECK_DETAIL(mangleNameHelper != nullptr, "new mangleNameHelper failed when create StackMetadataHelper.");
-        funcDesc = reinterpret_cast<uint64_t*>(tmpFuncDesc);
     }
 
     StackMetadataHelper() = delete;

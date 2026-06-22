@@ -50,7 +50,12 @@ public:
     ExceptionWrapper()
         : exceptionRef(nullptr), isCaught(false), typeIndex(0), landingPad(0), throwingOOME(false),
           throwingSOFFramePc(nullptr), adjustedSize(0), fatalException(false), message(nullptr), messageLength(0),
-          topManagedPC(0) {}
+          topManagedPC(0)
+#ifdef INTERPRETER_ENABLED
+          , currentCatchFunctionPC(0)
+#endif
+    {
+    }
 
     ~ExceptionWrapper()
     {

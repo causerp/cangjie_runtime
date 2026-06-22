@@ -358,16 +358,13 @@ int SigProcMask(int how, const sigset_t* newSet, sigset_t* oldSet,
         return linked(how, newSet, oldSet);
     }
 
-    sigset_t* newSetPtr = const_cast<sigset_t*>(newSet);
     sigset_t tmpset = *newSet;
 
     if (how == SIG_BLOCK || how == SIG_SETMASK) {
         AdjustSignalMask(&tmpset);
     }
 
-    *newSetPtr = tmpset;
-
-    return linked(how, newSetPtr, oldSet);
+    return linked(how, &tmpset, oldSet);
 }
 
 extern "C" MRT_EXPORT int sigprocmask(int how, const sigset_t* newSet, sigset_t* oldSet)

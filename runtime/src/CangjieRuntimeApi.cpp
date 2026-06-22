@@ -812,7 +812,7 @@ int InitCJLibrary(const char* libName)
         void* asPtr;
     } ret = {};
     ret.asPtr = nullptr;
-    GetTaskRet(future, reinterpret_cast<void**>(&ret.asPtr));
+    GetTaskRet(future, &ret.asPtr);
     ReleaseHandle(future);
     return ret.asBool ? E_OK : E_ARGS;
 #endif
