@@ -612,8 +612,19 @@ TypeInfo* TypeInfo::GetMethodOuterTI(TypeInfo* itf, U64 index)
     auto& mTable = mTableDesc->mTable;
     auto it = mTable.find(itfUUID);
     if (it == mTable.end()) {
-        LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
-        return nullptr;
+        // Defensive re-check under the mTable mutex. A transient data race with another
+        // thread concurrently populating mTable (for example, TryUpdateExtensionData ->
+        // TraverseInnerExtensionDefs -> AddMTable) can make the lockless lookup above miss
+        // the entry even though it legitimately exists. Force a synchronized resolution
+        // via FindExtensionData (which uses the same recursive_mutex internally) and
+        // re-lookup under the lock; only abort if the entry is genuinely absent.
+        std::lock_guard<std::recursive_mutex> lock(mTableDesc->mTableMutex);
+        (void)FindExtensionData(itf, true);
+        it = mTable.find(itfUUID);
+        if (it == mTable.end()) {
+            LOG(RTLOG_FATAL, "expected interface %s is not in class %s", itf->GetName(), GetName());
+            return nullptr;
+        }
     }
     auto* outerTi = it->second.GetCachedTypeInfo(index);
     if (LIKELY(outerTi != nullptr)) {
