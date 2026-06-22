@@ -435,35 +435,19 @@ extend IntNative <: WrappingOp<IntNative> {
 
     @Frozen
     public func wrappingShl(y: UInt64): IntNative {
-        if (isNative64) {
-            if (y >= 64) {
-                return this << (y & 0b111111)
-            } else {
-                return this << y
-            }
-        } else {
-            if (y >= 32) {
-                return this << (y & 0b11111)
-            } else {
-                return this << y
-            }
+        let (nativeWidth, shiftMask) = nativeShiftConfig()
+        if (y >= nativeWidth) {
+            return this << (y & shiftMask)
         }
+        return this << y
     }
 
     public func wrappingShr(y: UInt64): IntNative {
-        if (isNative64) {
-            if (y >= 64) {
-                return this >> (y & 0b111111)
-            } else {
-                return this >> y
-            }
-        } else {
-            if (y >= 32) {
-                return this >> (y & 0b11111)
-            } else {
-                return this >> y
-            }
+        let (nativeWidth, shiftMask) = nativeShiftConfig()
+        if (y >= nativeWidth) {
+            return this >> (y & shiftMask)
         }
+        return this >> y
     }
 }
 
@@ -495,29 +479,17 @@ extend UIntNative <: WrappingOp<UIntNative> {
 
     @Frozen
     public func wrappingShl(y: UInt64): UIntNative {
-        if (isNative64) {
-            if (y >= 64) {
-                return this << (y & 0b111111)
-            } else {
-                return this << y
-            }
-        } else {
-            if (y >= 32) {
-                return this << (y & 0b11111)
-            } else {
-                return this << y
-            }
+        let (nativeWidth, shiftMask) = nativeShiftConfig()
+        if (y >= nativeWidth) {
+            return this << (y & shiftMask)
         }
+        return this << y
     }
 
     public func wrappingShr(y: UInt64): UIntNative {
-        let (nativeWidth, rightShiftMask) = if (isNative64) {
-            (NATIVE_64_BIT_WIDTH, NATIVE_64_SHIFT_MASK)
-        } else {
-            (NATIVE_32_BIT_WIDTH, NATIVE_32_SHIFT_MASK)
-        }
+        let (nativeWidth, shiftMask) = nativeShiftConfig()
         if (y >= nativeWidth) {
-            return this >> (y & rightShiftMask)
+            return this >> (y & shiftMask)
         }
         return this >> y
     }

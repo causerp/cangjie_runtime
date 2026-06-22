@@ -1700,33 +1700,33 @@ public func gcd(x: UInt8, y: UInt8): UInt8 {
         return y
     }
 
-    var x_ = x;
-    var y_ = y;
-    var counter = 0;
-    while (x_ != y_) {
-        if (x_ < y_) {
-            x_ = x_ ^ y_
-            y_ = x_ ^ y_
-            x_ = x_ ^ y_
+    var left = x;
+    var right = y;
+    var commonPower = 0;
+    while (left != right) {
+        if (left < right) {
+            left = left ^ right
+            right = left ^ right
+            left = left ^ right
         }
 
-        if (UInt8(x_ & 1) == 1) {
-            if (UInt8(y_ & 1) == 1) {
-                y_ = (x_ - y_) >> 1
-                x_ -= y_
+        if (UInt8(left & 1) == 1) {
+            if (UInt8(right & 1) == 1) {
+                right = (left - right) >> 1
+                left -= right
             } else {
-                y_ >>= 1
+                right >>= 1
             }
         } else {
-            x_ >>= 1
-            if (UInt8(y_ & 1) != 1) {
-                y_ >>= 1
-                counter++;
+            left >>= 1
+            if (UInt8(right & 1) != 1) {
+                right >>= 1
+                commonPower++;
             }
         }
     }
 
-    x_ << counter;
+    left << commonPower;
 }
 
 /**
@@ -1796,33 +1796,33 @@ public func gcd(x: UInt32, y: UInt32): UInt32 {
         return y
     }
 
-    var lhs = x;
-    var rhs = y;
-    var shift = 0;
-    while (lhs != rhs) {
-        if (lhs < rhs) {
-            lhs = lhs ^ rhs
-            rhs = lhs ^ rhs
-            lhs = lhs ^ rhs
+    var left = x;
+    var right = y;
+    var commonPower = 0;
+    while (left != right) {
+        if (left < right) {
+            left = left ^ right
+            right = left ^ right
+            left = left ^ right
         }
 
-        if (UInt32(lhs & 1) == 1) {
-            if (UInt32(rhs & 1) == 1) {
-                rhs = (lhs - rhs) >> 1
-                lhs -= rhs
+        if (UInt32(left & 1) == 1) {
+            if (UInt32(right & 1) == 1) {
+                right = (left - right) >> 1
+                left -= right
             } else {
-                rhs >>= 1
+                right >>= 1
             }
         } else {
-            lhs >>= 1
-            if (UInt32(rhs & 1) != 1) {
-                rhs >>= 1
-                shift++;
+            left >>= 1
+            if (UInt32(right & 1) != 1) {
+                right >>= 1
+                commonPower++;
             }
         }
     }
 
-    lhs << shift;
+    left << commonPower;
 }
 
 /**
@@ -1844,33 +1844,33 @@ public func gcd(x: UInt64, y: UInt64): UInt64 {
         return y
     }
 
-    var a = x;
-    var b = y;
-    var shiftCount = 0;
-    while (a != b) {
-        if (a < b) {
-            a = a ^ b
-            b = a ^ b
-            a = a ^ b
+    var left = x;
+    var right = y;
+    var commonPower = 0;
+    while (left != right) {
+        if (left < right) {
+            left = left ^ right
+            right = left ^ right
+            left = left ^ right
         }
 
-        if (UInt64(a & 1) == 1) {
-            if (UInt64(b & 1) == 1) {
-                b = (a - b) >> 1
-                a -= b
+        if (UInt64(left & 1) == 1) {
+            if (UInt64(right & 1) == 1) {
+                right = (left - right) >> 1
+                left -= right
             } else {
-                b >>= 1
+                right >>= 1
             }
         } else {
-            a >>= 1
-            if (UInt64(b & 1) != 1) {
-                b >>= 1
-                shiftCount++;
+            left >>= 1
+            if (UInt64(right & 1) != 1) {
+                right >>= 1
+                commonPower++;
             }
         }
     }
 
-    a << shiftCount;
+    left << commonPower;
 }
 
 /**
@@ -2118,13 +2118,16 @@ public func lcm(x: UInt64, y: UInt64): UInt64 {
  * @throws IllegalArgumentException if the argument `min` is larger than `max`, or `min` or `max` is NaN
  */
 public func clamp(v: Float16, min: Float16, max: Float16): Float16 {
-    match {
-        case !isEqual(min, min) || !isEqual(max, max) || min > max => throw IllegalArgumentException(
-            "Check parameter min:'${min}' or max:'${max}'.\n")
-        case v < min => min
-        case v > max => max
-        case _ => v
+    if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
+        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
     }
+    if (v < min) {
+        return min
+    }
+    if (v > max) {
+        return max
+    }
+    return v
 }
 
 /**
@@ -2174,13 +2177,16 @@ public func clamp(v: Float32, min: Float32, max: Float32): Float32 {
  * @throws IllegalArgumentException if the argument `min` is larger than `max`, or `min` or `max` is NaN
  */
 public func clamp(v: Float64, min: Float64, max: Float64): Float64 {
-    match {
-        case !isEqual(min, min) || !isEqual(max, max) || min > max => throw IllegalArgumentException(
-            "Check parameter min:'${min}' or max:'${max}'.\n")
-        case v < min => min
-        case v > max => max
-        case _ => v
+    if (!isEqual(min, min) || !isEqual(max, max) || min > max) {
+        throw IllegalArgumentException("Check parameter min:'${min}' or max:'${max}'.\n")
     }
+    if (v < min) {
+        return min
+    }
+    if (v > max) {
+        return max
+    }
+    return v
 }
 
 /**
@@ -2241,6 +2247,7 @@ public func round(x: Float32): Float32 {
         return Float32.NaN
     }
     var rounded: Float32 = abs(x)
+    // note: if rounded >= 1e8, Float32(1e8) + 1 = ceil(Float32(1e8) + 0.9)
     if (rounded >= 1e8) {
         return x
     }
@@ -2279,6 +2286,7 @@ public func round(x: Float16): Float16 {
         return Float16.NaN
     }
     var nearest: Float16 = abs(x)
+    // note: if nearest >= 1e4, Float16(1e4) + 1 = ceil(Float16(1e4) + 0.9)
     if (nearest >= 1e4) {
         return x
     }

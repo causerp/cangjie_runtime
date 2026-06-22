@@ -553,6 +553,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
         let f64Bits: Int64 = reinterpretAsInt(val)
         var (f64Sign, f64Exponent, f64Fraction): (Int64, Int64, Int64) = parseFloat64Bits(f64Bits)
         if (f64Fraction == 0) {
+            // The fraction is 0, so the Decimal value is 0.
             this._precision = 1
             this._scale = 0
             this._value = BigInt(0)
@@ -565,6 +566,7 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
             f64Exponent++
         }
 
+        // Float64 exponent is 11 bits and fits in Int32; keep this defensive guard.
         if (Int64(Int32(f64Exponent)) != f64Exponent) {
             throw OverflowException("Scale overflow.")
         }

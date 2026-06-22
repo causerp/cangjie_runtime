@@ -432,33 +432,19 @@ extend IntNative <: SaturatingOp<IntNative> {
     }
 
     public func saturatingShl(y: UInt64): IntNative {
-        if (isNative64) {
-            return if (y >= 64) {
-                this << 63
-            } else {
-                this << y
-            }
+        let maxShift = nativeMaxShift()
+        if (y > maxShift) {
+            return this << maxShift
         }
-        return if (y >= 32) {
-            this << 31
-        } else {
-            this << y
-        }
+        return this << y
     }
 
     public func saturatingShr(y: UInt64): IntNative {
-        if (isNative64) {
-            return if (y >= 64) {
-                this >> 63
-            } else {
-                this >> y
-            }
+        let maxShift = nativeMaxShift()
+        if (y > maxShift) {
+            return this >> maxShift
         }
-        return if (y >= 32) {
-            this >> 31
-        } else {
-            this >> y
-        }
+        return this >> y
     }
 }
 
@@ -490,11 +476,7 @@ extend UIntNative <: SaturatingOp<UIntNative> {
     }
 
     public func saturatingShl(y: UInt64): UIntNative {
-        let maxShift: UInt64 = if (isNative64) {
-            NATIVE_64_MAX_SHIFT
-        } else {
-            NATIVE_32_MAX_SHIFT
-        }
+        let maxShift = nativeMaxShift()
         if (y > maxShift) {
             return this << maxShift
         }
@@ -502,11 +484,7 @@ extend UIntNative <: SaturatingOp<UIntNative> {
     }
 
     public func saturatingShr(y: UInt64): UIntNative {
-        let maxShift: UInt64 = if (isNative64) {
-            NATIVE_64_MAX_SHIFT
-        } else {
-            NATIVE_32_MAX_SHIFT
-        }
+        let maxShift = nativeMaxShift()
         if (y > maxShift) {
             return this >> maxShift
         }
