@@ -665,8 +665,8 @@ struct DYN_CJNativeInterface {
 // - interpreterArgs - Interpreter arguments array (null-terminated).
 //                     Pointer owned by caller, callee should copy the content.
 // return: 0 on success.
-typedef int (*INT_InitInterpreter)(INT_InterpreterInterface* interpreterInterface,
-    DYN_CJNativeInterface* cjnativeInterface, int interpreterArgsCount, INT_InterpreterArgs interpreterArgs);
+typedef int (*INT_InitInterpreter)(struct INT_InterpreterInterface* interpreterInterface,
+    struct DYN_CJNativeInterface* cjnativeInterface, int interpreterArgsCount, INT_InterpreterArgs interpreterArgs);
 
 #ifdef __cplusplus
 } // extern "C"
