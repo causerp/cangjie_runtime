@@ -7,9 +7,12 @@
 
 #include "WinModuleManager.h"
 
+#include <array>
+#include <cstddef>
 #include <dbghelp.h>
 #include <string>
 #include <unordered_set>
+#include <vector>
 #include <windows.h>
 #include <winternl.h>
 
@@ -82,8 +85,8 @@ void WinModuleManager::ReadWinModuleAtInit()
     PLIST_ENTRY head = ppeb->Ldr->InMemoryOrderModuleList.Flink;
     PLIST_ENTRY iterator = head;
     do {
-        LdrDataTableEntry* ldrDataEntry =
-            (LdrDataTableEntry*)CONTAINING_RECORD(iterator, LdrDataTableEntry, inMemoryOrderLinks);
+        Uptr entryAddress = reinterpret_cast<Uptr>(iterator) - offsetof(LdrDataTableEntry, inMemoryOrderLinks);
+        LdrDataTableEntry* ldrDataEntry = reinterpret_cast<LdrDataTableEntry*>(entryAddress);
         // get moduleName
         if (ldrDataEntry->baseDllName.Buffer == nullptr) {
             iterator = iterator->Flink;
@@ -153,20 +156,22 @@ void WinModuleManager::ReadModuleInfo(HMODULE* moduleHandlers, int moduleHandler
 void WinModuleManager::ReadWinModuleAtRunning()
 {
     // It is hard to predict how many modules there will be in loading, here we assume 50 modules at the beginning.
-    int moduleHandlerCapacity = 50;
-    HMODULE moduleHandlers[moduleHandlerCapacity];
+    constexpr int moduleHandlerCapacity = 50;
+    std::array<HMODULE, moduleHandlerCapacity> moduleHandlers;
     DWORD neededModulesLength;
     HANDLE curProcess = GetCurrentProcess();
-    EnumProcessModules(curProcess, moduleHandlers, sizeof(moduleHandlers), &neededModulesLength);
+    EnumProcessModules(curProcess, moduleHandlers.data(),
+                       static_cast<DWORD>(moduleHandlers.size() * sizeof(HMODULE)), &neededModulesLength);
     int moduleNum = neededModulesLength / sizeof(HMODULE);
     if (moduleNum <= moduleHandlerCapacity) {
-        ReadModuleInfo(moduleHandlers, moduleNum);
+        ReadModuleInfo(moduleHandlers.data(), moduleNum);
         return;
     }
     // require capacity expansion.
-    HMODULE expandedModuleHandlers[moduleNum];
-    EnumProcessModules(curProcess, expandedModuleHandlers, sizeof(expandedModuleHandlers), &neededModulesLength);
-    ReadModuleInfo(expandedModuleHandlers, moduleNum);
+    std::vector<HMODULE> expandedModuleHandlers(static_cast<size_t>(moduleNum));
+    EnumProcessModules(curProcess, expandedModuleHandlers.data(),
+                       static_cast<DWORD>(expandedModuleHandlers.size() * sizeof(HMODULE)), &neededModulesLength);
+    ReadModuleInfo(expandedModuleHandlers.data(), moduleNum);
 }
 
 void WinModuleManager::Fini() const

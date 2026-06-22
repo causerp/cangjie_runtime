@@ -113,7 +113,8 @@ __attribute__((constructor(0))) __declspec(dllexport) void InitData()
         return;
     }
 
-    PIMAGE_NT_HEADERS ntHeaders = (PIMAGE_NT_HEADERS)((BYTE*)hModule + dosHeader->e_lfanew);
+    PIMAGE_NT_HEADERS ntHeaders = reinterpret_cast<PIMAGE_NT_HEADERS>(
+        reinterpret_cast<uintptr_t>(hModule) + static_cast<uintptr_t>(dosHeader->e_lfanew));
     if (ntHeaders->Signature != IMAGE_NT_SIGNATURE) {
         return;
     }

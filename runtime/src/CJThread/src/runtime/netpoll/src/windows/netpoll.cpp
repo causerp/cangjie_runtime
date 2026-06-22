@@ -18,7 +18,7 @@ extern "C" {
 /* netpoll exit */
 void NetpollExit(NetpollFd npfd)
 {
-    struct NetpollMetaData *meta = reinterpret_cast<struct NetpollMetaData *>(npfd);
+    struct NetpollMetaData *meta = static_cast<struct NetpollMetaData *>(npfd);
     if (meta == nullptr) {
         return;
     }
@@ -67,7 +67,7 @@ int NetpollAdd(NetpollFd npfd, HANDLE fd, void *data, unsigned int events)
     (void)events;
     HANDLE ret;
     int error;
-    struct NetpollMetaData *meta = reinterpret_cast<struct NetpollMetaData *>(npfd);
+    struct NetpollMetaData *meta = static_cast<struct NetpollMetaData *>(npfd);
 
     if (meta == nullptr) {
         LOG_ERROR(ERRNO_NETPOLL_UNINIT, "netpoll uninited");
@@ -98,7 +98,7 @@ int NetpollWait(NetpollFd npfd, OVERLAPPED_ENTRY *entries, int maxentries, DWORD
     int error;
     int eventsNum;
     WINBOOL ret;
-    struct NetpollMetaData *meta = reinterpret_cast<struct NetpollMetaData *>(npfd);
+    struct NetpollMetaData *meta = static_cast<struct NetpollMetaData *>(npfd);
 
     if (meta == nullptr) {
         LOG_ERROR(ERRNO_NETPOLL_UNINIT, "netpoll uninited");

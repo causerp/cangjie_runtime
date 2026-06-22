@@ -135,7 +135,7 @@ void Split(const char *str, uint64_t targetSeg,
 CString Merge(const std::vector<SingleStr> &segments, size_t totalLen)
 {
     auto size = totalLen + 1;
-    char *res = reinterpret_cast<char*>(malloc(size));
+    char* res = static_cast<char*>(malloc(size));
     if (res == nullptr) {
         LOG(RTLOG_FATAL, "string decode: malloc failed! (size: %zu)", size);
     }

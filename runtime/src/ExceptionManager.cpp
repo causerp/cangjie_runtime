@@ -208,13 +208,13 @@ void ExceptionManager::DumpException()
     // Otherwise, dump the exception information.
     std::lock_guard<std::mutex> lock(gUncaughtExceptionHandlerMtx);
     if (Runtime::Current().GetExceptionManager().GetUncaughtExceptionHandler().uncaughtTask) {
-#if defined(__OHOS__) && (__OHOS__ == 1) || (__APPLE__) || (__ANDROID__)
+#if (defined(__OHOS__) && (__OHOS__ == 1)) || defined(__APPLE__) || defined(__ANDROID__)
         const char* summary = "Uncaught exception was found.";
         CString exceptionMsg(eWrapper.GetExceptionMessage());
-#if defined(__APPLE__) && (__IOS__ == 1)
+#if defined(__APPLE__) && defined(__IOS__) && (__IOS__ == 1)
         CFException::ReportBacktraceToIosIpsLog(eWrapper);
 #endif
-#if defined(__APPLE__) && (__IOS__ == 1) || (__ANDROID__)
+#if (defined(__APPLE__) && defined(__IOS__) && (__IOS__ == 1)) || defined(__ANDROID__)
         LOG(RTLOG_ERROR, summary);
         CString exceptionInfo(clsName);
         if (!exceptionMsg.IsEmpty()) {
@@ -242,7 +242,7 @@ void ExceptionManager::DumpException()
             exceptionStack += +":";
             exceptionStack += str;
             exceptionStack += ")\n";
-#if defined(__APPLE__) || (__ANDROID__)
+#if defined(__APPLE__) || defined(__ANDROID__)
             LOG(RTLOG_ERROR, exceptionStack.Str());
             exceptionStack = "";
 #endif
