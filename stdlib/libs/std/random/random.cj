@@ -93,28 +93,7 @@ public class Random {
      */
     @Deprecated["Use member function `public func nextBits(bits: UInt64): UInt64` instead."]
     public func next(bits: UInt64): UInt64 {
-        if (bits > 64) {
-            throw IllegalArgumentException("Bits must be less than or equal to 64.")
-        }
-        if (bits == 0) {
-            throw IllegalArgumentException("Bits cannot be 0.")
-        }
-        var y: UInt64 = 0
-        if (mti >= N) {
-            var mt = mt
-            var kk: Int64 = 0
-            while (kk < N) {
-                y = (mt[kk] & UPPER_MASK) | (mt[(kk + 1) % N] & LOWER_MASK)
-                if (y % 2 == 0) {
-                    mt[kk] = mt[(kk + M) % N] ^ (y >> 1) ^ magNum[0]
-                } else {
-                    mt[kk] = mt[(kk + M) % N] ^ (y >> 1) ^ magNum[1]
-                }
-                kk++
-            }
-            mti = 0
-        }
-        return returnNext(bits)
+        nextBits(bits)
     }
 
     /**
