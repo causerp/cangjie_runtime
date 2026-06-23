@@ -89,7 +89,7 @@ extend Int32 <: Formattable {
      * @throws IllegalArgumentException if the `fmt` does not match the expected int format pattern
      */
     public func format(fmt: String): String {
-        return Int64(this).format(fmt)
+        Int64(this).format(fmt)
     }
 }
 
@@ -171,7 +171,7 @@ extend UInt32 <: Formattable {
      * @throws IllegalArgumentException if the `fmt` does not match the expected unit format pattern
      */
     public func format(fmt: String): String {
-        return UInt64(this).format(fmt)
+        UInt64(this).format(fmt)
     }
 }
 
@@ -730,7 +730,8 @@ class FormatSpecifier {
      */
     func fmtFloat(arg: Float64): String {
         if (precision > MAX_FLOAT_PRECISION) {
-            throw IllegalArgumentException("Format precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
+            throw IllegalArgumentException(
+                "Format precision ${precision} exceeds maximum allowed value ${MAX_FLOAT_PRECISION}.")
         }
         var negative = false
         var str = "${arg}".toRuneArray()
@@ -852,21 +853,20 @@ class FormatSpecifier {
      * @since 0.17.4
      */
     private func toOctalString(u: UInt64): String {
-        var v: UInt64 = u
-        var str = ""
-        if (u > 0) {
-            while (v > 0) {
-                var a = Int8(v & 7)
-                var tmp = "${a}"
-                str = str + tmp
-                v = (v >> 3)
-            }
-            let temp = str.toRuneArray()
-            temp.reverse()
-            return String(temp)
-        } else {
+        if (u == 0) {
             return "0"
         }
+        var v: UInt64 = u
+        var str = ""
+        while (v != 0) {
+            var a = Int8(v & 7)
+            var tmp = "${a}"
+            str = str + tmp
+            v = (v >> 3)
+        }
+        let temp = str.toRuneArray()
+        temp.reverse()
+        return String(temp)
     }
 
     /*
