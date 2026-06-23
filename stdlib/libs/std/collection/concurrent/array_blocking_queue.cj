@@ -141,30 +141,29 @@ public class ArrayBlockingQueue<E> {
 
     public func add(element: E): Unit {
         while (!tryAdd(element)) {
-            receiveMonitor.lock()
-            sendQSize.fetchAdd(1)
-            if (isFull()) {
-                receiveMonitor.wait()
-            }
-            sendQSize.fetchSub(1)
-            receiveMonitor.unlock()
+            waitForWritableSlot()
         }
     }
 
-    /**
-     * Blocking method to send the element @p element to the tail of the queue,
-     * waiting up to @p timeout if the ArrayBlockingQueue is full.
-     *
-     * @param element: the element to send into the queue.
-     * @param timeout: the waiting time.
-     *
-     * @return:
-     * - true: if @p element is successfully pushed at the tail of the queue.
-     * - false: if the waiting time exceeds @p timeout.
-     */
-    @Deprecated[message: "Use member function `public func add(element: E, timeout: Duration): Bool` instead."]
-    public func enqueue(element: E, timeout: Duration): Bool {
-        add(element, timeout)
+    private func waitForWritableSlot(): Unit {
+        receiveMonitor.lock()
+        sendQSize.fetchAdd(1)
+        if (isFull()) {
+            receiveMonitor.wait()
+        }
+        sendQSize.fetchSub(1)
+        receiveMonitor.unlock()
+    }
+
+    private func waitForWritableSlot(timeout: Duration): Duration {
+        receiveMonitor.lock()
+        let startTime = MonoTime.now()
+        sendQSize.fetchAdd(1)
+        receiveMonitor.wait(timeout: timeout)
+        sendQSize.fetchSub(1)
+        let endTime = MonoTime.now()
+        receiveMonitor.unlock()
+        timeout - (endTime - startTime)
     }
 
     public func add(element: E, timeout: Duration): Bool {
@@ -173,22 +172,17 @@ public class ArrayBlockingQueue<E> {
             if (tryAdd(element)) {
                 return true
             }
-
-            receiveMonitor.lock()
-            let startTime = MonoTime.now()
             if (total <= Duration.Zero) {
-                receiveMonitor.unlock()
                 break
             }
-
-            sendQSize.fetchAdd(1)
-            receiveMonitor.wait(timeout: total)
-            sendQSize.fetchSub(1)
-            let endTime = MonoTime.now()
-            total -= endTime - startTime
-            receiveMonitor.unlock()
+            total = waitForWritableSlot(total)
         }
         return false
+    }
+
+    @Deprecated[message: "Use member function `public func add(element: E, timeout: Duration): Bool` instead."]
+    public func enqueue(element: E, timeout: Duration): Bool {
+        add(element, timeout)
     }
 
     /**
@@ -209,30 +203,31 @@ public class ArrayBlockingQueue<E> {
                 return e
             }
 
-            sendMonitor.lock()
-            receiveQSize.fetchAdd(1)
-            if (size == 0) {
-                sendMonitor.wait()
-            }
-            receiveQSize.fetchSub(1)
-            sendMonitor.unlock()
+            waitForReadableSlot()
         }
         throw Exception("Unreachable code.")
     }
 
-    /**
-     * Blocking method to get and remove the head of the queue,
-     * waiting up to @p timeout if the ArrayBlockingQueue is empty.
-     *
-     * @param timeout: the waiting time.
-     *
-     * @return:
-     * - Some(v): if gets and removes the element at the head of the queue successfully.
-     * - None: if the waiting time exceeds @p timeout.
-     */
-    @Deprecated[message: "Use member function `public func remove(timeout: Duration): Option<E>` instead."]
-    public func dequeue(timeout: Duration): Option<E> {
-        remove(timeout)
+    private func waitForReadableSlot(): Unit {
+
+        sendMonitor.lock()
+        receiveQSize.fetchAdd(1)
+        if (size == 0) {
+            sendMonitor.wait()
+        }
+        receiveQSize.fetchSub(1)
+        sendMonitor.unlock()
+    }
+
+    private func waitForReadableSlot(timeout: Duration): Duration {
+        sendMonitor.lock()
+        let startTime = MonoTime.now()
+        receiveQSize.fetchAdd(1)
+        sendMonitor.wait(timeout: timeout)
+        receiveQSize.fetchSub(1)
+        let endTime = MonoTime.now()
+        sendMonitor.unlock()
+        timeout - (endTime - startTime)
     }
 
     public func remove(timeout: Duration): Option<E> {
@@ -241,22 +236,17 @@ public class ArrayBlockingQueue<E> {
             if (let Some(e) <- tryRemove()) {
                 return Some(e)
             }
-
-            sendMonitor.lock()
-            let startTime = MonoTime.now()
             if (total <= Duration.Zero) {
-                sendMonitor.unlock()
                 break
             }
-
-            receiveQSize.fetchAdd(1)
-            sendMonitor.wait(timeout: total)
-            receiveQSize.fetchSub(1)
-            let endTime = MonoTime.now()
-            total -= endTime - startTime
-            sendMonitor.unlock()
+            total = waitForReadableSlot(total)
         }
         return None<E>
+    }
+
+    @Deprecated[message: "Use member function `public func remove(timeout: Duration): Option<E>` instead."]
+    public func dequeue(timeout: Duration): Option<E> {
+        remove(timeout)
     }
 
     /**

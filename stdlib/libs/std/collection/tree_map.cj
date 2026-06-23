@@ -257,135 +257,22 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
         return TreeMap<K, V>(this)
     }
 
-    /**
-     * @description Performs mapping on this TreeMap and returns a new TreeMap.
-     *
-     * @param transform the given mapping function.
-     * @returns a new TreeMap.
-     */
-    @When[env != "ohos"]
-    public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R> {
-        let curNode: Node<K, V> = this.root
+    private func newTraversalDeque(): ArrayDeque<Node<K, V>> {
         var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
-        var index = 0
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                arr[index] = (key, transform(key, value))
-                index++
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
-            }
-        }
-        return TreeMap<K, R>(arr.slice(0, index))
+        deque.addLast(this.root)
+        return deque
     }
 
-    /**
-     * @description Performs mapping on this TreeMap and returns a new TreeMap.
-     *
-     * @param transform the given mapping function.
-     * @returns a new TreeMap.
-     */
-    @When[env != "ohos"]
-    public func mapValues<R>(transform: (V) -> R): TreeMap<K, R> {
-        let curNode: Node<K, V> = this.root
-        var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
-        var index = 0
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                arr[index] = (key, transform(value))
-                index++
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
-            }
-        }
-        return TreeMap<K, R>(arr.slice(0, index))
-    }
-
-    /**
-     * @description Returns a new TreeMap<K, V> containing key-value pairs that satisfy the filtering condition.
-     *
-     * @param predicate the given mapping function.
-     * @returns a new collection of key-value pairs that satisfy the filtering condition.
-     */
-    @When[env != "ohos"]
-    public func filter(predicate: (K, V) -> Bool): TreeMap<K, V> {
-        let curNode: Node<K, V> = this.root
-        var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        var arr: Array<(K, V)> = unsafe { Array<(K, V)>(this.size, repeat: zeroValue<(K, V)>()) }
-        var index = 0
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                if (predicate(key, value)) {
-                    arr[index] = (key, value)
-                    index++
-                }
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
-            }
-        }
-        return TreeMap<K, V>(arr.slice(0, index))
-    }
-
-    /**
-     * @description Iterates over all key-value pairs and performs the given operation.
-     *
-     * @param action the given operation function.
-     */
-    @When[env != "ohos"]
-    public func forEach(action: (K, V) -> Unit): Unit {
-        let curNode: Node<K, V> = this.root
-        var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                action(key, value)
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
+    private func appendChildren(deque: ArrayDeque<Node<K, V>>, node: Node<K, V>): Unit {
+        if (!node.isLeaf()) {
+            var childs = node.children
+            for (i in 0..childs.size) {
+                deque.addLast(childs[i])
             }
         }
     }
 
-    /**
-     * @description Determine whether all key-value pairs in the TreeMap satisfy the condition.
-     *
-     * @param predicate the given condition.
-     * @returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
-     */
-    @When[env != "ohos"]
-    public func all(predicate: (K, V) -> Bool): Bool {
+    private func traverseEntries(visit: (K, V) -> Bool): Bool {
         let curNode: Node<K, V> = this.root
         var deque = ArrayDeque<Node<K, V>>()
         deque.addLast(curNode)
@@ -394,37 +281,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
             for (i in 0..node.entries.size) {
                 var key = node.entries[i].key
                 var value = node.entries[i].value
-                if (!predicate(key, value)) {
-                    return false
-                }
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
-            }
-        }
-        return true
-    }
-
-    /**
-     * @description Determine whether there is any key-value pair in the TreeMap that satisfies the condition.
-     *
-     * @param predicate the given condition.
-     * @returns Whether there is any key-value pair that satisfies the condition.
-     */
-    @When[env != "ohos"]
-    public func any(predicate: (K, V) -> Bool): Bool {
-        let curNode: Node<K, V> = this.root
-        var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                if (predicate(key, value)) {
+                if (visit(key, value)) {
                     return true
                 }
             }
@@ -438,6 +295,110 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
         return false
     }
 
+    private func collectMappedEntries<R>(transform: (K, V) -> (K, R)): Array<(K, R)> {
+        var deque = newTraversalDeque()
+        var arr: Array<(K, R)> = unsafe { Array<(K, R)>(this.size, repeat: zeroValue<(K, R)>()) }
+        var index = 0
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                arr[index] = transform(key, value)
+                index++
+            }
+            appendChildren(deque, node)
+        }
+        return arr.slice(0, index)
+    }
+
+    private func collectFilteredEntries(predicate: (K, V) -> Bool): Array<(K, V)> {
+        var deque = newTraversalDeque()
+        var arr: Array<(K, V)> = unsafe { Array<(K, V)>(this.size, repeat: zeroValue<(K, V)>()) }
+        var index = 0
+        while (!deque.isEmpty()) {
+            var node = deque.removeFirst().getOrThrow()
+            for (i in 0..node.entries.size) {
+                var key = node.entries[i].key
+                var value = node.entries[i].value
+                if (predicate(key, value)) {
+                    arr[index] = (key, value)
+                    index++
+                }
+            }
+            appendChildren(deque, node)
+        }
+        return arr.slice(0, index)
+    }
+
+    /**
+     * @description Performs mapping on this TreeMap and returns a new TreeMap.
+     *
+     * @param transform the given mapping function.
+     * @returns a new TreeMap.
+     */
+    @When[env != "ohos"]
+    public func mapValues<R>(transform: (K, V) -> R): TreeMap<K, R> {
+        return TreeMap<K, R>(collectMappedEntries<R> {key: K, value: V => (key, transform(key, value))})
+    }
+
+    /**
+     * @description Performs mapping on this TreeMap and returns a new TreeMap.
+     *
+     * @param transform the given mapping function.
+     * @returns a new TreeMap.
+     */
+    @When[env != "ohos"]
+    public func mapValues<R>(transform: (V) -> R): TreeMap<K, R> {
+        return TreeMap<K, R>(collectMappedEntries<R> {key: K, value: V => (key, transform(value))})
+    }
+
+    /**
+     * @description Returns a new TreeMap<K, V> containing key-value pairs that satisfy the filtering condition.
+     *
+     * @param predicate the given mapping function.
+     * @returns a new collection of key-value pairs that satisfy the filtering condition.
+     */
+    @When[env != "ohos"]
+    public func filter(predicate: (K, V) -> Bool): TreeMap<K, V> {
+        return TreeMap<K, V>(collectFilteredEntries(predicate))
+    }
+
+    /**
+     * @description Iterates over all key-value pairs and performs the given operation.
+     *
+     * @param action the given operation function.
+     */
+    @When[env != "ohos"]
+    public func forEach(action: (K, V) -> Unit): Unit {
+        let _ = traverseEntries {key: K, value: V =>
+            action(key, value)
+            false
+        }
+    }
+
+    /**
+     * @description Determine whether all key-value pairs in the TreeMap satisfy the condition.
+     *
+     * @param predicate the given condition.
+     * @returns true if all key-value pairs in the TreeMap satisfy the condition, otherwise returns false.
+     */
+    @When[env != "ohos"]
+    public func all(predicate: (K, V) -> Bool): Bool {
+        return !traverseEntries {key: K, value: V => !predicate(key, value)}
+    }
+
+    /**
+     * @description Determine whether there is any key-value pair in the TreeMap that satisfies the condition.
+     *
+     * @param predicate the given condition.
+     * @returns Whether there is any key-value pair that satisfies the condition.
+     */
+    @When[env != "ohos"]
+    public func any(predicate: (K, V) -> Bool): Bool {
+        return traverseEntries {key: K, value: V => predicate(key, value)}
+    }
+
     /**
      * @description Determine whether all key-value pairs in the TreeMap do not satisfy the condition.
      *
@@ -446,26 +407,7 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
      */
     @When[env != "ohos"]
     public func none(predicate: (K, V) -> Bool): Bool {
-        let curNode: Node<K, V> = this.root
-        var deque = ArrayDeque<Node<K, V>>()
-        deque.addLast(curNode)
-        while (!deque.isEmpty()) {
-            var node = deque.removeFirst().getOrThrow()
-            for (i in 0..node.entries.size) {
-                var key = node.entries[i].key
-                var value = node.entries[i].value
-                if (predicate(key, value)) {
-                    return false
-                }
-            }
-            if (!node.isLeaf()) {
-                var childs = node.children
-                for (i in 0..childs.size) {
-                    deque.addLast(childs[i])
-                }
-            }
-        }
-        return true
+        return !traverseEntries {key: K, value: V => predicate(key, value)}
     }
 
     /**
@@ -675,8 +617,8 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
             let sr: SearchResult<K, V> = getLastEntry()
             match (sr.replaceNode) {
                 case Some(v) =>
-                    let item = v.getEntry(sr.index).getOrThrow()
-                    return (item.key, item.value)
+                    let entry = v.getEntry(sr.index).getOrThrow()
+                    return (entry.key, entry.value)
                 case None => None
             }
         }
@@ -853,13 +795,13 @@ public class TreeMap<K, V> <: OrderedMap<K, V> where K <: Comparable<K> {
                 var childNode: Node<K, V> = node.getChild(sr.index).getOrThrow()
                 if (childNode.entrySize == MAX_ENTRY_SIZE) {
                     splitNode(node, childNode, sr.index)
-                    match(node.searchEntry(entry.key).replaceNode){
+                    match (node.searchEntry(entry.key).replaceNode) {
                         case Some(node) =>
                             let tmp = node.getEntry(sr.index).getOrThrow()
                             let oldValue = tmp.value
                             tmp.value = entry.value
                             return oldValue
-                         case None => ()
+                        case None => ()
                     }
                     if (entry.key > node.getEntry(sr.index).getOrThrow().key) {
                         childNode = node.getChild(sr.index + 1).getOrThrow()
@@ -1386,7 +1328,7 @@ class TreeMapKeys<K, V> <: EquatableCollection<K> where K <: Comparable<K> {
      */
     public prop size: Int64 {
         get() {
-            return this.map.size
+            this.map.size
         }
     }
 

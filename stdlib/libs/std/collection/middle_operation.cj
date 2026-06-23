@@ -197,9 +197,9 @@ class FlattenIterator<T, R> <: Iterator<R> where T <: Iterable<R> {
 }
 
 class FlatMapIterator<T, R> <: Iterator<R> {
-    private var subIt: Option<Iterator<R>> = None
     private let transform: (T) -> Iterable<R>
     private let it: Iterator<T>
+    private var subIt: Option<Iterator<R>> = None
 
     /*
      * All elements are converted to Iterator<R> by transform func.

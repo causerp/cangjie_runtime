@@ -449,8 +449,8 @@ public class TreeSet<T> <: OrderedSet<T> where T <: Comparable<T> {
      */
     public operator func &(other: ReadOnlySet<T>): TreeSet<T> {
         let result = TreeSet<T>()
-        for (key in this.myMap.keys() where other.contains(key)) {
-            result.add(key)
+        for (element in this.myMap.keys() where other.contains(element)) {
+            result.add(element)
         }
         return result
     }

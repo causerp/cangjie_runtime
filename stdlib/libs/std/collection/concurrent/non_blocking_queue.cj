@@ -242,8 +242,9 @@ public class ConcurrentLinkedQueue<E> <: Collection<E> {
             let tailBlock = rear.load()
             let (headBlockVersion, headBlockReserved) = headBlock.getReserved()
             let (tailBlockVersion, tailBlockAllocated) = tailBlock.getAllocated()
-            return (tailBlockAllocated - headBlockReserved) + (Int64(tailBlockVersion - headBlockVersion) <<
-                BUF_SIZE_BITS)
+            let currentBlockSize = tailBlockAllocated - headBlockReserved
+            let completedBlockSize = Int64(tailBlockVersion - headBlockVersion) << BUF_SIZE_BITS
+            return currentBlockSize + completedBlockSize
         }
     }
 
@@ -317,7 +318,8 @@ public class ConcurrentLinkedQueue<E> <: Collection<E> {
     public func peek(): Option<E> {
         while (true) {
             let headBlock = front.load()
-            match (headBlock.front()) {
+            let entry = headBlock.front()
+            match (entry) {
                 case ELEM(e) => return Some(e)
                 case NoEntry => break
                 case BlockDone =>
