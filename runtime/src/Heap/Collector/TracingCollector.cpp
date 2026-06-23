@@ -763,22 +763,23 @@ void TracingCollector::EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& roo
     MRT_ASSERT(threadPool != nullptr, "thread pool is null");
 
     const size_t threadCount = threadPool->GetMaxThreadNum() + 1;
-    std::vector<RootSet> rootSets(threadCount);
+    RootSet rootSetsInstance[threadCount];
+    RootSet* rootSets = rootSetsInstance; // work_around the crash of clang parser
 
     // task to enum static field roots.
     threadPool->AddWork(new (std::nothrow)
-                            LambdaWork([this, &rootSets](size_t workerID) { EnumStaticRoots(rootSets[workerID]); }));
+                            LambdaWork([this, rootSets](size_t workerID) { EnumStaticRoots(rootSets[workerID]); }));
 
     // task to enum cj future objects
     threadPool->AddWork(new (std::nothrow) LambdaWork(
-        [this, &rootSets](size_t workerID) { EnumConcurrencyModelRoots(rootSets[workerID]); }));
+        [this, rootSets](size_t workerID) { EnumConcurrencyModelRoots(rootSets[workerID]); }));
 
     // task to enum finalizer roots.
     threadPool->AddWork(new (std::nothrow) LambdaWork(
-        [this, &rootSets](size_t workerID) { EnumFinalizerProcessorRoots(rootSets[workerID]); }));
+        [this, rootSets](size_t workerID) { EnumFinalizerProcessorRoots(rootSets[workerID]); }));
 
     threadPool->AddWork(new (std::nothrow) LambdaWork(
-        [this, &rootSets](size_t workerID) { EnumAllSurrectedExportRoots(rootSets[workerID]); }));
+        [this, rootSets](size_t workerID) { EnumAllSurrectedExportRoots(rootSets[workerID]); }));
     threadPool->Start();
     threadPool->WaitFinish();
 
