@@ -43,6 +43,17 @@ public class Matcher {
      * @return MatchData's Option where the entire region matches this matcher's pattern.
      */
     public func fullMatch(): Option<MatchData> {
+        match (findFromBegin()) {
+            case Some(md) =>
+                if (md.matchString().size != this.input.size) {
+                    return None
+                }
+                Some(md)
+            case None => None
+        }
+    }
+
+    private func findFromBegin(): Option<MatchData> {
         let inputCString = unsafe { LibC.mallocCString(input) }
         if (inputCString.isNull()) {
             throw RegexException("Failed to mallocCString.")
@@ -58,11 +69,6 @@ public class Matcher {
         } finally {
             release(inputCString)
             release(pcre2md)
-        }
-        if (let Some(md) <- result) {
-            if (md.matchString().size != this.input.size) {
-                return None
-            }
         }
         return result
     }
@@ -72,28 +78,14 @@ public class Matcher {
      * @return MatchData's Option where the entire region matches this matcher's pattern.
      */
     public func matchStart(): Option<MatchData> {
-        let inputCString = unsafe { LibC.mallocCString(input) }
-        if (inputCString.isNull()) {
-            throw RegexException("Failed to mallocCString.")
+        match (findFromBegin()) {
+            case Some(md) =>
+                if (this.input.startsWith(md.matchString())) {
+                    return md
+                }
+                None
+            case None => None
         }
-        let pcre2md = unsafe { CJ_REGEX_CreateMatchData(this.regex.re) }
-        if (pcre2md.isNull()) {
-            release(inputCString)
-            throw RegexException("Create match_data for pattern `${this.regex.pattern}` failed.")
-        }
-        let result: Option<MatchData>
-        try {
-            result = regex.find(input, inputCString, pcre2md, this.begin, group: true)
-        } finally {
-            release(inputCString)
-            release(pcre2md)
-        }
-        if (let Some(md) <- result) {
-            if (this.input.startsWith(md.matchString())) {
-                return md
-            }
-        }
-        return None
     }
 
     private func checkBounds(mdOption: Option<MatchData>): Bool {
