@@ -97,16 +97,7 @@ public:
         return mutator;
     }
 
-    void ResetMutator()
-    {
-        rawObject.object = nullptr;
-        if (satbNode != nullptr) {
-            SatbBuffer::Instance().RetireNode(satbNode);
-            satbNode = nullptr;
-        }
-        uwContext.Reset();
-        exceptionWrapper.ClearInfo();
-    }
+    void ResetMutator();
 
     static Mutator* GetMutator() noexcept;
     void StackGuardExpand() const;

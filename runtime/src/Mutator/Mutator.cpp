@@ -164,6 +164,20 @@ void Mutator::InitProtectStackAddr()
     ThreadLocal::SetProtectAddr(reinterpret_cast<uint8_t*>(reinterpret_cast<uintptr_t>(stackBoundAddr) + reversedSize));
 }
 
+void Mutator::ResetMutator()
+{
+    rawObject.object = nullptr;
+    if (satbNode != nullptr) {
+        SatbBuffer::Instance().RetireNode(satbNode);
+        satbNode = nullptr;
+    }
+    if (!localFinalizers.empty()) {
+        Heap::GetHeap().GetFinalizerProcessor().RegisterFinalizers(localFinalizers);
+    }
+    uwContext.Reset();
+    exceptionWrapper.ClearInfo();
+}
+
 void Mutator::SetManagedContext(bool isManagedContext)
 {
     inManagedContext.store(isManagedContext, std::memory_order_release);
@@ -593,13 +607,7 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
         }
     };
 
-    VisitHeapReferences(visitor, MakePreForwardDerivedVisitor(collector));
-    ForwardLocalFinalizers(collector);
-}
-
-DerivedPtrVisitor Mutator::MakePreForwardDerivedVisitor(Collector& collector)
-{
-    return [&collector](BasePtrType basePtr, DerivedPtrType& derivedPtr) {
+    DerivedPtrVisitor derivedPtrVisitor = [&collector](BasePtrType basePtr, DerivedPtrType& derivedPtr) {
         BaseObject* fromVersion = reinterpret_cast<BaseObject*>(basePtr);
         if (!Heap::IsHeapAddress(fromVersion) || !collector.IsGhostFromObject(fromVersion) ||
             collector.IsUnmovableFromObject(fromVersion)) {
@@ -611,6 +619,8 @@ DerivedPtrVisitor Mutator::MakePreForwardDerivedVisitor(Collector& collector)
             derivedPtr = toDerived;
         }
     };
+    VisitHeapReferences(visitor, derivedPtrVisitor);
+    ForwardLocalFinalizers(collector);
 }
 
 void Mutator::ForwardLocalFinalizers(Collector& collector)
