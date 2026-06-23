@@ -416,24 +416,24 @@ class RawSocketImpl {
     }
 
     func send(buffer: Array<Byte>, flags: Int32, timeout: Int64): Unit {
-        let totalSize = buffer.size
-        var totalSent: Int64 = 0
-        while (totalSent < totalSize) {
-            let sizeToSend: Int64 = getOnceSendSize(totalSize - totalSent)
-            var sentSize: Int32 = 0
+        let bytesToWrite = buffer.size
+        var bytesWritten: Int64 = 0
+        while (bytesWritten < bytesToWrite) {
+            let currentChunk: Int64 = getOnceSendSize(bytesToWrite - bytesWritten)
+            var writeResult: Int32 = 0
             unsafe {
                 let bufCp = acquireArrayRawData(buffer)
-                sentSize = CJ_MRT_SockSendNonBlock(
+                writeResult = CJ_MRT_SockSendNonBlock(
                     sockFd,
-                    bufCp.pointer + totalSent,
-                    UInt32(sizeToSend),
+                    bufCp.pointer + bytesWritten,
+                    UInt32(currentChunk),
                     flags
                 )
                 releaseArrayRawData(bufCp)
-                if (sentSize > 0) {
-                    totalSent += Int64(sentSize)
+                if (writeResult > 0) {
+                    bytesWritten += Int64(writeResult)
                     continue
-                } else if (sentSize == 0) {
+                } else if (writeResult == 0) {
                     throw SocketException("The socket is closed.")
                 } else {
                     processSendResult(timeout)
@@ -677,7 +677,13 @@ class RawSocketImpl {
         let (address, readLen) = unsafe {
             var addr = SockAddr()
             try {
-                let r = CJ_SOCKET_BufferRecvFrom(this.socketBufferPtr, 0, Int32(buffer.size), timeout, inout addr, flags
+                let r = CJ_SOCKET_BufferRecvFrom(
+                    this.socketBufferPtr,
+                    0,
+                    Int32(buffer.size),
+                    timeout,
+                    inout addr,
+                    flags
                 )
                 if (r < 0) {
                     socketProcessErrno(ErrnoLabel.Read)

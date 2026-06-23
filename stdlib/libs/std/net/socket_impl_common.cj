@@ -152,8 +152,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     private static func lazyLocalAddress(holder: SocketHolder<NS>): ?SocketAddress {
         holder.use<?SocketAddress> {
             socket, state =>
-            state.ensureBound()
-            socket.detectLocalAddress()
+                state.ensureBound()
+                socket.detectLocalAddress()
         } ?? SocketException.throwClosedException()
     }
 
@@ -176,8 +176,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     private static func lazyRemoteAddress(holder: SocketHolder<NS>): ?SocketAddress {
         holder.use<?SocketAddress> {
             socket, state =>
-            state.ensureConnected()
-            socket.detectRemoteAddress()
+                state.ensureConnected()
+                socket.detectRemoteAddress()
         } ?? SocketException.throwClosedException()
     }
 
@@ -257,8 +257,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     func write(payload: Array<Byte>): Unit {
         holder.write<Unit> {
             socket, state =>
-            state.ensureConnected()
-            socket.write(payload, writeTimeout_)
+                state.ensureConnected()
+                socket.write(payload, writeTimeout_)
         } ?? SocketException.throwClosedException()
     }
 
@@ -269,8 +269,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
         return holder.read<Int64> {
             socket, state =>
-            state.ensureConnected()
-            socket.read(buffer, readTimeout_) ?? 0
+                state.ensureConnected()
+                socket.read(buffer, readTimeout_) ?? 0
         } ?? 0
     }
 
@@ -281,8 +281,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     func send(payload: Array<Byte>, destination: SocketAddress): Int64 {
         return holder.write<Int64> {
             socket, state =>
-            state.ensureBound()
-            socket.send(payload, writeTimeout_, destination)
+                state.ensureBound()
+                socket.send(payload, writeTimeout_, destination)
         } ?? SocketException.throwClosedException()
     }
 
@@ -293,8 +293,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
         return holder.read {
             socket: NS, state: SocketState =>
-            state.ensureBound()
-            socket.receiveFrom(buffer, readTimeout_)
+                state.ensureBound()
+                socket.receiveFrom(buffer, readTimeout_)
         } ?? None
     }
 
@@ -306,32 +306,41 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
         timeout?.throwIfNegative("Timeout")
         holder.write<Unit> {
             socket, state =>
-            if (state.failed) {
-                throw SocketException("The bind of the socket has failed.")
-            }
-            if (shouldBeBound) {
-                state.ensureBindInvoked()
-            }
-            if (!mayBeAlreadyConnected) {
-                state.ensureNotConnected()
-            }
+                if (state.failed) {
+                    throw SocketException("The bind of the socket has failed.")
+                }
+                if (shouldBeBound) {
+                    state.ensureBindInvoked()
+                }
+                if (!mayBeAlreadyConnected) {
+                    state.ensureNotConnected()
+                }
 
-            addressLock.writeMutex.lock() // we need this because we are touching local/remote address
-            try {
-                connectImpl(socket, state, timeout)
-            } catch (e: Exception) {
-                holder.markFailed()
-                throw e
-            } finally {
-                addressLock.writeMutex.unlock()
-            }
+                addressLock.writeMutex.lock() // we need this because we are touching local/remote address
+                try {
+                    connectImpl(socket, state, timeout)
+                } catch (e: Exception) {
+                    holder.markFailed()
+                    throw e
+                } finally {
+                    addressLock.writeMutex.unlock()
+                }
         } ?? SocketException.throwClosedException()
+    }
+
+    func connectToRemote(remote: SocketAddress): Unit {
+        remoteAddress = remote
+        try {
+            connect(None, shouldBeBound: true)
+        } catch (e: Exception) {
+            remoteAddress = None
+            throw e
+        }
     }
 
     // should be only invoked under addressLock
     private func connectImpl(socket: NS, state: SocketState, timeout: ?Duration): Unit {
-        let address = remoteAddress_.directValue |> unwrapOption |>
-            getOrFail<SocketAddress> {
+        let address = remoteAddress_.directValue |> unwrapOption |> getOrFail<SocketAddress> {
             SocketException("No address to connect to specified")
         }
 
@@ -357,27 +366,27 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     func disconnect(): Unit {
         holder.write<Unit> {
             socket, state =>
-            state.ensureBindInvoked()
-            if (!state.connected) {
-                return
-            }
-
-            addressLock.writeMutex.lock() // we need this because we are touching local/remote address
-            try {
-                let local = populateLocalAddressUnderLock(socket)
-                socket.disconnect()
-                holder.unmarkConnected()
-                remoteAddress_.clearWithoutLock()
-
-                if (let Some(before) <- local) {
-                    restoreLocalAddress(socket, before)
+                state.ensureBindInvoked()
+                if (!state.connected) {
+                    return
                 }
-            } catch (e: Exception) {
-                holder.markFailed()
-                throw e
-            } finally {
-                addressLock.writeMutex.unlock()
-            }
+
+                addressLock.writeMutex.lock() // we need this because we are touching local/remote address
+                try {
+                    let local = populateLocalAddressUnderLock(socket)
+                    socket.disconnect()
+                    holder.unmarkConnected()
+                    remoteAddress_.clearWithoutLock()
+
+                    if (let Some(before) <- local) {
+                        restoreLocalAddress(socket, before)
+                    }
+                } catch (e: Exception) {
+                    holder.markFailed()
+                    throw e
+                } finally {
+                    addressLock.writeMutex.unlock()
+                }
         } ?? SocketException.throwClosedException()
     }
 
@@ -410,22 +419,22 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
 
         holder.write<Unit> {
             socket, state =>
-            state.ensureNotBound()
-            if (state.failed) {
-                throw SocketException("Bind couldn't be invoked twice.")
-            }
+                state.ensureNotBound()
+                if (state.failed) {
+                    throw SocketException("Bind couldn't be invoked twice.")
+                }
 
-            addressLock.writeMutex.lock() // we need this because we are touching local/remote address
-            try {
-                bindImpl(socket, backlogSize, bindRequired: true)
-                holder.markBound()
-                localAddress_.clearWithoutLock()
-            } catch (e: Exception) {
-                holder.markFailed()
-                throw e
-            } finally {
-                addressLock.writeMutex.unlock()
-            }
+                addressLock.writeMutex.lock() // we need this because we are touching local/remote address
+                try {
+                    bindImpl(socket, backlogSize, bindRequired: true)
+                    holder.markBound()
+                    localAddress_.clearWithoutLock()
+                } catch (e: Exception) {
+                    holder.markFailed()
+                    throw e
+                } finally {
+                    addressLock.writeMutex.unlock()
+                }
         } ?? SocketException.throwClosedException()
     }
 
@@ -449,8 +458,8 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     func accept(timeout: ?Duration): ?SocketCommon<NS> {
         let accepted = holder.read {
             socket: NS, state: SocketState =>
-            state.ensureBound()
-            socket.accept(timeout?.throwIfNegative("Timeout"))
+                state.ensureBound()
+                socket.accept(timeout?.throwIfNegative("Timeout"))
         } |> unwrapOption
 
         if (let Some(accepted) <- accepted) {
@@ -520,6 +529,28 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
         })
     }
 
+    func getSendBufferSize(): Int64 {
+        Int64(getSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF))
+    }
+
+    func setSendBufferSize(newSize: Int64): Unit {
+        if (newSize <= 0) {
+            throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
+        }
+        setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
+    }
+
+    func getReceiveBufferSize(): Int64 {
+        Int64(getSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF))
+    }
+
+    func setReceiveBufferSize(newSize: Int64): Unit {
+        if (newSize <= 0) {
+            throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
+        }
+        setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
+    }
+
     public override func isClosed(): Bool {
         holder.isClosed()
     }
@@ -542,14 +573,12 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
         addressLock.readMutex.lock()
         try {
             if (holder.state.bound) {
-                local = (localAddress_.directValue |> unwrapOption) ??
-                    holder.use<?SocketAddress> {
+                local = (localAddress_.directValue |> unwrapOption) ?? holder.use<?SocketAddress> {
                     socket, _ => socket.detectLocalAddress()
                 } ?? return "closing"
             }
             if (holder.state.connected) {
-                remote = (remoteAddress_.directValue |> unwrapOption) ??
-                    holder.use<?SocketAddress> {
+                remote = (remoteAddress_.directValue |> unwrapOption) ?? holder.use<?SocketAddress> {
                     socket, _ => socket.detectRemoteAddress()
                 } ?? return "closing"
             }
