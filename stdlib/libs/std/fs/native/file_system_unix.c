@@ -222,17 +222,18 @@ extern FsError* CJ_FS_SymLink(const char* linkPath, const char* originPath)
  */
 extern FsError* CJ_FS_ReadLink(const char* path)
 {
-    char* target = (char*)malloc(MAX_PATH_LEN * sizeof(char));
+    char* target = (char*)malloc((MAX_PATH_LEN + 1) * sizeof(char));
     if (target == NULL) {
         return NULL;
     }
-    (void)memset_s(target, MAX_PATH_LEN * sizeof(char), 0, MAX_PATH_LEN * sizeof(char));
+    (void)memset_s(target, (MAX_PATH_LEN + 1) * sizeof(char), 0, (MAX_PATH_LEN + 1) * sizeof(char));
 
     ssize_t len = readlink(path, target, MAX_PATH_LEN);
     if (len < 0) {
         free(target);
         return GetErrnoResult();
     }
+    target[len] = '\0';
 
     FsError* result = (FsError*)malloc(sizeof(FsError));
     if (result == NULL) {
@@ -240,7 +241,6 @@ extern FsError* CJ_FS_ReadLink(const char* path)
         return NULL;
     }
     result->rtnCode = 0;
-    // warning: errMsg should free on cangjie side
     result->msg = target;
     return result;
 }

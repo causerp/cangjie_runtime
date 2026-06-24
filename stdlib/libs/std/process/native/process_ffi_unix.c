@@ -512,7 +512,6 @@ extern char* CJ_OS_HomeDir(void)
     if (pw == NULL) {
         return NULL;
     }
-
     return pw->pw_dir;
 #endif
 }
