@@ -100,9 +100,7 @@ extend<T> Array<T> where T <: Comparable<T> {
             if (l <= ln + ln1) {
                 if (l < ln1) {
                     this.merge(s, l, sn, ln, temp)
-                    lengthArr[n - 1] = l + ln
-                    startArr[n] = sn1
-                    lengthArr[n] = ln1
+                    recordMergedLeftRunAndKeepRightRun(startArr, lengthArr, n, sn1, ln1, l + ln)
                     index--
                 } else {
                     this.merge(sn, ln, sn1, ln1, temp)
@@ -142,9 +140,7 @@ extend<T> Array<T> where T <: Comparable<T> {
             let l = lengthArr[n - 1]
             if (l < ln1) {
                 this.merge(s, l, sn, ln, temp)
-                lengthArr[n - 1] = l + ln
-                startArr[n] = sn1
-                lengthArr[n] = ln1
+                recordMergedLeftRunAndKeepRightRun(startArr, lengthArr, n, sn1, ln1, l + ln)
                 index--
             } else {
                 this.merge(sn, ln, sn1, ln1, temp)
@@ -331,129 +327,129 @@ extend<T> Array<T> where T <: Comparable<T> {
         len2: Int64,
         temp: TempArray<T>
     ) {
-        let arr = temp.getArray(len2)
-        this.copyTo(arr, start2, 0, len2)
-        var ti = start2 + len2 - 1
-        var s1 = start1 + len1 - 1
-        var l1 = len1
-        var s2 = len2 - 1
-        var l2 = len2
-        this[ti] = this[s1]
-        ti--
-        s1--
-        l1--
-        var c1 = 0
-        var c2 = 0
-        var continueBreak = false
+        let rightBuffer = temp.getArray(len2)
+        this.copyTo(rightBuffer, start2, 0, len2)
+        var rightTarget = start2 + len2 - 1
+        var leftTail = start1 + len1 - 1
+        var leftRest = len1
+        var rightTail = len2 - 1
+        var rightRest = len2
+        this[rightTarget] = this[leftTail]
+        rightTarget--
+        leftTail--
+        leftRest--
+        var leftBatch = 0
+        var rightBatch = 0
+        var stopFromRight = false
         while (true) {
-            c1 = 0
-            c2 = 0
-            continueBreak = false
-            var t1 = this[s1]
-            var t2 = arr[s2]
+            leftBatch = 0
+            rightBatch = 0
+            stopFromRight = false
+            var leftTailValue = this[leftTail]
+            var rightTailValue = rightBuffer[rightTail]
             while (true) {
-                if (t1 > t2) {
-                    this[ti] = t1
-                    ti--
-                    s1--
-                    l1--
-                    c1++
-                    c2 = 0
-                    if (l1 == 0) {
-                        continueBreak = true
+                if (leftTailValue > rightTailValue) {
+                    this[rightTarget] = leftTailValue
+                    rightTarget--
+                    leftTail--
+                    leftRest--
+                    leftBatch++
+                    rightBatch = 0
+                    if (leftRest == 0) {
+                        stopFromRight = true
                         break
                     }
-                    if (c1 > 4) {
+                    if (leftBatch > 4) {
                         break
                     }
 
-                    t1 = this[s1]
+                    leftTailValue = this[leftTail]
                 } else {
-                    this[ti] = t2
-                    ti--
-                    s2--
-                    l2--
-                    c2++
-                    c1 = 0
-                    if (l2 == 1) {
-                        continueBreak = true
+                    this[rightTarget] = rightTailValue
+                    rightTarget--
+                    rightTail--
+                    rightRest--
+                    rightBatch++
+                    leftBatch = 0
+                    if (rightRest == 1) {
+                        stopFromRight = true
                         break
                     }
-                    if (c2 > 4) {
+                    if (rightBatch > 4) {
                         break
                     }
-                    t2 = arr[s2]
+                    rightTailValue = rightBuffer[rightTail]
                 }
             }
-            if (continueBreak) {
+            if (stopFromRight) {
                 break
             }
-            continueBreak = false
+            stopFromRight = false
             while (true) {
-                var point = this[s1]
-                let lt = arr.queryLT(point, 0, l2, true)
-                c2 = l2 - lt
-                match (c2) {
-                    case 0 => this[ti] = point
+                var tailProbe = this[leftTail]
+                let ltIndex = rightBuffer.queryLT(tailProbe, 0, rightRest, true)
+                rightBatch = rightRest - ltIndex
+                match (rightBatch) {
+                    case 0 => this[rightTarget] = tailProbe
                     case 1 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = point
+                        this[rightTarget] = rightBuffer[rightTail]
+                        this[rightTarget - 1] = tailProbe
                     case 2 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = arr[s2 - 1]
-                        this[ti - 2] = point
+                        this[rightTarget] = rightBuffer[rightTail]
+                        this[rightTarget - 1] = rightBuffer[rightTail - 1]
+                        this[rightTarget - 2] = tailProbe
                     case _ =>
-                        arr.copyTo(this, lt, ti - c2 + 1, c2)
-                        this[ti - c2] = point
+                        rightBuffer.copyTo(this, ltIndex, rightTarget - rightBatch + 1, rightBatch)
+                        this[rightTarget - rightBatch] = tailProbe
                 }
-                ti = ti - c2 - 1
-                s2 -= c2
-                l2 -= c2
-                s1--
-                l1--
-                if (l2 == 1 || l1 == 0) {
-                    continueBreak = true
+                rightTarget = rightTarget - rightBatch - 1
+                rightTail -= rightBatch
+                rightRest -= rightBatch
+                leftTail--
+                leftRest--
+                if (rightRest == 1 || leftRest == 0) {
+                    stopFromRight = true
                     break
                 }
-                point = arr[s2]
-                let gt = this.queryGT(point, start1, l1, true)
-                c1 = s1 - gt + 1
-                match (c1) {
-                    case 0 => this[ti] = point
+                tailProbe = rightBuffer[rightTail]
+                let gtIndex = this.queryGT(tailProbe, start1, leftRest, true)
+                leftBatch = leftTail - gtIndex + 1
+                match (leftBatch) {
+                    case 0 => this[rightTarget] = tailProbe
                     case 1 =>
-                        this[ti] = this[s1]
-                        this[ti - 1] = point
+                        this[rightTarget] = this[leftTail]
+                        this[rightTarget - 1] = tailProbe
                     case 2 =>
-                        this[ti] = this[s1]
-                        this[ti - 1] = this[s1 - 1]
-                        this[ti - 2] = point
+                        this[rightTarget] = this[leftTail]
+                        this[rightTarget - 1] = this[leftTail - 1]
+                        this[rightTarget - 2] = tailProbe
                     case _ =>
-                        this.copyTo(this, gt, ti - c1 + 1, c1)
-                        this[ti - c1] = point
+                        this.copyTo(this, gtIndex, rightTarget - leftBatch + 1, leftBatch)
+                        this[rightTarget - leftBatch] = tailProbe
                 }
-                ti = ti - c1 - 1
-                s1 -= c1
-                l1 -= c1
-                s2--
-                l2--
-                if (l1 == 0 || l2 == 1) {
-                    continueBreak = true
+                rightTarget = rightTarget - leftBatch - 1
+                leftTail -= leftBatch
+                leftRest -= leftBatch
+                rightTail--
+                rightRest--
+                if (leftRest == 0 || rightRest == 1) {
+                    stopFromRight = true
                     break
                 }
-                if (c1 < 4 || c2 < 4) {
+                if (leftBatch < 4 || rightBatch < 4) {
                     break
                 }
             }
-            if (continueBreak) {
+            if (stopFromRight) {
                 break
             }
         }
-        if (l1 == 0) {
-            arr.copyTo(this, 0, ti - l2 + 1, l2)
+        if (leftRest == 0) {
+            rightBuffer.copyTo(this, 0, rightTarget - rightRest + 1, rightRest)
         }
-        if (l2 == 1) {
-            this.copyTo(this, start1, start1 + 1, l1)
-            this[start1] = arr[s2]
+        if (rightRest == 1) {
+            this.copyTo(this, start1, start1 + 1, leftRest)
+            this[start1] = rightBuffer[rightTail]
         }
     }
 
@@ -501,107 +497,103 @@ extend<T> Array<T> where T <: Comparable<T> {
 extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    private func shortSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Unit {
+    private func shortSort(begin: Int64, end: Int64, compareBy: (T, T) -> Ordering): Unit {
         let len = this.size
         if (len <= 8) {
             if (len <= 1) {
                 return
             } else if (len == 2) {
-                this.compareSwap2(begin, end, comparator)
+                this.compareSwap2(begin, end, compareBy)
             } else if (len == 3) {
-                this.compareSwap3(begin, begin + 1, end, comparator)
+                this.compareSwap3(begin, begin + 1, end, compareBy)
             } else {
-                insertionSort(begin, end, comparator)
+                insertionSort(begin, end, compareBy)
             }
         } else {
-            var temp = TempArray(len, this[begin])
-            let n = getSequenceLength(begin, end, temp, comparator)
-            if (n == len) {
+            var cmpTemp = TempArray(len, this[begin])
+            let cmpSlot = getSequenceLength(begin, end, cmpTemp, compareBy)
+            if (cmpSlot == len) {
                 return
             }
-            binaryInsertionSort(begin, end, comparator, n)
+            binaryInsertionSort(begin, end, compareBy, cmpSlot)
         }
     }
 
     @OverflowWrapping
     private func maybeMerge(
-        startArr: Array<Int64>,
-        lengthArr: Array<Int64>,
-        endIndex: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        cmpRunStartArr: Array<Int64>,
+        cmpRunLengthArr: Array<Int64>,
+        cmpStackTop: Int64,
+        cmpTemp: TempArray<T>,
+        compareBy: (T, T) -> Ordering
     ): Int64 {
-        var index: Int64 = endIndex
-        while (index > 0) {
-            var n: Int64 = index - 1
-            let sn = startArr[n]
-            let sn1 = startArr[n + 1]
-            let ln = lengthArr[n]
-            let ln1 = lengthArr[n + 1]
-            if (n == 0) {
-                if (ln <= ln1) {
-                    this.merge(sn, ln, sn1, ln1, temp, comparator)
-                    lengthArr[n] = ln + ln1
-                    index--
+        var cmpIndex: Int64 = cmpStackTop
+        while (cmpIndex > 0) {
+            var cmpSlot: Int64 = cmpIndex - 1
+            let cmpCurrStart = cmpRunStartArr[cmpSlot]
+            let cmpNextStart = cmpRunStartArr[cmpSlot + 1]
+            let cmpCurrLen = cmpRunLengthArr[cmpSlot]
+            let cmpNextLen = cmpRunLengthArr[cmpSlot + 1]
+            if (cmpSlot == 0) {
+                if (cmpCurrLen <= cmpNextLen) {
+                    this.merge(cmpCurrStart, cmpCurrLen, cmpNextStart, cmpNextLen, cmpTemp, compareBy)
+                    cmpRunLengthArr[cmpSlot] = cmpCurrLen + cmpNextLen
+                    cmpIndex--
                 }
                 break
             }
-            let s = startArr[n - 1]
-            let l = lengthArr[n - 1]
-            if (l <= ln + ln1) {
-                if (l < ln1) {
-                    this.merge(s, l, sn, ln, temp, comparator)
-                    lengthArr[n - 1] = l + ln
-                    startArr[n] = sn1
-                    lengthArr[n] = ln1
-                    index--
+            let cmpPrevStart = cmpRunStartArr[cmpSlot - 1]
+            let cmpPrevLen = cmpRunLengthArr[cmpSlot - 1]
+            if (cmpPrevLen <= cmpCurrLen + cmpNextLen) {
+                if (cmpPrevLen < cmpNextLen) {
+                    this.merge(cmpPrevStart, cmpPrevLen, cmpCurrStart, cmpCurrLen, cmpTemp, compareBy)
+                    recordMergedLeftRunAndKeepRightRun(cmpRunStartArr, cmpRunLengthArr, cmpSlot, cmpNextStart, cmpNextLen, cmpPrevLen + cmpCurrLen)
+                    cmpIndex--
                 } else {
-                    this.merge(sn, ln, sn1, ln1, temp, comparator)
-                    lengthArr[n] = ln + ln1
-                    index--
+                    this.merge(cmpCurrStart, cmpCurrLen, cmpNextStart, cmpNextLen, cmpTemp, compareBy)
+                    cmpRunLengthArr[cmpSlot] = cmpCurrLen + cmpNextLen
+                    cmpIndex--
                 }
-            } else if (ln <= ln1) {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
-                lengthArr[n] = ln + ln1
-                index--
+            } else if (cmpCurrLen <= cmpNextLen) {
+                this.merge(cmpCurrStart, cmpCurrLen, cmpNextStart, cmpNextLen, cmpTemp, compareBy)
+                cmpRunLengthArr[cmpSlot] = cmpCurrLen + cmpNextLen
+                cmpIndex--
             } else {
                 break
             }
         }
-        return index
+        return cmpIndex
     }
 
     @OverflowWrapping
     private func mergeAll(
-        startArr: Array<Int64>,
-        lengthArr: Array<Int64>,
-        endIndex: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        cmpRunStartArr: Array<Int64>,
+        cmpRunLengthArr: Array<Int64>,
+        cmpStackTop: Int64,
+        cmpTemp: TempArray<T>,
+        compareBy: (T, T) -> Ordering
     ): Unit {
-        var index: Int64 = endIndex
-        while (index > 0) {
-            var n: Int64 = index - 1
-            let sn = startArr[n]
-            let sn1 = startArr[n + 1]
-            let ln = lengthArr[n]
-            let ln1 = lengthArr[n + 1]
-            if (n == 0) {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
+        var cmpIndex: Int64 = cmpStackTop
+        while (cmpIndex > 0) {
+            var cmpSlot: Int64 = cmpIndex - 1
+            let cmpCurrStart = cmpRunStartArr[cmpSlot]
+            let cmpNextStart = cmpRunStartArr[cmpSlot + 1]
+            let cmpCurrLen = cmpRunLengthArr[cmpSlot]
+            let cmpNextLen = cmpRunLengthArr[cmpSlot + 1]
+            if (cmpSlot == 0) {
+                this.merge(cmpCurrStart, cmpCurrLen, cmpNextStart, cmpNextLen, cmpTemp, compareBy)
                 break
             }
-            let s = startArr[n - 1]
-            let l = lengthArr[n - 1]
-            if (l < ln1) {
-                this.merge(s, l, sn, ln, temp, comparator)
-                lengthArr[n - 1] = l + ln
-                startArr[n] = sn1
-                lengthArr[n] = ln1
-                index--
+            let cmpPrevStart = cmpRunStartArr[cmpSlot - 1]
+            let cmpPrevLen = cmpRunLengthArr[cmpSlot - 1]
+            if (cmpPrevLen < cmpNextLen) {
+                this.merge(cmpPrevStart, cmpPrevLen, cmpCurrStart, cmpCurrLen, cmpTemp, compareBy)
+                recordMergedLeftRunAndKeepRightRun(cmpRunStartArr, cmpRunLengthArr, cmpSlot, cmpNextStart, cmpNextLen, cmpPrevLen + cmpCurrLen)
+                cmpIndex--
             } else {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
-                lengthArr[n] = ln + ln1
-                index--
+                this.merge(cmpCurrStart, cmpCurrLen, cmpNextStart, cmpNextLen, cmpTemp, compareBy)
+                cmpRunLengthArr[cmpSlot] = cmpCurrLen + cmpNextLen
+                cmpIndex--
             }
         }
     }
@@ -612,36 +604,36 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        cmpTemp: TempArray<T>,
+        compareBy: (T, T) -> Ordering
     ): Unit {
-        var s1 = start1
-        var l1 = len1
-        var s2 = start2
-        var l2 = len2
-        var lt = this.queryLT(this[s1 + l1 - 1], s2, l2, comparator, true)
-        l2 = lt - s2
-        if (l2 == 0) {
+        var leftCursor = start1
+        var leftRemain = len1
+        var rightCursor = start2
+        var rightRemain = len2
+        var lessThan = this.queryLT(this[leftCursor + leftRemain - 1], rightCursor, rightRemain, compareBy, true)
+        rightRemain = lessThan - rightCursor
+        if (rightRemain == 0) {
             return
         }
-        var gt = this.queryGT(this[s2], s1, l1, comparator, false)
-        l1 = l1 - (gt - s1)
-        s1 = gt
-        if (l1 == 0) {
+        var greaterThan = this.queryGT(this[rightCursor], leftCursor, leftRemain, compareBy, false)
+        leftRemain = leftRemain - (greaterThan - leftCursor)
+        leftCursor = greaterThan
+        if (leftRemain == 0) {
             return
         }
-        if (l1 == 1) {
-            let t0 = this[s1]
-            this.copyTo(this, s2, s2 - 1, l2)
-            this[s1 + l2] = t0
-        } else if (l2 == 1) {
-            let t0 = this[s2]
-            this.copyTo(this, s1, s1 + 1, l1)
-            this[s1] = t0
-        } else if (l1 <= l2) {
-            mergeFromLeft(s1, l1, s2, l2, temp, comparator)
+        if (leftRemain == 1) {
+            let savedValue = this[leftCursor]
+            this.copyTo(this, rightCursor, rightCursor - 1, rightRemain)
+            this[leftCursor + rightRemain] = savedValue
+        } else if (rightRemain == 1) {
+            let savedValue = this[rightCursor]
+            this.copyTo(this, leftCursor, leftCursor + 1, leftRemain)
+            this[leftCursor] = savedValue
+        } else if (leftRemain <= rightRemain) {
+            mergeFromLeft(leftCursor, leftRemain, rightCursor, rightRemain, cmpTemp, compareBy)
         } else {
-            mergeFromRight(s1, l1, s2, l2, temp, comparator)
+            mergeFromRight(leftCursor, leftRemain, rightCursor, rightRemain, cmpTemp, compareBy)
         }
     }
 
@@ -651,132 +643,132 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        cmpTemp: TempArray<T>,
+        compareBy: (T, T) -> Ordering
     ) {
-        let arr = temp.getArray(len1)
-        this.copyTo(arr, start1, 0, len1)
-        var ti = start1
-        var s1 = 0
-        var l1 = len1
-        var s2 = start2
-        var l2 = len2
-        this[ti] = this[s2]
-        ti++
-        s2++
-        l2--
-        var c1 = 0
-        var c2 = 0
-        var continueBreak = false
+        let cmpBuffer = cmpTemp.getArray(len1)
+        this.copyTo(cmpBuffer, start1, 0, len1)
+        var targetIndex = start1
+        var leftCursor = 0
+        var leftRemain = len1
+        var rightCursor = start2
+        var rightRemain = len2
+        this[targetIndex] = this[rightCursor]
+        targetIndex++
+        rightCursor++
+        rightRemain--
+        var leftCount = 0
+        var rightCount = 0
+        var shouldStop = false
         while (true) {
-            c1 = 0
-            c2 = 0
-            continueBreak = false
-            var t1 = arr[s1]
-            var t2 = this[s2]
+            leftCount = 0
+            rightCount = 0
+            shouldStop = false
+            var leftValue = cmpBuffer[leftCursor]
+            var rightValue = this[rightCursor]
             while (true) {
-                match (comparator(t1, t2)) {
+                match (compareBy(leftValue, rightValue)) {
                     case GT =>
-                        this[ti] = t2
-                        ti++
-                        s2++
-                        l2--
-                        c2++
-                        c1 = 0
-                        if (l2 == 0) {
-                            continueBreak = true
+                        this[targetIndex] = rightValue
+                        targetIndex++
+                        rightCursor++
+                        rightRemain--
+                        rightCount++
+                        leftCount = 0
+                        if (rightRemain == 0) {
+                            shouldStop = true
                             break
                         }
-                        if (c2 > 4) {
+                        if (rightCount > 4) {
                             break
                         }
 
-                        t2 = this[s2]
+                        rightValue = this[rightCursor]
                     case _ =>
-                        this[ti] = t1
-                        ti++
-                        s1++
-                        l1--
-                        c1++
-                        c2 = 0
-                        if (l1 == 1) {
-                            continueBreak = true
+                        this[targetIndex] = leftValue
+                        targetIndex++
+                        leftCursor++
+                        leftRemain--
+                        leftCount++
+                        rightCount = 0
+                        if (leftRemain == 1) {
+                            shouldStop = true
                             break
                         }
-                        if (c1 > 4) {
+                        if (leftCount > 4) {
                             break
                         }
 
-                        t1 = arr[s1]
+                        leftValue = cmpBuffer[leftCursor]
                 }
             }
-            if (continueBreak) {
+            if (shouldStop) {
                 break
             }
-            continueBreak = false
+            shouldStop = false
             while (true) {
-                var point = this[s2]
-                c1 = arr.queryGT(point, s1, l1, comparator, false) - s1
-                match (c1) {
-                    case 0 => this[ti] = point
+                var probe = this[rightCursor]
+                leftCount = cmpBuffer.queryGT(probe, leftCursor, leftRemain, compareBy, false) - leftCursor
+                match (leftCount) {
+                    case 0 => this[targetIndex] = probe
                     case 1 =>
-                        this[ti] = arr[s1]
-                        this[ti + 1] = point
+                        this[targetIndex] = cmpBuffer[leftCursor]
+                        this[targetIndex + 1] = probe
                     case 2 =>
-                        this[ti] = arr[s1]
-                        this[ti + 1] = arr[s1 + 1]
-                        this[ti + 2] = point
+                        this[targetIndex] = cmpBuffer[leftCursor]
+                        this[targetIndex + 1] = cmpBuffer[leftCursor + 1]
+                        this[targetIndex + 2] = probe
                     case _ =>
-                        arr.copyTo(this, s1, ti, c1)
-                        this[ti + c1] = point
+                        cmpBuffer.copyTo(this, leftCursor, targetIndex, leftCount)
+                        this[targetIndex + leftCount] = probe
                 }
-                ti = ti + c1 + 1
-                s1 += c1
-                l1 -= c1
-                s2++
-                l2--
-                if (l1 == 1 || l2 == 0) {
-                    continueBreak = true
+                targetIndex = targetIndex + leftCount + 1
+                leftCursor += leftCount
+                leftRemain -= leftCount
+                rightCursor++
+                rightRemain--
+                if (leftRemain == 1 || rightRemain == 0) {
+                    shouldStop = true
                     break
                 }
-                point = arr[s1]
-                c2 = this.queryLT(point, s2, l2, comparator, false) - s2
-                match (c2) {
-                    case 0 => this[ti] = point
+                probe = cmpBuffer[leftCursor]
+                rightCount = this.queryLT(probe, rightCursor, rightRemain, compareBy, false) - rightCursor
+                match (rightCount) {
+                    case 0 => this[targetIndex] = probe
                     case 1 =>
-                        this[ti] = this[s2]
-                        this[ti + 1] = point
+                        this[targetIndex] = this[rightCursor]
+                        this[targetIndex + 1] = probe
                     case 2 =>
-                        this[ti] = this[s2]
-                        this[ti + 1] = this[s2 + 1]
-                        this[ti + 2] = point
+                        this[targetIndex] = this[rightCursor]
+                        this[targetIndex + 1] = this[rightCursor + 1]
+                        this[targetIndex + 2] = probe
                     case _ =>
-                        this.copyTo(this, s2, ti, c2)
-                        this[ti + c2] = point
+                        this.copyTo(this, rightCursor, targetIndex, rightCount)
+                        this[targetIndex + rightCount] = probe
                 }
-                ti = ti + c2 + 1
-                s2 += c2
-                l2 -= c2
-                s1++
-                l1--
-                if (l2 == 0 || l1 == 1) {
-                    continueBreak = true
+                targetIndex = targetIndex + rightCount + 1
+                rightCursor += rightCount
+                rightRemain -= rightCount
+                leftCursor++
+                leftRemain--
+                if (rightRemain == 0 || leftRemain == 1) {
+                    shouldStop = true
                     break
                 }
-                if (c1 < 4 || c2 < 4) {
+                if (leftCount < 4 || rightCount < 4) {
                     break
                 }
             }
-            if (continueBreak) {
+            if (shouldStop) {
                 break
             }
         }
-        if (l2 == 0) {
-            arr.copyTo(this, s1, ti, l1)
+        if (rightRemain == 0) {
+            cmpBuffer.copyTo(this, leftCursor, targetIndex, leftRemain)
         }
-        if (l1 == 1) {
-            this.copyTo(this, s2, ti, l2)
-            this[ti + l2] = arr[s1]
+        if (leftRemain == 1) {
+            this.copyTo(this, rightCursor, targetIndex, rightRemain)
+            this[targetIndex + rightRemain] = cmpBuffer[leftCursor]
         }
     }
 
@@ -786,174 +778,174 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        cmpTemp: TempArray<T>,
+        compareBy: (T, T) -> Ordering
     ) {
-        let arr = temp.getArray(len2)
-        this.copyTo(arr, start2, 0, len2)
-        var ti = start2 + len2 - 1
-        var s1 = start1 + len1 - 1
-        var l1 = len1
-        var s2 = len2 - 1
-        var l2 = len2
-        this[ti] = this[s1]
-        ti--
-        s1--
-        l1--
-        var c1 = 0
-        var c2 = 0
-        var continueBreak = false
+        let rightCmpBuffer = cmpTemp.getArray(len2)
+        this.copyTo(rightCmpBuffer, start2, 0, len2)
+        var cmpRightTarget = start2 + len2 - 1
+        var cmpLeftTail = start1 + len1 - 1
+        var cmpLeftRest = len1
+        var cmpRightTail = len2 - 1
+        var cmpRightRest = len2
+        this[cmpRightTarget] = this[cmpLeftTail]
+        cmpRightTarget--
+        cmpLeftTail--
+        cmpLeftRest--
+        var cmpLeftBatch = 0
+        var cmpRightBatch = 0
+        var cmpStopFromRight = false
         while (true) {
-            c1 = 0
-            c2 = 0
-            continueBreak = false
-            var t1 = this[s1]
-            var t2 = arr[s2]
+            cmpLeftBatch = 0
+            cmpRightBatch = 0
+            cmpStopFromRight = false
+            var cmpLeftTailValue = this[cmpLeftTail]
+            var cmpRightTailValue = rightCmpBuffer[cmpRightTail]
             while (true) {
-                match (comparator(t1, t2)) {
+                match (compareBy(cmpLeftTailValue, cmpRightTailValue)) {
                     case GT =>
-                        this[ti] = t1
-                        ti--
-                        s1--
-                        l1--
-                        c1++
-                        c2 = 0
-                        if (l1 == 0) {
-                            continueBreak = true
+                        this[cmpRightTarget] = cmpLeftTailValue
+                        cmpRightTarget--
+                        cmpLeftTail--
+                        cmpLeftRest--
+                        cmpLeftBatch++
+                        cmpRightBatch = 0
+                        if (cmpLeftRest == 0) {
+                            cmpStopFromRight = true
                             break
                         }
-                        if (c1 > 4) {
+                        if (cmpLeftBatch > 4) {
                             break
                         }
 
-                        t1 = this[s1]
+                        cmpLeftTailValue = this[cmpLeftTail]
                     case _ =>
-                        this[ti] = t2
-                        ti--
-                        s2--
-                        l2--
-                        c2++
-                        c1 = 0
-                        if (l2 == 1) {
-                            continueBreak = true
+                        this[cmpRightTarget] = cmpRightTailValue
+                        cmpRightTarget--
+                        cmpRightTail--
+                        cmpRightRest--
+                        cmpRightBatch++
+                        cmpLeftBatch = 0
+                        if (cmpRightRest == 1) {
+                            cmpStopFromRight = true
                             break
                         }
-                        if (c2 > 4) {
+                        if (cmpRightBatch > 4) {
                             break
                         }
-                        t2 = arr[s2]
+                        cmpRightTailValue = rightCmpBuffer[cmpRightTail]
                 }
             }
-            if (continueBreak) {
+            if (cmpStopFromRight) {
                 break
             }
-            continueBreak = false
+            cmpStopFromRight = false
             while (true) {
-                var point = this[s1]
-                let lt = arr.queryLT(point, 0, l2, comparator, true)
-                c2 = l2 - lt
-                match (c2) {
-                    case 0 => this[ti] = point
+                var cmpTailProbe = this[cmpLeftTail]
+                let cmpLtIndex = rightCmpBuffer.queryLT(cmpTailProbe, 0, cmpRightRest, compareBy, true)
+                cmpRightBatch = cmpRightRest - cmpLtIndex
+                match (cmpRightBatch) {
+                    case 0 => this[cmpRightTarget] = cmpTailProbe
                     case 1 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = point
+                        this[cmpRightTarget] = rightCmpBuffer[cmpRightTail]
+                        this[cmpRightTarget - 1] = cmpTailProbe
                     case 2 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = arr[s2 - 1]
-                        this[ti - 2] = point
+                        this[cmpRightTarget] = rightCmpBuffer[cmpRightTail]
+                        this[cmpRightTarget - 1] = rightCmpBuffer[cmpRightTail - 1]
+                        this[cmpRightTarget - 2] = cmpTailProbe
                     case _ =>
-                        arr.copyTo(this, lt, ti - c2 + 1, c2)
-                        this[ti - c2] = point
+                        rightCmpBuffer.copyTo(this, cmpLtIndex, cmpRightTarget - cmpRightBatch + 1, cmpRightBatch)
+                        this[cmpRightTarget - cmpRightBatch] = cmpTailProbe
                 }
-                ti = ti - c2 - 1
-                s2 -= c2
-                l2 -= c2
-                s1--
-                l1--
-                if (l2 == 1 || l1 == 0) {
-                    continueBreak = true
+                cmpRightTarget = cmpRightTarget - cmpRightBatch - 1
+                cmpRightTail -= cmpRightBatch
+                cmpRightRest -= cmpRightBatch
+                cmpLeftTail--
+                cmpLeftRest--
+                if (cmpRightRest == 1 || cmpLeftRest == 0) {
+                    cmpStopFromRight = true
                     break
                 }
-                point = arr[s2]
-                let gt = this.queryGT(point, start1, l1, comparator, true)
-                c1 = s1 - gt + 1
-                match (c1) {
-                    case 0 => this[ti] = point
+                cmpTailProbe = rightCmpBuffer[cmpRightTail]
+                let cmpGtIndex = this.queryGT(cmpTailProbe, start1, cmpLeftRest, compareBy, true)
+                cmpLeftBatch = cmpLeftTail - cmpGtIndex + 1
+                match (cmpLeftBatch) {
+                    case 0 => this[cmpRightTarget] = cmpTailProbe
                     case 1 =>
-                        this[ti] = this[s1]
-                        this[ti - 1] = point
+                        this[cmpRightTarget] = this[cmpLeftTail]
+                        this[cmpRightTarget - 1] = cmpTailProbe
                     case 2 =>
-                        this[ti] = this[s1]
-                        this[ti - 1] = this[s1 - 1]
-                        this[ti - 2] = point
+                        this[cmpRightTarget] = this[cmpLeftTail]
+                        this[cmpRightTarget - 1] = this[cmpLeftTail - 1]
+                        this[cmpRightTarget - 2] = cmpTailProbe
                     case _ =>
-                        this.copyTo(this, gt, ti - c1 + 1, c1)
-                        this[ti - c1] = point
+                        this.copyTo(this, cmpGtIndex, cmpRightTarget - cmpLeftBatch + 1, cmpLeftBatch)
+                        this[cmpRightTarget - cmpLeftBatch] = cmpTailProbe
                 }
-                ti = ti - c1 - 1
-                s1 -= c1
-                l1 -= c1
-                s2--
-                l2--
-                if (l1 == 0 || l2 == 1) {
-                    continueBreak = true
+                cmpRightTarget = cmpRightTarget - cmpLeftBatch - 1
+                cmpLeftTail -= cmpLeftBatch
+                cmpLeftRest -= cmpLeftBatch
+                cmpRightTail--
+                cmpRightRest--
+                if (cmpLeftRest == 0 || cmpRightRest == 1) {
+                    cmpStopFromRight = true
                     break
                 }
-                if (c1 < 4 || c2 < 4) {
+                if (cmpLeftBatch < 4 || cmpRightBatch < 4) {
                     break
                 }
             }
-            if (continueBreak) {
+            if (cmpStopFromRight) {
                 break
             }
         }
-        if (l1 == 0) {
-            arr.copyTo(this, 0, ti - l2 + 1, l2)
+        if (cmpLeftRest == 0) {
+            rightCmpBuffer.copyTo(this, 0, cmpRightTarget - cmpRightRest + 1, cmpRightRest)
         }
-        if (l2 == 1) {
-            this.copyTo(this, start1, start1 + 1, l1)
-            this[start1] = arr[s2]
+        if (cmpRightRest == 1) {
+            this.copyTo(this, start1, start1 + 1, cmpLeftRest)
+            this[start1] = rightCmpBuffer[cmpRightTail]
         }
     }
 
     @OverflowWrapping
-    func timSort(comparator: (T, T) -> Ordering): Unit {
+    func timSort(compareBy: (T, T) -> Ordering): Unit {
         if (this.size <= 64) {
-            shortSort(0, this.size - 1, comparator)
+            shortSort(0, this.size - 1, compareBy)
             return
         }
 
-        // init temp data
-        let mrl = this.getMinRunLength()
-        var temp = TempArray(this.size, this[0])
-        let stackLen = Int64(log2(Float64(this.size) / Float64(mrl) + 2.0)) + 1
-        let startArr = Array<Int64>(stackLen, repeat: 0)
-        let lengthArr = Array<Int64>(stackLen, repeat: 0)
-        var endIndex = -1
+        // init cmpTemp data
+        let cmpMinRunLength = this.getMinRunLength()
+        var cmpTemp = TempArray(this.size, this[0])
+        let cmpRunStackLen = Int64(log2(Float64(this.size) / Float64(cmpMinRunLength) + 2.0)) + 1
+        let cmpRunStartArr = Array<Int64>(cmpRunStackLen, repeat: 0)
+        let cmpRunLengthArr = Array<Int64>(cmpRunStackLen, repeat: 0)
+        var cmpStackTop = -1
 
         var begin: Int64 = 0
         while (begin < this.size) {
             let length = this.size - begin
             var seqLen = length
             if (length > 1) {
-                seqLen = getSequenceLength(begin, this.size - 1, temp, comparator)
-                if (seqLen < mrl) {
-                    if (length < mrl) {
-                        binaryInsertionSort(begin, begin + length - 1, comparator, seqLen)
+                seqLen = getSequenceLength(begin, this.size - 1, cmpTemp, compareBy)
+                if (seqLen < cmpMinRunLength) {
+                    if (length < cmpMinRunLength) {
+                        binaryInsertionSort(begin, begin + length - 1, compareBy, seqLen)
                         seqLen = length
                     } else {
-                        binaryInsertionSort(begin, begin + mrl - 1, comparator, seqLen)
-                        seqLen = mrl
+                        binaryInsertionSort(begin, begin + cmpMinRunLength - 1, compareBy, seqLen)
+                        seqLen = cmpMinRunLength
                     }
                 }
             }
-            endIndex++
-            startArr[endIndex] = begin
-            lengthArr[endIndex] = seqLen
+            cmpStackTop++
+            cmpRunStartArr[cmpStackTop] = begin
+            cmpRunLengthArr[cmpStackTop] = seqLen
             begin = begin + seqLen
-            endIndex = this.maybeMerge(startArr, lengthArr, endIndex, temp, comparator)
+            cmpStackTop = this.maybeMerge(cmpRunStartArr, cmpRunLengthArr, cmpStackTop, cmpTemp, compareBy)
         }
-        this.mergeAll(startArr, lengthArr, endIndex, temp, comparator)
+        this.mergeAll(cmpRunStartArr, cmpRunLengthArr, cmpStackTop, cmpTemp, compareBy)
     }
 }
 

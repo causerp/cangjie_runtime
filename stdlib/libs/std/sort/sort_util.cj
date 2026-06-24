@@ -10,6 +10,97 @@ package std.sort
 
 import std.math.*
 
+extend<T> Array<T> {
+    @OverflowWrapping
+    func reverseRange(begin: Int64, end: Int64): Unit {
+        var i = begin
+        var j = end
+        while (i < j) {
+            this.swap(i, j)
+            i++
+            j--
+        }
+    }
+
+    @OverflowWrapping
+    func moveEqualPrefixAfterDescendingRun(begin: Int64, equalNum: Int64, n: Int64, temp: TempArray<T>): Unit {
+        if (equalNum == 1) {
+            reverseRange(begin, begin + n)
+            return
+        }
+        reverseRange(begin + equalNum, begin + equalNum + n - 1)
+        if (equalNum == 2) {
+            let t1 = this[begin]
+            let t2 = this[begin + 1]
+            if (n == 1) {
+                this[begin] = this[begin + 2]
+                this[begin + 1] = t1
+                this[begin + 2] = t2
+            } else if (n == 2) {
+                this[begin] = this[begin + 2]
+                this[begin + 1] = this[begin + 3]
+                this[begin + 2] = t1
+                this[begin + 3] = t2
+            } else {
+                this.copyTo(this, begin + 2, begin, n)
+                this[begin + equalNum + n - 2] = t1
+                this[begin + equalNum + n - 1] = t2
+            }
+            return
+        }
+        if (n == 1) {
+            let t = this[begin + equalNum]
+            this.copyTo(this, begin, begin + 1, equalNum)
+            this[begin] = t
+        } else if (n == 2) {
+            let t1 = this[begin + equalNum]
+            let t2 = this[begin + equalNum + 1]
+            this.copyTo(this, begin, begin + 2, equalNum)
+            this[begin] = t1
+            this[begin + 1] = t2
+        } else {
+            if (n < equalNum) {
+                let arr = temp.getArray(n)
+                this.copyTo(arr, begin + equalNum, 0, n)
+                this.copyTo(this, begin, begin + n, equalNum)
+                arr.copyTo(this, 0, begin, n)
+            } else {
+                let arr = temp.getArray(equalNum)
+                this.copyTo(arr, begin, 0, equalNum)
+                this.copyTo(this, begin + equalNum, begin, n)
+                arr.copyTo(this, 0, begin + n, equalNum)
+            }
+        }
+    }
+
+    @OverflowWrapping
+    func insertPoint(from: Int64, to: Int64, point: T): Unit {
+        let moveN = from - to
+        match (moveN) {
+            case 0 => ()
+            case 1 => this[from] = this[from - 1]
+            case 2 =>
+                this[from] = this[from - 1]
+                this[from - 1] = this[from - 2]
+            case _ => this.copyTo(this, to, to + 1, moveN)
+        }
+        this[to] = point
+    }
+}
+
+func recordMergedLeftRunAndKeepRightRun(
+    startArr: Array<Int64>,
+    lengthArr: Array<Int64>,
+    index: Int64,
+    rightStart: Int64,
+    rightLength: Int64,
+    mergedLeftLength: Int64
+): Unit {
+    lengthArr[index - 1] = mergedLeftLength
+    startArr[index] = rightStart
+    lengthArr[index] = rightLength
+}
+
 extend<T> Array<T> where T <: Comparable<T> {
     func compareSwap3(i1: Int64, i2: Int64, i3: Int64) {
         var a: T = this[i1]
@@ -160,68 +251,7 @@ extend<T> Array<T> where T <: Comparable<T> {
                 b++
             }
 
-            // reverse sequence
-            if (equalNum == 1) {
-                var i = begin
-                var j = begin + n // begin + equalNum + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
-                }
-                return equalNum + n
-            } else {
-                var i = begin + equalNum
-                var j = i + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
-                }
-            }
-
-            if (equalNum == 2) {
-                let t1 = this[begin]
-                let t2 = this[begin + 1]
-                if (n == 1) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = t1
-                    this[begin + 2] = t2
-                } else if (n == 2) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = this[begin + 3]
-                    this[begin + 2] = t1
-                    this[begin + 3] = t2
-                } else {
-                    this.copyTo(this, begin + 2, begin, n)
-                    this[begin + equalNum + n - 2] = t1
-                    this[begin + equalNum + n - 1] = t2
-                }
-            } else {
-                if (n == 1) {
-                    let t = this[begin + equalNum]
-                    this.copyTo(this, begin, begin + 1, equalNum)
-                    this[begin] = t
-                } else if (n == 2) {
-                    let t1 = this[begin + equalNum]
-                    let t2 = this[begin + equalNum + 1]
-                    this.copyTo(this, begin, begin + 2, equalNum)
-                    this[begin] = t1
-                    this[begin + 1] = t2
-                } else {
-                    if (n < equalNum) {
-                        let arr = temp.getArray(n)
-                        this.copyTo(arr, begin + equalNum, 0, n)
-                        this.copyTo(this, begin, begin + n, equalNum)
-                        arr.copyTo(this, 0, begin, n)
-                    } else {
-                        let arr = temp.getArray(equalNum)
-                        this.copyTo(arr, begin, 0, equalNum)
-                        this.copyTo(this, begin + equalNum, begin, n)
-                        arr.copyTo(this, 0, begin + n, equalNum)
-                    }
-                }
-            }
+            moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
             return equalNum + n
         }
     }
@@ -237,14 +267,7 @@ extend<T> Array<T> where T <: Comparable<T> {
                 i++
                 continue
             }
-            match (moveN) {
-                case 1 => this[i] = this[i - 1]
-                case 2 =>
-                    this[i] = this[i - 1]
-                    this[i - 1] = this[i - 2]
-                case _ => this.copyTo(this, l, l + 1, moveN)
-            }
-            this[l] = point
+            insertPoint(i, l, point)
             i++
         }
     }
@@ -535,68 +558,7 @@ extend<T> Array<T> {
                 }
             }
 
-            // reverse sequence
-            if (equalNum == 1) {
-                var i = begin
-                var j = begin + n // begin + equalNum + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
-                }
-                return equalNum + n
-            } else {
-                var i = begin + equalNum
-                var j = i + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
-                }
-            }
-
-            if (equalNum == 2) {
-                let t1 = this[begin]
-                let t2 = this[begin + 1]
-                if (n == 1) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = t1
-                    this[begin + 2] = t2
-                } else if (n == 2) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = this[begin + 3]
-                    this[begin + 2] = t1
-                    this[begin + 3] = t2
-                } else {
-                    this.copyTo(this, begin + 2, begin, n)
-                    this[begin + equalNum + n - 2] = t1
-                    this[begin + equalNum + n - 1] = t2
-                }
-            } else {
-                if (n == 1) {
-                    let t = this[begin + equalNum]
-                    this.copyTo(this, begin, begin + 1, equalNum)
-                    this[begin] = t
-                } else if (n == 2) {
-                    let t1 = this[begin + equalNum]
-                    let t2 = this[begin + equalNum + 1]
-                    this.copyTo(this, begin, begin + 2, equalNum)
-                    this[begin] = t1
-                    this[begin + 1] = t2
-                } else {
-                    if (n < equalNum) {
-                        let arr = temp.getArray(n)
-                        this.copyTo(arr, begin + equalNum, 0, n)
-                        this.copyTo(this, begin, begin + n, equalNum)
-                        arr.copyTo(this, 0, begin, n)
-                    } else {
-                        let arr = temp.getArray(equalNum)
-                        this.copyTo(arr, begin, 0, equalNum)
-                        this.copyTo(this, begin + equalNum, begin, n)
-                        arr.copyTo(this, 0, begin + n, equalNum)
-                    }
-                }
-            }
+            moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
             return equalNum + n
         }
     }
@@ -605,24 +567,17 @@ extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
     func binaryInsertionSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering, n: Int64) {
-        var i = begin + n
-        while (i <= end) {
-            let point = this[i]
-            let l = this.binaryQueryGT(point, begin, i - begin, comparator)
-            let moveN = i - l
-            if (moveN == 0) {
-                i++
+        var cursor = begin + n
+        while (cursor <= end) {
+            let probe = this[cursor]
+            let insertAt = this.binaryQueryGT(probe, begin, cursor - begin, comparator)
+            let shiftLen = cursor - insertAt
+            if (shiftLen == 0) {
+                cursor++
                 continue
             }
-            match (moveN) {
-                case 1 => this[i] = this[i - 1]
-                case 2 =>
-                    this[i] = this[i - 1]
-                    this[i - 1] = this[i - 2]
-                case _ => this.copyTo(this, l, l + 1, moveN)
-            }
-            this[l] = point
-            i++
+            insertPoint(cursor, insertAt, probe)
+            cursor++
         }
     }
 
