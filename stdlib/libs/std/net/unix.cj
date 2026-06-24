@@ -141,15 +141,8 @@ public class UnixSocket <: StreamingSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop sendBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
-        }
+        get() { impl.getSendBufferSize() }
+        set(newSize) { impl.setSendBufferSize(newSize) }
     }
 
     /**
@@ -165,15 +158,8 @@ public class UnixSocket <: StreamingSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop receiveBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
-        }
+        get() { impl.getReceiveBufferSize() }
+        set(newSize) { impl.setReceiveBufferSize(newSize) }
     }
 
     public override func read(buffer: Array<Byte>): Int64 {
@@ -208,12 +194,7 @@ public class UnixSocket <: StreamingSocket {
      *
      * Throws an exception if failed (when getsockopt returns -1).
      */
-    public func getSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: CPointer<UIntNative>
-    ): Unit {
+    public func getSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: CPointer<UIntNative>): Unit {
         unsafe { impl.getSocketOption(level, option, value, valueLength) }
     }
 
@@ -225,12 +206,7 @@ public class UnixSocket <: StreamingSocket {
      *
      * Throws an exception if failed (when setsockopt returns -1).
      */
-    public func setSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: UIntNative
-    ): Unit {
+    public func setSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: UIntNative): Unit {
         unsafe { impl.setSocketOption(level, option, value, valueLength) }
     }
 
@@ -242,10 +218,7 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionIntNative(
-        level: Int32,
-        option: Int32
-    ): IntNative {
+    public func getSocketOptionIntNative(level: Int32, option: Int32): IntNative {
         impl.getSocketOptionIntNative(level, option)
     }
 
@@ -257,11 +230,7 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionIntNative(
-        level: Int32,
-        option: Int32,
-        value: IntNative
-    ): Unit {
+    public func setSocketOptionIntNative(level: Int32, option: Int32, value: IntNative): Unit {
         impl.setSocketOptionIntNative(level, option, value)
     }
 
@@ -276,10 +245,7 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionBool(
-        level: Int32,
-        option: Int32
-    ): Bool {
+    public func getSocketOptionBool(level: Int32, option: Int32): Bool {
         impl.getSocketOptionBool(level, option)
     }
 
@@ -293,11 +259,7 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionBool(
-        level: Int32,
-        option: Int32,
-        value: Bool
-    ): Unit {
+    public func setSocketOptionBool(level: Int32, option: Int32, value: Bool): Unit {
         impl.setSocketOptionBool(level, option, value)
     }
 
@@ -338,8 +300,8 @@ public class UnixSocket <: StreamingSocket {
      */
     public init(path: String, localPath!: ?String = None) {
         this(UnixSocketAddress(path))
-        if (let Some(_localPath) <- localPath) {
-            setLocalAddress(UnixSocketAddress(_localPath))
+        if (let Some(legacyLocalPath) <- localPath) {
+            setLocalAddress(UnixSocketAddress(legacyLocalPath))
         }
     }
 
@@ -350,9 +312,9 @@ public class UnixSocket <: StreamingSocket {
     public init(address: SocketAddress, localAddress!: ?SocketAddress = None) {
         checkUnixSocketAddress(address, "address")
         this.impl = SocketCommon(SocketNet.UNIX, AddressFamily.UNIX, StreamingMode)
-        impl.remoteAddress = address
-        if (let Some(_localAddress) <- localAddress) {
-            setLocalAddress(_localAddress)
+        this.impl.remoteAddress = address
+        if (let Some(legacyLocalAddress) <- localAddress) {
+            setLocalAddress(legacyLocalAddress)
         }
     }
 
@@ -370,7 +332,7 @@ public class UnixSocket <: StreamingSocket {
      */
     public override prop remoteAddress: SocketAddress {
         get() {
-            impl.remoteAddress ?? SocketException.notYetConnected()
+            this.impl.remoteAddress ?? SocketException.notYetConnected()
         }
     }
 
@@ -382,7 +344,7 @@ public class UnixSocket <: StreamingSocket {
      */
     public override prop localAddress: SocketAddress {
         get() {
-            impl.localAddress ?? SocketException.notYetConnected()
+            this.impl.localAddress ?? SocketException.notYetConnected()
         }
     }
 
@@ -397,10 +359,10 @@ public class UnixSocket <: StreamingSocket {
      */
     public override mut prop readTimeout: ?Duration {
         get() {
-            impl.readTimeout
+            this.impl.readTimeout
         }
         set(timeout) {
-            impl.readTimeout = timeout?.throwIfNegative("Read timeout").toNanosecondGranularity()
+            this.impl.readTimeout = timeout?.throwIfNegative("Read timeout").toNanosecondGranularity()
         }
     }
 
@@ -416,10 +378,10 @@ public class UnixSocket <: StreamingSocket {
      */
     public override mut prop writeTimeout: ?Duration {
         get() {
-            impl.writeTimeout
+            this.impl.writeTimeout
         }
         set(timeout) {
-            impl.writeTimeout = timeout?.throwIfNegative("Write timeout").toNanosecondGranularity()
+            this.impl.writeTimeout = timeout?.throwIfNegative("Write timeout").toNanosecondGranularity()
         }
     }
 
@@ -436,15 +398,8 @@ public class UnixSocket <: StreamingSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop sendBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
-        }
+        get() { this.impl.getSendBufferSize() }
+        set(newSize) { this.impl.setSendBufferSize(newSize) }
     }
 
     /**
@@ -460,23 +415,16 @@ public class UnixSocket <: StreamingSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop receiveBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
-        }
+        get() { this.impl.getReceiveBufferSize() }
+        set(newSize) { this.impl.setReceiveBufferSize(newSize) }
     }
 
     public override func read(buffer: Array<Byte>): Int64 {
-        impl.read(buffer)
+        this.impl.read(buffer)
     }
 
     public override func write(buffer: Array<Byte>): Unit {
-        impl.write(buffer)
+        this.impl.write(buffer)
     }
 
     /**
@@ -491,7 +439,27 @@ public class UnixSocket <: StreamingSocket {
      * @throws IllegalArgumentException if the specified timeout duration is negative.
      */
     public func connect(timeout!: ?Duration = None): Unit {
-        impl.connect(timeout?.throwIfNegative("Timeout"))
+        this.impl.connect(timeout?.throwIfNegative("Timeout"))
+    }
+
+    public func close(): Unit {
+        this.impl.close()
+    }
+
+    public func isClosed(): Bool {
+        this.impl.isClosed()
+    }
+
+    public override func toString(): String {
+        "UnixSocket(${this.impl.toString()})"
+    }
+
+    public func setSocketOptionBool(level: Int32, option: Int32, value: Bool): Unit {
+        this.impl.setSocketOptionBool(level, option, value)
+    }
+
+    public func getSocketOptionBool(level: Int32, option: Int32): Bool {
+        this.impl.getSocketOptionBool(level, option)
     }
 
     /**
@@ -503,13 +471,8 @@ public class UnixSocket <: StreamingSocket {
      *
      * Throws an exception if failed (when getsockopt returns -1).
      */
-    public func getSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: CPointer<UIntNative>
-    ): Unit {
-        unsafe { impl.getSocketOption(level, option, value, valueLength) }
+    public func getSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: CPointer<UIntNative>): Unit {
+        unsafe { this.impl.getSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -520,13 +483,8 @@ public class UnixSocket <: StreamingSocket {
      *
      * Throws an exception if failed (when setsockopt returns -1).
      */
-    public func setSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: UIntNative
-    ): Unit {
-        unsafe { impl.setSocketOption(level, option, value, valueLength) }
+    public func setSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: UIntNative): Unit {
+        unsafe { this.impl.setSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -537,11 +495,8 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionIntNative(
-        level: Int32,
-        option: Int32
-    ): IntNative {
-        impl.getSocketOptionIntNative(level, option)
+    public func getSocketOptionIntNative(level: Int32, option: Int32): IntNative {
+        this.impl.getSocketOptionIntNative(level, option)
     }
 
     /**
@@ -552,67 +507,8 @@ public class UnixSocket <: StreamingSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionIntNative(
-        level: Int32,
-        option: Int32,
-        value: IntNative
-    ): Unit {
-        impl.setSocketOptionIntNative(level, option, value)
-    }
-
-    /**
-     * Read the specified socket option returning it's value as a boolean value
-     * converting it from an IntNative.
-     *
-     * See SocketOptions for popular option constants.
-     *
-     * The conversion is defined as 0 => false, other values => true.
-     *
-     * Throws an exception if failed (when getsockopt returns -1) or if the result
-     * has size different from IntNative.
-     */
-    public func getSocketOptionBool(
-        level: Int32,
-        option: Int32
-    ): Bool {
-        impl.getSocketOptionBool(level, option)
-    }
-
-    /**
-     * Write a boolean value to the specified socket option converting it to IntNative.
-     *
-     * See SocketOptions for popular option constants.
-     *
-     * The conversion is defined as false => 0, true => 1
-     *
-     * Throws an exception if failed (when setsockopt returns -1), for example
-     * when the option size is different from IntNative.
-     */
-    public func setSocketOptionBool(
-        level: Int32,
-        option: Int32,
-        value: Bool
-    ): Unit {
-        impl.setSocketOptionBool(level, option, value)
-    }
-
-    /**
-     * Close the socket releasing all resources. All operations except for close() and isClose() are no longer available.
-     * This function is reentrant.
-     **/
-    public func close(): Unit {
-        impl.close()
-    }
-
-    /**
-     * Checks whether this socket has been explicitly closed via close()
-     **/
-    public func isClosed(): Bool {
-        impl.isClosed()
-    }
-
-    public override func toString(): String {
-        "UnixSocket(${impl.toString()})"
+    public func setSocketOptionIntNative(level: Int32, option: Int32, value: IntNative): Unit {
+        this.impl.setSocketOptionIntNative(level, option, value)
     }
 }
 
@@ -641,7 +537,7 @@ public class UnixServerSocket <: ServerSocket {
      */
     public override prop localAddress: SocketAddress {
         get() {
-            impl.localAddress ?? SocketException.notYetBound()
+            this.impl.localAddress ?? SocketException.notYetBound()
         }
     }
 
@@ -660,9 +556,9 @@ public class UnixServerSocket <: ServerSocket {
     public init(bindAt!: SocketAddress) {
         checkUnixSocketAddress(bindAt, "bindAt")
 
-        let impl = SocketCommon<ActualPlatformSocket>(UNIX, AddressFamily.UNIX, SocketMode.StreamingMode)
-        impl.localAddress = bindAt
-        this.impl = impl
+        let socketImpl = SocketCommon<ActualPlatformSocket>(UNIX, AddressFamily.UNIX, SocketMode.StreamingMode)
+        socketImpl.localAddress = bindAt
+        this.impl = socketImpl
     }
 
     /**
@@ -678,15 +574,8 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop sendBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
-        }
+        get() { this.impl.getSendBufferSize() }
+        set(newSize) { this.impl.setSendBufferSize(newSize) }
     }
 
     /**
@@ -702,15 +591,8 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop receiveBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
-        }
+        get() { this.impl.getReceiveBufferSize() }
+        set(newSize) { this.impl.setReceiveBufferSize(newSize) }
     }
 
     /**
@@ -723,8 +605,8 @@ public class UnixServerSocket <: ServerSocket {
             Int64(backlogSize_)
         }
         set(newSize) {
-            impl.checkNotBound()
-            impl.checkNotClosed()
+            this.impl.checkNotBound()
+            this.impl.checkNotClosed()
             backlogSize_ = match {
                 case newSize <= 0 => throw IllegalArgumentException("BacklogSize should be positive: ${newSize}.")
                 case newSize >= Int64(Int32.Max) => Int32.Max - 1
@@ -742,7 +624,7 @@ public class UnixServerSocket <: ServerSocket {
      * If the path is already existing then bind() fails with SocketException.
      */
     public override func bind(): Unit {
-        impl.bind(backlogSize_)
+        this.impl.bind(backlogSize_)
     }
 
     /**
@@ -756,8 +638,8 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified timeout duration is negative.
      */
     public override func accept(timeout!: ?Duration): UnixSocket {
-        let accepted = impl.accept(timeout) ?? SocketException.throwClosedException()
-        return UnixSocket(accepted)
+        let acceptedSocket = this.impl.accept(timeout) ?? SocketException.throwClosedException()
+        return UnixSocket(acceptedSocket)
     }
 
     /**
@@ -776,14 +658,22 @@ public class UnixServerSocket <: ServerSocket {
      * This function is reentrant.
      **/
     public override func close(): Unit {
-        impl.close()
+        this.impl.close()
     }
 
     /**
      * Checks whether this socket has been explicitly closed via close()
      **/
     public override func isClosed(): Bool {
-        impl.isClosed()
+        this.impl.isClosed()
+    }
+
+    public func getSocketOptionIntNative(level: Int32, option: Int32): IntNative {
+        this.impl.getSocketOptionIntNative(level, option)
+    }
+
+    public func setSocketOptionIntNative(level: Int32, option: Int32, value: IntNative): Unit {
+        this.impl.setSocketOptionIntNative(level, option, value)
     }
 
     /**
@@ -797,13 +687,8 @@ public class UnixServerSocket <: ServerSocket {
      *
      * Throws an exception if failed (when getsockopt returns -1).
      */
-    public func getSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: CPointer<UIntNative>
-    ): Unit {
-        unsafe { impl.getSocketOption(level, option, value, valueLength) }
+    public func getSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: CPointer<UIntNative>): Unit {
+        unsafe { this.impl.getSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -814,44 +699,8 @@ public class UnixServerSocket <: ServerSocket {
      *
      * Throws an exception if failed (when setsockopt returns -1).
      */
-    public func setSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: UIntNative
-    ): Unit {
-        unsafe { impl.setSocketOption(level, option, value, valueLength) }
-    }
-
-    /**
-     * Read the specified socket option returning it's value as IntNative result.
-     *
-     * See SocketOptions for popular option constants.
-     *
-     * Throws an exception if failed (when getsockopt returns -1) or if the result
-     * has size different from IntNative.
-     */
-    public func getSocketOptionIntNative(
-        level: Int32,
-        option: Int32
-    ): IntNative {
-        impl.getSocketOptionIntNative(level, option)
-    }
-
-    /**
-     * Write a numeric IntNative value to the specified socket option.
-     *
-     * See SocketOptions for popular option constants.
-     *
-     * Throws an exception if failed (when setsockopt returns -1), for example
-     * when the option size is different from IntNative.
-     */
-    public func setSocketOptionIntNative(
-        level: Int32,
-        option: Int32,
-        value: IntNative
-    ): Unit {
-        impl.setSocketOptionIntNative(level, option, value)
+    public func setSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: UIntNative): Unit {
+        unsafe { this.impl.setSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -865,11 +714,8 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionBool(
-        level: Int32,
-        option: Int32
-    ): Bool {
-        impl.getSocketOptionBool(level, option)
+    public func getSocketOptionBool(level: Int32, option: Int32): Bool {
+        this.impl.getSocketOptionBool(level, option)
     }
 
     /**
@@ -882,16 +728,12 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionBool(
-        level: Int32,
-        option: Int32,
-        value: Bool
-    ): Unit {
-        impl.setSocketOptionBool(level, option, value)
+    public func setSocketOptionBool(level: Int32, option: Int32, value: Bool): Unit {
+        this.impl.setSocketOptionBool(level, option, value)
     }
 
     public override func toString(): String {
-        "UnixServerSocket(${impl.toString()})"
+        "UnixServerSocket(${this.impl.toString()})"
     }
 }
 
@@ -908,7 +750,7 @@ public class UnixServerSocket <: ServerSocket {
      */
     public override prop localAddress: SocketAddress {
         get() {
-            impl.localAddress ?? SocketException.notYetBound()
+            this.impl.localAddress ?? SocketException.notYetBound()
         }
     }
 
@@ -945,15 +787,8 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop sendBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_SNDBUF, IntNative(newSize))
-        }
+        get() { this.impl.getSendBufferSize() }
+        set(newSize) { this.impl.setSendBufferSize(newSize) }
     }
 
     /**
@@ -969,15 +804,8 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified buffer size is negative or 0.
      */
     public mut prop receiveBufferSize: Int64 {
-        get() {
-            Int64(impl.getSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF))
-        }
-        set(newSize) {
-            if (newSize <= 0) {
-                throw IllegalArgumentException("Buffer size should be positive, got ${newSize}.")
-            }
-            impl.setSocketOptionIntNative(SOL_SOCKET, SOCK_RCVBUF, IntNative(newSize))
-        }
+        get() { this.impl.getReceiveBufferSize() }
+        set(newSize) { this.impl.setReceiveBufferSize(newSize) }
     }
 
     /**
@@ -990,8 +818,8 @@ public class UnixServerSocket <: ServerSocket {
             Int64(backlogSize_)
         }
         set(newSize) {
-            impl.checkNotBound()
-            impl.checkNotClosed()
+            this.impl.checkNotBound()
+            this.impl.checkNotClosed()
             backlogSize_ = match {
                 case newSize <= 0 => throw IllegalArgumentException("BacklogSize should be positive: ${newSize}.")
                 case newSize >= Int64(Int32.Max) => Int32.Max - 1
@@ -1009,7 +837,7 @@ public class UnixServerSocket <: ServerSocket {
      * If the path is already existing then bind() fails with SocketException.
      */
     public override func bind(): Unit {
-        impl.bind(backlogSize_)
+        this.impl.bind(backlogSize_)
     }
 
     /**
@@ -1023,7 +851,7 @@ public class UnixServerSocket <: ServerSocket {
      * @throws IllegalArgumentException if the specified timeout duration is negative.
      */
     public override func accept(timeout!: ?Duration): UnixSocket {
-        let accepted = impl.accept(timeout) ?? SocketException.throwClosedException()
+        let accepted = this.impl.accept(timeout) ?? SocketException.throwClosedException()
         return UnixSocket(accepted)
     }
 
@@ -1043,14 +871,14 @@ public class UnixServerSocket <: ServerSocket {
      * This function is reentrant.
      **/
     public override func close(): Unit {
-        impl.close()
+        this.impl.close()
     }
 
     /**
      * Checks whether this socket has been explicitly closed via close()
      **/
     public override func isClosed(): Bool {
-        impl.isClosed()
+        this.impl.isClosed()
     }
 
     /**
@@ -1064,13 +892,8 @@ public class UnixServerSocket <: ServerSocket {
      *
      * Throws an exception if failed (when getsockopt returns -1).
      */
-    public func getSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: CPointer<UIntNative>
-    ): Unit {
-        unsafe { impl.getSocketOption(level, option, value, valueLength) }
+    public func getSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: CPointer<UIntNative>): Unit {
+        unsafe { this.impl.getSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -1081,13 +904,8 @@ public class UnixServerSocket <: ServerSocket {
      *
      * Throws an exception if failed (when setsockopt returns -1).
      */
-    public func setSocketOption(
-        level: Int32,
-        option: Int32,
-        value: CPointer<Unit>,
-        valueLength: UIntNative
-    ): Unit {
-        unsafe { impl.setSocketOption(level, option, value, valueLength) }
+    public func setSocketOption(level: Int32, option: Int32, value: CPointer<Unit>, valueLength: UIntNative): Unit {
+        unsafe { this.impl.setSocketOption(level, option, value, valueLength) }
     }
 
     /**
@@ -1098,11 +916,8 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionIntNative(
-        level: Int32,
-        option: Int32
-    ): IntNative {
-        impl.getSocketOptionIntNative(level, option)
+    public func getSocketOptionIntNative(level: Int32, option: Int32): IntNative {
+        this.impl.getSocketOptionIntNative(level, option)
     }
 
     /**
@@ -1113,12 +928,8 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionIntNative(
-        level: Int32,
-        option: Int32,
-        value: IntNative
-    ): Unit {
-        impl.setSocketOptionIntNative(level, option, value)
+    public func setSocketOptionIntNative(level: Int32, option: Int32, value: IntNative): Unit {
+        this.impl.setSocketOptionIntNative(level, option, value)
     }
 
     /**
@@ -1132,11 +943,8 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when getsockopt returns -1) or if the result
      * has size different from IntNative.
      */
-    public func getSocketOptionBool(
-        level: Int32,
-        option: Int32
-    ): Bool {
-        impl.getSocketOptionBool(level, option)
+    public func getSocketOptionBool(level: Int32, option: Int32): Bool {
+        this.impl.getSocketOptionBool(level, option)
     }
 
     /**
@@ -1149,15 +957,11 @@ public class UnixServerSocket <: ServerSocket {
      * Throws an exception if failed (when setsockopt returns -1), for example
      * when the option size is different from IntNative.
      */
-    public func setSocketOptionBool(
-        level: Int32,
-        option: Int32,
-        value: Bool
-    ): Unit {
-        impl.setSocketOptionBool(level, option, value)
+    public func setSocketOptionBool(level: Int32, option: Int32, value: Bool): Unit {
+        this.impl.setSocketOptionBool(level, option, value)
     }
 
     public override func toString(): String {
-        "UnixServerSocket(${impl.toString()})"
+        "UnixServerSocket(${this.impl.toString()})"
     }
 }

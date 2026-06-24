@@ -28,7 +28,9 @@ struct NonReentrantReadWriteMutex {
         let m = Mutex()
         let useCounter = AtomicInt64(0) // positive = read count, -1 - write
 
-        let condition = synchronized(m) { m.condition() }
+        let condition = synchronized(m) {
+            m.condition()
+        }
         this.readMutex = NonReentrantReadLock(m, useCounter, condition)
         this.writeMutex = NonReentrantWriteLock(m, useCounter, condition)
     }
@@ -44,11 +46,11 @@ struct NonReentrantReadLock <: Lock {
 
     public override func lock(): Unit {
         if (!tryLock()) {
-            lockSlowpath()
+            lockAsReaderSlowpath()
         }
     }
 
-    private func lockSlowpath(): Unit {
+    private func lockAsReaderSlowpath(): Unit {
         synchronized(m) {
             while (!tryLock()) {
                 condition.wait()
@@ -127,16 +129,18 @@ struct NonReentrantWriteLock <: Lock {
     init() {
         this.m = Mutex()
         this.useCounter = AtomicInt64(0)
-        this.condition = synchronized(m) { m.condition() }
+        this.condition = synchronized(m) {
+            m.condition()
+        }
     }
 
     public override func lock(): Unit {
         if (!tryLock()) {
-            lockSlowpath()
+            lockAsWriterSlowpath()
         }
     }
 
-    private func lockSlowpath(): Unit {
+    private func lockAsWriterSlowpath(): Unit {
         synchronized(m) {
             while (!tryLock()) {
                 condition.wait()

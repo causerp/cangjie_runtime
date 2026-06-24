@@ -196,8 +196,14 @@ class IPv6Prefix <: IPPrefix & Equatable<IPv6Prefix> & Hashable & ToString {
         if (prefixLength > 128) {
             throw IllegalFormatException("IPv6 prefix length must be >= 0 and <= 128.")
         }
-        _ip = ip
         _prefixLength = prefixLength
+        _ip = ip
+    }
+
+    public prop prefixLength: UInt8 {
+        get() {
+            _prefixLength
+        }
     }
 
     public prop address: IPAddress {
@@ -206,11 +212,6 @@ class IPv6Prefix <: IPPrefix & Equatable<IPv6Prefix> & Hashable & ToString {
         }
     }
 
-    public prop prefixLength: UInt8 {
-        get() {
-            _prefixLength
-        }
-    }
     public func contains(rhs: IPv6Address): Bool {
         return this.network() <= rhs && rhs <= this.broadcast()
     }
