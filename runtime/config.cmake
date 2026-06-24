@@ -301,6 +301,7 @@ if (OHOS_FLAG IN_LIST OHOS_FLAG_LIST)
         -Wstring-conversion -Wtautological-overlap-compare -Wl,--allow-shlib-undefined \
         -Wno-unused-command-line-argument -fno-omit-frame-pointer -fvisibility=default -fno-exceptions -fno-rtti \
         -ffunction-sections -Wall -fstack-protector-strong -fno-emulated-tls \
+        -Wl,--hash-style=gnu \
         --sysroot=${OHOS_ROOT}/out/sdk/obj/third_party/musl/sysroot ${OHOS_INCLUDE}"
     )
 elseif (WINDOWS_FLAG MATCHES 1)
