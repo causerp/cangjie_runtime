@@ -423,8 +423,9 @@ public class LinkedList<T> <: Collection<T> {
         while (let Some(n) <- node) {
             match (transform(n.value)) {
                 case Some(v) => result.addLast(v)
-                case None => node = n.next
-                            continue
+                case None =>
+                    node = n.next
+                    continue
             }
             node = n.next
         }
@@ -444,7 +445,7 @@ public class LinkedList<T> <: Collection<T> {
         }
         var result = LinkedList<T>()
         var node = _head.getOrThrow()
-        for(_ in 0..size - 1){
+        for (_ in 0..size - 1) {
             result.addLast(node.value)
             result.addLast(separator)
             node = node.next.getOrThrow()

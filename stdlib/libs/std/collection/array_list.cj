@@ -557,7 +557,7 @@ public class ArrayList<T> <: List<T> {
                 j++
             }
         }
-        return ArrayList<T>(newData.slice(0,j))
+        return ArrayList<T>(newData.slice(0, j))
     }
 
     /**
@@ -586,8 +586,8 @@ public class ArrayList<T> <: List<T> {
      */
     @When[env != "ohos"]
     public func flatMap<R>(transform: (T) -> ArrayList<R>): ArrayList<R> {
-        var newList :ArrayList<R> = ArrayList<R>()
-        for(i in 0..mySize){
+        var newList: ArrayList<R> = ArrayList<R>()
+        for (i in 0..mySize) {
             var tempData = transform(myData[i])
             newList.add(all: tempData)
         }
@@ -616,7 +616,7 @@ public class ArrayList<T> <: List<T> {
                 case None => continue
             }
         }
-        return ArrayList<R>(newData.slice(0,j))
+        return ArrayList<R>(newData.slice(0, j))
     }
 
     /**
@@ -1178,80 +1178,79 @@ func max(a: Int64, b: Int64): Int64 {
     }
 }
 
-// Temporary code, deleted when @Deprecated ends
-func stableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Unit {
+func stableSort<T>(data: Array<T>, compare: (T, T) -> Ordering): Unit {
     if (data.size < 2) {
         return
     }
-    data.timSort(comparator)
+    data.timSort(compare)
 }
 // Temporary code, deleted when @Deprecated ends
 extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    private func shortSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Unit {
-        let len = this.size
-        if (len <= 8) {
-            if (len <= 1) {
+    private func shortSort(start: Int64, finish: Int64, compare: (T, T) -> Ordering): Unit {
+        let span = this.size
+        if (span <= 8) {
+            if (span <= 1) {
                 return
-            } else if (len == 2) {
-                this.compareSwap2(begin, end, comparator)
-            } else if (len == 3) {
-                this.compareSwap3(begin, begin + 1, end, comparator)
+            } else if (span == 2) {
+                this.compareSwap2(start, finish, compare)
+            } else if (span == 3) {
+                this.compareSwap3(start, start + 1, finish, compare)
             } else {
-                insertionSort(begin, end, comparator)
+                insertionSort(start, finish, compare)
             }
         } else {
-            var temp = TempArray(len, this[begin])
-            let n = getSequenceLength(begin, end, temp, comparator)
-            if (n == len) {
+            var scratch = TempArray(span, this[start])
+            let runLength = getSequenceLength(start, finish, scratch, compare)
+            if (runLength == span) {
                 return
             }
-            binaryInsertionSort(begin, end, comparator, n)
+            binaryInsertionSort(start, finish, compare, runLength)
         }
     }
 
     @OverflowWrapping
     private func maybeMerge(
-        startArr: Array<Int64>,
-        lengthArr: Array<Int64>,
-        endIndex: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        runStarts: Array<Int64>,
+        runLengths: Array<Int64>,
+        runTop: Int64,
+        scratch: TempArray<T>,
+        compare: (T, T) -> Ordering
     ): Int64 {
-        var index: Int64 = endIndex
+        var index: Int64 = runTop
         while (index > 0) {
-            var n: Int64 = index - 1
-            let sn = startArr[n]
-            let sn1 = startArr[n + 1]
-            let ln = lengthArr[n]
-            let ln1 = lengthArr[n + 1]
-            if (n == 0) {
-                if (ln <= ln1) {
-                    this.merge(sn, ln, sn1, ln1, temp, comparator)
-                    lengthArr[n] = ln + ln1
+            var runLength: Int64 = index - 1
+            let currentStart = runStarts[runLength]
+            let nextStart = runStarts[runLength + 1]
+            let currentLength = runLengths[runLength]
+            let nextLength = runLengths[runLength + 1]
+            if (runLength == 0) {
+                if (currentLength <= nextLength) {
+                    this.merge(currentStart, currentLength, nextStart, nextLength, scratch, compare)
+                    runLengths[runLength] = currentLength + nextLength
                     index--
                 }
                 break
             }
 
-            let s = startArr[n - 1]
-            let l = lengthArr[n - 1]
-            if (l <= ln + ln1) {
-                if (l < ln1) {
-                    this.merge(s, l, sn, ln, temp, comparator)
-                    lengthArr[n - 1] = l + ln
-                    startArr[n] = sn1
-                    lengthArr[n] = ln1
+            let selected = runStarts[runLength - 1]
+            let leftBound = runLengths[runLength - 1]
+            if (leftBound <= currentLength + nextLength) {
+                if (leftBound < nextLength) {
+                    this.merge(selected, leftBound, currentStart, currentLength, scratch, compare)
+                    runLengths[runLength - 1] = leftBound + currentLength
+                    runStarts[runLength] = nextStart
+                    runLengths[runLength] = nextLength
                     index--
                 } else {
-                    this.merge(sn, ln, sn1, ln1, temp, comparator)
-                    lengthArr[n] = ln + ln1
+                    this.merge(currentStart, currentLength, nextStart, nextLength, scratch, compare)
+                    runLengths[runLength] = currentLength + nextLength
                     index--
                 }
-            } else if (ln <= ln1) {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
-                lengthArr[n] = ln + ln1
+            } else if (currentLength <= nextLength) {
+                this.merge(currentStart, currentLength, nextStart, nextLength, scratch, compare)
+                runLengths[runLength] = currentLength + nextLength
                 index--
             } else {
                 break
@@ -1262,35 +1261,35 @@ extend<T> Array<T> {
 
     @OverflowWrapping
     private func mergeAll(
-        startArr: Array<Int64>,
-        lengthArr: Array<Int64>,
-        endIndex: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        runStarts: Array<Int64>,
+        runLengths: Array<Int64>,
+        runTop: Int64,
+        scratch: TempArray<T>,
+        compare: (T, T) -> Ordering
     ): Unit {
-        var index: Int64 = endIndex
+        var index: Int64 = runTop
         while (index > 0) {
-            var n: Int64 = index - 1
-            let sn = startArr[n]
-            let sn1 = startArr[n + 1]
-            let ln = lengthArr[n]
-            let ln1 = lengthArr[n + 1]
-            if (n == 0) {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
+            var runLength: Int64 = index - 1
+            let currentStart = runStarts[runLength]
+            let nextStart = runStarts[runLength + 1]
+            let currentLength = runLengths[runLength]
+            let nextLength = runLengths[runLength + 1]
+            if (runLength == 0) {
+                this.merge(currentStart, currentLength, nextStart, nextLength, scratch, compare)
                 break
             }
 
-            let s = startArr[n - 1]
-            let l = lengthArr[n - 1]
-            if (l < ln1) {
-                this.merge(s, l, sn, ln, temp, comparator)
-                lengthArr[n - 1] = l + ln
-                startArr[n] = sn1
-                lengthArr[n] = ln1
+            let selected = runStarts[runLength - 1]
+            let leftBound = runLengths[runLength - 1]
+            if (leftBound < nextLength) {
+                this.merge(selected, leftBound, currentStart, currentLength, scratch, compare)
+                runLengths[runLength - 1] = leftBound + currentLength
+                runStarts[runLength] = nextStart
+                runLengths[runLength] = nextLength
                 index--
             } else {
-                this.merge(sn, ln, sn1, ln1, temp, comparator)
-                lengthArr[n] = ln + ln1
+                this.merge(currentStart, currentLength, nextStart, nextLength, scratch, compare)
+                runLengths[runLength] = currentLength + nextLength
                 index--
             }
         }
@@ -1302,20 +1301,20 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        scratch: TempArray<T>,
+        compare: (T, T) -> Ordering
     ): Unit {
         var s1 = start1
         var l1 = len1
         var s2 = start2
         var l2 = len2
-        var lt = this.queryLT(this[s1 + l1 - 1], s2, l2, comparator, true)
+        var lt = this.queryLT(this[s1 + l1 - 1], s2, l2, compare, true)
         l2 = lt - s2
         if (l2 == 0) {
             return
         }
 
-        var gt = this.queryGT(this[s2], s1, l1, comparator, false)
+        var gt = this.queryGT(this[s2], s1, l1, compare, false)
         l1 = l1 - (gt - s1)
         s1 = gt
         if (l1 == 0) {
@@ -1331,9 +1330,9 @@ extend<T> Array<T> {
             this.copyTo(this, s1, s1 + 1, l1)
             this[s1] = t0
         } else if (l1 <= l2) {
-            mergeFromLeft(s1, l1, s2, l2, temp, comparator)
+            mergeFromLeft(s1, l1, s2, l2, scratch, compare)
         } else {
-            mergeFromRight(s1, l1, s2, l2, temp, comparator)
+            mergeFromRight(s1, l1, s2, l2, scratch, compare)
         }
     }
 
@@ -1343,11 +1342,11 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        scratch: TempArray<T>,
+        compare: (T, T) -> Ordering
     ) {
-        let arr = temp.getArray(len1)
-        this.copyTo(arr, start1, 0, len1)
+        let buffer = scratch.getArray(len1)
+        this.copyTo(buffer, start1, 0, len1)
         var ti = start1
         var s1 = 0
         var l1 = len1
@@ -1359,68 +1358,68 @@ extend<T> Array<T> {
         l2--
         var c1 = 0
         var c2 = 0
-        var continueBreak = false
+        var shouldStopPartition = false
         while (true) {
             c1 = 0
             c2 = 0
-            continueBreak = false
-            var t1 = arr[s1]
-            var t2 = this[s2]
+            shouldStopPartition = false
+            var savedFirst = buffer[s1]
+            var savedSecond = this[s2]
             while (true) {
-                match (comparator(t1, t2)) {
+                match (compare(savedFirst, savedSecond)) {
                     case GT =>
-                        this[ti] = t2
+                        this[ti] = savedSecond
                         ti++
                         s2++
                         l2--
                         c2++
                         c1 = 0
                         if (l2 == 0) {
-                            continueBreak = true
+                            shouldStopPartition = true
                             break
                         }
                         if (c2 > 4) {
                             break
                         }
 
-                        t2 = this[s2]
+                        savedSecond = this[s2]
                     case _ =>
-                        this[ti] = t1
+                        this[ti] = savedFirst
                         ti++
                         s1++
                         l1--
                         c1++
                         c2 = 0
                         if (l1 == 1) {
-                            continueBreak = true
+                            shouldStopPartition = true
                             break
                         }
                         if (c1 > 4) {
                             break
                         }
 
-                        t1 = arr[s1]
+                        savedFirst = buffer[s1]
                 }
             }
-            if (continueBreak) {
+            if (shouldStopPartition) {
                 break
             }
-            continueBreak = false
+            shouldStopPartition = false
             while (true) {
-                var point = this[s2]
-                c1 = arr.queryGT(point, s1, l1, comparator, false) - s1
+                var candidate = this[s2]
+                c1 = buffer.queryGT(candidate, s1, l1, compare, false) - s1
                 match (c1) {
-                    case 0 => this[ti] = point
+                    case 0 => this[ti] = candidate
                     case 1 =>
-                        this[ti] = arr[s1]
-                        this[ti + 1] = point
+                        this[ti] = buffer[s1]
+                        this[ti + 1] = candidate
                     case 2 =>
-                        this[ti] = arr[s1]
-                        this[ti + 1] = arr[s1 + 1]
-                        this[ti + 2] = point
+                        this[ti] = buffer[s1]
+                        this[ti + 1] = buffer[s1 + 1]
+                        this[ti + 2] = candidate
                     case _ =>
-                        arr.copyTo(this, s1, ti, c1)
-                        this[ti + c1] = point
+                        buffer.copyTo(this, s1, ti, c1)
+                        this[ti + c1] = candidate
                 }
                 ti = ti + c1 + 1
                 s1 += c1
@@ -1428,23 +1427,23 @@ extend<T> Array<T> {
                 s2++
                 l2--
                 if (l1 == 1 || l2 == 0) {
-                    continueBreak = true
+                    shouldStopPartition = true
                     break
                 }
-                point = arr[s1]
-                c2 = this.queryLT(point, s2, l2, comparator, false) - s2
+                candidate = buffer[s1]
+                c2 = this.queryLT(candidate, s2, l2, compare, false) - s2
                 match (c2) {
-                    case 0 => this[ti] = point
+                    case 0 => this[ti] = candidate
                     case 1 =>
                         this[ti] = this[s2]
-                        this[ti + 1] = point
+                        this[ti + 1] = candidate
                     case 2 =>
                         this[ti] = this[s2]
                         this[ti + 1] = this[s2 + 1]
-                        this[ti + 2] = point
+                        this[ti + 2] = candidate
                     case _ =>
                         this.copyTo(this, s2, ti, c2)
-                        this[ti + c2] = point
+                        this[ti + c2] = candidate
                 }
                 ti = ti + c2 + 1
                 s2 += c2
@@ -1452,23 +1451,23 @@ extend<T> Array<T> {
                 s1++
                 l1--
                 if (l2 == 0 || l1 == 1) {
-                    continueBreak = true
+                    shouldStopPartition = true
                     break
                 }
                 if (c1 < 4 || c2 < 4) {
                     break
                 }
             }
-            if (continueBreak) {
+            if (shouldStopPartition) {
                 break
             }
         }
         if (l2 == 0) {
-            arr.copyTo(this, s1, ti, l1)
+            buffer.copyTo(this, s1, ti, l1)
         }
         if (l1 == 1) {
             this.copyTo(this, s2, ti, l2)
-            this[ti + l2] = arr[s1]
+            this[ti + l2] = buffer[s1]
         }
     }
 
@@ -1478,11 +1477,11 @@ extend<T> Array<T> {
         len1: Int64,
         start2: Int64,
         len2: Int64,
-        temp: TempArray<T>,
-        comparator: (T, T) -> Ordering
+        scratch: TempArray<T>,
+        compare: (T, T) -> Ordering
     ) {
-        let arr = temp.getArray(len2)
-        this.copyTo(arr, start2, 0, len2)
+        let buffer = scratch.getArray(len2)
+        this.copyTo(buffer, start2, 0, len2)
         var ti = start2 + len2 - 1
         var s1 = start1 + len1 - 1
         var l1 = len1
@@ -1494,68 +1493,68 @@ extend<T> Array<T> {
         l1--
         var c1 = 0
         var c2 = 0
-        var continueBreak = false
+        var shouldStopPartition = false
         while (true) {
             c1 = 0
             c2 = 0
-            continueBreak = false
-            var t1 = this[s1]
-            var t2 = arr[s2]
+            shouldStopPartition = false
+            var savedFirst = this[s1]
+            var savedSecond = buffer[s2]
             while (true) {
-                match (comparator(t1, t2)) {
+                match (compare(savedFirst, savedSecond)) {
                     case GT =>
-                        this[ti] = t1
+                        this[ti] = savedFirst
                         ti--
                         s1--
                         l1--
                         c1++
                         c2 = 0
                         if (l1 == 0) {
-                            continueBreak = true
+                            shouldStopPartition = true
                             break
                         }
                         if (c1 > 4) {
                             break
                         }
 
-                        t1 = this[s1]
+                        savedFirst = this[s1]
                     case _ =>
-                        this[ti] = t2
+                        this[ti] = savedSecond
                         ti--
                         s2--
                         l2--
                         c2++
                         c1 = 0
                         if (l2 == 1) {
-                            continueBreak = true
+                            shouldStopPartition = true
                             break
                         }
                         if (c2 > 4) {
                             break
                         }
-                        t2 = arr[s2]
+                        savedSecond = buffer[s2]
                 }
             }
-            if (continueBreak) {
+            if (shouldStopPartition) {
                 break
             }
-            continueBreak = false
+            shouldStopPartition = false
             while (true) {
-                var point = this[s1]
-                let lt = arr.queryLT(point, 0, l2, comparator, true)
+                var candidate = this[s1]
+                let lt = buffer.queryLT(candidate, 0, l2, compare, true)
                 c2 = l2 - lt
                 match (c2) {
-                    case 0 => this[ti] = point
+                    case 0 => this[ti] = candidate
                     case 1 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = point
+                        this[ti] = buffer[s2]
+                        this[ti - 1] = candidate
                     case 2 =>
-                        this[ti] = arr[s2]
-                        this[ti - 1] = arr[s2 - 1]
-                        this[ti - 2] = point
+                        this[ti] = buffer[s2]
+                        this[ti - 1] = buffer[s2 - 1]
+                        this[ti - 2] = candidate
                     case _ =>
-                        arr.copyTo(this, lt, ti - c2 + 1, c2)
-                        this[ti - c2] = point
+                        buffer.copyTo(this, lt, ti - c2 + 1, c2)
+                        this[ti - c2] = candidate
                 }
                 ti = ti - c2 - 1
                 s2 -= c2
@@ -1563,24 +1562,24 @@ extend<T> Array<T> {
                 s1--
                 l1--
                 if (l2 == 1 || l1 == 0) {
-                    continueBreak = true
+                    shouldStopPartition = true
                     break
                 }
-                point = arr[s2]
-                let gt = this.queryGT(point, start1, l1, comparator, true)
+                candidate = buffer[s2]
+                let gt = this.queryGT(candidate, start1, l1, compare, true)
                 c1 = s1 - gt + 1
                 match (c1) {
-                    case 0 => this[ti] = point
+                    case 0 => this[ti] = candidate
                     case 1 =>
                         this[ti] = this[s1]
-                        this[ti - 1] = point
+                        this[ti - 1] = candidate
                     case 2 =>
                         this[ti] = this[s1]
                         this[ti - 1] = this[s1 - 1]
-                        this[ti - 2] = point
+                        this[ti - 2] = candidate
                     case _ =>
                         this.copyTo(this, gt, ti - c1 + 1, c1)
-                        this[ti - c1] = point
+                        this[ti - c1] = candidate
                 }
                 ti = ti - c1 - 1
                 s1 -= c1
@@ -1588,64 +1587,64 @@ extend<T> Array<T> {
                 s2--
                 l2--
                 if (l1 == 0 || l2 == 1) {
-                    continueBreak = true
+                    shouldStopPartition = true
                     break
                 }
                 if (c1 < 4 || c2 < 4) {
                     break
                 }
             }
-            if (continueBreak) {
+            if (shouldStopPartition) {
                 break
             }
         }
         if (l1 == 0) {
-            arr.copyTo(this, 0, ti - l2 + 1, l2)
+            buffer.copyTo(this, 0, ti - l2 + 1, l2)
         }
         if (l2 == 1) {
             this.copyTo(this, start1, start1 + 1, l1)
-            this[start1] = arr[s2]
+            this[start1] = buffer[s2]
         }
     }
 
     @OverflowWrapping
-    func timSort(comparator: (T, T) -> Ordering): Unit {
+    func timSort(compare: (T, T) -> Ordering): Unit {
         if (this.size <= 64) {
-            shortSort(0, this.size - 1, comparator)
+            shortSort(0, this.size - 1, compare)
             return
         }
 
         // init temp data
         let mrl = this.getMinRunLength()
-        var temp = TempArray(this.size, this[0])
+        var scratch = TempArray(this.size, this[0])
         let stackLen = Int64(log2(Float64(this.size) / Float64(mrl) + 2.0)) + 1
-        let startArr = Array<Int64>(stackLen, repeat: 0)
-        let lengthArr = Array<Int64>(stackLen, repeat: 0)
-        var endIndex = -1
+        let runStarts = Array<Int64>(stackLen, repeat: 0)
+        let runLengths = Array<Int64>(stackLen, repeat: 0)
+        var runTop = -1
 
-        var begin: Int64 = 0
-        while (begin < this.size) {
-            let length = this.size - begin
+        var start: Int64 = 0
+        while (start < this.size) {
+            let length = this.size - start
             var seqLen = length
             if (length > 1) {
-                seqLen = getSequenceLength(begin, this.size - 1, temp, comparator)
+                seqLen = getSequenceLength(start, this.size - 1, scratch, compare)
                 if (seqLen < mrl) {
                     if (length < mrl) {
-                        binaryInsertionSort(begin, begin + length - 1, comparator, seqLen)
+                        binaryInsertionSort(start, start + length - 1, compare, seqLen)
                         seqLen = length
                     } else {
-                        binaryInsertionSort(begin, begin + mrl - 1, comparator, seqLen)
+                        binaryInsertionSort(start, start + mrl - 1, compare, seqLen)
                         seqLen = mrl
                     }
                 }
             }
-            endIndex++
-            startArr[endIndex] = begin
-            lengthArr[endIndex] = seqLen
-            begin = begin + seqLen
-            endIndex = this.maybeMerge(startArr, lengthArr, endIndex, temp, comparator)
+            runTop++
+            runStarts[runTop] = start
+            runLengths[runTop] = seqLen
+            start = start + seqLen
+            runTop = this.maybeMerge(runStarts, runLengths, runTop, scratch, compare)
         }
-        this.mergeAll(startArr, lengthArr, endIndex, temp, comparator)
+        this.mergeAll(runStarts, runLengths, runTop, scratch, compare)
     }
 }
 // Temporary code, deleted when @Deprecated ends
@@ -1654,35 +1653,34 @@ class TempArray<T> {
     private let zero: T
     private let max: Int64
 
-    init(n: Int64, z: T) {
+    init(runLength: Int64, z: T) {
         this.data = Array<T>()
-        this.max = n >> 1
+        this.max = runLength >> 1
         this.zero = z
     }
 
     @OverflowWrapping
-    func getArray(n: Int64): Array<T> {
-        if (data.size >= n) {
+    func getArray(runLength: Int64): Array<T> {
+        if (data.size >= runLength) {
             return this.data
         }
-        var newSize = data.size * 2
-        if (newSize < n) {
-            newSize = n
+        var expandedSize = data.size * 2
+        if (expandedSize < runLength) {
+            expandedSize = runLength
         }
-        if (newSize > this.max) {
-            newSize = this.max
+        if (expandedSize > this.max) {
+            expandedSize = this.max
         }
-        this.data = Array<T>(newSize, repeat: this.zero)
+        this.data = Array<T>(expandedSize, repeat: this.zero)
         return this.data
     }
 }
 
-// Temporary code, deleted when @Deprecated ends
-func unstableSort<T>(data: Array<T>, comparator: (T, T) -> Ordering): Unit {
+func unstableSort<T>(data: Array<T>, compare: (T, T) -> Ordering): Unit {
     if (data.size < 2) {
         return
     }
-    data.introSort(0, data.size - 1, data.depth(), comparator)
+    data.introSort(0, data.size - 1, data.depth(), compare)
 }
 
 // Temporary code, deleted when @Deprecated ends
@@ -1690,179 +1688,174 @@ extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     // end - begin >= 1
     @OverflowWrapping
-    private func getPartition(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): (Int64, Int64) {
-        let len: Int64 = end - begin + 1
-        let mid: Int64 = (len >> 1) + begin
-        if (len >= 64) {
-            let off: Int64 = len >> 2
-            this.compareSwap3(begin, begin + off, mid, comparator)
-            this.compareSwap3(mid, mid + off, end, comparator)
+    private func getPartition(start: Int64, finish: Int64, compare: (T, T) -> Ordering): (Int64, Int64) {
+        let span: Int64 = finish - start + 1
+        let middle: Int64 = (span >> 1) + start
+        if (span >= 64) {
+            let quarter: Int64 = span >> 2
+            this.compareSwap3(start, start + quarter, middle, compare)
+            this.compareSwap3(middle, middle + quarter, finish, compare)
         }
-        this.compareSwap3(begin, mid, end, comparator)
-        let pivot: T = this[mid]
+        this.compareSwap3(start, middle, finish, compare)
+        let pivotValue: T = this[middle]
 
-        // swap mid and end
-        let temp = this[end]
-        this[end] = pivot
-        this[mid] = temp
-        var pointNum = 0
-        var b = begin
-        var e = end - 1
+        let scratch = this[finish]
+        this[finish] = pivotValue
+        this[middle] = scratch
+        var pivotEqualCount = 0
+        var left = start
+        var right = finish - 1
 
-        // query the first value equal to pivot
-        var first: Int64 = b
-        while (b < e) {
-            let tb = this[b]
-            match (comparator(tb, pivot)) {
-                case LT => b++
+        var firstEqual: Int64 = left
+        while (left < right) {
+            let leftValue = this[left]
+            match (compare(leftValue, pivotValue)) {
+                case LT => left++
                 case EQ =>
-                    pointNum++
-                    first = b
-                    b++
+                    pivotEqualCount++
+                    firstEqual = left
+                    left++
                     break
                 case GT =>
-                    var continueBreak = false
-                    while (b < e) {
-                        let te = this[e]
-                        match (comparator(pivot, te)) {
-                            case LT => e--
+                    var shouldStopPartition = false
+                    while (left < right) {
+                        let rightValue = this[right]
+                        match (compare(pivotValue, rightValue)) {
+                            case LT => right--
                             case EQ =>
-                                pointNum++
-                                this[b] = te
-                                this[e] = tb
-                                e--
-                                first = b
-                                b++
-                                continueBreak = true
+                                pivotEqualCount++
+                                this[left] = rightValue
+                                this[right] = leftValue
+                                right--
+                                firstEqual = left
+                                left++
+                                shouldStopPartition = true
                                 break
                             case GT =>
-                                this[b] = te
-                                this[e] = tb
-                                b++
-                                e--
+                                this[left] = rightValue
+                                this[right] = leftValue
+                                left++
+                                right--
                                 break
                         }
                     }
-                    if (continueBreak) {
+                    if (shouldStopPartition) {
                         break
                     }
             }
         }
 
-        // find partition pivot
-        while (b < e) {
-            var tb: T = pivot
-            while (b < e) {
-                tb = this[b]
-                match (comparator(tb, pivot)) {
-                    case LT => b++
+        while (left < right) {
+            var leftValue: T = pivotValue
+            while (left < right) {
+                leftValue = this[left]
+                match (compare(leftValue, pivotValue)) {
+                    case LT => left++
                     case EQ =>
-                        pointNum++
-                        b++
+                        pivotEqualCount++
+                        left++
                     case GT => break
                 }
             }
-            var te: T = pivot
-            while (b < e) {
-                te = this[e]
-                match (comparator(pivot, te)) {
-                    case LT => e--
+            var rightValue: T = pivotValue
+            while (left < right) {
+                rightValue = this[right]
+                match (compare(pivotValue, rightValue)) {
+                    case LT => right--
                     case EQ =>
-                        pointNum++
+                        pivotEqualCount++
                         break
                     case GT => break
                 }
             }
-            if (b >= e) {
+            if (left >= right) {
                 break
             }
-            this[b] = te
-            this[e] = tb
-            b++
-            e--
+            this[left] = rightValue
+            this[right] = leftValue
+            left++
+            right--
         }
 
-        match (comparator(this[b], pivot)) {
+        match (compare(this[left], pivotValue)) {
             case GT => ()
-            case _ => b++
+            case _ => left++
         }
-        this.swap(b, end)
-        if (b - first >= pointNum * pointNum) {
-            return (b - 1, b + 1)
+        this.swap(left, finish)
+        if (left - firstEqual >= pivotEqualCount * pivotEqualCount) {
+            return (left - 1, left + 1)
         } else {
-            // When the number of traversal times is less than the square of the number of pivot
-            // merge a large number of values that are the same as pivot
-            let hi = b
-            b = first
-            e = hi - 1
-            while (b < e) {
-                var te: T = pivot
-                while (b < e) {
-                    te = this[e]
-                    match (comparator(pivot, te)) {
-                        case EQ => e--
+            let upper = left
+            left = firstEqual
+            right = upper - 1
+            while (left < right) {
+                var rightValue: T = pivotValue
+                while (left < right) {
+                    rightValue = this[right]
+                    match (compare(pivotValue, rightValue)) {
+                        case EQ => right--
                         case _ => break
                     }
                 }
-                var tb: T = pivot
-                while (b < e) {
-                    tb = this[b]
-                    match (comparator(tb, pivot)) {
+                var leftValue: T = pivotValue
+                while (left < right) {
+                    leftValue = this[left]
+                    match (compare(leftValue, pivotValue)) {
                         case EQ => break
-                        case _ => b++
+                        case _ => left++
                     }
                 }
-                if (b >= e) {
+                if (left >= right) {
                     break
                 }
-                this[b] = te
-                this[e] = tb
-                b++
-                e--
+                this[left] = rightValue
+                this[right] = leftValue
+                left++
+                right--
             }
-            match (comparator(this[b], pivot)) {
-                case EQ => b--
+            match (compare(this[left], pivotValue)) {
+                case EQ => left--
                 case _ => ()
             }
-            return (b, hi + 1)
+            return (left, upper + 1)
         }
     }
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func introSort(begin: Int64, end: Int64, depth: Int64, comparator: (T, T) -> Ordering): Unit {
-        var b: Int64 = begin
-        var e: Int64 = end
-        var d: Int64 = depth
-        while (b < e) {
-            let len = e - b + 1
-            if (len <= 16) {
-                if (len == 1) {
+    func introSort(start: Int64, finish: Int64, depth: Int64, compare: (T, T) -> Ordering): Unit {
+        var left: Int64 = start
+        var right: Int64 = finish
+        var remainingDepth: Int64 = depth
+        while (left < right) {
+            let span = right - left + 1
+            if (span <= 16) {
+                if (span == 1) {
                     return
-                } else if (len == 2) {
-                    this.compareSwap2(b, e, comparator)
-                } else if (len == 3) {
-                    this.compareSwap3(b, b + 1, e, comparator)
+                } else if (span == 2) {
+                    this.compareSwap2(left, right, compare)
+                } else if (span == 3) {
+                    this.compareSwap3(left, left + 1, right, compare)
                 } else {
-                    this.insertionSort(b, e, comparator)
+                    this.insertionSort(left, right, compare)
                 }
                 return
             }
-            if (d == 0) {
-                this.heapSort(b, e, comparator)
+            if (remainingDepth == 0) {
+                this.heapSort(left, right, compare)
                 return
             }
-            d--
-            let (lo, hi) = this.getPartition(b, e, comparator)
+            remainingDepth--
+            let (lower, upper) = this.getPartition(left, right, compare)
 
             // Let the smaller side do recursion
             // Let the bigger side do loop
-            if (lo - b < e - hi) {
-                this.introSort(b, lo, d, comparator)
-                b = hi
+            if (lower - left < right - upper) {
+                this.introSort(left, lower, remainingDepth, compare)
+                left = upper
             } else {
-                this.introSort(hi, e, d, comparator)
-                e = lo
+                this.introSort(upper, right, remainingDepth, compare)
+                right = lower
             }
         }
     }
@@ -1870,55 +1863,51 @@ extend<T> Array<T> {
 
 // Temporary code, deleted when @Deprecated ends
 extend<T> Array<T> {
-    // the value range of the parameter: 0 <= i1 < i2 <= array.size - 1
-    func compareSwap2(i1: Int64, i2: Int64, comparator: (T, T) -> Ordering) {
-        let a: T = this[i1]
-        let b: T = this[i2]
-        match (comparator(a, b)) {
+    func compareSwap2(i1: Int64, i2: Int64, compare: (T, T) -> Ordering) {
+        let leftItem: T = this[i1]
+        let left: T = this[i2]
+        match (compare(leftItem, left)) {
             case GT =>
-                this[i1] = b
-                this[i2] = a
+                this[i1] = left
+                this[i2] = leftItem
             case _ => ()
         }
     }
 
-    // the value range of the parameter: 0 <= i1 < i2 < i3 <= array.size - 1
-    // Ordering.LT/EQ: a <= b <= c
-    // Ordering.GT   : a >= b >= c
-    func compareSwap3(i1: Int64, i2: Int64, i3: Int64, comparator: (T, T) -> Ordering) {
-        var a: T = this[i1]
-        var b: T = this[i2]
-        var c: T = this[i3]
-        if (comparator(a, b) == GT) {
-            var temp = a
-            a = b
-            b = temp
+    func compareSwap3(i1: Int64, i2: Int64, i3: Int64, compare: (T, T) -> Ordering) {
+        var leftItem: T = this[i1]
+        var left: T = this[i2]
+        var rightItem: T = this[i3]
+        if (compare(leftItem, left) == GT) {
+            var scratch = leftItem
+            leftItem = left
+            left = scratch
         }
-        
-        if (comparator(c, a) == LT) {
-            this[i1] = c
-            this[i2] = a
-            this[i3] = b
-        } else if (comparator(c, b) == LT) {
-            this[i1] = a
-            this[i2] = c
-            this[i3] = b
+
+        if (compare(rightItem, leftItem) == LT) {
+            this[i1] = rightItem
+            this[i2] = leftItem
+            this[i3] = left
+        } else if (compare(rightItem, left) == LT) {
+            this[i1] = leftItem
+            this[i2] = rightItem
+            this[i3] = left
         } else {
-            this[i1] = a
-            this[i2] = b
-            this[i3] = c
+            this[i1] = leftItem
+            this[i2] = left
+            this[i3] = rightItem
         }
     }
 
     @OverflowWrapping
     func getMinRunLength() {
-        var n = this.size
-        var r: Int64 = 0
-        while (n >= 64) {
-            r = r | (n & 1)
-            n = n >> 1
+        var runLength = this.size
+        var rightBound: Int64 = 0
+        while (runLength >= 64) {
+            rightBound = rightBound | (runLength & 1)
+            runLength = runLength >> 1
         }
-        return n + r
+        return runLength + rightBound
     }
 
     @OverflowWrapping
@@ -1934,366 +1923,360 @@ extend<T> Array<T> {
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func insertionSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Unit {
-        var i: Int64 = begin + 1
-        while (i <= end) {
-            var point = this[i]
-            var j = i - 1
-            while (j >= begin) {
-                var temp = this[j]
-                match (comparator(temp, point)) {
-                    case GT => this[j + 1] = temp
+    func insertionSort(start: Int64, finish: Int64, compare: (T, T) -> Ordering): Unit {
+        var idx: Int64 = start + 1
+        while (idx <= finish) {
+            var candidate = this[idx]
+            var scan = idx - 1
+            while (scan >= start) {
+                var scratch = this[scan]
+                match (compare(scratch, candidate)) {
+                    case GT => this[scan + 1] = scratch
                     case _ => break
                 }
-                j--
+                scan--
             }
-            this[j + 1] = point
-            i++
+            this[scan + 1] = candidate
+            idx++
         }
     }
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     // end - begin >= 1
     @OverflowWrapping
-    func getSequenceLength(begin: Int64, end: Int64, temp: TempArray<T>, comparator: (T, T) -> Ordering): Int64 {
-        var b: Int64 = begin
-        var equalNum: Int64 = 1
-        var isAscending: Bool = true
+    func getSequenceLength(start: Int64, finish: Int64, scratch: TempArray<T>, compare: (T, T) -> Ordering): Int64 {
+        var left: Int64 = start
+        var equalCount: Int64 = 1
+        var ascending: Bool = true
 
-        // Obtains the length of a sequence with the same value.
-        match (comparator(this[b], this[b + 1])) {
-            case LT => isAscending = true
-            case GT => isAscending = false
+        match (compare(this[left], this[left + 1])) {
+            case LT => ascending = true
+            case GT => ascending = false
             case EQ =>
-                equalNum++
-                b++
-                while (b + 1 <= end) {
-                    match (comparator(this[b], this[b + 1])) {
+                equalCount++
+                left++
+                while (left + 1 <= finish) {
+                    match (compare(this[left], this[left + 1])) {
                         case LT =>
-                            isAscending = true
+                            ascending = true
                             break
                         case GT =>
-                            isAscending = false
+                            ascending = false
                             break
                         case EQ =>
-                            equalNum++
-                            b++
+                            equalCount++
+                            left++
                     }
                 }
         }
-        if (b >= end) {
-            return equalNum
-        } else if (end - b == 1) {
-            if (isAscending) {
-                return equalNum + 1
+        if (left >= finish) {
+            return equalCount
+        } else if (finish - left == 1) {
+            if (ascending) {
+                return equalCount + 1
             } else {
-                let te = this[end]
-                this.copyTo(this, begin, begin + 1, equalNum)
-                this[begin] = te
-                return equalNum + 1
+                let rightValue = this[finish]
+                this.copyTo(this, start, start + 1, equalCount)
+                this[start] = rightValue
+                return equalCount + 1
             }
         }
-        b++
-        var n: Int64 = 1
-        if (isAscending) {
-            while (b + 1 <= end) {
-                match (comparator(this[b], this[b + 1])) {
+        left++
+        var runLength: Int64 = 1
+        if (ascending) {
+            while (left + 1 <= finish) {
+                match (compare(this[left], this[left + 1])) {
                     case GT => break
                     case _ =>
-                        n++
-                        b++
+                        runLength++
+                        left++
                 }
             }
-            return equalNum + n
+            return equalCount + runLength
         } else {
-            while (b + 1 <= end) {
-                match (comparator(this[b], this[b + 1])) {
+            while (left + 1 <= finish) {
+                match (compare(this[left], this[left + 1])) {
                     case GT =>
-                        n++
-                        b++
+                        runLength++
+                        left++
                     case _ => break
                 }
             }
 
-            // reverse sequence
-            if (equalNum == 1) {
-                var i = begin
-                var j = begin + n // begin + equalNum + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
+            if (equalCount == 1) {
+                var idx = start
+                var scan = start + runLength // start + equalCount + runLength - 1
+                while (idx < scan) {
+                    this.swap(idx, scan)
+                    idx++
+                    scan--
                 }
-                return equalNum + n
+                return equalCount + runLength
             } else {
-                var i = begin + equalNum
-                var j = i + n - 1
-                while (i < j) {
-                    this.swap(i, j)
-                    i++
-                    j--
+                var idx = start + equalCount
+                var scan = idx + runLength - 1
+                while (idx < scan) {
+                    this.swap(idx, scan)
+                    idx++
+                    scan--
                 }
             }
 
-            if (equalNum == 2) {
-                let t1 = this[begin]
-                let t2 = this[begin + 1]
-                if (n == 1) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = t1
-                    this[begin + 2] = t2
-                } else if (n == 2) {
-                    this[begin] = this[begin + 2]
-                    this[begin + 1] = this[begin + 3]
-                    this[begin + 2] = t1
-                    this[begin + 3] = t2
+            if (equalCount == 2) {
+                let savedFirst = this[start]
+                let savedSecond = this[start + 1]
+                if (runLength == 1) {
+                    this[start] = this[start + 2]
+                    this[start + 1] = savedFirst
+                    this[start + 2] = savedSecond
+                } else if (runLength == 2) {
+                    this[start] = this[start + 2]
+                    this[start + 1] = this[start + 3]
+                    this[start + 2] = savedFirst
+                    this[start + 3] = savedSecond
                 } else {
-                    this.copyTo(this, begin + 2, begin, n)
-                    this[begin + equalNum + n - 2] = t1
-                    this[begin + equalNum + n - 1] = t2
+                    this.copyTo(this, start + 2, start, runLength)
+                    this[start + equalCount + runLength - 2] = savedFirst
+                    this[start + equalCount + runLength - 1] = savedSecond
                 }
             } else {
-                if (n == 1) {
-                    let t = this[begin + equalNum]
-                    this.copyTo(this, begin, begin + 1, equalNum)
-                    this[begin] = t
-                } else if (n == 2) {
-                    let t1 = this[begin + equalNum]
-                    let t2 = this[begin + equalNum + 1]
-                    this.copyTo(this, begin, begin + 2, equalNum)
-                    this[begin] = t1
-                    this[begin + 1] = t2
+                if (runLength == 1) {
+                    let t = this[start + equalCount]
+                    this.copyTo(this, start, start + 1, equalCount)
+                    this[start] = t
+                } else if (runLength == 2) {
+                    let savedFirst = this[start + equalCount]
+                    let savedSecond = this[start + equalCount + 1]
+                    this.copyTo(this, start, start + 2, equalCount)
+                    this[start] = savedFirst
+                    this[start + 1] = savedSecond
                 } else {
-                    if (n < equalNum) {
-                        let arr = temp.getArray(n)
-                        this.copyTo(arr, begin + equalNum, 0, n)
-                        this.copyTo(this, begin, begin + n, equalNum)
-                        arr.copyTo(this, 0, begin, n)
+                    if (runLength < equalCount) {
+                        let buffer = scratch.getArray(runLength)
+                        this.copyTo(buffer, start + equalCount, 0, runLength)
+                        this.copyTo(this, start, start + runLength, equalCount)
+                        buffer.copyTo(this, 0, start, runLength)
                     } else {
-                        let arr = temp.getArray(equalNum)
-                        this.copyTo(arr, begin, 0, equalNum)
-                        this.copyTo(this, begin + equalNum, begin, n)
-                        arr.copyTo(this, 0, begin + n, equalNum)
+                        let buffer = scratch.getArray(equalCount)
+                        this.copyTo(buffer, start, 0, equalCount)
+                        this.copyTo(this, start + equalCount, start, runLength)
+                        buffer.copyTo(this, 0, start + runLength, equalCount)
                     }
                 }
             }
-            return equalNum + n
+            return equalCount + runLength
         }
     }
 
     // the original relative positions of equal elements are not guaranteed.
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func binaryInsertionSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering, n: Int64) {
-        var i = begin + n
-        while (i <= end) {
-            let point = this[i]
-            let l = this.binaryQueryGT(point, begin, i - begin, comparator)
-            let moveN = i - l
-            if (moveN == 0) {
-                i++
+    func binaryInsertionSort(start: Int64, finish: Int64, compare: (T, T) -> Ordering, runLength: Int64) {
+        var idx = start + runLength
+        while (idx <= finish) {
+            let candidate = this[idx]
+            let leftBound = this.binaryQueryGT(candidate, start, idx - start, compare)
+            let moveCount = idx - leftBound
+            if (moveCount == 0) {
+                idx++
                 continue
             }
-            match (moveN) {
-                case 1 => this[i] = this[i - 1]
+            match (moveCount) {
+                case 1 => this[idx] = this[idx - 1]
                 case 2 =>
-                    this[i] = this[i - 1]
-                    this[i - 1] = this[i - 2]
-                case _ => this.copyTo(this, l, l + 1, moveN)
+                    this[idx] = this[idx - 1]
+                    this[idx - 1] = this[idx - 2]
+                case _ => this.copyTo(this, leftBound, leftBound + 1, moveCount)
             }
-            this[l] = point
-            i++
+            this[leftBound] = candidate
+            idx++
         }
     }
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func heapify(begin: Int64, end: Int64, root: Int64, comparator: (T, T) -> Ordering): Unit {
-        var fi: Int64 = root
-        var si = (fi << 1) + 1 // fi * 2 + 1
-        while (begin + si <= end) {
-            // si or (si + 1) is taken only once
-            let s = if (begin + si + 1 <= end) {
-                let s1 = this[begin + si]
-                let s2 = this[begin + si + 1]
-                match (comparator(s1, s2)) {
+    func heapify(start: Int64, finish: Int64, root: Int64, compare: (T, T) -> Ordering): Unit {
+        var parentIndex: Int64 = root
+        var childIndex = (parentIndex << 1) + 1 // parentIndex * 2 + 1
+        while (start + childIndex <= finish) {
+            let selected = if (start + childIndex + 1 <= finish) {
+                let s1 = this[start + childIndex]
+                let s2 = this[start + childIndex + 1]
+                match (compare(s1, s2)) {
                     case LT =>
-                        si++
+                        childIndex++
                         s2
                     case _ => s1
                 }
             } else {
-                this[begin + si]
+                this[start + childIndex]
             }
-            let f = this[begin + fi]
-            match (comparator(f, s)) {
+            let parent = this[start + parentIndex]
+            match (compare(parent, selected)) {
                 case LT =>
-                    this[begin + fi] = s
-                    this[begin + si] = f
+                    this[start + parentIndex] = selected
+                    this[start + childIndex] = parent
                 case _ => return
             }
-            fi = si
-            si = (fi << 1) + 1
+            parentIndex = childIndex
+            childIndex = (parentIndex << 1) + 1
         }
     }
 
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     @OverflowWrapping
-    func heapSort(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Unit {
-        let len = end - begin + 1
-        var i = (len >> 1) - 1
+    func heapSort(start: Int64, finish: Int64, compare: (T, T) -> Ordering): Unit {
+        let span = finish - start + 1
+        var idx = (span >> 1) - 1
 
-        // build max or min heap
-        while (i >= 0) {
-            this.heapify(begin, end, i, comparator)
-            i--
+        while (idx >= 0) {
+            this.heapify(start, finish, idx, compare)
+            idx--
         }
-        i = end
-        while (i > begin) {
-            // swap top and bottom data
-            this.swap(begin, i)
+        idx = finish
+        while (idx > start) {
+            this.swap(start, idx)
 
-            // reset max or min heap
-            this.heapify(begin, i - 1, 0, comparator)
-            i--
+            this.heapify(start, idx - 1, 0, compare)
+            idx--
         }
     }
 
     // The queried position is just greater than and equal the previous value.
     @OverflowWrapping
-    func binaryQueryGT(point: T, start: Int64, len: Int64, comparator: (T, T) -> Ordering): Int64 {
-        var l = start
-        var r = start + len
-        while (l < r) {
-            let m = l + ((r - l) >> 1)
-            match (comparator(point, this[m])) {
-                case LT => r = m
-                case _ => l = m + 1
+    func binaryQueryGT(candidate: T, start: Int64, span: Int64, compare: (T, T) -> Ordering): Int64 {
+        var leftBound = start
+        var rightBound = start + span
+        while (leftBound < rightBound) {
+            let middleIndex = leftBound + ((rightBound - leftBound) >> 1)
+            match (compare(candidate, this[middleIndex])) {
+                case LT => rightBound = middleIndex
+                case _ => leftBound = middleIndex + 1
             }
         }
-        return l
+        return leftBound
     }
 
     // The queried position is just less than and equal the next value.
     @OverflowWrapping
-    func binaryQueryLT(point: T, start: Int64, len: Int64, comparator: (T, T) -> Ordering): Int64 {
-        var l = start
-        var r = start + len
-        while (l < r) {
-            let m = l + ((r - l) >> 1)
-            match (comparator(point, this[m])) {
-                case GT => l = m + 1
-                case _ => r = m
+    func binaryQueryLT(candidate: T, start: Int64, span: Int64, compare: (T, T) -> Ordering): Int64 {
+        var leftBound = start
+        var rightBound = start + span
+        while (leftBound < rightBound) {
+            let middleIndex = leftBound + ((rightBound - leftBound) >> 1)
+            match (compare(candidate, this[middleIndex])) {
+                case GT => leftBound = middleIndex + 1
+                case _ => rightBound = middleIndex
             }
         }
-        return l
+        return leftBound
     }
 
     // The queried position is just greater than and equal the previous value.
     @OverflowWrapping
-    func queryGT(point: T, start: Int64, len: Int64, comparator: (T, T) -> Ordering, r: Bool) {
-        var gallopMax = len
-        if (r) {
-            let end = start + len - 1
-            if (len > 64) {
-                let gallopMid = Int64(sqrt(Float64(len)))
-                match (comparator(point, this[end - gallopMid])) {
-                    case LT => return this.binaryQueryGT(point, start, len - gallopMid, comparator)
-                    case _ => gallopMax = gallopMid
+    func queryGT(candidate: T, start: Int64, span: Int64, compare: (T, T) -> Ordering, rightBound: Bool) {
+        var gallopLimit = span
+        if (rightBound) {
+            let finish = start + span - 1
+            if (span > 64) {
+                let gallopProbe = Int64(sqrt(Float64(span)))
+                match (compare(candidate, this[finish - gallopProbe])) {
+                    case LT => return this.binaryQueryGT(candidate, start, span - gallopProbe, compare)
+                    case _ => gallopLimit = gallopProbe
                 }
             }
-            var ofs = 1
-            var lastOfs = 0
-            while (ofs < gallopMax) {
-                let t = this[end - ofs]
-                match (comparator(point, t)) {
+            var offset = 1
+            var previousOffset = 0
+            while (offset < gallopLimit) {
+                let t = this[finish - offset]
+                match (compare(candidate, t)) {
                     case LT =>
-                        lastOfs = ofs
-                        ofs = (ofs << 1) + 1
+                        previousOffset = offset
+                        offset = (offset << 1) + 1
                     case _ => break
                 }
             }
-            if (ofs > gallopMax) {
-                ofs = gallopMax
+            if (offset > gallopLimit) {
+                offset = gallopLimit
             }
-            return this.binaryQueryGT(point, start + len - ofs, ofs - lastOfs, comparator)
+            return this.binaryQueryGT(candidate, start + span - offset, offset - previousOffset, compare)
         } else {
-            if (len > 64) {
-                let gallopMid = Int64(sqrt(Float64(len)))
-                match (comparator(point, this[start + gallopMid])) {
-                    case LT => gallopMax = gallopMid
-                    case _ => return this.binaryQueryGT(point, start + gallopMid, len - gallopMid, comparator)
+            if (span > 64) {
+                let gallopProbe = Int64(sqrt(Float64(span)))
+                match (compare(candidate, this[start + gallopProbe])) {
+                    case LT => gallopLimit = gallopProbe
+                    case _ => return this.binaryQueryGT(candidate, start + gallopProbe, span - gallopProbe, compare)
                 }
             }
-            var ofs = 1
-            var lastOfs = 0
-            while (ofs < gallopMax) {
-                let t = this[start + ofs]
-                match (comparator(point, t)) {
+            var offset = 1
+            var previousOffset = 0
+            while (offset < gallopLimit) {
+                let t = this[start + offset]
+                match (compare(candidate, t)) {
                     case LT => break
                     case _ =>
-                        lastOfs = ofs
-                        ofs = (ofs << 1) + 1
+                        previousOffset = offset
+                        offset = (offset << 1) + 1
                 }
             }
-            if (ofs > gallopMax) {
-                ofs = gallopMax
+            if (offset > gallopLimit) {
+                offset = gallopLimit
             }
-            return this.binaryQueryGT(point, start + lastOfs, ofs - lastOfs, comparator)
+            return this.binaryQueryGT(candidate, start + previousOffset, offset - previousOffset, compare)
         }
     }
 
     // The queried position is just less than and equal the next value.
     @OverflowWrapping
-    func queryLT(point: T, start: Int64, len: Int64, comparator: (T, T) -> Ordering, r: Bool) {
-        var gallopMax = len
-        if (r) {
-            let end = start + len - 1
-            if (len > 64) {
-                let gallopMid = Int64(sqrt(Float64(len)))
-                match (comparator(point, this[end - gallopMid])) {
-                    case GT => gallopMax = gallopMid
-                    case _ => return this.binaryQueryLT(point, start, len - gallopMid, comparator)
+    func queryLT(candidate: T, start: Int64, span: Int64, compare: (T, T) -> Ordering, rightBound: Bool) {
+        var gallopLimit = span
+        if (rightBound) {
+            let finish = start + span - 1
+            if (span > 64) {
+                let gallopProbe = Int64(sqrt(Float64(span)))
+                match (compare(candidate, this[finish - gallopProbe])) {
+                    case GT => gallopLimit = gallopProbe
+                    case _ => return this.binaryQueryLT(candidate, start, span - gallopProbe, compare)
                 }
             }
-            var ofs = 1
-            var lastOfs = 0
-            while (ofs < gallopMax) {
-                let t = this[end - ofs]
-                match (comparator(point, t)) {
+            var offset = 1
+            var previousOffset = 0
+            while (offset < gallopLimit) {
+                let t = this[finish - offset]
+                match (compare(candidate, t)) {
                     case GT => break
                     case _ =>
-                        lastOfs = ofs
-                        ofs = (ofs << 1) + 1
+                        previousOffset = offset
+                        offset = (offset << 1) + 1
                 }
             }
-            if (ofs > gallopMax) {
-                ofs = gallopMax
+            if (offset > gallopLimit) {
+                offset = gallopLimit
             }
-            return this.binaryQueryLT(point, start + len - ofs, ofs - lastOfs, comparator)
+            return this.binaryQueryLT(candidate, start + span - offset, offset - previousOffset, compare)
         } else {
-            if (len > 64) {
-                let gallopMid = Int64(sqrt(Float64(len)))
-                match (comparator(point, this[start + gallopMid])) {
-                    case GT => return this.binaryQueryLT(point, start + gallopMid, len - gallopMid, comparator)
-                    case _ => gallopMax = gallopMid
+            if (span > 64) {
+                let gallopProbe = Int64(sqrt(Float64(span)))
+                match (compare(candidate, this[start + gallopProbe])) {
+                    case GT => return this.binaryQueryLT(candidate, start + gallopProbe, span - gallopProbe, compare)
+                    case _ => gallopLimit = gallopProbe
                 }
             }
-            var ofs = 1
-            var lastOfs = 0
-            while (ofs < gallopMax) {
-                let t = this[start + ofs]
-                match (comparator(point, t)) {
+            var offset = 1
+            var previousOffset = 0
+            while (offset < gallopLimit) {
+                let t = this[start + offset]
+                match (compare(candidate, t)) {
                     case GT =>
-                        lastOfs = ofs
-                        ofs = (ofs << 1) + 1
+                        previousOffset = offset
+                        offset = (offset << 1) + 1
                     case _ => break
                 }
             }
-            if (ofs > gallopMax) {
-                ofs = gallopMax
+            if (offset > gallopLimit) {
+                offset = gallopLimit
             }
-            return this.binaryQueryLT(point, start + lastOfs, ofs - lastOfs, comparator)
+            return this.binaryQueryLT(candidate, start + previousOffset, offset - previousOffset, compare)
         }
     }
 }
