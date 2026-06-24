@@ -250,6 +250,17 @@ func getEnvirments(env: CPointer<CString>): ?Array<(String, String)> {
     return envsList.toArray()
 }
 
+@When[os == "Windows"]
+func homeDirectory(): Path {
+    unsafe {
+        let homeDir: CString = CJ_OS_HomeDir()
+        let dir: Path = Path(homeDir.toString())
+        LibC.free(homeDir)
+        dir
+    }
+}
+
+@When[os != "Windows"]
 func homeDirectory(): Path {
     let homeDir: CString = unsafe { CJ_OS_HomeDir() } // Note: no need to free homeDir.
     Path(homeDir.toString())
