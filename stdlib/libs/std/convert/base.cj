@@ -217,7 +217,7 @@ func getBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): 
 }
 
 func tryGetBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>): Option<(UInt64, UInt64, UInt64)> {
-    var baseInfos = match (typeBase) {
+    var candidateBaseInfos = match (typeBase) {
         case I8 => baseInfosInt8
         case I16 => baseInfosInt16
         case I32 => baseInfosInt32
@@ -227,13 +227,14 @@ func tryGetBaseInfos(typeBase: TypeBase, isNegative: Int64, rawData: Array<Byte>
         case UI32 => baseInfosUInt32
         case _ => baseInfosUInt64
     }
-    match (rawData[1]) {
-        case 'b' | 'B' => Some(baseInfos[isNegative][2])
-        case 'o' | 'O' => Some(baseInfos[isNegative][8])
-        case 'x' | 'X' => Some(baseInfos[isNegative][16])
-        case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => Some(baseInfos[isNegative][10])
-        case _ => None
+    let baseInfo = match (rawData[1]) {
+        case 'b' | 'B' => candidateBaseInfos[isNegative][2]
+        case 'o' | 'O' => candidateBaseInfos[isNegative][8]
+        case 'x' | 'X' => candidateBaseInfos[isNegative][16]
+        case '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' => candidateBaseInfos[isNegative][10]
+        case _ => return None
     }
+    return Some(baseInfo)
 }
 
 func getBaseInfosWithRadix(typeBase: TypeBase, isNegative: Int64, radix: Int64): (UInt64, UInt64, UInt64) {
