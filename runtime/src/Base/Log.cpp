@@ -62,7 +62,7 @@ size_t Logger::GetLogFileSize()
 
 void ATraceBeginAsync(const char* name, int32_t taskId)
 {
-#if __ANDROID_API__ >= 28
+#if defined(__ANDROID_API__) && (__ANDROID_API__ >= 28)
     ATrace_beginAsyncSection(name, taskId);
 #else
     // ATrace_beginAsyncSection were offically added to the android NDK only in API level 28.
@@ -72,7 +72,7 @@ void ATraceBeginAsync(const char* name, int32_t taskId)
 }
 
 void ATraceEndAsync(const char* name, int32_t taskId) {
-#if __ANDROID_API__ >= 28
+#if defined(__ANDROID_API__) && (__ANDROID_API__ >= 28)
     ATrace_endAsyncSection(name, taskId);
 #else
     // ATrace_endAsyncSection were offically added to the android NDK only in API level 28.
@@ -83,7 +83,7 @@ void ATraceEndAsync(const char* name, int32_t taskId) {
 
 void ATraceSetCounter(const char* name, int64_t value)
 {
-#if __ANDROID_API__ >= 28
+#if defined(__ANDROID_API__) && (__ANDROID_API__ >= 28)
     ATrace_setCounter(name, value);
 #else
     // ATrace_setCounter were offically added to the android NDK only in API level 28.

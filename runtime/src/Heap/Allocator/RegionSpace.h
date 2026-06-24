@@ -119,7 +119,8 @@ public:
             // Release memory to OS only when it was not used since previous GC and is over heapUtilization threshold.
             // It is important for avoiding the case where before GC we request more memory from OS
             // then GC happens and releases memory, and then we need to request same memory from OS again.
-            size_t targetCachedSize = std::max<size_t>(dirtyHeapUsed, sizeAfter * cachedRatio);
+            size_t targetCachedSize =
+                std::max(dirtyHeapUsed, static_cast<size_t>(sizeAfter * cachedRatio));
             return regionManager.ReleaseGarbageRegions(targetCachedSize);
         }
     }

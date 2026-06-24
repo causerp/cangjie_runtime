@@ -827,9 +827,9 @@ void TracingCollector::UpdateGCStats()
 #else
     double heapGrowth = 1 + (CangjieRuntime::GetHeapParam().heapGrowth);
 #endif
-    size_t threshold1 = liveBytes * heapGrowth;
-    size_t threshold2 = oldThreshold * heapGrowth;
-    size_t threshold3 = liveBytes * 1.2 / (1.0 + gcStats.garbageRatio);
+    size_t threshold1 = static_cast<size_t>(liveBytes * heapGrowth);
+    size_t threshold2 = static_cast<size_t>(oldThreshold * heapGrowth);
+    size_t threshold3 = static_cast<size_t>(liveBytes * 1.2 / (1.0 + gcStats.garbageRatio));
     size_t threshold4 = space.GetTargetSize();
     size_t newThreshold = 0;
     uint64_t gcInterval = CangjieRuntime::GetGCParam().gcInterval;
