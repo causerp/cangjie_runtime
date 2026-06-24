@@ -85,7 +85,13 @@ public:
 
     static bool IsRuntimeFrame(Uptr pc);
 #ifdef INTERPRETER_ENABLED
-    static void InitAddressScopeForInterpreter(const char* libName);
+    /**
+     * @brief Initialize the interpreter code address range.
+     * @param libName Interpreter library name used for path-based lookup on Linux and macOS.
+     * @param symbol Symbol inside the interpreter image used for Mach-O lookup on iOS.
+     */
+    static void InitAddressScopeForInterpreter(const char* libName, const void* symbol);
+
     static bool IsInterpreterCodeAddr(Uptr pc);
 #endif
     friend class MachineFrame;
