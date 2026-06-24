@@ -8,12 +8,43 @@
 
 package std.overflow
 
+const NATIVE_64_BIT_WIDTH: UInt64 = 64
+const NATIVE_32_BIT_WIDTH: UInt64 = 32
+const NATIVE_64_MAX_SHIFT: UInt64 = NATIVE_64_BIT_WIDTH - 1
+const NATIVE_32_MAX_SHIFT: UInt64 = NATIVE_32_BIT_WIDTH - 1
+const NATIVE_64_SHIFT_MASK: UInt64 = 0b111111
+const NATIVE_32_SHIFT_MASK: UInt64 = 0b11111
+
 let isNative64 = if (UInt64(!UIntNative(0)) == UInt64.Max) {
     true
 } else if (UInt64(!UIntNative(0)) == UInt64(UInt32.Max)) {
     false
 } else {
     throw Exception("Unrecognized IntNative")
+}
+
+func nativeBitWidth(): UInt64 {
+    if (isNative64) {
+        NATIVE_64_BIT_WIDTH
+    } else {
+        NATIVE_32_BIT_WIDTH
+    }
+}
+
+func nativeMaxShift(): UInt64 {
+    if (isNative64) {
+        NATIVE_64_MAX_SHIFT
+    } else {
+        NATIVE_32_MAX_SHIFT
+    }
+}
+
+func nativeShiftConfig(): (UInt64, UInt64) {
+    if (isNative64) {
+        (NATIVE_64_BIT_WIDTH, NATIVE_64_SHIFT_MASK)
+    } else {
+        (NATIVE_32_BIT_WIDTH, NATIVE_32_SHIFT_MASK)
+    }
 }
 
 public interface CheckedOp<T> {
@@ -66,18 +97,11 @@ func checkedShl(x: Int64, y: UInt64): Option<Int64> {
 }
 
 func checkedShl(x: IntNative, y: UInt64): Option<IntNative> {
-    if (isNative64) {
-        if (y >= 64) {
-            return None
-        } else {
-            return Some(x << y)
-        }
+    let bitWidth = nativeBitWidth()
+    if (y >= bitWidth) {
+        None
     } else {
-        if (y >= 32) {
-            return None
-        } else {
-            return Some(x << y)
-        }
+        Some(x << y)
     }
 }
 
@@ -114,18 +138,11 @@ func checkedShl(x: UInt64, y: UInt64): Option<UInt64> {
 }
 
 func checkedShl(x: UIntNative, y: UInt64): Option<UIntNative> {
-    if (isNative64) {
-        if (y >= 64) {
-            return None
-        } else {
-            return Some(x << y)
-        }
+    let bitWidth = nativeBitWidth()
+    if (y >= bitWidth) {
+        None
     } else {
-        if (y >= 32) {
-            return None
-        } else {
-            return Some(x << y)
-        }
+        Some(x << y)
     }
 }
 
@@ -162,18 +179,11 @@ func checkedShr(x: Int64, y: UInt64): Option<Int64> {
 }
 
 func checkedShr(x: IntNative, y: UInt64): Option<IntNative> {
-    if (isNative64) {
-        if (y >= 64) {
-            return None
-        } else {
-            return Some(x >> y)
-        }
+    let bitWidth = nativeBitWidth()
+    if (y >= bitWidth) {
+        None
     } else {
-        if (y >= 32) {
-            return None
-        } else {
-            return Some(x >> y)
-        }
+        Some(x >> y)
     }
 }
 
@@ -210,17 +220,10 @@ func checkedShr(x: UInt64, y: UInt64): Option<UInt64> {
 }
 
 func checkedShr(x: UIntNative, y: UInt64): Option<UIntNative> {
-    if (isNative64) {
-        if (y >= 64) {
-            return None
-        } else {
-            return Some(x >> y)
-        }
+    let bitWidth = nativeBitWidth()
+    if (y >= bitWidth) {
+        None
     } else {
-        if (y >= 32) {
-            return None
-        } else {
-            return Some(x >> y)
-        }
+        Some(x >> y)
     }
 }

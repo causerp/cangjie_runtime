@@ -551,10 +551,9 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
             throw IllegalArgumentException("Float value cannot be Inf or NaN.")
         }
         let f64Bits: Int64 = reinterpretAsInt(val)
-        // float32 exponent is 11 bits, abs for exponent will never overflow.
-        var (f_sign, exponent, fraction): (Int64, Int64, Int64) = parseFloat64Bits(f64Bits)
-        // fraction is 0, means Decimal value is 0
-        if (fraction == 0) {
+        var (f64Sign, f64Exponent, f64Fraction): (Int64, Int64, Int64) = parseFloat64Bits(f64Bits)
+        if (f64Fraction == 0) {
+            // The fraction is 0, so the Decimal value is 0.
             this._precision = 1
             this._scale = 0
             this._value = BigInt(0)
@@ -562,30 +561,29 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
             return
         }
 
-        // remove the tailing zero.
-        while (fraction % 2 == 0) {
-            fraction = fraction >> 1
-            exponent++
+        while (f64Fraction % 2 == 0) {
+            f64Fraction = f64Fraction >> 1
+            f64Exponent++
         }
 
-        if (Int64(Int32(exponent)) != exponent) {
+        // Float64 exponent is 11 bits and fits in Int32; keep this defensive guard.
+        if (Int64(Int32(f64Exponent)) != f64Exponent) {
             throw OverflowException("Scale overflow.")
         }
 
-        var val_bigint: BigInt = BigInt(f_sign * fraction)
-        // calculate val_bigint
-        var val_scale: Int32 = 0
-        if (exponent > 0) {
-            val_bigint = val_bigint * (BigInt(2) ** (UInt64(exponent)))
+        var f64Value: BigInt = BigInt(f64Sign * f64Fraction)
+        var f64Scale: Int32 = 0
+        if (f64Exponent > 0) {
+            f64Value = f64Value * (BigInt(2) ** (UInt64(f64Exponent)))
         } else {
-            val_bigint = val_bigint * (BigInt(5) ** (UInt64(abs(exponent))))
-            val_scale = abs(Int32(exponent))
+            f64Value = f64Value * (BigInt(5) ** (UInt64(abs(f64Exponent))))
+            f64Scale = abs(Int32(f64Exponent))
         }
 
-        var val_precision: Int64 = calcNumberOfDigits(val_bigint)
-        this._precision = val_precision
-        this._value = val_bigint
-        this._scale = val_scale
+        var f64Precision: Int64 = calcNumberOfDigits(f64Value)
+        this._precision = f64Precision
+        this._value = f64Value
+        this._scale = f64Scale
         this._sign = this._value.sign
     }
 
@@ -1164,8 +1162,8 @@ public struct Decimal <: Comparable<Decimal> & Hashable & ToString {
         let fmPre: Int64 = format._precision
         do {
             let temPre = max(max(xPre, expectedPre + 2), fmPre)
-            x = Decimal(BigInt.parse("5", radix: 10), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)), temPre,
-                HalfEven)
+            x = Decimal(BigInt.parse("5", radix: 10), 1).mul(
+                x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)), temPre, HalfEven)
             xPre *= 2
         } while (xPre < expectedPre + 2)
         var res: Decimal
@@ -2277,7 +2275,8 @@ public func sqrt(d: Decimal): Decimal {
     let fmPre: Int64 = format.precision
     do {
         let temPre = max(max(xPre, expectedPre + 2), fmPre)
-        x = Decimal(BigInt.parse("5", radix: 10), 1).mul(x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)))
+        x = Decimal(BigInt.parse("5", radix: 10), 1).mul(
+            x.add(format.divWithPrecision(x, temPre, roundingMode: HalfEven)))
         xPre *= 2
     } while (xPre < expectedPre + 2)
     var res: Decimal
