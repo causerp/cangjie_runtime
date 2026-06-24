@@ -70,61 +70,55 @@ public class ConsoleWriter <: OutputStream {
     }
 
     public func write(v: Bool): Unit {
-        write(if (v) {
-            "true"
-        } else {
-            "false"
-        })
+        write(v.toString())
     }
 
     public func write(v: Int8): Unit {
-        write(Int64(v))
+        writeSigned(Int64(v), newline: false)
     }
 
     public func write(v: Int16): Unit {
-        write(Int64(v))
+        writeSigned(Int64(v), newline: false)
     }
 
     public func write(v: Int32): Unit {
-        write(Int64(v))
+        writeSigned(Int64(v), newline: false)
     }
 
     public func write(v: Int64): Unit {
-        writeInt64(v, newline: false)
+        writeSigned(v, newline: false)
     }
 
     public func write(v: UInt8): Unit {
-        write(UInt64(v))
+        writeUnsigned(UInt64(v), newline: false)
     }
 
     public func write(v: UInt16): Unit {
-        write(UInt64(v))
+        writeUnsigned(UInt64(v), newline: false)
     }
 
     public func write(v: UInt32): Unit {
-        write(UInt64(v))
+        writeUnsigned(UInt64(v), newline: false)
     }
 
     public func write(v: UInt64): Unit {
-        writeUInt64(v, newline: false)
+        writeUnsigned(v, newline: false)
     }
 
     public func write(v: Float16): Unit {
-        write(Float64(v))
+        writeFloat(Float64(v), newline: false)
     }
 
     public func write(v: Float32): Unit {
-        write(Float64(v))
+        writeFloat(Float64(v), newline: false)
     }
 
     public func write(v: Float64): Unit {
-        writeFloat64(v, newline: false)
+        writeFloat(v, newline: false)
     }
 
     public func write(v: Rune): Unit {
-        var itemBytes: Array<UInt8> = Array<UInt8>(6, repeat: 0)
-        let len = Rune.intoUtf8Array(v, itemBytes, 0)
-        write(itemBytes[..len])
+        writeRune(v, newline: false)
     }
 
     public func writeln(v: String): Unit {
@@ -136,64 +130,68 @@ public class ConsoleWriter <: OutputStream {
     }
 
     public func writeln(v: Bool): Unit {
-        writeln(if (v) {
-            "true"
-        } else {
-            "false"
-        })
+        writeln(v.toString())
     }
 
     public func writeln(v: Int8): Unit {
-        writeln(Int64(v))
+        writeSigned(Int64(v), newline: true)
     }
 
     public func writeln(v: Int16): Unit {
-        writeln(Int64(v))
+        writeSigned(Int64(v), newline: true)
     }
 
     public func writeln(v: Int32): Unit {
-        writeln(Int64(v))
+        writeSigned(Int64(v), newline: true)
     }
 
     public func writeln(v: Int64): Unit {
-        writeInt64(v, newline: true)
+        writeSigned(v, newline: true)
     }
 
     public func writeln(v: UInt8): Unit {
-        writeln(UInt64(v))
+        writeUnsigned(UInt64(v), newline: true)
     }
 
     public func writeln(v: UInt16): Unit {
-        writeln(UInt64(v))
+        writeUnsigned(UInt64(v), newline: true)
     }
 
     public func writeln(v: UInt32): Unit {
-        writeln(UInt64(v))
+        writeUnsigned(UInt64(v), newline: true)
     }
 
     public func writeln(v: UInt64): Unit {
-        writeUInt64(v, newline: true)
+        writeUnsigned(v, newline: true)
     }
 
     public func writeln(v: Float16): Unit {
-        writeln(Float64(v))
+        writeFloat(Float64(v), newline: true)
     }
 
     public func writeln(v: Float32): Unit {
-        writeln(Float64(v))
+        writeFloat(Float64(v), newline: true)
     }
 
     public func writeln(v: Float64): Unit {
-        writeFloat64(v, newline: true)
+        writeFloat(v, newline: true)
     }
 
     public func writeln(v: Rune): Unit {
-        var itemBytes: Array<UInt8> = Array<UInt8>(6, repeat: 0)
-        let len = Rune.intoUtf8Array(v, itemBytes, 0)
-        writeln(itemBytes[..len])
+        writeRune(v, newline: true)
     }
 
-    private func writeInt64(v: Int64, newline!: Bool = false): Unit {
+    private func writeRune(v: Rune, newline!: Bool): Unit {
+        var itemBytes: Array<UInt8> = Array<UInt8>(6, repeat: 0)
+        let len = Rune.intoUtf8Array(v, itemBytes, 0)
+        if (newline) {
+            writeln(itemBytes[..len])
+        } else {
+            write(itemBytes[..len])
+        }
+    }
+
+    private func writeSigned(v: Int64, newline!: Bool): Unit {
         synchronized(mutex) {
             var writePos: Int64
             unsafe {
@@ -209,7 +207,7 @@ public class ConsoleWriter <: OutputStream {
         }
     }
 
-    private func writeUInt64(v: UInt64, newline!: Bool = false): Unit {
+    private func writeUnsigned(v: UInt64, newline!: Bool): Unit {
         synchronized(mutex) {
             var writePos: Int64
             unsafe {
@@ -225,7 +223,7 @@ public class ConsoleWriter <: OutputStream {
         }
     }
 
-    private func writeFloat64(v: Float64, newline!: Bool = false): Unit {
+    private func writeFloat(v: Float64, newline!: Bool): Unit {
         synchronized(mutex) {
             var writePos: Int64
             unsafe {

@@ -126,21 +126,25 @@ public class ConsoleReader <: InputStream {
      * write Array<Byte> from stdIn to arr and return the length
      */
     public func read(arr: Array<Byte>): Int64 {
-        let arraySize = arr.size
+        let requested = arr.size
         synchronized(MUTEX) {
-            while (arraySize > endIndex - startIndex) {
+            while (requested > endIndex - startIndex) {
                 if (!readFromConsole()) {
-                    buffer.copyTo(arr, startIndex, 0, endIndex - startIndex)
-                    let ret = endIndex - startIndex
-                    startIndex = 0
-                    endIndex = 0
-                    return ret
+                    return consumeAvailable(arr)
                 }
             }
-            buffer.copyTo(arr, startIndex, 0, arraySize)
-            startIndex += arraySize
+            buffer.copyTo(arr, startIndex, 0, requested)
+            startIndex += requested
         }
-        return arraySize
+        return requested
+    }
+
+    private func consumeAvailable(arr: Array<Byte>): Int64 {
+        let copied = endIndex - startIndex
+        buffer.copyTo(arr, startIndex, 0, copied)
+        startIndex = 0
+        endIndex = 0
+        return copied
     }
 
     private func readFromConsole(): Bool {
@@ -150,17 +154,18 @@ public class ConsoleReader <: InputStream {
             return false
         }
 
-        unsafe {
-            let ss = line.read()
-            try {
-                this.append(ss)
-            } finally {
-                LibC.free(ss.buffer)
-                LibC.free(line)
-            }
-        }
-
+        unsafe { appendLineAndRelease(line) }
         return true
+    }
+
+    private unsafe func appendLineAndRelease(line: CPointer<StructureString>): Unit {
+        let ss = line.read()
+        try {
+            this.append(ss)
+        } finally {
+            LibC.free(ss.buffer)
+            LibC.free(line)
+        }
     }
 
     /*
