@@ -271,12 +271,12 @@ unwindPCForC2NStub:
     // Call merged leave function: (PopUIThreadStackTop) + LeaveSaferegion + DeleteC2NContext + ThrowPendingException
     ldp  x0, x1, [x29, #SafeStateOffset]
     bl   MRT_C2N_Leave                   // return: thread local data
-    str x0, [sp, #StubCalleeSaveAreaSize+0x48]
-
 #if defined(ENABLE_BACKWARD_PTRAUTH_CFI)
     .global unwindPCForC2NStubExceptionReturn
 unwindPCForC2NStubExceptionReturn:
 #endif
+    str x0, [sp, #StubCalleeSaveAreaSize+0x48]
+
     /* set potential return value */
     mov  x0, x21
     mov  x1, x22
