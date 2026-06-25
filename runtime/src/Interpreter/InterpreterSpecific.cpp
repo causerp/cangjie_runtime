@@ -564,8 +564,10 @@ INT_InitInterpreter ResolveInterpreterInit(void* interpreterLibHandle)
 {
     void* sym = dlsym(interpreterLibHandle, "interpreter_bridge_init");
     if (sym == nullptr) {
+#if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
         const char* error = dlerror();
         DLOG(INTERPRETER, "dlsym interpreter_bridge_init failed: %s", error != nullptr ? error : "unknown error");
+#endif
         return nullptr;
     }
     return reinterpret_cast<INT_InitInterpreter>(sym);
@@ -657,9 +659,11 @@ RTErrorCode InitInterpreter(const InterpreterParam& interpreterParam)
 
     void* interpreterLibHandle = LoadInterpreterLibrary(libName);
     if (interpreterLibHandle == nullptr) {
+#if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
         const char* error = dlerror();
         DLOG(INTERPRETER, "interpreter library could not be loaded: %s, error: %s",
             libName, error != nullptr ? error : "unknown error");
+#endif
         return E_FAILED;
     }
 
