@@ -31,10 +31,11 @@ if(CANGJIE_CODEGEN_CJNATIVE_BACKEND AND NOT TRIPLE STREQUAL "arm-linux-ohos" AND
     set(CJNATIVE_BACKEND "cjnative")
     set(libname stdFFI)
     add_library(${libname} SHARED ${CANGJIE_CORE_FFI_SRC})
+    separate_arguments(LINK_FLAGS_LIST NATIVE_COMMAND "${LINK_FLAGS}")
     if(CMAKE_BUILD_TYPE MATCHES Release)
-        target_link_options(${libname} PRIVATE ${LINK_FLAGS} ${STRIP_FLAG} ${useld})
+        target_link_options(${libname} PRIVATE ${LINK_FLAGS_LIST} ${STRIP_FLAG} ${useld})
     else()
-        target_link_options(${libname} PRIVATE ${LINK_FLAGS} ${useld})
+        target_link_options(${libname} PRIVATE ${LINK_FLAGS_LIST} ${useld})
     endif()
     target_link_directories(${libname} PRIVATE ${CMAKE_BINARY_DIR}/lib
         PRIVATE ${CMAKE_BINARY_DIR}/lib/${TARGET_TRIPLE_DIRECTORY_PREFIX}_${CJNATIVE_BACKEND}
