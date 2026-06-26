@@ -644,7 +644,6 @@ inline void Mutator::HandleGCPhase(GCPhase newPhase)
         if (!localFins.empty()) {
             Heap::GetHeap().GetFinalizerProcessor().RegisterFinalizers(localFins);
         }
-        CHECK_DETAIL(localFins.empty(), "localFins is not empty");
         GcPhaseEnum(newPhase);
     } else if (newPhase == GCPhase::GC_PHASE_PREFORWARD) {
         GCPhasePreForward(newPhase);

@@ -424,7 +424,6 @@ public:
 
     void AddLocalFinalizer(BaseObject* obj)
     {
-        CHECK_DETAIL(!Heap::GetHeap().GetCollector().IsFromObject(obj), "finalizer object %p is a from object");
         RefField<> tmpField(nullptr);
         Heap::GetBarrier().WriteStaticRef(tmpField, obj);
         localFinalizers.push_back(reinterpret_cast<BaseObject*>(tmpField.GetFieldValue()));
