@@ -6,7 +6,7 @@
 public func threadScope<T, R>(fn: (ThreadGroup<T>) -> R): R
 ```
 
-Introduces a scoped [ThreadGroup\<T>](./concurrent_package_classes.md#class-threadgroupt)waits for all tasks launched by the group to complete before returning.
+Introduces a scoped [ThreadGroup\<T>](./concurrent_package_classes.md#class-threadgroupt) and waits for all tasks launched by the group to complete before returning.
 
 `threadScope` creates a [ThreadGroup\<T>](./concurrent_package_classes.md#class-threadgroupt) and passes it to `fn`.
 
