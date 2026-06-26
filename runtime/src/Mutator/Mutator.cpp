@@ -568,6 +568,15 @@ inline void Mutator::GcPhaseEnum(GCPhase newPhase)
     VisitMutatorRoots(visitor);
 }
 
+inline void Mutator::ForwardLocalFinalizers(Collector& collector)
+{
+    WCollector& wcollector = reinterpret_cast<WCollector&>(collector);
+    RootVisitor visitor = [&wcollector](ObjectRef& root) { wcollector.ForwardUpdateRawRef(root); };
+    for (BaseObject*& obj : localFinalizers) {
+        visitor(reinterpret_cast<ObjectRef&>(obj));
+    }
+}
+
 inline void Mutator::GCPhasePreForward(GCPhase newPhase)
 {
     std::set<BaseObject*> rootSet;
@@ -578,9 +587,7 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
         BaseObject* oldObj = refFieldAddr.GetTargetObject();
         if (Heap::IsHeapAddress(oldObj) && collector.IsGhostFromObject(oldObj) &&
             !collector.IsUnmovableFromObject(oldObj)) {
-            if (!rootFieldSet.insert((void*)(&refFieldAddr)).second) {
-                return;
-            }
+            if (!rootFieldSet.insert((void*)(&refFieldAddr)).second) { return; }
             BaseObject* toObj = collector.ForwardObject(oldObj);
             if (oldObj != toObj) { refFieldAddr.SetTargetObject(toObj); }
         } else if (IsStackAddr(reinterpret_cast<uintptr_t>(oldObj))) {
@@ -592,9 +599,7 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
         BaseObject* oldObj = root.object;
         if (Heap::IsHeapAddress(oldObj) && collector.IsGhostFromObject(oldObj) &&
             !collector.IsUnmovableFromObject(oldObj)) {
-            if (!rootFieldSet.insert((void*)(&root)).second) {
-                return;
-            }
+            if (!rootFieldSet.insert((void*)(&root)).second) { return; }
             BaseObject* toObj = collector.ForwardObject(oldObj);
             if (oldObj != toObj) { root.object = toObj; }
         } else if (IsStackAddr(reinterpret_cast<uintptr_t>(oldObj))) {
@@ -621,15 +626,6 @@ inline void Mutator::GCPhasePreForward(GCPhase newPhase)
     };
     VisitHeapReferences(visitor, derivedPtrVisitor);
     ForwardLocalFinalizers(collector);
-}
-
-void Mutator::ForwardLocalFinalizers(Collector& collector)
-{
-    WCollector& wcollector = reinterpret_cast<WCollector&>(collector);
-    RootVisitor visitor = [&wcollector](ObjectRef& root) { wcollector.ForwardUpdateRawRef(root); };
-    for (BaseObject*& obj : localFinalizers) {
-        visitor(reinterpret_cast<ObjectRef&>(obj));
-    }
 }
 
 inline void Mutator::HandleGCPhase(GCPhase newPhase)

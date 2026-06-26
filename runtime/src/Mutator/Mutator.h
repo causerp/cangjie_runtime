@@ -314,7 +314,7 @@ public:
     inline void GCPhasePreForward(GCPhase newPhase);
     inline void HandleGCPhase(GCPhase newPhase);
     inline void HandleGCPhaseIDLE();
-    void ForwardLocalFinalizers(Collector& collector);
+    inline void ForwardLocalFinalizers(Collector& collector);
     static DerivedPtrVisitor MakePreForwardDerivedVisitor(Collector& collector);
 
     inline void HandleCpuProfile();
