@@ -35,7 +35,7 @@ void InterpreterCJThreadStart(DYN_CJThreadSpecificData* mutator);
 void InterpreterCJThreadDestroy(DYN_CJThreadSpecificData* mutator);
 DYN_CJThreadHandle NewCJThread(void* execute, DYN_ObjRef future, void* scheduler);
 
-void FillInterpretedFrameInfo(uint64_t fp, uint64_t ip, INT_InterpretedFrameInfo* fInfo);
+void FillInterpretedFrameInfo(uintptr_t fp, uintptr_t ip, INT_InterpretedFrameInfo* fInfo);
 
 struct DYN_TypeInfo* TypeInfoProvider(const char* sig);
 uint32_t GetInstanceSize(struct DYN_TypeInfo* typeInfoPtr);

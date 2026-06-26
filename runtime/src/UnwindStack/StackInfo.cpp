@@ -256,8 +256,8 @@ void StackInfo::GetStackTraceByLiteFrameInfo(const uint64_t v1, const uint64_t v
         // handle interpreter frame
         INT_InterpretedFrameInfo info;
 
-        uint64_t ip = v1;
-        uint64_t fa = v2;
+        uintptr_t ip = static_cast<uintptr_t>(v1);
+        uintptr_t fa = static_cast<uintptr_t>(v2);
         FillInterpretedFrameInfo(fa, ip, &info);
 
         ste.lineNumber = info.lineNumber;

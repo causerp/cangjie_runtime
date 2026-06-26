@@ -545,11 +545,11 @@ void* NewFinalizerCJThread()
     RebindCJThread(cjthread);
     ThreadLocal::SetForeignCJThread(cjthread);
     ThreadLocal::SetSchedule(scheduler);
-    ThreadLocal::SetProtectAddr(reinterpret_cast<uint8_t*>(0));
+    ThreadLocal::SetProtectAddr(nullptr);
     ScheduleNetpollInit(); // Initializes netpool only on the first execution.
 
     // Init finalizer mutator
-    Mutator* mutator = reinterpret_cast<Mutator*>(CJThreadGetMutator());
+    Mutator* mutator = static_cast<Mutator*>(CJThreadGetMutator());
     CHECK_DETAIL(mutator != nullptr, "create is null when create finalizer cjthread");
     MutatorManager::Instance().MutatorManagementRLock();
     mutator->InitTid();

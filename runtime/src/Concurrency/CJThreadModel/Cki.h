@@ -31,9 +31,9 @@ enum CJThreadKeySlot {
 
 int CreateCKI();
 
-inline int SetCKI(const void* value, CJThreadKeySlot slot)
+inline int SetCKI(void* value, CJThreadKeySlot slot)
 {
-    return CJThreadSetspecific(cjthreadKeyItems[slot], const_cast<void*>(value));
+    return CJThreadSetspecific(cjthreadKeyItems[slot], value);
 }
 
 inline void* GetCKI(CJThreadKeySlot slot) { return CJThreadGetspecific(cjthreadKeyItems[slot]); }

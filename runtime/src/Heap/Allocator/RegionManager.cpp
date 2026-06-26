@@ -43,7 +43,7 @@ static size_t GetPageSize() noexcept
 #elif defined(__APPLE__)
     pageSize = static_cast<size_t>(sysconf(_SC_PAGESIZE));
 #else
-    pageSize = getpagesize();
+    pageSize = static_cast<size_t>(getpagesize());
 #endif
     return pageSize;
 }

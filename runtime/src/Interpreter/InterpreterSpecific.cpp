@@ -70,7 +70,7 @@ struct {
     }
 } g_interpreterInterface;
 
-void FillInterpretedFrameInfo(uint64_t fp, uint64_t ip, INT_InterpretedFrameInfo* fInfo)
+void FillInterpretedFrameInfo(uintptr_t fp, uintptr_t ip, INT_InterpretedFrameInfo* fInfo)
 {
     auto framePointer = reinterpret_cast<DYN_FramePointer>(fp);
     auto instructionPointer = reinterpret_cast<DYN_InstructionPointer>(ip);
@@ -495,7 +495,11 @@ DYN_ExceptionWrapper GetExceptionWrapper()
 
 extern "C" uintptr_t GetCurrentCatchFunctionPC()
 {
-    ExceptionWrapper& eWrapper = Mutator::GetMutator()->GetExceptionWrapper();
+    Mutator* mutator = Mutator::GetMutator();
+    if (mutator == nullptr) {
+        return 0;
+    }
+    ExceptionWrapper& eWrapper = mutator->GetExceptionWrapper();
     return eWrapper.GetCurrentCatchFunctionPC();
 }
 
@@ -524,7 +528,9 @@ size_t ComputeCJThreadDataOffset()
         }
         Mutator mutator;
     } tmp;
-    return reinterpret_cast<size_t>(&tmp.mutator.interpreterCJThreadData) - reinterpret_cast<size_t>(&tmp.mutator);
+    const auto* mutatorAddress = reinterpret_cast<const uint8_t*>(&tmp.mutator);
+    const auto* cjThreadDataAddress = reinterpret_cast<const uint8_t*>(&tmp.mutator.interpreterCJThreadData);
+    return static_cast<size_t>(cjThreadDataAddress - mutatorAddress);
 }
 
 void LogInterpreterParam(const InterpreterParam& interpreterParam)
