@@ -197,15 +197,12 @@ extend<T> Array<T> where T <: Comparable<T> {
         }
     }
 
-    // the value range of the parameter: 0 <= begin < end <= array.size - 1
-    // end - begin >= 1
     @OverflowWrapping
-    func getSequenceLength(begin: Int64, end: Int64, temp: TempArray<T>): Int64 {
+    func getEqualPrefixInfo(begin: Int64, end: Int64): (Int64, Int64, Bool) {
         var b: Int64 = begin
         var equalNum: Int64 = 1
         var isAscending: Bool = true
 
-        // Obtains the length of a sequence with the same value.
         if (this[b] < this[b + 1]) {
             isAscending = true
         } else if (this[b] > this[b + 1]) {
@@ -226,34 +223,60 @@ extend<T> Array<T> where T <: Comparable<T> {
                 }
             }
         }
+        (b, equalNum, isAscending)
+    }
+
+    @OverflowWrapping
+    func handleShortSequence(begin: Int64, end: Int64, equalNum: Int64, isAscending: Bool): Int64 {
+        if (!isAscending) {
+            let te = this[end]
+            this.copyTo(this, begin, begin + 1, equalNum)
+            this[begin] = te
+        }
+        return equalNum + 1
+    }
+
+    @OverflowWrapping
+    func countAscendingRun(begin: Int64, end: Int64): Int64 {
+        var b = begin
+        var n: Int64 = 1
+        while (b + 1 <= end && this[b] <= this[b + 1]) {
+            n++
+            b++
+        }
+        n
+    }
+
+    @OverflowWrapping
+    func countDescendingRun(begin: Int64, end: Int64): Int64 {
+        var b = begin
+        var n: Int64 = 1
+        while (b + 1 <= end && this[b] > this[b + 1]) {
+            n++
+            b++
+        }
+        n
+    }
+
+    // the value range of the parameter: 0 <= begin < end <= array.size - 1
+    // end - begin >= 1
+    @OverflowWrapping
+    func getSequenceLength(begin: Int64, end: Int64, temp: TempArray<T>): Int64 {
+        var (b, equalNum, isAscending) = getEqualPrefixInfo(begin, end)
 
         if (b >= end) {
             return equalNum
         } else if (end - b == 1) {
-            if (!isAscending) {
-                let te = this[end]
-                this.copyTo(this, begin, begin + 1, equalNum)
-                this[begin] = te
-            }
-            return equalNum + 1
+            return handleShortSequence(begin, end, equalNum, isAscending)
         }
         b++
-        var n: Int64 = 1
         if (isAscending) {
-            while (b + 1 <= end && this[b] <= this[b + 1]) {
-                n++
-                b++
-            }
-            return equalNum + n
-        } else {
-            while (b + 1 <= end && this[b] > this[b + 1]) {
-                n++
-                b++
-            }
-
-            moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
-            return equalNum + n
+            return equalNum + countAscendingRun(b, end)
         }
+
+        let n = countDescendingRun(b, end)
+        moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
+        return equalNum + n
     }
 
     @OverflowWrapping
@@ -495,15 +518,16 @@ extend<T> Array<T> {
         }
     }
 
-    // the value range of the parameter: 0 <= begin < end <= array.size - 1
-    // end - begin >= 1
     @OverflowWrapping
-    func getSequenceLength(begin: Int64, end: Int64, temp: TempArray<T>, comparator: (T, T) -> Ordering): Int64 {
+    func getEqualPrefixInfoByComparator(
+        begin: Int64,
+        end: Int64,
+        comparator: (T, T) -> Ordering
+    ): (Int64, Int64, Bool) {
         var b: Int64 = begin
         var equalNum: Int64 = 1
         var isAscending: Bool = true
 
-        // Obtains the length of a sequence with the same value.
         match (comparator(this[b], this[b + 1])) {
             case LT => isAscending = true
             case GT => isAscending = false
@@ -524,43 +548,67 @@ extend<T> Array<T> {
                     }
                 }
         }
+        (b, equalNum, isAscending)
+    }
+
+    @OverflowWrapping
+    func handleShortSequenceByComparator(begin: Int64, end: Int64, equalNum: Int64, isAscending: Bool): Int64 {
+        if (!isAscending) {
+            let te = this[end]
+            this.copyTo(this, begin, begin + 1, equalNum)
+            this[begin] = te
+        }
+        return equalNum + 1
+    }
+
+    @OverflowWrapping
+    func countAscendingRunByComparator(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Int64 {
+        var b = begin
+        var n: Int64 = 1
+        while (b + 1 <= end) {
+            match (comparator(this[b], this[b + 1])) {
+                case GT => break
+                case _ =>
+                    n++
+                    b++
+            }
+        }
+        n
+    }
+
+    @OverflowWrapping
+    func countDescendingRunByComparator(begin: Int64, end: Int64, comparator: (T, T) -> Ordering): Int64 {
+        var b = begin
+        var n: Int64 = 1
+        while (b + 1 <= end) {
+            match (comparator(this[b], this[b + 1])) {
+                case GT =>
+                    n++
+                    b++
+                case _ => break
+            }
+        }
+        n
+    }
+
+    // the value range of the parameter: 0 <= begin < end <= array.size - 1
+    // end - begin >= 1
+    @OverflowWrapping
+    func getSequenceLength(begin: Int64, end: Int64, temp: TempArray<T>, comparator: (T, T) -> Ordering): Int64 {
+        var (b, equalNum, isAscending) = getEqualPrefixInfoByComparator(begin, end, comparator)
         if (b >= end) {
             return equalNum
         } else if (end - b == 1) {
-            if (isAscending) {
-                return equalNum + 1
-            } else {
-                let te = this[end]
-                this.copyTo(this, begin, begin + 1, equalNum)
-                this[begin] = te
-                return equalNum + 1
-            }
+            return handleShortSequenceByComparator(begin, end, equalNum, isAscending)
         }
         b++
-        var n: Int64 = 1
         if (isAscending) {
-            while (b + 1 <= end) {
-                match (comparator(this[b], this[b + 1])) {
-                    case GT => break
-                    case _ =>
-                        n++
-                        b++
-                }
-            }
-            return equalNum + n
-        } else {
-            while (b + 1 <= end) {
-                match (comparator(this[b], this[b + 1])) {
-                    case GT =>
-                        n++
-                        b++
-                    case _ => break
-                }
-            }
-
-            moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
-            return equalNum + n
+            return equalNum + countAscendingRunByComparator(b, end, comparator)
         }
+
+        let n = countDescendingRunByComparator(b, end, comparator)
+        moveEqualPrefixAfterDescendingRun(begin, equalNum, n, temp)
+        return equalNum + n
     }
 
     // the original relative positions of equal elements are not guaranteed.
