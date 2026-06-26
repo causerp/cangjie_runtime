@@ -13,6 +13,7 @@ import std.convert.*
 
 const IPV4_ADDRESS_LEN: Int64 = 4
 const IPV6_ADDRESS_LEN: Int64 = 16
+const IPV6_HEXTET_LEN: Int64 = 2
 
 sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & BigEndianOrder<IPAddress> {
     public prop size: Int64 {
@@ -285,6 +286,7 @@ func parseIPv6Scope(src: String, origin: String): Result<(String, ?UInt32)> {
 }
 
 func expandIPv6Ellipsis(ip: Array<UInt8>, i: Int64, ellipsis: ?Int64, origin: String): Result<Array<UInt8>> {
+    // IPv6 addresses are stored as 16 bytes; a "::" ellipsis expands to the missing zero bytes.
     if (i < 16) {
         if (let Some(ellipsis_index) <- ellipsis) {
             let nb_zeros = 16 - i
@@ -343,6 +345,7 @@ func parseIPv6(src: String, origin: String): Result<IPv6Address> {
 }
 
 func parseIPv6Hextet(s: String, origin: String): Result<(UInt32, Int64)> {
+    // Each IPv6 hextet is a hexadecimal field with at most four digits.
     match (parseNumber(s, 16, 0, 4, true, origin)) {
         case Ok((hex, read)) => return Ok((hex, read))
         case Err(e) => return Err(e)
@@ -358,16 +361,22 @@ func parseMappedIPv4InIPv6(
     ellipsis: ?Int64,
     ip: Array<UInt8>
 ): Result<(Int64, String)> {
-    if (ellipsis.isNone() && i != 12) {
+    let mappedIPv4Start = IPV6_ADDRESS_LEN - IPV4_ADDRESS_LEN
+    // Without "::" compression, an embedded IPv4 address must occupy the final
+    // IPv4-sized suffix of the IPv6 byte array.
+    if (ellipsis.isNone() && i != mappedIPv4Start) {
         return Err(IllegalFormatException("Parse (${origin}): expect hex digits but got IPv4 address."))
     }
-    if (i + 4 > 16) {
+    if (i + IPV4_ADDRESS_LEN > IPV6_ADDRESS_LEN) {
         return Err(IllegalFormatException("Parse (${origin}): too many hex fields."))
     }
     match (parseIPv4(src[src.size - s.size - bytes_read..], origin)) {
         case Ok(ipv4) =>
-            ipv4.writeBigEndian(ip[i - 2..])
-            return Ok((i + 2, s[s.size..]))
+            let lastHextetStart = i - IPV6_HEXTET_LEN
+            // The IPv4 text follows a hextet prefix such as "::ffff"; replace the last hextet
+            // with the parsed IPv4 address and advance by one hextet.
+            ipv4.writeBigEndian(ip[lastHextetStart..])
+            return Ok((i + IPV6_HEXTET_LEN, s[s.size..]))
         case Err(e) => return Err(e)
     }
 }
