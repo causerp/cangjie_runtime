@@ -88,7 +88,7 @@ extend<T> Array<T> where T <: Comparable<T> {
     }
 
     @OverflowWrapping
-    private func getPartition(begin: Int64, end: Int64): (Int64, Int64) {
+    private func selectPartitionPivot(begin: Int64, end: Int64): T {
         let len: Int64 = end - begin + 1
         let mid: Int64 = (len >> 1) + begin
         if (len >= 64) {
@@ -103,6 +103,12 @@ extend<T> Array<T> where T <: Comparable<T> {
         let temp = this[end]
         this[end] = pivot
         this[mid] = temp
+        return pivot
+    }
+
+    @OverflowWrapping
+    private func getPartition(begin: Int64, end: Int64): (Int64, Int64) {
+        let pivot = this.selectPartitionPivot(begin, end)
         var pointNum = 0
         var b = begin
         var e = end - 1
@@ -234,7 +240,7 @@ extend<T> Array<T> {
     // the value range of the parameter: 0 <= begin < end <= array.size - 1
     // end - begin >= 1
     @OverflowWrapping
-    private func getPartition(begin: Int64, end: Int64, compareBy: (T, T) -> Ordering): (Int64, Int64) {
+    private func selectPartitionPivotByComparator(begin: Int64, end: Int64, compareBy: (T, T) -> Ordering): T {
         let spanLen: Int64 = end - begin + 1
         let pivotIndex: Int64 = (spanLen >> 1) + begin
         if (spanLen >= 64) {
@@ -249,6 +255,12 @@ extend<T> Array<T> {
         let savedValue = this[end]
         this[end] = pivotValue
         this[pivotIndex] = savedValue
+        return pivotValue
+    }
+
+    @OverflowWrapping
+    private func getPartition(begin: Int64, end: Int64, compareBy: (T, T) -> Ordering): (Int64, Int64) {
+        let pivotValue = this.selectPartitionPivotByComparator(begin, end, compareBy)
         var pivotEqualCount = 0
         var leftScan = begin
         var rightScan = end - 1
