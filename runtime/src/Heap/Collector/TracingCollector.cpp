@@ -763,8 +763,19 @@ void TracingCollector::EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& roo
     MRT_ASSERT(threadPool != nullptr, "thread pool is null");
 
     const size_t threadCount = threadPool->GetMaxThreadNum() + 1;
-    RootSet rootSetsInstance[threadCount];
+    // 10 is the max root set count, this is for vla warning
+    constexpr size_t maxStackRootSetCount = 10;
+    RootSet rootSetsInstance[maxStackRootSetCount];
+    RootSet* dynamicRootSets = nullptr;
     RootSet* rootSets = rootSetsInstance; // work_around the crash of clang parser
+    if (threadCount > maxStackRootSetCount) {
+        dynamicRootSets = new (std::nothrow) RootSet[threadCount];
+        if (dynamicRootSets == nullptr) {
+            LOG(RTLOG_FATAL, "new root sets failed");
+            return;
+        }
+        rootSets = dynamicRootSets;
+    }
 
     // task to enum static field roots.
     threadPool->AddWork(new (std::nothrow)
@@ -789,6 +800,7 @@ void TracingCollector::EnumAllCommonRoots(GCThreadPool* threadPool, RootSet& roo
         rootSet.insert(rootSets[i]);
     }
     VLOG(REPORT, "Total roots: %zu(exclude stack roots)", rootSet.size());
+    delete[] dynamicRootSets;
 }
 
 void TracingCollector::VisitStaticRoots(const RefFieldVisitor& visitor) const
