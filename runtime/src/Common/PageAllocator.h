@@ -366,5 +366,13 @@ inline bool operator==(StdContainerAllocator<Tp, tag>&, StdContainerAllocator<Tp
 {
     return true;
 }
+
+#ifdef __APPLE__
+template<typename T>
+using ManagedList = std::list<T>;
+#else
+template<typename T>
+using ManagedList = std::list<T, StdContainerAllocator<T, FINALIZER_PROCESSOR>>;
+#endif
 } // namespace MapleRuntime
 #endif

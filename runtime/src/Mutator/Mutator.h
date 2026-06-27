@@ -22,12 +22,15 @@
 #endif
 #include "Interpreter/Options.h"
 #include "Interpreter/RTInterface.h"
+#include "ObjectModel/RefField.h"
 
 
 namespace MapleRuntime {
 extern "C" MRT_EXPORT bool MRT_EnterSaferegion(bool updateUnwindContext);
 extern "C" MRT_EXPORT bool MRT_LeaveSaferegion();
 extern "C" MRT_EXPORT bool MRT_CheckRuntimeFinished();
+
+class BaseObject;
 
 class Mutator {
 public:
@@ -94,16 +97,7 @@ public:
         return mutator;
     }
 
-    void ResetMutator()
-    {
-        rawObject.object = nullptr;
-        if (satbNode != nullptr) {
-            SatbBuffer::Instance().RetireNode(satbNode);
-            satbNode = nullptr;
-        }
-        uwContext.Reset();
-        exceptionWrapper.ClearInfo();
-    }
+    void ResetMutator();
 
     static Mutator* GetMutator() noexcept;
     void StackGuardExpand() const;
@@ -320,6 +314,8 @@ public:
     inline void GCPhasePreForward(GCPhase newPhase);
     inline void HandleGCPhase(GCPhase newPhase);
     inline void HandleGCPhaseIDLE();
+    inline void ForwardLocalFinalizers(Collector& collector);
+    static DerivedPtrVisitor MakePreForwardDerivedVisitor(Collector& collector);
 
     inline void HandleCpuProfile();
 
@@ -425,6 +421,14 @@ public:
         rawObject.object = nullptr;
         return obj;
     }
+
+    void AddLocalFinalizer(BaseObject* obj)
+    {
+        RefField<> tmpField(nullptr);
+        Heap::GetBarrier().WriteStaticRef(tmpField, obj);
+        localFinalizers.push_back(reinterpret_cast<BaseObject*>(tmpField.GetFieldValue()));
+    }
+
     void MutatorLock() { mutatorLock.lock(); }
 
     void MutatorUnlock() { mutatorLock.unlock(); }
@@ -511,6 +515,7 @@ private:
             }
         }
     }
+    ManagedList<BaseObject*>& GetLocalFinalizers() { return localFinalizers; }
     // Indicate the current mutator phase and use which barrier in concurrent gc
     // ATTENTION: THE LAYOUT FOR GCPHASE MUST NOT BE CHANGED!
     std::atomic<GCPhase> mutatorPhase = { GCPhase::GC_PHASE_UNDEF };
@@ -542,6 +547,8 @@ private:
     // Indicate the state of mutator's phase transition
     std::atomic<GCPhaseTransitionState> transitionState = { NO_TRANSITION };
     ObjectRef rawObject{ nullptr };
+
+    ManagedList<BaseObject*> localFinalizers;
 
     SatbBuffer::Node* satbNode = nullptr;
 #if defined(GCINFO_DEBUG) && GCINFO_DEBUG
