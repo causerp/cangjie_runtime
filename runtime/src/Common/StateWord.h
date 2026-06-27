@@ -102,9 +102,9 @@ public:
         return reinterpret_cast<TypeInfo*>(address);
     }
 
-    void SetTypeInfo(TypeInfo* typeInfo)
+    void SetTypeInfo(TypeInfo* newTypeInfo)
     {
-        uintptr_t address = reinterpret_cast<uintptr_t>(typeInfo);
+        uintptr_t address = reinterpret_cast<uintptr_t>(newTypeInfo);
 #ifdef __arm__
         this->typeInfo = reinterpret_cast<uint32_t>(address);
 #else
@@ -153,8 +153,8 @@ public:
 
 private:
 #ifdef __arm__
-    explicit StateWord(uint32_t typeInfo, ObjectState state)
-        : typeInfo(typeInfo), padding(0), objectState(state)
+    explicit StateWord(uint32_t typeInfoValue, ObjectState state)
+        : typeInfo(typeInfoValue), padding(0), objectState(state)
     {
         (void)padding;
     }

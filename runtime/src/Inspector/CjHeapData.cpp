@@ -7,6 +7,7 @@
 
 #include "CjHeapData.h"
 #include <cerrno>
+#include <cstdint>
 #include <Common/BaseObject.h>
 #include <Common/Runtime.h>
 #include <Common/ScopedObjectAccess.h>
@@ -31,7 +32,12 @@ static bool g_oomIsTrigged = false;
 
 void CjHeapData::SerializedIdWrapper::Init(size_t maxCapacity, MAddress startAddr)
 {
-    use4ByteId = (maxCapacity <= CjHeapData::HEAP_SIZE_THRESHOLD_4GB);
+#if SIZE_MAX <= UINT32_MAX
+    (void)maxCapacity;
+    use4ByteId = true;
+#else
+    use4ByteId = (maxCapacity <= static_cast<size_t>(CjHeapData::HEAP_SIZE_THRESHOLD_4GB));
+#endif
     heapStartAddr = use4ByteId ? startAddr : 0;
 }
 
