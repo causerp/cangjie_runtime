@@ -13,6 +13,7 @@ import std.convert.*
 
 const IPV4_ADDRESS_LEN: Int64 = 4
 const IPV6_ADDRESS_LEN: Int64 = 16
+const IPV6_HEXTET_LEN: Int64 = 2
 
 sealed abstract class IPAddress <: ToString & Equatable<IPAddress> & Hashable & BigEndianOrder<IPAddress> {
     public prop size: Int64 {
@@ -272,18 +273,45 @@ func parseNumber(part: String, radix: UInt32, minDigits: UInt8, maxDigits: UInt8
     }
 }
 
-func parseIPv6(src: String, origin: String): Result<IPv6Address> {
-    if (src.size < 2) {
-        return Err(IllegalFormatException("Parse (${origin}): address string too short."))
-    }
+func parseIPv6Scope(src: String, origin: String): Result<(String, ?UInt32)> {
     var scopeId: ?UInt32 = None
     var s = src
-    // parse scopeId
     if (let Some(v) <- origin.indexOf(b'%')) {
         let zone = s[v + 1..]
         scopeId = UInt32.tryParse(zone) ?? return Err(
             IllegalFormatException("Parse (${origin}): IPv6 scope ID must be a valid UInt32 value."))
         s = s[..v]
+    }
+    return Ok((s, scopeId))
+}
+
+func expandIPv6Ellipsis(ip: Array<UInt8>, i: Int64, ellipsis: ?Int64, origin: String): Result<Array<UInt8>> {
+    // IPv6 addresses are stored as 16 bytes; a "::" ellipsis expands to the missing zero bytes.
+    if (i < IPV6_ADDRESS_LEN) {
+        if (let Some(ellipsis_index) <- ellipsis) {
+            let nb_zeros = IPV6_ADDRESS_LEN - i
+            for (index in i - 1..=ellipsis_index : -1) {
+                ip[index + nb_zeros] = ip[index]
+            }
+            for (index in ellipsis_index + nb_zeros - 1..=ellipsis_index : -1) {
+                ip[index] = 0
+            }
+        } else {
+            return Err(IllegalFormatException("Parse (${origin}): address string too short."))
+        }
+    } else if (ellipsis.isSome()) {
+        return Err(IllegalFormatException("Parse (${origin}): does not contain a valid network address."))
+    }
+    return Ok(ip)
+}
+
+func parseIPv6(src: String, origin: String): Result<IPv6Address> {
+    if (src.size < 2) {
+        return Err(IllegalFormatException("Parse (${origin}): address string too short."))
+    }
+    var (s, scopeId) = match (parseIPv6Scope(src, origin)) {
+        case Ok(v) => v
+        case Err(e) => return Err(e)
     }
 
     var ellipsis: ?Int64 = None
@@ -309,22 +337,36 @@ func parseIPv6(src: String, origin: String): Result<IPv6Address> {
     if (s.size != 0) {
         return Err(IllegalFormatException("Parse (${origin}): extra characters at the end of the address."))
     }
-    if (i < 16) {
-        if (let Some(ellipsis_index) <- ellipsis) {
-            let nb_zeros = 16 - i
-            for (index in i - 1..=ellipsis_index : -1) {
-                ip[index + nb_zeros] = ip[index]
-            }
-            for (index in ellipsis_index + nb_zeros - 1..=ellipsis_index : -1) {
-                ip[index] = 0
-            }
-        } else {
-            return Err(IllegalFormatException("Parse (${origin}): address string too short."))
-        }
-    } else if (ellipsis.isSome()) {
-        return Err(IllegalFormatException("Parse (${origin}): does not contain a valid network address."))
+    let fullIp = match (expandIPv6Ellipsis(ip, i, ellipsis, origin)) {
+        case Ok(v) => v
+        case Err(e) => return Err(e)
     }
-    return Ok(IPv6Address(ip, scopeId: scopeId))
+    return Ok(IPv6Address(fullIp, scopeId: scopeId))
+}
+
+func parseIPv6Hextet(s: String, origin: String): Result<(UInt32, Int64)> {
+    // Each IPv6 hextet is a hexadecimal field with at most four digits.
+    match (parseNumber(s, 16, 0, 4, true, origin)) {
+        case Ok((hex, read)) => return Ok((hex, read))
+        case Err(e) => return Err(e)
+    }
+}
+
+func validateMappedIPv4Position(i: Int64, ellipsis: ?Int64, origin: String): Result<Bool> {
+    let mappedIPv4Start = IPV6_ADDRESS_LEN - IPV4_ADDRESS_LEN
+    // Without "::" compression, an embedded IPv4 address must occupy the final
+    // IPv4-sized suffix of the IPv6 byte array.
+    if (ellipsis.isNone() && i != mappedIPv4Start) {
+        return Err(IllegalFormatException("Parse (${origin}): expect hex digits but got IPv4 address."))
+    }
+    if (i + IPV4_ADDRESS_LEN > IPV6_ADDRESS_LEN) {
+        return Err(IllegalFormatException("Parse (${origin}): too many hex fields."))
+    }
+    return Ok(true)
+}
+
+func parseMappedIPv4Suffix(src: String, s: String, bytes_read: Int64, origin: String): Result<IPv4Address> {
+    return parseIPv4(src[src.size - s.size - bytes_read..], origin)
 }
 
 @OverflowWrapping
@@ -336,7 +378,7 @@ func innerParseIPv6(src: String, origin: String, e: ?Int64): Result<(Bool, Int64
     while (i < IPV6_ADDRESS_LEN) {
         var bytes_read = 0
         var hextet = 0u32
-        match (parseNumber(s, 16, 0, 4, true, origin)) {
+        match (parseIPv6Hextet(s, origin)) {
             case Ok((hex, read)) =>
                 hextet = hex
                 bytes_read = read
@@ -359,7 +401,7 @@ func innerParseIPv6(src: String, origin: String, e: ?Int64): Result<(Bool, Int64
         }
         i += UInt16(hextet).writeBigEndian(ip[i..])
         s = s[bytes_read..]
-        if (i == 16 || s.size == 0) {
+        if (i == IPV6_ADDRESS_LEN || s.size == 0) {
             break
         }
 
@@ -367,16 +409,17 @@ func innerParseIPv6(src: String, origin: String, e: ?Int64): Result<(Bool, Int64
             case ':' => s = s[1..]
             // if next byte is '.', may be is mapped-ipv4 addr
             case '.' =>
-                if (ellipsis.isNone() && i != 12) {
-                    return Err(IllegalFormatException("Parse (${origin}): expect hex digits but got IPv4 address."))
+                let positionCheck = validateMappedIPv4Position(i, ellipsis, origin)
+                if (positionCheck.isErr()) {
+                    return Err(positionCheck.unwrapErr())
                 }
-                if (i + 4 > 16) {
-                    return Err(IllegalFormatException("Parse (${origin}): too many hex fields."))
-                }
-                match (parseIPv4(src[src.size - s.size - bytes_read..], origin)) {
+                match (parseMappedIPv4Suffix(src, s, bytes_read, origin)) {
                     case Ok(ipv4) =>
-                        ipv4.writeBigEndian(ip[i - 2..])
-                        i += 2
+                        let lastHextetStart = i - IPV6_HEXTET_LEN
+                        // The IPv4 text follows a hextet prefix such as "::ffff"; replace the last hextet
+                        // with the parsed IPv4 address and advance by one hextet.
+                        ipv4.writeBigEndian(ip[lastHextetStart..])
+                        i += IPV6_HEXTET_LEN
                         s = s[s.size..]
                     case Err(e) => return Err(e)
                 }
