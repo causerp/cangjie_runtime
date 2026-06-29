@@ -19,6 +19,30 @@ public class ThreadGroup<T> <: Iterable<T> {}
 > **警告：**
 > `ThreadGroup` 自身的 API 不是线程安全的。特别是，明确不支持对同一个 `ThreadGroup` 进行并发迭代。通常不要在 `threadScope` 内调用 `spawn`。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Int64, Unit> {
+        group =>
+            group.launch { 100 }
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+运行结果：
+
+```text
+100
+```
+
 父类型：
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)
 
@@ -31,6 +55,40 @@ public func cancelAll(): Unit
 功能：向此 [ThreadGroup](./concurrent_package_classes.md#class-threadgroupt) 启动的每个线程发送取消请求。
 
 该函数通过每个线程底层的 [Future](../../core/core_package_api/core_package_classes.md#class-futuret) 请求取消。它不会立即停止任务执行。线程可以通过 [Thread.currentThread.hasPendingCancellation](../../core/core_package_api/core_package_classes.md#prop-haspendingcancellation) 观察取消请求，并决定是否停止以及如何停止。线程可以忽略取消请求。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<String, Unit> {
+        group =>
+            group.launch {
+                while (true) {
+                    if (Thread.currentThread.hasPendingCancellation) {
+                        return "cancelled"
+                    }
+                    sleep(10 * Duration.millisecond)
+                }
+                return "completed"
+            }
+
+            group.cancelAll()
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+运行结果：
+
+```text
+cancelled
+```
 
 ### func iterator()
 
@@ -51,6 +109,32 @@ public func iterator(): Iterator<T>
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果消费到的任务结果为异常，则抛出。
 - [Error](../../core/core_package_api/core_package_exceptions.md#class-error) - 如果消费到的任务结果为错误，则抛出。
 
+示例：
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Int64, Unit> {
+        group =>
+            group.launch { 42 }
+
+            let iter = group.iterator()
+            match (iter.next()) {
+                case Some(value) => println(value)
+                case None => println("no result")
+            }
+    }
+}
+```
+
+运行结果：
+
+```text
+42
+```
+
 ### func launch(() -> T)
 
 ```cangjie
@@ -64,3 +148,29 @@ public func launch(task: () -> T): Unit
 **参数：**
 
 - task: () -> T - 要启动的任务。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<String, Unit> {
+        group =>
+            group.launch {
+                "task result"
+            }
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+运行结果：
+
+```text
+task result
+```

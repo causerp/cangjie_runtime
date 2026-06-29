@@ -34,3 +34,28 @@ public func threadScope<T, R>(fn: (ThreadGroup<T>) -> R): R
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 当 `fn` 抛出异常，或者未处理的已启动任务结果为异常，则抛出。
 - [Error](../../core/core_package_api/core_package_exceptions.md#class-error) - 当 `fn` 抛出错误，或者未处理的已启动任务结果为错误，则抛出。
+
+示例：
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Unit, Unit> {
+        group =>
+            group.launch {
+                println("task finished")
+            }
+    }
+
+    println("scope finished")
+}
+```
+
+运行结果：
+
+```text
+task finished
+scope finished
+```

@@ -35,3 +35,28 @@ Exceptions:
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - Thrown if `fn` throws an exception or if an unhandled launched task result is an exception.
 - [Error](../../core/core_package_api/core_package_exceptions.md#class-error) - Thrown if `fn` throws an error or if an unhandled launched task result is an error.
+
+Example:
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Unit, Unit> {
+        group =>
+            group.launch {
+                println("task finished")
+            }
+    }
+
+    println("scope finished")
+}
+```
+
+Output:
+
+```text
+task finished
+scope finished
+```

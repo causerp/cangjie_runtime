@@ -20,6 +20,30 @@ A `ThreadGroup<T>` records one result for every thread launched by [launch(() ->
 >
 > The API of `ThreadGroup` itself is not thread-safe. In particular, concurrent iteration over a single `ThreadGroup` is explicitly not supported. `spawn` should not be used inside a `threadScope`.
 
+Example:
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Int64, Unit> {
+        group =>
+            group.launch { 100 }
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+Output:
+
+```text
+100
+```
+
 Parent types:
 - [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)
 
@@ -33,6 +57,39 @@ Function: Sends a cancellation request to every thread launched by this [ThreadG
 
 This function requests cancellation through each thread's underlying [Future](../../core/core_package_api/core_package_classes.md#class-futuret). It does not immediately stop task execution. A thread can observe the request through [Thread.currentThread.hasPendingCancellation](../../core/core_package_api/core_package_classes.md#prop-haspendingcancellation) and decide how and if to stop. A thread is free to ignore cancellation requests.
 
+Example:
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<String, Unit> {
+        group =>
+            group.launch {
+                while (true) {
+                    if (Thread.currentThread.hasPendingCancellation) {
+                        return "cancelled"
+                    }
+                    sleep(10 * Duration.millisecond)
+                }
+                return "completed"
+            }
+
+            group.cancelAll()
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+Output:
+
+```text
+cancelled
+```
 
 ### func iterator()
 
@@ -53,6 +110,32 @@ Exceptions:
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - Thrown if the consumed task result is an exception.
 - [Error](../../core/core_package_api/core_package_exceptions.md#class-error) - Thrown if the consumed task result is an error.
 
+Example:
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<Int64, Unit> {
+        group =>
+            group.launch { 42 }
+
+            let iter = group.iterator()
+            match (iter.next()) {
+                case Some(value) => println(value)
+                case None => println("no result")
+            }
+    }
+}
+```
+
+Output:
+
+```text
+42
+```
+
 ### func launch(() -> T)
 
 ```cangjie
@@ -66,3 +149,29 @@ The task runs in a new Cangjie thread. When the task returns normally, its value
 **Parameters**:
 
 - task: () -> T - The task to launch.
+
+Example:
+
+<!-- verify -->
+```cangjie
+import std.concurrent.*
+
+main() {
+    threadScope<String, Unit> {
+        group =>
+            group.launch {
+                "task result"
+            }
+
+            for (value in group) {
+                println(value)
+            }
+    }
+}
+```
+
+Output:
+
+```text
+task result
+```
