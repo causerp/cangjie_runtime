@@ -31,8 +31,3 @@ This package provides the following structured concurrency API:
 | ----- | ----------- |
 | [ThreadGroup\<T>](./concurrent_package_api/concurrent_package_classes.md#class-threadgroupt) | Provides API to launch, cancel, and collect results from grouped concurrent threads. |
 
-## Examples
-
-- [threadScope Usage Example](./concurrent_samples/thread_scope_sample.md)
-- [threadScope Exception Handling Example](./concurrent_samples/thread_scope_exception_sample.md)
-- [threadScope Cancellation Example](./concurrent_samples/thread_scope_cancellation_sample.md)
