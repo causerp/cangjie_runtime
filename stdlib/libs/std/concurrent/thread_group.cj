@@ -38,6 +38,7 @@ public class ThreadGroup<T> <: Iterable<T> {
     private let futures = ArrayList<Future<Unit>>()
     private let completed = LinkedBlockingQueue<Result<T>>()
     private let unconsumed: AtomicUInt64 = AtomicUInt64(0)
+    // Protects futures and cancelled, keeping launch and cancellation updates consistent.
     private let mtx = Mutex()
     private var cancelled = false
 
