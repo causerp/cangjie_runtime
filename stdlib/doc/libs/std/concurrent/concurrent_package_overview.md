@@ -30,9 +30,3 @@
 | 类 | 功能 |
 | --- | ---- |
 | [ThreadGroup\<T>](./concurrent_package_api/concurrent_package_classes.md#class-threadgroupt) | 提供启动分组并发线程、向其发送取消请求，并收集其结果的 API。 |
-
-## 示例
-
-- [threadScope 使用示例](./concurrent_samples/thread_scope_sample.md)
-- [threadScope 异常处理示例](./concurrent_samples/thread_scope_exception_sample.md)
-- [threadScope 取消示例](./concurrent_samples/thread_scope_cancellation_sample.md)

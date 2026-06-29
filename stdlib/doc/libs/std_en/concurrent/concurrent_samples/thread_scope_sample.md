@@ -7,16 +7,17 @@ The following example launches several tasks in a [threadScope](../concurrent_pa
 import std.concurrent.*
 
 main() {
-    let total = threadScope<Int64, Int64> { group =>
-        group.launch { 1 }
-        group.launch { 2 }
-        group.launch { 3 }
+    let total = threadScope<Int64, Int64> {
+        group =>
+            group.launch {1}
+            group.launch {2}
+            group.launch {3}
 
-        var sum = 0
-        for (result in group) {
-            sum += result
-        }
-        sum
+            var sum = 0
+            for (result in group) {
+                sum += result
+            }
+            sum
     }
 
     println(total)

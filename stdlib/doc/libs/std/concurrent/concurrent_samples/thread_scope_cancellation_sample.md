@@ -8,21 +8,22 @@ import std.concurrent.*
 
 main() {
     try {
-        threadScope<Int64, Unit> { group =>
-            group.launch {
-                while (true) {
-                    if (Thread.currentThread.hasPendingCancellation) {
-                        println("worker cancelled")
-                        return 0
+        threadScope<Int64, Unit> {
+            group =>
+                group.launch {
+                    while (true) {
+                        if (Thread.currentThread.hasPendingCancellation) {
+                            println("worker cancelled")
+                            return 0
+                        }
+                        sleep(10 * Duration.millisecond)
                     }
-                    sleep(10 * Duration.millisecond)
+                    return 1
                 }
-                return 1
-            }
 
-            group.launch {
-                throw IllegalArgumentException("stop scope")
-            }
+                group.launch {
+                    throw IllegalArgumentException("stop scope")
+                }
         }
     } catch (e: IllegalArgumentException) {
         println(e.message)

@@ -87,8 +87,8 @@ std 含若干包，提供丰富的基础功能：
 | [binary](./binary/binary_package_overview.md)                        | binary 包提供了基础数据类型和二进制字节数组的不同端序转换接口，以及端序反转接口。 |
 | [collection](./collection/collection_package_overview.md)                        | collection 包提供了常见数据结构的高效实现、相关抽象的接口的定义以及在集合类型中常用的函数功能。 |
 | [collection.concurrent](./collection_concurrent/collection_concurrent_package_overview.md)                        | collection.concurrent 包提供了并发安全的集合类型实现。 |
-| [console](./console/console_package_overview.md)                        | console 包提供和标准输入、标准输出、标准错误进行交互的方法。 |
 | [concurrent](./concurrent/concurrent_package_overview.md)                        | concurrent 包提供结构化并发相关 API。 |
+| [console](./console/console_package_overview.md)                        | console 包提供和标准输入、标准输出、标准错误进行交互的方法。 |
 | [convert](./convert/convert_package_overview.md)                        | convert 包提供从字符串转到特定类型的 Convert 系列函数以及提供格式化能力，主要为将仓颉类型实例转换为格式化字符串。 |
 | [crypto.cipher](./crypto/cipher/cipher_package_overview.md)                        | crypto.cipher 包提供对称加解密通用接口。 |
 | [crypto.digest](./crypto/digest/digest_package_overview.md)                        | crypto.digest 包提供常用摘要算法的通用接口，包括 MD5、SHA1、SHA224、SHA256、SHA384、SHA512、HMAC、SM3。 |

@@ -3,37 +3,24 @@
 ## class ThreadGroup\<T>
 
 ```cangjie
-public class ThreadGroup<T> <: Iterable<T>
+public class ThreadGroup<T> <: Iterable<T> {}
 ```
 
-> **注意：**
->
-> `ThreadGroup<T>` 没有公开构造函数。[threadScope](./concurrent_package_funcs.md#func-threadscopet-rthreadgroupt---r) 是唯一支持的实例创建方式。
-
-允许启动并发线程、向所有已启动线程发送取消请求，并消费线程结果。
+功能：支持启动并发线程、向所有已启动线程发送取消请求，以及消费线程结果。
 
 `ThreadGroup<T>` 会为每个通过 [launch(() -> T)](#func-launch---t) 启动的线程记录一个结果。该结果为线程的返回值。该组实现 [Iterable\<T>](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)，迭代是等待并消费线程结果的机制。
 
+
 > **注意：**
 >
-> 结果按线程完成的先后顺序产出。
+> 1. `ThreadGroup<T>` 没有公开构造函数。[threadScope](./concurrent_package_funcs.md#func-threadscopet-rthreadgroupt---r) 是唯一支持的实例创建方式。
+> 2. 结果按线程完成的先后顺序产出。
 
 > **警告：**
 > `ThreadGroup` 自身的 API 不是线程安全的。特别是，明确不支持对同一个 `ThreadGroup` 进行并发迭代。通常不要在 `threadScope` 内调用 `spawn`。
 
-### func launch(() -> T)
-
-```cangjie
-public func launch(task: () -> T): Unit
-```
-
-功能：在此 [ThreadGroup](./concurrent_package_classes.md#class-threadgroupt) 中启动一个并发任务。
-
-该任务运行在新的仓颉线程中。当任务正常返回时，其值会作为该组的结果被记录。当任务抛出 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 或 [Error](../../core/core_package_api/core_package_exceptions.md#class-error) 时，该失败会被记录，并在通过组迭代器消费该结果时重新抛出。
-
-#### 参数：
-
-- task: () -> T - 要启动的任务。
+父类型：
+- [Iterable](../../core/core_package_api/core_package_interfaces.md#interface-iterablee)
 
 ### func cancelAll()
 
@@ -63,3 +50,17 @@ public func iterator(): Iterator<T>
 
 - [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) - 如果消费到的任务结果为异常，则抛出。
 - [Error](../../core/core_package_api/core_package_exceptions.md#class-error) - 如果消费到的任务结果为错误，则抛出。
+
+### func launch(() -> T)
+
+```cangjie
+public func launch(task: () -> T): Unit
+```
+
+功能：在此 [ThreadGroup](./concurrent_package_classes.md#class-threadgroupt) 中启动一个并发任务。
+
+该任务运行在新的仓颉线程中。当任务正常返回时，其值会作为该组的结果被记录。当任务抛出 [Exception](../../core/core_package_api/core_package_exceptions.md#class-exception) 或 [Error](../../core/core_package_api/core_package_exceptions.md#class-error) 时，该失败会被记录，并在通过组迭代器消费该结果时重新抛出。
+
+**参数：**
+
+- task: () -> T - 要启动的任务。

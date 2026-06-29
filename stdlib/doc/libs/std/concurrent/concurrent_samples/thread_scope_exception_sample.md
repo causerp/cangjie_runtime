@@ -8,12 +8,13 @@ import std.concurrent.*
 
 main() {
     try {
-        threadScope<Int64, Unit> { group =>
-            group.launch {
-                throw IllegalArgumentException("task failed")
-            }
+        threadScope<Int64, Unit> {
+            group =>
+                group.launch {
+                    throw IllegalArgumentException("task failed")
+                }
 
-            for (_ in group) {}
+                for (_ in group) {}
         }
     } catch (e: IllegalArgumentException) {
         println(e.message)
