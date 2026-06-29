@@ -25,7 +25,7 @@ Parameters:
 
 > **Note:**
 >
-> Do not allow the `ThreadGroup` instance to escape its `threadScope`
+> The `ThreadGroup` instance must not escape its `threadScope`
 
 Returns:
 

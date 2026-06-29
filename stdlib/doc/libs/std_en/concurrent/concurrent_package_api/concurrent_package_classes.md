@@ -21,7 +21,8 @@ A `ThreadGroup<T>` records one result for every thread launched by [launch(() ->
 > Results are yielded as threads complete. 
 
 > **Warning:**
-> The API of `ThreadGroup` itself is not thread-safe. In particular, concurrent iteration over a single `ThreadGroup` is explicitly not supported. In general, do not use `spawn` inside a `threadScope`.
+>
+> The API of `ThreadGroup` itself is not thread-safe. In particular, concurrent iteration over a single `ThreadGroup` is explicitly not supported. `spawn` should not be used inside a `threadScope`.
 
 ### func launch(() -> T)
 
