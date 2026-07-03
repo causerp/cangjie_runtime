@@ -13,7 +13,6 @@
 #include "Common/StackType.h"
 #include "Common/TypeDef.h"
 #include "ExceptionManager.inline.h"
-#include "Heap/Barrier/Barrier.h"
 #include "Heap/Collector/Collector.h"
 #include "Interpreter/RTInterface.h"
 #include "LoaderManager.h"
@@ -36,6 +35,18 @@ extern "C" void CJ_MCC_I2NStubEnd(...);
 extern "C" FuncPtr* CJ_MCC_GetMTable(TypeInfo* ti, TypeInfo* itf);
 extern "C" TypeInfo* CJ_MCC_GetMethodOuterTI(TypeInfo* ti, TypeInfo* itf, U64 index);
 extern "C" void CJ_MCC_UpdateVMT(TypeInfo* ti, TypeInfo* itf, ExtensionData* extensionData);
+extern "C" ObjRef MCC_NewPinnedObject(const TypeInfo* klass, MSize size, bool isFinalizer);
+extern "C" ObjectPtr CJ_MCC_ReadStaticRef(RefField<false>* field);
+extern "C" ObjectPtr CJ_MCC_ReadRefField(const ObjectPtr obj, RefField<false>* field);
+extern "C" void CJ_MCC_ReadStructField(MAddress dstPtr, ObjectPtr obj, MAddress srcField, size_t size, GCTib gctib);
+extern "C" void CJ_MCC_ReadStaticStruct(MAddress dstPtr, size_t dstSize, MAddress srcPtr, size_t srcSize, GCTib gctib);
+extern "C" void CJ_MCC_ReadGeneric(const ObjectPtr dstPtr, ObjectPtr obj, void* fieldPtr, size_t size);
+extern "C" void MCC_WriteStaticRef(const ObjectPtr ref, RefField<false>* field);
+extern "C" void MCC_WriteRefField(const ObjectPtr ref, const ObjectPtr obj, RefField<false>* field);
+extern "C" void MCC_WriteStructField(
+    const ObjectPtr obj, MAddress dst, size_t dstLen, MAddress src, size_t srcLen, GCTib gctib);
+extern "C" void MCC_WriteStaticStruct(MAddress dst, size_t dstLen, MAddress src, size_t srcLen, const GCTib gcTib);
+extern "C" void CJ_MCC_WriteGeneric(const ObjectPtr obj, void* fieldPtr, const ObjectPtr src, size_t size);
 
 namespace {
 static_assert(sizeof(uintptr_t) == sizeof(MAddress), "uintptr_t must be able to carry MAddress");
@@ -44,6 +55,14 @@ MAddress ToMAddress(uintptr_t address)
 {
     return static_cast<MAddress>(address);
 }
+
+GCTib ToGCTib(DYN_GCTib tib)
+{
+    GCTib gcTib = {};
+    gcTib.tag = tib.raw;
+    return gcTib;
+}
+
 } // namespace
 
 struct {
@@ -309,8 +328,8 @@ void ThrowException(DYN_ObjRef exception)
 {
     ExceptionRef exceptionRef = static_cast<ExceptionRef>(exception);
     DLOG(INTERPRETER, "ThrowException: exception=%p, type=%s", exceptionRef,
-        (exceptionRef != nullptr && exceptionRef->GetTypeInfo() != nullptr) ?
-        exceptionRef->GetTypeInfo()->GetName() : "<null>");
+        (exceptionRef != nullptr && exceptionRef->GetTypeInfo() != nullptr) ? exceptionRef->GetTypeInfo()->GetName()
+                                                                            : "<null>");
 
     ExceptionManager::ThrowException(exceptionRef);
 }
@@ -371,32 +390,26 @@ int IsSubType(struct DYN_TypeInfo* typeInfo, struct DYN_TypeInfo* superTypeInfo)
 DYN_ObjRef ReadStaticField(DYN_FieldRef source)
 {
     DLOG(INTERPRETER, "ReadStaticField %p", source);
-
-    BaseObject* res = Heap::GetBarrier().ReadStaticRef(*static_cast<RefField<false>*>(source));
-    return static_cast<DYN_ObjRef>(res);
+    return CJ_MCC_ReadStaticRef(static_cast<RefField<false>*>(source));
 }
 
 void WriteStaticField(DYN_FieldRef destination, DYN_ObjRef new_value)
 {
     DLOG(INTERPRETER, "WriteStaticField %p %p", destination, new_value);
-
-    Heap::GetBarrier().WriteStaticRef(*static_cast<RefField<false>*>(destination), static_cast<BaseObject*>(new_value));
+    MCC_WriteStaticRef(static_cast<BaseObject*>(new_value), static_cast<RefField<false>*>(destination));
 }
 
 DYN_ObjRef ReadInstanceField(DYN_ObjRef source, DYN_FieldRef field)
 {
     DLOG(INTERPRETER, "ReadInstanceField %p %p", source, field);
-
-    RefField<false>& ref = *static_cast<RefField<false>*>(field);
-    BaseObject* res = Heap::GetBarrier().ReadReference(static_cast<BaseObject*>(source), ref);
-    return static_cast<DYN_ObjRef>(res);
+    return CJ_MCC_ReadRefField(static_cast<BaseObject*>(source), static_cast<RefField<false>*>(field));
 }
 
 void WriteInstanceField(DYN_ObjRef destination, DYN_FieldRef field, DYN_ObjRef new_value)
 {
     DLOG(INTERPRETER, "WriteInstanceField %p %p %p", destination, field, new_value);
-    RefField<false>& ref = *static_cast<RefField<false>*>(field);
-    Heap::GetBarrier().WriteReference(static_cast<BaseObject*>(destination), ref, static_cast<BaseObject*>(new_value));
+    MCC_WriteRefField(static_cast<BaseObject*>(new_value), static_cast<BaseObject*>(destination),
+        static_cast<RefField<false>*>(field));
 }
 
 DYN_ObjRef GetArrayElement(DYN_ObjRef source, U64 index)
@@ -413,35 +426,26 @@ void SetArrayElement(DYN_ObjRef source, U64 index, DYN_ObjRef new_value)
     array->SetRefElement(index, static_cast<BaseObject*>(new_value));
 }
 
-void ReadStructFieldOfObjectImpl(MAddress dstPtr, DYN_ObjRef obj, MAddress srcField, size_t size)
+void ReadStructFieldOfObjectImpl(MAddress dstPtr, DYN_ObjRef obj, MAddress srcField, size_t size, DYN_GCTib tib)
 {
     DLOG(INTERPRETER, "ReadStructFieldOfObject %p %p %p %zu", dstPtr, obj, srcField, size);
-    if (size == 0) {
-        return;
-    }
-    Heap::GetHeap().GetBarrier().ReadStruct(dstPtr, static_cast<BaseObject*>(obj), srcField, size);
+    CJ_MCC_ReadStructField(dstPtr, static_cast<BaseObject*>(obj), srcField, size, ToGCTib(tib));
 }
 
-void ReadStructFieldOfObject(uintptr_t dstPtr, DYN_ObjRef obj, uintptr_t srcField, size_t size)
+void ReadStructFieldOfObject(uintptr_t dstPtr, DYN_ObjRef obj, uintptr_t srcField, size_t size, DYN_GCTib tib)
 {
-    ReadStructFieldOfObjectImpl(ToMAddress(dstPtr), obj, ToMAddress(srcField), size);
+    ReadStructFieldOfObjectImpl(ToMAddress(dstPtr), obj, ToMAddress(srcField), size, tib);
 }
 
-void WriteStructFieldOfObjectImpl(DYN_ObjRef obj, MAddress dst, MAddress src, size_t size)
+void WriteStructFieldOfObjectImpl(DYN_ObjRef obj, MAddress dst, MAddress src, size_t size, DYN_GCTib tib)
 {
     DLOG(INTERPRETER, "WriteStructFieldOfObject %p %p %p %zu", obj, dst, src, size);
-    CHECK_DETAIL((dst != 0u && src != 0u), "MCC_WriteStructField wrong parameter, dst: %p src: %p", dst, src);
-    if (UNLIKELY(!Heap::IsHeapAddress(obj))) {
-        CHECK_DETAIL(
-            memcpy_s(reinterpret_cast<void*>(dst), size, reinterpret_cast<void*>(src), size) == EOK, "memcpy_s failed");
-        return;
-    }
-    Heap::GetBarrier().WriteStruct(static_cast<BaseObject*>(obj), dst, size, src, size);
+    MCC_WriteStructField(static_cast<BaseObject*>(obj), dst, size, src, size, ToGCTib(tib));
 }
 
-void WriteStructFieldOfObject(DYN_ObjRef obj, uintptr_t dst, uintptr_t src, size_t size)
+void WriteStructFieldOfObject(DYN_ObjRef obj, uintptr_t dst, uintptr_t src, size_t size, DYN_GCTib tib)
 {
-    WriteStructFieldOfObjectImpl(obj, ToMAddress(dst), ToMAddress(src), size);
+    WriteStructFieldOfObjectImpl(obj, ToMAddress(dst), ToMAddress(src), size, tib);
 }
 
 void ReadStaticStructFieldImpl(MAddress dstPtr, size_t dstSize, MAddress srcPtr, size_t srcSize, DYN_GCTib tib)
@@ -449,8 +453,7 @@ void ReadStaticStructFieldImpl(MAddress dstPtr, size_t dstSize, MAddress srcPtr,
     DLOG(INTERPRETER, "ReadStaticStructField dst=%p size=%zu src=%p size=%zu tib_val=%zx", dstPtr, dstSize, srcPtr,
         srcSize, static_cast<size_t>(tib.raw));
 
-    GCTib gcTib = *reinterpret_cast<GCTib*>(&tib);
-    Heap::GetHeap().GetBarrier().ReadStaticStruct(dstPtr, srcPtr, dstSize, gcTib);
+    CJ_MCC_ReadStaticStruct(dstPtr, dstSize, srcPtr, srcSize, ToGCTib(tib));
 }
 
 void ReadStaticStructField(uintptr_t dstPtr, size_t dstSize, uintptr_t srcPtr, size_t srcSize, DYN_GCTib tib)
@@ -463,10 +466,7 @@ void WriteStaticStructFieldImpl(MAddress dst, size_t dstLen, MAddress src, size_
     DLOG(INTERPRETER, "WriteStaticStructField dst=%p size=%zu src=%p size=%zu tib_val=%zx", dst, dstLen, src, srcLen,
         static_cast<size_t>(tib.raw));
 
-    CHECK_DETAIL((dst != 0u && src != 0u), "WriteStaticStructField wrong parameter, dst: %p src: %p", dst, src);
-
-    GCTib gcTib = *reinterpret_cast<GCTib*>(&tib);
-    Heap::GetBarrier().WriteStaticStruct(dst, dstLen, src, srcLen, gcTib);
+    MCC_WriteStaticStruct(dst, dstLen, src, srcLen, ToGCTib(tib));
 }
 
 void WriteStaticStructField(uintptr_t dst, size_t dstLen, uintptr_t src, size_t srcLen, DYN_GCTib tib)
@@ -478,11 +478,7 @@ void ReadGenericField(DYN_ObjRef dst, DYN_ObjRef srcObj, uintptr_t srcField, siz
 {
     DLOG(INTERPRETER, "ReadGenericField dst=%p srcObj=%p srcField=%p size=%zu", dst, srcObj, srcField, size);
 
-    if (size == 0) {
-        return;
-    }
-
-    Heap::GetBarrier().ReadGeneric(
+    CJ_MCC_ReadGeneric(
         static_cast<BaseObject*>(dst), static_cast<BaseObject*>(srcObj), reinterpret_cast<void*>(srcField), size);
 }
 
@@ -490,11 +486,7 @@ void WriteGenericField(DYN_ObjRef dstObj, uintptr_t dstField, DYN_ObjRef src, si
 {
     DLOG(INTERPRETER, "WriteGenericField dstObj=%p dstField=%p src=%p size=%zu", dstObj, dstField, src, size);
 
-    if (src == nullptr || size == 0) {
-        return;
-    }
-
-    Heap::GetBarrier().WriteGeneric(
+    CJ_MCC_WriteGeneric(
         static_cast<BaseObject*>(dstObj), reinterpret_cast<void*>(dstField), static_cast<BaseObject*>(src), size);
 }
 
@@ -696,8 +688,8 @@ RTErrorCode InitInterpreter(const InterpreterParam& interpreterParam)
     if (interpreterLibHandle == nullptr) {
 #if defined(MRT_DEBUG) && (MRT_DEBUG == 1)
         const char* error = dlerror();
-        DLOG(INTERPRETER, "interpreter library could not be loaded: %s, error: %s",
-            libName, error != nullptr ? error : "unknown error");
+        DLOG(INTERPRETER, "interpreter library could not be loaded: %s, error: %s", libName,
+            error != nullptr ? error : "unknown error");
 #endif
         return E_FAILED;
     }
