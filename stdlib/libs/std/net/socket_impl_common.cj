@@ -176,7 +176,9 @@ class SocketCommon<NS> <: Resource & ToString where NS <: PlatformSocket<NS> {
     private static func lazyRemoteAddress(holder: SocketHolder<NS>): ?SocketAddress {
         holder.use<?SocketAddress> {
             socket, state =>
-                state.ensureConnected()
+                if (!state.connected) {
+                    return None
+                }
                 socket.detectRemoteAddress()
         } ?? SocketException.throwClosedException()
     }

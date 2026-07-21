@@ -267,7 +267,7 @@ prop remoteAddress: SocketAddress
 
 异常：
 
-- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `Socket` 已经被关闭时，抛出异常。
+- [SocketException](net_package_exceptions.md#class-socketexception) - 当 `Socket` 未连接或已经被关闭时，抛出异常。
 
 ### prop writeTimeout
 
