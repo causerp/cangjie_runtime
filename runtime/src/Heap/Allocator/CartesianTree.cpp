@@ -134,4 +134,149 @@ void CartesianTree::Node::ReleaseMemory()
     Count cnt = GetCount();
     RegionInfo::ReleaseUnits(idx, cnt);
 }
+
+size_t CartesianTree::GetNodeCount() const
+{
+    size_t nodeCount = 0;
+    Iterator it(*const_cast<CartesianTree*>(this));
+    while (it.Next() != nullptr) {
+        ++nodeCount;
+    }
+    return nodeCount;
+}
+
+bool CartesianTree::TakeUnitsImpl(Count num, Index& idx, bool refershRegionInfo)
+{
+    ForwardIterator it(*this);
+    Node** nodePtr = it.Next(); // pointer to root node
+    if (UNLIKELY(nodePtr == nullptr)) {
+        return false;
+    }
+    Node* node = *nodePtr;
+    if (node != nullptr && node->GetCount() < num) {
+        DLOG(REGION, "c-tree %p fail to take %u free units", this, num);
+        return false;
+    }
+    Node** nextNodePtr = nullptr;
+    while ((nextNodePtr = it.Next()) != nullptr) {
+        Node* nextNode = *nextNodePtr;
+        if (nextNode != nullptr && nextNode->GetCount() < num) {
+            break;
+        }
+
+        nodePtr = nextNodePtr;
+    }
+
+    node = *nodePtr;
+    idx = node->GetIndex();
+    auto count = node->GetCount();
+
+    node->UpdateNode(idx + num, count - num, refershRegionInfo);
+    DecTotalCount(num);
+
+    if (node->GetCount() == 0) {
+        RemoveZeroNode(*nodePtr);
+    } else {
+        LowerNonZeroNode(*nodePtr);
+    }
+
+    CTREE_CHECK_PARENT_AND_LCHILD(*nodePtr);
+    CTREE_CHECK_PARENT_AND_RCHILD(*nodePtr);
+
+    return true;
+}
+
+// Best-fit with lowest-address tiebreaker (iterative).
+CartesianTree::Node** CartesianTree::FindBestFitLowAddrPtr(Node** nodePtr, Count num, Node** best)
+{
+    LocalDeque<Node**> stack(sud);
+    if (nodePtr != nullptr && *nodePtr != nullptr && (*nodePtr)->GetCount() >= num) {
+        stack.Push(nodePtr);
+    }
+
+    while (!stack.Empty()) {
+        Node** current = stack.Top();
+        stack.Pop();
+
+        if (current == nullptr || *current == nullptr || (*current)->GetCount() < num) {
+            continue;
+        }
+
+        // Current node is a candidate (count >= num).
+        // Prefer: (1) smallest count, (2) lowest index as tiebreaker.
+        if (best == nullptr ||
+            (*current)->GetCount() < (*best)->GetCount() ||
+            ((*current)->GetCount() == (*best)->GetCount() &&
+             (*current)->GetIndex() < (*best)->GetIndex())) {
+            best = current;
+        }
+
+        // Exact fit found — only left subtree could have same count with lower address.
+        if ((*best)->GetCount() == num) {
+            Node** leftChild = &((*current)->l);
+            if (*leftChild != nullptr && (*leftChild)->GetCount() >= num) {
+                stack.Push(leftChild);
+            }
+        } else {
+            // Search both subtrees for a tighter fit.
+            Node** rightChild = &((*current)->r);
+            if (*rightChild != nullptr && (*rightChild)->GetCount() >= num) {
+                stack.Push(rightChild);
+            }
+            Node** leftChild = &((*current)->l);
+            if (*leftChild != nullptr && (*leftChild)->GetCount() >= num) {
+                stack.Push(leftChild);
+            }
+        }
+    }
+
+    return best;
+}
+
+// Best-fit allocation with lowest-address tiebreaker.
+// Picks the node whose count is closest to num to avoid unnecessary splitting,
+// breaking ties by lowest address to pack live data toward the low end.
+bool CartesianTree::TakeUnitsLowAddrImpl(Count num, Index& idx, bool refreshRegionInfo)
+{
+    Node** nodePtr = FindBestFitLowAddrPtr(&root, num, nullptr);
+    if (nodePtr == nullptr) {
+        DLOG(REGION, "c-tree %p fail to take %u free units (best-fit-low-addr)", this, num);
+        return false;
+    }
+
+    Node* node = *nodePtr;
+    idx = node->GetIndex();
+    auto count = node->GetCount();
+
+    node->UpdateNode(idx + num, count - num, refreshRegionInfo);
+    DecTotalCount(num);
+
+    if (node->GetCount() == 0) {
+        RemoveZeroNode(*nodePtr);
+    } else {
+        LowerNonZeroNode(*nodePtr);
+    }
+
+    return true;
+}
+
+bool CartesianTree::AllocateLowestAddressFromNode(Node*& node, Count count, Index& index)
+{
+    Count nodeCount = node->GetCount();
+    if (nodeCount < count) {
+        return false;
+    }
+
+    index = node->GetIndex();
+    DLOG(REGION, "c-tree %p v-alloc %u units from [%u+%u, %u)", this, count, index, nodeCount, index + nodeCount);
+
+    node->UpdateNode(index + count, nodeCount - count, false);
+    DecTotalCount(count);
+    if (node->GetCount() == 0) {
+        RemoveZeroNode(node);
+    } else {
+        LowerNonZeroNode(node);
+    }
+    return true;
+}
 } // namespace MapleRuntime
